@@ -5,12 +5,17 @@ import App from './App'
 import router from './router'
 
 //引入element-ui
-import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+//引入axios
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.prototype.$axios = axios //改变原型链
+Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
 
-vue.use(ElementUI) 
 
 /* eslint-disable no-new */
 new Vue({
