@@ -18,12 +18,6 @@
       </el-col>
       <el-col :span="8" class="navigation">
           <navigation></navigation>
-        <!-- <ul>
-          <li>首页</li>
-          <li>招标预告</li>
-          <li>招标公告</li>
-          <li>中标公告</li>
-        </ul> -->
       </el-col>
       <el-col :offset="4" :span="6" class="function">
         <ul>
@@ -44,7 +38,7 @@ export default {
   name: "headerSynergy",
   data(){
       return{
-          drawer:false
+          drawer:false  //抽屉开关
       }
   },
   components:{
@@ -52,9 +46,14 @@ export default {
       'admin-menu':adminMenu
   },
   methods:{
-    
+    /*
+     *@description:账户管理点击事件
+     *@modifyContent:抽屉关闭与打开的数据双向绑定
+     *@author: 旋展峰
+     *@date: 2019-11-30 14:33:11
+    */
       openMenu(){
-           this.drawer=true
+           this.drawer=!this.drawer;
       },
       Close(){
           this.drawer=false;
@@ -67,7 +66,7 @@ export default {
 .header {
   background-image: url("@/../../../../assets/header.png");
     color: aliceblue;
-    z-index:2002;
+    z-index:9999;
 }
 .logo{
     margin-left:20px;

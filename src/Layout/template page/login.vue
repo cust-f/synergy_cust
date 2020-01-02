@@ -5,11 +5,6 @@
 </template>
 
 <script>
-/**
-@登陆页面
-@param
-@author 
- */
 export default {
   name: "login",
   data() {

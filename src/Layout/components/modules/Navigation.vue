@@ -1,3 +1,12 @@
+<!-- 
+ * @description: 导航栏
+ * @fileName: Navigation.vue 
+ * @author: 旋展峰 
+ * @date: 2019-11-30 14:29:42 
+ * @后台人员:  
+ * @path:  
+ * @version: V1.0.5 
+!-->
 <template>
   <el-menu
     :default-active="activeIndex"
@@ -33,6 +42,12 @@ export default {
     };
   },
   methods: {
+    /*
+     *@description:点击事件
+     *@modifyContent:实现页面的转跳
+     *@author: 旋展峰
+     *@date: 2019-11-30 14:30:15
+    */
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     }
@@ -41,10 +56,20 @@ export default {
 </script>
 
 <style >
+/*
+ *@description: 导航栏样式
+ *@author: 旋展峰 
+ *@date: 2019-11-30 14:31:23
+*/
 .nav {
   background: rgba(255, 255, 255, 0);
   margin-top:20px;
 }
+/*
+ *@description: 覆盖ui框架样式
+ *@author: 旋展峰 
+ *@date: 2019-11-30 14:31:41
+*/
 .el-menu {
         background: rgba(7, 7, 10, 0);
 }
