@@ -6,6 +6,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import './assets/icon/iconfont.css'
+import './assets/icon/iconfont'
+
 //引入element-ui
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
