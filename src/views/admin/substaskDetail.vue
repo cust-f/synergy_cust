@@ -3,7 +3,7 @@
 <div>
     <el-container>
 
-        <el-aside>
+        <el-aside width="15%"> 
                   <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -18,6 +18,7 @@
         </el-aside>
 
         <el-main>
+
             <el-form ref="form" :model="form" label-width="110px">
             <el-row  :gutter="80">
                 <el-col :span="11">
@@ -75,9 +76,10 @@
             </el-row>
         </el-form>
 
-        <div id="div2" align="center">
-            <el-button type="primary" class="button1">下载装配文档</el-button>
-        </div>  
+        <div id="div2" align="right">
+            <el-button type="primary" class="button1">下载装配文档</el-button>  
+            <el-button type="primary" class="button1" @click="returnmainStaskShow" >返回</el-button>
+        </div>    
          <el-divider></el-divider>
 
            <el-table style="width: 100%" border :data="tableData">
@@ -169,6 +171,9 @@ export default {
       */
      mainStaskDetail(){
          this.$router.push('/mainStaskDetail')
+     },
+     returnmainStaskShow(){
+         this.$router.push('/mainStaskShow')
      }
   }
 }

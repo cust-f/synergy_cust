@@ -1,18 +1,8 @@
 <template>
 <div>
-<template>
-  <el-carousel :interval="5000" arrow="always">
- <el-carousel-item v-for="item in imagesbox" :key="item">
-      <img :src="item.idView" class="image">
-    </el-carousel-item>
-  </el-carousel>
-</template>
-
-   <el-divider></el-divider>
-
-<el-container>
+    <el-container>
         <el-aside width="15%">
-                  <div class="backGround_0">
+        <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span>历史记录</span>
@@ -22,8 +12,7 @@
                 {{ o }}
             </div>  
         </el-card>
-      </div>
-
+        </div>
         </el-aside>
     <el-main>
         <el-form ref="form" :model="form" label-width="110px">
@@ -81,6 +70,32 @@
 
             <el-row>
                 <el-col :span="11">
+                    <el-form-item label="银行账户">
+                        <el-input v-model="form.Bank_Number" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="员工人数">
+                        <el-input v-model="form.Worker_Number" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+
+            </el-row>
+                        <el-row>
+                <el-col :span="11">
+                    <el-form-item label="总资产">
+                        <el-input v-model="form.Total_Assets" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="流动资产">
+                        <el-input v-model="form.Current_Assets" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="11">
                     <el-form-item label="活动名称2">
                         <el-input v-model="form.name2"></el-input>
                     </el-form-item>
@@ -94,8 +109,6 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-
-
             <el-row>
                 <el-col :span="20" >
                     <el-form-item label="详细" >
@@ -103,27 +116,48 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-
         </el-form>
 
+
         <div align="center">
-            <el-button type="primary" class="button1" @click="update" :disabled=xiugai>修改</el-button>
-            <el-button type="primary" class="button1" @click="achieve" :disabled=wancheng>完成</el-button>
+            <el-button type="primary" class="button1" @click="review" :disabled=shenhe>审核通过</el-button>
+            <el-button type="primary" class="button1" @click="disreview" :disabled=butongugo>审核未通过</el-button>
         </div>
 
+     
     </el-main>
-</el-container>
-</div>
+    </el-container>
+
+
+<el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+<el-dialog
+  title="提示"
+  :visible.sync="dialogVisible"
+  width="30%"
+  :before-close="handleClose">
+  <span>这是一段信息</span>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+</el-dialog>
+
+
+
+
+</div>   
 </template>
 <script>
 export default {
-    name:'companyDetail',
+    name:'review',
     data(){
-       return {
+        
+        return{
+             dialogVisible: false,
            yangshi:true,
-           wancheng:true,
-           xiugai:false,
-        form: {
+           butongguo:true,
+           shenhe:false,
+            form: {
           Company_ID:'20191006066',
           Company_Name: '长光卫星国际有限公司',
           Address: '吉林省长春市卫星路8848号',
@@ -133,13 +167,15 @@ export default {
           Office_Number:'17866625034',
           Email:'34895611@163.com',
           Introduction:'少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。',
-          cool:'17855555'        
+          cool:'17855555',
+          Total_Assets:'30亿',
+          Current_Assets:'4.5亿',        
+          Bank_Number:'20256000224679200034',
+          Worker_Number:'250'
+
+
         },
-        imagesbox:[
-            {id:0,idView:require("../company/illust_71187447_20181111_232431.png")},
-            {id:1,idView:require("../company/illust_71492221_20181111_232951.png")},
-        ],
-                       tenderTrendsList:[
+                               tenderTrendsList:[
         { column_name: "黄河远上白云间" },
         { column_name: "九曲黄河万里沙" },
         { column_name: "君不见黄河之水天上来"},
@@ -149,62 +185,36 @@ export default {
         { column_name :"萧萧远树疏林外，一半秋山带夕阳。"},
         { column_name: "黄河西来决昆仑，咆哮万里触龙门。"}
          ],
-      }
-    },
-    methods:{
-        update() {
-                if (this.yangshi) {
-                    this.yangshi=false;
-                }
-                else{
-                    this.yangshi=true;
-                }
-                if(this.wancheng){
-                    this.wancheng=false;
+
+        }
+
+    },   
+     methods:{
+        review() {
+           
+                
+                if(this.butongguo){
+                    this.butongguo=false;
                 }
                 
-                this.xiugai = true;
-                console.log(this.yangshi);
+                console.log(this.yangshi); 
+                this.$message('审核已经通过');
         },
 
-        achieve(){
-                        this.$message('您已经修改完成');
-            this.yangshi = true;
-            this.xiugai = false;
-        }
+        disreview(){
+                 this.$message('审核尚未通过');
+        },
+           
+        handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      }
 
     }
 }
+
+
 </script>
-
-
-<style>
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
-  }
-  
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-  
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
-  .el-carousel__item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-    max-width: 100%;
-    max-height: 100%;
-  
-}
-.gongsiDetail{
-    height: 80px;
-}
-</style>

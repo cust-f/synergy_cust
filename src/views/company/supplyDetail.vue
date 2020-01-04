@@ -1,7 +1,7 @@
 <template >
 <div>
 <el-container>
-    <el-aside>
+    <el-aside width="15%">
       <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -18,12 +18,12 @@
     <el-main>
         <el-form ref="form" :model="form" label-width="110px">
             <el-row>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="企业ID">
                         <el-input v-model="form.Company_ID" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="企业名称">
                         <el-input v-model="form.Company_Name" :disabled="true"></el-input>
                     </el-form-item>
@@ -31,12 +31,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="企业地址">
                         <el-input v-model="form.Address" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="邮政编码">
                         <el-input v-model="form.Postcode" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -44,12 +44,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="企业成立时间">
                         <el-input v-model="form.Founding_Time" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="工商注册号">
                         <el-input v-model="form.BR_Number" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -57,12 +57,12 @@
             </el-row>
 
             <el-row>
-               <el-col :span="8">
+               <el-col :span="11">
                     <el-form-item label="供应商业务范围">
                         <el-input v-model="form.Product" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="电子邮箱">
                         <el-input v-model="form.Email" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -70,12 +70,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="供应商联系人">
                         <el-input v-model="form.Bussess_Name" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                 <el-col :span="8">
+                 <el-col :span="11">
                     <el-form-item label="办公电话">
                         <el-input v-model="form.Office_Number" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -85,12 +85,12 @@
 
 
             <el-row>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="活动名称2">
                         <el-input v-model="form.name2"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="11">
                     <el-form-item label="活动区域2">
                         <el-select v-model="form.region2" placeholder="请选择活动区域">
                             <el-option label="区域一" value="shanghai"></el-option>
@@ -102,7 +102,7 @@
 
 
             <el-row>
-                <el-col :span="16" class = "xiangxi">
+                <el-col :span="20" class = "xiangxi">
                     <el-form-item label="详细" >
                             <el-input v-model="form.Introduction" class="gongsiDetail" :disabled="true"></el-input>
                     </el-form-item>
@@ -116,6 +116,7 @@
         <div align="center">
             <el-button type="primary" class="button1" @click="update" :disabled=xiugai>修改</el-button>
             <el-button type="primary" class="button1" @click="achieve" :disabled=wancheng>完成</el-button>
+                        <el-button type="primary" class="button1" @click="returnsupplyBussess" >返回</el-button>
         </div>
 
 
@@ -178,6 +179,9 @@ export default {
         achieve(){
             this.yangshi = true;
             this.xiugai = false;
+        },
+        returnsupplyBussess(){
+            this.$router.push("/supplyBussess")
         }
 
     }
