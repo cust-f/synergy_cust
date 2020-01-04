@@ -32,7 +32,7 @@ export default {
           menuName: "协同管理",
           children: [
             { menuName: "新增任务", code: "newTask", icon: "#hhtxdrxx04" },
-            { menuName: "查看详情", code: " ", icon: "#hhtxbaogao" }
+            { menuName: "查看所有主任务", code: "mainStaskShow", icon: "#hhtxbaogao" }
           ]
         },
         {
@@ -44,11 +44,11 @@ export default {
           ]
         },
         {
-          menuName: "模块三",
+          menuName: "企业信息",
           children: [
-            { menuName: "功能一", code: " ", icon: "#hhtxmubiao" },
-            { menuName: "功能二", code: " ", icon: "#hhtxbiaoji" },
-            { menuName: "功能三", code: " ", icon: "#hhtxwenjianjia" },
+            { menuName: "企业信息详情", code: "companyDetail", icon: "#hhtxmubiao" },
+            { menuName: "所属供应商详情", code: "supplyBussess", icon: "#hhtxbiaoji" },
+            { menuName: "设计任务评价", code: "designTaskEvaluation", icon: "#hhtxwenjianjia" },
             { menuName: "功能四", code: " ", icon: "#hhtxshujufenxi" }
           ]
         },
@@ -59,8 +59,14 @@ export default {
             { menuName: "功能二", code: " ", icon: "#hhtxtuandui" },
             { menuName: "功能三", code: " ", icon: "#hhtxyouxiang" },
             { menuName: "功能四", code: " ", icon: "#hhtxdaibanshixiang" },
-            { menuName: "功能三", code: " ", icon: "#hhtxzongheshuju" },
-            { menuName: "功能四", code: " ", icon: "#hhtxzhexiantu" }
+          ]
+        },
+        {
+          menuName: "模块五",
+          children: [
+            { menuName: "功能一", code: " ", icon: "#hhtxhaoping" },
+            { menuName: "功能二", code: " ", icon: "#hhtxtuandui" },
+            { menuName: "功能三", code: " ", icon: "#hhtxyouxiang" },
           ]
         }
       ]
