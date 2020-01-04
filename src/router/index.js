@@ -12,17 +12,12 @@ import test from '@/views/admin/test'
 import companyDetail from '@/views/company/companyDetail'
 import supplyBussess from '@/views/company/supplyBussess'
 import supplyDetail from '@/views/company/supplyDetail'
-<<<<<<< HEAD
-import newStaff from '@/views/admin/newStaff'
-import tenderManagement from '@/views/projectManagement/tenderManagement' //新增招标管理 2020-01-04 闫晗添加
-=======
 
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
 import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
+import newStaff from '@/views/admin/newStaff'
 
-
->>>>>>> 09035b7cd282a4bd76f16ea297dbe3f770f5b275
 
 Vue.use(Router)
 
@@ -88,12 +83,11 @@ export default new Router({
           name:'supplyDetail',
           component:supplyDetail
         },
-<<<<<<< HEAD
         {
           path:'/newStaff',
           name:'newStaff',
           component:newStaff
-=======
+        },
         {
           path:'/designTaskEvaluation',
           name:'designTaskEvaluation',
@@ -108,7 +102,6 @@ export default new Router({
           path:'/staffingTenderManagement',
           name:'staffingTenderManagement',
           component:staffingTenderManagement
->>>>>>> 09035b7cd282a4bd76f16ea297dbe3f770f5b275
         }
 
 
