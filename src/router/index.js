@@ -12,7 +12,17 @@ import test from '@/views/admin/test'
 import companyDetail from '@/views/company/companyDetail'
 import supplyBussess from '@/views/company/supplyBussess'
 import supplyDetail from '@/views/company/supplyDetail'
+<<<<<<< HEAD
 import review from '@/views/admin/review'
+=======
+
+import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
+import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
+import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
+
+
+
+>>>>>>> 669daaeda395b4ac8dea00cf3405ddeffbcc8aa9
 Vue.use(Router)
 
 export default new Router({
@@ -61,7 +71,6 @@ export default new Router({
           path:'/test',
           name:'test',
           component:test,
-        
         },
         {
           path:'/companyDetail',
@@ -77,10 +86,28 @@ export default new Router({
           path:'/supplyDetail',
           name:'supplyDetail',
           component:supplyDetail
+<<<<<<< HEAD
         },{
           path:'/review',
           name:'review',
           component:review
+=======
+        },
+        {
+          path:'/designTaskEvaluation',
+          name:'designTaskEvaluation',
+          component:designTaskEvaluation
+        },
+        {
+          path:'/designTaskEvaluationDetils',
+          name:'designTaskEvaluationDetils',
+          component:designTaskEvaluationDetils
+        },
+        {
+          path:'/staffingTenderManagement',
+          name:'staffingTenderManagement',
+          component:staffingTenderManagement
+>>>>>>> 669daaeda395b4ac8dea00cf3405ddeffbcc8aa9
         }
       ]
     },

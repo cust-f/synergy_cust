@@ -71,6 +71,13 @@
                     </el-form-item>
                 </el-col>
             </el-row>
+            
+            <el-row :gutter="80">
+                <el-col :span="10" offset="5">
+                   <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button>
+                </el-col>
+            </el-row>
+
         </el-form>
 
         <div align="right">
@@ -78,11 +85,71 @@
             <el-button type="primary" class="button1" @click="returnsubstaskDetail" >返回</el-button>
 
         </div>
-                 <el-divider></el-divider>
+
+         <el-divider></el-divider>
 
         </el-main>
     </el-container>
+
+  <el-dialog
+  title="人员分配"
+  :visible.sync="dialogVisible"
+  width="60%"
+  :before-close="handleClose">
+  <div>
+   <el-row :gutter="0">
+      <el-col :span="8">
+  <el-table
+    :data="tableData1"
+    >
+    <el-table-column
+      prop="personlist"
+      label="人员列表"
+      width="150">
+    </el-table-column>
+      <el-table-column
+        prop="level"
+        label="人员等级"
+        width="120">
+      </el-table-column>
+  </el-table>
+      </el-col>
+      <el-col :span="16">
+  <el-table
+  :data="tableData2"
+    style="width: 100%">
   
+        <el-table-column
+          prop="tasktype"
+          label="任务类型"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="servicetask"
+          label="服务任务"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="deadline"
+          label="任务截止日期"
+          width="300">
+        </el-table-column>
+        <el-table-column
+          prop="designer"
+          label="设计人员"
+          width="120">
+        </el-table-column>
+</el-table>
+      </el-col>
+   </el-row>
+</div>
+
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+
+</el-dialog>
 </div>
     
 </template>
@@ -92,6 +159,52 @@
       name:"mainStaskDetail",
     data() {
       return {
+
+        tableData2: [{
+          tasktype: '组装',
+          servicetask: '汽车保险杠',
+          deadline: '2019-10-08',
+          designer: 200333
+        }, {
+          tasktype: '设计',
+          servicetask: '铣床刀头插口',
+          deadline: '2019-10-08',
+          designer: 200333
+        }, {
+          tasktype: '设计',
+          servicetask: '机械臂前臂设计',
+          deadline: '2019-10-08',
+          designer: 200333
+        }, {
+          tasktype: '设计',
+          servicetask: '普陀区',
+          deadline: '2019-10-08',
+          designer: 200333
+        }, {
+          tasktype: '设计',
+          servicetask: '普陀区',
+          deadline: '2019-10-08',
+          designer: 200333
+        }, {
+          tasktype: '设计',
+          servicetask: '普陀区',
+          deadline: '2019-10-08',
+          designer: 200333
+        }, {
+          tasktype: '设计',
+          servicetask: '普陀区',
+          deadline: '2019-10-08',
+          designer: 200333
+        }],
+
+
+        tableData1: [{
+          personlist: '马工',
+          level: '高级工程师',
+        }],
+
+        dialogVisible: false,
+
         form: {
           id:'000101',
           name: '小汽车零件的装配',
@@ -112,11 +225,16 @@
          ],
       }
     },
+<<<<<<< HEAD
     methods: {
         returnsubstaskDetail(){
             this.$router.push("/substaskDetail")
         }
     },
+=======
+    methods:{
+    }
+>>>>>>> 669daaeda395b4ac8dea00cf3405ddeffbcc8aa9
   }
 </script>
 

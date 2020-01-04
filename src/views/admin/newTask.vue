@@ -62,55 +62,20 @@
       <el-divider></el-divider>
       <div>
         <h3>子任务信息</h3>
-        <el-button style="float:right;" @click="addChild()">新增</el-button>
-        <el-row>
-          <el-table :data="tableData" class="tb-edit" style="width: 100%" highlight-current-row>
-            <el-table-column label="子任务编号" width="180">
-              <template slot-scop="scope">
-                <el-input size="small" v-model="scope.row.num" placeholder="请输入内容"></el-input>
-                <span>{{tableData.num}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="任务名称" width="180">
-              <template slot-scop="scope">
-                <el-input size="small" v-model="scope.row.name" placeholder="请输入内容"></el-input>
-                <span>{{tableData.name}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="address" label="任务类别">
-              <template slot-scop="scope">
-                <el-select v-model="childRegion" placeholder="请选择项目类别">
-                  <el-option label="全部" value></el-option>
-                  <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
-                </el-select>
-                <span>{{tableData.childRegion}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="bidTime" label="开标时间">
-              <template slot-scop="scope">
-                <el-input size="small" v-model="scope.row.bidTime" placeholder="请输入内容"></el-input>
-                <span>{{tableData.bidTime}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scop="scope">
-                <el-button
-                  size="small"
-                  type="danger"
-                  @click="handleDelete(scope.$index, scope.row)"
-                >删除</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-row>
+        <edit-table></edit-table>
       </div>
     </el-main>
   </el-container>
 </template>
 
 <script>
+import editTable from '../../Layout/components/common/editTable'
+
 export default {
   name: "newTask",
+  components:{
+    "edit-table":editTable
+  },
   data() {
     return {
       personnel: ["张三", "李四"],
@@ -123,27 +88,6 @@ export default {
         head: "",
         detail: ""
       },
-      tableData: [
-        {
-          num: "00001",
-          name: "默认",
-          childRegion: "全部",
-          bidTime: "2018-08-12"
-        },
-        {
-          num: "00001",
-          name: "默认",
-          childRegion: "全部",
-          bidTime: "2018-08-12"
-        },
-        {
-          num: "",
-          name: "",
-          childRegion: "",
-          bidTime: ""
-        }
-      ],
-      childRegion: ""
     };
   },
   methods: {
