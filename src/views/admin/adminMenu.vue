@@ -6,19 +6,19 @@
     :before-close="handleClose"
     wrapperClosable:true
   >
-    <el-row class="menu-item" v-for="item in menuList" :key="item.menuName">
-      <div>
-        <h3>{{item.menuName}}</h3>
-      </div>
-      <el-col :span="4" :offset="2" v-for="child in item.children" :key="child.code">
-        <div @click="redirects(child.menuName,child.code)">
-          <svg class="icon" aria-hidden="true">
-            <use :xlink:href="child.icon" />
-          </svg>
-          <span>{{child.menuName}}</span>
+      <el-row class="menu-item" v-for="item in menuList" :key="item.menuName">
+        <div>
+          <h3>{{item.menuName}}</h3>
         </div>
-      </el-col>
-    </el-row>
+        <el-col :span="4" :offset="2" v-for="child in item.children" :key="child.code">
+          <div @click="redirects(child.menuName,child.code)">
+            <svg class="icon" aria-hidden="true">
+              <use :xlink:href="child.icon" />
+            </svg>
+            <span>{{child.menuName}}</span>
+          </div>
+        </el-col>
+      </el-row>
   </el-drawer>
 </template>
 
@@ -32,7 +32,11 @@ export default {
           menuName: "协同管理",
           children: [
             { menuName: "新增任务", code: "newTask", icon: "#hhtxdrxx04" },
-            { menuName: "查看所有主任务", code: "mainStaskShow", icon: "#hhtxbaogao" }
+            {
+              menuName: "查看所有主任务",
+              code: "mainStaskShow",
+              icon: "#hhtxbaogao"
+            }
           ]
         },
         {
@@ -46,9 +50,21 @@ export default {
         {
           menuName: "企业信息",
           children: [
-            { menuName: "企业信息详情", code: "companyDetail", icon: "#hhtxmubiao" },
-            { menuName: "所属供应商详情", code: "supplyBussess", icon: "#hhtxbiaoji" },
-            { menuName: "设计任务评价", code: "designTaskEvaluation", icon: "#hhtxwenjianjia" },
+            {
+              menuName: "企业信息详情",
+              code: "companyDetail",
+              icon: "#hhtxmubiao"
+            },
+            {
+              menuName: "所属供应商详情",
+              code: "supplyBussess",
+              icon: "#hhtxbiaoji"
+            },
+            {
+              menuName: "设计任务评价",
+              code: "designTaskEvaluation",
+              icon: "#hhtxwenjianjia"
+            },
             { menuName: "功能四", code: " ", icon: "#hhtxshujufenxi" }
           ]
         },
@@ -58,7 +74,7 @@ export default {
             { menuName: "功能一", code: " ", icon: "#hhtxhaoping" },
             { menuName: "功能二", code: " ", icon: "#hhtxtuandui" },
             { menuName: "功能三", code: " ", icon: "#hhtxyouxiang" },
-            { menuName: "功能四", code: " ", icon: "#hhtxdaibanshixiang" },
+            { menuName: "功能四", code: " ", icon: "#hhtxdaibanshixiang" }
           ]
         },
         {
@@ -66,7 +82,7 @@ export default {
           children: [
             { menuName: "功能一", code: " ", icon: "#hhtxhaoping" },
             { menuName: "功能二", code: " ", icon: "#hhtxtuandui" },
-            { menuName: "功能三", code: " ", icon: "#hhtxyouxiang" },
+            { menuName: "功能三", code: " ", icon: "#hhtxyouxiang" }
           ]
         }
       ]
@@ -87,16 +103,15 @@ export default {
      *@author: 旋展峰
      *@date: 2020-01-02 15:04:32
      *@version: V1.0.5
-    */
-   redirects(name,code){
-     
-     //页面转跳
-     this.$router.push({
-       path:code
-     })
-          //关闭抽屉
-           this.$emit("dialogClose", false);
-   },
+     */
+    redirects(name, code) {
+      //页面转跳
+      this.$router.push({
+        path: code
+      });
+      //关闭抽屉
+      this.$emit("dialogClose", false);
+    },
     handleClose(done) {
       this.$emit("dialogClose", false);
     }
@@ -107,6 +122,8 @@ export default {
 <style scope>
 .el-drawer {
   background: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .el-drawer span {
   color: aliceblue;

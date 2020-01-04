@@ -83,6 +83,7 @@
             </div>
         </div>
 
+
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
@@ -102,7 +103,6 @@
 </template>
 
 <script>
-import { fetchData } from '../../api/index';
 export default {
     name: 'basetable',
     data() {
@@ -113,7 +113,9 @@ export default {
                 pageIndex: 1,
                 pageSize: 10
             },
-            tableData: [],
+            tableData: [
+
+            ],
             multipleSelection: [],
             delList: [],
             editVisible: false,
@@ -180,8 +182,7 @@ export default {
         },
         // 分页导航
         handlePageChange(val) {
-            this.$set(this.query, 'pageIndex', val);
-            this.getData();
+
         }
     }
 };
