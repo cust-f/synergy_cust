@@ -15,6 +15,7 @@ import supplyDetail from '@/views/company/supplyDetail'
 
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
+import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
 
 
 
@@ -91,6 +92,11 @@ export default new Router({
           path:'/designTaskEvaluationDetils',
           name:'designTaskEvaluationDetils',
           component:designTaskEvaluationDetils
+        },
+        {
+          path:'/staffingTenderManagement',
+          name:'staffingTenderManagement',
+          component:staffingTenderManagement
         }
       ]
     },
