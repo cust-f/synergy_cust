@@ -1,7 +1,9 @@
 <style>
 /* pageFullScreen在index.css */
 #xxxFullScreen {
-background-color: #eee;
+background-color:black;
+height: calc(100vh);
+width: 100%;
 } 
 
 </style>
