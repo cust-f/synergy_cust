@@ -85,11 +85,14 @@
     
     <div class="backGround">
 
+
       <el-carousel  indicator-position="none" interval="3000" type="card" height="calc(45vh)" width="50%">
           <el-carousel-item v-for="item in img_list" :key="item">
             <img :src="item" alt="" >
           </el-carousel-item>
       </el-carousel>
+
+
       <div class="backGround_0">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
@@ -160,6 +163,10 @@ export default {
       }
   }
 };
+
+
+
+
 </script>
 
 <style scoped>
@@ -234,19 +241,6 @@ height:calc(55vh - 160px);
     height: inherit;
     width: 100%;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
