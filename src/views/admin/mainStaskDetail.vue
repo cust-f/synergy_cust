@@ -76,7 +76,7 @@
         <div align="center">
             <el-button type="primary" class="button1">下载设计文档</el-button>
         </div>
-                 <el-divider></el-divider>
+         <el-divider></el-divider>
 
         </el-main>
     </el-container>
