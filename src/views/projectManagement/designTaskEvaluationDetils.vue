@@ -3,19 +3,6 @@
 <div>
     <el-container>
 
-        <el-aside>
-                  <div class="backGround_0">
-        <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <span>历史记录</span>
-                <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
-            </div>
-            <div v-for="o in tenderTrendsList" :key="o" class="text item">
-                {{ o }}
-            </div>  
-        </el-card>
-      </div>
-        </el-aside>
 
         <el-main>
             <el-form ref="form" :model="form" label-width="110px">
@@ -44,14 +31,68 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-
-            
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="接收企业ID">
+                        <el-input v-model="form.Accept_Company_ID" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+              <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="总体星级">
+                    <div class="block">
+                            <el-rate v-model="value0" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="设计完整性">
+                    <div class="block">
+                            <el-rate v-model="value1" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="设计可靠性">
+                    <div class="block">
+                            <el-rate v-model="value2" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="设计一致性">
+                    <div class="block">
+                            <el-rate v-model="value3" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="设计新颖性">
+                    <div class="block">
+                            <el-rate v-model="value4" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </el-form>
-
-        
-         <el-divider></el-divider>
+         
         </el-main>
     </el-container>
+
 </div>
 
 
@@ -59,44 +100,52 @@
   </div>
 </template>
 
-
-
-
 <script>
 export default {
     name:'substaskDetail',
     data(){
       return {
+          
+        value0: null,
+        value1: null,
+        value2: null,
+        value3: null,
+        value4: null,
+
+        colors: ['#99A9BF', '#F7BA2A', '#FF9900'], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+        
         form: {
           Remark_ID:'01',
           Design_ID: '02',
           Trade_Time: '2019-03-13',
-          Remark_State: '已评价'
+          Remark_State: '已评价',
+          Accept_Company_ID:'233'
         },
-               tenderTrendsList:[
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来"},
-        { column_name: "白日依山尽，黄河入海流"},
-        { column_name: "黄河落天走东海，万里尘沙入胸怀"},
-        { column_name: "明月隐高树，长河没晓天"},
-        { column_name :"萧萧远树疏林外，一半秋山带夕阳。"},
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。"}
-         ],
         
       }
     },
     methods:{
-      /*
-      *转跳对应任务信息页面
-      */
-     mainStaskDetail(){
-         this.$router.push('/mainStaskDetail')
-     }
+      
   }
 }
 </script>
 
 <style>
+.block
+{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.stars{
+            white-space: nowrap;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
+        .stars li{
+            display: inline-block;
+            color: #ADADAD;
+            font-size: 40px;
+        }
 </style>
