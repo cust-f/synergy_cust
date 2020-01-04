@@ -32,7 +32,8 @@ export default {
           menuName: "协同管理",
           children: [
             { menuName: "新增任务", code: "newTask", icon: "#hhtxdrxx04" },
-            { menuName: "查看所有主任务", code: "mainStaskShow", icon: "#hhtxbaogao" }
+            { menuName: "查看所有主任务", code: "mainStaskShow", icon: "#hhtxbaogao" },
+             { menuName: "人员管理", code: "newStaff", icon: "#hhtxbaogao" },
           ]
         },
         {
