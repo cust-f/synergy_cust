@@ -7,6 +7,9 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
+
+
+
         <div class="container">
             <div class="handle-box">
                 <el-button
@@ -15,6 +18,7 @@
                     class="handle-del mr10"
                     @click="delAllSelection"
                 >批量删除</el-button>
+
                 <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">
                     <el-option key="1" label="广东省" value="广东省"></el-option>
                     <el-option key="2" label="湖南省" value="湖南省"></el-option>
@@ -22,6 +26,8 @@
                 <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
+
+
             <el-table
                 :data="tableData"
                 border
@@ -84,6 +90,11 @@
         </div>
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7b65ded72c3a2176efa10ce05bd8a5f5cbdcc437
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">

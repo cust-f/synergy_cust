@@ -16,7 +16,7 @@ import supplyDetail from '@/views/company/supplyDetail'
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
 import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
-
+import newStaff from '@/views/admin/newStaff'
 
 
 Vue.use(Router)
@@ -84,6 +84,11 @@ export default new Router({
           component:supplyDetail
         },
         {
+          path:'/newStaff',
+          name:'newStaff',
+          component:newStaff
+        },
+        {
           path:'/designTaskEvaluation',
           name:'designTaskEvaluation',
           component:designTaskEvaluation
@@ -98,6 +103,8 @@ export default new Router({
           name:'staffingTenderManagement',
           component:staffingTenderManagement
         }
+
+
       ]
     },
     {
