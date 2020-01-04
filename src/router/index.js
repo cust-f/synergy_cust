@@ -5,6 +5,7 @@ import login from '@/Layout/template page/login'
 import Front from '@/Layout/template page/Front'
 import Home from '@/views/Home/Home'
 import newTask from '@/views/admin/newTask'
+<<<<<<< HEAD
 import mainStaskShow from '@/views/admin/mainStaskShow'
 import substaskDetail from '@/views/admin/substaskDetail'
 import mainStaskDetail from '@/views/admin/mainStaskDetail'
@@ -12,6 +13,11 @@ import test from '@/views/admin/test'
 import companyDetail from '@/views/company/companyDetail'
 import supplyBussess from '@/views/company/supplyBussess'
 import supplyDetail from '@/views/company/supplyDetail'
+=======
+
+import tenderManagement from '@/views/projectManagement/tenderManagement' //新增招标管理 2020-01-04 闫晗添加
+
+>>>>>>> e9639ab6fa30bfcf6c790d6a650eefb9b8231b5f
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +46,7 @@ export default new Router({
             requireAuth: true    // 添加该字段，表示进入这个路由是需要登录的
           }
         },
+<<<<<<< HEAD
         //查看所有主任务
         {
           path:'/mainStaskShow',
@@ -76,6 +83,14 @@ export default new Router({
           path:'/supplyDetail',
           name:'supplyDetail',
           component:supplyDetail
+=======
+        //新增招标管理 2020-01-04 闫晗添加
+        {
+          path:'/tenderManagement',
+          name:'tenderManagement',
+          component:tenderManagement
+          //是否需要登录未知
+>>>>>>> e9639ab6fa30bfcf6c790d6a650eefb9b8231b5f
         }
       ]
     },
