@@ -5,7 +5,13 @@ import login from '@/Layout/template page/login'
 import Front from '@/Layout/template page/Front'
 import Home from '@/views/Home/Home'
 import newTask from '@/views/admin/newTask'
-
+import mainStaskShow from '@/views/admin/mainStaskShow'
+import substaskDetail from '@/views/admin/substaskDetail'
+import mainStaskDetail from '@/views/admin/mainStaskDetail'
+import test from '@/views/admin/test'
+import companyDetail from '@/views/company/companyDetail'
+import supplyBussess from '@/views/company/supplyBussess'
+import supplyDetail from '@/views/company/supplyDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -33,6 +39,43 @@ export default new Router({
           meta: {
             requireAuth: true    // 添加该字段，表示进入这个路由是需要登录的
           }
+        },
+        //查看所有主任务
+        {
+          path:'/mainStaskShow',
+          name:'mainStaskShow',
+          component:mainStaskShow,
+        },
+        {
+          path:'/substaskDetail',
+          name:'substaskDetail',
+          component:substaskDetail,
+        },
+        {
+          path:'/mainStaskDetail',
+          name:'mainStaskDetail',
+          component:mainStaskDetail,
+        },
+        {
+          path:'/test',
+          name:'test',
+          component:test,
+        
+        },
+        {
+          path:'/companyDetail',
+          name:'companyDetail',
+          component:companyDetail
+        },
+        {
+          path:'/supplyBussess',
+          name:'supplyBussess',
+          component:supplyBussess
+        },
+        {
+          path:'/supplyDetail',
+          name:'supplyDetail',
+          component:supplyDetail
         }
       ]
     },
@@ -40,6 +83,7 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
-    }
+    },
+
   ]
 })
