@@ -31,7 +31,7 @@
     </el-table-column>
 </el-table>
 
-<el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">         
+<el-dialog title="新增人员" :visible.sync="addFormVisible" :close-on-click-modal="false">         
 			<el-form :inline="true" :model="addForm" label-width="80px" ref="addForm">
 				<el-form-item label="姓名" prop="realname">
 					<el-input v-model="addForm.realname" auto-complete="off"></el-input>
@@ -45,6 +45,15 @@
 				</el-form-item>
          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <el-form-item label="部门" prop="role">	 
+            <el-select v-model="value" placeholder="请选择">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value"
+      :disabled="item.disabled">
+    </el-option>
+  </el-select>
 				</el-form-item>
          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <el-form-item label="手机" prop="mobile">	
@@ -147,7 +156,24 @@ export default {
              email:"",
              mobile:"",
              role:''
-             }
+             },
+        options: [{
+          value: '选项1',
+          label: '管理员'
+        }, {
+          value: '选项2',
+          label: '人事部门',
+          disabled: true
+        }, {
+          value: '选项3',
+          label: '设计人员'
+        }, {
+          value: '选项4',
+          label: '流通人员'
+        }, 
+        ],
+        value: ''
+ 
     };
   },
   methods:{
