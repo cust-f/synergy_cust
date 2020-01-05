@@ -2,7 +2,7 @@
   <div>
 <div>
     <el-container>
-
+<el-aside width="15%">Aside</el-aside>
         <el-main>
             <el-page-header @back="goBack" content="评价详情页面">
 </el-page-header>

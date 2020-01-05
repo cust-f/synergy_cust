@@ -30,9 +30,8 @@ export default {
       ],
       // 图片地址数组
             img_list:[
-              "/static/image/timg.jpg",
-              "/static/image/timg(1).jpg",
-              "/static/image/timg2.jpg",
+              "../../assets/images/home/timg (1).jpg",
+              "../../assets/images/home/timg.jpg"
             ],
 
     };

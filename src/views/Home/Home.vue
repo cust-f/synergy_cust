@@ -147,9 +147,9 @@ export default {
       ],
       // 图片地址数组
             img_list:[
-               "/static/image/timg.jpg",
-              "/static/image/timg(1).jpg",
-              "/static/image/e824b899a9014c0823e2daf9007b02087af4f495",
+               "../static/image/timg.jpg",
+              "../static/image/timg(1).jpg",
+              "../static/image/e824b899a9014c0823e2daf9007b02087af4f495",
             ],
 
     };

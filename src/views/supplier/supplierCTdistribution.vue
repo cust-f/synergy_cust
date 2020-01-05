@@ -5,32 +5,30 @@
       <div class="supplierTask">
         <h3>子任务分配情况</h3>
         </div>
-<div style="margin: 10px;border:2px solid #f0f0f4;width: 850px;" >
-<el-form :label-position="labelPosition" :model="formLabelAlign" style="margin: 10px" >
+
+<el-form :label-position="labelPosition" :model="form" style="margin: 10px" >
 
     <el-form-item label="子任务名称：">
-    <el-input  style="width: 600px;" readonly ></el-input>
-    
+    <el-input  style="width: 600px;" v-model="form.tast" :disabled="true" ></el-input>
+       </el-form-item>
+   
+    <el-form-item label="设计人员列表：">
+    <el-select style="width: 510px;" v-model="form.region" placeholder="请选择">
+      <el-option label="王五" value="wangwu"></el-option>
+      <el-option label="陈工" value="chengong"></el-option>
+      <el-option label="李想" value="lixing"></el-option>
+    </el-select>
+    <el-button type="primary">查询</el-button>
     </el-form-item>
-    <div style="margin-left:150px">
+    
 
-    <el-transfer
-    filterable
-    :filter-method="filterMethod"
-    filter-placeholder="请输入"
-    v-model="value"
-    :data="data"
-
-    >
-  </el-transfer>
-  </div>
-  <div style="margin-left:100px;margin-top:5px">
+     
  <el-table
     :data="tableData1" border stripe 
-    style="width: 680px;" >
+     >
     <el-table-column
       label="发布日期"
-      width="150">
+      >
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
         <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -39,7 +37,7 @@
 
     <el-table-column
       label="子任务名称"
-      width="300">
+     >
       <template slot-scope="scope">
         <el-popover  >
           
@@ -52,7 +50,7 @@
 
     <el-table-column
       label="设计人员"
-      width="220">
+      >
       <template slot-scope="scope">
         <el-popover >
          
@@ -64,12 +62,21 @@
     </el-table-column>
   
   </el-table>
-  </div>
-</el-form>
+
+  <div class="con" style="text-align:center">
+  <span class="demonstration"></span>
+  <el-pagination
+    layout="prev, pager, next"
+    :total="50">
+  </el-pagination>
+
 </div>
+  
+</el-form>
+
 
  <div style="text-align:center">
-      <el-button type="primary" style="">确定</el-button>
+      <el-button type="primary" style=""@click="queding">确定</el-button>
     <el-button type="primary" style="">关闭</el-button>
   </div> 
 
@@ -109,7 +116,7 @@
         },
          tableData1: [{
           date: '2016-05-02',
-          desighstate:'完成没把手设计图',
+          desighstate:'门把手设计图',
           name: '王五',
          
         }, {
@@ -128,6 +135,11 @@
           name: '李想',
          
         }],
+        form: {
+          tast:'整车组装任务图',
+         
+         
+        },
         
     };
    
@@ -138,6 +150,23 @@
       },
       handleDelete(index, row) {
         console.log(index, row);
+      },
+      queding() {
+        this.$confirm('确定将任务分配给'+'王五'+'吗？', '分配设计任务', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '分配成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消分配'
+          });          
+        });
       }
      }
   }
