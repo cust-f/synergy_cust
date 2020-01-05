@@ -3,7 +3,10 @@
     <el-aside width="15%"></el-aside>
     <el-main>
       <div class="supplierTask">
-        <h3>子任务详细情况</h3>
+        <el-page-header @back="goBack" content="子任务详细情况">
+</el-page-header>
+<br/>
+        <h3></h3>
         </div>
 
       
@@ -23,47 +26,19 @@
             </el-row>
  
            
-<el-table
-    :data="tableData1" border stripe 
-    style="width: 100%"
-     >
-    <el-table-column
-      label="发布日期"
-     >
-      <template slot-scope="scope">
-        <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.date }}</span>
-      </template>
-    </el-table-column>
+<el-table style="width: 100%" border :data="tableData">
+  <template v-for="(item,index) in tableHead">
+    <el-table-column :prop="item.column_name" :label="item.column_comment" :key="index" v-if="item.column_name != 'id'"></el-table-column>
 
-    <el-table-column
-      label="文件名称"
-      >
-      <template slot-scope="scope">
-        <el-popover >
+  </template>      
+  <el-table-column label="操作" min-width="100px" align="center">
+       <template >
+          <el-button @click="distribution" type="text" size="small">下载</el-button>
+          <el-button @click="substaskDetail" type="text" size="small">查看详情</el-button>
           
-          <div slot="reference" >
-            <el-tag size="medium">{{ scope.row.desighstate }}</el-tag>
-          </div>
-        </el-popover>
-      </template>
+       </template>
     </el-table-column>
-
-    
-    <el-table-column label="操作" >
-      <template slot-scope="scope">
-         <el-button
-          size="mini"
-          type="success"
-          @click="labelPosition(scope.$index, scope.row)">下载</el-button>
-        <el-button
-          size="mini"
-          type="info"
-          @click="handleEdit(scope.$index, scope.row)">详情</el-button>
-        
-      </template>
-    </el-table-column>
-  </el-table>
+</el-table>
 
   <div class="con" style="text-align:center">
   <span class="demonstration"></span>
@@ -87,6 +62,7 @@
 
   <script>
   export default {
+    name:"supplierChildtast",
     data() {
       return {
         labelPosition: 'right',
@@ -96,22 +72,37 @@
           region: '',
           type: ''
         },
-         tableData1: [{
-          date: '2016-05-02',
-          desighstate:'技术文档',
-          
-        }, {
-          date: '2016-05-04',
-          desighstate:'合同',
-          
-        }, {
-          date: '2016-05-01',
-          desighstate:'设计图纸',
-         
-        }, {
-          date: '2016-05-03',
-          desighstate:'其他文件',
+          tableHead:[
+            {
+                column_name:"Substask_time",column_comment:"上传时间"
+            },
+            {
+                column_name:"Substask_file",column_comment:"文件名称"
+            },
+            
+            
+        ],
+        tableData:[{
+            Substask_time:'2019-02-23',
+            Substask_file:'技术文档',
+           
+            
+        },
+        {
+            Substask_time:'2019-02-23',
+            Substask_file:'合同',
+           
+            
+        },
+        {
+            Substask_time:'2019-02-23',
+            Substask_file:'其他文件',
+     
+            
         }],
+
+
+
          form: {
           tast:'整车组装任务图',
           username: '王虎',
@@ -126,7 +117,11 @@
       },
       handleDelete(index, row) {
         console.log(index, row);
+      },
+       goBack() {
+        this.$router.push('/supplierTast');
       }
+
     }
 
   }
