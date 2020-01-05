@@ -18,6 +18,7 @@ import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEval
 import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
 import newStaff from '@/views/admin/newStaff'
 
+import basetable from '@/Layout/components/common/BaseTable'
 
 Vue.use(Router)
 
@@ -102,9 +103,12 @@ export default new Router({
           path:'/staffingTenderManagement',
           name:'staffingTenderManagement',
           component:staffingTenderManagement
+        },
+        {
+          path:'/basetable',
+          name:'basetable',
+          component:basetable
         }
-
-
       ]
     },
     {
