@@ -25,7 +25,6 @@
           prefix-icon="el-icon-search"
           v-model="input"
           @focus="openMenu"
-          @blur="Close"
           width="40%"
           class="input"
         ></el-input>
