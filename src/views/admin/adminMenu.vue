@@ -47,27 +47,9 @@ export default {
         {
           menuName: "企业信息",
           children: [
-<<<<<<< HEAD
             { menuName: "企业信息详情", code: "companyDetail", icon: "#hhtxmubiao" },
             { menuName: "所属供应商详情", code: "supplyBussess", icon: "#hhtxbiaoji" },
             { menuName: "审核", code: "review", icon: "#hhtxwenjianjia" },
-=======
-            {
-              menuName: "企业信息详情",
-              code: "companyDetail",
-              icon: "#hhtxmubiao"
-            },
-            {
-              menuName: "所属供应商详情",
-              code: "supplyBussess",
-              icon: "#hhtxbiaoji"
-            },
-            {
-              menuName: "设计任务评价",
-              code: "designTaskEvaluation",
-              icon: "#hhtxwenjianjia"
-            },
->>>>>>> e8f675b356a004bbf48ef261442b91ab7aa6d0af
             { menuName: "功能四", code: " ", icon: "#hhtxshujufenxi" }
           ]
         },

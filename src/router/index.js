@@ -12,10 +12,8 @@ import test from '@/views/admin/test'
 import companyDetail from '@/views/company/companyDetail'
 import supplyBussess from '@/views/company/supplyBussess'
 import supplyDetail from '@/views/company/supplyDetail'
-<<<<<<< HEAD
 import review from '@/views/admin/review'
 
-=======
 
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
@@ -26,7 +24,6 @@ import basetable from '@/Layout/components/common/BaseTable'
 import supplierTast from '@/views/supplier/supplierTast' 
 import supplierChildtast from '@/views/supplier/supplierChildtast' 
 import supplierCTdistribution from '@/views/supplier/supplierCTdistribution' 
->>>>>>> e8f675b356a004bbf48ef261442b91ab7aa6d0af
 
 Vue.use(Router)
 
@@ -93,13 +90,11 @@ export default new Router({
           component:supplyDetail
         },
         {
-<<<<<<< HEAD
           path:'/review',
           name:'review',
           component:review
         },
-
-=======
+        {
           path:'/newStaff',
           name:'newStaff',
           component:newStaff
@@ -147,7 +142,6 @@ export default new Router({
           component:supplierCTdistribution,
         
         }
->>>>>>> e8f675b356a004bbf48ef261442b91ab7aa6d0af
       ]
     },
     {
