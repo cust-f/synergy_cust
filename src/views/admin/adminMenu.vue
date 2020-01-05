@@ -40,7 +40,7 @@ export default {
           menuName: "模块二",
           children: [
             { menuName: "功能一", code: " ", icon: "#hhtxbingzhuangtu" },
-            { menuName: "功能二", code: " ", icon: "#hhtxzhuzhuangtu" },
+            { menuName: "供应商任务", code: "supplierTast", icon: "#hhtxzhuzhuangtu" },
             { menuName: "功能三", code: " ", icon: "#hhtxhezuo" }
           ]
         },
