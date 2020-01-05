@@ -15,6 +15,8 @@
       </div>
         </el-aside>
         <el-main>
+            <h3>设计评价</h3>
+             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
              <el-table style="width: 100%" border :data="tableData">
   <template v-for="(item,index) in tableHead">
     <el-table-column :prop="item.column_name" :label="item.column_comment" :key="index" v-if="item.column_name != 'id'"></el-table-column>

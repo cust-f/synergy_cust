@@ -30,9 +30,9 @@ export default {
       ],
       // 图片地址数组
             img_list:[
-              "/static/image/illust_71187447_20181111_232431.png",
-              "/static/image/illust_71492221_20181111_232951.png",
-              "/static/image/illust_71588619_20181111_233227.jpg",
+              "/static/image/timg.jpg",
+              "/static/image/timg(1).jpg",
+              "/static/image/timg2.jpg",
             ],
 
     };

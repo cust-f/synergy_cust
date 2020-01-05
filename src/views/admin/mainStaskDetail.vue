@@ -17,7 +17,10 @@
         </el-aside>
 
         <el-main>
-            <el-form ref="form" :model="form" label-width="110px">
+          <el-page-header @back="goBack" content="详情页面">
+</el-page-header>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+            <el-form ref="form" :model="form" label-width="100px">
             <el-row :gutter="80">
                 <el-col :span="11">
                     <el-form-item label="子项目ID">
@@ -224,6 +227,9 @@
       }
     },
     methods:{
+      goBack() {
+        this.$router.push('/substaskDetail');
+      }
     }
   }
 </script>

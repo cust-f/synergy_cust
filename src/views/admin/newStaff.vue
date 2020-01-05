@@ -17,7 +17,9 @@
         </el-aside>
 
         <el-main>
-             <el-button @click="addstaff" type="success" plain>新增人员</el-button>
+          <h3>人员管理</h3>
+          
+             <el-button @click="addstaff" type="success" plain ="right" style="float:right">新增人员</el-button>
             <el-table style="width: 100%" border :data="tableData">
   <template v-for="(item,index) in tableHead">
     <el-table-column :prop="item.column_name" :label="item.column_comment" :key="index" v-if="item.column_name != 'id'"></el-table-column>
@@ -59,7 +61,7 @@
         <el-form-item label="手机" prop="mobile">	
 					<el-input v-model="addForm.mobile" auto-complete="off"></el-input>
 				</el-form-item>
-        <el-form-item label="邮件" prop="email">	
+        <el-form-item label="邮箱" prop="email">	
 					<el-input v-model="addForm.email" auto-complete="off"></el-input>
 				</el-form-item>
          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
@@ -67,7 +69,7 @@
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="addFormVisible = false">取消</el-button>
-				<el-button type="primary" >提交</el-button>
+				<el-button @click="open" type="primary" >提交</el-button>
 			</div>
 		</el-dialog>
 
@@ -137,6 +139,62 @@ export default {
             role:'3',
             email:'123456@qq.com',
             phone:'123456'
+        },
+        {
+            user_id:'0004',
+            user_name:'lili',
+            real_name:'lili',
+            role:'3',
+            email:'123456@qq.com',
+            phone:'123456'
+        },
+        {
+            user_id:'0005',
+            user_name:'mike',
+            real_name:'mike',
+            role:'3',
+            email:'123456@qq.com',
+            phone:'123456'
+        },
+        {
+            user_id:'0006',
+            user_name:'rex',
+            real_name:'rex',
+            role:'3',
+            email:'123456@qq.com',
+            phone:'123456'
+        },
+        {
+            user_id:'0007',
+            user_name:'crstal',
+            real_name:'crstal',
+            role:'3',
+            email:'123456@qq.com',
+            phone:'123456'
+        },
+         {
+            user_id:'0008',
+            user_name:'candy',
+            real_name:'candy',
+            role:'3',
+            email:'123456@qq.com',
+            phone:'123456'
+        },
+        {
+            user_id:'0009',
+            user_name:'sindy',
+            real_name:'sindy',
+            role:'3',
+            email:'123456@qq.com',
+            phone:'123456'
+        },
+        {
+            user_id:'0010',
+            user_name:'bill',
+            real_name:'bill',
+            role:'3',
+            email:'123456@qq.com',
+            phone:'123456'
         }],
                 tenderTrendsList:[
         { column_name: "黄河远上白云间" },
@@ -186,7 +244,14 @@ export default {
      {
          this.addFormVisible=true;
 
-     }
+     },
+     open() {
+        this.$message({
+          showClose: true,
+          message: '提交成功',
+          type: 'success'
+        });
+      },
   }
 };
 </script>
