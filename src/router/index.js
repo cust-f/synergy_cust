@@ -18,6 +18,7 @@ import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEval
 import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
 import newStaff from '@/views/admin/newStaff'
 
+import basetable from '@/Layout/components/common/BaseTable'
 import supplierTast from '@/views/supplier/supplierTast' 
 import supplierChildtast from '@/views/supplier/supplierChildtast' 
 import supplierCTdistribution from '@/views/supplier/supplierCTdistribution' 
@@ -105,6 +106,11 @@ export default new Router({
           path:'/staffingTenderManagement',
           name:'staffingTenderManagement',
           component:staffingTenderManagement
+        },
+        {
+          path:'/basetable',
+          name:'basetable',
+          component:basetable
         },
         //供应商任务
         {
