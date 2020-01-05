@@ -3,7 +3,7 @@
 <div>
     <el-container>
 
-        <el-aside>
+        <el-aside width=%15>
                   <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -18,7 +18,10 @@
         </el-aside>
 
         <el-main>
-            <el-form ref="form" :model="form" label-width="110px">
+            <el-page-header @back="goBack" content="详情页面">
+</el-page-header>
+ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+            <el-form ref="form" :model="form" label-width="100px">
             <el-row  :gutter="80">
                 <el-col :span="11">
                     <el-form-item label="主项目ID">
@@ -169,7 +172,12 @@ export default {
       */
      mainStaskDetail(){
          this.$router.push('/mainStaskDetail')
-     }
+     },
+     goBack() {
+        
+        this.$router.push('/mainStaskShow');
+      
+      }
   }
 }
 </script>

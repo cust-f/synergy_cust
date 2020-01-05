@@ -52,7 +52,8 @@ export default {
               code: "mainStaskShow",
               icon: "#hhtxbaogao"
             },
-            { menuName: "人员管理", code: "newStaff", icon: "#hhtxbaogao" }
+            { menuName: "查看所有主任务", code: "mainStaskShow", icon: "#hhtxbaogao" },
+             { menuName: "人员管理", code: "newStaff", icon: "#hhtxbaogao" },
           ]
         },
         {
