@@ -18,6 +18,9 @@ import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEval
 import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
 import newStaff from '@/views/admin/newStaff'
 
+import supplierTast from '@/views/supplier/supplierTast' 
+import supplierChildtast from '@/views/supplier/supplierChildtast' 
+import supplierCTdistribution from '@/views/supplier/supplierCTdistribution' 
 
 Vue.use(Router)
 
@@ -102,9 +105,30 @@ export default new Router({
           path:'/staffingTenderManagement',
           name:'staffingTenderManagement',
           component:staffingTenderManagement
+        },
+        //供应商任务
+        {
+          path:'/supplierTast',
+          name:'supplierTast',
+          component:supplierTast,
+          meta: {
+            requireAuth: true    // 添加该字段，表示进入这个路由是需要登录的
+          }
+        },
+        //供应商子任务详情
+        {
+          path:'/supplierChildtast',
+          name:'supplierChildtast',
+          component:supplierChildtast,
+        
+        },
+         //供应商子任务分配
+         {
+          path:'/supplierCTdistribution',
+          name:'supplierCTdistribution',
+          component:supplierCTdistribution,
+        
         }
-
-
       ]
     },
     {
