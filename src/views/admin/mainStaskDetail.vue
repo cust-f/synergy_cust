@@ -225,16 +225,11 @@
          ],
       }
     },
-<<<<<<< HEAD
     methods: {
         returnsubstaskDetail(){
             this.$router.push("/substaskDetail")
         }
     },
-=======
-    methods:{
-    }
->>>>>>> 669daaeda395b4ac8dea00cf3405ddeffbcc8aa9
   }
 </script>
 

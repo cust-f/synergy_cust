@@ -108,8 +108,21 @@
 
         <div align="center">
             <el-button type="primary" class="button1" @click="update" :disabled=xiugai>修改</el-button>
-            <el-button type="primary" class="button1" @click="achieve" :disabled=wancheng>完成</el-button>
+            <el-button type="primary" class="button1"  :disabled=shenhe @click="dialogVisible = true">审核通过</el-button>
         </div>
+
+        
+<el-dialog
+  title="提示"
+  :visible.sync="dialogVisible"
+  width="30%"
+  :before-close="handleClose">
+  <span>您确定要将该企业审核通过？</span>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="achieve1">确 定</el-button>
+  </span>
+</el-dialog>
 
     </el-main>
 </el-container>
@@ -120,9 +133,11 @@ export default {
     name:'companyDetail',
     data(){
        return {
+           dialogVisible: false,
            yangshi:true,
            wancheng:true,
            xiugai:false,
+           shenhe:true,
         form: {
           Company_ID:'20191006066',
           Company_Name: '长光卫星国际有限公司',
@@ -164,14 +179,25 @@ export default {
                 }
                 
                 this.xiugai = true;
+                this.shenhe = false;
                 console.log(this.yangshi);
         },
 
-        achieve(){
-                        this.$message('您已经修改完成');
+        achieve1(){
+            this.$message('您已经修改完成');
             this.yangshi = true;
             this.xiugai = false;
-        }
+            this.dialogVisible = false;
+            this.shenhe = true;
+        },
+                   
+        handleClose(done) {                        
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      }
 
     }
 }

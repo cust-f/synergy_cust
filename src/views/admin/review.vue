@@ -120,7 +120,7 @@
 
 
         <div align="center">
-            <el-button type="primary" class="button1" @click="review" :disabled=shenhe>审核通过</el-button>
+            <el-button type="primary" class="button1"  :disabled=shenhe @click="dialogVisible = true">审核通过</el-button>
             <el-button type="primary" class="button1" @click="disreview" :disabled=butongugo>审核未通过</el-button>
         </div>
 
@@ -129,13 +129,12 @@
     </el-container>
 
 
-<el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
 <el-dialog
   title="提示"
   :visible.sync="dialogVisible"
   width="30%"
   :before-close="handleClose">
-  <span>这是一段信息</span>
+  <span>您确定要将该企业审核通过？</span>
   <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -172,8 +171,6 @@ export default {
           Current_Assets:'4.5亿',        
           Bank_Number:'20256000224679200034',
           Worker_Number:'250'
-
-
         },
                                tenderTrendsList:[
         { column_name: "黄河远上白云间" },
@@ -190,17 +187,6 @@ export default {
 
     },   
      methods:{
-        review() {
-           
-                
-                if(this.butongguo){
-                    this.butongguo=false;
-                }
-                
-                console.log(this.yangshi); 
-                this.$message('审核已经通过');
-        },
-
         disreview(){
                  this.$message('审核尚未通过');
         },

@@ -48,11 +48,7 @@ export default {
           children: [
             { menuName: "企业信息详情", code: "companyDetail", icon: "#hhtxmubiao" },
             { menuName: "所属供应商详情", code: "supplyBussess", icon: "#hhtxbiaoji" },
-<<<<<<< HEAD
             { menuName: "审核", code: "review", icon: "#hhtxwenjianjia" },
-=======
-            { menuName: "设计任务评价", code: "designTaskEvaluation", icon: "#hhtxwenjianjia" },
->>>>>>> 669daaeda395b4ac8dea00cf3405ddeffbcc8aa9
             { menuName: "功能四", code: " ", icon: "#hhtxshujufenxi" }
           ]
         },
