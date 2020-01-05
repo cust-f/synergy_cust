@@ -1,17 +1,15 @@
 <template>
 <div>
-<template>
-  <el-carousel :interval="5000" arrow="always">
- <el-carousel-item v-for="item in imagesbox" :key="item">
-      <img :src="item.idView" class="image">
-    </el-carousel-item>
-  </el-carousel>
-</template>
+  
 
-   <el-divider></el-divider>
+   
 
 <el-container>
+<<<<<<< HEAD
         <el-aside width="15%">
+=======
+        <el-aside width="%15">
+>>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
                   <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -26,9 +24,25 @@
 
         </el-aside>
     <el-main>
+<<<<<<< HEAD
         <el-form ref="form" :model="form" label-width="110px">
             <el-row >
                 <el-col :span="11">
+=======
+<el-carousel :interval="5000" arrow="always">
+ <el-carousel-item v-for="item in imagesbox" :key="item">
+      <img :src="item.idView" class="image">
+    </el-carousel-item>
+  </el-carousel>
+  <el-divider></el-divider>
+<h3>企业信息修改</h3>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<div align="center">
+    
+        <el-form ref="form" :model="form" label-width="100px">
+            <el-row>
+                <el-col :span="8">
+>>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
                     <el-form-item label="企业ID">
                         <el-input v-model="form.Company_ID" :disabled="true"></el-input>
                     </el-form-item>
@@ -105,7 +119,7 @@
             </el-row>
 
         </el-form>
-
+</div>
         <div align="center">
             <el-button type="primary" class="button1" @click="update" :disabled=xiugai>修改</el-button>
             <el-button type="primary" class="button1"  :disabled=shenhe @click="dialogVisible = true">审核通过</el-button>
@@ -151,8 +165,9 @@ export default {
           cool:'17855555'        
         },
         imagesbox:[
-            {id:0,idView:require("../company/illust_71187447_20181111_232431.png")},
-            {id:1,idView:require("../company/illust_71492221_20181111_232951.png")},
+            {id:0,idView:require("../company/1.png")},
+            {id:1,idView:require("../company/2.jpg")},
+            {id:2,idView:require("../company/3.jpg")},
         ],
                        tenderTrendsList:[
         { column_name: "黄河远上白云间" },
@@ -221,7 +236,7 @@ export default {
     background-color: #d3dce6;
   }
   .el-carousel__item {
-  width: 100%;
+  width: 85%;
   display: flex;
   align-items: center;
   justify-content: center;

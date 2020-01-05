@@ -1,7 +1,11 @@
 <template>
 <div>
     <el-container>
+<<<<<<< HEAD
         <el-aside width="15%">
+=======
+        <el-aside width="%15">
+>>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
             <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -15,7 +19,9 @@
       </div>
         </el-aside>
         <el-main>
-             <el-table style="width: 100%" border :data="tableData">
+            <h3>供应商详情</h3>
+             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+             <el-table style="width: 100%" border :data="tableData" >
   <template v-for="(item,index) in tableHead">
     <el-table-column :prop="item.column_name" :label="item.column_comment" :key="index" v-if="item.column_name != 'id'"></el-table-column>
 

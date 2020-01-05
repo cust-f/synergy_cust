@@ -1,7 +1,11 @@
 <template >
 <div>
 <el-container>
+<<<<<<< HEAD
     <el-aside width="15%">
+=======
+    <el-aside width="%15">
+>>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
       <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -16,7 +20,11 @@
     </el-aside>
 
     <el-main>
-        <el-form ref="form" :model="form" label-width="110px">
+        
+            <el-page-header @back="goBack" content="详情页面">
+</el-page-header>
+ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <el-form ref="form" :model="form" label-width="100px">
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="企业ID">
@@ -175,21 +183,27 @@ export default {
                 this.xiugai = true;
                 console.log(this.yangshi);
         },
-
         achieve(){
             this.yangshi = true;
             this.xiugai = false;
         },
+<<<<<<< HEAD
         returnsupplyBussess(){
             this.$router.push("/supplyBussess")
+=======
+        goBack()
+        {
+            this.$router.push('/supplyBussess');
+>>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
         }
-
     }
 }
 </script>
 
 
-<style >
+
+
+<style>
 
 .backGround_0
 {

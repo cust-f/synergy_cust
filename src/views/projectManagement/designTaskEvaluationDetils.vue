@@ -2,9 +2,11 @@
   <div>
 <div>
     <el-container>
-
-
+<el-aside width="15%">Aside</el-aside>
         <el-main>
+            <el-page-header @back="goBack" content="评价详情页面">
+</el-page-header>
+ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
             <el-form ref="form" :model="form" label-width="110px">
             <el-row  :gutter="80">
                 <el-col :span="11">
@@ -125,6 +127,9 @@ export default {
       }
     },
     methods:{
+        goBack() {
+        this.$router.push('/designTaskEvaluation');
+      }
       
   }
 }
