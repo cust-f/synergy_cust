@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  name: "supplyBussess",
+  name: "",
   data() {
     return {
         tableHead:[
