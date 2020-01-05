@@ -32,23 +32,15 @@ export default {
           menuName: "协同管理",
           children: [
             { menuName: "新增任务", code: "newTask", icon: "#hhtxdrxx04" },
-<<<<<<< HEAD
-            {
-              menuName: "查看所有主任务",
-              code: "mainStaskShow",
-              icon: "#hhtxbaogao"
-            }
-=======
             { menuName: "查看所有主任务", code: "mainStaskShow", icon: "#hhtxbaogao" },
              { menuName: "人员管理", code: "newStaff", icon: "#hhtxbaogao" },
->>>>>>> 7b65ded72c3a2176efa10ce05bd8a5f5cbdcc437
           ]
         },
         {
           menuName: "模块二",
           children: [
             { menuName: "功能一", code: " ", icon: "#hhtxbingzhuangtu" },
-            { menuName: "功能二", code: " ", icon: "#hhtxzhuzhuangtu" },
+            { menuName: "供应商任务", code: "supplierTast", icon: "#hhtxzhuzhuangtu" },
             { menuName: "功能三", code: " ", icon: "#hhtxhezuo" }
           ]
         },

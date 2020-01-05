@@ -7,7 +7,7 @@
         <h3>任务列表</h3>
         </div>
 
-<div style="margin: 10px;border:2px solid #f0f0f4;width: 850px;" >
+
 <el-form :label-position="labelPosition" :model="formLabelAlign" style="margin: 10px" >
    
   <el-form-item label="所有任务搜索：">
@@ -17,19 +17,28 @@
   <el-form-item label="所有任务列表：">
 <el-table
     :data="tableData1" border stripe 
-    style="width: 680px;" >
+    >
     <el-table-column
       label="发布日期"
-      width="150">
+      >
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
         <span style="margin-left: 10px">{{ scope.row.date }}</span>
       </template>
     </el-table-column>
 
+        <el-table-column
+      label="任务名称"
+      >
+      <template slot-scope="scope">
+        
+        <span style="margin-left: 10px">{{ scope.row.tastname }}</span>
+      </template>
+    </el-table-column>
+
     <el-table-column
       label="状态"
-      width="100">
+      >
       <template slot-scope="scope">
         <el-popover >
          
@@ -42,7 +51,7 @@
 
     <el-table-column
       label="负责人"
-      width="100">
+      >
       <template slot-scope="scope">
         <el-popover >
          
@@ -52,7 +61,7 @@
         </el-popover>
       </template>
     </el-table-column>
-    <el-table-column label="操作" width="300">
+    <el-table-column label="操作">
       <template slot-scope="scope">
          <el-button
           size="mini"
@@ -67,12 +76,20 @@
       </template>
     </el-table-column>
   </el-table>
-    
+
+     <div class="con" style="text-align:center">
+  <span class="demonstration"></span>
+  <el-pagination
+    layout="prev, pager, next"
+    :total="50">
+  </el-pagination>
+  
+</div>
   </el-form-item>
   <br/>
 
 </el-form>
- </div>
+
  <div style="text-align:center">
     <el-button type="primary" style="">关闭页面</el-button>
   </div> 
@@ -96,21 +113,25 @@
         },
          tableData1: [{
           date: '2016-05-02',
+          tastname:'整车组装任务图',
           desighstate:'完成',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-04',
+          tastname:'整车组装任务图',
           desighstate:'未完成',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1517 弄'
         }, {
           date: '2016-05-01',
+          tastname:'整车组装任务图',
           desighstate:'未分配',
           name: '王小虎',         
           address: '上海市普陀区金沙江路 1519 弄'
         }, {
           date: '2016-05-03',
+          tastname:'整车组装任务图',
           desighstate:'未分配',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1516 弄'

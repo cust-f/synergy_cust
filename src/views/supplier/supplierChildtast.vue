@@ -6,26 +6,30 @@
         <h3>子任务详细情况</h3>
         </div>
 
-    <div style="margin: 10px;border:2px solid #f0f0f4;width: 850px;">
       
-       <el-form   style="margin: 10px" >
-            <div style="margin: 5px;border:2px solid #f0f0f4;width: 350px;">
-   <el-form-item style="margin: 5px; "  label="子任务名称:"><el-form-item label="门把手设计任务">
-         </el-form-item>   
-   </el-form-item>
-       </div>
-       <div style="margin: 5px;border:2px solid #f0f0f4;width: 350px;">
-       <el-form-item style="margin: 5px;" label="发布任务企业："> <el-form-item label="中国创造科技集团">  
-             </el-form-item>  
-  </el-form-item>
+       <el-form   style="margin: 5px" ref="form" :model="form" label-width="110px">
+          
+            <el-row>
+                <el-col :span="8">
+                    <el-form-item label="子任务名称：">
+                        <el-input v-model="form.tast" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="负责人：">
+                        <el-input v-model="form.username" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
  
-           </div>
+           
 <el-table
     :data="tableData1" border stripe 
-    style="width: 680px;" >
+    style="width: 100%"
+     >
     <el-table-column
       label="发布日期"
-      width="150">
+     >
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
         <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -34,7 +38,7 @@
 
     <el-table-column
       label="文件名称"
-      width="300">
+      >
       <template slot-scope="scope">
         <el-popover >
           
@@ -46,7 +50,7 @@
     </el-table-column>
 
     
-    <el-table-column label="操作" width="200">
+    <el-table-column label="操作" >
       <template slot-scope="scope">
          <el-button
           size="mini"
@@ -59,14 +63,24 @@
         
       </template>
     </el-table-column>
-  </el-table><br/>
+  </el-table>
+
+  <div class="con" style="text-align:center">
+  <span class="demonstration"></span>
+  <el-pagination
+    layout="prev, pager, next"
+    :total="50">
+  </el-pagination>
+
+</div>
+  <br/>
     <div style="text-align:center">
     <el-button type="primary" style="">关闭页面</el-button>
   </div> 
 
        </el-form>
        
-    </div>
+    
     </el-main>
   </el-container>
   </template>
@@ -97,7 +111,12 @@
         }, {
           date: '2016-05-03',
           desighstate:'其他文件',
-        }]
+        }],
+         form: {
+          tast:'整车组装任务图',
+          username: '王虎',
+         
+        },
          
       };
     },
