@@ -1,11 +1,7 @@
 <template >
 <div>
 <el-container>
-<<<<<<< HEAD
     <el-aside width="15%">
-=======
-    <el-aside width="%15">
->>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
       <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -24,7 +20,7 @@
             <el-page-header @back="goBack" content="详情页面">
 </el-page-header>
  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-form ref="form" :model="form" label-width="100px">
+        <el-form ref="form" :model="form" label-width="110px">
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="企业ID">
@@ -124,7 +120,6 @@
         <div align="center">
             <el-button type="primary" class="button1" @click="update" :disabled=xiugai>修改</el-button>
             <el-button type="primary" class="button1" @click="achieve" :disabled=wancheng>完成</el-button>
-                        <el-button type="primary" class="button1" @click="returnsupplyBussess" >返回</el-button>
         </div>
 
 
@@ -187,14 +182,9 @@ export default {
             this.yangshi = true;
             this.xiugai = false;
         },
-<<<<<<< HEAD
-        returnsupplyBussess(){
-            this.$router.push("/supplyBussess")
-=======
         goBack()
         {
             this.$router.push('/supplyBussess');
->>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
         }
     }
 }
@@ -214,5 +204,12 @@ export default {
 }
 .gongsiDetail .el-input__inner{
     height: 80px;
+}
+
+.con{
+    width:500px;
+    height: 1000px;
+    margin:0 auto;
+    text-align: center
 }
 </style>

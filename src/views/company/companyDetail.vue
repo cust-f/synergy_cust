@@ -5,11 +5,7 @@
    
 
 <el-container>
-<<<<<<< HEAD
         <el-aside width="15%">
-=======
-        <el-aside width="%15">
->>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
                   <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -24,11 +20,6 @@
 
         </el-aside>
     <el-main>
-<<<<<<< HEAD
-        <el-form ref="form" :model="form" label-width="110px">
-            <el-row >
-                <el-col :span="11">
-=======
 <el-carousel :interval="5000" arrow="always">
  <el-carousel-item v-for="item in imagesbox" :key="item">
       <img :src="item.idView" class="image">
@@ -42,7 +33,6 @@
         <el-form ref="form" :model="form" label-width="100px">
             <el-row>
                 <el-col :span="8">
->>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
                     <el-form-item label="企业ID">
                         <el-input v-model="form.Company_ID" :disabled="true"></el-input>
                     </el-form-item>

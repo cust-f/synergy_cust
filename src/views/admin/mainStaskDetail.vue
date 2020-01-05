@@ -2,11 +2,7 @@
 <div>
     <el-container>
 
-<<<<<<< HEAD
         <el-aside width="15%">
-=======
-        <el-aside width="%15">
->>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
             <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -21,16 +17,11 @@
         </el-aside>
 
         <el-main>
-<<<<<<< HEAD
-            <el-form ref="form" :model="form" label-width="110px">
-            <el-row >
-=======
           <el-page-header @back="goBack" content="详情页面">
 </el-page-header>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-            <el-form ref="form" :model="form" label-width="100px">
-            <el-row :gutter="80">
->>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
+            <el-form ref="form" :model="form" label-width="110px">
+            <el-row >
                 <el-col :span="11">
                     <el-form-item label="子项目ID">
                         <el-input v-model="form.id" :disabled="true"></el-input>
@@ -85,17 +76,14 @@
             </el-row>
             
             <el-row :gutter="80">
-                <el-col :span="10" offset="5">
-                   <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button>
-                </el-col>
+             
             </el-row>
 
         </el-form>
 
-        <div align="right">
+        <div align="right">   
+              <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button>
             <el-button type="primary" class="button1">下载设计文档</el-button>
-            <el-button type="primary" class="button1" @click="returnsubstaskDetail" >返回</el-button>
-
         </div>
 
          <el-divider></el-divider>
@@ -237,19 +225,11 @@
          ],
       }
     },
-<<<<<<< HEAD
-    methods: {
-        returnsubstaskDetail(){
-            this.$router.push("/substaskDetail")
-        }
-    },
-=======
     methods:{
       goBack() {
         this.$router.push('/substaskDetail');
       }
     }
->>>>>>> d41a3f3e4e25d0dec5ac7f7f031aa2618e7f6dbf
   }
 </script>
 
