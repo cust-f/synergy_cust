@@ -2,7 +2,7 @@
 <div>
     <el-container>
 
-        <el-aside width="15%">
+        <el-aside width="15%" style="overflow:hidden">
             <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -16,7 +16,7 @@
       </div>
         </el-aside>
 
-        <el-main>
+        <el-main style="overflow:hidden">
           <el-page-header @back="goBack" content="详情页面">
 </el-page-header>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;

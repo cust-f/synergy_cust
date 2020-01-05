@@ -43,15 +43,9 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="供应商名称"></el-table-column>
-        <el-table-column prop="bussessMan" label="供应商人员"></el-table-column>
-        <el-table-column prop="bussessTel" label="供应商电话"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
+        <el-table-column prop="bussessMan" label="供应商联络人员"></el-table-column>
+        <el-table-column prop="bussessTel" label="供应商联络电话"></el-table-column>
+
 
         <el-table-column prop="date" label="公司成立时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
@@ -158,7 +152,6 @@ export default {
           name: "天盛集团",
           bussessMan: "徐盛",
           bussessTel: "173433555858",
-          state: "成功",
           date:"2019-10-10"
         },
         {
@@ -166,7 +159,6 @@ export default {
           name: "天盛集团",
           bussessMan: "徐盛",
           bussessTel: "173433555858",
-          state: "成功",
           date:"2019-10-10"
         },
         {
@@ -174,7 +166,6 @@ export default {
           name: "天盛集团",
           bussessMan: "徐盛",
           bussessTel: "173433555858",
-          state: "成功",
           date:"2019-10-10"
 
         },
@@ -183,7 +174,6 @@ export default {
           name: "天盛集团",
           bussessMan: "徐盛",
           bussessTel: "173433555858",
-          state: "成功",
           date:"2019-10-10"
 
         },
@@ -192,7 +182,6 @@ export default {
           name: "天盛集团",
           bussessMan: "徐盛",
           bussessTel: "173433555858",
-          state: "成功",
                     date:"2019-10-10"
         },
         {
@@ -200,7 +189,6 @@ export default {
           name: "天盛集团",
           bussessMan: "徐盛",
           bussessTel: "173433555858",
-          state: "成功",
             date:"2019-10-10"
 
         },
@@ -209,7 +197,6 @@ export default {
           name: "天盛集团",
           bussessMan: "徐盛",
           bussessTel: "173433555858",
-          state: "成功",
                       date:"2019-10-10"
 
         }
