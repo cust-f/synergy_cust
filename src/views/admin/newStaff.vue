@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- 
  * @description: 人员管理
  * @fileName: newStaff.vue 
@@ -7,6 +8,9 @@
  * @path:  
  * @version: V1.0.5 
 !-->
+=======
+
+>>>>>>> 34eebc6e9a4086fcedc0fcdf7728ba9feed8b19f
 <template>
 <div>
     <el-container>

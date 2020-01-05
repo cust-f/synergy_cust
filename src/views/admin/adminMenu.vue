@@ -22,7 +22,7 @@
             <h3>{{item.menuName}}</h3>
           </div>
           <el-col :span="4" :offset="2" v-for="child in item.children" :key="child.menuName">
-            <div @click.native="redirects(child.menuName,child.code)">
+            <div @click="redirects(child.menuName,child.code)">
               <div style=" float: left;">
                 <svg class="icon" aria-hidden="true">
                   <use :xlink:href="child.icon" />
@@ -71,21 +71,9 @@ export default {
         {
           menuName: "企业信息",
           children: [
-            {
-              menuName: "企业信息详情",
-              code: "companyDetail",
-              icon: "#hhtxmubiao"
-            },
-            {
-              menuName: "所属供应商详情",
-              code: "supplyBussess",
-              icon: "#hhtxbiaoji"
-            },
-            {
-              menuName: "设计任务评价",
-              code: "designTaskEvaluation",
-              icon: "#hhtxwenjianjia"
-            },
+            { menuName: "企业信息详情", code: "companyDetail", icon: "#hhtxmubiao" },
+            { menuName: "所属供应商详情", code: "supplyBussess", icon: "#hhtxbiaoji" },
+            { menuName: "审核", code: "review", icon: "#hhtxwenjianjia" },
             { menuName: "功能四", code: " ", icon: "#hhtxshujufenxi" }
           ]
         },
