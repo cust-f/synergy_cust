@@ -32,6 +32,9 @@ import desinger from '@/views/personnel allotment/desinger'
 import supplierAccept from '@/views/supplier/supplierMarket/supplierAccept'
 import supplierAcceptTask from '@/views/supplier/supplierMarket/supplierAcceptTask'
 
+//企业图表统计
+import enterpriseEvaluation from '@/views/data_statistics/enterpriseEvaluation'
+
 Vue.use(Router)
 
 export default new Router({
@@ -176,14 +179,20 @@ export default new Router({
           component:supplierAccept,
         
         },
-
+        
         //供应商接受任务详情
         {
           path:'/supplierAcceptTask',
           name:'supplierAcceptTask',
           component:supplierAcceptTask,
     
-        }
+        },
+        //企业数据统计
+        {
+          path:'/charts',
+          name:'charts',
+          component:enterpriseEvaluation,
+        },
       ]
     },
     {

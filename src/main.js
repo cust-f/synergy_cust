@@ -19,6 +19,8 @@ import VueAxios from 'vue-axios'
 Vue.prototype.$axios = axios //改变原型链
 Vue.use(VueAxios, axios)
 
+window.echarts = require('echarts');
+
 Vue.config.productionTip = false
 
 
@@ -30,3 +32,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
