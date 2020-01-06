@@ -31,6 +31,7 @@ import desinger from '@/views/personnel allotment/desinger'
 //供应商市场部门
 import supplierAccept from '@/views/supplier/supplierMarket/supplierAccept'
 import supplierAcceptTask from '@/views/supplier/supplierMarket/supplierAcceptTask'
+import Accept from '@/views/supplier/supplierMarket/Accept'
 
 Vue.use(Router)
 
@@ -182,7 +183,13 @@ export default new Router({
           path:'/supplierAcceptTask',
           name:'supplierAcceptTask',
           component:supplierAcceptTask,
-    
+        },
+
+        //供应商接受任务选择
+        {
+          path:'/Accept',
+          name:'Accept',
+          component:Accept,
         }
       ]
     },
