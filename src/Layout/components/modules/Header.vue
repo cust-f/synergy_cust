@@ -19,12 +19,16 @@
       <el-col :span="8" class="navigation">
           <navigation></navigation>
       </el-col>
-      <el-col :offset="4" :span="6" class="function">
-        <ul>
-          <li @click="openMenu()">账户管理</li>
+      <el-col :offset="6" :span="4" class="function">
+        <el-input
+          placeholder="搜索"
+          prefix-icon="el-icon-search"
+          v-model="input"
+          @focus="openMenu"
+          width="40%"
+          class="input"
+        ></el-input>
           <admin-menu :drawer="drawer" @dialogClose="Close()"></admin-menu>
-          <li>登陆</li>
-        </ul>
       </el-col>
     </el-row>
   </div>
@@ -38,7 +42,8 @@ export default {
   name: "headerSynergy",
   data(){
       return{
-          drawer:false  //抽屉开关
+          drawer:false,  //抽屉开关
+          input:""
       }
   },
   components:{
@@ -88,5 +93,8 @@ export default {
   list-style: none;
   margin-right: 10px;
     margin-top:50px;
+}
+.input{
+  margin-top:20px; 
 }
 </style>

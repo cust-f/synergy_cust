@@ -1,284 +1,196 @@
+
 <template>
-  <div>
-    <div class="crumbs">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>
-          <i class="el-icon-lx-cascades"></i> 基础表格
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-
-    <div class="container">
-      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-
-        <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">
-          <el-option key="1" label="广东省" value="广东省"></el-option>
-          <el-option key="2" label="湖南省" value="湖南省"></el-option>
-        </el-select>
-        <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
-        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-
-        <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
+  <el-container>
+    <el-aside width="15%"></el-aside>
+    <el-main>
+      <div class="supplierTask">
+        <el-page-header @back="goBack" content="流通任务"></el-page-header>
+        <h3></h3>
       </div>
 
-      <el-table
-        :data="tableData"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="用户名"></el-table-column>
-        <el-table-column label="账户余额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
-        <el-table-column prop="address" label="地址"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
+      <el-form :label-position="labelPosition" :model="formLabelAlign" style="margin: 10px">
+        <el-form-item label="所有流通任务搜索：">
+          <el-input v-model="formLabelAlign.region" placeholder="请输入" style="width: 600px;"></el-input>
+          <el-button type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>
+        <el-form-item label="所有流通任务列表：">
+          <el-table style="width: 100%" border :data="tableData">
+            <template v-for="(item,index) in tableHead">
+              <el-table-column
+                :prop="item.column_name"
+                :label="item.column_comment"
+                :key="index"
+                v-if="item.column_name != 'id'"
+              ></el-table-column>
+            </template>
+            <el-table-column label="操作" min-width="100px" align="center">
+              <template>
+                <el-button type="text" size="small" >进入工作台</el-button>
+                <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+                <el-button type="text" size="small">提交任务</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
 
-        <el-table-column prop="date" label="注册时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button>
-            <el-button
-              type="text"
-              icon="el-icon-delete"
-              class="red"
-              @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total, prev, pager, next"
-          :current-page="query.pageIndex"
-          :page-size="query.pageSize"
-          :total="pageTotal"
-          @current-change="handlePageChange"
-        ></el-pagination>
+          <div class="con" style="text-align:center">
+            <span class="demonstration"></span>
+            <el-pagination layout="prev, pager, next" :total="50"></el-pagination>
+          </div>
+        </el-form-item>
+        <br />
+      </el-form>
+<!-- 
+      <div style="text-align:center">
+        <el-button type="primary" style>关闭页面</el-button>
+      </div> -->
+    </el-main>
+    <el-dialog title="流通任务详情" :visible.sync="dialogVisible" width="60%" :before-close="handleClose">
+      <div>
+        <el-row :gutter="0">
+          <!-- <el-col :span="8">
+            <el-table :data="tableData1">
+              <el-table-column prop="personlist" label="人员列表" width="150"></el-table-column>
+              <el-table-column prop="level" label="人员等级" width="120"></el-table-column>
+            </el-table>
+          </el-col> -->
+          <el-col :span="16">
+            <el-table :data="tableData2" style="width: 100%">
+              <el-table-column prop="tasktype" label="任务类型" width="120"></el-table-column>
+              <el-table-column prop="servicetask" label="服务任务" width="120"></el-table-column>
+              <el-table-column prop="deadline" label="任务截止日期" width="300"></el-table-column>
+              <el-table-column prop="designer" label="设计人员" width="120"></el-table-column>
+            </el-table>
+          </el-col>
+        </el-row>
       </div>
-    </div>
 
-    <!-- 编辑弹出框 -->
-    <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-      <el-form ref="form" :model="form" label-width="70px">
-        <el-form-item label="用户名">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="form.address"></el-input>
-        </el-form-item>
-      </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="editVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveEdit">确 定</el-button>
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-
-    <!-- 新增弹出框 -->
-    <el-dialog title="新增" :visible.sync="addVisible" width="50%">
-      <el-form ref="form" :model="addList" label-width="70px">
-        <el-form-item label="用户名">
-          <el-input v-model="addList.name"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="addList.address"></el-input>
-        </el-form-item>
-        <el-form-item label="金额">
-          <el-input v-model="addList.money"></el-input>
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="addList.state" placeholder="请选择状态">
-            <el-option label="成功" value="成功"></el-option>
-            <el-option label="失败" value="失败"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="注册时间">
-          <el-date-picker
-            type="date"
-            placeholder="选择日期"
-            v-model="addList.date"
-            value-format="yyyy-MM-dd"
-            style="width: 100%;"
-          ></el-date-picker>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveAdd">确 定</el-button>
-      </span>
-    </el-dialog>
-  </div>
+  </el-container>
 </template>
+
+
+
 
 <script>
 export default {
-  name: "basetable",
   data() {
+    name: "supplierTask";
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
-      tableData: [
+      labelPosition: "right",
+      formLabelAlign: {},
+      tableHead: [
         {
-          id: 1,
-          address: "广东省东莞市长安镇",
-          name: "张三",
-          money: 123,
-          state: "成功",
-          date: "2019-11-1"
+          column_name: "Substask_ID",
+          column_comment: "流通任务ID"
         },
         {
-          id: 1,
-          address: "广东省东莞市长安镇",
-          name: "张三",
-          money: 123,
-          state: "成功",
-          date: "2019-11-1"
+          column_name: "Substask_Name",
+          column_comment: "流通任务名称"
         },
         {
-          id: 1,
-          address: "广东省东莞市长安镇",
-          name: "张三",
-          money: 123,
-          state: "成功",
-          date: "2019-11-1"
+          column_name: "Substask_Type",
+          column_comment: "流通任务类别"
+        },
+        {
+          column_name: "Substask_End_Time",
+          column_comment: "流通任务截至时间"
         }
       ],
-      addList: {
-        id: null,
-        address: "",
-        name: "",
-        money: null,
-        state: null,
-        date: null
-      },
-      multipleSelection: [],
-      editVisible: false,
-      addVisible: false,
-      pageTotal: 0,
-      form: {},
-      idx: -1,
-      id: -1
+      tableData: [
+        {
+          Substask_ID: "0001",
+          Substask_Name: "小汽车零件的装配",
+          Substask_Type: "零件装配制造",
+          Substask_End_Time: "2019-10-17"
+        },
+        {
+          Substask_ID: "0002",
+          Substask_Name: "帆船的制造",
+          Substask_Type: "中形设备制造",
+          Substask_End_Time: "2019-9-15"
+        },
+        {
+          Substask_ID: "0003",
+          Substask_Name: "火箭模拟装配",
+          Substask_Type: "高端装配制造",
+          Substask_End_Time: "2019-12-17"
+        }
+      ],
+
+       tableData2: [
+        {
+          tasktype: "组装",
+          servicetask: "汽车保险杠",
+          deadline: "2019-10-08",
+          designer: 200333
+        },
+        {
+          tasktype: "设计",
+          servicetask: "铣床刀头插口",
+          deadline: "2019-10-08",
+          designer: 200333
+        },
+        {
+          tasktype: "设计",
+          servicetask: "机械臂前臂设计",
+          deadline: "2019-10-08",
+          designer: 200333
+        },
+        {
+          tasktype: "设计",
+          servicetask: "普陀区",
+          deadline: "2019-10-08",
+          designer: 200333
+        },
+        {
+          tasktype: "设计",
+          servicetask: "普陀区",
+          deadline: "2019-10-08",
+          designer: 200333
+        },
+        {
+          tasktype: "设计",
+          servicetask: "普陀区",
+          deadline: "2019-10-08",
+          designer: 200333
+        },
+        {
+          tasktype: "设计",
+          servicetask: "普陀区",
+          deadline: "2019-10-08",
+          designer: 200333
+        }
+      ],
+
+      tableData1: [
+        {
+          personlist: "马工",
+          level: "高级工程师"
+        }
+      ],   
+      dialogVisible: false
     };
   },
-  created() {
-    this.getData();
-  },
   methods: {
-    // 获取 easy-mock 的模拟数据
-    getData() {
-      //   this.tableData = res.list;
-      //   this.pageTotal = tableData.length;
-    },
-    // 触发搜索按钮
-    handleSearch() {
-      this.$set(this.query, "pageIndex", 1);
-      this.getData();
-    },
-    // 删除操作
+    // handleEdit(index, row) {
+    //   console.log(index, row);
+    //   this.$router.push("/supplierCTdistribution")
+    // },
     handleDelete(index, row) {
-      // 二次确认删除
-      this.$confirm("确定要删除吗？", "提示", {
-        type: "warning"
-      })
-        .then(() => {
-          this.$message.success("删除成功");
-          this.tableData.splice(index, 1);
-        })
-        .catch(() => {});
+      console.log(index, row);
     },
-    // 多选操作
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
+    handleDetail(index, row) {
+      this.$router.push("/supplierChildtast");
     },
-    delAllSelection() {
-      let length = this.multipleSelection.length;
-      let str = "";
-      for (let j = 0; j < length; j++) {
-        this.tableData.splice(this.multipleSelection[j], 1);
-        str += this.multipleSelection[j].name + " ";
-      }
-      this.$message.error(`删除了${str}`);
-      this.multipleSelection = [];
-    },
-    //新增操作
-    addData() {
-      this.addVisible = true;
-    },
-    //保存新增
-    saveAdd() {
-      this.tableData.push(this.addList);
-      console.log(this.addList);
-      this.addList = {};
-      this.addVisible = false;
-    },
-    // 编辑操作
-    handleEdit(index, row) {
-      this.idx = index;
-      this.form = row;
-      this.editVisible = true;
-    },
-    // 保存编辑
-    saveEdit() {
-      this.editVisible = false;
-      this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-      this.$set(this.tableData, this.idx, this.form);
-    },
-    // 分页导航
-    handlePageChange(val) {}
+    goBack() {
+      this.$router.push("/#");
+    }
   }
 };
 </script>
 
-<style scoped>
-.handle-box {
-  margin-bottom: 20px;
-}
 
-.handle-select {
-  width: 120px;
-}
-
-.handle-input {
-  width: 300px;
-  display: inline-block;
-}
-.table {
-  width: 100%;
-  font-size: 14px;
-}
-.red {
-  color: #ff0000;
-}
-.mr10 {
-  margin-right: 10px;
-}
-.table-td-thumb {
-  display: block;
-  margin: auto;
-  width: 40px;
-  height: 40px;
-}
-</style>

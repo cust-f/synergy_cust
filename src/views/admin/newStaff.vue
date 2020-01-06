@@ -1,7 +1,20 @@
+<<<<<<< HEAD
+<!-- 
+ * @description: 人员管理
+ * @fileName: newStaff.vue 
+ * @author: 刘思源
+ * @date: 2020.1.5
+ * @后台人员:  
+ * @path:  
+ * @version: V1.0.5 
+!-->
+=======
+
+>>>>>>> 34eebc6e9a4086fcedc0fcdf7728ba9feed8b19f
 <template>
 <div>
     <el-container>
-        <el-aside>
+        <el-aside width="15%">
       <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -17,59 +30,123 @@
         </el-aside>
 
         <el-main>
-             <el-button @click="addstaff" type="success" plain>新增人员</el-button>
-            <el-table style="width: 100%" border :data="tableData">
-  <template v-for="(item,index) in tableHead">
-    <el-table-column :prop="item.column_name" :label="item.column_comment" :key="index" v-if="item.column_name != 'id'"></el-table-column>
+          <h3>人员管理</h3>
+          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<template>
+  <div>
+    <div class="container">
+      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
 
-  </template>      
-  <el-table-column label="操作" min-width="100px" align="center">
-       <template >
-          <el-button  type="text" size="small">查看详情</el-button>
-          <el-button type="text" size="small">删除</el-button>
-       </template>
-    </el-table-column>
-</el-table>
+        <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
+        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
 
-<el-dialog title="新增人员" :visible.sync="addFormVisible" :close-on-click-modal="false">         
-			<el-form :inline="true" :model="addForm" label-width="80px" ref="addForm">
-				<el-form-item label="姓名" prop="realname">
-					<el-input v-model="addForm.realname" auto-complete="off"></el-input>
+        <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
+      </div>
+
+      <el-table
+        :data="tableData"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="用户名"></el-table-column>
+        <el-table-column prop="realname" label="真实姓名"></el-table-column>
+          <el-table-column prop="email" label="部门"></el-table-column>
+        <el-table-column prop="email" label="邮箱"></el-table-column>
+       <el-table-column prop="phone" label="电话"></el-table-column>
+        
+
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-edit"
+              @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button>
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+    </div>
+
+    <!-- 编辑弹出框 -->
+    <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
+      <el-form ref="form" :model="form" label-width="70px">
+        <el-form-item label="用户名">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="form.e-mail"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveEdit">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 新增弹出框 -->
+    <el-dialog title="新增" :visible.sync="addVisible" width="50%">
+      <el-form ref="form" :model="addList" label-width="70px">
+        <el-form-item label="用户名">
+          <el-input v-model="addList.name"></el-input>
+        </el-form-item>
+        <el-form-item label="真实姓名">
+          <el-input v-model="addList.realname"></el-input>
+        </el-form-item>
+
+        <el-form-item label="角色">
+          <el-select v-model="addList.role" placeholder="请选择角色">
+            <el-option label="管理员" value="管理员"></el-option>
+            <el-option label="设计人员" value="设计人员"></el-option>
+            <el-option label="市场人员" value="市场人员"></el-option>
+            <el-option label="流通人员" value="流通人员"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="addList.email"></el-input>
+        </el-form-item>
+        <el-form-item label="电话">
+          <el-input v-model="addList.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="登录密码" prop="password">
+					<el-input v-model="addList.password"></el-input>
 				</el-form-item>
-        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-form-item label="登录名" prop="">	
-					<el-input v-model="addForm.loginname" auto-complete="off"></el-input>
-				</el-form-item>
-        	<el-form-item label="登录密码" prop="password">
-					<el-input v-model="addForm.password" auto-complete="off"></el-input>
-				</el-form-item>
-         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-form-item label="部门" prop="role">	 
-            <el-select v-model="value" placeholder="请选择">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value"
-      :disabled="item.disabled">
-    </el-option>
-  </el-select>
-				</el-form-item>
-         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-form-item label="手机" prop="mobile">	
-					<el-input v-model="addForm.mobile" auto-complete="off"></el-input>
-				</el-form-item>
-        <el-form-item label="邮件" prop="email">	
-					<el-input v-model="addForm.email" auto-complete="off"></el-input>
-				</el-form-item>
-         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-         
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button @click="addFormVisible = false">取消</el-button>
-				<el-button type="primary" >提交</el-button>
-			</div>
-		</el-dialog>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveAdd">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+
 
 
 
@@ -93,51 +170,52 @@ export default {
   name: "newStaff",
   data() {
     return {
-        addFormVisible:false,
-        tableHead:[
-            {
-                column_name:"user_id",column_comment:"用户账号"
-            },
-            {
-                column_name:"user_name",column_comment:"账号名称"
-            },
-            {
-                column_name:"real_name",column_comment:"真实姓名"
-            },
-            {
-                column_name:"role",column_comment:"部门"
-            },
-            {
-                column_name:"email",column_comment:"邮箱"
-            },
-            {
-                column_name:"phone",column_comment:"电话"
-            }
-        ],
-        tableData:[{
-            user_id:'0001',
-            user_name:'john',
-            real_name:'john',
-            role:'1',
-            email:'123456@qq.com',
-            phone:'123456'
+      query: {
+        pageIndex: 1,
+        pageSize: 10
+      },
+      tableData: [
+        {
+          id: 1,
+          realname:"",
+          name: "张三",
+          email:"123456@163.com",
+          role: "管理员",
+          phone: "123456"
         },
         {
-            user_id:'0002',
-            user_name:'mary',
-            real_name:'mary',
-            role:'2',
-            email:'123456@qq.com',
-            phone:'123456'
+          id: 1,
+          realname:"",
+          name: "张三",
+          email:"123456@163.com",
+          role: "管理员",
+          phone: "123456"
         },
         {
-            user_id:'0003',
-            user_name:'lucy',
-            real_name:'lucy',
-            role:'3',
-            email:'123456@qq.com',
-            phone:'123456'
-        }],
+          id: 1,
+          realname:"",
+          name: "张三",
+          email:"123456@163.com",
+          role: "管理员",
+          phone: "123456"
+        }
+      ],
+      addList: {
+        id: 1,
+          realname:"",
+          name: "",
+          email:"",
+          role: "",
+          phone: ""
+      },
+      multipleSelection: [],
+      editVisible: false,
+      addVisible: false,
+      pageTotal: 0,
+      form: {},
+      idx: -1,
+      id: -1,
+        
                 tenderTrendsList:[
         { column_name: "黄河远上白云间" },
         { column_name: "九曲黄河万里沙" },
@@ -157,26 +235,75 @@ export default {
              mobile:"",
              role:''
              },
-        options: [{
-          value: '选项1',
-          label: '管理员'
-        }, {
-          value: '选项2',
-          label: '人事部门',
-          disabled: true
-        }, {
-          value: '选项3',
-          label: '设计人员'
-        }, {
-          value: '选项4',
-          label: '流通人员'
-        }, 
-        ],
         value: ''
  
     };
   },
+   created() {
+    this.getData();
+  },
   methods:{
+     // 获取 easy-mock 的模拟数据
+    getData() {
+      //   this.tableData = res.list;
+      //   this.pageTotal = tableData.length;
+    },
+    // 触发搜索按钮
+    handleSearch() {
+      this.$set(this.query, "pageIndex", 1);
+      this.getData();
+    },
+    // 删除操作
+    handleDelete(index, row) {
+      // 二次确认删除
+      this.$confirm("确定要删除吗？", "提示", {
+        type: "warning"
+      })
+        .then(() => {
+          this.$message.success("删除成功");
+          this.tableData.splice(index, 1);
+        })
+        .catch(() => {});
+    },
+    // 多选操作
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    delAllSelection() {
+      let length = this.multipleSelection.length;
+      let str = "";
+      for (let j = 0; j < length; j++) {
+        this.tableData.splice(this.multipleSelection[j], 1);
+        str += this.multipleSelection[j].name + " ";
+      }
+      this.$message.error(`删除了${str}`);
+      this.multipleSelection = [];
+    },
+    //新增操作
+    addData() {
+      this.addVisible = true;
+    },
+    //保存新增
+    saveAdd() {
+      this.tableData.push(this.addList);
+      console.log(this.addList);
+      this.addList = {};
+      this.addVisible = false;
+    },
+    // 编辑操作
+    handleEdit(index, row) {
+      this.idx = index;
+      this.form = row;
+      this.editVisible = true;
+    },
+    // 保存编辑
+    saveEdit() {
+      this.editVisible = false;
+      this.$message.success(`修改第 ${this.idx + 1} 行成功`);
+      this.$set(this.tableData, this.idx, this.form);
+    },
+    // 分页导航
+    handlePageChange(val) {},
       
       /*
       *转跳对应任务信息页面
@@ -186,11 +313,19 @@ export default {
      {
          this.addFormVisible=true;
 
-     }
+     },
+     open() {
+        this.$message({
+          showClose: true,
+          message: '提交成功',
+          type: 'success'
+        });
+      },
   }
 };
 </script>
-<style>
+
+<style scoped>
 .con{
     width:500px;
     height: 1000px;
@@ -198,4 +333,33 @@ export default {
     text-align: center
 }
 
+.handle-box {
+  margin-bottom: 20px;
+}
+
+.handle-select {
+  width: 120px;
+}
+
+.handle-input {
+  width: 300px;
+  display: inline-block;
+}
+.table {
+  width: 100%;
+  font-size: 14px;
+}
+.red {
+  color: #ff0000;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.table-td-thumb {
+  display: block;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+}
 </style>
+

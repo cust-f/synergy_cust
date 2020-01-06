@@ -2,7 +2,7 @@
 <div>
     <el-container>
 
-        <el-aside>
+        <el-aside width="15%" style="overflow:hidden">
             <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -16,9 +16,12 @@
       </div>
         </el-aside>
 
-        <el-main>
+        <el-main style="overflow:hidden">
+          <el-page-header @back="goBack" content="详情页面">
+</el-page-header>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
             <el-form ref="form" :model="form" label-width="110px">
-            <el-row :gutter="80">
+            <el-row >
                 <el-col :span="11">
                     <el-form-item label="子项目ID">
                         <el-input v-model="form.id" :disabled="true"></el-input>
@@ -31,9 +34,9 @@
                 </el-col>
             </el-row>
 
-            <el-row :gutter="80">
+            <el-row >
                 <el-col :span="11">
-                    <el-form-item label="子项目类型">
+                    <el-form-item label="子项目类型" >
                         <el-input v-model="form.type" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
@@ -44,9 +47,9 @@
                 </el-col>
             </el-row>
 
-            <el-row :gutter="80">
+            <el-row >
                 <el-col :span="11">
-                    <el-form-item label="子项目设计人员">
+                    <el-form-item label="设计人员">
                         <el-input v-model="form.leader" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
@@ -56,7 +59,7 @@
                     </el-form-item>
                 </el-col>
             </el-row >
-            <el-row :gutter="80">
+            <el-row >
                 <el-col :span="11">
                     <el-form-item label="活动名称2">
                         <el-input v-model="form.name2"></el-input>
@@ -73,14 +76,13 @@
             </el-row>
             
             <el-row :gutter="80">
-                <el-col :span="10" offset="5">
-                   <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button>
-                </el-col>
+             
             </el-row>
 
         </el-form>
 
-        <div align="center">
+        <div align="right">   
+              <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button>
             <el-button type="primary" class="button1">下载设计文档</el-button>
         </div>
 
@@ -224,6 +226,9 @@
       }
     },
     methods:{
+      goBack() {
+        this.$router.push('/substaskDetail');
+      }
     }
   }
 </script>
