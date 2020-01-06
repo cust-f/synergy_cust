@@ -28,6 +28,11 @@ import supplierCTdistribution from '@/views/supplier/supplierCTdistribution'
 import circulation from '@/views/personnel allotment/circulation'
 import desinger from '@/views/personnel allotment/desinger'
 
+//供应商市场部门
+import supplierAccept from '@/views/supplier/supplierMarket/supplierAccept'
+import supplierAcceptTask from '@/views/supplier/supplierMarket/supplierAcceptTask'
+import Accept from '@/views/supplier/supplierMarket/Accept'
+
 Vue.use(Router)
 
 export default new Router({
@@ -164,6 +169,27 @@ export default new Router({
           name:'desinger',
           component:desinger,
         
+        },
+        //供应商接受任务
+        {
+          path:'/supplierAccept',
+          name:'supplierAccept',
+          component:supplierAccept,
+        
+        },
+
+        //供应商接受任务详情
+        {
+          path:'/supplierAcceptTask',
+          name:'supplierAcceptTask',
+          component:supplierAcceptTask,
+        },
+
+        //供应商接受任务选择
+        {
+          path:'/Accept',
+          name:'Accept',
+          component:Accept,
         }
       ]
     },
