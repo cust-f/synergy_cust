@@ -1,200 +1,222 @@
 
 <template>
      <div class="BG">
-<el-row>
-  <el-col :span="20" push="2" pull="2"><div class="grid-content"><el-carousel  indicator-position="none" interval="3000" type="card" height="400px">
-          <el-carousel-item v-for="item in img_list" :key="item">
+<el-row gutter="8">
+    <el-col :span="3" push="3"><div class="grid-content0">
+
+        <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="需求热门行业">
+          <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+    </el-tabs>
+
+      </div></el-col>
+    <el-col :span="11" push="3" ><div>
+      <el-carousel interval="3000"  height="500px">
+      <el-carousel-item v-for="item in img_list" :key="item">
             <img :src="item" alt="" >
           </el-carousel-item>
-      </el-carousel></div></el-col>
+    </el-carousel>
+      
+      </div></el-col>
+    <el-col :span="6" push="3" ><div class=" grid-content0">
+      <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="本月核心企业top10">
+        <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="本月供应商top10">
+        <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="本月成交金额任务top10">
+        <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="更多信息">
+        <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+      </div></el-col>
 </el-row>
-<el-row gutter="2">
-  <el-col :span="10" push="2">
-    <div class="grid-content bg-purple">
-    <el-tabs v-model="activeName0" @tab-click="handleClick0" stretch="true">
-    <el-tab-pane label="需求任务" name="first">需求任务
 
+<el-divider></el-divider>
 
-    </el-tab-pane>
-    <el-tab-pane label="已完成需求任务" name="second">已完成需求任务
-
-
-    </el-tab-pane>
-    </el-tabs>
+<el-row>
+  <el-col :span="20" push="3" >
+    <div class="grid-content bg-purple" style="text-align: center;  color: #f7f7f7;  background-color:lightcoral;">
+    <span>需求任务</span>
     </div></el-col>
-  <el-col :span="10" push="2" >
-    <div class="grid-content bg-purple-light">
-      <el-tabs v-model="activeName1" @tab-click="handleClick1" stretch="true">
-    <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+</el-row>
+
+<el-row gutter="25">
+  <el-col :span="10" push="3" >
+    <div class="grid-content bg-purple">
+
+    <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="建筑施工">
+          <div v-for="o in jzList" :key="o" class="text item">
+            {{o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="公路工程">
+          <div v-for="o in glList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
     </el-tabs>
-    </div>
+
+
+
+    </div></el-col>
+
+    <el-col :span="10" push="3" >
+    <div class="grid-content bg-purple">
+    
+    <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="铁路工程">
+          <div v-for="o in tlList" :key="o" class="text item">
+            {{o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="电力工程">
+          <div v-for="o in dlList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+    </el-tabs>
+
+
+
+    </div></el-col>
+</el-row>
+
+<el-divider></el-divider>
+
+<el-row gutter="25">
+  <el-col :span="10" push="3" >
+   <div class="grid-content bg-purple" style="text-align: center;  color: #f7f7f7;  background-color:lightcoral;">
+    <span>拟需求任务</span>
+   </div>
+  </el-col>
+  <el-col :span="10" push="3" >
+   <div class="grid-content bg-purple" style="text-align: center ;  color: #f7f7f7;  background-color:lightcoral;;">
+    <span>已完成需求任务</span>
+   </div>
   </el-col>
 </el-row>
 
-<el-row gutter="2">
-  <el-col :span="6" push="3">
+<el-row gutter="25">
+  <el-col :span="10" push="3" >
     <div class="grid-content bg-purple">
+    
+       <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="建筑施工">
+          <div v-for="o in jzList0" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="公路工程">
+          <div v-for="o in glList0" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="铁路工程">
+          <div v-for="o in tlList0" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="电力工程">
+          <div v-for="o in dlList0" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+       </el-tabs>
+
+
+    </div></el-col>
+
+    <el-col :span="10" push="3" >
+    <div class="grid-content bg-purple">
+       <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="建筑施工">
+          <div v-for="o in jzList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="公路工程">
+          <div v-for="o in glList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="铁路工程">
+          <div v-for="o in tlList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="电力工程">
+          <div v-for="o in dlList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+       </el-tabs>
+
+
+
+    </div></el-col>
+</el-row>
+
+<el-divider></el-divider>
+
+
+<el-row gutter="20">
+  
+  <el-col :span="6" push="3" >
+    <div class="grid-content">
+
       <el-card class="box-card">
 
-  <div slot="header" class="clearfix">
-    <span>合作单位</span>
+  <div slot="header" class="clearfix" style="text-align: center;">
+    <span>任务流通情况</span>
   </div>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-      
 
-      
-      <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-      </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-    </div>
-    </el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-
-    <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-
-
-      <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
   
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-      <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
+  <div v-for="o in ltList0" :key="o" class="text item">
+            {{ o }}
+          </div>
+        
 
 
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-    <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-      <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
 
 </el-card>
-    </div>
+
+      </div>
   </el-col>
-  <el-col :span="6" push="3" >
-    <div class="grid-content bg-purple-light">
+
+
+
+
+
+
+  <el-col :span="6" push="4" >
+    <div class="grid-content">
 
       <el-card class="box-card">
 
-  <div slot="header" class="clearfix">
+  <div slot="header" class="clearfix" style="text-align: center;">
     <span>核心企业</span>
   </div>
 
  <el-row gutter="1">
   <el-col :span="12">
-    <div class="grid-content bg-purple">
+    <div class="grid-content ">
   
 <div class="businesscardAvatar">
       <el-avatar :fit="fit"> user </el-avatar>
@@ -206,13 +228,9 @@
         <el-tag type="success">有活力</el-tag>
         <el-tag type="info">成功</el-tag>
 
-
-
-
-
     </div></el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content">
 
 <div class="businesscardAvatar">
       <el-avatar :fit="fit"> user </el-avatar>
@@ -231,7 +249,7 @@
 </el-row>
 <el-row gutter="1">
   <el-col :span="12">
-    <div class="grid-content bg-purple">
+    <div class="grid-content">
   
 
 <div class="businesscardAvatar">
@@ -248,7 +266,7 @@
 
     </div></el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content ">
    
 
 <div class="businesscardAvatar">
@@ -267,103 +285,22 @@
     </div>
   </el-col>
 </el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-
 </el-card>
 
       </div>
   </el-col>
-  <el-col :span="6" push="3">
-    <div class="grid-content bg-purple">
+  <el-col :span="6" push="5">
+    <div class="grid-content ">
 
       <el-card class="box-card">
 
-  <div slot="header" class="clearfix">
+  <div slot="header" class="clearfix" style="text-align: center;">
     <span>供应商</span>
   </div>
 
  <el-row gutter="1">
   <el-col :span="12">
-    <div class="grid-content bg-purple">
+    <div class="grid-content">
   
 
 <div class="businesscardAvatar">
@@ -383,7 +320,7 @@
 
     </div></el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content ">
    
 
 
@@ -406,7 +343,7 @@
 </el-row>
 <el-row gutter="1">
   <el-col :span="12">
-    <div class="grid-content bg-purple">
+    <div class="grid-content ">
   
 
 <div class="businesscardAvatar">
@@ -427,7 +364,7 @@
 
     </div></el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content ">
    
 
 
@@ -446,89 +383,8 @@
     </div>
   </el-col>
 </el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
 
 
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
 
 </el-card>
 
@@ -559,6 +415,118 @@ export default {
               "src/assets/images/home/illust_71492221_20181111_232951.png",
               "src/assets/images/home/illust_71588619_20181111_233227.jpg",
             ],
+      
+      rmList: [
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+      ],
+
+      jzList: [
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+      ],
+      glList: [
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+      ],
+      tlList: [
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+      ],
+      dlList: [
+       "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        ],
+
+      jzList0: [
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       
+      ],
+      glList0: [
+       "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+       
+      ],
+      tlList0: [
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+      
+      ],
+      dlList0: [
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+        ],
+        ltList0: [
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+        ],
+
+
+
 
     };
   },
@@ -599,18 +567,25 @@ export default {
     border-radius: 4px;
   }
   .bg-purple-dark {
-    background: #99a9bf;
+    background: #ffffff;
   }
   .bg-purple {
-    background: #d3dce6;
+    background: #ffffff;
   }
   .bg-purple-light {
-    background: #e5e9f2;
+    background: #f7f7f7;
+   
   }
   .grid-content {
-    border-radius: 4px;
     min-height: 36px;
      padding: 3px;
+     border: 1px  solid rgb(221, 221, 221);
+      line-height:36px; 
+  }
+  .grid-content0
+  {
+    height: 500px;
+    background-color: antiquewhite;
   }
   .row-bg {
     padding: 10px 0;
@@ -623,7 +598,7 @@ export default {
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
-  padding: 0 10px;
+  padding: 0 20px;
 }
 /**card 样式 */
 .text {
@@ -653,6 +628,7 @@ export default {
   {
     width: 100%;
     height: 120px;
+    
   }
   .businesscardAvatar
   {
