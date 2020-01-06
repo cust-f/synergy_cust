@@ -314,8 +314,6 @@
           endTime:'2019-12-18'
 
           
-<<<<<<< HEAD
-=======
         },
                 query: {
         pageIndex: 1,
@@ -337,7 +335,6 @@
           money: 5000,
           state: "成功",
           date: "2019-11-1"
->>>>>>> d9ffd058958e544ccefce2afb71883fbad4c4c4a
         },
         {
           id: 1,

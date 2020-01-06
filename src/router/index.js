@@ -15,7 +15,6 @@ import supplyDetail from '@/views/company/supplyDetail'
 import review from '@/views/admin/review'
 
 import designTask from '@/views/admin/designTask'
-import designTaskDetail from '@/views/admin/designTaskDetail'
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
 import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
@@ -25,7 +24,7 @@ import basetable from '@/Layout/components/common/BaseTable'
 import supplierTast from '@/views/supplier/supplierTast' 
 import supplierChildtast from '@/views/supplier/supplierChildtast' 
 import supplierCTdistribution from '@/views/supplier/supplierCTdistribution' 
-
+import circulationTask from '@/views/admin/circulationTask'
 import circulation from '@/views/personnel allotment/circulation'
 import desinger from '@/views/personnel allotment/desinger'
 
@@ -152,22 +151,21 @@ export default new Router({
           component:supplierCTdistribution,
         
         },
-<<<<<<< HEAD
-        //核心企业设计流通任务列表
+        //核心企业设计任务列表
         {
-          path:'/designCirculationTask',
-          name:'designCirculationTask',
-          component:designCirculationTask
+          path:'/designTask',
+          name:'designTask',
+          component:designTask
         },
-        //核心企业设计流通任务详情列表
+        
+        //核心企业流通任务详情列表
         {
-          path:'/designCirculationTaskDetail',
-          name:'designCirculationTaskDetail',
-          component:designCirculationTaskDetail
+          path:'/circulationTask',
+          name:'circulationTask',
+          component:circulationTask
         },
         
 
-=======
         //流通人员
         {
           path:'/circulation',
@@ -182,7 +180,6 @@ export default new Router({
           component:desinger,
         
         }
->>>>>>> d9ffd058958e544ccefce2afb71883fbad4c4c4a
       ]
     },
     {

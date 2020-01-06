@@ -17,7 +17,6 @@
         <el-main>
             <h3>设计任务</h3>
              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-
               <div>
 
 
@@ -69,7 +68,11 @@
           <el-button @click="Detail" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
+  <el-table-column  label="是否选择"  width="180" align="center">
+    <el-button type="success" plain>选择</el-button>
+    <el-button type="danger" plain>拒绝</el-button>
   
+        </el-table-column>
       </el-table>
       <div class="pagination">
         <el-pagination
@@ -317,7 +320,13 @@ export default {
      },
      Detail(){
          this.$router.push('/designCirculationTaskDetail')
-     }
+     },
+     open2() {
+        this.$message({
+          message: '恭喜你，这是一条成功消息',
+          type: 'success'
+        });
+      },
   }
 };
 </script>
