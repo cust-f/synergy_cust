@@ -13,7 +13,7 @@ import companyDetail from '@/views/company/companyDetail'
 import supplyBussess from '@/views/company/supplyBussess'
 import supplyDetail from '@/views/company/supplyDetail'
 import review from '@/views/admin/review'
-
+import designTask from '@/views/admin/designTask'
 
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
@@ -141,7 +141,20 @@ export default new Router({
           name:'supplierCTdistribution',
           component:supplierCTdistribution,
         
-        }
+        },
+        //核心企业设计任务列表
+        {
+          path:'/designTask',
+          name:'designTask',
+          component:designTask
+        },
+        //核心企业流通任务列表
+        {
+          path:'/circulationTask',
+          name:'circulationTask',
+          component:circulationTask
+        },
+
       ]
     },
     {
