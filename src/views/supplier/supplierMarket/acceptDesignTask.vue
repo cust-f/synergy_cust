@@ -100,11 +100,11 @@
 
 <script>
 export default {
-  name: "supplierAccept",
+  name: "acceptDesignTask",
   data() {
     return {
       dialogTableVisible: false,
-      dialogVisible :false,
+      dialogVisible: false,
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -118,8 +118,8 @@ export default {
         detail:
           "人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。",
         leader: "陈平安",
-        company:"一汽大众",
-        leaderTel:"18088675187"
+        company: "一汽大众",
+        leaderTel: "18088675187"
       },
 
       //读取表格数据
@@ -135,7 +135,7 @@ export default {
       form: {
         name: "小汽车零件的装配",
         endtime: "2019-10-17",
-        company:"一汽大众",
+        company: "一汽大众"
       },
       formLabelWidth: "120px",
       tableData: [
@@ -237,7 +237,7 @@ export default {
     // 分页导航
     handlePageChange(val) {},
     substaskDetail() {
-      this.$router.push("/supplierAcceptTask");
+      this.$router.push("/acceptDesignDetailsTask");
     },
     saveAdd() {
       console.log("13224");
@@ -251,7 +251,7 @@ export default {
     success() {
       this.dialogTableVisible = false;
       this.dialogVisible = true;
-    },
+    }
   }
   /*
    *转跳对应任务信息页面

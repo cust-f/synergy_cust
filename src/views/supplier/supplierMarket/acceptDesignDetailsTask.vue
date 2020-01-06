@@ -116,7 +116,7 @@
 
 <script>
 export default {
-  name: "supplierAcceptTask",
+  name: "acceptDesignDetailsTask",
   data() {
     return {
       dialogTableVisible: false,
@@ -148,10 +148,10 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/supplierAccept");
+      this.$router.push("/acceptDesignTask");
     },
     goBackagain() {
-      this.$router.push("/supplierAccept");
+      this.$router.push("/acceptDesignTask");
       this.dialogVisible = false;
     },
     success() {
