@@ -59,21 +59,59 @@
                     </el-form-item>
                 </el-col>
             </el-row >
+
+             <el-row >
+                <el-col :span="11">
+                    <el-form-item label="设计任务状态">
+                        <el-input v-model="form.designState" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="评价状态">
+                        <el-input v-model="form.remakeState" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row >
+
             <el-row >
                 <el-col :span="11">
-                    <el-form-item label="活动名称2">
-                        <el-input v-model="form.name2"></el-input>
+                    <el-form-item label="完成状态">
+                        <el-input v-model="form.completionState" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="活动区域2">
-                        <el-select v-model="form.region2" placeholder="请选择活动区域">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
+                    <el-form-item label="项目截至日期">
+                        <el-input v-model="form.deadLine" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
-            </el-row>
+            </el-row >
+
+            <el-row >
+                <el-col :span="11">
+                    <el-form-item label="主任务名称">
+                        <el-input v-model="form.mainTaskName" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="任务类别">
+                        <el-input v-model="form.mainTaskType" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row >
+
+            <el-row >
+                <el-col :span="11">
+                    <el-form-item label="开始时间">
+                        <el-input v-model="form.beginTime" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="投标截止时间">
+                        <el-input v-model="form.endTime" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row >
+
             
             <el-row :gutter="80">
              
@@ -82,8 +120,9 @@
         </el-form>
 
         <div align="right">   
-              <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button>
+              <!-- <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button> -->
             <el-button type="primary" class="button1">下载设计文档</el-button>
+                        <el-button type="primary" class="button1">下载合同</el-button>
         </div>
 
          <el-divider></el-divider>
@@ -159,50 +198,6 @@
       name:"mainStaskDetail",
     data() {
       return {
-
-        tableData2: [{
-          tasktype: '组装',
-          servicetask: '汽车保险杠',
-          deadline: '2019-10-08',
-          designer: 200333
-        }, {
-          tasktype: '设计',
-          servicetask: '铣床刀头插口',
-          deadline: '2019-10-08',
-          designer: 200333
-        }, {
-          tasktype: '设计',
-          servicetask: '机械臂前臂设计',
-          deadline: '2019-10-08',
-          designer: 200333
-        }, {
-          tasktype: '设计',
-          servicetask: '普陀区',
-          deadline: '2019-10-08',
-          designer: 200333
-        }, {
-          tasktype: '设计',
-          servicetask: '普陀区',
-          deadline: '2019-10-08',
-          designer: 200333
-        }, {
-          tasktype: '设计',
-          servicetask: '普陀区',
-          deadline: '2019-10-08',
-          designer: 200333
-        }, {
-          tasktype: '设计',
-          servicetask: '普陀区',
-          deadline: '2019-10-08',
-          designer: 200333
-        }],
-
-
-        tableData1: [{
-          personlist: '马工',
-          level: '高级工程师',
-        }],
-
         dialogVisible: false,
 
         form: {
@@ -212,6 +207,16 @@
           endtime: '2019-10-17',
           detail: '人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。',
           leader:'陈平安',
+          designState:'设计完成',
+          remakeState:'评价完成',
+          completionState:'已完成',
+          deadLine:'2022-12-5',
+          mainTaskName:'汽车装配制造',
+          mainTaskType:'大型交通工具制造',
+          beginTime:'2019-10-15',
+          endTime:'2019-12-18'
+
+          
         },
         tenderTrendsList:[
         { column_name: "黄河远上白云间" },

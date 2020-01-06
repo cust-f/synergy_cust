@@ -22,7 +22,7 @@
 </el-page-header>
  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
             <el-form ref="form" :model="form" label-width="110px">
-            <el-row  :gutter="80">
+            <el-row  >
                 <el-col :span="11">
                     <el-form-item label="主项目ID">
                         <el-input v-model="form.id" :disabled="true"></el-input>
@@ -35,44 +35,50 @@
                 </el-col>
             </el-row>
 
-            <el-row :gutter="80">
+            <el-row >
                 <el-col :span="11">
                     <el-form-item label="主项目类型">
                         <el-input v-model="form.type" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="主项目结束时间">
-                        <el-input v-model="form.endtime" :disabled="true"></el-input>
+                    <el-form-item label="主项目开始时间">
+                        <el-input v-model="form.begintime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
 
-            <el-row :gutter="80">
+            <el-row >
                 <el-col :span="11">
-                    <el-form-item label="主项目设计人员">
+                    <el-form-item label="项目负责人">
                         <el-input v-model="form.leader" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="主项目细节">
+                    <el-form-item label="主项目详情">
                         <el-input v-model="form.detail" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
 
-            <el-row :gutter="80">
+            <el-row >
                 <el-col :span="11">
-                    <el-form-item label="活动名称2">
-                        <el-input v-model="form.name2"></el-input>
+                    <el-form-item label="项目完成日期">
+                        <el-input v-model="form.deadline" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="活动区域2">
-                        <el-select v-model="form.region2" placeholder="请选择活动区域">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
+                    <el-form-item label="任务状态">
+                        <el-input v-model="form.taskState" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+
+            <el-row>
+                <el-col :span="11">
+                    <el-form-item label="任务企业ID">
+                        <el-input v-model="form.companyID" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -80,6 +86,7 @@
 
         <div id="div2" align="right">
             <el-button type="primary" class="button1">下载装配文档</el-button>  
+             <el-button type="primary" class="button1">下载技术文档模板</el-button>  
         </div>    
          <el-divider></el-divider>
             <h3>子任务</h3>
