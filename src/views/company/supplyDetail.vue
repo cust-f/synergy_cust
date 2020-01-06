@@ -36,6 +36,19 @@
 
             <el-row>
                 <el-col :span="11">
+                    <el-form-item label="企业所在省份">
+                        <el-input v-model="form.Provice" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+                 <el-col :span="11">
+                    <el-form-item label="企业所在县市">
+                        <el-input v-model="form.City" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="11">
                     <el-form-item label="企业地址">
                         <el-input v-model="form.Address" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -84,8 +97,60 @@
                         <el-input v-model="form.Office_Number" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
- 
             </el-row>
+
+            <el-row>
+                <el-col :span="11">
+                    <el-form-item label="注册资产">
+                        <el-input v-model="form.Registered_Capital" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+                 <el-col :span="11">
+                    <el-form-item label="总资本">
+                        <el-input v-model="form.Total_Assets" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="11">
+                    <el-form-item label="固定资产">
+                        <el-input v-model="form.Fixed_Assets" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+                 <el-col :span="11">
+                    <el-form-item label="流动资产">
+                        <el-input v-model="form.Current_Assets" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="11">
+                    <el-form-item label="法人代表">
+                        <el-input v-model="form.Legal_Person" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+                 <el-col :span="11">
+                    <el-form-item label="员工人数">
+                        <el-input v-model="form.Worker_Number" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="11">
+                    <el-form-item label="开户银行">
+                        <el-input v-model="form.Deposit_Bank" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+                 <el-col :span="11">
+                    <el-form-item label="银行账户">
+                        <el-input v-model="form.Bank_Number" :disabled=yangshi></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
 
 
             <el-row>
@@ -149,7 +214,18 @@ export default {
           Bussess_Name:'李林甫',
           Product:'微电子元器件制作',
           Introduction:'少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。',
-          cool:'17855555'        
+          cool:'17855555',
+          Provice:'吉林省',
+          City:'长春市绿园区',
+          Registered_Capital:'8.5亿',
+          Total_Assets:'10亿',
+          Current_Assets:'2.2亿',
+          Fixed_Assets:'2亿元',
+          Legal_Person:'杨言',
+          Worker_Number:'500人',
+          Deposit_Bank:'中国银行',
+          Bank_Number:'25206589260388885222201',
+
         },
         tenderTrendsList:[
         { column_name: "黄河远上白云间" },

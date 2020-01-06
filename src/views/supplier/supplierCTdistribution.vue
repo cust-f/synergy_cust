@@ -3,7 +3,9 @@
     <el-aside width="15%"></el-aside>
     <el-main>
       <div class="supplierTask">
-        <h3>子任务分配情况</h3>
+         <el-page-header @back="goBack" content="子任务分配情况">
+</el-page-header>
+        <h3></h3>
         </div>
 
 <el-form :label-position="labelPosition" :model="form" style="margin: 10px" >
@@ -87,7 +89,7 @@
  
  <script>
   export default {
-      name:'supplierCT',
+      name:'supplierCTdistribution',
     data() {
       const generateData = _ => {
         const data = [];
@@ -167,6 +169,9 @@
             message: '已取消分配'
           });          
         });
+      },
+      goBack() {
+        this.$router.push('/supplierTast');
       }
      }
   }

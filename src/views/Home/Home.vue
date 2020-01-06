@@ -175,7 +175,7 @@ export default {
 {
   height:calc(100vh - 160px);
   width: 100%;
-  background-color: black;
+  
   
 }
 .backGround_0
@@ -183,21 +183,21 @@ export default {
   float: left;
   height:calc(55vh - 160px);
   width: 33.3%;
-  background-color: aqua;
+  
 }
 .backGround_1
 {
   float: left;
 height:calc(55vh - 160px);
   width: 33.3%;
-  background-color: aquamarine;
+  
 }
 .backGround_2
 {
   float: left;
 height:calc(55vh - 160px);
   width: 33.3%;
-  background-color: bisque;
+  
 }
 /*el轮播图定义*/
 .el-carousel__item h3 {
