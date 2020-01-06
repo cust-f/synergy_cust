@@ -26,7 +26,7 @@
                 <div style="padding: 16px;">
                     <div class="center">
                     <div class="bottom clearfix">
-                        <el-button type="text" class="betten">设计任务</el-button>
+                        <el-button type="text" class="betten" @click="design">设计任务</el-button>
                     </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  name: "supplierAccept",
+  name: "Accept",
   data() {
     return {
         query: {
@@ -113,6 +113,10 @@ export default {
       this.$message.error(`删除了${str}`);
       this.multipleSelection = [];
     },
+    design() {
+        this.$router.push('/supplierAccept');
+    },
+
     // 分页导航
     handlePageChange(val) {},
      substaskDetail(){
