@@ -11,16 +11,18 @@
         <el-col :span="12">
           <el-form :label-position="labelPosition" :model="formLabelAlign" style="margin: 30px">
             <el-form-item label="未接受设计任务列表：">
-              <el-table style="width: 100%" border :data="tableData">
+              <el-table style="width: 100%" border :data="no_accepted_tableData">
                 <template v-for="(item,index) in tableHead">
                   <el-table-column
                     :prop="item.column_name"
                     :label="item.column_comment"
                     :key="index"
                     v-if="item.column_name != 'id'"
+                    min-width="90px"
+                    align="center"
                   ></el-table-column>
                 </template>
-                <el-table-column label="操作" min-width="100px" align="center">
+                <el-table-column label="操作" min-width="70px" align="center">
                   <template>
                     <el-button type="text" size="small">接受任务</el-button>
                   </template>
@@ -37,7 +39,7 @@
         <el-col :span="12">
           <el-form :label-position="labelPosition" :model="formLabelAlign" style="margin: 30px">
             <el-form-item label="已接受设计任务列表：">
-              <el-table style="width: 100%" border :data="tableData">
+              <el-table style="width: 100%" border :data="accepted_tableData">
                 <template v-for="(item,index) in tableHead">
                   <el-table-column
                     :prop="item.column_name"
@@ -65,22 +67,25 @@
           </el-form>
         </el-col>
       </el-row>
-            <el-divider></el-divider>
+      <el-divider></el-divider>
       <el-row>
         <el-form :label-position="labelPosition" :model="formLabelAlign1" style="margin: 10px">
           <el-form-item label="已完成设计任务列表：">
-            <el-table style="width: 100%" border :data="tableData">
-              <template v-for="(item,index) in tableHead">
+            <el-table style="width: 100%" border :data="tableData_finished">
+              <template v-for="(item,index) in tableHead_finished">
                 <el-table-column
                   :prop="item.column_name"
                   :label="item.column_comment"
                   :key="index"
                   v-if="item.column_name != 'id'"
+                  align="center"
                 ></el-table-column>
               </template>
-              <el-table-column label="状态" min-width="100px" align="center">
-                <template></template>
-              </el-table-column>
+              <el-table-column label="操作" min-width="50px" align="center">
+                  <template>
+                    <el-button type="text" size="small">下载图纸</el-button>
+                  </template>
+                </el-table-column>
             </el-table>
 
             <div class="con" style="text-align:center">
@@ -90,18 +95,46 @@
           <br />
         </el-form>
       </el-row>
-
     </el-main>
     <el-aside width="3%"></el-aside>
+
     <el-dialog title="设计任务详情" :visible.sync="dialogVisible" width="60%" :before-close="handleClose">
       <div>
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="设计任务ID">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="form.Desinger_ID" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="11">
+              <el-form-item label="设计任务名称">
+                <el-input v-model="form.Desinger_Name" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="设计任务类型">
+                <el-input v-model="form.Desinger_Type" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+             <el-col :span="11">
+              <el-form-item label="截止日期">
+                <el-input v-model="form.Desinger_End_Time" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-form-item label="设计任务详情">
+              <el-input
+                type="textarea"
+                :rows="7"
+                v-model="form.Desinger_Task_Details"
+                style="width:100%;"
+                placeholder="请输入内容"
+              ></el-input>
+            </el-form-item>
           </el-row>
         </el-form>
       </div>
@@ -126,96 +159,121 @@ export default {
       formLabelAlign: {},
       tableHead: [
         {
-          column_name: "Substask_ID",
+          column_name: "Desinger_ID",
           column_comment: "设计任务ID"
         },
         {
-          column_name: "Substask_Name",
+          column_name: "Desinger_Name",
           column_comment: "任务名称"
         },
         {
-          column_name: "Substask_Type",
+          column_name: "Desinger_Type",
           column_comment: "任务类别"
         },
         {
-          column_name: "Substask_End_Time",
+          column_name: "Desinger_End_Time",
           column_comment: "截至时间"
         }
       ],
-      tableData: [
+      tableHead_finished: [
         {
-          Substask_ID: "0001",
-          Substask_Name: "小汽车零件的装配",
-          Substask_Type: "零件装配制造",
-          Substask_End_Time: "2019-10-17"
+          column_name: "Desinger_ID",
+          column_comment: "设计任务ID"
         },
         {
-          Substask_ID: "0002",
-          Substask_Name: "帆船的制造",
-          Substask_Type: "中形设备制造",
-          Substask_End_Time: "2019-9-15"
+          column_name: "Desinger_Name",
+          column_comment: "任务名称"
         },
         {
-          Substask_ID: "0003",
-          Substask_Name: "火箭模拟装配",
-          Substask_Type: "高端装配制造",
-          Substask_End_Time: "2019-12-17"
+          column_name: "Desinger_Type",
+          column_comment: "任务类别"
+        },
+        {
+          column_name: "Desinger_Finish_Time",
+          column_comment: "完成时间"
+        },
+        {
+          column_name: "Desinger_Completion_Status",
+          column_comment: "完成状态"
         }
       ],
-
-      tableData2: [
+      no_accepted_tableData: [
         {
-          tasktype: "组装",
-          servicetask: "汽车保险杠",
-          deadline: "2019-10-08",
-          designer: 200333
+          Desinger_ID: "0001",
+          Desinger_Name: "大汽车零件的装配",
+          Desinger_Type: "零件装配制造",
+          Desinger_End_Time: "2019-10-17"
         },
         {
-          tasktype: "设计",
-          servicetask: "铣床刀头插口",
-          deadline: "2019-10-08",
-          designer: 200333
+          Desinger_ID: "0002",
+          Desinger_Name: "大帆船的制造",
+          Desinger_Type: "中形设备制造",
+          Desinger_End_Time: "2019-9-15"
         },
         {
-          tasktype: "设计",
-          servicetask: "机械臂前臂设计",
-          deadline: "2019-10-08",
-          designer: 200333
+          Desinger_ID: "0003",
+          Desinger_Name: "大火箭模拟装配",
+          Desinger_Type: "高端装配制造",
+          Desinger_End_Time: "2019-12-17"
         },
         {
-          tasktype: "设计",
-          servicetask: "普陀区",
-          deadline: "2019-10-08",
-          designer: 200333
+          Desinger_ID: "0003",
+          Desinger_Name: "铁轨零件制造",
+          Desinger_Type: "高端装配制造",
+          Desinger_End_Time: "2019-12-17"
         },
         {
-          tasktype: "设计",
-          servicetask: "普陀区",
-          deadline: "2019-10-08",
-          designer: 200333
+          Desinger_ID: "0003",
+          Desinger_Name: "武器装备模拟装配",
+          Desinger_Type: "高端装配制造",
+          Desinger_End_Time: "2019-12-17"
         },
         {
-          tasktype: "设计",
-          servicetask: "普陀区",
-          deadline: "2019-10-08",
-          designer: 200333
+          Desinger_ID: "0003",
+          Desinger_Name: "模拟装配",
+          Desinger_Type: "高端装配制造",
+          Desinger_End_Time: "2019-12-17"
+        }
+      ],
+      accepted_tableData: [
+        {
+          Desinger_ID: "0001",
+          Desinger_Name: "小汽车零件的装配",
+          Desinger_Type: "零件装配制造",
+          Desinger_End_Time: "2019-10-17"
         },
         {
-          tasktype: "设计",
-          servicetask: "普陀区",
-          deadline: "2019-10-08",
-          designer: 200333
+          Desinger_ID: "0002",
+          Desinger_Name: "小帆船的制造",
+          Desinger_Type: "中形设备制造",
+          Desinger_End_Time: "2019-9-15"
+        },
+        {
+          Desinger_ID: "0003",
+          Desinger_Name: "小火箭模拟装配",
+          Desinger_Type: "高端装配制造",
+          Desinger_End_Time: "2019-12-17"
+        }
+      ],
+      tableData_finished: [
+        {
+          Desinger_ID: "0003",
+          Desinger_Name: "大火箭模拟装配",
+          Desinger_Type: "高端装配制造",
+          Desinger_Finish_Time: "2019-12-17",
+          Desinger_Completion_Status: "已完成"
+        },
+        {
+          Desinger_ID: "0003",
+          Desinger_Name: "铁轨零件制造",
+          Desinger_Type: "高端装配制造",
+          Desinger_Finish_Time: "2019-12-17",
+          Desinger_Completion_Status: "已完成"
         }
       ],
       form: {
         name: "123456"
       },
-      // tableData1: [
-      //   {
-      //     personlist: "马工",
-      //     level: "高级工程师"
-      //   }
-      //],
       dialogVisible: false
     };
   },

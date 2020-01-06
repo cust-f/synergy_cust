@@ -86,8 +86,6 @@ export default {
           children: [
             { menuName: "设计人员", code: "desinger", icon: "#hhtxhaoping" },
             { menuName: "流通人员", code: "circulation", icon: "#hhtxtuandui" },
-            { menuName: "功能三", code: " ", icon: "#hhtxyouxiang" },
-            { menuName: "功能四", code: " ", icon: "#hhtxdaibanshixiang"}
           ]
         }
       ]
