@@ -33,6 +33,8 @@ import accceptCirculationtask from '@/views/supplier/supplierMarket/accceptCircu
 import circulationTaskq from '@/views/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/supplier/supplierMarket/designResult'
 import designTaskq from '@/views/supplier/supplierMarket/designTaskq'
+import accceptCirculationDetailsTask from '@/views/supplier/supplierMarket/accceptCirculationDetailsTask'
+import designResultDesigin from '@/views/supplier/supplierMarket/designResultDesigin'
 
 Vue.use(Router)
 
@@ -191,6 +193,13 @@ export default new Router({
           component: accceptCirculationtask,
         },
 
+        //供应商接受流通任务详情
+        {
+          path: '/accceptCirculationDetailsTask',
+          name: 'accceptCirculationDetailsTask',
+          component: accceptCirculationDetailsTask,
+        },
+
         //供应商流通任务
         {
           path: '/circulationTaskq',
@@ -210,6 +219,13 @@ export default new Router({
           path: '/designTaskq',
           name: 'designTaskq',
           component: designTaskq,
+        },
+
+         //供应商设计成果
+         {
+          path: '/designResultDesigin',
+          name: 'designResultDesigin',
+          component: designResultDesigin,
         }
       ]
     },

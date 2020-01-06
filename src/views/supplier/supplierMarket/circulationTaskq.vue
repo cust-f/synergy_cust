@@ -48,8 +48,12 @@
         </el-table-column>
         <el-table-column label="操作" width="180">
           <template>
-          <el-button type="text" size="small">查看详情</el-button>
-          <el-button type="text" size="small">提交</el-button>
+          <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看详情</el-button>
+          <el-button type="text" class="red" @click="dialogVisible = true">提交</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -66,8 +70,22 @@
     </div>
   </div>
         </el-main>
+        
     </el-container>
-     
+     <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <span>提示，提交后将会上传您的图纸</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="successful()">确 定</el-button>
+        <el-button type="primary" @click="dialogVisible =false">取消</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog title="提示" :visible.sync="success" width="30%" :before-close="handleClose">
+      <span>提交成功</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="success =false">确 定</el-button>
+      </span>
+    </el-dialog>
 
 </div>
       
@@ -77,6 +95,8 @@ export default {
   name: "circulationTaskq",
   data() {
     return {
+      dialogVisible :false,
+      success :false,
         query: {
         pageIndex: 1,
         pageSize: 10
@@ -228,8 +248,13 @@ export default {
     handlePageChange(val) {},
      substaskDetail(){
          this.$router.push('/substaskDetail')
-     }
+     },
+     successful() {
+      this.dialogVisible = false;
+      this.success = true;
+    }
   },
+  
       /*
       *转跳对应任务信息页面
       */
