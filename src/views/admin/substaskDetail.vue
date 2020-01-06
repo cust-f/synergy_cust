@@ -166,7 +166,7 @@
         <el-button type="primary" @click="saveEdit">确 定</el-button>
       </span>
     </el-dialog>
-
+ 
     <!-- 新增弹出框
     <el-dialog title="新增" :visible.sync="addVisible" width="50%">
       <el-form ref="form" :model="addList" label-width="70px">
