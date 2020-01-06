@@ -56,7 +56,7 @@
     </div></el-col>
 </el-row>
 
-<el-row gutter="15">
+<el-row gutter="25">
   <el-col :span="10" push="3" >
     <div class="grid-content bg-purple">
 
@@ -100,7 +100,7 @@
 
 <el-divider></el-divider>
 
-<el-row gutter="15">
+<el-row gutter="25">
   <el-col :span="10" push="3" >
    <div class="grid-content bg-purple" style="text-align: center;  background-color:lightcoral;">
     <span>拟需求任务</span>
@@ -113,7 +113,7 @@
   </el-col>
 </el-row>
 
-<el-row gutter="15">
+<el-row gutter="25">
   <el-col :span="10" push="3" >
     <div class="grid-content bg-purple">
     
@@ -597,7 +597,7 @@ export default {
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
-  padding: 0 10px;
+  padding: 0 20px;
 }
 /**card 样式 */
 .text {
