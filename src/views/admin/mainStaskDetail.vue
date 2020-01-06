@@ -20,6 +20,7 @@
           <el-page-header @back="goBack" content="详情页面">
 </el-page-header>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+
             <el-form ref="form" :model="form" label-width="110px">
             <el-row >
                 <el-col :span="11">
@@ -113,9 +114,7 @@
             </el-row >
 
             
-            <el-row :gutter="80">
              
-            </el-row>
 
         </el-form>
 

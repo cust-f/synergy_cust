@@ -17,20 +17,20 @@
       </div>
         </el-aside>
 
-        <el-main>
+        <el-main style="overflow:hidden">
             <el-page-header @back="goBack" content="详情页面">
-</el-page-header>
+            </el-page-header>
  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-            <el-form ref="form" :model="form" label-width="110px">
+            <el-form ref="form" :model="cool" label-width="110px">
             <el-row  >
                 <el-col :span="11">
                     <el-form-item label="主项目ID">
-                        <el-input v-model="form.id" :disabled="true"></el-input>
+                        <el-input v-model="cool.id" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="主项目名称">
-                        <el-input v-model="form.name" :disabled="true"></el-input>
+                        <el-input v-model="cool.name" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -38,12 +38,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="主项目类型">
-                        <el-input v-model="form.type" :disabled="true"></el-input>
+                        <el-input v-model="cool.type" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="主项目开始时间">
-                        <el-input v-model="form.begintime" :disabled="true"></el-input>
+                        <el-input v-model="cool.begintime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -51,12 +51,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="项目负责人">
-                        <el-input v-model="form.leader" :disabled="true"></el-input>
+                        <el-input v-model="cool.leader" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="主项目详情">
-                        <el-input v-model="form.detail" :disabled="true"></el-input>
+                        <el-input v-model="cool.detail" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -64,26 +64,19 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="项目完成日期">
-                        <el-input v-model="form.deadline" :disabled="true"></el-input>
+                        <el-input v-model="cool.deadline" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="任务状态">
-                        <el-input v-model="form.taskState" :disabled="true"></el-input>
+                        <el-input v-model="cool.taskState" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
 
 
-            <el-row>
-                <el-col :span="11">
-                    <el-form-item label="任务企业ID">
-                        <el-input v-model="form.companyID" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
+
         </el-form>
-
         <div id="div2" align="right">
             <el-button type="primary" class="button1">下载装配文档</el-button>  
              <el-button type="primary" class="button1">下载技术文档模板</el-button>  
@@ -224,7 +217,23 @@
 export default {
     name:'substaskDetail',
     data(){
-      return {query: {
+      return {
+                dialogVisible: false,
+       cool:{
+         id:"01111",          
+          name: '小汽车零件的装配',
+          type: '零件装配制造',
+          endtime: '2019-10-17',
+          detail: '人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。',
+          leader:'陈平安',
+          designState:'设计完成',
+          remakeState:'评价完成',
+          completionState:'已完成',
+          begintime:'2020-1-16',
+          taskState:'完成',
+          deadline:'2019-12-18'
+       },
+        query: {
         pageIndex: 1,
         pageSize: 10
         },
@@ -263,14 +272,7 @@ export default {
         date: null
       },
 
-        form: {
-          id:'000101',
-          name: '小汽车零件的装配',
-          type: '零件装配制造',
-          endtime: '2019-10-17',
-          detail: '人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。',
-          leader:'陈平安',
-        },
+
                tenderTrendsList:[
         { column_name: "黄河远上白云间" },
         { column_name: "九曲黄河万里沙" },
@@ -279,7 +281,7 @@ export default {
         { column_name: "黄河落天走东海，万里尘沙入胸怀"},
         { column_name: "明月隐高树，长河没晓天"},
         { column_name :"萧萧远树疏林外，一半秋山带夕阳。"},
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。"}
+        { column_name: "黄河西来决昆仑，咆哮万里触龙门"}
          ],
         multipleSelection: [],
       editVisible: false,
