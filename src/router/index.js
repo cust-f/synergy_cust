@@ -36,6 +36,9 @@ import accceptCirculationDetailsTask from '@/views/supplier/supplierMarket/accce
 import designResultDesigin from '@/views/supplier/supplierMarket/designResultDesigin'
 import designTaskqDesigin from '@/views/supplier/supplierMarket/designTaskqDesigin'
 
+//企业图表统计
+import enterpriseEvaluation from '@/views/data_statistics/enterpriseEvaluation'
+
 Vue.use(Router)
 
 export default new Router({
@@ -206,6 +209,20 @@ export default new Router({
           path: '/designResult',
           name: 'designResult',
           component: designResult,
+        },
+        
+        //供应商接受任务详情
+        {
+          path:'/supplierAcceptTask',
+          name:'supplierAcceptTask',
+          component:supplierAcceptTask,
+    
+        },
+        //企业数据统计
+        {
+          path:'/charts',
+          name:'charts',
+          component:enterpriseEvaluation,
         },
 
         //供应商设计任务
