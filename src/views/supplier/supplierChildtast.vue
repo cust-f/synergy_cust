@@ -24,6 +24,14 @@
                     </el-form-item>
                 </el-col>
             </el-row>
+            <el-row>
+                <el-col :span="8">
+                    <el-form-item label="子任务介绍：">
+                        <el-input style="width:800px" type="textarea" :rows="10"  v-model="form.tastinfo" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                
+            </el-row>
  
            
 <el-table style="width: 100%" border :data="tableData">
@@ -106,6 +114,7 @@
          form: {
           tast:'整车组装任务图',
           username: '王虎',
+          tastinfo:''
          
         },
          
