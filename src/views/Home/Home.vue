@@ -51,7 +51,7 @@
 
 <el-row>
   <el-col :span="20" push="3" >
-    <div class="grid-content bg-purple" style="text-align: center;    background-color:lightcoral;">
+    <div class="grid-content bg-purple" style="text-align: center;  color: #f7f7f7;  background-color:lightcoral;">
     <span>需求任务</span>
     </div></el-col>
 </el-row>
@@ -102,12 +102,12 @@
 
 <el-row gutter="25">
   <el-col :span="10" push="3" >
-   <div class="grid-content bg-purple" style="text-align: center;  background-color:lightcoral;">
+   <div class="grid-content bg-purple" style="text-align: center;  color: #f7f7f7;  background-color:lightcoral;">
     <span>拟需求任务</span>
    </div>
   </el-col>
   <el-col :span="10" push="3" >
-   <div class="grid-content bg-purple" style="text-align: center ;   background-color:lightcoral;;">
+   <div class="grid-content bg-purple" style="text-align: center ;  color: #f7f7f7;  background-color:lightcoral;;">
     <span>已完成需求任务</span>
    </div>
   </el-col>
@@ -189,7 +189,7 @@
 
   
   <div v-for="o in ltList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{ o }}
           </div>
         
 
@@ -580,6 +580,7 @@ export default {
     min-height: 36px;
      padding: 3px;
      border: 1px  solid rgb(221, 221, 221);
+      line-height:36px; 
   }
   .grid-content0
   {
