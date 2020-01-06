@@ -76,7 +76,7 @@
 
 
  <div style="text-align:center">
-      <el-button type="primary" style=""@click="queding">确定</el-button>
+      <el-button type="primary" style="" @click="queding">确定</el-button>
     <el-button type="primary" style="">关闭</el-button>
   </div> 
 

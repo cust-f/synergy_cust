@@ -66,10 +66,10 @@ export default {
           ]
         },
         {
-          menuName: "模块四",
+          menuName: "人员分配",
           children: [
-            { menuName: "功能一", code: " ", icon: "#hhtxhaoping" },
-            { menuName: "功能二", code: " ", icon: "#hhtxtuandui" },
+            { menuName: "设计人员", code: "desinger", icon: "#hhtxhaoping" },
+            { menuName: "流通人员", code: "circulation", icon: "#hhtxtuandui" },
             { menuName: "功能三", code: " ", icon: "#hhtxyouxiang" },
             { menuName: "功能四", code: " ", icon: "#hhtxdaibanshixiang" }
           ]

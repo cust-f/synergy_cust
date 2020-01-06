@@ -23,6 +23,9 @@ import supplierTast from '@/views/supplier/supplierTast'
 import supplierChildtast from '@/views/supplier/supplierChildtast' 
 import supplierCTdistribution from '@/views/supplier/supplierCTdistribution' 
 
+import circulation from '@/views/personnel allotment/circulation'
+import desinger from '@/views/personnel allotment/desinger'
+
 Vue.use(Router)
 
 export default new Router({
@@ -133,6 +136,20 @@ export default new Router({
           path:'/supplierCTdistribution',
           name:'supplierCTdistribution',
           component:supplierCTdistribution,
+        
+        },
+        //流通人员
+        {
+          path:'/circulation',
+          name:'circulation',
+          component:circulation,
+        
+        },
+        //设计人员
+        {
+          path:'/desinger',
+          name:'desinger',
+          component:desinger,
         
         }
       ]
