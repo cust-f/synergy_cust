@@ -128,6 +128,7 @@
           <el-row>
             <el-form-item label="设计任务详情">
               <el-input
+              :disabled="true"
                 type="textarea"
                 :rows="7"
                 v-model="form.Desinger_Task_Details"

@@ -14,7 +14,7 @@ import supplyBussess from '@/views/company/supplyBussess'
 import supplyDetail from '@/views/company/supplyDetail'
 import review from '@/views/admin/review'
 
-
+import designTask from '@/views/admin/designTask'
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
 import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
@@ -24,7 +24,7 @@ import basetable from '@/Layout/components/common/BaseTable'
 import supplierTast from '@/views/supplier/supplierTast' 
 import supplierChildtast from '@/views/supplier/supplierChildtast' 
 import supplierCTdistribution from '@/views/supplier/supplierCTdistribution' 
-
+import circulationTask from '@/views/admin/circulationTask'
 import circulation from '@/views/personnel allotment/circulation'
 import desinger from '@/views/personnel allotment/desinger'
 
@@ -156,6 +156,21 @@ export default new Router({
           component:supplierCTdistribution,
         
         },
+        //核心企业设计任务列表
+        {
+          path:'/designTask',
+          name:'designTask',
+          component:designTask
+        },
+        
+        //核心企业流通任务详情列表
+        {
+          path:'/circulationTask',
+          name:'circulationTask',
+          component:circulationTask
+        },
+        
+
         //流通人员
         {
           path:'/circulation',

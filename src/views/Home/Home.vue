@@ -8,10 +8,10 @@
           </el-carousel-item>
       </el-carousel></div></el-col>
 </el-row>
-<el-row gutter="2">
-  <el-col :span="10" push="2">
+<el-row>
+  <el-col :span="22" push="2">
     <div class="grid-content bg-purple">
-    <el-tabs v-model="activeName0" @tab-click="handleClick0" stretch="true">
+    <el-tabs v-model="activeName0" @tab-click="handleClick0" stretch="true" tab-position="left">
     <el-tab-pane label="需求任务" name="first">需求任务
 
 
@@ -22,167 +22,10 @@
     </el-tab-pane>
     </el-tabs>
     </div></el-col>
-  <el-col :span="10" push="2" >
-    <div class="grid-content bg-purple-light">
-      <el-tabs v-model="activeName1" @tab-click="handleClick1" stretch="true">
-    <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-    </el-tabs>
-    </div>
-  </el-col>
 </el-row>
 
 <el-row gutter="2">
-  <el-col :span="6" push="3">
-    <div class="grid-content bg-purple">
-      <el-card class="box-card">
-
-  <div slot="header" class="clearfix">
-    <span>合作单位</span>
-  </div>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-      
-
-      
-      <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-      </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-    </div>
-    </el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-
-    <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-
-
-      <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
   
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-      <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-    <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-      <div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-
-</el-card>
-    </div>
-  </el-col>
   <el-col :span="6" push="3" >
     <div class="grid-content bg-purple-light">
 
@@ -306,48 +149,6 @@
     </div>
   </el-col>
 </el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-
 </el-card>
 
       </div>
@@ -449,8 +250,6 @@
 <el-row gutter="1">
   <el-col :span="12">
     <div class="grid-content bg-purple">
-  
-
 
 <div class="businesscardAvatar">
       <el-avatar :fit="fit"> user </el-avatar>
@@ -461,15 +260,10 @@
         <el-tag>稳定</el-tag>
         <el-tag type="success">有活力</el-tag>
         <el-tag type="info">成功</el-tag>
-
-
-
 
     </div></el-col>
   <el-col :span="12">
     <div class="grid-content bg-purple-light">
-   
-
 
 <div class="businesscardAvatar">
       <el-avatar :fit="fit"> user </el-avatar>
@@ -480,55 +274,11 @@
         <el-tag>稳定</el-tag>
         <el-tag type="success">有活力</el-tag>
         <el-tag type="info">成功</el-tag>
-
-
-
-
 
     </div>
   </el-col>
 </el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
 
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
 
 </el-card>
 

@@ -183,7 +183,11 @@
             <el-row>
                 <el-col :span="20" class = "xiangxi">
                     <el-form-item label="详细" >
-                            <el-input v-model="form.Introduction" class="gongsiDetail" :disabled="true"></el-input>
+                            <el-input 
+                            type="textarea"
+                            :rows="3"
+                            style="width:100%;"
+                            placeholder="请输入内容" v-model="form.Introduction" class="gongsiDetail" :disabled="true" ></el-input>
                     </el-form-item>
                     
                 </el-col>
