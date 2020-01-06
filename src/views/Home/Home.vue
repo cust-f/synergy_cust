@@ -56,19 +56,19 @@
     </div></el-col>
 </el-row>
 
-<el-row gutter="10">
+<el-row gutter="25">
   <el-col :span="10" push="3" >
     <div class="grid-content bg-purple">
 
     <el-tabs tab-position="top" stretch="true" style="height: inherit;">
         <el-tab-pane label="建筑施工">
           <div v-for="o in jzList" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{o }}
           </div>
         </el-tab-pane>
         <el-tab-pane label="公路工程">
           <div v-for="o in glList" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{ o }}
           </div>
         </el-tab-pane>
     </el-tabs>
@@ -83,12 +83,12 @@
     <el-tabs tab-position="top" stretch="true" style="height: inherit;">
         <el-tab-pane label="铁路工程">
           <div v-for="o in tlList" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{o }}
           </div>
         </el-tab-pane>
         <el-tab-pane label="电力工程">
           <div v-for="o in dlList" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{ o }}
           </div>
         </el-tab-pane>
     </el-tabs>
@@ -100,7 +100,7 @@
 
 <el-divider></el-divider>
 
-<el-row gutter="10">
+<el-row gutter="25">
   <el-col :span="10" push="3" >
    <div class="grid-content bg-purple" style="text-align: center;  background-color:lightcoral;">
     <span>拟需求任务</span>
@@ -113,29 +113,29 @@
   </el-col>
 </el-row>
 
-<el-row gutter="10">
+<el-row gutter="25">
   <el-col :span="10" push="3" >
     <div class="grid-content bg-purple">
     
        <el-tabs tab-position="top" stretch="true" style="height: inherit;">
         <el-tab-pane label="建筑施工">
           <div v-for="o in jzList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{ o }}
           </div>
         </el-tab-pane>
         <el-tab-pane label="公路工程">
           <div v-for="o in glList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{ o }}
           </div>
         </el-tab-pane>
         <el-tab-pane label="铁路工程">
           <div v-for="o in tlList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{ o }}
           </div>
         </el-tab-pane>
         <el-tab-pane label="电力工程">
           <div v-for="o in dlList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+            {{ o }}
           </div>
         </el-tab-pane>
        </el-tabs>
@@ -176,10 +176,10 @@
 <el-divider></el-divider>
 
 
-<el-row gutter="8">
+<el-row gutter="20">
   
   <el-col :span="6" push="3" >
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content">
 
       <el-card class="box-card">
 
@@ -205,8 +205,8 @@
 
 
 
-  <el-col :span="6" push="3" >
-    <div class="grid-content bg-purple-light">
+  <el-col :span="6" push="4" >
+    <div class="grid-content">
 
       <el-card class="box-card">
 
@@ -216,7 +216,7 @@
 
  <el-row gutter="1">
   <el-col :span="12">
-    <div class="grid-content bg-purple">
+    <div class="grid-content ">
   
 <div class="businesscardAvatar">
       <el-avatar :fit="fit"> user </el-avatar>
@@ -230,7 +230,7 @@
 
     </div></el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content">
 
 <div class="businesscardAvatar">
       <el-avatar :fit="fit"> user </el-avatar>
@@ -249,7 +249,7 @@
 </el-row>
 <el-row gutter="1">
   <el-col :span="12">
-    <div class="grid-content bg-purple">
+    <div class="grid-content">
   
 
 <div class="businesscardAvatar">
@@ -266,7 +266,7 @@
 
     </div></el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content ">
    
 
 <div class="businesscardAvatar">
@@ -289,8 +289,8 @@
 
       </div>
   </el-col>
-  <el-col :span="6" push="3">
-    <div class="grid-content bg-purple">
+  <el-col :span="6" push="5">
+    <div class="grid-content ">
 
       <el-card class="box-card">
 
@@ -300,7 +300,7 @@
 
  <el-row gutter="1">
   <el-col :span="12">
-    <div class="grid-content bg-purple">
+    <div class="grid-content">
   
 
 <div class="businesscardAvatar">
@@ -320,7 +320,7 @@
 
     </div></el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content ">
    
 
 
@@ -343,7 +343,7 @@
 </el-row>
 <el-row gutter="1">
   <el-col :span="12">
-    <div class="grid-content bg-purple">
+    <div class="grid-content ">
   
 
 <div class="businesscardAvatar">
@@ -364,7 +364,7 @@
 
     </div></el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple-light">
+    <div class="grid-content ">
    
 
 
@@ -429,92 +429,90 @@ export default {
        "建筑施工",
        "建筑施工",
        "建筑施工",
-       "建筑施工",
       ],
 
       jzList: [
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告", 
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
       ],
       glList: [
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
       ],
       tlList: [
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告", 
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
       ],
       dlList: [
-       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-        "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-         "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-          "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-           "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-            "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-             "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+       "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
         ],
 
       jzList0: [
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
-       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
        
       ],
       glList0: [
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
-       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
+        "解放UPS及相关设备更新项目货物采购招标公告",
        
       ],
       tlList0: [
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
-       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
+       "存储交换机端口激活模块采购项目",
       
       ],
       dlList0: [
-       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-        "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
-         "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
+       "MKS1632数控外圆磨尾架维修采购项目公告",
         ],
         ltList0: [
        "xxxx需求任务采购情况",
@@ -572,16 +570,16 @@ export default {
     background: #ffffff;
   }
   .bg-purple {
-    background: #ecebeb;
+    background: #ffffff;
   }
   .bg-purple-light {
     background: #f7f7f7;
    
   }
   .grid-content {
-    border-radius: 4px;
     min-height: 36px;
      padding: 3px;
+     border: 1px  solid rgb(221, 221, 221);
   }
   .grid-content0
   {
@@ -599,7 +597,7 @@ export default {
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
-  padding: 0 10px;
+  padding: 0 20px;
 }
 /**card 样式 */
 .text {
