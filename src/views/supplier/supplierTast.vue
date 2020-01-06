@@ -25,7 +25,7 @@
   </template>      
   <el-table-column label="操作" min-width="100px" align="center">
        <template >
-          <el-button  type="text" size="small" @click="dialogVisible = true"> 分配任务</el-button>
+          <el-button  type="text" size="small" @click="handleEdit()"> 分配任务</el-button>
           <el-button @click="handleDetail" type="text" size="small">查看详情</el-button>
           <el-button type="text" size="small">删除</el-button>
        </template>
@@ -131,8 +131,20 @@
             {
                 column_name:"Substask_Name",column_comment:"子任务名称"
             },
+             {
+                column_name:"Substask_MID",column_comment:"主任务ID"
+            },
             {
                 column_name:"Substask_Type",column_comment:"子任务类别"
+            },
+            {
+                column_name:"Substask_Stast",column_comment:"设计任务状态"
+            },
+            {
+                column_name:"Substask_Evaluate",column_comment:"评价状态"
+            },
+            {
+                column_name:"Substask_MStast",column_comment:"总进度状态"
             },
             {
                 column_name:"Substask_End_Time",column_comment:"子任务截至时间"
@@ -140,21 +152,33 @@
         ],
         tableData:[{
             Substask_ID:'0001',
-            Substask_Name:'小汽车零件的装配',
-            Substask_Type:'零件装配制造',
+            Substask_Name:'小汽车零件的设计',
+            Substask_MID:'M100001',
+            Substask_Type:'零件设计',
+            Substask_Stast:'未完成',
+            Substask_Evaluate:'未完成',
+            Substask_MStast:'未完成',
             Substask_End_Time:'2019-10-17'
         },
         {
             Substask_ID:'0002',
-            Substask_Name:'帆船的制造',
-            Substask_Type:'中形设备制造',
-            Substask_End_Time:'2019-9-15'
+            Substask_Name:'客车零件的设计',
+            Substask_MID:'M100002',
+            Substask_Type:'零件设计',
+            Substask_Stast:'未完成',
+            Substask_Evaluate:'未完成',
+            Substask_MStast:'未完成',
+            Substask_End_Time:'2019-10-17'
         },
         {
-            Substask_ID:'0003',
-            Substask_Name:'火箭模拟装配',
-            Substask_Type:'高端装配制造',
-            Substask_End_Time:'2019-12-17'
+           Substask_ID:'0003',
+            Substask_Name:'卫星零件的装配',
+            Substask_MID:'M100003',
+            Substask_Type:'零件装配制造',
+            Substask_Stast:'完成',
+            Substask_Evaluate:'完成',
+            Substask_MStast:'完成',
+            Substask_End_Time:'2019-11-17'
         }],
 
         tableData2: [{
@@ -203,10 +227,10 @@
       };
     },
      methods: {
-      // handleEdit(index, row) {
-      //   console.log(index, row);
-      //   this.$router.push("/supplierCTdistribution")
-      // },
+      handleEdit(index, row) {
+        console.log(index, row);
+        this.$router.push("/supplierCTdistribution")
+      },
       handleDelete(index, row) {
         console.log(index, row);
       },
