@@ -62,11 +62,13 @@ export default new Router({
           name:'mainStaskShow',
           component:mainStaskShow,
         },
+        //主任务详情及查看所属子任务部分信息
         {
           path:'/substaskDetail',
           name:'substaskDetail',
           component:substaskDetail,
         },
+        //查看主任务所属子任务的全部信息
         {
           path:'/mainStaskDetail',
           name:'mainStaskDetail',
@@ -77,21 +79,25 @@ export default new Router({
           name:'test',
           component:test,
         },
+        //企业信息详情
         {
           path:'/companyDetail',
           name:'companyDetail',
           component:companyDetail
         },
+        //查看所有供应商的信息
         {
           path:'/supplyBussess',
           name:'supplyBussess',
           component:supplyBussess
         },
+        //单个供应商的详细信息
         {
           path:'/supplyDetail',
           name:'supplyDetail',
           component:supplyDetail
         },
+        //供应商信息审核（将供应商添加到所属供应商名录中）
         {
           path:'/review',
           name:'review',
