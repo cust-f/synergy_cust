@@ -21,16 +21,16 @@
 </el-page-header>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 
-            <el-form ref="form" :model="form" label-width="110px">
+            <el-form ref="form" :model="mainStask" label-width="110px">
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="子项目ID">
-                        <el-input v-model="form.id" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.id" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="子项目名称">
-                        <el-input v-model="form.name" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.name" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -38,12 +38,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="子项目类型" >
-                        <el-input v-model="form.type" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.type" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="子项目结束时间">
-                        <el-input v-model="form.endtime" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.endtime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -51,12 +51,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="设计人员">
-                        <el-input v-model="form.leader" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.leader" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="子项目细节">
-                        <el-input v-model="form.detail" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.detail" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -64,12 +64,12 @@
              <el-row >
                 <el-col :span="11">
                     <el-form-item label="设计任务状态">
-                        <el-input v-model="form.designState" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.designState" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="评价状态">
-                        <el-input v-model="form.remakeState" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.remakeState" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -77,12 +77,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="完成状态">
-                        <el-input v-model="form.completionState" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.completionState" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="项目截至日期">
-                        <el-input v-model="form.deadLine" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.deadLine" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -90,12 +90,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="主任务名称">
-                        <el-input v-model="form.mainTaskName" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.mainTaskName" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="任务类别">
-                        <el-input v-model="form.mainTaskType" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.mainTaskType" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -103,12 +103,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="开始时间">
-                        <el-input v-model="form.beginTime" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.beginTime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="投标截止时间">
-                        <el-input v-model="form.endTime" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.endTime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -121,7 +121,7 @@
         <div align="right">   
               <!-- <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button> -->
             <el-button type="primary" class="button1">下载设计文档</el-button>
-                        <el-button type="primary" class="button1">下载合同</el-button>
+            <el-button type="primary" class="button1">下载合同</el-button>
         </div>
 
          <el-divider></el-divider>
@@ -297,7 +297,7 @@
       return {
         dialogVisible: false,
 
-        form: {
+        mainStask: {
           id:'000101',
           name: '小汽车零件的装配',
           type: '零件装配制造',
@@ -311,9 +311,7 @@
           mainTaskName:'汽车装配制造',
           mainTaskType:'大型交通工具制造',
           beginTime:'2019-10-15',
-          endTime:'2019-12-18'
-
-          
+          endTime:'2019-12-18'          
         },
                 query: {
         pageIndex: 1,
