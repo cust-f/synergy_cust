@@ -183,6 +183,7 @@ export default {
       id: -1
     };
   },
+  
   created() {
     this.getData();
   },

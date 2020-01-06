@@ -12,6 +12,8 @@ import test from '@/views/admin/test'
 import companyDetail from '@/views/company/companyDetail'
 import supplyBussess from '@/views/company/supplyBussess'
 import supplyDetail from '@/views/company/supplyDetail'
+import review from '@/views/admin/review'
+
 
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
@@ -86,6 +88,11 @@ export default new Router({
           path:'/supplyDetail',
           name:'supplyDetail',
           component:supplyDetail
+        },
+        {
+          path:'/review',
+          name:'review',
+          component:review
         },
         {
           path:'/newStaff',

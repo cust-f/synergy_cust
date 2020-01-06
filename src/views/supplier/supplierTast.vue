@@ -4,9 +4,9 @@
     <el-aside width="15%"></el-aside>
     <el-main>
       <div class="supplierTask">
-        <el-page-header @back="goBack" content="任务列表">
-</el-page-header>
-        <h3></h3>
+        <!-- <el-page-header @back="goBack" content="任务列表"> -->
+<!-- </el-page-header> -->
+        <h3>任务列表</h3>
         </div>
 
 
@@ -237,9 +237,9 @@
       handleDetail(index,row) {
         this.$router.push("/supplierChildtast")
       },
-      goBack() {
-        this.$router.push('/#');
-      }
+      // goBack() {
+      //   this.$router.push('/#');
+      // }
     }
 
   }

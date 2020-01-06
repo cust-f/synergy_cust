@@ -96,7 +96,7 @@
       <div class="backGround_0">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-        <span>中标公告</span>
+        <span>已完成的需求任务</span>
         <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
       </div>
       <div v-for="o in tenderTrendsList" :key="o" class="text item">
@@ -107,7 +107,7 @@
       <div class="backGround_1">
         <el-card class="box-card">
         <div slot="header" class="clearfix">
-        <span>招标公告</span>
+        <span>需求任务</span>
         <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
       </div>
       <div v-for="o in 4" :key="o" class="text item">
@@ -147,9 +147,9 @@ export default {
       ],
       // 图片地址数组
             img_list:[
-              "/static/image/illust_71187447_20181111_232431.png",
-              "/static/image/illust_71492221_20181111_232951.png",
-              "/static/image/illust_71588619_20181111_233227.jpg",
+               "../static/image/timg.jpg",
+              "../static/image/timg(1).jpg",
+              "../static/image/e824b899a9014c0823e2daf9007b02087af4f495",
             ],
 
     };
@@ -175,7 +175,7 @@ export default {
 {
   height:calc(100vh - 160px);
   width: 100%;
-  background-color: black;
+  
   
 }
 .backGround_0
@@ -183,21 +183,21 @@ export default {
   float: left;
   height:calc(55vh - 160px);
   width: 33.3%;
-  background-color: aqua;
+  
 }
 .backGround_1
 {
   float: left;
 height:calc(55vh - 160px);
   width: 33.3%;
-  background-color: aquamarine;
+  
 }
 .backGround_2
 {
   float: left;
 height:calc(55vh - 160px);
   width: 33.3%;
-  background-color: bisque;
+  
 }
 /*el轮播图定义*/
 .el-carousel__item h3 {
