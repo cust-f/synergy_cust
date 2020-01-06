@@ -1,37 +1,216 @@
 
 <template>
      <div class="BG">
-<el-row>
-  <el-col :span="20" push="2" pull="2"><div class="grid-content"><el-carousel  indicator-position="none" interval="3000" type="card" height="400px">
-          <el-carousel-item v-for="item in img_list" :key="item">
+<el-row gutter="8">
+    <el-col :span="3" push="3"><div class="grid-content0">
+
+        <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="需求热门行业">
+          <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+    </el-tabs>
+
+      </div></el-col>
+    <el-col :span="11" push="3" ><div>
+      <el-carousel interval="3000"  height="500px">
+      <el-carousel-item v-for="item in img_list" :key="item">
             <img :src="item" alt="" >
           </el-carousel-item>
-      </el-carousel></div></el-col>
+    </el-carousel>
+      
+      </div></el-col>
+    <el-col :span="6" push="3" ><div class=" grid-content0">
+      <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="本月核心企业top10">
+        <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="本月供应商top10">
+        <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="本月成交金额任务top10">
+        <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="更多信息">
+        <div v-for="o in rmList" :key="o" class="text item">
+            {{ o }}
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+      </div></el-col>
 </el-row>
+
+<el-divider></el-divider>
+
 <el-row>
-  <el-col :span="22" push="2">
-    <div class="grid-content bg-purple">
-    <el-tabs v-model="activeName0" @tab-click="handleClick0" stretch="true" tab-position="left">
-    <el-tab-pane label="需求任务" name="first">需求任务
-
-
-    </el-tab-pane>
-    <el-tab-pane label="已完成需求任务" name="second">已完成需求任务
-
-
-    </el-tab-pane>
-    </el-tabs>
+  <el-col :span="20" push="3" >
+    <div class="grid-content bg-purple" style="text-align: center;    background-color:lightcoral;">
+    <span>需求任务</span>
     </div></el-col>
 </el-row>
 
-<el-row gutter="2">
+<el-row gutter="10">
+  <el-col :span="10" push="3" >
+    <div class="grid-content bg-purple">
+
+    <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="建筑施工">
+          <div v-for="o in jzList" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="公路工程">
+          <div v-for="o in glList" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+    </el-tabs>
+
+
+
+    </div></el-col>
+
+    <el-col :span="10" push="3" >
+    <div class="grid-content bg-purple">
+    
+    <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="铁路工程">
+          <div v-for="o in tlList" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="电力工程">
+          <div v-for="o in dlList" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+    </el-tabs>
+
+
+
+    </div></el-col>
+</el-row>
+
+<el-divider></el-divider>
+
+<el-row gutter="10">
+  <el-col :span="10" push="3" >
+   <div class="grid-content bg-purple" style="text-align: center;  background-color:lightcoral;">
+    <span>拟需求任务</span>
+   </div>
+  </el-col>
+  <el-col :span="10" push="3" >
+   <div class="grid-content bg-purple" style="text-align: center ;   background-color:lightcoral;;">
+    <span>已完成需求任务</span>
+   </div>
+  </el-col>
+</el-row>
+
+<el-row gutter="10">
+  <el-col :span="10" push="3" >
+    <div class="grid-content bg-purple">
+    
+       <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="建筑施工">
+          <div v-for="o in jzList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="公路工程">
+          <div v-for="o in glList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="铁路工程">
+          <div v-for="o in tlList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="电力工程">
+          <div v-for="o in dlList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+       </el-tabs>
+
+
+    </div></el-col>
+
+    <el-col :span="10" push="3" >
+    <div class="grid-content bg-purple">
+       <el-tabs tab-position="top" stretch="true" style="height: inherit;">
+        <el-tab-pane label="建筑施工">
+          <div v-for="o in jzList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="公路工程">
+          <div v-for="o in glList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="铁路工程">
+          <div v-for="o in tlList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="电力工程">
+          <div v-for="o in dlList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-tab-pane>
+       </el-tabs>
+
+
+
+    </div></el-col>
+</el-row>
+
+<el-divider></el-divider>
+
+
+<el-row gutter="8">
   
   <el-col :span="6" push="3" >
     <div class="grid-content bg-purple-light">
 
       <el-card class="box-card">
 
-  <div slot="header" class="clearfix">
+  <div slot="header" class="clearfix" style="text-align: center;">
+    <span>任务流通情况</span>
+  </div>
+
+  
+  <div v-for="o in ltList0" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        
+
+
+
+</el-card>
+
+      </div>
+  </el-col>
+
+
+
+
+
+
+  <el-col :span="6" push="3" >
+    <div class="grid-content bg-purple-light">
+
+      <el-card class="box-card">
+
+  <div slot="header" class="clearfix" style="text-align: center;">
     <span>核心企业</span>
   </div>
 
@@ -49,10 +228,6 @@
         <el-tag type="success">有活力</el-tag>
         <el-tag type="info">成功</el-tag>
 
-
-
-
-
     </div></el-col>
   <el-col :span="12">
     <div class="grid-content bg-purple-light">
@@ -103,45 +278,6 @@
         <el-tag>稳定</el-tag>
         <el-tag type="success">有活力</el-tag>
         <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-   
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
 
 
 
@@ -158,7 +294,7 @@
 
       <el-card class="box-card">
 
-  <div slot="header" class="clearfix">
+  <div slot="header" class="clearfix" style="text-align: center;">
     <span>供应商</span>
   </div>
 
@@ -247,37 +383,7 @@
     </div>
   </el-col>
 </el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
 
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-    </div>
-  </el-col>
-</el-row>
 
 
 </el-card>
@@ -309,6 +415,120 @@ export default {
               "src/assets/images/home/illust_71492221_20181111_232951.png",
               "src/assets/images/home/illust_71588619_20181111_233227.jpg",
             ],
+      
+      rmList: [
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+       "建筑施工",
+      ],
+
+      jzList: [
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告", 
+      ],
+      glList: [
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+      ],
+      tlList: [
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告", 
+      ],
+      dlList: [
+       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+        "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+         "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+          "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+           "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+            "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+             "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+        ],
+
+      jzList0: [
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       "[贵州]镇宁实验学校监控及铃声设备采购及安装项目开标时间延期招标公告",
+       
+      ],
+      glList0: [
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       "[湖南]蓝山县2019年度公路安全生命防护工程招标公告",
+       
+      ],
+      tlList0: [
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+       "[安徽]中铁隧道局昌景黄铁路安徽段三标钢管螺栓预埋件招标公告",
+      
+      ],
+      dlList0: [
+       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+       "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+        "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+         "[内蒙古]呼伦贝尔山金矿业有限公司生物质锅炉采购招标公告",
+        ],
+        ltList0: [
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+       "xxxx需求任务采购情况",
+        ],
+
+
+
 
     };
   },
@@ -349,18 +569,24 @@ export default {
     border-radius: 4px;
   }
   .bg-purple-dark {
-    background: #99a9bf;
+    background: #ffffff;
   }
   .bg-purple {
-    background: #d3dce6;
+    background: #ecebeb;
   }
   .bg-purple-light {
-    background: #e5e9f2;
+    background: #f7f7f7;
+   
   }
   .grid-content {
     border-radius: 4px;
     min-height: 36px;
      padding: 3px;
+  }
+  .grid-content0
+  {
+    height: 500px;
+    background-color: antiquewhite;
   }
   .row-bg {
     padding: 10px 0;
@@ -403,6 +629,7 @@ export default {
   {
     width: 100%;
     height: 120px;
+    
   }
   .businesscardAvatar
   {
