@@ -47,6 +47,7 @@
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="主任务名称"></el-table-column>
         <el-table-column prop="subname" label="子任务名称"></el-table-column>
+        <el-table-column prop="company" label="供应商名称"></el-table-column>
         
         <el-table-column prop="state" label="任务状态"></el-table-column>
         <el-table-column prop="remarkstate" label="评价状态"></el-table-column>
@@ -63,19 +64,12 @@
               icon="el-icon-edit"
               @click="handleEdit(scope.$index, scope.row)"
             >编辑</el-button> -->
-            <el-button
-              type="text"
-              icon="el-icon-delete"
-              class="red"
-              @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
+            
           <el-button @click="remarkDetail" type="text" size="small">评价</el-button>
+          <el-button @click="Detail" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
-        <el-table-column  label="是否选中" width="180" align="center">
-  <el-radio v-model="radio" label="1">是</el-radio>
-  <el-radio v-model="radio" label="2">否</el-radio>            
-        </el-table-column>
+  
       </el-table>
       <div class="pagination">
         <el-pagination
@@ -165,6 +159,7 @@ export default {
           remarkstate: "未评价",
           state: "待完成",
           subname: "子任务名",
+          company: "xx公司",
           
           
         },
@@ -174,6 +169,7 @@ export default {
           remarkstate: "未评价",
           state: "待完成",
           subname: "子任务名",
+          company: "xx公司",
         },
         {
           id: 1,
@@ -181,6 +177,7 @@ export default {
           remarkstate: "未评价",
           state: "待完成",
           subname: "子任务名",
+          company: "xx公司",
           
 
         },
@@ -190,6 +187,7 @@ export default {
           remarkstate: "未评价",
           state: "待完成",
           subname: "子任务名",
+          company: "xx公司",
         },
          {
           id: 1,
@@ -197,6 +195,7 @@ export default {
           remarkstate: "未评价",
           state: "待完成",
           subname: "子任务名",
+          company: "xx公司",
         },
         {
           id: 1,
@@ -204,6 +203,7 @@ export default {
           remarkstate: "未评价",
           state: "待完成",
           subname: "子任务名",
+          company: "xx公司",
         },
         {
           id: 1,
@@ -211,6 +211,7 @@ export default {
           remarkstate: "未评价",
           state: "待完成",
           subname: "子任务名",
+          company: "xx公司",
 
         }
       ],
@@ -271,6 +272,8 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
+
+
     delAllSelection() {
       let length = this.multipleSelection.length;
       let str = "";
@@ -311,6 +314,9 @@ export default {
       */
      remarkDetail(){
          this.$router.push('/designTaskEvaluationDetils')
+     },
+     Detail(){
+         this.$router.push('/designCirculationTaskDetail')
      }
   }
 };

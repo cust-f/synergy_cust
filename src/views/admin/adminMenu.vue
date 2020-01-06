@@ -51,9 +51,7 @@ export default {
               menuName: "查看所有主任务",
               code: "mainStaskShow",
               icon: "#hhtxbaogao"
-            },
-            
-             
+            },   
           ]
         },
         {
@@ -84,11 +82,10 @@ export default {
           ]
         },
         {
-          menuName: "模块五",
+          menuName: "人员分配",
           children: [
-            { menuName: "功能十", code: " ", icon: "#hhtxhaoping" },
-            { menuName: "功能十一", code: " ", icon: "#hhtxtuandui" },
-            { menuName: "功能十二", code: " ", icon: "#hhtxyouxiang" }
+            { menuName: "设计人员", code: "desinger", icon: "#hhtxhaoping" },
+            { menuName: "流通人员", code: "circulation", icon: "#hhtxtuandui" },
           ]
         }
       ]

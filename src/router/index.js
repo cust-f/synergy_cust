@@ -13,8 +13,9 @@ import companyDetail from '@/views/company/companyDetail'
 import supplyBussess from '@/views/company/supplyBussess'
 import supplyDetail from '@/views/company/supplyDetail'
 import review from '@/views/admin/review'
-import designTask from '@/views/admin/designTask'
 
+import designTask from '@/views/admin/designTask'
+import designTaskDetail from '@/views/admin/designTaskDetail'
 import designTaskEvaluation from '@/views/projectManagement/designTaskEvaluation'
 import designTaskEvaluationDetils from '@/views/projectManagement/designTaskEvaluationDetils'
 import staffingTenderManagement from '@/views/projectManagement/staffingTenderManagement'
@@ -24,6 +25,9 @@ import basetable from '@/Layout/components/common/BaseTable'
 import supplierTast from '@/views/supplier/supplierTast' 
 import supplierChildtast from '@/views/supplier/supplierChildtast' 
 import supplierCTdistribution from '@/views/supplier/supplierCTdistribution' 
+
+import circulation from '@/views/personnel allotment/circulation'
+import desinger from '@/views/personnel allotment/desinger'
 
 Vue.use(Router)
 
@@ -59,11 +63,13 @@ export default new Router({
           name:'mainStaskShow',
           component:mainStaskShow,
         },
+        //主任务详情及查看所属子任务部分信息
         {
           path:'/substaskDetail',
           name:'substaskDetail',
           component:substaskDetail,
         },
+        //查看主任务所属子任务的全部信息
         {
           path:'/mainStaskDetail',
           name:'mainStaskDetail',
@@ -74,21 +80,25 @@ export default new Router({
           name:'test',
           component:test,
         },
+        //企业信息详情
         {
           path:'/companyDetail',
           name:'companyDetail',
           component:companyDetail
         },
+        //查看所有供应商的信息
         {
           path:'/supplyBussess',
           name:'supplyBussess',
           component:supplyBussess
         },
+        //单个供应商的详细信息
         {
           path:'/supplyDetail',
           name:'supplyDetail',
           component:supplyDetail
         },
+        //供应商信息审核（将供应商添加到所属供应商名录中）
         {
           path:'/review',
           name:'review',
@@ -142,18 +152,19 @@ export default new Router({
           component:supplierCTdistribution,
         
         },
-        //核心企业设计任务列表
+        //核心企业设计流通任务列表
         {
-          path:'/designTask',
-          name:'designTask',
-          component:designTask
+          path:'/designCirculationTask',
+          name:'designCirculationTask',
+          component:designCirculationTask
         },
-        //核心企业流通任务列表
+        //核心企业设计流通任务详情列表
         {
-          path:'/circulationTask',
-          name:'circulationTask',
-          component:circulationTask
+          path:'/designCirculationTaskDetail',
+          name:'designCirculationTaskDetail',
+          component:designCirculationTaskDetail
         },
+        
 
       ]
     },
