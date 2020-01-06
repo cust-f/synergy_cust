@@ -9,14 +9,14 @@
 !-->
 <template>
   <el-menu
-    :default-active="activeIndex"
+    :default-active="router"
     mode="horizontal"
     @select="handleSelect"
     class="nav"
     text-color="#fff"
     active-text-color="#ffd04b"
   >
-    <el-menu-item index="1">首页</el-menu-item>
+    <el-menu-item index="home">首页</el-menu-item>
     <el-submenu index="2">
       <template slot="title">招标预告</template>
       <el-menu-item index="2-1">选项1</el-menu-item>

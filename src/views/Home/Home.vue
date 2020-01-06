@@ -8,7 +8,7 @@
  * @version: V1.0.5 
 !-->
 <template>
-  <div>
+ 
 <!--
     <el-row class="tender">
       <el-col :span="8" :offset="1" class="tender-notice">
@@ -82,52 +82,31 @@
       <el-col :span="7" class="companies"></el-col>
     </el-row>
     !-->
-    
-    <div class="backGround">
-
-
-      <el-carousel  indicator-position="none" interval="3000" type="card" height="calc(45vh)" width="50%">
+     <div class="BG">
+<el-row>
+  <el-col :span="20" push="2" pull="2"><div class="grid-content"><el-carousel  indicator-position="none" interval="3000" type="card" height="400px">
           <el-carousel-item v-for="item in img_list" :key="item">
             <img :src="item" alt="" >
           </el-carousel-item>
-      </el-carousel>
+      </el-carousel></div></el-col>
+</el-row>
+<el-row gutter="2">
+  <el-col :span="10" push="2"><div class="grid-content bg-purple"></div></el-col>
+  <el-col :span="10" push="2" ><div class="grid-content bg-purple-light"></div></el-col>
+</el-row>
+<el-row gutter="2">
+  <el-col :span="10" push="2"><div class="grid-content bg-purple"></div></el-col>
+  <el-col :span="10" push="2" ><div class="grid-content bg-purple-light"></div></el-col>
+</el-row>
+<el-row gutter="2">
+  <el-col :span="6" push="3"><div class="grid-content bg-purple"></div></el-col>
+  <el-col :span="6" push="3" ><div class="grid-content bg-purple-light"></div></el-col>
+  <el-col :span="6" push="3"><div class="grid-content bg-purple"></div></el-col>
+</el-row>
 
 
-      <div class="backGround_0">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-        <span>已完成的需求任务</span>
-        <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
-      </div>
-      <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{ o }}
-      </div>
-      </el-card>
-      </div>
-      <div class="backGround_1">
-        <el-card class="box-card">
-        <div slot="header" class="clearfix">
-        <span>需求任务</span>
-        <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
-      </div>
-      <div v-for="o in 4" :key="o" class="text item">
-        {{'列表内容 ' + o }}
-      </div>
-        </el-card>
-      </div>
-      <div class="backGround_2">
-        <el-card class="box-card">
-        <div slot="header" class="clearfix">
-        <span>核心企业与供应商</span>
-        <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
-      </div>
-      <div v-for="o in 4" :key="o" class="text item">
-        {{'列表内容 ' + o }}
-      </div>
-      </el-card>
-      </div>
+     
 
-    </div>
 
   </div>
 </template>
@@ -147,9 +126,9 @@ export default {
       ],
       // 图片地址数组
             img_list:[
-               "../static/image/timg.jpg",
-              "../static/image/timg(1).jpg",
-              "../static/image/e824b899a9014c0823e2daf9007b02087af4f495",
+               "../assets/images/home/illust_71187447_20181111_232431.png",
+              "src/assets/images/home/illust_71492221_20181111_232951.png",
+              "src/assets/images/home/illust_71588619_20181111_233227.jpg",
             ],
 
     };
@@ -170,35 +149,40 @@ export default {
 </script>
 
 <style scoped>
-/*背景块的大小定义*/
-.backGround
-{
-  height:calc(100vh - 160px);
+.el-row {
+    margin-bottom: 20px;
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+     padding: 3px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+
+.BG {
+  box-sizing: border-box;
   width: 100%;
-  
-  
+  margin-bottom: 5px;
+  padding: 0 10px; /* 给gutter留padding */
 }
-.backGround_0
-{
-  float: left;
-  height:calc(55vh - 160px);
-  width: 33.3%;
-  
-}
-.backGround_1
-{
-  float: left;
-height:calc(55vh - 160px);
-  width: 33.3%;
-  
-}
-.backGround_2
-{
-  float: left;
-height:calc(55vh - 160px);
-  width: 33.3%;
-  
-}
+
+
+
 /*el轮播图定义*/
 .el-carousel__item h3 {
     color: #475669;
@@ -217,30 +201,10 @@ height:calc(55vh - 160px);
   }
   img{
     /*设置图片宽度和浏览器宽度一致*/
-    width: 100%;
     height: inherit;
   }
 
-  /*卡片样式定义*/
-  .text {
-    font-size: 14px;
-  }
-  .item {
-    margin-bottom: 18px;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-  .box-card {
-    height: inherit;
-    width: 100%;
-  }
+  
 
 
 

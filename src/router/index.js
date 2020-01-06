@@ -152,6 +152,7 @@ export default new Router({
           component:supplierCTdistribution,
         
         },
+<<<<<<< HEAD
         //核心企业设计流通任务列表
         {
           path:'/designCirculationTask',
@@ -166,6 +167,22 @@ export default new Router({
         },
         
 
+=======
+        //流通人员
+        {
+          path:'/circulation',
+          name:'circulation',
+          component:circulation,
+        
+        },
+        //设计人员
+        {
+          path:'/desinger',
+          name:'desinger',
+          component:desinger,
+        
+        }
+>>>>>>> d9ffd058958e544ccefce2afb71883fbad4c4c4a
       ]
     },
     {
