@@ -5,9 +5,9 @@
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
-        <div class="grid-content0 bg-purple-dark">
+        <div class="grid-content0">
           <el-carousel height="300px">
-            <el-carousel-item v-for="item in 4" :key="item">
+            <el-carousel-item v-for="item in img_list" :key="item">
               <img :src="item" alt="" >
             </el-carousel-item>
           </el-carousel>
@@ -44,7 +44,7 @@
 
     <!--第四行   需求任务及已完成需求-->
     <el-row :gutter="gutterCount">
-
+      <!--需求任务-->
       <el-col :span="8" :push="pushCount">
         <div class="grid-content2 ">
           <el-card class="grid-content2 ">
@@ -67,7 +67,7 @@
           
         </div>
       </el-col>
-
+      <!--已完成需求-->
       <el-col :span="8"  :push="pushCount">
         <div class="grid-content2 ">
             <el-card class="grid-content2 ">
@@ -88,7 +88,7 @@
           
         </div>
       </el-col>
-
+      <!--核心企业名单-->
       <el-col :span="4"  :push="pushCount">
         <div class="grid-content2 ">
             <el-card class="grid-content2 ">
@@ -120,9 +120,9 @@
       </el-col>
     </el-row>
 
-    <!--第六行   需求任务及已完成需求-->
+    <!--第六行   流通需求及已完成流通-->
     <el-row :gutter="gutterCount">
-
+      <!--流通需求-->
       <el-col :span="8" :push="pushCount">
         <div class="grid-content bg-purple-dark">
           <el-card class="grid-content2 ">
@@ -144,7 +144,7 @@
           
         </div>
       </el-col>
-
+      <!--已完成流通-->
       <el-col :span="8"  :push="pushCount">
         <div class="grid-content bg-purple-dark">
             <el-card class="grid-content2 ">
@@ -165,12 +165,12 @@
           
         </div>
       </el-col>
-
+      <!--供应商信息-->
       <el-col :span="4"  :push="pushCount">
         <div class="grid-content bg-purple-dark">
           <el-card class="grid-content2 ">
               <div slot="header">
-                <span>需求任务</span>
+                <span>供应商</span>
                   <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
               </div>
 
@@ -203,21 +203,21 @@
     <!--第八行  网站数据统计图表-->
     <el-row :gutter="gutterCount" >
      <el-col :span="6"   :push="pushCount0">
-        <div class="grid-content bg-purple-dark">
+        <div class="grid-content3 bg-purple-dark">
 
           
         </div>
       </el-col>
 
       <el-col :span="6"  :push="pushCount0">
-        <div class="grid-content bg-purple-dark">
+        <div class="grid-content3 bg-purple-dark">
 
           
         </div>
       </el-col>
 
       <el-col :span="6"   :push="pushCount0">
-        <div class="grid-content bg-purple-dark">
+        <div class="grid-content3 bg-purple-dark">
 
           
         </div>
@@ -228,7 +228,7 @@
     <!--第九行  留一行-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
-        <div class="grid-content bg-purple-dark">
+        <div class="grid-content4 bg-purple-dark">
 
           
         </div>
@@ -267,9 +267,7 @@ export default {
       certifiedSupplierCount:526,
       // 图片地址数组
             img_list:[
-               "../assets/images/home/illust_71187447_20181111_232431.png",
-              "../assets/images/home/illust_71492221_20181111_232951.png",
-              "../assets/images/home/illust_71588619_20181111_233227.jpg",
+              "src/assets/images/home/45f6300a9045c22cc1f63f49f20ab78e.jpg",
             ],
       
       //需求任务数组
@@ -347,7 +345,7 @@ export default {
 .grid-content0
 {
   border-radius: 4px;
-  height: 300px;
+  height: 400px;
 }
 /**第二行用css样式 网站访问统计数据块*/
 .grid-content1
@@ -363,6 +361,19 @@ export default {
   border-radius: 4px;
   height: 400px;
 }
+.grid-content3
+{
+  border-radius: 4px;
+  height: 400px;
+}
+.grid-content4
+{
+  border-radius: 4px;
+  height: 100px;
+}
+
+
+
 /**网站统计数据字体样式 */
 .fontStyle0
 {
