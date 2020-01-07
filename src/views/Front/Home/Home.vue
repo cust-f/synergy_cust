@@ -7,8 +7,10 @@
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content0">
           <el-carousel height="400px">
+
             <!--备注，需要向img_list写入图片地址-->
             <el-carousel-item v-for="item in img_list" :key="item">
+              
               <img :src="item" alt="" >
             </el-carousel-item>
           </el-carousel>
@@ -55,9 +57,9 @@
             </div>
 
             <div v-for="p in demandTaskList" :key="p.name" style="padding-bottom: 20px;">
-              <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
+              <div style="float:left; width:15%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:15%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{p.name}}</div>
               <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
             
             </div>
@@ -78,9 +80,9 @@
             </div>
 
             <div v-for="i in completeddemandTaskList" :key="i.name">
-              <div style="float:left; width:10%;">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left; width:10%">{{"["+i.companyName+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{i.name}}</div>
+              <div style="float:left; width:15%;">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:15%">{{"["+i.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
               <div style="float:right;width:20%">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
@@ -130,9 +132,9 @@
             </div>
 
             <div v-for="u in demandforcirculationList" :key="u.name">
-              <div style="float:left; width:10%;">{{"["+u.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left; width:10%">{{"["+u.companyName+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{u.name}}</div>
+              <div style="float:left; width:15%;">{{"["+u.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:15%">{{"["+u.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{u.name}}</div>
               <div style="float:right;width:20%">&nbsp;&nbsp;{{u.sTime}}</div>
             </div>
             
@@ -152,9 +154,9 @@
             </div>
 
             <div v-for="j in completecirculationList" :key="j.name">
-              <div style="float:left; width:10%;">{{"["+j.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left; width:10%">{{"["+j.companyName+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{j.name}}</div>
+              <div style="float:left; width:15%;">{{"["+j.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:15%">{{"["+j.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{j.name}}</div>
               <div style="float:right;width:20%">&nbsp;&nbsp;{{j.sTime}}</div>
             </div>
             
@@ -173,8 +175,8 @@
               </div>
 
               <div v-for="h in supplierlist" :key="h.name">
-                <div style="float:left; width:30%;">{{"["+h.category+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left; width:70%">{{h.companyName}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:40%;">{{"["+h.category+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:60%">{{h.companyName}}&nbsp;</div>
               </div>
             </el-card>
           
@@ -364,12 +366,6 @@ export default {
         {category:"开关",companyName:"北京京伟电器有限公司 "},
         {category:"装饰配件",companyName:"北京中环汽车装饰件有限责任公司"},
         {category:"散热器",companyName:"合肥皖仪科技有限公司"},
-        {category:"加温器",companyName:"河北亚大集团"},
-        {category:"轴承",companyName:"洛阳东升轴承有限公司 "},
-        {category:"转向器",companyName:"信阳银光机械有限责任公司"},
-        {category:"座椅",companyName:"唐山车附件有限公司"},
-        {category:"钢材",companyName:"山西太钢不锈钢公司"},
-        {category:"散热器",companyName:"万安集团有限公司"},
         
       ],
 
