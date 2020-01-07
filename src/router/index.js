@@ -35,6 +35,7 @@ import designTaskq from '@/views/supplier/supplierMarket/designTaskq'
 import accceptCirculationDetailsTask from '@/views/supplier/supplierMarket/accceptCirculationDetailsTask'
 import designResultDesigin from '@/views/supplier/supplierMarket/designResultDesigin'
 import designTaskqDesigin from '@/views/supplier/supplierMarket/designTaskqDesigin'
+import circulationTaskqDesign from '@/views/supplier/supplierMarket/circulationTaskqDesign'
 
 //企业图表统计
 import enterpriseEvaluation from '@/views/data_statistics/enterpriseEvaluation'
@@ -213,9 +214,9 @@ export default new Router({
         
         //供应商接受任务详情
         {
-          path:'/supplierAcceptTask',
-          name:'supplierAcceptTask',
-          component:supplierAcceptTask,
+          path:'/acceptDesignDetailsTask',
+          name:'acceptDesignDetailsTask',
+          component:acceptDesignDetailsTask,
     
         },
         //企业数据统计
@@ -243,6 +244,13 @@ export default new Router({
           path: '/designResultDesigin',
           name: 'designResultDesigin',
           component: designResultDesigin,
+        },
+
+        //供应商流通任务详情
+        {
+          path: '/circulationTaskqDesign',
+          name: 'circulationTaskqDesign',
+          component: circulationTaskqDesign,
         }
       ]
     },

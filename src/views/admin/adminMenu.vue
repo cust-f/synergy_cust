@@ -51,19 +51,39 @@ export default {
               menuName: "查看所有主任务",
               code: "mainStaskShow",
               icon: "#hhtxbaogao"
-            },   
+            },
           ]
         },
         {
           menuName: "任务管理",
           children: [
-    
             {
-              menuName: "供应商任务",
-              code: "supplierTast",
+              menuName: "接受设计任务",
+              code: "acceptDesignTask",
               icon: "#hhtxzhuzhuangtu"
             },
-            
+            {
+              menuName: "接受流通任务",
+              code: "accceptCirculationtask",
+              icon: "#hhtxzhuzhuangtu"
+            },
+            {
+              menuName: "设计任务",
+              code: "designTaskq",
+              icon: "#hhtxzhuzhuangtu"
+            },
+
+            {
+              menuName: "流通任务",
+              code: "circulationTaskq",
+              icon: "#hhtxzhuzhuangtu"
+            },
+
+            {
+              menuName: "设计成果",
+              code: "designResult",
+              icon: "#hhtxzhuzhuangtu"
+            },
           ]
         },
         {
@@ -72,8 +92,8 @@ export default {
             { menuName: "企业信息详情", code: "companyDetail", icon: "#hhtxmubiao" },
             { menuName: "所属供应商详情", code: "supplyBussess", icon: "#hhtxbiaoji" },
             { menuName: "审核", code: "review", icon: "#hhtxwenjianjia" },
-            
-          ]
+          
+          ]                    
         },
         {
           menuName: "人员管理",

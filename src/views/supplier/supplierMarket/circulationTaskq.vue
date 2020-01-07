@@ -47,9 +47,13 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180">
-          <template>
-          <el-button type="text" size="small">查看详情</el-button>
-          </template>
+          <template slot-scope="scope">
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看详情</el-button>
+                </template>
         </el-table-column>
       </el-table>
       <div class="pagination">
@@ -73,7 +77,7 @@
 </template>
 <script>
 export default {
-  name: "circulationtask",
+  name: "circulationTaskq",
   data() {
     return {
         query: {
@@ -159,14 +163,7 @@ export default {
           cirleader:'李四'
         }
       ],
-      addList: {
-        id: null,
-        address: "",
-        name: "",
-        money: null,
-        state: null,
-        date: null
-      },
+
        tenderTrendsList:[
         { column_name: "黄河远上白云间" },
         { column_name: "九曲黄河万里沙" },
@@ -223,10 +220,10 @@ export default {
       this.$message.success(`修改第 ${this.idx + 1} 行成功`);
       this.$set(this.tableData, this.idx, this.form);
     },
-    // 分页导航
+    // 查看详情按钮
     handlePageChange(val) {},
      substaskDetail(){
-         this.$router.push('/substaskDetail')
+         this.$router.push('/circulationTaskqDesign')
      }
   },
       /*

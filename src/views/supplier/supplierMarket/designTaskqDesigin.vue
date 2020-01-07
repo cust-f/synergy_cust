@@ -86,7 +86,7 @@
 
 <script>
 export default {
-  name: "designResultDesigin",
+  name: "designTaskqDesigin",
   data() {
     return {
       dialogTableVisible: false,
