@@ -89,6 +89,7 @@ export default {
      */
     openMenu() {
       this.drawer = !this.drawer;
+      console.log("打开")
     },
     Close() {
       this.drawer = false;
