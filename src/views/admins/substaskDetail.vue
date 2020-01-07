@@ -55,8 +55,8 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="主项目详情">
-                        <el-input v-model="cool.detail" :disabled="true"></el-input>
+                    <el-form-item label="任务状态">
+                        <el-input v-model="cool.taskState" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -67,12 +67,16 @@
                         <el-input v-model="cool.deadline" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
-                    <el-form-item label="任务状态">
-                        <el-input v-model="cool.taskState" :disabled="true"></el-input>
+            </el-row>
+            <el-row >
+                <el-col width="100%">
+                    <el-form-item label="主项目详情">
+                        <el-input type="textarea" :rows="3" style="width:90%" v-model="cool.detail" :disabled="true"></el-input>
                     </el-form-item>
+                    
                 </el-col>
             </el-row>
+
 
 
 

@@ -1,17 +1,8 @@
-<!-- 
- * @description: 人员管理
- * @fileName: newStaff.vue 
- * @author: 刘思源
- * @date: 2020.1.5
- * @后台人员:  
- * @path:  
- * @version: V1.0.5 
-!-->
 <template>
 <div>
     <el-container>
         <el-aside width="15%">
-      <div class="backGround_0">
+            <div class="backGround_0">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span>历史记录</span>
@@ -21,15 +12,14 @@
                 {{ o }}
             </div>  
         </el-card>
-
       </div>
         </el-aside>
-
         <el-main>
-          <h3>人员管理</h3>
-          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-<template>
-  <div>
+            <h3>设计任务</h3>
+             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+              <div>
+
+
     <div class="container">
       <div class="handle-box">
         <el-button
@@ -38,13 +28,12 @@
           class="handle-del mr10"
           @click="delAllSelection"
         >批量删除</el-button>
-
-        <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+         <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+         <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
         <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-
-        <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
-<div font="16px" >
+
       <el-table
         :data="tableData"
         border
@@ -55,30 +44,36 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="用户名"></el-table-column>
-        <el-table-column prop="realname" label="真实姓名"></el-table-column>
-          <el-table-column prop="email" label="部门"></el-table-column>
-        <el-table-column prop="email" label="邮箱"></el-table-column>
-       <el-table-column prop="phone" label="电话"></el-table-column>
+        <el-table-column prop="name" label="主任务名称"></el-table-column>
+        <el-table-column prop="subname" label="子任务名称"></el-table-column>
+        <el-table-column prop="company" label="供应商名称"></el-table-column>
         
+        <el-table-column prop="state" label="任务状态"></el-table-column>
+        <el-table-column prop="remarkstate" label="评价状态"></el-table-column>
+        <el-table-column  label="图纸"  width="180" align="center">
+             <el-button  type="text" size="small">下载</el-button>
+        </el-table-column>
+        
+
 
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
-            <el-button
+            <!-- <el-button
               type="text"
               icon="el-icon-edit"
               @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button>
-            <el-button
-              type="text"
-              icon="el-icon-delete"
-              class="red"
-              @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
+            >编辑</el-button> -->
+            
+          <el-button @click="remarkDetail" type="text" size="small">评价</el-button>
+          <el-button @click="Detail" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
+  <el-table-column  label="是否选择"  width="180" align="center">
+    <el-button type="success" plain>选择</el-button>
+    <el-button type="danger" plain>拒绝</el-button>
+  
+        </el-table-column>
       </el-table>
-</div>
       <div class="pagination">
         <el-pagination
           background
@@ -97,8 +92,8 @@
         <el-form-item label="用户名">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱">
-          <el-input v-model="form.email"></el-input>
+        <el-form-item label="地址">
+          <el-input v-model="form.address"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -108,112 +103,130 @@
     </el-dialog>
 
     <!-- 新增弹出框 -->
-    <el-dialog title="新增" :visible.sync="addVisible" width="50%">
+    <!-- <el-dialog title="新增" :visible.sync="addVisible" width="50%">
       <el-form ref="form" :model="addList" label-width="70px">
-        <el-form-item label="用户名">
+        <el-form-item label="企业名称">
           <el-input v-model="addList.name"></el-input>
         </el-form-item>
-        <el-form-item label="真实姓名">
-          <el-input v-model="addList.realname"></el-input>
+        <el-form-item label="任务类型">
+          <el-input v-model="addList.address"></el-input>
         </el-form-item>
-
-        <el-form-item label="角色">
-          <el-select v-model="addList.role" placeholder="请选择角色">
-            <el-option label="管理员" value="管理员"></el-option>
-            <el-option label="设计人员" value="设计人员"></el-option>
-            <el-option label="市场人员" value="市场人员"></el-option>
-            <el-option label="流通人员" value="流通人员"></el-option>
+        <el-form-item label="金额">
+          <el-input v-model="addList.money"></el-input>
+        </el-form-item>
+        <el-form-item label="状态">
+          <el-select v-model="addList.state" placeholder="请选择状态">
+            <el-option label="成功" value="成功"></el-option>
+            <el-option label="失败" value="失败"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="邮箱">
-          <el-input v-model="addList.email"></el-input>
+        <el-form-item label="注册时间">
+          <el-date-picker
+            type="date"
+            placeholder="选择日期"
+            v-model="addList.date"
+            value-format="yyyy-MM-dd"
+            style="width: 100%;"
+          ></el-date-picker>
         </el-form-item>
-        <el-form-item label="电话">
-          <el-input v-model="addList.phone"></el-input>
-        </el-form-item>
-        <el-form-item label="登录密码" prop="password">
-					<el-input v-model="addList.password"></el-input>
-				</el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addVisible = false">取 消</el-button>
         <el-button type="primary" @click="saveAdd">确 定</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
   </div>
-</template>
 
 
-
-
-
-<div class="con">
-  <span class="demonstration"></span>
-  <el-pagination
-    layout="prev, pager, next"
-    :total="50">
-  </el-pagination>
-</div>
         </el-main>
     </el-container>
-     
-
+    
+    
 </div>
       
 </template>
 
 <script>
 export default {
-  name: "newStaff",
+  name: "designTask",
   data() {
     return {
-      query: {
+        query: {
         pageIndex: 1,
         pageSize: 10
-      },
-      tableData: [
+        },
+        tableData: [
         {
           id: 1,
-          realname:"",
-          name: "张三",
-          email:"123456@163.com",
-          role: "管理员",
-          phone: "123456"
+          name: "主任务名",
+          remarkstate: "未评价",
+          state: "待完成",
+          subname: "子任务名",
+          company: "xx公司",
+          
+          
         },
         {
           id: 1,
-          realname:"",
-          name: "张三",
-          email:"123456@163.com",
-          role: "管理员",
-          phone: "123456"
+          name: "主任务名",
+          remarkstate: "未评价",
+          state: "待完成",
+          subname: "子任务名",
+          company: "xx公司",
         },
         {
           id: 1,
-          realname:"",
-          name: "张三",
-          email:"123456@163.com",
-          role: "管理员",
-          phone: "123456"
+          name: "主任务名",
+          remarkstate: "未评价",
+          state: "待完成",
+          subname: "子任务名",
+          company: "xx公司",
+          
+
+        },
+        {
+          id: 1,
+          name: "主任务名",
+          remarkstate: "未评价",
+          state: "待完成",
+          subname: "子任务名",
+          company: "xx公司",
+        },
+         {
+          id: 1,
+          name: "主任务名",
+          remarkstate: "未评价",
+          state: "待完成",
+          subname: "子任务名",
+          company: "xx公司",
+        },
+        {
+          id: 1,
+          name: "主任务名",
+          remarkstate: "未评价",
+          state: "待完成",
+          subname: "子任务名",
+          company: "xx公司",
+        },
+        {
+          id: 1,
+          name: "主任务名",
+          remarkstate: "未评价",
+          state: "待完成",
+          subname: "子任务名",
+          company: "xx公司",
+
         }
       ],
       addList: {
-        id: 1,
-          realname:"",
-          name: "",
-          email:"",
-          role: "",
-          phone: ""
+        id: null,
+        address: "",
+        name: "",
+        money: null,
+        state: null,
+        date: null
       },
-      multipleSelection: [],
-      editVisible: false,
-      addVisible: false,
-      pageTotal: 0,
-      form: {},
-      idx: -1,
-      id: -1,
-        
-                tenderTrendsList:[
+       tenderTrendsList:[
         { column_name: "黄河远上白云间" },
         { column_name: "九曲黄河万里沙" },
         { column_name: "君不见黄河之水天上来"},
@@ -223,25 +236,21 @@ export default {
         { column_name :"萧萧远树疏林外，一半秋山带夕阳。"},
         { column_name: "黄河西来决昆仑，咆哮万里触龙门。"}
          ],
-         addForm:{
-             realname:'',
-             loginname:"",
-             password:"",
-             realName:"",
-             email:"",
-             mobile:"",
-             role:''
-             },
-        value: ''
- 
+      multipleSelection: [],
+      editVisible: false,
+      addVisible: false,
+      pageTotal: 0,
+      form: {},
+      idx: -1,
+      id: -1,
+      radio: '1'
     };
   },
    created() {
     this.getData();
   },
   methods:{
-     // 获取 easy-mock 的模拟数据
-    getData() {
+       getData() {
       //   this.tableData = res.list;
       //   this.pageTotal = tableData.length;
     },
@@ -266,6 +275,8 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
+
+
     delAllSelection() {
       let length = this.multipleSelection.length;
       let str = "";
@@ -301,28 +312,25 @@ export default {
     },
     // 分页导航
     handlePageChange(val) {},
-      
       /*
       *转跳对应任务信息页面
       */
-    
-     addstaff:function()
-     {
-         this.addFormVisible=true;
-
+     remarkDetail(){
+         this.$router.push('/designTaskEvaluationDetils')
      },
-     open() {
+     Detail(){
+         this.$router.push('/designCirculationTaskDetail')
+     },
+     open2() {
         this.$message({
-          showClose: true,
-          message: '提交成功',
+          message: '恭喜你，这是一条成功消息',
           type: 'success'
         });
       },
   }
 };
 </script>
-
-<style scoped>
+<style>
 .con{
     width:500px;
     height: 1000px;
@@ -330,33 +338,6 @@ export default {
     text-align: center
 }
 
-.handle-box {
-  margin-bottom: 20px;
-}
-
-.handle-select {
-  width: 120px;
-}
-
-.handle-input {
-  width: 300px;
-  display: inline-block;
-}
-.table {
-  width: 100%;
-  font-size: 14px;
-}
-.red {
-  color: #ff0000;
-}
-.mr10 {
-  margin-right: 10px;
-}
-.table-td-thumb {
-  display: block;
-  margin: auto;
-  width: 40px;
-  height: 40px;
-}
 </style>
+
 

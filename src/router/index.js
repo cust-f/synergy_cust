@@ -149,7 +149,7 @@ export default new Router({
           name: 'staffingTenderManagement',
           component: staffingTenderManagement
         },
-        //供应商任务
+        //核心企业设计任务列表
         {
           path: '/admin/supplierTast',
           name: 'supplierTast',
@@ -158,7 +158,8 @@ export default new Router({
             requireAuth: true    // 添加该字段，表示进入这个路由是需要登录的
           }
         },
-        //供应商子任务详情
+
+        //核心企业流通任务详情列表
         {
           path: '/admin/supplierChildtast',
           name: 'supplierChildtast',
@@ -172,6 +173,8 @@ export default new Router({
           component: supplierCTdistribution,
 
         },
+
+
         //流通人员
         {
           path: '/admin/circulation',
@@ -186,7 +189,7 @@ export default new Router({
           component: desinger,
 
         },
-        //供应商接受任务
+        //供应商接受设计任务
         {
           path: '/admin/supplierAccept',
           name: 'supplierAccept',
@@ -194,6 +197,20 @@ export default new Router({
 
         },
 
+        //供应商流通任务
+        {
+          path: '/circulationTaskq',
+          name: 'circulationTaskq',
+          component: circulationTaskq,
+        },
+
+        //供应商设计成果
+        {
+          path: '/designResult',
+          name: 'designResult',
+          component: designResult,
+        },
+        
         //供应商接受任务详情
         {
           path: '/admin/supplierAcceptTask',
