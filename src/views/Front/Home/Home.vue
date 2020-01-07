@@ -6,7 +6,8 @@
     <el-row :gutter="gutterCount">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content0">
-          <el-carousel height="300px">
+          <el-carousel height="400px">
+            <!--备注，需要向img_list写入图片地址-->
             <el-carousel-item v-for="item in img_list" :key="item">
               <img :src="item" alt="" >
             </el-carousel-item>
@@ -53,7 +54,7 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="p in demandTaskList" :key="p" style="padding-bottom: 20px;">
+            <div v-for="p in demandTaskList" :key="p.name" style="padding-bottom: 20px;">
               <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
@@ -76,7 +77,7 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="i in completeddemandTaskList" :key="i">
+            <div v-for="i in completeddemandTaskList" :key="i.name">
               <div style="float:left; width:10%;">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left; width:10%">{{"["+i.companyName+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{i.name}}</div>
@@ -87,38 +88,6 @@
         </el-card>
           
         </div>
-<<<<<<< HEAD:src/views/Front/Home/Home.vue
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content bg-purple-light">
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type=" info">成功</el-tag>
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content bg-purple">
-  
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-=======
       </el-col>
       <!--核心企业名单-->
       <el-col :span="4"  :push="pushCount">
@@ -129,13 +98,10 @@
                   <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
               </div>
 
-              <div v-for="l in corebusinessList" :key="l">
-                <div style="float:left; width:10%;">{{"["+l.category+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left; width:10%">{{"["+l.companyName+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{l.name}}</div>
-                <div style="float:right;width:20%">&nbsp;&nbsp;{{l.sTime}}</div>
+              <div v-for="l in corebusinessList" :key="l.name">
+                <div style="float:left; width:30%;">{{"["+l.category+"]"}}&nbsp;</div>
+                <div style="float:left; width:70%">{{l.companyName}}&nbsp;&nbsp;</div>
               </div>
-              <el-divider></el-divider>
             </el-card>
           
         </div>
@@ -148,7 +114,6 @@
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
             <a>流通</a>
->>>>>>> 6cafd3fe9cf6155adc7d2d827cef75a37573f5f5:src/views/Home/Home.vue
         </div>
       </el-col>
     </el-row>
@@ -164,13 +129,13 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="u in demandforcirculationList" :key="u">
+            <div v-for="u in demandforcirculationList" :key="u.name">
               <div style="float:left; width:10%;">{{"["+u.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left; width:10%">{{"["+u.companyName+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{u.name}}</div>
               <div style="float:right;width:20%">&nbsp;&nbsp;{{u.sTime}}</div>
             </div>
-            <el-divider></el-divider>
+            
 
 
         </el-card>
@@ -186,13 +151,13 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="j in completecirculationList" :key="j">
+            <div v-for="j in completecirculationList" :key="j.name">
               <div style="float:left; width:10%;">{{"["+j.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left; width:10%">{{"["+j.companyName+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{j.name}}</div>
               <div style="float:right;width:20%">&nbsp;&nbsp;{{j.sTime}}</div>
             </div>
-            <el-divider></el-divider>
+            
 
         </el-card>
           
@@ -207,13 +172,10 @@
                   <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
               </div>
 
-              <div v-for="h in supplierlist" :key="h">
-                <div style="float:left; width:10%;">{{"["+h.category+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left; width:10%">{{"["+h.companyName+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{h.name}}</div>
-                <div style="float:right;width:20%">&nbsp;&nbsp;{{h.sTime}}</div>
+              <div v-for="h in supplierlist" :key="h.name">
+                <div style="float:left; width:30%;">{{"["+h.category+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:70%">{{h.companyName}}&nbsp;&nbsp;</div>
               </div>
-              <el-divider></el-divider>
             </el-card>
           
         </div>
@@ -300,27 +262,26 @@ export default {
       certifiedSupplierCount:526,
       // 图片地址数组
             img_list:[
-              "src/assets/images/home/45f6300a9045c22cc1f63f49f20ab78e.jpg",
+              '../../assets/images/home/45f6300a9045c22cc1f63f49f20ab78e.jpg',
             ],
       
       //需求任务数组
       demandTaskList:
       [
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"1",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"3",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"4",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"5",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"6",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"7",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"8",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"9",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"10",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"11",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"12",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"13",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        
       ],
       completeddemandTaskList:
       [
@@ -337,8 +298,7 @@ export default {
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        
       ],
       //核心企业
       corebusinessList:
@@ -356,8 +316,7 @@ export default {
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        
       ],
       //流通需求
       demandforcirculationList:
@@ -375,8 +334,7 @@ export default {
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        
       ],
       //完成流通
       completecirculationList:
@@ -394,8 +352,7 @@ export default {
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        
       ],
       //供应商
       supplierlist:
@@ -413,8 +370,7 @@ export default {
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        
       ],
 
     };
@@ -429,26 +385,22 @@ export default {
 };
 
 
-
-
 </script>
 
-
-
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 
 
-
-<style scoped>
+<style>
 /**中间的div块   给gutter留padding*/
 .BG {
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
   padding: 0 20px;
+  font-size: 18px;
 }
 
 /**第一行用css样式*/
