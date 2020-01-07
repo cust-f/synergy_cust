@@ -119,10 +119,10 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/acceptDesignTask");
+      this.$router.push("/circulationTaskq");
     },
     goBackagain() {
-      this.$router.push("/acceptDesignTask");
+      this.$router.push("/circulationTaskq");
       this.dialogVisible = false;
     },
     success() {

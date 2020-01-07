@@ -38,7 +38,7 @@ import designTaskqDesigin from '@/views/supplier/supplierMarket/designTaskqDesig
 import circulationTaskqDesign from '@/views/supplier/supplierMarket/circulationTaskqDesign'
 import circulationTaskfinish from '@/views/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/supplier/supplierMarket/circulationTaskfinishDesign'
-
+import circulationTaskEvaluationDetils from '@/views/supplier/supplierMarket/circulationTaskEvaluationDetils'
 
 //企业图表统计
 import enterpriseEvaluation from '@/views/data_statistics/enterpriseEvaluation'
@@ -268,7 +268,15 @@ export default new Router({
           path: '/circulationTaskqDesign',
           name: 'circulationTaskqDesign',
           component: circulationTaskqDesign,
+        },
+
+        //供应商流通任务评价
+        {
+          path: '/circulationTaskEvaluationDetils',
+          name: 'circulationTaskEvaluationDetils',
+          component: circulationTaskEvaluationDetils,
         }
+
       ]
     },
     {

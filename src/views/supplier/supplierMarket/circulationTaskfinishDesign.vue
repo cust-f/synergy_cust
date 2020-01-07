@@ -82,6 +82,9 @@
         </el-form>
 
         <div align="right">
+           <el-button type="primary" class="button1" >下载图纸</el-button>
+            <el-button type="primary" class="button1" @click="EvaluationDetils()">查看评价</el-button>
+             <el-button type="primary" class="button1" >下载技术文档</el-button>
           <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
         </div>
         <el-divider></el-divider>
@@ -92,7 +95,7 @@
 
 <script>
 export default {
-  name: "designTaskqDesigin",
+  name: "circulationTaskfinishDesign",
   data() {
     return {
       dialogTableVisible: false,
@@ -125,16 +128,18 @@ export default {
     };
   },
   methods: {
+    //返回
     goBack() {
-      this.$router.push("/designTaskq");
+      this.$router.push("/circulationTaskfinish");
     },
-    success() {
-      this.dialogTableVisible = false;
-      this.dialogVisible = true;
-    }
+    //跳转评价界面
+    EvaluationDetils () {
+      this.$router.push("/circulationTaskEvaluationDetils");
+    },
+    
+    
   }
 };
 </script>
-
 <style>
 </style>

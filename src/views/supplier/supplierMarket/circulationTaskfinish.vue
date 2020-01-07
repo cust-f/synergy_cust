@@ -46,10 +46,8 @@
                     type="text"
                     size="small"
                   >查看详情</el-button>
-                </template>
-                <template slot-scope="scope">
                   <el-button
-                    @click="substaskDetail(scope.$index, scope.row)"
+                    @click="Evaluate()"
                     type="text"
                     size="small"
                   >评价</el-button>
@@ -180,46 +178,15 @@ export default {
     this.getData();
   },
   methods:{
-          // 获取 easy-mock 的模拟数据
-    getData() {
-      //   this.tableData = res.list;
-      //   this.pageTotal = tableData.length;
-    },
-    // 触发搜索按钮
-    handleSearch() {
-      this.$set(this.query, "pageIndex", 1);
-      this.getData();
-    },
-    //新增操作
-    addData() {
-      this.addVisible = true;
-    },
-    //保存新增
-    saveAdd() {
-      this.tableData.push(this.addList);
-      console.log(this.addList);
-      this.addList = {};
-      this.addVisible = false;
-    },
-    // 编辑操作
-    handleEdit(index, row) {
-      this.idx = index;
-      this.form = row;
-      this.editVisible = true;
-    },
-    // 保存编辑
-    saveEdit() {
-      this.editVisible = false;
-      this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-      this.$set(this.tableData, this.idx, this.form);
-    },
+
     // 查看详情按钮
     handlePageChange(val) {},
      substaskDetail(){
-         this.$router.push('/circulationTaskqDesign')
+         this.$router.push('/circulationTaskfinishDesign')
      },
+     //评价按钮
       Evaluate (){
-         this.$router.push('/circulationTaskqDesign')
+         this.$router.push('/circulationTaskEvaluationDetils')
      }
 
   },
