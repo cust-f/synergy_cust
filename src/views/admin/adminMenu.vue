@@ -78,7 +78,7 @@ export default {
         {
           menuName: "人员管理",
           children: [
-            { menuName: "人员管理", code: "newStaff ", icon: "#hhtxhaoping" },
+            { menuName: "人员管理", code: "newStaff", icon: "#hhtxhaoping" },
           ]
         },
         {
@@ -86,6 +86,13 @@ export default {
           children: [
             { menuName: "设计人员", code: "desinger", icon: "#hhtxhaoping" },
             { menuName: "流通人员", code: "circulation", icon: "#hhtxtuandui" },
+          ]
+        },
+        {
+          menuName: "核心企业任务管理",
+          children: [
+            { menuName: "流通任务", code: "circulationTask", icon: "#hhtxhaoping" },
+            { menuName: "设计任务", code: "designTask", icon: "#hhtxhaoping" },
           ]
         }
       ]
