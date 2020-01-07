@@ -48,7 +48,7 @@
 
         <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
-
+<div font="16px" >
       <el-table
         :data="tableData"
         border
@@ -82,6 +82,7 @@
           </template>
         </el-table-column>
       </el-table>
+</div>
       <div class="pagination">
         <el-pagination
           background
