@@ -1,9 +1,8 @@
 <template>
 <div>
   <el-container>
-    <el-aside width="200px">Aside</el-aside>
+    <el-aside width="100px">Aside</el-aside>
      <el-container>
-       <el-aside>aside</el-aside>
          <el-main>
            <el-container>
               <el-main>
@@ -13,21 +12,16 @@
                 <div id="quarterlySituation" style="width: 600px;height:400px;"></div>
                 <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>  
                 <div id="totalSupplyAndDemandTop5" style="width: 600px;height:400px;"></div>
-
+                <div id="typeSituation" style="width: 700px;height:400px;"></div>
                 </el-main>
                 <el-footer>
                   footer
                 </el-footer>
               </el-container>
-
             </el-main>
         </el-container>
-
     </el-container>
-
-
 </div>
-
 </template>
 
 
@@ -44,13 +38,12 @@ export default {
     this.getCharts3();
     this.getCharts4();
     this.getCharts5();
+    this.getCharts6();
   },
   methods: {
     getCharts() {
       // 基于准备好的dom，初始化echarts实例
-
-           // 基于准备好的dom，初始化echarts实例
-           var myChart = echarts.init(document.getElementById('fulfillDemandTop5'))
+      var myChart = echarts.init(document.getElementById('fulfillDemandTop5'))
       var option = {
         title: {
           text: "供应商完成的需求量Top5",
@@ -95,8 +88,6 @@ export default {
 
       myChart.setOption(option);
     },
-
-
 
     getCharts2(){
       // 基于准备好的dom，初始化echarts实例
@@ -146,20 +137,14 @@ export default {
         ]
     }]
 };
-
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
     },
 
-
-
     getCharts3(){
-
-             var myChart = echarts.init(document.getElementById('quarterlySituation'));
-
-        // 指定图表的配置项和数据
-
- var option = {
+    var myChart = echarts.init(document.getElementById('quarterlySituation'));
+    // 指定图表的配置项和数据
+    var option = {
     tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -203,16 +188,12 @@ export default {
         }
     ]
 };
-
     myChart.setOption(option);
     },
-
-
 
     getCharts4(){
       // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('releaseDemandTop5'));
-
     // 指定图表的配置项和数据
     var option = {
     title: {
@@ -256,17 +237,11 @@ export default {
     ]
 };
        myChart.setOption(option);
-
     },
-
-
-
 
       getCharts5() {
       // 基于准备好的dom，初始化echarts实例
-
-           // 基于准备好的dom，初始化echarts实例
-           var myChart = echarts.init(document.getElementById('totalSupplyAndDemandTop5'))
+      var myChart = echarts.init(document.getElementById('totalSupplyAndDemandTop5'))
       var option = {
         title: {
           text: "企业当年供需总量Top5",
@@ -312,11 +287,101 @@ export default {
       myChart.setOption(option);
     },
 
+    getCharts6() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('typeSituation'))
+      var option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    legend: {
+        orient: 'vertical',
+        left: 10,
+        data: ['汽车零部件', '建筑材料', '电子器件', '钢筋', '混凝土','水泥', '电容器', '电感', '铜导线', '其他']
+    },
+    series: [
+        {
+            name: '占比来源',
+            type: 'pie',
+            selectedMode: 'single',
+            radius: [0, '30%'],
 
-
-
-
- 
+            label: {
+                position: 'inner'
+            },
+            labelLine: {
+                show: false
+            },
+            data: [
+                {value: 335, name: '汽车零部件', selected: true},
+                {value: 679, name: '建筑材料'},
+                {value: 1548, name: '电子器件'}
+                //{value: 1122, name: '农副产品'}
+            ]
+        },
+        {
+            name: '占比来源',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            label: {
+                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                backgroundColor: '#eee',
+                borderColor: '#aaa',
+                borderWidth: 1,
+                borderRadius: 4,
+                // shadowBlur:3,
+                // shadowOffsetX: 2,
+                // shadowOffsetY: 2,
+                // shadowColor: '#999',
+                // padding: [0, 7],
+                rich: {
+                    a: {
+                        color: '#999',
+                        lineHeight: 22,
+                        align: 'center'
+                    },
+                    // abg: {
+                    //     backgroundColor: '#333',
+                    //     width: '100%',
+                    //     align: 'right',
+                    //     height: 22,
+                    //     borderRadius: [4, 4, 0, 0]
+                    // },
+                    hr: {
+                        borderColor: '#aaa',
+                        width: '100%',
+                        borderWidth: 0.5,
+                        height: 0
+                    },
+                    b: {
+                        fontSize: 16,
+                        lineHeight: 33
+                    },
+                    per: {
+                        color: '#eee',
+                        backgroundColor: '#334455',
+                        padding: [2, 4],
+                        borderRadius: 2
+                    }
+                }
+            },
+            data: [
+                {value: 335, name: '汽车零部件'},
+                {value: 310, name: '钢筋'},
+                {value: 234, name: '混凝土'},
+                {value: 135, name: '水泥'},
+                {value: 1048, name: '电容器'},
+                {value: 251, name: '电感'},
+                {value: 147, name: '铜导线'},
+                {value: 102, name: '其他'}
+            ]
+        }
+    ]
+};
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    },
   }
 };
 </script>
@@ -339,7 +404,7 @@ export default {
   .el-main {
     background-color: #E9EEF3;
     color: #333;
-    text-align: center;
+    text-align:left;
     line-height: 160px;
     
   }
