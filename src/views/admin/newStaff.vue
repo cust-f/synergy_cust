@@ -101,7 +101,7 @@
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input v-model="form.e-mail"></el-input>
+          <el-input v-model="form.email"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

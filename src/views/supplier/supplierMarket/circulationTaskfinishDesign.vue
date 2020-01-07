@@ -36,7 +36,6 @@
                 <el-input v-model="form.type" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
-
             <el-col :span="11">
               <el-form-item label="任务截止时间">
                 <el-input v-model="form.endtime" :disabled="true"></el-input>
@@ -45,28 +44,25 @@
           </el-row>
 
           <el-row>
-
             <el-col :span="11">
               <el-form-item label="负责人员">
                 <el-input v-model="form.leader" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
-
             <el-col :span="11">
               <el-form-item label="负责人电话">
                 <el-input v-model="form.leaderTel" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
-
             <el-col :span="11">
               <el-form-item label="发布任务企业">
                 <el-input v-model="form.company" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
 
-<el-col :span="11">
-              <el-form-item label="需要数目">
-                <el-input v-model="form.number" :disabled="true"></el-input>
+            <el-col :span="11">
+              <el-form-item label="设计人员">
+                <el-input v-model="form.designer" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
 
@@ -75,14 +71,19 @@
                 <el-input v-model="form.detail" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+
+             <el-col :span="11">
+              <el-form-item label="供货数量">
+                <el-input v-model="form.number" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row :gutter="80"></el-row>
+        </el-form>
 
-         <div align="right">
+        <div align="right">
           <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
         </div>
-
-        </el-form>    
         <el-divider></el-divider>
       </el-main>
     </el-container>
@@ -91,7 +92,7 @@
 
 <script>
 export default {
-  name: "circulationTaskqDesign",
+  name: "designTaskqDesigin",
   data() {
     return {
       dialogTableVisible: false,
@@ -106,7 +107,8 @@ export default {
           "人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。",
         leader: "陈平安",
         company: "一汽大众",
-        number:"4万",
+        designer: "金像元",
+        number:"550000",
         leaderTel: "18088675187"
       },
       formLabelWidth: "120px",
@@ -124,13 +126,8 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/circulationTaskq");
+      this.$router.push("/designTaskq");
     },
-    goBackagain() {
-      this.$router.push("/acceptDesignTask");
-      this.dialogVisible = false;
-    },
-
     success() {
       this.dialogTableVisible = false;
       this.dialogVisible = true;
