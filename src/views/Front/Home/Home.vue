@@ -7,6 +7,7 @@
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content0">
           <el-carousel height="400px">
+            <!--备注，需要向img_list写入图片地址-->
             <el-carousel-item v-for="item in img_list" :key="item">
               <img :src="item" alt="" >
             </el-carousel-item>
