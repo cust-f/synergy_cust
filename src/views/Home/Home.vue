@@ -1,555 +1,396 @@
 
 <template>
-     <div class="BG">
-<el-row gutter="8">
-    <el-col :span="3" push="3"><div class="grid-content0">
+  <div class="BG">
 
-        <el-tabs tab-position="top" stretch="true" style="height: inherit;">
-        <el-tab-pane label="需求热门行业">
-          <div v-for="o in rmList" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-    </el-tabs>
-
-      </div></el-col>
-    <el-col :span="11" push="3" ><div>
-      <el-carousel interval="3000"  height="500px">
-      <el-carousel-item v-for="item in img_list" :key="item">
-            <img :src="item" alt="" >
-          </el-carousel-item>
-    </el-carousel>
-      
-      </div></el-col>
-    <el-col :span="6" push="3" ><div class=" grid-content0">
-      <el-tabs tab-position="top" stretch="true" style="height: inherit;">
-        <el-tab-pane label="本月核心企业top10">
-        <div v-for="o in rmList" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="本月供应商top10">
-        <div v-for="o in rmList" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="本月成交金额任务top10">
-        <div v-for="o in rmList" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="更多信息">
-        <div v-for="o in rmList" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-      </div></el-col>
-</el-row>
-
-<el-divider></el-divider>
-
-<el-row>
-  <el-col :span="20" push="3" >
-    <div class="grid-content bg-purple" style="text-align: center;  color: #f7f7f7;  background-color:lightcoral;">
-    <span>需求任务</span>
-    </div></el-col>
-</el-row>
-
-<el-row gutter="25">
-  <el-col :span="10" push="3" >
-    <div class="grid-content bg-purple">
-
-    <el-tabs tab-position="top" stretch="true" style="height: inherit;">
-        <el-tab-pane label="建筑施工">
-          <div v-for="o in jzList" :key="o" class="text item">
-            {{o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="公路工程">
-          <div v-for="o in glList" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-    </el-tabs>
+    <!--第一行  保留，不一定用-->
+    <el-row :gutter="gutterCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
+        <div class="grid-content0">
+          <el-carousel height="300px">
+            <el-carousel-item v-for="item in img_list" :key="item">
+              <img :src="item" alt="" >
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </el-col>
+    </el-row>
+    <!--第二行  网站访问统计数据-->
+    <el-row :gutter="gutterCount" >
+      <el-col :span="20"  :push="pushCount" :pull="pullCount">
+        <div class="grid-content1  fontStyle0">
+        <span>本月成交任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;项</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span>需求任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{demandTaskCount}}</font>&nbsp;&nbsp;项</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span>流通任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{circulationTaskCount}}</font>&nbsp;&nbsp;项</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span>认证企业:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedEnterpriseCount}}</font>&nbsp;&nbsp;家</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span>认证供应商:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedSupplierCount}}</font>&nbsp;&nbsp;家</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+      </el-col>
+    </el-row>
 
 
+     <!--第三行  分割线-->
+    <el-row :gutter="gutterCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
+        <div class="big_bt">
+            <a>需求</a>
+        </div>
+      </el-col>
+    </el-row>
 
-    </div></el-col>
+    <!--第四行   需求任务及已完成需求-->
+    <el-row :gutter="gutterCount">
+      <!--需求任务-->
+      <el-col :span="8" :push="pushCount">
+        <div class="grid-content2 ">
+          <el-card class="grid-content2 ">
+            <div slot="header">
+              <span>需求任务</span>
+              <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+            </div>
 
-    <el-col :span="10" push="3" >
-    <div class="grid-content bg-purple">
+            <div v-for="p in demandTaskList" :key="p" style="padding-bottom: 20px;">
+              <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
+            
+            </div>
+            
+
+
+        </el-card>
+          
+        </div>
+      </el-col>
+      <!--已完成需求-->
+      <el-col :span="8"  :push="pushCount">
+        <div class="grid-content2 ">
+            <el-card class="grid-content2 ">
+            <div slot="header">
+              <span>已完成需求</span>
+              <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+            </div>
+
+            <div v-for="i in completeddemandTaskList" :key="i">
+              <div style="float:left; width:10%;">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+i.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{i.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{i.sTime}}</div>
+            </div>
+            
+
+        </el-card>
+          
+        </div>
+      </el-col>
+      <!--核心企业名单-->
+      <el-col :span="4"  :push="pushCount">
+        <div class="grid-content2 ">
+            <el-card class="grid-content2 ">
+              <div slot="header">
+                <span>核心企业</span>
+                  <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+              </div>
+
+              <div v-for="l in corebusinessList" :key="l">
+                <div style="float:left; width:10%;">{{"["+l.category+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:10%">{{"["+l.companyName+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{l.name}}</div>
+                <div style="float:right;width:20%">&nbsp;&nbsp;{{l.sTime}}</div>
+              </div>
+              <el-divider></el-divider>
+            </el-card>
+          
+        </div>
+      </el-col>
+
+    </el-row>
+
+    <!--第五行  分割线-->
+    <el-row :gutter="gutterCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
+        <div class="big_bt">
+            <a>流通</a>
+        </div>
+      </el-col>
+    </el-row>
+
+    <!--第六行   流通需求及已完成流通-->
+    <el-row :gutter="gutterCount">
+      <!--流通需求-->
+      <el-col :span="8" :push="pushCount">
+        <div class="grid-content bg-purple-dark">
+          <el-card class="grid-content2 ">
+            <div slot="header">
+              <span>流通需求</span>
+              <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+            </div>
+
+            <div v-for="u in demandforcirculationList" :key="u">
+              <div style="float:left; width:10%;">{{"["+u.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+u.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{u.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{u.sTime}}</div>
+            </div>
+            <el-divider></el-divider>
+
+
+        </el-card>
+          
+        </div>
+      </el-col>
+      <!--已完成流通-->
+      <el-col :span="8"  :push="pushCount">
+        <div class="grid-content bg-purple-dark">
+            <el-card class="grid-content2 ">
+            <div slot="header">
+              <span>已完成流通</span>
+              <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+            </div>
+
+            <div v-for="j in completecirculationList" :key="j">
+              <div style="float:left; width:10%;">{{"["+j.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+j.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{j.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{j.sTime}}</div>
+            </div>
+            <el-divider></el-divider>
+
+        </el-card>
+          
+        </div>
+      </el-col>
+      <!--供应商信息-->
+      <el-col :span="4"  :push="pushCount">
+        <div class="grid-content bg-purple-dark">
+          <el-card class="grid-content2 ">
+              <div slot="header">
+                <span>供应商</span>
+                  <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+              </div>
+
+              <div v-for="h in supplierlist" :key="h">
+                <div style="float:left; width:10%;">{{"["+h.category+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:10%">{{"["+h.companyName+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{h.name}}</div>
+                <div style="float:right;width:20%">&nbsp;&nbsp;{{h.sTime}}</div>
+              </div>
+              <el-divider></el-divider>
+            </el-card>
+          
+        </div>
+      </el-col>
+
+    </el-row>
+
+
+    <!--第七行  分割线-->
+    <el-row :gutter="gutterCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
+        <div class="big_bt">
+            <a>网站数据</a>
+        </div>
+      </el-col>
+    </el-row>
+
+
+
+    <!--第八行  网站数据统计图表-->
+    <el-row :gutter="gutterCount" >
+     <el-col :span="6"   :push="pushCount0">
+        <div class="grid-content3 bg-purple-dark">
+
+          
+        </div>
+      </el-col>
+
+      <el-col :span="6"  :push="pushCount0">
+        <div class="grid-content3 bg-purple-dark">
+
+          
+        </div>
+      </el-col>
+
+      <el-col :span="6"   :push="pushCount0">
+        <div class="grid-content3 bg-purple-dark">
+
+          
+        </div>
+      </el-col>
+    </el-row>
+
     
-    <el-tabs tab-position="top" stretch="true" style="height: inherit;">
-        <el-tab-pane label="铁路工程">
-          <div v-for="o in tlList" :key="o" class="text item">
-            {{o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="电力工程">
-          <div v-for="o in dlList" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-    </el-tabs>
+    <!--第九行  留一行-->
+    <el-row :gutter="gutterCount" >
+      <el-col :span="20"  :push="pushCount" :pull="pullCount">
+        <div class="grid-content4 bg-purple-dark">
 
+          
+        </div>
+      </el-col>
+    </el-row>
 
-
-    </div></el-col>
-</el-row>
-
-<el-divider></el-divider>
-
-<el-row gutter="25">
-  <el-col :span="10" push="3" >
-   <div class="grid-content bg-purple" style="text-align: center;  color: #f7f7f7;  background-color:lightcoral;">
-    <span>拟需求任务</span>
-   </div>
-  </el-col>
-  <el-col :span="10" push="3" >
-   <div class="grid-content bg-purple" style="text-align: center ;  color: #f7f7f7;  background-color:lightcoral;;">
-    <span>已完成需求任务</span>
-   </div>
-  </el-col>
-</el-row>
-
-<el-row gutter="25">
-  <el-col :span="10" push="3" >
-    <div class="grid-content bg-purple">
     
-       <el-tabs tab-position="top" stretch="true" style="height: inherit;">
-        <el-tab-pane label="建筑施工">
-          <div v-for="o in jzList0" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="公路工程">
-          <div v-for="o in glList0" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="铁路工程">
-          <div v-for="o in tlList0" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="电力工程">
-          <div v-for="o in dlList0" :key="o" class="text item">
-            {{ o }}
-          </div>
-        </el-tab-pane>
-       </el-tabs>
-
-
-    </div></el-col>
-
-    <el-col :span="10" push="3" >
-    <div class="grid-content bg-purple">
-       <el-tabs tab-position="top" stretch="true" style="height: inherit;">
-        <el-tab-pane label="建筑施工">
-          <div v-for="o in jzList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="公路工程">
-          <div v-for="o in glList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="铁路工程">
-          <div v-for="o in tlList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="电力工程">
-          <div v-for="o in dlList0" :key="o" class="text item">
-            {{'列表内容 ' + o }}
-          </div>
-        </el-tab-pane>
-       </el-tabs>
-
-
-
-    </div></el-col>
-</el-row>
-
-<el-divider></el-divider>
-
-
-<el-row gutter="20">
-  
-  <el-col :span="6" push="3" >
-    <div class="grid-content">
-
-      <el-card class="box-card">
-
-  <div slot="header" class="clearfix" style="text-align: center;">
-    <span>任务流通情况</span>
-  </div>
-
-  
-  <div v-for="o in ltList0" :key="o" class="text item">
-            {{ o }}
-          </div>
-        
-
-
-
-</el-card>
-
-      </div>
-  </el-col>
-
-
-
-
-
-
-  <el-col :span="6" push="4" >
-    <div class="grid-content">
-
-      <el-card class="box-card">
-
-  <div slot="header" class="clearfix" style="text-align: center;">
-    <span>核心企业</span>
-  </div>
-
- <el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content ">
-  
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content">
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content">
-  
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content ">
-   
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-</el-card>
-
-      </div>
-  </el-col>
-  <el-col :span="6" push="5">
-    <div class="grid-content ">
-
-      <el-card class="box-card">
-
-  <div slot="header" class="clearfix" style="text-align: center;">
-    <span>供应商</span>
-  </div>
-
- <el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content">
-  
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content ">
-   
-
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-    </div>
-  </el-col>
-</el-row>
-<el-row gutter="1">
-  <el-col :span="12">
-    <div class="grid-content ">
-  
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-
-
-
-
-    </div></el-col>
-  <el-col :span="12">
-    <div class="grid-content ">
-   
-
-
-<div class="businesscardAvatar">
-      <el-avatar :fit="fit"> user </el-avatar>
-    </div>
-        <div v-for="o in tenderTrendsList" :key="o" class="text item">
-        {{o}}
-        </div>
-        <el-tag>稳定</el-tag>
-        <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
-    </div>
-  </el-col>
-</el-row>
-
-
-
-</el-card>
-
-    </div>
-  </el-col>
-</el-row>
   </div>
 </template>
 
+
+<!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
+<!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
+<!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
+<!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 <script>
 export default {
   name: "Home",
   data() {
     return {
-      activeName0: 'second',
-      activeName1: 'second',
-      activeName2: 'second',
-      activeName3: 'second',
 
+      //第一行图片的URL
+      url0:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
 
-      tenderTrendsList: [
-       "中国农业银行",
-       "艺点意创，中国领先的全景全域创意服务机构，服务超5万家企业"
-      ],
+      //设定el-cow的值
+      gutterCount: 15,
+      pushCount:2,
+      pullCount:2,
+      pushCount0:3,
+
+      //第二行网站统计数据
+      taskCountMonth:233,
+      demandTaskCount:212,
+      circulationTaskCount:666,
+      certifiedEnterpriseCount:231,
+      certifiedSupplierCount:526,
       // 图片地址数组
             img_list:[
-               "../assets/images/home/illust_71187447_20181111_232431.png",
-              "src/assets/images/home/illust_71492221_20181111_232951.png",
-              "src/assets/images/home/illust_71588619_20181111_233227.jpg",
+              "src/assets/images/home/45f6300a9045c22cc1f63f49f20ab78e.jpg",
             ],
       
-      rmList: [
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
+      //需求任务数组
+      demandTaskList:
+      [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
-
-      jzList: [
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
+      completeddemandTaskList:
+      [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
-      glList: [
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
+      //核心企业
+      corebusinessList:
+      [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
-      tlList: [
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
+      //流通需求
+      demandforcirculationList:
+      [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
-      dlList: [
-       "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        ],
-
-      jzList0: [
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       
+      //完成流通
+      completecirculationList:
+       [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
-      glList0: [
-       "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-       
+      //供应商
+      supplierlist:
+      [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
-      tlList0: [
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-      
-      ],
-      dlList0: [
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-        ],
-        ltList0: [
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-        ],
-
-
-
 
     };
   },
   methods:{
-
-      handleClick0(tab, event) {
-        console.log(tab, event);
-      },
-       handleClick1(tab, event) {
-        console.log(tab, event);
-      },
-       handleClick2(tab, event) {
-        console.log(tab, event);
-      },
-       handleClick3(tab, event) {
-        console.log(tab, event);
-      },
-
       /*
       *转跳对应任务信息页面
       */
       recordTabletender(){
-
       }
   }
 };
@@ -559,40 +400,16 @@ export default {
 
 </script>
 
+
+
+<!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
+<!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
+<!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
+<!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
+
+
+
 <style scoped>
-.el-row {
-    margin-bottom: 20px;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #ffffff;
-  }
-  .bg-purple {
-    background: #ffffff;
-  }
-  .bg-purple-light {
-    background: #f7f7f7;
-   
-  }
-  .grid-content {
-    min-height: 36px;
-     padding: 3px;
-     border: 1px  solid rgb(221, 221, 221);
-      line-height:36px; 
-  }
-  .grid-content0
-  {
-    height: 500px;
-    background-color: antiquewhite;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
-
-
 /**中间的div块   给gutter留padding*/
 .BG {
   box-sizing: border-box;
@@ -600,69 +417,124 @@ export default {
   margin-bottom: 5px;
   padding: 0 20px;
 }
-/**card 样式 */
-.text {
-    font-size: 14px;
-  }
 
-  .item {
-    margin-bottom: 18px;
-  }
+/**第一行用css样式*/
+.grid-content0
+{
+  border-radius: 4px;
+  height: 400px;
+}
+/**第二行用css样式 网站访问统计数据块*/
+.grid-content1
+{
+  border-radius: 4px;
+  height: 50px;
+  /**文字显示居中 */
+  text-align: center;
+  line-height: 50px;
+}
+.grid-content2
+{
+  border-radius: 4px;
+  height: 400px;
+}
+.grid-content3
+{
+  border-radius: 4px;
+  height: 400px;
+}
+.grid-content4
+{
+  border-radius: 4px;
+  height: 100px;
+}
 
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
 
-    clear: both;
-  }
 
-  .box-card {
-    width: 100%;
-  }
-  .image {
-    width: 50%;
+/**网站统计数据字体样式 */
+.fontStyle0
+{
+  font-size: 20px;
+  color:rgb(167, 165, 165);
+}
+.fontStyle
+{
+  font-size: 24px;
+  color:orangered;
+}
+
+/**划分页面标识*/
+.big_bt {
+    width: 370px;
+    margin: 0 auto;
+    border-bottom: solid 3px #000;
+    margin-bottom: 40px;
+}
+.big_bt a {
     display: block;
+    font-size: 26px;
+    color: #000;
+    font-family: "微软雅黑";
+    width: 180px;
+    background: #fff;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    top: 18px;
+}
+
+
+/**布局测试用css*/
+.el-row {
+    margin-bottom: 10px;
   }
-  .businesscard
-  {
-    width: 100%;
-    height: 120px;
-    
+  .el-col {
+    border-radius: 4px;
   }
-  .businesscardAvatar
-  {
-    width: 20%;
-    float: right;
+  .bg-purple-dark {
+    background: #99a9bf;
   }
-
-
-
-
-
-
-/*el轮播图定义*/
-.el-carousel__item h3 {
-    color: #475669;
-    font-size: 14px;
-    opacity:0.75;
-    line-height: 200px;
-    margin: 0;
-  }
-  
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
   }
   
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
-  img{
-    /*设置图片宽度和浏览器宽度一致*/
-    height: inherit;
-  }
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
