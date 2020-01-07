@@ -8,7 +8,7 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'
 
 //后台界面
-import admin from '@/Layout/template page/admin'
+import Admin  from '@/Layout/template page/admin'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff'//新增人员
@@ -33,10 +33,20 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 import circulation from '@/views/admin/personnel allotment/circulation'
 import desinger from '@/views/admin/personnel allotment/desinger'
 
-// //供应商市场部门
-// import supplierAccept from '@/views/admin/supplier/supplierMarket/supplierAccept'
-// import supplierAcceptTask from '@/views/admin/supplier/supplierMarket/supplierAcceptTask'
-
+//供应商市场部门
+import acceptDesignTask from '@/views/admin/supplier/supplierMarket/acceptDesignTask'
+import acceptDesignDetailsTask from '@/views/admin/supplier/supplierMarket/acceptDesignDetailsTask'
+import accceptCirculationtask from '@/views/admin/supplier/supplierMarket/accceptCirculationtask'
+import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'
+import designResult from '@/views/admin/supplier/supplierMarket/designResult'
+import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'
+import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
+import designResultDesigin from '@/views/admin/supplier/supplierMarket/designResultDesigin'
+import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'
+import circulationTaskqDesign from '@/views/admin/supplier/supplierMarket/circulationTaskqDesign'
+import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
+import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
+import circulationTaskEvaluate from '@/views/admin/supplier/supplierMarket/circulationTaskEvaluate'
 
 Vue.use(Router)
 
@@ -47,14 +57,14 @@ export default new Router({
       redirect: '/Home'
     },
     {
-      path:'/Front',
-      name:'Front',
-      component:Front,
-      children:[
+      path: '/Front',
+      name: 'Front',
+      component: Front,
+      children: [
         {
-          path:'/home',
-          name:'Home',
-          component:Home
+          path: '/home',
+          name: 'Home',
+          component: Home
         }
       ]
     },
@@ -65,16 +75,16 @@ export default new Router({
       children: [
         //系统首页
         {
-          path:'/admin/dashboard',
-          name:'Dashboard',
-          component:Dashboard,
-          meta:{
-            title:'系统首页'
+          path: '/admin/dashboard',
+          name: 'Dashboard',
+          component: Dashboard,
+          meta: {
+            title: '系统首页'
           }
         },
         //新增任务
         {
-          path: '/admin/Task/newTask',
+          path: '/admin/newTask',
           name: 'newTask',
           component: newTask,
           meta: {
@@ -83,25 +93,25 @@ export default new Router({
         },
         //查看所有主任务
         {
-          path: '/admin/maintask/mainStaskShow',
+          path: '/admin/mainStaskShow',
           name: 'mainStaskShow',
           component: mainStaskShow,
         },
         //主任务详情及查看所属子任务部分信息
         {
-          path: '/admin/maintask/substaskDetail',
+          path: '/admin/substaskDetail',
           name: 'substaskDetail',
           component: substaskDetail,
         },
         //查看主任务所属子任务的全部信息
         {
-          path: '/admin/maintask/mainStaskDetail',
+          path: '/admin/mainStaskDetail',
           name: 'mainStaskDetail',
           component: mainStaskDetail,
         },
         //企业信息详情
         {
-          path: '/admin/company/companyDetail',
+          path: '/admin/companyDetail',
           name: 'companyDetail',
           component: companyDetail
         },
@@ -113,69 +123,64 @@ export default new Router({
         },
         //单个供应商的详细信息
         {
-          path: '/admin/company/supplyDetail',
+          path: '/admin/supplyDetail',
           name: 'supplyDetail',
           component: supplyDetail
         },
         //供应商信息审核（将供应商添加到所属供应商名录中）
         {
-          path: '/admin/check/review',
+          path: '/admin/review',
           name: 'review',
           component: review
         },
         //新增人员
         {
-          path: '/admin/staff/newStaff',
+          path: '/admin/newStaff',
           name: 'newStaff',
           component: newStaff
         },
 
         {
-          path: '/admin/projectManagement/designTaskEvaluation',
+          path: '/admin/designTaskEvaluation',
           name: 'designTaskEvaluation',
           component: designTaskEvaluation
         },
         {
-          path: '/admin/projectManagement/designTaskEvaluationDetils',
+          path: '/admin/designTaskEvaluationDetils',
           name: 'designTaskEvaluationDetils',
           component: designTaskEvaluationDetils
         },
         {
-          path: '/admin/projectManagement/staffingTenderManagement',
+          path: '/admin/staffingTenderManagement',
           name: 'staffingTenderManagement',
           component: staffingTenderManagement
         },
         //核心企业设计任务列表
         {
-          path: '/admin/design/designTask',
+          path: '/admin/designTask',
           name: 'designTask',
           component: designTask,
-        
+
         },
 
         //核心企业流通任务详情列表
         {
-          path: '/admin/circulation/circulationTask',
+          path: '/admin/circulationTask',
           name: 'circulationTask',
           component: circulationTask,
 
         },
-       
-
-
         //流通人员
         {
-          path: '/admin/personnel allotment/circulation',
+          path: '/admin/circulation',
           name: 'circulation',
           component: circulation,
-
         },
         //设计人员
         {
-          path: '/admin/personnel allotment/desinger',
+          path: '/admin/desinger',
           name: 'desinger',
           component: desinger,
-
         },
         //供应商接受设计任务
         // {
@@ -184,21 +189,18 @@ export default new Router({
         //   component: supplierAccept,
 
         // },
-
         //供应商流通任务
         {
-          path: '/admin/supplier/supplierMarket/circulationTaskq',
+          path: '/admin/supplier/circulationTaskq',
           name: 'circulationTaskq',
           component: circulationTaskq,
         },
-
         //供应商设计成果
         {
-          path: '/admin/supplier/supplierMarket/designResult',
+          path: '/admin/supplier/designResult',
           name: 'designResult',
           component: designResult,
         },
-        
         //供应商接受任务详情
         // {
         //   path: '/admin/supplier/supplierMarket/supplierAcceptTask',
@@ -207,85 +209,66 @@ export default new Router({
 
         // },
         {
-          path: '/admin/supplier/supplierMarket/accceptCirculationDetailsTask',
+          path: '/admin/accceptCirculationDetailsTask',
           name: 'accceptCirculationDetailsTask',
           component: accceptCirculationDetailsTask,
-
         },
         {
-          path: '/admin/supplier/supplierMarket/accceptCirculationtask',
+          path: '/admin/accceptCirculationtask',
           name: 'accceptCirculationtask',
           component: accceptCirculationtask,
-
         },
         {
-          path: '/admin/supplier/supplierMarket/acceptDesignDetailsTask',
+          path: '/admin/acceptDesignDetailsTask',
           name: 'acceptDesignDetailsTask',
           component: acceptDesignDetailsTask,
-
         },
         {
-          path: '/admin/supplier/supplierMarket/acceptDesignTask',
+          path: '/admin/acceptDesignTask',
           name: 'acceptDesignTask',
           component: acceptDesignTask,
-
         },
         {
-          path: '/admin/supplier/supplierMarket/circulationTaskEvaluate',
+          path: '/admin/circulationTaskEvaluate',
           name: 'circulationTaskEvaluate',
           component: circulationTaskEvaluate,
-
-        }, 
+        },
         {
-          path: '/admin/supplier/supplierMarket/circulationTaskfinish',
+          path: '/admin/circulationTaskfinish',
           name: 'circulationTaskfinish',
           component: circulationTaskfinish,
-
         },
         {
-          path: '/admin/supplier/supplierMarket/circulationTaskfinishDesign',
+          path: '/admin/circulationTaskfinishDesign',
           name: 'circulationTaskfinishDesign',
           component: circulationTaskfinishDesign,
-
         },
         {
-          path: '/admin/supplier/supplierMarket/circulationTaskqDesign',
+          path: '/admin/circulationTaskqDesign',
+          name: 'circulationTaskqDesign',
+          component: circulationTaskqDesign,
+        },
+        {
+          path: '/admin/circulationTaskqDesign',
           name: 'circulationTaskqDesign',
           component: circulationTaskqDesign,
 
         },
         {
-          path: '/admin/supplier/supplierMarket/circulationTaskqDesign',
-          name: 'circulationTaskqDesign',
-          component: circulationTaskqDesign,
-
-        },
-        {
-          path: '/admin/supplier/supplierMarket/designResultDesigin',
+          path: '/admin/designResultDesigin',
           name: 'designResultDesigin',
           component: designResultDesigin,
-
         },
         {
-          path: '/admin/supplier/supplierMarket/designTaskq',
+          path: '/admin/designTaskq',
           name: 'designTaskq',
           component: designTaskq,
-
         },
         {
-          path: '/admin/supplier/supplierMarket/designTaskqDesigin',
+          path: '/admin/designTaskqDesigin',
           name: 'designTaskqDesigin',
           component: designTaskqDesigin,
-
-        },
-        
-
-
-
-
-
-        
-
+        }
       ]
     },
     {

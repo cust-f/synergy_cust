@@ -57,7 +57,7 @@ export default {
             items: [
                 {
                     icon: 'el-icon-office-building',
-                    index: 'dashboard',
+                    index: 'admin/dashboard',
                     title: '系统首页'
                 },
                 {
@@ -65,11 +65,11 @@ export default {
                     index: '2',
                     title: '企业信息管理',
                     subs:[{
-                            index:'companyDetail',
+                            index:'/admin/companyDetail',
                             title:'企业信息详情'
                         },
                         {
-                            index:'supplyBussess',
+                            index:'/admin/supplyBussess',
                             title:'企业名录'
                         }
                         ]
@@ -80,11 +80,11 @@ export default {
                     title: '协同管理',
                     subs: [
                         {
-                            index: 'newTask',
+                            index: '/admin/newTask',
                             title: '新增任务'
                         },
                         {
-                            index: 'mainStaskShow',
+                            index: '/admin/mainStaskShow',
                             title: '查看详情'
                         }
                     ]
@@ -95,11 +95,11 @@ export default {
                     title: '任务管理',
                     subs:[{
                         
-                            index:'designTask',
+                            index:'/admin/designTask',
                             title:'设计任务'
                         },
                         {
-                            index:'circulationTask',
+                            index:'/admin/circulationTask',
                             title:'流通任务'
                         }
                     ]
@@ -115,18 +115,18 @@ export default {
                     title: '人员管理',
                     subs: [
                         {
-                            index: 'newStaff',
+                            index: '/admin/newStaff',
                             title: '新增人员'
                         },
                         {
-                            index: 'dialog',
+                            index: 'admin/dialog',
                             title: '评价管理'
                         }
                     ]
                 },
                 {
                     icon: 'el-icon-edit-outline',
-                    index: '/designTaskEvaluation',
+                    index: 'admin/designTaskEvaluation',
                     title: '设计任务评价'
                 },
                 {

@@ -28,7 +28,7 @@
               width="30%"
               class="input"
             ></el-input>
-            <admin-menu :drawer="drawer" @dialogClose="Close()"></admin-menu>
+            <!-- <admin-menu :drawer="drawer" @dialogClose="Close()"></admin-menu> -->
           </el-col>
           <el-col style="float:right;line-height: 78px;" :span="1">
             <span @click="logIn">{{log?"登出":"登陆"}}</span>
@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import adminMenu from "../../../../views/admins/adminMenu";
+
 
 export default {
   name: "headerSynergy",
-  components: {
-    "admin-menu": adminMenu
-  },
+  // components: {
+  //   "admin-menu": adminMenu
+  // },
   props: {
     bg_color: {
       type: String,
