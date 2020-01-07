@@ -480,7 +480,8 @@ export default {
   methods: {
     getData() {
       //   this.tableData = res.list;
-      //   this.pageTotal = tableData.length;
+      //   this.pageTotal = tableData.length; 
+      
     },
     add(data) {
       console.log("111111");
