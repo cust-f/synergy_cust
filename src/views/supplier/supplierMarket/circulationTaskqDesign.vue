@@ -77,6 +77,11 @@
             </el-col>
           </el-row>
           <el-row :gutter="80"></el-row>
+
+         <div align="right">
+          <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
+        </div>
+
         </el-form>    
         <el-divider></el-divider>
       </el-main>
@@ -119,12 +124,13 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/acceptDesignTask");
+      this.$router.push("/circulationTaskq");
     },
     goBackagain() {
       this.$router.push("/acceptDesignTask");
       this.dialogVisible = false;
     },
+
     success() {
       this.dialogTableVisible = false;
       this.dialogVisible = true;
