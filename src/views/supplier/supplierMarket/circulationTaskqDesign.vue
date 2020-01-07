@@ -36,6 +36,7 @@
                 <el-input v-model="form.type" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+
             <el-col :span="11">
               <el-form-item label="任务截止时间">
                 <el-input v-model="form.endtime" :disabled="true"></el-input>
@@ -44,21 +45,31 @@
           </el-row>
 
           <el-row>
+
             <el-col :span="11">
               <el-form-item label="负责人员">
                 <el-input v-model="form.leader" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+
             <el-col :span="11">
               <el-form-item label="负责人电话">
                 <el-input v-model="form.leaderTel" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+
             <el-col :span="11">
               <el-form-item label="发布任务企业">
                 <el-input v-model="form.company" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+
+<el-col :span="11">
+              <el-form-item label="需要数目">
+                <el-input v-model="form.number" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+
             <el-col :span="11">
               <el-form-item label="任务细节">
                 <el-input v-model="form.detail" :disabled="true"></el-input>
@@ -66,48 +77,7 @@
             </el-col>
           </el-row>
           <el-row :gutter="80"></el-row>
-        </el-form>
-
-        <div align="right">
-          <el-button type="primary" class="button1" @click="dialogTableVisible = true">接受</el-button>
-          <el-button type="primary" class="button1">下载设计文档</el-button>
-          <div align="left">
-            <el-dialog title="分配人员" :visible.sync="dialogTableVisible">
-              <el-form :model="form">
-                <el-form-item label="任务名称" :label-width="formLabelWidth">
-                  <el-input v-model="form.name" autocomplete="off" :disabled="true">this.</el-input>
-                </el-form-item>
-                <el-form-item label="截止日期" :label-width="formLabelWidth">
-                  <el-input v-model="form.endtime" autocomplete="off" :disabled="true">this.</el-input>
-                </el-form-item>
-                <el-form-item label="人员分配" :label-width="formLabelWidth">
-                  <el-select v-model="form.region" placeholder="请选择分配人员">
-                    <el-option label="王小虎" value="wangxiaohu"></el-option>
-                    <el-option label="李丽" value="lili"></el-option>
-                    <el-option label="马杰" value="majie"></el-option>
-                    <el-option label="秦琴" value="qinqin"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-form>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogTableVisible = false">取 消</el-button>
-                <el-button type="primary" @click="success()">确 定</el-button>
-              </div>
-            </el-dialog>
-            <el-dialog
-              title="提示"
-              :visible.sync="dialogVisible"
-              width="30%"
-              :before-close="handleClose"
-            >
-              <span>分配成功</span>
-              <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="goBackagain()">确 定</el-button>
-              </span>
-            </el-dialog>
-
-          </div>
-        </div>
+        </el-form>    
         <el-divider></el-divider>
       </el-main>
     </el-container>
@@ -116,7 +86,7 @@
 
 <script>
 export default {
-  name: "acceptDesignDetailsTask",
+  name: "circulationTaskqDesign",
   data() {
     return {
       dialogTableVisible: false,
@@ -131,6 +101,7 @@ export default {
           "人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。",
         leader: "陈平安",
         company: "一汽大众",
+        number:"4万",
         leaderTel: "18088675187"
       },
       formLabelWidth: "120px",

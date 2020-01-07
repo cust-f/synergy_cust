@@ -28,11 +28,14 @@ import desinger from '@/views/personnel allotment/desinger'
 //供应商市场部门
 import acceptDesignTask from '@/views/supplier/supplierMarket/acceptDesignTask'
 import acceptDesignDetailsTask from '@/views/supplier/supplierMarket/acceptDesignDetailsTask'
-import accept from '@/views/supplier/supplierMarket/accept'
 import accceptCirculationtask from '@/views/supplier/supplierMarket/accceptCirculationtask'
 import circulationTaskq from '@/views/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/supplier/supplierMarket/designResult'
 import designTaskq from '@/views/supplier/supplierMarket/designTaskq'
+import accceptCirculationDetailsTask from '@/views/supplier/supplierMarket/accceptCirculationDetailsTask'
+import designResultDesigin from '@/views/supplier/supplierMarket/designResultDesigin'
+import designTaskqDesigin from '@/views/supplier/supplierMarket/designTaskqDesigin'
+import circulationTaskqDesign from '@/views/supplier/supplierMarket/circulationTaskqDesign'
 
 //企业图表统计
 import enterpriseEvaluation from '@/views/data_statistics/enterpriseEvaluation'
@@ -181,17 +184,18 @@ export default new Router({
 
         },
 
-        //供应商接受任务
-        {
-          path: '/accept',
-          name: 'accept',
-          component: accept,
-        },
         //供应商接受流通任务
         {
           path: '/accceptCirculationtask',
           name: 'accceptCirculationtask',
           component: accceptCirculationtask,
+        },
+
+        //供应商接受流通任务详情
+        {
+          path: '/accceptCirculationDetailsTask',
+          name: 'accceptCirculationDetailsTask',
+          component: accceptCirculationDetailsTask,
         },
 
         //供应商流通任务
@@ -210,9 +214,9 @@ export default new Router({
         
         //供应商接受任务详情
         {
-          path:'/supplierAcceptTask',
-          name:'supplierAcceptTask',
-          component:supplierAcceptTask,
+          path:'/acceptDesignDetailsTask',
+          name:'acceptDesignDetailsTask',
+          component:acceptDesignDetailsTask,
     
         },
         //企业数据统计
@@ -227,6 +231,26 @@ export default new Router({
           path: '/designTaskq',
           name: 'designTaskq',
           component: designTaskq,
+        },
+        //供应商流通任务
+        {
+          path: '/designTaskqDesigin',
+          name: 'designTaskqDesigin',
+          component: designTaskqDesigin,
+        },
+
+         //供应商设计成果
+         {
+          path: '/designResultDesigin',
+          name: 'designResultDesigin',
+          component: designResultDesigin,
+        },
+
+        //供应商流通任务详情
+        {
+          path: '/circulationTaskqDesign',
+          name: 'circulationTaskqDesign',
+          component: circulationTaskqDesign,
         }
       ]
     },
