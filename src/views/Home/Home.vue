@@ -76,11 +76,11 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="p in completeddemandTaskList" :key="p">
-              <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
-              <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
+            <div v-for="i in completeddemandTaskList" :key="i">
+              <div style="float:left; width:10%;">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+i.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{i.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
 
@@ -97,11 +97,11 @@
                   <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
               </div>
 
-              <div v-for="p in demandTaskList" :key="p">
-                <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
-                <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
+              <div v-for="l in demandTaskList" :key="l">
+                <div style="float:left; width:10%;">{{"["+l.category+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:10%">{{"["+l.companyName+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{l.name}}</div>
+                <div style="float:right;width:20%">&nbsp;&nbsp;{{l.sTime}}</div>
               </div>
               <el-divider></el-divider>
             </el-card>
@@ -131,11 +131,11 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="p in demandTaskList" :key="p">
-              <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
-              <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
+            <div v-for="u in demandTaskList" :key="u">
+              <div style="float:left; width:10%;">{{"["+u.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+u.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{u.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{u.sTime}}</div>
             </div>
             <el-divider></el-divider>
 
@@ -153,11 +153,11 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="p in completeddemandTaskList" :key="p">
-              <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
-              <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
+            <div v-for="j in completeddemandTaskList" :key="j">
+              <div style="float:left; width:10%;">{{"["+j.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+j.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{j.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{j.sTime}}</div>
             </div>
             <el-divider></el-divider>
 
@@ -174,11 +174,11 @@
                   <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
               </div>
 
-              <div v-for="p in demandTaskList" :key="p">
-                <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
-                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
-                <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
+              <div v-for="h in demandTaskList" :key="h">
+                <div style="float:left; width:10%;">{{"["+h.category+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:10%">{{"["+h.companyName+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{h.name}}</div>
+                <div style="float:right;width:20%">&nbsp;&nbsp;{{h.sTime}}</div>
               </div>
               <el-divider></el-divider>
             </el-card>
@@ -410,9 +410,6 @@ export default {
 /**布局测试用css*/
 .el-row {
     margin-bottom: 10px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
   .el-col {
     border-radius: 4px;
