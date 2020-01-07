@@ -4,7 +4,7 @@
 
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
-      <el-col :span="18" :push="pushCount" :pull="pullCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content0 bg-purple-dark">
           <el-carousel height="300px">
             <el-carousel-item v-for="item in 4" :key="item">
@@ -16,7 +16,7 @@
     </el-row>
     <!--第二行  网站访问统计数据-->
     <el-row :gutter="gutterCount" >
-      <el-col :span="18"  :push="pushCount" :pull="pullCount">
+      <el-col :span="20"  :push="pushCount" :pull="pullCount">
         <div class="grid-content1  fontStyle0">
         <span>本月成交任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;项</span>
         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,7 +35,7 @@
 
      <!--第三行  分割线-->
     <el-row :gutter="gutterCount">
-      <el-col :span="18" :push="pushCount" :pull="pullCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
             <a>需求</a>
         </div>
@@ -46,14 +46,14 @@
     <el-row :gutter="gutterCount">
 
       <el-col :span="8" :push="pushCount">
-        <div class="grid-content bg-purple-dark">
-          <el-card >
+        <div class="grid-content2 ">
+          <el-card class="grid-content2 ">
             <div slot="header">
               <span>需求任务</span>
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="p in demandTaskList" :key="p" style="padding-bottom: 10px;">
+            <div v-for="p in demandTaskList" :key="p" style="padding-bottom: 20px;">
               <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
@@ -69,8 +69,8 @@
       </el-col>
 
       <el-col :span="8"  :push="pushCount">
-        <div class="grid-content bg-purple-dark">
-            <el-card >
+        <div class="grid-content2 ">
+            <el-card class="grid-content2 ">
             <div slot="header">
               <span>已完成需求</span>
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
@@ -89,9 +89,9 @@
         </div>
       </el-col>
 
-      <el-col :span="2"  :push="pushCount">
-        <div class="grid-content bg-purple-dark">
-            <el-card >
+      <el-col :span="4"  :push="pushCount">
+        <div class="grid-content2 ">
+            <el-card class="grid-content2 ">
               <div slot="header">
                 <span>需求任务</span>
                   <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
@@ -113,7 +113,7 @@
 
     <!--第五行  分割线-->
     <el-row :gutter="gutterCount">
-      <el-col :span="18" :push="pushCount" :pull="pullCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
             <a>流通</a>
         </div>
@@ -125,7 +125,7 @@
 
       <el-col :span="8" :push="pushCount">
         <div class="grid-content bg-purple-dark">
-          <el-card >
+          <el-card class="grid-content2 ">
             <div slot="header">
               <span>流通需求</span>
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
@@ -147,7 +147,7 @@
 
       <el-col :span="8"  :push="pushCount">
         <div class="grid-content bg-purple-dark">
-            <el-card>
+            <el-card class="grid-content2 ">
             <div slot="header">
               <span>已完成流通</span>
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
@@ -166,9 +166,22 @@
         </div>
       </el-col>
 
-      <el-col :span="2"  :push="pushCount">
+      <el-col :span="4"  :push="pushCount">
         <div class="grid-content bg-purple-dark">
+          <el-card class="grid-content2 ">
+              <div slot="header">
+                <span>需求任务</span>
+                  <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+              </div>
 
+              <div v-for="p in demandTaskList" :key="p">
+                <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{p.name}}</div>
+                <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
+              </div>
+              <el-divider></el-divider>
+            </el-card>
           
         </div>
       </el-col>
@@ -178,7 +191,7 @@
 
     <!--第七行  分割线-->
     <el-row :gutter="gutterCount">
-      <el-col :span="18" :push="pushCount" :pull="pullCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
             <a>网站数据</a>
         </div>
@@ -189,21 +202,21 @@
 
     <!--第八行  网站数据统计图表-->
     <el-row :gutter="gutterCount" >
-     <el-col :span="6"   :push="pushCount">
+     <el-col :span="6"   :push="pushCount0">
         <div class="grid-content bg-purple-dark">
 
           
         </div>
       </el-col>
 
-      <el-col :span="6"  :push="pushCount">
+      <el-col :span="6"  :push="pushCount0">
         <div class="grid-content bg-purple-dark">
 
           
         </div>
       </el-col>
 
-      <el-col :span="6"   :push="pushCount">
+      <el-col :span="6"   :push="pushCount0">
         <div class="grid-content bg-purple-dark">
 
           
@@ -214,7 +227,7 @@
     
     <!--第九行  留一行-->
     <el-row :gutter="gutterCount" >
-      <el-col :span="18"  :push="pushCount" :pull="pullCount">
+      <el-col :span="20"  :push="pushCount" :pull="pullCount">
         <div class="grid-content bg-purple-dark">
 
           
@@ -242,8 +255,9 @@ export default {
 
       //设定el-cow的值
       gutterCount: 15,
-      pushCount:3,
-      pullCount:3,
+      pushCount:2,
+      pullCount:2,
+      pushCount0:3,
 
       //第二行网站统计数据
       taskCountMonth:233,
@@ -266,124 +280,35 @@ export default {
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
       completeddemandTaskList:
       [
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
-
-      rmList: [
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-       "建筑施工",
-      ],
-
-      jzList: [
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-      ],
-      glList: [
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-      ],
-      tlList: [
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-      ],
-      dlList: [
-       "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        ],
-
-      jzList0: [
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       "中国第一汽车股份有限公司红旗E115电动汽车项目-移动点焊机",
-       
-      ],
-      glList0: [
-       "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-        "解放UPS及相关设备更新项目货物采购招标公告",
-       
-      ],
-      tlList0: [
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-       "存储交换机端口激活模块采购项目",
-      
-      ],
-      dlList0: [
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-       "MKS1632数控外圆磨尾架维修采购项目公告",
-        ],
-        ltList0: [
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-       "xxxx需求任务采购情况",
-        ],
-
-
-
-
     };
   },
   methods:{
@@ -432,6 +357,11 @@ export default {
   /**文字显示居中 */
   text-align: center;
   line-height: 50px;
+}
+.grid-content2
+{
+  border-radius: 4px;
+  height: 400px;
 }
 /**网站统计数据字体样式 */
 .fontStyle0
