@@ -53,24 +53,36 @@ export default {
             this.$message.success("管理员登录成功");
             this.$store.commit("SET_TOKEN", true);
             this.$store.commit("GET_USER", this.username);
-            console.log(this.$store.state.token)
-            menuList=[
-        {
-          menuName: "协同管理",
-          children: [
-            { menuName: "新增任务", code: "newTask", icon: "#hhtxdrxx04" },
-            {
-              menuName: "查看所有主任务",
-              code: "mainStaskShow",
-              icon: "#hhtxbaogao"
-            },
-            { menuName: "查看所有主任务", code: "mainStaskShow", icon: "#hhtxbaogao" },
-             { menuName: "人员管理", code: "newStaff", icon: "#hhtxbaogao" },
-          ]
-        }
-      ]
-            this.$store.commit("SET_List",menuList);
-            this.$router.push("/home");
+            localStorage.setItem("ms_username", this.param.username);
+            menuList = [
+              {
+                menuName: "协同管理",
+                children: [
+                  {
+                    menuName: "新增任务",
+                    code: "newTask",
+                    icon: "#hhtxdrxx04"
+                  },
+                  {
+                    menuName: "查看所有主任务",
+                    code: "mainStaskShow",
+                    icon: "#hhtxbaogao"
+                  },
+                  {
+                    menuName: "查看所有主任务",
+                    code: "mainStaskShow",
+                    icon: "#hhtxbaogao"
+                  },
+                  {
+                    menuName: "人员管理",
+                    code: "newStaff",
+                    icon: "#hhtxbaogao"
+                  }
+                ]
+              }
+            ];
+            this.$store.commit("SET_List", menuList);
+            this.$router.push("/Dashboard");
           } else if (this.param.username == "supplier") {
             this.$message.success("管理员登录成功");
             this.$store.commit("SET_TOKEN", true);

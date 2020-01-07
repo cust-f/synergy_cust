@@ -21,7 +21,7 @@
           <div style="background-color:rgba(0,0,0,.5);">
             <h3>{{item.menuName}}</h3>
           </div>
-          <el-col :span="4" :offset="2" v-for="child in item.children" :key="child.menuName">
+          <el-col :span="4"  v-for="child in item.children" :key="child.menuName">
             <div @click="redirects(child.menuName,child.code)">
               <div style=" float: left;">
                 <svg class="icon" aria-hidden="true">

@@ -22,7 +22,7 @@
     </el-tab-pane>
     </el-tabs>
     </div></el-col>
-  <el-col :span="10" push="2" >
+  <el-col :span="10" :push="2" >
     <div class="grid-content bg-purple-light">
       <el-tabs v-model="activeName1" @tab-click="handleClick1" stretch="true">
     <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
@@ -206,10 +206,6 @@
         <el-tag type="success">有活力</el-tag>
         <el-tag type="info">成功</el-tag>
 
-
-
-
-
     </div></el-col>
   <el-col :span="12">
     <div class="grid-content bg-purple-light">
@@ -222,10 +218,7 @@
         </div>
         <el-tag>稳定</el-tag>
         <el-tag type="success">有活力</el-tag>
-        <el-tag type="info">成功</el-tag>
-
-
-
+        <el-tag type=" info">成功</el-tag>
     </div>
   </el-col>
 </el-row>
