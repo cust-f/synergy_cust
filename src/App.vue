@@ -11,10 +11,17 @@ export default {
 </script>
 
 <style>
+   @import "./assets/css/main.css";
+  @import "./assets/css/color-dark.css";     /*深色主题*/
 * {
   padding: 0;
   margin: 0;
   border: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
 }
 .icon {
   width: 3em;
