@@ -13,7 +13,7 @@
         </div>
       </el-aside>
       <el-main>
-        <h3>接受设计任务</h3>
+        <h3>设计任务</h3>
         <br />
         <div>
           <div class="container">
@@ -74,7 +74,7 @@
 
 <script>
 export default {
-  name: "acceptDesignTask",
+  name: "designTaskq",
   data() {
     return {
       dialogTableVisible: false,
