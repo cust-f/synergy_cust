@@ -93,11 +93,11 @@
         <div class="grid-content2 ">
             <el-card class="grid-content2 ">
               <div slot="header">
-                <span>需求任务</span>
+                <span>核心企业</span>
                   <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
               </div>
 
-              <div v-for="l in demandTaskList" :key="l">
+              <div v-for="l in corebusinessList" :key="l">
                 <div style="float:left; width:10%;">{{"["+l.category+"]"}}&nbsp;&nbsp;</div>
                 <div style="float:left; width:10%">{{"["+l.companyName+"]"}}&nbsp;&nbsp;</div>
                 <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{l.name}}</div>
@@ -131,7 +131,7 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="u in demandTaskList" :key="u">
+            <div v-for="u in demandforcirculationList" :key="u">
               <div style="float:left; width:10%;">{{"["+u.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left; width:10%">{{"["+u.companyName+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{u.name}}</div>
@@ -153,7 +153,7 @@
               <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
 
-            <div v-for="j in completeddemandTaskList" :key="j">
+            <div v-for="j in completecirculationList" :key="j">
               <div style="float:left; width:10%;">{{"["+j.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left; width:10%">{{"["+j.companyName+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{j.name}}</div>
@@ -174,7 +174,7 @@
                   <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
               </div>
 
-              <div v-for="h in demandTaskList" :key="h">
+              <div v-for="h in supplierlist" :key="h">
                 <div style="float:left; width:10%;">{{"["+h.category+"]"}}&nbsp;&nbsp;</div>
                 <div style="float:left; width:10%">{{"["+h.companyName+"]"}}&nbsp;&nbsp;</div>
                 <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{h.name}}</div>
@@ -307,6 +307,83 @@ export default {
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
       ],
+      //核心企业
+      corebusinessList:
+      [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+      ],
+      //流通需求
+      demandforcirculationList:
+      [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+      ],
+      //完成流通
+      completecirculationList:
+       [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+      ],
+      //供应商
+      supplierlist:
+      [
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"2333",companyName:"6666",name:"6666666666666666666666666666666666666666666666666666666",sTime:"2019-09-06",eTime:"2019-12-31"},
+      ],
+
     };
   },
   methods:{
