@@ -87,6 +87,38 @@
         </el-card>
           
         </div>
+<<<<<<< HEAD:src/views/Front/Home/Home.vue
+        <el-tag>稳定</el-tag>
+        <el-tag type="success">有活力</el-tag>
+        <el-tag type="info">成功</el-tag>
+
+    </div></el-col>
+  <el-col :span="12">
+    <div class="grid-content bg-purple-light">
+
+<div class="businesscardAvatar">
+      <el-avatar :fit="fit"> user </el-avatar>
+    </div>
+        <div v-for="o in tenderTrendsList" :key="o" class="text item">
+        {{o}}
+        </div>
+        <el-tag>稳定</el-tag>
+        <el-tag type="success">有活力</el-tag>
+        <el-tag type=" info">成功</el-tag>
+    </div>
+  </el-col>
+</el-row>
+<el-row gutter="1">
+  <el-col :span="12">
+    <div class="grid-content bg-purple">
+  
+
+<div class="businesscardAvatar">
+      <el-avatar :fit="fit"> user </el-avatar>
+    </div>
+        <div v-for="o in tenderTrendsList" :key="o" class="text item">
+        {{o}}
+=======
       </el-col>
       <!--核心企业名单-->
       <el-col :span="4"  :push="pushCount">
@@ -113,6 +145,7 @@
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
             <a>流通</a>
+>>>>>>> 6cafd3fe9cf6155adc7d2d827cef75a37573f5f5:src/views/Home/Home.vue
         </div>
       </el-col>
     </el-row>
