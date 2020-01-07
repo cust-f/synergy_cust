@@ -204,6 +204,7 @@
     <el-row :gutter="gutterCount" >
      <el-col :span="6"   :push="pushCount0">
         <div class="grid-content bg-purple-dark">
+          <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
 
           
         </div>
