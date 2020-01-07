@@ -26,7 +26,7 @@
                 <div style="padding: 16px;">
                     <div class="center">
                     <div class="bottom clearfix">
-                        <el-button type="text" class="betten">设计任务</el-button>
+                        <el-button type="text" class="betten" @click="design()">设计任务</el-button>
                     </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                 <img src="../../../assets/images/supplieAccept/circulation.png" class="image">
                 <div style="padding: 16px;">
                     <div class="bottom clearfix">
-                        <el-button type="text" class="betten">流通任务</el-button>
+                        <el-button type="text" class="betten" @click="circulation()">流通任务</el-button>
                     </div>
                 </div>
         </el-card>
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  name: "supplierAccept",
+  name: "accept",
   data() {
     return {
         query: {
@@ -113,6 +113,12 @@ export default {
       this.$message.error(`删除了${str}`);
       this.multipleSelection = [];
     },
+    design() {
+        this.$router.push('/acceptDesignTask');
+    },
+circulation(){
+  this.$router.push('/accceptCirculationtask');
+},
     // 分页导航
     handlePageChange(val) {},
      substaskDetail(){
