@@ -8,7 +8,7 @@
                     <!-- 顶栏-->
                     <div class="CSS1">
                         <div class="CSS1Child0">
-                            <span>欢迎访问&nbsp;<font class="fontStyle">高端装备制造领域的科技服务SaaS应用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span>
+                            <span>欢迎访问&nbsp;<font class="fontStyle">高端装备制造领域的科技服务SaaS应用&nbsp;&nbsp;&nbsp;&nbsp;</font></span>
                         </div>
                         <div class="CSS1Child1">
                             <ul class="ulCSS">
