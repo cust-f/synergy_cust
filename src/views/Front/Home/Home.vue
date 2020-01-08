@@ -197,26 +197,31 @@
 
 
     <!--第八行  网站数据统计图表-->
-    <el-row :gutter="gutterCount" >
-     <el-col :span="6"   :push="pushCount0">
-        <div class="grid-content3 bg-purple-dark">
-
-          
-        </div>
-      </el-col>
-
-      <el-col :span="6"  :push="pushCount0">
-        <div class="grid-content3 bg-purple-dark">
-
-          
-        </div>
-      </el-col>
-
-      <el-col :span="6"   :push="pushCount0">
-        <div class="grid-content3 bg-purple-dark">
-
-          
-        </div>
+    <el-row :gutter="gutterCount"d >
+      <el-col :span="16" :class="charts">
+          <el-card span="16" shadow="hover" style="height:482px;margin-top:10px;">
+           <div slot="header" class="clearfix">
+            <span>需求详情</span>
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="分季度完成需求量统计" name="first">
+                <div id="quarterlySituation" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+              <el-tab-pane label="核心企业发布需求量Top5" name="second">
+                <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>    
+              <el-tab-pane label="供应商完成需求量Top5" name="thirth">
+                <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
+              </el-tab-pane>
+              <el-tab-pane label="企业评分雷达" name="forth">
+                <div id="comprehensiveScore" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+              <el-tab-pane label="分类别需求量统计" name="fifth">
+                <div class="type-situation"></div>
+                <div id="typeSituation" style="width: 900px;height:400px;"></div>
+              </el-tab-pane>              
+            </el-tabs>
+          </div>
+         </el-card>
       </el-col>
     </el-row>
 
@@ -544,6 +549,13 @@ border:1px solid #d3d7d4;
     padding:20px;
     font-size: 15px;
     color: #a1a3a6;
+}
+.charts{
+  text-align:"center";
+  align-self: auto;
+  align-content: center;
+  align-items: center;
+  
 }
 /* .tender-header-some ul li{
     margin-bottom: 15px;
