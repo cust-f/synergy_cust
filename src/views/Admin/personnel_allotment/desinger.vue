@@ -1,11 +1,9 @@
-
 <template>
   <el-container>
     <el-aside width="3%"></el-aside>
     <el-main>
       <div class="supplierTask">
-        <el-page-header @back="goBack" content="设计任务"></el-page-header>
-        <h3></h3>
+        <h3>设计任务</h3>
       </div>
       <el-row>
         <el-col :span="12">
@@ -98,7 +96,7 @@
     </el-main>
     <el-aside width="3%"></el-aside>
 
-    <el-dialog title="设计任务详情" :visible.sync="dialogVisible" width="60%" :before-close="handleClose">
+    <el-dialog title="设计任务详情" :visible.sync="dialogVisible" width="60%" >
       <div>
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
@@ -150,7 +148,6 @@
 
 
 
-
 <script>
 export default {
   data() {
@@ -158,6 +155,7 @@ export default {
     return {
       labelPosition: "right",
       formLabelAlign: {},
+      formLabelAlign1:{},
       tableHead: [
         {
           column_name: "Desinger_ID",
@@ -298,5 +296,3 @@ export default {
   }
 };
 </script>
-
-
