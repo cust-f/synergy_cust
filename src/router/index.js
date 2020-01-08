@@ -40,14 +40,13 @@ import acceptDesignDetailsTask from '@/views/admin/supplier/supplierMarket/accep
 import accceptCirculationtask from '@/views/admin/supplier/supplierMarket/accceptCirculationtask'
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/admin/supplier/supplierMarket/designResult'
-import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'
+
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
-import designResultDesigin from '@/views/admin/supplier/supplierMarket/designResultDesigin'
-import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'
-import circulationTaskqDesign from '@/views/admin/supplier/supplierMarket/circulationTaskqDesign'
+
+
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
-import circulationTaskEvaluate from '@/views/admin/supplier/supplierMarket/circulationTaskEvaluate'
+
 
 Vue.use(Router)
 
@@ -142,11 +141,11 @@ export default new Router({
         },
         //供应商信息审核（将供应商添加到所属供应商名录中）
         {
-          path: '/admin/review',
+          path: '/admin/check/review',
           name: 'review',
           component: review,
           meta: {
-            title: "供应商信息审核"
+            title: "供应信息审核"
           }
         },
         //新增人员

@@ -287,6 +287,8 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
+
+    
     handleDetail(index, row) {
       this.$router.push("/admin/personnel_allotment/virtualMachine");
     },
