@@ -19,7 +19,7 @@ export default {
   border: 0;
 }
 html,
-body {
+body{
   width: 100%;
   height: 100%;
 }
