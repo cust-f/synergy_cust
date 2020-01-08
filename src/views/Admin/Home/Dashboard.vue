@@ -25,10 +25,9 @@
             <el-tabs v-model="activeName">
               <el-tab-pane label="需求详情" name="first">
                 已完成
-                <el-progress :percentage="71.3" color="#42b983"></el-progress>待完成
-                <el-progress :percentage="24.1" color="#f1e05a"></el-progress>正在进行中
-                <el-progress :percentage="13.7"></el-progress>HTML
-                <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
+                <el-progress :percentage="71.3" color="#42b983" style="margin-bottom:10px;"></el-progress>待完成
+                <el-progress :percentage="24.1" color="#f1e05a" style="margin-bottom:10px;"></el-progress>正在进行中
+                <el-progress :percentage="13.7" style="margin-bottom:10px;"></el-progress>
               </el-tab-pane>
               <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
             </el-tabs>
@@ -116,7 +115,7 @@
 </template>
 
 <script>
-import Schart from "vue-schart";
+// import Schart from "vue-schart";
 import bus from "../../../Layout/components/common/Admin/bus";
 export default {
   name: "dashboard",
@@ -150,96 +149,13 @@ export default {
           status: true
         }
       ],
-      data: [
-        {
-          name: "2018/09/04",
-          value: 1083
-        },
-        {
-          name: "2018/09/05",
-          value: 941
-        },
-        {
-          name: "2018/09/06",
-          value: 1139
-        },
-        {
-          name: "2018/09/07",
-          value: 816
-        },
-        {
-          name: "2018/09/08",
-          value: 327
-        },
-        {
-          name: "2018/09/09",
-          value: 228
-        },
-        {
-          name: "2018/09/10",
-          value: 1065
-        }
-      ],
-      options: {
-        type: "bar",
-        title: {
-          text: "最近一周各品类销售图"
-        },
-        xRorate: 25,
-        labels: ["周一", "周二", "周三", "周四", "周五"],
-        datasets: [
-          {
-            label: "家电",
-            data: [234, 278, 270, 190, 230]
-          },
-          {
-            label: "百货",
-            data: [164, 178, 190, 135, 160]
-          },
-          {
-            label: "食品",
-            data: [144, 198, 150, 235, 120]
-          }
-        ]
-      },
-      options2: {
-        type: "line",
-        title: {
-          text: "最近几个月各品类销售趋势图"
-        },
-        labels: ["6月", "7月", "8月", "9月", "10月"],
-        datasets: [
-          {
-            label: "家电",
-            data: [234, 278, 270, 190, 230]
-          },
-          {
-            label: "百货",
-            data: [164, 178, 150, 135, 160]
-          },
-          {
-            label: "食品",
-            data: [74, 118, 200, 235, 90]
-          }
-        ]
-      }
     };
-  },
-  components: {
-    Schart
   },
   computed: {
     role() {
       return this.name === "admin" ? "超级管理员" : "普通用户";
     }
   },
-  // created() {
-  //     this.handleListener();
-  //     this.changeDate();
-  // },
-  // activated() {
-  //     this.handleListener();
-  // },
   deactivated() {
       window.removeEventListener('resize', this.renderChart);
       bus.$off('collapse', this.handleBus);
@@ -252,21 +168,7 @@ export default {
         item.name = `${date.getFullYear()}/${date.getMonth() +
           1}/${date.getDate()}`;
       });
-    },
-    // handleListener() {
-    //     bus.$on('collapse', this.handleBus);
-    //     // 调用renderChart方法对图表进行重新渲染
-    //     window.addEventListener('resize', this.renderChart);
-    // },
-    // handleBus(msg) {
-    //     setTimeout(() => {
-    //         this.renderChart();
-    //     }, 200);
-    // },
-    // renderChart() {
-    //     this.$refs.bar.renderChart();
-    //     this.$refs.line.renderChart();
-    // }
+    }
   }
 };
 </script>

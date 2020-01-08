@@ -1,6 +1,5 @@
 <template>
   <el-container>
-    <el-aside width="15%"></el-aside>
     <el-main>
       <div class="newTask">
         <h3>招标信息</h3>

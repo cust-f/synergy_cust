@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">后台管理系统</div>
+        <div class="logo">高端装备制造领域的科技服务SaaS应用构建以及示范</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -135,7 +135,6 @@ export default {
 }
 .header .logo {
     float: left;
-    width: 250px;
     line-height: 70px;
 }
 .header-right {

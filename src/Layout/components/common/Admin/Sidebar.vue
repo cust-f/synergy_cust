@@ -57,7 +57,7 @@ export default {
             items: [
                 {
                     icon: 'el-icon-office-building',
-                    index: 'admin/dashboard',
+                    index: '/admin/dashboard',
                     title: '系统首页'
                 },
                 {
@@ -119,14 +119,14 @@ export default {
                             title: '新增人员'
                         },
                         {
-                            index: 'admin/dialog',
+                            index: '/admin/dialog',
                             title: '评价管理'
                         }
                     ]
                 },
                 {
                     icon: 'el-icon-edit-outline',
-                    index: 'admin/designTaskEvaluation',
+                    index: '/admin/designTaskEvaluation',
                     title: '设计任务评价'
                 },
                 {

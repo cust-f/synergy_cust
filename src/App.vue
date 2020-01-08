@@ -46,4 +46,7 @@ body {
   background: rgba(0, 0, 0, 0.1);
   /* -webkit-box-shadow:inset006pxrgba(0,0,0,0.5); */
 }
+h3{
+  font-size: 24px;
+}
 </style>

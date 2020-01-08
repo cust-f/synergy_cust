@@ -108,36 +108,54 @@ export default new Router({
           path: '/admin/mainStaskDetail',
           name: 'mainStaskDetail',
           component: mainStaskDetail,
+          meta:{
+            title:"查看主任务所属子任务的全部信息"
+          }
         },
         //企业信息详情
         {
           path: '/admin/companyDetail',
           name: 'companyDetail',
-          component: companyDetail
+          component: companyDetail,
+          meta:{
+            title:"企业信息详情"
+          }
         },
         //查看所有供应商的信息
         {
           path: '/admin/company/supplyBussess',
           name: 'supplyBussess',
-          component: supplyBussess
+          component: supplyBussess,
+          meta:{
+            title:"所有供应商的信息"
+          }
         },
         //单个供应商的详细信息
         {
           path: '/admin/supplyDetail',
           name: 'supplyDetail',
-          component: supplyDetail
+          component: supplyDetail,
+          meta:{
+            title:"供应商的详细信息"
+          }
         },
         //供应商信息审核（将供应商添加到所属供应商名录中）
         {
           path: '/admin/review',
           name: 'review',
-          component: review
+          component: review,
+          meta:{
+            title:"供应商信息审核"
+          }
         },
         //新增人员
         {
           path: '/admin/newStaff',
           name: 'newStaff',
-          component: newStaff
+          component: newStaff,
+          meta:{
+            title:"新增人员"
+          }
         },
 
         {
