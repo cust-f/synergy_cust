@@ -40,8 +40,8 @@ import acceptDesignDetailsTask from '@/views/admin/supplier/supplierMarket/accep
 import accceptCirculationtask from '@/views/admin/supplier/supplierMarket/accceptCirculationtask'
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/admin/supplier/supplierMarket/designResult'
-import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'
-import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'
+import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//子设计任务列表
+import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'//子设计任务详情
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
 
 
