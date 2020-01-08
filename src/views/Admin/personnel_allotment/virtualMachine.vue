@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     backtolist() {
-      this.$router.push("/desinger");
+      this.$router.push("/admin/personnel_allotment/desinger");
     },
     dragControllerDiv: function(move) {
       var movebar = document.getElementById("movebar");
@@ -177,6 +177,7 @@ export default {
           }
         };
       };
+      //释放把手
       window.onmouseup = function() {
         var mf = document.getElementById("mf");
         if (mf != null) {

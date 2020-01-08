@@ -52,7 +52,7 @@
                 </template>
                 <el-table-column label="操作" min-width="70px" align="center">
                   <template>
-                    <el-button type="text" size="small">进入工作台</el-button>
+                    <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
                     <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
                     <el-button type="text" size="small">提交任务</el-button>
                   </template>
@@ -289,7 +289,7 @@ export default {
       console.log(index, row);
     },
     handleDetail(index, row) {
-      this.$router.push("/supplierChildtast");
+      this.$router.push("/admin/personnel_allotment/virtualMachine");
     },
     goBack() {
       this.$router.push("/#");
