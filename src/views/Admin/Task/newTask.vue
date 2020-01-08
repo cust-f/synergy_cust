@@ -26,6 +26,7 @@
                 <el-option v-for="head in personnel" :key="head" :label="head" :value="head"></el-option>
               </el-select>
             </el-form-item>
+            <el-cascader label="选择供应商":options="options" ref="a" clearable @change="add"></el-cascader>
           </el-row>
           <el-row>
             <el-form-item label="投标截止日期">
@@ -107,7 +108,7 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
- <el-form ref="form" :model="addList" label-width="120px">
+          <el-form ref="form" :model="addList" label-width="120px">
             <el-form-item label="子任务编号">
               <el-input v-model="form.taskNum"></el-input>
             </el-form-item>
@@ -115,7 +116,7 @@
               <el-input v-model="form.taskName"></el-input>
             </el-form-item>
             <el-form-item label="任务类别">
-                <el-select v-model="form.taskTyp" placeholder="请选择项目类别">
+              <el-select v-model="form.taskTyp" placeholder="请选择项目类别">
                 <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
               </el-select>
               <el-input v-model="form.taskType"></el-input>
@@ -129,9 +130,14 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="核心供应商">
+            <el-form-item label="供应商">
               <el-select v-model="form.supplyCompany" placeholder="请选择供应商">
-                <el-option v-for="company in supplyCompanies" :key="company" :label="company" :value="company"></el-option>
+                <el-option
+                  v-for="company in supplyCompanies"
+                  :key="company"
+                  :label="company"
+                  :value="company"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-form>
@@ -165,7 +171,12 @@
             <el-form-item label="核心供应商">
               <el-select v-model="addList.supplyCompany" placeholder="请选择供应商">
                 <el-option label="全部" value></el-option>
-                <el-option v-for="company in supplyCompanies" :key="company" :label="company" :value="company"></el-option>
+                <el-option
+                  v-for="company in supplyCompanies"
+                  :key="company"
+                  :label="company"
+                  :value="company"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-form>
@@ -180,12 +191,11 @@
 </template>
 
 <script>
-
 export default {
   name: "newTask",
   data() {
     return {
-            query: {
+      query: {
         pageIndex: 1,
         pageSize: 10
       },
@@ -215,9 +225,9 @@ export default {
           taskType: "",
           bidTime: "",
           supplyCompany: ""
-        }              
+        }
       ],
-      form:{}
+      form: {}
     };
   },
   methods: {
