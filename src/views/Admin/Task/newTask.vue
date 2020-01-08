@@ -2,7 +2,7 @@
   <el-container>
     <el-main>
       <div class="newTask">
-        <h3>招标信息</h3>
+        <h3>新增任务</h3>
         <el-form
           ref="newTask"
           :model="newTask"
@@ -26,7 +26,6 @@
                 <el-option v-for="head in personnel" :key="head" :label="head" :value="head"></el-option>
               </el-select>
             </el-form-item>
-            <el-cascader label="选择供应商":options="options" ref="a" clearable @change="add"></el-cascader>
           </el-row>
           <el-row>
             <el-form-item label="投标截止日期">
@@ -37,7 +36,7 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="开标日期">
+            <el-form-item label="开始日期">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -86,7 +85,7 @@
             <el-table-column prop="taskNum" label="子任务编号"></el-table-column>
             <el-table-column prop="taskName" label="任务名称"></el-table-column>
             <el-table-column prop="taskType" label="任务类别"></el-table-column>
-            <el-table-column prop="bidTime" label="开标时间"></el-table-column>
+            <el-table-column prop="bidTime" label="开始时间"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
@@ -159,7 +158,7 @@
             <el-form-item label="任务类别">
               <el-input v-model="addList.taskType"></el-input>
             </el-form-item>
-            <el-form-item label="开标时间">
+            <el-form-item label="开始时间">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -202,7 +201,7 @@ export default {
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
-      personnel: ["张三", "李四"], //总负责人
+      personnel: ["", "李四"], //总负责人
       statuses: ["A类别", "B类别"], //任务类别
       supplyCompanies: ["公司A", "公司B", "公司C"], //供应商列表
       id: 0, //记录任务数
