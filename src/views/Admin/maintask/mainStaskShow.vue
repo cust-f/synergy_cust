@@ -72,192 +72,6 @@
 
 
     </el-tab-pane>
-    <el-tab-pane label="待审核任务" name="second">      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
-           <el-table
-        :data="tableData1"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              icon="el-icon-delete"
-              class="red"
-              @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
-          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total, prev, pager, next"
-          :current-page="query.pageIndex"
-          :page-size="query.pageSize"
-          :total="pageTotal"
-          @current-change="handlePageChange"
-        ></el-pagination>
-      </div>
-      </el-tab-pane>
-
-
-
-
-
-
-
-    <el-tab-pane label="已完成任务" name="third">      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
-           <el-table
-        :data="tableData2"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              icon="el-icon-delete"
-              class="red"
-              @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
-          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total, prev, pager, next"
-          :current-page="query.pageIndex"
-          :page-size="query.pageSize"
-          :total="pageTotal"
-          @current-change="handlePageChange"
-        ></el-pagination>
-      </div>
-      </el-tab-pane>
-
-
-
-
-
-
-    <el-tab-pane label="已废除任务" name="fourth">      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
-           <el-table
-        :data="tableData3"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              icon="el-icon-delete"
-              class="red"
-              @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
-          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total, prev, pager, next"
-          :current-page="query.pageIndex"
-          :page-size="query.pageSize"
-          :total="pageTotal"
-          @current-change="handlePageChange"
-        ></el-pagination>
-      </div>
-      </el-tab-pane>
-
-
-
-
-
     <el-tab-pane label="待回应任务" name="fifth">      
       <div class="handle-box">
         <el-button
@@ -300,7 +114,7 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="substaskDetail2(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -316,9 +130,9 @@
       </div>
       </el-tab-pane>
 
-  </el-tabs>
-</template>
-      <div class="handle-box">
+
+
+      <el-tab-pane label="进行中" name="sixth">      <div class="handle-box">
         <el-button
           type="primary"
           icon="el-icon-delete"
@@ -327,9 +141,67 @@
         >批量删除</el-button>
         <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
       </div>
+           <el-table
+        :data="tableData5"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column label="订单金额">
+          <template slot-scope="scope">￥{{scope.row.money}}</template>
+        </el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+        </el-table-column>
 
-      <el-table
-        :data="tableData"
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="操作" width="220" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          <el-button @click="substaskDetail3" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+      </el-tab-pane>
+
+
+
+    <el-tab-pane label="待审核任务" name="second">      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+      </div>
+           <el-table
+        :data="tableData1"
         border
         class="table"
         ref="multipleTable"
@@ -360,7 +232,9 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-          <el-button @click="substaskDetail1(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="substaskDetail4(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="dialogVisible = true" type="text" size="small">审核</el-button>
+
           </template>
         </el-table-column>
       </el-table>
@@ -374,23 +248,194 @@
           @current-change="handlePageChange"
         ></el-pagination>
       </div>
-    </div>
+      </el-tab-pane>
 
-    <!-- 编辑弹出框 -->
-    <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-      <el-form ref="form" :model="form" label-width="70px">
-        <el-form-item label="用户名">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="form.address"></el-input>
-        </el-form-item>
-      </el-form>
+
+
+
+
+
+
+    <el-tab-pane label="完成任务" name="third">      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+      </div>
+           <el-table
+        :data="tableData2"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column label="订单金额">
+          <template slot-scope="scope">￥{{scope.row.money}}</template>
+        </el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          <el-button @click="substaskDetail5(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+      </el-tab-pane>
+
+
+
+
+
+
+    <el-tab-pane label="废除任务" name="fourth">      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+      </div>
+           <el-table
+        :data="tableData3"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column label="订单金额">
+          <template slot-scope="scope">￥{{scope.row.money}}</template>
+        </el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          <el-button @click="substaskDetail6(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+      </el-tab-pane>
+
+
+
+    <el-dialog title="设计任务详情" :visible.sync="dialogVisible" width="60%" >
+      <div>
+        <el-form ref="form" :model="form" label-width="110px">
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="设计任务ID">
+                <el-input v-model="form.Desinger_ID" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="设计任务名称">
+                <el-input v-model="form.Desinger_Name" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="设计任务类型">
+                <el-input v-model="form.Desinger_Type" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+             <el-col :span="11">
+              <el-form-item label="截止日期">
+                <el-input v-model="form.Desinger_End_Time" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-form-item label="设计任务详情">
+              <el-input
+              :disabled="true"
+                type="textarea"
+                :rows="7"
+                v-model="form.Desinger_Task_Details"
+                style="width:100%;"
+                placeholder="请输入内容"
+              ></el-input>
+            </el-form-item>
+          </el-row>
+        </el-form>
+      </div>
+
       <span slot="footer" class="dialog-footer">
-        <el-button @click="editVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveEdit">确 定</el-button>
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
+
+    
+
+  </el-tabs>
+</template>
+
+
+
+
+    </div>
+
+ 
   </div>
 
   
@@ -534,6 +579,10 @@ export default {
           date: "2019-11-1"
         }
       ],
+
+
+
+
 
 
 
@@ -710,6 +759,7 @@ export default {
           state: "待回应",
           date: "2019-11-1"
         },
+
         {
           id: 1,
           bussessType: "导弹装配与改革",
@@ -719,6 +769,69 @@ export default {
           date: "2019-11-1"
         }
       ],
+
+
+
+      tableData5: [
+        {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "长春光华微电子集团",
+          money: 30000,
+          state: "未接受",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "中国机械工业集团公司",
+          money: 5000,
+          state: "未接受",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "山东工程机械集团有限公司",
+          money: 5000,
+          state: "已接受",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "大连冰山集团有限公司",
+          money: 5000,
+          state: "已接受",
+          date: "2019-11-1"
+        },
+         {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "沈阳机床集团有限责任公司",
+          money: 5000,
+          state: "已接受",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "北方重工集团有限公司",
+          money: 5000,
+          state: "已接受",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "导弹装配与改革",
+          name: "大连重工-起重集团有限公司",
+          money: 7000,
+          state: "待审核",
+          date: "2019-11-1"
+        }
+      ],
+
+
       addList: {
         id: null,
         address: "",
@@ -735,6 +848,8 @@ export default {
       form: {},
       idx: -1,
       id: -1,
+            dialogVisible: false
+
       
     };
   },
@@ -742,6 +857,16 @@ export default {
     this.getData();
   },
   methods:{
+
+        onSubmit() {
+      console.log(123);
+    },
+    handleDelete(index, row) {
+      console.log(index, row);
+    },
+
+
+
 
           handleClick(tab, event) {
         console.log(tab, event);
@@ -809,6 +934,21 @@ export default {
     // 分页导航
     handlePageChange(val) {},
      substaskDetail1(){
+         this.$router.push('/admin/substaskDetail')
+     },
+          substaskDetail2(){
+         this.$router.push('/admin/substaskDetail')
+     },
+               substaskDetail3(){
+         this.$router.push('/admin/substaskDetail')
+     },
+               substaskDetail4(){
+         this.$router.push('/admin/substaskDetail')
+     },
+               substaskDetail5(){
+         this.$router.push('/admin/substaskDetail')
+     },
+               substaskDetail6(){
          this.$router.push('/admin/substaskDetail')
      }
 
