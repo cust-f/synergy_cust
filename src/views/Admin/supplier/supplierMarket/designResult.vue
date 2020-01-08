@@ -1,17 +1,6 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="15%">
-        <div class="backGround_0">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>历史记录</span>
-              <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
-            </div>
-            <div v-for="o in tenderTrendsList" :key="o" class="text item">{{ o }}</div>
-          </el-card>
-        </div>
-      </el-aside>
       <el-main>
         <h3>设计成果</h3>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
