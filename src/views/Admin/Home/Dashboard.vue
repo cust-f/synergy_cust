@@ -215,7 +215,7 @@ export default {
     // 指定图表的配置项和数据
     var option = {
     title: {
-        text: '企业发布的需求量Top5 ',
+        text: '核心企业发布需求量Top5 ',
         subtext: '数据来自大数据统计'
     },
     tooltip: {
