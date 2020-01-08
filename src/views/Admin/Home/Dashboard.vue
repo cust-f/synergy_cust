@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import Schart from "vue-schart";
+// import Schart from "vue-schart";
 import bus from "../../../Layout/components/common/Admin/bus";
 export default {
   name: "dashboard",
