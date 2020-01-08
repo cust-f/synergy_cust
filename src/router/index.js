@@ -8,7 +8,7 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'
 
 //后台界面
-import Admin from '@/Layout/template page/admin'
+import adminPage from '@/Layout/template page/adminPage'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff'//新增人员
@@ -40,7 +40,8 @@ import acceptDesignDetailsTask from '@/views/admin/supplier/supplierMarket/accep
 import accceptCirculationtask from '@/views/admin/supplier/supplierMarket/accceptCirculationtask'
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/admin/supplier/supplierMarket/designResult'
-
+import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'
+import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
 
 
@@ -71,7 +72,7 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      component: Admin,
+      component: adminPage,
       children: [
         //系统首页
         {
@@ -190,23 +191,43 @@ export default new Router({
         },
         //流通人员
         {
-          path: '/admin/personnel_allotment/circulation',
+          path: '/admin/circulation',
           name: 'circulation',
           component: circulation,
         },
         //设计人员
         {
-          path: '/admin/personnel_allotment/desinger',
+          path: '/admin/desinger',
           name: 'desinger',
           component: desinger,
         },
         //虚拟机
         {
-          path: '/admin/personnel_allotment/virtualMachine',
+          path: '/admin/virtualMachine',
           name: 'virtualMachine',
           component: virtualMachine,
         },
-        //供应商接受设计任务
+//供应方
+
+         //供应商设计任务列表
+        {
+          path: '/admin/designTaskq',
+          name: 'designTaskq',
+          component: designTaskq,
+          meta: {
+            title: "接受设计任务"
+          }
+        },
+         //供应商设计任务详情
+        {
+          path: '/admin/designTaskqDesigin',
+          name: 'designTaskqDesigin',
+          component: designTaskqDesigin,
+          meta: {
+            title: "接受设计任务"
+          }
+        },
+                //供应商接受设计任务
         {
           path: '/admin/acceptDesignTask',
           name: 'acceptDesignTask',
