@@ -8,7 +8,316 @@
               <div>
 
 
+
     <div class="container">
+      <template>
+  <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tab-pane label="全部任务" name="first">
+      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+      </div>
+           <el-table
+        :data="tableData"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column label="订单金额">
+          <template slot-scope="scope">￥{{scope.row.money}}</template>
+        </el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          <el-button @click="substaskDetail1(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+
+
+
+    </el-tab-pane>
+    <el-tab-pane label="待审核任务" name="second">      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+      </div>
+           <el-table
+        :data="tableData1"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column label="订单金额">
+          <template slot-scope="scope">￥{{scope.row.money}}</template>
+        </el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+      </el-tab-pane>
+
+
+
+
+
+
+
+    <el-tab-pane label="已完成任务" name="third">      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+      </div>
+           <el-table
+        :data="tableData2"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column label="订单金额">
+          <template slot-scope="scope">￥{{scope.row.money}}</template>
+        </el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+      </el-tab-pane>
+
+
+
+
+
+
+    <el-tab-pane label="已废除任务" name="fourth">      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+      </div>
+           <el-table
+        :data="tableData3"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column label="订单金额">
+          <template slot-scope="scope">￥{{scope.row.money}}</template>
+        </el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+      </el-tab-pane>
+
+
+
+
+
+    <el-tab-pane label="待回应任务" name="fifth">      
+      <div class="handle-box">
+        <el-button
+          type="primary"
+          icon="el-icon-delete"
+          class="handle-del mr10"
+          @click="delAllSelection"
+        >批量删除</el-button>
+        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+      </div>
+           <el-table
+        :data="tableData4"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column label="订单金额">
+          <template slot-scope="scope">￥{{scope.row.money}}</template>
+        </el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
+      </el-tab-pane>
+
+  </el-tabs>
+</template>
       <div class="handle-box">
         <el-button
           type="primary"
@@ -45,18 +354,13 @@
         <el-table-column prop="date" label="任务完成时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
-            <!-- <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button> -->
             <el-button
               type="text"
               icon="el-icon-delete"
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-          <el-button @click="substaskDetail(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="substaskDetail1(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -87,41 +391,9 @@
         <el-button type="primary" @click="saveEdit">确 定</el-button>
       </span>
     </el-dialog>
-
-    <!-- 新增弹出框 -->
-    <!-- <el-dialog title="新增" :visible.sync="addVisible" width="50%">
-      <el-form ref="form" :model="addList" label-width="70px">
-        <el-form-item label="企业名称">
-          <el-input v-model="addList.name"></el-input>
-        </el-form-item>
-        <el-form-item label="任务类型">
-          <el-input v-model="addList.address"></el-input>
-        </el-form-item>
-        <el-form-item label="金额">
-          <el-input v-model="addList.money"></el-input>
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="addList.state" placeholder="请选择状态">
-            <el-option label="成功" value="成功"></el-option>
-            <el-option label="失败" value="失败"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="注册时间">
-          <el-date-picker
-            type="date"
-            placeholder="选择日期"
-            v-model="addList.date"
-            value-format="yyyy-MM-dd"
-            style="width: 100%;"
-          ></el-date-picker>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveAdd">确 定</el-button>
-      </span>
-    </el-dialog> -->
   </div>
+
+  
         </el-main>
     </el-container>
      
@@ -153,7 +425,7 @@ export default {
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
-          state: "成功",
+          state: "失败",
           date: "2019-11-1"
         },
         {
@@ -161,7 +433,7 @@ export default {
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
-          state: "成功",
+          state: "待审核",
           date: "2019-11-1"
         },
         {
@@ -177,7 +449,7 @@ export default {
           bussessType: "车间零部件生产",
           name: "沈阳机床集团有限责任公司",
           money: 5000,
-          state: "成功",
+          state: "失败",
           date: "2019-11-1"
         },
         {
@@ -185,7 +457,7 @@ export default {
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
-          state: "成功",
+          state: "待审核",
           date: "2019-11-1"
         },
         {
@@ -194,6 +466,256 @@ export default {
           name: "大连重工-起重集团有限公司",
           money: 7000,
           state: "成功",
+          date: "2019-11-1"
+        }
+      ],
+
+
+
+
+
+
+
+             tableData1: [
+        {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "长春光华微电子集团",
+          money: 30000,
+          state: "待审核",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "中国机械工业集团公司",
+          money: 5000,
+          state: "待审核",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "山东工程机械集团有限公司",
+          money: 5000,
+          state: "待审核",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "大连冰山集团有限公司",
+          money: 5000,
+          state: "待审核",
+          date: "2019-11-1"
+        },
+         {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "沈阳机床集团有限责任公司",
+          money: 5000,
+          state: "待审核",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "北方重工集团有限公司",
+          money: 5000,
+          state: "待审核",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "导弹装配与改革",
+          name: "大连重工-起重集团有限公司",
+          money: 7000,
+          state: "待审核",
+          date: "2019-11-1"
+        }
+      ],
+
+
+
+
+      tableData2: [
+        {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "长春光华微电子集团",
+          money: 30000,
+          state: "已完成",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "中国机械工业集团公司",
+          money: 5000,
+          state: "已完成",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "山东工程机械集团有限公司",
+          money: 5000,
+          state: "已完成",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "大连冰山集团有限公司",
+          money: 5000,
+          state: "已完成",
+          date: "2019-11-1"
+        },
+         {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "沈阳机床集团有限责任公司",
+          money: 5000,
+          state: "已完成",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "北方重工集团有限公司",
+          money: 5000,
+          state: "已完成",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "导弹装配与改革",
+          name: "大连重工-起重集团有限公司",
+          money: 7000,
+          state: "已完成",
+          date: "2019-11-1"
+        }
+      ],
+
+
+
+      tableData3: [
+        {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "长春光华微电子集团",
+          money: 30000,
+          state: "已废除",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "中国机械工业集团公司",
+          money: 5000,
+          state: "已废除",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "山东工程机械集团有限公司",
+          money: 5000,
+          state: "已废除",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "大连冰山集团有限公司",
+          money: 5000,
+          state: "已废除",
+          date: "2019-11-1"
+        },
+         {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "沈阳机床集团有限责任公司",
+          money: 5000,
+          state: "已废除",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "北方重工集团有限公司",
+          money: 5000,
+          state: "已废除",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "导弹装配与改革",
+          name: "大连重工-起重集团有限公司",
+          money: 7000,
+          state: "已废除",
+          date: "2019-11-1"
+        }
+      ],
+
+
+
+
+      tableData4: [
+        {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "长春光华微电子集团",
+          money: 30000,
+          state: "待回应",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "中国机械工业集团公司",
+          money: 5000,
+          state: "待回应",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "山东工程机械集团有限公司",
+          money: 5000,
+          state: "待回应",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "大型机械组装",
+          name: "大连冰山集团有限公司",
+          money: 5000,
+          state: "待回应",
+          date: "2019-11-1"
+        },
+         {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "沈阳机床集团有限责任公司",
+          money: 5000,
+          state: "待回应",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "卫星微型零件制作",
+          name: "北方重工集团有限公司",
+          money: 5000,
+          state: "待回应",
+          date: "2019-11-1"
+        },
+        {
+          id: 1,
+          bussessType: "导弹装配与改革",
+          name: "大连重工-起重集团有限公司",
+          money: 7000,
+          state: "待回应",
           date: "2019-11-1"
         }
       ],
@@ -212,13 +734,19 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      
     };
   },
     created() {
     this.getData();
   },
   methods:{
+
+          handleClick(tab, event) {
+        console.log(tab, event);
+      }
+    },
           // 获取 easy-mock 的模拟数据
     getData() {
       //   this.tableData = res.list;
@@ -280,10 +808,10 @@ export default {
     },
     // 分页导航
     handlePageChange(val) {},
-     substaskDetail(){
-         this.$router.push('/substaskDetail')
+     substaskDetail1(){
+         this.$router.push('/admin/substaskDetail')
      }
-  },
+
       /*
       *转跳对应任务信息页面
       */
