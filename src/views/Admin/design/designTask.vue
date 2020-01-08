@@ -33,8 +33,10 @@
               <el-table-column prop="subname" label="子任务名称"></el-table-column>
               <el-table-column prop="company" label="供应商名称"></el-table-column>
 
-              <el-table-column prop="state" label="任务状态"></el-table-column>
-              <el-table-column prop="remarkstate" label="评价状态"></el-table-column>
+              <el-table-column prop="state" label="任务状态"><el-tag>待完成</el-tag></el-table-column>
+              <el-table-column prop="remarkstate" label="评价状态">
+            <el-tag>待评价</el-tag>
+              </el-table-column>
               <el-table-column prop="time" label="上传时间"></el-table-column>
               <el-table-column label="图纸" width="180" align="center">
                 <el-button type="text" size="small">下载</el-button>
