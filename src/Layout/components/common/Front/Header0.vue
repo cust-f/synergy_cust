@@ -2,8 +2,8 @@
     <div>
 
 
-        <el-row gutter="20">
-            <el-col :span="20" :push="2" :pull="2" >
+        <el-row gutter="24">
+            <el-col :span="24">
                 <div class="elcolCSS0 bg-purple-dark">
                     <!-- 顶栏-->
                     <div class="CSS1">
@@ -23,26 +23,32 @@
                     </div>
                     <!-- 搜索栏-->
                     <div class="CSS2">
+                    <div class="CSS2Child0">
                     <el-image
-                            style="width: 200px; height: 100px;float: left"
+                            style="width: 200px; height: 100px;"
                             :src="url"
                             :fit="fit">
                         </el-image>
-
-                    <div class="search_wrap">
+                    </div>
+                    <div class="CSS2Child3">
+                    </div>
+                    <div class="CSS2Child1">
+                        <div class="search_wrap">
                         
-    	                <div class="search_box_l">
-        	                <div class="search_cate">找项目</div>
-                                <input name="Webhead1$keys" type="text" id="Webhead1_keys" placeholder="输入 “APP开发” 试试" class="search_txt">
-                            </div>
-                            <div class="float_right">
-                                <input id="Button1" value="搜索" type="button" onclick="sec();" class="search_btn" onmouseover="this.className='search_btn search_btn_hover'" onmouseout="this.className='search_btn'">
+    	                    <div class="search_box_l">
+        	                    <div class="search_cate">看任务</div>
+                                    <input name="Webhead1$keys" type="text" id="Webhead1_keys" placeholder="输入 “需求任务” 试试" class="search_txt">
+                                </div>
+                                <div class="float_right">
+                                    <input id="Button1" value="搜索" type="button" onclick="sec();" class="search_btn" onmouseover="this.className='search_btn search_btn_hover'" onmouseout="this.className='search_btn'">
+                                </div>
                             </div>
                         </div>
-
                     </div>
                     <!-- 导航栏-->
                     <div class="CSSN">
+                        <div class="CSSNChild0">
+                        </div>
                         <el-menu
                         :default-active="activeIndex2"
                         class="el-menu-demo"
@@ -156,7 +162,7 @@
         height:30px;
         width: 50%;
         /* background-color:brown; */
-         text-align: right;
+         text-align: center;
         line-height: 30px;
         float: right;
         overflow: hidden;
@@ -169,12 +175,49 @@
         width: 100%;
         background-color: rgb(236, 232, 232);
     }
+    /**搜索栏栏内内容所用CSS*/
+    .CSS2Child0
+    {
+        height:100px;
+        width: 50%;
+        /* background-color:coral; */
+        text-align: center;
+        line-height: 100px;
+        float: left;
+        color: rgb(112, 112, 112);
+        overflow: hidden;
+    }
+    .CSS2Child3
+    {
+        height:100px;
+        width: 15%;
+        /* background-color:brown; */
+         text-align: left;
+        line-height: 36px;
+        float: left;
+        overflow: hidden;
+    }
+    .CSS2Child1
+    {
+        height:100px;
+        width: 35%;
+        /* background-color:brown; */
+         text-align: left;
+        line-height: 36px;
+        float: left;
+        overflow: hidden;
+    }
+
+
+
+
 
     /**搜索框用CSS */
     .search_wrap 
     {
-        float: right;
+        float: left;
         margin: 28px 20px 0 0;
+        right: 100px;
     }
     .search_box_l 
     {
@@ -227,5 +270,15 @@
         padding: 0;
         width: 100%;
         background-color:rgb(255, 255, 255)
+    }
+     .CSSNChild0
+    {
+        height:61px;
+        width: 15%;
+        /* background-color:brown; */
+         text-align: left;
+        line-height: 36px;
+        float: left;
+        overflow: hidden;
     }
 </style>
