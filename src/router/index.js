@@ -34,6 +34,8 @@ import circulation from '@/views/admin/personnel_allotment/circulation'
 import desinger from '@/views/admin/personnel_allotment/desinger'
 import virtualMachine from '@/views/admin/personnel_allotment/virtualMachine'
 
+ import supplyContract from '@/views/admin/company/supplyContract'
+
 //供应商市场部门
 import acceptDesignTask from '@/views/admin/supplier/supplierMarket/acceptDesignTask'
 import acceptDesignDetailsTask from '@/views/admin/supplier/supplierMarket/acceptDesignDetailsTask'
@@ -164,6 +166,14 @@ export default new Router({
           name: 'designTaskEvaluation',
           component: designTaskEvaluation
         },
+        //
+       {
+          path: '/admin/supplyContract',
+          name: 'supplyContract',
+          component: supplyContract,
+        
+
+        },  
         {
           path: '/admin/designTaskEvaluationDetils',
           name: 'designTaskEvaluationDetils',
