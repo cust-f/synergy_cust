@@ -2,7 +2,7 @@
   <el-container>
     <el-main>
       <div class="newTask">
-        <h3>招标信息</h3>
+        <h3>新增任务</h3>
         <el-form
           ref="newTask"
           :model="newTask"
@@ -36,7 +36,7 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="开标日期">
+            <el-form-item label="开始日期">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -85,7 +85,7 @@
             <el-table-column prop="taskNum" label="子任务编号"></el-table-column>
             <el-table-column prop="taskName" label="任务名称"></el-table-column>
             <el-table-column prop="taskType" label="任务类别"></el-table-column>
-            <el-table-column prop="bidTime" label="开标时间"></el-table-column>
+            <el-table-column prop="bidTime" label="开始时间"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
@@ -107,7 +107,7 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
- <el-form ref="form" :model="addList" label-width="120px">
+          <el-form ref="form" :model="addList" label-width="120px">
             <el-form-item label="子任务编号">
               <el-input v-model="form.taskNum"></el-input>
             </el-form-item>
@@ -115,7 +115,7 @@
               <el-input v-model="form.taskName"></el-input>
             </el-form-item>
             <el-form-item label="任务类别">
-                <el-select v-model="form.taskTyp" placeholder="请选择项目类别">
+              <el-select v-model="form.taskTyp" placeholder="请选择项目类别">
                 <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
               </el-select>
               <el-input v-model="form.taskType"></el-input>
@@ -129,9 +129,14 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="核心供应商">
+            <el-form-item label="供应商">
               <el-select v-model="form.supplyCompany" placeholder="请选择供应商">
-                <el-option v-for="company in supplyCompanies" :key="company" :label="company" :value="company"></el-option>
+                <el-option
+                  v-for="company in supplyCompanies"
+                  :key="company"
+                  :label="company"
+                  :value="company"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-form>
@@ -153,7 +158,7 @@
             <el-form-item label="任务类别">
               <el-input v-model="addList.taskType"></el-input>
             </el-form-item>
-            <el-form-item label="开标时间">
+            <el-form-item label="开始时间">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -165,7 +170,12 @@
             <el-form-item label="核心供应商">
               <el-select v-model="addList.supplyCompany" placeholder="请选择供应商">
                 <el-option label="全部" value></el-option>
-                <el-option v-for="company in supplyCompanies" :key="company" :label="company" :value="company"></el-option>
+                <el-option
+                  v-for="company in supplyCompanies"
+                  :key="company"
+                  :label="company"
+                  :value="company"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-form>
@@ -180,19 +190,18 @@
 </template>
 
 <script>
-
 export default {
   name: "newTask",
   data() {
     return {
-            query: {
+      query: {
         pageIndex: 1,
         pageSize: 10
       },
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
-      personnel: ["张三", "李四"], //总负责人
+      personnel: ["", "李四"], //总负责人
       statuses: ["A类别", "B类别"], //任务类别
       supplyCompanies: ["公司A", "公司B", "公司C"], //供应商列表
       id: 0, //记录任务数
@@ -215,9 +224,9 @@ export default {
           taskType: "",
           bidTime: "",
           supplyCompany: ""
-        }              
+        }
       ],
-      form:{}
+      form: {}
     };
   },
   methods: {

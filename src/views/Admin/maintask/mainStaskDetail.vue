@@ -2,19 +2,6 @@
 <div>
     <el-container>
 
-        <el-aside width="15%" style="overflow:hidden">
-            <div class="backGround_0">
-        <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <span>历史记录</span>
-                <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
-            </div>
-            <div v-for="o in tenderTrendsList" :key="o" class="text item">
-                {{ o }}
-            </div>  
-        </el-card>
-      </div>
-        </el-aside>
 
         <el-main style="overflow:hidden">
           <el-page-header @back="goBack" content="详情页面">
@@ -125,7 +112,7 @@
         </div>
 
          <el-divider></el-divider>
-<h3>供应商设计</h3>
+<h3>供应方设计</h3>
             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <div>
 
@@ -147,12 +134,11 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
+
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
         <el-table-column prop="date" label="任务完成时间"></el-table-column>
+                <el-table-column prop="money" label="设计时长"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
             <!-- <el-button
               type="text"
@@ -322,23 +308,23 @@
           id: 1,
           bussessType: "车间零部件生产",
           name: "长光电子",
-          money: 30000,
+          money: "40天",
           state: "成功",
           date: "2019-11-1"
         },
         {
           id: 1,
           bussessType: "卫星微型零件制作",
-          name: "长光电子",
-          money: 5000,
+          name: "沈阳机床集团有限责任公司",
+          money: "60天",
           state: "成功",
           date: "2019-11-1"
         },
         {
           id: 1,
           bussessType: "导弹装配与改革",
-          name: "长光电子",
-          money: 7000,
+          name: "起重集团有限公司",
+          money: "50天",
           state: "成功",
           date: "2019-11-1"
         }
@@ -373,12 +359,15 @@
     },
     methods:{
       goBack() {
-        this.$router.push('/substaskDetail');
+        this.$router.push('/admin/substaskDetail');
       }
     }
   }
 </script>
 
 <style>
+.table{
+  font-size: 16px;
+}
     
 </style>
