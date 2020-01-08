@@ -3,13 +3,13 @@
   <div class="BG">
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
-      <el-col :span="20" :push="pushCount" :pull="pullCount">
+      <el-col :span="24">
         <div class="grid-content0">
           <el-carousel height="400px">
 
             <!--备注，需要向img_list写入图片地址-->
             <el-carousel-item v-for="item in 1" :key="item">
-              <img :src="item" alt="" >
+              <img :src="item">
             </el-carousel-item>
 
           </el-carousel>
@@ -35,11 +35,67 @@
     </el-row>
 
 
-     <!--第三行  分割线-->
-    <el-row :gutter="gutterCount">
-      <el-col :span="20" :push="pushCount" :pull="pullCount">
-        <div class="big_bt">
-            <a>需求</a>
+     <!--第三行  分类门户-->
+    <el-row :gutter="5">
+      <el-col :span="16" :push="pushCount">
+        <div class="bg-purple-dark grid-content">
+          <div class="category_wrap">
+    	      <div class="category_box">
+            <!----这里分类----->
+              <div class="category_item"><div class="cate_ietm_title"><h3>交通运输设备</h3><p></p></div>          
+                   <i class="cate_list">
+                     <a href="">汽车</a>
+                     <a href="">铁路运输设备</a>
+                     <a href="">摩托车</a>
+                     <a href="">自行车</a>
+                     <a href="">船舶及浮动装置</a>
+                     <a href="">航空航天器</a>
+                     <a href="l">交通器材及其他交通运输设备</a>
+                    </i>       
+                </div>      
+                    <div class="category_item">     
+                      <div class="cate_ietm_title" style="background:#78bcaf;"><h3>仪器仪表及文化、<br>办公用机械</h3><p></p></div>           
+                          <i class="cate_list">
+                            <a href="">通用仪器仪表</a>
+                            <a href="">专用仪器仪表</a>
+                            <a href="">钟表与计时仪器</a>
+                            <a href="">光学仪器及眼镜</a>
+                            <a href="">文化、办公用机械</a>
+                            <a href="">其他仪器仪表的制造及修理</a>
+                          </i>       
+                      </div>           
+                      <div class="category_item">       	
+                          <div class="cate_ietm_title" style="background:#be7fc5;"><h3>通信设备、<br>计算机及其他电子设备</h3><p>&nbsp;</p></div>       	
+                            <i class="cate_list">
+                              <a href="">通信设备</a>
+                              <a href="">雷达及配套设备</a>
+                              <a href="">广播电视设备</a>
+                              <a href="">电子计算机</a>
+                              <a href="">电子器件</a>
+                              <a href="">电子元件</a>
+                              <a href="">家用视听设备</a>
+                              <a href="">其他电子设备</a>
+                            </i>       
+                          </div>         
+                      <div class="category_item">       	
+                        <div class="cate_ietm_title" style="background:#67aff9;"><h3>电气机械及器材</h3><p></p></div> 
+                            <i class="cate_list">
+                              <a href="">电机</a>
+                              <a href="">输配电及控制设备</a>
+                              <a href="">电池</a>
+                              <a href="">家用电力器具</a>
+                              <a href="">非电力家用器具</a>
+                              <a href="">照明器具</a>
+                              <a href="">其他电气机械及器材</a>
+                            </i>   
+                        </div> 
+              </div>
+            </div>
+        </div>
+      </el-col>
+      <!-- -->
+      <el-col :span="4" :push="pushCount">
+        <div class="bg-purple-dark grid-content">
         </div>
       </el-col>
     </el-row>
@@ -52,14 +108,14 @@
           <el-card class="grid-content2 ">
             <div slot="header">
               <span>需求任务</span>
-              <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
 
             <div v-for="p in demandTaskList" :key="p.name" style="padding-bottom: 20px;">
-              <div style="float:left; width:15%;">{{"["+p.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left; width:15%">{{"["+p.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{p.name}}</div>
-              <div style="float:right;width:20%">&nbsp;&nbsp;{{p.sTime}}</div>
+              <div style="float:right;width:30%">&nbsp;{{p.sTime}}</div>
             
             </div>
             
@@ -263,8 +319,10 @@ export default {
       certifiedSupplierCount:526,
       // 图片地址数组
             img_list:[
-              '../assets/images/home/45f6300a9045c22cc1f63f49f20ab78e.jpg',
               //src\assets\images\home\a662f30ed18c4e6592a42747b4b412b8.jpg
+              //'../../../assets/images/home/a7e942533a9e0e5056c0c67f89dcc0ae.jpeg',
+              //'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+              "./商标.png"
             ],
       
       //需求任务数组
@@ -481,6 +539,44 @@ export default {
   }
   
 
+
+/**服务入口跳转用CSS*/
+.category_wrap {
+    width: 100%;
+    margin: 0px;
+    float: left;
+    overflow: hidden;
+}
+.category_box {
+    width: 1300px;
+}
+.category_item {
+    width: 24%;
+    height: 210px;
+    float: left;
+    background: #f5f5f5;
+    margin: 0 2px 0 0;
+}
+.cate_ietm_title {
+    width: 100%;
+    height: 70px;
+    background: #fa6569;
+    color: #fff;
+}
+.cate_list {
+    line-height: 30px;
+    margin: 20px;
+    display: block;
+}
+.cate_list a {
+    margin: 0 20px 0 0;
+    display: inline-block;
+    font-size: 10px;
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
 
 
 

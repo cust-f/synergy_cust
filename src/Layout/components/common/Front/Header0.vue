@@ -25,7 +25,7 @@
                     <div class="CSS2">
                     <div class="CSS2Child0">
                     <el-image
-                            style="width: 200px; height: 100px;"
+                            style="width: 300px; height: 100px;"
                             :src="url"
                             :fit="fit">
                         </el-image>
@@ -83,8 +83,8 @@
         
         data() {
             return {
-                fit:'contain',
-                url: 'D:/GIT_excise/synergy_cust/synergy_cust/src/assets/images/home/2.png',
+                fit:'cover',
+                url: "require('./././assets/images/home/a7e942533a9e0e5056c0c67f89dcc0ae.jpeg')",
                 name:'footerSynergy',
                 activeIndex: '1',
                 activeIndex2: '1'
