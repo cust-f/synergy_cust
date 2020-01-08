@@ -3,8 +3,8 @@
     <el-container>
       <el-main>
         <div font-size="24px">
-          <h3>企业信息审核</h3>
-        </div>
+            <el-page-header @back="goBack" content="企业信息审核">
+            </el-page-header>        </div>
         <br />
         <div class="box">
           <el-form ref="form" :model="form" label-width="110px" class="box">
@@ -161,6 +161,11 @@ export default {
     };
   },
   methods: {
+     goBack() {
+        
+        this.$router.push('/admin/mainStaskShow');
+      
+      },
     disreview() {
       this.$message("审核尚未通过");
     },

@@ -6,9 +6,11 @@
         <br />
         <div>
           <div class="container">
+              <el-tabs v-model="activeName" @tab-click="handleClick">
+              <el-tab-pane label="全部任务" name="first">
             <div class="handle-box"></div>
             <el-table
-              :data="tableData"
+              :data="tableData1"
               border
               class="table"
               ref="multipleTable"
@@ -16,21 +18,28 @@
               @selection-change="handleSelectionChange"
             >
               <el-table-column type="selection" width="55" align="center"></el-table-column>
-              <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+              <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
 
-              <el-table-column prop="taskName" label="任务名称"></el-table-column>
+              <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
               <el-table-column label="任务截止日期">
                 <template slot-scope="scope">{{scope.row.date}}</template>
               </el-table-column>
-              <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+              <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
 
-              <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
+              <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
 
-              <el-table-column prop="taskLeader" label="任务负责人"></el-table-column>
+              <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
-              <el-table-column prop="leaderTel" label="负责人联系电话"></el-table-column>
+              <el-table-column prop="state" label="状态" align="center">
 
-               <el-table-column prop="designer" label="设计人员"></el-table-column>
+            <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='已完成'?'success':(scope.row.state==='待审核'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+              </el-table-column>
+
+              
 
               <el-table-column label="操作" width="180" align="center">
                 <template slot-scope="scope">
@@ -39,10 +48,12 @@
                     type="text"
                     size="small"
                   >查看详情</el-button>
-
+              
                 </template>
               </el-table-column>
             </el-table>
+            
+           
             <div class="pagination">
               <el-pagination
                 background
@@ -53,6 +64,383 @@
                 @current-change="handlePageChange"
               ></el-pagination>
             </div>
+            </el-tab-pane>
+
+              
+            <el-tab-pane label="新增任务" name="second"> 
+            <div class="handle-box"></div>
+            <el-table
+              :data="tableData2"
+              border
+              class="table"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column type="selection" width="55" align="center"></el-table-column>
+              <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+
+              <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+              <el-table-column label="任务截止日期">
+                <template slot-scope="scope">{{scope.row.date}}</template>
+              </el-table-column>
+              <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+
+              <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+
+              <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+
+              <el-table-column prop="state" label="状态" align="center">
+
+            <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='已完成'?'success':(scope.row.state==='待审核'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+              </el-table-column>
+
+              
+
+              <el-table-column label="操作" width="180" align="center">
+                <template slot-scope="scope">
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看详情</el-button>
+
+                   <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >接受</el-button>
+
+                   <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >不接受</el-button>
+              
+                </template>
+              </el-table-column>
+            </el-table>
+             <div class="pagination">
+              <el-pagination
+                background
+                layout="total, prev, pager, next"
+                :current-page="query.pageIndex"
+                :page-size="query.pageSize"
+                :total="pageTotal"
+                @current-change="handlePageChange"
+              ></el-pagination>
+            </div>
+
+            </el-tab-pane>
+
+            <el-tab-pane label="进行中" name="third"> 
+            <div class="handle-box"></div>
+            <el-table
+              :data="tableData3"
+              border
+              class="table"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column type="selection" width="55" align="center"></el-table-column>
+              <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+
+              <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+              <el-table-column label="任务截止日期">
+                <template slot-scope="scope">{{scope.row.date}}</template>
+              </el-table-column>
+              <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+
+              <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+
+              <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+
+              <el-table-column prop="state" label="状态" align="center">
+
+            <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='已完成'?'success':(scope.row.state==='待审核'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+              </el-table-column>
+
+              
+
+              <el-table-column label="操作" width="180" align="center">
+                <template slot-scope="scope">
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看详情</el-button>
+
+                  
+              
+                </template>
+              </el-table-column>
+            </el-table>
+             <div class="pagination">
+              <el-pagination
+                background
+                layout="total, prev, pager, next"
+                :current-page="query.pageIndex"
+                :page-size="query.pageSize"
+                :total="pageTotal"
+                @current-change="handlePageChange"
+              ></el-pagination>
+            </div>
+
+            </el-tab-pane>
+
+           <el-tab-pane label="待审核" name="fourth"> 
+            <div class="handle-box"></div>
+            <el-table
+              :data="tableData4"
+              border
+              class="table"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column type="selection" width="55" align="center"></el-table-column>
+              <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+
+              <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+              <el-table-column label="任务截止日期">
+                <template slot-scope="scope">{{scope.row.date}}</template>
+              </el-table-column>
+              <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+
+              <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+
+              <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+
+              <el-table-column prop="state" label="状态" align="center">
+
+            <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='已完成'?'success':(scope.row.state==='待审核'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+              </el-table-column>
+          <el-table-column label="图纸" width="110" align="center">
+                <template slot-scope="scope">
+
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看</el-button>
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >下载</el-button>
+
+                  
+              
+                </template>
+              </el-table-column>
+              
+
+              <el-table-column label="操作" width="180" align="center">
+                <template slot-scope="scope">
+
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看详情</el-button>
+
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >审核通过</el-button>
+
+                   <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >审核未通过</el-button>                  
+              
+                </template>
+              </el-table-column>
+            </el-table>
+             <div class="pagination">
+              <el-pagination
+                background
+                layout="total, prev, pager, next"
+                :current-page="query.pageIndex"
+                :page-size="query.pageSize"
+                :total="pageTotal"
+                @current-change="handlePageChange"
+              ></el-pagination>
+            </div>
+
+            </el-tab-pane>
+
+         <el-tab-pane label="已完成" name="fifth"> 
+            <div class="handle-box"></div>
+            <el-table
+              :data="tableData5"
+              border
+              class="table"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column type="selection" width="55" align="center"></el-table-column>
+              <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+
+              <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+              <el-table-column label="任务截止日期">
+                <template slot-scope="scope">{{scope.row.date}}</template>
+              </el-table-column>
+              <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+
+              <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+
+              <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+
+              <el-table-column prop="state" label="状态" align="center">
+
+            <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='已完成'?'success':(scope.row.state==='待审核'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+              </el-table-column>
+          <el-table-column label="图纸" width="110" align="center">
+                <template slot-scope="scope">
+
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看</el-button>
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >下载</el-button>
+
+                  
+              
+                </template>
+              </el-table-column>
+              
+
+              <el-table-column label="操作" width="180" align="center">
+                <template slot-scope="scope">
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看详情</el-button>           
+              
+                </template>
+              </el-table-column>
+            </el-table>
+             <div class="pagination">
+              <el-pagination
+                background
+                layout="total, prev, pager, next"
+                :current-page="query.pageIndex"
+                :page-size="query.pageSize"
+                :total="pageTotal"
+                @current-change="handlePageChange"
+              ></el-pagination>
+            </div>
+
+            </el-tab-pane>
+           <el-tab-pane label="已废除" name="sixth"> 
+            <div class="handle-box"></div>
+            <el-table
+              :data="tableData6"
+              border
+              class="table"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column type="selection" width="55" align="center"></el-table-column>
+              <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+
+              <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+              <el-table-column label="任务截止日期">
+                <template slot-scope="scope">{{scope.row.date}}</template>
+              </el-table-column>
+              <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+
+              <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+
+              <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+
+              <el-table-column prop="taskLeader" label="废除原因" align="center"></el-table-column>
+
+              <el-table-column prop="state" label="状态" align="center">
+
+            <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.state==='已完成'?'success':(scope.row.state==='待审核'?'danger':'')"
+            >{{scope.row.state}}</el-tag>
+          </template>
+              </el-table-column>
+          <el-table-column label="图纸" width="110" align="center">
+                <template slot-scope="scope">
+
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看</el-button>
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >下载</el-button>
+
+                  
+              
+                </template>
+              </el-table-column>
+              
+
+              <el-table-column label="操作" width="180" align="center">
+                <template slot-scope="scope">
+                  <el-button
+                    @click="substaskDetail(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >查看详情</el-button>           
+              
+                </template>
+              </el-table-column>
+            </el-table>
+             <div class="pagination">
+              <el-pagination
+                background
+                layout="total, prev, pager, next"
+                :current-page="query.pageIndex"
+                :page-size="query.pageSize"
+                :total="pageTotal"
+                @current-change="handlePageChange"
+              ></el-pagination>
+            </div>
+
+            </el-tab-pane>
+
+
+        </el-tabs>
+           
+
+    
           </div>
         </div>
       </el-main>
@@ -79,15 +467,16 @@ export default {
         company: "一汽大众"
       },
       formLabelWidth: "120px",
-      tableData: [
+
+       tableData1: [
         {
           id: 100000,
           taskName: "小型汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "李华",
-          designer:"李贤",
-          leaderTel: "18088678745",
+          
+          state: "新增",
           date: "2019-11-1"
         },
         {
@@ -96,8 +485,8 @@ export default {
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "刘柳",
-          designer:"李贤",
-          leaderTel: "13588678745",
+         
+          state: "待审核",
           date: "2019-11-1"
         },
         {
@@ -106,8 +495,8 @@ export default {
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "周舟",
-          designer:"李贤",
-          leaderTel: "18588678745",
+          
+          state: "已完成",
           date: "2019-11-1"
         },
         {
@@ -116,41 +505,153 @@ export default {
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "孙铭",
-          designer:"李贤",
-          leaderTel: "11288678745",
+         
+          state: "进行中",
           date: "2019-11-1"
         },
-        {
-          id: 100004,
-          taskName: "小型汽车车轮",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "秦青",
-          designer:"李贤",
-          leaderTel: "16688678745",
-          date: "2019-11-1"
-        },
-        {
-          id: 100005,
-          taskName: "大型卡车货箱",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "蔡司",
-          designer:"李贤",
-          leaderTel: "13388678745",
-          date: "2019-11-1"
-        },
-        {
-          id: 100006,
-          taskName: "面包车包厢",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "李继",
-          designer:"李贤",
-          leaderTel: "15488678745",
-          date: "2019-11-1"
-        }
+    
       ],
+
+      tableData2: [
+        {
+          id: 100012,
+          taskName: "客车汽车前车灯",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "李名",
+          
+          state: "新增",
+          date: "2019-12-1"
+        },
+        {
+          id: 100301,
+          taskName: "中型汽车车架",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "刘柳",
+         
+          state: "新增",
+          date: "2019-11-14"
+        },
+        {
+          id: 100042,
+          taskName: "小型汽车刹车",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "周舟",
+          
+          state: "新增",
+          date: "2019-11-5"
+        },
+        {
+          id: 100203,
+          taskName: "小型汽车后备箱盖子",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "孙铭",
+         
+          state: "新增",
+          date: "2019-11-12"
+        },
+    
+      ],
+
+       tableData3: [
+        {
+          id: 100012,
+          taskName: "客车汽车前车灯",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "李名",
+          
+          state: "进行中",
+          date: "2019-12-1"
+        },
+        {
+          id: 100301,
+          taskName: "中型汽车车架",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "刘柳",
+         
+          state: "进行中",
+          date: "2019-11-14"
+        },
+        ],
+        tableData4: [
+        {
+          id: 100012,
+          taskName: "火车前车灯",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "李名",
+          
+          state: "待审核",
+          date: "2019-12-1"
+        },
+        {
+          id: 100320,
+          taskName: "大型汽车车架",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "刘柳",
+         
+          state: "待审核",
+          date: "2019-11-14"
+        },
+       
+    
+      ],
+       tableData5: [
+        {
+          id: 100212,
+          taskName: "小型汽车前车灯",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "李名",
+          
+          state: "已完成",
+          date: "2019-12-1"
+        },
+        {
+          id: 102320,
+          taskName: "小型汽车车架",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "刘柳",
+         
+          state: "已完成",
+          date: "2019-11-14"
+        },
+       
+    
+      ],
+      tableData6: [
+        {
+          id: 104412,
+          taskName: "小型汽车前车灯",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "李想",
+          Abolish_Reason:"设计不合理",
+          state: "已废除",
+          date: "2019-12-23"
+        },
+        {
+          id: 102324,
+          taskName: "小型汽车车架",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "刘成",
+         Abolish_Reason:"设计超时",
+          state: "已废除",
+          date: "2019-11-19"
+        },
+       
+    
+      ],
+
+     
       addList: {
         id: null,
         address: "",
