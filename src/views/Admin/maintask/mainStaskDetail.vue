@@ -2,19 +2,6 @@
 <div>
     <el-container>
 
-        <el-aside width="15%" style="overflow:hidden">
-            <div class="backGround_0">
-        <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <span>历史记录</span>
-                <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
-            </div>
-            <div v-for="o in tenderTrendsList" :key="o" class="text item">
-                {{ o }}
-            </div>  
-        </el-card>
-      </div>
-        </el-aside>
 
         <el-main style="overflow:hidden">
           <el-page-header @back="goBack" content="详情页面">
@@ -373,7 +360,7 @@
     },
     methods:{
       goBack() {
-        this.$router.push('/substaskDetail');
+        this.$router.push('/admin/substaskDetail');
       }
     }
   }
