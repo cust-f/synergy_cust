@@ -2,7 +2,8 @@
 <div>
     <el-container>
         <el-main>
-            <h3>全部供应商信息</h3>
+          <div font-size="24px">
+            <h3>企业名录</h3></div>
              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <div>
 
@@ -29,9 +30,10 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column prop="bussessType" label="企业类别"></el-table-column>
         <el-table-column prop="Business_Name" label="供应商联络人"></el-table-column>
         <el-table-column prop="Business_Tel" label="办公电话"></el-table-column>
-
+        
         <el-table-column prop="date" label="任务完成时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
@@ -133,66 +135,60 @@ export default {
         tableData: [
         {
           id: 1,
-          bussessType: "车间零部件生产",
-          name: "长春微电子信息有限公司",
-          Business_Name:'张三',
-          Business_Tel:'178433222578',          
-          date: "2019-11-1"
+          bussessType: "发电装备",
+          name: "哈尔滨电机厂有限责任公司",
+          Business_Name:'何丽',
+          Business_Tel:'0451-82872000',          
+          date: "2020-1-1"
         },
         {
-          id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "长春微电子信息有限公司",
-          Business_Name:'张三',
-          state: "成功",
+          id: 2,
+          bussessType: "燃气轮机",
+          name: "中船重工龙江广瀚燃气轮机有限公司",
+          Business_Name:'肖博约',
           date: "2019-11-1",
-          Business_Tel:'178433222578',          
+          Business_Tel:'0451-85468555',          
 
         },
         {
-          id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "长春微电子信息有限公司",
-          Business_Name:'张三',
-          state: "成功",
-          date: "2019-11-1",
-          Business_Tel:'178433222578',  
+          id: 3,
+          bussessType: "卫星应用",
+          name: "哈尔滨航天恒星数据系统科技有限公司",
+          Business_Name:'梁志国',
+          date: "2020-1-6",
+          Business_Tel:'0451-83556988',  
         },
         {
-          id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "长春微电子信息有限公司",
-          Business_Name:'张三',
-          state: "成功",
-          date: "2019-11-1",
-          Business_Tel:'178433222578',  
+          id: 4,
+          bussessType: "汽车业数字化",
+          name: "长春一汽启明信息技术有限责任公司",
+          Business_Name:'王肖',
+          date: "2020-1-5",
+          Business_Tel:'0431-86536541',  
         },
          {
-          id: 1,
+          id: 5,
           bussessType: "卫星微型零件制作",
           name: "长春微电子信息有限公司",
-          Business_Name:'张三',
-          state: "成功",
-          date: "2019-11-1",
-          Business_Tel:'178433222578',  
+          Business_Name:'段玉君',
+          date: "2020-1-4",
+          Business_Tel:'0431-85632478',  
         },
         {
-          id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "长春微电子信息有限公司",
-          Business_Name:'张三',
-          state: "成功",
+          id: 6,
+          bussessType: "光电测控仪器设备",
+          name: "长春奥普光电技术股份有限公司",
+          Business_Name:'王海',
           date: "2019-11-1",
-          Business_Tel:'178433222578',  
+          Business_Tel:'0431-85642586',  
         },
         {
-          id: 1,
-          bussessType: "导弹装配与改革",
-          name: "长春微电子信息有限公司",
-          Business_Name:'张三',
-          state: "成功",
+          id: 7,
+          bussessType: "磨床生产",
+          name: "杭机集团长春一机有限公司",
+          Business_Name:'颜容',
           date: "2019-11-1",
-          Business_Tel:'178433222578',  
+          Business_Tel:'0431-89651234',  
         }
       ],
       addList: {

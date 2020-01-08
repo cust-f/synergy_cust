@@ -1,7 +1,5 @@
 
 <template>
-<el-container>
-    <el-main>
   <div class="BG">
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
@@ -10,10 +8,10 @@
           <el-carousel height="400px">
 
             <!--备注，需要向img_list写入图片地址-->
-            <el-carousel-item v-for="item in img_list" :key="item">
-              
+            <el-carousel-item v-for="item in 1" :key="item">
               <img :src="item" alt="" >
             </el-carousel-item>
+
           </el-carousel>
         </div>
       </el-col>
@@ -235,8 +233,6 @@
 
     
   </div>
-  </el-main>
-  </el-container>
 </template>
 
 
@@ -267,7 +263,8 @@ export default {
       certifiedSupplierCount:526,
       // 图片地址数组
             img_list:[
-              '../../assets/images/home/45f6300a9045c22cc1f63f49f20ab78e.jpg',
+              '../assets/images/home/45f6300a9045c22cc1f63f49f20ab78e.jpg',
+              //src\assets\images\home\a662f30ed18c4e6592a42747b4b412b8.jpg
             ],
       
       //需求任务数组

@@ -7,23 +7,22 @@
  * @version: V1.0.5 
 !-->
 <template>
-  <div>
-    <header-synergy
-      :bg_color="header_color"
-      :hd_position="header_position"
-      :hover_flag="header_hover"
-    ></header-synergy>
-    <router-view></router-view>
-    <div class="backtop" @click="backTop" v-show="show_backtop">
-      <i class="el-icon-arrow-up"></i>
-    </div>
-    <footer-synergy></footer-synergy>
-  </div>
+  <el-container>
+    <el-header >
+      <header-synergy ></header-synergy>
+    </el-header>
+    <el-main>
+        <router-view></router-view>
+    </el-main>
+    <el-footer>
+      <footer-synergy></footer-synergy>
+    </el-footer>
+  </el-container>
 </template>
 
 <script>
-import headerSynergy from "../components/common/Front/Header";
-import footerSynergy from "../components/common/Front/Footer";
+import headerSynergy from "../components/common/Front/Header0";
+import footerSynergy from "../components/common/Front/Footer0";
 
 export default {
   name: "front",
@@ -83,10 +82,21 @@ export default {
   margin: 0px;
   padding: 0px;
 }
+.el-header {
+  margin: 0px;
+  padding: 0px;
+  height:200px !important;
+}
+.el-main {
+  margin: 0px;
+  padding: 0px;
+}
 .el-footer {
   margin: 0px;
   padding: 0px;
 }
+
+
 ul {
   list-style: none;
 }

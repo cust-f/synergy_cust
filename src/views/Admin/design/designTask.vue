@@ -135,7 +135,7 @@ export default {
       tableData: [
         {
           id: 1,
-          name: "主任务名",
+          name: "",
           remarkstate: "未评价",
           state: "待完成",
           subname: "子任务名",
@@ -313,7 +313,7 @@ export default {
 }
 .table {
   width: 100%;
-  font-size: 20px;
+  font-size: 16px;
 }
 .red {
   color: #ff0000;
