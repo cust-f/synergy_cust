@@ -114,7 +114,7 @@ export default {
         },
         indicator: [
             { name: '销售能力（sales）', max: 10},
-            { name: '人员管理（Administration）', max: 10},
+            { name: '管理（Administration）', max: 10},
             { name: '技术水平（Techology）', max: 10},
             { name: '客户服务（Customer Support）', max: 10},
             { name: '研发能力（Development）', max: 10},
