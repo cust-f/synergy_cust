@@ -40,7 +40,8 @@ import acceptDesignDetailsTask from '@/views/admin/supplier/supplierMarket/accep
 import accceptCirculationtask from '@/views/admin/supplier/supplierMarket/accceptCirculationtask'
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/admin/supplier/supplierMarket/designResult'
-
+import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'
+import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
 
 
@@ -190,19 +191,19 @@ export default new Router({
         },
         //流通人员
         {
-          path: '/admin/personnel_allotment/circulation',
+          path: '/admin/circulation',
           name: 'circulation',
           component: circulation,
         },
         //设计人员
         {
-          path: '/admin/personnel_allotment/desinger',
+          path: '/admin/desinger',
           name: 'desinger',
           component: desinger,
         },
         //虚拟机
         {
-          path: '/admin/personnel_allotment/virtualMachine',
+          path: '/admin/virtualMachine',
           name: 'virtualMachine',
           component: virtualMachine,
         },
@@ -210,7 +211,7 @@ export default new Router({
 
          //供应商设计任务列表
         {
-          path: '/admin/supplier/supplierMarket/designTaskq',
+          path: '/admin/designTaskq',
           name: 'designTaskq',
           component: designTaskq,
           meta: {
@@ -219,7 +220,7 @@ export default new Router({
         },
          //供应商设计任务详情
         {
-          path: '/admin/supplier/supplierMarket/designTaskqDesigin',
+          path: '/admin/designTaskqDesigin',
           name: 'designTaskqDesigin',
           component: designTaskqDesigin,
           meta: {
@@ -228,7 +229,7 @@ export default new Router({
         },
                 //供应商接受设计任务
         {
-          path: '/admin/supplier/supplierMarket/acceptDesignTask',
+          path: '/admin/acceptDesignTask',
           name: 'acceptDesignTask',
           component: acceptDesignTask,
           meta: {
