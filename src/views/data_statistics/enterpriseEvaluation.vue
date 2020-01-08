@@ -151,7 +151,7 @@ export default {
     },
     legend: {
         orient: 'vertical',
-        right: 10,
+        left: 10,
         data: ['第一季度', '第二季度', '第三季度', '第四季度']
     },
     series: [
