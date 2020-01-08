@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="8" style="margin-top:25px;">
+      <el-col :span="8" style="margin-top:15px;">
         <el-card shadow="hover" class="mgb20" style="height:252px;">
           <div class="user-info">
             <img src="../../../assets/img/img.jpg" class="user-avator" alt />
@@ -19,22 +19,17 @@
             <span>长春</span>
           </div>
         </el-card>
-        <el-card shadow="hover" style="height:282px;margin-top: 60px;">
+        <el-card shadow="hover" style="height:332px;margin-top: 20px;">
           <!-- <div slot="header" class="clearfix">
             <span>需求详情</span> -->
             <el-tabs v-model="activeName">
-              <el-tab-pane label="需求详情" name="first">
-                已完成
-                <el-progress :percentage="71.3" color="#42b983" style="margin-bottom:10px;"></el-progress>待完成
-                <el-progress :percentage="24.1" color="#f1e05a" style="margin-bottom:10px;"></el-progress>正在进行中
-                <el-progress :percentage="13.7" style="margin-bottom:10px;"></el-progress>
-              </el-tab-pane>
-              <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+              <div class="quarterly-situation">年完成总量：{{total_number}}</div>
+              <div id="quarterlySituation" style="width: 230px;height:300px;"></div>
             </el-tabs>
           <!-- </div> -->
         </el-card>
       </el-col>
-      <el-col :span="16" style="margin-top:25px;">
+      <el-col :span="16" style="margin-top:15px;">
         <el-row :gutter="20" class="mgb20">
           <el-col :span="8">
             <el-card shadow="hover" :body-style="{padding: '0px'}">
@@ -70,42 +65,47 @@
             </el-card>
           </el-col>
         </el-row>
-        <el-card shadow="hover" style="height:473px;margin-top:10px;">
+        <el-card shadow="hover" style="height:482px;margin-top:10px;">
           <!-- <div slot="header" class="clearfix">
             <span>需求详情</span> -->
-            <el-tabs v-model="activeName">
+            <!-- <el-tabs v-model="activeName">
               <el-tab-pane label="分季度完成需求量统计" name="first">
                 <div id="quarterlySituation" style="width: 600px;height:400px;"></div>
-              </el-tab-pane>
-              <el-tab-pane label="核心企业发布需求量Top5" name="second">
+              </el-tab-pane> -->
+              <!-- <el-tab-pane label="核心企业发布需求量Top5" name="second">
                 <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
-              </el-tab-pane>
+              </el-tab-pane>    
               <el-tab-pane label="供应商完成需求量Top5" name="thirth">
                 <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
-              </el-tab-pane>
-              <el-tab-pane label="企业评分雷达" name="forth">
+              </el-tab-pane> -->
+              <!-- <el-tab-pane label="企业评分雷达" name="forth">
                 <div id="comprehensiveScore" style="width: 600px;height:400px;"></div>
-              </el-tab-pane>
-              <el-tab-pane label="分类别需求量统计" name="fifth">
-                <div id="typeSituation" style="width: 900px;height:400px;"></div>
-              </el-tab-pane>              
-            </el-tabs>
+              </el-tab-pane> -->
+              <!-- <el-tab-pane label="分类别需求量统计" name="fifth"> -->
+                <div class="type-situation">
+                   分类别需求量统计
+                </div><br>
+                <div id="typeSituation" style="width: 600px;height:400px;"></div>
+              <!-- </el-tab-pane>               -->
+            <!-- </el-tabs> -->
           <!-- </div> -->
         </el-card>
       </el-col>
     </el-row>
-    <!-- <el-row :gutter="20">
+    <el-row :gutter="20">
       <el-col :span="12">
         <el-card shadow="hover">
-          <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
+          <div class="demandTop5">核心企业发布需求量Top5</div>
+          <div id="releaseDemandTop5" style="width: 390px;height:400px;"></div>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
-          <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
+          <div class="demandTop5">供应商完成的需求量Top5</div>
+          <div id="fulfillDemandTop5" ref="chart" style="width:390px;height:400px"></div>
         </el-card>
       </el-col>
-    </el-row> -->
+    </el-row>
   </div>
 </template>
 
@@ -118,6 +118,7 @@ export default {
     return {
       name: localStorage.getItem("ms_username"),
       activeName:"first",
+      total_number:1000,
       todoList: [
         {
           title: "今天要修复100个bug",
@@ -159,7 +160,7 @@ export default {
     this.getCharts();
     this.getCharts2();
     this.getCharts3();
-    this.getCharts4();
+    // this.getCharts4();
     this.getCharts5();
   },
   methods: {
@@ -181,7 +182,7 @@ export default {
     },
     legend: {
         orient: 'vertical',
-        right: 10,
+        right: 0,
         data: ['第一季度', '第二季度', '第三季度', '第四季度']
     },
     series: [
@@ -198,7 +199,7 @@ export default {
                 emphasis: {
                     show: true,
                     textStyle: {
-                        fontSize: '30',
+                        fontSize: '20',
                         fontWeight: 'bold'
                     }
                 }
@@ -227,7 +228,7 @@ export default {
     // 指定图表的配置项和数据
     var option = {
     title: {
-        text: '核心企业发布需求量Top5 ',
+        text: ' ',
         subtext: '数据来自大数据统计'
     },
     tooltip: {
@@ -263,8 +264,10 @@ export default {
             name: '2018年',
             type: 'bar',
             data: [ 1356, 1530, 1650, 1690, 2121]
-        }
+        },
+        
     ]
+    
 };
        myChart.setOption(option);
     },
@@ -274,7 +277,7 @@ export default {
       var myChart = echarts.init(document.getElementById('fulfillDemandTop5'))
       var option = {
         title: {
-          text: "供应商完成的需求量Top5",
+          text: ' ',
           subtext: "数据来自大数据统计"
         },
         tooltip: {
@@ -578,5 +581,21 @@ export default {
 .schart {
   width: 100%;
   height: 300px;
+}
+
+.type-situation {
+   margin-left: 160px;
+   font-size: 30px;
+   font-weight: bold;
+}
+
+.quarterly-situation {
+     margin-left: 40px;
+     font-weight: bold;
+     font-size: 18px;
+}
+
+.demandTop5 {
+     font-weight: bold;
 }
 </style>

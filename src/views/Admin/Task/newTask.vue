@@ -2,33 +2,29 @@
   <el-container>
     <el-main>
       <div class="newTask">
-        <h3>招标信息</h3>
-        <el-form
-          ref="newTask"
-          :model="newTask"
-          label-width="120px"
-          :inline="true"
-          label-position="right"
-        >
-          <el-row>
-            <el-form-item label="项目名称">
+        <h3>新增任务</h3>
+        
+  <el-form ref="form" :model="form" label-width="110px" class="box">
+        
+
+                    <el-row>
+              <el-col :span="11">
+          <el-form-item label="项目名称">
               <el-input v-model="newTask.name"></el-input>
             </el-form-item>
-            <el-form-item label="项目类别">
-              <el-select v-model="newTask.region" placeholder="请选择项目类别">
-                <el-option label="全部" value></el-option>
-                <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
-              </el-select>
+              </el-col>
+              <el-col :span="11">
+       <el-form-item label="项目类别">
+              <el-input v-model="newTask.name"></el-input>
             </el-form-item>
-            <el-form-item label="总负责人">
-              <el-select v-model="newTask.head" placeholder="请选择总负责人">
-                <el-option label="全部" value></el-option>
-                <el-option v-for="head in personnel" :key="head" :label="head" :value="head"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="投标截止日期">
+              </el-col>
+            </el-row>
+
+            
+
+                      <el-row>
+              <el-col :span="11">
+             <el-form-item label="投标截止日期">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -36,7 +32,9 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="开标日期">
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="开始日期">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -44,18 +42,43 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="任务详情">
-              <el-input
-                type="textarea"
-                autosize
-                v-model="newTask.detail"
-                style="width:100%;"
-                placeholder="请输入内容"
-              ></el-input>
+              </el-col>
+            </el-row>
+ <el-row>
+              <el-col :span="11">
+             <el-form-item label="总负责人">
+              <el-select v-model="newTask.head" placeholder="请选择总负责人" style="width: 100%;">
+                <el-option label="全部" value></el-option>
+                <el-option v-for="head in personnel" :key="head" :label="head" :value="head"></el-option>
+              </el-select>
             </el-form-item>
-          </el-row>
+              </el-col>
+              <el-col :span="11">
+           <el-form-item label="项目类别">
+              <el-select v-model="newTask.region" placeholder="请选择项目类别" style="width: 100%;">
+                <el-option label="全部" value></el-option>
+                <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
+              </el-select>
+            </el-form-item>
+              </el-col>
+            </el-row>
+
+
+
+            <el-row>
+                <el-col :span="24" class = "xiangxi">
+                    <el-form-item label="详细" >
+                            <el-input 
+                            type="textarea"
+                            :rows="3"
+                            style="width: 100%;"      
+                            placeholder="请输入内容" v-model="form.Introduction" class="gongsiDetail"  ></el-input>
+                    </el-form-item>
+                    
+                </el-col>
+            </el-row>
+
+
         </el-form>
       </div>
       <el-divider></el-divider>
@@ -85,7 +108,7 @@
             <el-table-column prop="taskNum" label="子任务编号"></el-table-column>
             <el-table-column prop="taskName" label="任务名称"></el-table-column>
             <el-table-column prop="taskType" label="任务类别"></el-table-column>
-            <el-table-column prop="bidTime" label="开标时间"></el-table-column>
+            <el-table-column prop="bidTime" label="开始时间"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
@@ -107,7 +130,7 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
- <el-form ref="form" :model="addList" label-width="120px">
+          <el-form ref="form" :model="addList" label-width="120px">
             <el-form-item label="子任务编号">
               <el-input v-model="form.taskNum"></el-input>
             </el-form-item>
@@ -115,7 +138,7 @@
               <el-input v-model="form.taskName"></el-input>
             </el-form-item>
             <el-form-item label="任务类别">
-                <el-select v-model="form.taskTyp" placeholder="请选择项目类别">
+              <el-select v-model="form.taskTyp" placeholder="请选择项目类别">
                 <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
               </el-select>
               <el-input v-model="form.taskType"></el-input>
@@ -129,9 +152,14 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="核心供应商">
+            <el-form-item label="供应商">
               <el-select v-model="form.supplyCompany" placeholder="请选择供应商">
-                <el-option v-for="company in supplyCompanies" :key="company" :label="company" :value="company"></el-option>
+                <el-option
+                  v-for="company in supplyCompanies"
+                  :key="company"
+                  :label="company"
+                  :value="company"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-form>
@@ -153,7 +181,7 @@
             <el-form-item label="任务类别">
               <el-input v-model="addList.taskType"></el-input>
             </el-form-item>
-            <el-form-item label="开标时间">
+            <el-form-item label="开始时间">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -165,7 +193,12 @@
             <el-form-item label="核心供应商">
               <el-select v-model="addList.supplyCompany" placeholder="请选择供应商">
                 <el-option label="全部" value></el-option>
-                <el-option v-for="company in supplyCompanies" :key="company" :label="company" :value="company"></el-option>
+                <el-option
+                  v-for="company in supplyCompanies"
+                  :key="company"
+                  :label="company"
+                  :value="company"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-form>
@@ -180,21 +213,20 @@
 </template>
 
 <script>
-
 export default {
   name: "newTask",
   data() {
     return {
-            query: {
+      query: {
         pageIndex: 1,
         pageSize: 10
       },
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
-      personnel: ["张三", "李四"], //总负责人
-      statuses: ["A类别", "B类别"], //任务类别
-      supplyCompanies: ["公司A", "公司B", "公司C"], //供应商列表
+      personnel: ["许知远", "王添","白泽"], //总负责人
+      statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
+      supplyCompanies: ["沈阳机床集团有限责任公司", "起重集团有限公司", "长光电子"], //供应商列表
       id: 0, //记录任务数
       //招标信息
       newTask: {
@@ -215,9 +247,9 @@ export default {
           taskType: "",
           bidTime: "",
           supplyCompany: ""
-        }              
+        }
       ],
-      form:{}
+      form: {}
     };
   },
   methods: {
