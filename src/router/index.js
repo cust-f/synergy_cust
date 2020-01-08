@@ -8,7 +8,7 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'
 
 //后台界面
-import Admin  from '@/Layout/template page/admin'
+import Admin from '@/Layout/template page/admin'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff'//新增人员
@@ -30,8 +30,9 @@ import designTaskEvaluationDetils from '@/views/admin/projectManagement/designTa
 import staffingTenderManagement from '@/views/admin/projectManagement/staffingTenderManagement'
 
 
-import circulation from '@/views/admin/personnel allotment/circulation'
-import desinger from '@/views/admin/personnel allotment/desinger'
+import circulation from '@/views/admin/personnel_allotment/circulation'
+import desinger from '@/views/admin/personnel_allotment/desinger'
+import virtualMachine from '@/views/admin/personnel_allotment/virtualMachine'
 
 //供应商市场部门
 import acceptDesignTask from '@/views/admin/supplier/supplierMarket/acceptDesignTask'
@@ -190,15 +191,21 @@ export default new Router({
         },
         //流通人员
         {
-          path: '/admin/circulation',
+          path: '/admin/personnel_allotment/circulation',
           name: 'circulation',
           component: circulation,
         },
         //设计人员
         {
-          path: '/admin/desinger',
+          path: '/admin/personnel_allotment/desinger',
           name: 'desinger',
           component: desinger,
+        },
+        //虚拟机
+        {
+          path: '/admin/personnel_allotment/virtualMachine',
+          name: 'virtualMachine',
+          component: virtualMachine,
         },
         //供应商接受设计任务
         // {
