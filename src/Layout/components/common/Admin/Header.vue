@@ -1,10 +1,10 @@
 <template>
   <div class="header">
     <!-- 折叠按钮 -->
-    <div class="collapse-btn" @click="collapseChage">
+    <!-- <div class="collapse-btn" @click="collapseChage">
       <i v-if="!collapse" class="el-icon-s-fold"></i>
       <i v-else class="el-icon-s-unfold"></i>
-    </div>
+    </div> -->
     <div class="logo">高端装备制造领域的科技服务SaaS应用构建以及示范</div>
     <div class="header-right">
       <div class="header-user-con">
@@ -132,6 +132,7 @@ export default {
 .header .logo {
   float: left;
   line-height: 70px;
+  color: #fff;
 }
 .header-right {
   float: right;
