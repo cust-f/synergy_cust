@@ -71,7 +71,7 @@ export default {
                         {
                             index:'/admin/supplyBussess',
                             title:'企业名录'
-                        }
+                        },
                         ]
                 },
                 {
