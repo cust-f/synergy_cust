@@ -205,7 +205,8 @@
      <el-col :span="6"   :push="pushCount0">
         <div class="grid-content bg-purple-dark">
           <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
-
+            
+            <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
           
         </div>
       </el-col>
@@ -213,6 +214,7 @@
       <el-col :span="6"  :push="pushCount0">
         <div class="grid-content bg-purple-dark">
 
+            <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
           
         </div>
       </el-col>
@@ -220,6 +222,7 @@
       <el-col :span="6"   :push="pushCount0">
         <div class="grid-content bg-purple-dark">
 
+            <div id="totalSupplyAndDemandTop5" style="width: 600px;height:400px;"></div>
           
         </div>
       </el-col>
@@ -312,12 +315,160 @@ export default {
       ],
     };
   },
+  mounted(){
+    this.getCharts();
+    this.getCharts2();
+    this.getCharts3();
+  },
   methods:{
       /*
       *转跳对应任务信息页面
       */
       recordTabletender(){
-      }
+      },
+      getCharts() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('fulfillDemandTop5'))
+      var option = {
+        title: {
+          text: "供应商完成的需求量Top5",
+          subtext: "数据来自大数据统计"
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "shadow"
+          }
+        },
+        legend: {
+          data: ["2017年", "2018年"]
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true
+        },
+        xAxis: {
+          type: "value",
+          boundaryGap: [0, 0.01]
+        },
+        yAxis: {
+          type: 'category',
+          data: ['松下', '索尼', '海尔', '格力', '美的']
+        },
+        series: [
+        {
+            name: '2017年',
+            type: 'bar',
+            data: [ 1245, 1523, 1587, 1689, 2567]
+        },
+        {
+            name: '2018年',
+            type: 'bar',
+            data: [ 1389, 1530, 1750, 1890, 2899]
+        }
+        ]
+      }; // 使用刚指定的配置项和数据显示图表。
+
+      myChart.setOption(option);
+    },
+
+    getCharts2(){
+      // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('releaseDemandTop5'));
+    // 指定图表的配置项和数据
+    var option = {
+    title: {
+        text: '核心企业发布的需求量Top5 ',
+        subtext: '数据来自大数据统计'
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: ['2017年', '2018年']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['索尼', '松下', '美的', '海尔', '格力']
+    },
+    series: [
+        {
+            name: '2017年',
+            type: 'bar',
+            data: [ 1315, 1432, 1679, 1789, 2015]
+        },
+        {
+            name: '2018年',
+            type: 'bar',
+            data: [ 1356, 1530, 1650, 1690, 2121]
+        }
+    ]
+};
+       myChart.setOption(option);
+    },
+
+    getCharts3() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('totalSupplyAndDemandTop5'))
+      var option = {
+        title: {
+          text: "企业当年供需总量Top5",
+          subtext: "数据来自大数据统计"
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "shadow"
+          }
+        },
+        legend: {
+          data: ["2017年", "2018年"]
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true
+        },
+        xAxis: {
+          type: "value",
+          boundaryGap: [0, 0.01]
+        },
+        yAxis: {
+          type: 'category',
+          data: ['索尼', '松下', '海尔', '美的', '格力']
+        },
+        series: [
+        {
+            name: '2017年',
+            type: 'bar',
+            data: [ 2245, 2523, 2587, 7689, 8543]
+        },
+        {
+            name: '2018年',
+            type: 'bar',
+            data: [ 2389, 2530, 2750, 7890, 8722]
+        }
+        ]
+      }; // 使用刚指定的配置项和数据显示图表。
+
+      myChart.setOption(option);
+    }
   }
 };
 

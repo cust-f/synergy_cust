@@ -1,7 +1,8 @@
 
 <template>
+<el-container>
+    <el-main>
   <div class="BG">
-
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
@@ -234,6 +235,8 @@
 
     
   </div>
+  </el-main>
+  </el-container>
 </template>
 
 

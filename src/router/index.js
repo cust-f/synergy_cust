@@ -124,7 +124,7 @@ export default new Router({
         },
         //查看所有供应商的信息
         {
-          path: '/admin/company/supplyBussess',
+          path: '/admin/supplyBussess',
           name: 'supplyBussess',
           component: supplyBussess,
           meta: {

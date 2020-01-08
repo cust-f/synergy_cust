@@ -19,7 +19,7 @@
             <span>长春</span>
           </div>
         </el-card>
-        <el-card shadow="hover" style="height:252px;margin-top: 60px;">
+        <el-card shadow="hover" style="height:282px;margin-top: 60px;">
           <!-- <div slot="header" class="clearfix">
             <span>需求详情</span> -->
             <el-tabs v-model="activeName">
@@ -70,32 +70,18 @@
             </el-card>
           </el-col>
         </el-row>
-        <el-card shadow="hover" style="height:403px;margin-top:60px;">
-          <div slot="header" class="clearfix">
-            <span>待办事项</span>
-            <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
-          </div>
-          <el-table :show-header="false" :data="todoList" style="width:100%;">
-            <el-table-column width="40">
-              <template slot-scope="scope">
-                <el-checkbox v-model="scope.row.status"></el-checkbox>
-              </template>
-            </el-table-column>
-            <el-table-column>
-              <template slot-scope="scope">
-                <div
-                  class="todo-item"
-                  :class="{'todo-item-del': scope.row.status}"
-                >{{scope.row.title}}</div>
-              </template>
-            </el-table-column>
-            <el-table-column width="60">
-              <template>
-                <i class="el-icon-edit"></i>
-                <i class="el-icon-delete"></i>
-              </template>
-            </el-table-column>
-          </el-table>
+        <el-card shadow="hover" style="height:473px;margin-top:10px;">
+          <!-- <div slot="header" class="clearfix">
+            <span>需求详情</span> -->
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="分季度完成需求量统计" name="first">
+                <div id="quarterlySituation" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+              <el-tab-pane label="核心企业发布需求量Top5" name="second">
+                <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+            </el-tabs>
+          <!-- </div> -->
         </el-card>
       </el-col>
     </el-row>
@@ -160,6 +146,10 @@ export default {
       window.removeEventListener('resize', this.renderChart);
       bus.$off('collapse', this.handleBus);
   },
+  mounted(){
+    this.getCharts();
+    this.getCharts2();
+  },
   methods: {
     changeDate() {
       const now = new Date().getTime();
@@ -168,7 +158,104 @@ export default {
         item.name = `${date.getFullYear()}/${date.getMonth() +
           1}/${date.getDate()}`;
       });
-    }
+    },
+        getCharts(){
+    var myChart = echarts.init(document.getElementById('quarterlySituation'));
+    // 指定图表的配置项和数据
+    var option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    legend: {
+        orient: 'vertical',
+        right: 10,
+        data: ['第一季度', '第二季度', '第三季度', '第四季度']
+    },
+    series: [
+        {
+            name: '分季完成量',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data: [
+                {value: 335, name: '第一季度'},
+                {value: 310, name: '第二季度'},
+                {value: 235, name: '第三季度'},
+                {value: 220, name: '第四季度'},
+                // {value: 1548, name: '搜索引擎'}
+            ]
+        }
+    ]
+};
+    myChart.setOption(option);
+    },
+
+    getCharts2(){
+      // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('releaseDemandTop5'));
+    // 指定图表的配置项和数据
+    var option = {
+    title: {
+        text: '核心企业发布需求量Top5 ',
+        subtext: '数据来自大数据统计'
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: ['2017年', '2018年']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['索尼', '松下', '美的', '海尔', '格力']
+    },
+    series: [
+        {
+            name: '2017年',
+            type: 'bar',
+            data: [ 1315, 1432, 1679, 1789, 2015]
+        },
+        {
+            name: '2018年',
+            type: 'bar',
+            data: [ 1356, 1530, 1650, 1690, 2121]
+        }
+    ]
+};
+       myChart.setOption(option);
+    },
   }
 };
 </script>
