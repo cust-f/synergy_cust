@@ -8,15 +8,15 @@
 
                     <div class="CSS1">
                         <div class="CSS1Child0">
-                            <span>欢迎访问<font>高端装备制造领域的科技服务SaaS应用构建以及示范</font></span>
+                            <span>欢迎访问&nbsp;<font class="fontStyle">高端装备制造领域的科技服务SaaS应用构建以及示范</font></span>
                         </div>
                         <div class="CSS1Child1">
                             <ul class="ulCSS">
-                                <li><a href="#home">登录</a></li>
+                                <li><a href="#home">登录</a>&nbsp;</li>
                                 <el-divider direction="vertical"></el-divider>
-                                <li><a href="#news">联系客服</a></li>
-                                <li><a href="#contact">关于我们</a></li>
-                                <li><a href="#about">帮助中心</a></li>
+                                <li><a href="#news">&nbsp;联系客服&nbsp;</a></li>
+                                <li><a href="#contact">&nbsp;关于我们&nbsp;</a></li>
+                                <li><a href="#about">&nbsp;帮助中心&nbsp;</a></li>
                             </ul>
                         </div>
 
@@ -60,7 +60,12 @@ export default {
     {
         color: rgb(112, 112, 112);
     }
-
+    /**顶栏平台名CSS */
+    .fontStyle
+    {
+        font-size: 18px;
+        color: rgb(80, 77, 77);
+    }
     /**本行用CSS */
     .elcolCSS0
     {
@@ -74,7 +79,7 @@ export default {
         height:30px;
         padding: 0;
         width: 100%;
-        background-color:rgb(210, 213, 219);
+        background-color:rgb(194, 198, 207);
     }
     /**顶栏内内容所用CSS*/
     .CSS1Child0
