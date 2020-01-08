@@ -207,9 +207,29 @@ export default new Router({
           name: 'virtualMachine',
           component: virtualMachine,
         },
-        //供应商接受设计任务
+//供应方
+
+         //供应商设计任务列表
         {
-          path: '/admin/acceptDesignTask',
+          path: '/admin/supplier/supplierMarket/designTaskq',
+          name: 'designTaskq',
+          component: designTaskq,
+          meta: {
+            title: "接受设计任务"
+          }
+        },
+         //供应商设计任务详情
+        {
+          path: '/admin/supplier/supplierMarket/designTaskqDesigin',
+          name: 'designTaskqDesigin',
+          component: designTaskqDesigin,
+          meta: {
+            title: "接受设计任务"
+          }
+        },
+                //供应商接受设计任务
+        {
+          path: '/admin/supplier/supplierMarket/acceptDesignTask',
           name: 'acceptDesignTask',
           component: acceptDesignTask,
           meta: {
