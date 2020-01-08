@@ -9,7 +9,7 @@
             <el-page-header @back="goBack" content="详情页面">
             </el-page-header>
  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-            <el-form ref="form" :model="cool" label-width="110px">
+            <el-form ref="form" :model="cool" label-width="110px" class="form">
             <el-row  >
                 <el-col :span="11">
                     <el-form-item label="主项目ID">
@@ -101,9 +101,6 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
@@ -233,7 +230,7 @@ export default {
         {
           id: 1,
           bussessType: "车间零部件生产",
-          name: "张三",
+          name: "长春光华微电子集团",
           money: 30000,
           state: "成功",
           date: "2019-11-1"
@@ -241,7 +238,7 @@ export default {
         {
           id: 1,
           bussessType: "卫星微型零件制作",
-          name: "李四",
+          name: "中国机械工业集团公司",
           money: 5000,
           state: "成功",
           date: "2019-11-1"
@@ -249,7 +246,7 @@ export default {
         {
           id: 1,
           bussessType: "导弹装配与改革",
-          name: "王五",
+          name: "大连冰山集团有限公司",
           money: 7000,
           state: "成功",
           date: "2019-11-1"
@@ -366,5 +363,8 @@ export default {
 </script>
 
 <style>
+.table{
+  font-size: 16px
+}
 
 </style>

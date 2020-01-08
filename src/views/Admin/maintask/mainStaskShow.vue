@@ -33,9 +33,6 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
@@ -93,9 +90,6 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
@@ -106,7 +100,7 @@
         </el-table-column>
 
         <el-table-column prop="date" label="任务完成时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column label="操作" width="220" align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -115,6 +109,7 @@
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
           <el-button @click="substaskDetail2(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+                    <el-button @click="chick(scope.$index, scope.row)" type="text" size="small">供应商审核</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -152,9 +147,6 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
@@ -211,9 +203,6 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
@@ -224,7 +213,7 @@
         </el-table-column>
 
         <el-table-column prop="date" label="任务完成时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column label="操作" width="280" align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -233,7 +222,8 @@
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
           <el-button @click="substaskDetail4(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
-          <el-button @click="dialogVisible = true" type="text" size="small">审核</el-button>
+          <el-button @click="dialogVisible = true" type="text" size="small">审核通过</el-button>
+                    <el-button @click="open" type="text" size="small">审核不通过</el-button>
 
           </template>
         </el-table-column>
@@ -276,9 +266,6 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
@@ -297,7 +284,7 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-          <el-button @click="substaskDetail5(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="substaskDetaill(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -338,9 +325,6 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column label="订单金额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
@@ -377,51 +361,14 @@
 
 
 
-    <el-dialog title="设计任务详情" :visible.sync="dialogVisible" width="60%" >
+    <el-dialog title="是否同意通过审核" :visible.sync="dialogVisible" width="40%" >
       <div>
-        <el-form ref="form" :model="form" label-width="110px">
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="设计任务ID">
-                <el-input v-model="form.Desinger_ID" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="设计任务名称">
-                <el-input v-model="form.Desinger_Name" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="设计任务类型">
-                <el-input v-model="form.Desinger_Type" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-             <el-col :span="11">
-              <el-form-item label="截止日期">
-                <el-input v-model="form.Desinger_End_Time" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-form-item label="设计任务详情">
-              <el-input
-              :disabled="true"
-                type="textarea"
-                :rows="7"
-                v-model="form.Desinger_Task_Details"
-                style="width:100%;"
-                placeholder="请输入内容"
-              ></el-input>
-            </el-form-item>
-          </el-row>
-        </el-form>
+       
       </div>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button @click="dialogVisible = false">是</el-button>
+        <el-button type="primary" @click="dialogVisible = false">否</el-button>
       </span>
     </el-dialog>
 
@@ -593,7 +540,7 @@ export default {
           bussessType: "车间零部件生产",
           name: "长春光华微电子集团",
           money: 30000,
-          state: "已完成",
+          state: "成功",
           date: "2019-11-1"
         },
         {
@@ -601,7 +548,7 @@ export default {
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
-          state: "已完成",
+          state: "成功",
           date: "2019-11-1"
         },
         {
@@ -609,7 +556,7 @@ export default {
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
-          state: "已完成",
+          state: "成功",
           date: "2019-11-1"
         },
         {
@@ -617,7 +564,7 @@ export default {
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
-          state: "已完成",
+          state: "成功",
           date: "2019-11-1"
         },
          {
@@ -625,7 +572,7 @@ export default {
           bussessType: "车间零部件生产",
           name: "沈阳机床集团有限责任公司",
           money: 5000,
-          state: "已完成",
+          state: "成功",
           date: "2019-11-1"
         },
         {
@@ -633,7 +580,7 @@ export default {
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
-          state: "已完成",
+          state: "成功",
           date: "2019-11-1"
         },
         {
@@ -641,7 +588,7 @@ export default {
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
-          state: "已完成",
+          state: "成功",
           date: "2019-11-1"
         }
       ],
@@ -654,7 +601,7 @@ export default {
           bussessType: "车间零部件生产",
           name: "长春光华微电子集团",
           money: 30000,
-          state: "已废除",
+          state: "失败",
           date: "2019-11-1"
         },
         {
@@ -662,7 +609,7 @@ export default {
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
-          state: "已废除",
+          state: "失败",
           date: "2019-11-1"
         },
         {
@@ -670,7 +617,7 @@ export default {
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
-          state: "已废除",
+          state: "失败",
           date: "2019-11-1"
         },
         {
@@ -678,7 +625,7 @@ export default {
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
-          state: "已废除",
+          state: "失败",
           date: "2019-11-1"
         },
          {
@@ -686,7 +633,7 @@ export default {
           bussessType: "车间零部件生产",
           name: "沈阳机床集团有限责任公司",
           money: 5000,
-          state: "已废除",
+          state: "失败",
           date: "2019-11-1"
         },
         {
@@ -694,7 +641,7 @@ export default {
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
-          state: "已废除",
+          state: "失败",
           date: "2019-11-1"
         },
         {
@@ -702,7 +649,7 @@ export default {
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
-          state: "已废除",
+          state: "失败",
           date: "2019-11-1"
         }
       ],
@@ -857,7 +804,13 @@ export default {
     this.getData();
   },
   methods:{
-
+ 
+      //审核不通过的原因
+         open() {
+        this.$prompt('请输入审核不通过原因', '提示', {
+          confirmButtonText: '修改提交',
+          cancelButtonText: '任务废除',
+        })},
         onSubmit() {
       console.log(123);
     },
@@ -870,7 +823,30 @@ export default {
 
           handleClick(tab, event) {
         console.log(tab, event);
-      }
+      },
+
+           substaskDetail1(){
+         this.$router.push('/admin/substaskDetail')
+     },
+
+          substaskDetail2(){
+         this.$router.push('/admin/substaskDetail')
+     },
+               substaskDetail3(){
+         this.$router.push('/admin/substaskDetail')
+     },
+               substaskDetail4(){
+         this.$router.push('/admin/substaskDetail')
+     },
+               substaskDetaill(){
+         this.$router.push('/admin/substaskDetail')
+     },
+               substaskDetail6(){
+         this.$router.push('/admin/substaskDetail')
+     },
+                     chick(){
+                  this.$router.push('/admin/check/review')
+                }
     },
           // 获取 easy-mock 的模拟数据
     getData() {
@@ -933,24 +909,6 @@ export default {
     },
     // 分页导航
     handlePageChange(val) {},
-     substaskDetail1(){
-         this.$router.push('/admin/substaskDetail')
-     },
-          substaskDetail2(){
-         this.$router.push('/admin/substaskDetail')
-     },
-               substaskDetail3(){
-         this.$router.push('/admin/substaskDetail')
-     },
-               substaskDetail4(){
-         this.$router.push('/admin/substaskDetail')
-     },
-               substaskDetail5(){
-         this.$router.push('/admin/substaskDetail')
-     },
-               substaskDetail6(){
-         this.$router.push('/admin/substaskDetail')
-     }
 
       /*
       *转跳对应任务信息页面
@@ -965,6 +923,9 @@ export default {
     height: 1000px;
     margin:0 auto;
     text-align: center
+}
+.table{
+  font-size: 16px
 }
 
 </style>
