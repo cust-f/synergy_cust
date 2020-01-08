@@ -143,7 +143,7 @@ export default {
         {
           id: 1,
           bussessType: "车间零部件生产",
-          name: "张三",
+          name: "长春光华微电子集团",
           money: 30000,
           state: "成功",
           date: "2019-11-1"
@@ -151,31 +151,31 @@ export default {
         {
           id: 1,
           bussessType: "卫星微型零件制作",
-          name: "李四",
+          name: "中国机械工业集团公司",
           money: 5000,
           state: "成功",
           date: "2019-11-1"
         },
         {
           id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "李四",
+          bussessType: "大型机械组装",
+          name: "山东工程机械集团有限公司",
           money: 5000,
           state: "成功",
           date: "2019-11-1"
         },
         {
           id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "李四",
+          bussessType: "大型机械组装",
+          name: "大连冰山集团有限公司",
           money: 5000,
           state: "成功",
           date: "2019-11-1"
         },
          {
           id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "李四",
+          bussessType: "车间零部件生产",
+          name: "沈阳机床集团有限责任公司",
           money: 5000,
           state: "成功",
           date: "2019-11-1"
@@ -183,7 +183,7 @@ export default {
         {
           id: 1,
           bussessType: "卫星微型零件制作",
-          name: "李四",
+          name: "北方重工集团有限公司",
           money: 5000,
           state: "成功",
           date: "2019-11-1"
@@ -191,7 +191,7 @@ export default {
         {
           id: 1,
           bussessType: "导弹装配与改革",
-          name: "王五",
+          name: "大连重工-起重集团有限公司",
           money: 7000,
           state: "成功",
           date: "2019-11-1"
@@ -205,16 +205,7 @@ export default {
         state: null,
         date: null
       },
-       tenderTrendsList:[
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来"},
-        { column_name: "白日依山尽，黄河入海流"},
-        { column_name: "黄河落天走东海，万里尘沙入胸怀"},
-        { column_name: "明月隐高树，长河没晓天"},
-        { column_name :"萧萧远树疏林外，一半秋山带夕阳。"},
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。"}
-         ],
+
       multipleSelection: [],
       editVisible: false,
       addVisible: false,

@@ -114,7 +114,7 @@ export default {
         },
         indicator: [
             { name: '销售能力（sales）', max: 10},
-            { name: '人员管理（Administration）', max: 10},
+            { name: '管理（Administration）', max: 10},
             { name: '技术水平（Techology）', max: 10},
             { name: '客户服务（Customer Support）', max: 10},
             { name: '研发能力（Development）', max: 10},
@@ -197,7 +197,7 @@ export default {
     // 指定图表的配置项和数据
     var option = {
     title: {
-        text: '企业发布的需求量Top5 ',
+        text: '核心企业发布的需求量Top5 ',
         subtext: '数据来自大数据统计'
     },
     tooltip: {

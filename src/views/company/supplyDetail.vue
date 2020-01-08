@@ -2,7 +2,6 @@
 <div>
 <el-container>
 
-
     <el-main>
         
             <el-page-header @back="goBack" content="详情页面">
@@ -248,7 +247,7 @@ export default {
         },
         goBack()
         {
-            this.$router.push('/admin/supplyBussess',);
+            this.$router.push('/supplyBussess');
         }
     }
 }

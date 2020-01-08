@@ -80,6 +80,15 @@
               <el-tab-pane label="核心企业发布需求量Top5" name="second">
                 <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
               </el-tab-pane>
+              <el-tab-pane label="供应商完成需求量Top5" name="thirth">
+                <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
+              </el-tab-pane>
+              <el-tab-pane label="企业评分雷达" name="forth">
+                <div id="comprehensiveScore" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+              <el-tab-pane label="分类别需求量统计" name="fifth">
+                <div id="typeSituation" style="width: 900px;height:400px;"></div>
+              </el-tab-pane>              
             </el-tabs>
           <!-- </div> -->
         </el-card>
@@ -149,6 +158,9 @@ export default {
   mounted(){
     this.getCharts();
     this.getCharts2();
+    this.getCharts3();
+    this.getCharts4();
+    this.getCharts5();
   },
   methods: {
     changeDate() {
@@ -215,7 +227,7 @@ export default {
     // 指定图表的配置项和数据
     var option = {
     title: {
-        text: '企业发布的需求量Top5 ',
+        text: '核心企业发布需求量Top5 ',
         subtext: '数据来自大数据统计'
     },
     tooltip: {
@@ -255,6 +267,203 @@ export default {
     ]
 };
        myChart.setOption(option);
+    },
+
+    getCharts3() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('fulfillDemandTop5'))
+      var option = {
+        title: {
+          text: "供应商完成的需求量Top5",
+          subtext: "数据来自大数据统计"
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "shadow"
+          }
+        },
+        legend: {
+          data: ["2017年", "2018年"]
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true
+        },
+        xAxis: {
+          type: "value",
+          boundaryGap: [0, 0.01]
+        },
+        yAxis: {
+          type: 'category',
+          data: ['松下', '索尼', '海尔', '格力', '美的']
+        },
+        series: [
+        {
+            name: '2017年',
+            type: 'bar',
+            data: [ 1245, 1523, 1587, 1689, 2567]
+        },
+        {
+            name: '2018年',
+            type: 'bar',
+            data: [ 1389, 1530, 1750, 1890, 2899]
+        }
+        ]
+      }; // 使用刚指定的配置项和数据显示图表。
+
+      myChart.setOption(option);
+    },
+
+    getCharts4(){
+      // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('comprehensiveScore'));
+
+    // 指定图表的配置项和数据
+    var option = {
+    title: {
+        text: '企业综合评分'
+    },
+    tooltip: {},
+    legend: {
+        data: ['2017年', '2018年']
+    },
+    radar: {
+        // shape: 'circle',
+        name: {
+            textStyle: {
+                color: '#fff',
+                backgroundColor: '#999',
+                borderRadius: 3,
+                padding: [3, 5]
+            }
+        },
+        indicator: [
+            { name: '销售能力（sales）', max: 10},
+            { name: '管理（Administration）', max: 10},
+            { name: '技术水平（Techology）', max: 10},
+            { name: '客户服务（Customer Support）', max: 10},
+            { name: '研发能力（Development）', max: 10},
+            // { name: '市场（Marketing）', max: 25000}
+        ]
+    },
+    series: [{
+        name: '预算 vs 开销（Budget vs spending）',
+        type: 'radar',
+        // areaStyle: {normal: {}},
+        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+        data: [
+            {
+                value: [8, 5, 6, 6, 6, 6],
+                name: '2017年'
+            },
+            {
+                value: [8, 6, 7, 4, 8, 7],
+                name: '2018年'
+            }
+        ]
+    }]
+};
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    },
+
+    getCharts5() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('typeSituation'))
+      var option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    legend: {
+        orient: 'vertical',
+        left: 10,
+        data: ['仪器仪表', '电器机械及器材', '通信设备', '交通运输设备','光学仪器仪表', '通用仪器仪表','输配电及控制设备', '照明器具', '雷达及配套设备', '广播电视设备', '铁路运输设备','汽车']
+    },
+    series: [
+        {
+            name: '占比来源',
+            type: 'pie',
+            selectedMode: 'single',
+            radius: [0, '30%'],
+
+            label: {
+                position: 'inner'
+            },
+            labelLine: {
+                show: false
+            },
+            data: [
+                {value: 550, name: '仪器仪表', selected: true},
+                {value: 600, name: '电器机械及器材'},
+                {value: 1500, name: '通信设备'},
+                {value: 1200, name: '交通运输设备'}
+            ]
+        },
+        {
+            name: '占比来源',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            label: {
+                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                backgroundColor: '#eee',
+                borderColor: '#aaa',
+                borderWidth: 1,
+                borderRadius: 4,
+                // shadowBlur:3,
+                // shadowOffsetX: 2,
+                // shadowOffsetY: 2,
+                // shadowColor: '#999',
+                // padding: [0, 7],
+                rich: {
+                    a: {
+                        color: '#999',
+                        lineHeight: 22,
+                        align: 'center'
+                    },
+                    // abg: {
+                    //     backgroundColor: '#333',
+                    //     width: '100%',
+                    //     align: 'right',
+                    //     height: 22,
+                    //     borderRadius: [4, 4, 0, 0]
+                    // },
+                    hr: {
+                        borderColor: '#aaa',
+                        width: '100%',
+                        borderWidth: 0.5,
+                        height: 0
+                    },
+                    b: {
+                        fontSize: 16,
+                        lineHeight: 33
+                    },
+                    per: {
+                        color: '#eee',
+                        backgroundColor: '#334455',
+                        padding: [2, 4],
+                        borderRadius: 2
+                    }
+                }
+            },
+            data: [
+                {value: 200, name: '光学仪器仪表'},
+                {value: 350, name: '通用仪器仪表'},
+                {value: 300, name: '输配电及控制设备'},
+                {value: 300, name: '照明器具'},
+                {value: 600, name: '雷达及配套设备'},
+                {value: 900, name: '广播电视设备'},
+                {value: 800, name: '铁路运输设备'},
+                {value: 400, name: '汽车'}
+            ]
+        }
+    ]
+};
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
     },
   }
 };
