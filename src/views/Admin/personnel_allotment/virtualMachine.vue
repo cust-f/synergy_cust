@@ -1,15 +1,7 @@
 <template>
   <el-container>
-    <el-header style="background:rgb(249,250,252); height:50px !important; line-height:48px">
-      <el-button type="info" @click="backtolist">返回</el-button>
-      <el-button type="danger">关闭虚拟机</el-button>
-      <el-button type="danger">断开连接</el-button>
-      <el-button type="primary">截屏</el-button>
-      <el-button type="warning">发送Ctrl+Alt+Del</el-button>
-      <el-button type="success">提交文件</el-button>
-    </el-header>
     <el-container>
-      <el-main width="65%" id="kvm-left">
+      <el-main width="67%" id="kvm-left">
         <iframe
           id="show-iframe"
           style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
@@ -21,32 +13,57 @@
 
       <div id="movebar" style="width:15px; z-index:2; background:#cccccc"></div>
 
-      <el-aside width="28%" id="kvm-right">
-        <el-tabs type="border-card" style="height:98%">
-          <el-tab-pane label="任务详情" name="first">
-            <el-form ref="form" :model="form" label-width="110px">
+      <el-aside width="25%" id="kvm-right">
+        <div style="background:#FFFFFF; height:128px">
+          <el-row>
+            <el-col :span="11">
+              <el-button type="info" @click="backtolist">返回</el-button>
+            </el-col>
+            <el-col :span="11">
+              <el-button type="warning">发送Ctrl+Alt+Del</el-button>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-button type="danger">断开连接</el-button>
+            </el-col>
+            <el-col :span="11">
+              <el-button type="danger">关闭虚拟机</el-button>
+            </el-col>
+          </el-row>
+        </div>
+        <el-tabs v-model="activeTab" type="border-card" style="height:60%;">
+          <el-tab-pane class="cur" label="任务详情" name="first">
+            <el-form ref="form" :model="form" label-width="140px" style="margin-right:40px">
+              <br />
               <el-row>
                 <el-form-item label="设计任务ID">
                   <el-input v-model="form.Desinger_ID" :disabled="true"></el-input>
                 </el-form-item>
               </el-row>
-
+              <br />
+              <br />
               <el-row>
                 <el-form-item label="设计任务名称">
                   <el-input v-model="form.Desinger_Name" :disabled="true"></el-input>
                 </el-form-item>
               </el-row>
-
+              <br />
+              <br />
               <el-row>
                 <el-form-item label="设计任务类型">
                   <el-input v-model="form.Desinger_Type" :disabled="true"></el-input>
                 </el-form-item>
               </el-row>
+              <br />
+              <br />
               <el-row>
                 <el-form-item label="截止日期">
                   <el-input v-model="form.Desinger_End_Time" :disabled="true"></el-input>
                 </el-form-item>
               </el-row>
+              <br />
+              <br />
               <el-row>
                 <el-form-item label="设计任务详情">
                   <el-input
@@ -61,12 +78,12 @@
               </el-row>
             </el-form>
           </el-tab-pane>
-          <el-tab-pane label="文档提交" name="second">
+          <el-tab-pane class="cur" label="文档提交" name="second">
             假装这里有个富文本编辑器
             <br />
           </el-tab-pane>
-          <el-tab-pane label="预留标签1" name="third">预留标签1</el-tab-pane>
-          <el-tab-pane label="预留标签2" name="fourth">预留标签2</el-tab-pane>
+          <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane>
+          <el-tab-pane class="cur" label="预留标签2" name="fourth">预留标签2</el-tab-pane>
         </el-tabs>
       </el-aside>
     </el-container>
@@ -77,7 +94,8 @@
 export default {
   data() {
     return {
-      form: {}
+      form: {},
+      activeTab: 'first'
     };
   },
   mounted() {
@@ -191,6 +209,8 @@ export default {
 </script>
 <style>
 .el-button {
-  margin-left: 50px !important;
+  margin-left: 50px;
+  margin-top: 15px;
+  width: 160px
 }
 </style>

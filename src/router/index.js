@@ -109,8 +109,8 @@ export default new Router({
           path: '/admin/mainStaskDetail',
           name: 'mainStaskDetail',
           component: mainStaskDetail,
-          meta:{
-            title:"查看主任务所属子任务的全部信息"
+          meta: {
+            title: "查看主任务所属子任务的全部信息"
           }
         },
         //企业信息详情
@@ -118,8 +118,8 @@ export default new Router({
           path: '/admin/companyDetail',
           name: 'companyDetail',
           component: companyDetail,
-          meta:{
-            title:"企业信息详情"
+          meta: {
+            title: "企业信息详情"
           }
         },
         //查看所有供应商的信息
@@ -127,8 +127,8 @@ export default new Router({
           path: '/admin/supplyBussess',
           name: 'supplyBussess',
           component: supplyBussess,
-          meta:{
-            title:"所有供应商的信息"
+          meta: {
+            title: "所有供应商的信息"
           }
         },
         //单个供应商的详细信息
@@ -136,8 +136,8 @@ export default new Router({
           path: '/admin/supplyDetail',
           name: 'supplyDetail',
           component: supplyDetail,
-          meta:{
-            title:"供应商的详细信息"
+          meta: {
+            title: "供应商的详细信息"
           }
         },
         //供应商信息审核（将供应商添加到所属供应商名录中）
@@ -145,8 +145,8 @@ export default new Router({
           path: '/admin/review',
           name: 'review',
           component: review,
-          meta:{
-            title:"供应商信息审核"
+          meta: {
+            title: "供应商信息审核"
           }
         },
         //新增人员
@@ -154,8 +154,8 @@ export default new Router({
           path: '/admin/newStaff',
           name: 'newStaff',
           component: newStaff,
-          meta:{
-            title:"新增人员"
+          meta: {
+            title: "新增人员"
           }
         },
 
@@ -208,91 +208,90 @@ export default new Router({
           component: virtualMachine,
         },
         //供应商接受设计任务
-        // {
-        //   path: '/admin/supplierAccept',
-        //   name: 'supplierAccept',
-        //   component: supplierAccept,
-
-        // },
-        //供应商流通任务
-        {
-          path: '/admin/supplier/circulationTaskq',
-          name: 'circulationTaskq',
-          component: circulationTaskq,
-        },
-        //供应商设计成果
-        {
-          path: '/admin/supplier/designResult',
-          name: 'designResult',
-          component: designResult,
-        },
-        //供应商接受任务详情
-        // {
-        //   path: '/admin/supplier/supplierMarket/supplierAcceptTask',
-        //   name: 'supplierAcceptTask',
-        //   component: supplierAcceptTask,
-
-        // },
-        {
-          path: '/admin/accceptCirculationDetailsTask',
-          name: 'accceptCirculationDetailsTask',
-          component: accceptCirculationDetailsTask,
-        },
-        {
-          path: '/admin/accceptCirculationtask',
-          name: 'accceptCirculationtask',
-          component: accceptCirculationtask,
-        },
-        {
-          path: '/admin/acceptDesignDetailsTask',
-          name: 'acceptDesignDetailsTask',
-          component: acceptDesignDetailsTask,
-        },
         {
           path: '/admin/acceptDesignTask',
           name: 'acceptDesignTask',
           component: acceptDesignTask,
+          meta: {
+            title: "接受设计任务"
+          }
         },
+        //供应商接受设计任务详情
         {
-          path: '/admin/circulationTaskEvaluate',
-          name: 'circulationTaskEvaluate',
-          component: circulationTaskEvaluate,
+          path: '/admin/acceptDesignDetailsTask',
+          name: 'acceptDesignDetailsTask',
+          component: acceptDesignDetailsTask,
+          meta: {
+            title: "接受设计任务详情"
+          }
         },
+
+        //供应商接受流通任务
+        {
+          path: '/admin/accceptCirculationtask',
+          name: 'accceptCirculationtask',
+          component: accceptCirculationtask,
+          meta: {
+            title: "接受流通任务"
+          }
+        },
+
+        //供应商接受流通任务详情
+        {
+          path: '/admin/accceptCirculationDetailsTask',
+          name: 'accceptCirculationDetailsTask',
+          component: accceptCirculationDetailsTask,
+          meta: {
+            title: "流通任务详情"
+          }
+        },
+
+        //供应商流通任务
+        {
+          path: '/admin/circulationTaskq',
+          name: 'circulationTaskq',
+          component: circulationTaskq,
+          meta: {
+            title: "流通任务"
+          }
+        },
+        //供应商设计成果
+        {
+          path: '/admin/designResult',
+          name: 'designResult',
+          component: designResult,
+          meta:{
+            title:"设计成果"
+          }
+        },
+
+        //供应商接受任务详情
+        {
+          path: '/admin/acceptDesignDetailsTask',
+          name: 'acceptDesignDetailsTask',
+          component: acceptDesignDetailsTask,
+          meta:{
+            title:"接受任务详情"
+          }
+
+        },
+        //供应商完成任务列表
         {
           path: '/admin/circulationTaskfinish',
           name: 'circulationTaskfinish',
           component: circulationTaskfinish,
+          meta:{
+            title:"完成任务列表"
+          }
         },
+        //供应商完成任务详情
         {
           path: '/admin/circulationTaskfinishDesign',
           name: 'circulationTaskfinishDesign',
           component: circulationTaskfinishDesign,
-        },
-        {
-          path: '/admin/circulationTaskqDesign',
-          name: 'circulationTaskqDesign',
-          component: circulationTaskqDesign,
-        },
-        {
-          path: '/admin/circulationTaskqDesign',
-          name: 'circulationTaskqDesign',
-          component: circulationTaskqDesign,
-
-        },
-        {
-          path: '/admin/designResultDesigin',
-          name: 'designResultDesigin',
-          component: designResultDesigin,
-        },
-        {
-          path: '/admin/designTaskq',
-          name: 'designTaskq',
-          component: designTaskq,
-        },
-        {
-          path: '/admin/designTaskqDesigin',
-          name: 'designTaskqDesigin',
-          component: designTaskqDesigin,
+          meta:{
+            title:"完成任务详情"
+          }
         }
       ]
     },

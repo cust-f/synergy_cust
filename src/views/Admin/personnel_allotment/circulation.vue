@@ -1,11 +1,9 @@
-
 <template>
   <el-container>
     <el-aside width="3%"></el-aside>
     <el-main>
       <div class="supplierTask">
-        <el-page-header @back="goBack" content="流通任务"></el-page-header>
-        <h3></h3>
+        <h3>流通任务</h3>
       </div>
       <el-row>
         <el-col :span="12">
@@ -146,7 +144,6 @@
     </el-dialog>
   </el-container>
 </template>
-
 
 
 
@@ -297,5 +294,3 @@ export default {
   }
 };
 </script>
-
-

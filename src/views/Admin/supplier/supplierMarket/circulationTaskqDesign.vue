@@ -1,18 +1,6 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="15%" style="overflow:hidden">
-        <div class="backGround_0">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>历史记录</span>
-              <el-button style="float: right; padding: 3px 0" type="text">更多详情</el-button>
-            </div>
-            <div v-for="o in tenderTrendsList" :key="o" class="text item">{{ o }}</div>
-          </el-card>
-        </div>
-      </el-aside>
-
       <el-main style="overflow:hidden">
         <el-page-header @back="goBack" content="任务详情"></el-page-header>
         <br />
@@ -45,7 +33,6 @@
           </el-row>
 
           <el-row>
-
             <el-col :span="11">
               <el-form-item label="负责人员">
                 <el-input v-model="form.leader" :disabled="true"></el-input>
@@ -64,7 +51,7 @@
               </el-form-item>
             </el-col>
 
-<el-col :span="11">
+            <el-col :span="11">
               <el-form-item label="需要数目">
                 <el-input v-model="form.number" :disabled="true"></el-input>
               </el-form-item>
@@ -78,11 +65,10 @@
           </el-row>
           <el-row :gutter="80"></el-row>
 
-         <div align="right">
-          <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
-        </div>
-
-        </el-form>    
+          <div align="right">
+            <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
+          </div>
+        </el-form>
         <el-divider></el-divider>
       </el-main>
     </el-container>
@@ -106,7 +92,7 @@ export default {
           "人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。",
         leader: "陈平安",
         company: "一汽大众",
-        number:"4万",
+        number: "4万",
         leaderTel: "18088675187"
       },
       formLabelWidth: "120px",
