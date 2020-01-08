@@ -43,7 +43,7 @@
                   <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
                   <el-table-column prop="name" label="用户名"></el-table-column>
                   <el-table-column prop="realname" label="真实姓名"></el-table-column>
-                  <el-table-column prop="email" label="部门"></el-table-column>
+                  <el-table-column prop="role" label="部门"></el-table-column>
                   <el-table-column prop="email" label="邮箱"></el-table-column>
                   <el-table-column prop="phone" label="电话"></el-table-column>
 
@@ -163,27 +163,27 @@ export default {
       tableData: [
         {
           id: 1,
-          realname: "",
-          name: "张三",
-          email: "123456@163.com",
+          realname: "邓力夫",
+          name: "邓力夫",
+          email: "denglifu@163.com",
           role: "管理员",
-          phone: "123456"
+          phone: "16545675821"
         },
         {
-          id: 1,
-          realname: "",
-          name: "张三",
-          email: "123456@163.com",
-          role: "管理员",
-          phone: "123456"
+          id: 2,
+          realname: "刘强",
+          name: "刘强",
+          email: "liuqiang123@163.com",
+          role: "设计人员",
+          phone: "15874561485"
         },
         {
-          id: 1,
-          realname: "",
-          name: "张三",
-          email: "123456@163.com",
-          role: "管理员",
-          phone: "123456"
+          id: 3,
+          realname: "夏圆圆",
+          name: "夏圆圆",
+          email: "xiayuanyuan@163.com",
+          role: "流通人员",
+          phone: "16445983697"
         }
       ],
       addList: {
@@ -202,16 +202,7 @@ export default {
       idx: -1,
       id: -1,
 
-      tenderTrendsList: [
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来" },
-        { column_name: "白日依山尽，黄河入海流" },
-        { column_name: "黄河落天走东海，万里尘沙入胸怀" },
-        { column_name: "明月隐高树，长河没晓天" },
-        { column_name: "萧萧远树疏林外，一半秋山带夕阳。" },
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。" }
-      ],
+    
       addForm: {
         realname: "",
         loginname: "",
@@ -330,7 +321,7 @@ export default {
 }
 .table {
   width: 100%;
-  font-size: 20px;
+  font-size: 16px;
 }
 .red {
   color: #ff0000;
