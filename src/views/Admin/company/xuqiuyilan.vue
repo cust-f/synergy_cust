@@ -61,9 +61,6 @@
             <el-button type="warning" class="button1">搜索</el-button>
           </div>
           <div>
-            <p
-              class="ziti1"
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若没有找到合适的技术，建议您立即发布技术需求</p>
           </div>
           <br />
         </div>
