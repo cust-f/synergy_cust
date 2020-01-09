@@ -23,6 +23,9 @@
     </div>
 
   <div class="BG">
+
+    
+
     <!--第二行  网站访问统计数据-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">

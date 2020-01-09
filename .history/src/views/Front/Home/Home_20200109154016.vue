@@ -1,7 +1,6 @@
 
 <template>
-<div>
-    <div class="BG0">
+  <div class="BG">
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
       <el-col :span="24">
@@ -20,9 +19,6 @@
         </div>
       </el-col>
     </el-row>
-    </div>
-
-  <div class="BG">
     <!--第二行  网站访问统计数据-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
@@ -150,18 +146,19 @@
     </el-form-item>
     <el-form-item label="需求类别">
     
-    <el-select v-model="form.region"  size="medium" filterable placeholder="选择/输入需求大类">
+    <el-select v-model="form.region"  size="medium" filterable placeholder="请选择">
       <el-option label="交通运输设备" value="0"></el-option>
       <el-option label="仪器仪表及文化、办公用机械" value="1"></el-option>
       <el-option label="通信设备、计算机及其他电子设备" value="2"></el-option>
       <el-option label="电气机械及器材" value="3"></el-option>
     </el-select>
-    <el-select v-model="form.region0"  size="medium" filterable placeholder="选择/输入需求子类">
+    <el-select v-model="form.region0" placeholder="请选择需求子类" size="medium">
       <el-option label="区域一" value="shanghai"></el-option>
       <el-option label="区域二" value="beijing"></el-option>
     </el-select>
+   
     </el-form-item>
-    <el-form-item label="截止日期">
+    <el-form-item label="活动时间">
     <el-col :span="10">
       <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
     </el-col>
@@ -306,7 +303,7 @@
     </el-row>
     -->
   </div>
-</div>
+
 </template>
 
 
@@ -507,16 +504,9 @@ export default {
 /**中间的div块   给gutter留padding*/
 .BG {
   box-sizing: border-box;
-  width: 1800px;
-  margin-bottom: 5px;
-  padding: 0 20px;
-  font-size: 18px;
-}
-.BG0 {
-  box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
-  padding: 0 -20px;
+  padding: 0 20px;
   font-size: 18px;
 }
 

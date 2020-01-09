@@ -21,8 +21,11 @@
       </el-col>
     </el-row>
     </div>
-
+    
   <div class="BG">
+
+    
+
     <!--第二行  网站访问统计数据-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
@@ -507,7 +510,7 @@ export default {
 /**中间的div块   给gutter留padding*/
 .BG {
   box-sizing: border-box;
-  width: 1800px;
+  width: 100%;
   margin-bottom: 5px;
   padding: 0 20px;
   font-size: 18px;
