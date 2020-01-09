@@ -103,7 +103,7 @@
                   />
                   <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
                 </div>
-
+             
                 <div class="hotCompany">
                   <img
                     src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
@@ -111,7 +111,7 @@
                   />
                   <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
                 </div>
-
+             
                 <div class="hotCompany">
                   <img
                     src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
@@ -119,7 +119,7 @@
                   />
                   <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
                 </div>
-
+             
             </el-card>
           </div>
         </el-col>
@@ -140,7 +140,6 @@ export default {
 }
 .gobla {
   padding: 0 15px;
-  height: 800px;
 }
 
 .image {
