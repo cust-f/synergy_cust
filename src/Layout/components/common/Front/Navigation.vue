@@ -1,8 +1,9 @@
 <template>
+<div style="margin:0 auto; width:1200px;">
   <el-menu
-    :default-active="onRoutes"
-    background-color="#FFF"
-    text-color="#000"
+    :default-active="this.$route.path"
+    background-color="#00a2e6"
+    text-color="#FFF  "
     mode="horizontal"
     router
   >
@@ -10,7 +11,7 @@
       <template v-if="item.subs">
         <el-submenu :index="item.index" :key="item.index">
           <template slot="title">
-            <i :class="item.icon"></i>
+            <!-- <i :class="item.icon"></i> -->
             <span slot="title">{{ item.title }}</span>
           </template>
           <template v-for="subItem in item.subs">
@@ -28,12 +29,13 @@
       </template>
       <template v-else>
         <el-menu-item :index="item.index" :key="item.index">
-          <i :class="item.icon"></i>
+          <!-- <i :class="item.icon"></i> -->
           <span slot="title">{{ item.title }}</span>
         </el-menu-item>
       </template>
     </template>
   </el-menu>
+  </div>
 </template>
 
 <script>
@@ -46,50 +48,6 @@ export default {
                     icon: 'el-icon-office-building',
                     index: '/admin/dashboard',
                     title: '系统首页'
-                },
-                {
-                    icon: 'el-icon-postcard',
-                    index: '2',
-                    title: '企业信息管理',
-                    subs:[{
-                            index:'/admin/companyDetail',
-                            title:'企业信息详情'
-                        },
-                        {
-                            index:'/admin/supplyBussess',
-                            title:'企业名录'
-                        },
-                        ]
-                },
-                {
-                    icon: 'el-icon-edit-outline',
-                    index: '3',
-                    title: '协同管理',
-                    subs: [
-                        {
-                            index: '/admin/newTask',
-                            title: '新增任务'
-                        },
-                        {
-                            index: '/admin/mainStaskShow',
-                            title: '查看详情'
-                        }
-                    ]
-                },
-                {
-                    icon: 'el-icon-tickets',
-                    index: '4',
-                    title: '任务管理',
-                    subs:[{
-                        
-                            index:'/admin/designTask',
-                            title:'设计任务'
-                        },
-                        {
-                            index:'/admin/circulationTask',
-                            title:'流通任务'
-                        }
-                    ]
                 },
                 {
                     icon: 'el-icon-pie-chart',
@@ -108,21 +66,6 @@ export default {
                         {
                             index: '/admin/dialog',
                             title: '评价管理'
-                        }
-                    ]
-                },
-                 {
-                    icon: 'el-icon-s-custom',
-                    index: '7',
-                    title: '人员分配',
-                    subs: [
-                        {
-                            index: '/admin/personnel_allotment/desinger',
-                            title: '设计人员'
-                        },
-                        {
-                            index: '/admin/personnel_allotment/circulation',
-                            title: '流通人员'
                         }
                     ]
                 },
@@ -164,6 +107,32 @@ export default {
 
 <style>
 .el-submenu__title {
-  padding: 0px;
+  font-size: 16px;
+    height: 45px !important;
+          line-height: 43px !important;
+  /* #1381ce */
+}
+.el-menu--horizontal{
+  height: 45px;
+}
+.el-menu--horizontal>.el-menu-item.is-active {
+  background-color:  #1381ce !important;
+  color: #FFF !important;  
+}
+.el-menu--horizontal>.el-submenu.is-active .el-submenu__title{
+    background-color:  #1381ce !important;
+  color: #FFF !important;  
+}
+.el-menu--horizontal .el-menu .el-menu-item.is-active{
+      background-color:  #1381ce !important;
+    color: #FFF !important;  
+}
+.el-menu-item {
+    font-size: 16px;
+      height: 45px !important;
+    padding:0px 20px;
+    line-height: 43px !important;
+}
+.el-submenu{
 }
 </style>
