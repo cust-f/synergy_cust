@@ -310,15 +310,6 @@ export default new Router({
             title:"完成任务详情"
           }
         },
-        //供应商完成任务详情
-        {
-          path: '/admin/designTaskabolishDe',
-          name: 'designTaskabolishDe',
-          component: circulationTaskfinishDesigne,
-          meta:{
-            title:"完成任务详情"
-          }
-        },
 
         //企业管理
         {
