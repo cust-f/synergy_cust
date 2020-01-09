@@ -122,24 +122,14 @@ export default {
         leaderTel: "18088675187"
       },
       formLabelWidth: "120px",
-      tenderTrendsList: [
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来" },
-        { column_name: "白日依山尽，黄河入海流" },
-        { column_name: "黄河落天走东海，万里尘沙入胸怀" },
-        { column_name: "明月隐高树，长河没晓天" },
-        { column_name: "萧萧远树疏林外，一半秋山带夕阳。" },
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。" }
-      ]
     };
   },
   methods: {
     goBack() {
-      this.$router.push("/acceptDesignTask");
+      this.$router.push("/admin/designTaskq");
     },
     goBackagain() {
-      this.$router.push("/acceptDesignTask");
+      this.$router.push("/admin/designTaskq");
       this.dialogVisible = false;
     },
     success() {

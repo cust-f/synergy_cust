@@ -81,7 +81,7 @@
 
 <script>
 export default {
-  name: "designResultDesigin",
+  name: "designTaskabolishD",
   data() {
     return {
    
