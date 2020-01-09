@@ -34,7 +34,9 @@ import circulation from '@/views/admin/personnel_allotment/circulation'
 import desinger from '@/views/admin/personnel_allotment/desinger'
 import virtualMachine from '@/views/admin/personnel_allotment/virtualMachine'
 
- import supplyContract from '@/views/admin/company/supplyContract'
+ import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
+ import userManagement from '@/views/admin/company/userManagement'  //用户管理
+
 
 //供应商市场部门
 import acceptDesignTask from '@/views/admin/supplier/supplierMarket/acceptDesignTask'
@@ -174,6 +176,14 @@ export default new Router({
         
 
         },  
+        {
+          path: '/admin/userManagement',
+          name: 'userManagement',
+          component: userManagement,
+        
+
+        },  
+
         {
           path: '/admin/designTaskEvaluationDetils',
           name: 'designTaskEvaluationDetils',
