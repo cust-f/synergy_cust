@@ -31,7 +31,7 @@
                 </el-col>
                  <el-col :span="11">
                     <el-form-item label="任务编号">
-                        <el-input v-model="form.Task_num" :disabled=yangshi></el-input>
+                        <el-input v-model="form.Task_Num" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                  
@@ -43,15 +43,22 @@
             <el-row>
                 <el-col :span="20" class = "xiangxi">
                     <el-form-item label="详情：" >
-                      <el-input v-model="form.detailsxq" :disabled="true"></el-input>
-                           <!-- <el-input
-  type="textarea1"
-  :rows="2"
-  placeholder="  面向高端制造业，建立科技咨询及评测服务示范。在科技综合服务平台基础上，开展虚拟现实协同辅助协同设计与流通的科技服务，突破企业内部，企业之间的设计与流通数据。"
-  实现设计数据到生产数据的可视化，使数字化技术贯穿设计制造全过程。 
+                      <!-- <el-input v-model="form.detailsxq" :disabled="true"></el-input> -->
+                       <el-input
+  type="textarea"
+  :rows="5"
+  :disabled="true"
+  placeholder="面向高端制造业，建立科技咨询及评测服务示范。在科技综合服务平台基础上，开展虚拟现实协同辅助协同设计与流通的科技服务，突破企业内部，企业之间的设计与流通数据。实现设计数据到生产数据的可视化，使数字化技术贯穿设计制造全过程。"
+  v-model="textarea">
+</el-input> 
+                        <!--   <el-input
+  type="textarea"
+  :rows="5"
+  placeholder="  面向高端制造业，建立科技咨询及评测服务示范。在科技综合服务平台基础上，开展虚拟现实协同辅助协同设计与流通的科技服务，突破企业内部，企业之间的设计与流通数据。实现设计数据到生产数据的可视化，使数字化技术贯穿设计制造全过程。 "
+  
   v-model="textarea"
-    :disabled="true">
-</el-input> -->
+    >
+</el-input>  -->
                     </el-form-item>
                     
                 </el-col>
@@ -59,12 +66,13 @@
              <el-row>
                 <el-col :span="20" class = "xiangxi">
                     <el-form-item label="附件：" >
-                           <el-input
+                       <el-link href="https://element.eleme.io" target="_blank" :underline="false">长光卫星国际有限公司关于购买高端装备装备制造领域的科技服务合同.pdf</pdf></el-link>
+                          <!--  <el-input
   type="textarea"
   :rows="5"
   placeholder="长光卫星国际有限公司关于购买高端装备装备制造领域的科技服务合同.pdf"
   v-model="textarea">
-</el-input>
+</el-input> -->
                     </el-form-item>
                     
                 </el-col>
@@ -99,8 +107,8 @@
 
 
         <div align="center">
-            <el-button type="primary" class="button1" @click="update" :disabled=xiugai>上传附件</el-button>
-            <el-button type="primary" class="button1" @click="achieve" :disabled=wancheng>确定</el-button>
+           <el-button type="primary" class="button1" >审核</el-button>
+            <!-- <el-button type="primary" class="button1" @click="achieve" :disabled=wancheng></el-button> -->
         </div> 
 
 
@@ -125,7 +133,7 @@ export default {
           Company_Name: '长光卫星国际有限公司',
           detailsxq:' 面向高端制造业，建立科技咨询及评测服务示范。在科技综合服务平台基础上，开展虚拟现实协同辅助协同设计与流通的科技服务，突破企业内部，企业之间的设计与流通数据。',
           Task_Name:'高端装备制造',
-          // Tssk_num：'10011001010',
+          Task_Num:'10011001010',
         },
 
     };
