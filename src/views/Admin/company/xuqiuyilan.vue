@@ -65,6 +65,7 @@
 
     <div class="thisAfter">
       <div class="list_div">
+
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
@@ -101,6 +102,47 @@
             </ul>
           </div>
         </div>
+
+<div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" @click="tiaozhuan">农业管理系统登记</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                <font>类型：</font>
+                非专利
+              </a>
+              <a>
+                <font>成熟度：</font>
+                已有样品
+              </a>
+              <a>
+                <font>交易方式</font>
+                技术入股
+              </a>
+              <a>
+                <font>价格</font>
+                面议
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                <a style="width:435px">
+                  <font>机构名称:</font>
+                  辽宁省科技服务中心
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+
+        <el-divider></el-divider>
       </div>
     </div>
   </div>
@@ -281,7 +323,6 @@ export default {
 
   margin-right: 126.61px;
 
-
   text-decoration: none;
 
   width: 1200px;
@@ -456,6 +497,10 @@ export default {
 
   background-origin: padding-box;
 
+  background-position-x: 0%;
+
+  background-position-y: 0%;
+
   background-repeat: repeat;
 
   background-size: auto;
@@ -476,13 +521,43 @@ export default {
 
   line-height: normal;
 
+  list-style-image: none;
+
+  list-style-position: outside;
+
+  list-style-type: none;
+
+  margin-bottom: 0px;
+
+  margin-left: 0px;
+
+  margin-right: 0px;
+
+  margin-top: 0px;
+
   outline-color: invert;
+
+  outline-style: none;
+
+  outline-width: 0px;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
+
+  text-decoration: none;
 
   vertical-align: baseline;
 
   width: 660px;
 
   word-break: break-all;
+
+  height: 160px;
 }
 .cg_list001 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -520,34 +595,7 @@ export default {
 
   word-break: break-all;
 }
-.cg_bottomlist {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  border-bottom-color: rgb(204, 204, 204);
-
-  border-bottom-style: dashed;
-
-  border-bottom-width: 1px;
-
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-weight: 400;
-
-  overflow: hidden;
-
-  padding-bottom: 10px;
-
-  padding-left: 10px;
-
-  padding-right: 10px;
-
-  padding-top: 20px;
-
-  text-decoration: none;
-}
-.ziti2 {
+.cg_bottomlist .ziti2 {
   -webkit-text-size-adjust: auto;
 
   color: rgb(0, 153, 234);
@@ -722,28 +770,69 @@ export default {
 .list_div {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  border-bottom-color: rgb(204, 204, 204);
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
 
-  border-bottom-style: dashed;
+  font-size: 14px;
 
-  border-bottom-width: 1px;
+  font-style: normal;
+
+  font-variant: normal;
+
+  font-weight: 400;
+
+  line-height: normal;
+
+  margin-bottom: 0px;
+
+  margin-left: 0px;
+
+  margin-right: 0px;
+
+  margin-top: 0px;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
+
+  text-decoration: none;
+}
+.thisAfter {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
 
   font-size: 14px;
 
+  font-style: normal;
+
+  font-variant: normal;
+
   font-weight: 400;
 
-  overflow: hidden;
+  line-height: normal;
 
-  padding-bottom: 10px;
+  margin-bottom: 20px;
 
-  padding-left: 10px;
+  margin-left: 126.6px;
 
-  padding-right: 10px;
+  margin-right: 126.61px;
 
-  padding-top: 20px;
+  margin-top: 0px;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
 
   text-decoration: none;
+
+  width: 1200px;
 }
 </style>

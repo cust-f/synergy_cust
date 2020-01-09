@@ -80,6 +80,11 @@ export default new Router({
           path: '/home',
           name: 'Home',
           component: Home
+        },
+        {
+          path: '/admin/xuqiuyilan',
+          name: 'xuqiuyilan',
+          component: xuqiuyilan,
         }
       ]
     },
@@ -371,11 +376,6 @@ export default new Router({
           meta: {
             title: "企业详情"
           }
-        },
-        {
-          path: '/admin/xuqiuyilan',
-          name: 'xuqiuyilan',
-          component: xuqiuyilan,
         },
 
         
