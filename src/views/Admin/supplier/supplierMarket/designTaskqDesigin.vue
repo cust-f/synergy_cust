@@ -2,7 +2,8 @@
   
     <el-container>
       <el-main style="overflow:hidden">
-        <h3>任务详情</h3>
+        <el-page-header @back="goBack" content="任务详情"></el-page-header>
+        <br />
         
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
@@ -66,7 +67,6 @@
         <div align="right">
           <el-button type="primary" class="button1">下载图纸</el-button>
           <el-button type="primary" class="button1">下载相关技术文档</el-button>
-          <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
            <el-divider></el-divider>
         </div>
         <h3>二级供应商列表</h3>
@@ -115,7 +115,6 @@
         </el-table-column>
       </el-table>
 
-
       
       </el-main>
     </el-container>
@@ -143,16 +142,6 @@ export default {
         leaderTel: "18088675187"
       },
       formLabelWidth: "120px",
-      tenderTrendsList: [
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来" },
-        { column_name: "白日依山尽，黄河入海流" },
-        { column_name: "黄河落天走东海，万里尘沙入胸怀" },
-        { column_name: "明月隐高树，长河没晓天" },
-        { column_name: "萧萧远树疏林外，一半秋山带夕阳。" },
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。" }
-      ],
       tableData: [
         {
           id: 10002,
@@ -186,12 +175,8 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/designTaskq");
+      this.$router.push("/admin/designTaskq");
     },
-    success() {
-      this.dialogTableVisible = false;
-      this.dialogVisible = true;
-    }
   }
 };
 </script>
