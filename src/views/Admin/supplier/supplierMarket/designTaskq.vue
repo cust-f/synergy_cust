@@ -339,7 +339,7 @@
               <el-table-column label="操作" width="180" align="center">
                 <template slot-scope="scope">
                   <el-button
-                    @click="substaskDetail(scope.$index, scope.row)"
+                    @click="designResultDesigin(scope.$index, scope.row)"
                     type="text"
                     size="small"
                   >查看详情</el-button>           
@@ -685,8 +685,8 @@ export default {
   methods: {
     // 分页导航
     handlePageChange(val) {},
-    substaskDetail() {
-      this.$router.push("/designTaskqDesigin");
+    designResultDesigin() {
+      this.$router.push("/admin/designResultDesigin");
     },
     saveAdd() {
       console.log("13224");
