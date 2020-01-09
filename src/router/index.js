@@ -52,9 +52,9 @@ import designTaskabolishDe from '@/views/admin/supplier/supplierMarket/designTas
 import designTaskqing from '@/views/admin/supplier/supplierMarket/designTaskqing'//设计任务进行时详情
 import designTaskreD from '@/views/admin/supplier/supplierMarket/designTaskreD'//设计任务审核详情页面
 
+import excellentCompany from '@/views/company/excellentCompany'//优秀企业
+
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
-
-
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
 import managerBusiness from '@/views/admin/manager/managerBusiness'
@@ -79,7 +79,17 @@ export default new Router({
           path: '/home',
           name: 'Home',
           component: Home
-        }
+        },
+        //优秀企业
+        {
+          path: '/company/excellentCompany',
+          name: 'excellentCompany',
+          component: excellentCompany,
+          meta: {
+            title: '优秀企业'
+          }
+        },
+
       ]
     },
     {
