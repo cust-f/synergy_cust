@@ -57,6 +57,21 @@ export default {
                 {
                     icon: 'el-icon-s-custom',
                     index: '6',
+                    title: '人员分配',
+                    subs: [
+                        {
+                            index: '/admin/personnel_allotment/desinger',
+                            title: '设计人员'
+                        },
+                        {
+                            index: '/admin/personnel_allotment/circulation',
+                            title: '流通人员'
+                        }
+                    ]
+                },
+                {
+                    icon: 'el-icon-s-custom',
+                    index: '7',
                     title: '人员管理',
                     subs: [
                         {
@@ -86,7 +101,7 @@ export default {
                 },
                 {
                      icon: 'el-icon-s-custom',
-                    index: '8',
+                    index: '9',
                     title: '管理员',
                     subs: [
                         {
