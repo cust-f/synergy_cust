@@ -51,6 +51,137 @@
 import bus from './bus'
 
 export default {
+<<<<<<< HEAD
+    data() {
+        return {
+            collapse: true,
+            items: [
+                {
+                    icon: 'el-icon-office-building',
+                    index: '/admin/dashboard',
+                    title: '系统首页'
+                },
+
+                {
+                    icon: 'el-icon-postcard',
+                    index: '2',
+                    title: '企业信息管理',
+                    subs:[{
+                            index:'/admin/companyDetail',
+                            title:'企业信息详情'
+                        },
+                        {
+                            index:'/admin/supplyBussess',
+                            title:'企业名录'
+                        },
+                        {
+                            index:'/admin/xuqiuyilan',
+                            title:'需求一览'
+                        },
+                        ]
+                },
+                {
+                    icon: 'el-icon-edit-outline',
+                    index: '3',
+                    title: '设计管理',
+                    subs: [
+                        {
+                            index: '/admin/newTask',
+                            title: '新增任务'
+                        },
+                        {
+                            index: '/admin/mainStaskShow',
+                            title: '查看详情'
+                        }
+                    ]
+                },
+                {
+                    icon: 'el-icon-tickets',
+                    index: '4',
+                    title: '流通管理',
+                    subs:[{
+                        
+                            index:'/admin/designTask',
+                            title:'设计任务'
+                        },
+                        {
+                            index:'/admin/circulationTask',
+                            title:'流通任务'
+                        }
+                    ]
+                },
+                {
+                    icon: 'el-icon-pie-chart',
+                    index: 'charts',
+                    title: '文件管理'
+                },
+                {
+                    icon: 'el-icon-s-custom',
+                    index: '6',
+                    title: '数据统计',
+                    subs: [
+                        {
+                            index: '/admin/newStaff',
+                            title: '新增人员'
+                        },
+                        {
+                            index: '/admin/dialog',
+                            title: '评价管理'
+                        }
+                    ]
+                },
+                 {
+                    icon: 'el-icon-s-custom',
+                    index: '7',
+                    title: '人员分配',
+                    subs: [
+                        {
+                            index: '/admin/personnel_allotment/desinger',
+                            title: '设计人员'
+                        },
+                        {
+                            index: '/admin/personnel_allotment/circulation',
+                            title: '流通人员'
+                        }
+                    ]
+                },
+                {
+                    icon: 'el-icon-edit-outline',
+                    index: '/admin/designTaskEvaluation',
+                    title: '设计任务评价'
+                },
+                {
+                    icon: 'el-icon-receiving',
+                    index: '',
+                    title: '流通任务评价'
+                },
+                {
+                    icon: 'el-icon-edit-outline',
+                    index: '/admin/Enterprise_Evaluation/evaluate',
+                    title: '企业评价'
+                },
+                {
+                     icon: 'el-icon-s-custom',
+                    index: '8',
+                    title: '管理员',
+                    subs: [
+                        {
+                            index: '/admin/manager_business',
+                            title: '企业管理'
+                        },                  
+                        {
+                            index: '/admin/manager_user',
+                            title: '用户管理'
+                        }
+                    ]
+                }
+            ]
+        };
+    },
+    computed: {
+        onRoutes() {
+            return this.$route.path.replace('/', '');
+=======
   data() {
     return {
       collapse: true,
@@ -173,6 +304,7 @@ export default {
               title: "用户管理"
             }
           ]
+>>>>>>> 366e000572915abb68ce37aa462311c020f092a1
         }
     },
     created() {
