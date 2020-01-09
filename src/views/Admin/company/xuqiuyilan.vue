@@ -10,7 +10,6 @@
         </div>
         <br>
       </div>
-<br>
       <div class="cool">
         <table>
           <tbody>
@@ -19,23 +18,23 @@
               <td class="td102">
                 <span class="cg_td_a1" width="100%">不限</span>
                 <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">水准</span>
+                <span class="cg_td_a2" width="100%">人员数目</span>
+                <span class="cg_td_a2" width="100%">具体操作</span>
+                <span class="cg_td_a2" width="100%">公司规模</span>
+                <span class="cg_td_a2" width="100%">注册资本</span>
               </td>
             </tr>
             <tr>
               <td class="td101">交易方式：</td>
               <td class="td102">
                 <span class="cg_td_a1" width="100%">不限</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">面交</span>
+                <span class="cg_td_a2" width="100%">网银支付</span>
+                <span class="cg_td_a2" width="100%">支付宝支付</span>
+                <span class="cg_td_a2" width="100%">中国银行支付</span>
+                <span class="cg_td_a2" width="100%">农业银行支付</span>
+                <span class="cg_td_a2" width="100%">交通银行支付</span>
               </td>
             </tr>
             <tr>
@@ -70,6 +69,8 @@
       </el-col>
     <div class="thisAfter">
       <div class="list_div">
+          <br>
+          <br>
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
@@ -111,7 +112,46 @@
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">农业管理系统登记</a>
+              <a class="ziti2" @click="tiaozhuan">工业管理系统</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                <font>类型：</font>
+                专利
+              </a>
+              <a>
+                <font>成熟度：</font>
+                已有样品
+              </a>
+              <br>
+              <a>
+                <font>交易方式:</font>
+                农业银行交易
+              </a>
+              <a>
+                <font>价格:</font>
+                面议
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                <a style="width:435px">
+                  <font>机构名称:</font>
+                  辽宁省科技服务中心
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" @click="tiaozhuan">专利转移与提交</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -122,9 +162,50 @@
                 <font>成熟度：</font>
                 已有样品
               </a>
+              <br>
+              <a>
+                <font>交易方式：</font>
+                技术入股
+              </a>
+              <a>
+                <font>价格：</font>
+                面议
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                <a style="width:435px">
+                  <font>机构名称:</font>
+                  辽宁省科技服务中心
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+
+
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" @click="tiaozhuan">企业信息管理登记</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                <font>类型：</font>
+                非专利
+              </a>
+              <a>
+                <font>成熟度：</font>
+                已成熟
+              </a>
               <a>
                 <font>交易方式</font>
-                技术入股
+                现金交易
               </a>
               <a>
                 <font>价格</font>
@@ -138,7 +219,7 @@
               <li>
                 <a style="width:435px">
                   <font>机构名称:</font>
-                  辽宁省科技服务中心
+                  黑龙江省大江机械集团
                 </a>
               </li>
             </ul>
