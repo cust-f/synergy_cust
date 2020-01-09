@@ -4,9 +4,10 @@
         <el-main>
             <h3>任务详情</h3>
             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-           
+
               <div>
- <el-diver></el-diver>
+                       <el-divider></el-divider>
+
 
 
     <div class="container">
@@ -34,10 +35,10 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="mainstaskTask" label="主任务名称"  align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称"  align="center"></el-table-column>
-        <el-table-column prop="name" label="供应商名称" ></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column prop="mainstaskTask" label="主任务名称" width="120" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" width="120" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称" width="100"></el-table-column>
         <el-table-column prop="bussessType" label="任务类型" width="100"></el-table-column>
         <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
         <el-table-column label="状态" align="center">
@@ -48,8 +49,8 @@
           </template>
         </el-table-column>
 
-        
-        <el-table-column label="操作" width="180" align="left">
+        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
+        <el-table-column label="操作" width="220" align="left">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -97,10 +98,10 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
         <el-table-column label="状态" align="center">
@@ -111,8 +112,8 @@
           </template>
         </el-table-column>
 
-        
-        <el-table-column label="操作" width="220" align="center">
+        <el-table-column prop="date" label="任务截止时间" ></el-table-column>
+        <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -161,14 +162,11 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
-        
-        <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
-       
-        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
-         <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -177,7 +175,7 @@
           </template>
         </el-table-column>
 
-        
+        <el-table-column prop="date" label="任务截止时间"></el-table-column>
         <el-table-column label="操作" width="220" align="center">
           <template slot-scope="scope">
             <el-button
@@ -225,13 +223,12 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-
-        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
-        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称" ></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -240,7 +237,7 @@
           </template>
         </el-table-column>
 
-        
+        <el-table-column prop="date" label="任务截止时间" ></el-table-column>
         <el-table-column label="操作" width="280" align="center">
           <template slot-scope="scope">
             <el-button
@@ -296,12 +293,20 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
+<<<<<<< HEAD
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
         <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
         <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
         <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
         <el-table-column prop="date" label="任务完成时间" width="140px"></el-table-column>
+=======
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称"  align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称" ></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
+>>>>>>> 62052190b8fff96accf6e21a0676f329c193816c
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -310,8 +315,13 @@
           </template>
         </el-table-column>
 
+<<<<<<< HEAD
         
         <el-table-column label="操作" width="180" align="center">
+=======
+        <el-table-column prop="date" label="任务完成时间" ></el-table-column>
+        <el-table-column label="操作"  align="center">
+>>>>>>> 62052190b8fff96accf6e21a0676f329c193816c
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -363,12 +373,20 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
+<<<<<<< HEAD
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
         <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
         <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
         <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
         <el-table-column prop="date" label="任务废除时间" width="140px"></el-table-column>
+=======
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称"  align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称" ></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
+>>>>>>> 62052190b8fff96accf6e21a0676f329c193816c
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -377,7 +395,11 @@
           </template>
         </el-table-column>
 
+<<<<<<< HEAD
         
+=======
+        <el-table-column prop="date" label="任务废除时间" ></el-table-column>
+>>>>>>> 62052190b8fff96accf6e21a0676f329c193816c
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button
@@ -449,74 +471,76 @@ export default {
         tableData: [
         {
           id: 1,
-          bussessType: "车间零部件生产",
-          name: "长春光华微电子集团",
+          bussessType: "电视测角仪",
+          name: "长春奥普光电技术股份有限公司",
           money: 30000,
           state: "成功",
-          date: "2019-11-1",
-          mainstaskTask:'火车的制造',
-          substaskTask:'车轮的制造',
+          date: "2019-5-1",
+          mainstaskTask:'光电测控仪器设备',
+          substaskTask:'线路设计',
+
+     
         },
         {
           id: 2,
-          bussessType: "卫星微型零件制作",
-          name: "中国机械工业集团公司",
+          bussessType: "磨床生产",
+          name: "杭机集团长春一机有限公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1",
-          mainstaskTask:'汽车生产装配',
-          substaskTask:'车载摄像头制造',
+          date: "2019-6-1",
+          mainstaskTask:'平面磨床制作',
+          substaskTask:'磨床设计',
+
+          
         },
         {
           id: 3,
-          bussessType: "大型机械组装",
-          name: "山东工程机械集团有限公司",
+          bussessType: "汽车集成服务",
+          name: "启明信息技术股份有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1",
-          mainstaskTask:'轮船动力锅炉制造',
-          substaskTask:'高温材料耐测',
+          date: "2019-11-21",
+          mainstaskTask:'汽车电子产品研发',
+          substaskTask:'汽车电子测试设计',
+
+          
         },
         {
           id: 4,
-          bussessType: "大型机械组装",
-          name: "大连冰山集团有限公司",
+          bussessType: "卫星应用数据",
+          name: "哈尔滨航天恒星数据系统科技有限公司",
           money: 5000,
           state: "成功",
-          date: "2019-11-1",
-          mainstaskTask:'火车的制造',
-          substaskTask:'铁轨的制造',
+          date: "2019-10-12",
+          mainstaskTask:'卫星应用数据创新',
+          substaskTask:'卫星应用数据采集',
+
+          
         },
          {
           id: 5,
-          bussessType: "车间零部件生产",
-          name: "沈阳机床集团有限责任公司",
+          bussessType: "通信技术",
+          name: "哈尔滨海邻科信息技术有限公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1",
-          mainstaskTask:'高压锅炉制造',
-          substaskTask:'耐高温水晶温度计制造',
+          date: "2019-8-10",
+          mainstaskTask:'通信技术设计',
+          substaskTask:'通讯装备设计',
+
         },
         {
           id: 6,
-          bussessType: "卫星微型零件制作",
-          name: "北方重工集团有限公司",
+          bussessType: "高分子材料创新",
+          name: "黑龙江省润特科技有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1",
-          mainstaskTask:'高精密轮轴制造',
-          substaskTask:'高精密轮轴制造',
+          date: "2019-11-16",
+          mainstaskTask:'高分子材料创新',
+          substaskTask:'高分子材料设计',
+
+  
         },
-        {
-          id: 7,
-          bussessType: "导弹装配与改革",
-          name: "大连重工-起重集团有限公司",
-          money: 7000,
-          state: "成功",
-          date: "2019-11-1",
-          mainstaskTask:'重型机车的制造',
-          substaskTask:'汽车动力邮箱制作',
-        }
+       
       ],
 
 
@@ -1072,7 +1096,7 @@ export default {
 }
 
 .handle-input {
-  width: 300px;
+  width: 260px;
   display: inline-block;
 }
 .table {

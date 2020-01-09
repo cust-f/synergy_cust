@@ -1,91 +1,92 @@
 <template>
-  <el-container>
-    <el-main>
+  <div>
       <div class="desinger">
         <h3>流通任务</h3>
       </div>
-      <el-row style="margin-top:20px">
-        <el-col style="height:600px; width:43%">
-          <el-card style="height:100%">
-            <div style="font-size:20px">新增任务</div>
-            <el-table
-              :data="Not_Accepted_Task_Data"
-              border
-              class="table"
-              header-cell-class-name="table-header"
-              height="100%"
-            >
-              <template v-for="(item,index) in Not_Accepted_Task_Head">
-                <el-table-column
-                  :prop="item.column_name"
-                  :label="item.column_comment"
-                  :key="index"
-                  :min-width="item.width"
-                  v-if="item.column_name != 'id'"
-                  align="center"
-                   :show-overflow-tooltip='true'
-                ></el-table-column>
+      <el-divider></el-divider>
+      <el-row style="height:600px;">
+        <el-card style="height:100%">
+          <div style="font-size:20px">新增任务</div>
+          <el-table
+            :data="Not_Accepted_Task_Data"
+            border
+            class="table"
+            header-cell-class-name="table-header"
+            height="100%"
+            style="margin-top:20px"
+          >
+            <template v-for="(item,index) in Not_Accepted_Task_Head">
+              <el-table-column
+                :prop="item.column_name"
+                :label="item.column_comment"
+                :key="index"
+                :min-width="item.width"
+                v-if="item.column_name != 'id'"
+                align="center"
+                :show-overflow-tooltip="true"
+              ></el-table-column>
+            </template>
+            <el-table-column label="操作" min-width="45px" align="center">
+              <template>
+                <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+                <el-button type="text" size="small">开始任务</el-button>
               </template>
-              <el-table-column label="操作" min-width="45px" align="center">
-                <template>
-                  <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
-                  <el-button type="text" size="small">开始任务</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-            <div class="pagination">
-              <el-pagination
-                background
-                layout="total, prev, pager, next"
-                :current-page="query.pageIndex"
-                :page-size="query.pageSize"
-                :total="pageTotal"
-                @current-change="handlePageChange"
-              ></el-pagination>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="11" style="height:600px; width:56%; margin-left:10px">
-          <el-card style="height:100%">
-            <div style="font-size:20px">已接任务</div>
-            <el-table
-              :data="Accepted_Task_Data"
-              border
-              class="table"
-              header-cell-class-name="table-header"
-              height="100%"
-            >
-              <template v-for="(item,index) in Accepted_Task_Head">
-                <el-table-column
-                  :prop="item.column_name"
-                  :label="item.column_comment"
-                  :key="index"
-                  :min-width="item.width"
-                  v-if="item.column_name != 'id'"
-                  align="center"
-                   :show-overflow-tooltip='true'
-                ></el-table-column>
+            </el-table-column>
+          </el-table>
+          <div class="pagination">
+            <el-pagination
+              background
+              layout="total, prev, pager, next"
+              :current-page="query.pageIndex"
+              :page-size="query.pageSize"
+              :total="pageTotal"
+              @current-change="handlePageChange"
+            ></el-pagination>
+          </div>
+        </el-card>
+      </el-row>
+      <el-divider></el-divider>
+      <el-row style="height:600px;">
+        <el-card style="height:100%">
+          <div style="font-size:20px">已接任务</div>
+          <el-table
+            :data="Accepted_Task_Data"
+            border
+            class="table"
+            header-cell-class-name="table-header"
+            height="100%"
+            style="margin-top:20px"
+          >
+            <template v-for="(item,index) in Accepted_Task_Head">
+              <el-table-column
+                :prop="item.column_name"
+                :label="item.column_comment"
+                :key="index"
+                :min-width="item.width"
+                v-if="item.column_name != 'id'"
+                align="center"
+                :show-overflow-tooltip="true"
+              ></el-table-column>
+            </template>
+            <el-table-column label="操作" min-width="70px" align="center">
+              <template>
+                <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
+                <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+                <el-button type="text" size="small">提交任务</el-button>
               </template>
-              <el-table-column label="操作" min-width="70px" align="center">
-                <template>
-                  <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
-                  <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
-                  <el-button type="text" size="small">提交任务</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-            <div class="pagination">
-              <el-pagination
-                background
-                layout="total, prev, pager, next"
-                :current-page="query.pageIndex"
-                :page-size="query.pageSize"
-                :total="pageTotal"
-                @current-change="handlePageChange"
-              ></el-pagination>
-            </div>
-          </el-card>
-        </el-col>
+            </el-table-column>
+          </el-table>
+          <div class="pagination">
+            <el-pagination
+              background
+              layout="total, prev, pager, next"
+              :current-page="query.pageIndex"
+              :page-size="query.pageSize"
+              :total="pageTotal"
+              @current-change="handlePageChange"
+            ></el-pagination>
+          </div>
+        </el-card>
       </el-row>
       <el-divider></el-divider>
       <el-row style="height:600px;">
@@ -97,6 +98,7 @@
             class="table"
             header-cell-class-name="table-header"
             height="100%"
+            style="margin-top:20px"
           >
             <template v-for="(item,index) in Finished_Task_Head">
               <el-table-column
@@ -106,10 +108,10 @@
                 v-if="item.column_name != 'id'"
                 min-width="90px"
                 align="center"
-                 :show-overflow-tooltip='true'
+                :show-overflow-tooltip="true"
               ></el-table-column>
             </template>
-            <el-table-column label="操作" min-width="70px" align="center">
+            <el-table-column label="操作" min-width="90px" align="center">
               <template>
                 <el-button type="text" size="small">下载图纸</el-button>
                 <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
@@ -128,7 +130,6 @@
           </div>
         </el-card>
       </el-row>
-    </el-main>
 
     <el-dialog title="流通任务详情" :visible.sync="dialogVisible" width="60%">
       <div>
@@ -176,7 +177,7 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-  </el-container>
+  </div>
 </template>
 
 

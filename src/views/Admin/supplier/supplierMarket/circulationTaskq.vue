@@ -535,7 +535,7 @@
 
 <script>
 export default {
-  name: "designTaskq",
+  name: "circulationTaskq",
   data() {
     return {
       dialogTableVisible: false, //分配人员弹窗
@@ -554,7 +554,7 @@ export default {
         company: "一汽大众"
       },
       formLabelWidth: "120px",
-
+      activeName:"first",
       tableData1: [
         {
           id: 1,
@@ -748,22 +748,22 @@ export default {
   methods: {
     // 全部任务详情页面跳转
     jumpAllTasks() {
-      this.$router.push("/admin/designTaskqDesigin");
+      this.$router.push("/admin/circulationTaskqDesign");
     },
     //设计任务进行中
     jumpTasksing(){
-    this.$router.push("/admin/designTaskqing");
+    this.$router.push("/admin/circulationTaskqing");
     },
     // 新建任务跳转
     jumpNewTasks() {
-      this.$router.push("/admin/acceptDesignDetailsTask");
+      this.$router.push("/admin/accceptCirculationDetailsTask");
     },
-    //设计任务已完成详情
+    //流通任务已完成详情
     jumpdrdesigin(){
-     this.$router.push("/admin/designResultDesigin");
+     this.$router.push("/admin/circulationTaskfinishDesign");
     },
     jumpreD(){
-      this.$router.push("/admin/designTaskreD");
+      this.$router.push("/admin/circulationTaskreD");
     },
     //接受设计任务
     acceptSuccess() {
@@ -785,7 +785,7 @@ export default {
     
     //废除任务详情
     jumpbolish() {
-       this.$router.push("/admin/designTaskabolishDe");
+       this.$router.push("/admin/circulationTaskabolishDe");
     },
 
   }
@@ -796,10 +796,43 @@ export default {
 };
 </script>
 <style>
+
 .con {
   width: 500px;
   height: 1000px;
   margin: 0 auto;
   text-align: center;
+}
+
+.handle-box {
+  margin-bottom: 20px;
+}
+
+.handle-select {
+  width: 120px;
+}
+
+.handle-input {
+  width: 260px;
+  display: inline-block;
+}
+.table {
+  width: 100%;
+  font-size: 16px;
+}
+.red {
+  color: #ff0000;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.table-td-thumb {
+  display: block;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+}
+.box {
+  font-size: 24px;
 }
 </style>

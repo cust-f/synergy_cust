@@ -116,70 +116,69 @@ export default {
       query: {
         pageIndex: 1,
         pageSize: 10
-      },
-      tableData: [
-        {
-          el: "#vue",
-          id: 1,
-          Maintask: "光电测控仪器设备",
-          Subtask: "电视测角仪",
-          Suppliername: "长春奥普光电技术股份有限公司",
-          time: "2020-01-02",
+        },
+        tableData: [
+        { el: '#vue',
+          id: 1, 
+          Maintask:"车间零部件生产",
+          Subtask: "火车的制造",
+          Suppliername: "沈阳机床集团有限责任公司",
+          time:"2020-02-02",
           state: "已评价",
           Grade: "5 "
           // cz:
         },
         {
-          id: 2,
-          Maintask: "磨床生产",
-          Subtask: "平面磨床制作",
-          Suppliername: "123",
-          time: "2019-12-02",
-          state: "杭机集团长春一机有限公司",
-          Grade: "4"
+          id: 2, 
+          Maintask:"卫星微型零件制作",
+          Subtask: "汽车生产装配",
+          Suppliername: "中国机械工业集团公司",
+          time:"2019-12-02",
+          state: "已评价",
+          Grade:"4"
         },
         {
-          id: 3,
-          Maintask: "汽车电子产品研发",
-          Subtask: "汽车集成服务",
-          Suppliername: "启明信息技术股份有限公司",
-          time: "2019-03-02",
+          id: 3, 
+          Maintask:"大型机械组装",
+          Subtask: "轮船动力锅炉制造",
+          Suppliername: "山东工程机械集团有限公司",
+          time:"2019-03-02",
           state: "未评价",
           Grade: " "
         },
         {
-          id: 4,
-          Maintask: "卫星应用数据创新",
-          Subtask: "卫星应用数据",
-          Suppliername: "哈尔滨航天恒星数据系统科技有限公司",
-          time: "2020-01-02",
+          id: 4, 
+          Maintask:"大型机械组装",
+          Subtask: "铁轨的制造",
+          Suppliername: "大连冰山集团有限公司",
+          time:"2020-01-02",
+          state: "未评价",
+          Grade: " "
+        },
+         {
+         id: 5, 
+          Maintask:"车间零部件生产",
+          Subtask: "高压锅炉制造",
+          Suppliername: "沈阳机床集团有限责任公司",
+          time:"2020-02-02",
           state: "未评价",
           Grade: " "
         },
         {
-          id: 5,
-          Maintask: "通信技术设计",
-          Subtask: "通信技术",
-          Suppliername: "哈尔滨海邻科信息技术有限公司",
-          time: "2020-02-02",
+           id: 6, 
+          Maintask:"车间零部件生产",
+          Subtask: "火车的制造",
+          Suppliername: "长春光华微电子集团",
+          time:"2020-01-02",
           state: "未评价",
           Grade: " "
         },
         {
-          id: 6,
-          Maintask: "高分子材料创新",
-          Subtask: "高分子材料创新",
-          Suppliername: "黑龙江省润特科技有限公司",
-          time: "2020-01-02",
-          state: "未评价",
-          Grade: " "
-        },
-        {
-          id: 7,
-          Maintask: "发电智能制造",
-          Subtask: "发电装备",
-          Suppliername: "哈尔滨电机厂有限责任公司",
-          time: "2019-11-08",
+          id: 7, 
+          Maintask:"卫星微型零件制作",
+          Subtask: "高精密轮轴制造",
+          Suppliername: "北方重工集团有限公司",
+          time:"2019-08-08",
           state: "未评价",
           Grade: " "
         }
