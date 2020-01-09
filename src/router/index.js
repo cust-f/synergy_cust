@@ -33,6 +33,11 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 import circulation from '@/views/admin/personnel_allotment/circulation'
 import desinger from '@/views/admin/personnel_allotment/desinger'
 import virtualMachine from '@/views/admin/personnel_allotment/virtualMachine'
+import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
+
+ import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
+ import userManagement from '@/views/admin/company/userManagement'  //用户管理
+
 
 //供应商市场部门
 
@@ -168,6 +173,22 @@ export default new Router({
           name: 'designTaskEvaluation',
           component: designTaskEvaluation
         },
+        //
+       {
+          path: '/admin/supplyContract',
+          name: 'supplyContract',
+          component: supplyContract,
+        
+
+        },  
+        {
+          path: '/admin/userManagement',
+          name: 'userManagement',
+          component: userManagement,
+        
+
+        },  
+
         {
           path: '/admin/designTaskEvaluationDetils',
           name: 'designTaskEvaluationDetils',
@@ -211,7 +232,13 @@ export default new Router({
           name: 'virtualMachine',
           component: virtualMachine,
         },
-//供应方
+
+        //企业评价
+        {
+          path:'/admin/Enterprise_Evaluation/evaluate',
+          name:'evaluate',
+          component:evaluate,
+        },
 
          //供应商设计任务列表
         {
