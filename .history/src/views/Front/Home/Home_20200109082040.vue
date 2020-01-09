@@ -9,10 +9,12 @@
 
             <!--备注，需要向img_list写入图片地址-->
             <el-carousel-item v-for="item in img_list" :key="item">
-              <img
-                style="width: 100%; height: 100%;"
+              <img :src="item">
+              <el-image
+                style="width: 1872px; height: 400px;"
                 :src="item"
-                 >
+                fit= "contain" >
+              </el-image>
             </el-carousel-item>
 
           </el-carousel>
@@ -347,6 +349,7 @@ export default {
       certifiedSupplierCount:526,
       // 图片地址数组
             img_list:[
+              require('../../../assets/images/home/45f6300a9045c22cc1f63f49f20ab78e.jpg'),
               require('../../../assets/images/home/713be62978c1729c076bcebb8a3bf44a.jpg'),
               require('../../../assets/images/home/a7e942533a9e0e5056c0c67f89dcc0ae.jpeg'),
               require('../../../assets/images/home/a662f30ed18c4e6592a42747b4b412b8.jpg'),
