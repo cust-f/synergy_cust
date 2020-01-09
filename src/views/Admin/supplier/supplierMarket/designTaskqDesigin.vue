@@ -2,7 +2,8 @@
   
     <el-container>
       <el-main style="overflow:hidden">
-        <h3>任务详情</h3>
+        <el-page-header @back="goBack" content="任务详情"></el-page-header>
+        <br />
         
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
@@ -66,7 +67,6 @@
         <div align="right">
           <el-button type="primary" class="button1">下载图纸</el-button>
           <el-button type="primary" class="button1">下载相关技术文档</el-button>
-          <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
            <el-divider></el-divider>
         </div>
         <h3>二级供应商列表</h3>
@@ -82,7 +82,7 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+        <el-table-column prop="id" label="序号" width="80" align="center"></el-table-column>
         <el-table-column prop="bname" label="企业名称" align="center"></el-table-column>
        <el-table-column prop="tastname" label="任务名称" align="center"></el-table-column>
         
@@ -115,7 +115,6 @@
         </el-table-column>
       </el-table>
 
-
       
       </el-main>
     </el-container>
@@ -131,7 +130,7 @@ export default {
       dialogVisible: false,
 
       form: {
-        id: "000101",
+        id: "100035",
         name: "小汽车零件的装配",
         type: "零件装配制造",
         endtime: "2019-10-17",
@@ -143,19 +142,9 @@ export default {
         leaderTel: "18088675187"
       },
       formLabelWidth: "120px",
-      tenderTrendsList: [
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来" },
-        { column_name: "白日依山尽，黄河入海流" },
-        { column_name: "黄河落天走东海，万里尘沙入胸怀" },
-        { column_name: "明月隐高树，长河没晓天" },
-        { column_name: "萧萧远树疏林外，一半秋山带夕阳。" },
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。" }
-      ],
       tableData: [
         {
-          id: 10002,
+          id: 1,
           bussessType: "车间零部件生产",
           bname: "精密制造厂",
           name: "张亮",
@@ -164,7 +153,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 111568,
+          id: 2,
           bussessType: "卫星微型零件制作",
           bname: "赛轮空管制造厂",
           name: "李鹏",
@@ -173,7 +162,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 179213,
+          id: 3,
           bussessType: "导弹装配与改革",
           bname: "东方电线制造厂",
           name: "王星",
@@ -186,12 +175,8 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/designTaskq");
+      this.$router.push("/admin/designTaskq");
     },
-    success() {
-      this.dialogTableVisible = false;
-      this.dialogVisible = true;
-    }
   }
 };
 </script>
