@@ -14,6 +14,8 @@
     </el-col>
 
     <div class="np_top">
+
+        
       <div class="preview">
         <div class="BigTime">
           <el-carousel :interval="3000" arrow="always">
@@ -26,8 +28,8 @@
 
       <div class="Right">
         <font style="color:#ff7720;font-size:20px;">[229857]</font>
-        车辆装配制做
-        <br>
+        <font style="color:#ff7720;font-size:18px">车辆装配制造</font>
+        <el-divider></el-divider>
         <ul class="ul02">
             <li>
                 <a>
@@ -35,32 +37,40 @@
                     <font style="color:#ff7720;font-size:18px">面议</font>
                 </a>
             </li>
+            <br>
             <li>
                 <a>
                     限制类别：
-                    <font style="color:#ff7720;font-size:18px">公司人数</font>
+                    <font style="font-size:18px">公司人数</font>
                 </a>
             </li>
+            <br>
             <li>
                 <a>
                     任务类别：
-                    <font style="color:#ff7720;font-size:18px">汽车装配制造</font>
+                    <font style="font-size:18px">汽车装配制造</font>
                 </a>
             </li>
+             <br>
             <li>
                 <a>
                     注册资本：
-                    <font style="color:#ff7720;font-size:18px">2.5亿元</font>
+                    <font style="font-size:18px">2.5亿元</font>
                 </a>
             </li>
+                        <br>
             <li>
                 <a>
                     其他：
                     <font style="color:#ff7720;font-size:18px">无</font>
                 </a>
             </li>
+                        <br>
+
         </ul>
       </div>
+
+
     </div>
   </div>
 </template>
@@ -160,7 +170,7 @@ export default {
 
   font-weight: 400;
 
-  height: 200px;
+  height: 300px;
 
   line-height: normal;
 
