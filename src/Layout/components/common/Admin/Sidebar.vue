@@ -59,6 +59,7 @@ export default {
                     index: '/admin/dashboard',
                     title: '系统首页'
                 },
+
                 {
                     icon: 'el-icon-postcard',
                     index: '2',
@@ -70,6 +71,10 @@ export default {
                         {
                             index:'/admin/supplyBussess',
                             title:'企业名录'
+                        },
+                        {
+                            index:'/admin/xuqiuyilan',
+                            title:'需求一览'
                         },
                         ]
                 },
@@ -147,6 +152,11 @@ export default {
                     icon: 'el-icon-receiving',
                     index: '',
                     title: '流通任务评价'
+                },
+                {
+                    icon: 'el-icon-edit-outline',
+                    index: '/admin/Enterprise_Evaluation/evaluate',
+                    title: '企业评价'
                 },
                 {
                      icon: 'el-icon-s-custom',

@@ -80,6 +80,11 @@ export default {
                     title: '流通任务评价'
                 },
                 {
+                    icon: 'el-icon-edit-outline',
+                    index: '/admin/Enterprise_Evaluation/evaluate',
+                    title: '企业评价'
+                },
+                {
                      icon: 'el-icon-s-custom',
                     index: '8',
                     title: '管理员',

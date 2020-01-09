@@ -8,7 +8,18 @@
           <div class="container">
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="全部任务" name="first">
-                <div class="handle-box"></div>
+                 <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
                 <el-table
                   :data="tableData1"
                   border
@@ -18,15 +29,15 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
-                  <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="任务名称" ></el-table-column>
                   <el-table-column label="任务截止日期">
                     <template slot-scope="scope">{{scope.row.date}}</template>
                   </el-table-column>
-                  <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+                  <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
 
-                  <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+                  <el-table-column prop="publishTask" label="发布任务企业" ></el-table-column>
 
                   <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
@@ -58,7 +69,18 @@
               </el-tab-pane>
 
               <el-tab-pane label="待响应任务" name="second">
-                <div class="handle-box"></div>
+                <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
                 <el-table
                   :data="tableData2"
                   border
@@ -68,15 +90,15 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
-                  <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="任务名称" ></el-table-column>
                   <el-table-column label="任务截止日期">
                     <template slot-scope="scope">{{scope.row.date}}</template>
                   </el-table-column>
-                  <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+                  <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
 
-                  <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+                  <el-table-column prop="publishTask" label="发布任务企业" ></el-table-column>
 
                   <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
@@ -89,9 +111,9 @@
                   </el-table-column>
 
                   <el-table-column label="操作" width="180" align="center">
-                    <template slot-scope="scope">
+                    <template >
                       <el-button
-                        @click="substaskDetail(scope.$index, scope.row)"
+                        @click="jumpNewTasks() "
                         type="text"
                         size="small"
                       >查看详情</el-button>
@@ -103,7 +125,7 @@
                       >接受</el-button>
 
                       <el-button
-                        @click="substaskDetail(scope.$index, scope.row)"
+                        @click="dialogTableVisibleNo = true"
                         type="text"
                         size="small"
                       >不接受</el-button>
@@ -123,7 +145,18 @@
               </el-tab-pane>
 
               <el-tab-pane label="进行中" name="third">
-                <div class="handle-box"></div>
+                <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
                 <el-table
                   :data="tableData3"
                   border
@@ -133,15 +166,15 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
-                  <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="任务名称" ></el-table-column>
                   <el-table-column label="任务截止日期">
                     <template slot-scope="scope">{{scope.row.date}}</template>
                   </el-table-column>
-                  <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+                  <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
 
-                  <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+                  <el-table-column prop="publishTask" label="发布任务企业" ></el-table-column>
 
                   <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
@@ -155,7 +188,7 @@
 
                   <el-table-column label="操作" width="180" align="center">
                     <template>
-                      <el-button @click="jumpAllTasks()" type="text" size="small">查看详情</el-button>
+                      <el-button @click="jumpTasksing()" type="text" size="small">查看详情</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -172,7 +205,18 @@
               </el-tab-pane>
 
               <el-tab-pane label="待审核任务" name="fourth">
-                <div class="handle-box"></div>
+               <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
                 <el-table
                   :data="tableData4"
                   border
@@ -182,15 +226,15 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
-                  <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="任务名称" ></el-table-column>
                   <el-table-column label="任务截止日期">
                     <template slot-scope="scope">{{scope.row.date}}</template>
                   </el-table-column>
-                  <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+                  <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
 
-                  <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+                  <el-table-column prop="publishTask" label="发布任务企业" ></el-table-column>
 
                   <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
@@ -217,21 +261,21 @@
                   </el-table-column>
 
                   <el-table-column label="操作" width="180" align="center">
-                    <template slot-scope="scope">
+                    <template >
                       <el-button
-                        @click="substaskDetail(scope.$index, scope.row)"
+                        @click="jumpreD()"
                         type="text"
                         size="small"
                       >查看详情</el-button>
 
                       <el-button
-                        @click="substaskDetail(scope.$index, scope.row)"
+                        @click="dialogTableVisibleYes = true"
                         type="text"
                         size="small"
                       >审核通过</el-button>
 
                       <el-button
-                        @click="substaskDetail(scope.$index, scope.row)"
+                        @click="dialogTableVisibleNoNo = true"
                         type="text"
                         size="small"
                       >审核未通过</el-button>
@@ -251,7 +295,18 @@
               </el-tab-pane>
 
               <el-tab-pane label="完成任务" name="fifth">
-                <div class="handle-box"></div>
+                <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
                 <el-table
                   :data="tableData5"
                   border
@@ -261,15 +316,15 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
-                  <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="任务名称" ></el-table-column>
                   <el-table-column label="任务截止日期">
                     <template slot-scope="scope">{{scope.row.date}}</template>
                   </el-table-column>
-                  <el-table-column prop="bussessType" label="任务类型" align="center"></el-table-column>
+                  <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
 
-                  <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+                  <el-table-column prop="publishTask" label="发布任务企业" ></el-table-column>
 
                   <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
@@ -296,9 +351,9 @@
                   </el-table-column>
 
                   <el-table-column label="操作" width="180" align="center">
-                    <template slot-scope="scope">
+                    <template >
                       <el-button
-                        @click="substaskDetail(scope.$index, scope.row)"
+                        @click="jumpdrdesigin()"
                         type="text"
                         size="small"
                       >查看详情</el-button>
@@ -317,7 +372,18 @@
                 </div>
               </el-tab-pane>
               <el-tab-pane label="废除任务" name="sixth">
-                <div class="handle-box"></div>
+               <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
                 <el-table
                   :data="tableData6"
                   border
@@ -327,7 +393,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
                   <el-table-column prop="taskName" label="任务名称" ></el-table-column>
                   <el-table-column label="任务截止日期" align="center">
@@ -335,11 +401,11 @@
                   </el-table-column>
                   <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
 
-                  <el-table-column prop="publishTask" label="发布任务企业" align="center"></el-table-column>
+                  <el-table-column prop="publishTask" label="发布任务企业" ></el-table-column>
 
                   <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
-                  <el-table-column prop="taskLeader" label="废除原因" align="center"></el-table-column>
+                  <el-table-column prop="Abolish_Reason" label="废除原因" ></el-table-column>
 
                   <el-table-column prop="state" label="状态" align="center">
                     <template slot-scope="scope">
@@ -364,13 +430,10 @@
                   </el-table-column>
 
                   <el-table-column label="操作" width="180" align="center">
-                    <template slot-scope="scope">
-                      <el-button
-                        @click="substaskDetail(scope.$index, scope.row)"
-                        type="text"
-                        size="small"
-                      >查看详情</el-button>
+                    <template>
+                      <el-button @click="jumpbolish()" type="text" size="small">查看详情</el-button>
                     </template>
+                    
                   </el-table-column>
                 </el-table>
                 <div class="pagination">
@@ -412,6 +475,8 @@
                 <el-button type="primary" @click="acceptSuccess()">确 定</el-button>
               </div>
             </el-dialog>
+            
+
             <el-dialog
               title="提示"
               :visible.sync="dialogVisible"
@@ -423,6 +488,46 @@
                 <el-button type="primary" @click="dialogVisible=false">确 定</el-button>
               </span>
             </el-dialog>
+
+             <!-- 不接受任务弹窗 -->
+             <el-dialog
+              title="提示"
+              :visible.sync="dialogTableVisibleNo"
+              width="30%"
+              :before-close="handleClose"
+            >
+              <span>拒绝成功</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="nosuccess()">确 定</el-button>
+              </span>
+            </el-dialog>
+
+            <!-- 审核通过弹窗 -->
+             <el-dialog
+              title="提示"
+              :visible.sync="dialogTableVisibleYes"
+              width="30%"
+              :before-close="handleClose"
+            >
+              <span>审核通过</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="yessuccess()">确 定</el-button>
+              </span>
+            </el-dialog>
+
+            <!-- 审核不通过弹窗 -->
+             <el-dialog
+              title="提示"
+              :visible.sync="dialogTableVisibleNoNo"
+              width="30%"
+              :before-close="handleClose"
+            >
+              <span>审核不通过</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="nonosuccess()">确 定</el-button>
+              </span>
+            </el-dialog>
+
           </div>
     </el-container>
   </div>
@@ -434,6 +539,9 @@ export default {
   data() {
     return {
       dialogTableVisible: false, //分配人员弹窗
+      dialogTableVisibleNo: false,//拒绝接受任务弹窗
+      dialogTableVisibleYes: false, //审核通过弹窗
+      dialogTableVisibleNoNo: false,//审核不通过弹窗
       dialogVisible: false,      //分配成功弹窗
       query: {
         pageIndex: 1,
@@ -449,7 +557,7 @@ export default {
 
       tableData1: [
         {
-          id: 100000,
+          id: 1,
           taskName: "小型汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -459,7 +567,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 100001,
+          id: 2,
           taskName: "中型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -469,7 +577,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 100002,
+          id: 3,
           taskName: "小型汽车刹车",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -479,7 +587,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 100003,
+          id: 4,
           taskName: "小型汽车后备箱盖子",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -492,7 +600,7 @@ export default {
 
       tableData2: [
         {
-          id: 100012,
+          id: 1,
           taskName: "客车汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -502,7 +610,7 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 100301,
+          id: 2,
           taskName: "中型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -512,7 +620,7 @@ export default {
           date: "2019-11-14"
         },
         {
-          id: 100042,
+          id: 3,
           taskName: "小型汽车刹车",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -522,7 +630,7 @@ export default {
           date: "2019-11-5"
         },
         {
-          id: 100203,
+          id: 4,
           taskName: "小型汽车后备箱盖子",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -535,7 +643,7 @@ export default {
 
       tableData3: [
         {
-          id: 100012,
+          id: 1,
           taskName: "客车汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -545,7 +653,7 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 100301,
+          id: 2,
           taskName: "中型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -558,7 +666,7 @@ export default {
 
       tableData4: [
         {
-          id: 100012,
+          id: 1,
           taskName: "火车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -568,7 +676,7 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 100320,
+          id: 2,
           taskName: "大型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -581,7 +689,7 @@ export default {
 
       tableData5: [
         {
-          id: 100212,
+          id: 1,
           taskName: "小型汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -591,7 +699,7 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 102320,
+          id: 2,
           taskName: "小型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -604,7 +712,7 @@ export default {
 
       tableData6: [
         {
-          id: 104412,
+          id: 1,
           taskName: "小型汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -614,7 +722,7 @@ export default {
           date: "2019-12-23"
         },
         {
-          id: 102324,
+          id: 2,
           taskName: "小型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -642,15 +750,44 @@ export default {
     jumpAllTasks() {
       this.$router.push("/admin/designTaskqDesigin");
     },
+    //设计任务进行中
+    jumpTasksing(){
+    this.$router.push("/admin/designTaskqing");
+    },
     // 新建任务跳转
     jumpNewTasks() {
       this.$router.push("/admin/acceptDesignDetailsTask");
     },
-    //接受成功
+    //设计任务已完成详情
+    jumpdrdesigin(){
+     this.$router.push("/admin/designResultDesigin");
+    },
+    jumpreD(){
+      this.$router.push("/admin/designTaskreD");
+    },
+    //接受设计任务
     acceptSuccess() {
         this.dialogTableVisible = false;
         this.dialogVisible = true;
-    }
+    },
+    //不接受设计任务
+    nosuccess(){
+    this.dialogTableVisibleNo = false;  
+    },
+    //审核通过
+    yessuccess(){
+    this.dialogTableVisibleYes = false;  
+    },
+    //审核不通过
+    nonosuccess(){
+     this.dialogTableVisibleNoNo = false;  
+    },
+    
+    //废除任务详情
+    jumpbolish() {
+       this.$router.push("/admin/designTaskabolishDe");
+    },
+
   }
 
   /*
