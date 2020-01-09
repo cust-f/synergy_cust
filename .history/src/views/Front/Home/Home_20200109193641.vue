@@ -197,8 +197,8 @@
             <slot>
 
             <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%">{{i.name}}</div>
+              <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
@@ -238,8 +238,8 @@
             <slot>
 
             <div v-for="i in completeddemandTaskList" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:30%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%">{{i.name}}</div>
+              <div style="float:left; width:20%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
@@ -255,30 +255,11 @@
     <el-row :gutter="gutterCount">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
-            <a>平台数据</a>
+            <a>网站数据</a>
         </div>
       </el-col>
-
     </el-row>
-      <el-row :gutter="gutterCount"d >
-      <el-col :span="20":push="pushCount">
-        <el-card shadow="hover">
-          <div class="demandTop5"></div>
-          <div id="monthSituation" style="width: 100%;height:350%;"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="14":push="pushCount">
-        <el-card shadow="hover" style="margin-top:5px;">
-          <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="6":push="pushCount">
-        <el-card shadow="hover" style="margin-top:5px;">
-          <div id="quarterlySituation" style="width: 100%;height:350%;"></div>
-        </el-card>
-      </el-col>
-    </el-row>
-
+ 
 
     
    
@@ -589,7 +570,7 @@ export default {
       var myChart = echarts.init(document.getElementById('monthSituation'))
       var option = {
     title: {
-        text: '月度供需量'
+        text: '分月供需量'
     },
     tooltip: {
         trigger: 'axis'

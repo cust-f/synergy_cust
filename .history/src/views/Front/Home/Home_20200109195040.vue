@@ -589,7 +589,7 @@ export default {
       var myChart = echarts.init(document.getElementById('monthSituation'))
       var option = {
     title: {
-        text: '月度供需量'
+        text: '分月供需量'
     },
     tooltip: {
         trigger: 'axis'
