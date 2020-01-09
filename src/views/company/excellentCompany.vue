@@ -83,7 +83,6 @@
   </el-row>
 </template>
 <script>
-import { Script } from 'vm'
 export default {
   name: "excellentCompany",};
   </script>

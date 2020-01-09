@@ -55,11 +55,10 @@ import designTaskreD from '@/views/admin/supplier/supplierMarket/designTaskreD'/
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
 
 
-
-import excellentCompany from '@/views/company/excellentCompany' //优秀企业
-
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
+import managerBusiness from '@/views/admin/manager/managerBusiness'
+import businessDetail from '@/views/admin/manager/businessDetail'
 
 
 Vue.use(Router)
@@ -79,16 +78,7 @@ export default new Router({
           path: '/home',
           name: 'Home',
           component: Home
-        },
-        //优秀企业
-        {
-          path: '/company/excellentCompany',
-          name: 'excellentCompany',
-          component: excellentCompany,
-          meta: {
-            title: "优秀企业"
-          }
-        },
+        }
       ]
     },
     {
@@ -253,26 +243,26 @@ export default new Router({
           component:evaluate,
         },
 
-        //供应商设计任务列表
+         //供应商设计任务列表
         {
           path: '/admin/designTaskq',
           name: 'designTaskq',
           component: designTaskq,
-
+          
         },
-        //供应商设计任务详情
+         //供应商设计任务详情
         {
           path: '/admin/designTaskqDesigin',
           name: 'designTaskqDesigin',
           component: designTaskqDesigin,
-
+          
         },
         //供应商接受设计任务详情
         {
           path: '/admin/acceptDesignDetailsTask',
           name: 'acceptDesignDetailsTask',
           component: acceptDesignDetailsTask,
-
+          
         },
         //供应商设计任务进行中详情
         {
@@ -303,7 +293,7 @@ export default new Router({
           path: '/admin/accceptCirculationtask',
           name: 'accceptCirculationtask',
           component: accceptCirculationtask,
-
+          
         },
 
         //供应商接受流通任务详情
@@ -311,7 +301,7 @@ export default new Router({
           path: '/admin/accceptCirculationDetailsTask',
           name: 'accceptCirculationDetailsTask',
           component: accceptCirculationDetailsTask,
-
+          
         },
 
         //供应商流通任务
@@ -319,14 +309,14 @@ export default new Router({
           path: '/admin/circulationTaskq',
           name: 'circulationTaskq',
           component: circulationTaskq,
-
+          
         },
         //供应商设计成果
         {
           path: '/admin/designResult',
           name: 'designResult',
           component: designResult,
-
+          
         },
 
         //供应商接受任务详情
@@ -334,8 +324,8 @@ export default new Router({
           path: '/admin/acceptDesignDetailsTask',
           name: 'acceptDesignDetailsTask',
           component: acceptDesignDetailsTask,
-          meta: {
-            title: "接受任务详情"
+          meta:{
+            title:"接受任务详情"
           }
 
         },
@@ -344,13 +334,10 @@ export default new Router({
           path: '/admin/circulationTaskfinish',
           name: 'circulationTaskfinish',
           component: circulationTaskfinish,
-          meta: {
-            title: "完成任务列表"
+          meta:{
+            title:"完成任务列表"
           }
         },
-
-
-
         //供应商完成任务详情
         {
           path: '/admin/circulationTaskfinishDesign',
@@ -380,10 +367,16 @@ export default new Router({
           name: 'businessDetail',
           component: businessDetail,
           meta: {
-            title: "完成任务详情"
+            title: "企业详情"
           }
         },
+        {
+          path: '/admin/xuqiuyilan',
+          name: 'xuqiuyilan',
+          component: xuqiuyilan,
+        },
 
+        
       ]
     },
     {
