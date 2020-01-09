@@ -1,13 +1,10 @@
 <template>
   <el-container style="overflow: hidden;">
     <div style="padding:0px;">
-      <admin-header></admin-header>
+      <header-synergy></header-synergy>
     </div>
-    <div style="padding:0px 7%;" class="content" :class="{'content-collapse':collapse}">
+    <div style="padding:0px 7%;">
       <el-container>
-        <el-aside width="230px;">
-          <v-sidebar></v-sidebar>
-        </el-aside>
         <el-main style="padding:0px;overflow:hidden;">
           <transition name="move" mode="out-in">
             <router-view></router-view>
@@ -21,7 +18,7 @@
 </template>
 
 <script>
-import adminHeader from "../components/common/Admin/adminHeader";
+import headerSynergy from "../components/common/Front/Header";
 import vSidebar from "../components/common/Admin/Sidebar";
 import bus from "../components/common/Admin/bus";
 
@@ -33,7 +30,7 @@ export default {
     };
   },
   components: {
-    "admin-header": adminHeader,
+    "header-synergy": headerSynergy,
     vSidebar
   },
   created() {
