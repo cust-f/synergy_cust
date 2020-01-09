@@ -60,6 +60,7 @@ import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/c
 import circulationTaskEvaluate from '@/views/admin/supplier/supplierMarket/circulationTaskEvaluate'
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
+import xuqiuyilan from '@/views/admin/company/xuqiuyilan'//需求一览
 
 
 Vue.use(Router)
@@ -370,13 +371,13 @@ export default new Router({
           meta: {
             title: "企业详情"
           }
-        }
-        //  //用户管理
-        //  {
-        //   path: '/admin/personnel_allotment/manager_user',
-        //   name: 'manager_user',
-        //   component: manager_user,
-        // }
+        },
+        {
+          path: '/admin/xuqiuyilan',
+          name: 'xuqiuyilan',
+          component: xuqiuyilan,
+        },
+
         
       ]
     },

@@ -1,81 +1,91 @@
 <template>
   <div class="admin-header">
     <el-row class="header-message" :gutter="20">
-      <el-col :span="10" :offset="1">
+      <el-col :span="7" :offset="1">
         <!-- <div class="collapse-btn" @click="collapseChage">
           <i v-if="!collapse" class="el-icon-s-fold"></i>
           <i v-else class="el-icon-s-unfold"></i>
         </div>-->
-        <span>欢迎访问高端装备制造领域的科技服务SaaS应用构建以及示范!</span>
+        <!-- <span>欢迎访问高端装备制造领域的科技服务SaaS应用构建以及示范!</span> -->
       </el-col>
-      <el-col :span="8" :offset="2">
-        <ul v-if="log">
-          <li>
-            <el-popover placement="bottom" trigger="hover">
-              <div class="user-avator">
-                <img src="../../../../assets/img/img.jpg" />
-              </div>
-              <div style="float:left;">
-                <a>退出登陆</a>
-                <a>返回首页</a>
-                <a>账号管理</a>
-              </div>
-              <span slot="reference">欢迎{{username}}!</span>
-            </el-popover>
-          </li>
-          <li>
-            <a>我的后台</a>
-          </li>
-        </ul>
-        <ul v-else>
-          <li>
-            <a>登陆</a>
-          </li>
-          <li>
-            <a>|</a>
-          </li>
-          <li>
-            <a>注册</a>
-          </li>
-        </ul>
-        <ul style="float:right;">
-          <li>联系客服</li>
-          <li>|</li>
-          <li>关于我们</li>
-          <li>|</li>
-          <li>帮助中心</li>
-        </ul>
+      <el-col :span="10" :offset="2" :push="4" style="float:right;">
+        <div >
+          <ul v-if="log">
+            <li>
+              <el-popover placement="bottom" trigger="hover">
+                <el-row>
+                  <el-col :span="8" class="user-avator">
+                    <img src="../../../../assets/img/img.jpg" />
+                  </el-col>
+                  <el-col :span="12">
+                    <div>
+                      <el-row>
+                        <a>退出登陆</a>
+                      </el-row>
+                      <el-row>
+                        <a>返回首页</a>
+                      </el-row>
+                      <el-row>
+                        <a>账号管理</a>
+                      </el-row>
+                    </div>
+                  </el-col>
+                </el-row>
+                <span slot="reference">欢迎{{username}}!</span>
+              </el-popover>
+            </li>
+          </ul>
+          <ul v-else>
+            <li>
+              <a>登陆</a>
+            </li>
+            <li>
+              <a>|</a>
+            </li>
+            <li>
+              <a>注册</a>
+            </li>
+          </ul>
+          <ul>
+            <li>联系客服</li>
+            <li>|</li>
+            <li>关于我们</li>
+            <li>|</li>
+            <li>帮助中心</li>
+          </ul>
+        </div>
       </el-col>
     </el-row>
     <!-- 区域 拉开层次 -->
-    <el-row :gutter="20" class="header" style="height:150px;">
-      <el-col :span="6" :offset="1">
+    <el-row :gutter="20" class="header" style="height:50px;">
+      <el-col :span="10" :offset="1">
         <div class="logo">
-          <img style="height:150px;width:95%;" src="../../../../assets/images/home/3.png" />
+          <img style="width:100%;" src="../../../../assets/images/home/logo3.png" />
         </div>
       </el-col>
       <!-- 用户名下拉菜单 -->
-      <el-col :span="10" style=" padding-top: 30px;text-align: center;">
-          <el-input placeholder="请输入内容" v-model="input" style="width:400px;">
-            <el-select v-model="select" slot="prepend" placeholder="请选择">
-              <el-option label="餐厅名" value="1"></el-option>
-              <el-option label="订单号" value="2"></el-option>
-              <el-option label="用户电话" value="3"></el-option>
-            </el-select>
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
+      <el-col :span="8" style="float:right;">
+        <el-input placeholder="请输入内容" v-model="input" style="width:400px;">
+          <el-select v-model="select" slot="prepend" placeholder="请选择">
+            <el-option label="餐厅名" value="1"></el-option>
+            <el-option label="订单号" value="2"></el-option>
+            <el-option label="用户电话" value="3"></el-option>
+          </el-select>
+          <el-button slot="append" icon="el-icon-search"></el-button>
+        </el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="24" style="height:100px;">
-      <navigation></navigation>
+      <el-col :span="24" style="height: 60px;">
+        <div style="background-color:#00a2e6">
+        <navigation></navigation></div>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import navigation from './Navigation'
+import navigation from "./Navigation";
 
 export default {
   name: "adminpage",
@@ -84,11 +94,11 @@ export default {
       log: this.$store.state.token,
       collapse: false,
       username: "admin",
-      input:'',
-            select: ''
+      input: "",
+      select: ""
     };
   },
-  components:{
+  components: {
     navigation
   },
   methods: {
@@ -109,12 +119,12 @@ export default {
 .el-row {
   margin-left: 0px !important;
 }
-  .el-select .el-input {
-    width: 100px;
-  }
-  .input-with-select .el-input-group__prepend {
-    background-color: #fff;
-  }
+.el-select .el-input {
+  width: 100px;
+}
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
 .admin-header ul li {
   float: left;
   margin-left: 15px;
@@ -147,6 +157,8 @@ export default {
   float: left;
   line-height: 70px;
   color: #fff;
+      margin-top: 15px;
+    height: 50px;
 }
 .header-right {
   float: right;
@@ -188,13 +200,12 @@ export default {
   margin-left: 10px;
 }
 .user-avator {
-  margin-left: 20px;
   float: left;
 }
 .user-avator img {
   display: block;
-  width: 80px;
-  height: 80px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
 }
 .el-dropdown-link {
