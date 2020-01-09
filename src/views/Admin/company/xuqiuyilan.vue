@@ -1,87 +1,210 @@
 <template>
-  <div>
-    <div style="width:1200px margin:0 auto margin-top:20px margin-bottom:10px">
-      <div class="title">
-        <span>首页</span>
-        <span>&nbsp; > &nbsp;</span>
-        <span>科技成果</span>
-      </div>
-    </div>
-
-    <div class="cool">
-      <table>
-        <tbody>
-          <tr>
-            <td class="td101">技术类型：</td>
-            <td class="td102">
-              <span class="cg_td_a1" width="100%">不限</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="td101">交易方式：</td>
-            <td class="td102">
-              <span class="cg_td_a1" width="100%">不限</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="td101">成熟度：</td>
-            <td class="td102">
-              <span class="cg_td_a1" width="100%">不限</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="thisMiddle">
-      <div class="middleLeft">
-        <input name="search_text" id="search_text" type="text" placeholder="请输入搜索内容" />
-        <el-button type="warning" class="button1">搜索</el-button>
-      </div>
+  <div class="xuqiuyilan">
+    <el-col :span="20" push="2" pull="2">
       <div>
-        <p
-          class="ziti1"
-        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若没有找到合适的技术，建议您立即发布技术需求</p>
-      </div>
-    </div>
+        <div>
+          <div class="title" width="160px">
+            <span>首页</span>
+            <span>&nbsp; > &nbsp;</span>
+            <span>科技成果</span>
+          </div>
+          <br />
+        </div>
 
+        <div class="cool">
+          <table class="table1">
+            <tbody>
+              <tr>
+                <td class="td101">限制条件：</td>
+                <td class="td102">
+                  <span class="cg_td_a1" width="100%">不限</span>
+                  <span class="cg_td_a2" width="100%">完成任务数目</span>
+                  <span class="cg_td_a2" width="100%">注册时间</span>
+                  <span class="cg_td_a2" width="100%">人员数目</span>
+                  <span class="cg_td_a2" width="100%">具体操作</span>
+                  <span class="cg_td_a2" width="100%">公司规模</span>
+                  <span class="cg_td_a2" width="100%">注册资本</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="td101">交易方式：</td>
+                <td class="td102">
+                  <span class="cg_td_a1" width="100%">不限</span>
+                  <span class="cg_td_a2" width="100%">面交</span>
+                  <span class="cg_td_a2" width="100%">网银支付</span>
+                  <span class="cg_td_a2" width="100%">支付宝支付</span>
+                  <span class="cg_td_a2" width="100%">中国银行支付</span>
+                  <span class="cg_td_a2" width="100%">农业银行支付</span>
+                  <span class="cg_td_a2" width="100%">交通银行支付</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="td101">任务类型</td>
+                <td class="td102">
+                  <span class="cg_td_a1" width="100%">不限</span>
+                  <span class="cg_td_a2" width="100%">车间零部件生产</span>
+                  <span class="cg_td_a2" width="100%">卫星微型零件制作</span>
+                  <span class="cg_td_a2" width="100%">导弹装配与改革</span>
+                  <span class="cg_td_a2" width="100%">锅炉制造装配</span>
+                  <span class="cg_td_a2" width="100%">车用配件制造</span>
+                  <span class="cg_td_a2" width="100%">车辆装配与制作</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+        </div>
+
+        <div class="thisMiddle">
+          <div class="middleLeft">
+            <input name="search_text" id="search_text" type="text" placeholder="请输入搜索内容" />
+            <el-button type="warning" class="button1">搜索</el-button>
+          </div>
+          <div>
+            <p
+              class="ziti1"
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若没有找到合适的技术，建议您立即发布技术需求</p>
+          </div>
+          <br />
+        </div>
+      </div>
+    </el-col>
     <div class="thisAfter">
       <div class="list_div">
         <div class="cg_bottomlist">
+           
           <ul class="cg_bottomLeft">
-            <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">农业管理系统登记</a>
+            <li class="cg_list001"> 
+                <br>
+                <br>
+              <a class="ziti2" @click="tiaozhuan">福特汽车组装</a>
             </li>
             <li class="cg_list002">
               <a>
-                <font>类型：</font>
-                非专利
+                <font>限制条件：</font>
+                公司规模
               </a>
               <a>
-                <font>成熟度：</font>
-                已有样品
+                <font>任务类型：</font>
+                车间零部件制作
+              </a>
+              <br>
+              <a>
+                <font>交易方式:</font>
+                技术入股
+              </a>
+              <a>
+                <font>价格:</font>
+                面议
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                <a style="width:435px">
+                  <font>机构名称:</font>
+                  辽宁省科技服务中心
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" @click="tiaozhuan">工业管理系统</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                <font>限制条件：</font>
+                人员数目
+              </a>
+              <a>
+                <font>任务类型：</font>
+                卫星微型零件制作
+              </a>
+              <br />
+              <a>
+                <font>交易方式:</font>
+                农业银行交易
+              </a>
+              <a>
+                <font>价格:</font>
+                面议
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                <a style="width:435px">
+                  <font>机构名称:</font>
+                  辽宁省科技服务中心
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" @click="tiaozhuan">长春钢铁厂锅炉制造</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                <font>限制条件：</font>
+                人员数目
+              </a>
+              <a>
+                <font>任务类型：</font>
+                锅炉装配制造
+              </a>
+              <br />
+              <a>
+                <font>交易方式：</font>
+                技术入股
+              </a>
+              <a>
+                <font>价格：</font>
+                面议
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                <a style="width:435px">
+                  <font>机构名称:</font>
+                  辽宁省科技服务中心
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" @click="tiaozhuan">车载摄像头制作安装</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                <font>限制条件：</font>
+                公司规模
+              </a>
+              <a>
+                <font>任务类型</font>
+                车辆装配制造
               </a>
               <a>
                 <font>交易方式</font>
-                技术入股
+                现金交易
               </a>
               <a>
                 <font>价格</font>
@@ -95,7 +218,7 @@
               <li>
                 <a style="width:435px">
                   <font>机构名称:</font>
-                  辽宁省科技服务中心
+                  黑龙江省大江机械集团
                 </a>
               </li>
             </ul>
@@ -113,8 +236,8 @@ export default {
   },
 
   methods: {
-    goBack() {
-      this.$router.push("/admin/mainStaskShow");
+    tiaozhuan(){
+        
     }
   }
 };
@@ -123,6 +246,7 @@ export default {
 .title {
   font-size: 14px;
   font-style: normal;
+  width: 160px;
 }
 .td101 {
   border-bottom-color: rgb(204, 204, 204);
@@ -277,14 +401,9 @@ export default {
 
   margin-bottom: 0px;
 
-  margin-left: 126.6px;
-
   margin-right: 126.61px;
 
-
   text-decoration: none;
-
-  width: 1200px;
 }
 .middleLeft {
   -webkit-tap-highlight-color: rgba(31, 12, 12, 0);
@@ -349,7 +468,7 @@ export default {
 
   width: 700px;
 }
-.button1 {
+.xuqiuyilan .button1 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   background-attachment: scroll;
@@ -456,6 +575,10 @@ export default {
 
   background-origin: padding-box;
 
+  background-position-x: 0%;
+
+  background-position-y: 0%;
+
   background-repeat: repeat;
 
   background-size: auto;
@@ -476,13 +599,43 @@ export default {
 
   line-height: normal;
 
+  list-style-image: none;
+
+  list-style-position: outside;
+
+  list-style-type: none;
+
+  margin-bottom: 0px;
+
+  margin-left: 0px;
+
+  margin-right: 0px;
+
+  margin-top: 0px;
+
   outline-color: invert;
+
+  outline-style: none;
+
+  outline-width: 0px;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
+
+  text-decoration: none;
 
   vertical-align: baseline;
 
   width: 660px;
 
   word-break: break-all;
+
+  height: 160px;
 }
 .cg_list001 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -521,31 +674,9 @@ export default {
   word-break: break-all;
 }
 .cg_bottomlist {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  border-bottom-color: rgb(204, 204, 204);
 
-  border-bottom-style: dashed;
 
-  border-bottom-width: 1px;
-
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-weight: 400;
-
-  overflow: hidden;
-
-  padding-bottom: 10px;
-
-  padding-left: 10px;
-
-  padding-right: 10px;
-
-  padding-top: 20px;
-
-  text-decoration: none;
 }
 .ziti2 {
   -webkit-text-size-adjust: auto;
@@ -722,28 +853,132 @@ export default {
 .list_div {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  border-bottom-color: rgb(204, 204, 204);
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
 
-  border-bottom-style: dashed;
+  font-size: 14px;
 
-  border-bottom-width: 1px;
+  font-style: normal;
+
+  font-variant: normal;
+
+  font-weight: 400;
+
+  line-height: normal;
+
+  margin-bottom: 0px;
+
+  margin-left: 0px;
+
+  margin-right: 0px;
+
+  margin-top: 0px;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
+
+  text-decoration: none;
+}
+.thisAfter {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
 
   font-size: 14px;
 
+  font-style: normal;
+
+  font-variant: normal;
+
   font-weight: 400;
 
-  overflow: hidden;
+  line-height: normal;
 
-  padding-bottom: 10px;
+  margin-bottom: 20px;
 
-  padding-left: 10px;
+  margin-left: 126.6px;
 
-  padding-right: 10px;
+  margin-right: 126.61px;
 
-  padding-top: 20px;
+  margin-top: 0px;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
 
   text-decoration: none;
+
+  width: 1200px;
+}
+.table1 {
+  background-attachment: scroll;
+
+  background-clip: border-box;
+
+  background-color: rgb(250, 250, 250);
+
+  background-image: none;
+
+  background-origin: padding-box;
+
+  background-position-x: 0%;
+
+  background-position-y: 0%;
+
+  background-repeat: repeat;
+
+  background-size: auto;
+
+  border-bottom-color: rgb(204, 204, 204);
+
+  border-bottom-style: solid;
+
+  border-bottom-width: 0.5px;
+
+  border-collapse: collapse;
+
+  border-left-color: rgb(204, 204, 204);
+
+  border-left-style: solid;
+
+  border-left-width: 0.5px;
+
+  border-right-color: rgb(204, 204, 204);
+
+  border-right-style: solid;
+
+  border-right-width: 0.5px;
+
+  border-spacing: 0px 0px;
+
+  border-top-color: rgb(204, 204, 204);
+
+  border-top-style: solid;
+
+  border-top-width: 0.5px;
+
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+
+  font-size: 14px;
+
+  font-style: normal;
+
+  font-variant: normal;
+
+  font-weight: 400;
+
+  line-height: normal;
+
+  text-decoration: none;
+
+  width: 1198px;
 }
 </style>

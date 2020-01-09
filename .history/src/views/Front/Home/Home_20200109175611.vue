@@ -1,7 +1,7 @@
 
 <template>
 <div>
-    
+    <div class="BG0">
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
       <el-col :span="24">
@@ -20,7 +20,7 @@
         </div>
       </el-col>
     </el-row>
-    
+    </div>
 
   <div class="BG">
     <!--第二行  网站访问统计数据-->
@@ -262,21 +262,55 @@
  
 
     <!-- 第八行  网站数据统计图表 -->
-    <el-row :gutter="gutterCount"d >
-      <el-col :span="20":push="pushCount">
+    <el-row :gutter="gutterCount" >
+      <el-col :span="8":push="pushCount">
         <el-card shadow="hover">
-          <div class="demandTop5"></div>
-          <div id="monthSituation" style="width: 100%;height:350%;"></div>
+          <div slot="header" class="titleColor">核心企业发布需求量排名TOP5</div>
+            <el-table
+                :data="fulfillTableRank"
+                style="width: 100%">
+                  <el-table-column
+                    prop="rank"
+                    label="排名"
+                    width="50">
+                  </el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="公司"
+                    width="340">
+                  </el-table-column>
+            </el-table>
+            <!-- </div> -->
         </el-card>
       </el-col>
-      <el-col :span="14":push="pushCount">
-        <el-card shadow="hover" style="margin-top:5px;">
+      <el-col :span="12":push="pushCount">
+        <el-card shadow="hover">
+          <div class="demandTop5"></div>
+          <div id="releaseDemandTop5" style="width: 100%; height:350%; "></div>
+        </el-card>
+      </el-col>
+            <el-col :span="12":push="pushCount">
+        <el-card shadow="hover">
           <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div>
         </el-card>
       </el-col>
-      <el-col :span="6":push="pushCount">
-        <el-card shadow="hover" style="margin-top:5px;">
-          <div id="quarterlySituation" style="width: 100%;height:350%;"></div>
+      <el-col :span="8":push="pushCount">
+        <el-card shadow="hover">
+          <div slot="header" class="titleColor">供应商企业完成需求量排名TOP5</div>
+            <el-table
+                :data="fulfillTableRank"
+                style="width: 100%">
+                  <el-table-column
+                    prop="rank"
+                    label="排名"
+                    width="50">
+                  </el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="公司"
+                    width="340">
+                  </el-table-column>
+            </el-table>
         </el-card>
       </el-col>
     </el-row>
@@ -349,16 +383,16 @@ export default {
         {category:"采购",companyName:"一汽",name:"危险品运输半挂车货箱采购项目",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"哈工",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"设备",companyName:"一汽",name:"D359车型四门线改造及翼子板线新建",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"安装",companyName:"哈工",name:"TNGA项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"设备",companyName:"一汽",name:"NAT车型前后盖线改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"安装",companyName:"哈工",name:"E115电动汽车项目-移动点焊机",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"工程",companyName:"一汽",name:"桥壳六线立加夹具改造3套",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"安装",companyName:"哈工",name:"TNGA项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"工程",companyName:"一汽",name:"桥壳六线立加夹具改造3套",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"安装",companyName:"哈工",name:"TNGA项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
         
       ],
       completeddemandTaskList:
@@ -368,9 +402,9 @@ export default {
         {category:"维修",companyName:"一汽",name:"厂区维修服务",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"哈工",name:"汽车刹车片设计",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"竞价",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"竞价",companyName:"一汽",name:"NAT项目地板分焊手工线新建",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"竞价",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"安装",companyName:"一汽",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"维修",companyName:"6666",name:"TNGA2.5L发动机机加线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"维修",companyName:"6666",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"维修",companyName:"6666",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"竞价",companyName:"6666",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"竞价",companyName:"6666",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
@@ -435,22 +469,53 @@ export default {
       //供应商
       supplierlist:
       [
-        {category:"交通运输",companyName:"长春市富晟吉通物流设备有限公司"},
-        {category:"仪器仪表",companyName:"长春市新产业光电技术有限公司"},
-        {category:"电气机械",companyName:"长春市盛昊电子有限公司"},
-        {category:"通信设备",companyName:"哈尔滨市哈特信息科技有限公司"},       
-        {category:"仪器仪表",companyName:"长春市京伟电器有限公司 "},
-        {category:"交通运输",companyName:"长春市沃尔特仓储设备有限公司"},
-        {category:"电气机械",companyName:"哈尔滨科大志远科技有限公司"},
+        {category:"灯系",companyName:"上海小糸车灯有限公司 "},
+        {category:"轮胎",companyName:"上海轮胎橡胶(集团)供销有限公司"},
+        {category:"特种工具",companyName:"上海奥力得特种工具厂"},
+        {category:"塑料",companyName:"上海胜德塑料厂 "},
+        {category:"开关",companyName:"北京京伟电器有限公司 "},
+        {category:"装饰配件",companyName:"北京中环汽车装饰件有限责任公司"},
+        {category:"散热器",companyName:"合肥皖仪科技有限公司"},
         
       ],
+      releaseTableRank:[{
+        rank:'1',
+        name:'中国格力股份有限公司'
+      },{
+        rank:'2',
+        name:'中国海尔股份有限公司'
+      },{
+        rank:'3',
+        name:'中国美的股份有限公司'
+      },{
+        rank:'4',
+        name:'日本松下'
+      },{
+        rank:'5',
+        name:'日本索尼'
+      }],
+      fulfillTableRank:[{
+        rank:'1',
+        name:'中国美的股份有限公司'
+      },{
+        rank:'2',
+        name:'中国格力股份有限公司'
+      },{
+        rank:'3',
+        name:'中国海尔股份有限公司'
+      },{
+        rank:'4',
+        name:'日本索尼'
+      },{
+        rank:'5',
+        name:'日本松下'
+      }]
 
     };
   },
   mounted(){
     this.getCharts();
     this.getCharts2();
-    this.getCharts3();
   },
   methods:{
       /*
@@ -471,65 +536,57 @@ export default {
           .catch(_ => {});
       },
 
-    getCharts(){
-    var charts = [];
-    var myChart = echarts.init(document.getElementById('quarterlySituation'));
+      getCharts(){
+      // 基于准备好的dom，初始化echarts实例
+      var charts = [];
+    var myChart = echarts.init(document.getElementById('releaseDemandTop5'));
     // 指定图表的配置项和数据
-    var option = {
+    var option = {
     title: {
-        text: '季度完成量',
-        subtext: ' ',
-        left: 'center'
+        text: '核心企业发布需求量TOP5',
+        subtext: '数据来自大数据统计'
     },
     tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)'
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
     },
     legend: {
-        orient: 'vertical',
-        right: 0,
-        data: ['第一季度', '第二季度', '第三季度', '第四季度']
+        data: ['2017年', '2018年']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['索尼', '松下', '美的', '海尔', '格力']
     },
     series: [
         {
-            name: '分季完成量',
-            type: 'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-                normal: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    show: true,
-                    textStyle: {
-                        fontSize: '25',
-                        fontWeight: 'bold'
-                    }
-                }
-            },
-            labelLine: {
-                normal: {
-                    show: false
-                }
-            },
-            data: [
-                {value: 335, name: '第一季度'},
-                {value: 310, name: '第二季度'},
-                {value: 235, name: '第三季度'},
-                {value: 220, name: '第四季度'},
-                // {value: 1548, name: '搜索引擎'}
-            ]
-        }
-    ],
+            name: '2017年',
+            type: 'bar',
+            data: [ 1315, 1432, 1679, 1789, 2015]
+        },
+        {
+            name: '2018年',
+            type: 'bar',
+            data: [ 1356, 1530, 1650, 1690, 2121]
+        },
+        
+    ]
     
-
 };
-     myChart.setOption(option);
-     charts.push(myChart);
 
-
+       myChart.setOption(option);
+       charts.push(myChart);
     },
 
         getCharts2() {
@@ -562,7 +619,7 @@ export default {
         },
         yAxis: {
           type: 'category',
-          data: ['上海小糸车灯有限公司 ', '上海胜德塑料厂 ', '上海奥力得特种工具厂', '合肥皖仪科技有限公司', '北京京伟电器有限公司 ']
+          data: ['松下', '索尼', '海尔', '格力', '美的']
         },
         series: [
         {
@@ -581,67 +638,6 @@ export default {
       myChart.setOption(option);
       charts.push(myChart);
     },
-
-
-            getCharts3() {
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-      var myChart = echarts.init(document.getElementById('monthSituation'))
-      var option = {
-    title: {
-        text: '分月供需量'
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        data: ['完成需求量', '发布需求量']
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    toolbox: {
-        feature: {
-            saveAsImage: {}
-        }
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [
-        {
-            name: '完成需求量',
-            type: 'line',
-            stack: '总量',
-            data: [120, 132, 101, 134, 90, 230, 210,122,331,444,312,112]
-        },
-        {
-            name: '发布需求量',
-            type: 'line',
-            stack: '总量',
-            data: [120, 182, 191, 234, 290, 330, 310,123,344,354,123,123]
-        },
-
-    ]
-}; // 使用刚指定的配置项和数据显示图表。
-
-      myChart.setOption(option);
-      charts.push(myChart);
-    },
-
-
-
-
-    
-
 
   }
 };
@@ -670,10 +666,12 @@ export default {
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
-  padding: -2.5px;
+  padding: 0px;
   font-size: 18px;
 }
-
+.BG0 .el-col{
+  padding: 0px -2.5px;
+}
 
 .grid-content
 {

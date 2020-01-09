@@ -315,8 +315,10 @@ export default {
       var option = {
         tooltip: {},
         legend: {
-          x: "left",
-          y: "top",
+          // x: "left",
+          // y: "top",
+          orient: "vertical",
+          left: 10,
           data: ["设计任务", "流通任务"]
         },
         radar: {
