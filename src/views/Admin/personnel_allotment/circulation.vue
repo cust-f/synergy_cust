@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-main>
-      <div class="desinger">
+      <div class="circulation">
         <h3>流通任务</h3>
       </div>
       <el-row style="margin-top:20px">
@@ -133,24 +133,24 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="流通任务ID">
-                <el-input v-model="form.Desinger_ID"></el-input>
+                <el-input v-model="form.Circulation_ID"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="流通任务名称">
-                <el-input v-model="form.Desinger_Name"></el-input>
+                <el-input v-model="form.Circulation_Name"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="流通任务类型">
-                <el-input v-model="form.Desinger_Type"></el-input>
+                <el-input v-model="form.Circulation_Type"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="截止日期">
-                <el-input v-model="form.Desinger_End_Time"></el-input>
+                <el-input v-model="form.Circulation_End_Time"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -160,7 +160,7 @@
                 :disabled="true"
                 type="textarea"
                 :rows="7"
-                v-model="form.Desinger_Task_Details"
+                v-model="form.Circulation_Task_Details"
                 style="width:100%;"
                 placeholder="请输入内容"
               ></el-input>
@@ -181,7 +181,7 @@
 <script>
 export default {
   data() {
-    name: "desinger";
+    name: "circulation";
     return {
       query: {
         pageIndex: 1,
@@ -190,76 +190,76 @@ export default {
       pageTotal: 0,
       Not_Accepted_Task_Head: [
         {
-          column_name: "Desinger_ID",
+          column_name: "Circulation_ID",
           column_comment: "流通任务ID",
           width: "40"
         },
         {
-          column_name: "Desinger_Name",
+          column_name: "Circulation_Name",
           column_comment: "任务名称",
           width: "60"
         },
         {
-          column_name: "Desinger_Type",
+          column_name: "Circulation_Type",
           column_comment: "任务类别",
           width: "60"
         },
         {
-          column_name: "Desinger_End_Time",
+          column_name: "Circulation_End_Time",
           column_comment: "截至时间",
           width: "50"
         }
       ],
       Not_Accepted_Task_Data: [
         {
-          Desinger_ID: "0001",
-          Desinger_Name: "大汽车零件的装配",
-          Desinger_Type: "零件装配制造",
-          Desinger_End_Time: "2019-10-17"
+          Circulation_ID: "0001",
+          Circulation_Name: "大汽车零件的装配",
+          Circulation_Type: "零件装配制造",
+          Circulation_End_Time: "2019-10-17"
         },
         {
-          Desinger_ID: "0002",
-          Desinger_Name: "大帆船的制造",
-          Desinger_Type: "中形设备制造",
-          Desinger_End_Time: "2019-9-15"
+          Circulation_ID: "0002",
+          Circulation_Name: "大帆船的制造",
+          Circulation_Type: "中形设备制造",
+          Circulation_End_Time: "2019-9-15"
         },
         {
-          Desinger_ID: "0003",
-          Desinger_Name: "大火箭模拟装配",
-          Desinger_Type: "高端装配制造",
-          Desinger_End_Time: "2019-12-17"
+          Circulation_ID: "0003",
+          Circulation_Name: "大火箭模拟装配",
+          Circulation_Type: "高端装配制造",
+          Circulation_End_Time: "2019-12-17"
         },
         {
-          Desinger_ID: "0004",
-          Desinger_Name: "铁轨零件制造",
-          Desinger_Type: "高端装配制造",
-          Desinger_End_Time: "2019-12-17"
+          Circulation_ID: "0004",
+          Circulation_Name: "铁轨零件制造",
+          Circulation_Type: "高端装配制造",
+          Circulation_End_Time: "2019-12-17"
         },
         {
-          Desinger_ID: "0005",
-          Desinger_Name: "武器装备模拟装配",
-          Desinger_Type: "高端装配制造",
-          Desinger_End_Time: "2019-12-17"
+          Circulation_ID: "0005",
+          Circulation_Name: "武器装备模拟装配",
+          Circulation_Type: "高端装配制造",
+          Circulation_End_Time: "2019-12-17"
         }
       ],
       Accepted_Task_Head: [
         {
-          column_name: "Desinger_ID",
+          column_name: "Circulation_ID",
           column_comment: "流通任务ID",
           width: "50"
         },
         {
-          column_name: "Desinger_Name",
+          column_name: "Circulation_Name",
           column_comment: "任务名称",
           width: "85"
         },
         {
-          column_name: "Desinger_Type",
+          column_name: "Circulation_Type",
           column_comment: "任务类别",
           width: "70"
         },
         {
-          column_name: "Desinger_End_Time",
+          column_name: "Circulation_End_Time",
           column_comment: "截至时间",
           width: "60"
         },
@@ -276,80 +276,80 @@ export default {
       ],
       Accepted_Task_Data: [
         {
-          Desinger_ID: "0001",
-          Desinger_Name: "大汽车零件的装配",
-          Desinger_Type: "零件装配制造",
-          Desinger_End_Time: "2019-10-17",
+          Circulation_ID: "0001",
+          Circulation_Name: "大汽车零件的装配",
+          Circulation_Type: "零件装配制造",
+          Circulation_End_Time: "2019-10-17",
           Supplier_Audit: "已通过",
           Core_Enterprise_Audit: "审核中"
         },
         {
-          Desinger_ID: "0002",
-          Desinger_Name: "大帆船的制造",
-          Desinger_Type: "中形设备制造",
-          Desinger_End_Time: "2019-9-15",
+          Circulation_ID: "0002",
+          Circulation_Name: "大帆船的制造",
+          Circulation_Type: "中形设备制造",
+          Circulation_End_Time: "2019-9-15",
           Supplier_Audit: "审核中",
           Core_Enterprise_Audit: "审核中"
         },
         {
-          Desinger_ID: "0003",
-          Desinger_Name: "大火箭模拟装配",
-          Desinger_Type: "高端装配制造",
-          Desinger_End_Time: "2019-12-17",
+          Circulation_ID: "0003",
+          Circulation_Name: "大火箭模拟装配",
+          Circulation_Type: "高端装配制造",
+          Circulation_End_Time: "2019-12-17",
           Supplier_Audit: "已通过",
           Core_Enterprise_Audit: "已通过"
         }
       ],
       Finished_Task_Head: [
         {
-          column_name: "Desinger_ID",
+          column_name: "Circulation_ID",
           column_comment: "流通任务ID"
         },
         {
-          column_name: "Desinger_Name",
+          column_name: "Circulation_Name",
           column_comment: "任务名称"
         },
         {
-          column_name: "Desinger_Type",
+          column_name: "Circulation_Type",
           column_comment: "任务类别"
         },
         {
-          column_name: "Desinger_Start_Time",
+          column_name: "Circulation_Start_Time",
           column_comment: "开始时间"
         },
         {
-          column_name: "Desinger_Finish_Time",
+          column_name: "Circulation_Finish_Time",
           column_comment: "完成时间"
         },
         {
-          column_name: "Desinger_Completion_Status",
+          column_name: "Circulation_Completion_Status",
           column_comment: "完成状态"
         }
       ],
       Finished_Task_Data: [
         {
-          Desinger_ID: "0003",
-          Desinger_Name: "大火箭模拟装配",
-          Desinger_Type: "高端装配制造",
-          Desinger_Start_Time: "2019-1-23",
-          Desinger_Finish_Time: "2019-12-17",
-          Desinger_Completion_Status: "已完成"
+          Circulation_ID: "0003",
+          Circulation_Name: "大火箭模拟装配",
+          Circulation_Type: "高端装配制造",
+          Circulation_Start_Time: "2019-1-23",
+          Circulation_Finish_Time: "2019-12-17",
+          Circulation_Completion_Status: "已完成"
         },
         {
-          Desinger_ID: "0003",
-          Desinger_Name: "铁轨零件制造",
-          Desinger_Type: "高端装配制造",
-          Desinger_Start_Time: "2019-6-7",
-          Desinger_Finish_Time: "2019-12-17",
-          Desinger_Completion_Status: "已销毁"
+          Circulation_ID: "0003",
+          Circulation_Name: "铁轨零件制造",
+          Circulation_Type: "高端装配制造",
+          Circulation_Start_Time: "2019-6-7",
+          Circulation_Finish_Time: "2019-12-17",
+          Circulation_Completion_Status: "已销毁"
         }
       ],
       form: {
-        Desinger_ID: "0001",
-        Desinger_Name: "大汽车零件的装配",
-        Desinger_Type: "零件装配制造",
-        Desinger_End_Time: "2019-10-17",
-        Desinger_Task_Details:
+        Circulation_ID: "0001",
+        Circulation_Name: "大汽车零件的装配",
+        Circulation_Type: "零件装配制造",
+        Circulation_End_Time: "2019-10-17",
+        Circulation_Task_Details:
           "空气滤清器：作用是过滤空气中的灰尘杂质，让洁净的空气进入发动机，这对发动机的寿命和正常工作很重要。"
       },
 
