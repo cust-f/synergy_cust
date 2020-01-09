@@ -515,7 +515,7 @@ export default {
           substaskTask: "车轮的制造"
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
@@ -525,7 +525,7 @@ export default {
           substaskTask: "车载摄像头制造"
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
@@ -535,7 +535,7 @@ export default {
           substaskTask: "高温材料耐测"
         },
         {
-          id: 1,
+          id: 4,
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
@@ -555,7 +555,7 @@ export default {
           substaskTask: "耐高温水晶温度计制造"
         },
         {
-          id: 1,
+          id: 6,
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
@@ -565,7 +565,7 @@ export default {
           substaskTask: "高精密轮轴制造"
         },
         {
-          id: 1,
+          id: 7,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
@@ -588,7 +588,7 @@ export default {
           substaskTask: "车轮的制造"
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
@@ -598,7 +598,7 @@ export default {
           substaskTask: "车载摄像头制造"
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
@@ -608,7 +608,7 @@ export default {
           substaskTask: "高温材料耐测"
         },
         {
-          id: 1,
+          id: 4,
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
@@ -628,7 +628,7 @@ export default {
           substaskTask: "耐高温水晶温度计制造"
         },
         {
-          id: 1,
+          id: 6,
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
@@ -638,7 +638,7 @@ export default {
           substaskTask: "高精密轮轴制造"
         },
         {
-          id: 1,
+          id: 7,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
@@ -661,7 +661,7 @@ export default {
           substaskTask: "车轮的制造"
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
@@ -671,7 +671,7 @@ export default {
           substaskTask: "车载摄像头制造"
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
@@ -681,7 +681,7 @@ export default {
           substaskTask: "高温材料耐测"
         },
         {
-          id: 1,
+          id: 4,
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
@@ -701,7 +701,7 @@ export default {
           substaskTask: "耐高温水晶温度计制造"
         },
         {
-          id: 1,
+          id: 6,
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
@@ -711,7 +711,7 @@ export default {
           substaskTask: "高精密轮轴制造"
         },
         {
-          id: 1,
+          id: 7,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
@@ -734,7 +734,7 @@ export default {
           substaskTask: "车轮的制造"
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
@@ -744,7 +744,7 @@ export default {
           substaskTask: "车载摄像头制造"
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
@@ -754,7 +754,7 @@ export default {
           substaskTask: "高温材料耐测"
         },
         {
-          id: 1,
+          id: 4,
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
@@ -774,7 +774,7 @@ export default {
           substaskTask: "耐高温水晶温度计制造"
         },
         {
-          id: 1,
+          id: 6,
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
@@ -784,7 +784,7 @@ export default {
           substaskTask: "高精密轮轴制造"
         },
         {
-          id: 1,
+          id: 7,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
@@ -807,7 +807,7 @@ export default {
           substaskTask: "车轮的制造"
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
