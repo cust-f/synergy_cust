@@ -84,7 +84,7 @@
         data() {
             return {
                 fit:'cover',
-                url: require('../../../../assets/images/home/2.png'),
+                url: "require('./././assets/images/home/a7e942533a9e0e5056c0c67f89dcc0ae.jpeg')",
                 name:'footerSynergy',
                 activeIndex: '1',
                 activeIndex2: '1'
