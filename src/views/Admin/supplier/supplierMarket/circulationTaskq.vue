@@ -347,7 +347,7 @@
 
                   <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
-                  <el-table-column prop="taskLeader" label="废除原因" align="center"></el-table-column>
+                  <el-table-column prop="Abolish_Reason" label="废除原因" align="center"></el-table-column>
 
                   <el-table-column prop="state" label="状态" align="center">
                     <template slot-scope="scope">
