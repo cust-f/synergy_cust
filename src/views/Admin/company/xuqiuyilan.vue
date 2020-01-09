@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="xuqiuyilan">
     <el-col :span="20" push="2" pull="2">
       <div>
         <div>
@@ -15,11 +15,11 @@
           <table class="table1">
             <tbody>
               <tr>
-                <td class="td101">技术类型：</td>
+                <td class="td101">限制条件：</td>
                 <td class="td102">
                   <span class="cg_td_a1" width="100%">不限</span>
-                  <span class="cg_td_a2" width="100%">专利</span>
-                  <span class="cg_td_a2" width="100%">水准</span>
+                  <span class="cg_td_a2" width="100%">完成任务数目</span>
+                  <span class="cg_td_a2" width="100%">注册时间</span>
                   <span class="cg_td_a2" width="100%">人员数目</span>
                   <span class="cg_td_a2" width="100%">具体操作</span>
                   <span class="cg_td_a2" width="100%">公司规模</span>
@@ -39,20 +39,20 @@
                 </td>
               </tr>
               <tr>
-                <td class="td101">成熟度：</td>
+                <td class="td101">任务类型</td>
                 <td class="td102">
                   <span class="cg_td_a1" width="100%">不限</span>
-                  <span class="cg_td_a2" width="100%">专利</span>
-                  <span class="cg_td_a2" width="100%">专利</span>
-                  <span class="cg_td_a2" width="100%">专利</span>
-                  <span class="cg_td_a2" width="100%">专利</span>
-                  <span class="cg_td_a2" width="100%">专利</span>
-                  <span class="cg_td_a2" width="100%">专利</span>
+                  <span class="cg_td_a2" width="100%">车间零部件生产</span>
+                  <span class="cg_td_a2" width="100%">卫星微型零件制作</span>
+                  <span class="cg_td_a2" width="100%">导弹装配与改革</span>
+                  <span class="cg_td_a2" width="100%">锅炉制造装配</span>
+                  <span class="cg_td_a2" width="100%">车用配件制造</span>
+                  <span class="cg_td_a2" width="100%">车辆装配与制作</span>
                 </td>
               </tr>
             </tbody>
           </table>
-          <br>
+          <br />
         </div>
 
         <div class="thisMiddle">
@@ -71,28 +71,30 @@
     </el-col>
     <div class="thisAfter">
       <div class="list_div">
-        <br />
-        <br />
         <div class="cg_bottomlist">
+           
           <ul class="cg_bottomLeft">
-            <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">农业管理系统登记</a>
+            <li class="cg_list001"> 
+                <br>
+                <br>
+              <a class="ziti2" @click="tiaozhuan">福特汽车组装</a>
             </li>
             <li class="cg_list002">
               <a>
-                <font>类型：</font>
-                非专利
+                <font>限制条件：</font>
+                公司规模
               </a>
               <a>
-                <font>成熟度：</font>
-                已有样品
+                <font>任务类型：</font>
+                车间零部件制作
               </a>
+              <br>
               <a>
-                <font>交易方式</font>
+                <font>交易方式:</font>
                 技术入股
               </a>
               <a>
-                <font>价格</font>
+                <font>价格:</font>
                 面议
               </a>
             </li>
@@ -117,12 +119,12 @@
             </li>
             <li class="cg_list002">
               <a>
-                <font>类型：</font>
-                专利
+                <font>限制条件：</font>
+                人员数目
               </a>
               <a>
-                <font>成熟度：</font>
-                已有样品
+                <font>任务类型：</font>
+                卫星微型零件制作
               </a>
               <br />
               <a>
@@ -151,16 +153,16 @@
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">专利转移与提交</a>
+              <a class="ziti2" @click="tiaozhuan">长春钢铁厂锅炉制造</a>
             </li>
             <li class="cg_list002">
               <a>
-                <font>类型：</font>
-                非专利
+                <font>限制条件：</font>
+                人员数目
               </a>
               <a>
-                <font>成熟度：</font>
-                已有样品
+                <font>任务类型：</font>
+                锅炉装配制造
               </a>
               <br />
               <a>
@@ -189,16 +191,16 @@
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">企业信息管理登记</a>
+              <a class="ziti2" @click="tiaozhuan">车载摄像头制作安装</a>
             </li>
             <li class="cg_list002">
               <a>
-                <font>类型：</font>
-                非专利
+                <font>限制条件：</font>
+                公司规模
               </a>
               <a>
-                <font>成熟度：</font>
-                已成熟
+                <font>任务类型</font>
+                车辆装配制造
               </a>
               <a>
                 <font>交易方式</font>
@@ -234,8 +236,8 @@ export default {
   },
 
   methods: {
-    goBack() {
-      this.$router.push("/admin/mainStaskShow");
+    tiaozhuan(){
+        
     }
   }
 };
@@ -466,7 +468,7 @@ export default {
 
   width: 700px;
 }
-.button1 {
+.xuqiuyilan .button1 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   background-attachment: scroll;
@@ -671,7 +673,12 @@ export default {
 
   word-break: break-all;
 }
-.cg_bottomlist .ziti2 {
+.cg_bottomlist {
+
+
+
+}
+.ziti2 {
   -webkit-text-size-adjust: auto;
 
   color: rgb(0, 153, 234);
