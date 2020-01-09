@@ -82,7 +82,7 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+        <el-table-column prop="id" label="序号" width="80" align="center"></el-table-column>
         <el-table-column prop="bname" label="企业名称" align="center"></el-table-column>
        <el-table-column prop="tastname" label="任务名称" align="center"></el-table-column>
         
@@ -130,7 +130,7 @@ export default {
       dialogVisible: false,
 
       form: {
-        id: "000101",
+        id: "100035",
         name: "小汽车零件的装配",
         type: "零件装配制造",
         endtime: "2019-10-17",
@@ -144,7 +144,7 @@ export default {
       formLabelWidth: "120px",
       tableData: [
         {
-          id: 10002,
+          id: 1,
           bussessType: "车间零部件生产",
           bname: "精密制造厂",
           name: "张亮",
@@ -153,7 +153,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 111568,
+          id: 2,
           bussessType: "卫星微型零件制作",
           bname: "赛轮空管制造厂",
           name: "李鹏",
@@ -162,7 +162,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 179213,
+          id: 3,
           bussessType: "导弹装配与改革",
           bname: "东方电线制造厂",
           name: "王星",
