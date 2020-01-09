@@ -72,6 +72,8 @@ import circulationTaskqing from '@/views/admin/supplier/supplierMarket/circulati
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
 import xuqiuyilan from '@/views/admin/company/xuqiuyilan'//需求一览
+import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
+
 
 
 Vue.use(Router)
@@ -92,15 +94,17 @@ export default new Router({
           name: 'Home',
           component: Home
         },
-        //优秀企业
         {
-          path: '/company/excellentCompany',
-          name: 'excellentCompany',
-          component: excellentCompany,
-          meta: {
-            title: '优秀企业'
-          }
+          path: '/admin/xuqiuyilan',
+          name: 'xuqiuyilan',
+          component: xuqiuyilan,
         },
+        {
+          path: '/admin/xuqiuyilanDetail',
+          name: 'xuqiuyilanDetail',
+          component: xuqiuyilanDetail,
+        }
+
 
       ]
     },
@@ -432,11 +436,6 @@ export default new Router({
           meta: {
             title: "企业详情"
           }
-        },
-        {
-          path: '/admin/xuqiuyilan',
-          name: 'xuqiuyilan',
-          component: xuqiuyilan,
         },
 
         

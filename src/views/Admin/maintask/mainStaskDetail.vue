@@ -288,7 +288,7 @@
           name: '小汽车零件的装配',
           type: '零件装配制造',
           endtime: '2019-10-17',
-          detail: '',
+          detail: '略',
           leader:'陈平安',
           designState:'设计完成',
           remakeState:'评价完成',
