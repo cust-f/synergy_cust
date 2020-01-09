@@ -16,13 +16,13 @@
               header-cell-class-name="table-header"
               @selection-change="handleSelectionChange"
             >
-              <el-table-column prop="id" label="任务编号" width="80"></el-table-column>
+              <el-table-column prop="id" label="序号" width="80"  align="center"></el-table-column>
               <el-table-column prop="name" label="任务名称"></el-table-column>
               <el-table-column prop="class" label="任务类别"></el-table-column>
               <el-table-column prop="publish" label="发布任务企业"></el-table-column>
-              <el-table-column prop="designer" label="设计人员"></el-table-column>
+              <el-table-column prop="designer" label="设计人员" align="center"></el-table-column>
               <el-table-column prop="completionDate" label="完成日期"></el-table-column>
-              <el-table-column prop="state" label="任务状态">
+              <el-table-column prop="state" label="任务状态" align="center">
                 <template slot-scope="scope">
                   <el-tag
                     :type="scope.row.state==='未被采纳'?'danger':(scope.row.state==='已被采纳'?'success':scope.row.state==='已提交'?'info':scope.row.state==='未提交'?'warning':'')"
@@ -30,7 +30,7 @@
                 </template>
               </el-table-column>
 
-              <el-table-column label="操作" width="180">
+              <el-table-column label="操作" width="180" align="center">
                 <template slot-scope="scope">
                   <el-button
                     @click="substaskDetail(scope.$index, scope.row)"
@@ -69,65 +69,65 @@ export default {
       },
       tableData: [
         {
-          id: 10001,
+          id: 1,
           name: "车间零部件生产",
           class: "零件生产",
-          publish: "一汽",
-          designer: "张三",
+          publish: "一汽大众",
+          designer: "张雷",
           completionDate: "2019-11-1",
           state: "已被采纳"
         },
         {
-          id: 10002,
+          id: 2,
           name: "卫星微型零件制作",
           class: "零件生产",
-          publish: "一汽",
-          designer: "张三",
+          publish: "一汽大众",
+          designer: "李萌",
           completionDate: "2019-11-1",
           state: "未被采纳"
         },
         {
-          id: 10003,
+          id: 3,
           name: "卫星微型零件制作",
           class: "卫星零件生产",
-          publish: "一汽",
-          designer: "张三",
+          publish: "一汽大众",
+          designer: "王爽",
           completionDate: "2019-11-1",
           state: "未提交"
         },
         {
-          id: 10004,
+          id: 4,
           name: "卫星微型零件制作",
           class: "卫星零件生产",
-          publish: "一汽",
-          designer: "张三",
+          publish: "一汽大众",
+          designer: "侯建",
           completionDate: "2019-11-1",
           state: "已提交"
         },
         {
-          id: 10005,
+          id: 5,
           name: "卫星微型零件制作",
           class: "卫星零件生产",
-          publish: "哈工",
-          designer: "张三",
+          publish: "小卫星",
+          designer: "黎明",
           completionDate: "2019-11-1",
           state: "已被采纳"
         },
         {
-          id: 10006,
+          id: 6,
           name: "卫星微型零件制作",
           class: "卫星零件生产",
-          publish: "哈工",
-          designer: "张三",
+          publish: "小卫星",
+          designer: "李明",
           completionDate: "2019-11-1",
           state: "已被采纳"
         },
         {
-          id: 10007,
+          id: 7,
           name: "导弹装配与改进",
           class: "卫星零件生产",
-          publish: "哈工",
-          designer: "张三",
+          publish: "小卫星",
+          designer: "王菲",
           completionDate: "2019-11-1",
           state: "已被采纳"
         }

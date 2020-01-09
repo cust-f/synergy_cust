@@ -3,9 +3,12 @@
     <div style="padding:0px;">
       <header-synergy></header-synergy>
     </div>
-    <div style="padding:0px 7%;">
-      <el-container>
-        <el-main style="padding:0px;overflow:hidden;">
+    <div style="margin:0 auto;">
+      <el-container width="1200px" style="padding:0px;overflow:hidden;width:1200px;">
+        <el-aside width="260px" style="margin-top:50px;">
+          <v-sidebar></v-sidebar>
+        </el-aside>
+        <el-main style="padding-top:10px;overflow:hidden;" >
           <transition name="move" mode="out-in">
             <router-view></router-view>
           </transition>
@@ -42,5 +45,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 </style>

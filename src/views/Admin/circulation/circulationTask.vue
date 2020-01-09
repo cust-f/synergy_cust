@@ -18,6 +18,8 @@
               <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
               <el-cascader :options="options" ref="a" clearable @change="add"></el-cascader>
               <el-button type="success" round @click="saveAdd">新增</el-button>
+              <br>
+              <br>
               <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
               <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
               <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -40,11 +42,11 @@
               <el-table-column prop="state" label="状态" align="center"><el-tag>待完成</el-tag></el-table-column>
               <el-table-column prop="remarkstate" label="评价状态" align="center"><el-tag>待评价</el-tag></el-table-column>
               
-              <el-table-column label="文件" width="180" align="center">
+              <el-table-column label="文件" align="center">
                 <el-button type="text" size="small">下载</el-button>
               </el-table-column>
 
-              <el-table-column label="操作" width="180" align="center">
+              <el-table-column label="操作"  align="center">
                 <template slot-scope="scope">
                   <!-- <el-button
               type="text"

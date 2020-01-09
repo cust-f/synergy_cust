@@ -3,7 +3,9 @@
     <div>
       <el-container>
         <el-main>
-          <el-form ref="form" :model="form" label-width="110px">
+              <h3>流通任务评价详情</h3>
+               &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+            <el-form ref="form" :model="form" label-width="110px">
             <el-scrollbar style="height:100%">
               <el-row :gutter="80">
                 <el-col :span="11">
