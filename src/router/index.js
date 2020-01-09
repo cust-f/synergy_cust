@@ -6,6 +6,8 @@ import login from '@/Layout/template page/login'
 //前台界面
 import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'
+import excellentCompany from '@/views/Front/Home/company/excellentCompany'//优秀企业
+import excellentCompanyDesigin from '@/views/Front/Home/company/excellentCompanyDesigin'//优秀企业
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
@@ -54,7 +56,6 @@ import designTaskabolishDe from '@/views/admin/supplier/supplierMarket/designTas
 import designTaskqing from '@/views/admin/supplier/supplierMarket/designTaskqing'//设计任务进行时详情
 import designTaskreD from '@/views/admin/supplier/supplierMarket/designTaskreD'//设计任务审核详情页面
 
-import excellentCompany from '@/views/company/excellentCompany'//优秀企业
 
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
@@ -87,7 +88,19 @@ export default new Router({
           name: 'xuqiuyilan',
           component: xuqiuyilan,
         },
+//优秀企业
+        {
+          path: '/company/excellentCompany',
+          name: 'excellentCompany',
+          component: excellentCompany,
+        },
 
+        //优秀企业详情
+        {
+          path: '/company/excellentCompanyDesigin',
+          name: 'excellentCompanyDesigin',
+          component: excellentCompanyDesigin,
+        },
 
       ]
     },
