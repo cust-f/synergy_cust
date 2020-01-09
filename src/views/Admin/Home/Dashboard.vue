@@ -107,6 +107,20 @@
         </el-card>
       </el-col>
     </el-row>
+        <el-row :gutter="20">
+      <el-col :span="10">
+        <el-card shadow="hover">
+          <div class="demandTop5">企业综合评分</div><br>
+          <div id="comprehensiveScore" style="width: 100%;height:390%;"></div>
+        </el-card>
+      </el-col>
+      <el-col :span="14">
+        <el-card shadow="hover">
+          <div class="demandTop5">日登录人数</div><br>
+          <div id="numberStatistics" style="width: 100%;height:390%;"></div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -161,8 +175,10 @@ export default {
     this.getCharts();
     this.getCharts2();
     this.getCharts3();
-    // this.getCharts4();
     this.getCharts5();
+    this.getCharts4();
+    this.getCharts6();
+  
   },
   methods: {
     changeDate() {
@@ -340,7 +356,7 @@ export default {
     // 指定图表的配置项和数据
     var option = {
     title: {
-        text: '企业综合评分'
+        text: ' '
     },
     tooltip: {},
     legend: {
@@ -357,16 +373,16 @@ export default {
             }
         },
         indicator: [
-            { name: '销售能力（sales）', max: 10},
-            { name: '管理（Administration）', max: 10},
-            { name: '技术水平（Techology）', max: 10},
-            { name: '客户服务（Customer Support）', max: 10},
-            { name: '研发能力（Development）', max: 10},
+            { name: '销售', max: 10},
+            { name: '管理', max: 10},
+            { name: '技术', max: 10},
+            { name: '客服', max: 10},
+            { name: '研发', max: 10},
             // { name: '市场（Marketing）', max: 25000}
         ]
     },
     series: [{
-        name: '预算 vs 开销（Budget vs spending）',
+        name: '2017 vs 2018',
         type: 'radar',
         // areaStyle: {normal: {}},
         itemStyle: {normal: {areaStyle: {type: 'default'}}},
@@ -486,9 +502,97 @@ export default {
       charts.push(myChart);
 	    
     },
+
+    getCharts6() {
+      // 基于准备好的dom，初始化echarts实例
+      var charts =[];
+      var myChart = echarts.init(document.getElementById('numberStatistics'))
+      var option = {
+    title: {
+        text: ' '
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    legend: {
+        data: ['核心企业用户', '供应商企业用户', '已注册用户', '未注册散户']
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: [
+        {
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value'
+        }
+    ],
+    series: [
+        {
+            name: '核心企业用户',
+            type: 'line',
+            stack: '总量',
+            areaStyle: {},
+            data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name: '供应商企业用户',
+            type: 'line',
+            stack: '总量',
+            areaStyle: {},
+            data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name: '已注册用户',
+            type: 'line',
+            stack: '总量',
+            areaStyle: {},
+            data: [150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name: '未注册散户',
+            type: 'line',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top'
+                }
+            },
+            areaStyle: {},
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+      charts.push(myChart);
+	    
+    },
     
   }
 };
+
     //监听窗口的改变大小
     window.onresize = function(){
       //迭代全部图表
@@ -497,6 +601,8 @@ export default {
         charts[i].resize();
       }
     };
+
+    
 </script>
 
 
@@ -611,8 +717,8 @@ export default {
 }
 
 .type-situation {
-  margin-left: 30%;
-  font-size: 2rem;
+  margin-left: 35%;
+  font-size: 1.8rem;
   font-weight: bold;
 }
 

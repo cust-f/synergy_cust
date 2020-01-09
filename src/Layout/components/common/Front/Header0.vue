@@ -1,5 +1,10 @@
 <template>
     <div>
+<<<<<<< HEAD
+
+        
+=======
+>>>>>>> 4296a5666161b9356f225d880d11640a0ed1a655
         <el-row gutter="24">
             <el-col :span="24">
                 <div class="elcolCSS0 bg-purple-dark">
@@ -19,6 +24,9 @@
                         </div>
 
                     </div>
+
+
+
                     <!-- 搜索栏-->
                     <div class="CSS2">
                     <div class="CSS2Child0">
