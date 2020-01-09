@@ -63,13 +63,23 @@
         </el-form>
 
         <div align="right">
-          <el-button type="primary" class="button1" @click="dialogTableVisible = true">审核通过</el-button>
+          <el-button type="primary" class="button1" @click="dialogTableVisibleYes = true">审核通过</el-button>
           <el-button type="primary" class="button1" @click="dialogTableVisibleNo = true">审核不通过</el-button>
           <el-button type="primary" class="button1">下载设计文档</el-button>
           <div align="left">
 
-
-
+             <el-dialog
+              title="提示"
+              :visible.sync="dialogTableVisibleYes"
+              width="30%"
+              :before-close="handleClose"
+            >
+              <span>审核通过</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="yessuccess()">确 定</el-button>
+              </span>
+            </el-dialog>
+       
 
              <el-dialog
               title="提示"
@@ -77,26 +87,18 @@
               width="30%"
               :before-close="handleClose"
             >
-              <span>拒绝成功</span>
+              <span>审核不通过</span>
               <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="nosuccess()">确 定</el-button>
               </span>
             </el-dialog>
-          
 
-            <el-dialog
-              title="提示"
-              :visible.sync="dialogVisible"
-              width="30%"
-              :before-close="handleClose"
-            >
-              <span>分配成功</span>
-              <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="goBackagain()">确 定</el-button>
-              </span>
-            </el-dialog>
 
           </div>
+
+      
+
+
         </div>
         <el-divider></el-divider>
       </el-main>
@@ -109,7 +111,7 @@ export default {
   name: "designTaskreD",
   data() {
     return {
-      dialogTableVisible: false,
+      dialogTableVisibleYes: false,
       dialogTableVisibleNo :false,
       dialogVisible: false,
 
@@ -133,14 +135,8 @@ export default {
     goBack() {
       this.$router.push("/admin/designTaskq");
     },
-    goBackagain() {
-      this.$router.push("/admin/designTaskq");
-      this.dialogVisible = false;
-    },
-    success() {
-      this.dialogTableVisible = false;  
-         
-      this.dialogVisible = true;
+    yessuccess() {
+      this.dialogTableVisibleYes = false;     
     },
     nosuccess(){
     this.dialogTableVisibleNo = false;  
