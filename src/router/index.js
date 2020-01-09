@@ -191,19 +191,19 @@ export default new Router({
         },
         //流通人员
         {
-          path: '/admin/circulation',
+          path: '/admin/personnel_allotment/circulation',
           name: 'circulation',
           component: circulation,
         },
         //设计人员
         {
-          path: '/admin/desinger',
+          path: '/admin/personnel_allotment/desinger',
           name: 'desinger',
           component: desinger,
         },
         //虚拟机
         {
-          path: '/admin/virtualMachine',
+          path: '/admin/personnel_allotment/virtualMachine',
           name: 'virtualMachine',
           component: virtualMachine,
         },

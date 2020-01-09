@@ -32,7 +32,7 @@
             </el-col>
           </el-row>
         </div>
-        <el-tabs v-model="activeTab" type="border-card" style="height:60%;">
+        <el-tabs v-model="activeTab" type="border-card" style="height:70%; margin-top:5px">
           <el-tab-pane class="cur" label="任务详情" name="first">
             <el-form ref="form" :model="form" label-width="140px" style="margin-right:40px">
               <br />
@@ -69,7 +69,7 @@
                   <el-input
                     :disabled="true"
                     type="textarea"
-                    :rows="7"
+                    :rows="5"
                     v-model="form.Desinger_Task_Details"
                     style="width:100%;"
                     placeholder="请输入内容"
