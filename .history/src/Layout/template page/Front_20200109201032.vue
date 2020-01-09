@@ -11,7 +11,7 @@
     <el-header height="157px">
       <header-synergy ></header-synergy>
     </el-header>
-    <el-main style=" overflow:hidden;">
+    <el-main style=" overflow-x:hidden;">
         <router-view></router-view>
     </el-main>
     <el-footer>

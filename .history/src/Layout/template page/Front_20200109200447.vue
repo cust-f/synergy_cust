@@ -7,14 +7,14 @@
  * @version: V1.0.5 
 !-->
 <template>
-  <el-container style="overflow-x:hidden;">
+  <el-container style=" overflow-x:hidden;zoom:1;">
     <el-header height="157px">
       <header-synergy ></header-synergy>
     </el-header>
-    <el-main style=" overflow:hidden;">
+    <el-main  style=" overflow: hidden;">
         <router-view></router-view>
     </el-main>
-    <el-footer>
+    <el-footer style=" overflow: hidden;">
       <footer-synergy></footer-synergy>
     </el-footer>
   </el-container>

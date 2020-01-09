@@ -197,8 +197,8 @@
             <slot>
 
             <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%">{{i.name}}</div>
+              <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
@@ -238,8 +238,8 @@
             <slot>
 
             <div v-for="i in completeddemandTaskList" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:30%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%">{{i.name}}</div>
+              <div style="float:left; width:20%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
@@ -255,30 +255,11 @@
     <el-row :gutter="gutterCount">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
-            <a>平台数据</a>
+            <a>网站数据</a>
         </div>
       </el-col>
-
     </el-row>
-      <el-row :gutter="gutterCount"d >
-      <el-col :span="20":push="pushCount">
-        <el-card shadow="hover">
-          <div class="demandTop5"></div>
-          <div id="monthSituation" style="width: 100%;height:350%;"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="14":push="pushCount">
-        <el-card shadow="hover" style="margin-top:5px;">
-          <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="6":push="pushCount">
-        <el-card shadow="hover" style="margin-top:5px;">
-          <div id="quarterlySituation" style="width: 100%;height:350%;"></div>
-        </el-card>
-      </el-col>
-    </el-row>
-
+ 
 
     
    
@@ -346,13 +327,13 @@ export default {
       //需求任务数组
       demandTaskList:
       [
-        {category:"交通运输",companyName:"一汽",name:"危险品运输半挂车货箱采购项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"仪器仪表",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"电气机械",companyName:"哈工",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"通信设备",companyName:"一汽",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"通信设备",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"仪器仪表",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"通信设备",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"采购",companyName:"一汽",name:"危险品运输半挂车货箱采购项目",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"工程",companyName:"哈工",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
@@ -363,13 +344,13 @@ export default {
       ],
       completeddemandTaskList:
       [
-        {category:"仪器仪表",companyName:"哈工",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"电气机械",companyName:"一汽",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"电气机械",companyName:"一汽",name:"厂区维修服务",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"电气机械",companyName:"哈工",name:"汽车刹车片设计",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"仪器仪表",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"仪器仪表",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"电气机械",companyName:"一汽",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"竞价",companyName:"哈工",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"维修",companyName:"一汽",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"维修",companyName:"一汽",name:"厂区维修服务",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"工程",companyName:"哈工",name:"汽车刹车片设计",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"竞价",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"竞价",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"一汽",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"维修",companyName:"6666",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"维修",companyName:"6666",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"竞价",companyName:"6666",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
@@ -589,7 +570,7 @@ export default {
       var myChart = echarts.init(document.getElementById('monthSituation'))
       var option = {
     title: {
-        text: '月度供需量'
+        text: '分月供需量'
     },
     tooltip: {
         trigger: 'axis'

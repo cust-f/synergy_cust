@@ -54,11 +54,11 @@ export default {
                     index: 'charts',
                     title: '首页'
                 },
-                // {
-                //     icon: 'el-icon-edit-outline',
-                //     index: '/admin/designTaskEvaluation',
-                //     title: '设计任务评价'
-                // },
+                {
+                    icon: 'el-icon-edit-outline',
+                    index: '/admin/designTaskEvaluation',
+                    title: '设计任务评价'
+                },
                 {
                     icon: 'el-icon-receiving',
                     index: '7',
