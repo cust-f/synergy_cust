@@ -1,13 +1,13 @@
 <template>
   <el-container>
     <el-main>
-      <div class="circulation">
+      <div class="desinger">
         <h3>流通任务</h3>
       </div>
       <el-row style="margin-top:20px">
-        <el-col style="height:600px; width:49%">
+        <el-col style="height:600px; width:43%">
           <el-card style="height:100%">
-            <div style="font-size:20px">新增流通任务</div>
+            <div style="font-size:20px">新增任务</div>
             <el-table
               :data="Not_Accepted_Task_Data"
               border
@@ -23,9 +23,10 @@
                   :min-width="item.width"
                   v-if="item.column_name != 'id'"
                   align="center"
+                   :show-overflow-tooltip='true'
                 ></el-table-column>
               </template>
-              <el-table-column label="操作" min-width="70px" align="center">
+              <el-table-column label="操作" min-width="45px" align="center">
                 <template>
                   <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
                   <el-button type="text" size="small">开始任务</el-button>
@@ -44,9 +45,9 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="11" style="height:600px; width:49%; margin-left:30px">
+        <el-col :span="11" style="height:600px; width:56%; margin-left:10px">
           <el-card style="height:100%">
-            <div style="font-size:20px">已接流通任务</div>
+            <div style="font-size:20px">已接任务</div>
             <el-table
               :data="Accepted_Task_Data"
               border
@@ -62,9 +63,10 @@
                   :min-width="item.width"
                   v-if="item.column_name != 'id'"
                   align="center"
+                   :show-overflow-tooltip='true'
                 ></el-table-column>
               </template>
-              <el-table-column label="操作" min-width="60px" align="center">
+              <el-table-column label="操作" min-width="70px" align="center">
                 <template>
                   <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
                   <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
@@ -88,7 +90,7 @@
       <el-divider></el-divider>
       <el-row style="height:600px;">
         <el-card style="height:100%">
-          <div style="font-size:20px">历史流通任务</div>
+          <div style="font-size:20px">历史任务</div>
           <el-table
             :data="Finished_Task_Data"
             border
@@ -104,6 +106,7 @@
                 v-if="item.column_name != 'id'"
                 min-width="90px"
                 align="center"
+                 :show-overflow-tooltip='true'
               ></el-table-column>
             </template>
             <el-table-column label="操作" min-width="70px" align="center">
@@ -132,19 +135,19 @@
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="流通任务ID">
+              <el-form-item label="任务ID">
                 <el-input v-model="form.Circulation_ID"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="流通任务名称">
+              <el-form-item label="任务名称">
                 <el-input v-model="form.Circulation_Name"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
-              <el-form-item label="流通任务类型">
+              <el-form-item label="任务类型">
                 <el-input v-model="form.Circulation_Type"></el-input>
               </el-form-item>
             </el-col>
@@ -155,7 +158,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-form-item label="流通任务详情">
+            <el-form-item label="任务详情">
               <el-input
                 :disabled="true"
                 type="textarea"
@@ -181,7 +184,7 @@
 <script>
 export default {
   data() {
-    name: "circulation";
+    name: "desinger";
     return {
       query: {
         pageIndex: 1,
@@ -191,29 +194,29 @@ export default {
       Not_Accepted_Task_Head: [
         {
           column_name: "Circulation_ID",
-          column_comment: "流通任务ID",
-          width: "40"
+          column_comment: "任务ID",
+          width: "30"
         },
         {
           column_name: "Circulation_Name",
           column_comment: "任务名称",
-          width: "60"
+          width: "55"
         },
         {
           column_name: "Circulation_Type",
           column_comment: "任务类别",
-          width: "60"
+          width: "50"
         },
         {
           column_name: "Circulation_End_Time",
           column_comment: "截至时间",
-          width: "50"
+          width: "45"
         }
       ],
       Not_Accepted_Task_Data: [
         {
           Circulation_ID: "0001",
-          Circulation_Name: "大汽车零件的装配",
+          Circulation_Name: "大汽车零件装配",
           Circulation_Type: "零件装配制造",
           Circulation_End_Time: "2019-10-17"
         },
@@ -245,23 +248,23 @@ export default {
       Accepted_Task_Head: [
         {
           column_name: "Circulation_ID",
-          column_comment: "流通任务ID",
-          width: "50"
+          column_comment: "任务ID",
+          width: "35"
         },
         {
           column_name: "Circulation_Name",
           column_comment: "任务名称",
-          width: "85"
+          width: "60"
         },
         {
           column_name: "Circulation_Type",
           column_comment: "任务类别",
-          width: "70"
+          width: "65"
         },
         {
           column_name: "Circulation_End_Time",
           column_comment: "截至时间",
-          width: "60"
+          width: "55"
         },
         {
           column_name: "Supplier_Audit",
@@ -303,7 +306,7 @@ export default {
       Finished_Task_Head: [
         {
           column_name: "Circulation_ID",
-          column_comment: "流通任务ID"
+          column_comment: "任务ID"
         },
         {
           column_name: "Circulation_Name",
@@ -367,12 +370,12 @@ export default {
   }
 };
 </script>
-<style>
+<style scope>
 /* .el-divider {
   margin: 25px 0px !important;
 } */
 .table {
   width: 100%;
-  font-size: 18px;
+  font-size: 14px;
 }
 </style>>
