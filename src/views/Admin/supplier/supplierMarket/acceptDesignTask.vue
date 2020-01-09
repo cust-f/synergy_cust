@@ -55,16 +55,17 @@
         </div>
       </el-main>
     </el-container>
+
     <el-dialog title="分配人员" :visible.sync="dialogTableVisible">
-      <el-form :model="form">
+      <el-form :model="from" label-width="110px">
         <el-form-item label="任务名称" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-model="from.name" autocomplete="off" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="截止日期" :label-width="formLabelWidth">
-          <el-input v-model="form.endtime" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-model="from.endtime" autocomplete="off" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="设计人员" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="请选择分配人员">
+          <el-select v-model="from.username" placeholder="请选择分配人员">
             <el-option label="王小虎" value="wangxiaohu"></el-option>
             <el-option label="李丽" value="lili"></el-option>
             <el-option label="马杰" value="majie"></el-option>
@@ -92,39 +93,10 @@ export default {
   name: "acceptDesignTask",
   data() {
     return {
-      dialogTableVisible: false,
-      dialogVisible: false,
+        
       query: {
         pageIndex: 1,
         pageSize: 10
-      },
-
-      form: {
-        id: "000101",
-        name: "小汽车零件的装配",
-        type: "零件装配制造",
-        endtime: "2019-10-17",
-        detail:
-          "人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。",
-        leader: "陈平安",
-        company: "一汽大众",
-        leaderTel: "18088675187"
-      },
-
-      //读取表格数据
-      addList: {
-        id: null,
-        taskName: "",
-        bussessType: "",
-        publishTask: "",
-        taskLeader: "",
-        leaderTel: "15488678745",
-        date: null
-      },
-      form: {
-        name: "小汽车零件的装配",
-        endtime: "2019-10-17",
-        company: "一汽大众"
       },
       formLabelWidth: "120px",
       tableData: [
@@ -192,24 +164,11 @@ export default {
           date: "2019-11-1"
         }
       ],
-      addList: {
-        id: null,
-        address: "",
-        name: "",
-        money: null,
-        state: null,
-        date: null
-      },
-      tenderTrendsList: [
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来" },
-        { column_name: "白日依山尽，黄河入海流" },
-        { column_name: "黄河落天走东海，万里尘沙入胸怀" },
-        { column_name: "明月隐高树，长河没晓天" },
-        { column_name: "萧萧远树疏林外，一半秋山带夕阳。" },
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。" }
-      ],
+     from:{        
+        name:"小汽车零件的装配",        
+        endtime:"2019-10-17"     
+    },
+     dialogTableVisible: false,
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -219,6 +178,7 @@ export default {
       id: -1
     };
   },
+
   created() {
     this.getData();
   },

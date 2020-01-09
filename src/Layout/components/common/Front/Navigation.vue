@@ -1,35 +1,38 @@
-<!-- 
- * @description: 导航栏
- * @fileName: Navigation.vue 
- * @author: 旋展峰 
- * @date: 2019-11-30 14:29:42 
- * @后台人员:  
- * @path:  
- * @version: V1.0.5 
-!-->
 <template>
   <el-menu
-    :default-active="router"
+    :default-active="onRoutes"
+    background-color="#FFF"
+    text-color="#000"
     mode="horizontal"
-    @select="handleSelect"
-    class="nav"
-    text-color="#fff"
-    active-text-color="#ffd04b"
+    router
   >
-    <el-menu-item index="home">首页</el-menu-item>
-    <el-submenu index="2">
-      <template slot="title">招标预告</template>
-      <el-menu-item index="2-1">选项1</el-menu-item>
-      <el-menu-item index="2-2">选项2</el-menu-item>
-      <el-menu-item index="2-3">选项3</el-menu-item>
-    </el-submenu>
-        <el-submenu index="3">
-      <template slot="title">招标公告</template>
-      <el-menu-item index="3-1">选项1</el-menu-item>
-      <el-menu-item index="3-2">选项2</el-menu-item>
-      <el-menu-item index="3-3">选项3</el-menu-item>
-      </el-submenu>
-    <el-menu-item index="4">中标公告</el-menu-item>
+    <template v-for="item in items">
+      <template v-if="item.subs">
+        <el-submenu :index="item.index" :key="item.index">
+          <template slot="title">
+            <i :class="item.icon"></i>
+            <span slot="title">{{ item.title }}</span>
+          </template>
+          <template v-for="subItem in item.subs">
+            <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+              <template slot="title">{{ subItem.title }}</template>
+              <el-menu-item
+                v-for="(threeItem,i) in subItem.subs"
+                :key="i"
+                :index="threeItem.index"
+              >{{ threeItem.title }}</el-menu-item>
+            </el-submenu>
+            <el-menu-item :index="subItem.index" :key="subItem.index">{{ subItem.title }}</el-menu-item>
+          </template>
+        </el-submenu>
+      </template>
+      <template v-else>
+        <el-menu-item :index="item.index" :key="item.index">
+          <i :class="item.icon"></i>
+          <span slot="title">{{ item.title }}</span>
+        </el-menu-item>
+      </template>
+    </template>
   </el-menu>
 </template>
 
@@ -38,76 +41,129 @@ export default {
   name: "navigation",
   data() {
     return {
-      activeIndex: "1"
+                  items: [
+                {
+                    icon: 'el-icon-office-building',
+                    index: '/admin/dashboard',
+                    title: '系统首页'
+                },
+                {
+                    icon: 'el-icon-postcard',
+                    index: '2',
+                    title: '企业信息管理',
+                    subs:[{
+                            index:'/admin/companyDetail',
+                            title:'企业信息详情'
+                        },
+                        {
+                            index:'/admin/supplyBussess',
+                            title:'企业名录'
+                        },
+                        ]
+                },
+                {
+                    icon: 'el-icon-edit-outline',
+                    index: '3',
+                    title: '协同管理',
+                    subs: [
+                        {
+                            index: '/admin/newTask',
+                            title: '新增任务'
+                        },
+                        {
+                            index: '/admin/mainStaskShow',
+                            title: '查看详情'
+                        }
+                    ]
+                },
+                {
+                    icon: 'el-icon-tickets',
+                    index: '4',
+                    title: '任务管理',
+                    subs:[{
+                        
+                            index:'/admin/designTask',
+                            title:'设计任务'
+                        },
+                        {
+                            index:'/admin/circulationTask',
+                            title:'流通任务'
+                        }
+                    ]
+                },
+                {
+                    icon: 'el-icon-pie-chart',
+                    index: 'charts',
+                    title: 'schart图表'
+                },
+                {
+                    icon: 'el-icon-s-custom',
+                    index: '6',
+                    title: '人员管理',
+                    subs: [
+                        {
+                            index: '/admin/newStaff',
+                            title: '新增人员'
+                        },
+                        {
+                            index: '/admin/dialog',
+                            title: '评价管理'
+                        }
+                    ]
+                },
+                 {
+                    icon: 'el-icon-s-custom',
+                    index: '7',
+                    title: '人员分配',
+                    subs: [
+                        {
+                            index: '/admin/personnel_allotment/desinger',
+                            title: '设计人员'
+                        },
+                        {
+                            index: '/admin/personnel_allotment/circulation',
+                            title: '流通人员'
+                        }
+                    ]
+                },
+                {
+                    icon: 'el-icon-edit-outline',
+                    index: '/admin/designTaskEvaluation',
+                    title: '设计任务评价'
+                },
+                {
+                    icon: 'el-icon-receiving',
+                    index: '',
+                    title: '流通任务评价'
+                },
+                {
+                     icon: 'el-icon-s-custom',
+                    index: '8',
+                    title: '管理员',
+                    subs: [
+                        {
+                            index: '/admin/manager_business',
+                            title: '企业管理'
+                        },                  
+                        {
+                            index: '/admin/manager_user',
+                            title: '用户管理'
+                        }
+                    ]
+                }
+            ]
     };
   },
-  methods: {
-    /*
-     *@description:点击事件
-     *@modifyContent:实现页面的转跳
-     *@author: 旋展峰
-     *@date: 2019-11-30 14:30:15
-    */
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+  computed: {
+    onRoutes() {
+      return this.$route.path.replace("/", "");
     }
   }
 };
 </script>
 
-<style >
-/*
- *@description: 导航栏样式
- *@author: 旋展峰 
- *@date: 2019-11-30 14:31:23
-*/
-.nav {
-  background: rgba(255, 255, 255, 0);
-  margin-top:20px;
+<style>
+.el-submenu__title {
+  padding: 0px;
 }
-/*
- *@description: 覆盖ui框架样式
- *@author: 旋展峰 
- *@date: 2019-11-30 14:31:41
-*/
-.el-menu {
-        background: rgba(7, 7, 10, 0);
-}
-.el-menu--horizontal>.el-menu-item.is-active{
-            background: rgba(7, 7, 10, 0);
-}
-.el-menu.el-menu--horizontal {
-  border: none;
-}
-.el-menu--horizontal .el-menu .el-menu-item.is-active {
-        background: rgba(7, 7, 10, 0);
-}
-.el-menu--horizontal>.el-menu-item:not(.is-disabled):hover{
-        background: rgba(7, 7, 10, 0);
-}
-.el-menu--horizontal .el-menu--popup{
-    padding:0px;
-}
-.el-menu--horizontal .el-menu--popup .el-menu-item:hover {
-  background: rgba(255, 255, 255, 0.445);
-  color: rgba(0, 0, 0, 0.8);
-  padding-left: 30px;
-}
-.el-menu--horizontal .el-menu--popup .el-menu-item.is-active {
-  background: rgba(255, 255, 255, 0.445);
-}
-.el-menu--horizontal .el-menu--popup .el-menu-item {
-  background: rgba(49, 163, 221, 0.7);
-  color: #ffffff;
-  padding-left: 20px;
-  transition: padding 0.5s;
-  -webkit-transition: padding 0.5s; /* Safari */
-}
-.el-menu--horizontal .el-menu--popup .el-menu-item .el-icon-arrow-right:hover {
-  color: rgba(0, 0, 0, 0.8);
-}
-.el-menu--horizontal>.el-submenu .el-submenu__title:hover {
-        background: rgba(7, 7, 10, 0);
-}
-
 </style>

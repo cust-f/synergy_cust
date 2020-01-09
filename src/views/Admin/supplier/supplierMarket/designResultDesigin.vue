@@ -53,10 +53,10 @@
                 <el-input v-model="form.designer" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="11">
-              <el-form-item label="任务细节">
-                <el-input v-model="form.detail" :disabled="true"></el-input>
-              </el-form-item>
+            <el-col  width="100%">
+               <el-form-item label="任务详情">
+                        <el-input type="textarea" :rows="3" style="width:90%" v-model="form.detail" :disabled="true"></el-input>
+                    </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="80"></el-row>
@@ -64,9 +64,67 @@
 
         <div align="right">
             <el-button type="primary" class="button1" >下载图纸</el-button>
-          <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
+          
         </div>
         <el-divider></el-divider>
+        <div>
+        <h3>任务评价</h3>
+        </div>
+        <el-form ref="form" :model="form" label-width="110px">
+        
+          <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="总体星级">
+                    <div class="block">
+                            <el-rate v-model="value0" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+                
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="设计完整性">
+                    <div class="block">
+                            <el-rate v-model="value1" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="设计可靠性">
+                    <div class="block">
+                            <el-rate v-model="value2" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="设计一致性">
+                    <div class="block">
+                            <el-rate v-model="value3" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="设计新颖性">
+                    <div class="block">
+                            <el-rate v-model="value4" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-divider></el-divider>
+        </el-form>
       </el-main>
     </el-container>
   </div>
@@ -77,8 +135,15 @@ export default {
   name: "designResultDesigin",
   data() {
     return {
-      dialogTableVisible: false,
-      dialogVisible: false,
+   
+      value0: null,
+        value1: null,
+        value2: null,
+        value3: null,
+        value4: null,
+
+        colors: ['#99A9BF', '#F7BA2A', '#FF9900'], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+        
 
       form: {
         id: "000101",
@@ -86,28 +151,19 @@ export default {
         type: "零件装配制造",
         endtime: "2019-10-17",
         detail:
-          "人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。",
+          "协同设计和虚拟可视化仿真，从被提出起就成为计算机和信息科学领域研究的一个热点。早在二十世纪八十年代末，美国斯坦福大学联合Lockheed、EIT 及HP 公司开发的名为PACT 的项目，主要用于研究大规模、分布式并行工程系统。",
         leader: "陈平安",
         company: "一汽大众",
         designer: "金像元",
         leaderTel: "18088675187"
       },
       formLabelWidth: "120px",
-      tenderTrendsList: [
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来" },
-        { column_name: "白日依山尽，黄河入海流" },
-        { column_name: "黄河落天走东海，万里尘沙入胸怀" },
-        { column_name: "明月隐高树，长河没晓天" },
-        { column_name: "萧萧远树疏林外，一半秋山带夕阳。" },
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。" }
-      ]
+     
     };
   },
   methods: {
     goBack() {
-      this.$router.push("/designResult");
+      this.$router.push("/admin/designTaskq");
     },
     success() {
       this.dialogTableVisible = false;
