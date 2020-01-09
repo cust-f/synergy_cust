@@ -5,7 +5,7 @@
     </div>
     <div style="padding:0px 7%;" class="content" :class="{'content-collapse':collapse}">
       <el-container>
-        <el-aside>
+        <el-aside width="230px;">
           <v-sidebar></v-sidebar>
         </el-aside>
         <el-main style="padding:0px;overflow:hidden;">

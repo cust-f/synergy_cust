@@ -312,7 +312,8 @@ export default new Router({
           meta:{
             title:"完成任务详情"
           }
-        }
+        },
+        
       ]
     },
     {
