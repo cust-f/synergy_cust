@@ -18,7 +18,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="80" align="center"></el-table-column>
 
                   <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
                   <el-table-column label="任务截止日期">
@@ -68,7 +68,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="80" align="center"></el-table-column>
 
                   <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
                   <el-table-column label="任务截止日期">
@@ -133,7 +133,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="80" align="center"></el-table-column>
 
                   <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
                   <el-table-column label="任务截止日期">
@@ -182,7 +182,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="80" align="center"></el-table-column>
 
                   <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
                   <el-table-column label="任务截止日期">
@@ -261,7 +261,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="80" align="center"></el-table-column>
 
                   <el-table-column prop="taskName" label="任务名称" align="center"></el-table-column>
                   <el-table-column label="任务截止日期">
@@ -327,7 +327,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>
+                  <el-table-column prop="id" label="序号" width="80" align="center"></el-table-column>
 
                   <el-table-column prop="taskName" label="任务名称" ></el-table-column>
                   <el-table-column label="任务截止日期" align="center">
@@ -364,13 +364,10 @@
                   </el-table-column>
 
                   <el-table-column label="操作" width="180" align="center">
-                    <template slot-scope="scope">
-                      <el-button
-                        @click="substaskDetail(scope.$index, scope.row)"
-                        type="text"
-                        size="small"
-                      >查看详情</el-button>
+                    <template>
+                      <el-button @click="jumpbolish()" type="text" size="small">查看详情</el-button>
                     </template>
+                    
                   </el-table-column>
                 </el-table>
                 <div class="pagination">
@@ -449,7 +446,7 @@ export default {
 
       tableData1: [
         {
-          id: 100000,
+          id: 1,
           taskName: "小型汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -459,7 +456,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 100001,
+          id: 2,
           taskName: "中型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -469,7 +466,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 100002,
+          id: 3,
           taskName: "小型汽车刹车",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -479,7 +476,7 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 100003,
+          id: 4,
           taskName: "小型汽车后备箱盖子",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -492,7 +489,7 @@ export default {
 
       tableData2: [
         {
-          id: 100012,
+          id: 1,
           taskName: "客车汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -502,7 +499,7 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 100301,
+          id: 2,
           taskName: "中型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -512,7 +509,7 @@ export default {
           date: "2019-11-14"
         },
         {
-          id: 100042,
+          id: 3,
           taskName: "小型汽车刹车",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -522,7 +519,7 @@ export default {
           date: "2019-11-5"
         },
         {
-          id: 100203,
+          id: 4,
           taskName: "小型汽车后备箱盖子",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -535,7 +532,7 @@ export default {
 
       tableData3: [
         {
-          id: 100012,
+          id: 1,
           taskName: "客车汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -545,7 +542,7 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 100301,
+          id: 2,
           taskName: "中型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -558,7 +555,7 @@ export default {
 
       tableData4: [
         {
-          id: 100012,
+          id: 1,
           taskName: "火车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -568,7 +565,7 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 100320,
+          id: 2,
           taskName: "大型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -581,7 +578,7 @@ export default {
 
       tableData5: [
         {
-          id: 100212,
+          id: 1,
           taskName: "小型汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -591,7 +588,7 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 102320,
+          id: 2,
           taskName: "小型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -604,7 +601,7 @@ export default {
 
       tableData6: [
         {
-          id: 104412,
+          id: 1,
           taskName: "小型汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -614,7 +611,7 @@ export default {
           date: "2019-12-23"
         },
         {
-          id: 102324,
+          id: 2,
           taskName: "小型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -650,7 +647,13 @@ export default {
     acceptSuccess() {
         this.dialogTableVisible = false;
         this.dialogVisible = true;
-    }
+    },
+    
+    //废除任务详情
+    jumpbolish() {
+       this.$router.push("/admin/designTaskabolishDe");
+    },
+
   }
 
   /*
