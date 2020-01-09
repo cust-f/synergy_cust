@@ -113,7 +113,7 @@ export default {
       this.$router.push("/circulationTaskq");
     },
     goBackagain() {
-      this.$router.push("/acceptDesignTask");
+      this.$router.push("/circulationTaskq");
       this.dialogVisible = false;
     },
 

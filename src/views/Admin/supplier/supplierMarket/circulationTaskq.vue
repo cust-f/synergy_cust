@@ -347,7 +347,7 @@
 
                   <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
-                  <el-table-column prop="taskLeader" label="废除原因" align="center"></el-table-column>
+                  <el-table-column prop="Abolish_Reason" label="废除原因" align="center"></el-table-column>
 
                   <el-table-column prop="state" label="状态" align="center">
                     <template slot-scope="scope">
@@ -421,18 +421,18 @@ export default {
 
       tableData1: [
         {
-          id: 100000,
-          taskName: "小型汽车前车灯",
+          id: 100002,
+          taskName: "汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
-          taskLeader: "李华",
+          taskLeader: "李力",
 
           state: "新增",
           date: "2019-11-1"
         },
         {
-          id: 100001,
-          taskName: "中型汽车车架",
+          id: 100301,
+          taskName: "大型汽车车骨",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "刘柳",
@@ -442,7 +442,7 @@ export default {
         },
         {
           id: 100002,
-          taskName: "小型汽车刹车",
+          taskName: "大型汽车刹车",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "周舟",
@@ -451,8 +451,8 @@ export default {
           date: "2019-11-1"
         },
         {
-          id: 100003,
-          taskName: "小型汽车后备箱盖子",
+          id: 100403,
+          taskName: "大型汽车后备箱盖子",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "孙铭",
@@ -464,18 +464,18 @@ export default {
 
       tableData2: [
         {
-          id: 100012,
-          taskName: "客车汽车前车灯",
+          id: 103012,
+          taskName: "客车汽车后车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
-          taskLeader: "李名",
+          taskLeader: "李芳",
 
           state: "新增",
           date: "2019-12-1"
         },
         {
           id: 100301,
-          taskName: "中型汽车车架",
+          taskName: "微型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "刘柳",
@@ -484,7 +484,7 @@ export default {
           date: "2019-11-14"
         },
         {
-          id: 100042,
+          id: 103042,
           taskName: "小型汽车刹车",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -494,7 +494,7 @@ export default {
           date: "2019-11-5"
         },
         {
-          id: 100203,
+          id: 100253,
           taskName: "小型汽车后备箱盖子",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -507,7 +507,7 @@ export default {
 
       tableData3: [
         {
-          id: 100012,
+          id: 102012,
           taskName: "客车汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
@@ -529,8 +529,8 @@ export default {
       ],
       tableData4: [
         {
-          id: 100012,
-          taskName: "火车前车灯",
+          id: 105512,
+          taskName: "卡车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "李名",
@@ -539,8 +539,8 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 100320,
-          taskName: "大型汽车车架",
+          id: 100321,
+          taskName: "小型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "刘柳",
@@ -552,7 +552,7 @@ export default {
       tableData5: [
         {
           id: 100212,
-          taskName: "小型汽车前车灯",
+          taskName: "大型汽车后车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "李名",
@@ -561,8 +561,8 @@ export default {
           date: "2019-12-1"
         },
         {
-          id: 102320,
-          taskName: "小型汽车车架",
+          id: 102321,
+          taskName: "大型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "刘柳",
@@ -573,22 +573,22 @@ export default {
       ],
       tableData6: [
         {
-          id: 104412,
-          taskName: "小型汽车前车灯",
+          id: 104413,
+          taskName: "大型汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "李想",
-          Abolish_Reason: "设计不合理",
+          Abolish_Reason: "错位不合格",
           state: "已废除",
           date: "2019-12-23"
         },
         {
           id: 102324,
-          taskName: "小型汽车车架",
+          taskName: "大型汽车车架",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
-          taskLeader: "刘成",
-          Abolish_Reason: "设计超时",
+          taskLeader: "王菲",
+          Abolish_Reason: "数量不符",
           state: "已废除",
           date: "2019-11-19"
         }
