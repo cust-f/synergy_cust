@@ -53,40 +53,87 @@ export default {
             this.$message.success("管理员登录成功");
             this.$store.commit("SET_TOKEN", true);
             this.$store.commit("GET_USER", this.username);
-            console.log(this.$store.state.token)
-            menuList=[
-        {
-          menuName: "协同管理",
-          children: [
-            { menuName: "新增任务", code: "newTask", icon: "#hhtxdrxx04" },
-            {
-              menuName: "查看所有主任务",
-              code: "mainStaskShow",
-              icon: "#hhtxbaogao"
-            },
-            { menuName: "查看所有主任务", code: "mainStaskShow", icon: "#hhtxbaogao" },
-             { menuName: "人员管理", code: "newStaff", icon: "#hhtxbaogao" },
-          ]
-        }
-      ]
-            this.$store.commit("SET_List",menuList);
-            this.$router.push("/home");
+            localStorage.setItem("ms_username", this.param.username);
+            menuList = [
+              {
+                icon: "el-icon-postcard",
+                index: "2",
+                title: "企业信息管理",
+                subs: [
+                  {
+                    index: "/admin/companyDetail",
+                    title: "企业信息详情"
+                  },
+                  {
+                    index: "/admin/supplyBussess",
+                    title: "企业名录"
+                  }
+                ]
+              },
+              {
+                icon: "el-icon-edit-outline",
+                index: "3",
+                title: "协同管理",
+                subs: [
+                  {
+                    index: "/admin/newTask",
+                    title: "新增任务",
+                    meta:{
+                      title:"新增任务"
+                    }
+                  },
+                  {
+                    index: "/admin/mainStaskShow",
+                    title: "查看详情"
+                  }
+                ]
+              },
+              {
+                icon: "el-icon-tickets",
+                index: "4",
+                title: "任务管理",
+                subs: [
+                  {
+                    index: "/admin/designTask",
+                    title: "设计任务"
+                  },
+                  {
+                    index: "/admin/circulationTask",
+                    title: "流通任务"
+                  }
+                ]
+              }
+            ];
+            this.$store.commit("SET_List", menuList);
+            this.$router.push("/admin/dashboard");
           } else if (this.param.username == "supplier") {
             this.$message.success("管理员登录成功");
             this.$store.commit("SET_TOKEN", true);
             this.$store.commit("GET_USER", this.username);
+            menuList = [];
+            this.$store.commit("SET_List", menuList);
+            this.$router.push("/admin/dashboard");
           } else if (this.param.username == "desinger") {
             this.$message.success("管理员登录成功");
             this.$store.commit("SET_TOKEN", true);
             this.$store.commsit("GET_USER", this.username);
+            menuList = [];
+            this.$store.commit("SET_List", menuList);
+            this.$router.push("/admin/dashboard");
           } else if (this.param.username == "company") {
             this.$message.success("管理员登录成功");
             this.$store.commit("SET_TOKEN", true);
             this.$store.commit("GET_USER", this.username);
+            menuList = [];
+            this.$store.commit("SET_List", menuList);
+            this.$router.push("/admin/dashboard");
           } else if (this.param.username == "circulation") {
             this.$message.success("管理员登录成功");
             this.$store.commit("SET_TOKEN", true);
             this.$store.commit("GET_USER", this.username);
+            menuList = [];
+            this.$store.commit("SET_List", menuList);
+            this.$router.push("/admin/dashboard");
           }
         } else {
           this.$message.error("请输入账号和密码");

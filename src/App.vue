@@ -10,11 +10,18 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+   @import "./assets/css/main.css";
+  @import "./assets/css/color-dark.css";     /*深色主题*/
 * {
   padding: 0;
   margin: 0;
   border: 0;
+}
+html,
+body{
+  width: 100%;
+  height: 100%;
 }
 .icon {
   width: 3em;
@@ -38,5 +45,8 @@ export default {
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.1);
   /* -webkit-box-shadow:inset006pxrgba(0,0,0,0.5); */
+}
+h3{
+  font-size: 24px;
 }
 </style>
