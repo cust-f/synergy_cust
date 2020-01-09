@@ -268,11 +268,10 @@
 
 
 
-    <!-- 第八行  网站数据统计图表 -
+    <!-- 第八行  网站数据统计图表 -->
     <el-row :gutter="gutterCount"d >
       <el-col :span="8":push="pushCount">
         <el-card shadow="hover">
-          <!-- <div height:360px> -->
           <div slot="header" class="titleColor">核心企业发布需求量排名TOP5</div>
             <el-table
                 :data="fulfillTableRank"
@@ -322,7 +321,8 @@
         </el-card>
       </el-col>
     </el-row>
-    --第九行  留一行
+
+    <!-- 第九行  留一行 -->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
         <div class="grid-content4 bg-purple-dark">
@@ -331,7 +331,7 @@
         </div>
       </el-col>
     </el-row>
-    -->
+   
   </div>
 </div>
 </template>
