@@ -1,5 +1,5 @@
 <template>
-<div style="margin:0 auto; width:1200px;">
+<div style="margin:0 auto; width:1200px;" class="navigation">
   <el-menu
     :default-active="this.$route.path"
     background-color="#00a2e6"
@@ -52,37 +52,7 @@ export default {
                 {
                     icon: 'el-icon-pie-chart',
                     index: 'charts',
-                    title: 'schart图表'
-                },
-                {
-                    icon: 'el-icon-s-custom',
-                    index: '6',
-                    title: '人员分配',
-                    subs: [
-                        {
-                            index: '/admin/personnel_allotment/desinger',
-                            title: '设计人员'
-                        },
-                        {
-                            index: '/admin/personnel_allotment/circulation',
-                            title: '流通人员'
-                        }
-                    ]
-                },
-                {
-                    icon: 'el-icon-s-custom',
-                    index: '7',
-                    title: '人员管理',
-                    subs: [
-                        {
-                            index: '/admin/newStaff',
-                            title: '新增人员'
-                        },
-                        {
-                            index: '/admin/dialog',
-                            title: '评价管理'
-                        }
-                    ]
+                    title: '首页'
                 },
                 {
                     icon: 'el-icon-edit-outline',
@@ -92,7 +62,7 @@ export default {
                 {
                     icon: 'el-icon-receiving',
                     index: '',
-                    title: '流通任务评价'
+                    title: '需求一览'
                 },
                 {
                     icon: 'el-icon-edit-outline',
@@ -101,18 +71,13 @@ export default {
                 },
                 {
                      icon: 'el-icon-s-custom',
-                    index: '9',
-                    title: '管理员',
-                    subs: [
-                        {
-                            index: '/admin/manager_business',
-                            title: '企业管理'
-                        },                  
-                        {
-                            index: '/admin/manager_user',
-                            title: '用户管理'
-                        }
-                    ]
+                    index: '8',
+                    title: '优质企业',
+                },
+                {
+                     icon: 'el-icon-s-custom',
+                    index: '8',
+                    title: '服务成果',
                 }
             ]
     };
@@ -126,13 +91,13 @@ export default {
 </script>
 
 <style>
-.el-submenu__title {
+.navigation .el-submenu__title {
   font-size: 16px;
     height: 45px !important;
           line-height: 43px !important;
   /* #1381ce */
 }
-.el-menu--horizontal{
+.navigation .el-menu--horizontal{
   height: 45px;
 }
 .el-menu--horizontal>.el-menu-item.is-active {
@@ -147,10 +112,11 @@ export default {
       background-color:  #1381ce !important;
     color: #FFF !important;  
 }
-.el-menu-item {
+.navigation .el-menu-item {
     font-size: 16px;
       height: 45px !important;
     padding:0px 20px;
+    margin: 0px 20px !important;
     line-height: 43px !important;
 }
 .el-submenu{
