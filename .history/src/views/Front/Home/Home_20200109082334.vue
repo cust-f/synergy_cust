@@ -9,6 +9,7 @@
 
             <!--备注，需要向img_list写入图片地址-->
             <el-carousel-item v-for="item in img_list" :key="item">
+              <img :src="item">
               <img
                 style="width: 100%; height: 100%;"
                 :src="item"
