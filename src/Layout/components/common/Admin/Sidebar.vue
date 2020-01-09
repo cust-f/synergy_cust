@@ -109,17 +109,17 @@ export default {
           index: "charts",
           title: "文件管理"
         },
-        {
-          icon: "el-icon-s-custom",
-          index: "6",
-          title: "数据统计",
-          subs: [
-            {
-              index: "/admin/newStaff",
-              title: "新增人员"
-            }
-          ]
-        },
+        // {
+        //   icon: "el-icon-s-custom",
+        //   index: "6",
+        //   title: "数据统计",
+        //   subs: [
+        //     {
+        //       index: "/admin/newStaff",
+        //       title: "新增人员"
+        //     }
+        //   ]
+        // },
         {
           icon: "el-icon-s-custom",
           index: "7",
