@@ -119,14 +119,10 @@
                    <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="info" round>企业标准</el-button>
                    <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="warning" round>综合服务</el-button>
                    <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="danger" round>产业融合</el-button>
-                   <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>发布需求</el-button>
+                   <el-button class="xqelbuttonleft0"   style="margin-top:10px ; margin-left:0px ;" type="success" round>免费发布</el-button>
               </el-tab-pane>
               <el-tab-pane label="我有服务" name="second">
-                  <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
-                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="info" round>企业标准</el-button>
-                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="warning" round>综合服务</el-button>
-                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="danger" round>产业融合</el-button>
-                   <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>寻找需求</el-button>
+                
               </el-tab-pane>
             </el-tabs>
 
@@ -135,18 +131,7 @@
         </div>
       </el-col>
     </el-row>
-    <!--点我免费发布 弹出框-->
-    <el-dialog
-      title="提示"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose">
-      <span>这是一段信息</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
+
     <!--第四行   需求任务及已完成需求-->
     <el-row :gutter="gutterCount">
       <!--需求任务-->
@@ -283,8 +268,6 @@ export default {
     return {
 
       fit:'cover',
-      //免费发布需求弹出框的bool值
-      dialogVisible: false,
 
       //第一行图片的URL
       url0:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
@@ -428,16 +411,7 @@ export default {
       //登陆注册模块点击
        handleClick(tab, event) {
         console.log(tab, event);
-      },
-      //免费发布界面关闭前的最后一次确认
-      handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
-      },
-
+      }
   }
 };
 
@@ -569,7 +543,7 @@ export default {
 
 .xqelbuttonleft0
 {
-  float: left; position:relative;left:30%;
+  float: left; position:relative;left:40%;
 }
 
 .xqelbuttonright
@@ -646,7 +620,7 @@ export default {
 .cate_list a {
     margin: 0 20px 0 0;
     display: inline-block;
-    font-size: 16px;
+    font-size: 10px;
      font-style:normal;
 }
 a {
