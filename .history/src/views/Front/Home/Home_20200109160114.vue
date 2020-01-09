@@ -23,6 +23,9 @@
     </div>
 
   <div class="BG">
+
+    
+
     <!--第二行  网站访问统计数据-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
@@ -270,55 +273,28 @@
 
     <!-- 第八行  网站数据统计图表 -
     <el-row :gutter="gutterCount"d >
-      <el-col :span="8":push="pushCount">
+      <el-col :span="6":push="pushCount">
         <el-card shadow="hover">
-          <!-- <div height:360px> -->
-          <div slot="header" class="titleColor">核心企业发布需求量排名TOP5</div>
-            <el-table
-                :data="fulfillTableRank"
-                style="width: 100%">
-                  <el-table-column
-                    prop="rank"
-                    label="排名"
-                    width="50">
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
-                    label="公司"
-                    width="340">
-                  </el-table-column>
-            </el-table>
-            <!-- </div> -->
+          <div class="demandTop5">核心企业发布需求量排名TOP5</div><br>
+          <div id="comprehensiveScore" style="width: 100%;height:390%;"></div>
         </el-card>
       </el-col>
-      <el-col :span="12":push="pushCount">
+      <el-col :span="14":push="pushCount">
         <el-card shadow="hover">
-          <div class="demandTop5"></div>
-          <div id="releaseDemandTop5" style="width: 100%;height:350%;"></div>
+          <div class="demandTop5">日登录人数</div><br>
+          <div id="numberStatistics" style="width: 100%;height:390%;"></div>
         </el-card>
       </el-col>
-            <el-col :span="12":push="pushCount">
+            <el-col :span="14":push="pushCount">
         <el-card shadow="hover">
-          <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div>
+          <div class="demandTop5">企业综合评分</div><br>
+          <div id="comprehensiveScore" style="width: 100%;height:390%;"></div>
         </el-card>
       </el-col>
-      <el-col :span="8":push="pushCount">
+      <el-col :span="6":push="pushCount">
         <el-card shadow="hover">
-          <div slot="header" class="titleColor">供应商企业完成需求量排名TOP5</div>
-            <el-table
-                :data="fulfillTableRank"
-                style="width: 100%">
-                  <el-table-column
-                    prop="rank"
-                    label="排名"
-                    width="50">
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
-                    label="公司"
-                    width="340">
-                  </el-table-column>
-            </el-table>
+          <div class="demandTop5">供应商企业完成需求量排名TOP5</div><br>
+          <div id="numberStatistics" style="width: 100%;height:390%;"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -494,44 +470,8 @@ export default {
         {category:"散热器",companyName:"合肥皖仪科技有限公司"},
         
       ],
-      releaseTableRank:[{
-        rank:'1',
-        name:'中国格力股份有限公司'
-      },{
-        rank:'2',
-        name:'中国海尔股份有限公司'
-      },{
-        rank:'3',
-        name:'中国美的股份有限公司'
-      },{
-        rank:'4',
-        name:'日本松下'
-      },{
-        rank:'5',
-        name:'日本索尼'
-      }],
-      fulfillTableRank:[{
-        rank:'1',
-        name:'中国美的股份有限公司'
-      },{
-        rank:'2',
-        name:'中国格力股份有限公司'
-      },{
-        rank:'3',
-        name:'中国海尔股份有限公司'
-      },{
-        rank:'4',
-        name:'日本索尼'
-      },{
-        rank:'5',
-        name:'日本松下'
-      }]
 
     };
-  },
-  mounted(){
-    this.getCharts();
-    this.getCharts2();
   },
   methods:{
       /*
@@ -552,109 +492,6 @@ export default {
           .catch(_ => {});
       },
 
-      getCharts(){
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-    var myChart = echarts.init(document.getElementById('releaseDemandTop5'));
-    // 指定图表的配置项和数据
-    var option = {
-    title: {
-        text: '核心企业发布需求量TOP5',
-        subtext: '数据来自大数据统计'
-    },
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
-        }
-    },
-    legend: {
-        data: ['2017年', '2018年']
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: {
-        type: 'value',
-        boundaryGap: [0, 0.01]
-    },
-    yAxis: {
-        type: 'category',
-        data: ['索尼', '松下', '美的', '海尔', '格力']
-    },
-    series: [
-        {
-            name: '2017年',
-            type: 'bar',
-            data: [ 1315, 1432, 1679, 1789, 2015]
-        },
-        {
-            name: '2018年',
-            type: 'bar',
-            data: [ 1356, 1530, 1650, 1690, 2121]
-        },
-        
-    ]
-    
-};
-
-       myChart.setOption(option);
-       charts.push(myChart);
-    },
-
-        getCharts2() {
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-      var myChart = echarts.init(document.getElementById('fulfillDemandTop5'))
-      var option = {
-        title: {
-          text: '供应商完成需求量TOP5',
-          subtext: "数据来自大数据统计"
-        },
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "shadow"
-          }
-        },
-        legend: {
-          data: ["2017年", "2018年"]
-        },
-        grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
-          containLabel: true
-        },
-        xAxis: {
-          type: "value",
-          boundaryGap: [0, 0.01]
-        },
-        yAxis: {
-          type: 'category',
-          data: ['松下', '索尼', '海尔', '格力', '美的']
-        },
-        series: [
-        {
-            name: '2017年',
-            type: 'bar',
-            data: [ 1245, 1523, 1587, 1689, 2567]
-        },
-        {
-            name: '2018年',
-            type: 'bar',
-            data: [ 1389, 1530, 1750, 1890, 2899]
-        }
-        ]
-      }; // 使用刚指定的配置项和数据显示图表。
-
-      myChart.setOption(option);
-      charts.push(myChart);
-    },
-
   }
 };
 
@@ -673,7 +510,7 @@ export default {
 /**中间的div块   给gutter留padding*/
 .BG {
   box-sizing: border-box;
-  width: 100%;
+  width: 1200px;
   margin-bottom: 5px;
   padding: 0 20px;
   font-size: 18px;

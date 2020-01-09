@@ -1,7 +1,6 @@
 
 <template>
-<div>
-    <div class="BG0">
+  <div class="BG">
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
       <el-col :span="24">
@@ -20,9 +19,6 @@
         </div>
       </el-col>
     </el-row>
-    </div>
-
-  <div class="BG">
     <!--第二行  网站访问统计数据-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
@@ -150,18 +146,19 @@
     </el-form-item>
     <el-form-item label="需求类别">
     
-    <el-select v-model="form.region"  size="medium" filterable placeholder="选择/输入需求大类">
+    <el-select v-model="form.region" placeholder="请选择需求大类" size="medium">
       <el-option label="交通运输设备" value="0"></el-option>
       <el-option label="仪器仪表及文化、办公用机械" value="1"></el-option>
       <el-option label="通信设备、计算机及其他电子设备" value="2"></el-option>
       <el-option label="电气机械及器材" value="3"></el-option>
     </el-select>
-    <el-select v-model="form.region0"  size="medium" filterable placeholder="选择/输入需求子类">
+    <el-select v-model="form.region0" placeholder="请选择需求子类" size="medium">
       <el-option label="区域一" value="shanghai"></el-option>
       <el-option label="区域二" value="beijing"></el-option>
     </el-select>
+   
     </el-form-item>
-    <el-form-item label="截止日期">
+    <el-form-item label="活动时间">
     <el-col :span="10">
       <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
     </el-col>
@@ -268,61 +265,38 @@
 
 
 
-    <!-- 第八行  网站数据统计图表 -
+    <!--第八行  网站数据统计图表
     <el-row :gutter="gutterCount"d >
-      <el-col :span="8":push="pushCount">
-        <el-card shadow="hover">
-          <!-- <div height:360px> -->
-          <div slot="header" class="titleColor">核心企业发布需求量排名TOP5</div>
-            <el-table
-                :data="fulfillTableRank"
-                style="width: 100%">
-                  <el-table-column
-                    prop="rank"
-                    label="排名"
-                    width="50">
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
-                    label="公司"
-                    width="340">
-                  </el-table-column>
-            </el-table>
-            <!-- </div> -->
-        </el-card>
-      </el-col>
-      <el-col :span="12":push="pushCount">
-        <el-card shadow="hover">
-          <div class="demandTop5"></div>
-          <div id="releaseDemandTop5" style="width: 100%;height:350%;"></div>
-        </el-card>
-      </el-col>
-            <el-col :span="12":push="pushCount">
-        <el-card shadow="hover">
-          <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="8":push="pushCount">
-        <el-card shadow="hover">
-          <div slot="header" class="titleColor">供应商企业完成需求量排名TOP5</div>
-            <el-table
-                :data="fulfillTableRank"
-                style="width: 100%">
-                  <el-table-column
-                    prop="rank"
-                    label="排名"
-                    width="50">
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
-                    label="公司"
-                    width="340">
-                  </el-table-column>
-            </el-table>
-        </el-card>
+      <el-col :span="16" :class="charts">
+          <el-card span="16" shadow="hover" style="height:482px;margin-top:10px;">
+           <div slot="header" class="clearfix">
+            <span>需求详情</span>
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="分季度完成需求量统计" name="first">
+                <div id="quarterlySituation" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+              <el-tab-pane label="核心企业发布需求量Top5" name="second">
+                <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>    
+              <el-tab-pane label="供应商完成需求量Top5" name="thirth">
+                <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
+              </el-tab-pane>
+              <el-tab-pane label="企业评分雷达" name="forth">
+                <div id="comprehensiveScore" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+              <el-tab-pane label="分类别需求量统计" name="fifth">
+                <div class="type-situation"></div>
+                <div id="typeSituation" style="width: 900px;height:400px;"></div>
+              </el-tab-pane>              
+            </el-tabs>
+          </div>
+         </el-card>
       </el-col>
     </el-row>
-    --第九行  留一行
+    -->
+
+    
+    <!--第九行  留一行-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
         <div class="grid-content4 bg-purple-dark">
@@ -331,9 +305,9 @@
         </div>
       </el-col>
     </el-row>
-    -->
+
+    
   </div>
-</div>
 </template>
 
 
@@ -494,44 +468,8 @@ export default {
         {category:"散热器",companyName:"合肥皖仪科技有限公司"},
         
       ],
-      releaseTableRank:[{
-        rank:'1',
-        name:'中国格力股份有限公司'
-      },{
-        rank:'2',
-        name:'中国海尔股份有限公司'
-      },{
-        rank:'3',
-        name:'中国美的股份有限公司'
-      },{
-        rank:'4',
-        name:'日本松下'
-      },{
-        rank:'5',
-        name:'日本索尼'
-      }],
-      fulfillTableRank:[{
-        rank:'1',
-        name:'中国美的股份有限公司'
-      },{
-        rank:'2',
-        name:'中国格力股份有限公司'
-      },{
-        rank:'3',
-        name:'中国海尔股份有限公司'
-      },{
-        rank:'4',
-        name:'日本索尼'
-      },{
-        rank:'5',
-        name:'日本松下'
-      }]
 
     };
-  },
-  mounted(){
-    this.getCharts();
-    this.getCharts2();
   },
   methods:{
       /*
@@ -551,109 +489,6 @@ export default {
           })
           .catch(_ => {});
       },
-
-      getCharts(){
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-    var myChart = echarts.init(document.getElementById('releaseDemandTop5'));
-    // 指定图表的配置项和数据
-    var option = {
-    title: {
-        text: '核心企业发布需求量TOP5',
-        subtext: '数据来自大数据统计'
-    },
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
-        }
-    },
-    legend: {
-        data: ['2017年', '2018年']
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: {
-        type: 'value',
-        boundaryGap: [0, 0.01]
-    },
-    yAxis: {
-        type: 'category',
-        data: ['索尼', '松下', '美的', '海尔', '格力']
-    },
-    series: [
-        {
-            name: '2017年',
-            type: 'bar',
-            data: [ 1315, 1432, 1679, 1789, 2015]
-        },
-        {
-            name: '2018年',
-            type: 'bar',
-            data: [ 1356, 1530, 1650, 1690, 2121]
-        },
-        
-    ]
-    
-};
-
-       myChart.setOption(option);
-       charts.push(myChart);
-    },
-
-        getCharts2() {
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-      var myChart = echarts.init(document.getElementById('fulfillDemandTop5'))
-      var option = {
-        title: {
-          text: '供应商完成需求量TOP5',
-          subtext: "数据来自大数据统计"
-        },
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "shadow"
-          }
-        },
-        legend: {
-          data: ["2017年", "2018年"]
-        },
-        grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
-          containLabel: true
-        },
-        xAxis: {
-          type: "value",
-          boundaryGap: [0, 0.01]
-        },
-        yAxis: {
-          type: 'category',
-          data: ['松下', '索尼', '海尔', '格力', '美的']
-        },
-        series: [
-        {
-            name: '2017年',
-            type: 'bar',
-            data: [ 1245, 1523, 1587, 1689, 2567]
-        },
-        {
-            name: '2018年',
-            type: 'bar',
-            data: [ 1389, 1530, 1750, 1890, 2899]
-        }
-        ]
-      }; // 使用刚指定的配置项和数据显示图表。
-
-      myChart.setOption(option);
-      charts.push(myChart);
-    },
 
   }
 };
@@ -676,13 +511,6 @@ export default {
   width: 100%;
   margin-bottom: 5px;
   padding: 0 20px;
-  font-size: 18px;
-}
-.BG0 {
-  box-sizing: border-box;
-  width: 100%;
-  margin-bottom: 5px;
-  padding: 0 -20px;
   font-size: 18px;
 }
 
@@ -976,9 +804,6 @@ border:1px solid #d3d7d4;
   align-content: center;
   align-items: center;
   
-}
-.demandTop5 {
-  font-size: 1.2rem;
 }
 /* .tender-header-some ul li{
     margin-bottom: 15px;
