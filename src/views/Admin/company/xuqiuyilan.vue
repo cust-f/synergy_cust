@@ -1,70 +1,112 @@
 <template>
   <div>
-    <div style="width:1200px margin:0 auto margin-top:20px margin-bottom:10px">
-      <div class="title">
-        <span>首页</span>
-        <span>&nbsp; > &nbsp;</span>
-        <span>科技成果</span>
+      <el-col :span="20" push ="2" pull = "2">
+    <div>
+      <div >
+        <div class="title" width="160px">
+          <span>首页</span>
+          <span>&nbsp; > &nbsp;</span>
+          <span>科技成果</span>
+        </div>
+        <br>
+      </div>
+<br>
+      <div class="cool">
+        <table>
+          <tbody>
+            <tr>
+              <td class="td101">技术类型：</td>
+              <td class="td102">
+                <span class="cg_td_a1" width="100%">不限</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="td101">交易方式：</td>
+              <td class="td102">
+                <span class="cg_td_a1" width="100%">不限</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="td101">成熟度：</td>
+              <td class="td102">
+                <span class="cg_td_a1" width="100%">不限</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+                <span class="cg_td_a2" width="100%">专利</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="thisMiddle">
+        <div class="middleLeft">
+          <input name="search_text" id="search_text" type="text" placeholder="请输入搜索内容" />
+          <el-button type="warning" class="button1">搜索</el-button>
+        </div>
+        <div>
+          <p
+            class="ziti1"
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若没有找到合适的技术，建议您立即发布技术需求</p>
+        </div>
+<br>
       </div>
     </div>
-
-    <div class="cool">
-      <table>
-        <tbody>
-          <tr>
-            <td class="td101">技术类型：</td>
-            <td class="td102">
-              <span class="cg_td_a1" width="100%">不限</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="td101">交易方式：</td>
-            <td class="td102">
-              <span class="cg_td_a1" width="100%">不限</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="td101">成熟度：</td>
-            <td class="td102">
-              <span class="cg_td_a1" width="100%">不限</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-              <span class="cg_td_a2" width="100%">专利</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="thisMiddle">
-      <div class="middleLeft">
-        <input name="search_text" id="search_text" type="text" placeholder="请输入搜索内容" />
-        <el-button type="warning" class="button1">搜索</el-button>
-      </div>
-      <div>
-        <p
-          class="ziti1"
-        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若没有找到合适的技术，建议您立即发布技术需求</p>
-      </div>
-    </div>
-
+      </el-col>
     <div class="thisAfter">
       <div class="list_div">
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" @click="tiaozhuan">农业管理系统登记</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                <font>类型：</font>
+                非专利
+              </a>
+              <a>
+                <font>成熟度：</font>
+                已有样品
+              </a>
+              <a>
+                <font>交易方式</font>
+                技术入股
+              </a>
+              <a>
+                <font>价格</font>
+                面议
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                <a style="width:435px">
+                  <font>机构名称:</font>
+                  辽宁省科技服务中心
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
 
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
@@ -103,46 +145,6 @@
           </div>
         </div>
 
-<div class="cg_bottomlist">
-          <ul class="cg_bottomLeft">
-            <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">农业管理系统登记</a>
-            </li>
-            <li class="cg_list002">
-              <a>
-                <font>类型：</font>
-                非专利
-              </a>
-              <a>
-                <font>成熟度：</font>
-                已有样品
-              </a>
-              <a>
-                <font>交易方式</font>
-                技术入股
-              </a>
-              <a>
-                <font>价格</font>
-                面议
-              </a>
-            </li>
-          </ul>
-          <div class="bottomRight">
-            <a href class="fabujigou">发布机构</a>
-            <ul class="jgje">
-              <li>
-                <a style="width:435px">
-                  <font>机构名称:</font>
-                  辽宁省科技服务中心
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-
-
-        <el-divider></el-divider>
       </div>
     </div>
   </div>
@@ -165,6 +167,7 @@ export default {
 .title {
   font-size: 14px;
   font-style: normal;
+  width: 160px;
 }
 .td101 {
   border-bottom-color: rgb(204, 204, 204);
@@ -319,13 +322,11 @@ export default {
 
   margin-bottom: 0px;
 
-  margin-left: 126.6px;
 
   margin-right: 126.61px;
 
   text-decoration: none;
 
-  width: 1200px;
 }
 .middleLeft {
   -webkit-tap-highlight-color: rgba(31, 12, 12, 0);
@@ -834,5 +835,7 @@ export default {
   text-decoration: none;
 
   width: 1200px;
+}
+.thisMiddle {
 }
 </style>
