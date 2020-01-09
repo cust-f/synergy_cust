@@ -50,7 +50,7 @@
           <div class="category_wrap">
     	      <div class="category_box">
             <!----这里分类----->
-              <div class="category_item"><div class="cate_ietm_title"><h3>交通运输设备</h3><p></p></div>          
+              <div class="category_item"><div class="cate_ietm_title"><font style="font-size:18px;">交通运输设备</font><p></p></div>          
                    <i class="cate_list">
                      <a href="">汽车</a>
                      <a href="">铁路运输设备</a>
@@ -263,7 +263,7 @@
 
     <!-- 第八行  网站数据统计图表 -->
     <el-row :gutter="gutterCount" >
-      <el-col :span="8":push="pushCount">
+      <el-col :span="8" :push="pushCount">
         <el-card shadow="hover">
           <div slot="header" class="titleColor">核心企业发布需求量排名TOP5</div>
             <el-table
@@ -383,16 +383,16 @@ export default {
         {category:"采购",companyName:"一汽",name:"危险品运输半挂车货箱采购项目",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"哈工",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"设备",companyName:"一汽",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"设备",companyName:"一汽",name:"D359车型四门线改造及翼子板线新建",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"设备",companyName:"一汽",name:"NAT车型前后盖线改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"E115电动汽车项目-移动点焊机",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"工程",companyName:"一汽",name:"桥壳六线立加夹具改造3套",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"工程",companyName:"一汽",name:"桥壳六线立加夹具改造3套",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"工程",companyName:"一汽",name:"数据中心采暖系统改造项目",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"安装",companyName:"哈工",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"哈工",name:"TNGA项目组装线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
         
       ],
       completeddemandTaskList:
@@ -402,9 +402,9 @@ export default {
         {category:"维修",companyName:"一汽",name:"厂区维修服务",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"工程",companyName:"哈工",name:"汽车刹车片设计",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"竞价",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"竞价",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"竞价",companyName:"一汽",name:"NAT项目地板分焊手工线新建",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"安装",companyName:"一汽",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06",eTime:"2019-12-31"},
-        {category:"维修",companyName:"6666",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"维修",companyName:"6666",name:"TNGA2.5L发动机机加线安装工程",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"维修",companyName:"6666",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"竞价",companyName:"6666",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
         {category:"竞价",companyName:"6666",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
@@ -469,13 +469,24 @@ export default {
       //供应商
       supplierlist:
       [
+<<<<<<< HEAD
         {category:"交通运输",companyName:"长春富晟吉通物流设备有限公司"},
         {category:"仪器仪表",companyName:"长春新产业光电技术有限公司"},
         {category:"电气机械",companyName:"吉林省长春市盛昊电子有限公司"},
         {category:"通信设备",companyName:"哈尔滨哈特信息科技有限公司"},
+
         {category:"仪器仪表",companyName:"北京京伟电器有限公司 "},
         {category:"交通运输",companyName:"长春沃尔特仓储设备有限公司"},
         {category:"电气机械",companyName:"合肥皖仪科技有限公司"},
+=======
+        {category:"交通运输",companyName:"长春市富晟吉通物流设备有限公司"},
+        {category:"仪器仪表",companyName:"长春市新产业光电技术有限公司"},
+        {category:"电气机械",companyName:"长春市盛昊电子有限公司"},
+        {category:"通信设备",companyName:"哈尔滨市哈特信息科技有限公司"},       
+        {category:"仪器仪表",companyName:"长春市京伟电器有限公司 "},
+        {category:"交通运输",companyName:"长春市沃尔特仓储设备有限公司"},
+        {category:"电气机械",companyName:"哈尔滨科大志远科技有限公司"},
+>>>>>>> bfe266c09fd7ef7807981a106c15058d93f83cc5
         
       ],
       releaseTableRank:[{
