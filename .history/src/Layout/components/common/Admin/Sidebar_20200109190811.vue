@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import bus from "./bus";
+import bus from './bus'
 
 export default {
   data() {
@@ -56,24 +56,7 @@ export default {
           index: "/admin/dashboard",
           title: "系统管理"
         },
-        // {
-        //     icon: 'el-icon-postcard',
-        //     index: '2',
-        //     title: '企业信息管理',
-        //     subs:[{
-        //             index:'/admin/companyDetail',
-        //             title:'企业信息详情'
-        //         },
-        //         {
-        //             index:'/admin/supplyBussess',
-        //             title:'企业名录'
-        //         },
-        //         {
-        //             index:'/admin/xuqiuyilan',
-        //             title:'需求一览'
-        //         },
-        //         ]
-        // },
+       
         {
           icon: "el-icon-edit-outline",
           index: "3",
@@ -109,21 +92,17 @@ export default {
           index: "charts",
           title: "文件管理"
         },
-        {
-          icon: "el-icon-s-custom",
-          index: "6",
-          title: "供应方管理",
-          subs: [
-            {
-              index: "/admin/designTaskq",
-              title: "设计任务"
-            },
-             {
-              index: "/admin/circulationTaskq",
-              title: "流通任务"
-            },
-          ]
-        },
+        // {
+        //   icon: "el-icon-s-custom",
+        //   index: "6",
+        //   title: "数据统计",
+        //   subs: [
+        //     {
+        //       index: "/admin/newStaff",
+        //       title: "新增人员"
+        //     }
+        //   ]
+        // },
         {
           icon: "el-icon-edit-outline",
           index: "7",
@@ -174,19 +153,16 @@ export default {
             }
           ]
         }
-      ],
+      ], 
       created() {
         // 通过 Event Bus 进行组件间通信，来折叠侧边栏
-        bus.$on("collapse", msg => {
-          this.collapse = msg;
-          bus.$emit("collapse-content", msg);
+        bus.$on('collapse', msg => {
+            this.collapse = msg;
+            bus.$emit('collapse-content', msg);
         });
-      }
-    };
-  }
+    }
 };
 </script>
-
 <style>
 /* .sidebar {
     display: block;
