@@ -8,7 +8,7 @@
 !-->
 <template>
   <el-container>
-    <el-header >
+    <el-header height="320px">
       <header-synergy ></header-synergy>
     </el-header>
     <el-main>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import headerSynergy from "../components/common/Front/Header0";
+import headerSynergy from "../components/common/Front/Header";
 import footerSynergy from "../components/common/Front/Footer0";
 
 export default {
@@ -85,7 +85,6 @@ export default {
 .el-header {
   margin: 0px;
   padding: 0px;
-  height:200px !important;
 }
 .el-main {
   margin: 0px;
