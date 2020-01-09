@@ -152,7 +152,7 @@
       <el-option label="通信设备、计算机及其他电子设备" value="2"></el-option>
       <el-option label="电气机械及器材" value="3"></el-option>
     </el-select>
-    <el-select v-model="form.region0" placeholder="请选择需求子类" size="medium">
+    <el-select v-model="form.region" placeholder="请选择需求子类" size="medium">
       <el-option label="区域一" value="shanghai"></el-option>
       <el-option label="区域二" value="beijing"></el-option>
     </el-select>
@@ -193,7 +193,7 @@
         <div class="grid-content2 ">
           <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
-              <span>需求一览</span>
+              <span>任务一览</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
             <div class="el-card__body" style="height:500px">
@@ -328,7 +328,6 @@ export default {
       form: {
           name: '',
           region: '',
-          region0: '',
           date1: '',
           date2: '',
           delivery: false,

@@ -138,52 +138,43 @@
     </el-row>
 
     <!--发布需求 弹出框-->
-    <div class="Publishingrequirements">
-    <el-dialog title="发布需求" :visible.sync="dialogVisible">
-    <el-form ref="form" :model="form" label-width="80px" class="">
-    <el-form-item label="需求名称">
+                   <el-dialog title="发布需求" :visible.sync="dialogVisible">
+                    <el-form ref="form" :model="form" label-width="80px">
+  <el-form-item label="活动名称">
     <el-input v-model="form.name"></el-input>
-    </el-form-item>
-    <el-form-item label="需求类别">
-    
-    <el-select v-model="form.region" placeholder="请选择需求大类" size="medium">
-      <el-option label="交通运输设备" value="0"></el-option>
-      <el-option label="仪器仪表及文化、办公用机械" value="1"></el-option>
-      <el-option label="通信设备、计算机及其他电子设备" value="2"></el-option>
-      <el-option label="电气机械及器材" value="3"></el-option>
-    </el-select>
-    <el-select v-model="form.region0" placeholder="请选择需求子类" size="medium">
+  </el-form-item>
+  <el-form-item label="活动区域">
+    <el-col :span="10" >
+    <el-select v-model="form.region" placeholder="请选择活动区域" size="200px">
       <el-option label="区域一" value="shanghai"></el-option>
       <el-option label="区域二" value="beijing"></el-option>
     </el-select>
-   
-    </el-form-item>
-    <el-form-item label="活动时间">
+    </el-col>
+  </el-form-item>
+  <el-form-item label="活动时间">
     <el-col :span="10">
       <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
     </el-col>
-    </el-form-item>
-    <el-form-item label="特殊资源">
+  </el-form-item>
+  <el-form-item label="特殊资源">
     <el-radio-group v-model="form.resource">
       <el-radio label="线上品牌商赞助"></el-radio>
       <el-radio label="线下场地免费"></el-radio>
     </el-radio-group>
-    </el-form-item>
-    <el-form-item label="活动形式">
+  </el-form-item>
+  <el-form-item label="活动形式">
     <el-input type="textarea" v-model="form.desc"></el-input>
-    </el-form-item>
-    <el-form-item>
+  </el-form-item>
+  <el-form-item>
     <el-button type="primary" @click="onSubmit">立即创建</el-button>
     <el-button>取消</el-button>
-      </el-form-item>
-    </el-form>
-
-      <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </div>
-      </el-dialog>
-    </div>           
+  </el-form-item>
+</el-form>
+                    <div slot="footer" class="dialog-footer">
+                      <el-button @click="dialogVisible = false">取 消</el-button>
+                      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                    </div>
+                    </el-dialog>
     
 
     <!--第四行   需求任务及已完成需求-->
@@ -193,7 +184,7 @@
         <div class="grid-content2 ">
           <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
-              <span>需求一览</span>
+              <span>任务一览</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
             <div class="el-card__body" style="height:500px">
@@ -328,7 +319,6 @@ export default {
       form: {
           name: '',
           region: '',
-          region0: '',
           date1: '',
           date2: '',
           delivery: false,
@@ -634,11 +624,7 @@ export default {
   background-color: rgb(192, 189, 189);
    border-color:  rgb(192, 189, 189);
 }
-/**发布需求的弹出窗口的CSS */
- .Publishingrequirements .el-input
-{
-  width: 200px;
-}
+
 
 
 /** 登录模块核心企业与供应商用CSS*/
