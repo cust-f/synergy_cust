@@ -245,7 +245,7 @@
                       >{{scope.row.state}}</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column label="图纸" width="110" align="center">
+                  <el-table-column label="文件" width="110" align="center">
                     <template slot-scope="scope">
                       <el-button
                         @click="substaskDetail(scope.$index, scope.row)"
@@ -335,7 +335,7 @@
                       >{{scope.row.state}}</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column label="图纸" width="110" align="center">
+                  <el-table-column label="文件" width="110" align="center">
                     <template slot-scope="scope">
                       <el-button
                         @click="substaskDetail(scope.$index, scope.row)"
@@ -414,7 +414,7 @@
                       >{{scope.row.state}}</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column label="图纸" width="110" align="center">
+                  <el-table-column label="文件" width="110" align="center">
                     <template slot-scope="scope">
                       <el-button
                         @click="substaskDetail(scope.$index, scope.row)"
@@ -717,7 +717,7 @@ export default {
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "李想",
-          Abolish_Reason: "设计不合理",
+          Abolish_Reason: "数据不符",
           state: "已废除",
           date: "2019-12-23"
         },
@@ -727,7 +727,7 @@ export default {
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "刘成",
-          Abolish_Reason: "设计超时",
+          Abolish_Reason: "效率过慢",
           state: "已废除",
           date: "2019-11-19"
         }
