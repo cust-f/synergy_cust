@@ -3,7 +3,7 @@
     <el-main>
       <div class="top">
         <div id="charts1" style="height:100%; width:300px; float:left"></div>
-        <div id="charts2" style="height:100%; width:500px; float:left"></div>
+        <div id="charts2" style="height:100%; width:300px; float:left"></div>
       </div>
 
       <div class="lists">
@@ -363,7 +363,7 @@ export default {
 }
 .top {
   width: 66%;
-  margin-left: 25%;
+  margin-left: 10%;
   height: 320px;
 }
 .lists {

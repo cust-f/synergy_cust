@@ -82,11 +82,11 @@
                 <el-button type="warning" round class="designbutten" size="small">进入详情</el-button>
               </el-card>
             </el-col>
-<el-col :span="20" push="6">
-            <div class="page">
-              <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
-            </div>
-</el-col>
+            <el-col :span="20" push="6">
+              <div class="page">
+                <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+              </div>
+            </el-col>
           </div>
         </el-col>
         <el-col :span="6">
@@ -95,31 +95,30 @@
               <div slot="header" class="clearfix">
                 <span>热门企业</span>
               </div>
-              
-                <div class="hotCompany">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="hotCompanyimage"
-                  />
-                  <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                </div>
-             
-                <div class="hotCompany">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="hotCompanyimage"
-                  />
-                  <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                </div>
-             
-                <div class="hotCompany">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="hotCompanyimage"
-                  />
-                  <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                </div>
-             
+
+              <div class="hotCompany">
+                <img
+                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                  class="hotCompanyimage"
+                />
+                <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
+              </div>
+
+              <div class="hotCompany">
+                <img
+                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                  class="hotCompanyimage"
+                />
+                <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
+              </div>
+
+              <div class="hotCompany">
+                <img
+                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                  class="hotCompanyimage"
+                />
+                <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
+              </div>
             </el-card>
           </div>
         </el-col>
@@ -146,9 +145,9 @@ export default {
   width: 80%;
   /* height: 110px; */
 }
-.hotCompany{
-    border-top:1px solid #000;
-    border-bottom:1px solid #000
+.hotCompany {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 .hotCompanyimage {
   width: 20%;
