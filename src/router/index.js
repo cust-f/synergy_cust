@@ -33,21 +33,23 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 import circulation from '@/views/admin/personnel_allotment/circulation'
 import desinger from '@/views/admin/personnel_allotment/desinger'
 import virtualMachine from '@/views/admin/personnel_allotment/virtualMachine'
+import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
  import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
  import userManagement from '@/views/admin/company/userManagement'  //用户管理
 
 
 //供应商市场部门
-import acceptDesignTask from '@/views/admin/supplier/supplierMarket/acceptDesignTask'
+
 import acceptDesignDetailsTask from '@/views/admin/supplier/supplierMarket/acceptDesignDetailsTask'
 import accceptCirculationtask from '@/views/admin/supplier/supplierMarket/accceptCirculationtask'
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/admin/supplier/supplierMarket/designResult'
-import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'
-import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'
+import designResultDesigin from '@/views/admin/supplier/supplierMarket/designResultDesigin'//子任务已完成详情页面
+import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//子设计任务列表
+import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'//子设计任务详情
+import designTaskabolishDe from '@/views/admin/supplier/supplierMarket/designTaskabolishDe'//子设计任务废除详情
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
-
 
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
@@ -230,40 +232,40 @@ export default new Router({
           name: 'virtualMachine',
           component: virtualMachine,
         },
-//供应方
+
+        //企业评价
+        {
+          path:'/admin/Enterprise_Evaluation/evaluate',
+          name:'evaluate',
+          component:evaluate,
+        },
 
          //供应商设计任务列表
         {
           path: '/admin/designTaskq',
           name: 'designTaskq',
           component: designTaskq,
-          meta: {
-            title: "接受设计任务"
-          }
+          
         },
          //供应商设计任务详情
         {
           path: '/admin/designTaskqDesigin',
           name: 'designTaskqDesigin',
           component: designTaskqDesigin,
-          meta: {
-            title: "接受设计任务"
-          }
-        },
-                //供应商接受设计任务
-        {
-          path: '/admin/acceptDesignTask',
-          name: 'acceptDesignTask',
-          component: acceptDesignTask,
-          meta: {
-            title: "接受设计任务"
-          }
+          
         },
         //供应商接受设计任务详情
         {
           path: '/admin/acceptDesignDetailsTask',
           name: 'acceptDesignDetailsTask',
           component: acceptDesignDetailsTask,
+          
+        },
+         //供应商设计任务完成详情页面
+         {
+          path: '/admin/designResultDesigin',
+          name: 'designResultDesigin',
+          component: designResultDesigin,
           meta: {
             title: "接受设计任务详情"
           }
@@ -274,9 +276,7 @@ export default new Router({
           path: '/admin/accceptCirculationtask',
           name: 'accceptCirculationtask',
           component: accceptCirculationtask,
-          meta: {
-            title: "接受流通任务"
-          }
+          
         },
 
         //供应商接受流通任务详情
@@ -284,9 +284,7 @@ export default new Router({
           path: '/admin/accceptCirculationDetailsTask',
           name: 'accceptCirculationDetailsTask',
           component: accceptCirculationDetailsTask,
-          meta: {
-            title: "流通任务详情"
-          }
+          
         },
 
         //供应商流通任务
@@ -294,18 +292,14 @@ export default new Router({
           path: '/admin/circulationTaskq',
           name: 'circulationTaskq',
           component: circulationTaskq,
-          meta: {
-            title: "流通任务"
-          }
+          
         },
         //供应商设计成果
         {
           path: '/admin/designResult',
           name: 'designResult',
           component: designResult,
-          meta:{
-            title:"设计成果"
-          }
+          
         },
 
         //供应商接受任务详情
@@ -336,6 +330,7 @@ export default new Router({
             title:"完成任务详情"
           }
         },
+
         //企业管理
         {
           path: '/admin/manager_business',

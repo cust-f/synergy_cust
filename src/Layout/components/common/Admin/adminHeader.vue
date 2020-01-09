@@ -1,10 +1,6 @@
 <template>
   <div class="admin-header">
-    <el-row
-      class="header-message"
-      style="width:100%;height:30px;background-color:#f3f3f3;"
-      :gutter="20"
-    >
+    <el-row class="header-message" :gutter="20">
       <el-col :span="10" :offset="1">
         <!-- <div class="collapse-btn" @click="collapseChage">
           <i v-if="!collapse" class="el-icon-s-fold"></i>
@@ -51,13 +47,13 @@
         </ul>
       </el-col>
     </el-row>
-    <!-- 黑色区域 拉开层次 -->
+    <!-- 区域 拉开层次 -->
     <el-row :gutter="20" class="header" style="height:60px;background-color:#242f42;">
       <el-col :span="8" :offset="1">
-      <div class="logo">面向高端装备制造领域的科技服务 SaaS 应用</div>
+        <div class="logo">面向高端装备制造领域的科技服务 SaaS 应用</div>
       </el-col>
       <el-col :span="1" :offset="12">
-                <!-- 用户头像 -->
+        <!-- 用户头像 -->
         <div class="user-avator">
           <img src="../../../../assets/img/img.jpg" />
         </div>
@@ -74,7 +70,7 @@
             <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        </el-col>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -88,7 +84,7 @@ export default {
     return {
       log: this.$store.state.token,
       collapse: false,
-            username: "admin",
+      username: "admin"
     };
   },
   methods: {
@@ -112,6 +108,10 @@ export default {
   margin-left: 15px;
 }
 .header-message {
+  width: 100%;
+  height: 30px;
+  background-color: #f3f3f3;
+  margin-left: 0px;
   color: #888;
   font-size: 13px;
   line-height: 32px;
@@ -126,12 +126,12 @@ export default {
   background-color: #242f42;
   line-height: 70px;
 }
-.collapse-btn {
+/* .collapse-btn {
   float: left;
   padding: 0 21px;
   cursor: pointer;
   line-height: 70px;
-}
+} */
 .header .logo {
   float: left;
   line-height: 70px;
