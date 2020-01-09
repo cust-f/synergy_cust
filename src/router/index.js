@@ -33,6 +33,7 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 import circulation from '@/views/admin/personnel_allotment/circulation'
 import desinger from '@/views/admin/personnel_allotment/desinger'
 import virtualMachine from '@/views/admin/personnel_allotment/virtualMachine'
+import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
 //供应商市场部门
 import acceptDesignTask from '@/views/admin/supplier/supplierMarket/acceptDesignTask'
@@ -210,7 +211,13 @@ export default new Router({
           name: 'virtualMachine',
           component: virtualMachine,
         },
-//供应方
+
+        //企业评价
+        {
+          path:'/admin/Enterprise_Evaluation/evaluate',
+          name:'evaluate',
+          component:evaluate,
+        },
 
          //供应商设计任务列表
         {
