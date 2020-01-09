@@ -4,8 +4,9 @@
         <el-main>
             <h3>主任务</h3>
             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              
+
               <div>
+                       <el-divider></el-divider>
 
 
 
@@ -34,7 +35,7 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="mainstaskTask" label="主任务名称" width="120" align="center"></el-table-column>
         <el-table-column prop="substaskTask" label="子任务名称" width="120" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称" width="100"></el-table-column>
@@ -48,7 +49,7 @@
         </el-table-column>
 
         <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
-        <el-table-column label="操作" width="180" align="left">
+        <el-table-column label="操作" width="220" align="left">
           <template slot-scope="scope">
             <el-button
               type="text"

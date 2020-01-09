@@ -62,6 +62,8 @@ import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/c
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
 import xuqiuyilan from '@/views/admin/company/xuqiuyilan'//需求一览
+import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
+
 
 
 Vue.use(Router)
@@ -87,6 +89,11 @@ export default new Router({
           name: 'xuqiuyilan',
           component: xuqiuyilan,
         },
+        {
+          path: '/admin/xuqiuyilanDetail',
+          name: 'xuqiuyilanDetail',
+          component: xuqiuyilanDetail,
+        }
 
 
       ]
