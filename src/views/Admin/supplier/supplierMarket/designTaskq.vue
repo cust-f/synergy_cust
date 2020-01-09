@@ -3,7 +3,7 @@
     <el-container>
       <el-main>
         <h3>设计任务</h3>
-        <br />
+        <el-divider></el-divider>
         <div>
           <div class="container">
             <el-tabs v-model="activeName" @tab-click="handleClick">
