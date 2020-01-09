@@ -796,10 +796,43 @@ export default {
 };
 </script>
 <style>
+
 .con {
   width: 500px;
   height: 1000px;
   margin: 0 auto;
   text-align: center;
+}
+
+.handle-box {
+  margin-bottom: 20px;
+}
+
+.handle-select {
+  width: 120px;
+}
+
+.handle-input {
+  width: 260px;
+  display: inline-block;
+}
+.table {
+  width: 100%;
+  font-size: 16px;
+}
+.red {
+  color: #ff0000;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.table-td-thumb {
+  display: block;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+}
+.box {
+  font-size: 24px;
 }
 </style>
