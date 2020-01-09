@@ -1,76 +1,78 @@
 <template>
   <div>
-      <el-col :span="20" push ="2" pull = "2">
-    <div>
-      <div >
-        <div class="title" width="160px">
-          <span>首页</span>
-          <span>&nbsp; > &nbsp;</span>
-          <span>科技成果</span>
-        </div>
-        <br>
-      </div>
-      <div class="cool">
-        <table>
-          <tbody>
-            <tr>
-              <td class="td101">技术类型：</td>
-              <td class="td102">
-                <span class="cg_td_a1" width="100%">不限</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">水准</span>
-                <span class="cg_td_a2" width="100%">人员数目</span>
-                <span class="cg_td_a2" width="100%">具体操作</span>
-                <span class="cg_td_a2" width="100%">公司规模</span>
-                <span class="cg_td_a2" width="100%">注册资本</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="td101">交易方式：</td>
-              <td class="td102">
-                <span class="cg_td_a1" width="100%">不限</span>
-                <span class="cg_td_a2" width="100%">面交</span>
-                <span class="cg_td_a2" width="100%">网银支付</span>
-                <span class="cg_td_a2" width="100%">支付宝支付</span>
-                <span class="cg_td_a2" width="100%">中国银行支付</span>
-                <span class="cg_td_a2" width="100%">农业银行支付</span>
-                <span class="cg_td_a2" width="100%">交通银行支付</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="td101">成熟度：</td>
-              <td class="td102">
-                <span class="cg_td_a1" width="100%">不限</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-                <span class="cg_td_a2" width="100%">专利</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="thisMiddle">
-        <div class="middleLeft">
-          <input name="search_text" id="search_text" type="text" placeholder="请输入搜索内容" />
-          <el-button type="warning" class="button1">搜索</el-button>
-        </div>
+    <el-col :span="20" push="2" pull="2">
+      <div>
         <div>
-          <p
-            class="ziti1"
-          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若没有找到合适的技术，建议您立即发布技术需求</p>
+          <div class="title" width="160px">
+            <span>首页</span>
+            <span>&nbsp; > &nbsp;</span>
+            <span>科技成果</span>
+          </div>
+          <br />
         </div>
-<br>
+
+        <div class="cool">
+          <table class="table1">
+            <tbody>
+              <tr>
+                <td class="td101">技术类型：</td>
+                <td class="td102">
+                  <span class="cg_td_a1" width="100%">不限</span>
+                  <span class="cg_td_a2" width="100%">专利</span>
+                  <span class="cg_td_a2" width="100%">水准</span>
+                  <span class="cg_td_a2" width="100%">人员数目</span>
+                  <span class="cg_td_a2" width="100%">具体操作</span>
+                  <span class="cg_td_a2" width="100%">公司规模</span>
+                  <span class="cg_td_a2" width="100%">注册资本</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="td101">交易方式：</td>
+                <td class="td102">
+                  <span class="cg_td_a1" width="100%">不限</span>
+                  <span class="cg_td_a2" width="100%">面交</span>
+                  <span class="cg_td_a2" width="100%">网银支付</span>
+                  <span class="cg_td_a2" width="100%">支付宝支付</span>
+                  <span class="cg_td_a2" width="100%">中国银行支付</span>
+                  <span class="cg_td_a2" width="100%">农业银行支付</span>
+                  <span class="cg_td_a2" width="100%">交通银行支付</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="td101">成熟度：</td>
+                <td class="td102">
+                  <span class="cg_td_a1" width="100%">不限</span>
+                  <span class="cg_td_a2" width="100%">专利</span>
+                  <span class="cg_td_a2" width="100%">专利</span>
+                  <span class="cg_td_a2" width="100%">专利</span>
+                  <span class="cg_td_a2" width="100%">专利</span>
+                  <span class="cg_td_a2" width="100%">专利</span>
+                  <span class="cg_td_a2" width="100%">专利</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+        </div>
+
+        <div class="thisMiddle">
+          <div class="middleLeft">
+            <input name="search_text" id="search_text" type="text" placeholder="请输入搜索内容" />
+            <el-button type="warning" class="button1">搜索</el-button>
+          </div>
+          <div>
+            <p
+              class="ziti1"
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若没有找到合适的技术，建议您立即发布技术需求</p>
+          </div>
+          <br />
+        </div>
       </div>
-    </div>
-      </el-col>
+    </el-col>
     <div class="thisAfter">
       <div class="list_div">
-          <br>
-          <br>
+        <br />
+        <br />
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
@@ -107,7 +109,6 @@
             </ul>
           </div>
         </div>
-        
 
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
@@ -123,7 +124,7 @@
                 <font>成熟度：</font>
                 已有样品
               </a>
-              <br>
+              <br />
               <a>
                 <font>交易方式:</font>
                 农业银行交易
@@ -147,7 +148,6 @@
           </div>
         </div>
 
-
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
@@ -162,7 +162,7 @@
                 <font>成熟度：</font>
                 已有样品
               </a>
-              <br>
+              <br />
               <a>
                 <font>交易方式：</font>
                 技术入股
@@ -185,9 +185,6 @@
             </ul>
           </div>
         </div>
-
-
-
 
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
@@ -225,7 +222,6 @@
             </ul>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -403,11 +399,9 @@ export default {
 
   margin-bottom: 0px;
 
-
   margin-right: 126.61px;
 
   text-decoration: none;
-
 }
 .middleLeft {
   -webkit-tap-highlight-color: rgba(31, 12, 12, 0);
@@ -917,6 +911,67 @@ export default {
 
   width: 1200px;
 }
-.thisMiddle {
+.table1 {
+  background-attachment: scroll;
+
+  background-clip: border-box;
+
+  background-color: rgb(250, 250, 250);
+
+  background-image: none;
+
+  background-origin: padding-box;
+
+  background-position-x: 0%;
+
+  background-position-y: 0%;
+
+  background-repeat: repeat;
+
+  background-size: auto;
+
+  border-bottom-color: rgb(204, 204, 204);
+
+  border-bottom-style: solid;
+
+  border-bottom-width: 0.5px;
+
+  border-collapse: collapse;
+
+  border-left-color: rgb(204, 204, 204);
+
+  border-left-style: solid;
+
+  border-left-width: 0.5px;
+
+  border-right-color: rgb(204, 204, 204);
+
+  border-right-style: solid;
+
+  border-right-width: 0.5px;
+
+  border-spacing: 0px 0px;
+
+  border-top-color: rgb(204, 204, 204);
+
+  border-top-style: solid;
+
+  border-top-width: 0.5px;
+
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+
+  font-size: 14px;
+
+  font-style: normal;
+
+  font-variant: normal;
+
+  font-weight: 400;
+
+  line-height: normal;
+
+  text-decoration: none;
+
+  width: 1198px;
 }
 </style>
