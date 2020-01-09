@@ -57,40 +57,48 @@
                     <el-form ref="form" :model="form" label-width="100px" style="margin-right:20px">
                       <br />
                       <el-row>
-                        <el-form-item label="设计任务ID">
+                        <!-- <el-form-item label="设计任务ID">
                           <el-input v-model="form.Desinger_ID" :disabled="true"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
+                        <el-col :span="6" align="right">设计任务ID:</el-col>
+                        <el-col :span="15" style="margin-left:40px">0023</el-col>
                       </el-row>
                       <br />
                       <el-row>
-                        <el-form-item label="设计任务名称">
+                        <!-- <el-form-item label="设计任务名称">
                           <el-input v-model="form.Desinger_Name" :disabled="true"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
+                        <el-col :span="6" align="right">设计任务名称:</el-col>
+                        <el-col :span="15" style="margin-left:40px">空气滤清器</el-col>
                       </el-row>
                       <br />
                       <el-row>
-                        <el-form-item label="设计任务类型">
+                        <!-- <el-form-item label="设计任务类型">
                           <el-input v-model="form.Desinger_Type" :disabled="true"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
+                        <el-col :span="6" align="right">设计任务类型:</el-col>
+                        <el-col :span="15" style="margin-left:40px">设计任务</el-col>
                       </el-row>
                       <br />
                       <el-row>
-                        <el-form-item label="截止日期">
+                        <!-- <el-form-item label="截止日期">
                           <el-input v-model="form.Desinger_End_Time" :disabled="true"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
+                        <el-col :span="6" align="right">截止日期:</el-col>
+                        <el-col :span="15" style="margin-left:40px">2020-2-25</el-col>
                       </el-row>
                       <br />
                       <el-row>
-                        <el-form-item label="设计任务详情">
-                          <el-input
-                            :disabled="true"
+                        <el-col :span="6" align="right">设计任务详情:</el-col>
+                        <el-col :span="15" style="margin-left:40px"><el-input
                             type="textarea"
                             :rows="5"
                             v-model="form.Desinger_Task_Details"
-                            style="width:100%;"
-                            placeholder="请输入内容"
-                          ></el-input>
-                        </el-form-item>
+                            style="width:80%;"
+                          >作用是过滤空气中的灰尘杂质，让洁净的空气进入发动机，这对发动机的寿命和正常工作很重要。</el-input></el-col>
+                        <!-- <el-form-item label="设计任务详情">
+                          
+                        </el-form-item> -->
                       </el-row>
                     </el-form>
                   </el-tab-pane>
