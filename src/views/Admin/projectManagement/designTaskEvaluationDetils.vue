@@ -2,7 +2,6 @@
   <div>
 <div>
     <el-container>
-<el-aside width="15%">Aside</el-aside>
         <el-main>
             <el-page-header @back="goBack" content="评价详情页面">
 </el-page-header>
@@ -104,7 +103,7 @@
 
 <script>
 export default {
-    name:'substaskDetail',
+    name:'designTaskEvaluationDetils',
     data(){
       return {
           
@@ -128,7 +127,7 @@ export default {
     },
     methods:{
         goBack() {
-        this.$router.push('/designTaskEvaluation');
+        this.$router.push('/admin/designTaskEvaluation');
       }
       
   }

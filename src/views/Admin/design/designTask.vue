@@ -28,16 +28,16 @@
               @selection-change="handleSelectionChange"
             >
               <el-table-column type="selection" width="55" align="center"></el-table-column>
-              <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+              <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
               <el-table-column prop="name" label="主任务名称"></el-table-column>
               <el-table-column prop="subname" label="子任务名称"></el-table-column>
               <el-table-column prop="company" label="供应商名称"></el-table-column>
-
-              <el-table-column prop="state" label="任务状态"><el-tag>待完成</el-tag></el-table-column>
-              <el-table-column prop="remarkstate" label="评价状态">
+<el-table-column prop="time" label="上传时间"></el-table-column>
+              <el-table-column prop="state" label="状态" align="center"><el-tag>待完成</el-tag></el-table-column>
+              <el-table-column prop="remarkstate" label="评价状态" align="center">
             <el-tag>待评价</el-tag>
               </el-table-column>
-              <el-table-column prop="time" label="上传时间"></el-table-column>
+              
               <el-table-column label="图纸" width="180" align="center">
                 <el-button type="text" size="small">下载</el-button>
               </el-table-column>
@@ -289,7 +289,7 @@ export default {
      *转跳对应任务信息页面
      */
     remarkDetail() {
-      this.$router.push("../../evaluationManagement");
+      this.$router.push("/admin/designTaskEvaluation");
     },
     open2() {
       this.$message({

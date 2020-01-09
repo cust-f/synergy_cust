@@ -170,7 +170,7 @@ export default {
     },
     methods:{
        goBack() {
-        this.$router.push('/circulationTaskEvaluation');
+        this.$router.push('/admin/circulationTaskEvaluation');
       }
   }
 }

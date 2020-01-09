@@ -276,7 +276,7 @@ export default {
       *转跳对应任务信息页面
       */
      supplyDetail(){
-         this.$router.push('/circulationTaskEvaluationDetils')
+         this.$router.push('/admin/circulationTaskEvaluationDetils')
      }
     /*  supplyDetailVue(){
          this.$router.push('/circulationTaskEvaluationDetils2')
@@ -292,13 +292,13 @@ export default {
     text-align: center
 }
 .table{
-  font-size: 20px;
+  font-size: 16px;
 }
 .el-tabs__item{
-  font-size: 20px;
+  font-size: 16px;
 }
 .red{
-  font-size: 20px;
+  font-size: 16px;
 }
 </style>
 
