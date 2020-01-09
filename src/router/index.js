@@ -59,6 +59,7 @@ import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circula
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
+import xuqiuyilan from '@/views/admin/company/xuqiuyilan'//需求一览
 
 
 Vue.use(Router)
