@@ -140,7 +140,7 @@ export default {
 }
 .gobla {
   padding: 0 15px;
-  height: 400px
+  height: 800px;
 }
 
 .image {

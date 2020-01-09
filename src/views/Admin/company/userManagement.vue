@@ -148,50 +148,50 @@ export default {
           user_name: "宋东润",
           Company_name: "长春第一汽车制造厂",
           role: "需求方",
-          email:'12306@163.com',
+          email:'1235406@163.com',
           Business_Tel:'0451-82872000',          
           password: "123123"
         },{
            user_name: "苏得税",
-          Company_name: "哈尔滨电机厂有限责任公司",
+          Company_name: "沈阳机床集团有限责任公司",
           role: "供应商",
-          email:'12306@163.com',
+          email:'1231206@163.com',
           Business_Tel:'0451-82872000',          
           password: "cdfgssf"
         },{
-           user_name: "苏得税",
+           user_name: "加蒂斯",
           Company_name: "哈尔滨电机厂有限责任公司",
           role: "供应商",
-          email:'12306@163.com',
-          Business_Tel:'0451-82872000',          
+          email:'1232306@163.com',
+          Business_Tel:'0456-82372000',          
           password: "fechfr"
         },{
-           user_name: "苏得税",
-          Company_name: "哈尔滨电机厂有限责任公司",
+           user_name: "刘大海",
+          Company_name: "大连重工-起重集团有限公司",
           role: "供应商",
           email:'12306@163.com',
           Business_Tel:'0451-82872000',          
           password: "xffdsgg"
         },{
-           user_name: "苏得税",
-          Company_name: "哈尔滨电机厂有限责任公司",
+           user_name: "苏之星",
+          Company_name: "北方重工集团有限公司",
           role: "供应商",
-          email:'12306@163.com',
-          Business_Tel:'0451-82872000',          
+          email:'12426@163.com',
+          Business_Tel:'0451-828745390',          
           password: "xffdsgg"
         
         },{
-           user_name: "苏得税",
-          Company_name: "哈尔滨电机厂有限责任公司",
+           user_name: "蔡长件",
+          Company_name: "长春光华微电子集团",
           role: "供应商",
-          email:'12306@163.com',
+          email:'123g306@163.com',
           Business_Tel:'0451-82872000',          
           password: "xffdsgg"
         },{
-           user_name: "苏得税",
-          Company_name: "哈尔滨电机厂有限责任公司",
+           user_name: "王期间",
+          Company_name: "大连冰山集团有限公司",
           role: "供应商",
-          email:'12306@163.com',
+          email:'12234306@163.com',
           Business_Tel:'0451-82872000',          
           password: "xffdsgg"
         }

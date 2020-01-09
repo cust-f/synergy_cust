@@ -97,9 +97,9 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称" width="100px"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
@@ -109,8 +109,8 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
-        <el-table-column label="操作" width="220" align="center">
+        <el-table-column prop="date" label="任务截止时间" ></el-table-column>
+        <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -160,10 +160,10 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称" width="100px"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -172,7 +172,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
+        <el-table-column prop="date" label="任务截止时间"></el-table-column>
         <el-table-column label="操作" width="220" align="center">
           <template slot-scope="scope">
             <el-button
@@ -222,10 +222,10 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称" width="100px"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称" ></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -234,7 +234,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
+        <el-table-column prop="date" label="任务截止时间" ></el-table-column>
         <el-table-column label="操作" width="280" align="center">
           <template slot-scope="scope">
             <el-button
@@ -291,10 +291,10 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称" width="100px"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称"  align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称" ></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -303,8 +303,8 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间" width="140px"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column prop="date" label="任务完成时间" ></el-table-column>
+        <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -356,10 +356,10 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称" width="100px"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称"  align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称" ></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -368,7 +368,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务废除时间" width="140px"></el-table-column>
+        <el-table-column prop="date" label="任务废除时间" ></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button

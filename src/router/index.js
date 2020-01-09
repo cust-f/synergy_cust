@@ -82,15 +82,12 @@ export default new Router({
           name: 'Home',
           component: Home
         },
-        //优秀企业
         {
-          path: '/company/excellentCompany',
-          name: 'excellentCompany',
-          component: excellentCompany,
-          meta: {
-            title: '优秀企业'
-          }
+          path: '/admin/xuqiuyilan',
+          name: 'xuqiuyilan',
+          component: xuqiuyilan,
         },
+
 
       ]
     },
@@ -390,11 +387,6 @@ export default new Router({
           meta: {
             title: "企业详情"
           }
-        },
-        {
-          path: '/admin/xuqiuyilan',
-          name: 'xuqiuyilan',
-          component: xuqiuyilan,
         },
 
         
