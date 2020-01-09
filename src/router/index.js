@@ -43,7 +43,7 @@ import designResult from '@/views/admin/supplier/supplierMarket/designResult'
 import designResultDesigin from '@/views/admin/supplier/supplierMarket/designResultDesigin'//子任务已完成详情页面
 import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//子设计任务列表
 import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'//子设计任务详情
-import designTaskabolishD from '@/views/admin/supplier/supplierMarket/designTaskabolishD'//子设计任务废除详情
+import designTaskabolishDe from '@/views/admin/supplier/supplierMarket/designTaskabolishDe'//子设计任务废除详情
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
 
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
@@ -305,9 +305,9 @@ export default new Router({
         },
         //供应商完成任务详情
         {
-          path: '/admin/designTaskabolishD',
-          name: 'designTaskabolishD',
-          component: circulationTaskfinishDesign,
+          path: '/admin/designTaskabolishDe',
+          name: 'designTaskabolishDe',
+          component: circulationTaskfinishDesigne,
           meta:{
             title:"完成任务详情"
           }

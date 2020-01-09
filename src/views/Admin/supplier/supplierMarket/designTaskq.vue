@@ -651,7 +651,7 @@ export default {
     
     //废除任务详情
     jumpbolish() {
-       this.$router.push("/admin/designTaskabolishD");
+       this.$router.push("/admin/designTaskabolishDe");
     },
 
   }

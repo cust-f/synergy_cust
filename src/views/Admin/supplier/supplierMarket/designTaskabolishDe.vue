@@ -81,7 +81,7 @@
 
 <script>
 export default {
-  name: "designTaskabolishD",
+  name: "designTaskabolishDe",
   data() {
     return {
    
