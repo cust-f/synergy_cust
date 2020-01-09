@@ -265,34 +265,38 @@
 
 
 
-    <!-- 第八行  网站数据统计图表 -
+    <!--第八行  网站数据统计图表
     <el-row :gutter="gutterCount"d >
-      <el-col :span="6":push="pushCount">
-        <el-card shadow="hover">
-          <div class="demandTop5">核心企业发布需求量排名TOP5</div><br>
-          <div id="comprehensiveScore" style="width: 100%;height:390%;"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="14":push="pushCount">
-        <el-card shadow="hover">
-          <div class="demandTop5">日登录人数</div><br>
-          <div id="numberStatistics" style="width: 100%;height:390%;"></div>
-        </el-card>
-      </el-col>
-            <el-col :span="14":push="pushCount">
-        <el-card shadow="hover">
-          <div class="demandTop5">企业综合评分</div><br>
-          <div id="comprehensiveScore" style="width: 100%;height:390%;"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="6":push="pushCount">
-        <el-card shadow="hover">
-          <div class="demandTop5">供应商企业完成需求量排名TOP5</div><br>
-          <div id="numberStatistics" style="width: 100%;height:390%;"></div>
-        </el-card>
+      <el-col :span="16" :class="charts">
+          <el-card span="16" shadow="hover" style="height:482px;margin-top:10px;">
+           <div slot="header" class="clearfix">
+            <span>需求详情</span>
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="分季度完成需求量统计" name="first">
+                <div id="quarterlySituation" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+              <el-tab-pane label="核心企业发布需求量Top5" name="second">
+                <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>    
+              <el-tab-pane label="供应商完成需求量Top5" name="thirth">
+                <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
+              </el-tab-pane>
+              <el-tab-pane label="企业评分雷达" name="forth">
+                <div id="comprehensiveScore" style="width: 600px;height:400px;"></div>
+              </el-tab-pane>
+              <el-tab-pane label="分类别需求量统计" name="fifth">
+                <div class="type-situation"></div>
+                <div id="typeSituation" style="width: 900px;height:400px;"></div>
+              </el-tab-pane>              
+            </el-tabs>
+          </div>
+         </el-card>
       </el-col>
     </el-row>
-    --第九行  留一行
+    -->
+
+    
+    <!--第九行  留一行-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
         <div class="grid-content4 bg-purple-dark">
@@ -302,9 +306,8 @@
       </el-col>
     </el-row>
 
-    -->
+    
   </div>
-
 </template>
 
 
@@ -801,9 +804,6 @@ border:1px solid #d3d7d4;
   align-content: center;
   align-items: center;
   
-}
-.demandTop5 {
-  font-size: 1.2rem;
 }
 /* .tender-header-some ul li{
     margin-bottom: 15px;
