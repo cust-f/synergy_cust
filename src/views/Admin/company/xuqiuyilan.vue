@@ -71,13 +71,17 @@
     </el-col>
     <div class="thisAfter">
       <div class="list_div">
+
+
+
+
         <div class="cg_bottomlist">
            
           <ul class="cg_bottomLeft">
             <li class="cg_list001"> 
                 <br>
                 <br>
-              <a class="ziti2" @click="tiaozhuan">福特汽车组装</a>
+              <a href="#/admin/xuqiuyilanDetail" class="ziti2">福特汽车组装</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -112,10 +116,12 @@
           </div>
         </div>
 
+
+
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">工业管理系统</a>
+              <a class="ziti2" href="#/admin/xuqiuyilanDetail" >工业管理系统</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -150,10 +156,13 @@
           </div>
         </div>
 
+
+
+
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">长春钢铁厂锅炉制造</a>
+              <a class="ziti2" href="#/admin/xuqiuyilanDetail" >长春钢铁厂锅炉制造</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -188,10 +197,13 @@
           </div>
         </div>
 
+
+
+
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" @click="tiaozhuan">车载摄像头制作安装</a>
+              <a class="ziti2" href="#/admin/xuqiuyilanDetail" >车载摄像头制作安装</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -237,7 +249,7 @@ export default {
 
   methods: {
     tiaozhuan(){
-        
+        this.router.push("/admin/circulationTask")
     }
   }
 };
@@ -678,7 +690,7 @@ export default {
 
 
 }
-.ziti2 {
+.xuqiuyilan .ziti2 {
   -webkit-text-size-adjust: auto;
 
   color: rgb(0, 153, 234);

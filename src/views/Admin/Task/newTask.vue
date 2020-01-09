@@ -3,7 +3,8 @@
     <el-main>
       <div class="newTask">
         <h3>新增任务</h3>
-        
+                               <el-divider></el-divider>
+
   <el-form ref="form" :model="form" label-width="110px" class="box">
         
 

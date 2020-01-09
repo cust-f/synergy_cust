@@ -3,6 +3,7 @@
       <div class="desinger">
         <h3>流通任务</h3>
       </div>
+      <el-divider></el-divider>
       <el-row style="height:600px;">
         <el-card style="height:100%">
           <div style="font-size:20px">新增任务</div>
@@ -12,6 +13,7 @@
             class="table"
             header-cell-class-name="table-header"
             height="100%"
+            style="margin-top:20px"
           >
             <template v-for="(item,index) in Not_Accepted_Task_Head">
               <el-table-column
@@ -53,6 +55,7 @@
             class="table"
             header-cell-class-name="table-header"
             height="100%"
+            style="margin-top:20px"
           >
             <template v-for="(item,index) in Accepted_Task_Head">
               <el-table-column
@@ -95,6 +98,7 @@
             class="table"
             header-cell-class-name="table-header"
             height="100%"
+            style="margin-top:20px"
           >
             <template v-for="(item,index) in Finished_Task_Head">
               <el-table-column
