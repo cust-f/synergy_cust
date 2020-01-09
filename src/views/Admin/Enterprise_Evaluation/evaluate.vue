@@ -2,16 +2,16 @@
   <el-container>
     <el-main>
       <div class="top">
-        <div id="charts1" style="height:75%; width:300px; float:left" ></div>
+        <div id="charts1" style="height:100%; width:300px; float:left"></div>
         <div id="charts2" style="height:100%; width:500px; float:left"></div>
       </div>
 
       <div class="lists">
-        <!-- <el-container>123123</el-container> -->
         <el-card style="height:100%">
           <el-table
             :data="Not_Accepted_Task_Data"
             border
+            stripe
             class="table"
             header-cell-class-name="table-header"
             height="100%"
@@ -26,12 +26,11 @@
                 align="center"
               ></el-table-column>
             </template>
-            <!-- <el-table-column label="操作" min-width="70px" align="center">
+            <el-table-column label="操作" min-width="70px" align="center">
               <template>
                 <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
-                <el-button type="text" size="small">开始任务</el-button>
               </template>
-            </el-table-column>-->
+            </el-table-column>
           </el-table>
           <div class="pagination">
             <el-pagination
@@ -55,9 +54,9 @@ export default {
     return {
       query: {
         pageIndex: 1,
-        pageSize: 10
+        pageSize: 5
       },
-      pageTotal: 0,
+      pageTotal: 13,
       Not_Accepted_Task_Head: [
         {
           column_name: "Task_ID",
@@ -109,7 +108,7 @@ export default {
         {
           Task_ID: "0001",
           Task_Name: "大汽车零件的装配",
-          Task_Type:"设计任务",
+          Task_Type: "设计任务",
           People_Number: "2",
           Finished_time: "36天",
           Amount_Involved: "50000",
@@ -120,7 +119,7 @@ export default {
         {
           Task_ID: "0002",
           Task_Name: "大帆船的制造",
-          Task_Type:"设计任务",
+          Task_Type: "设计任务",
           People_Number: "5",
           Finished_time: "95天",
           Amount_Involved: "100000",
@@ -131,7 +130,7 @@ export default {
         {
           Task_ID: "0003",
           Task_Name: "大火箭模拟装配",
-          Task_Type:"设计任务",
+          Task_Type: "设计任务",
           People_Number: "16",
           Finished_time: "364天",
           Amount_Involved: "230000",
@@ -142,7 +141,7 @@ export default {
         {
           Task_ID: "0004",
           Task_Name: "铁轨零件制造",
-          Task_Type:"流通任务",
+          Task_Type: "流通任务",
           People_Number: "9",
           Finished_time: "160天",
           Amount_Involved: "5000",
@@ -153,7 +152,95 @@ export default {
         {
           Task_ID: "0005",
           Task_Name: "武器装备模拟装配",
-          Task_Type:"流通任务",
+          Task_Type: "流通任务",
+          People_Number: "25",
+          Finished_time: "245天",
+          Amount_Involved: "5000",
+          Submission_Times: "5",
+          redo: "是",
+          Completion_Status: "已完成"
+        },
+        {
+          Task_ID: "0005",
+          Task_Name: "武器装备模拟装配",
+          Task_Type: "流通任务",
+          People_Number: "25",
+          Finished_time: "245天",
+          Amount_Involved: "5000",
+          Submission_Times: "5",
+          redo: "是",
+          Completion_Status: "已完成"
+        },
+        {
+          Task_ID: "0005",
+          Task_Name: "武器装备模拟装配",
+          Task_Type: "流通任务",
+          People_Number: "25",
+          Finished_time: "245天",
+          Amount_Involved: "5000",
+          Submission_Times: "5",
+          redo: "是",
+          Completion_Status: "已完成"
+        },
+        {
+          Task_ID: "0005",
+          Task_Name: "武器装备模拟装配",
+          Task_Type: "流通任务",
+          People_Number: "25",
+          Finished_time: "245天",
+          Amount_Involved: "5000",
+          Submission_Times: "5",
+          redo: "是",
+          Completion_Status: "已完成"
+        },
+        {
+          Task_ID: "0005",
+          Task_Name: "武器装备模拟装配",
+          Task_Type: "流通任务",
+          People_Number: "25",
+          Finished_time: "245天",
+          Amount_Involved: "5000",
+          Submission_Times: "5",
+          redo: "是",
+          Completion_Status: "已完成"
+        },
+        {
+          Task_ID: "0005",
+          Task_Name: "武器装备模拟装配",
+          Task_Type: "流通任务",
+          People_Number: "25",
+          Finished_time: "245天",
+          Amount_Involved: "5000",
+          Submission_Times: "5",
+          redo: "是",
+          Completion_Status: "已完成"
+        },
+        {
+          Task_ID: "0005",
+          Task_Name: "武器装备模拟装配",
+          Task_Type: "流通任务",
+          People_Number: "25",
+          Finished_time: "245天",
+          Amount_Involved: "5000",
+          Submission_Times: "5",
+          redo: "是",
+          Completion_Status: "已完成"
+        },
+        {
+          Task_ID: "0005",
+          Task_Name: "武器装备模拟装配",
+          Task_Type: "流通任务",
+          People_Number: "25",
+          Finished_time: "245天",
+          Amount_Involved: "5000",
+          Submission_Times: "5",
+          redo: "是",
+          Completion_Status: "已完成"
+        },
+        {
+          Task_ID: "0005",
+          Task_Name: "武器装备模拟装配",
+          Task_Type: "流通任务",
           People_Number: "25",
           Finished_time: "245天",
           Amount_Involved: "5000",
@@ -228,6 +315,8 @@ export default {
       var option = {
         tooltip: {},
         legend: {
+          x: "left",
+          y: "top",
           data: ["设计任务", "流通任务"]
         },
         radar: {
@@ -244,7 +333,7 @@ export default {
             { name: "时间效率", max: 400 },
             { name: "涉及金额", max: 50000 },
             { name: "提交效率", max: 100 },
-            { name: "完成准确度", max: 100 },
+            { name: "完成准确度", max: 100 }
           ]
         },
         series: [
@@ -273,13 +362,12 @@ export default {
   height: 100%;
 }
 .top {
-  width: 98%;
-  height: 450px;
-  background: #cccccc;
+  width: 66%;
+  margin-left: 25%;
+  height: 320px;
 }
 .lists {
   width: 98%;
   height: 60%;
-  background: #bbbbbb;
 }
 </style>
