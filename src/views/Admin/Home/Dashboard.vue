@@ -24,7 +24,8 @@
             <span>需求详情</span> -->
             <el-tabs v-model="activeName">
               <div class="quarterly-situation">年完成总量：{{total_number}}</div>
-              <div id="quarterlySituation" style="width: 350px;height:300px;"></div>
+              <div id="quarterlySituation" style="width: 100%;height:300%"></div>
+              <!-- width: 230px;height:300px; -->
             </el-tabs>
           <!-- </div> -->
         </el-card>
@@ -74,7 +75,7 @@
               </el-tab-pane> -->
               <!-- <el-tab-pane label="核心企业发布需求量Top5" name="second">
                 <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
-              </el-tab-pane>
+              </el-tab-pane>    
               <el-tab-pane label="供应商完成需求量Top5" name="thirth">
                 <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
               </el-tab-pane> -->
@@ -83,9 +84,9 @@
               </el-tab-pane> -->
               <!-- <el-tab-pane label="分类别需求量统计" name="fifth"> -->
                 <div class="type-situation">
-                                       分类别需求量统计
+                   分类别需求量统计
                 </div><br>
-                <div id="typeSituation" style="width: 900px;height:400px;"></div>
+                <div id="typeSituation" style="width: 105%;height:430%"></div>
               <!-- </el-tab-pane>               -->
             <!-- </el-tabs> -->
           <!-- </div> -->
@@ -95,12 +96,14 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card shadow="hover">
-          <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
+          <div class="demandTop5">核心企业发布需求量Top5</div>
+          <div id="releaseDemandTop5" style="width: 100%;height:400%;"></div>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
-          <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
+          <div class="demandTop5">供应商完成的需求量Top5</div>
+          <div id="fulfillDemandTop5" ref="chart" style="width: 100%;height:400%;"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -170,7 +173,8 @@ export default {
           1}/${date.getDate()}`;
       });
     },
-        getCharts(){
+    getCharts(){
+    var charts = [];
     var myChart = echarts.init(document.getElementById('quarterlySituation'));
     // 指定图表的配置项和数据
     var option = {
@@ -180,7 +184,7 @@ export default {
     },
     legend: {
         orient: 'vertical',
-        right: 1,
+        right: 0,
         data: ['第一季度', '第二季度', '第三季度', '第四季度']
     },
     series: [
@@ -197,7 +201,7 @@ export default {
                 emphasis: {
                     show: true,
                     textStyle: {
-                        fontSize: '30',
+                        fontSize: '20',
                         fontWeight: 'bold'
                     }
                 }
@@ -215,18 +219,24 @@ export default {
                 // {value: 1548, name: '搜索引擎'}
             ]
         }
-    ]
+    ],
+    
+
 };
-    myChart.setOption(option);
+     myChart.setOption(option);
+     charts.push(myChart);
+
+
     },
 
     getCharts2(){
       // 基于准备好的dom，初始化echarts实例
+      var charts = [];
     var myChart = echarts.init(document.getElementById('releaseDemandTop5'));
     // 指定图表的配置项和数据
     var option = {
     title: {
-        text: '核心企业发布需求量Top5 ',
+        text: ' ',
         subtext: '数据来自大数据统计'
     },
     tooltip: {
@@ -267,15 +277,18 @@ export default {
     ]
     
 };
+
        myChart.setOption(option);
+       charts.push(myChart);
     },
 
     getCharts3() {
       // 基于准备好的dom，初始化echarts实例
+      var charts = [];
       var myChart = echarts.init(document.getElementById('fulfillDemandTop5'))
       var option = {
         title: {
-          text: "供应商完成的需求量Top5",
+          text: ' ',
           subtext: "数据来自大数据统计"
         },
         tooltip: {
@@ -316,10 +329,12 @@ export default {
       }; // 使用刚指定的配置项和数据显示图表。
 
       myChart.setOption(option);
+      charts.push(myChart);
     },
 
     getCharts4(){
       // 基于准备好的dom，初始化echarts实例
+    var charts =[];
     var myChart = echarts.init(document.getElementById('comprehensiveScore'));
 
     // 指定图表的配置项和数据
@@ -369,10 +384,12 @@ export default {
 };
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
+    charts.push(myChart);
     },
 
     getCharts5() {
       // 基于准备好的dom，初始化echarts实例
+      var charts =[];
       var myChart = echarts.init(document.getElementById('typeSituation'))
       var option = {
     tooltip: {
@@ -463,11 +480,23 @@ export default {
         }
     ]
 };
+
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
+      charts.push(myChart);
+	    
     },
+    
   }
 };
+    //监听窗口的改变大小
+    window.onresize = function(){
+      //迭代全部图表
+      for(var i = 0; i < charts.length; i++){
+        //随着窗口改变重置大小
+        charts[i].resize();
+      }
+    };
 </script>
 
 
@@ -582,14 +611,19 @@ export default {
 }
 
 .type-situation {
-   margin-left: 300px;
-   font-size: 30px;
-   font-weight: bold;
+  margin-left: 30%;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .quarterly-situation {
-     margin-left: 100px;
-     font-weight: bold;
-     font-size: 18px;
+  margin-left: 21%;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.demandTop5 {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 </style>

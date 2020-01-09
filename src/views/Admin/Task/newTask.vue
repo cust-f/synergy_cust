@@ -111,18 +111,8 @@
             <el-table-column prop="bidTime" label="开始时间"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
             <el-table-column label="操作" align="center">
-              <template slot-scope="scope">
-                <el-button
-                  type="text"
-                  icon="el-icon-edit"
-                  @click="handleEdit(scope.$index, scope.row)"
-                >编辑</el-button>
-                <el-button
-                  type="text"
-                  icon="el-icon-delete"
-                  class="red"
-                  @click="handleDelete(scope.$index, scope.row)"
-                >删除</el-button>
+              <template slot-scope="" width="220px">
+                      <el-button type="primary" class="handle-del mr10" @click="addDesignerButton">新增外来企业</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -207,6 +197,46 @@
             <el-button type="primary" @click="saveAdd">确 定</el-button>
           </span>
         </el-dialog>
+
+
+        <!-- 新增设计人员 -->
+        <el-dialog title="添加" :visible.sync="addDesigner" width="50%">
+          <el-form ref="form" :model="addList1" label-width="120px">
+            <el-form-item label="企业负责人">
+              <el-input v-model="addList1.taskNum"></el-input>
+            </el-form-item>
+            <el-form-item label="任务名称">
+              <el-input v-model="addList1.taskName"></el-input>
+            </el-form-item>
+            <el-form-item label="任务类别">
+              <el-input v-model="addList1.taskType"></el-input>
+            </el-form-item>
+            <el-form-item label="添加时间">
+              <el-date-picker
+                type="date"
+                placeholder="选择日期"
+                v-model="addList1.bidTime"
+                value-format="yyyy-MM-dd"
+                style="width: 100%;"
+              ></el-date-picker>
+            </el-form-item>
+            <el-form-item label="企业名称">
+              <el-select v-model="addList1.supplyDesigner" placeholder="请选择设计人员">
+                <el-option label="全部" value></el-option>
+                <el-option
+                  v-for="company in supplyCompanies"
+                  :key="company"
+                  :label="company"
+                  :value="company"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addDesigner = false">取 消</el-button>
+            <el-button type="primary" @click="saveAdd">确 定</el-button>
+          </span>
+        </el-dialog>
       </div>
     </el-main>
   </el-container>
@@ -224,9 +254,11 @@ export default {
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
+      addDesigner:false,
       personnel: ["许知远", "王添","白泽"], //总负责人
       statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
       supplyCompanies: ["沈阳机床集团有限责任公司", "起重集团有限公司", "长光电子"], //供应商列表
+      supplyDesigners:["韩钟工程师","李林工程师","张志正工程师"],
       id: 0, //记录任务数
       //招标信息
       newTask: {
@@ -238,7 +270,18 @@ export default {
         detail: ""
       },
       //子任务表格
-      tableData: [],
+      tableData: [
+        {
+          id:'001',
+          taskNum:'002',
+          taskName:"车辆轴承制造",
+          taskType:'小汽车零件制造',
+          bidTime:'2019-10-5',
+          supplyCompany:'长春光电子微型卫星有限公司',
+
+
+        }
+      ],
       addList: [
         {
           id: "",
@@ -247,6 +290,16 @@ export default {
           taskType: "",
           bidTime: "",
           supplyCompany: ""
+        }
+      ],
+            addList1: [
+        {
+          id: "",
+          taskNum: "",
+          taskName: "",
+          taskType: "",
+          bidTime: "",
+          supplyDesigner: ""
         }
       ],
       form: {}
@@ -284,6 +337,10 @@ export default {
     //新增操作
     addData() {
       this.addVisible = true;
+    },
+
+    addDesignerButton(){
+      this.addDesigner = true;
     },
     //保存新增
     saveAdd() {

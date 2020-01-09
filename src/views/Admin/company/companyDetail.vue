@@ -8,18 +8,18 @@
     </el-carousel-item>
   </el-carousel>
   <el-divider></el-divider>
-<h3>企业信息修改</h3>
+<h3>企业信息</h3>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-<div align="center">
+<div align="right" class="formYS">
     
-        <el-form ref="form" :model="form" label-width="100px">
+        <el-form ref="form" :model="form" label-width="100px" > 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="企业ID">
                         <el-input v-model="form.Company_ID" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="企业名称">
                         <el-input v-model="form.Company_Name" :disabled="true"></el-input>
                     </el-form-item>
@@ -27,12 +27,12 @@
             </el-row>
 
            <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="企业所在省份">
                         <el-input v-model="form.Provice" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                 <el-col :span="11">
+                 <el-col :span="12">
                     <el-form-item label="企业所在县市">
                         <el-input v-model="form.City" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -40,12 +40,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="企业地址">
                         <el-input v-model="form.Address" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="邮政编码">
                         <el-input v-model="form.Postcode" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -53,12 +53,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="企业成立时间">
                         <el-input v-model="form.Founding_Time" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="工商注册号">
                         <el-input v-model="form.BR_Number" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -66,12 +66,12 @@
             </el-row>
 
             <el-row>
-               <el-col :span="11">
+               <el-col :span="12">
                     <el-form-item label="企业业务范围">
                         <el-input v-model="form.Product" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="电子邮箱">
                         <el-input v-model="form.Email" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -79,12 +79,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="企业联系人">
                         <el-input v-model="form.Bussess_Name" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                 <el-col :span="11">
+                 <el-col :span="12">
                     <el-form-item label="办公电话">
                         <el-input v-model="form.Office_Number" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -92,12 +92,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="注册资产">
                         <el-input v-model="form.Registered_Capital" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                 <el-col :span="11">
+                 <el-col :span="12">
                     <el-form-item label="总资本">
                         <el-input v-model="form.Total_Assets" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -105,12 +105,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="固定资产">
                         <el-input v-model="form.Fixed_Assets" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                 <el-col :span="11">
+                 <el-col :span="12">
                     <el-form-item label="流动资产">
                         <el-input v-model="form.Current_Assets" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -118,12 +118,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="法人代表">
                         <el-input v-model="form.Legal_Person" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                 <el-col :span="11">
+                 <el-col :span="12">
                     <el-form-item label="员工人数">
                         <el-input v-model="form.Worker_Number" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -131,12 +131,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="开户银行">
                         <el-input v-model="form.Deposit_Bank" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
-                 <el-col :span="11">
+                 <el-col :span="12">
                     <el-form-item label="银行账户">
                         <el-input v-model="form.Bank_Number" :disabled=yangshi></el-input>
                     </el-form-item>
@@ -146,12 +146,12 @@
 
 
             <el-row>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="活动名称2">
                         <el-input v-model="form.name2"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="12">
                     <el-form-item label="活动区域2">
                         <el-select v-model="form.region2" placeholder="请选择活动区域">
                             <el-option label="区域一" value="shanghai"></el-option>
@@ -163,7 +163,7 @@
 
 
             <el-row>
-                <el-col :span="20" class = "xiangxi">
+                <el-col :span="24" class = "xiangxi">
                     <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -317,4 +317,5 @@ export default {
 .gongsiDetail{
     height: 80px;
 }
+
 </style>

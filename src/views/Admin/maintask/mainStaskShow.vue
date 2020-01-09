@@ -4,24 +4,27 @@
         <el-main>
             <h3>任务详情</h3>
             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              
+           
               <div>
-
+ <el-diver></el-diver>
 
 
     <div class="container">
       <template>
   <el-tabs v-model="activeName" @tab-click="handleClick" activeName="first">
     <el-tab-pane label="全部任务" name="first">
-      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
+                  <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
            <el-table
         :data="tableData"
         border
@@ -32,8 +35,11 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column prop="mainstaskTask" label="主任务名称"  align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称"  align="center"></el-table-column>
+        <el-table-column prop="name" label="供应商名称" ></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" width="100"></el-table-column>
+        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -42,8 +48,8 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        
+        <el-table-column label="操作" width="180" align="left">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -70,15 +76,18 @@
 
     </el-tab-pane>
     <el-tab-pane label="待回应任务" name="fifth">      
-      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
+                  <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
            <el-table
         :data="tableData4"
         border
@@ -89,8 +98,11 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -99,7 +111,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        
         <el-table-column label="操作" width="220" align="center">
           <template slot-scope="scope">
             <el-button
@@ -127,15 +139,19 @@
 
 
 
-      <el-tab-pane label="进行中" name="sixth">      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
+      <el-tab-pane label="进行中" name="sixth">                     
+           <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
            <el-table
         :data="tableData5"
         border
@@ -146,8 +162,13 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
+        
+        <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
+       
+        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
+         <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -156,7 +177,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        
         <el-table-column label="操作" width="220" align="center">
           <template slot-scope="scope">
             <el-button
@@ -183,15 +204,19 @@
 
 
 
-    <el-tab-pane label="待审核任务" name="second">      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
+    <el-tab-pane label="待审核任务" name="second">                        
+      <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
            <el-table
         :data="tableData1"
         border
@@ -200,10 +225,13 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
+
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
+        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -212,7 +240,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        
         <el-table-column label="操作" width="280" align="center">
           <template slot-scope="scope">
             <el-button
@@ -246,15 +274,19 @@
 
 
 
-    <el-tab-pane label="完成任务" name="third">      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
+    <el-tab-pane label="完成任务" name="third">                       
+       <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
            <el-table
         :data="tableData2"
         border
@@ -265,8 +297,11 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
+        <el-table-column prop="date" label="任务完成时间" width="140px"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -275,7 +310,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button
@@ -306,15 +341,19 @@
 
 
 
-    <el-tab-pane label="废除任务" name="fourth">      <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      </div>
+    <el-tab-pane label="废除任务" name="fourth">                        
+      <div class="handle-box">
+              <el-button
+                type="primary"
+                icon="el-icon-delete"
+                class="handle-del mr10"
+                @click="delAllSelection"
+              >批量删除</el-button>
+              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+              <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
            <el-table
         :data="tableData3"
         border
@@ -324,9 +363,12 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="主任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称" width="120px" align="center"></el-table-column>
+        <el-table-column prop="name" label="供应商名称" width="100px"></el-table-column>
+        <el-table-column prop="bussessType" label="任务类型" width="100px"></el-table-column>
+        <el-table-column prop="date" label="任务废除时间" width="140px"></el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-tag
@@ -335,7 +377,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button
@@ -411,55 +453,69 @@ export default {
           name: "长春光华微电子集团",
           money: 30000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'车轮的制造',
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'汽车生产装配',
+          substaskTask:'车载摄像头制造',
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'轮船动力锅炉制造',
+          substaskTask:'高温材料耐测',
         },
         {
-          id: 1,
+          id: 4,
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'铁轨的制造',
         },
          {
-          id: 1,
+          id: 5,
           bussessType: "车间零部件生产",
           name: "沈阳机床集团有限责任公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高压锅炉制造',
+          substaskTask:'耐高温水晶温度计制造',
         },
         {
-          id: 1,
+          id: 6,
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高精密轮轴制造',
+          substaskTask:'高精密轮轴制造',
         },
         {
-          id: 1,
+          id: 7,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'重型机车的制造',
+          substaskTask:'汽车动力邮箱制作',
         }
       ],
 
@@ -476,55 +532,69 @@ export default {
           name: "长春光华微电子集团",
           money: 30000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'车轮的制造',
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'汽车生产装配',
+          substaskTask:'车载摄像头制造',
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'轮船动力锅炉制造',
+          substaskTask:'高温材料耐测',
         },
         {
-          id: 1,
+          id: 4,
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'铁轨的制造',
         },
          {
-          id: 1,
+          id: 5,
           bussessType: "车间零部件生产",
           name: "沈阳机床集团有限责任公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高压锅炉制造',
+          substaskTask:'耐高温水晶温度计制造',
         },
         {
-          id: 1,
+          id: 6,
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高精密轮轴制造',
+          substaskTask:'高精密轮轴制造',
         },
         {
-          id: 1,
+          id: 7,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'重型机车的制造',
+          substaskTask:'汽车动力邮箱制作',
         }
       ],
 
@@ -542,55 +612,69 @@ export default {
           name: "长春光华微电子集团",
           money: 30000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'车轮的制造',
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'汽车生产装配',
+          substaskTask:'车载摄像头制造',
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'轮船动力锅炉制造',
+          substaskTask:'高温材料耐测',
         },
         {
-          id: 1,
+          id: 4,
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'铁轨的制造',
         },
          {
-          id: 1,
+          id: 5,
           bussessType: "车间零部件生产",
           name: "沈阳机床集团有限责任公司",
           money: 5000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高压锅炉制造',
+          substaskTask:'耐高温水晶温度计制造',
         },
         {
-          id: 1,
+          id: 6,
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高精密轮轴制造',
+          substaskTask:'高精密轮轴制造',
         },
         {
-          id: 1,
+          id: 7,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
           state: "成功",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'重型机车的制造',
+          substaskTask:'汽车动力邮箱制作',
         }
       ],
 
@@ -603,58 +687,147 @@ export default {
           name: "长春光华微电子集团",
           money: 30000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'车轮的制造',
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'汽车生产装配',
+          substaskTask:'车载摄像头制造',
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "大型机械组装",
           name: "山东工程机械集团有限公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'轮船动力锅炉制造',
+          substaskTask:'高温材料耐测',
         },
         {
-          id: 1,
+          id: 4,
           bussessType: "大型机械组装",
           name: "大连冰山集团有限公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'铁轨的制造',
         },
          {
-          id: 1,
+          id: 5,
           bussessType: "车间零部件生产",
           name: "沈阳机床集团有限责任公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高压锅炉制造',
+          substaskTask:'耐高温水晶温度计制造',
         },
         {
-          id: 1,
+          id: 6,
           bussessType: "卫星微型零件制作",
           name: "北方重工集团有限公司",
           money: 5000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高精密轮轴制造',
+          substaskTask:'高精密轮轴制造',
         },
         {
-          id: 1,
+          id: 7,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
           state: "失败",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'重型机车的制造',
+          substaskTask:'汽车动力邮箱制作',
         }
       ],
 
+
+
+
+      tableData5: [
+        {
+          id: 1,
+          bussessType: "车间零部件生产",
+          name: "长春光华微电子集团",
+          money: 30000,
+          state: "进行中",
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'车轮的制造',
+        },
+        {
+          id: 2,
+          bussessType: "卫星微型零件制作",
+          name: "中国机械工业集团公司",
+          money: 5000,
+          state: "进行中",
+          date: "2019-11-1",
+          mainstaskTask:'汽车生产装配',
+          substaskTask:'车载摄像头制造',
+        },
+        {
+          id: 3,
+          bussessType: "大型机械组装",
+          name: "山东工程机械集团有限公司",
+          money: 5000,
+          state: "进行中",
+          date: "2019-11-1",
+          mainstaskTask:'轮船动力锅炉制造',
+          substaskTask:'高温材料耐测',
+        },
+        {
+          id: 4,
+          bussessType: "大型机械组装",
+          name: "大连冰山集团有限公司",
+          money: 5000,
+          state: "进行中",
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'铁轨的制造',
+        },
+         {
+          id: 5,
+          bussessType: "车间零部件生产",
+          name: "沈阳机床集团有限责任公司",
+          money: 5000,
+          state: "进行中",
+          date: "2019-11-1",
+          mainstaskTask:'高压锅炉制造',
+          substaskTask:'耐高温水晶温度计制造',
+        },
+        {
+          id: 6,
+          bussessType: "卫星微型零件制作",
+          name: "北方重工集团有限公司",
+          money: 5000,
+          state: "进行中",
+          date: "2019-11-1",
+          mainstaskTask:'高精密轮轴制造',
+          substaskTask:'高精密轮轴制造',
+        },
+        {
+          id: 7,
+          bussessType: "导弹装配与改革",
+          name: "大连重工-起重集团有限公司",
+          money: 7000,
+          state: "进行中",
+          date: "2019-11-1",
+          mainstaskTask:'重型机车的制造',
+          substaskTask:'汽车动力邮箱制作',
+        }
+      ],
 
 
 
@@ -665,15 +838,19 @@ export default {
           name: "长春光华微电子集团",
           money: 30000,
           state: "待回应",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'车轮的制造',
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "中国机械工业集团公司",
           money: 5000,
           state: "待回应",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'汽车生产装配',
+          substaskTask:'车载摄像头制造',
         },
         {
           id: 1,
@@ -681,7 +858,9 @@ export default {
           name: "山东工程机械集团有限公司",
           money: 5000,
           state: "待回应",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'轮船动力锅炉制造',
+          substaskTask:'高温材料耐测',
         },
         {
           id: 1,
@@ -689,7 +868,9 @@ export default {
           name: "大连冰山集团有限公司",
           money: 5000,
           state: "待回应",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'火车的制造',
+          substaskTask:'铁轨的制造',
         },
          {
           id: 1,
@@ -697,7 +878,9 @@ export default {
           name: "沈阳机床集团有限责任公司",
           money: 5000,
           state: "待回应",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高压锅炉制造',
+          substaskTask:'耐高温水晶温度计制造',
         },
         {
           id: 1,
@@ -705,77 +888,19 @@ export default {
           name: "北方重工集团有限公司",
           money: 5000,
           state: "待回应",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'高精密轮轴制造',
+          substaskTask:'高精密轮轴制造',
         },
-
         {
           id: 1,
           bussessType: "导弹装配与改革",
           name: "大连重工-起重集团有限公司",
           money: 7000,
           state: "待回应",
-          date: "2019-11-1"
-        }
-      ],
-
-
-
-      tableData5: [
-        {
-          id: 1,
-          bussessType: "车间零部件生产",
-          name: "长春光华微电子集团",
-          money: 30000,
-          state: "未接受",
-          date: "2019-11-1"
-        },
-        {
-          id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "中国机械工业集团公司",
-          money: 5000,
-          state: "未接受",
-          date: "2019-11-1"
-        },
-        {
-          id: 1,
-          bussessType: "大型机械组装",
-          name: "山东工程机械集团有限公司",
-          money: 5000,
-          state: "已接受",
-          date: "2019-11-1"
-        },
-        {
-          id: 1,
-          bussessType: "大型机械组装",
-          name: "大连冰山集团有限公司",
-          money: 5000,
-          state: "已接受",
-          date: "2019-11-1"
-        },
-         {
-          id: 1,
-          bussessType: "车间零部件生产",
-          name: "沈阳机床集团有限责任公司",
-          money: 5000,
-          state: "已接受",
-          date: "2019-11-1"
-        },
-        {
-          id: 1,
-          bussessType: "卫星微型零件制作",
-          name: "北方重工集团有限公司",
-          money: 5000,
-          state: "已接受",
-          date: "2019-11-1"
-        },
-        {
-          id: 1,
-          bussessType: "导弹装配与改革",
-          name: "大连重工-起重集团有限公司",
-          money: 7000,
-          state: "待审核",
-          date: "2019-11-1"
+          date: "2019-11-1",
+          mainstaskTask:'重型机车的制造',
+          substaskTask:'汽车动力邮箱制作',
         }
       ],
 
@@ -928,5 +1053,45 @@ export default {
 .table{
   font-size: 16px
 }
+.handle-box {
+  margin-bottom: 20px;
+}
+.con {
+  width: 500px;
+  height: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
 
+.handle-box {
+  margin-bottom: 20px;
+}
+
+.handle-select {
+  width: 120px;
+}
+
+.handle-input {
+  width: 300px;
+  display: inline-block;
+}
+.table {
+  width: 100%;
+  font-size: 16px;
+}
+.red {
+  color: #ff0000;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.table-td-thumb {
+  display: block;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+}
+.box {
+  font-size: 24px;
+}
 </style>

@@ -3,7 +3,7 @@
     <el-container>
         <el-main>
           <div font-size="24px">
-            <h3>企业名录</h3></div>
+            <h3>供应商列表</h3></div>
              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <div>
 
@@ -139,14 +139,14 @@ export default {
           name: "哈尔滨电机厂有限责任公司",
           Business_Name:'何丽',
           Business_Tel:'0451-82872000',          
-          date: "2020-1-1"
+          date: "2020-01-01"
         },
         {
           id: 2,
           bussessType: "燃气轮机",
           name: "中船重工龙江广瀚燃气轮机有限公司",
           Business_Name:'肖博约',
-          date: "2019-11-1",
+          date: "2019-11-01",
           Business_Tel:'0451-85468555',          
 
         },
@@ -155,7 +155,7 @@ export default {
           bussessType: "卫星应用",
           name: "哈尔滨航天恒星数据系统科技有限公司",
           Business_Name:'梁志国',
-          date: "2020-1-6",
+          date: "2020-01-06",
           Business_Tel:'0451-83556988',  
         },
         {
@@ -163,7 +163,7 @@ export default {
           bussessType: "汽车业数字化",
           name: "长春一汽启明信息技术有限责任公司",
           Business_Name:'王肖',
-          date: "2020-1-5",
+          date: "2020-01-05",
           Business_Tel:'0431-86536541',  
         },
          {
@@ -171,7 +171,7 @@ export default {
           bussessType: "卫星微型零件制作",
           name: "长春微电子信息有限公司",
           Business_Name:'段玉君',
-          date: "2020-1-4",
+          date: "2020-01-04",
           Business_Tel:'0431-85632478',  
         },
         {
@@ -179,7 +179,7 @@ export default {
           bussessType: "光电测控仪器设备",
           name: "长春奥普光电技术股份有限公司",
           Business_Name:'王海',
-          date: "2019-11-1",
+          date: "2019-11-01",
           Business_Tel:'0431-85642586',  
         },
         {
@@ -187,7 +187,7 @@ export default {
           bussessType: "磨床生产",
           name: "杭机集团长春一机有限公司",
           Business_Name:'颜容',
-          date: "2019-11-1",
+          date: "2019-11-01",
           Business_Tel:'0431-89651234',  
         }
       ],

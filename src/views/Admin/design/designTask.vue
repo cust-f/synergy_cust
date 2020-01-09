@@ -161,7 +161,7 @@ export default {
           state: "待完成",
           subname: "汽车集成服务",
           company: "启明信息技术股份有限公司",
-          time:"2020-1-5"
+          time:"2020-01-05"
         },
         {
           id: 4,
@@ -188,7 +188,7 @@ export default {
           state: "待完成",
           subname: "高分子材料创新",
           company: "黑龙江省润特科技有限公司",
-          time:"2020-1-7"
+          time:"2020-01-07"
         },
         {
           id: 7,
