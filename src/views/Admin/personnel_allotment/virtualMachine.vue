@@ -1,40 +1,50 @@
 <template>
   <el-container>
     <el-container>
-      <el-main width="67%" id="kvm-left">
-        <iframe
-          id="show-iframe"
-          style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
-          frameborder="0"
-          scrolling="yes"
-          src="http://10.34.51.107:9000"
-        ></iframe>
+      <el-main width="73%" id="kvm-left">
+        <el-tabs type="card"  v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane label="光华电子" name="first">
+            <iframe
+              id="show-iframe"
+              style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
+              frameborder="0"
+              scrolling="yes"
+              src="http://10.34.51.107:9000"
+            ></iframe>
+          </el-tab-pane>
+          <el-tab-pane label="富维海拉" name="second">配置管理</el-tab-pane>
+          <el-tab-pane label="一汽福晟" name="third">角色管理</el-tab-pane>
+          <el-tab-pane label="大陆电子" name="fourth">定时任务补偿</el-tab-pane>
+        </el-tabs>
       </el-main>
 
-      <div id="movebar" style="width:15px; z-index:2; background:#cccccc"></div>
+      <div
+        id="movebar"
+        style="width:15px; z-index:2; background:#cccccc; margin-left:-20px; height:97%"
+      ></div>
 
-      <el-aside width="25%" id="kvm-right">
-        <div style="background:#FFFFFF; height:128px">
+      <el-aside width="27%" id="kvm-right">
+        <div style="height:128px">
           <el-row>
             <el-col :span="11">
-              <el-button type="info" @click="backtolist">返回</el-button>
+              <el-button class="buttons" type="info" @click="backtolist">返回</el-button>
             </el-col>
             <el-col :span="11">
-              <el-button type="warning">发送Ctrl+Alt+Del</el-button>
+              <el-button class="buttons" type="warning">发送Ctrl+Alt+Del</el-button>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
-              <el-button type="danger">断开连接</el-button>
+              <el-button class="buttons" type="danger">断开连接</el-button>
             </el-col>
             <el-col :span="11">
-              <el-button type="danger">关闭虚拟机</el-button>
+              <el-button class="buttons" type="danger">关闭虚拟机</el-button>
             </el-col>
           </el-row>
         </div>
-        <el-tabs v-model="activeTab" type="border-card" style="height:70%; margin-top:5px">
+        <el-tabs v-model="activeTab" type="border-card" style="height:80%; margin-top:5px">
           <el-tab-pane class="cur" label="任务详情" name="first">
-            <el-form ref="form" :model="form" label-width="140px" style="margin-right:40px">
+            <el-form ref="form" :model="form" label-width="100px" style="margin-right:20px">
               <br />
               <el-row>
                 <el-form-item label="设计任务ID">
@@ -42,13 +52,11 @@
                 </el-form-item>
               </el-row>
               <br />
-              <br />
               <el-row>
                 <el-form-item label="设计任务名称">
                   <el-input v-model="form.Desinger_Name" :disabled="true"></el-input>
                 </el-form-item>
               </el-row>
-              <br />
               <br />
               <el-row>
                 <el-form-item label="设计任务类型">
@@ -56,13 +64,11 @@
                 </el-form-item>
               </el-row>
               <br />
-              <br />
               <el-row>
                 <el-form-item label="截止日期">
                   <el-input v-model="form.Desinger_End_Time" :disabled="true"></el-input>
                 </el-form-item>
               </el-row>
-              <br />
               <br />
               <el-row>
                 <el-form-item label="设计任务详情">
@@ -83,7 +89,6 @@
             <br />
           </el-tab-pane>
           <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane>
-          <el-tab-pane class="cur" label="预留标签2" name="fourth">预留标签2</el-tab-pane>
         </el-tabs>
       </el-aside>
     </el-container>
@@ -95,7 +100,8 @@ export default {
   data() {
     return {
       form: {},
-      activeTab: 'first'
+      activeTab: "first",
+      activeName:"first"
     };
   },
   mounted() {
@@ -106,15 +112,15 @@ export default {
       const oIframe = document.getElementById("show-iframe");
       const deviceWidth = document.documentElement.clientWidth;
       const deviceHeight = document.documentElement.clientHeight;
-      oIframe.style.height = Number(deviceHeight) - 160 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
+      oIframe.style.height = Number(deviceHeight) + 60 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
     }
     changeMobsfIframe();
     window.onresize = function() {
       changeMobsfIframe();
       var kvm_left = document.getElementById("kvm-left");
       var kvm_right = document.getElementById("kvm-right");
-      kvm_left.style.width = "65%";
-      kvm_right.style.width = "28%";
+      kvm_left.style.width = "67%";
+      kvm_right.style.width = "33%";
     };
 
     /**
@@ -207,10 +213,10 @@ export default {
   }
 };
 </script>
-<style>
-.el-button {
-  margin-left: 50px;
+<style scope>
+.buttons {
+  margin-left: 20px;
   margin-top: 15px;
-  width: 160px
+  width: 150px;
 }
 </style>
