@@ -21,7 +21,7 @@
                 @click="delAllSelection"
               >批量删除</el-button>
               <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-              <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
               <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
               <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
