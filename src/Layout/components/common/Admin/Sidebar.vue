@@ -59,6 +59,7 @@ export default {
                     index: '/admin/dashboard',
                     title: '系统首页'
                 },
+
                 {
                     icon: 'el-icon-postcard',
                     index: '2',
@@ -70,6 +71,10 @@ export default {
                         {
                             index:'/admin/supplyBussess',
                             title:'企业名录'
+                        },
+                        {
+                            index:'/admin/xuqiuyilan',
+                            title:'需求一览'
                         },
                         ]
                 },
