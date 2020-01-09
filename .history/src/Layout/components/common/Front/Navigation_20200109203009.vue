@@ -1,9 +1,9 @@
 <template>
-<div style="margin:0 auto; width:1200px;" class="navigation">
+<div style="margin:0 auto; width:1200px;background-color=:#FF8F12"" class="navigation">
   <el-menu
     :default-active="this.$route.path"
     background-color="#FF8F12"
-    text-color="#FFF"
+    text-color="#FFF  "
     mode="horizontal"
     router
   >
