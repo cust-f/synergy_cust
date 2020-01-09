@@ -558,43 +558,47 @@ export default {
       tableData1: [
         {
           id: 1,
-          taskName: "小型汽车前车灯",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
+          taskName: "光电测控仪器设备",
+          bussessType: "电视测角仪",
+          publishTask: "长春奥普光电技术股份有限公司",
           taskLeader: "李华",
 
           state: "新增",
-          date: "2019-11-1"
+          date: "2019-11-17"
+
         },
         {
           id: 2,
-          taskName: "中型汽车车架",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
+          taskName: "磨床生产",
+          bussessType: "平面磨床制作",
+          publishTask: "杭机集团长春一机有限公司",
           taskLeader: "刘柳",
 
           state: "待审核",
-          date: "2019-11-1"
+          date: "2019-12-17"
+      
         },
         {
           id: 3,
-          taskName: "小型汽车刹车",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
+          taskName: "通信技术设计",
+          bussessType: "通信技术",
+          publishTask: "哈尔滨海邻科信息技术有限公司",
           taskLeader: "周舟",
 
           state: "已完成",
-          date: "2019-11-1"
+          date: "2019-9-22"
+        
         },
         {
           id: 4,
-          taskName: "小型汽车后备箱盖子",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
+          taskName: "发电智能制造",
+          bussessType: "发电装备",
+          publishTask: "哈尔滨电机厂有限责任公司",
           taskLeader: "孙铭",
 
           state: "进行中",
-          date: "2019-11-1"
+          date: "2019-11-13"
+      
         }
       ],
 
@@ -796,10 +800,44 @@ export default {
 };
 </script>
 <style>
+
 .con {
   width: 500px;
   height: 1000px;
   margin: 0 auto;
   text-align: center;
 }
+
+.handle-box {
+  margin-bottom: 20px;
+}
+
+.handle-select {
+  width: 120px;
+}
+
+.handle-input {
+  width: 260px;
+  display: inline-block;
+}
+.table {
+  width: 100%;
+  font-size: 16px;
+}
+.red {
+  color: #ff0000;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.table-td-thumb {
+  display: block;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+}
+.box {
+  font-size: 24px;
+}
 </style>
+

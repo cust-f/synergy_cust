@@ -16,13 +16,13 @@
               header-cell-class-name="table-header"
               @selection-change="handleSelectionChange"
             >
-              <el-table-column prop="id" label="任务编号" width="80"></el-table-column>
+              <el-table-column prop="id" label="序号" width="80"  align="center"></el-table-column>
               <el-table-column prop="name" label="任务名称"></el-table-column>
               <el-table-column prop="class" label="任务类别"></el-table-column>
               <el-table-column prop="publish" label="发布任务企业"></el-table-column>
-              <el-table-column prop="designer" label="设计人员"></el-table-column>
+              <el-table-column prop="designer" label="设计人员" align="center"></el-table-column>
               <el-table-column prop="completionDate" label="完成日期"></el-table-column>
-              <el-table-column prop="state" label="任务状态">
+              <el-table-column prop="state" label="任务状态" align="center">
                 <template slot-scope="scope">
                   <el-tag
                     :type="scope.row.state==='未被采纳'?'danger':(scope.row.state==='已被采纳'?'success':scope.row.state==='已提交'?'info':scope.row.state==='未提交'?'warning':'')"
@@ -30,7 +30,7 @@
                 </template>
               </el-table-column>
 
-              <el-table-column label="操作" width="180">
+              <el-table-column label="操作" width="180" align="center">
                 <template slot-scope="scope">
                   <el-button
                     @click="substaskDetail(scope.$index, scope.row)"
@@ -69,68 +69,63 @@ export default {
       },
       tableData: [
         {
-          id: 10001,
-          name: "车间零部件生产",
-          class: "零件生产",
-          publish: "一汽",
-          designer: "张三",
-          completionDate: "2019-11-1",
+          id: 1,
+          name: "磨床生产",
+          class: "平面磨床制作",
+          publish: "杭机集团长春一机有限公司",
+          designer: "张雷",
+          completionDate: "2019-11-3",
           state: "已被采纳"
+
         },
         {
-          id: 10002,
-          name: "卫星微型零件制作",
-          class: "零件生产",
-          publish: "一汽",
-          designer: "张三",
-          completionDate: "2019-11-1",
+          id: 2,
+          name: "卫星应用数据创新",
+          class: "卫星应用数据",
+          publish: "哈尔滨航天恒星数据系统科技有限公司",
+          designer: "李萌",
+          completionDate: "2019-12-1",
           state: "未被采纳"
+
+      
         },
         {
-          id: 10003,
-          name: "卫星微型零件制作",
-          class: "卫星零件生产",
-          publish: "一汽",
-          designer: "张三",
-          completionDate: "2019-11-1",
+          id: 3,
+          name: "通信技术设计",
+          class: "通信技术",
+          publish: "哈尔滨海邻科信息技术有限公司",
+          designer: "王爽",
+          completionDate: "2019-11-5",
           state: "未提交"
         },
         {
-          id: 10004,
-          name: "卫星微型零件制作",
-          class: "卫星零件生产",
-          publish: "一汽",
-          designer: "张三",
-          completionDate: "2019-11-1",
+          id: 4,
+          name: "汽车电子产品研发",
+          class: "汽车集成服务",
+          publish: "启明信息技术股份有限公司",
+          designer: "侯建",
+          completionDate: "2019-11-21",
           state: "已提交"
         },
         {
-          id: 10005,
-          name: "卫星微型零件制作",
-          class: "卫星零件生产",
-          publish: "哈工",
-          designer: "张三",
-          completionDate: "2019-11-1",
+          id: 5,
+          name: "发电智能制造",
+          class: "发电装备",
+          publish: "哈尔滨电机厂有限责任公司",
+          designer: "黎明",
+          completionDate: "2019-12-14",
           state: "已被采纳"
         },
         {
-          id: 10006,
-          name: "卫星微型零件制作",
-          class: "卫星零件生产",
-          publish: "哈工",
-          designer: "张三",
+          id: 6,
+          name: "高分子材料创新",
+          class: "高分子材料创新",
+          publish: "黑龙江省润特科技有限公司",
+          designer: "李奇",
           completionDate: "2019-11-1",
           state: "已被采纳"
         },
-        {
-          id: 10007,
-          name: "导弹装配与改进",
-          class: "卫星零件生产",
-          publish: "哈工",
-          designer: "张三",
-          completionDate: "2019-11-1",
-          state: "已被采纳"
-        }
+       
       ],
       addList: {
         id: null,

@@ -10,7 +10,7 @@
         >
             <template v-for="item in items">
                 <template v-if="item.subs">
-                    <el-submenu :index="item.index" :key="item.index">
+                    <el-submenu style="margin-bottom:15px;" :index="item.index" :key="item.index">
                         <template slot="title">
                             <i :class="item.icon"></i>
                             <span slot="title">{{ item.title }}</span>
@@ -29,6 +29,7 @@
                                 >{{ threeItem.title }}</el-menu-item>
                             </el-submenu>
                             <el-menu-item
+                                style="padding-left:53px;"
                                 :index="subItem.index"
                                 :key="subItem.index"
                             >{{ subItem.title }}</el-menu-item>
@@ -36,7 +37,7 @@
                     </el-submenu>
                 </template>
                 <template v-else>
-                    <el-menu-item :index="item.index" :key="item.index">
+                    <el-menu-item style="margin-bottom:15px;" :index="item.index" :key="item.index">
                         <i :class="item.icon"></i>
                         <span slot="title">{{ item.title }}</span>
                     </el-menu-item>                                                                                                      
@@ -81,7 +82,7 @@ export default {
                 {
                     icon: 'el-icon-edit-outline',
                     index: '3',
-                    title: '协同管理',
+                    title: '设计管理',
                     subs: [
                         {
                             index: '/admin/newTask',
@@ -96,7 +97,7 @@ export default {
                 {
                     icon: 'el-icon-tickets',
                     index: '4',
-                    title: '任务管理',
+                    title: '流通管理',
                     subs:[{
                         
                             index:'/admin/designTask',
@@ -111,12 +112,12 @@ export default {
                 {
                     icon: 'el-icon-pie-chart',
                     index: 'charts',
-                    title: 'schart图表'
+                    title: '文件管理'
                 },
                 {
                     icon: 'el-icon-s-custom',
                     index: '6',
-                    title: '人员管理',
+                    title: '数据统计',
                     subs: [
                         {
                             index: '/admin/newStaff',
@@ -209,8 +210,15 @@ export default {
 .sidebar > ul {
     height: 100%;
 }
-/* 修改导航栏背景颜色 */
-/* .el-menu{
-    background-color: rgba(50, 65, 87, 0) !important;
-} */
+/* 修改导航栏边框 */
+.el-menu {
+  border: none;
+
+}
+.sidebar .el-menu span{
+  font-size: 14px !important;
+}
+.sidebar .el-menu .el-menu-item{
+font-size: 14px !important;
+}
 </style>

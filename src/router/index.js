@@ -34,7 +34,7 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 
 import circulation from '@/views/admin/personnel_allotment/circulation'
 import desinger from '@/views/admin/personnel_allotment/desinger'
-import virtualMachine from '@/views/admin/personnel_allotment/virtualMachine'
+import virtualMachine from '@/Layout/template page/virtualMachine'
 import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
  import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
@@ -54,12 +54,11 @@ import designTaskabolishDe from '@/views/admin/supplier/supplierMarket/designTas
 import designTaskqing from '@/views/admin/supplier/supplierMarket/designTaskqing'//设计任务进行时详情
 import designTaskreD from '@/views/admin/supplier/supplierMarket/designTaskreD'//设计任务审核详情页面
 
+import excellentCompany from '@/views/company/excellentCompany'//优秀企业
+
 import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
-
-
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
-import circulationTaskEvaluate from '@/views/admin/supplier/supplierMarket/circulationTaskEvaluate'
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
 import xuqiuyilan from '@/views/admin/company/xuqiuyilan'//需求一览
@@ -82,7 +81,17 @@ export default new Router({
           path: '/home',
           name: 'Home',
           component: Home
-        }
+        },
+        //优秀企业
+        {
+          path: '/company/excellentCompany',
+          name: 'excellentCompany',
+          component: excellentCompany,
+          meta: {
+            title: '优秀企业'
+          }
+        },
+
       ]
     },
     {
@@ -248,13 +257,6 @@ export default new Router({
           name: 'desinger',
           component: desinger,
         },
-        //虚拟机
-        {
-          path: '/admin/personnel_allotment/virtualMachine',
-          name: 'virtualMachine',
-          component: virtualMachine,
-        },
-
         //企业评价
         {
           path:'/admin/Enterprise_Evaluation/evaluate',
@@ -403,6 +405,12 @@ export default new Router({
       name: 'login',
       component: login
     },
+            //虚拟机
+            {
+              path: '/admin/personnel_allotment/virtualMachine',
+              name: 'virtualMachine',
+              component: virtualMachine,
+            },
     {
       path: '*',
       redirect: '/404'
