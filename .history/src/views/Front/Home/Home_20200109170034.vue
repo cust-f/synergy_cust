@@ -1,7 +1,7 @@
 
 <template>
 <div>
-    
+    <div class="BG0">
     <!--第一行  保留，不一定用-->
     <el-row :gutter="gutterCount">
       <el-col :span="24">
@@ -20,7 +20,7 @@
         </div>
       </el-col>
     </el-row>
-    
+    </div>
 
   <div class="BG">
     <!--第二行  网站访问统计数据-->
@@ -170,9 +170,12 @@
     </el-col>
     </el-form-item>
     <el-form-item label="附件">
+   
+   
+
     </el-form-item>
     <el-form-item>
-    <el-button type="primary" @click="onSubmit" class="CreatebuttonCSS">立即发布</el-button>
+    <el-button type="primary" @click="onSubmit" class="CreatebuttonCSS">立即创建</el-button>
     </el-form-item>
     </el-form>
 
@@ -259,7 +262,8 @@
         </div>
       </el-col>
     </el-row>
- 
+
+
 
     <!-- 第八行  网站数据统计图表 -->
     <el-row :gutter="gutterCount" >
@@ -314,6 +318,8 @@
         </el-card>
       </el-col>
     </el-row>
+
+    
 
    
   </div>
@@ -469,14 +475,13 @@ export default {
       //供应商
       supplierlist:
       [
-        {category:"交通运输",companyName:"长春富晟吉通物流设备有限公司"},
-        {category:"仪器仪表",companyName:"长春新产业光电技术有限公司"},
-        {category:"电气机械",companyName:"吉林省长春市盛昊电子有限公司"},
-        {category:"通信设备",companyName:"哈尔滨哈特信息科技有限公司"},
-        
-        {category:"仪器仪表",companyName:"北京京伟电器有限公司 "},
-        {category:"交通运输",companyName:"长春沃尔特仓储设备有限公司"},
-        {category:"电气机械",companyName:"合肥皖仪科技有限公司"},
+        {category:"灯系",companyName:"上海小糸车灯有限公司 "},
+        {category:"轮胎",companyName:"上海轮胎橡胶(集团)供销有限公司"},
+        {category:"特种工具",companyName:"上海奥力得特种工具厂"},
+        {category:"塑料",companyName:"上海胜德塑料厂 "},
+        {category:"开关",companyName:"北京京伟电器有限公司 "},
+        {category:"装饰配件",companyName:"北京中环汽车装饰件有限责任公司"},
+        {category:"散热器",companyName:"合肥皖仪科技有限公司"},
         
       ],
       releaseTableRank:[{
@@ -667,10 +672,9 @@ export default {
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
-  padding: -2.5px;
+  padding: 0 -20px;
   font-size: 18px;
 }
-
 
 .grid-content
 {

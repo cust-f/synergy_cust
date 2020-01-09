@@ -61,7 +61,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-receiving',
-                    index: '',
+                    index: '7',
                     title: '需求一览'
                 },
                 {
@@ -76,7 +76,7 @@ export default {
                 },
                 {
                      icon: 'el-icon-s-custom',
-                    index: '8',
+                    index: '9',
                     title: '服务成果',
                 }
             ]

@@ -34,7 +34,7 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 
 import circulation from '@/views/admin/personnel_allotment/circulation'
 import desinger from '@/views/admin/personnel_allotment/desinger'
-import virtualMachine from '@/views/admin/personnel_allotment/virtualMachine'
+import virtualMachine from '@/Layout/template page/virtualMachine'
 import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
  import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
@@ -257,13 +257,6 @@ export default new Router({
           name: 'desinger',
           component: desinger,
         },
-        //虚拟机
-        {
-          path: '/admin/personnel_allotment/virtualMachine',
-          name: 'virtualMachine',
-          component: virtualMachine,
-        },
-
         //企业评价
         {
           path:'/admin/Enterprise_Evaluation/evaluate',
@@ -412,6 +405,12 @@ export default new Router({
       name: 'login',
       component: login
     },
+            //虚拟机
+            {
+              path: '/admin/personnel_allotment/virtualMachine',
+              name: 'virtualMachine',
+              component: virtualMachine,
+            },
     {
       path: '*',
       redirect: '/404'

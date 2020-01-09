@@ -82,7 +82,7 @@ export default {
                 {
                     icon: 'el-icon-edit-outline',
                     index: '3',
-                    title: '协同管理',
+                    title: '设计管理',
                     subs: [
                         {
                             index: '/admin/newTask',
@@ -97,7 +97,7 @@ export default {
                 {
                     icon: 'el-icon-tickets',
                     index: '4',
-                    title: '任务管理',
+                    title: '流通管理',
                     subs:[{
                         
                             index:'/admin/designTask',
@@ -112,12 +112,12 @@ export default {
                 {
                     icon: 'el-icon-pie-chart',
                     index: 'charts',
-                    title: 'schart图表'
+                    title: '文件管理'
                 },
                 {
                     icon: 'el-icon-s-custom',
                     index: '6',
-                    title: '人员管理',
+                    title: '数据统计',
                     subs: [
                         {
                             index: '/admin/newStaff',
