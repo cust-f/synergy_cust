@@ -83,10 +83,8 @@
                 <div id="comprehensiveScore" style="width: 600px;height:400px;"></div>
               </el-tab-pane> -->
               <!-- <el-tab-pane label="分类别需求量统计" name="fifth"> -->
-                <div class="type-situation">
-                   分类别需求量统计
-                </div><br>
-                <div id="typeSituation" style="width: 105%;height:430%"></div>
+                 <div class="demandTop5">日登录人数</div><br>
+                 <div id="numberStatistics" style="width: 100%;height:390%;"></div>
               <!-- </el-tab-pane>               -->
             <!-- </el-tabs> -->
           <!-- </div> -->
@@ -108,16 +106,16 @@
       </el-col>
     </el-row>
         <el-row :gutter="20">
-      <el-col :span="10">
+      <el-col :span="0">
         <el-card shadow="hover">
           <div class="demandTop5">企业综合评分</div><br>
           <div id="comprehensiveScore" style="width: 100%;height:390%;"></div>
         </el-card>
       </el-col>
-      <el-col :span="14">
+      <el-col :span="24">
         <el-card shadow="hover">
-          <div class="demandTop5">日登录人数</div><br>
-          <div id="numberStatistics" style="width: 100%;height:390%;"></div>
+          <div class="type-situation">分类别需求量统计</div><br>
+          <div id="typeSituation" style="width: 105%;height:430%"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -415,7 +413,7 @@ export default {
     legend: {
         orient: 'vertical',
         left: 10,
-        data: ['仪器仪表', '电器机械及器材', '通信设备', '交通运输设备','光学仪器仪表', '通用仪器仪表','输配电及控制设备', '照明器具', '雷达及配套设备', '广播电视设备', '铁路运输设备','汽车']
+        data: ['仪器仪表', '电器机械及器材', '通信设备', '交通运输设备','光学仪器仪表', '通用仪器仪表','输配电及控制设备', '照明器具', '雷达及配套设备', '广播电视设备', '汽车','铁路运输设备']
     },
     series: [
         {
@@ -490,8 +488,8 @@ export default {
                 {value: 300, name: '照明器具'},
                 {value: 600, name: '雷达及配套设备'},
                 {value: 900, name: '广播电视设备'},
-                {value: 800, name: '铁路运输设备'},
-                {value: 400, name: '汽车'}
+                {value: 1000, name: '汽车'},
+                {value: 200, name: '铁路运输设备'},
             ]
         }
     ]
