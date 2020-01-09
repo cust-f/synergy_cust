@@ -255,10 +255,10 @@
     <el-row :gutter="gutterCount">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
-            <a>平台数据</a>
+            <a>网站数据</a>
         </div>
       </el-col>
-
+      
     </el-row>
       <el-row :gutter="gutterCount"d >
       <el-col :span="20":push="pushCount">
@@ -589,7 +589,7 @@ export default {
       var myChart = echarts.init(document.getElementById('monthSituation'))
       var option = {
     title: {
-        text: '月度供需量'
+        text: '分月供需量'
     },
     tooltip: {
         trigger: 'axis'

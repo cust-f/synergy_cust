@@ -7,11 +7,11 @@
  * @version: V1.0.5 
 !-->
 <template>
-  <el-container style="overflow-x:hidden;">
-    <el-header height="200px">
+  <el-container style=" overflow-y: visible;">
+    <el-header height="157px">
       <header-synergy ></header-synergy>
     </el-header>
-    <el-main style=" overflow:hidden;">
+    <el-main  style=" overflow: hidden;">
         <router-view></router-view>
     </el-main>
     <el-footer>
