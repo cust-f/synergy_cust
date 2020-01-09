@@ -554,7 +554,7 @@ export default {
         company: "一汽大众"
       },
       formLabelWidth: "120px",
-
+      activeName:"first",
       tableData1: [
         {
           id: 1,
