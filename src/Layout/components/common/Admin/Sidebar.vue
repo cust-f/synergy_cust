@@ -148,6 +148,21 @@ export default {
                     icon: 'el-icon-receiving',
                     index: '',
                     title: '流通任务评价'
+                },
+                {
+                     icon: 'el-icon-s-custom',
+                    index: '8',
+                    title: '管理员',
+                    subs: [
+                        {
+                            index: '/admin/manager_business',
+                            title: '企业管理'
+                        },                  
+                        {
+                            index: '/admin/manager_user',
+                            title: '用户管理'
+                        }
+                    ]
                 }
             ]
         };

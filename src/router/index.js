@@ -48,7 +48,8 @@ import circulationTaskqDesign from '@/views/admin/supplier/supplierMarket/circul
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
 import circulationTaskEvaluate from '@/views/admin/supplier/supplierMarket/circulationTaskEvaluate'
-
+import managerBusiness from '@/views/admin/manager/managerBusiness'
+import businessDetail from '@/views/admin/manager/businessDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -292,7 +293,28 @@ export default new Router({
           meta:{
             title:"完成任务详情"
           }
+        },
+        //企业管理
+        {
+          path: '/admin/manager_business',
+          name: 'managerBusiness',
+          component: managerBusiness,
+        },
+        //企业详情
+        {
+          path: '/admin/businessDetail',
+          name: 'businessDetail',
+          component: businessDetail,
+          meta: {
+            title: "企业详情"
+          }
         }
+        //  //用户管理
+        //  {
+        //   path: '/admin/personnel_allotment/manager_user',
+        //   name: 'manager_user',
+        //   component: manager_user,
+        // }
       ]
     },
     {
