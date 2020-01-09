@@ -2,8 +2,8 @@
 <div style="margin:0 auto; width:1200px;" class="navigation">
   <el-menu
     :default-active="this.$route.path"
-    background-color="#FF8F12"
-    text-color="#FFF"
+    background-color="#FF8F12"!important
+    text-color="#FFF  "
     mode="horizontal"
     router
   >

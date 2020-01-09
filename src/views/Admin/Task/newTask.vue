@@ -3,89 +3,83 @@
     <el-main>
       <div class="newTask">
         <h3>新增任务</h3>
-                               <el-divider></el-divider>
+        <el-divider></el-divider>
 
-  <el-form ref="form" :model="form" label-width="110px" class="box">
-        
+        <el-form ref="form" :model="form" label-width="110px" class="box">
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="项目名称">
+                <el-input v-model="newTask.name"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="项目类别">
+                <el-input v-model="newTask.name"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-                    <el-row>
-              <el-col :span="11">
-          <el-form-item label="项目名称">
-              <el-input v-model="newTask.name"></el-input>
-            </el-form-item>
-              </el-col>
-              <el-col :span="11">
-       <el-form-item label="项目类别">
-              <el-input v-model="newTask.name"></el-input>
-            </el-form-item>
-              </el-col>
-            </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="投标截止日期">
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="newTask.date1"
+                  style="width: 100%;"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="开始日期">
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="newTask.date2"
+                  style="width: 100%;"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="总负责人">
+                <el-select v-model="newTask.head" placeholder="请选择总负责人" style="width: 100%;">
+                  <el-option label="全部" value></el-option>
+                  <el-option v-for="head in personnel" :key="head" :label="head" :value="head"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="项目类别">
+                <el-select v-model="newTask.region" placeholder="请选择项目类别" style="width: 100%;">
+                  <el-option label="全部" value></el-option>
+                  <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-            
-
-                      <el-row>
-              <el-col :span="11">
-             <el-form-item label="投标截止日期">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="newTask.date1"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="开始日期">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="newTask.date2"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-              </el-col>
-            </el-row>
- <el-row>
-              <el-col :span="11">
-             <el-form-item label="总负责人">
-              <el-select v-model="newTask.head" placeholder="请选择总负责人" style="width: 100%;">
-                <el-option label="全部" value></el-option>
-                <el-option v-for="head in personnel" :key="head" :label="head" :value="head"></el-option>
-              </el-select>
-            </el-form-item>
-              </el-col>
-              <el-col :span="11">
-           <el-form-item label="项目类别">
-              <el-select v-model="newTask.region" placeholder="请选择项目类别" style="width: 100%;">
-                <el-option label="全部" value></el-option>
-                <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
-              </el-select>
-            </el-form-item>
-              </el-col>
-            </el-row>
-
-
-
-            <el-row>
-                <el-col :span="24" class = "xiangxi">
-                    <el-form-item label="详细" >
-                            <el-input 
-                            type="textarea"
-                            :rows="3"
-                            style="width: 100%;"      
-                            placeholder="请输入内容" v-model="form.Introduction" class="gongsiDetail"  ></el-input>
-                    </el-form-item>
-                    
-                </el-col>
-            </el-row>
-
-
+          <el-row>
+            <el-col :span="24" class="xiangxi">
+              <el-form-item label="详细">
+                <el-input
+                  type="textarea"
+                  :rows="3"
+                  style="width: 100%;"
+                  placeholder="请输入内容"
+                  v-model="form.Introduction"
+                  class="gongsiDetail"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
       </div>
       <el-divider></el-divider>
-      <div>
-        <h3>子任务信息</h3>
 
+      <el-card shadow="always">
+        <div style="font-size:20px;">子任务信息</div>
         <div class="container">
           <div class="handle-box">
             <el-button
@@ -112,8 +106,8 @@
             <el-table-column prop="bidTime" label="开始时间"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
             <el-table-column label="操作" align="center">
-              <template slot-scope="" width="220px">
-                      <el-button type="primary" class="handle-del mr10" @click="addDesignerButton">新增外来企业</el-button>
+              <template slot-scope width="230px">
+                <el-button type="primary" class="handle-del mr10" @click="addDesignerButton">新增外来企业</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -199,7 +193,6 @@
           </span>
         </el-dialog>
 
-
         <!-- 新增设计人员 -->
         <el-dialog title="添加" :visible.sync="addDesigner" width="50%">
           <el-form ref="form" :model="addList1" label-width="120px">
@@ -238,7 +231,7 @@
             <el-button type="primary" @click="saveAdd">确 定</el-button>
           </span>
         </el-dialog>
-      </div>
+      </el-card>
     </el-main>
   </el-container>
 </template>
@@ -255,11 +248,15 @@ export default {
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
-      addDesigner:false,
-      personnel: ["许知远", "王添","白泽"], //总负责人
+      addDesigner: false,
+      personnel: ["许知远", "王添", "白泽"], //总负责人
       statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
-      supplyCompanies: ["沈阳机床集团有限责任公司", "起重集团有限公司", "长光电子"], //供应商列表
-      supplyDesigners:["韩钟工程师","李林工程师","张志正工程师"],
+      supplyCompanies: [
+        "沈阳机床集团有限责任公司",
+        "起重集团有限公司",
+        "长光电子"
+      ], //供应商列表
+      supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
       id: 0, //记录任务数
       //招标信息
       newTask: {
@@ -273,14 +270,12 @@ export default {
       //子任务表格
       tableData: [
         {
-          id:'001',
-          taskNum:'002',
-          taskName:"车辆轴承制造",
-          taskType:'小汽车零件制造',
-          bidTime:'2019-10-5',
-          supplyCompany:'长春光电子微型卫星有限公司',
-
-
+          id: "001",
+          taskNum: "002",
+          taskName: "车辆轴承制造",
+          taskType: "小汽车零件制造",
+          bidTime: "2019-10-5",
+          supplyCompany: "长春光电子微型卫星有限公司"
         }
       ],
       addList: [
@@ -293,7 +288,7 @@ export default {
           supplyCompany: ""
         }
       ],
-            addList1: [
+      addList1: [
         {
           id: "",
           taskNum: "",
@@ -340,7 +335,7 @@ export default {
       this.addVisible = true;
     },
 
-    addDesignerButton(){
+    addDesignerButton() {
       this.addDesigner = true;
     },
     //保存新增

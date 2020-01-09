@@ -195,7 +195,7 @@ export default {
           Company_Name: '长光卫星国际有限公司',
           Address: '吉林省长春市卫星路8848号',
           Postcode: '104300',
-          Founding_Time: '2015-9-10',
+          Founding_Time: '2015-09-10',
           BR_Number:'S100934',
           Office_Number:'17866625034',
           Email:'34895611@163.com',

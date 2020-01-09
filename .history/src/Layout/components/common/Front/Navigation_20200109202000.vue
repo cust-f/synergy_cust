@@ -2,8 +2,8 @@
 <div style="margin:0 auto; width:1200px;" class="navigation">
   <el-menu
     :default-active="this.$route.path"
-    background-color="#FF8F12"
-    text-color="#FFF"
+    background-color="#00a2e6"
+    text-color="#FFF  "
     mode="horizontal"
     router
   >
@@ -54,6 +54,11 @@ export default {
                     index: 'charts',
                     title: '首页'
                 },
+                // {
+                //     icon: 'el-icon-edit-outline',
+                //     index: '/admin/designTaskEvaluation',
+                //     title: '设计任务评价'
+                // },
                 {
                     icon: 'el-icon-receiving',
                     index: '7',
@@ -96,15 +101,15 @@ export default {
   height: 45px;
 }
 .el-menu--horizontal>.el-menu-item.is-active {
-  background-color:  #FF8F12 !important;
+  background-color: rgb(255,14318)!important;
   color: #FFF !important;  
 }
 .el-menu--horizontal>.el-submenu.is-active .el-submenu__title{
-    background-color:  #FF8F12 !important;
+    background-color:  #1381ce !important;
   color: #FFF !important;  
 }
 .el-menu--horizontal .el-menu .el-menu-item.is-active{
-      background-color:  #FF8F12 !important;
+      background-color:  #1381ce !important;
     color: #FFF !important;  
 }
 .navigation .el-menu-item {
