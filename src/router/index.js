@@ -8,7 +8,7 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'
 
 //后台界面
-import Admin from '@/Layout/template page/admin'
+import adminPage from '@/Layout/template page/adminPage'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff'//新增人员
@@ -41,15 +41,17 @@ import accceptCirculationtask from '@/views/admin/supplier/supplierMarket/acccep
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/admin/supplier/supplierMarket/designResult'
 import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'
-import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
-import designResultDesigin from '@/views/admin/supplier/supplierMarket/designResultDesigin'
 import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'
-import circulationTaskqDesign from '@/views/admin/supplier/supplierMarket/circulationTaskqDesign'
+import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket/accceptCirculationDetailsTask'
+
+
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
 import circulationTaskEvaluate from '@/views/admin/supplier/supplierMarket/circulationTaskEvaluate'
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -73,7 +75,7 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      component: Admin,
+      component: adminPage,
       children: [
         //系统首页
         {
@@ -143,11 +145,11 @@ export default new Router({
         },
         //供应商信息审核（将供应商添加到所属供应商名录中）
         {
-          path: '/admin/review',
+          path: '/admin/check/review',
           name: 'review',
           component: review,
           meta: {
-            title: "供应商信息审核"
+            title: "供应信息审核"
           }
         },
         //新增人员
@@ -208,7 +210,27 @@ export default new Router({
           name: 'virtualMachine',
           component: virtualMachine,
         },
-        //供应商接受设计任务
+//供应方
+
+         //供应商设计任务列表
+        {
+          path: '/admin/designTaskq',
+          name: 'designTaskq',
+          component: designTaskq,
+          meta: {
+            title: "接受设计任务"
+          }
+        },
+         //供应商设计任务详情
+        {
+          path: '/admin/designTaskqDesigin',
+          name: 'designTaskqDesigin',
+          component: designTaskqDesigin,
+          meta: {
+            title: "接受设计任务"
+          }
+        },
+                //供应商接受设计任务
         {
           path: '/admin/acceptDesignTask',
           name: 'acceptDesignTask',
@@ -315,6 +337,7 @@ export default new Router({
         //   name: 'manager_user',
         //   component: manager_user,
         // }
+        
       ]
     },
     {

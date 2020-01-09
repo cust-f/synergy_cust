@@ -3,9 +3,8 @@
         <el-menu
             class="sidebar-el-menu"
             :default-active="onRoutes"
-            :collapse="collapse"
-            background-color="#324157"
-            text-color="#bfcbd9"
+            background-color="#FFF"
+            text-color="#000"
             active-text-color="#20a0ff"
             router
         >
@@ -53,7 +52,7 @@ import bus from './bus'
 export default {
     data() {
         return {
-            collapse: false,
+            collapse: true,
             items: [
                 {
                     icon: 'el-icon-office-building',
@@ -71,7 +70,7 @@ export default {
                         {
                             index:'/admin/supplyBussess',
                             title:'企业名录'
-                        }
+                        },
                         ]
                 },
                 {
@@ -182,22 +181,26 @@ export default {
 };
 </script>
 
-<style scoped>
-.sidebar {
+<style>
+/* .sidebar {
     display: block;
     position: absolute;
     left: 0;
     top: 70px;
     bottom: 0;
     overflow-y: scroll;
-}
+}*/
 .sidebar::-webkit-scrollbar {
     width: 0;
 }
 .sidebar-el-menu:not(.el-menu--collapse) {
-    width: 250px;
+    width: 230px;
 }
 .sidebar > ul {
     height: 100%;
 }
+/* 修改导航栏背景颜色 */
+/* .el-menu{
+    background-color: rgba(50, 65, 87, 0) !important;
+} */
 </style>
