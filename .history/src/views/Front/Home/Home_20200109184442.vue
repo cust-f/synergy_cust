@@ -111,10 +111,10 @@
           <br>
           &nbsp;&nbsp;&nbsp;
           <div>
-              <el-button style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "  type="primary" round>登录</el-button>
-              <el-button style="right:5px;background-color:rgb(250, 101, 105); border-color:rgb(250, 101, 105);" type="primary" round>注册</el-button>
-          </div>
-          <div style="float: left; width:100%; height:10px"></div>
+              <div style="float: left; width:20%;"></div>
+              <el-button style=" left:5px;"  type="primary">登录</el-button>
+              <el-button style="right:5px;" type="primary">注册</el-button>
+            </div>
           <el-card class="box-card" :body-style="{ padding: '5px' }">
 
             <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
@@ -675,7 +675,7 @@ export default {
 .grid-content
 {
   text-align: center;
-  background-color: #ece9e9
+  background-color: #dfdbdb
 }
 /**第一行用css样式*/
 .grid-content0

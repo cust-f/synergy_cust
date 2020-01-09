@@ -111,10 +111,10 @@
           <br>
           &nbsp;&nbsp;&nbsp;
           <div>
-              <el-button style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "  type="primary" round>登录</el-button>
-              <el-button style="right:5px;background-color:rgb(250, 101, 105); border-color:rgb(250, 101, 105);" type="primary" round>注册</el-button>
-          </div>
-          <div style="float: left; width:100%; height:10px"></div>
+              <div style="float: left; width:20%;"></div>
+              <el-button style=" left:5px;"  type="primary">登录</el-button>
+              <el-button style="right:5px;" type="primary">注册</el-button>
+            </div>
           <el-card class="box-card" :body-style="{ padding: '5px' }">
 
             <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
@@ -143,12 +143,12 @@
 
     <!--发布需求 弹出框-->
     <div class="Publishingrequirements">
-    <el-dialog title="发布需求" :visible.sync="dialogVisible" style="color:white;"> 
+    <el-dialog title="发布需求" :visible.sync="dialogVisible">
     <el-form ref="form" :model="form" label-width="80px" class="">
     <el-form-item label="需求名称">
     <el-input v-model="form.name"></el-input>
     </el-form-item>
-    <el-form-item label="需求类别">
+    <el-form-item label=" || 需求类别">
     
     <el-select v-model="form.region"  size="medium" filterable placeholder="选择/输入需求大类">
       <el-option label="交通运输设备" value="0"></el-option>
@@ -675,7 +675,7 @@ export default {
 .grid-content
 {
   text-align: center;
-  background-color: #ece9e9
+  background-color: #b8b1b1
 }
 /**第一行用css样式*/
 .grid-content0
@@ -797,11 +797,6 @@ export default {
  .Publishingrequirements .el-input
 {
   width: 300px;
-}
-.Publishingrequirements .el-dialog__title
-{
-  font-size: 18px;
-    color: #303133;
 }
 .CreatebuttonCSS
 {
