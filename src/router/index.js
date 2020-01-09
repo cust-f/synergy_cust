@@ -53,7 +53,7 @@ import accceptCirculationDetailsTask from '@/views/admin/supplier/supplierMarket
 
 
 
-import excellentCompany from '@/views/company/excellentCompany'
+import excellentCompany from '@/views/company/excellentCompany' //优秀企业
 
 import circulationTaskfinish from '@/views/admin/supplier/supplierMarket/circulationTaskfinish'
 import circulationTaskfinishDesign from '@/views/admin/supplier/supplierMarket/circulationTaskfinishDesign'
@@ -332,7 +332,7 @@ export default new Router({
           }
         },
 
-        
+
 
         //供应商完成任务详情
         {
