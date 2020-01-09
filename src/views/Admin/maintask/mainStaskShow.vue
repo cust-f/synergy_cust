@@ -36,8 +36,8 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="mainstaskTask" label="主任务名称" width="120" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" width="120" align="center"></el-table-column>
+        <el-table-column prop="mainstaskTask" label="主任务名称"  align="center"></el-table-column>
+        <el-table-column prop="substaskTask" label="子任务名称"  align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称" width="100"></el-table-column>
         <el-table-column prop="bussessType" label="任务类型" width="100"></el-table-column>
         <el-table-column label="状态" align="center">
@@ -49,7 +49,7 @@
         </el-table-column>
 
         <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
-        <el-table-column label="操作" width="220" align="left">
+        <el-table-column label="操作" width="100" align="left">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -57,6 +57,7 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
+            <br>
           <el-button @click="substaskDetail1(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -75,6 +76,10 @@
 
 
     </el-tab-pane>
+
+
+
+
     <el-tab-pane label="待回应任务" name="fifth">      
                   <div class="handle-box">
               <el-button
@@ -119,7 +124,9 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
+            <br>
           <el-button @click="substaskDetail2(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          <br>
                     <el-button @click="chick(scope.$index, scope.row)" type="text" size="small">供应商审核</el-button>
           </template>
         </el-table-column>
@@ -174,7 +181,7 @@
         </el-table-column>
 
         <el-table-column prop="date" label="任务截止时间"></el-table-column>
-        <el-table-column label="操作" width="220" align="center">
+        <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -182,6 +189,7 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
+            <br>
           <el-button @click="substaskDetail3" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -200,6 +208,9 @@
 
 
 
+    
+    
+    
     <el-tab-pane label="待审核任务" name="second">                        
       <div class="handle-box">
               <el-button
@@ -236,7 +247,7 @@
         </el-table-column>
 
         <el-table-column prop="date" label="任务截止时间" ></el-table-column>
-        <el-table-column label="操作" width="280" align="center">
+        <el-table-column label="操作" width="100" align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -244,8 +255,11 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
+            <br>
           <el-button @click="substaskDetail4(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
+          <br>
           <el-button @click="dialogVisible = true" type="text" size="small">审核通过</el-button>
+          <br>
                     <el-button @click="open" type="text" size="small">审核不通过</el-button>
 
           </template>
@@ -313,6 +327,7 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
+            <br>
           <el-button @click="substaskDetaill(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -370,7 +385,7 @@
         </el-table-column>
 
         <el-table-column prop="date" label="任务废除时间" ></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -378,6 +393,7 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
+            <br>
           <el-button @click="substaskDetail6(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -1087,5 +1103,8 @@ export default {
 }
 .box {
   font-size: 24px;
+}
+.container{
+  padding: 0px;
 }
 </style>
