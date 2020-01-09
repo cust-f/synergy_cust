@@ -134,7 +134,7 @@ export default {
               title: "设计任务评价"
             },
             {
-              index: "",
+              index: "/admin/circulationTaskEvaluation",
               title: "流通任务评价"
             },
             {
@@ -169,7 +169,7 @@ export default {
               title: "企业管理"
             },
             {
-              index: "/admin/manager_user",
+              index: "/admin/userManagement",
               title: "用户管理"
             }
           ]

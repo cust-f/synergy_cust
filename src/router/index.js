@@ -210,7 +210,7 @@ export default new Router({
             title: "新增人员"
           }
         },
-
+        //设计任务评价
         {
           path: '/admin/designTaskEvaluation',
           name: 'designTaskEvaluation',
@@ -251,6 +251,18 @@ export default new Router({
           path: '/admin/designTaskEvaluationDetils',
           name: 'designTaskEvaluationDetils',
           component: designTaskEvaluationDetils
+        },
+        //流通任务评价详情
+        {
+          path: '/admin/circulationTaskEvaluationDetils',
+          name: 'circulationTaskEvaluationDetils',
+          component: circulationTaskEvaluationDetils
+        },
+        //流通任务评价
+        {
+          path: '/admin/circulationTaskEvaluation',
+          name: 'circulationTaskEvaluation',
+          component: circulationTaskEvaluation
         },
         {
           path: '/admin/staffingTenderManagement',
