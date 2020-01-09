@@ -50,7 +50,7 @@
             </el-col>
 
             <el-col :span="11">
-              <el-form-item label="需要数目">
+              <el-form-item label="需要数量">
                 <el-input v-model="form.number" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
@@ -66,8 +66,8 @@
         </el-form>
 
         <div align="right">
-          
-          <el-button type="primary" class="button1">下载相关技术文档</el-button>
+         <!-- <el-button type="primary" class="button1">下载图纸</el-button>-->
+          <el-button type="primary" class="button1">下载相关文档</el-button>
            <el-divider></el-divider>
         </div>
         <h3>二级供应商列表</h3>
@@ -124,7 +124,7 @@
 
 <script>
 export default {
-  name: "designTaskqDesigin",
+  name: "circulationTaskqing",
   data() {
     return {
       dialogTableVisible: false,
@@ -150,7 +150,7 @@ export default {
           bname: "精密制造厂",
           name: "张亮",
           tastname: "小型车辆车顶设计",
-          state: "成功",
+          state: "进行中",
           date: "2019-11-1"
         },
         {
@@ -159,7 +159,7 @@ export default {
           bname: "赛轮空管制造厂",
           name: "李鹏",
           tastname: "小型车辆车顶设计",
-          state: "成功",
+          state: "进行中",
           date: "2019-11-1"
         },
         {
@@ -168,7 +168,7 @@ export default {
           bname: "东方电线制造厂",
           name: "王星",
           tastname: "小型车辆车顶设计",
-          state: "成功",
+          state: "进行中",
           date: "2019-11-1"
         }
       ],
@@ -177,7 +177,7 @@ export default {
   methods: {
     goBack() {
       this.$router.push("/admin/circulationTaskq");
-    }
+    },
   }
 };
 </script>

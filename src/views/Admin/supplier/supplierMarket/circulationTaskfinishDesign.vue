@@ -48,34 +48,93 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="11">
-              <el-form-item label="设计人员">
-                <el-input v-model="form.designer" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
+          
 
-            <el-col :span="11">
-              <el-form-item label="任务细节">
-                <el-input v-model="form.detail" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-
-             <el-col :span="11">
+              <el-col :span="11">
               <el-form-item label="供货数量">
                 <el-input v-model="form.number" :disabled="true"></el-input>
               </el-form-item>
+
             </el-col>
+
+            <el-col width="100%">
+              <el-form-item label="任务细节">
+               <el-input type="textarea" :rows="3" style="width:90%" v-model="form.detail" :disabled="true"></el-input>
+              </el-form-item>
+          </el-col>
+
+            
           </el-row>
           <el-row :gutter="80"></el-row>
         </el-form>
 
         <div align="right">
-           <el-button type="primary" class="button1" >下载图纸</el-button>
-            <el-button type="primary" class="button1" @click="EvaluationDetils()">查看评价</el-button>
+           
+            
              <el-button type="primary" class="button1" >下载技术文档</el-button>
-          <el-button type="primary" class="button1" @click="goBack()">返回</el-button>
+  
         </div>
-        <el-divider></el-divider>
+        
+         <el-divider></el-divider>
+        <div>
+        <h3>任务评价</h3>
+        </div>
+        <br/>
+        <el-form ref="form" :model="form" label-width="110px">
+        
+          <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="流通总体星级">
+                    <div class="block">
+                            <el-rate v-model="value0" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+                
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="流通数据完整性">
+                    <div class="block">
+                            <el-rate v-model="value1" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="流通数据可靠性">
+                    <div class="block">
+                            <el-rate v-model="value2" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="流通数据一致性">
+                    <div class="block">
+                            <el-rate v-model="value3" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="80">
+                <el-col :span="20">
+                    <el-form-item label="流通数据及时性">
+                    <div class="block">
+                            <el-rate v-model="value4" :colors="colors" >
+                            </el-rate>
+                    </div>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-divider></el-divider>
+        </el-form>
       </el-main>
     </el-container>
   </div>
@@ -95,7 +154,7 @@ export default {
         type: "零件装配制造",
         endtime: "2019-10-17",
         detail:
-          "人生路上，总会有那么几场疾风骤雨，就像是老天爷在提醒世人，你们是在寄人篱下，要乖乖低头。比如陈平安在泥瓶巷自家门口遇上了个蔡金简，在蛟龙沟遇上法袍金醴的原先主人，误入藕花深处，就迎来了一场宗师联手的围剿。就看熬不熬得过去了。熬过去，雨后天晴，熬不过去，最多也就只能像武夫那般，嚷着十八年后还是条好汉。",
+          "",
         leader: "陈平安",
         company: "一汽大众",
         designer: "金像元",
@@ -118,7 +177,7 @@ export default {
   methods: {
     //返回
     goBack() {
-      this.$router.push("/circulationTaskfinish");
+      this.$router.push("/admin/circulationTaskq");
     },
     //跳转评价界面
     EvaluationDetils () {

@@ -48,7 +48,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="需要数目">
+              <el-form-item label="需要数量">
                 <el-input v-model="form.number" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
@@ -63,34 +63,23 @@
         </el-form>
 
         <div align="right">
-          <el-button type="primary" class="button1" @click="dialogTableVisible = true">接受</el-button>
-          <el-button type="primary" class="button1" @click="dialogTableVisibleNo = true">不接受</el-button>
+          <el-button type="primary" class="button1" @click="dialogTableVisibleYes = true">审核通过</el-button>
+          <el-button type="primary" class="button1" @click="dialogTableVisibleNo = true">审核不通过</el-button>
           <el-button type="primary" class="button1">下载相关文档</el-button>
           <div align="left">
 
-            <el-dialog title="分配人员" :visible.sync="dialogTableVisible">
-              <el-form :model="form">
-                <el-form-item label="任务名称" :label-width="formLabelWidth">
-                  <el-input v-model="form.name" autocomplete="off" :disabled="true">this.</el-input>
-                </el-form-item>
-                <el-form-item label="截止日期" :label-width="formLabelWidth">
-                  <el-input v-model="form.endtime" autocomplete="off" :disabled="true">this.</el-input>
-                </el-form-item>
-                <el-form-item label="人员分配" :label-width="formLabelWidth">
-                  <el-select v-model="form.region" placeholder="请选择分配人员">
-                    <el-option label="王小虎" value="wangxiaohu"></el-option>
-                    <el-option label="李丽" value="lili"></el-option>
-                    <el-option label="马杰" value="majie"></el-option>
-                    <el-option label="秦琴" value="qinqin"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-form>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogTableVisible = false">取 消</el-button>
-                <el-button type="primary" @click="success()">确 定</el-button>
-              </div>
+             <el-dialog
+              title="提示"
+              :visible.sync="dialogTableVisibleYes"
+              width="30%"
+              :before-close="handleClose"
+            >
+              <span>审核通过</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="yessuccess()">确 定</el-button>
+              </span>
             </el-dialog>
-
+       
 
              <el-dialog
               title="提示"
@@ -98,26 +87,18 @@
               width="30%"
               :before-close="handleClose"
             >
-              <span>拒绝成功</span>
+              <span>审核不通过</span>
               <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="nosuccess()">确 定</el-button>
               </span>
             </el-dialog>
-          
 
-            <el-dialog
-              title="提示"
-              :visible.sync="dialogVisible"
-              width="30%"
-              :before-close="handleClose"
-            >
-              <span>分配成功</span>
-              <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="goBackagain()">确 定</el-button>
-              </span>
-            </el-dialog>
 
           </div>
+
+      
+
+
         </div>
         <el-divider></el-divider>
       </el-main>
@@ -127,10 +108,10 @@
 
 <script>
 export default {
-  name: "acceptDesignDetailsTask",
+  name: "circulationTaskreD",
   data() {
     return {
-      dialogTableVisible: false,
+      dialogTableVisibleYes: false,
       dialogTableVisibleNo :false,
       dialogVisible: false,
 
@@ -141,26 +122,21 @@ export default {
         endtime: "2019-10-17",
         detail:
           "",
-        number:"40000件",
+        
         leader: "陈平安",
         company: "一汽大众",
-        leaderTel: "18088675187",
+        number: "40000件",
+        leaderTel: "18088675187"
       },
-      
+      formLabelWidth: "120px",
     };
   },
   methods: {
     goBack() {
       this.$router.push("/admin/circulationTaskq");
     },
-    goBackagain() {
-      this.$router.push("/admin/circulationTaskq");
-      this.dialogVisible = false;
-    },
-    success() {
-      this.dialogTableVisible = false;  
-         
-      this.dialogVisible = true;
+    yessuccess() {
+      this.dialogTableVisibleYes = false;     
     },
     nosuccess(){
     this.dialogTableVisibleNo = false;  
