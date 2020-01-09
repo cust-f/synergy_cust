@@ -104,7 +104,6 @@
           <span>HI!欢迎来到Saas应用</span>
           <br>
           <div>
-            
               <el-button style="float: left; padding: 1px 25px 1px 25px left:5px;"  type="primary">登录</el-button>
               <el-button style="float: right; padding: 1px 25px 1px 25px right:5px;" type="primary">注册</el-button>
             </div>

@@ -101,21 +101,24 @@
       <!-- 登录模块-->
       <el-col :span="4" :push="pushCount">
         <div class="bg-purple-dark grid-content">
-          <span>HI!欢迎来到Saas应用</span>
-          <br>
-          <div>
-            
+          <el-card class="box-card" :body-style="{ padding: '5px' }">
+            <div slot="header" class="clearfix0">
+
+              <span>HI!欢迎来到Saas应用</span>
+              <br>
+
+              <div class="clearfix0">
               <el-button style="float: left; padding: 1px 25px 1px 25px left:5px;"  type="primary">登录</el-button>
               <el-button style="float: right; padding: 1px 25px 1px 25px right:5px;" type="primary">注册</el-button>
+              </div>
             </div>
-          <el-card class="box-card" :body-style="{ padding: '5px' }">
             <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
-
               <el-tab-pane label="我有需求" name="first">
                   
               </el-tab-pane>
               <el-tab-pane label="我有服务" name="second">
-                
+                <div class="tab-content-customer active">
+                  
               </el-tab-pane>
             </el-tabs>
 
@@ -162,8 +165,7 @@
 
             <div v-for="i in supplierlist" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.conpaName}}</div>
-              <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.companyName}}</div>
             </div>
             
             </slot>
@@ -430,16 +432,11 @@ export default {
   font-size: 18px;
 }
 
-.grid-content
-{
-  text-align: center;
-}
 /**第一行用css样式*/
 .grid-content0
 {
   border-radius: 4px;
   height: 400px;
-  
 }
 /**第二行用css样式 网站访问统计数据块*/
 .grid-content1
@@ -548,10 +545,6 @@ export default {
     min-height: 36px;
   }
   
-
-.box-card {
-    width: 100%;
-  }
 
 /** */
 

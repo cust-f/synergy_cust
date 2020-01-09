@@ -101,21 +101,63 @@
       <!-- 登录模块-->
       <el-col :span="4" :push="pushCount">
         <div class="bg-purple-dark grid-content">
-          <span>HI!欢迎来到Saas应用</span>
-          <br>
-          <div>
-            
-              <el-button style="float: left; padding: 1px 25px 1px 25px left:5px;"  type="primary">登录</el-button>
-              <el-button style="float: right; padding: 1px 25px 1px 25px right:5px;" type="primary">注册</el-button>
-            </div>
           <el-card class="box-card" :body-style="{ padding: '5px' }">
-            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
+            <div slot="header" class="clearfix0">
 
-              <el-tab-pane label="我有需求" name="first">
+              <span>HI!欢迎来到Saas应用</span>
+
+              <div class="clearfix0">
+              <el-button style="float: left; padding: 3px 0px 3px 50px" type="text">登录</el-button>
+              <el-button style="float: right; padding: 3px 50px 3px 0px" type="text">注册</el-button>
+              </div>
+            </div>
+            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
+              <el-tab-pane label="核心企业" name="first">
+                  <div class="tab-content-customer active">
+                  <div class="tab-content-title">了解如何解决我的需求</div>
+                  <div class="tab-content-locate customer-locate">
+                      1分钟带你玩转SAAS，解锁平台新玩法
+                      <a href="/xinren" target="_blank" data-linkid="index-up-12">查看&gt;</a>
+                  </div>
+                  <div class="tab-content-title">了解SAAS如何保障企业权益</div>
+                  <div class="tab-content-links clearfix">
+                    <a href="" class="tab-content-link-icon" target="_blank" data-linkid="index-up-13-0"></a>
+                    <div class="clearfix">
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-1">资金托管</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-2">实名认证</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-3">官方介入</a>
+
+                    </div>
+                  </div>
                   
+                  </div>
               </el-tab-pane>
-              <el-tab-pane label="我有服务" name="second">
-                
+              <el-tab-pane label="供应商" name="second">
+                <div class="tab-content-customer active">
+                  <div class="tab-content-title">了解如何解决我的需求</div>
+                  <div class="tab-content-locate customer-locate">
+                      1分钟带你玩转SAAS，解锁平台新玩法
+                      <a href="/xinren" target="_blank" data-linkid="index-up-12">查看&gt;</a>
+                  </div>
+                  <div class="tab-content-title">了解SAAS如何保障供应方权益</div>
+                  <div class="tab-content-links clearfix">
+                    <a href="" class="tab-content-link-icon" target="_blank" data-linkid="index-up-13-0"></a>
+                    <div class="clearfix">
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-1">资金托管</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-2">实名认证</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-3">官方介入</a>
+
+                    </div>
+                  </div>
+                  
+
+                  </div>
               </el-tab-pane>
             </el-tabs>
 
@@ -129,61 +171,76 @@
     <el-row :gutter="gutterCount">
       <!--需求任务-->
       <el-col :span="6" :push="pushCount">
-        <div class="grid-content2 ">
-          <el-card class="grid-content2 ">
-            <div slot="header" class="titleColor">
-              <span>任务一览</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
-            </div>
-            <div class="el-card__body" style="height:500px">
-            <slot>
+        <ul class="zy_zxcg">
 
-            <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
-              <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
-            </div>
             
-            </slot>
-          </div>
-        </el-card>
-          
-        </div>
+                <ul>
+                    <li><font class="cg_font01">【成果】</font><a href="javaScript:void(0);" onclick="openView('5bf3bb69c414420cccd2dae3')">农业管理系统(登记)</a><font class="cg_font02">2018-11-20</font></li>
+                </ul>
+            
+                <ul>
+                    <li><font class="cg_font01">【成果】</font><a href="javaScript:void(0);" onclick="openView('5bdfa0d0c41442167402a00e')">多功能汽车尾气净化器</a><font class="cg_font02">2018-11-06</font></li>
+                </ul>
+            
+                <ul>
+                    <li><font class="cg_font01">【成果】</font><a href="javaScript:void(0);" onclick="openView('5bdfa4330540590cd466f13b')">长寿命高炉铁沟料</a><font class="cg_font02">2018-11-05</font></li>
+                </ul>
+            
+                <ul>
+                    <li><font class="cg_font01">【成果】</font><a href="javaScript:void(0);" onclick="openView('5bdfa3d70540590cd466f13a')">粒径可控PS球</a><font class="cg_font02">2018-11-05</font></li>
+                </ul>
+            
+                <ul>
+                    <li><font class="cg_font01">【成果】</font><a href="javaScript:void(0);" onclick="openView('5bdfa37d0540590cd466f139')">碳化硅纤维</a><font class="cg_font02">2018-11-05</font></li>
+                </ul>
+            
+                <ul>
+                    <li><font class="cg_font01">【成果】</font><a href="javaScript:void(0);" onclick="openView('5bdfa3090540590cd466f138')">纳米绝热材料</a><font class="cg_font02">2018-11-05</font></li>
+                </ul>
+            
+                <ul>
+                    <li><font class="cg_font01">【成果】</font><a href="javaScript:void(0);" onclick="openView('5bdfa2be0540590cd466f137')">纳米红外辐射散热涂料</a><font class="cg_font02">2018-11-05</font></li>
+                </ul>
+            
+                <ul>
+                    <li><font class="cg_font01">【成果】</font><a href="javaScript:void(0);" onclick="openView('5bdfa2670540590cd466f136')">片层花状及类石墨烯二硫化钼</a><font class="cg_font02">2018-11-05</font></li>
+                </ul>
+            
+        </ul>
       </el-col>
 
+      <!--核心企业名单-->
       <el-col :span="8"  :push="pushCount">
-        <el-card class="grid-content2 ">
-            <div slot="header" class="titleColor">
-              <span>优质企业</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
-            </div>
-            <div class="el-card__body" style="height:500px">
-            <slot>
 
-            <div v-for="i in supplierlist" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.conpaName}}</div>
-              <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
-            </div>
-            
-            </slot>
-          </div>
-        </el-card>
+        <div class="grid-content2 ">
+            <el-card class="grid-content2 ">
+              <div slot="header">
+                <span>核心企业</span>
+                  <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+              </div>
+
+              <div v-for="l in corebusinessList" :key="l.name">
+                <div style="float:left; width:30%;">{{"["+l.category+"]"}}&nbsp;</div>
+                <div style="float:left; width:70%">{{l.companyName}}&nbsp;&nbsp;</div>
+              </div>
+            </el-card>
+          
+        </div>
       </el-col>
         <el-col :span="6" :push="pushCount">
         <div class="grid-content2 ">
           <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
-              <span>服务成果</span>
+              <span>已完成需求</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
             <div class="el-card__body" style="height:500px">
             <slot>
 
             <div v-for="i in completeddemandTaskList" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:20%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:20%;">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
-              <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
+              <div style="float:right;width:30%">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
             </slot>
@@ -420,6 +477,32 @@ export default {
 
 <style>
 
+.zy_div03 .zy_list .zy_zxcg {
+    padding: 10px;
+}
+ol, ul, li {
+    list-style: none;
+}
+.zy_div03 .zy_list .zy_zxcg li {
+    overflow: hidden;
+}
+.zy_div03 .zy_list .zy_zxcg li a {
+    display: block;
+    font-size: 15px;
+    color: #333;
+    line-height: 38px;
+    float: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 200px;
+}
+.zy_div03 .zy_list .zy_zxcg li .cg_font02 {
+    font-size: 15px;
+    color: #999;
+    line-height: 38px;
+    float: right;
+}
 
 /**中间的div块   给gutter留padding*/
 .BG {
@@ -430,16 +513,11 @@ export default {
   font-size: 18px;
 }
 
-.grid-content
-{
-  text-align: center;
-}
 /**第一行用css样式*/
 .grid-content0
 {
   border-radius: 4px;
   height: 400px;
-  
 }
 /**第二行用css样式 网站访问统计数据块*/
 .grid-content1
@@ -471,17 +549,6 @@ export default {
   padding-bottom: 20px;
   width: 30%;
   float: left;
-}
-
-/**需求一览 服务成果字体样式*/
-.fontStyle1
-{
-  color: rgb(230, 158, 24);
-}
-.fontStyle2
-{
-  color:rgb(150, 144, 144);
-  font-size: 15px;
 }
 
 /**各个任务标题背景色 */
@@ -549,13 +616,6 @@ export default {
   }
   
 
-.box-card {
-    width: 100%;
-  }
-
-/** */
-
-
 
 /**服务入口跳转用CSS*/
 .category_wrap {
@@ -589,7 +649,6 @@ export default {
     margin: 0 20px 0 0;
     display: inline-block;
     font-size: 10px;
-     font-style:normal;
 }
 a {
     color: #333;

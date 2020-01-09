@@ -101,21 +101,64 @@
       <!-- 登录模块-->
       <el-col :span="4" :push="pushCount">
         <div class="bg-purple-dark grid-content">
-          <span>HI!欢迎来到Saas应用</span>
-          <br>
-          <div>
-            
-              <el-button style="float: left; padding: 1px 25px 1px 25px left:5px;"  type="primary">登录</el-button>
-              <el-button style="float: right; padding: 1px 25px 1px 25px right:5px;" type="primary">注册</el-button>
-            </div>
           <el-card class="box-card" :body-style="{ padding: '5px' }">
-            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
+            <div slot="header" class="clearfix0">
 
+              <span>HI!欢迎来到Saas应用</span>
+              <br>
+
+              <div class="clearfix0">
+              <el-button style="float: left; padding: 1px 25px 1px 25px left:5px;"  type="primary">登录</el-button>
+              <el-button style="float: right; padding: 1px 25px 1px 25px right:5px" type="primary">注册</el-button>
+              </div>
+            </div>
+            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
               <el-tab-pane label="我有需求" name="first">
+                  <div class="tab-content-customer active">
+                  <div class="tab-content-title">了解如何解决我的需求</div>
+                  <div class="tab-content-locate customer-locate">
+                      1分钟带你玩转SAAS，解锁平台新玩法
+                      <a href="/xinren" target="_blank" data-linkid="index-up-12">查看&gt;</a>
+                  </div>
+                  <div class="tab-content-title">了解SAAS如何保障企业权益</div>
+                  <div class="tab-content-links clearfix">
+                    <a href="" class="tab-content-link-icon" target="_blank" data-linkid="index-up-13-0"></a>
+                    <div class="clearfix">
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-1">资金托管</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-2">实名认证</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-3">官方介入</a>
+
+                    </div>
+                  </div>
                   
+                  </div>
               </el-tab-pane>
               <el-tab-pane label="我有服务" name="second">
-                
+                <div class="tab-content-customer active">
+                  <div class="tab-content-title">了解如何解决我的需求</div>
+                  <div class="tab-content-locate customer-locate">
+                      1分钟带你玩转SAAS，解锁平台新玩法
+                      <a href="/xinren" target="_blank" data-linkid="index-up-12">查看&gt;</a>
+                  </div>
+                  <div class="tab-content-title">了解SAAS如何保障供应方权益</div>
+                  <div class="tab-content-links clearfix">
+                    <a href="" class="tab-content-link-icon" target="_blank" data-linkid="index-up-13-0"></a>
+                    <div class="clearfix">
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-1">资金托管</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-2">实名认证</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-3">官方介入</a>
+
+                    </div>
+                  </div>
+                  
+
+                  </div>
               </el-tab-pane>
             </el-tabs>
 
@@ -133,7 +176,6 @@
           <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
               <span>任务一览</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
             <div class="el-card__body" style="height:500px">
             <slot>
@@ -154,15 +196,14 @@
       <el-col :span="8"  :push="pushCount">
         <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
-              <span>优质企业</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
+              <span>任务一览</span>
             </div>
             <div class="el-card__body" style="height:500px">
             <slot>
 
-            <div v-for="i in supplierlist" :key="i.name" style="padding-bottom: 50px;">
+            <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.conpaName}}</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
@@ -430,16 +471,11 @@ export default {
   font-size: 18px;
 }
 
-.grid-content
-{
-  text-align: center;
-}
 /**第一行用css样式*/
 .grid-content0
 {
   border-radius: 4px;
   height: 400px;
-  
 }
 /**第二行用css样式 网站访问统计数据块*/
 .grid-content1
@@ -548,10 +584,6 @@ export default {
     min-height: 36px;
   }
   
-
-.box-card {
-    width: 100%;
-  }
 
 /** */
 

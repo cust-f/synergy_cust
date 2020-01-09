@@ -101,21 +101,63 @@
       <!-- 登录模块-->
       <el-col :span="4" :push="pushCount">
         <div class="bg-purple-dark grid-content">
-          <span>HI!欢迎来到Saas应用</span>
-          <br>
-          <div>
-            
-              <el-button style="float: left; padding: 1px 25px 1px 25px left:5px;"  type="primary">登录</el-button>
-              <el-button style="float: right; padding: 1px 25px 1px 25px right:5px;" type="primary">注册</el-button>
-            </div>
           <el-card class="box-card" :body-style="{ padding: '5px' }">
-            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
+            <div slot="header" class="clearfix0">
 
-              <el-tab-pane label="我有需求" name="first">
+              <span>HI!欢迎来到Saas应用</span>
+
+              <div class="clearfix0">
+              <el-button style="float: left; padding: 3px 0px 3px 50px" type="text">登录</el-button>
+              <el-button style="float: right; padding: 3px 50px 3px 0px" type="text">注册</el-button>
+              </div>
+            </div>
+            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
+              <el-tab-pane label="核心企业" name="first">
+                  <div class="tab-content-customer active">
+                  <div class="tab-content-title">了解如何解决我的需求</div>
+                  <div class="tab-content-locate customer-locate">
+                      1分钟带你玩转SAAS，解锁平台新玩法
+                      <a href="/xinren" target="_blank" data-linkid="index-up-12">查看&gt;</a>
+                  </div>
+                  <div class="tab-content-title">了解SAAS如何保障企业权益</div>
+                  <div class="tab-content-links clearfix">
+                    <a href="" class="tab-content-link-icon" target="_blank" data-linkid="index-up-13-0"></a>
+                    <div class="clearfix">
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-1">资金托管</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-2">实名认证</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-3">官方介入</a>
+
+                    </div>
+                  </div>
                   
+                  </div>
               </el-tab-pane>
-              <el-tab-pane label="我有服务" name="second">
-                
+              <el-tab-pane label="供应商" name="second">
+                <div class="tab-content-customer active">
+                  <div class="tab-content-title">了解如何解决我的需求</div>
+                  <div class="tab-content-locate customer-locate">
+                      1分钟带你玩转SAAS，解锁平台新玩法
+                      <a href="/xinren" target="_blank" data-linkid="index-up-12">查看&gt;</a>
+                  </div>
+                  <div class="tab-content-title">了解SAAS如何保障供应方权益</div>
+                  <div class="tab-content-links clearfix">
+                    <a href="" class="tab-content-link-icon" target="_blank" data-linkid="index-up-13-0"></a>
+                    <div class="clearfix">
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-1">资金托管</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-2">实名认证</a>
+
+                      <a href="" class="tab-content-link" target="_blank" data-linkid="index-up-11-3">官方介入</a>
+
+                    </div>
+                  </div>
+                  
+
+                  </div>
               </el-tab-pane>
             </el-tabs>
 
@@ -128,71 +170,166 @@
     <!--第四行   需求任务及已完成需求-->
     <el-row :gutter="gutterCount">
       <!--需求任务-->
-      <el-col :span="6" :push="pushCount">
+      <el-col :span="16" :push="pushCount">
         <div class="grid-content2 ">
           <el-card class="grid-content2 ">
-            <div slot="header" class="titleColor">
-              <span>任务一览</span>
+            <div slot="header">
+              <span>需求任务</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
-            <div class="el-card__body" style="height:500px">
-            <slot>
 
-            <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
-              <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
+            <div v-for="p in demandTaskList" :key="p.name" style="padding-bottom: 50px;">
+              <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{p.name}}</div>
+              <div style="float:right;width:30%">&nbsp;{{p.sTime}}</div>
+            
             </div>
             
-            </slot>
-          </div>
+
+
+        </el-card>
+          
+        </div>
+        <el-col :span="16" :push="pushCount">
+        <div class="grid-content2 ">
+          <el-card class="grid-content2 ">
+            <div slot="header">
+              <span>需求任务</span>
+              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
+            </div>
+
+            <div v-for="p in demandTaskList" :key="p.name" style="padding-bottom: 50px;">
+              <div style="float:left; width:10%;">{{"["+p.category+"]"}}&nbsp;</div>
+              <div style="float:left; width:10%">{{"["+p.companyName+"]"}}&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{p.name}}</div>
+              <div style="float:right;width:30%">&nbsp;{{p.sTime}}</div>
+            
+            </div>
+            
+
+
         </el-card>
           
         </div>
       </el-col>
-
+      <!--已完成需求-
       <el-col :span="8"  :push="pushCount">
-        <el-card class="grid-content2 ">
-            <div slot="header" class="titleColor">
-              <span>优质企业</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
-            </div>
-            <div class="el-card__body" style="height:500px">
-            <slot>
-
-            <div v-for="i in supplierlist" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.conpaName}}</div>
-              <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
-            </div>
-            
-            </slot>
-          </div>
-        </el-card>
-      </el-col>
-        <el-col :span="6" :push="pushCount">
         <div class="grid-content2 ">
-          <el-card class="grid-content2 ">
-            <div slot="header" class="titleColor">
-              <span>服务成果</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
+            <el-card class="grid-content2 ">
+            <div slot="header">
+              <span>已完成需求</span>
+              <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
             </div>
-            <div class="el-card__body" style="height:500px">
-            <slot>
 
-            <div v-for="i in completeddemandTaskList" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:20%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+            <div v-for="i in completeddemandTaskList" :key="i.name">
+              <div style="float:left; width:15%;">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:15%">{{"["+i.companyName+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.name}}</div>
-              <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
             
-            </slot>
-          </div>
+
         </el-card>
           
+        </div>
+      </el-col>
+      -->
+
+      <!--核心企业名单-->
+      <el-col :span="4"  :push="pushCount">
+        <div class="grid-content2 ">
+            <el-card class="grid-content2 ">
+              <div slot="header">
+                <span>核心企业</span>
+                  <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+              </div>
+
+              <div v-for="l in corebusinessList" :key="l.name">
+                <div style="float:left; width:30%;">{{"["+l.category+"]"}}&nbsp;</div>
+                <div style="float:left; width:70%">{{l.companyName}}&nbsp;&nbsp;</div>
+              </div>
+            </el-card>
+          
+        </div>
+      </el-col>
+
+    </el-row>
+
+    <!--第五行  分割线-->
+    <el-row :gutter="gutterCount">
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
+        <div class="big_bt">
+            <a>流通</a>
         </div>
       </el-col>
     </el-row>
+
+    <!--第六行   流通需求及已完成流通-->
+    <el-row :gutter="gutterCount">
+      <!--流通需求-->
+      <el-col :span="8" :push="pushCount">
+        <div class="grid-content bg-purple-dark">
+          <el-card class="grid-content2 ">
+            <div slot="header">
+              <span>流通需求</span>
+              <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+            </div>
+
+            <div v-for="u in demandforcirculationList" :key="u.name">
+              <div style="float:left; width:15%;">{{"["+u.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:15%">{{"["+u.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{u.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{u.sTime}}</div>
+            </div>
+            
+
+
+        </el-card>
+          
+        </div>
+      </el-col>
+      <!--已完成流通-->
+      <el-col :span="8"  :push="pushCount">
+        <div class="grid-content bg-purple-dark">
+            <el-card class="grid-content2 ">
+            <div slot="header">
+              <span>已完成流通</span>
+              <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+            </div>
+
+            <div v-for="j in completecirculationList" :key="j.name">
+              <div style="float:left; width:15%;">{{"["+j.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left; width:15%">{{"["+j.companyName+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{j.name}}</div>
+              <div style="float:right;width:20%">&nbsp;&nbsp;{{j.sTime}}</div>
+            </div>
+            
+
+        </el-card>
+          
+        </div>
+      </el-col>
+      <!--供应商信息-->
+      <el-col :span="4"  :push="pushCount">
+        <div class="grid-content bg-purple-dark">
+          <el-card class="grid-content2 ">
+              <div slot="header">
+                <span>供应商</span>
+                  <el-button style="float: right; padding: 3px 0" type="text">>>更多</el-button>
+              </div>
+
+              <div v-for="h in supplierlist" :key="h.name">
+                <div style="float:left; width:40%;">{{"["+h.category+"]"}}&nbsp;&nbsp;</div>
+                <div style="float:left; width:60%">{{h.companyName}}&nbsp;</div>
+              </div>
+            </el-card>
+          
+        </div>
+      </el-col>
+
+    </el-row>
+
 
     <!--第七行  分割线-->
     <el-row :gutter="gutterCount">
@@ -289,8 +426,6 @@ export default {
 
        //登录注册模块
        activeName: 'second',
-       activeName0: 'second',
-       
 
       //需求任务数组
       demandTaskList:
@@ -419,8 +554,6 @@ export default {
 
 
 <style>
-
-
 /**中间的div块   给gutter留padding*/
 .BG {
   box-sizing: border-box;
@@ -430,16 +563,11 @@ export default {
   font-size: 18px;
 }
 
-.grid-content
-{
-  text-align: center;
-}
 /**第一行用css样式*/
 .grid-content0
 {
   border-radius: 4px;
   height: 400px;
-  
 }
 /**第二行用css样式 网站访问统计数据块*/
 .grid-content1
@@ -454,7 +582,6 @@ export default {
 {
   border-radius: 4px;
   height: 400px;
-  padding-bottom: 50px;
 }
 .grid-content3
 {
@@ -466,29 +593,7 @@ export default {
   border-radius: 4px;
   height: 100px;
 }
-.grid-content6
-{
-  padding-bottom: 20px;
-  width: 30%;
-  float: left;
-}
 
-/**需求一览 服务成果字体样式*/
-.fontStyle1
-{
-  color: rgb(230, 158, 24);
-}
-.fontStyle2
-{
-  color:rgb(150, 144, 144);
-  font-size: 15px;
-}
-
-/**各个任务标题背景色 */
-.titleColor0
-{
-  background-color:rgb(230, 123, 133);
-}
 
 
 /**网站统计数据字体样式 */
@@ -549,13 +654,6 @@ export default {
   }
   
 
-.box-card {
-    width: 100%;
-  }
-
-/** */
-
-
 
 /**服务入口跳转用CSS*/
 .category_wrap {
@@ -589,7 +687,6 @@ export default {
     margin: 0 20px 0 0;
     display: inline-block;
     font-size: 10px;
-     font-style:normal;
 }
 a {
     color: #333;
