@@ -27,6 +27,8 @@ import circulationTask from '@/views/admin/circulation/circulationTask'//流通�
 
 import designTaskEvaluation from '@/views/admin/projectManagement/designTaskEvaluation'//设计任务评价
 import designTaskEvaluationDetils from '@/views/admin/projectManagement/designTaskEvaluationDetils'//设计任务评价详情
+import circulationTaskEvaluation from '@/views/admin/circulationRemark/circulationTaskEvaluation' //流通任务评价
+import circulationTaskEvaluationDetils from '@/views/admin/circulationRemark/circulationTaskEvaluationDetils'//流通任务评价详情
 import staffingTenderManagement from '@/views/admin/projectManagement/staffingTenderManagement'
 
 
@@ -178,7 +180,7 @@ export default new Router({
           name: 'designTaskEvaluation',
           component: designTaskEvaluation
         },
-        //
+        //任务计划
        {
           path: '/admin/supplyContract',
           name: 'supplyContract',
@@ -186,10 +188,25 @@ export default new Router({
         
 
         },  
+        //用户管理
         {
           path: '/admin/userManagement',
           name: 'userManagement',
           component: userManagement,
+        
+
+        },  
+        {
+          path: '/admin/circulationTaskEvaluation',
+          name: 'circulationTaskEvaluation',
+          component: circulationTaskEvaluation,
+        
+
+        },  
+        {
+          path: '/admin/circulationTaskEvaluationDetils',
+          name: 'circulationTaskEvaluationDetils',
+          component: circulationTaskEvaluationDetils,
         
 
         },  
