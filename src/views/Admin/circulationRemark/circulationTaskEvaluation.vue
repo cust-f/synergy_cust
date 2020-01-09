@@ -131,9 +131,9 @@ export default {
         tableData: [
         { el: '#vue',
           id: 1, 
-          Maintask:"A",
-          Subtask: "b任务",
-          Suppliername: "CCC",
+          Maintask:"车间零部件生产",
+          Subtask: "火车的制造",
+          Suppliername: "沈阳机床集团有限责任公司",
           time:"2020-02-02",
           state: "已评价",
           Grade: "5 "
@@ -142,18 +142,18 @@ export default {
         },
         {
           id: 2, 
-          Maintask:"B",
-          Subtask: "b任务",
-          Suppliername: "123",
+          Maintask:"卫星微型零件制作",
+          Subtask: "汽车生产装配",
+          Suppliername: "中国机械工业集团公司",
           time:"2019-12-02",
           state: "已评价",
           Grade:"4"
         },
         {
           id: 3, 
-          Maintask:"A",
-          Subtask: "b任务",
-          Suppliername: "CCC",
+          Maintask:"大型机械组装",
+          Subtask: "轮船动力锅炉制造",
+          Suppliername: "山东工程机械集团有限公司",
           time:"2019-03-02",
           state: "未评价",
           Grade:" "
@@ -161,9 +161,9 @@ export default {
         },
         {
           id: 4, 
-          Maintask:"C",
-          Subtask: "v任务",
-          Suppliername: "VFT",
+          Maintask:"大型机械组装",
+          Subtask: "铁轨的制造",
+          Suppliername: "大连冰山集团有限公司",
           time:"2020-01-02",
           state: "未评价",
           Grade:" "
@@ -171,18 +171,18 @@ export default {
         },
          {
          id: 5, 
-          Maintask:"FF",
-          Subtask: "b任务",
-          Suppliername: "ASD",
+          Maintask:"车间零部件生产",
+          Subtask: "高压锅炉制造",
+          Suppliername: "沈阳机床集团有限责任公司",
           time:"2020-02-02",
           state: "未评价",
           Grade:" "
         },
         {
            id: 6, 
-          Maintask:"N",
-          Subtask: "g任务",
-          Suppliername: "ERT",
+          Maintask:"车间零部件生产",
+          Subtask: "火车的制造",
+          Suppliername: "长春光华微电子集团",
           time:"2020-01-02",
           state: "未评价",
           Grade:" "
@@ -190,9 +190,9 @@ export default {
         },
         {
           id: 7, 
-          Maintask:"U",
-          Subtask: "b任务",
-          Suppliername: "ASD",
+          Maintask:"卫星微型零件制作",
+          Subtask: "高精密轮轴制造",
+          Suppliername: "北方重工集团有限公司",
           time:"2019-08-08",
           state: "未评价",
           Grade:" "

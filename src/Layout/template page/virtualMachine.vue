@@ -9,6 +9,7 @@
         <el-main style="padding-top:10spx;overflow:hidden;">
           <el-container>
             <el-container>
+              
               <el-main width="73%" id="kvm-left">
                 <el-tabs type="card" v-model="activeName" @tab-click="handleClick">
                   <el-tab-pane label="光华电子" name="first">
@@ -28,11 +29,11 @@
 
               <div
                 id="movebar"
-                style="width:15px; z-index:2; background:#cccccc; margin-left:-20px; height:97%"
+                style="width:15px; z-index:2; background:#cccccc; margin-left:-20px; margin-top:76px; height:91%"
               ></div>
 
               <el-aside width="27%" id="kvm-right">
-                <div style="height:128px">
+                <div style="height:128px; margin-top:50px">
                   <el-row>
                     <el-col :span="11">
                       <el-button class="buttons" type="info" @click="backtolist">返回</el-button>
@@ -50,7 +51,8 @@
                     </el-col>
                   </el-row>
                 </div>
-                <el-tabs v-model="activeTab" type="border-card" style="height:80%; margin-top:5px">
+
+                <el-tabs v-model="activeTab" type="border-card" style="height:73%; margin-top:5px">
                   <el-tab-pane class="cur" label="任务详情" name="first">
                     <el-form ref="form" :model="form" label-width="100px" style="margin-right:20px">
                       <br />
@@ -98,6 +100,7 @@
                   </el-tab-pane>
                   <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane>
                 </el-tabs>
+
               </el-aside>
             </el-container>
           </el-container>
@@ -133,7 +136,7 @@ export default {
       const oIframe = document.getElementById("show-iframe");
       const deviceWidth = document.documentElement.clientWidth;
       const deviceHeight = document.documentElement.clientHeight;
-      oIframe.style.height = Number(deviceHeight) - 50 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
+      oIframe.style.height = Number(deviceHeight) - 40 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
     }
     changeMobsfIframe();
     window.onresize = function() {
@@ -236,7 +239,7 @@ export default {
 </script>
 <style >
 .buttons {
-  margin-left: 20px;
+  margin-left: 70px;
   margin-top: 15px;
   width: 150px;
 }
