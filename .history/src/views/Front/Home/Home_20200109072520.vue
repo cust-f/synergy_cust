@@ -8,11 +8,8 @@
           <el-carousel height="400px">
 
             <!--备注，需要向img_list写入图片地址-->
-            <el-carousel-item v-for="item in img_list" :key="item">
-              <img
-                style="width: 100%; height: 100%;"
-                :src="item"
-                 >
+            <el-carousel-item v-for="item in 1" :key="item">
+              <img :src="item">
             </el-carousel-item>
 
           </el-carousel>
@@ -41,7 +38,6 @@
      <!--第三行  分类门户-->
     <el-row :gutter="5">
       <el-col :span="16" :push="pushCount">
-        
         <div class="bg-purple-dark grid-content">
           <div class="category_wrap">
     	      <div class="category_box">
@@ -97,24 +93,23 @@
             </div>
         </div>
       </el-col>
-      
       <!-- 登录模块-->
       <el-col :span="4" :push="pushCount">
         <div class="bg-purple-dark grid-content">
-          <el-card class="box-card" :body-style="{ padding: '5px' }">
+          <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>HI!欢迎来到Saas应用</span>
+              <span>卡片名称</span>
               <div class="clearfix">
               <el-button style="float: left; padding: 3px 0px 3px 50px" type="text">登录</el-button>
               <el-button style="float: right; padding: 3px 50px 3px 0px" type="text">注册</el-button>
               </div>
             </div>
-            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
-              <el-tab-pane label="核心企业" name="first">用户管理</el-tab-pane>
-              <el-tab-pane label="供应商" name="second">配置管理</el-tab-pane>
-            </el-tabs>
-
             
+
+            <div v-for="o in 4" :key="o" class="text item">
+              {{'列表内容 ' + o }}
+            </div>
+
           </el-card>
         </div>
       </el-col>
@@ -328,8 +323,6 @@ export default {
   data() {
     return {
 
-      fit:'cover',
-
       //第一行图片的URL
       url0:"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
 
@@ -347,16 +340,12 @@ export default {
       certifiedSupplierCount:526,
       // 图片地址数组
             img_list:[
-              require('../../../assets/images/home/713be62978c1729c076bcebb8a3bf44a.jpg'),
-              require('../../../assets/images/home/a7e942533a9e0e5056c0c67f89dcc0ae.jpeg'),
-              require('../../../assets/images/home/a662f30ed18c4e6592a42747b4b412b8.jpg'),
+              //src\assets\images\home\a662f30ed18c4e6592a42747b4b412b8.jpg
+              //'../../../assets/images/home/a7e942533a9e0e5056c0c67f89dcc0ae.jpeg',
+              //'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+              "./商标.png"
             ],
       
-
-
-       //登录注册模块
-       activeName: 'second',
-
       //需求任务数组
       demandTaskList:
       [
@@ -466,10 +455,6 @@ export default {
       *转跳对应任务信息页面
       */
       recordTabletender(){
-      },
-      //登陆注册模块点击
-       handleClick(tab, event) {
-        console.log(tab, event);
       }
   }
 };
@@ -558,15 +543,6 @@ export default {
     top: 18px;
 }
 
-
-
-
-
-/** 登录模块核心企业与供应商用CSS*/
-.loginHeight
-{
-  height: 300px;
-}
 
 /**布局测试用css*/
 .el-row {
