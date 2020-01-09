@@ -2,16 +2,26 @@
   <el-container>
     <el-container>
       <el-main width="73%" id="kvm-left">
-        <iframe
-          id="show-iframe"
-          style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
-          frameborder="0"
-          scrolling="yes"
-          src="http://10.34.51.107:9000"
-        ></iframe>
+        <el-tabs type="card"  v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane label="光华电子" name="first">
+            <iframe
+              id="show-iframe"
+              style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
+              frameborder="0"
+              scrolling="yes"
+              src="http://10.34.51.107:9000"
+            ></iframe>
+          </el-tab-pane>
+          <el-tab-pane label="富维海拉" name="second">配置管理</el-tab-pane>
+          <el-tab-pane label="一汽福晟" name="third">角色管理</el-tab-pane>
+          <el-tab-pane label="大陆电子" name="fourth">定时任务补偿</el-tab-pane>
+        </el-tabs>
       </el-main>
 
-      <div id="movebar" style="width:15px; z-index:2; background:#cccccc; margin-left:-20px; height:97%"></div>
+      <div
+        id="movebar"
+        style="width:15px; z-index:2; background:#cccccc; margin-left:-20px; height:97%"
+      ></div>
 
       <el-aside width="27%" id="kvm-right">
         <div style="height:128px">
@@ -90,7 +100,8 @@ export default {
   data() {
     return {
       form: {},
-      activeTab: 'first'
+      activeTab: "first",
+      activeName:"first"
     };
   },
   mounted() {
@@ -206,6 +217,6 @@ export default {
 .buttons {
   margin-left: 20px;
   margin-top: 15px;
-  width: 150px
+  width: 150px;
 }
 </style>
