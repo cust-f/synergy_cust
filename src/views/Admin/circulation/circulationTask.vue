@@ -5,6 +5,8 @@
       <el-main>
         <div class="box"> 
         <h3>流通任务</h3>
+                               <el-divider></el-divider>
+
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
           <div class="container">

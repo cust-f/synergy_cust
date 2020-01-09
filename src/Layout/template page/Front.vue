@@ -8,7 +8,7 @@
 !-->
 <template>
   <el-container style="overflow-x:hidden;">
-    <el-header height="157px">
+    <el-header height="200px">
       <header-synergy ></header-synergy>
     </el-header>
     <el-main style=" overflow:hidden;">
