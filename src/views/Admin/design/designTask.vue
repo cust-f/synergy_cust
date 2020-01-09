@@ -3,7 +3,9 @@
     <el-container>
       <el-main>
         <div class="box">
-        <h3>设计任务</h3></div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <h3>设计任务</h3>
+                               <el-divider></el-divider>
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
           <div class="container">
             <div class="handle-box">
