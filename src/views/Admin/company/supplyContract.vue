@@ -36,6 +36,20 @@
                 </el-col>
                  
             </el-row>
+             <el-row>
+                <el-col :span="11">
+                    <el-form-item label="任务类别">
+                        <el-input v-model="form.Task_category" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="开始时间">
+                        <el-input v-model="form.Task_Time" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                
+            </el-row>
+
 
             
            
@@ -66,7 +80,7 @@
              <el-row>
                 <el-col :span="20" class = "xiangxi">
                     <el-form-item label="附件：" >
-                       <el-link href="https://element.eleme.io" target="_blank" :underline="false">长光卫星国际有限公司关于购买高端装备装备制造领域的科技服务合同.pdf</pdf></el-link>
+                       <el-link href="https://element.eleme.io" target="_blank" :underline="false">长光卫星国际有限公司关于购买高端装备装备制造领域的科技服务合同.pdf</el-link>
                           <!--  <el-input
   type="textarea"
   :rows="5"
@@ -134,6 +148,8 @@ export default {
           detailsxq:' 面向高端制造业，建立科技咨询及评测服务示范。在科技综合服务平台基础上，开展虚拟现实协同辅助协同设计与流通的科技服务，突破企业内部，企业之间的设计与流通数据。',
           Task_Name:'高端装备制造',
           Task_Num:'10011001010',
+          Task_category:'A类',
+          Task_Time:'2019-12-28',
         },
 
     };
@@ -159,7 +175,7 @@ export default {
         },
         goBack()
         {
-            this.$router.push('/admin/supplyBussess',);
+            this.$router.push('/admin/dashboard',);
         }
     }
 }

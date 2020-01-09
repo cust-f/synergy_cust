@@ -1,90 +1,11 @@
 <template>
+   <div>
   <el-container>
     <el-main>
-      <!-- <div class="newTask">
+  
+      
         <h3>用户管理</h3>
-        
-  <el-form ref="form" :model="form" label-width="110px" class="box">
-        
-
-                    <el-row>
-              <el-col :span="11">
-          <el-form-item label="项目名称">
-              <el-input v-model="newTask.name"></el-input>
-            </el-form-item>
-              </el-col>
-              <el-col :span="11">
-       <el-form-item label="项目类别">
-              <el-input v-model="newTask.name"></el-input>
-            </el-form-item>
-              </el-col>
-            </el-row>
-
-            
-
-                      <el-row>
-              <el-col :span="11">
-             <el-form-item label="投标截止日期">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="newTask.date1"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="开始日期">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="newTask.date2"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-              </el-col>
-            </el-row>
- <el-row>
-              <el-col :span="11">
-             <el-form-item label="总负责人">
-              <el-select v-model="newTask.head" placeholder="请选择总负责人" style="width: 100%;">
-                <el-option label="全部" value></el-option>
-                <el-option v-for="head in personnel" :key="head" :label="head" :value="head"></el-option>
-              </el-select>
-            </el-form-item>
-              </el-col>
-              <el-col :span="11">
-           <el-form-item label="项目类别">
-              <el-select v-model="newTask.region" placeholder="请选择项目类别" style="width: 100%;">
-                <el-option label="全部" value></el-option>
-                <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
-              </el-select>
-            </el-form-item>
-              </el-col>
-            </el-row>
-
-
-
-            <el-row>
-                <el-col :span="24" class = "xiangxi">
-                    <el-form-item label="详细" >
-                            <el-input 
-                            type="textarea"
-                            :rows="3"
-                            style="width: 100%;"      
-                            placeholder="请输入内容" v-model="form.Introduction" class="gongsiDetail"  ></el-input>
-                    </el-form-item>
-                    
-                </el-col>
-            </el-row>
-
-
-        </el-form>
-      </div> -->
-      <!-- <el-divider></el-divider> -->
-      <div>
-        <h3>用户管理</h3>
-
+  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div class="container">
           <div class="handle-box">
             <el-button
@@ -93,30 +14,21 @@
               class="handle-del mr10"
               @click="delAllSelection"
             >删除</el-button>
-            <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
-            
-             <el-button
-              type="primary"
-            plain
-              class="handle-del mr10"
-              @click="delAllSelection"
-            >密码初始化</el-button>
-            
-             <el-button
-              type="primary"
-            plain
-              class="handle-del mr10"
-              @click="delAllSelection"
-            >冻结账号</el-button>
-            
-             <el-button
-              type="primary"
-            plain
-              class="handle-del mr10"
-              @click="delAllSelection"
-            >解冻账号</el-button>
-            
-          </div>
+            <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">增加</el-button>
+        
+            <el-select v-model="name" placeholder="企业名称" class="handle-input mr10" ></el-select> 
+              <el-select v-model="name" placeholder="用户名" class="handle-input mr10"></el-select>
+             
+           <el-select v-model="role" placeholder="角色" class="handle-input mr10">
+              <el-option label="需求方" value="1"></el-option>
+            <el-option label="供应商" value="2"></el-option>
+    
+         </el-select>
+              <el-button type="primary" icon="el-icon-search" @click="choose">筛选</el-button>
+          </div> 
+           
+           &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+
           <el-table
             :data="tableData"
             border
@@ -126,112 +38,81 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column type="selection" width="55" align="center"></el-table-column>
-            <el-table-column prop="id" label="用户名" align="center"></el-table-column>
-            <el-table-column prop="taskNum" label="企业名称"></el-table-column>
-            <el-table-column prop="taskName" label="角色"></el-table-column>
-            <el-table-column prop="taskType" label="邮箱""></el-table-column>
-            <el-table-column prop="bidTime" label="联系方式"></el-table-column>
-            <el-table-column prop="supplyCompany" label="密码"></el-table-column>
-            <el-table-column label="操作" align="center">
-              <template slot-scope="scope">
-                <el-button
-                  type="text"
-                  icon="el-icon-edit"
-                  @click="handleEdit(scope.$index, scope.row)"
-                >编辑</el-button>
-                <el-button
-                  type="text"
-                  icon="el-icon-delete"
-                  class="red"
-                  @click="handleDelete(scope.$index, scope.row)"
-                >删除</el-button>
-              </template>
-            </el-table-column>
+            <el-table-column prop="user_name" label="用户名" align="center"></el-table-column>
+            <el-table-column prop="Company_name" label="企业名称"></el-table-column>
+            <el-table-column prop="role" label="角色"></el-table-column>
+            <el-table-column prop="email" label="邮箱"></el-table-column>
+            <el-table-column prop="Business_Tel" label="联系方式"></el-table-column>
+            <el-table-column prop="password" label="密码"></el-table-column>
+ <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <!-- <el-button
+              type="text"
+              icon="el-icon-edit"
+              @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button> -->
+             <el-button @click="supplyDetail" type="text" size="small">初始化密码</el-button>
+            <el-button
+              type="text"
+              class="red"
+              @click="freeze(scope.$index, scope.row)"
+            >冻结</el-button>
+             <el-button
+              type="text"
+              class="red"
+              @click="unfreeze(scope.$index, scope.row)"
+            >解冻</el-button>       
+          </template>
+        </el-table-column>
+            
           </el-table>
+            <div class="pagination">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :current-page="query.pageIndex"
+          :page-size="query.pageSize"
+          :total="pageTotal"
+          @current-change="handlePageChange"
+        ></el-pagination>
+      </div>
         </div>
 
-        <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
-          <el-form ref="form" :model="addList" label-width="120px">
-            <el-form-item label="子任务编号">
-              <el-input v-model="form.taskNum"></el-input>
-            </el-form-item>
-            <el-form-item label="任务名称">
-              <el-input v-model="form.taskName"></el-input>
-            </el-form-item>
-            <el-form-item label="任务类别">
-              <el-select v-model="form.taskTyp" placeholder="请选择项目类别">
-                <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
-              </el-select>
-              <el-input v-model="form.taskType"></el-input>
-            </el-form-item>
-            <el-form-item label="开标时间">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="form.bidTime"
-                value-format="yyyy-MM-dd"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-            <el-form-item label="供应商">
-              <el-select v-model="form.supplyCompany" placeholder="请选择供应商">
-                <el-option
-                  v-for="company in supplyCompanies"
-                  :key="company"
-                  :label="company"
-                  :value="company"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="editVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveEdit">确 定</el-button>
-          </span>
-        </el-dialog>
+       
+     
+  <el-dialog title="增加" :visible.sync="addVisible" width="50%">
+      <el-form ref="form" :model="addList" label-width="70px">
+        <el-form-item label="用户名">
+          <el-input v-model="user_name"></el-input>
+        </el-form-item>
+        <el-form-item label="企业名称">
+          <el-input v-model="company_name"></el-input>
+        </el-form-item>    
+        <el-form-item label="角色">
+          <el-input v-model="role"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="email"></el-input>
+        </el-form-item>
 
-        <!-- 新增弹出框 -->
-        <el-dialog title="新增" :visible.sync="addVisible" width="50%">
-          <el-form ref="form" :model="addList" label-width="120px">
-            <el-form-item label="子任务编号">
-              <el-input v-model="addList.taskNum"></el-input>
-            </el-form-item>
-            <el-form-item label="任务名称">
-              <el-input v-model="addList.taskName"></el-input>
-            </el-form-item>
-            <el-form-item label="任务类别">
-              <el-input v-model="addList.taskType"></el-input>
-            </el-form-item>
-            <el-form-item label="开始时间">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="addList.bidTime"
-                value-format="yyyy-MM-dd"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-            <el-form-item label="核心供应商">
-              <el-select v-model="addList.supplyCompany" placeholder="请选择供应商">
-                <el-option label="全部" value></el-option>
-                <el-option
-                  v-for="company in supplyCompanies"
-                  :key="company"
-                  :label="company"
-                  :value="company"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="addVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveAdd">确 定</el-button>
-          </span>
-        </el-dialog>
-      </div>
-    </el-main>
-  </el-container>
+            <el-form-item label="联系方式">
+          <el-input v-model="contect"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="password"></el-input>
+        </el-form-item>
+
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveAdd">确 定</el-button>
+      </span>
+    </el-dialog>
+              
+
+        </el-main>
+    </el-container>
+   </div> 
 </template>
 
 <script>
@@ -239,6 +120,10 @@ export default {
   name: "userManagement",
   data() {
     return {
+         input1: '',
+      input2: '',
+      input3: '',
+      input4: '',
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -246,9 +131,7 @@ export default {
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
-      personnel: ["许知远", "王添","白泽"], //总负责人
-      statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
-      supplyCompanies: ["沈阳机床集团有限责任公司", "起重集团有限公司", "长光电子"], //供应商列表
+
       id: 0, //记录任务数
       //招标信息
       newTask: {
@@ -260,7 +143,59 @@ export default {
         detail: ""
       },
       //子任务表格
-      tableData: [],
+      tableData: [
+          {
+          user_name: "宋东润",
+          Company_name: "长春第一汽车制造厂",
+          role: "需求方",
+          email:'12306@163.com',
+          Business_Tel:'0451-82872000',          
+          password: "123123"
+        },{
+           user_name: "苏得税",
+          Company_name: "哈尔滨电机厂有限责任公司",
+          role: "供应商",
+          email:'12306@163.com',
+          Business_Tel:'0451-82872000',          
+          password: "cdfgssf"
+        },{
+           user_name: "苏得税",
+          Company_name: "哈尔滨电机厂有限责任公司",
+          role: "供应商",
+          email:'12306@163.com',
+          Business_Tel:'0451-82872000',          
+          password: "fechfr"
+        },{
+           user_name: "苏得税",
+          Company_name: "哈尔滨电机厂有限责任公司",
+          role: "供应商",
+          email:'12306@163.com',
+          Business_Tel:'0451-82872000',          
+          password: "xffdsgg"
+        },{
+           user_name: "苏得税",
+          Company_name: "哈尔滨电机厂有限责任公司",
+          role: "供应商",
+          email:'12306@163.com',
+          Business_Tel:'0451-82872000',          
+          password: "xffdsgg"
+        
+        },{
+           user_name: "苏得税",
+          Company_name: "哈尔滨电机厂有限责任公司",
+          role: "供应商",
+          email:'12306@163.com',
+          Business_Tel:'0451-82872000',          
+          password: "xffdsgg"
+        },{
+           user_name: "苏得税",
+          Company_name: "哈尔滨电机厂有限责任公司",
+          role: "供应商",
+          email:'12306@163.com',
+          Business_Tel:'0451-82872000',          
+          password: "xffdsgg"
+        }
+      ],
       addList: [
         {
           id: "",
@@ -268,7 +203,8 @@ export default {
           taskName: "",
           taskType: "",
           bidTime: "",
-          supplyCompany: ""
+          supplyCompany: "",
+          select: ''
         }
       ],
       form: {}
@@ -333,6 +269,21 @@ export default {
 </script>
 
 <style>
+ .el-select .el-input {
+    width: 130px;
+  }
+  .input-with-select .el-input-group__prepend {
+    background-color: #fff;
+  }
+.con{
+    width:500px;
+    height: 1000px;
+    margin:0 auto;
+    text-align: center
+}
+.table{
+  font-size:16px;
+}
 .newTask textarea {
   min-height: 100px !important;
   width: 500px !important;
