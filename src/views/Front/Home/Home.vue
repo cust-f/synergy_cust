@@ -262,55 +262,21 @@
  
 
     <!-- 第八行  网站数据统计图表 -->
-    <el-row :gutter="gutterCount" >
-      <el-col :span="8" :push="pushCount">
-        <el-card shadow="hover">
-          <div slot="header" class="titleColor">核心企业发布需求量排名TOP5</div>
-            <el-table
-                :data="fulfillTableRank"
-                style="width: 100%">
-                  <el-table-column
-                    prop="rank"
-                    label="排名"
-                    width="50">
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
-                    label="公司"
-                    width="340">
-                  </el-table-column>
-            </el-table>
-            <!-- </div> -->
-        </el-card>
-      </el-col>
-      <el-col :span="12":push="pushCount">
+    <el-row :gutter="gutterCount"d >
+      <el-col :span="20":push="pushCount">
         <el-card shadow="hover">
           <div class="demandTop5"></div>
-          <div id="releaseDemandTop5" style="width: 100%; height:350%; "></div>
+          <div id="monthSituation" style="width: 100%;height:350%;"></div>
         </el-card>
       </el-col>
-            <el-col :span="12":push="pushCount">
-        <el-card shadow="hover">
+      <el-col :span="14":push="pushCount">
+        <el-card shadow="hover" style="margin-top:5px;">
           <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div>
         </el-card>
       </el-col>
-      <el-col :span="8":push="pushCount">
-        <el-card shadow="hover">
-          <div slot="header" class="titleColor">供应商企业完成需求量排名TOP5</div>
-            <el-table
-                :data="fulfillTableRank"
-                style="width: 100%">
-                  <el-table-column
-                    prop="rank"
-                    label="排名"
-                    width="50">
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
-                    label="公司"
-                    width="340">
-                  </el-table-column>
-            </el-table>
+      <el-col :span="6":push="pushCount">
+        <el-card shadow="hover" style="margin-top:5px;">
+          <div id="quarterlySituation" style="width: 100%;height:350%;"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -478,44 +444,13 @@ export default {
         {category:"电气机械",companyName:"哈尔滨科大志远科技有限公司"},
         
       ],
-      releaseTableRank:[{
-        rank:'1',
-        name:'中国格力股份有限公司'
-      },{
-        rank:'2',
-        name:'中国海尔股份有限公司'
-      },{
-        rank:'3',
-        name:'中国美的股份有限公司'
-      },{
-        rank:'4',
-        name:'日本松下'
-      },{
-        rank:'5',
-        name:'日本索尼'
-      }],
-      fulfillTableRank:[{
-        rank:'1',
-        name:'中国美的股份有限公司'
-      },{
-        rank:'2',
-        name:'中国格力股份有限公司'
-      },{
-        rank:'3',
-        name:'中国海尔股份有限公司'
-      },{
-        rank:'4',
-        name:'日本索尼'
-      },{
-        rank:'5',
-        name:'日本松下'
-      }]
 
     };
   },
   mounted(){
     this.getCharts();
     this.getCharts2();
+    this.getCharts3();
   },
   methods:{
       /*
@@ -536,57 +471,65 @@ export default {
           .catch(_ => {});
       },
 
-      getCharts(){
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-    var myChart = echarts.init(document.getElementById('releaseDemandTop5'));
+    getCharts(){
+    var charts = [];
+    var myChart = echarts.init(document.getElementById('quarterlySituation'));
     // 指定图表的配置项和数据
-    var option = {
+    var option = {
     title: {
-        text: '核心企业发布需求量TOP5',
-        subtext: '数据来自大数据统计'
+        text: '季度完成量',
+        subtext: ' ',
+        left: 'center'
     },
     tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
-        }
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
     },
     legend: {
-        data: ['2017年', '2018年']
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: {
-        type: 'value',
-        boundaryGap: [0, 0.01]
-    },
-    yAxis: {
-        type: 'category',
-        data: ['索尼', '松下', '美的', '海尔', '格力']
+        orient: 'vertical',
+        right: 0,
+        data: ['第一季度', '第二季度', '第三季度', '第四季度']
     },
     series: [
         {
-            name: '2017年',
-            type: 'bar',
-            data: [ 1315, 1432, 1679, 1789, 2015]
-        },
-        {
-            name: '2018年',
-            type: 'bar',
-            data: [ 1356, 1530, 1650, 1690, 2121]
-        },
-        
-    ]
+            name: '分季完成量',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '25',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data: [
+                {value: 335, name: '第一季度'},
+                {value: 310, name: '第二季度'},
+                {value: 235, name: '第三季度'},
+                {value: 220, name: '第四季度'},
+                // {value: 1548, name: '搜索引擎'}
+            ]
+        }
+    ],
     
-};
 
-       myChart.setOption(option);
-       charts.push(myChart);
+};
+     myChart.setOption(option);
+     charts.push(myChart);
+
+
     },
 
         getCharts2() {
@@ -619,7 +562,7 @@ export default {
         },
         yAxis: {
           type: 'category',
-          data: ['松下', '索尼', '海尔', '格力', '美的']
+          data: ['上海小糸车灯有限公司 ', '上海胜德塑料厂 ', '上海奥力得特种工具厂', '合肥皖仪科技有限公司', '北京京伟电器有限公司 ']
         },
         series: [
         {
@@ -638,6 +581,67 @@ export default {
       myChart.setOption(option);
       charts.push(myChart);
     },
+
+
+            getCharts3() {
+      // 基于准备好的dom，初始化echarts实例
+      var charts = [];
+      var myChart = echarts.init(document.getElementById('monthSituation'))
+      var option = {
+    title: {
+        text: '分月供需量'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data: ['完成需求量', '发布需求量']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
+        {
+            name: '完成需求量',
+            type: 'line',
+            stack: '总量',
+            data: [120, 132, 101, 134, 90, 230, 210,122,331,444,312,112]
+        },
+        {
+            name: '发布需求量',
+            type: 'line',
+            stack: '总量',
+            data: [120, 182, 191, 234, 290, 330, 310,123,344,354,123,123]
+        },
+
+    ]
+}; // 使用刚指定的配置项和数据显示图表。
+
+      myChart.setOption(option);
+      charts.push(myChart);
+    },
+
+
+
+
+    
+
 
   }
 };
