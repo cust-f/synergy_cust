@@ -56,7 +56,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-receiving',
-                    index: '7',
+                    index: '/twoMenu',
                     title: '需求一览'
                 },
                 {
