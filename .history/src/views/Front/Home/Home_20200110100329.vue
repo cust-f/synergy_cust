@@ -621,66 +621,7 @@ export default {
   background-color: #ece9e9
 }
 
-/*我有需求标签页下的按钮展示样式表*/
-/**左侧按钮的样式表*/
-.xqelbuttonleft
-{
-  float: left; position:relative;left:20px;
-}
-/** 鼠标悬浮左侧按钮的样式表*/
-.xqelbuttonleft:hover
-{
-  background-color: rgb(192, 189, 189);
-  border-color:  rgb(192, 189, 189);
-}
-/**下方大按钮用的样式表*/
-.xqelbuttonleft0
-{
-  float: left; position:relative;left:30%;
-}
-/**右侧按钮的样式表*/
-.xqelbuttonright
-{
-  float: right; position:relative;right:20px;
-}
-/** 鼠标悬浮右侧按钮的样式表*/
-.xqelbuttonright:hover
-{
-  background-color: rgb(192, 189, 189);
-   border-color:  rgb(192, 189, 189);
-}
-
-
-/**发布需求的弹出窗口的CSS */
-
-/**此样式表内 el-input的样式 */
- .Publishingrequirements .el-input
-{
-  width: 300px;
-}
-/**此样式表内 .el-dialog__title的样式*/
-.Publishingrequirements .el-dialog__title
-{
-  font-size: 18px;
-    color: #303133;
-}
-/**此样式表内 立即发布按钮的CSS样式 */
-.CreatebuttonCSS
-{
-  width: 200px;
-  height: 60px;
-  position: relative;
-  left: 33%;
-}
-
-
-/** 登录模块核心企业与供应商用CSS*/
-.loginHeight
-{
-  height: 210px;
-}
-
-/**网站访问统计数据的样式表*/
+/**网站访问简略统计数据的样式表*/
 .grid-content1
 {
   border-radius: 4px;
@@ -689,21 +630,6 @@ export default {
   text-align: center;
   line-height: 50px;
 }
-
-/**网站访问统计数据字体样式（用于访问统计数据标题） */
-.fontStyle0
-{
-  font-size: 20px;
-  color:rgb(167, 165, 165);
-}
-
-/**网站访问统计数据字体样式（用于访问统计数据内容） */
-.fontStyle
-{
-  font-size: 24px;
-  color:orangered;
-}
-
 /**需求一览，优质企业，服务成果 用的外部样式表 */
 .grid-content2
 {
@@ -721,21 +647,49 @@ export default {
   overflow: hidden;
 }
 
-/**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，企业，服务的类别字体）*/
+.grid-content4
+{
+  border-radius: 4px;
+  height: 100px;
+}
+.grid-content6
+{
+  padding-bottom: 20px;
+  width: 30%;
+  float: left;
+}
+
+/**需求一览 服务成果字体样式*/
 .fontStyle1
 {
   color: rgb(230, 158, 24);
 }
-
-/**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，服务的时间字体）*/
 .fontStyle2
 {
   color:rgb(150, 144, 144);
   font-size: 15px;
 }
 
+/**各个任务标题背景色 */
+.titleColor0
+{
+  background-color:rgb(230, 123, 133);
+}
 
-/**平台数据分割线用的样式表*/
+
+/**网站统计数据字体样式 */
+.fontStyle0
+{
+  font-size: 20px;
+  color:rgb(167, 165, 165);
+}
+.fontStyle
+{
+  font-size: 24px;
+  color:orangered;
+}
+
+/**划分页面标识*/
 .big_bt {
     width: 370px;
     margin: 0 auto;
@@ -755,6 +709,57 @@ export default {
     top: 18px;
 }
 
+/*我有需求下按钮展示的CSS*/
+.xqelbuttonleft
+{
+  float: left; position:relative;left:20px;
+}
+.xqelbuttonleft:hover
+{
+  background-color: rgb(192, 189, 189);
+  border-color:  rgb(192, 189, 189);
+}
+
+.xqelbuttonleft0
+{
+  float: left; position:relative;left:30%;
+}
+
+.xqelbuttonright
+{
+  float: right; position:relative;right:20px;
+}
+
+.xqelbuttonright:hover
+{
+  background-color: rgb(192, 189, 189);
+   border-color:  rgb(192, 189, 189);
+}
+
+/**发布需求的弹出窗口的CSS */
+ .Publishingrequirements .el-input
+{
+  width: 300px;
+}
+.Publishingrequirements .el-dialog__title
+{
+  font-size: 18px;
+    color: #303133;
+}
+.CreatebuttonCSS
+{
+  width: 200px;
+  height: 60px;
+  position: relative;
+  left: 33%;
+}
+
+
+/** 登录模块核心企业与供应商用CSS*/
+.loginHeight
+{
+  height: 210px;
+}
 
 /**布局测试用css*/
 .el-row {
@@ -766,6 +771,10 @@ export default {
   .bg-purple-dark {
     background: #99a9bf;
   }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
   
 
 .box-card {
@@ -776,7 +785,7 @@ export default {
 
 
 
-/**分类门户的样式表*/
+/**服务入口跳转用CSS*/
 .category_wrap {
     width: 100%;
     margin: 0px;
@@ -814,6 +823,65 @@ a {
     color: #333;
     text-decoration: none;
 }
+
+
+
+
+
+.index-user-panel .user-panel-tab-content .tab-content-customer.active .user-panel-tab-content .tab-content-seller.active {
+    display: block;
+}
+ .tab-content-title {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 6px;
+    margin-top: 7px;
+    font-weight: 600;
+}
+.tab-content-locate.customer-locate {
+    background: transparent;
+    padding-left: 0;
+    color: #333;
+}
+ .tab-content-locate.customer-locate {
+    background: transparent;
+    padding-left: 0;
+    color: #333;
+}
+.clearfix0
+{
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
