@@ -3,7 +3,7 @@
   <el-menu
     :default-active="this.$route.path"
     background-color="#FF8F12"
-    text-color="#FFF"
+    text-color="#FFF  "
     mode="horizontal"
     router
   >
@@ -56,7 +56,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-receiving',
-                    index: '/twoMenu',
+                    index: '7',
                     title: '需求一览'
                 },
                 {
