@@ -97,7 +97,6 @@ export default {
 }
 .el-menu--horizontal>.el-menu-item.is-active {
   background-color:  #FF8F12 !important;
-  border-bottom: 2px solid rgb(255, 0, 0);
   color: #FFF !important;  
 }
 .el-menu--horizontal>.el-submenu.is-active .el-submenu__title{
@@ -113,7 +112,7 @@ export default {
       height: 45px !important;
     padding:0px 20px;
     margin: 0px 20px !important;
-    line-height: 43px !important;
+    line-height: 45px !important;
 }
 .el-submenu{
 }
