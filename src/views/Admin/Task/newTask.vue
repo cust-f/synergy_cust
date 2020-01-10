@@ -79,7 +79,7 @@
       <el-divider></el-divider>
 
       <el-card shadow="always">
-        <div style="font-size:20px;">子任务信息</div>
+        <div style="font-size:20px;margin-bottom:10px;">子任务信息</div>
         <div class="container">
           <div class="handle-box">
             <el-button

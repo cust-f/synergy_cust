@@ -822,7 +822,7 @@ export default {
 }
 .table {
   width: 100%;
-  font-size: 16px;
+  /* font-size: 16px; */
 }
 .red {
   color: #ff0000;
