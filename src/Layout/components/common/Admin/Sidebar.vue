@@ -162,7 +162,7 @@ export default {
         {
           icon: "el-icon-s-custom",
           index: "9",
-          title: "数据统计",
+          title: "管理员",
           subs: [
             {
               index: "/admin/manager_business",
