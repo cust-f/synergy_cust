@@ -1,8 +1,9 @@
 
 <template>
-<div>
-    <div class="BG0">
+<div align="center"> 
+    
     <!--第一行 首页轮播图-->
+    <div class="BG0">
     <el-row :gutter="gutterCount">
       <el-col :span="24">
         <div class="grid-content0">
@@ -25,18 +26,18 @@
   <div class="BG">
     <!--第二行  网站访问统计数据-->
     <el-row :gutter="gutterCount" >
-      <el-col :span="20"  :push="pushCount" :pull="pullCount">
+      <el-col :span="24">
         <div class="grid-content1  fontStyle0">
-        <span>本月成交任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;项</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <span>需求任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{demandTaskCount}}</font>&nbsp;&nbsp;项</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <span>流通任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{circulationTaskCount}}</font>&nbsp;&nbsp;项</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <span>认证企业:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedEnterpriseCount}}</font>&nbsp;&nbsp;家</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <span>认证供应商:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedSupplierCount}}</font>&nbsp;&nbsp;家</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="dataCSS">本月成交任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;项</span>
+        
+        <span class="dataCSS">需求任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{demandTaskCount}}</font>&nbsp;&nbsp;项</span>
+        
+        <span class="dataCSS">流通任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{circulationTaskCount}}</font>&nbsp;&nbsp;项</span>
+       
+        <span class="dataCSS">认证企业:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedEnterpriseCount}}</font>&nbsp;&nbsp;家</span>
+      
+        <span class="dataCSS">认证供应商:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedSupplierCount}}</font>&nbsp;&nbsp;家</span>
+        
         </div>
       </el-col>
     </el-row>
@@ -44,13 +45,11 @@
 
      <!--第三行  分类门户-->
     <el-row :gutter="5">
-      <el-col :span="16" :push="pushCount">
-        
-        
+      <el-col :span="18" >
           <div class="category_wrap">
     	      <div class="category_box">
             <!----这里分类----->
-              <div class="category_item"><div class="cate_ietm_title"><h3>交通运输设备</h3><p></p></div>          
+              <div class="category_item"><div class="cate_ietm_title"><font>交通运输设备</font><p></p></div>          
                    <i class="cate_list">
                      <a href="">汽车</a>
                      <a href="">铁路运输设备</a>
@@ -62,7 +61,7 @@
                     </i>       
                 </div>      
                     <div class="category_item">     
-                      <div class="cate_ietm_title" style="background:#78bcaf;"><h3>仪器仪表及文化、<br>办公用机械</h3><p></p></div>           
+                      <div class="cate_ietm_title" style="background:#78bcaf;"><font>仪器仪表及文化、<br>办公用机械</font><p></p></div>           
                           <i class="cate_list">
                             <a href="">通用仪器仪表</a>
                             <a href="">专用仪器仪表</a>
@@ -73,7 +72,7 @@
                           </i>       
                       </div>           
                       <div class="category_item">       	
-                          <div class="cate_ietm_title" style="background:#be7fc5;"><h3>通信设备、<br>计算机及其他电子设备</h3><p>&nbsp;</p></div>       	
+                          <div class="cate_ietm_title" style="background:#be7fc5;"><font>通信设备、<br>计算机及其他电子设备</font><p>&nbsp;</p></div>       	
                             <i class="cate_list">
                               <a href="">通信设备</a>
                               <a href="">雷达及配套设备</a>
@@ -86,7 +85,7 @@
                             </i>       
                           </div>         
                       <div class="category_item">       	
-                        <div class="cate_ietm_title" style="background:#67aff9;"><h3>电气机械及器材</h3><p></p></div> 
+                        <div class="cate_ietm_title" style="background:#67aff9;"><font>电气机械及器材</font><p></p></div> 
                             <i class="cate_list">
                               <a href="">电机</a>
                               <a href="">输配电及控制设备</a>
@@ -103,7 +102,7 @@
       </el-col>
       
       <!-- 登录模块-->
-      <el-col :span="4" :push="pushCount">
+      <el-col :span="6" >
         <div class="grid-content">
           <br>
           &nbsp;
@@ -120,17 +119,17 @@
             <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
               <el-tab-pane label="我有需求" name="first">
                    <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
-                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="info" round>企业标准</el-button>
-                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="warning" round>综合服务</el-button>
-                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="danger" round>产业融合</el-button>
+                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="primary" round>企业标准</el-button>
+                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>综合服务</el-button>
+                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>产业融合</el-button>
                    <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>发布需求</el-button>
                    
               </el-tab-pane>
               <el-tab-pane label="我有服务" name="second">
                   <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
-                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="info" round>企业标准</el-button>
-                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="warning" round>综合服务</el-button>
-                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="danger" round>产业融合</el-button>
+                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="primary" round>企业标准</el-button>
+                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>综合服务</el-button>
+                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>产业融合</el-button>
                    <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>寻找需求</el-button>
               </el-tab-pane>
             </el-tabs>
@@ -608,10 +607,41 @@ export default {
 /**轮播图下方的整块的样式表*/
 .BG {
   box-sizing: border-box;
-  width: 100%;
+  width: 1200px;
   margin-bottom: 5px;
   padding:25px;
   font-size: 18px;
+}
+
+/**网站访问统计数据的样式表*/
+.grid-content1
+{
+  border-radius: 4px;
+  height: 50px;
+  /**文字显示居中 */
+  width: 100%;
+  line-height: 50px;
+  overflow: hidden;
+}
+
+/**网站访问统计数据字体样式（用于访问统计数据标题） */
+.fontStyle0
+{
+  font-size: 20px;
+  color:rgb(167, 165, 165);
+}
+.dataCSS
+{
+  width: 25%;
+  height: 100%;
+  overflow: hidden;
+  padding-left: 1%;
+}
+/**网站访问统计数据字体样式（用于访问统计数据内容） */
+.fontStyle
+{
+  font-size: 24px;
+  color:orangered;
 }
 
 /**登陆、注册模块用样式表，用于文本居中及背景色更改*/
@@ -680,29 +710,7 @@ export default {
   height: 210px;
 }
 
-/**网站访问统计数据的样式表*/
-.grid-content1
-{
-  border-radius: 4px;
-  height: 50px;
-  /**文字显示居中 */
-  text-align: center;
-  line-height: 50px;
-}
 
-/**网站访问统计数据字体样式（用于访问统计数据标题） */
-.fontStyle0
-{
-  font-size: 20px;
-  color:rgb(167, 165, 165);
-}
-
-/**网站访问统计数据字体样式（用于访问统计数据内容） */
-.fontStyle
-{
-  font-size: 24px;
-  color:orangered;
-}
 
 /**需求一览，优质企业，服务成果 用的外部样式表 */
 .grid-content2
@@ -784,20 +792,22 @@ export default {
     overflow: hidden;
 }
 .category_box {
-    width: 1300px;
+    width: 100%;
 }
 .category_item {
-    width: 24%;
+    width: 24.7%;
     height: 323px;
     float: left;
     background: #f5f5f5;
     margin: 0 2px 0 0;
+    
 }
 .cate_ietm_title {
     width: 100%;
     height: 70px;
     background: #fa6569;
     color: #fff;
+    font-size: 18px;
 }
 .cate_list {
     line-height: 30px;
@@ -805,7 +815,7 @@ export default {
     display: block;
 }
 .cate_list a {
-    margin: 0 20px 0 0;
+    margin: 0 15px 0 0;
     display: inline-block;
     font-size: 16px;
      font-style:normal;
