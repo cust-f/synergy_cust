@@ -2,7 +2,7 @@
 <div>
     <el-container>
         <el-main>
-            <h3>供应商详情</h3>
+            <h3>设计任务评价</h3>
              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 
               <div>
@@ -30,7 +30,7 @@
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="项目名称"></el-table-column>
-        <el-table-column prop="state" label="评价状态"></el-table-column>
+        <el-table-column prop="state" label="评价状态"><el-tag>已评价</el-tag></el-table-column>
         <el-table-column prop="time" label="评价时间"></el-table-column>
 
 
@@ -47,7 +47,7 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-          <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
+          <el-button @click="remarkDetail" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -135,48 +135,48 @@ export default {
         tableData: [
         {
           id: 1,
-          name: "设计任务",
+          name: "光电测控仪器设备",
           state: "已评价",
-          time:"2019-10-10"
+          time:"2019-11-10"
         },
         {
           id: 1,
-          name: "设计任务",
+          name: "磨床生产",
           state: "已评价",
-          time:"2019-10-10"
+          time:"2020-1-2"
         },
         {
          id: 1,
-          name: "设计任务",
+          name: "汽车电子产品研发",
           state: "已评价",
-          time:"2019-10-10"
+          time:"2019-12-30"
 
         },
         {
           id: 1,
-          name: "设计任务",
+          name: "卫星应用数据创新",
           state: "已评价",
-          time:"2019-10-10"
+          time:"2020-1-5"
 
         },
          {
           id: 1,
-          name: "设计任务",
+          name: "通信技术设计",
           state: "已评价",
-          time:"2019-10-10"
+          time:"2020-1-2"
         },
         {
           id: 1,
-          name: "设计任务",
+          name: "高分子材料创新",
           state: "已评价",
-          time:"2019-10-10"
+          time:"2020-1-3"
 
         },
         {
           id: 1,
-          name: "设计任务",
+          name: "发电智能制造",
           state: "已评价",
-          time:"2019-10-10"
+          time:"2019-11-10"
 
         }
       ],
@@ -188,16 +188,6 @@ export default {
         state: null,
         date: null
       },
-       tenderTrendsList:[
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来"},
-        { column_name: "白日依山尽，黄河入海流"},
-        { column_name: "黄河落天走东海，万里尘沙入胸怀"},
-        { column_name: "明月隐高树，长河没晓天"},
-        { column_name :"萧萧远树疏林外，一半秋山带夕阳。"},
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。"}
-         ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -274,8 +264,8 @@ export default {
       /*
       *转跳对应任务信息页面
       */
-     supplyDetail(){
-         this.$router.push('/designTaskEvaluationDetils')
+     remarkDetail(){
+         this.$router.push('/admin/designTaskEvaluationDetils')
      }
   }
 };

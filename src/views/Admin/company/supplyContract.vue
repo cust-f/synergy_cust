@@ -55,7 +55,7 @@
            
 
             <el-row>
-                <el-col :span="20" class = "xiangxi">
+                <el-col :span="22" class = "xiangxi">
                     <el-form-item label="详情：" >
                       <!-- <el-input v-model="form.detailsxq" :disabled="true"></el-input> -->
                        <el-input
@@ -121,7 +121,8 @@
 
 
         <div align="center">
-           <el-button type="primary" class="button1" >审核</el-button>
+           <!-- <el-button type="primary" class="button1" >审核</el-button> -->
+            <el-button type="primary" plain>审核</el-button>
             <!-- <el-button type="primary" class="button1" @click="achieve" :disabled=wancheng></el-button> -->
         </div> 
 
