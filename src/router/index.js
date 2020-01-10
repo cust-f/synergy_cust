@@ -7,6 +7,7 @@ import login from '@/Layout/template page/login'
 import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'
 import twoMenu from '@/views/Front/Home/twoMenu'
+import threeMenu from '@/views/Front/Home/threeMenu'
 import excellentCompany from '@/views/Front/company/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
 
