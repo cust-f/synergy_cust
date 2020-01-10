@@ -6,8 +6,7 @@ import login from '@/Layout/template page/login'
 //前台界面
 import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'
-import twoMenu from '@/views/Front/Home/twoMenu'//需求任务
-import threeMenu from '@/views/Front/Home/threeMenu'//需求任务详情
+import twoMenu from '@/views/Front/Home/twoMenu'
 import excellentCompany from '@/views/Front/company/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
 
@@ -101,11 +100,6 @@ export default new Router({
           path:"/twoMenu",
           name:"twoMenu",
           component:twoMenu
-        },
-        {
-          path:"/threeMenu",
-          name:"threeMenu",
-          component:threeMenu
         },
         {
           path: '/admin/xuqiuyilan',
