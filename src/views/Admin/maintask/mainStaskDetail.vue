@@ -10,14 +10,15 @@
 
             <el-form ref="form" :model="mainStask" label-width="110px">
             <el-row >
-                <el-col :span="11">
-                    <el-form-item label="子项目ID">
-                        <el-input v-model="mainStask.id" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
+                
                 <el-col :span="11">
                     <el-form-item label="子项目名称">
                         <el-input v-model="mainStask.name" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="负责人员">
+                        <el-input v-model="mainStask.leader" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -35,18 +36,7 @@
                 </el-col>
             </el-row>
 
-            <el-row >
-                <el-col :span="11">
-                    <el-form-item label="设计人员">
-                        <el-input v-model="mainStask.leader" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="子项目细节">
-                        <el-input v-model="mainStask.detail" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row >
+           
 
              <el-row >
                 <el-col :span="11">
@@ -132,12 +122,12 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="供应商名称"></el-table-column>
 
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column prop="date" label="任务截止时间"></el-table-column>
                 <el-table-column prop="money" label="设计时长"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
             <!-- <el-button
@@ -284,7 +274,7 @@
         dialogVisible: false,
 
         mainStask: {
-          id:'000101',
+          id:'1',
           name: '小汽车零件的装配',
           type: '零件装配制造',
           endtime: '2019-10-17',
@@ -313,7 +303,7 @@
           date: "2019-11-1"
         },
         {
-          id: 1,
+          id: 2,
           bussessType: "卫星微型零件制作",
           name: "沈阳机床集团有限责任公司",
           money: "60天",
@@ -321,7 +311,7 @@
           date: "2019-11-1"
         },
         {
-          id: 1,
+          id: 3,
           bussessType: "导弹装配与改革",
           name: "起重集团有限公司",
           money: "50天",

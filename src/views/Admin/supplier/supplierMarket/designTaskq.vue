@@ -3,7 +3,7 @@
     <el-container>
       <el-main>
         <h3>设计任务</h3>
-        <br />
+        <el-divider></el-divider>
         <div>
           <div class="container">
             <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -350,7 +350,7 @@
                     </template>
                   </el-table-column>
 
-                  <el-table-column label="操作" width="180" align="center">
+                  <el-table-column label="操作" width="154" align="center">
                     <template >
                       <el-button
                         @click="jumpdrdesigin()"
@@ -414,7 +414,7 @@
                       >{{scope.row.state}}</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column label="图纸" width="110" align="center">
+                  <el-table-column label="图纸" width="68" align="center">
                     <template slot-scope="scope">
                       <el-button
                         @click="substaskDetail(scope.$index, scope.row)"
@@ -429,7 +429,7 @@
                     </template>
                   </el-table-column>
 
-                  <el-table-column label="操作" width="180" align="center">
+                  <el-table-column label="操作" width="127" align="center">
                     <template>
                       <el-button @click="jumpbolish()" type="text" size="small">查看详情</el-button>
                     </template>

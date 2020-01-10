@@ -1,7 +1,7 @@
 
 <template>
 <div>
-    <div class="BG0">
+    
     <!--第一行 首页轮播图-->
     <el-row :gutter="gutterCount">
       <el-col :span="24">
@@ -20,7 +20,7 @@
         </div>
       </el-col>
     </el-row>
-    </div>
+    
 
   <div class="BG">
     <!--第二行  网站访问统计数据-->
@@ -188,7 +188,7 @@
       <!--需求任务-->
       <el-col :span="6" :push="pushCount">
         <div class="grid-content2 ">
-          <el-card class="grid-content3 ">
+          <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
               <span>需求一览</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
@@ -210,8 +210,7 @@
       </el-col>
 
       <el-col :span="8"  :push="pushCount">
-        <div class="grid-content2 ">
-        <el-card class="grid-content3">
+        <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
               <span>优质企业</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
@@ -227,11 +226,10 @@
             </slot>
           </div>
         </el-card>
-        </div>
       </el-col>
         <el-col :span="6" :push="pushCount">
         <div class="grid-content2 ">
-          <el-card class="grid-content3">
+          <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
               <span>服务成果</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
@@ -351,7 +349,26 @@ export default {
         {category:"仪器仪表",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06"},
         {category:"通信设备",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06"},
       ],
-      //优质企业数据表（category为企业类别，companyName为企业名称）
+      completeddemandTaskList:
+      [
+        {category:"仪器仪表",companyName:"哈工",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"电气机械",companyName:"一汽",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"电气机械",companyName:"一汽",name:"厂区维修服务",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"电气机械",companyName:"哈工",name:"汽车刹车片设计",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"仪器仪表",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"仪器仪表",companyName:"一汽",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"电气机械",companyName:"一汽",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"维修",companyName:"6666",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"维修",companyName:"6666",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"竞价",companyName:"6666",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"竞价",companyName:"6666",name:"绝缘用具更新及试验",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"6666",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06",eTime:"2019-12-31"},
+        {category:"安装",companyName:"6666",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06",eTime:"2019-12-31"},
+        
+      ],
+      
+      
+      //供应商
       supplierlist:
       [
         {category:"交通运输",companyName:"长春富晟吉通物流设备有限公司"},
@@ -361,21 +378,11 @@ export default {
         {category:"仪器仪表",companyName:"北京京伟电器有限公司 "},
         {category:"交通运输",companyName:"长春沃尔特仓储设备有限公司"},
         {category:"电气机械",companyName:"合肥皖仪科技有限公司"},
+        
       ],
-      //服务成果数据表（category为服务成果类别，name为服务成果名称，sTime为服务成果完成时间）
-      completeddemandTaskList:
-      [
-        {category:"仪器仪表",name:"绝缘用具更新及试验",sTime:"2019-09-06"},
-        {category:"电气机械",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06"},
-        {category:"电气机械",name:"厂区维修服务",sTime:"2019-09-06"},
-        {category:"电气机械",name:"汽车刹车片设计",sTime:"2019-09-06"},
-        {category:"仪器仪表",name:"绝缘用具更新及试验",sTime:"2019-09-06"},
-        {category:"仪器仪表",name:"绝缘用具更新及试验",sTime:"2019-09-06"},
-        {category:"电气机械",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06"},
-      ],
+
     };
   },
-  //网站下方数据统计图表用（丁宅荣负责添加）
   mounted(){
     this.getCharts();
     this.getCharts2();
@@ -387,13 +394,11 @@ export default {
       */
       recordTabletender(){
       },
-
-      //登陆注册模块tag页点击事件
+      //登陆注册模块点击
        handleClick(tab, event) {
         console.log(tab, event);
       },
-
-      //发布需求界面关闭前的最后一次确认
+      //免费发布界面关闭前的最后一次确认
       handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
@@ -402,14 +407,12 @@ export default {
           .catch(_ => {});
       },
 
-      //以下为平台数据统计所用图表函数
-
-      getCharts(){
-      var charts = [];
-      var myChart = echarts.init(document.getElementById('quarterlySituation'));
-      // 指定图表的配置项和数据
-      var option = {
-      title: {
+    getCharts(){
+    var charts = [];
+    var myChart = echarts.init(document.getElementById('quarterlySituation'));
+    // 指定图表的配置项和数据
+    var option = {
+    title: {
         text: '季度完成量',
         subtext: ' ',
         left: 'center'
@@ -589,23 +592,9 @@ export default {
 
 
 <style>
-/**轮播图的样式表 */
-.BG0 {
-  box-sizing: border-box;
-  width: 100%;
-  margin-bottom: 5px;
-  padding: 0px;
-  font-size: 18px;
-}
 
-/**首页轮播图用样式表用于确认轮播图高度及border*/
-.grid-content0
-{
-  height: 400px;
-  padding: 0px;
-}
 
-/**轮播图下方的整块的样式表*/
+/**中间的div块   给gutter留padding*/
 .BG {
   box-sizing: border-box;
   width: 100%;
@@ -613,74 +602,28 @@ export default {
   padding:25px;
   font-size: 18px;
 }
+.BG0 {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: -2.5px;
+  font-size: 18px;
+}
 
-/**登陆、注册模块用样式表，用于文本居中及背景色更改*/
+
 .grid-content
 {
   text-align: center;
   background-color: #ece9e9
 }
-
-/*我有需求标签页下的按钮展示样式表*/
-/**左侧按钮的样式表*/
-.xqelbuttonleft
+/**第一行用css样式*/
+.grid-content0
 {
-  float: left; position:relative;left:20px;
+  border-radius: 4px;
+  height: 400px;
+  
 }
-/** 鼠标悬浮左侧按钮的样式表*/
-.xqelbuttonleft:hover
-{
-  background-color: rgb(192, 189, 189);
-  border-color:  rgb(192, 189, 189);
-}
-/**下方大按钮用的样式表*/
-.xqelbuttonleft0
-{
-  float: left; position:relative;left:30%;
-}
-/**右侧按钮的样式表*/
-.xqelbuttonright
-{
-  float: right; position:relative;right:20px;
-}
-/** 鼠标悬浮右侧按钮的样式表*/
-.xqelbuttonright:hover
-{
-  background-color: rgb(192, 189, 189);
-   border-color:  rgb(192, 189, 189);
-}
-
-
-/**发布需求的弹出窗口的CSS */
-
-/**此样式表内 el-input的样式 */
- .Publishingrequirements .el-input
-{
-  width: 300px;
-}
-/**此样式表内 .el-dialog__title的样式*/
-.Publishingrequirements .el-dialog__title
-{
-  font-size: 18px;
-    color: #303133;
-}
-/**此样式表内 立即发布按钮的CSS样式 */
-.CreatebuttonCSS
-{
-  width: 200px;
-  height: 60px;
-  position: relative;
-  left: 33%;
-}
-
-
-/** 登录模块核心企业与供应商用CSS*/
-.loginHeight
-{
-  height: 210px;
-}
-
-/**网站访问统计数据的样式表*/
+/**第二行用css样式 网站访问统计数据块*/
 .grid-content1
 {
   border-radius: 4px;
@@ -689,22 +632,6 @@ export default {
   text-align: center;
   line-height: 50px;
 }
-
-/**网站访问统计数据字体样式（用于访问统计数据标题） */
-.fontStyle0
-{
-  font-size: 20px;
-  color:rgb(167, 165, 165);
-}
-
-/**网站访问统计数据字体样式（用于访问统计数据内容） */
-.fontStyle
-{
-  font-size: 24px;
-  color:orangered;
-}
-
-/**需求一览，优质企业，服务成果 用的外部样式表 */
 .grid-content2
 {
   border-radius: 4px;
@@ -712,30 +639,54 @@ export default {
   padding-bottom: 50px;
   overflow: hidden;
 }
-/**需求一览，优质企业，服务成果 用的内部样式表 */
 .grid-content3
 {
   border-radius: 4px;
   height: 400px;
-  padding-bottom: 50px;
-  overflow: hidden;
+}
+.grid-content4
+{
+  border-radius: 4px;
+  height: 100px;
+}
+.grid-content6
+{
+  padding-bottom: 20px;
+  width: 30%;
+  float: left;
 }
 
-/**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，企业，服务的类别字体）*/
+/**需求一览 服务成果字体样式*/
 .fontStyle1
 {
   color: rgb(230, 158, 24);
 }
-
-/**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，服务的时间字体）*/
 .fontStyle2
 {
   color:rgb(150, 144, 144);
   font-size: 15px;
 }
 
+/**各个任务标题背景色 */
+.titleColor0
+{
+  background-color:rgb(230, 123, 133);
+}
 
-/**平台数据分割线用的样式表*/
+
+/**网站统计数据字体样式 */
+.fontStyle0
+{
+  font-size: 20px;
+  color:rgb(167, 165, 165);
+}
+.fontStyle
+{
+  font-size: 24px;
+  color:orangered;
+}
+
+/**划分页面标识*/
 .big_bt {
     width: 370px;
     margin: 0 auto;
@@ -755,6 +706,57 @@ export default {
     top: 18px;
 }
 
+/*我有需求下按钮展示的CSS*/
+.xqelbuttonleft
+{
+  float: left; position:relative;left:20px;
+}
+.xqelbuttonleft:hover
+{
+  background-color: rgb(192, 189, 189);
+  border-color:  rgb(192, 189, 189);
+}
+
+.xqelbuttonleft0
+{
+  float: left; position:relative;left:30%;
+}
+
+.xqelbuttonright
+{
+  float: right; position:relative;right:20px;
+}
+
+.xqelbuttonright:hover
+{
+  background-color: rgb(192, 189, 189);
+   border-color:  rgb(192, 189, 189);
+}
+
+/**发布需求的弹出窗口的CSS */
+ .Publishingrequirements .el-input
+{
+  width: 300px;
+}
+.Publishingrequirements .el-dialog__title
+{
+  font-size: 18px;
+    color: #303133;
+}
+.CreatebuttonCSS
+{
+  width: 200px;
+  height: 60px;
+  position: relative;
+  left: 33%;
+}
+
+
+/** 登录模块核心企业与供应商用CSS*/
+.loginHeight
+{
+  height: 210px;
+}
 
 /**布局测试用css*/
 .el-row {
@@ -766,6 +768,10 @@ export default {
   .bg-purple-dark {
     background: #99a9bf;
   }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
   
 
 .box-card {
@@ -776,7 +782,7 @@ export default {
 
 
 
-/**分类门户的样式表*/
+/**服务入口跳转用CSS*/
 .category_wrap {
     width: 100%;
     margin: 0px;
@@ -814,6 +820,65 @@ a {
     color: #333;
     text-decoration: none;
 }
+
+
+
+
+
+.index-user-panel .user-panel-tab-content .tab-content-customer.active .user-panel-tab-content .tab-content-seller.active {
+    display: block;
+}
+ .tab-content-title {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 6px;
+    margin-top: 7px;
+    font-weight: 600;
+}
+.tab-content-locate.customer-locate {
+    background: transparent;
+    padding-left: 0;
+    color: #333;
+}
+ .tab-content-locate.customer-locate {
+    background: transparent;
+    padding-left: 0;
+    color: #333;
+}
+.clearfix0
+{
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
