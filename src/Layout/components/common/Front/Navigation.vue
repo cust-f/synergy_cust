@@ -51,7 +51,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-pie-chart',
-                    index: 'charts',
+                    index: '/Home',
                     title: '首页'
                 },
                 {
