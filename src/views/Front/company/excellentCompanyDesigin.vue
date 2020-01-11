@@ -104,11 +104,7 @@
 export default {
   data() {
     return {
-      imagesbox: [
-        { id: 0, idView: require("../../../admin/company/1.png") },
-        { id: 1, idView: require("../../../admin/company/2.jpg") },
-        { id: 2, idView: require("../../../admin/company/3.jpg") }
-      ]
+     
     };
   },
   mounted() {

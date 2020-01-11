@@ -104,38 +104,36 @@
       <!-- 登录模块-->
       <el-col :span="6" >
         <div class="grid-content">
-          <br>
-          &nbsp;
-          <span>HI!欢迎来到Saas应用</span>
-          <br>
-          &nbsp;&nbsp;&nbsp;
-          <div>
-              <el-button style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "  type="primary" round>登录</el-button>
-              <el-button style="right:5px;background-color:rgb(250, 101, 105); border-color:rgb(250, 101, 105);" type="primary" round>注册</el-button>
-          </div>
-          <div style="float: left; width:100%; height:10px"></div>
-          <el-card class="box-card" :body-style="{ padding: '5px' }">
 
-            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
-              <el-tab-pane label="我有需求" name="first">
-                   <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
-                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="primary" round>企业标准</el-button>
-                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>综合服务</el-button>
-                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>产业融合</el-button>
-                   <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>发布需求</el-button>
+          <div class="grid-content-top">
+            <span class="grid-content-top-span">HI!欢迎来到Saas应用</span>
+              <div class="grid-content-top-button">
+                <el-button style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "  type="primary" round>登录</el-button>
+                <el-button style="right:5px;background-color:rgb(250, 101, 105); border-color:rgb(250, 101, 105);" type="primary" round>注册</el-button>
+              </div>
+          </div>
+          <div class="grid-content-down">
+            <el-card class="box-card" :body-style="{ padding: '5px' }">
+              <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
+                <el-tab-pane label="我有需求" name="first">
+                    <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
+                    <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="primary" round>企业标准</el-button>
+                    <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>综合服务</el-button>
+                    <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>产业融合</el-button>
+                    <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>发布需求</el-button>
                    
-              </el-tab-pane>
-              <el-tab-pane label="我有服务" name="second">
+                </el-tab-pane>
+                <el-tab-pane label="我有服务" name="second">
                   <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
                    <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="primary" round>企业标准</el-button>
                    <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>综合服务</el-button>
                    <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>产业融合</el-button>
                    <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>寻找需求</el-button>
-              </el-tab-pane>
-            </el-tabs>
+                </el-tab-pane>
+              </el-tabs>
+            </el-card>
+          </div>
 
-            
-          </el-card>
         </div>
       </el-col>
     </el-row>
@@ -648,7 +646,41 @@ export default {
 .grid-content
 {
   text-align: center;
-  background-color: #ece9e9
+   height: 323px;
+}
+
+/**登录、注册按钮模块上方所用样式表，用于确认整体高度及布局  */
+.grid-content-top
+{
+  float: left;
+  height:30%;
+  width: 100%;
+  align-items: center;
+  background-color: #ece9e9;
+  
+}
+.grid-content-top-span
+{
+  float: left;
+  width: 100%;
+  height: 20%;
+}
+.grid-content-top-button
+{
+  position: relative;
+  width: 100%;
+  float: left;
+  height: 80%;
+}
+
+/**登录、注册按钮模块下方所用样式表，用于确认整体高度及布局*/
+.grid-content-down
+{
+  float: left;
+  height:70%;
+  width: 100%;
+  overflow: hidden;
+  background-color:rgb(255, 255, 255);
 }
 
 /*我有需求标签页下的按钮展示样式表*/
@@ -771,10 +803,6 @@ export default {
   .el-col {
     border-radius: 4px;
   }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  
 
 .box-card {
     width: 100%;
