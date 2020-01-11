@@ -49,7 +49,8 @@
           <div class="category_wrap">
     	      <div class="category_box">
             <!----这里分类----->
-              <div class="category_item"><div class="cate_ietm_title"><font>交通运输设备</font><p></p></div>          
+              <div class="category_item">
+                  <div class="cate_ietm_title"><font>交通运输设备</font><p></p></div>          
                    <i class="cate_list">
                      <a href="">汽车</a>
                      <a href="">铁路运输设备</a>
@@ -59,9 +60,9 @@
                      <a href="">航空航天器</a>
                      <a href="l">交通器材及其他交通运输设备</a>
                     </i>       
-                </div>      
-                    <div class="category_item">     
-                      <div class="cate_ietm_title" style="background:#78bcaf;"><font>仪器仪表及文化、<br>办公用机械</font><p></p></div>           
+                  </div>      
+                  <div class="category_item">     
+                          <div class="cate_ietm_title" style="background:#78bcaf;"><font>仪器仪表及文化、办公用机械</font><p></p></div>           
                           <i class="cate_list">
                             <a href="">通用仪器仪表</a>
                             <a href="">专用仪器仪表</a>
@@ -70,9 +71,9 @@
                             <a href="">文化、办公用机械</a>
                             <a href="">其他仪器仪表的制造及修理</a>
                           </i>       
-                      </div>           
-                      <div class="category_item">       	
-                          <div class="cate_ietm_title" style="background:#be7fc5;"><font>通信设备、<br>计算机及其他电子设备</font><p>&nbsp;</p></div>       	
+                  </div>           
+                  <div class="category_item">       	
+                            <div class="cate_ietm_title" style="background:#be7fc5;"><font>通信设备、计算机及其他电子设备</font><p>&nbsp;</p></div>       	
                             <i class="cate_list">
                               <a href="">通信设备</a>
                               <a href="">雷达及配套设备</a>
@@ -83,9 +84,9 @@
                               <a href="">家用视听设备</a>
                               <a href="">其他电子设备</a>
                             </i>       
-                          </div>         
-                      <div class="category_item">       	
-                        <div class="cate_ietm_title" style="background:#67aff9;"><font>电气机械及器材</font><p></p></div> 
+                      </div>            
+                  <div class="category_item">       	
+                            <div class="cate_ietm_title" style="background:#67aff9;"><font>电气机械及器材</font><p></p></div> 
                             <i class="cate_list">
                               <a href="">电机</a>
                               <a href="">输配电及控制设备</a>
@@ -95,7 +96,28 @@
                               <a href="">照明器具</a>
                               <a href="">其他电气机械及器材</a>
                             </i>   
-                        </div> 
+                  </div> 
+                   <div class="category_item">       	
+                            <div class="cate_ietm_title" style="background:#be7fc5;"><font>专用设备</font><p>&nbsp;</p></div>       	
+                            <i class="cate_list">
+                              <a href="">矿山、冶金、建筑专用设备</a>
+                              <a href="">电子和电工机械专用设备</a>
+                              <a href="">医疗仪器设备及器械</a>
+                              <a href="">农、林、牧、渔专用机械</a>
+                              <a href="" style="float:right;">更多</a>
+                            </i>       
+                      </div>
+                       <div class="category_item">       	
+                            <div class="cate_ietm_title" style="background:#be7fc5;"><font>通用设备</font><p>&nbsp;</p></div>       	
+                            <i class="cate_list">
+                              <a href="">锅炉及原动机</a>
+                              <a href="">金属加工机械</a>
+                              <a href="">起重运输设备</a>
+                              <a href="">烘炉、熔炉及电炉</a>
+                              <a href="">金属铸、锻加工</a>
+                              <a href="">更多</a>
+                            </i>       
+                      </div>  
               </div>
             </div>
         
@@ -183,76 +205,58 @@
     <!--第四行  需求一览，优质企业，服务成果-->
     <el-row :gutter="gutterCount">
       <!--需求任务-->
-      <el-col :span="6" :push="pushCount">
+      <el-col :span="8">
         <div class="grid-content2 ">
           <el-card class="grid-content3 ">
             <div slot="header" class="titleColor">
               <span>需求一览</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
-            <div class="el-card__body" style="height:500px">
-            <slot>
-
             <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
-            
-            </slot>
-          </div>
         </el-card>
           
         </div>
       </el-col>
 
-      <el-col :span="8"  :push="pushCount">
+      <el-col :span="8">
         <div class="grid-content2 ">
         <el-card class="grid-content3">
             <div slot="header" class="titleColor">
               <span>优质企业</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
-            <div class="el-card__body" style="height:500px">
-            <slot>
-
             <div v-for="i in supplierlist" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.companyName}}</div>
+              <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{i.companyName}}</div>
             </div>
-            
-            </slot>
-          </div>
         </el-card>
         </div>
       </el-col>
-        <el-col :span="6" :push="pushCount">
+
+        <el-col :span="8">
         <div class="grid-content2 ">
           <el-card class="grid-content3">
             <div slot="header" class="titleColor">
               <span>服务成果</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
-            <div class="el-card__body" style="height:500px">
-            <slot>
-
             <div v-for="i in completeddemandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
-            
-            </slot>
-          </div>
         </el-card>
-          
         </div>
       </el-col>
     </el-row>
 
     <!--第七行  平台数据分割线-->
     <el-row :gutter="gutterCount">
-      <el-col :span="20" :push="pushCount" :pull="pullCount">
+      <el-col :span="24" >
         <div class="big_bt">
             <a>平台数据</a>
         </div>
@@ -260,7 +264,7 @@
 
     </el-row>
       <el-row :gutter="gutterCount"d >
-      <el-col :span="20":push="pushCount">
+      <el-col :span="24">
         <el-card shadow="hover">
           <div class="demandTop5"></div>
           <div id="monthSituation" style="width: 100%;height:350%;"></div>
@@ -646,10 +650,10 @@ export default {
 .grid-content
 {
   text-align: center;
-   height: 323px;
+   height: 400px;
 }
 
-/**登录、注册按钮模块上方所用样式表，用于确认整体高度及布局  */
+/**登录、注册按钮模块标题模块所用样式表，用于确认整体高度及布局  */
 .grid-content-top
 {
   float: left;
@@ -664,6 +668,7 @@ export default {
   float: left;
   width: 100%;
   height: 20%;
+  margin-top: 10%;
 }
 .grid-content-top-button
 {
@@ -671,23 +676,29 @@ export default {
   width: 100%;
   float: left;
   height: 80%;
+  margin-top: 5%;
 }
 
-/**登录、注册按钮模块下方所用样式表，用于确认整体高度及布局*/
+/**登录、注册按钮模块tag页模块所用样式表，用于确认整体高度及布局*/
 .grid-content-down
 {
   float: left;
   height:70%;
   width: 100%;
-  overflow: hidden;
   background-color:rgb(255, 255, 255);
 }
-
+.box-card {
+    width: 100%;
+    height: 100%;
+}
 /*我有需求标签页下的按钮展示样式表*/
 /**左侧按钮的样式表*/
 .xqelbuttonleft
 {
-  float: left; position:relative;left:20px;
+  float: left; position:relative;
+  left:5%;
+  width: 40%;
+  margin-top: 10%;
 }
 /** 鼠标悬浮左侧按钮的样式表*/
 .xqelbuttonleft:hover
@@ -698,12 +709,18 @@ export default {
 /**下方大按钮用的样式表*/
 .xqelbuttonleft0
 {
-  float: left; position:relative;left:30%;
+  float: left; position:relative;
+  left:25%;
+  width: 50%;
+  height: 50px;
 }
 /**右侧按钮的样式表*/
 .xqelbuttonright
 {
-  float: right; position:relative;right:20px;
+  float: right; position:relative;
+  right:5%;
+  width: 40%;
+  margin-top: 10%;
 }
 /** 鼠标悬浮右侧按钮的样式表*/
 .xqelbuttonright:hover
@@ -750,7 +767,7 @@ export default {
   border-radius: 4px;
   height: 400px;
   padding-bottom: 50px;
-  overflow: hidden;
+  
 }
 /**需求一览，优质企业，服务成果 用的内部样式表 */
 .grid-content3
@@ -759,6 +776,7 @@ export default {
   height: 400px;
   padding-bottom: 50px;
   overflow: hidden;
+ 
 }
 
 /**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，企业，服务的类别字体）*/
@@ -818,13 +836,15 @@ export default {
     margin: 0px;
     float: left;
     overflow: hidden;
+    height: 400px;
 }
 .category_box {
     width: 100%;
+    height: 100%;
 }
 .category_item {
-    width: 24.7%;
-    height: 323px;
+    width: 33.1%;
+    height: 50%;
     float: left;
     background: #f5f5f5;
     margin: 0 2px 0 0;
@@ -832,15 +852,18 @@ export default {
 }
 .cate_ietm_title {
     width: 100%;
-    height: 70px;
+    height: 25%;
     background: #fa6569;
     color: #fff;
     font-size: 18px;
+    text-align: center;
+    line-height: 50px;
 }
 .cate_list {
     line-height: 30px;
     margin: 20px;
     display: block;
+    height: 75%;
 }
 .cate_list a {
     margin: 0 15px 0 0;
@@ -851,6 +874,10 @@ export default {
 a {
     color: #333;
     text-decoration: none;
+}
+a:hover
+{
+  color: #fa6569;
 }
 
 
