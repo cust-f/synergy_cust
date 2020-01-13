@@ -107,7 +107,7 @@
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
             <el-table-column label="操作" align="center" width="180">
               <template slot-scope>
-                <el-button type="primary" class="handle-del mr10" @click="addDesignerButton">新增外来企业</el-button>
+                            <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
               </template>
             </el-table-column>
           </el-table>
