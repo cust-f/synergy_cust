@@ -162,39 +162,81 @@
 
     <!--发布需求 弹出框-->
     <div class="Publishingrequirements">
-    <el-dialog title="发布需求" :visible.sync="dialogVisible" style="color:white;"> 
-    <el-form ref="form" :model="form" label-width="80px" class="">
-    <el-form-item label="需求名称">
-    <el-input v-model="form.name"></el-input>
-    </el-form-item>
-    <el-form-item label="需求类别">
-    
-    <el-select v-model="form.region"  size="medium" filterable placeholder="选择/输入需求大类">
-      <el-option label="交通运输设备" value="0"></el-option>
-      <el-option label="仪器仪表及文化、办公用机械" value="1"></el-option>
-      <el-option label="通信设备、计算机及其他电子设备" value="2"></el-option>
-      <el-option label="电气机械及器材" value="3"></el-option>
-    </el-select>
-    <el-select v-model="form.region0"  size="medium" filterable placeholder="选择/输入需求子类">
-      <el-option label="区域一" value="shanghai"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
-    </el-select>
-    </el-form-item>
-    <el-form-item label="需求详情">
-    <el-input type="textarea" v-model="form.desc"></el-input>
-    </el-form-item>
-    <el-form-item label="截止日期">
-    <el-col :span="10">
-      <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-    </el-col>
-    </el-form-item>
-    <el-form-item label="附件">
-    </el-form-item>
-    <el-form-item>
-    <el-button type="primary" @click="onSubmit" class="CreatebuttonCSS">立即发布</el-button>
-    </el-form-item>
-    </el-form>
+      <el-dialog title="发布需求" :visible.sync="dialogVisible" style="color:white;"> 
+        <el-form ref="form" :model="form" label-width="80px" class="">
+          <el-form-item label="需求名称">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+          <el-form-item label="需求类别">
+              <el-select  v-model="form.region" clearable size="medium" filterable placeholder="选择/输入需求大类" change="TE">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+              <el-select v-model="form.region0" clearable size="medium" filterable placeholder="选择/输入需求子类">
+                <el-option
+                  v-show="show0"
+                  v-for="item in options0"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+                <el-option
+                  v-show="show1"
+                  v-for="item in options1"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+                <el-option
+                  v-show="show2"
+                  v-for="item in options2"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+                <el-option
+                  v-show="show3"
+                  v-for="item in options3"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+                <el-option
+                  v-show="show4"
+                  v-for="item in options4"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+                <el-option
+                  v-show="show5"
+                  v-for="item in options5"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+          </el-form-item>
+          <el-form-item label="需求详情">
+              <el-input type="textarea" :autosize="{ minRows:4}"  v-model="form.desc">
+              </el-input>
+          </el-form-item>
+          <el-form-item label="截止日期">
+            <el-col :span="10">
+              <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="附件">
 
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit" class="CreatebuttonCSS">立即发布</el-button>
+          </el-form-item>
+        </el-form>
       <div slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
       </div>
@@ -303,13 +345,14 @@ export default {
 
        //首页轮播图的图片地址数组
       img_list:[
-          require('../../../assets/images/home/713be62978c1729c076bcebb8a3bf44a.jpg'),
-          require('../../../assets/images/home/a7e942533a9e0e5056c0c67f89dcc0ae.jpeg'),
-          require('../../../assets/images/home/a662f30ed18c4e6592a42747b4b412b8.jpg'),
+          require('../../../assets/images/home/轮播图1.png'),
+          require('../../../assets/images/home/轮播图2.jpg'),
+          require('../../../assets/images/home/轮播图31.png'),
       ],
 
       //判定发布需求弹出框的bool值
       dialogVisible: false,
+
 
       //发布需求弹出框内的表单信息数据
       form: {
@@ -323,6 +366,32 @@ export default {
           resource: '',
           desc: ''
         },
+      //发布需求弹出框内的任务类别筛选数据大类
+      options: [{
+          value: '0',
+          label: '交通运输设备'
+        }, {
+          value: '1',
+          label: '仪器仪表及文化、办公用机械'
+        }, {
+          value: '2',
+          label: '通信设备、计算机及其他电子设备'
+        }, {
+          value: '3',
+          label: '电气机械及器材'
+        }, {
+          value: '4',
+          label: '专用设备'
+        }, {
+          value: '5',
+          label: '通用设备'
+        }],
+        value: '',
+        //发布需求弹出框内的任务类别筛选数据子类
+        show0: false,
+        
+
+
 
       //设定本页面中el-cow与el-col的gutter\push\pull值
       gutterCount: 5,
@@ -388,7 +457,12 @@ export default {
       */
       recordTabletender(){
       },
-
+      TE()
+      {
+        if(this.value==0)
+        {
+        }
+      },
       //登陆注册模块tag页点击事件
        handleClick(tab, event) {
         console.log(tab, event);
@@ -736,22 +810,26 @@ export default {
  .Publishingrequirements .el-input
 {
   width: 300px;
+  float: left;
 }
 /**此样式表内 .el-dialog__title的样式*/
 .Publishingrequirements .el-dialog__title
 {
-  font-size: 18px;
-    color: #303133;
+  font-size: 25px;
+  color: #0055ff;
+
+}
+.Publishingrequirements .el-select
+{
+  width: 300px;
+  float: left;
 }
 /**此样式表内 立即发布按钮的CSS样式 */
 .CreatebuttonCSS
 {
   width: 200px;
   height: 60px;
-  position: relative;
-  left: 33%;
 }
-
 
 /** 登录模块核心企业与供应商用CSS*/
 .loginHeight
