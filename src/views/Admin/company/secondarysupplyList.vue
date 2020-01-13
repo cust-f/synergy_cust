@@ -3,7 +3,7 @@
     <el-container>
         <el-main>
           <div font-size="24px">
-            <h3>一级供应商列表</h3></div>
+            <h3>二级供应商列表</h3></div>
              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <div>
 
@@ -16,7 +16,7 @@
           class="handle-del mr10"
           @click="delAllSelection"
         >批量删除</el-button>
-        <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
+        <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
 
       <el-table
@@ -31,8 +31,8 @@
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
         <el-table-column prop="bussessType" label="主营业务"></el-table-column>
-        <el-table-column prop="Business_Name" label="所属地区"></el-table-column>
-        <el-table-column prop="Business_Tel" label="注册资本"></el-table-column>
+        <el-table-column prop="Origin_Region" label="所属地区"></el-table-column>
+        <el-table-column prop="Money" label="注册资本"></el-table-column>
         
         <el-table-column prop="date" label="添加时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
@@ -65,7 +65,7 @@
     </div>
 
     <!-- 编辑弹出框 -->
-    <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
+    <!-- <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
       <el-form ref="form" :model="form" label-width="70px">
         <el-form-item label="用户名">
           <el-input v-model="form.name"></el-input>
@@ -78,11 +78,38 @@
         <el-button @click="editVisible = false">取 消</el-button>
         <el-button type="primary" @click="saveEdit">确 定</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
 
     <!-- 新增弹出框 -->
-    <!-- <el-dialog title="新增" :visible.sync="addVisible" width="50%">
-      <el-form ref="form" :model="addList" label-width="70px">
+    <el-dialog title="新增" :visible.sync="addVisible" width="60%">
+        <el-table
+            :data="tableData"
+            border
+            class="table"
+            ref="multipleTable"
+            header-cell-class-name="table-header"
+            @selection-change="handleSelectionChange"
+        >
+        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+        <el-table-column prop="name" label="企业名称"></el-table-column>
+        <el-table-column prop="bussessType" label="主营业务"></el-table-column>
+        <el-table-column prop="Origin_Region" label="所属地区"></el-table-column>
+        <el-table-column prop="Money" label="注册资本"></el-table-column>
+        
+        <el-table-column prop="date" label="添加时间"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >添加</el-button>
+          <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
+          </template>
+        </el-table-column>
+        </el-table>
+      <!-- <el-form ref="form" :model="addList" label-width="70px">
         <el-form-item label="企业名称">
           <el-input v-model="addList.name"></el-input>
         </el-form-item>
@@ -111,8 +138,8 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="addVisible = false">取 消</el-button>
         <el-button type="primary" @click="saveAdd">确 定</el-button>
-      </span>
-    </el-dialog> -->
+      </span> -->
+    </el-dialog>
               </div>
 
         </el-main>
@@ -137,58 +164,58 @@ export default {
           id: 1,
           bussessType: "发电装备",
           name: "哈尔滨电机厂有限责任公司",
-          Business_Name:'长春',
-          Business_Tel:'2000万',          
+          Origin_Region:'长春',
+          Money:'2000万',          
           date: "2020-01-01"
         },
         {
           id: 2,
           bussessType: "燃气轮机",
           name: "中船重工龙江广瀚燃气轮机有限公司",
-          Business_Name:'吉林',
+          Origin_Region:'吉林',
           date: "2019-11-01",
-          Business_Tel:'3000万',          
+          Money:'3000万',          
 
         },
         {
           id: 3,
           bussessType: "卫星应用",
           name: "哈尔滨航天恒星数据系统科技有限公司",
-          Business_Name:'松原',
+          Origin_Region:'松原',
           date: "2020-01-06",
-          Business_Tel:'4000万',  
+          Money:'4000万',  
         },
         {
           id: 4,
           bussessType: "汽车业数字化",
           name: "长春一汽启明信息技术有限责任公司",
-          Business_Name:'辽源',
+          Origin_Region:'辽源',
           date: "2020-01-05",
-          Business_Tel:'8000万',  
+          Money:'8000万',  
         },
          {
           id: 5,
           bussessType: "卫星微型零件制作",
           name: "长春微电子信息有限公司",
-          Business_Name:'白山',
+          Origin_Region:'白山',
           date: "2020-01-04",
-          Business_Tel:'6000万',  
+          Money:'6000万',  
         },
         {
           id: 6,
           bussessType: "光电测控仪器设备",
           name: "长春奥普光电技术股份有限公司",
-          Business_Name:'哈尔滨',
+          Origin_Region:'哈尔滨',
           date: "2019-11-01",
-          Business_Tel:'7000万',  
+          Money:'7000万',  
         },
         {
           id: 7,
           bussessType: "磨床生产",
           name: "杭机集团长春一机有限公司",
-          Business_Name:'延吉',
+          Origin_Region:'延吉',
           date: "2019-11-01",
-          Business_Tel:'5000万',  
+          Money:'5000万',  
         }
       ],
       addList: {
@@ -212,9 +239,12 @@ export default {
       /*
       *转跳对应任务信息页面
       */
-     supplyDetail(){
+    supplyDetail(){
          this.$router.push('/admin/supplyDetail')
-     }
+     },
+    addData() {
+      this.addVisible = true;
+    },
   }
 };
 </script>
