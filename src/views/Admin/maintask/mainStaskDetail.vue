@@ -127,15 +127,15 @@
 
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
-        <el-table-column prop="date" label="任务截止时间"></el-table-column>
-                <el-table-column prop="money" label="设计时长"></el-table-column>
+        <el-table-column prop="date" label="截止时间"></el-table-column>
+                <el-table-column prop="money" label="完成时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
             <!-- <el-button
               type="text"
               icon="el-icon-edit"
               @click="handleEdit(scope.$index, scope.row)"
             >编辑</el-button> -->
-          <el-button @click="mainStaskDetail" type="text" size="small">下载图纸</el-button>
+          <el-button @click="mainStaskDetail" type="text" size="small">查看</el-button>
         </el-table-column>
       </el-table>
       <div class="pagination">
@@ -165,40 +165,7 @@
         <el-button type="primary" @click="saveEdit">确 定</el-button>
       </span>
     </el-dialog>
- 
-    <!-- 新增弹出框
-    <el-dialog title="新增" :visible.sync="addVisible" width="50%">
-      <el-form ref="form" :model="addList" label-width="70px">
-        <el-form-item label="企业名称">
-          <el-input v-model="addList.name"></el-input>
-        </el-form-item>
-        <el-form-item label="任务类型">
-          <el-input v-model="addList.address"></el-input>
-        </el-form-item>
-        <el-form-item label="金额">
-          <el-input v-model="addList.money"></el-input>
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="addList.state" placeholder="请选择状态">
-            <el-option label="成功" value="成功"></el-option>
-            <el-option label="失败" value="失败"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="注册时间">
-          <el-date-picker
-            type="date"
-            placeholder="选择日期"
-            v-model="addList.date"
-            value-format="yyyy-MM-dd"
-            style="width: 100%;"
-          ></el-date-picker>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveAdd">确 定</el-button>
-      </span>
-    </el-dialog> -->
+
   </div>
         </el-main>
     </el-container>
@@ -298,26 +265,10 @@
           id: 1,
           bussessType: "车间零部件生产",
           name: "长光电子",
-          money: "40天",
+          money: "2020-2-12",
           state: "成功",
           date: "2019-11-1"
         },
-        {
-          id: 2,
-          bussessType: "卫星微型零件制作",
-          name: "沈阳机床集团有限责任公司",
-          money: "60天",
-          state: "成功",
-          date: "2019-11-1"
-        },
-        {
-          id: 3,
-          bussessType: "导弹装配与改革",
-          name: "起重集团有限公司",
-          money: "50天",
-          state: "成功",
-          date: "2019-11-1"
-        }
       ],
       addList: {
         id: null,
@@ -326,19 +277,8 @@
         money: null,
         state: null,
         date: null
-      },
-        
-        tenderTrendsList:[
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来"},
-        { column_name: "白日依山尽，黄河入海流"},
-        { column_name: "黄河落天走东海，万里尘沙入胸怀"},
-        { column_name: "明月隐高树，长河没晓天"},
-        { column_name :"萧萧远树疏林外，一半秋山带夕阳。"},
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门。"}
-         ],
-                 multipleSelection: [],
+      },  
+      multipleSelection: [],
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
@@ -357,7 +297,7 @@
 
 <style>
 .table{
-  font-size: 16px;
+  font-size: 14px;
 }
     
 </style>

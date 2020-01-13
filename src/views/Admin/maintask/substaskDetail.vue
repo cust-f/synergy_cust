@@ -100,17 +100,14 @@
       >
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+        <el-table-column prop="needname" label="需求任务名称"></el-table-column>        
+        <el-table-column prop="dividename" label="分解任务名称"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
+        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column label="状态" align="center" prop="state">
         </el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <!-- <el-button
@@ -156,7 +153,6 @@
       </span>
     </el-dialog>
  
-     新增弹出框
     <el-dialog title="新增" :visible.sync="addVisible" width="50%">
       <el-form ref="form" :model="addList" label-width="70px">
         <el-form-item label="企业名称">
@@ -229,24 +225,30 @@ export default {
         tableData: [
         {
           id: 1,
-          bussessType: "车间零部件生产",
+          bussessType: "设计任务",
           name: "长春光华微电子集团",
+          needname:"车间零部件生产",
+          dividename:'汽车轴承生产',
           money: 30000,
           state: "成功",
           date: "2019-11-1"
         },
         {
           id: 1,
-          bussessType: "卫星微型零件制作",
+          bussessType: "设计任务",
+          needname:"车间零部件生产",
           name: "中国机械工业集团公司",
+          dividename:'汽车轮毂生产',
           money: 5000,
           state: "成功",
           date: "2019-11-1"
         },
         {
           id: 1,
-          bussessType: "导弹装配与改革",
+          bussessType: "设计任务",
           name: "大连冰山集团有限公司",
+          needname:'车间零部件生产',
+          dividename:'汽车轮胎生产',
           money: 7000,
           state: "成功",
           date: "2019-11-1"
@@ -260,18 +262,6 @@ export default {
         state: null,
         date: null
       },
-
-
-               tenderTrendsList:[
-        { column_name: "黄河远上白云间" },
-        { column_name: "九曲黄河万里沙" },
-        { column_name: "君不见黄河之水天上来"},
-        { column_name: "白日依山尽，黄河入海流"},
-        { column_name: "黄河落天走东海，万里尘沙入胸怀"},
-        { column_name: "明月隐高树，长河没晓天"},
-        { column_name :"萧萧远树疏林外，一半秋山带夕阳。"},
-        { column_name: "黄河西来决昆仑，咆哮万里触龙门"}
-         ],
         multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -364,7 +354,11 @@ export default {
 
 <style>
 .table{
-  font-size: 16px
+  font-size: 14px
+}
+.table {
+  width: 100%;
+  font-size: 14px;
 }
 
 </style>
