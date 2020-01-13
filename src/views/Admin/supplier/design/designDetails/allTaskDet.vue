@@ -75,65 +75,8 @@
           </el-col>
           <el-row :gutter="80"></el-row>
         </el-form>
-        <div align="right">
-          <el-button type="primary" class="button1">查看技术文档</el-button>
-          <el-button type="primary" class="button1" @click="TableVisible = true">供应商分配</el-button>
-          <el-button type="primary" class="button1" @click="dialogTableVisible = true">人员分配</el-button>
-        </div>
       </el-main>
     </el-container>
-    <el-dialog title="分配设计人员" :visible.sync="dialogTableVisible" width="30%">
-      <el-form :model="form">
-        <el-form-item label="任务名称" :label-width="formLabelWidth">
-          <el-input v-model="from.name" autocomplete="off" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="截止日期" :label-width="formLabelWidth">
-          <el-input v-model="from.endtime" autocomplete="off" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="设计人员" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="请选择分配人员">
-            <el-option label="王虎" value="wangxiaohu"></el-option>
-            <el-option label="李丽" value="lili"></el-option>
-            <el-option label="马杰" value="majie"></el-option>
-            <el-option label="秦琴" value="qinqin"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogTableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="success()">确 定</el-button>
-      </div>
-    </el-dialog>
-
-    <el-dialog title="分配供应商" :visible.sync="TableVisible" width="30%">
-      <el-form :model="form">
-        <el-form-item label="任务名称" :label-width="formLabelWidth">
-          <el-input v-model="from.name" autocomplete="off" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="截止日期" :label-width="formLabelWidth">
-          <el-input v-model="from.endtime" autocomplete="off" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="供应商" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="请选择分配供应商">
-            <el-option label="杭机集团长春一机有限公司" value="wangxiaohu"></el-option>
-            <el-option label="杭机集团长春一机有限公司" value="lili"></el-option>
-            <el-option label="杭机集团长春一机有限公司" value="majie"></el-option>
-            <el-option label="杭机集团长春一机有限公司" value="qinqin"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="TableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="success()">确 定</el-button>
-      </div>
-    </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="successful" width="15%" :before-close="handleClose">
-      <span>分配成功</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="goBack()">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 <script>

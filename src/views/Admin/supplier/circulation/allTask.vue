@@ -24,12 +24,15 @@
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="任务名称"></el-table-column>
-      
+
       <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
 
       <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+      <el-table-column prop="state" label="状态"></el-table-column>
+
+      <el-table-column prop="company" label="设计单位"></el-table-column>
 
       <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
@@ -37,11 +40,7 @@
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpResDet() " type="text" size="small">查看详情</el-button>
-
-          <el-button @click="acceptf=true" type="text" size="small">接受</el-button>
-
-          <el-button @click="disacceptf=true" type="text" size="small">不接受</el-button>
+          <el-button @click="jumpfinishDet()" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,21 +54,6 @@
         @current-change="handlePageChange"
       ></el-pagination>
     </div>
-
-    <el-dialog title="提示" :visible.sync="acceptf" width="30%" :before-close="handleClose">
-      <span>接受成功</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="acceptf=false">确 定</el-button>
-      </span>
-    </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="disacceptf" width="30%" :before-close="handleClose">
-      <span>拒绝成功</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="disacceptf=false">确 定</el-button>
-      </span>
-    </el-dialog>
-
   </div>
 </template>
 
@@ -77,12 +61,9 @@
 
 <script>
 export default {
-  name: "pendingResTask", 
-
+  name: "allTask",
   data() {
     return {
-        acceptf: false, //接受任务弹窗
-  disacceptf: false, 
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -93,69 +74,24 @@ export default {
       tableData: [
         {
           id: 1,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-          date: "2019-11-17"
+          taskName: "客车汽车前车灯",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "李名",
+          company: "光机所",
+          state: "进行中",
+          date: "2019-12-1"
         },
         {
           id: 2,
-          taskName: "磨床生产",
-          bussessType: "平面磨床制作",
-          publishTask: "杭机集团长春一机有限公司",
+          taskName: "中型汽车车架",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
           taskLeader: "刘柳",
-
-          date: "2019-12-17"
-        },
-        {
-          id: 3,
-          taskName: "通信技术设计",
-          bussessType: "通信技术",
-          publishTask: "哈尔滨海邻科信息技术有限公司",
-          taskLeader: "周舟",
-          date: "2019-9-22"
-        },
-        {
-          id: 4,
-          taskName: "发电智能制造",
-          bussessType: "发电装备",
-          publishTask: "哈尔滨电机厂有限责任公司",
-          taskLeader: "孙铭",
-          date: "2019-11-13"
-        },
-        {
-          id: 5,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-          date: "2019-11-17"
-        },
-        {
-          id: 6,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-          date: "2019-11-17"
-        },
-        {
-          id: 7,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-          date: "2019-11-17"
-        },
-        {
-          id: 8,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-          date: "2019-11-17"
-        },
+          company: "光机所",
+          state: "待审核",
+          date: "2019-11-14"
+        }
       ],
       multipleSelection: [],
       editVisible: false,
@@ -170,9 +106,9 @@ export default {
     this.getData();
   },
   methods: {
-    // 全部任务详情页面跳转
-    jumpResDet() {
-      this.$router.push("/admin/pendingResTaskDet");
+    // 详情页面跳转
+    jumpfinishDet() {
+      this.$router.push("/admin/allTaskDet");
     }
   }
   /*

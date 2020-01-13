@@ -56,14 +56,14 @@
       ></el-pagination>
     </div>
 
-    <el-dialog title="提示" :visible.sync="acceptf" width="30%" :before-close="handleClose">
+    <el-dialog title="提示" :visible.sync="acceptf" width="15%" :before-close="handleClose">
       <span>接受成功</span>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="acceptf=false">确 定</el-button>
       </span>
     </el-dialog>
 
-    <el-dialog title="提示" :visible.sync="disacceptf" width="30%" :before-close="handleClose">
+    <el-dialog title="提示" :visible.sync="disacceptf" width="15%" :before-close="handleClose">
       <span>拒绝成功</span>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="disacceptf=false">确 定</el-button>

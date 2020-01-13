@@ -81,11 +81,24 @@
           <el-row :gutter="80"></el-row>
         </el-form>
         <div align="right">
-          <el-button type="primary" class="button1">接受</el-button>
-          <el-button type="primary" class="button1">不接受</el-button>
+          <el-button type="primary" class="button1" @click="accept=true">接受</el-button>
+          <el-button type="primary" class="button1" @click="disaccept=true">不接受</el-button>
         </div>
       </el-main>
     </el-container>
+    <el-dialog title="提示" :visible.sync="accept" width="30%" :before-close="handleClose">
+      <span>接受成功</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="goBack()">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog title="提示" :visible.sync="disaccept" width="30%" :before-close="handleClose">
+      <span>拒绝成功</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="goBack()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -93,9 +106,8 @@ export default {
   name: "pendingResTaskDet",
   data() {
     return {
-      dialogTableVisible: false,
-      dialogTableVisibleNo: false,
-      dialogVisible: false,
+      accept: false,
+      disaccept: false,
 
       form: {
         id: "000101",
@@ -118,18 +130,6 @@ export default {
   methods: {
     goBack() {
       this.$router.push("/admin/designTaskq");
-    },
-    goBackagain() {
-      this.$router.push("/admin/designTaskq");
-      this.dialogVisible = false;
-    },
-    success() {
-      this.dialogTableVisible = false;
-
-      this.dialogVisible = true;
-    },
-    nosuccess() {
-      this.dialogTableVisibleNo = false;
     }
   }
 };
