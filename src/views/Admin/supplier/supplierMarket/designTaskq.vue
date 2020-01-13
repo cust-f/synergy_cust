@@ -13,7 +13,7 @@
                 <pending-ResTask></pending-ResTask>
               </el-tab-pane>
 
-              <el-tab-pane label="计划审核" name="third">
+              <el-tab-pane label="任务计划" name="third">
                 <plan-Audit></plan-Audit>
               </el-tab-pane>
 

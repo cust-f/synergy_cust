@@ -20,23 +20,24 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center"></el-table-column>
+      <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="任务名称"></el-table-column>
-      <el-table-column label="任务截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
-      </el-table-column>
+      
       <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
 
       <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
-      
+
+      <el-table-column label="截止日期">
+        <template slot-scope="scope">{{scope.row.date}}</template>
+      </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpNewTasks() " type="text" size="small">查看详情</el-button>
+          <el-button @click="jumpResDet() " type="text" size="small">查看详情</el-button>
 
           <el-button @click="dialogTableVisible = true" type="text" size="small">接受</el-button>
 
@@ -105,7 +106,39 @@ export default {
           publishTask: "哈尔滨电机厂有限责任公司",
           taskLeader: "孙铭",
           date: "2019-11-13"
-        }
+        },
+        {
+          id: 5,
+          taskName: "光电测控仪器设备",
+          bussessType: "电视测角仪",
+          publishTask: "长春奥普光电技术股份有限公司",
+          taskLeader: "李华",
+          date: "2019-11-17"
+        },
+        {
+          id: 6,
+          taskName: "光电测控仪器设备",
+          bussessType: "电视测角仪",
+          publishTask: "长春奥普光电技术股份有限公司",
+          taskLeader: "李华",
+          date: "2019-11-17"
+        },
+        {
+          id: 7,
+          taskName: "光电测控仪器设备",
+          bussessType: "电视测角仪",
+          publishTask: "长春奥普光电技术股份有限公司",
+          taskLeader: "李华",
+          date: "2019-11-17"
+        },
+        {
+          id: 8,
+          taskName: "光电测控仪器设备",
+          bussessType: "电视测角仪",
+          publishTask: "长春奥普光电技术股份有限公司",
+          taskLeader: "李华",
+          date: "2019-11-17"
+        },
       ],
       multipleSelection: [],
       editVisible: false,
@@ -121,8 +154,8 @@ export default {
   },
   methods: {
     // 全部任务详情页面跳转
-    jumpAllTasks() {
-      this.$router.push("/admin/designTaskqDesigin");
+    jumpResDet() {
+      this.$router.push("/admin/pendingResTaskDet");
     }
   }
   /*
@@ -131,7 +164,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .con {
   width: 500px;
   height: 1000px;
@@ -153,7 +186,7 @@ export default {
 }
 .table {
   width: 100%;
-  font-size: 16px;
+  font-size: 14px;
 }
 .red {
   color: #ff0000;

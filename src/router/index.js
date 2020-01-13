@@ -52,7 +52,19 @@ import accceptCirculationtask from '@/views/admin/supplier/supplierMarket/acccep
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'
 import designResult from '@/views/admin/supplier/supplierMarket/designResult'
 import designResultDesigin from '@/views/admin/supplier/supplierMarket/designResultDesigin'//任务已完成详情页面
+
 import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//设计任务列表
+import designingTaskDet from '@/views/admin/supplier/design/designDetails/designingTaskDet'//进行中任务详情
+import finishTaskDet from '@/views/admin/supplier/design/designDetails/finishTaskDet'//完成任务详情界面
+import pendingAcceptanceDet from '@/views/admin/supplier/design/designDetails/pendingAcceptanceDet'//待验收设计详情界面
+import pendingAuditDet from '@/views/admin/supplier/design/designDetails/pendingAuditDet'//待审核详情页面
+import pendingResTaskDet from '@/views/admin/supplier/design/designDetails/pendingResTaskDet'//待响应详情页面
+import planAuditDet from '@/views/admin/supplier/design/designDetails/planAuditDet'//任务计划详情页面
+import planAuditingDet from '@/views/admin/supplier/design/designDetails/planAuditingDet'//审核任务计划详情页面
+import repealedTaskDet from '@/views/admin/supplier/design/designDetails/repealedTaskDet'//废除任务详情页面
+
+
+
 import designTaskqDesigin from '@/views/admin/supplier/supplierMarket/designTaskqDesigin'//设计任务详情
 import designTaskabolishDe from '@/views/admin/supplier/supplierMarket/designTaskabolishDe'//设计任务废除详情
 import designTaskqing from '@/views/admin/supplier/supplierMarket/designTaskqing'//设计任务进行时详情
@@ -475,7 +487,79 @@ export default new Router({
           }
         },
 
-        
+        //进行中任务详情
+        {
+          path: '/admin/designingTaskDet',
+          name: 'designingTaskDet',
+          component: designingTaskDet,
+          meta: {
+            title: "详情"
+          }
+        },
+
+        //完成任务详情
+        {
+          path: '/admin/finishTaskDet',
+          name: 'finishTaskDet',
+          component: finishTaskDet,
+          meta: {
+            title: "详情"
+          }
+        },
+        //待验收设计详情
+        {
+          path: '/admin/pendingAcceptanceDet',
+          name: 'pendingAcceptanceDet',
+          component: pendingAcceptanceDet,
+          meta: {
+            title: "详情"
+          }
+        },
+        //待审核详情
+        {
+          path: '/admin/pendingAuditDet',
+          name: 'pendingAuditDet',
+          component: pendingAuditDet,
+          meta: {
+            title: "详情"
+          }
+        },
+        //待响应详情
+        {
+          path: '/admin/pendingResTaskDet',
+          name: 'pendingResTaskDet',
+          component: pendingResTaskDet,
+          meta: {
+            title: "详情"
+          }
+        },
+        //任务计划详情页面
+        {
+          path: '/admin/planAuditDet',
+          name: 'planAuditDet',
+          component: planAuditDet,
+          meta: {
+            title: "详情"
+          }
+        },
+        //审核任务计划详情页面
+        {
+          path: '/admin/planAuditingDet',
+          name: 'planAuditingDet',
+          component: planAuditingDet,
+          meta: {
+            title: "详情"
+          }
+        },
+        //废除任务详情页面
+        {
+          path: '/admin/repealedTaskDet',
+          name: 'repealedTaskDet',
+          component: repealedTaskDet,
+          meta: {
+            title: "详情"
+          }
+        },       
       ]
     },
     {

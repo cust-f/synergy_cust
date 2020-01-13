@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="planAudit">
     <div class="handle-box">
       <el-button
         type="primary"
@@ -20,30 +20,26 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center"></el-table-column>
+      <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="任务名称"></el-table-column>
-      <el-table-column label="任务截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
-      </el-table-column>
+
       <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
 
       <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="状态" align="center">
-        <template slot-scope="scope">
-          <el-tag
-            :type="scope.row.state==='已完成'?'success':(scope.row.state==='待审核'?'danger':'')"
-          >{{scope.row.state}}</el-tag>
-        </template>
+      <el-table-column prop="state" label="状态" align="center"></el-table-column>
+
+      <el-table-column label="截止日期">
+        <template slot-scope="scope">{{scope.row.date}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpTasksing()" type="text" size="small">查看详情</el-button>
+          <el-button @click="jumpplanDet()" type="text" size="small">查看详情</el-button>
            <el-button @click="jumpTasksing()" type="text" size="small">分配人员</el-button>
             <el-button @click="jumpTasksing()" type="text" size="small">分配供应商</el-button>
         </template>
@@ -68,7 +64,7 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center"></el-table-column>
+      <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="任务名称"></el-table-column>
@@ -81,17 +77,17 @@
 
       <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
 
+      <el-table-column label="截止日期">
+        <template slot-scope="scope">{{scope.row.date}}</template>
+      </el-table-column>
+
       <el-table-column prop="state" label="计划书" align="center">
-        <template slot-scope="scope">
-          <el-tag
-            :type="scope.row.state==='已完成'?'success':(scope.row.state==='待审核'?'danger':'')"
-          >{{scope.row.state}}</el-tag>
-        </template>
+
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpTasksing()" type="text" size="small">查看详情</el-button>
+          <el-button @click="jumpAuditDet()" type="text" size="small">查看详情</el-button>
           <el-button @click="jumpTasksing()" type="text" size="small">通过</el-button>
           <el-button @click="jumpTasksing()" type="text" size="small">不通过</el-button>
         </template>
@@ -114,7 +110,7 @@
 
 <script>
 export default {
-  name: "pendingResTask",
+  name: "planAudit",
   data() {
     return {
       query: {
@@ -160,8 +156,12 @@ export default {
   },
   methods: {
     // 全部任务详情页面跳转
-    jumpAllTasks() {
-      this.$router.push("/admin/designTaskqDesigin");
+    jumpplanDet() {
+      this.$router.push("/admin/planAuditDet");
+    },
+
+    jumpAuditDet(){
+      this.$router.push("/admin/planAuditingDet");
     }
   }
   /*
@@ -170,7 +170,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .con {
   width: 500px;
   height: 1000px;
@@ -190,9 +190,10 @@ export default {
   width: 260px;
   display: inline-block;
 }
-.table {
+.planAudit .table {
   width: 100%;
-  font-size: 16px;
+  font-size: 14px;
+  height: 500px;
 }
 .red {
   color: #ff0000;

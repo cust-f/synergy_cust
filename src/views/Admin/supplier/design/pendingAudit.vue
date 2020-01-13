@@ -20,13 +20,11 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center"></el-table-column>
+      <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="任务名称"></el-table-column>
-      <el-table-column label="任务截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
-      </el-table-column>
+
       <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
@@ -34,11 +32,14 @@
       <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
 
       <el-table-column prop="state" label="设计单位" align="center"></el-table-column>
-      <el-table-column prop="state" label="图纸" align="center"></el-table-column>
+
+       <el-table-column label="截止日期">
+        <template slot-scope="scope">{{scope.row.date}}</template>
+      </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpNewTasks() " type="text" size="small">查看详情</el-button>
+          <el-button @click="jumpAuditDet() " type="text" size="small">查看详情</el-button>
 
           <el-button @click="dialogTableVisible = true" type="text" size="small">通过</el-button>
 
@@ -63,7 +64,7 @@
 
 <script>
 export default {
-  name: "pendingResTask", 
+  name: "pendingAudit", 
   acceptTask: false, //接受任务弹窗
   data() {
     return {
@@ -130,8 +131,8 @@ export default {
   },
   methods: {
     // 全部任务详情页面跳转
-    jumpAllTasks() {
-      this.$router.push("/admin/designTaskqDesigin");
+    jumpAuditDet() {
+      this.$router.push("/admin/pendingAuditDet");
     }
   }
   /*
@@ -140,7 +141,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .con {
   width: 500px;
   height: 1000px;
@@ -162,7 +163,7 @@ export default {
 }
 .table {
   width: 100%;
-  font-size: 16px;
+  font-size: 14px;
 }
 .red {
   color: #ff0000;
