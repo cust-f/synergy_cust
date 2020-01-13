@@ -49,7 +49,7 @@
                   >删除</el-button>
 
                   <el-button
-                    @click=""
+                    @click="Detail"
                     type="text"
                     size="small "
                     class="box1"
@@ -109,7 +109,7 @@
                   >删除</el-button>
 
                   <el-button
-                    @click=""
+                    @click="Detail"
                     type="text"
                     size="small "
                     class="box1"
@@ -165,9 +165,9 @@
                     <el-button type="text" size="small" class="box1">下载</el-button>
                   </el-table-column>
                   <el-table-column label="审核" align="center">
-                    <el-button type="success" size="mini" plain>审核通过</el-button>
+                    <el-button type="success" size="mini" plain @click="open2">审核通过</el-button>
                     <br>
-                    <el-button type="danger" size="mini" plain>审核不通过</el-button>
+                    <el-button type="danger" size="mini" plain @click="open">审核不通过</el-button>
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
                     <el-button
@@ -178,7 +178,7 @@
                   >删除</el-button>
 
                   <el-button
-                    @click=""
+                    @click="Detail"
                     type="text"
                     size="small "
                     class="box1"
@@ -237,7 +237,7 @@
                   >删除</el-button>
 
                   <el-button
-                    @click=""
+                    @click="Detail"
                     type="text"
                     size="small "
                     class="box1"
@@ -291,9 +291,9 @@
                     <el-button type="text" size="small" class="box1">查看</el-button>
                   </el-table-column>
                   <el-table-column label="审核" align="center">
-                    <el-button type="success" size="mini" plain>审核通过</el-button>
+                    <el-button type="success" size="mini" plain @click="open2">审核通过</el-button>
                     <br>
-                    <el-button type="danger" size="mini" plain>审核不通过</el-button>
+                    <el-button type="danger" size="mini" plain @click="open">审核不通过</el-button>
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
                     <el-button
@@ -304,7 +304,7 @@
                   >删除</el-button>
 
                   <el-button
-                    @click=""
+                    @click="Detail"
                     type="text"
                     size="small "
                     class="box1"
@@ -370,7 +370,7 @@
                     @click="handleDelete(scope.$index, scope.row)"
                   >删除</el-button>
                   <el-button
-                    @click=""
+                    @click="Detail"
                     type="text"
                     size="small "
                     class="box1"
@@ -429,7 +429,7 @@
                     @click="handleDelete(scope.$index, scope.row)"
                   >删除</el-button>
                   <el-button
-                    @click=""
+                    @click="Detail"
                     type="text"
                     size="small "
                     class="box1"
@@ -1010,17 +1010,31 @@ export default {
     /*
      *转跳对应任务信息页面
      */
-    remarkDetail() {
-      this.$router.push("/admin/designTaskEvaluation");
+    Detail() {
+      this.$router.push("/admin/mainStaskDetail");
     },
     open2() {
       this.$message({
-        message: "恭喜你，这是一条成功消息",
+        message: "审核通过",
         type: "success"
       });
+    },
+     open() {
+        this.$prompt('请输入审核不通过的原因', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });       
+        });
+      }
     }
   }
-};
+  
+
 </script>
 <style>
 .con {
