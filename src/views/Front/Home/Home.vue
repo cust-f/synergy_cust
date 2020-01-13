@@ -331,9 +331,9 @@ export default {
       certifiedSupplierCount:526,
       // 图片地址数组
             img_list:[
-              require('../../../assets/images/home/713be62978c1729c076bcebb8a3bf44a.jpg'),
-              require('../../../assets/images/home/a7e942533a9e0e5056c0c67f89dcc0ae.jpeg'),
-              require('../../../assets/images/home/a662f30ed18c4e6592a42747b4b412b8.jpg'),
+              require('../../../assets/images/home/轮播图1.png'),
+              require('../../../assets/images/home/轮播图2.jpg'),
+              require('../../../assets/images/home/轮播图31.png'),
             ],
       
 
