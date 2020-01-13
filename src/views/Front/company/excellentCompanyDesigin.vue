@@ -104,9 +104,7 @@
 export default {
   data() {
     return {
-      imagesbox: [
-        
-      ]
+     
     };
   },
   mounted() {

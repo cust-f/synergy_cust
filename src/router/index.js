@@ -5,9 +5,9 @@ import login from '@/Layout/template page/login'
 
 //前台界面
 import Front from '@/Layout/template page/Front'
-import Home from '@/views/Front/Home/Home'
-import twoMenu from '@/views/Front/Home/twoMenu'
-import threeMenu from '@/views/Front/Home/threeMenu'
+import Home from '@/views/Front/Home/Home'//前台首页
+import twoMenu from '@/views/Front/Home/twoMenu'//前台首页二级页面
+import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
 import excellentCompany from '@/views/Front/company/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
 

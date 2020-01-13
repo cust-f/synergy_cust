@@ -7,7 +7,7 @@
  * @version: V1.0.5 
 !-->
 <template>
-  <el-container style="overflow-x:hidden;">
+  <el-container>
     <el-header height="200px">
       <header-synergy ></header-synergy>
     </el-header>
