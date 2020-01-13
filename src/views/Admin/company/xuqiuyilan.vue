@@ -64,9 +64,10 @@
           </table>
              </div> 
              <div class="you">
-           <el-tabs v-model="activeName" @tab-click="handleClick" class="qwe">
+           <el-tabs @tab-click="handleClick" class="qwe">
                  
     <el-tab-pane label="交通运输设备" name="first">
+     
        <el-checkbox v-model="checked">不限</el-checkbox>
          <el-checkbox v-model="checked">汽车</el-checkbox>
            <el-checkbox v-model="checked">铁路运输设备</el-checkbox>
@@ -560,9 +561,15 @@
 export default {
   name: "substaskDetail",
   data() {
-    return { activeName: 'second'};
+    return { 
+      activeName: 'second'
+    
+    };
      radio: '1'
-       checked: true
+     
+       
+      
+      
   },
 
   methods: {
