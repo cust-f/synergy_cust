@@ -3,7 +3,7 @@
     <el-container>
         <el-main>
           <div font-size="24px">
-            <h3>供应商列表</h3></div>
+            <h3>一级供应商列表</h3></div>
              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <div>
 
@@ -16,7 +16,7 @@
           class="handle-del mr10"
           @click="delAllSelection"
         >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+        <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
 
       <el-table
@@ -27,14 +27,14 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="40" align="center"></el-table-column>
+        <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="企业类别"></el-table-column>
-        <el-table-column prop="Business_Name" label="供应商联络人"></el-table-column>
-        <el-table-column prop="Business_Tel" label="办公电话"></el-table-column>
+        <el-table-column prop="bussessType" label="主营业务"></el-table-column>
+        <el-table-column prop="Business_Name" label="所属地区"></el-table-column>
+        <el-table-column prop="Business_Tel" label="注册资本"></el-table-column>
         
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
+        <el-table-column prop="date" label="添加时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <!-- <el-button
@@ -125,7 +125,7 @@
 
 <script>
 export default {
-  name: "supplyBussess",
+  name: "primarysupplyList",
   data() {
     return {
         query: {
@@ -137,58 +137,58 @@ export default {
           id: 1,
           bussessType: "发电装备",
           name: "哈尔滨电机厂有限责任公司",
-          Business_Name:'何丽',
-          Business_Tel:'0451-82872000',          
+          Business_Name:'长春',
+          Business_Tel:'2000万',          
           date: "2020-01-01"
         },
         {
           id: 2,
           bussessType: "燃气轮机",
           name: "中船重工龙江广瀚燃气轮机有限公司",
-          Business_Name:'肖博约',
+          Business_Name:'吉林',
           date: "2019-11-01",
-          Business_Tel:'0451-85468555',          
+          Business_Tel:'3000万',          
 
         },
         {
           id: 3,
           bussessType: "卫星应用",
           name: "哈尔滨航天恒星数据系统科技有限公司",
-          Business_Name:'梁志国',
+          Business_Name:'松原',
           date: "2020-01-06",
-          Business_Tel:'0451-83556988',  
+          Business_Tel:'4000万',  
         },
         {
           id: 4,
           bussessType: "汽车业数字化",
           name: "长春一汽启明信息技术有限责任公司",
-          Business_Name:'王肖',
+          Business_Name:'辽源',
           date: "2020-01-05",
-          Business_Tel:'0431-86536541',  
+          Business_Tel:'8000万',  
         },
          {
           id: 5,
           bussessType: "卫星微型零件制作",
           name: "长春微电子信息有限公司",
-          Business_Name:'段玉君',
+          Business_Name:'白山',
           date: "2020-01-04",
-          Business_Tel:'0431-85632478',  
+          Business_Tel:'6000万',  
         },
         {
           id: 6,
           bussessType: "光电测控仪器设备",
           name: "长春奥普光电技术股份有限公司",
-          Business_Name:'王海',
+          Business_Name:'哈尔滨',
           date: "2019-11-01",
-          Business_Tel:'0431-85642586',  
+          Business_Tel:'7000万',  
         },
         {
           id: 7,
           bussessType: "磨床生产",
           name: "杭机集团长春一机有限公司",
-          Business_Name:'颜容',
+          Business_Name:'延吉',
           date: "2019-11-01",
-          Business_Tel:'0431-89651234',  
+          Business_Tel:'5000万',  
         }
       ],
       addList: {
