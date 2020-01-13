@@ -1,34 +1,44 @@
 <template>
+<el-main >
   <div class="xuqiuyilan">
-    <el-col :span="20" push="2" pull="2">
-      <div>
-        <div>
-          <div class="title" width="160px">
+    
+    <el-col :span="20" push="2" pull="2" >
+      <div >
+        <div >
+          <el-col span="8" offset="3">
+          <div class="title" width="160px" >
             <span>首页</span>
             <span>&nbsp; > &nbsp;</span>
             <span>科技成果</span>
           </div>
           <br />
+          </el-col>
         </div>
-
-        <div class="cool">
+            <br>
+       <div class="cool" align="middle"> 
+         <div class="zuo">
           <table class="table1">
             <tbody>
-              <tr>
-                <td class="td101">限制条件：</td>
+             <tr>
+                <td class="td101" align="left">行业类别：</td>
+                  <!--
                 <td class="td102">
                   <span class="cg_td_a1" width="100%">不限</span>
-                  <span class="cg_td_a2" width="100%">完成任务数目</span>
-                  <span class="cg_td_a2" width="100%">注册时间</span>
-                  <span class="cg_td_a2" width="100%">人员数目</span>
-                  <span class="cg_td_a2" width="100%">具体操作</span>
-                  <span class="cg_td_a2" width="100%">公司规模</span>
-                  <span class="cg_td_a2" width="100%">注册资本</span>
+                  <span class="cg_td_a2" width="100%">交通运输设备</span>
+                  <span class="cg_td_a2" width="100%">仪器仪表及文化、办公用机械</span>
+                  <span class="cg_td_a2" width="100%">通信设备、计算机及其他电子设备</span>
+                  <span class="cg_td_a2" width="100%">电器机械及器材</span>
+                  <span class="cg_td_a2" width="100%">专用设备</span>
+                  <span class="cg_td_a2" width="100%">通用设备</span>
                 </td>
-              </tr>
+             
+              -->
+               </tr>
               <tr>
+
                 <td class="td101">交易方式：</td>
-                <td class="td102">
+
+               <!--  <td class="td102">
                   <span class="cg_td_a1" width="100%">不限</span>
                   <span class="cg_td_a2" width="100%">面交</span>
                   <span class="cg_td_a2" width="100%">网银支付</span>
@@ -36,11 +46,11 @@
                   <span class="cg_td_a2" width="100%">中国银行支付</span>
                   <span class="cg_td_a2" width="100%">农业银行支付</span>
                   <span class="cg_td_a2" width="100%">交通银行支付</span>
-                </td>
+                </td> -->
               </tr>
               <tr>
                 <td class="td101">任务类型</td>
-                <td class="td102">
+                <!-- <td class="td102">
                   <span class="cg_td_a1" width="100%">不限</span>
                   <span class="cg_td_a2" width="100%">车间零部件生产</span>
                   <span class="cg_td_a2" width="100%">卫星微型零件制作</span>
@@ -48,14 +58,319 @@
                   <span class="cg_td_a2" width="100%">锅炉制造装配</span>
                   <span class="cg_td_a2" width="100%">车用配件制造</span>
                   <span class="cg_td_a2" width="100%">车辆装配与制作</span>
-                </td>
-              </tr>
-            </tbody>
+                </td> -->
+              </tr> 
+                   </tbody>
           </table>
-          <br />
-        </div>
+             </div> 
+             <div class="you">
+           <el-tabs @tab-click="handleClick" class="qwe">
+                 
+    <el-tab-pane label="交通运输设备" name="first">
+     
+       <el-checkbox v-model="checked">不限</el-checkbox>
+         <el-checkbox v-model="checked">汽车</el-checkbox>
+           <el-checkbox v-model="checked">铁路运输设备</el-checkbox>
+             <el-checkbox v-model="checked">摩托车</el-checkbox>
+               <el-checkbox v-model="checked">自行车</el-checkbox>
+                 <el-checkbox v-model="checked">船舶及浮动装置</el-checkbox>
+                   <el-checkbox v-model="checked">航空航天器</el-checkbox>
+                   <el-checkbox v-model="checked">交通器材及其他交通运输设备</el-checkbox>
 
-        <div class="thisMiddle">
+     <!--  <span class="check">
+        <label>
+          <input name="fg0" @change="selectas($event)"  type="checkbox" checked="checked" value="0" v-model="radio" label="1"/>
+          <span style="color:red;">不限</span>
+        </label>
+      </span>
+      &nbsp;
+      <span class="check">
+        <label>
+          <input id="selBtn" name="fg1" type="checkbox"  value="1" v-model="radio" label="2"/>
+          <span >汽车</span>
+        </label>
+      </span>
+      &nbsp;
+         <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" v-model="radio" label="2" />
+          <span >铁路运输设备</span>
+        </label>
+      </span>
+      &nbsp;
+         <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" v-model="radio" label="2"/>
+          <span >摩托车</span>
+        </label>
+      </span>  
+      &nbsp; <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" v-model="radio" label="2"/>
+          <span >自行车</span>
+        </label>
+      </span>  
+      &nbsp;
+       <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" v-model="radio" label="2"/>
+          <span >船舶及浮动装置</span>
+        </label>
+      </span>  &nbsp; <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" v-model="radio" label="2"/>
+          <span >航空航天器</span>
+        </label>
+      </span>  &nbsp; <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" v-model="radio" label="2"/>
+          <span >交通器材及其他交通运输设备</span>
+        </label>
+      </span>    -->
+    </el-tab-pane>
+    <el-tab-pane label="仪器仪表及文化、办公用机械" name="second">
+             <el-checkbox v-model="checked">不限</el-checkbox>
+         <el-checkbox v-model="checked">通用仪器仪表</el-checkbox>
+           <el-checkbox v-model="checked">专用仪器仪表</el-checkbox>
+             <el-checkbox v-model="checked">钟表与计时仪器</el-checkbox>
+               <el-checkbox v-model="checked">光学仪器及眼镜</el-checkbox>
+                 <el-checkbox v-model="checked">文化、办公用机械</el-checkbox>
+                   <el-checkbox v-model="checked">航空航天器其他仪器仪表的制造及修理</el-checkbox>
+                  
+     <!--  <span class="check">
+        <label>
+          <input name="fg0" type="checkbox" checked="checked" value="0" />
+          <span style="color:red;">不限</span>
+        </label>
+      </span> &nbsp;
+         <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >通用仪器仪表</span>
+        </label>
+      </span> &nbsp;
+         <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >专用仪器仪表</span>
+        </label>
+      </span> &nbsp;
+         <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >钟表与计时仪器</span>
+        </label>
+      </span> &nbsp;
+         <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >光学仪器及眼镜</span>
+        </label>
+      </span> &nbsp;
+         <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >文化、办公用机械</span>
+        </label>
+      </span> &nbsp;
+         <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >其他仪器仪表的制造及修理</span>
+        </label>
+      </span> &nbsp; -->
+    </el-tab-pane>
+    <el-tab-pane label="通信设备、计算机及其他电子设备" name="third">
+         <el-checkbox v-model="checked">不限</el-checkbox>
+         <el-checkbox v-model="checked">通信设备</el-checkbox>
+           <el-checkbox v-model="checked">雷达及配套设备</el-checkbox>
+             <el-checkbox v-model="checked">广播电视设备</el-checkbox>
+               <el-checkbox v-model="checked">电子计算机</el-checkbox>
+                 <el-checkbox v-model="checked">电子器件</el-checkbox>
+                   <el-checkbox v-model="checked">电子元件</el-checkbox>
+                    <el-checkbox v-model="checked">家用视听设备</el-checkbox>
+                     <el-checkbox v-model="checked">其他电子设备</el-checkbox>
+      <!--  <span class="check">
+        <label>
+          <input name="fg0" type="checkbox" checked="checked" value="0" />
+          <span style="color:red;">不限</span>
+        </label>
+      </span> &nbsp;
+       <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >通信设备</span>
+        </label>
+      </span> <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >雷达及配套设备</span>
+        </label>
+      </span> &nbsp; <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >广播电视设备</span>
+        </label>
+      </span>  &nbsp;<span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >电子计算机</span>
+        </label>
+      </span>  &nbsp;<span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >电子器件</span>
+        </label>
+      </span>  &nbsp;<span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >电子元件</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >家用视听设备</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >其他电子设备</span>
+        </label>
+      </span> &nbsp; -->
+    </el-tab-pane>
+    <el-tab-pane label="电器机械及器材" name="fourth">
+         <el-checkbox v-model="checked">不限</el-checkbox>
+         <el-checkbox v-model="checked">电机</el-checkbox>
+           <el-checkbox v-model="checked">输配电及控制设备</el-checkbox>
+             <el-checkbox v-model="checked">电线、电缆、光缆及电工器材</el-checkbox>
+               <el-checkbox v-model="checked">电池</el-checkbox>
+                 <el-checkbox v-model="checked">家用电力器具</el-checkbox>
+                   <el-checkbox v-model="checked">照明器具</el-checkbox>
+                   <el-checkbox v-model="checked">其他电气机械及器材</el-checkbox>
+      <!--  <span class="check">
+        <label>
+          <input name="fg0" type="checkbox" checked="checked" value="0" />
+          <span style="color:red;">不限</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >电机</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >输配电及控制设备</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >电线、电缆、光缆及电工器材</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >电池</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >家用电力器具</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >照明器具</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >其他电气机械及器材</span>
+        </label>
+      </span> &nbsp;
+       -->
+    </el-tab-pane>
+    <el-tab-pane label="专用设备" name="fifth"> <span class="check">
+        <label>
+          <input name="fg0" type="checkbox" checked="checked" value="0" />
+          <span style="color:red;">不限</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >矿山、冶金、建筑专用设备</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >化工、木材、非金属加工专用</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >食品、饮料、烟草、及饲料生产</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >印刷、制药、日化生产专用设备</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >纺织、服装和皮革工业专用设备</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >电子和电工机械专用设备</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >农、林、牧、渔专用机械</span>
+        </label>
+      </span> &nbsp;
+      <span class="check">
+        <label>
+          <input name="fg1" type="checkbox"  value="1" />
+          <span >其他电子设备</span>
+        </label>
+      </span> &nbsp;
+      </el-tab-pane>
+    <el-tab-pane label="通用设备" name="sixth">
+       <span class="check">
+        <label>
+          <input name="fg0" type="checkbox" checked="checked" value="0" />
+          <span style="color:red;">不限</span>
+        </label>
+      </span> &nbsp;
+    </el-tab-pane>
+  </el-tabs>
+          
+  
+ </div>
+       
+          <br />
+         </div> 
+
+        <div class="thisMiddle" align="middle">
           <div class="middleLeft">
             <input name="search_text" id="search_text" type="text" placeholder="请输入搜索内容" />
             <el-button type="warning" class="button1">搜索</el-button>
@@ -66,15 +381,15 @@
         </div>
       </div>
     </el-col>
-    <div class="thisAfter">
+    <div class="thisAfter" align="middle">
       <div class="list_div">
 
 
 
 
-        <div class="cg_bottomlist">
+        <div class="cg_bottomlist" align="middle">
            
-          <ul class="cg_bottomLeft">
+          <ul class="cg_bottomLeft" align="middle">
             <li class="cg_list001"> 
                 <br>
                 <br>
@@ -100,7 +415,7 @@
               </a>
             </li>
           </ul>
-          <div class="bottomRight">
+          <div class="bottomRight" align="middle">
             <a href class="fabujigou">发布机构</a>
             <ul class="jgje">
               <li>
@@ -115,7 +430,7 @@
 
 
 
-        <div class="cg_bottomlist">
+        <div class="cg_bottomlist"   >
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
               <a class="ziti2" href="#/admin/xuqiuyilanDetail" >工业管理系统</a>
@@ -144,9 +459,13 @@
             <a href class="fabujigou">发布机构</a>
             <ul class="jgje">
               <li>
-                <a style="width:435px">
+                <a style="width:435px" align="left">
                   <font>机构名称:</font>
                   辽宁省科技服务中心
+                  <br>
+
+                   <font>联系电话:</font>
+                   1231231232132
                 </a>
               </li>
             </ul>
@@ -236,43 +555,101 @@
       </div>
     </div>
   </div>
+  </el-main>
 </template>
 <script>
 export default {
   name: "substaskDetail",
   data() {
-    return {};
+    return { 
+      activeName: 'second'
+    
+    };
+     radio: '1'
+     
+       
+      
+      
   },
 
   methods: {
+    handleClick(tab, event) {
+        console.log(tab, event);
+      },
+    
     tiaozhuan(){
         this.router.push("/admin/circulationTask")
+
     }
-  }
+
+  },
+  /* selectas(e){
+    let checked=e.target.checked;
+      let checkDom=this.$refs.table.getElementByClassName("selBtn");
+      let idArray=[];
+      if(checked){
+        for(var i=0;i<checkDom.length;i++)
+        {
+          checkDom[i].checked=false;
+        }
+      }else{
+         for(var i=0;i<checkDom.length;i++)
+        {
+          checkDom[i].checked=true;
+        }
+      }
+      alert("运行了");
+  } */
 };
+  /*  $(function() {
+
+                //已被选择的选项变成红色
+                $(".tag_1 .check input:checked").next("span").css("color", "red");
+                $(".tag_1").each(function() {
+                    $tagEachCheckedInputSize = $(this).find("input:checked").size();
+                    if ($tagEachCheckedInputSize==0) {
+                        $(this).find("input:first").attr("checked", true).next("span").css("color", "red");
+                    }
+                })
+
+                //点击选项为true的时候, 颜色变红, "不限"选项取消并变成黑色. 当所有的选项为取消的时候, "不限"被选择并变成红色,其他选项取消
+                $(".tag_1 .check input").live("click", function() {
+                    $firstInput = $(this).parents(".tag_1").find("input:first");
+                    if ($(this).attr("checked")) {
+                        if ($(this).val()!=0) {
+                            $firstInput.attr("checked", false).next("span").css("color", "black");
+                        } else {
+                            $(this).parents(".tag_1").find("input:gt(0)").attr("checked", false).next("span").css("color", "black");
+                        }
+                        $(this).next("span").css("color", "red");
+                    } else {
+                        var $siblingsCheckedInputNum = $(this).parents(".tag_1").find("input:checked").size();
+                        $(this).next("span").css("color", "black");
+                        if ($siblingsCheckedInputNum==0) {
+                            $firstInput.attr("checked", true).next("span").css("color", "red");
+                        }
+                    }
+                })
+                $(".tag_1 .check_radio input:checked").next("span").css("color", "red");
+                $(".tag_1 .check_radio input").live("click", function() {
+                    $('.check_radio').find("input").next("span").css('color', 'black');
+                    $(this).next("span").css("color", "red");
+                })
+            }) */
 </script>
 <style>
+/* .el-col{
+  float: right;
+  
+} */
 .title {
   font-size: 14px;
   font-style: normal;
   width: 160px;
 }
 .td101 {
-  border-bottom-color: rgb(204, 204, 204);
-  border-bottom-style: dashed;
-  border: bottom width 1px;
-  border-collapse: collapse;
-  border-left-color: rgb(204, 204, 204);
-  border-left-style: dashed;
-  border-left-width: 1px;
-  border-right-color: rgb(204, 204, 204);
-  border-right-style: dashed;
-  border-right-width: 1px;
-  border-spacing: 0px 0px;
-  border-top-color: rgb(204, 204, 204);
-  border-top-style: dashed;
-  border-top-width: 1px;
-  color: rgb(51, 51, 51);
+  
+  
   font-family: "微软雅黑";
   font-size: 14px;
   font-weight: 400;
@@ -337,7 +714,17 @@ export default {
 
   text-decoration: none;
 }
-
+.title{
+ 
+}
+.zuo{
+  width: 300px;
+  float: left;
+}
+.you{
+  width: 600px;
+ margin-top: 20px;
+}
 .cg_td_a1 {
   border-collapse: collapse;
   border-spacing: 0px 0px;
@@ -393,7 +780,7 @@ export default {
 
   text-decoration: none;
 }
-.cool {
+ .cool {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
@@ -409,11 +796,13 @@ export default {
   line-height: normal;
 
   margin-bottom: 0px;
+  width: 1200px;
+ height: 200px;
 
-  margin-right: 126.61px;
+ 
 
   text-decoration: none;
-}
+} 
 .middleLeft {
   -webkit-tap-highlight-color: rgba(31, 12, 12, 0);
 
@@ -441,7 +830,7 @@ export default {
 
   border-top-width: 1px;
 
-  float: left;
+  float: center;
 
   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
 
@@ -476,6 +865,9 @@ export default {
   text-decoration: none;
 
   width: 700px;
+}
+.qwe{
+  float: left;
 }
 .xuqiuyilan .button1 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -683,10 +1075,12 @@ export default {
   word-break: break-all;
 }
 .cg_bottomlist {
+  float:right;
 
 
 
 }
+.thisMiddle{}
 .xuqiuyilan .ziti2 {
   -webkit-text-size-adjust: auto;
 
@@ -839,6 +1233,7 @@ export default {
   vertical-align: baseline;
 
   word-break: break-all;
+  
 }
 .bottomRight {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -857,7 +1252,7 @@ export default {
 
   top: -15px;
 
-  width: 460px;
+  width: 560px;
 }
 .list_div {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -925,14 +1320,14 @@ export default {
 
   text-decoration: none;
 
-  width: 1200px;
+  width: 1350px;
 }
 .table1 {
   background-attachment: scroll;
 
   background-clip: border-box;
 
-  background-color: rgb(250, 250, 250);
+  background-color: rgb(255, 255, 255);
 
   background-image: none;
 
@@ -946,34 +1341,7 @@ export default {
 
   background-size: auto;
 
-  border-bottom-color: rgb(204, 204, 204);
-
-  border-bottom-style: solid;
-
-  border-bottom-width: 0.5px;
-
-  border-collapse: collapse;
-
-  border-left-color: rgb(204, 204, 204);
-
-  border-left-style: solid;
-
-  border-left-width: 0.5px;
-
-  border-right-color: rgb(204, 204, 204);
-
-  border-right-style: solid;
-
-  border-right-width: 0.5px;
-
-  border-spacing: 0px 0px;
-
-  border-top-color: rgb(204, 204, 204);
-
-  border-top-style: solid;
-
-  border-top-width: 0.5px;
-
+  
   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
 
   font-size: 14px;
@@ -988,6 +1356,7 @@ export default {
 
   text-decoration: none;
 
-  width: 1198px;
+  width: 300px;
 }
+
 </style>

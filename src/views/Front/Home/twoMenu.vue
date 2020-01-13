@@ -15,8 +15,8 @@
     <!--第二行  本月需求信息统计-->
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
-        <div class="grid-content1  fontStyle0">
-        <h3 style="color:black;">需求任务</h3>
+        <div class="grid-content0">
+        <h3 style="color:black;position: relative;left:20.4%;">需求任务</h3>
         </div>
       </el-col>
     </el-row>
@@ -96,7 +96,7 @@
               <el-table-column
               label="操作"
               width="100">
-              <el-button @click="home" type="text" size="small">查看详情</el-button>
+              <el-button @click="remarkDetail" type="text" size="small">查看详情</el-button>
                
               </el-table-column>
         </el-table>
@@ -143,7 +143,7 @@ export default {
       input:123,
       //设定el-cow的值
       gutterCount: 15,
-      pushCount:2,
+      pushCount:3,
       pullCount:2,
       pushCount0:3,
 
@@ -504,7 +504,9 @@ export default {
   methods:{
       /*
       *转跳对应任务信息页面
-      */
+      */remarkDetail() {
+      this.$router.push("/threeMenu");
+    },
       recordTabletender(){
       },
       handleChange(val) {
@@ -549,7 +551,7 @@ export default {
   height: 50px;
   width:100%;
   line-height: 50px;
-  margin: 0 252px;
+  margin: 0 250px;
 }
 .grid-content2
 {
@@ -568,7 +570,9 @@ export default {
 }
 .block
 {
-  margin: 0 180px;
+  /*margin: 0 180px;*/
+  position: relative;
+  left:20%;
 }
 
 

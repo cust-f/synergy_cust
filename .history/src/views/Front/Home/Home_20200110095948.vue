@@ -1,9 +1,8 @@
 
 <template>
-<div align="center"> 
-    
-    <!--第一行 首页轮播图-->
+<div>
     <div class="BG0">
+    <!--第一行 首页轮播图-->
     <el-row :gutter="gutterCount">
       <el-col :span="24">
         <div class="grid-content0">
@@ -26,18 +25,18 @@
   <div class="BG">
     <!--第二行  网站访问统计数据-->
     <el-row :gutter="gutterCount" >
-      <el-col :span="24">
+      <el-col :span="20"  :push="pushCount" :pull="pullCount">
         <div class="grid-content1  fontStyle0">
-        <span class="dataCSS">本月成交任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;项</span>
-        
-        <span class="dataCSS">需求任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{demandTaskCount}}</font>&nbsp;&nbsp;项</span>
-        
-        <span class="dataCSS">流通任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{circulationTaskCount}}</font>&nbsp;&nbsp;项</span>
-       
-        <span class="dataCSS">认证企业:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedEnterpriseCount}}</font>&nbsp;&nbsp;家</span>
-      
-        <span class="dataCSS">认证供应商:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedSupplierCount}}</font>&nbsp;&nbsp;家</span>
-        
+        <span>本月成交任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;项</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span>需求任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{demandTaskCount}}</font>&nbsp;&nbsp;项</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span>流通任务:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{circulationTaskCount}}</font>&nbsp;&nbsp;项</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span>认证企业:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedEnterpriseCount}}</font>&nbsp;&nbsp;家</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span>认证供应商:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{certifiedSupplierCount}}</font>&nbsp;&nbsp;家</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
       </el-col>
     </el-row>
@@ -45,12 +44,13 @@
 
      <!--第三行  分类门户-->
     <el-row :gutter="5">
-      <el-col :span="18" >
+      <el-col :span="16" :push="pushCount">
+        
+        
           <div class="category_wrap">
     	      <div class="category_box">
             <!----这里分类----->
-              <div class="category_item">
-                  <div class="cate_ietm_title"><font>交通运输设备</font><p></p></div>          
+              <div class="category_item"><div class="cate_ietm_title"><h3>交通运输设备</h3><p></p></div>          
                    <i class="cate_list">
                      <a href="">汽车</a>
                      <a href="">铁路运输设备</a>
@@ -60,9 +60,9 @@
                      <a href="">航空航天器</a>
                      <a href="l">交通器材及其他交通运输设备</a>
                     </i>       
-                  </div>      
-                  <div class="category_item">     
-                          <div class="cate_ietm_title" style="background:#78bcaf;"><font>仪器仪表及文化、办公用机械</font><p></p></div>           
+                </div>      
+                    <div class="category_item">     
+                      <div class="cate_ietm_title" style="background:#78bcaf;"><h3>仪器仪表及文化、<br>办公用机械</h3><p></p></div>           
                           <i class="cate_list">
                             <a href="">通用仪器仪表</a>
                             <a href="">专用仪器仪表</a>
@@ -71,9 +71,9 @@
                             <a href="">文化、办公用机械</a>
                             <a href="">其他仪器仪表的制造及修理</a>
                           </i>       
-                  </div>           
-                  <div class="category_item">       	
-                            <div class="cate_ietm_title" style="background:#be7fc5;"><font>通信设备、计算机及其他电子设备</font><p>&nbsp;</p></div>       	
+                      </div>           
+                      <div class="category_item">       	
+                          <div class="cate_ietm_title" style="background:#be7fc5;"><h3>通信设备、<br>计算机及其他电子设备</h3><p>&nbsp;</p></div>       	
                             <i class="cate_list">
                               <a href="">通信设备</a>
                               <a href="">雷达及配套设备</a>
@@ -84,9 +84,9 @@
                               <a href="">家用视听设备</a>
                               <a href="">其他电子设备</a>
                             </i>       
-                      </div>            
-                  <div class="category_item">       	
-                            <div class="cate_ietm_title" style="background:#67aff9;"><font>电气机械及器材</font><p></p></div> 
+                          </div>         
+                      <div class="category_item">       	
+                        <div class="cate_ietm_title" style="background:#67aff9;"><h3>电气机械及器材</h3><p></p></div> 
                             <i class="cate_list">
                               <a href="">电机</a>
                               <a href="">输配电及控制设备</a>
@@ -96,66 +96,47 @@
                               <a href="">照明器具</a>
                               <a href="">其他电气机械及器材</a>
                             </i>   
-                  </div> 
-                   <div class="category_item">       	
-                            <div class="cate_ietm_title" style="background:#be7fc5;"><font>专用设备</font><p>&nbsp;</p></div>       	
-                            <i class="cate_list">
-                              <a href="">矿山、冶金、建筑专用设备</a>
-                              <a href="">电子和电工机械专用设备</a>
-                              <a href="">医疗仪器设备及器械</a>
-                              <a href="">农、林、牧、渔专用机械</a>
-                              <a href="" style="float:right;">更多</a>
-                            </i>       
-                      </div>
-                       <div class="category_item">       	
-                            <div class="cate_ietm_title" style="background:#be7fc5;"><font>通用设备</font><p>&nbsp;</p></div>       	
-                            <i class="cate_list">
-                              <a href="">锅炉及原动机</a>
-                              <a href="">金属加工机械</a>
-                              <a href="">起重运输设备</a>
-                              <a href="">烘炉、熔炉及电炉</a>
-                              <a href="">金属铸、锻加工</a>
-                              <a href="">更多</a>
-                            </i>       
-                      </div>  
+                        </div> 
               </div>
             </div>
         
       </el-col>
       
       <!-- 登录模块-->
-      <el-col :span="6" >
+      <el-col :span="4" :push="pushCount">
         <div class="grid-content">
-
-          <div class="grid-content-top">
-            <span class="grid-content-top-span">HI!欢迎来到Saas应用</span>
-              <div class="grid-content-top-button">
-                <el-button style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "  type="primary" round>登录</el-button>
-                <el-button style="right:5px;background-color:rgb(250, 101, 105); border-color:rgb(250, 101, 105);" type="primary" round>注册</el-button>
-              </div>
+          <br>
+          &nbsp;
+          <span>HI!欢迎来到Saas应用</span>
+          <br>
+          &nbsp;&nbsp;&nbsp;
+          <div>
+              <el-button style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "  type="primary" round>登录</el-button>
+              <el-button style="right:5px;background-color:rgb(250, 101, 105); border-color:rgb(250, 101, 105);" type="primary" round>注册</el-button>
           </div>
-          <div class="grid-content-down">
-            <el-card class="box-card" :body-style="{ padding: '5px' }">
-              <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
-                <el-tab-pane label="我有需求" name="first">
-                    <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
-                    <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="primary" round>企业标准</el-button>
-                    <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>综合服务</el-button>
-                    <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>产业融合</el-button>
-                    <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>发布需求</el-button>
+          <div style="float: left; width:100%; height:10px"></div>
+          <el-card class="box-card" :body-style="{ padding: '5px' }">
+
+            <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
+              <el-tab-pane label="我有需求" name="first">
+                   <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
+                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="info" round>企业标准</el-button>
+                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="warning" round>综合服务</el-button>
+                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="danger" round>产业融合</el-button>
+                   <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>发布需求</el-button>
                    
-                </el-tab-pane>
-                <el-tab-pane label="我有服务" name="second">
+              </el-tab-pane>
+              <el-tab-pane label="我有服务" name="second">
                   <el-button class="xqelbuttonleft"   style="margin-top:0px ; margin-left:0px ;" type="primary" round>协同设计</el-button>
-                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="primary" round>企业标准</el-button>
-                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>综合服务</el-button>
-                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="primary" round>产业融合</el-button>
+                   <el-button class="xqelbuttonright"  style="margin-top:0px ; margin-left:0px ;" type="info" round>企业标准</el-button>
+                   <el-button class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;"  type="warning" round>综合服务</el-button>
+                   <el-button class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;"  type="danger" round>产业融合</el-button>
                    <el-button class="xqelbuttonleft0"  @click="dialogVisible = true" style="margin-top:10px ; margin-left:0px ;" type="success" round>寻找需求</el-button>
-                </el-tab-pane>
-              </el-tabs>
-            </el-card>
-          </div>
+              </el-tab-pane>
+            </el-tabs>
 
+            
+          </el-card>
         </div>
       </el-col>
     </el-row>
@@ -205,58 +186,74 @@
     <!--第四行  需求一览，优质企业，服务成果-->
     <el-row :gutter="gutterCount">
       <!--需求任务-->
-      <el-col :span="8">
+      <el-col :span="6" :push="pushCount">
         <div class="grid-content2 ">
-          <el-card class="grid-content3 ">
+          <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
               <span>需求一览</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
+            <div class="el-card__body" style="height:500px">
+            <slot>
+
             <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
+            
+            </slot>
+          </div>
         </el-card>
           
         </div>
       </el-col>
 
-      <el-col :span="8">
-        <div class="grid-content2 ">
-        <el-card class="grid-content3">
+      <el-col :span="8"  :push="pushCount">
+        <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
               <span>优质企业</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
-            <div v-for="i in supplierlist" :key="i.name" style="padding-bottom: 50px;">
-              <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
-              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%">{{i.companyName}}</div>
-            </div>
-        </el-card>
-        </div>
-      </el-col>
+            <div class="el-card__body" style="height:500px">
+            <slot>
 
-        <el-col :span="8">
+            <div v-for="i in supplierlist" :key="i.name" style="padding-bottom: 50px;">
+              <div style="float:left; width:20%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
+              <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:50%">{{i.companyName}}</div>
+            </div>
+            
+            </slot>
+          </div>
+        </el-card>
+      </el-col>
+        <el-col :span="6" :push="pushCount">
         <div class="grid-content2 ">
-          <el-card class="grid-content3">
+          <el-card class="grid-content2 ">
             <div slot="header" class="titleColor">
               <span>服务成果</span>
               <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
             </div>
+            <div class="el-card__body" style="height:500px">
+            <slot>
+
             <div v-for="i in completeddemandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
               <div style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%">{{i.name}}</div>
               <div style="float:right;width:30%" class="fontStyle2">&nbsp;&nbsp;{{i.sTime}}</div>
             </div>
+            
+            </slot>
+          </div>
         </el-card>
+          
         </div>
       </el-col>
     </el-row>
 
     <!--第七行  平台数据分割线-->
     <el-row :gutter="gutterCount">
-      <el-col :span="24" >
+      <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="big_bt">
             <a>平台数据</a>
         </div>
@@ -264,7 +261,7 @@
 
     </el-row>
       <el-row :gutter="gutterCount"d >
-      <el-col :span="24">
+      <el-col :span="20":push="pushCount">
         <el-card shadow="hover">
           <div class="demandTop5"></div>
           <div id="monthSituation" style="width: 100%;height:350%;"></div>
@@ -598,202 +595,94 @@ export default {
   padding: 0px;
   font-size: 18px;
 }
-
 /**首页轮播图用样式表用于确认轮播图高度及border*/
 .grid-content0
 {
   height: 400px;
   padding: 0px;
 }
-
 /**轮播图下方的整块的样式表*/
 .BG {
   box-sizing: border-box;
-  width: 1200px;
+  width: 100%;
   margin-bottom: 5px;
   padding:25px;
   font-size: 18px;
 }
 
-/**网站访问统计数据的样式表*/
-.grid-content1
-{
-  border-radius: 4px;
-  height: 50px;
-  /**文字显示居中 */
-  width: 100%;
-  line-height: 50px;
-  overflow: hidden;
-}
 
-/**网站访问统计数据字体样式（用于访问统计数据标题） */
-.fontStyle0
-{
-  font-size: 20px;
-  color:rgb(167, 165, 165);
-}
-.dataCSS
-{
-  width: 25%;
-  height: 100%;
-  overflow: hidden;
-  padding-left: 1%;
-}
-/**网站访问统计数据字体样式（用于访问统计数据内容） */
-.fontStyle
-{
-  font-size: 24px;
-  color:orangered;
-}
 
 /**登陆、注册模块用样式表，用于文本居中及背景色更改*/
 .grid-content
 {
   text-align: center;
-   height: 400px;
+  background-color: #ece9e9
 }
 
-/**登录、注册按钮模块标题模块所用样式表，用于确认整体高度及布局  */
-.grid-content-top
+/**第二行用css样式 网站访问统计数据块*/
+.grid-content1
 {
-  float: left;
-  height:30%;
-  width: 100%;
-  align-items: center;
-  background-color: #ece9e9;
-  
-}
-.grid-content-top-span
-{
-  float: left;
-  width: 100%;
-  height: 20%;
-  margin-top: 10%;
-}
-.grid-content-top-button
-{
-  position: relative;
-  width: 100%;
-  float: left;
-  height: 80%;
-  margin-top: 5%;
-}
-
-/**登录、注册按钮模块tag页模块所用样式表，用于确认整体高度及布局*/
-.grid-content-down
-{
-  float: left;
-  height:70%;
-  width: 100%;
-  background-color:rgb(255, 255, 255);
-}
-.box-card {
-    width: 100%;
-    height: 100%;
-}
-/*我有需求标签页下的按钮展示样式表*/
-/**左侧按钮的样式表*/
-.xqelbuttonleft
-{
-  float: left; position:relative;
-  left:5%;
-  width: 40%;
-  margin-top: 10%;
-}
-/** 鼠标悬浮左侧按钮的样式表*/
-.xqelbuttonleft:hover
-{
-  background-color: rgb(192, 189, 189);
-  border-color:  rgb(192, 189, 189);
-}
-/**下方大按钮用的样式表*/
-.xqelbuttonleft0
-{
-  float: left; position:relative;
-  left:25%;
-  width: 50%;
+  border-radius: 4px;
   height: 50px;
+  /**文字显示居中 */
+  text-align: center;
+  line-height: 50px;
 }
-/**右侧按钮的样式表*/
-.xqelbuttonright
-{
-  float: right; position:relative;
-  right:5%;
-  width: 40%;
-  margin-top: 10%;
-}
-/** 鼠标悬浮右侧按钮的样式表*/
-.xqelbuttonright:hover
-{
-  background-color: rgb(192, 189, 189);
-   border-color:  rgb(192, 189, 189);
-}
-
-
-/**发布需求的弹出窗口的CSS */
-
-/**此样式表内 el-input的样式 */
- .Publishingrequirements .el-input
-{
-  width: 300px;
-}
-/**此样式表内 .el-dialog__title的样式*/
-.Publishingrequirements .el-dialog__title
-{
-  font-size: 18px;
-    color: #303133;
-}
-/**此样式表内 立即发布按钮的CSS样式 */
-.CreatebuttonCSS
-{
-  width: 200px;
-  height: 60px;
-  position: relative;
-  left: 33%;
-}
-
-
-/** 登录模块核心企业与供应商用CSS*/
-.loginHeight
-{
-  height: 210px;
-}
-
-
-
-/**需求一览，优质企业，服务成果 用的外部样式表 */
 .grid-content2
 {
   border-radius: 4px;
   height: 400px;
   padding-bottom: 50px;
-  
+  overflow: hidden;
 }
-/**需求一览，优质企业，服务成果 用的内部样式表 */
 .grid-content3
 {
   border-radius: 4px;
   height: 400px;
-  padding-bottom: 50px;
-  overflow: hidden;
- 
+}
+.grid-content4
+{
+  border-radius: 4px;
+  height: 100px;
+}
+.grid-content6
+{
+  padding-bottom: 20px;
+  width: 30%;
+  float: left;
 }
 
-/**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，企业，服务的类别字体）*/
+/**需求一览 服务成果字体样式*/
 .fontStyle1
 {
   color: rgb(230, 158, 24);
 }
-
-/**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，服务的时间字体）*/
 .fontStyle2
 {
   color:rgb(150, 144, 144);
   font-size: 15px;
 }
 
+/**各个任务标题背景色 */
+.titleColor0
+{
+  background-color:rgb(230, 123, 133);
+}
 
-/**平台数据分割线用的样式表*/
+
+/**网站统计数据字体样式 */
+.fontStyle0
+{
+  font-size: 20px;
+  color:rgb(167, 165, 165);
+}
+.fontStyle
+{
+  font-size: 24px;
+  color:orangered;
+}
+
+/**划分页面标识*/
 .big_bt {
     width: 370px;
     margin: 0 auto;
@@ -813,6 +702,57 @@ export default {
     top: 18px;
 }
 
+/*我有需求下按钮展示的CSS*/
+.xqelbuttonleft
+{
+  float: left; position:relative;left:20px;
+}
+.xqelbuttonleft:hover
+{
+  background-color: rgb(192, 189, 189);
+  border-color:  rgb(192, 189, 189);
+}
+
+.xqelbuttonleft0
+{
+  float: left; position:relative;left:30%;
+}
+
+.xqelbuttonright
+{
+  float: right; position:relative;right:20px;
+}
+
+.xqelbuttonright:hover
+{
+  background-color: rgb(192, 189, 189);
+   border-color:  rgb(192, 189, 189);
+}
+
+/**发布需求的弹出窗口的CSS */
+ .Publishingrequirements .el-input
+{
+  width: 300px;
+}
+.Publishingrequirements .el-dialog__title
+{
+  font-size: 18px;
+    color: #303133;
+}
+.CreatebuttonCSS
+{
+  width: 200px;
+  height: 60px;
+  position: relative;
+  left: 33%;
+}
+
+
+/** 登录模块核心企业与供应商用CSS*/
+.loginHeight
+{
+  height: 210px;
+}
 
 /**布局测试用css*/
 .el-row {
@@ -821,6 +761,14 @@ export default {
   .el-col {
     border-radius: 4px;
   }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  
 
 .box-card {
     width: 100%;
@@ -830,43 +778,36 @@ export default {
 
 
 
-/**分类门户的样式表*/
+/**服务入口跳转用CSS*/
 .category_wrap {
     width: 100%;
     margin: 0px;
     float: left;
     overflow: hidden;
-    height: 400px;
 }
 .category_box {
-    width: 100%;
-    height: 100%;
+    width: 1300px;
 }
 .category_item {
-    width: 33.1%;
-    height: 50%;
+    width: 24%;
+    height: 323px;
     float: left;
     background: #f5f5f5;
     margin: 0 2px 0 0;
-    
 }
 .cate_ietm_title {
     width: 100%;
-    height: 25%;
+    height: 70px;
     background: #fa6569;
     color: #fff;
-    font-size: 18px;
-    text-align: center;
-    line-height: 50px;
 }
 .cate_list {
     line-height: 30px;
     margin: 20px;
     display: block;
-    height: 75%;
 }
 .cate_list a {
-    margin: 0 15px 0 0;
+    margin: 0 20px 0 0;
     display: inline-block;
     font-size: 16px;
      font-style:normal;
@@ -875,10 +816,65 @@ a {
     color: #333;
     text-decoration: none;
 }
-a:hover
-{
-  color: #fa6569;
+
+
+
+
+
+.index-user-panel .user-panel-tab-content .tab-content-customer.active .user-panel-tab-content .tab-content-seller.active {
+    display: block;
 }
+ .tab-content-title {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 6px;
+    margin-top: 7px;
+    font-weight: 600;
+}
+.tab-content-locate.customer-locate {
+    background: transparent;
+    padding-left: 0;
+    color: #333;
+}
+ .tab-content-locate.customer-locate {
+    background: transparent;
+    padding-left: 0;
+    color: #333;
+}
+.clearfix0
+{
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
