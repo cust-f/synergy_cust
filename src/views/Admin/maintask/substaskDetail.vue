@@ -87,7 +87,7 @@
           class="handle-del mr10"
           @click="delAllSelection"
         >批量删除</el-button>
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+        <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
 
       <el-table
@@ -156,7 +156,7 @@
       </span>
     </el-dialog>
  
-    <!-- 新增弹出框
+     新增弹出框
     <el-dialog title="新增" :visible.sync="addVisible" width="50%">
       <el-form ref="form" :model="addList" label-width="70px">
         <el-form-item label="企业名称">
@@ -188,7 +188,7 @@
         <el-button @click="addVisible = false">取 消</el-button>
         <el-button type="primary" @click="saveAdd">确 定</el-button>
       </span>
-    </el-dialog> -->
+    </el-dialog> 
   </div>
         </el-main>
     </el-container>
