@@ -31,22 +31,13 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column type="selection" width="40" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="mainstaskTask" label="主任务名称"  align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称"  align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称" width="100"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" width="100"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column prop="date" label="任务截止时间" width="140px"></el-table-column>
-        <el-table-column label="操作" width="100" align="left">
+        <el-table-column prop="mainstaskTask" label="需求任务名称"  ></el-table-column>
+        <el-table-column prop="name" label="企业名称" ></el-table-column>
+       <el-table-column prop="date" label="任务截止时间" ></el-table-column>
+        <el-table-column prop="state"  label="状态" align="center" type="text"></el-table-column>
+        <el-table-column label="操作" width="180" align="left">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -54,7 +45,6 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-            <br>
           <el-button @click="substaskDetail1(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -77,7 +67,7 @@
 
 
 
-    <el-tab-pane label="待回应任务" name="fifth">      
+    <el-tab-pane label="待响应任务" name="fifth">      
                   <div class="handle-box">
               <el-button
                 type="primary"
@@ -98,22 +88,16 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column type="selection" width="40" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="mainstaskTask" label="需求任务名称" ></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
+                <el-table-column prop="date" label="任务截止时间" ></el-table-column>
+
+        <el-table-column prop="state" label="状态" align="center" type="text">
         </el-table-column>
 
-        <el-table-column prop="date" label="任务截止时间" ></el-table-column>
-        <el-table-column label="操作"  align="center">
+        <el-table-column label="操作"  align="center" width="180">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -121,10 +105,7 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-            <br>
           <el-button @click="substaskDetail2(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
-          <br>
-                    <el-button @click="chick(scope.$index, scope.row)" type="text" size="small">供应商审核</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -163,22 +144,14 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column type="selection" width="40" ></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="需求任务名称" a></el-table-column>
         <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
+                <el-table-column prop="date" label="任务截止时间"></el-table-column>
+        <el-table-column prop = "state" label="状态" align="center"></el-table-column>
 
-        <el-table-column prop="date" label="任务截止时间"></el-table-column>
-        <el-table-column label="操作"  align="center">
+        <el-table-column label="操作"  align="center" width="180">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -186,7 +159,6 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-            <br>
           <el-button @click="substaskDetail3" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -224,7 +196,7 @@
                 @click="delAllSelection"
               >批量删除</el-button>
               <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-              <el-input v-model="query.name" placeholder="主任务名称" class="handle-input mr10"></el-input>
+              <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
               <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
               <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
@@ -236,22 +208,15 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column type="selection" width="40" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称"  align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称" align="center"></el-table-column>
+        <el-table-column prop="mainstaskTask" label="需求任务名称"  ></el-table-column>
         <el-table-column prop="name" label="企业名称" ></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
+                <el-table-column prop="date" label="任务完成时间" ></el-table-column>
 
-        <el-table-column prop="date" label="任务完成时间" ></el-table-column>
-        <el-table-column label="操作"  align="center">
+        <el-table-column prop="state" label="状态" align="center"> </el-table-column>
+
+        <el-table-column label="操作"  align="center" width="180">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -259,7 +224,6 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-            <br>
           <el-button @click="substaskDetaill(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -302,22 +266,15 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column type="selection" width="40" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-               <el-table-column prop="mainstaskTask" label="主任务名称" align="center"></el-table-column>
-        <el-table-column prop="substaskTask" label="子任务名称"  align="center"></el-table-column>
+               <el-table-column prop="mainstaskTask" label="需求任务名称" ></el-table-column>
         <el-table-column prop="name" label="企业名称" ></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型" ></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
+                <el-table-column prop="date" label="任务废除时间" ></el-table-column>
+        <el-table-column label="状态" align="center" prop="state">
         </el-table-column>
 
-        <el-table-column prop="date" label="任务废除时间" ></el-table-column>
-        <el-table-column label="操作"  align="center">
+        <el-table-column label="操作"  align="center" width="180">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -325,7 +282,6 @@
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
-            <br>
           <el-button @click="substaskDetail6(scope.$index, scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -953,9 +909,6 @@ export default {
   margin: 0 auto;
   text-align: center;
 }
-.table {
-  font-size: 16px;
-}
 .handle-box {
   margin-bottom: 20px;
 }
@@ -980,7 +933,7 @@ export default {
 }
 .table {
   width: 100%;
-  font-size: 16px;
+  font-size: 14px;
 }
 .red {
   color: #ff0000;

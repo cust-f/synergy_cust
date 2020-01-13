@@ -79,7 +79,7 @@
       <el-divider></el-divider>
 
       <el-card shadow="always">
-        <div style="font-size:20px;">子任务信息</div>
+        <div style="font-size:20px;">需求分解信息</div>
         <div class="container">
           <div class="handle-box">
             <el-button
@@ -98,61 +98,22 @@
             header-cell-class-name="table-header"
             @selection-change="handleSelectionChange"
           >
-            <el-table-column type="selection" width="55" align="center"></el-table-column>
+            <el-table-column type="selection" width="40" align="center"></el-table-column>
             <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-            <el-table-column prop="taskNum" label="子任务编号"></el-table-column>
+            <el-table-column prop="taskNum" label="子任务编号" align="center"></el-table-column>
             <el-table-column prop="taskName" label="任务名称"></el-table-column>
             <el-table-column prop="taskType" label="任务类别"></el-table-column>
             <el-table-column prop="bidTime" label="开始时间"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
-            <el-table-column label="操作" align="center">
-              <template slot-scope width="230px">
+            <el-table-column label="操作" align="center" width="180">
+              <template slot-scope>
                 <el-button type="primary" class="handle-del mr10" @click="addDesignerButton">新增外来企业</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
 
-        <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
-          <el-form ref="form" :model="addList" label-width="120px">
-            <el-form-item label="子任务编号">
-              <el-input v-model="form.taskNum"></el-input>
-            </el-form-item>
-            <el-form-item label="任务名称">
-              <el-input v-model="form.taskName"></el-input>
-            </el-form-item>
-            <el-form-item label="任务类别">
-              <el-select v-model="form.taskTyp" placeholder="请选择项目类别">
-                <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
-              </el-select>
-              <el-input v-model="form.taskType"></el-input>
-            </el-form-item>
-            <el-form-item label="开标时间">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="form.bidTime"
-                value-format="yyyy-MM-dd"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-            <el-form-item label="供应商">
-              <el-select v-model="form.supplyCompany" placeholder="请选择供应商">
-                <el-option
-                  v-for="company in supplyCompanies"
-                  :key="company"
-                  :label="company"
-                  :value="company"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="editVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveEdit">确 定</el-button>
-          </span>
-        </el-dialog>
+      
 
         <!-- 新增弹出框 -->
         <el-dialog title="新增" :visible.sync="addVisible" width="50%">
@@ -175,17 +136,49 @@
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
-            <el-form-item label="核心供应商">
-              <el-select v-model="addList.supplyCompany" placeholder="请选择供应商">
-                <el-option label="全部" value></el-option>
-                <el-option
-                  v-for="company in supplyCompanies"
-                  :key="company"
-                  :label="company"
-                  :value="company"
-                ></el-option>
-              </el-select>
-            </el-form-item>
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="是否邀请">
+                  <el-select
+                    v-model="cooList.supplyCompany"
+                    placeholder="请选择是或者否"
+                    class="selectsupply"
+                    @change="invitate"
+                  >
+                  <el-option
+                      width="180"
+                      v-for="coo in shifou"
+                      :key="coo"
+                      :label="coo"
+                      :value="coo"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="8">
+                <el-form-item label="核心供应商" :style="{display: visiblehexin}">
+                  <el-select
+                    v-model="addList.supplyCompany"
+                    placeholder="请选择供应商"
+                    class="selectsupply"
+                  >
+                    <el-option label="全部" value></el-option>
+                    <el-option
+                      width="180"
+                      v-for="company in supplyCompanies"
+                      :key="company"
+                      :label="company"
+                      :value="company"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="8">
+                <el-input placeholder="等待供应方申请" v-model="input" :disabled="true" :style="{display:shenqing}"></el-input>
+              </el-col>
+            </el-row>
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button @click="addVisible = false">取 消</el-button>
@@ -239,12 +232,15 @@
 <script>
 export default {
   name: "newTask",
+
   data() {
     return {
       query: {
         pageIndex: 1,
         pageSize: 10
       },
+      visiblehexin: "none",
+      shenqing:"none",
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
@@ -256,6 +252,8 @@ export default {
         "起重集团有限公司",
         "长光电子"
       ], //供应商列表
+      shifou: ["是","否"],
+      selVal:'',
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
       id: 0, //记录任务数
       //招标信息
@@ -298,10 +296,27 @@ export default {
           supplyDesigner: ""
         }
       ],
+      cooList: {},
       form: {}
     };
   },
   methods: {
+    invitate(coo) {
+      console.log(coo);
+            console.log(coo);
+
+      if(coo=="是"){
+        console.log(coo);
+        this.visiblehexin='inline';
+        this.shenqing="none";
+      }
+      else{
+        //console.log(coo);
+        this.shenqing='inline';
+        this.visiblehexin="none";
+      }
+    },
+
     // 删除操作
     handleDelete(index, row) {
       // 二次确认删除
@@ -376,5 +391,8 @@ export default {
 }
 .tb-edit .current-row .el-input + span {
   display: none;
+}
+.selectsupply {
+  padding-right: 300px;
 }
 </style>

@@ -68,10 +68,6 @@ export default {
                     index:'/admin/supplyBussess',
                     title:'企业名录'
                 },
-                {
-                    index:'/admin/xuqiuyilan',
-                    title:'需求一览'
-                },
                 ]
         },
         {
