@@ -78,6 +78,7 @@ import xuqiuyilan from '@/views/admin/company/xuqiuyilan'//需求一览
 import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
 
 import primarysupplyList from '@/views/admin/company/primarysupplyList'//一级供应商列表
+import secondarysupplyList from '@/views/admin/company/secondarysupplyList'//二级供应商列表
 
 
 
@@ -478,11 +479,20 @@ export default new Router({
         },
         //一级供应商名录
         {
-          path: '/admin/primarysupply_list',
+          path: '/admin/primarysupplyList',
           name: 'primarysupplyList',
           component: primarysupplyList,
           meta: {
             title: "一级供应商的信息"
+          }
+        },
+        //一级供应商名录
+        {
+          path: '/admin/secondarysupplyList',
+          name: 'secondarysupplyList',
+          component: secondarysupplyList,
+          meta: {
+            title: "二级供应商的信息"
           }
         },
 

@@ -125,7 +125,7 @@
 
 <script>
 export default {
-  name: "primarysupplyList",
+  name: "secondarysupplyList",
   data() {
     return {
         query: {
