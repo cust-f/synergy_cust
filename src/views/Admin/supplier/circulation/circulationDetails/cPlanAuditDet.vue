@@ -2,17 +2,17 @@
   <div>
     <el-container>
       <el-main style="overflow:hidden">
-        <el-page-header @back="goBack" content="任务详情"></el-page-header>
+        <el-page-header @back="goBack" content="需求详情"></el-page-header>
         <br />
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="任务ID">
+              <el-form-item label="需求ID">
                 <el-input v-model="form.id" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="任务名称">
+              <el-form-item label="需求名称">
                 <el-input v-model="form.name" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
@@ -20,7 +20,7 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="任务类型">
+              <el-form-item label="需求类型">
                 <el-input v-model="form.type" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
@@ -32,12 +32,12 @@
           </el-row>
           <el-row>
             <el-col :span="11">
-              <el-form-item label="发布任务企业">
+              <el-form-item label="发布需求企业">
                 <el-input v-model="form.company" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="发布任务时间">
+              <el-form-item label="发布需求时间">
                 <el-input v-model="form.startTime" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
@@ -61,9 +61,15 @@
                 <el-input v-model="form.status" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+
+             <el-col :span="11">
+              <el-form-item label="数目">
+                <el-input v-model="form.count" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-col width="100%">
-            <el-form-item label="任务细节">
+            <el-form-item label="需求细节">
               <el-input
                 type="textarea"
                 :rows="3"
@@ -77,20 +83,20 @@
         </el-form>
         <div align="right">
           <el-button type="primary" class="button1">查看技术文档</el-button>
-          <el-button type="primary" class="button1" @click="TableVisible = true">供应商分配</el-button>
+          <el-button type="primary" class="button1" @click="gonewcompany()">供应商分配</el-button>
           <el-button type="primary" class="button1" @click="dialogTableVisible = true">人员分配</el-button>
         </div>
       </el-main>
     </el-container>
-    <el-dialog title="分配设计人员" :visible.sync="dialogTableVisible" width="30%">
+    <el-dialog title="分配流通负责人" :visible.sync="dialogTableVisible" width="30%">
       <el-form :model="form">
-        <el-form-item label="任务名称" :label-width="formLabelWidth">
+        <el-form-item label="需求名称" :label-width="formLabelWidth">
           <el-input v-model="from.name" autocomplete="off" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="截止日期" :label-width="formLabelWidth">
           <el-input v-model="from.endtime" autocomplete="off" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="设计人员" :label-width="formLabelWidth">
+        <el-form-item label="负责人" :label-width="formLabelWidth">
           <el-select v-model="form.region" placeholder="请选择分配人员">
             <el-option label="王虎" value="wangxiaohu"></el-option>
             <el-option label="李丽" value="lili"></el-option>
@@ -107,7 +113,7 @@
 
     <el-dialog title="分配供应商" :visible.sync="TableVisible" width="30%">
       <el-form :model="form">
-        <el-form-item label="任务名称" :label-width="formLabelWidth">
+        <el-form-item label="需求名称" :label-width="formLabelWidth">
           <el-input v-model="from.name" autocomplete="off" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="截止日期" :label-width="formLabelWidth">
@@ -138,7 +144,7 @@
 </template>
 <script>
 export default {
-  name: "planAuditDet",
+  name: "cPlanAuditDet",
   data() {
     return {
       successful: false,
@@ -162,18 +168,18 @@ export default {
         leaderTel: "18088675187",
         designcompany: "杭机集团长春一机有限公司",
         startTime: "2019-5-1",
-        status: "审核通过"
+        status: "审核通过",
+        count:"50000"
       },
       formLabelWidth: "120px"
     };
   },
   methods: {
     goBack() {
-      this.$router.push("/admin/designTaskq");
+      this.$router.push("/admin/circulationTaskq");
     },
-    goBackagain() {
-      this.$router.push("/admin/designTaskq");
-      this.dialogVisible = false;
+    gonewcompany() {
+      this.$router.push("/admin/cNewTask");
     },
     success() {
       this.dialogTableVisible = false;

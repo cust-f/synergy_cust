@@ -1,14 +1,7 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-button
-        type="primary"
-        icon="el-icon-delete"
-        class="handle-del mr10"
-        @click="delAllSelection"
-      >批量删除</el-button>
-      <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
+      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
@@ -20,16 +13,15 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="taskName" label="任务名称"></el-table-column>
+      <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
 
-      <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
+      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+      <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
 
       <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
@@ -39,9 +31,9 @@
         <template>
           <el-button @click="jumpResDet() " type="text" size="small">查看详情</el-button>
 
-          <el-button @click="planbook=true" type="text" size="small">接受</el-button>
+          <el-button @click="planbook=true" type="text" size="small">接收</el-button>
 
-          <el-button @click="disacceptf=true" type="text" size="small">不接受</el-button>
+          <el-button @click="disacceptf=true" type="text" size="small">不接收</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -56,7 +48,7 @@
       ></el-pagination>
     </div>
 
-    <el-dialog title="上传任务书" :visible.sync="planbook" width="20%" :before-close="handleClose">
+    <el-dialog title="上传需求书" :visible.sync="planbook" width="20%" :before-close="handleClose">
       <el-upload
         class="upload-demo"
         action="https://jsonplaceholder.typicode.com/posts/"
@@ -68,7 +60,7 @@
         :on-exceed="handleExceed"
         :file-list="fileList"
       >
-        <el-button size="small" type="primary">上传任务书</el-button>
+        <el-button size="small" type="primary">上传需求书</el-button>
         <div slot="tip" class="el-upload__tip">只能上传doc文件</div>
       </el-upload>
       <el-button type="primary" @click="success()">确 定</el-button>
@@ -110,7 +102,7 @@ export default {
             "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
         }
       ],
-      acceptf: false, //接受任务弹窗
+      acceptf: false, //接受需求弹窗
       disacceptf: false,
       planbook: false,
       query: {
@@ -200,7 +192,7 @@ export default {
     this.getData();
   },
   methods: {
-    // 全部任务详情页面跳转
+    // 全部需求详情页面跳转
     jumpResDet() {
       this.$router.push("/admin/pendingResTaskDet");
     },
@@ -226,7 +218,7 @@ export default {
     }
   }
   /*
-   *转跳对应任务信息页面
+   *转跳对应需求信息页面
    */
 };
 </script>
