@@ -5,7 +5,7 @@
     </div>
     <div style="margin:0 auto;">
       <el-container width="1200px" style="padding:0px;overflow:hidden;width:1200px;">
-        <el-aside width="260px" style="margin-top:50px;">
+        <el-aside width="230px" style="margin-top:50px;">
           <v-sidebar></v-sidebar>
         </el-aside>
         <el-main style="padding-top:10px;overflow:hidden;" >

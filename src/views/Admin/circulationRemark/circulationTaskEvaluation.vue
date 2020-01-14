@@ -39,13 +39,13 @@
             >
               <el-table-column type="selection" width="55" align="center"></el-table-column>
               <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-              <el-table-column prop="Maintask" label="主任务名称"></el-table-column>
+              <el-table-column prop="Maintask" label="主任务名称" width="106"></el-table-column>
               <el-table-column prop="Subtask" label="子任务名称"></el-table-column>
               <el-table-column prop="Suppliername" label="供应商名称"></el-table-column>
-              <el-table-column prop="time" label="任务完成时间"></el-table-column>
-              <el-table-column prop="state" label="评价状态"></el-table-column>
+              <el-table-column prop="time" width="139" label="任务完成时间"></el-table-column>
+              <el-table-column prop="state" width="83" label="评价状态"></el-table-column>
 
-              <el-table-column prop="“cz”" label="操作" width="340" align="center">
+              <el-table-column prop="“cz”" label="操作" width="189" align="center">
                 <template slot-scope="scope">
                   <!--    <div id=a> -->
                   <el-button
@@ -277,13 +277,13 @@ export default {
   text-align: center;
 }
 .table {
-  font-size: 16px;
+  /* font-size: 16px; */
 }
 .el-tabs__item {
-  font-size: 16px;
+  /* font-size: 16px; */
 }
 .red {
-  font-size: 16px;
+  /* font-size: 16px; */
 }
 </style>
 

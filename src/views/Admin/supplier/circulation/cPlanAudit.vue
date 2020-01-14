@@ -21,7 +21,7 @@
 
       <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
+      <el-table-column prop="count" label="数目" align="center"></el-table-column>
 
       <el-table-column prop="state" label="状态" align="center"></el-table-column>
 
@@ -33,7 +33,7 @@
         <template>
           <el-button @click="jumpplanDet()" type="text" size="small">查看详情</el-button>
           <el-button @click="dialogTableVisible=true" type="text" size="small">分配人员</el-button>
-          <el-button @click="TableVisible=true" type="text" size="small">分配供应商</el-button>
+          <el-button @click="jumpnewTask()" type="text" size="small">分配供应商</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -53,7 +53,7 @@
     <h2>计划书审核菜单</h2>
     <el-divider></el-divider>
     <el-table
-      :data="tableData"
+      :data="tableData1"
       border
       class="table"
       ref="multipleTable"
@@ -68,7 +68,7 @@
 
       <el-table-column prop="publishTask" label="接受需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
+      <el-table-column prop="count" label="数目" align="center"></el-table-column>
 
       <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
@@ -100,7 +100,9 @@
       ></el-pagination>
     </div>
 
-    <el-dialog title="分配供应商" :visible.sync="TableVisible" width="30%">
+    <!-- 分配流通人员 -->
+
+    <el-dialog title="分配流通负责人" :visible.sync="dialogTableVisible" width="30%">
       <el-form :model="form">
         <el-form-item label="需求名称" :label-width="formLabelWidth">
           <el-input v-model="from.name" autocomplete="off" :disabled="true"></el-input>
@@ -108,32 +110,7 @@
         <el-form-item label="截止日期" :label-width="formLabelWidth">
           <el-input v-model="from.endtime" autocomplete="off" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="供应商" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="请选择分配供应商">
-            <el-option label="杭机集团长春一机有限公司" value="wangxiaohu"></el-option>
-            <el-option label="杭机集团长春一机有限公司" value="lili"></el-option>
-            <el-option label="杭机集团长春一机有限公司" value="majie"></el-option>
-            <el-option label="杭机集团长春一机有限公司" value="qinqin"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="TableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="success()">确 定</el-button>
-      </div>
-    </el-dialog>
-
-    <!-- 分配设计人员 -->
-
-    <el-dialog title="分配设计人员" :visible.sync="dialogTableVisible" width="30%">
-      <el-form :model="form">
-        <el-form-item label="需求名称" :label-width="formLabelWidth">
-          <el-input v-model="from.name" autocomplete="off" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="截止日期" :label-width="formLabelWidth">
-          <el-input v-model="from.endtime" autocomplete="off" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="设计人员" :label-width="formLabelWidth">
+        <el-form-item label="负责人" :label-width="formLabelWidth">
           <el-select v-model="form.region" placeholder="请选择分配人员">
             <el-option label="王虎" value="wangxiaohu"></el-option>
             <el-option label="李丽" value="lili"></el-option>
@@ -175,14 +152,14 @@
 
 <script>
 export default {
-  name: "planAudit",
+  name: "cPlanAudit",
   data() {
     return {
       successful: false,
       accept: false,
       disaccept: false,
       dialogTableVisible: false,
-      TableVisible:false,
+      TableVisible: false,
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -201,7 +178,7 @@ export default {
           taskName: "客车汽车前车灯",
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
-          taskLeader: "李名",
+          count: "50000",
 
           state: "进行中",
           date: "2019-12-1"
@@ -212,7 +189,29 @@ export default {
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "刘柳",
+          count: "50000",
+          state: "进行中",
+          date: "2019-11-14"
+        }
+      ],
+      tableData1: [
+        {
+          id: 1,
+          taskName: "客车汽车前车灯",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          count: "50000",
 
+          state: "进行中",
+          date: "2019-12-1"
+        },
+        {
+          id: 2,
+          taskName: "中型汽车车架",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "刘柳",
+          count: "50000",
           state: "进行中",
           date: "2019-11-14"
         }
@@ -232,16 +231,19 @@ export default {
   methods: {
     // 全部需求详情页面跳转
     jumpplanDet() {
-      this.$router.push("/admin/planAuditDet");
+      this.$router.push("/admin/cPlanAuditDet");
     },
 
     jumpAuditDet() {
-      this.$router.push("/admin/planAuditingDet");
+      this.$router.push("/admin/cPlanAuditingDet");
     },
     success() {
       this.dialogTableVisible = false;
       this.successful = true;
       this.TableVisible = false;
+    },
+    jumpnewTask(){
+      this.$router.push("/admin/cNewTask");
     }
   }
   /*

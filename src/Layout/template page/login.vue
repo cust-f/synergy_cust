@@ -5,7 +5,7 @@
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="username">
-            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+            <el-button slot="prepend" icon="el-icon-user"></el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
@@ -15,7 +15,7 @@
             v-model="param.password"
             @click="submitForm()"
           >
-            <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
+            <el-button slot="prepend" icon="el-icon-unlock"></el-button>
           </el-input>
         </el-form-item>
         <div class="login-btn">
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import Qs from "qs";
+
 export default {
   name: "login",
   data: function() {
@@ -49,92 +51,121 @@ export default {
       this.$refs.login.validate(valid => {
         if (valid) {
           var menuList;
-          if (this.param.username == "admin") {
-            this.$message.success("管理员登录成功");
-            this.$store.commit("SET_TOKEN", true);
-            this.$store.commit("GET_USER", this.username);
-            localStorage.setItem("ms_username", this.param.username);
-            menuList = [
-              {
-                icon: "el-icon-postcard",
-                index: "2",
-                title: "企业信息管理",
-                subs: [
-                  {
-                    index: "/admin/companyDetail",
-                    title: "企业信息详情"
-                  },
-                  {
-                    index: "/admin/supplyBussess",
-                    title: "企业名录"
-                  }
-                ]
-              },
-              {
-                icon: "el-icon-edit-outline",
-                index: "3",
-                title: "协同管理",
-                subs: [
-                  {
-                    index: "/admin/newTask",
-                    title: "新增任务",
-                    meta:{
-                      title:"新增任务"
-                    }
-                  },
-                  {
-                    index: "/admin/mainStaskShow",
-                    title: "查看详情"
-                  }
-                ]
-              },
-              {
-                icon: "el-icon-tickets",
-                index: "4",
-                title: "任务管理",
-                subs: [
-                  {
-                    index: "/admin/designTask",
-                    title: "设计任务"
-                  },
-                  {
-                    index: "/admin/circulationTask",
-                    title: "流通任务"
-                  }
-                ]
+          var that = this;
+          var data = Qs.stringify({
+            userName: this.param.username,
+            passWord: this.param.password
+          });
+          that
+            .axios({
+              method: "post",
+              url: "/api/user/login",
+              data: data
+            })
+            .then(response => {
+              console.log(response);
+              if (response.data.code == 200) {
+                this.$message({
+                  type: "success",
+                  message: "登陆成功"
+                });
+                this.$store.commit("SET_TOKEN", true);
+                this.$store.commit("GET_USER", this.username);
+                localStorage.setItem("ms_username", this.param.username);
+                this.$router.push("/admin/dashboard");
+              } else {
+                this.$message({
+                  type: "warning",
+                  message: "登陆失败"
+                });
               }
-            ];
-            this.$store.commit("SET_List", menuList);
-            this.$router.push("/admin/dashboard");
-          } else if (this.param.username == "supplier") {
-            this.$message.success("管理员登录成功");
-            this.$store.commit("SET_TOKEN", true);
-            this.$store.commit("GET_USER", this.username);
-            menuList = [];
-            this.$store.commit("SET_List", menuList);
-            this.$router.push("/admin/dashboard");
-          } else if (this.param.username == "desinger") {
-            this.$message.success("管理员登录成功");
-            this.$store.commit("SET_TOKEN", true);
-            this.$store.commsit("GET_USER", this.username);
-            menuList = [];
-            this.$store.commit("SET_List", menuList);
-            this.$router.push("/admin/dashboard");
-          } else if (this.param.username == "company") {
-            this.$message.success("管理员登录成功");
-            this.$store.commit("SET_TOKEN", true);
-            this.$store.commit("GET_USER", this.username);
-            menuList = [];
-            this.$store.commit("SET_List", menuList);
-            this.$router.push("/admin/dashboard");
-          } else if (this.param.username == "circulation") {
-            this.$message.success("管理员登录成功");
-            this.$store.commit("SET_TOKEN", true);
-            this.$store.commit("GET_USER", this.username);
-            menuList = [];
-            this.$store.commit("SET_List", menuList);
-            this.$router.push("/admin/dashboard");
-          }
+            });
+          // if (this.param.username == "admin") {
+          //   this.$message.success("管理员登录成功");
+          //   this.$store.commit("SET_TOKEN", true);
+          //   this.$store.commit("GET_USER", this.username);
+          //   localStorage.setItem("ms_username", this.param.username);
+          //   menuList = [
+          //     {
+          //       icon: "el-icon-postcard",
+          //       index: "2",
+          //       title: "企业信息管理",
+          //       subs: [
+          //         {
+          //           index: "/admin/companyDetail",
+          //           title: "企业信息详情"
+          //         },
+          //         {
+          //           index: "/admin/supplyBussess",
+          //           title: "企业名录"
+          //         }
+          //       ]
+          //     },
+          //     {
+          //       icon: "el-icon-edit-outline",
+          //       index: "3",
+          //       title: "协同管理",
+          //       subs: [
+          //         {
+          //           index: "/admin/newTask",
+          //           title: "新增任务",
+          //           meta: {
+          //             title: "新增任务"
+          //           }
+          //         },
+          //         {
+          //           index: "/admin/mainStaskShow",
+          //           title: "查看详情"
+          //         }
+          //       ]
+          //     },
+          //     {
+          //       icon: "el-icon-tickets",
+          //       index: "4",
+          //       title: "任务管理",
+          //       subs: [
+          //         {
+          //           index: "/admin/designTask",
+          //           title: "设计任务"
+          //         },
+          //         {
+          //           index: "/admin/circulationTask",
+          //           title: "流通任务"
+          //         }
+          //       ]
+          //     }
+          //   ];
+          //   this.$store.commit("SET_List", menuList);
+          //   this.$router.push("/admin/dashboard");
+          // } else if (this.param.username == "supplier") {
+          //   this.$message.success("管理员登录成功");
+          //   this.$store.commit("SET_TOKEN", true);
+          //   this.$store.commit("GET_USER", this.username);
+          //   menuList = [];
+          //   this.$store.commit("SET_List", menuList);
+          //   this.$router.push("/admin/dashboard");
+          // } else if (this.param.username == "desinger") {
+          //   this.$message.success("管理员登录成功");
+          //   this.$store.commit("SET_TOKEN", true);
+          //   this.$store.commsit("GET_USER", this.username);
+          //   menuList = [];
+          //   this.$store.commit("SET_List", menuList);
+          //   this.$router.push("/admin/dashboard");
+          // } else if (this.param.username == "company") {
+          //   this.$message.success("管理员登录成功");
+          //   this.$store.commit("SET_TOKEN", true);
+          //   this.$store.commit("GET_USER", this.username);
+          //   menuList = [];
+          //   this.$store.commit("SET_List", menuList);
+          //   this.$router.push("/admin/dashboard");
+          // } else if (this.param.username == "circulation") {
+          //   this.$message.success("管理员登录成功");
+          //   this.$store.commit("SET_TOKEN", true);
+          //   this.$store.commit("GET_USER", this.username);
+          //   menuList = [];
+          //   this.$store.commit("SET_List", menuList);
+          //   this.$router.push("/admin/dashboard");
+          // }
         } else {
           this.$message.error("请输入账号和密码");
           console.log("error submit!!");
