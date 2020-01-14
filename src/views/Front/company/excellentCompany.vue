@@ -32,9 +32,8 @@
           </div>
         </div>
         <el-input placeholder="请输入内容" v-model="input3" class="sogo">
-        <el-button slot="append" icon="el-icon-search"></el-button>
-        
       </el-input>
+      <el-button type="warning" >搜索</el-button>
       <br>
       </el-col>
       

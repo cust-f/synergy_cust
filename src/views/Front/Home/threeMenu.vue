@@ -8,7 +8,7 @@
         <div class="grid-content0">
           <el-breadcrumb separator="/" class="fontStyle">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="/">需求任务</a></el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/twoMenu'}">需求任务</a></el-breadcrumb-item>
             <el-breadcrumb-item><a href="/">需求任务详情</a></el-breadcrumb-item>
           </el-breadcrumb>
         </div>
@@ -33,8 +33,8 @@
           <p style =" width :50%; float:left">任务截止时间：2019-11-21</p>
           <p>&nbsp;</p>
           <div style="margin:20px 0;">        
-           <el-button type="primary" >下载模板</el-button>
-           <el-button type="primary" @click="open">申请任务</el-button>
+           <el-button type="warning" >下载模板</el-button>
+           <el-button type="warning" @click="open">申请任务</el-button>
           </div>
         </div>
         </div>
@@ -154,17 +154,17 @@ export default {
 }
 .grid-content3
 {
-   font-size: 18px;
+   font-size: 17px;
 }
 .grid-content4
 {
-   font-size: 20px;
+   font-size: 17px;
    height: 500px;
    margin: 20px 0;
 }
 .grid-content5
 {
-   font-size: 20px;
+   font-size: 17px;
    margin: 0 0;
    height: 500px;
 }

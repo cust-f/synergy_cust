@@ -56,24 +56,20 @@ export default {
           index: "/admin/dashboard",
           title: "系统管理"
         },
-        // {
-        //     icon: 'el-icon-postcard',
-        //     index: '2',
-        //     title: '企业信息管理',
-        //     subs:[{
-        //             index:'/admin/companyDetail',
-        //             title:'企业信息详情'
-        //         },
-        //         {
-        //             index:'/admin/supplyBussess',
-        //             title:'企业名录'
-        //         },
-        //         {
-        //             index:'/admin/xuqiuyilan',
-        //             title:'需求一览'
-        //         },
-        //         ]
-        // },
+        {
+            icon: 'el-icon-postcard',
+            index: '2',
+            title: '企业信息管理',
+            subs:[{
+                    index:'/admin/companyDetail',
+                    title:'企业信息详情'
+                },
+                {
+                    index:'/admin/supplyBussess',
+                    title:'企业名录'
+                },
+                ]
+        },
         {
           icon: "el-icon-edit-outline",
           index: "3",

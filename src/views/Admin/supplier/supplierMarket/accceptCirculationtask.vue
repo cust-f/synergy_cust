@@ -59,7 +59,7 @@
         </el-form-item>
         <el-form-item label="设计人员" :label-width="formLabelWidth">
           <el-select v-model="form.region" placeholder="请选择分配人员">
-            <el-option label="王小虎" value="wangxiaohu"></el-option>
+            <el-option label="王虎" value="wangxiaohu"></el-option>
             <el-option label="李丽" value="lili"></el-option>
             <el-option label="马杰" value="majie"></el-option>
             <el-option label="秦琴" value="qinqin"></el-option>
