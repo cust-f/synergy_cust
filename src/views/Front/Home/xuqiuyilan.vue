@@ -1,68 +1,76 @@
 <template>
-  <div class="gobla">
+<el-main >
+  <div class="xuqiuyilan">
+    
+    <el-col :span="20" push="4" pull="2" >
       <div>
-    <el-row :gutter="70">
-      <el-col :span="60" push="2">
         <div>
-          <div>
-            <div class="title1" width="160px">
-              <span>首页</span>
-              <span>&nbsp; > &nbsp;</span>
-              <span>科技成果</span>
-            </div>
-            <br />
+          <el-col span="6" >
+          <div class="title" width="160px" >
+            <span>首页</span>
+            <span>&nbsp; > &nbsp;</span>
+            <span>服务成果</span>
           </div>
- <div class="zy_kjcg_top">
+          </el-col>
+        </div>
+    </div> 
+
+    <div class="zy_kjcg_top">
     <!--<div><a>科技成果</a></div>-->
     <table cellpadding="0" cellspacing="0">
         
         <tbody><tr>
-           
+            <td class="cg_td01">需求类型：</td>
+            <td class="cg_td02">
+                <a>不限</a>
+                <a>设计</a>
+                <a>流通</a>
+            </td>
         </tr><tr>
-        <td class="cg_td01">企业类别：</td>
-        <td class="cg_td02">
-                <a @click="click0">不限</a>
-                <a @click="click1">交通运输设备</a>
-                <a @click="click2"> 仪器仪表及文化、办公用机械</a>
-                <a @click="click3">通信设备、计算机及其他电子设备</a>
-                <a @click="click4">电气机械及器材</a>
-                <a @click="click5">专用设备</a>
-                <a @click="click6">通用设备</a>
+        <td class="cg_td01">行业类别：</td>
+        <td class="cg_td02">           
+                <a v-bind:class="{ active: isActive0 }" @click="click0">不限</a>
+                <a v-bind:class="{ active: isActive1 }" @click="click1">交通运输设备</a>
+                <a v-bind:class="{ active: isActive2 }" @click="click2">仪器仪表及文化、办公用机械</a>
+                <a v-bind:class="{ active: isActive3 }" @click="click3">通信设备、计算机及其他电子设备</a>
+                <a v-bind:class="{ active: isActive4 }" @click="click4">电气机械及器材</a>
+                <a v-bind:class="{ active: isActive5 }" @click="click5">专用设备</a>
+                <a v-bind:class="{ active: isActive6 }" @click="click6">通用设备</a>
         </td>
     </tr>
         <tr>
-            <td class="cg_td01">企业子类：</td>
+            <td class="cg_td01">下分子类：</td>
             <td class="cg_td02">
-                <div v-if="show0">
-            <a v-for="item in options0"
-              :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show1">
-            <a v-for="item in options1"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show2">
-            <a v-for="item in options2"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show3" >
-            <a v-for="item in options3"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show4">
-            <a v-for="item in options4"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show5">
-            <a v-for="item in options5"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
+              <div v-if="show0">
+                <a v-for="item in options0"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show1">
+                <a v-for="item in options1"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show2">
+                <a v-for="item in options2"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show3" >
+                <a v-for="item in options3"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show4" >
+                <a v-for="item in options4"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show5">
+                <a v-for="item in options5"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
             </td>
         </tr>
         
@@ -70,171 +78,189 @@
 </div>
 
 
-
-          <!-- <div class="cool">
-            <table class="table1">
-              <tbody>
-                <tr>
-                  <td class="td101">行业分类：</td>
-                  <td class="td102">
-                    <span class="cg_td_a1" width="100%">不限</span>
-                    <span class="cg_td_a2" width="100%">交通运输设备</span>
-                    <span class="cg_td_a2" width="100%">仪器仪表及文化、办公用机械</span>
-                    <span class="cg_td_a2" width="100%">通信设备、计算机及其他电子设备</span>
-                    <span class="cg_td_a2" width="100%">电器机械及器械</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <br />
-          </div> -->
-          <br/>
+        <div style="width:500px; margin:20px 65px;">      
+            <el-input
+              size="small"
+              placeholder="请输入搜索内容"
+              prefix-icon="el-icon-search"
+              v-model="input2">
+            </el-input>
+            <el-button  type="warning" class="button1" style =" margin:-31px -120px;">搜索</el-button>                
         </div>
-        <el-input placeholder="请输入内容" v-model="input3" class="sogo">
-      </el-input>
-      <el-button type="warning" >搜索</el-button>
-      <br>
-      </el-col>
       
-      <br>
-    </el-row></div><br>
-    <el-row :gutter="20">
-      <el-col :span="20" push="2" pull="2">
-        <el-col :span="18">
-          <div class="cardgroup">
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="{ padding: '20px 10px 20px' }">
-                <div class="inline">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="image"
-                  />
-                </div>
-                <div class="title" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                <div class="design">行业分类：交通运输设备</div>
-                <el-button type="warning" round class="designbutten" size="small" @click="jinruxiangqing">进入详情</el-button>
-              </el-card>
-            </el-col>
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="{ padding: '20px 10px 20px' }">
-                <div class="inline">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="image"
-                  />
-                </div>
-                <div class="title" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                <div class="design">行业分类：交通运输设备</div>
-                <el-button type="warning" round class="designbutten" size="small" @click="jinruxiangqing">进入详情</el-button>
-              </el-card>
-            </el-col>
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="{ padding: '20px 10px 20px' }">
-                <div class="inline">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="image"
-                  />
-                </div>
-                <div class="title" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                <div class="design">行业分类：交通运输设备</div>
-                <el-button type="warning" round class="designbutten" size="small" @click="jinruxiangqing">进入详情</el-button>
-              </el-card>
-            </el-col>
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="{ padding: '20px 10px 20px' }">
-                <div class="inline">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="image"
-                  />
-                </div>
-                <div class="title" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                <div class="design">行业分类：交通运输设备</div>
-                <el-button type="warning" round class="designbutten" size="small" @click="jinruxiangqing">进入详情</el-button>
-              </el-card>
-            </el-col>
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="{ padding: '20px 10px 20px' }">
-                <div class="inline">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="image"
-                  />
-                </div>
-                <div class="title" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                <div class="design">行业分类：交通运输设备</div>
-                <el-button type="warning" round class="designbutten" size="small" @click="jinruxiangqing">进入详情</el-button>
-              </el-card>
-            </el-col>
-            <el-col :span="8">
-              <el-card shadow="hover" :body-style="{ padding: '20px 10px 20px' }">
-                <div class="inline">
-                  <img
-                    src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                    class="image"
-                  />
-                </div>
-                <div class="title" @click="achieve">哈尔滨科大志远科技有限公司</div>
-                <div class="design">行业分类：交通运输设备</div>
-                <el-button type="warning" round class="designbutten" size="small"  @click="jinruxiangqing">进入详情</el-button>
-              </el-card>
-            </el-col>
-            <el-col :span="20" push="6">
-              <div class="page">
-                <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
-              </div>
-            </el-col>
+    
+    
+      
+
+
+
+       <div class="list">
+
+        <div class="cg_bottomlist" >
+           
+          <ul class="cg_bottomLeft" >
+            <li class="cg_list001"> 
+                
+              <a href="#/threeMenu" class="ziti2">福特汽车组装</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                需求类型：流通 
+              </a>
+              <a>
+                行业类别：交通运输设备
+              </a>
+              <br>
+              <a>
+                发布时间：2019-10-12
+              </a>
+              <a>
+                完成时间：2019-12-22
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight" align="middle">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                  <a style="width:435px" align="left">
+                    <font>机构名称:</font>
+                    吉林省科技服务中心
+                    <br>
+
+                    <font>联系电话:</font>
+                    1231231232132
+                  </a>
+                </li>
+            </ul>
           </div>
-        </el-col>
-        <el-col :span="6">
-          <div>
-            <el-card>
-              <div slot="header" class="clearfix">
-                <span>热门企业</span>
-              </div>
+        </div>
 
-              <div class="hotCompany">
-                <img
-                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                  class="hotCompanyimage"
-                />
-                <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
-              </div>
 
-              <div class="hotCompany">
-                <img
-                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                  class="hotCompanyimage"
-                />
-                <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
-              </div>
 
-              <div class="hotCompany">
-                <img
-                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                  class="hotCompanyimage"
-                />
-                <div class="hotCompanyDesign" @click="achieve">哈尔滨科大志远科技有限公司</div>
-              </div>
-            </el-card>
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" href="#/threeMenu">汽车刹车片设计</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                需求类型：设计
+              </a>
+              <a>
+                行业类别：交通运输设备
+              </a>
+              <br />
+              <a>
+                发布时间：2019-10-22
+              </a>
+              <a>
+                完成时间：2019-12-21
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight" align="middle">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+                <li>
+                  <a style="width:435px" align="left">
+                    <font>机构名称:</font>
+                    吉林省科技服务中心
+                    <br>
+                    <font>联系电话:</font>
+                    18888888888
+                  </a>
+                </li>
+             </ul>
+            </div>
+          
+        </div>
+
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" href="#/threeMenu">长春钢铁厂锅炉制造</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                需求类型：流通
+              </a>
+              <a>
+                行业类别：专用设备
+              </a>
+              <br/>
+              <a>
+                发布时间：2019-10-22
+              </a>
+              <a>
+                完成时间：2019-11-23
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight" align="middle">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+              <li>
+                <a style="width:435px"  align="left">
+                  <font>机构名称:</font>
+                  吉林省科技服务中心
+                  <br>
+                    <font>联系电话:</font>
+                    18888888888
+                </a>
+              </li>
+            </ul>
           </div>
-        </el-col>
-      </el-col>
-    </el-row>
+        </div>
+
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" href="#/threeMenu" >车载摄像头制作安装</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                需求类型：流通
+              </a>
+              <a>
+                任务类型：其他电子设备
+              </a>
+              <a>
+                <br>
+                发布时间：2019-02-15
+              </a>
+              <a>
+                完成时间：2019-05-23
+              </a>
+            </li>
+          </ul>
+              <div class="bottomRight" align="middle">
+                <a href class="fabujigou">发布机构</a>
+                <ul class="jgje">
+                  <li>
+                    <a style="width:435px"  align="left">
+                      <font>机构名称:</font>
+                      黑龙江省大江机械集团
+                      <br>
+                      <font>联系电话:</font>
+                      18888888888
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              </div>
+          </div>
+    </el-col>
   </div>
+  </el-main>
 </template>
+
+
+
 <script>
 export default {
+  name: "substaskDetail",
   data() {
-    
-
-
-
-
-
-
-
     return { 
       //需求大类下的下分子类
     //交通运输设备子类
@@ -416,67 +442,79 @@ export default {
         show4: false,
         show5: false,
 
-        //判断当前选项是否为第一次点击，若被点击此值为1
-        fclick0: true,
-        fclick1: true,
-        fclick2: true,
-        fclick3: true,
-        fclick4: true,
-        fclick5: true,
-        fclick6: true,
+        //点击变色的判定值
+        isActive0: false,
+        isActive1: false,
+        isActive2: false,
+        isActive3: false,
+        isActive4: false,
+        isActive5: false,
+        isActive6: false,
 
-
-
-
-
-
-
-
-
-
-      activeName: 'first',
-      checkList1: [],
-      checkList2: [],
-      checkList3: [],
-      checkList4: [],
-      checkList5: [],
-      checkList6: [],
-      checkList7: [],
+        activeName: 'first',
+        checkList1: [],
+        checkList2: [],
+        checkList3: [],
+        checkList4: [],
+        checkList5: [],
+        checkList6: [],
+        checkList7: [],
     };
      radio: '1'
      
        
       
-  name: "excellentCompany"
-},
-methods: {
-  jinruxiangqing(){
-     this.$router.push('/company/excellentCompanyDetail');
+      
   },
+
+  methods: {
     handleClick(tab, event) {
         console.log(tab, event);
       },
     
     tiaozhuan(){
-        this.router.push("/company/excellentCompanyDetail")
+        this.router.push("/admin/circulationTask")
 
     },
     
     click0()
+    { 
+        this.show0=false;
+        this.show1=false;
+        this.show2=false;
+        this.show3=false;
+        this.show4=false;
+        this.show5=false;
+
+        this.isActive0=true;
+        this.isActive1=false;
+        this.isActive2=false;
+        this.isActive3=false;
+        this.isActive4=false;
+        this.isActive5=false;
+        this.isActive6=false;
+    },
+    click1()
     {
-      
-      if(this.fclick6==true)
+        if(this.show0==false)
         {
           this.show0=true;
-      this.show1=true;
-      this.show2=true;
-      this.show3=true;
-      this.show4=true;
-      this.show5=true;
-          this.fclick6=false;
-          return ;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=true;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick6==false)
+        if(this.show0==true)
         {
           this.show0=false;
           this.show1=false;
@@ -484,135 +522,233 @@ methods: {
           this.show3=false;
           this.show4=false;
           this.show5=false;
-          this.fclick6=true;
-          return;
-        }
-    },
-    click1()
-    {
-        if(this.fclick0==true)
-        {
-          this.show0=true;
-          this.fclick0=false;
-          return ;
-        }
-        if(this.fclick0==false)
-        {
-          this.show0=false;
-          this.fclick0=true;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click2()
     {
-       if(this.fclick1==true)
+       if(this.show1==false)
         {
+          this.show0=false;
           this.show1=true;
-          this.fclick1=false;
-          return ;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=true;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick1==false)
+        if(this.show1==true)
         {
+          this.show0=false;
           this.show1=false;
-          this.fclick1=true;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click3()
     {
-       if(this.fclick2==true)
+       if(this.show2==false)
         {
+          this.show0=false;
+          this.show1=false;
           this.show2=true;
-          this.fclick2=false;
-          return ;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=true;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick2==false)
+        if(this.show2==true)
         {
+          this.show0=false;
+          this.show1=false;
           this.show2=false;
-          this.fclick2=true;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     }
     ,
     click4()
     {
-       if(this.fclick3==true)
+       if(this.show3==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
           this.show3=true;
-          this.fclick3=false;
-          return ;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=true;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick3==false)
+        if(this.show3==true)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
           this.show3=false;
-          this.fclick3=true;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click5()
     {
-        if(this.fclick4==true)
+        if(this.show4==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
           this.show4=true;
-          this.fclick4=false;
-          return ;
-        }
-        if(this.fclick4==false)
-        {
-          this.show4=false;
-          this.fclick4=true;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=true;
+          this.isActive6=false;
           return;
         }
+        if(this.show4==true)
+        {
+           this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=true;
+          this.isActive6=false;
+          return;
+        }
+          
     },
 
     click6()
     {
-        if(this.fclick5==true)
+        if(this.show5==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
           this.show5=true;
-          this.fclick5=false;
-          return ;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=true;
+          return;
         }
-        if(this.fclick5==false)
+        if(this.show5==true)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
           this.show5=false;
-          this.fclick5=true;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
   },
-  /* selectas(e){
-    let checked=e.target.checked;
-      let checkDom=this.$refs.table.getElementByClassName("selBtn");
-      let idArray=[];
-      if(checked){
-        for(var i=0;i<checkDom.length;i++)
-        {
-          checkDom[i].checked=false;
-        }
-      }else{
-         for(var i=0;i<checkDom.length;i++)
-        {
-          checkDom[i].checked=true;
-        }
-      }
-      alert("运行了");
-  } */
 };
+  
 </script>
 <style>
+
 .zy_kjcg_top {
     width: 1200px;
-    margin: 0 auto;
+    margin-left:4%;
 }
 
 .zy_kjcg_top table {
     border: solid 1px #ccc;
-    width: 1198px;
+    width: 1000px;
     border-collapse: collapse;
     background: #fafafa;
 
@@ -626,7 +762,7 @@ methods: {
 }
 .cg_td01 {
     color: #333;
-    width: 160px;
+    width: 100px;
     text-align: center;
     padding: 0px;
 }
@@ -642,8 +778,49 @@ methods: {
     display: block;
     float: left;
     margin-right: 50px;
-    color: #666;
+    
 }
+
+.list{
+
+  float: left;
+  width: 1040px;
+}
+.active{
+    color: cornflowerblue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -651,90 +828,9 @@ methods: {
   font-size: 14px;
   font-style: normal;
   width: 160px;
-  
-}
-
-.sogo{
-    width: 60%;
-}
-.page {
-  float: left;
-  position: relative;
-  top: 50px;
-}
-.gobla {
-  padding: 0 15px;
-  height: 600px;
-}
-
-.image {
-  width: 80%;
-  /* height: 110px; */
-}
-.hotCompany {
-}
-.hotCompanyimage {
-  width: 20%;
-  /* height: 110px; */
-}
-
-.inline {
-  width: 50%;
-  float: left;
-}
-.designbutten {
-  position: relative;
-  top: 30px;
-  float: left;
-}
-.design {
-  position: relative;
-  top: 25px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 14px;
-}
-.title {
-  position: relative;
-  top: 20px;
-  float: top, left;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 17px;
-  color: dodgerblue;
-}
-.hotCompanyDesign {
-  width: 60%;
-  top: 5px;
-  font-size: 14px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  float: right;
-}
-.title1 {
-  font-size: 14px;
-  font-style: normal;
-  width: 160px;
+  margin: 20px 64px;
 }
 .td101 {
-  border-bottom-color: rgb(204, 204, 204);
-  border-bottom-style: dashed;
-  border: bottom width 1px;
-  border-collapse: collapse;
-  border-left-color: rgb(204, 204, 204);
-  border-left-style: dashed;
-  border-left-width: 1px;
-  border-right-color: rgb(204, 204, 204);
-  border-right-style: dashed;
-  border-right-width: 1px;
-  border-spacing: 0px 0px;
-  border-top-color: rgb(204, 204, 204);
-  border-top-style: dashed;
-  border-top-width: 1px;
-  color: rgb(51, 51, 51);
   font-family: "微软雅黑";
   font-size: 14px;
   font-weight: 400;
@@ -800,6 +896,14 @@ methods: {
   text-decoration: none;
 }
 
+.zuo{
+  width: 300px;
+  float: left;
+}
+.you{
+  width: 600px;
+ margin-top: 20px;
+}
 .cg_td_a1 {
   border-collapse: collapse;
   border-spacing: 0px 0px;
@@ -855,7 +959,7 @@ methods: {
 
   text-decoration: none;
 }
-.cool {
+ .cool {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
@@ -871,10 +975,19 @@ methods: {
   line-height: normal;
 
   margin-bottom: 0px;
+  width: 1200px;
+ height: 200px;
 
-  margin-right: 126.61px;
+ 
 
   text-decoration: none;
+} 
+
+.qwe{
+  float: left;
+  width: 900px;
+  height: 180px;
+  border: 1px solid black;
 }
 .xuqiuyilan .button1 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1013,13 +1126,13 @@ methods: {
 
   list-style-type: none;
 
-  margin-bottom: 0px;
+  margin-bottom: 40px;
 
   margin-left: 0px;
 
-  margin-right: 0px;
+  margin-right:0px;
 
-  margin-top: 0px;
+  margin-top: 50px;
 
   outline-color: invert;
 
@@ -1039,11 +1152,11 @@ methods: {
 
   vertical-align: baseline;
 
-  width: 660px;
+  width: 48%;
 
   word-break: break-all;
 
-  height: 160px;
+  height: 150px;
 }
 .cg_list001 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1063,6 +1176,7 @@ methods: {
   font-weight: 400;
 
   word-break: break-all;
+  
 }
 .cg_list002 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1081,13 +1195,14 @@ methods: {
 
   word-break: break-all;
 }
+
 .cg_bottomlist {
-  float:right;
-
-
-
+  float:left;
+  margin-left: 6%;
+  border-bottom: dashed 1px #ccc;
+  width: 1000px;
 }
-.thisMiddle{}
+
 .xuqiuyilan .ziti2 {
   -webkit-text-size-adjust: auto;
 
@@ -1127,9 +1242,10 @@ methods: {
 
   white-space: nowrap;
 
-  width: 600px;
+  width: 500px;
 
   word-break: break-all;
+
 }
 .fabujigou {
   background-attachment: scroll;
@@ -1154,7 +1270,6 @@ methods: {
 
   font-weight: 400;
 
-  left: 20px;
 
   line-height: 30px;
 
@@ -1240,6 +1355,8 @@ methods: {
   vertical-align: baseline;
 
   word-break: break-all;
+
+  width: 300px;
   
 }
 .bottomRight {
@@ -1257,78 +1374,13 @@ methods: {
 
   position: relative;
 
-  top: -15px;
+  margin-top: 20px ;
 
-  width: 560px;
+  top: 0px;
+
+  width: 322px;
 }
-.list_div {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  margin-bottom: 0px;
-
-  margin-left: 0px;
-
-  margin-right: 0px;
-
-  margin-top: 0px;
-
-  padding-bottom: 0px;
-
-  padding-left: 0px;
-
-  padding-right: 0px;
-
-  padding-top: 0px;
-
-  text-decoration: none;
-}
-.thisAfter {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  margin-bottom: 20px;
-
-  margin-left: 126.6px;
-
-  margin-right: 126.61px;
-
-  margin-top: 0px;
-
-  padding-bottom: 0px;
-
-  padding-left: 0px;
-
-  padding-right: 0px;
-
-  padding-top: 0px;
-
-  text-decoration: none;
-
-  width: 1350px;
-}
 .table1 {
   background-attachment: scroll;
 
@@ -1365,4 +1417,5 @@ methods: {
 
   width: 300px;
 }
+
 </style>
