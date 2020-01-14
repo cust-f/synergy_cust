@@ -80,6 +80,9 @@ import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一
 import primarysupplyList from '@/views/admin/company/primarysupplyList'//一级供应商列表
 import secondarysupplyList from '@/views/admin/company/secondarysupplyList'//二级供应商列表
 
+import supplyBussess2 from '@/views/admin/supplycompany/supplyBussess2'
+import supplyDetail2 from '@/views/admin/supplycompany/supplyDetail2'
+
 
 
 Vue.use(Router)
@@ -486,7 +489,7 @@ export default new Router({
             title: "一级供应商的信息"
           }
         },
-        //一级供应商名录
+        //二级供应商名录
         {
           path: '/admin/secondarysupplyList',
           name: 'secondarysupplyList',
@@ -495,6 +498,27 @@ export default new Router({
             title: "二级供应商的信息"
           }
         },
+        //供应商的二级供应商名录
+        {
+          path: '/admin/supplyBussess2',
+          name: 'supplyBussess2',
+          component: supplyBussess2,
+          meta: {
+            title: "供应商信息"
+          }
+        },
+        //供应商企业信息修改
+        {
+          path: '/admin/supplyDetail2',
+          name: 'supplyDetail2',
+          component: supplyDetail2,
+          meta: {
+            title: "供应商企业信息修改"
+          }
+        },
+        
+
+
 
         
       ]
