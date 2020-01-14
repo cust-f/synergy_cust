@@ -110,13 +110,12 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="供应商名称"></el-table-column>
 
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
-        <el-table-column prop="date" label="截止时间"></el-table-column>
+        <el-table-column prop="date" label="开始时间"></el-table-column>
                 <el-table-column prop="money" label="完成时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
             <!-- <el-button
