@@ -24,23 +24,21 @@
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="任务名称"></el-table-column>
-
       <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
+      <el-table-column prop="count" label="数量"></el-table-column>
+      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+      <el-table-column prop="state" label="生产单位"></el-table-column>
 
       <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
       </el-table-column>
 
-      <el-table-column prop="Abolish_Reason" label="废除原因"></el-table-column>
-
-
-      <el-table-column label="操作" width="127" align="center">
+      <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumprepealedTask()" type="text" size="small">查看详情</el-button>
+          <el-button @click="jumpAcceptDet() " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,7 +59,7 @@
 
 <script>
 export default {
-  name: "repealedTask",
+  name: "cPendingAcceptance",
   data() {
     return {
       query: {
@@ -74,26 +72,45 @@ export default {
       tableData: [
         {
           id: 1,
-          taskName: "小型汽车前车灯",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "李想",
-          Abolish_Reason: "设计不合理",
-          state: "已废除",
-          date: "2019-12-23"
+          taskName: "光电测控仪器设备",
+          bussessType: "电视测角仪",
+          publishTask: "长春奥普光电技术股份有限公司",
+          taskLeader: "李华",
+          count: "50000",
+          state: "新增",
+          date: "2019-11-17"
         },
         {
           id: 2,
-          taskName: "小型汽车车架",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "刘成",
-          Abolish_Reason: "设计超时",
-          state: "已废除",
-          date: "2019-11-19"
+          taskName: "磨床生产",
+          bussessType: "平面磨床制作",
+          publishTask: "杭机集团长春一机有限公司",
+          taskLeader: "刘柳",
+          count: "50000",
+          state: "待审核",
+          date: "2019-12-17"
+        },
+        {
+          id: 3,
+          taskName: "通信技术设计",
+          bussessType: "通信技术",
+          publishTask: "哈尔滨海邻科信息技术有限公司",
+          taskLeader: "周舟",
+          count: "50000",
+          state: "已完成",
+          date: "2019-9-22"
+        },
+        {
+          id: 4,
+          taskName: "发电智能制造",
+          bussessType: "发电装备",
+          publishTask: "哈尔滨电机厂有限责任公司",
+          taskLeader: "孙铭",
+          count: "50000",
+          state: "进行中",
+          date: "2019-11-13"
         }
       ],
-
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -108,8 +125,8 @@ export default {
   },
   methods: {
     // 全部任务详情页面跳转
-    jumprepealedTask() {
-      this.$router.push("/admin/repealedTaskDet");
+    jumpAcceptDet() {
+      this.$router.push("/admin/pendingAcceptanceDet");
     }
   }
   /*

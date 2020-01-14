@@ -29,7 +29,7 @@
 
       <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+      <el-table-column prop="taskLeader" label="数目" align="center"></el-table-column>
 
       <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
@@ -39,7 +39,7 @@
         <template>
           <el-button @click="jumpResDet() " type="text" size="small">查看详情</el-button>
 
-          <el-button @click="planbook=true" type="text" size="small">接受</el-button>
+          <el-button @click="planbook = true" type="text" size="small">接受</el-button>
 
           <el-button @click="disacceptf=true" type="text" size="small">不接受</el-button>
         </template>
@@ -55,6 +55,20 @@
         @current-change="handlePageChange"
       ></el-pagination>
     </div>
+
+    <el-dialog title="提示" :visible.sync="acceptf" width="15%" :before-close="handleClose">
+      <span>接受成功,请等待供应商审核</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="acceptf=false">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog title="提示" :visible.sync="disacceptf" width="15%" :before-close="handleClose">
+      <span>拒绝成功</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="disacceptf=false">确 定</el-button>
+      </span>
+    </el-dialog>
 
     <el-dialog title="上传任务书" :visible.sync="planbook" width="20%" :before-close="handleClose">
       <el-upload
@@ -73,20 +87,6 @@
       </el-upload>
       <el-button type="primary" @click="success()">确 定</el-button>
     </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="acceptf" width="20%" :before-close="handleClose">
-      <span>上传成功，请等待审核</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="acceptf=false">确 定</el-button>
-      </span>
-    </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="disacceptf" width="20%" :before-close="handleClose">
-      <span>拒绝成功</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="disacceptf=false">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -94,10 +94,17 @@
 
 <script>
 export default {
-  name: "pendingResTask",
+  name: "cPendingResTask",
 
   data() {
     return {
+      acceptf: false, //接受任务弹窗
+      disacceptf: false,
+      planbook:false,
+      query: {
+        pageIndex: 1,
+        pageSize: 10
+      },
       fileList: [
         {
           name: "food.jpeg",
@@ -110,13 +117,6 @@ export default {
             "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
         }
       ],
-      acceptf: false, //接受任务弹窗
-      disacceptf: false,
-      planbook: false,
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
@@ -126,7 +126,7 @@ export default {
           taskName: "光电测控仪器设备",
           bussessType: "电视测角仪",
           publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
+          taskLeader: "50000",
           date: "2019-11-17"
         },
         {
@@ -134,7 +134,7 @@ export default {
           taskName: "磨床生产",
           bussessType: "平面磨床制作",
           publishTask: "杭机集团长春一机有限公司",
-          taskLeader: "刘柳",
+          taskLeader: "40000",
 
           date: "2019-12-17"
         },
@@ -143,7 +143,7 @@ export default {
           taskName: "通信技术设计",
           bussessType: "通信技术",
           publishTask: "哈尔滨海邻科信息技术有限公司",
-          taskLeader: "周舟",
+          taskLeader: "40000",
           date: "2019-9-22"
         },
         {
@@ -151,7 +151,7 @@ export default {
           taskName: "发电智能制造",
           bussessType: "发电装备",
           publishTask: "哈尔滨电机厂有限责任公司",
-          taskLeader: "孙铭",
+          taskLeader: "40000",
           date: "2019-11-13"
         },
         {
@@ -159,7 +159,7 @@ export default {
           taskName: "光电测控仪器设备",
           bussessType: "电视测角仪",
           publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
+          taskLeader: "50000",
           date: "2019-11-17"
         },
         {
@@ -167,7 +167,7 @@ export default {
           taskName: "光电测控仪器设备",
           bussessType: "电视测角仪",
           publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
+          taskLeader: "40000",
           date: "2019-11-17"
         },
         {
@@ -175,7 +175,7 @@ export default {
           taskName: "光电测控仪器设备",
           bussessType: "电视测角仪",
           publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
+          taskLeader: "60000",
           date: "2019-11-17"
         },
         {
@@ -183,7 +183,7 @@ export default {
           taskName: "光电测控仪器设备",
           bussessType: "电视测角仪",
           publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
+          taskLeader: "50000",
           date: "2019-11-17"
         }
       ],
@@ -204,6 +204,7 @@ export default {
     jumpResDet() {
       this.$router.push("/admin/pendingResTaskDet");
     },
+
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
@@ -217,9 +218,9 @@ export default {
         } 个文件，共选择了 ${files.length + fileList.length} 个文件`
       );
     },
-    success(){
-      this.planbook=false;
-      this.acceptf =true;
+    success() {
+      this.planbook = false;
+      this.acceptf = true;
     },
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`);
