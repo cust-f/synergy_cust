@@ -2,19 +2,19 @@
   <el-container>
     <el-main>
       <div class="newTask">
-        <h3>流通分配任务</h3>
+        <h3>流通分配需求</h3>
         <el-divider></el-divider>
 
         <el-form ref="form" :model="form" label-width="110px" class="box">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="项目名称">
+              <el-form-item label="需求名称">
                 <el-input v-model="newTask.name" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="项目类别">
-                <el-input v-model="newTask.name" :disabled="true"></el-input>
+              <el-form-item label="需求类别">
+                <el-input v-model="newTask.region" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -98,15 +98,15 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column type="selection" width="40" align="center"></el-table-column>
-            <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-            <el-table-column prop="taskNum" label="子任务编号" align="center"></el-table-column>
-            <el-table-column prop="taskName" label="任务名称"></el-table-column>
-            <el-table-column prop="taskType" label="任务类别"></el-table-column>
+            <el-table-column prop="taskNum" label="需求编号" align="center"></el-table-column>
+            <el-table-column prop="taskName" label="需求名称"></el-table-column>
+            <el-table-column prop="taskType" label="需求类别"></el-table-column>
             <el-table-column prop="bidTime" label="开始时间"></el-table-column>
+                        <el-table-column prop="count" label="数量"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
             <el-table-column label="操作" align="center" width="180">
               <template slot-scope>
-                <el-button type="primary" class="handle-del mr10" @click="addDesignerButton">新增外来企业</el-button>
+                <el-button type="danger" class="handle-del mr10" >删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -115,10 +115,13 @@
         <!-- 新增弹出框 -->
         <el-dialog title="新增" :visible.sync="addVisible" width="30%">
           <el-form ref="form" :model="addList" label-width="120px">
-            <el-form-item label="任务名称">
+            <el-form-item label="需求名称">
               <el-input v-model="newTask.name" :disabled="true"></el-input>
             </el-form-item>
-            <el-form-item label="任务类别">
+            <el-form-item label="需求类别">
+              <el-input v-model="newTask.region" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="数目">
               <el-input v-model="newTask.taskType"></el-input>
             </el-form-item>
             <el-form-item label="开始时间">
@@ -220,7 +223,7 @@ export default {
       addVisible: false,
       addDesigner: false,
       personnel: ["许知远", "王添", "白泽"], //总负责人
-      statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
+      statuses: ["数控机床制造", "精密汽车零部件制造"], //需求类别
       supplyCompanies: [
         "沈阳机床集团有限责任公司",
         "起重集团有限公司",
@@ -229,20 +232,20 @@ export default {
       shifou: ["是", "否"],
       selVal: "",
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
-      id: 0, //记录任务数
+      id: 0, //记录需求数
       //招标信息
       newTask: {
         name: "Name",
-        region: "",
+        region: "类别",
         date1: "2019-10-5",
         date2: "2019-10-5",
         count: "50000",
         detail: "这里是一段详情"
       },
-      //子任务表格
+      //子需求表格
       tableData: [
         {
-          id: "001",
+          count: "10000",
           taskNum: "002",
           taskName: "车辆轴承制造",
           taskType: "小汽车零件制造",

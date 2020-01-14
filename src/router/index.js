@@ -45,7 +45,7 @@ import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
  import userManagement from '@/views/admin/company/userManagement'  //用户管理
 
 
-//供应商市场部门
+//供应商设计界面
 import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//设计任务列表
 import designingTaskDet from '@/views/admin/supplier/design/designDetails/designingTaskDet'//进行中任务详情
 import finishTaskDet from '@/views/admin/supplier/design/designDetails/finishTaskDet'//完成任务详情界面
@@ -55,10 +55,17 @@ import pendingResTaskDet from '@/views/admin/supplier/design/designDetails/pendi
 import planAuditDet from '@/views/admin/supplier/design/designDetails/planAuditDet'//任务计划详情页面
 import planAuditingDet from '@/views/admin/supplier/design/designDetails/planAuditingDet'//审核任务计划详情页面
 import repealedTaskDet from '@/views/admin/supplier/design/designDetails/repealedTaskDet'//废除任务详情页面
-
+//供应商流通界面
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'//流通任务列表
-import cNewTask from '@/views/admin/supplier/circulation/cNewTask'
-
+import cNewTask from '@/views/admin/supplier/circulation/cNewTask'//供应商流通分配
+import cAllTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cAllTaskDet'  //全部任务详情
+import cPendingResTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cPendingResTaskDet'//待响应界面详情
+import cPlanAuditDet from '@/views/admin/supplier/circulation/circulationDetails/cPlanAuditDet'//任务计划界面详情
+import cPlanAuditingDet from '@/views/admin/supplier/circulation/circulationDetails/cPlanAuditingDet'//计划审核详情界面
+import circulationTaskDet from '@/views/admin/supplier/circulation/circulationDetails/circulationTaskDet'//流通任务进行中详情界面
+import cPendingAcceptanceDet from '@/views/admin/supplier/circulation/circulationDetails/cPendingAcceptanceDet'//待验收任务详情界面
+import cFinishTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cFinishTaskDet'//完成任务详情界面
+import cRepealedTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cRepealedTaskDet'//已废除任务详情界面
 
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
@@ -433,13 +440,94 @@ export default new Router({
           }
         },       
 
+         //流通全部任务详情页面
+         {
+          path: '/admin/cAllTaskDet',
+          name: 'cAllTaskDet',
+          component: cAllTaskDet,
+          meta: {
+            title: "详情"
+          }
+        },  
+
+        //流通完成任务详情页面
+        {
+          path: '/admin/cFinishTaskDet',
+          name: 'cFinishTaskDet',
+          component: cFinishTaskDet,
+          meta: {
+            title: "详情"
+          }
+        },  
+
+        //流通进行中任务详情页面
+        {
+          path: '/admin/circulationTaskDet',
+          name: 'circulationTaskDet',
+          component: circulationTaskDet,
+          meta: {
+            title: "详情"
+          }
+        },  
+
+        //流通待验收任务详情页面
+        {
+          path: '/admin/cPendingAcceptanceDet',
+          name: 'cPendingAcceptanceDet',
+          component: cPendingAcceptanceDet,
+          meta: {
+            title: "详情"
+          }
+        },  
+
+        //流通待审核任务详情页面
+        {
+          path: '/admin/cPlanAuditDet',
+          name: 'cPlanAuditDet',
+          component: cPlanAuditDet,
+          meta: {
+            title: "详情"
+          }
+        },  
+
+        //流通待响应任务详情页面
+        {
+          path: '/admin/cPendingResTaskDet',
+          name: 'cPendingResTaskDet',
+          component: cPendingResTaskDet,
+          meta: {
+            title: "详情"
+          }
+        }, 
+        
+        //流通计划审核详情界面
+        {
+          path: '/admin/cPlanAuditingDet',
+          name: 'cPlanAuditingDet',
+          component: cPlanAuditingDet,
+          meta: {
+            title: "详情"
+          }
+        }, 
+        
+        //流通已废除任务详情界面
+
+        {
+          path: '/admin/cRepealedTaskDet',
+          name: 'cRepealedTaskDet',
+          component: cRepealedTaskDet,
+          meta: {
+            title: "详情"
+          }
+        }, 
+
         //一级供应商新增界面
         {
           path: '/admin/cNewTask',
           name: 'cNewTask',
           component: cNewTask,
           meta: {
-            title: "详情"
+            title: "任务分解"
           }
         },  
       ]

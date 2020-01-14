@@ -8,7 +8,7 @@
         @click="delAllSelection"
       >批量删除</el-button>
       <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      <el-input v-model="query.name" placeholder="任务名称" class="handle-input mr10"></el-input>
+      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
@@ -23,11 +23,11 @@
       <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="taskName" label="任务名称"></el-table-column>
+      <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="bussessType" label="任务类型"></el-table-column>
+      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
 
-      <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
+      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
       <el-table-column prop="count" label="数量"></el-table-column>
       <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
 
@@ -111,7 +111,7 @@ export default {
     }
   }
   /*
-   *转跳对应任务信息页面
+   *转跳对应需求信息页面
    */
 };
 </script>
