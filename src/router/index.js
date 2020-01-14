@@ -66,6 +66,7 @@ import circulationTaskDet from '@/views/admin/supplier/circulation/circulationDe
 import cPendingAcceptanceDet from '@/views/admin/supplier/circulation/circulationDetails/cPendingAcceptanceDet'//待验收任务详情界面
 import cFinishTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cFinishTaskDet'//完成任务详情界面
 import cRepealedTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cRepealedTaskDet'//已废除任务详情界面
+import cPendingAuditDet from '@/views/admin/supplier/circulation/circulationDetails/cPendingAuditDet'//流通进行中任务详情
 
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
@@ -516,6 +517,18 @@ export default new Router({
           path: '/admin/cRepealedTaskDet',
           name: 'cRepealedTaskDet',
           component: cRepealedTaskDet,
+          meta: {
+            title: "详情"
+          }
+        }, 
+
+
+        //流通待审核任务详情界面
+
+        {
+          path: '/admin/cPendingAuditDet',
+          name: 'cPendingAuditDet',
+          component: cPendingAuditDet,
           meta: {
             title: "详情"
           }

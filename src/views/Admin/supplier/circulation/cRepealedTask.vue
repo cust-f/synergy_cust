@@ -101,7 +101,7 @@ export default {
   methods: {
     // 全部需求详情页面跳转
     jumprepealedTask() {
-      this.$router.push("/admin/repealedTaskDet");
+      this.$router.push("/admin/cRepealedTaskDet");
     }
   }
   /*

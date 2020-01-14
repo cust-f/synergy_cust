@@ -57,13 +57,13 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="设计单位">
+              <el-form-item label="生产单位">
                 <el-input v-model="form.designcompany" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="设计师">
-                <el-input v-model="form.designer" :disabled="true"></el-input>
+              <el-form-item label="数目">
+                <el-input v-model="form.count" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -81,7 +81,6 @@
           <el-row :gutter="80"></el-row>
         </el-form>
         <div align="right">
-          <el-button type="primary" class="button1">查看成果</el-button>
           <el-button type="primary" class="button1">通过</el-button>
           <el-button type="primary" class="button1">不通过</el-button>
         </div>
@@ -111,7 +110,7 @@ export default {
         leaderTel: "18088675187",
         designcompany: "杭机集团长春一机有限公司",
         startTime: "2019-5-1",
-        designer: "陈龙"
+        count: "10000"
       },
       formLabelWidth: "120px"
     };

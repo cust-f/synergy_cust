@@ -107,7 +107,7 @@ export default {
   methods: {
     // 详情页面跳转
     jumpfinishDet() {
-      this.$router.push("/admin/finishTaskDet");
+      this.$router.push("/admin/cFinishTaskDet");
     }
   }
   /*

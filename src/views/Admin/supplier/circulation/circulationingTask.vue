@@ -121,7 +121,7 @@ count:"50000",
   methods: {
     // 详情页面跳转
     jumpdesigningDet() {
-      this.$router.push("/admin/designTaskqDesigin");
+      this.$router.push("/admin/circulationTaskDet");
     }
   }
   /*

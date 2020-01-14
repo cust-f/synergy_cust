@@ -118,7 +118,7 @@ export default {
   methods: {
     // 全部需求详情页面跳转
     jumpAcceptDet() {
-      this.$router.push("/admin/pendingAcceptanceDet");
+      this.$router.push("/admin/cPendingAcceptanceDet");
     }
   }
   /*

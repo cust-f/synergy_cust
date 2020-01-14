@@ -194,7 +194,7 @@ export default {
   methods: {
     // 全部需求详情页面跳转
     jumpResDet() {
-      this.$router.push("/admin/pendingResTaskDet");
+      this.$router.push("/admin/cPendingResTaskDet");
     },
 
     handleRemove(file, fileList) {

@@ -57,8 +57,14 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="设计单位">
+              <el-form-item label="生产单位">
                 <el-input v-model="form.designcompany" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="数量">
+                <el-input v-model="form.count" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -119,7 +125,7 @@ export default {
         leaderTel: "18088675187",
         designcompany: "杭机集团长春一机有限公司",
         startTime: "2019-5-1",
-        designer: "陈龙"
+        count: "20000"
       },
       formLabelWidth: "120px"
     };
