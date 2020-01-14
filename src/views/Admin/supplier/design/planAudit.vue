@@ -59,7 +59,7 @@
     <br />
     <br />
     <h2>计划书审核菜单</h2>
-    <br />
+    <el-divider></el-divider>
     <el-table
       :data="tableData"
       border
@@ -133,7 +133,7 @@
 
     <!-- 分配设计人员 -->
 
-    <el-dialog title="分配流通负责人" :visible.sync="dialogTableVisible" width="30%">
+    <el-dialog title="分配设计人员" :visible.sync="dialogTableVisible" width="30%">
       <el-form :model="form">
         <el-form-item label="任务名称" :label-width="formLabelWidth">
           <el-input v-model="from.name" autocomplete="off" :disabled="true"></el-input>
