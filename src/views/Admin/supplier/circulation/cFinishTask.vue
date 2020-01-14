@@ -28,11 +28,10 @@
       <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
+      <el-table-column prop="count" label="数量"></el-table-column>
+      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
-      <el-table-column prop="state" label="状态"></el-table-column>
-
-      <el-table-column prop="company" label="设计单位"></el-table-column>
+      <el-table-column prop="state" label="生产单位"></el-table-column>
 
       <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
@@ -61,7 +60,7 @@
 
 <script>
 export default {
-  name: "allTask",
+  name: "cFinishTask",
   data() {
     return {
       query: {
@@ -78,7 +77,7 @@ export default {
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "李名",
-          company: "光机所",
+          count: "50000",
           state: "进行中",
           date: "2019-12-1"
         },
@@ -88,8 +87,8 @@ export default {
           bussessType: "车间零部件生产",
           publishTask: "一汽大众",
           taskLeader: "刘柳",
-          company: "光机所",
-          state: "待审核",
+          count: "50000",
+          state: "进行中",
           date: "2019-11-14"
         }
       ],
@@ -108,7 +107,7 @@ export default {
   methods: {
     // 详情页面跳转
     jumpfinishDet() {
-      this.$router.push("/admin/allTaskDet");
+      this.$router.push("/admin/finishTaskDet");
     }
   }
   /*

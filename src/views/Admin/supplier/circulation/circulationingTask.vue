@@ -28,18 +28,19 @@
       <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布任务企业"></el-table-column>
+       <el-table-column prop="count" label="数量" align="center"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="任务负责人" align="center"></el-table-column>
+      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="设计单位"></el-table-column>
-       
+      <el-table-column prop="taskLeader" label="生产单位" align="center"></el-table-column>
+
        <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
       </el-table-column>
-
+      
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpfinishDet()" type="text" size="small">查看详情</el-button>
+          <el-button @click="jumpdesigningDet() " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -60,7 +61,7 @@
 
 <script>
 export default {
-  name: "finishTask",
+  name: "circulationingTask", 
   data() {
     return {
       query: {
@@ -73,23 +74,43 @@ export default {
       tableData: [
         {
           id: 1,
-          taskName: "客车汽车前车灯",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "李名",
-
-          state: "进行中",
-          date: "2019-12-1"
+          taskName: "光电测控仪器设备",
+          bussessType: "电视测角仪",
+          publishTask: "长春奥普光电技术股份有限公司",
+          taskLeader: "李华",
+count:"50000",
+          state: "新增",
+          date: "2019-11-17"
         },
         {
           id: 2,
-          taskName: "中型汽车车架",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
+          taskName: "磨床生产",
+          bussessType: "平面磨床制作",
+          publishTask: "杭机集团长春一机有限公司",
           taskLeader: "刘柳",
-
+count:"50000",
+          state: "待审核",
+          date: "2019-12-17"
+        },
+        {
+          id: 3,
+          taskName: "通信技术设计",
+          bussessType: "通信技术",
+          publishTask: "哈尔滨海邻科信息技术有限公司",
+          taskLeader: "周舟",
+count:"50000",
+          state: "已完成",
+          date: "2019-9-22"
+        },
+        {
+          id: 4,
+          taskName: "发电智能制造",
+          bussessType: "发电装备",
+          publishTask: "哈尔滨电机厂有限责任公司",
+          taskLeader: "孙铭",
+count:"50000",
           state: "进行中",
-          date: "2019-11-14"
+          date: "2019-11-13"
         }
       ],
       multipleSelection: [],
@@ -106,8 +127,8 @@ export default {
   },
   methods: {
     // 详情页面跳转
-    jumpfinishDet() {
-      this.$router.push("/admin/finishTaskDet");
+    jumpdesigningDet() {
+      this.$router.push("/admin/designTaskqDesigin");
     }
   }
   /*
