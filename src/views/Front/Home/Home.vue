@@ -164,7 +164,7 @@
     <div class="Publishingrequirements">
       <el-dialog title="发布需求" :visible.sync="dialogVisible" > 
         <el-form ref="form" :model="form" :rules="rules" label-width="80px" class="" size="medium">
-          <el-form-item label="需求名称">
+          <el-form-item label="需求名称" prop="name">
             <el-input v-model="form.name" placeholder="请输入需求名称"></el-input>
           </el-form-item>
           <el-form-item label="需求类别">
@@ -221,11 +221,11 @@
                 </el-option>
               </el-select>
           </el-form-item>
-          <el-form-item label="需求详情">
+          <el-form-item label="需求详情" prop="details">
               <el-input type="textarea" :autosize="{ minRows:4}"  v-model="form.Details" placeholder="请输入需求详情">
               </el-input>
           </el-form-item>
-          <el-form-item label="截止日期">
+          <el-form-item label="截止日期" prop="dateEnd">
             <el-col :span="10">
               <el-date-picker type="date" placeholder="选择日期" v-model="form.dateEnd" style="width: 100%;"></el-date-picker>
             </el-col>
@@ -233,11 +233,11 @@
           <el-form-item label="附件">
 
           </el-form-item>
-          <el-form-item label="联系电话">
+          <el-form-item label="联系电话" prop="number">
               <el-input v-model="form.number" type="text" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')" placeholder="请输入联系电话"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="warning" round @click="" class="CreatebuttonCSS">立即发布</el-button>
+            <el-button type="warning" round @click="submitForm('form')" class="CreatebuttonCSS">立即发布</el-button>
           </el-form-item>
         </el-form>
       <div slot="footer" class="dialog-footer">
@@ -371,6 +371,22 @@ export default {
 
           //联系电话
           number:'',
+        },
+      //发布需求弹出框内的表单数据验证规则
+       rules: {
+          name: [
+            { required: true, message: '请输入需求名称', trigger: 'blur' },
+            { min: 3, message: '长度最少为3字符', trigger: 'blur' }
+          ],
+          details: [
+            { required: true, message: '请填写需求详情', trigger: 'blur' }
+          ],
+          dateEnd: [
+            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          ],
+          number: [
+            { required: true, message: '请填写联系电话', trigger: 'blur' }
+          ]
         },
       //发布需求弹出框内的任务类别筛选数据大类
       options: [{
@@ -623,7 +639,25 @@ export default {
       */
       recordTabletender(){
       },
-      
+
+      //发布需求的表单验证
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+
+
+
+
       //发布需求界面
       selectOne() {
             this.form.value0='0';
