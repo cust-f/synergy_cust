@@ -76,6 +76,7 @@ import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一
 import primarysupplyList from '@/views/admin/company/primarysupplyList'//一级供应商列表
 import secondarysupplyList from '@/views/admin/company/secondarysupplyList'//二级供应商列表
 
+import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail'//一级供应商列表
 
 
 Vue.use(Router)
@@ -193,6 +194,11 @@ export default new Router({
           meta: {
             title: "所有供应商的信息"
           }
+        },
+        {
+          path: '/company/excellentCompanyDetail',
+          name: 'excellentCompanyDetail',
+          component: excellentCompanyDetail,
         },
         //单个供应商的详细信息
         {
