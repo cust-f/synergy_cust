@@ -176,7 +176,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/admin/designTaskq");
+      this.$router.push("/admin/circulationTaskq");
     },
     gonewcompany() {
       this.$router.push("/admin/cNewTask");

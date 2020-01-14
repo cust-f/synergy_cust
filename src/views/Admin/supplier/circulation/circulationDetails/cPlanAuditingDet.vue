@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/admin/designTaskq");
+      this.$router.push("/admin/circulationTaskq");
     },
     success() {
       this.Auditpost = true;

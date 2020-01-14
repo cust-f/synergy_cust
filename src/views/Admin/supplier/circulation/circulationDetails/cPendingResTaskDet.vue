@@ -160,7 +160,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/admin/designTaskq");
+      this.$router.push("/admin/circulationTaskq");
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);

@@ -115,10 +115,10 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/admin/designTaskq");
+      this.$router.push("/admin/circulationTaskq");
     },
     goBackagain() {
-      this.$router.push("/admin/designTaskq");
+      this.$router.push("/admin/circulationTaskq");
       this.dialogVisible = false;
     },
     success() {
