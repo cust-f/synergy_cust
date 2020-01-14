@@ -317,6 +317,9 @@ export default {
   margin: 0 auto;
   text-align: center;
 }
+/* .table {
+  font-size: 16px;
+} */
 .handle-box {
   margin-bottom: 20px;
 }
@@ -341,7 +344,7 @@ export default {
 }
 .table {
   width: 100%;
-  font-size: 14px;
+  /* font-size: 16px; */
 }
 .red {
   color: #ff0000;
