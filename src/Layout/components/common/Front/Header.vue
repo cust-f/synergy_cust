@@ -9,7 +9,7 @@
         <!-- <span>欢迎访问高端装备制造领域的科技服务SaaS应用构建以及示范!</span> -->
       </el-col>
       <el-col :span="10" :offset="2" :push="4" style="float:right;">
-        <div >
+        <div>
           <ul v-if="log">
             <li>
               <el-popover placement="bottom" trigger="hover">
@@ -20,10 +20,10 @@
                   <el-col :span="12">
                     <div>
                       <el-row>
-                        <a>退出登陆</a>
+                        <a @click="logout">退出登陆</a>
                       </el-row>
                       <el-row>
-                        <a>返回首页</a>
+              <router-link to="home" tag="a">返回首页</router-link>
                       </el-row>
                       <el-row>
                         <a>账号管理</a>
@@ -37,13 +37,13 @@
           </ul>
           <ul v-else>
             <li>
-              <a>登陆</a>
+            <router-link to="login" tag="a">登陆</router-link>
             </li>
             <li>
               <a>|</a>
             </li>
             <li>
-              <a>注册</a>
+             <router-link to="login" tag="a">注册</router-link>
             </li>
           </ul>
           <ul>
@@ -78,7 +78,8 @@
     <el-row>
       <el-col :span="24" style="height: 60px;">
         <div style="background-color:#FF8F12">
-        <navigation></navigation></div>
+          <navigation></navigation>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -105,6 +106,20 @@ export default {
     // 侧边栏折叠
     collapseChage() {
       this.collapse = !this.collapse;
+    },
+    /*
+     *@description:登出功能函数
+     *@modifyContent:
+     *@author: 旋展峰
+     *@date: 2020-01-14 08:34:47
+     */
+    logout() {
+      this.$store.commit("LOGOUT");
+      this.$message({
+        type: "success",
+        message: "登出成功"
+      });
+      this.$router.push("/home");
     }
   },
   mounted() {
@@ -157,8 +172,8 @@ export default {
   float: left;
   line-height: 70px;
   color: #fff;
-      margin-top: 15px;
-    height: 50px;
+  margin-top: 15px;
+  height: 50px;
 }
 .header-right {
   float: right;

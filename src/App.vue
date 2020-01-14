@@ -49,4 +49,7 @@ body{
 h3{
   font-size: 24px;
 }
+a{
+    cursor: pointer;
+}
 </style>

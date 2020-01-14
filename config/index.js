@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
         proxyTable: {
       '/api':{
-        target:'http://10.34.51.107    :8081',//目标路接口域名
+        target:'http://127.0.0.1:8081',//目标路接口域名
         // secure:false,     //https接口要加这个
         changeOrigin:true,//是否跨域
         pathRewrite:{
