@@ -13,31 +13,24 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-
+      <el-table-column prop="taskName" label="名称"></el-table-column>
       <el-table-column prop="bussessType" label="需求类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
+      <el-table-column prop="count" label="数量"></el-table-column>
+      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
-
-      <el-table-column prop="state" label="设计单位" align="center"></el-table-column>
+      <el-table-column prop="state" label="生产单位"></el-table-column>
 
       <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
       </el-table-column>
-      <el-table-column label="审核" align="center" width="110">
-        <el-button type="success" size="mini" plain @click="accept=true">审核通过</el-button>
-        <br />
-        <el-button type="danger" size="mini" plain @click="disaccept=true">审核不通过</el-button>
-      </el-table-column>
+
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpAuditDet() " type="text" size="small">查看详情</el-button>
-          <el-button type="text" size="small">查看成果</el-button>
+          <el-button @click="jumpAcceptDet() " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -51,19 +44,6 @@
         @current-change="handlePageChange"
       ></el-pagination>
     </div>
-    <el-dialog title="提示" :visible.sync="accept" width="15%" :before-close="handleClose">
-      <span>审核通过</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="accept=false">确 定</el-button>
-      </span>
-    </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="disaccept" width="15%" :before-close="handleClose">
-      <span>审核不通过</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="disaccept=false">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -71,12 +51,9 @@
 
 <script>
 export default {
-  name: "pendingAudit",
+  name: "cPendingAcceptance",
   data() {
-    
     return {
-      accept: false, //接受需求弹窗
-  disaccept: false, 
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -91,7 +68,7 @@ export default {
           bussessType: "电视测角仪",
           publishTask: "长春奥普光电技术股份有限公司",
           taskLeader: "李华",
-
+          count: "50000",
           state: "新增",
           date: "2019-11-17"
         },
@@ -101,7 +78,7 @@ export default {
           bussessType: "平面磨床制作",
           publishTask: "杭机集团长春一机有限公司",
           taskLeader: "刘柳",
-
+          count: "50000",
           state: "待审核",
           date: "2019-12-17"
         },
@@ -111,7 +88,7 @@ export default {
           bussessType: "通信技术",
           publishTask: "哈尔滨海邻科信息技术有限公司",
           taskLeader: "周舟",
-
+          count: "50000",
           state: "已完成",
           date: "2019-9-22"
         },
@@ -121,7 +98,7 @@ export default {
           bussessType: "发电装备",
           publishTask: "哈尔滨电机厂有限责任公司",
           taskLeader: "孙铭",
-
+          count: "50000",
           state: "进行中",
           date: "2019-11-13"
         }
@@ -140,9 +117,9 @@ export default {
   },
   methods: {
     // 全部需求详情页面跳转
-    jumpAuditDet() {
-      this.$router.push("/admin/pendingAuditDet");
-    },
+    jumpAcceptDet() {
+      this.$router.push("/admin/cPendingAcceptanceDet");
+    }
   }
   /*
    *转跳对应需求信息页面

@@ -16,22 +16,23 @@
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-     
+
       <el-table-column prop="bussessType" label="需求类型"></el-table-column>
 
       <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="设计师" align="center"></el-table-column>
+      <el-table-column prop="taskLeader" label="数目" align="center"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="供应商设计方" align="center"></el-table-column>
-
-       <el-table-column label="截止日期">
+      <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
       </el-table-column>
-      
-      <el-table-column label="操作" width="180" align="center">
+
+      <el-table-column prop="Abolish_Reason" label="废除原因"></el-table-column>
+
+
+      <el-table-column label="操作" width="127" align="center">
         <template>
-          <el-button @click="jumpdesigningDet() " type="text" size="small">查看详情</el-button>
+          <el-button @click="jumprepealedTask()" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -52,7 +53,7 @@
 
 <script>
 export default {
-  name: "designingTask", 
+  name: "cRepealedTask",
   data() {
     return {
       query: {
@@ -65,45 +66,26 @@ export default {
       tableData: [
         {
           id: 1,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-
-          state: "新增",
-          date: "2019-11-17"
+          taskName: "小型汽车前车灯",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "50000",
+          Abolish_Reason: "设计不合理",
+          state: "已废除",
+          date: "2019-12-23"
         },
         {
           id: 2,
-          taskName: "磨床生产",
-          bussessType: "平面磨床制作",
-          publishTask: "杭机集团长春一机有限公司",
-          taskLeader: "刘柳",
-
-          state: "待审核",
-          date: "2019-12-17"
-        },
-        {
-          id: 3,
-          taskName: "通信技术设计",
-          bussessType: "通信技术",
-          publishTask: "哈尔滨海邻科信息技术有限公司",
-          taskLeader: "周舟",
-
-          state: "已完成",
-          date: "2019-9-22"
-        },
-        {
-          id: 4,
-          taskName: "发电智能制造",
-          bussessType: "发电装备",
-          publishTask: "哈尔滨电机厂有限责任公司",
-          taskLeader: "孙铭",
-
-          state: "进行中",
-          date: "2019-11-13"
+          taskName: "小型汽车车架",
+          bussessType: "车间零部件生产",
+          publishTask: "一汽大众",
+          taskLeader: "30000",
+          Abolish_Reason: "设计超时",
+          state: "已废除",
+          date: "2019-11-19"
         }
       ],
+
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -117,9 +99,9 @@ export default {
     this.getData();
   },
   methods: {
-    // 详情页面跳转
-    jumpdesigningDet() {
-      this.$router.push("/admin/designingTaskDet");
+    // 全部需求详情页面跳转
+    jumprepealedTask() {
+      this.$router.push("/admin/cRepealedTaskDet");
     }
   }
   /*
