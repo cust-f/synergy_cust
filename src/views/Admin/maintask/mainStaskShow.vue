@@ -21,9 +21,10 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-                <el-table-column prop="mainstaskTask" label="需求任务名称"></el-table-column>
-                <el-table-column prop="type" label="需求类型"></el-table-column>
+              <!-- mainTaskID从前台-->
+                <el-table-column prop="mainTaskID" label="ID" width="55" align="center"></el-table-column>
+                <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                <el-table-column prop="mainTaskType" label="需求类型"></el-table-column>
                 <el-table-column prop="leader" label="项目负责人"></el-table-column>
                 <el-table-column prop="fabudate" label="发布时间"></el-table-column>
                 <el-table-column prop="date" label="截止时间"></el-table-column>
@@ -35,7 +36,7 @@
                       icon="el-icon-delete"
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
-                    >废除</el-button> -->
+                    >废除</el-button>-->
                     <el-button
                       @click="substaskDetail1(scope.$index, scope.row)"
                       type="text"
@@ -89,6 +90,8 @@
 </template>
 
 <script>
+import Qs from "qs";
+
 export default {
   name: "mainStaskShow",
   data() {
@@ -106,8 +109,8 @@ export default {
           money: 30000,
           state: "成功",
           fabudate: "2018-1-9",
-          type:'汽车的制造与使用',
-          leader:'王元风',
+          type: "汽车的制造与使用",
+          leader: "王元风",
           date: "2019-5-1",
           mainstaskTask: "光电测控仪器设备",
           substaskTask: "线路设计"
@@ -119,9 +122,9 @@ export default {
           money: 5000,
           state: "失败",
           date: "2019-6-1",
-                    fabudate: "2018-1-9",
-          type:'汽车的制造与使用',
-          leader:'王元风',
+          fabudate: "2018-1-9",
+          type: "汽车的制造与使用",
+          leader: "王元风",
           mainstaskTask: "平面磨床制作",
           substaskTask: "磨床设计"
         },
@@ -132,9 +135,9 @@ export default {
           money: 5000,
           state: "待审核",
           date: "2019-11-21",
-                    fabudate: "2018-1-9",
-          type:'汽车的制造与使用',
-          leader:'王元风',
+          fabudate: "2018-1-9",
+          type: "汽车的制造与使用",
+          leader: "王元风",
           mainstaskTask: "汽车电子产品研发",
           substaskTask: "汽车电子测试设计"
         },
@@ -144,9 +147,9 @@ export default {
           name: "哈尔滨航天恒星数据系统科技有限公司",
           money: 5000,
           state: "成功",
-                    fabudate: "2018-1-9",
-          type:'汽车的制造与使用',
-          leader:'王元风',
+          fabudate: "2018-1-9",
+          type: "汽车的制造与使用",
+          leader: "王元风",
           date: "2019-10-12",
           mainstaskTask: "卫星应用数据创新",
           substaskTask: "卫星应用数据采集"
@@ -157,9 +160,9 @@ export default {
           name: "哈尔滨海邻科信息技术有限公司",
           money: 5000,
           state: "失败",
-                    fabudate: "2018-1-9",
-          type:'汽车的制造与使用',
-          leader:'王元风',
+          fabudate: "2018-1-9",
+          type: "汽车的制造与使用",
+          leader: "王元风",
           date: "2019-8-10",
           mainstaskTask: "通信技术设计",
           substaskTask: "通讯装备设计"
@@ -171,9 +174,9 @@ export default {
           money: 5000,
           state: "待审核",
           date: "2019-11-16",
-                    fabudate: "2018-1-9",
-          type:'汽车的制造与使用',
-          leader:'王元风',
+          fabudate: "2018-1-9",
+          type: "汽车的制造与使用",
+          leader: "王元风",
           mainstaskTask: "高分子材料创新",
           substaskTask: "高分子材料设计"
         }
@@ -195,13 +198,34 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      dialogVisible: false
+      dialogVisible: false,
+      userName: "123"
     };
   },
   created() {
     this.getData();
   },
   methods: {
+    getData() {
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: "aaaa"
+      });
+      console.log(data);
+      that
+        .axios({
+          method: 'post',
+          url: "http://127.0.0.1:8082/MainTaskInformation/listall",
+          data: data,
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
     //审核不通过的原因
     open() {
       this.$prompt("请输入审核不通过原因", "提示", {
