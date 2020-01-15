@@ -669,7 +669,6 @@ methods: {
 
     click6()
     {
-      alert("运行了");
         if(this.show5==false)
         {
           this.show0=false;
