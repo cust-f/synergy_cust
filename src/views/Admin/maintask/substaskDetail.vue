@@ -12,26 +12,41 @@
             <el-form ref="form" :model="cool" label-width="110px" class="form">
             <el-row  >
                 <el-col :span="11">
-                    <el-form-item label="主项目ID">
-                        <el-input v-model="cool.id" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="主项目名称">
+                    <el-form-item label="需求名称名称">
                         <el-input v-model="cool.name" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
+                <el-col :span="11">
+                    <el-form-item label="需求类型">
+                        <el-input v-model="cool.type" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+
+            </el-row>
+
+            <el-row  >
+                <el-col :span="11">
+                    <el-form-item label="发布时间">
+                        <el-input v-model="cool.fabutime" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="截止时间">
+                        <el-input v-model="cool.jiezhitime" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+
             </el-row>
 
             <el-row >
                 <el-col :span="11">
-                    <el-form-item label="主项目类型">
-                        <el-input v-model="cool.type" :disabled="true"></el-input>
+                    <el-form-item label="开始时间">
+                        <el-input v-model="cool.begintime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
-                    <el-form-item label="主项目开始时间">
-                        <el-input v-model="cool.begintime" :disabled="true"></el-input>
+                              <el-col :span="11">
+                    <el-form-item label="完成日期">
+                        <el-input v-model="cool.deadline" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -50,11 +65,7 @@
             </el-row>
 
             <el-row >
-                <el-col :span="11">
-                    <el-form-item label="项目完成日期">
-                        <el-input v-model="cool.deadline" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
+  
             </el-row>
             <el-row >
                 <el-col width="100%">
@@ -70,23 +81,25 @@
 
         </el-form>
         <div id="div2" align="right">
+                       <el-button type="primary" class="button1">废除需求任务</el-button>  
             <el-button type="primary" class="button1">下载装配文档</el-button>  
              <el-button type="primary" class="button1">下载技术文档模板</el-button>  
+             
         </div>    
          <el-divider></el-divider>
-            <h3>子任务</h3>
+            <h3>分解任务</h3>
             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <div>
 
 
     <div class="container">
       <div class="handle-box">
-        <el-button
+        <!-- <el-button
           type="primary"
           icon="el-icon-delete"
           class="handle-del mr10"
           @click="delAllSelection"
-        >批量删除</el-button>
+        >批量删除</el-button> -->
         <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
 
@@ -98,7 +111,6 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
         <el-table-column prop="needname" label="需求任务名称"></el-table-column>        
         <el-table-column prop="dividename" label="分解任务名称"></el-table-column>
@@ -120,7 +132,7 @@
               icon="el-icon-delete"
               class="red"
               @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
+            >废除</el-button>
           <el-button @click="mainStaskDetail" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -208,7 +220,8 @@ export default {
          id:"01111",          
           name: '小汽车零件的装配',
           type: '零件装配制造',
-          endtime: '2019-10-17',
+          fabutime:'2017-10-15',
+          jiezhitime:'2020-10-15',
           detail: '',
           leader:'陈平安',
           designState:'设计完成',
@@ -230,7 +243,7 @@ export default {
           needname:"车间零部件生产",
           dividename:'汽车轴承生产',
           money: 30000,
-          state: "成功",
+          state: "已完成",
           date: "2019-11-1"
         },
         {
@@ -240,7 +253,7 @@ export default {
           name: "中国机械工业集团公司",
           dividename:'汽车轮毂生产',
           money: 5000,
-          state: "成功",
+          state: "已完成",
           date: "2019-11-1"
         },
         {
@@ -250,7 +263,7 @@ export default {
           needname:'车间零部件生产',
           dividename:'汽车轮胎生产',
           money: 7000,
-          state: "成功",
+          state: "已完成",
           date: "2019-11-1"
         }
       ],

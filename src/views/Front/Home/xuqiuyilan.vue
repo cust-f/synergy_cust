@@ -2,14 +2,14 @@
 <el-main >
   <div class="xuqiuyilan">
     
-    <el-col :span="20" push="3" pull="2" >
+    <el-col :span="20" push="4" pull="2" >
       <div>
         <div>
           <el-col span="6" >
           <div class="title" width="160px" >
             <span>首页</span>
-            <span>&nbsp; > &nbsp;</span>
-            <span>服务成果</span>
+            <span>&nbsp;>&nbsp;</span>
+            <span>需求一览</span>
           </div>
           </el-col>
         </div>
@@ -78,7 +78,7 @@
 </div>
 
 
-        <div style="width:500px; margin:20px 65px;">      
+        <div style="width:500px; margin:20px 58px;">      
             <el-input
               size="small"
               placeholder="请输入搜索内容"
@@ -101,7 +101,7 @@
           <ul class="cg_bottomLeft" >
             <li class="cg_list001"> 
                 
-              <a href="#/admin/xuqiuyilanDetail" class="ziti2">福特汽车组装</a>
+              <a href="#/threeMenu" class="ziti2">福特汽车组装</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -141,7 +141,7 @@
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" href="#/admin/xuqiuyilanDetail">汽车刹车片设计</a>
+              <a class="ziti2" href="#/threeMenu">汽车刹车片设计</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -179,7 +179,7 @@
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" href="#/admin/xuqiuyilanDetail">长春钢铁厂锅炉制造</a>
+              <a class="ziti2" href="#/threeMenu">长春钢铁厂锅炉制造</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -216,7 +216,7 @@
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" href="#/admin/xuqiuyilanDetail" >车载摄像头制作安装</a>
+              <a class="ziti2" href="#/threeMenu" >车载摄像头制作安装</a>
             </li>
             <li class="cg_list002">
               <a>
@@ -743,7 +743,7 @@ export default {
 
 .zy_kjcg_top {
     width: 1200px;
-    margin-left:5%;
+    margin-left:4%;
 }
 
 .zy_kjcg_top table {
@@ -1198,7 +1198,7 @@ export default {
 
 .cg_bottomlist {
   float:left;
-  margin-left: 6%;
+  margin-left: 5%;
   border-bottom: dashed 1px #ccc;
   width: 1000px;
 }

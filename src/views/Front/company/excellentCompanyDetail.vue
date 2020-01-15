@@ -3,8 +3,10 @@
     <el-col :span="20" push="2" pull="2">
       <div>
         <div>
-          <div class="title" width="160px">
+          <div class="title" width="250px">
             <span>首页</span>
+            <span>&nbsp; > &nbsp;</span>
+            <span>优质企业</span>
             <span>&nbsp; > &nbsp;</span>
             <span>企业详情</span>
           </div>
@@ -251,7 +253,7 @@ export default {
 .title {
   font-size: 14px;
   font-style: normal;
-  width: 160px;
+  width: 250px;
 }
 .np_top {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
