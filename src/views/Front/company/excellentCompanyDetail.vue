@@ -14,10 +14,10 @@
         </div>
       </div>
     </el-col>
-
+<br/>   <br/><br/>  
     <div class="np_top">
 
-        
+   
       <div class="preview">
         <div class="BigTime">
           <el-carousel :interval="3000" arrow="always">
@@ -194,7 +194,7 @@
     <div class="white">
       <el-tabs type="card">
         <el-tab-pane label="企业信息">
-          <el-col :span="22" :push="1">
+          <el-col :span="20" :push="1">
             <div style="display:block">
               <ul>
                 <li class="yqk_nr_bt">
@@ -234,6 +234,7 @@ export default {
 .white {
   width: 100%;
   margin-top: 20px;
+  margin-left: 100px;
 }
 .divtap {
   border-right: 1px solid #000;
@@ -296,7 +297,7 @@ export default {
 
   margin-bottom: 0px;
 
-  margin-left: 165.6px;
+  margin-left: 305.6px;
 
   margin-right: 65.61px;
 
