@@ -363,7 +363,8 @@ export default {
       this.$router.push("/#");
     },
     handlePageChange(val) {}
-  }
+  },
+  
 };
 </script>
 <style scope>

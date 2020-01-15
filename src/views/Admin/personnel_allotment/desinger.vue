@@ -362,7 +362,21 @@ export default {
     goBack() {
       this.$router.push("/#");
     },
-    handlePageChange(val) {}
+    handlePageChange(val) {},
+    getData() {
+      var that = this;
+      that.$axios
+        .get("/designer/newlist")
+        .then(response => {
+          console.log(response);
+          this.data=response.data;
+
+
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 };
 </script>

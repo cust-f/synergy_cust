@@ -482,14 +482,9 @@ export default new Router({
           meta: {
             title: "详情"
           }
-<<<<<<< HEAD
-        },
-        //二级供应商名录
-=======
         },  
 
         //流通待审核任务详情页面
->>>>>>> e90ef8536fc12832f47f4514f4a086960c4ac702
         {
           path: '/admin/cPlanAuditDet',
           name: 'cPlanAuditDet',
@@ -497,7 +492,6 @@ export default new Router({
           meta: {
             title: "详情"
           }
-<<<<<<< HEAD
         },
         //供应商的二级供应商名录
         {
@@ -520,9 +514,6 @@ export default new Router({
         
 
 
-=======
-        },  
->>>>>>> e90ef8536fc12832f47f4514f4a086960c4ac702
 
         //流通待响应任务详情页面
         {
