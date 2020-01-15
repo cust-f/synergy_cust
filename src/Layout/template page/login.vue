@@ -213,7 +213,7 @@ export default {
   width: 100%;
   height: 36px;
   margin-bottom: 10px;
-}
+}  
 .login-tips {
   font-size: 12px;
   line-height: 30px;

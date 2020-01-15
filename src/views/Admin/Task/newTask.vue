@@ -4,7 +4,7 @@
       <div class="newTask">
         <h3>新增任务</h3>
         <el-divider></el-divider>
-
+        <el-button type="small" @click="getdata()">获取数据</el-button>
         <el-form ref="form" :model="form" label-width="110px" class="box">
           <el-row>
             <el-col :span="11">
@@ -113,8 +113,6 @@
           </el-table>
         </div>
 
-      
-
         <!-- 新增弹出框 -->
         <el-dialog title="新增" :visible.sync="addVisible" width="50%">
           <el-form ref="form" :model="addList" label-width="120px">
@@ -145,7 +143,7 @@
                     class="selectsupply"
                     @change="invitate"
                   >
-                  <el-option
+                    <el-option
                       width="180"
                       v-for="coo in shifou"
                       :key="coo"
@@ -176,7 +174,12 @@
               </el-col>
 
               <el-col :span="8">
-                <el-input placeholder="等待供应方申请" v-model="input" :disabled="true" :style="{display:shenqing}"></el-input>
+                <el-input
+                  placeholder="等待供应方申请"
+                  v-model="input"
+                  :disabled="true"
+                  :style="{display:shenqing}"
+                ></el-input>
               </el-col>
             </el-row>
           </el-form>
@@ -230,6 +233,7 @@
 </template>
 
 <script>
+import Qs from "qs"
 export default {
   name: "newTask",
 
@@ -240,7 +244,7 @@ export default {
         pageSize: 10
       },
       visiblehexin: "none",
-      shenqing:"none",
+      shenqing: "none",
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
@@ -252,8 +256,8 @@ export default {
         "起重集团有限公司",
         "长光电子"
       ], //供应商列表
-      shifou: ["是","否"],
-      selVal:'',
+      shifou: ["是", "否"],
+      selVal: "",
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
       id: 0, //记录任务数
       //招标信息
@@ -303,18 +307,42 @@ export default {
   methods: {
     invitate(coo) {
       console.log(coo);
-            console.log(coo);
+      console.log(coo);
 
-      if(coo=="是"){
+      if (coo == "是") {
         console.log(coo);
-        this.visiblehexin='inline';
-        this.shenqing="none";
-      }
-      else{
+        this.visiblehexin = "inline";
+        this.shenqing = "none";
+      } else {
         //console.log(coo);
-        this.shenqing='inline';
-        this.visiblehexin="none";
+        this.shenqing = "inline";
+        this.visiblehexin = "none";
       }
+    },
+    getdata() {
+      var menuList;
+      var that = this;
+      var data = Qs.stringify({
+        id: this.tableData.id,
+        taskName: this.tableData.taskName
+      }); 
+      that
+      .axios({
+        methods: "post",
+        url: "/api/user/login",
+        data: data
+        })
+        .then(response =>{
+          console.log(response);
+          this.$store.commit("SET_TOKEN" , true);
+          this.$store.commit("GET_USER" , this.id);
+          this.$store.setItem("ms_id" , this.tableData.id);
+          this.$message({
+            type: "success",
+            message: this.id
+          })
+        })
+
     },
 
     // 删除操作
