@@ -4,7 +4,7 @@
       <div class="newTask">
         <h3>新增需求</h3>
         <el-divider></el-divider>
-
+        <el-button type="small" @click="getdata()">获取数据</el-button>
         <el-form ref="form" :model="form" label-width="110px" class="box">
           <el-row>
             <el-col :span="11">
@@ -295,6 +295,7 @@
 </template>
 
 <script>
+import Qs from "qs"
 export default {
   name: "newTask",
 
@@ -381,6 +382,31 @@ export default {
         this.shenqing = "inline";
         this.visiblehexin = "none";
       }
+    },
+    getdata() {
+      var menuList;
+      var that = this;
+      var data = Qs.stringify({
+        id: this.tableData.id,
+        taskName: this.tableData.taskName
+      }); 
+      that
+      .axios({
+        methods: "post",
+        url: "/api/user/login",
+        data: data
+        })
+        .then(response =>{
+          console.log(response);
+          this.$store.commit("SET_TOKEN" , true);
+          this.$store.commit("GET_USER" , this.id);
+          this.$store.setItem("ms_id" , this.tableData.id);
+          this.$message({
+            type: "success",
+            message: this.id
+          })
+        })
+
     },
 
     // 删除操作
