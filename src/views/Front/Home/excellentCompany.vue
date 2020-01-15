@@ -669,6 +669,7 @@ methods: {
 
     click6()
     {
+      alert("运行了");
         if(this.show5==false)
         {
           this.show0=false;
@@ -765,7 +766,9 @@ methods: {
     float: left;
     margin-right: 50px;
 }
-
+.active{
+    color: cornflowerblue;
+}
 
 
 .title {
@@ -1486,7 +1489,5 @@ methods: {
 
   width: 300px;
 }
-.active{
-    color: cornflowerblue;
-}
+
 </style>
