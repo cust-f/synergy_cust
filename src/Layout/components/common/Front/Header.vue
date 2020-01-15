@@ -77,7 +77,7 @@
     </el-row>
     <el-row>
       <el-col :span="24" style="height: 60px;">
-        <div style="background-color:#FF8F12">
+        <div style="background-color:#00A2E6">
           <navigation></navigation>
         </div>
       </el-col>

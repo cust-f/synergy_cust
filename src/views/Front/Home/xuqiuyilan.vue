@@ -8,8 +8,8 @@
           <el-col span="6" >
           <div class="title" width="160px" >
             <span>首页</span>
-            <span>&nbsp; > &nbsp;</span>
-            <span>服务成果</span>
+            <span>&nbsp;>&nbsp;</span>
+            <span>需求一览</span>
           </div>
           </el-col>
         </div>
@@ -78,7 +78,7 @@
 </div>
 
 
-        <div style="width:500px; margin:20px 65px;">      
+        <div style="width:500px; margin:20px 58px;">      
             <el-input
               size="small"
               placeholder="请输入搜索内容"
@@ -1198,7 +1198,7 @@ export default {
 
 .cg_bottomlist {
   float:left;
-  margin-left: 6%;
+  margin-left: 5%;
   border-bottom: dashed 1px #ccc;
   width: 1000px;
 }

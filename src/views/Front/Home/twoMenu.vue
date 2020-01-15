@@ -5,9 +5,9 @@
     <el-row :gutter="gutterCount">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content0">
-          <el-breadcrumb separator="/" class="fontStyle">
+          <el-breadcrumb separator=">" class="fontStyle">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a>需求任务</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a>服务成果</a></el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </el-col>
@@ -16,7 +16,7 @@
     <el-row :gutter="gutterCount" >
       <el-col :span="20"  :push="pushCount" :pull="pullCount">
         <div class="grid-content0">
-        <h3 style="color:black;position: relative;left:20.4%;">需求任务</h3>
+        <h3 style="color:black;position: relative;left:20.4%;">服务成果</h3>
         </div>
       </el-col>
     </el-row>
@@ -51,7 +51,7 @@
               <el-collapse-item title="企业" name="3">
                 <el-input v-model="input" placeholder="请输入企业"></el-input>
               </el-collapse-item>
-              <span style=" width :100%; float:left;margin:50px 0">本月更新了:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;条需求信息</span>
+              
               
           </el-collapse>
         </div>
@@ -233,7 +233,7 @@ export default {
       /*
       *转跳对应任务信息页面
       */remarkDetail() {
-      this.$router.push("/threeMenu");
+      this.$router.push("/resultDetail");
     },
       recordTabletender(){
       },

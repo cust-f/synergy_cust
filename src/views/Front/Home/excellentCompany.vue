@@ -103,7 +103,7 @@
       
       <br>
     </el-row></div><br>
-    <el-row :gutter="20">
+    <el-row :gutter="20" class="low">
       <el-col :span="20" push="2" pull="2">
         <el-col :span="18">
           <div class="cardgroup">
@@ -192,7 +192,7 @@
             </el-col>
           </div>
         </el-col>
-        <el-col :span="6">
+      <!--   <el-col :span="6">
           <div>
             <el-card>
               <div slot="header" class="clearfix">
@@ -224,7 +224,7 @@
               </div>
             </el-card>
           </div>
-        </el-col>
+        </el-col> -->
       </el-col>
     </el-row>
   </div>
@@ -765,7 +765,9 @@ methods: {
     float: left;
     margin-right: 50px;
 }
-
+.active{
+    color: cornflowerblue;
+}
 
 
 .title {
@@ -1085,6 +1087,9 @@ methods: {
   text-decoration: none;
 
   width: 120px;
+}
+.low{
+  width: 2000px;
 }
 .ziti1 {
   font-size: 14px;
@@ -1486,7 +1491,5 @@ methods: {
 
   width: 300px;
 }
-.active{
-    color: cornflowerblue;
-}
+
 </style>
