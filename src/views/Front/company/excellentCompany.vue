@@ -8,7 +8,7 @@
             <div class="title1" width="160px">
               <span>首页</span>
               <span>&nbsp; > &nbsp;</span>
-              <span>科技成果</span>
+              <span>优质企业</span>
             </div>
             <br />
           </div>
@@ -98,7 +98,7 @@
       
       <br>
     </el-row></div><br>
-    <el-row :gutter="20">
+    <el-row :gutter="20" class="low">
       <el-col :span="20" push="2" pull="2">
         <el-col :span="18">
           <div class="cardgroup">
@@ -187,7 +187,7 @@
             </el-col>
           </div>
         </el-col>
-        <el-col :span="6">
+      <!--   <el-col :span="6">
           <div>
             <el-card>
               <div slot="header" class="clearfix">
@@ -219,7 +219,7 @@
               </div>
             </el-card>
           </div>
-        </el-col>
+        </el-col> -->
       </el-col>
     </el-row>
   </div>
@@ -964,6 +964,9 @@ methods: {
   text-decoration: none;
 
   width: 120px;
+}
+.low{
+  width: 2000px;
 }
 .ziti1 {
   font-size: 14px;

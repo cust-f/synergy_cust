@@ -130,6 +130,11 @@ export default new Router({
           name: 'excellentCompanyDesigin',
           component: excellentCompanyDesigin,
         },
+        {
+          path: '/company/excellentCompanyDetail',
+          name: 'excellentCompanyDetail',
+          component: excellentCompanyDetail,
+        },
 
       ]
     },
@@ -195,11 +200,7 @@ export default new Router({
             title: "所有供应商的信息"
           }
         },
-        {
-          path: '/company/excellentCompanyDetail',
-          name: 'excellentCompanyDetail',
-          component: excellentCompanyDetail,
-        },
+        
         //单个供应商的详细信息
         {
           path: '/admin/supplyDetail',

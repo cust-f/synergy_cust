@@ -6,7 +6,7 @@
           <div class="title" width="160px">
             <span>首页</span>
             <span>&nbsp; > &nbsp;</span>
-            <span>科技成果</span>
+            <span>企业详情</span>
           </div>
           <br />
         </div>
@@ -48,8 +48,8 @@
             <br>
             <li>
                 <a>
-                    企业地址：
-                    <font>哈尔滨高新区科技创新城创新创业广场11号楼科技一街1039号C504室</font>
+                    成立时间：
+                    <font>2010年12月</font>
                 </a>
             </li>
              <br>
@@ -63,8 +63,8 @@
            
             <li>
                 <a>
-                    成立时间：
-                    <font >2010年12月</font>
+                     企业地址：
+                    <font >哈尔滨高新区科技创新城创新创业广场11号楼科技一街1039号C504室</font>
                 </a>
             </li>  
             </el-col>
@@ -294,7 +294,7 @@ export default {
 
   margin-bottom: 0px;
 
-  margin-left: 65.6px;
+  margin-left: 165.6px;
 
   margin-right: 65.61px;
 
