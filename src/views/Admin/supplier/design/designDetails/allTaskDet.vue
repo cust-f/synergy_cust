@@ -80,6 +80,7 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "planAuditDet",
   data() {
@@ -110,7 +111,9 @@ export default {
       formLabelWidth: "120px"
     };
   },
+   
   methods: {
+    
     goBack() {
       this.$router.push("/admin/designTaskq");
     },
