@@ -1,13 +1,13 @@
 <template>
   <div class="BG">
 
-    <!--第一行  保留，不一定用-->
+    <!--第一行 -->
     <el-row :gutter="gutterCount">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content0">
           <el-breadcrumb separator="/" class="fontStyle">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="/">需求任务</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a>需求任务</a></el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </el-col>
@@ -22,7 +22,6 @@
     </el-row>
 
 
-    <!--第九行  留一行-->
     <el-row :gutter="gutterCount" >
       <el-col :span="4"  :push="pushCount" :pull="pullCount">
          
@@ -39,18 +38,18 @@
               </el-collapse-item>
 
 
-              <el-collapse-item title="任务类别" name="2">
+              <el-collapse-item title="行业类别" name="2">
                 <el-radio v-model="radio0" label="1">不限</el-radio>
-                <el-radio v-model="radio0" label="2">采购</el-radio>
-                <el-radio v-model="radio0" label="3">维修</el-radio>
-                <el-radio v-model="radio0" label="4">制作</el-radio>
-                <el-radio v-model="radio0" label="5">设计</el-radio>
-                <el-radio v-model="radio0" label="6">运输</el-radio>
+                <el-radio v-model="radio0" label="2">交通运输设备</el-radio>
+                <el-radio v-model="radio0" label="3">仪器仪表及文化、办公用机械</el-radio>
+                <el-radio v-model="radio0" label="4">通信设备、计算机及其他电子设备</el-radio>
+                <el-radio v-model="radio0" label="5">电气机械及器材</el-radio>
+                <el-radio v-model="radio0" label="6">专用设备</el-radio>
+                <el-radio v-model="radio0" label="7">通用设备</el-radio>
               </el-collapse-item>
 
-              <el-collapse-item title="发布企业ID" name="3">
-                <el-radio v-model="radio1" label="1">不限</el-radio>
-                <el-input v-model="input" placeholder="请输入企业ID"></el-input>
+              <el-collapse-item title="企业" name="3">
+                <el-input v-model="input" placeholder="请输入企业"></el-input>
               </el-collapse-item>
               <span style=" width :100%; float:left;margin:50px 0">本月更新了:&nbsp;&nbsp;&nbsp;<font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;条需求信息</span>
               
@@ -58,50 +57,56 @@
         </div>
       </el-col>
       <el-col :span="16"  :push="pushCount" :pull="pullCount">
-        <div class="grid-content4">
+        <div class="grid-content5">
 
             <el-table
             :data="tableData"
             style="width: 100%">
               <el-table-column
-              prop="Begin_Time"
-              label="发布日期"
+              prop="beginTime"
+              label="发布时间"
               width="100">
               </el-table-column>
+
               <el-table-column
-              prop="Main_Task_Type"
-              label="任务类别"
+              prop="finishTime"
+              label="完成时间"
               width="100">
               </el-table-column>
+
               <el-table-column
-              prop="Company_Name"
-              label="企业名称"
+              prop="industryType"
+              label="行业类别"
               width="100">
               </el-table-column>
+
               <el-table-column
-              prop="Main_Task_Name"
-              label="任务名称"
-              width="250">
-              </el-table-column>
-              <el-table-column
-              prop="Principal_ID"
-              label="项目负责人"
+              prop="demandType"
+              label="需求类型"
               width="100">
               </el-table-column>
+
               <el-table-column
-              prop="Deadline"
-              label="截止日期"
-              width="100">
+              prop="company"
+              label="企业"
+              width="150">
               </el-table-column>
+
+              <el-table-column
+              prop="demandName"
+              label="需求名称"
+              width="200">
+              </el-table-column>
+
               <el-table-column
               label="操作"
               width="100">
-              <el-button @click="remarkDetail" type="text" size="small">查看详情</el-button>
-               
+              <el-button @click="remarkDetail" type="text" size="small">查看详情</el-button>               
               </el-table-column>
+
         </el-table>
         </div>
-          <div class="block">
+          <!-- <div class="block">
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -110,7 +115,7 @@
             layout="prev, pager, next, jumper"
             :total="1000">
           </el-pagination>
-        </div>
+        </div> -->
       </el-col>
     </el-row>
 
@@ -135,15 +140,13 @@ export default {
        radio: '1',
       //任务类别的单选框数值
       radio0:'1',
-      //发布地区的单选框数值
-      radio1:'1',
       //任务截至时间
       value: new Date(),
 
-      input:123,
+      input:"",
       //设定el-cow的值
       gutterCount: 15,
-      pushCount:3,
+      pushCount:4,
       pullCount:2,
       pushCount0:3,
 
@@ -154,348 +157,73 @@ export default {
       tableData: [
         {
           //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
+          beginTime:'2019-03-13',
+          //完成时间
+          finishTime:'2019-03-13',
+          //行业类别
+          industryType:'通信设备',
+          //需求类型
+          demandType:'流通',
+          //企业
+          company:'一汽集团有限公司',
+          //需求名称
+          demandName:'TNGA项目组装线安装工程'
         },
         {
           //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
+          beginTime:'2019-03-13',
+          //完成时间
+          finishTime:'2019-03-13',
+          //行业类别
+          industryType:'通信设备',
+          //需求类型
+          demandType:'流通',
+          //企业
+          company:'一汽集团有限公司',
+          //需求名称
+          demandName:'TNGA项目组装线安装工程'
         },
        {
           //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
+          beginTime:'2019-03-13',
+          //完成时间
+          finishTime:'2019-03-13',
+          //行业类别
+          industryType:'通信设备',
+          //需求类型
+          demandType:'流通',
+          //企业
+          company:'一汽集团有限公司',
+          //需求名称
+          demandName:'TNGA项目组装线安装工程'
+        },
+        {
+         //发布时间
+          beginTime:'2019-03-13',
+          //完成时间
+          finishTime:'2019-03-13',
+          //行业类别
+          industryType:'通信设备',
+          //需求类型
+          demandType:'流通',
+          //企业
+          company:'一汽集团有限公司',
+          //需求名称
+          demandName:'TNGA项目组装线安装工程'
         },
         {
           //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        }, 
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-        {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
-        },
-         {
-          //发布时间
-          Begin_Time:'2019-03-13',
-          //任务类别
-          Main_Task_Type:'运输',
-          //企业名称
-          Company_Name:'一汽',
-    
-          //任务名称
-          Main_Task_Name:'危险品运输半挂车货箱采购项目',
-          //项目负责人
-          Principal_ID:'王小虎',
-          //截止日期
-          Deadline:'2019-05-15'
+          beginTime:'2019-03-13',
+          //完成时间
+          finishTime:'2019-03-13',
+          //行业类别
+          industryType:'通信设备',
+          //需求类型
+          demandType:'流通',
+          //企业
+          company:'一汽集团有限公司',
+          //需求名称
+          demandName:'TNGA项目组装线安装工程'
         },
         ],
 
@@ -543,6 +271,7 @@ export default {
 {
   border-radius: 4px;
   height: 36px;
+  margin-top: 20px;
 }
 /**第二行用css样式 网站访问统计数据块*/
 .grid-content1
@@ -566,7 +295,13 @@ export default {
 .grid-content4
 {
   border-radius: 4px;
-  height: 1400px;
+  height: 400px;
+}
+.grid-content5
+{
+  border-radius: 4px;
+  height: 400px;
+  width: 850px;
 }
 .block
 {

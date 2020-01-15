@@ -2,18 +2,18 @@
   <el-container>
     <el-main>
       <div class="newTask">
-        <h3>新增任务</h3>
+        <h3>新增需求</h3>
         <el-divider></el-divider>
-
+        <el-button type="small" @click="getdata()">获取数据</el-button>
         <el-form ref="form" :model="form" label-width="110px" class="box">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="项目名称">
+              <el-form-item label="需求任务名称">
                 <el-input v-model="newTask.name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="项目类别">
+              <el-form-item label="需求项目类别">
                 <el-input v-model="newTask.name"></el-input>
               </el-form-item>
             </el-col>
@@ -21,7 +21,7 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="投标截止日期">
+              <el-form-item label="发布时间">
                 <el-date-picker
                   type="date"
                   placeholder="选择日期"
@@ -31,7 +31,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="开始日期">
+              <el-form-item label="截止时间">
                 <el-date-picker
                   type="date"
                   placeholder="选择日期"
@@ -44,50 +44,31 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="总负责人">
-                <el-select v-model="newTask.head" placeholder="请选择总负责人" style="width: 100%;">
-                  <el-option label="全部" value></el-option>
-                  <el-option v-for="head in personnel" :key="head" :label="head" :value="head"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="项目类别">
-                <el-select v-model="newTask.region" placeholder="请选择项目类别" style="width: 100%;">
-                  <el-option label="全部" value></el-option>
-                  <el-option v-for="tag in statuses" :key="tag" :label="tag" :value="tag"></el-option>
-                </el-select>
+                <el-input v-model="newTask.leader"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
-            <el-col :span="24" class="xiangxi">
-              <el-form-item label="详细">
-                <el-input
-                  type="textarea"
-                  :rows="3"
-                  style="width: 100%;"
-                  placeholder="请输入内容"
-                  v-model="form.Introduction"
-                  class="gongsiDetail"
-                ></el-input>
+            <el-col :span="22">
+              <el-form-item label="需求任务详细">
+                <el-input type="textarea" :rows="3" v-model="newTask.xiangxi"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
+
+        <div id="div2" align="right">
+          <el-button type="primary" class="button1">提交</el-button>
+        </div>
       </div>
       <el-divider></el-divider>
 
       <el-card shadow="always">
-        <div style="font-size:20px;">需求分解信息</div>
+        <h3>需求分解信息</h3>
+        <br />
         <div class="container">
           <div class="handle-box">
-            <el-button
-              type="primary"
-              icon="el-icon-delete"
-              class="handle-del mr10"
-              @click="delAllSelection"
-            >批量删除</el-button>
             <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
           </div>
           <el-table
@@ -98,7 +79,6 @@
             header-cell-class-name="table-header"
             @selection-change="handleSelectionChange"
           >
-            <el-table-column type="selection" width="40" align="center"></el-table-column>
             <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
             <el-table-column prop="taskNum" label="子任务编号" align="center"></el-table-column>
             <el-table-column prop="taskName" label="任务名称"></el-table-column>
@@ -107,35 +87,115 @@
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
             <el-table-column label="操作" align="center" width="180">
               <template slot-scope>
-                <el-button type="primary" class="handle-del mr10" @click="addDesignerButton">新增外来企业</el-button>
+                <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
 
-      
-
         <!-- 新增弹出框 -->
         <el-dialog title="新增" :visible.sync="addVisible" width="50%">
+          <el-row>
+            <el-col :span="8"></el-col>
+          </el-row>
           <el-form ref="form" :model="addList" label-width="120px">
-            <el-form-item label="子任务编号">
-              <el-input v-model="addList.taskNum"></el-input>
-            </el-form-item>
-            <el-form-item label="任务名称">
-              <el-input v-model="addList.taskName"></el-input>
-            </el-form-item>
-            <el-form-item label="任务类别">
-              <el-input v-model="addList.taskType"></el-input>
-            </el-form-item>
-            <el-form-item label="开始时间">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="addList.bidTime"
-                value-format="yyyy-MM-dd"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="分解任务名称">
+                  <el-input v-model="addList.dividename"></el-input>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="任务设计状态">
+                  <el-input v-model="addList.TaskState"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="发布时间">
+                  <el-date-picker
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="addList.fabuTime"
+                    value-format="yyyy-MM-dd"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="截止时间">
+                  <el-date-picker
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="addList.endLine"
+                    value-format="yyyy-MM-dd"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="开始时间">
+                  <el-date-picker
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="addList.BeginTime"
+                    value-format="yyyy-MM-dd"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="完成时间">
+                  <el-date-picker
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="addList.FinishTime"
+                    value-format="yyyy-MM-dd"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+
+                            <el-col :span="11">
+                <el-form-item label="任务种类">
+                  <el-input v-model="addList.TaskState"></el-input>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11" >
+                <el-form-item label="任务类别">
+                  <el-select
+                    v-model="liebieList.supplyCompany"
+                    placeholder="请选择是或者否"
+                    class="selectsupply"
+                    @change="liebieShu"
+                    style = "width:50%;"
+                  >
+                    <el-option
+                      v-for="leibie in Task"
+                      :key="leibie"
+                      :label="leibie"
+                      :value="leibie"
+                    ></el-option>
+                  </el-select>      
+                </el-form-item>
+              </el-col>
+
+
+            </el-row>
+
+
             <el-row>
               <el-col :span="8">
                 <el-form-item label="是否邀请">
@@ -145,7 +205,7 @@
                     class="selectsupply"
                     @change="invitate"
                   >
-                  <el-option
+                    <el-option
                       width="180"
                       v-for="coo in shifou"
                       :key="coo"
@@ -176,7 +236,12 @@
               </el-col>
 
               <el-col :span="8">
-                <el-input placeholder="等待供应方申请" v-model="input" :disabled="true" :style="{display:shenqing}"></el-input>
+                <el-input
+                  placeholder="等待供应方申请"
+                  v-model="input"
+                  :disabled="true"
+                  :style="{display:shenqing}"
+                ></el-input>
               </el-col>
             </el-row>
           </el-form>
@@ -230,6 +295,7 @@
 </template>
 
 <script>
+import Qs from "qs"
 export default {
   name: "newTask",
 
@@ -240,7 +306,7 @@ export default {
         pageSize: 10
       },
       visiblehexin: "none",
-      shenqing:"none",
+      shenqing: "none",
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
@@ -252,8 +318,9 @@ export default {
         "起重集团有限公司",
         "长光电子"
       ], //供应商列表
-      shifou: ["是","否"],
-      selVal:'',
+      shifou: ["是", "否"],
+      Task:["设计任务","流通任务"],
+      selVal: "",
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
       id: 0, //记录任务数
       //招标信息
@@ -297,24 +364,49 @@ export default {
         }
       ],
       cooList: {},
+      liebieList:{},
       form: {}
     };
   },
   methods: {
     invitate(coo) {
       console.log(coo);
-            console.log(coo);
+      console.log(coo);
 
-      if(coo=="是"){
+      if (coo == "是") {
         console.log(coo);
-        this.visiblehexin='inline';
-        this.shenqing="none";
-      }
-      else{
+        this.visiblehexin = "inline";
+        this.shenqing = "none";
+      } else {
         //console.log(coo);
-        this.shenqing='inline';
-        this.visiblehexin="none";
+        this.shenqing = "inline";
+        this.visiblehexin = "none";
       }
+    },
+    getdata() {
+      var menuList;
+      var that = this;
+      var data = Qs.stringify({
+        id: this.tableData.id,
+        taskName: this.tableData.taskName
+      }); 
+      that
+      .axios({
+        methods: "post",
+        url: "/api/user/login",
+        data: data
+        })
+        .then(response =>{
+          console.log(response);
+          this.$store.commit("SET_TOKEN" , true);
+          this.$store.commit("GET_USER" , this.id);
+          this.$store.setItem("ms_id" , this.tableData.id);
+          this.$message({
+            type: "success",
+            message: this.id
+          })
+        })
+
     },
 
     // 删除操作
@@ -379,6 +471,9 @@ export default {
 </script>
 
 <style>
+.el-select .el-input__inner .selectsupply{
+  width: 200px;
+}
 .newTask textarea {
   min-height: 100px !important;
   width: 500px !important;

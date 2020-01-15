@@ -2,14 +2,14 @@
 <el-main >
   <div class="xuqiuyilan">
     
-    <el-col :span="20" push="2" pull="2" >
+    <el-col :span="20" push="4" pull="2" >
       <div>
         <div>
-          <el-col span="8" offset="3">
+          <el-col span="6" >
           <div class="title" width="160px" >
             <span>首页</span>
             <span>&nbsp; > &nbsp;</span>
-            <span>科技成果</span>
+            <span>服务成果</span>
           </div>
           </el-col>
         </div>
@@ -27,50 +27,50 @@
                 <a>流通</a>
             </td>
         </tr><tr>
-        <td class="cg_td01">需求类别：</td>
-        <td class="cg_td02">
-                <a @click="click0">不限</a>
-                <a @click="click1">交通运输设备</a>
-                <a @click="click2"> 仪器仪表及文化、办公用机械</a>
-                <a @click="click3">通信设备、计算机及其他电子设备</a>
-                <a @click="click4">电气机械及器材</a>
-                <a @click="click5">专用设备</a>
-                <a @click="click6">通用设备</a>
+        <td class="cg_td01">行业类别：</td>
+        <td class="cg_td02">           
+                <a v-bind:class="{ active: isActive0 }" @click="click0">不限</a>
+                <a v-bind:class="{ active: isActive1 }" @click="click1">交通运输设备</a>
+                <a v-bind:class="{ active: isActive2 }" @click="click2">仪器仪表及文化、办公用机械</a>
+                <a v-bind:class="{ active: isActive3 }" @click="click3">通信设备、计算机及其他电子设备</a>
+                <a v-bind:class="{ active: isActive4 }" @click="click4">电气机械及器材</a>
+                <a v-bind:class="{ active: isActive5 }" @click="click5">专用设备</a>
+                <a v-bind:class="{ active: isActive6 }" @click="click6">通用设备</a>
         </td>
     </tr>
         <tr>
             <td class="cg_td01">下分子类：</td>
             <td class="cg_td02">
-                <div v-if="show0">
-            <a v-for="item in options0"
-              :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show1">
-            <a v-for="item in options1"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show2">
-            <a v-for="item in options2"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show3" >
-            <a v-for="item in options3"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show4">
-            <a v-for="item in options4"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show5">
-            <a v-for="item in options5"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
+              <div v-if="show0">
+                <a v-for="item in options0"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show1">
+                <a v-for="item in options1"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show2">
+                <a v-for="item in options2"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show3" >
+                <a v-for="item in options3"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show4" >
+                <a v-for="item in options4"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show5">
+                <a v-for="item in options5"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
             </td>
         </tr>
         
@@ -78,56 +78,44 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-        <div class="thisMiddle" align="middle">
-          <div class="middleLeft">
-            <input name="search_text" id="search_text" type="text" placeholder="请输入搜索内容" />
-            <el-button type="warning" class="button1">搜索</el-button>
+        <div style="width:500px; margin:20px 65px;">      
+            <el-input
+              size="small"
+              placeholder="请输入搜索内容"
+              prefix-icon="el-icon-search"
+              v-model="input2">
+            </el-input>
+            <el-button  type="warning" class="button1" style =" margin:-31px -120px;">搜索</el-button>                
         </div>
-        
-      </div>
-    </el-col>
-    <div class="thisAfter" align="middle">
-      <div class="list_div">
+      
+    
+    
+      
 
 
 
+       <div class="list">
 
-        <div class="cg_bottomlist" align="middle">
+        <div class="cg_bottomlist" >
            
-          <ul class="cg_bottomLeft" align="middle">
+          <ul class="cg_bottomLeft" >
             <li class="cg_list001"> 
-                <br>
-                <br>
-              <a href="#/admin/xuqiuyilanDetail" class="ziti2">福特汽车组装</a>
+                
+              <a href="#/threeMenu" class="ziti2">福特汽车组装</a>
             </li>
             <li class="cg_list002">
               <a>
-                <font>限制条件：</font>
-                公司规模
+                需求类型：流通 
               </a>
               <a>
-                <font>任务类型：</font>
-                车间零部件制作
+                行业类别：交通运输设备
               </a>
               <br>
               <a>
-                <font>交易方式:</font>
-                技术入股
+                发布时间：2019-10-12
               </a>
               <a>
-                <font>价格:</font>
-                面议
+                完成时间：2019-12-22
               </a>
             </li>
           </ul>
@@ -135,141 +123,134 @@
             <a href class="fabujigou">发布机构</a>
             <ul class="jgje">
               <li>
-                <a style="width:435px">
-                  <font>机构名称:</font>
-                  辽宁省科技服务中心
-                </a>
-              </li>
+                  <a style="width:435px" align="left">
+                    <font>机构名称:</font>
+                    吉林省科技服务中心
+                    <br>
+
+                    <font>联系电话:</font>
+                    1231231232132
+                  </a>
+                </li>
             </ul>
           </div>
         </div>
 
 
 
-        <div class="cg_bottomlist"   >
+        <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" href="#/admin/xuqiuyilanDetail" >工业管理系统</a>
+              <a class="ziti2" href="#/threeMenu">汽车刹车片设计</a>
             </li>
             <li class="cg_list002">
               <a>
-                <font>限制条件：</font>
-                人员数目
+                需求类型：设计
               </a>
               <a>
-                <font>任务类型：</font>
-                卫星微型零件制作
+                行业类别：交通运输设备
               </a>
               <br />
               <a>
-                <font>交易方式:</font>
-                农业银行交易
+                发布时间：2019-10-22
               </a>
               <a>
-                <font>价格:</font>
-                面议
+                完成时间：2019-12-21
               </a>
             </li>
           </ul>
-          <div class="bottomRight">
+          <div class="bottomRight" align="middle">
+            <a href class="fabujigou">发布机构</a>
+            <ul class="jgje">
+                <li>
+                  <a style="width:435px" align="left">
+                    <font>机构名称:</font>
+                    吉林省科技服务中心
+                    <br>
+                    <font>联系电话:</font>
+                    18888888888
+                  </a>
+                </li>
+             </ul>
+            </div>
+          
+        </div>
+
+        <div class="cg_bottomlist">
+          <ul class="cg_bottomLeft">
+            <li class="cg_list001">
+              <a class="ziti2" href="#/threeMenu">长春钢铁厂锅炉制造</a>
+            </li>
+            <li class="cg_list002">
+              <a>
+                需求类型：流通
+              </a>
+              <a>
+                行业类别：专用设备
+              </a>
+              <br/>
+              <a>
+                发布时间：2019-10-22
+              </a>
+              <a>
+                完成时间：2019-11-23
+              </a>
+            </li>
+          </ul>
+          <div class="bottomRight" align="middle">
             <a href class="fabujigou">发布机构</a>
             <ul class="jgje">
               <li>
-                <a style="width:435px" align="left">
+                <a style="width:435px"  align="left">
                   <font>机构名称:</font>
-                  辽宁省科技服务中心
+                  吉林省科技服务中心
                   <br>
-
-                   <font>联系电话:</font>
-                   1231231232132
+                    <font>联系电话:</font>
+                    18888888888
                 </a>
               </li>
             </ul>
           </div>
         </div>
-
-
-
 
         <div class="cg_bottomlist">
           <ul class="cg_bottomLeft">
             <li class="cg_list001">
-              <a class="ziti2" href="#/admin/xuqiuyilanDetail" >长春钢铁厂锅炉制造</a>
+              <a class="ziti2" href="#/threeMenu" >车载摄像头制作安装</a>
             </li>
             <li class="cg_list002">
               <a>
-                <font>限制条件：</font>
-                人员数目
+                需求类型：流通
               </a>
               <a>
-                <font>任务类型：</font>
-                锅炉装配制造
-              </a>
-              <br />
-              <a>
-                <font>交易方式：</font>
-                技术入股
+                任务类型：其他电子设备
               </a>
               <a>
-                <font>价格：</font>
-                面议
+                <br>
+                发布时间：2019-02-15
+              </a>
+              <a>
+                完成时间：2019-05-23
               </a>
             </li>
           </ul>
-          <div class="bottomRight">
-            <a href class="fabujigou">发布机构</a>
-            <ul class="jgje">
-              <li>
-                <a style="width:435px">
-                  <font>机构名称:</font>
-                  辽宁省科技服务中心
-                </a>
-              </li>
-            </ul>
+              <div class="bottomRight" align="middle">
+                <a href class="fabujigou">发布机构</a>
+                <ul class="jgje">
+                  <li>
+                    <a style="width:435px"  align="left">
+                      <font>机构名称:</font>
+                      黑龙江省大江机械集团
+                      <br>
+                      <font>联系电话:</font>
+                      18888888888
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              </div>
           </div>
-        </div>
-
-
-
-
-        <div class="cg_bottomlist">
-          <ul class="cg_bottomLeft">
-            <li class="cg_list001">
-              <a class="ziti2" href="#/admin/xuqiuyilanDetail" >车载摄像头制作安装</a>
-            </li>
-            <li class="cg_list002">
-              <a>
-                <font>限制条件：</font>
-                公司规模
-              </a>
-              <a>
-                <font>任务类型</font>
-                车辆装配制造
-              </a>
-              <a>
-                <font>交易方式</font>
-                现金交易
-              </a>
-              <a>
-                <font>价格</font>
-                面议
-              </a>
-            </li>
-          </ul>
-          <div class="bottomRight">
-            <a href class="fabujigou">发布机构</a>
-            <ul class="jgje">
-              <li>
-                <a style="width:435px">
-                  <font>机构名称:</font>
-                  黑龙江省大江机械集团
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    </el-col>
   </div>
   </el-main>
 </template>
@@ -280,14 +261,6 @@
 export default {
   name: "substaskDetail",
   data() {
-    
-
-
-
-
-
-
-
     return { 
       //需求大类下的下分子类
     //交通运输设备子类
@@ -469,32 +442,23 @@ export default {
         show4: false,
         show5: false,
 
-        //判断当前选项是否为第一次点击，若被点击此值为1
-        fclick0: true,
-        fclick1: true,
-        fclick2: true,
-        fclick3: true,
-        fclick4: true,
-        fclick5: true,
-        fclick6: true,
+        //点击变色的判定值
+        isActive0: false,
+        isActive1: false,
+        isActive2: false,
+        isActive3: false,
+        isActive4: false,
+        isActive5: false,
+        isActive6: false,
 
-
-
-
-
-
-
-
-
-
-      activeName: 'first',
-      checkList1: [],
-      checkList2: [],
-      checkList3: [],
-      checkList4: [],
-      checkList5: [],
-      checkList6: [],
-      checkList7: [],
+        activeName: 'first',
+        checkList1: [],
+        checkList2: [],
+        checkList3: [],
+        checkList4: [],
+        checkList5: [],
+        checkList6: [],
+        checkList7: [],
     };
      radio: '1'
      
@@ -514,20 +478,43 @@ export default {
     },
     
     click0()
+    { 
+        this.show0=false;
+        this.show1=false;
+        this.show2=false;
+        this.show3=false;
+        this.show4=false;
+        this.show5=false;
+
+        this.isActive0=true;
+        this.isActive1=false;
+        this.isActive2=false;
+        this.isActive3=false;
+        this.isActive4=false;
+        this.isActive5=false;
+        this.isActive6=false;
+    },
+    click1()
     {
-      
-      if(this.fclick6==true)
+        if(this.show0==false)
         {
           this.show0=true;
-      this.show1=true;
-      this.show2=true;
-      this.show3=true;
-      this.show4=true;
-      this.show5=true;
-          this.fclick6=false;
-          return ;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=true;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick6==false)
+        if(this.show0==true)
         {
           this.show0=false;
           this.show1=false;
@@ -535,175 +522,233 @@ export default {
           this.show3=false;
           this.show4=false;
           this.show5=false;
-          this.fclick6=true;
-          return;
-        }
-    },
-    click1()
-    {
-        if(this.fclick0==true)
-        {
-          this.show0=true;
-          this.fclick0=false;
-          return ;
-        }
-        if(this.fclick0==false)
-        {
-          this.show0=false;
-          this.fclick0=true;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click2()
     {
-       if(this.fclick1==true)
+       if(this.show1==false)
         {
+          this.show0=false;
           this.show1=true;
-          this.fclick1=false;
-          return ;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=true;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick1==false)
+        if(this.show1==true)
         {
+          this.show0=false;
           this.show1=false;
-          this.fclick1=true;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click3()
     {
-       if(this.fclick2==true)
+       if(this.show2==false)
         {
+          this.show0=false;
+          this.show1=false;
           this.show2=true;
-          this.fclick2=false;
-          return ;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=true;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick2==false)
+        if(this.show2==true)
         {
+          this.show0=false;
+          this.show1=false;
           this.show2=false;
-          this.fclick2=true;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     }
     ,
     click4()
     {
-       if(this.fclick3==true)
+       if(this.show3==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
           this.show3=true;
-          this.fclick3=false;
-          return ;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=true;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick3==false)
+        if(this.show3==true)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
           this.show3=false;
-          this.fclick3=true;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click5()
     {
-        if(this.fclick4==true)
+        if(this.show4==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
           this.show4=true;
-          this.fclick4=false;
-          return ;
-        }
-        if(this.fclick4==false)
-        {
-          this.show4=false;
-          this.fclick4=true;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=true;
+          this.isActive6=false;
           return;
         }
+        if(this.show4==true)
+        {
+           this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=true;
+          this.isActive6=false;
+          return;
+        }
+          
     },
 
     click6()
     {
-        if(this.fclick5==true)
+        if(this.show5==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
           this.show5=true;
-          this.fclick5=false;
-          return ;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=true;
+          return;
         }
-        if(this.fclick5==false)
+        if(this.show5==true)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
           this.show5=false;
-          this.fclick5=true;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
   },
-  /* selectas(e){
-    let checked=e.target.checked;
-      let checkDom=this.$refs.table.getElementByClassName("selBtn");
-      let idArray=[];
-      if(checked){
-        for(var i=0;i<checkDom.length;i++)
-        {
-          checkDom[i].checked=false;
-        }
-      }else{
-         for(var i=0;i<checkDom.length;i++)
-        {
-          checkDom[i].checked=true;
-        }
-      }
-      alert("运行了");
-  } */
 };
-  /*  $(function() {
-
-                //已被选择的选项变成红色
-                $(".tag_1 .check input:checked").next("span").css("color", "red");
-                $(".tag_1").each(function() {
-                    $tagEachCheckedInputSize = $(this).find("input:checked").size();
-                    if ($tagEachCheckedInputSize==0) {
-                        $(this).find("input:first").attr("checked", true).next("span").css("color", "red");
-                    }
-                })
-
-                //点击选项为true的时候, 颜色变红, "不限"选项取消并变成黑色. 当所有的选项为取消的时候, "不限"被选择并变成红色,其他选项取消
-                $(".tag_1 .check input").live("click", function() {
-                    $firstInput = $(this).parents(".tag_1").find("input:first");
-                    if ($(this).attr("checked")) {
-                        if ($(this).val()!=0) {
-                            $firstInput.attr("checked", false).next("span").css("color", "black");
-                        } else {
-                            $(this).parents(".tag_1").find("input:gt(0)").attr("checked", false).next("span").css("color", "black");
-                        }
-                        $(this).next("span").css("color", "red");
-                    } else {
-                        var $siblingsCheckedInputNum = $(this).parents(".tag_1").find("input:checked").size();
-                        $(this).next("span").css("color", "black");
-                        if ($siblingsCheckedInputNum==0) {
-                            $firstInput.attr("checked", true).next("span").css("color", "red");
-                        }
-                    }
-                })
-                $(".tag_1 .check_radio input:checked").next("span").css("color", "red");
-                $(".tag_1 .check_radio input").live("click", function() {
-                    $('.check_radio').find("input").next("span").css('color', 'black');
-                    $(this).next("span").css("color", "red");
-                })
-            }) */
+  
 </script>
 <style>
-/* .el-col{
-  float: right;
-  
-} */
 
 .zy_kjcg_top {
     width: 1200px;
-    margin: 0 auto;
+    margin-left:4%;
 }
 
 .zy_kjcg_top table {
     border: solid 1px #ccc;
-    width: 1198px;
+    width: 1000px;
     border-collapse: collapse;
     background: #fafafa;
 
@@ -717,7 +762,7 @@ export default {
 }
 .cg_td01 {
     color: #333;
-    width: 160px;
+    width: 100px;
     text-align: center;
     padding: 0px;
 }
@@ -733,11 +778,17 @@ export default {
     display: block;
     float: left;
     margin-right: 50px;
-    color: #666;
+    
 }
 
+.list{
 
-
+  float: left;
+  width: 1040px;
+}
+.active{
+    color: cornflowerblue;
+}
 
 
 
@@ -777,7 +828,7 @@ export default {
   font-size: 14px;
   font-style: normal;
   width: 160px;
-  
+  margin: 20px 64px;
 }
 .td101 {
   font-family: "微软雅黑";
@@ -844,9 +895,7 @@ export default {
 
   text-decoration: none;
 }
-.title{
- 
-}
+
 .zuo{
   width: 300px;
   float: left;
@@ -933,69 +982,7 @@ export default {
 
   text-decoration: none;
 } 
-.middleLeft {
-  -webkit-tap-highlight-color: rgba(31, 12, 12, 0);
 
-  border-bottom-color: rgb(255, 119, 32);
-
-  border-bottom-style: solid;
-
-  border-bottom-width: 1px;
-
-  border-left-color: rgb(255, 119, 32);
-
-  border-left-style: solid;
-
-  border-left-width: 1px;
-
-  border-right-color: rgb(255, 119, 32);
-
-  border-right-style: solid;
-
-  border-right-width: 1px;
-
-  border-top-color: rgb(255, 119, 32);
-
-  border-top-style: solid;
-
-  border-top-width: 1px;
-
-  float: center;
-
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  margin-bottom: 0px;
-
-  margin-left: 0px;
-
-  margin-right: 0px;
-
-  margin-top: 0px;
-
-  overflow: hidden;
-
-  padding-bottom: 0px;
-
-  padding-left: 0px;
-
-  padding-right: 0px;
-
-  padding-top: 0px;
-
-  text-decoration: none;
-
-  width: 700px;
-}
 .qwe{
   float: left;
   width: 900px;
@@ -1139,13 +1126,13 @@ export default {
 
   list-style-type: none;
 
-  margin-bottom: 0px;
+  margin-bottom: 40px;
 
   margin-left: 0px;
 
-  margin-right: 0px;
+  margin-right:0px;
 
-  margin-top: 0px;
+  margin-top: 50px;
 
   outline-color: invert;
 
@@ -1165,11 +1152,11 @@ export default {
 
   vertical-align: baseline;
 
-  width: 660px;
+  width: 48%;
 
   word-break: break-all;
 
-  height: 160px;
+  height: 150px;
 }
 .cg_list001 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1189,6 +1176,7 @@ export default {
   font-weight: 400;
 
   word-break: break-all;
+  
 }
 .cg_list002 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1207,13 +1195,14 @@ export default {
 
   word-break: break-all;
 }
+
 .cg_bottomlist {
-  float:right;
-
-
-
+  float:left;
+  margin-left: 6%;
+  border-bottom: dashed 1px #ccc;
+  width: 1000px;
 }
-.thisMiddle{}
+
 .xuqiuyilan .ziti2 {
   -webkit-text-size-adjust: auto;
 
@@ -1253,9 +1242,10 @@ export default {
 
   white-space: nowrap;
 
-  width: 600px;
+  width: 500px;
 
   word-break: break-all;
+
 }
 .fabujigou {
   background-attachment: scroll;
@@ -1280,7 +1270,6 @@ export default {
 
   font-weight: 400;
 
-  left: 20px;
 
   line-height: 30px;
 
@@ -1366,6 +1355,8 @@ export default {
   vertical-align: baseline;
 
   word-break: break-all;
+
+  width: 300px;
   
 }
 .bottomRight {
@@ -1383,78 +1374,13 @@ export default {
 
   position: relative;
 
-  top: -15px;
+  margin-top: 20px ;
 
-  width: 560px;
+  top: 0px;
+
+  width: 322px;
 }
-.list_div {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  margin-bottom: 0px;
-
-  margin-left: 0px;
-
-  margin-right: 0px;
-
-  margin-top: 0px;
-
-  padding-bottom: 0px;
-
-  padding-left: 0px;
-
-  padding-right: 0px;
-
-  padding-top: 0px;
-
-  text-decoration: none;
-}
-.thisAfter {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  margin-bottom: 20px;
-
-  margin-left: 126.6px;
-
-  margin-right: 126.61px;
-
-  margin-top: 0px;
-
-  padding-bottom: 0px;
-
-  padding-left: 0px;
-
-  padding-right: 0px;
-
-  padding-top: 0px;
-
-  text-decoration: none;
-
-  width: 1350px;
-}
 .table1 {
   background-attachment: scroll;
 
