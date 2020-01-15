@@ -255,7 +255,7 @@
           <el-card class="grid-content3 ">
             <div slot="header" class="titleColor">
               <span>需求一览</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
+              <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
             </div>
             <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
@@ -272,7 +272,7 @@
         <el-card class="grid-content3">
             <div slot="header" class="titleColor">
               <span>优质企业</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
+              <el-button style="float: right; padding: 5px 0" type="text" @click="excellentCompany">>>更多</el-button>
             </div>
             <div v-for="i in supplierlist" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
@@ -287,7 +287,7 @@
           <el-card class="grid-content3">
             <div slot="header" class="titleColor">
               <span>服务成果</span>
-              <el-button style="float: right; padding: 5px 0" type="text">>>更多</el-button>
+              <el-button style="float: right; padding: 5px 0" type="text" @click="serviceResults">>>更多</el-button>
             </div>
             <div v-for="i in completeddemandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
@@ -340,6 +340,8 @@
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 
 <script>
+
+
 export default {
   name: "Home",
   data() {
@@ -633,11 +635,21 @@ export default {
     this.getCharts2();
     this.getCharts3();
   },
+  
   methods:{
+
       /*
       *转跳对应任务信息页面
       */
-      recordTabletender(){
+      serviceResults(){
+        this.$router.push({path:'/xuqiuyilan'})
+      },
+
+      excellentCompany(){
+        this.$router.push({path:'/excellentCompany'})
+      },
+      needs(){
+        this.$router.push({path:'/twoMenu'})
       },
 
       //发布需求的表单验证
@@ -900,17 +912,8 @@ export default {
       myChart.setOption(option);
       charts.push(myChart);
     },
-
-
-
-
-    
-
-
   }
 };
-
-
 </script>
 
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->

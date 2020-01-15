@@ -8,8 +8,10 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'//前台首页
 import twoMenu from '@/views/Front/Home/twoMenu'//前台首页二级页面
 import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
-import excellentCompany from '@/views/Front/company/excellentCompany'//优秀企业
+import excellentCompany from '@/views/Front/Home/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
+import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
+import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
@@ -70,12 +72,12 @@ import cPendingAuditDet from '@/views/admin/supplier/circulation/circulationDeta
 
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
-import xuqiuyilan from '@/views/admin/company/xuqiuyilan'//需求一览
-import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
+
 
 import primarysupplyList from '@/views/admin/company/primarysupplyList'//一级供应商列表
 import secondarysupplyList from '@/views/admin/company/secondarysupplyList'//二级供应商列表
 
+import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail'//一级供应商列表
 
 
 Vue.use(Router)
@@ -107,14 +109,14 @@ export default new Router({
           component:threeMenu
         },
         {
-          path: '/admin/xuqiuyilan',
-          name: 'xuqiuyilan',
+          path: "/xuqiuyilan",
+          name: "xuqiuyilan",
           component: xuqiuyilan,
         },
 //优秀企业
         {
-          path: '/company/excellentCompany',
-          name: 'excellentCompany',
+          path: "/excellentCompany",
+          name: "excellentCompany",
           component: excellentCompany,
         },
         {
@@ -193,6 +195,11 @@ export default new Router({
           meta: {
             title: "所有供应商的信息"
           }
+        },
+        {
+          path: '/company/excellentCompanyDetail',
+          name: 'excellentCompanyDetail',
+          component: excellentCompanyDetail,
         },
         //单个供应商的详细信息
         {
