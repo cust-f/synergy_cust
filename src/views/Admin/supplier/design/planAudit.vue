@@ -21,8 +21,6 @@
 
       <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
-
       <el-table-column prop="state" label="状态" align="center"></el-table-column>
 
       <el-table-column label="截止日期">

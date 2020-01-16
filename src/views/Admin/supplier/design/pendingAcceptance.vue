@@ -22,16 +22,15 @@
 
       <el-table-column prop="taskLeader" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="二级供应商"></el-table-column>
+      <el-table-column prop="state" label="承接供应商"></el-table-column>
 
-       <el-table-column label="截止日期">
+      <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
           <el-button @click="jumpAcceptDet() " type="text" size="small">查看详情</el-button>
-
         </template>
       </el-table-column>
     </el-table>
@@ -52,7 +51,10 @@
 
 <script>
 export default {
-  name: "pendingAcceptance", 
+  name: "pendingAcceptance",
+  created() {
+    this.getData();
+  },
   data() {
     return {
       query: {
