@@ -23,12 +23,10 @@
 
       <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
 
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
+      <el-table-column prop="deadline" label="截止日期">
       </el-table-column>
 
       <el-table-column prop="Abolish_Reason" label="废除原因"></el-table-column>
-
 
       <el-table-column label="操作" width="127" align="center">
         <template>

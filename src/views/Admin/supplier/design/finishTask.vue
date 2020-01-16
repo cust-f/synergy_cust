@@ -25,7 +25,7 @@
 
       <el-table-column prop="state" label="承接供应商"></el-table-column>
        
-       <el-table-column label="截止日期">
+       <el-table-column label="完成日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
       </el-table-column>
 

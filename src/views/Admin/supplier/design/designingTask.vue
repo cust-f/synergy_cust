@@ -25,6 +25,8 @@
 
       <el-table-column prop="supplierName" label="承接供应商" align="center"></el-table-column>
 
+      <el-table-column prop="taskCheck" label="退回" align="center"></el-table-column>
+
        <el-table-column prop="deadline" label="截止日期">
       </el-table-column>
       
