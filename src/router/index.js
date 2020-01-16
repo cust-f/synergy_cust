@@ -10,6 +10,7 @@ import twoMenu from '@/views/Front/Home/twoMenu'//前台首页二级页面
 import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
 import excellentCompany from '@/views/Front/company/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
+import register from '@/views/Front/register/register'
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
@@ -95,6 +96,11 @@ export default new Router({
           path: '/home',
           name: 'Home',
           component: Home
+        },
+        {
+          path:'/register',
+          name:'register',
+          component:register
         },
         {
           path:"/twoMenu",

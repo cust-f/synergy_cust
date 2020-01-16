@@ -134,7 +134,7 @@ export default {
 .el-row {
   margin-left: 0px !important;
 }
-.el-select .el-input {
+.admin-header .el-select .el-input {
   width: 100px;
 }
 .input-with-select .el-input-group__prepend {
