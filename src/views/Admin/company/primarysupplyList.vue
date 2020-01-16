@@ -245,6 +245,7 @@ export default {
     addData() {
       this.addVisible = true;
     },
+    
   }
 };
 </script>

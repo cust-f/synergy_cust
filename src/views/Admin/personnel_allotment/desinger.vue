@@ -15,15 +15,12 @@
             height="100%"
             style="margin-top:20px"
           >
-            <template v-for="(item,index) in Not_Accepted_Task_Head">
-              <el-table-column
-                :prop="item.column_name"
-                :label="item.column_comment"
-                :key="index"
-                :min-width="item.width"
-                v-if="item.column_name != 'id'"
-                align="center"
-                :show-overflow-tooltip="true"
+            <template >
+              
+                <el-table-column prop="taskId" label="需求任务编号"></el-table-column>
+                  <el-table-column prop="taskName" label="需求任务名称"></el-table-column>
+                  <el-table-column prop="taskType" label="需求类型"></el-table-column>
+                  <el-table-column prop="deadline" label="截止时间"></el-table-column>
               ></el-table-column>
             </template>
             <el-table-column label="操作" min-width="45px" align="center">
@@ -183,6 +180,8 @@
 
 
 <script>
+import Qs from "qs";
+
 export default {
   data() {
     name: "desinger";
@@ -194,81 +193,82 @@ export default {
       pageTotal: 0,
       Not_Accepted_Task_Head: [
         {
-          column_name: "Desinger_ID",
-          column_comment: "任务ID",
+          column_name: "taskId",
+          column_comment: "需求编号",
           width: "30"
         },
         {
-          column_name: "Desinger_Name",
-          column_comment: "任务名称",
+          column_name: "taskName",
+          column_comment: "需求名称",
           width: "55"
         },
         {
-          column_name: "Desinger_Type",
-          column_comment: "任务类别",
+          column_name: "taskType",
+          column_comment: "需求类别",
           width: "50"
         },
         {
-          column_name: "Desinger_End_Time",
+          column_name: "deadline",
           column_comment: "截至时间",
           width: "45"
         }
       ],
       Not_Accepted_Task_Data: [
-        {
-          Desinger_ID: "0001",
-          Desinger_Name: "大汽车零件装配",
-          Desinger_Type: "零件装配制造",
-          Desinger_End_Time: "2019-10-17"
-        },
-        {
-          Desinger_ID: "0002",
-          Desinger_Name: "大帆船的制造",
-          Desinger_Type: "中形设备制造",
-          Desinger_End_Time: "2019-9-15"
-        },
-        {
-          Desinger_ID: "0003",
-          Desinger_Name: "大火箭模拟装配",
-          Desinger_Type: "高端装配制造",
-          Desinger_End_Time: "2019-12-17"
-        },
-        {
-          Desinger_ID: "0004",
-          Desinger_Name: "铁轨零件制造",
-          Desinger_Type: "高端装配制造",
-          Desinger_End_Time: "2019-12-17"
-        },
-        {
-          Desinger_ID: "0005",
-          Desinger_Name: "武器装备模拟装配",
-          Desinger_Type: "高端装配制造",
-          Desinger_End_Time: "2019-12-17"
-        }
+        
+        // {
+        //   taskId: Not_Accepted_Task_Data.taskId,
+        //   taskName: Not_Accepted_Task_Data.taskName,
+        //   taskType: Not_Accepted_Task_Data.taskType,
+        //   deadline:Not_Accepted_Task_Data.deadline,
+        // },
+        // {
+        //   Desinger_ID: "0002",
+        //   Desinger_Name: "大帆船的制造",
+        //   Desinger_Type: "中形设备制造",
+        //   Desinger_End_Time: "2019-9-15"
+        // },
+        // {
+        //   Desinger_ID: "0003",
+        //   Desinger_Name: "大火箭模拟装配",
+        //   Desinger_Type: "高端装配制造",
+        //   Desinger_End_Time: "2019-12-17"
+        // },
+        // {
+        //   Desinger_ID: "0004",
+        //   Desinger_Name: "铁轨零件制造",
+        //   Desinger_Type: "高端装配制造",
+        //   Desinger_End_Time: "2019-12-17"
+        // },
+        // {
+        //   Desinger_ID: "0005",
+        //   Desinger_Name: "武器装备模拟装配",
+        //   Desinger_Type: "高端装配制造",
+        //   Desinger_End_Time: "2019-12-17"
+        // }
       ],
       Accepted_Task_Head: [
         {
-          column_name: "Desinger_ID",
-          column_comment: "任务ID",
+          column_name: "Task_Id",
+          column_comment: "需求编号",
           width: "35"
         },
         {
-          column_name: "Desinger_Name",
-          column_comment: "任务名称",
+          column_name: "Task_Name",
+          column_comment: "需求名称",
           width: "60"
         },
         {
-          column_name: "Desinger_Type",
-          column_comment: "任务类别",
+          column_name: "Task_Type",
+          column_comment: "需求类别",
           width: "65"
         },
         {
-          column_name: "Desinger_End_Time",
+          column_name: "Deadline",
           column_comment: "截至时间",
           width: "55"
         },
         {
-          column_name: "Supplier_Audit",
+          column_name: "Task_Check",
           column_comment: "审核状态",
           width: "45"
         },
@@ -301,27 +301,27 @@ export default {
       ],
       Finished_Task_Head: [
         {
-          column_name: "Desinger_ID",
-          column_comment: "任务ID"
+          column_name: "Task_Id",
+          column_comment: "需求编号"
         },
         {
-          column_name: "Desinger_Name",
-          column_comment: "任务名称"
+          column_name: "Task_Name",
+          column_comment: "需求名称"
         },
         {
-          column_name: "Desinger_Type",
-          column_comment: "任务类别"
+          column_name: "Task_Type",
+          column_comment: "需求类别"
         },
         {
-          column_name: "Desinger_Start_Time",
+          column_name: "Begin_Time",
           column_comment: "开始时间"
         },
         {
-          column_name: "Desinger_Finish_Time",
+          column_name: "Finish_Time",
           column_comment: "完成时间"
         },
         {
-          column_name: "Desinger_Completion_Status",
+          column_name: "Task_State",
           column_comment: "完成状态"
         }
       ],
@@ -355,6 +355,9 @@ export default {
       dialogVisible: false
     };
   },
+  created() {
+    this.getData();
+  },
   methods: {
     handleDetail(index, row) {
       this.$router.push("/admin/personnel_allotment/virtualMachine");
@@ -363,18 +366,25 @@ export default {
       this.$router.push("/#");
     },
     handlePageChange(val) {},
+
     getData() {
+      console.log(this.userName);
       var that = this;
-      that.$axios
-        .get("/designer/newlist")
+      var data = Qs.stringify({
+        userName: "asd"
+      });
+      console.log(data);
+      that
+        .axios({
+          method: 'post',
+          url: "http://127.0.0.1:8082/designer/newlist",
+          data: data,
+
+          // data:this.$store.state.userName
+        })
         .then(response => {
           console.log(response);
-          this.data=response.data;
-
-
-        })
-        .catch(function(error) {
-          console.log(error);
+          this.Not_Accepted_Task_Data = response.data.allData;
         });
     }
   }
