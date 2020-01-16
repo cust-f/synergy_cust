@@ -73,7 +73,7 @@ export default {
         {
           icon: "el-icon-edit-outline",
           index: "3",
-          title: "设计管理",
+          title: "任务管理",
           subs: [
             {
               index: "/admin/newTask",
@@ -81,7 +81,7 @@ export default {
             },
             {
               index: "/admin/mainStaskShow",
-              title: "查看详情"
+              title: "需求详细"
             }
           ]
         },

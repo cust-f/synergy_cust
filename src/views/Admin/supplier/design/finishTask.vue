@@ -23,7 +23,7 @@
 
       <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="设计单位"></el-table-column>
+      <el-table-column prop="state" label="承接供应商"></el-table-column>
        
        <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>

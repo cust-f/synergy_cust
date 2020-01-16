@@ -15,16 +15,15 @@
     >
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyId" label="接受企业名称ID"></el-table-column>
+      <el-table-column prop="acceptCompanyId" label="需求名称"></el-table-column>
 
-      <el-table-column prop="acceptCompanyName" label="接受企业名称"></el-table-column>
+      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
+<!-- 
+      <el-table-column prop="companyName" label=""></el-table-column> -->
 
-      <el-table-column prop="companyName" label="需求需求企业"></el-table-column>
+      <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
-      <el-table-column prop="userId" label="设计人员ID" align="center"></el-table-column>
       <el-table-column prop="taskCheck" label="状态"></el-table-column>
-
-      <el-table-column prop="supplierName" label="设计单位"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期">
        
