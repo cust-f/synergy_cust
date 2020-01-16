@@ -13,21 +13,21 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="acceptCompanyId" label="接受企业名称ID"></el-table-column>
 
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
+      <el-table-column prop="acceptCompanyName" label="接受企业名称"></el-table-column>
 
-      <el-table-column prop="publishTask" label="需求需求企业"></el-table-column>
+      <el-table-column prop="companyName" label="需求需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
-      <el-table-column prop="state" label="状态"></el-table-column>
+      <el-table-column prop="userId" label="设计人员ID" align="center"></el-table-column>
+      <el-table-column prop="taskCheck" label="状态"></el-table-column>
 
-      <el-table-column prop="company" label="设计单位"></el-table-column>
+      <el-table-column prop="supplierName" label="设计单位"></el-table-column>
 
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
+      <el-table-column prop="deadline" label="截止日期">
+       
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
@@ -52,7 +52,8 @@
 
 
 <script>
-export default {
+  import Qs from "qs";
+  export default {
   name: "allTask",
   data() {
     return {
@@ -63,28 +64,19 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData: [
-        {
-          id: 1,
-          taskName: "客车汽车前车灯",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "李名",
-          company: "光机所",
-          state: "进行中",
-          date: "2019-12-1"
-        },
-        {
-          id: 2,
-          taskName: "中型汽车车架",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "刘柳",
-          company: "光机所",
-          state: "待审核",
-          date: "2019-11-14"
-        }
-      ],
+      // tableData: [
+      //   {
+      //     id: 1,
+      //     acceptCompanyId: "20202020",
+      //     bussessType: "车间零部件生产",
+      //     publishTask: "一汽大众",
+      //     taskLeader: "李名",
+      //     company: "光机所",
+      //     state: "进行中",
+      //     date: "2019-12-1"
+      //   },
+        
+      // ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -98,6 +90,26 @@ export default {
     this.getData();
   },
   methods: {
+     getData() {
+      console.log(this.acceptCompanyId);
+      var that = this;
+      var data = Qs.stringify({
+        acceptCompanyId:20202020
+      });
+      console.log(data);
+      that
+        .axios({
+          method: 'post',
+          url: "http://127.0.0.1:8082/supplier/supplierdesigntasklist",
+          data: data,
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
     // 详情页面跳转
     jumpfinishDet() {
       this.$router.push("/admin/finishTaskDet");

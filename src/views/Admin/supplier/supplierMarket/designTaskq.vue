@@ -47,6 +47,8 @@
 </template>
 
 <script>
+
+
 import pendingResTask from "../design/pendingResTask"; //待响应任务
 import planAudit from "../design/planAudit"; //计划审核
 import designingTask from "../design/designingTask"; //进行中任务
@@ -79,8 +81,9 @@ export default {
 
   created() {
     this.getData();
-  }
-};
+  },
+  
+}
 </script>
 <style>
 .con {

@@ -14,10 +14,10 @@
         </div>
       </div>
     </el-col>
-
+<br/>   <br/><br/>  
     <div class="np_top">
 
-        
+   
       <div class="preview">
         <div class="BigTime">
           <el-carousel :interval="3000" arrow="always">
@@ -33,7 +33,7 @@
         <font style="color:#ff7720;font-size:18px">哈尔滨科大志远科技有限公司</font>
         <el-divider></el-divider>
         <el-row>
-            <el-col :span="6" >
+            <el-col :span="8" :offset="2">
                  <li>
                 <a>
                     企业所在省：
@@ -70,7 +70,7 @@
                 </a>
             </li>  
             </el-col>
-            <el-col :span="6" :offset="2">
+            <el-col :span="8" :offset="4">
                  <li>
                 <a>
                     工商注册号：
@@ -190,18 +190,17 @@
 
     </div>
     
- <el-col :span="20" push="2">
-    <div class="white">
+ <el-col :span="16" :offset="4" class="white">
       <el-tabs type="card">
         <el-tab-pane label="企业信息">
-          <el-col :span="22" :push="1">
+          <el-col :span="20" :offset="1">
             <div style="display:block">
               <ul>
                 <li class="yqk_nr_bt">
                   <a>企业简介</a>
                 </li>
                 <li>
-                  <a>哈尔滨科大志远科技有限公司成立于2013年11月07日，注册地位于哈尔滨高新区科技创新城创新创业广场11号楼科技一街1039号C504室，法人代表为张晓天。经营范围包括智能教学设备、软件的研发与销售；企业管理咨询、商务信息咨询；信息技术服务，工程技术服务(涉及许可经营的项目，经审批机关批准并经工商行政管理机关登记注册后方可经营)。黑龙江棵乐信息技术有限公司是为中小微企业提供企业移动管理服务的专业企业，棵乐信息始终坚持专注于移动互联网时代的企业客户关系管理、营销管理、HR管理等方向，通过打造“管理信息化咨询平台+云服务平台”两大平台联动的商业模式，为客户提供从战略规划、商业模式设计、组织及人力资源优化、业务流程优化及管理、PC端和移动端IT系统规划及落地、云服务综合运营、管理等全链条综合持续服务，切实帮助企业与政府客户实现转型升级与价值落地。</a>
+                  <a>  哈尔滨科大志远科技有限公司成立于2013年11月07日，注册地位于哈尔滨高新区科技创新城创新创业广场11号楼科技一街1039号C504室，法人代表为张晓天。经营范围包括智能教学设备、软件的研发与销售；企业管理咨询、商务信息咨询；信息技术服务，工程技术服务(涉及许可经营的项目，经审批机关批准并经工商行政管理机关登记注册后方可经营)。黑龙江棵乐信息技术有限公司是为中小微企业提供企业移动管理服务的专业企业，棵乐信息始终坚持专注于移动互联网时代的企业客户关系管理、营销管理、HR管理等方向，通过打造“管理信息化咨询平台+云服务平台”两大平台联动的商业模式，为客户提供从战略规划、商业模式设计、组织及人力资源优化、业务流程优化及管理、PC端和移动端IT系统规划及落地、云服务综合运营、管理等全链条综合持续服务，切实帮助企业与政府客户实现转型升级与价值落地。</a>
                 </li>
                 <li>
                   <a></a>
@@ -211,7 +210,6 @@
           </el-col>
         </el-tab-pane>
       </el-tabs>
-    </div>
                                    <el-divider></el-divider>
   </el-col>
   </div>
@@ -232,7 +230,7 @@ export default {
 </script>
 <style>
 .white {
-  width: 100%;
+  width: 67%;
   margin-top: 20px;
 }
 .divtap {
@@ -296,7 +294,7 @@ export default {
 
   margin-bottom: 0px;
 
-  margin-left: 165.6px;
+  margin-left: 305.6px;
 
   margin-right: 65.61px;
 
