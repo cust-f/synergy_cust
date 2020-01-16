@@ -90,10 +90,10 @@
   },
   methods: {
      getData() {
-      console.log(this.acceptCompanyId);
+      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        acceptCompanyId:20202020
+        userName:"1"
       });
       console.log(data);
       that
