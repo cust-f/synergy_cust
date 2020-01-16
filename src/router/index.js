@@ -78,6 +78,9 @@ import businessDetail from '@/views/admin/manager/businessDetail'
 import primarysupplyList from '@/views/admin/company/primarysupplyList'//一级供应商列表
 import secondarysupplyList from '@/views/admin/company/secondarysupplyList'//二级供应商列表
 
+import supplyBussess2 from '@/views/admin/supplycompany/supplyBussess2'
+import supplyDetail2 from '@/views/admin/supplycompany/supplyDetail2'
+
 import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail'//一级供应商列表
 
 
@@ -503,7 +506,28 @@ export default new Router({
           meta: {
             title: "详情"
           }
-        },  
+        },
+        //供应商的二级供应商名录
+        {
+          path: '/admin/supplyBussess2',
+          name: 'supplyBussess2',
+          component: supplyBussess2,
+          meta: {
+            title: "供应商信息"
+          }
+        },
+        //供应商企业信息修改
+        {
+          path: '/admin/supplyDetail2',
+          name: 'supplyDetail2',
+          component: supplyDetail2,
+          meta: {
+            title: "供应商企业信息修改"
+          }
+        },
+        
+
+
 
         //流通待响应任务详情页面
         {
