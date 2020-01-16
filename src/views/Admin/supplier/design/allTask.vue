@@ -64,19 +64,19 @@
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      // tableData: [
-      //   {
-      //     id: 1,
-      //     acceptCompanyId: "20202020",
-      //     bussessType: "车间零部件生产",
-      //     publishTask: "一汽大众",
-      //     taskLeader: "李名",
-      //     company: "光机所",
-      //     state: "进行中",
-      //     date: "2019-12-1"
-      //   },
+      tableData: [
+        {
+          // id: 1,
+          // acceptCompanyId: "20202020",
+          // bussessType: "车间零部件生产",
+          // publishTask: "一汽大众",
+          // taskLeader: "李名",
+          // company: "光机所",
+          // state: "进行中",
+          // date: "2019-12-1"
+        },
         
-      // ],
+      ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
