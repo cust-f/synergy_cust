@@ -2,7 +2,7 @@
   <div class="gobla">
       <div>
     <el-row :gutter="70">
-      <el-col :span="60" push="2">
+      <el-col :span="18" :offset="2">
         <div>
           <div>
             <div class="title1" width="160px">
@@ -11,62 +11,69 @@
               <span>优质企业</span>
             </div>
             <br />
-          </div>
+          </div> 
  <div class="zy_kjcg_top">
     <!--<div><a>科技成果</a></div>-->
-    <table cellpadding="0" cellspacing="0">
+    <el-col :span="18" :offset="1"> 
+    <table class="ta" cellpadding="0" cellspacing="0" style="width: 1150px">
         
-        <tbody><tr>
-           
+        <tbody ><tr>
+           <td class="cg_td01">企业地区：</td>
+            <td class="cg_td02">
+                <a>不限</a>
+                <a>长春</a>
+                <a>哈尔滨</a>
+            </td>
         </tr><tr>
-        <td class="cg_td01">企业类别：</td>
+        <td class="cg_td01">行业类别：</td>
         <td class="cg_td02">
-                <a @click="click0">不限</a>
-                <a @click="click1">交通运输设备</a>
-                <a @click="click2"> 仪器仪表及文化、办公用机械</a>
-                <a @click="click3">通信设备、计算机及其他电子设备</a>
-                <a @click="click4">电气机械及器材</a>
-                <a @click="click5">专用设备</a>
-                <a @click="click6">通用设备</a>
+                <a v-bind:class="{ active: isActive0 }" @click="click0">不限</a>
+                <a v-bind:class="{ active: isActive1 }" @click="click1">交通运输设备</a>
+                <a v-bind:class="{ active: isActive2 }" @click="click2">仪器仪表及文化、办公用机械</a>
+                <a v-bind:class="{ active: isActive3 }" @click="click3">通信设备、计算机及其他电子设备</a>
+                <a v-bind:class="{ active: isActive4 }" @click="click4">电气机械及器材</a>
+                <a v-bind:class="{ active: isActive5 }" @click="click5">专用设备</a>
+                <a v-bind:class="{ active: isActive6 }" @click="click6">通用设备</a>
         </td>
     </tr>
         <tr>
             <td class="cg_td01">企业子类：</td>
             <td class="cg_td02">
-                <div v-if="show0">
-            <a v-for="item in options0"
-              :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show1">
-            <a v-for="item in options1"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show2">
-            <a v-for="item in options2"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show3" >
-            <a v-for="item in options3"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show4">
-            <a v-for="item in options4"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
-          <div v-if="show5">
-            <a v-for="item in options5"
-                  :key="item.value"
-            >{{item.label}}</a>
-          </div>
+              <div v-if="show0">
+                <a v-for="item in options0"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show1">
+                <a v-for="item in options1"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show2">
+                <a v-for="item in options2"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show3" >
+                <a v-for="item in options3"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show4" >
+                <a v-for="item in options4"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
+              <div v-if="show5">
+                <a v-for="item in options5"
+                :key="item.value"
+                >{{item.label}}</a>
+              </div>
             </td>
         </tr>
         
     </tbody></table>
+    </el-col>
 </div>
 
 
@@ -88,8 +95,12 @@
             </table>
             <br />
           </div> -->
-          <br/>
-        </div>
+      
+        </div> <br/> <br/>
+      </el-col>
+       <br/>
+ <el-col :span="18" :offset="2">
+    <br/>
         <el-input placeholder="请输入内容" v-model="input3" class="sogo">
       </el-input>
       <el-button type="warning" >搜索</el-button>
@@ -99,7 +110,7 @@
       <br>
     </el-row></div><br>
     <el-row :gutter="20" class="low">
-      <el-col :span="20" push="2" pull="2">
+      <el-col :span="20" push="3" pull="2">
         <el-col :span="18">
           <div class="cardgroup">
             <el-col :span="8">
@@ -226,15 +237,7 @@
 </template>
 <script>
 export default {
-  data() {
-    
-
-
-
-
-
-
-
+  data() { 
     return { 
       //需求大类下的下分子类
     //交通运输设备子类
@@ -416,32 +419,23 @@ export default {
         show4: false,
         show5: false,
 
-        //判断当前选项是否为第一次点击，若被点击此值为1
-        fclick0: true,
-        fclick1: true,
-        fclick2: true,
-        fclick3: true,
-        fclick4: true,
-        fclick5: true,
-        fclick6: true,
+       //点击变色的判定值
+        isActive0: false,
+        isActive1: false,
+        isActive2: false,
+        isActive3: false,
+        isActive4: false,
+        isActive5: false,
+        isActive6: false,
 
-
-
-
-
-
-
-
-
-
-      activeName: 'first',
-      checkList1: [],
-      checkList2: [],
-      checkList3: [],
-      checkList4: [],
-      checkList5: [],
-      checkList6: [],
-      checkList7: [],
+        activeName: 'first',
+        checkList1: [],
+        checkList2: [],
+        checkList3: [],
+        checkList4: [],
+        checkList5: [],
+        checkList6: [],
+        checkList7: [],
     };
      radio: '1'
      
@@ -461,22 +455,44 @@ methods: {
         this.router.push("/company/excellentCompanyDetail")
 
     },
-    
     click0()
+    { 
+        this.show0=false;
+        this.show1=false;
+        this.show2=false;
+        this.show3=false;
+        this.show4=false;
+        this.show5=false;
+
+        this.isActive0=true;
+        this.isActive1=false;
+        this.isActive2=false;
+        this.isActive3=false;
+        this.isActive4=false;
+        this.isActive5=false;
+        this.isActive6=false;
+    },
+    click1()
     {
-      
-      if(this.fclick6==true)
+        if(this.show0==false)
         {
           this.show0=true;
-      this.show1=true;
-      this.show2=true;
-      this.show3=true;
-      this.show4=true;
-      this.show5=true;
-          this.fclick6=false;
-          return ;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=true;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick6==false)
+        if(this.show0==true)
         {
           this.show0=false;
           this.show1=false;
@@ -484,106 +500,218 @@ methods: {
           this.show3=false;
           this.show4=false;
           this.show5=false;
-          this.fclick6=true;
-          return;
-        }
-    },
-    click1()
-    {
-        if(this.fclick0==true)
-        {
-          this.show0=true;
-          this.fclick0=false;
-          return ;
-        }
-        if(this.fclick0==false)
-        {
-          this.show0=false;
-          this.fclick0=true;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click2()
     {
-       if(this.fclick1==true)
+       if(this.show1==false)
         {
+          this.show0=false;
           this.show1=true;
-          this.fclick1=false;
-          return ;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=true;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick1==false)
+        if(this.show1==true)
         {
+          this.show0=false;
           this.show1=false;
-          this.fclick1=true;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click3()
     {
-       if(this.fclick2==true)
+       if(this.show2==false)
         {
+          this.show0=false;
+          this.show1=false;
           this.show2=true;
-          this.fclick2=false;
-          return ;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=true;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick2==false)
+        if(this.show2==true)
         {
+          this.show0=false;
+          this.show1=false;
           this.show2=false;
-          this.fclick2=true;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     }
     ,
     click4()
     {
-       if(this.fclick3==true)
+       if(this.show3==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
           this.show3=true;
-          this.fclick3=false;
-          return ;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=true;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
         }
-        if(this.fclick3==false)
+        if(this.show3==true)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
           this.show3=false;
-          this.fclick3=true;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
           return;
         }
     },
 
     click5()
     {
-        if(this.fclick4==true)
+        if(this.show4==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
           this.show4=true;
-          this.fclick4=false;
-          return ;
-        }
-        if(this.fclick4==false)
-        {
-          this.show4=false;
-          this.fclick4=true;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=true;
+          this.isActive6=false;
           return;
         }
+        if(this.show4==true)
+        {
+           this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=true;
+          this.isActive6=false;
+          return;
+        }
+          
     },
 
     click6()
     {
-        if(this.fclick5==true)
+        if(this.show5==false)
         {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
           this.show5=true;
-          this.fclick5=false;
-          return ;
-        }
-        if(this.fclick5==false)
-        {
-          this.show5=false;
-          this.fclick5=true;
+
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=true;
           return;
         }
-    },
+        if(this.show5==true)
+        {
+          this.show0=false;
+          this.show1=false;
+          this.show2=false;
+          this.show3=false;
+          this.show4=false;
+          this.show5=false;
 
+          this.isActive0=false;
+          this.isActive1=false;
+          this.isActive2=false;
+          this.isActive3=false;
+          this.isActive4=false;
+          this.isActive5=false;
+          this.isActive6=false;
+          return;
+        }
+    }, 
   },
   /* selectas(e){
     let checked=e.target.checked;
@@ -604,7 +732,8 @@ methods: {
   } */
 };
 </script>
-<style>
+
+<style >
 .zy_kjcg_top {
     width: 1200px;
     margin: 0 auto;
@@ -612,7 +741,7 @@ methods: {
 
 .zy_kjcg_top table {
     border: solid 1px #ccc;
-    width: 1198px;
+    width: 1000px;
     border-collapse: collapse;
     background: #fafafa;
 
@@ -626,7 +755,7 @@ methods: {
 }
 .cg_td01 {
     color: #333;
-    width: 160px;
+    width: 100px;
     text-align: center;
     padding: 0px;
 }
@@ -638,13 +767,17 @@ methods: {
     color: #666;
     padding: 20px 40px;
 }
+.el-col-18{
+  width: 1200px;
+}
 .cg_td02 a {
     display: block;
     float: left;
     margin-right: 50px;
-    color: #666;
 }
-
+.active{
+    color: cornflowerblue;
+}
 
 
 .title {
@@ -656,6 +789,7 @@ methods: {
 
 .sogo{
     width: 60%;
+    margin-left: 80px;
 }
 .page {
   float: left;
@@ -799,8 +933,11 @@ methods: {
   padding-top: 20px;
 
   text-decoration: none;
+  width: 850px;
 }
-
+.cg_td02{
+   
+}
 .cg_td_a1 {
   border-collapse: collapse;
   border-spacing: 0px 0px;
@@ -967,7 +1104,7 @@ methods: {
   width: 120px;
 }
 .low{
-  width: 1300px;
+  width: 1800px;
 }
 .ziti1 {
   font-size: 14px;
@@ -1369,4 +1506,5 @@ methods: {
 
   width: 300px;
 }
+
 </style>

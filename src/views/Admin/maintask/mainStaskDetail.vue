@@ -12,26 +12,26 @@
             <el-row >
                 
                 <el-col :span="11">
-                    <el-form-item label="子项目名称">
+                    <el-form-item label="分解任务名称">
                         <el-input v-model="mainStask.name" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="负责人员">
-                        <el-input v-model="mainStask.leader" :disabled="true"></el-input>
+                    <el-form-item label="分解任务状态">
+                        <el-input v-model="mainStask.state" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
 
             <el-row >
                 <el-col :span="11">
-                    <el-form-item label="子项目类型" >
+                    <el-form-item label="分解任务类型" >
                         <el-input v-model="mainStask.type" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="子项目结束时间">
-                        <el-input v-model="mainStask.endtime" :disabled="true"></el-input>
+                    <el-form-item label="任务类型">
+                        <el-input v-model="mainStask.tasktype" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -40,39 +40,13 @@
 
              <el-row >
                 <el-col :span="11">
-                    <el-form-item label="设计任务状态">
-                        <el-input v-model="mainStask.designState" :disabled="true"></el-input>
+                    <el-form-item label="发布时间">
+                        <el-input v-model="mainStask.fabutime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="评价状态">
-                        <el-input v-model="mainStask.remakeState" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row >
-
-            <el-row >
-                <el-col :span="11">
-                    <el-form-item label="完成状态">
-                        <el-input v-model="mainStask.completionState" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="项目截至日期">
-                        <el-input v-model="mainStask.deadLine" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row >
-
-            <el-row >
-                <el-col :span="11">
-                    <el-form-item label="主任务名称">
-                        <el-input v-model="mainStask.mainTaskName" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="任务类别">
-                        <el-input v-model="mainStask.mainTaskType" :disabled="true"></el-input>
+                    <el-form-item label="截止时间">
+                        <el-input v-model="mainStask.jiezhitime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -80,15 +54,30 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="开始时间">
-                        <el-input v-model="mainStask.beginTime" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.starttime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="投标截止时间">
-                        <el-input v-model="mainStask.endTime" :disabled="true"></el-input>
+                    <el-form-item label="完成时间">
+                        <el-input v-model="mainStask.finishtime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
+
+            <el-row >
+                <el-col :span="11">
+                    <el-form-item label="发布企业名称">
+                        <el-input v-model="mainStask.companyname" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                    <el-form-item label="接受企业名称">
+                        <el-input v-model="mainStask.supplyname" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row >
+
+
 
             
              
@@ -121,13 +110,12 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="供应商名称"></el-table-column>
 
         <el-table-column prop="bussessType" label="任务类型"></el-table-column>
 
-        <el-table-column prop="date" label="截止时间"></el-table-column>
+        <el-table-column prop="date" label="开始时间"></el-table-column>
                 <el-table-column prop="money" label="完成时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
             <!-- <el-button
@@ -241,20 +229,17 @@
         dialogVisible: false,
 
         mainStask: {
-          id:'1',
-          name: '小汽车零件的装配',
-          type: '零件装配制造',
-          endtime: '2019-10-17',
-          detail: '略',
-          leader:'陈平安',
-          designState:'设计完成',
-          remakeState:'评价完成',
-          completionState:'已完成',
-          deadLine:'2022-12-5',
-          mainTaskName:'汽车装配制造',
-          mainTaskType:'大型交通工具制造',
-          beginTime:'2019-10-15',
-          endTime:'2019-12-18'          
+          name:"小汽车零件装配",
+          state:'已完成',
+          type:'汽车零部件',
+          tasktype:'设计任务',
+          fabutime:'2017-10-1',
+          jiezhitime:'2020-10-8',
+          starttime:'2018-10-1',
+          finishtime:'2019-10-1',
+          companyname:'长春汽车工业有限公司',
+          supplyname:'长春卫星电子信息有限公司',
+
         },
                 query: {
         pageIndex: 1,
