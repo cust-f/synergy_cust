@@ -4,17 +4,17 @@
       <div class="newTask">
         <h3>新增需求</h3>
         <el-divider></el-divider>
-        <el-button type="small" @click="getdata()">获取数据</el-button>
-        <el-form ref="form" :model="form" label-width="110px" class="box">
+        <!-- <el-button type="small" @click="getdata()"></el-button> -->
+        <el-form ref="form" label-width="110px" class="box">
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求任务名称">
-                <el-input v-model="newTask.name"></el-input>
+                <el-input v-model="name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求项目类别">
-                <el-input v-model="newTask.name"></el-input>
+                <el-input v-model="type"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -25,7 +25,7 @@
                 <el-date-picker
                   type="date"
                   placeholder="选择日期"
-                  v-model="newTask.date1"
+                  v-model="publishdate"
                   style="width: 100%;"
                 ></el-date-picker>
               </el-form-item>
@@ -35,7 +35,7 @@
                 <el-date-picker
                   type="date"
                   placeholder="选择日期"
-                  v-model="newTask.date2"
+                  v-model="deaddate"
                   style="width: 100%;"
                 ></el-date-picker>
               </el-form-item>
@@ -44,7 +44,7 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="总负责人">
-                <el-input v-model="newTask.leader"></el-input>
+                <el-input v-model="leader"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -52,14 +52,14 @@
           <el-row>
             <el-col :span="22">
               <el-form-item label="需求任务详细">
-                <el-input type="textarea" :rows="3" v-model="newTask.xiangxi"></el-input>
+                <el-input type="textarea" :rows="3" v-model="xiangxi"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
 
         <div id="div2" align="right">
-          <el-button type="primary" class="button1">提交</el-button>
+          <el-button type="primary" class="button1" @click="tijiao">提交</el-button>
         </div>
       </div>
       <el-divider></el-divider>
@@ -98,17 +98,17 @@
           <el-row>
             <el-col :span="8"></el-col>
           </el-row>
-          <el-form ref="form" :model="addList" label-width="120px">
+          <el-form ref="form" label-width="120px">
             <el-row>
               <el-col :span="11">
                 <el-form-item label="分解任务名称">
-                  <el-input v-model="addList.dividename"></el-input>
+                  <el-input v-model="dividename"></el-input>
                 </el-form-item>
               </el-col>
 
               <el-col :span="11">
                 <el-form-item label="任务设计状态">
-                  <el-input v-model="addList.TaskState"></el-input>
+                  <el-input v-model="TaskState"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -119,7 +119,7 @@
                   <el-date-picker
                     type="date"
                     placeholder="选择日期"
-                    v-model="addList.fabuTime"
+                    v-model="fabuTime"
                     value-format="yyyy-MM-dd"
                     style="width: 100%;"
                   ></el-date-picker>
@@ -131,7 +131,7 @@
                   <el-date-picker
                     type="date"
                     placeholder="选择日期"
-                    v-model="addList.endLine"
+                    v-model="endLine"
                     value-format="yyyy-MM-dd"
                     style="width: 100%;"
                   ></el-date-picker>
@@ -139,37 +139,12 @@
               </el-col>
             </el-row>
 
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="开始时间">
-                  <el-date-picker
-                    type="date"
-                    placeholder="选择日期"
-                    v-model="addList.BeginTime"
-                    value-format="yyyy-MM-dd"
-                    style="width: 100%;"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-
-              <el-col :span="11">
-                <el-form-item label="完成时间">
-                  <el-date-picker
-                    type="date"
-                    placeholder="选择日期"
-                    v-model="addList.FinishTime"
-                    value-format="yyyy-MM-dd"
-                    style="width: 100%;"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-row>
 
             <el-row>
 
                             <el-col :span="11">
                 <el-form-item label="任务种类">
-                  <el-input v-model="addList.TaskState"></el-input>
+                  <el-input v-model="TaskState1"></el-input>
                 </el-form-item>
               </el-col>
 
@@ -193,6 +168,16 @@
               </el-col>
 
 
+            </el-row>
+
+            
+            <el-row>
+
+              <el-col :span="22">
+                <el-form-item label="分解任务详细">
+                  <el-input v-model="TaskXiangXi" type="textarea" :rows="2"></el-input>
+                </el-form-item>
+              </el-col>
             </el-row>
 
 
@@ -296,6 +281,7 @@
 
 <script>
 import Qs from "qs"
+
 export default {
   name: "newTask",
 
@@ -343,14 +329,14 @@ export default {
           supplyCompany: "长春光电子微型卫星有限公司"
         }
       ],
+          
       addList: [
         {
-          id: "",
-          taskNum: "",
-          taskName: "",
-          taskType: "",
+          fabuTime: "",
+          endLine: "",
           bidTime: "",
-          supplyCompany: ""
+          TaskState: "",
+          TaskXiangXi: "",
         }
       ],
       addList1: [
@@ -363,12 +349,48 @@ export default {
           supplyDesigner: ""
         }
       ],
-      cooList: {},
-      liebieList:{},
-      form: {}
+      cooList: {supplyCompany:''},
+      liebieList:{supplyCompany:''},
+      form: {},
+      name:'',
+      type:'',
+      publishdate:'',
+      deaddate:'',
+      leader:'',
+      xiangxi:'',
+
+      //这是新增模态框
+      dividename: "",
+          fabuTime: "",
+          endLine: "",
+          TaskState: "",
+          TaskState1: "",
+          TaskXiangXi: "",
     };
   },
   methods: {
+    tijiao(){
+      var that = this;
+      var data = Qs.stringify({
+        userName:'aaaa',
+        name:this.name,
+        type:this.type,
+        publishdate:this.publishdate,
+        deaddate:this.deaddate,
+        leader:this.leader,
+        xiangxi:this.xiangxi
+      });
+      console.log(data)
+      that  
+        .axios({
+          method:'post',
+          url: "http://127.0.0.1:8082/MainTaskInformation/addMainTaskInformation",
+          data:data,
+          
+       })
+               this.$message.success("提交成功");
+  
+    },
     invitate(coo) {
       console.log(coo);
       console.log(coo);
@@ -439,7 +461,9 @@ export default {
     },
     //新增操作
     addData() {
-      this.addVisible = true;
+            this.addVisible = true;
+
+     
     },
 
     addDesignerButton() {
@@ -447,11 +471,33 @@ export default {
     },
     //保存新增
     saveAdd() {
-      ++this.id;
-      this.addList.id = this.id;
-      this.tableData.push(this.addList);
-      console.log(this.addList);
-      this.addList = {};
+
+      console.log(this.TaskXiangXi)
+       var that = this;
+      var data = Qs.stringify({
+        userName:'aaaa',
+        taskName : this.dividename,
+        // taskState : this.addList.TaskState,
+        publishTime : this.fabuTime,
+        endLine : this.endLine,
+        taskCategaty :  this.TaskState,
+        yaoqing : this.cooList.supplyCompany,
+        taskType : this.liebieList.supplyCompany,
+        mainTaskName : this.name,
+        taskXiangxi : this.TaskXiangXi
+      });
+      console.log(data);
+      console.log("123木头人")
+
+      that
+        .axios({
+          method:'post',
+          url:'hhttp://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation',
+          data:data,
+        });
+
+
+ this.$message.success("提交成功");
       this.addVisible = false;
     },
     // 编辑操作

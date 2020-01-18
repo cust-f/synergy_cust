@@ -9,16 +9,16 @@
             <el-page-header @back="goBack" content="详情页面">
             </el-page-header>
  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-            <el-form ref="form" :model="cool" label-width="110px" class="form">
+            <el-form ref="cool" :model="cool" label-width="110px" class="form">
             <el-row  >
                 <el-col :span="11">
                     <el-form-item label="需求名称名称">
-                        <el-input v-model="cool.name" :disabled="true"></el-input>
+                        <el-input v-model="cool.mainTaskName"  :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                    <el-form-item label="需求类型">
-                        <el-input v-model="cool.type" :disabled="true"></el-input>
+                    <el-form-item label="行业类别">
+                        <el-input v-model="cool.industry_Type" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
 
@@ -27,12 +27,12 @@
             <el-row  >
                 <el-col :span="11">
                     <el-form-item label="发布时间">
-                        <el-input v-model="cool.fabutime" :disabled="true"></el-input>
+                        <el-input v-model="cool.publishTime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="截止时间">
-                        <el-input v-model="cool.jiezhitime" :disabled="true"></el-input>
+                        <el-input v-model="cool.deadline" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
 
@@ -40,13 +40,13 @@
 
             <el-row >
                 <el-col :span="11">
-                    <el-form-item label="开始时间">
-                        <el-input v-model="cool.begintime" :disabled="true"></el-input>
+                    <el-form-item label="任务状态">
+                        <el-input v-model="cool.taskState" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                               <el-col :span="11">
                     <el-form-item label="完成日期">
-                        <el-input v-model="cool.deadline" :disabled="true"></el-input>
+                        <el-input v-model="cool.finishTime" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -54,14 +54,10 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="项目负责人">
-                        <el-input v-model="cool.leader" :disabled="true"></el-input>
+                        <el-input v-model="cool.principalName" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="11">
-                    <el-form-item label="任务状态">
-                        <el-input v-model="cool.taskState" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
+
             </el-row>
 
             <el-row >
@@ -70,7 +66,7 @@
             <el-row >
                 <el-col width="100%">
                     <el-form-item label="主项目详情">
-                        <el-input type="textarea" :rows="3" style="width:90%" v-model="cool.detail" :disabled="true"></el-input>
+                        <el-input type="textarea" :rows="3" style="width:90%" v-model="cool.mainTaskDetail" :disabled="true"></el-input>
                     </el-form-item>
                     
                 </el-col>
@@ -81,7 +77,7 @@
 
         </el-form>
         <div id="div2" align="right">
-                       <el-button type="primary" class="button1">废除需求任务</el-button>  
+                       <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>  
             <el-button type="primary" class="button1">下载装配文档</el-button>  
              <el-button type="primary" class="button1">下载技术文档模板</el-button>  
              
@@ -111,13 +107,13 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="needname" label="需求任务名称"></el-table-column>        
-        <el-table-column prop="dividename" label="分解任务名称"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
-        <el-table-column prop="date" label="任务完成时间"></el-table-column>
-        <el-table-column label="状态" align="center" prop="state">
+        <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+        <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>        
+        <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
+        <el-table-column prop="companyName" label="企业名称"></el-table-column>
+        <el-table-column prop="taskType" label="任务类型"></el-table-column>
+        <el-table-column prop="finishTime" label="任务完成时间"></el-table-column>
+        <el-table-column label="状态" align="center" prop="taskState">
         </el-table-column>
 
         <el-table-column label="操作" width="180" align="center">
@@ -131,9 +127,9 @@
               type="text"
               icon="el-icon-delete"
               class="red"
-              @click="handleDelete(scope.$index, scope.row)"
+              @click="handleDelete1(scope.row)"
             >废除</el-button>
-          <el-button @click="mainStaskDetail" type="text" size="small">查看详情</el-button>
+          <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -211,25 +207,23 @@
 
 
 <script>
+import Qs from 'qs'
 export default {
     name:'substaskDetail',
+    prop:{
+
+    },
     data(){
       return {
                 dialogVisible: false,
        cool:{
-         id:"01111",          
-          name: '小汽车零件的装配',
-          type: '零件装配制造',
-          fabutime:'2017-10-15',
-          jiezhitime:'2020-10-15',
-          detail: '',
-          leader:'陈平安',
-          designState:'设计完成',
-          remakeState:'评价完成',
-          completionState:'已完成',
-          begintime:'2020-1-16',
-          taskState:'完成',
-          deadline:'2019-12-18'
+          mainTaskName: '',
+          industry_Type: '',
+          publishTime:'',
+          deadline:'',
+          mainTaskDetail: '',
+          leader:'',
+          taskState:'',
        },
         query: {
         pageIndex: 1,
@@ -281,52 +275,120 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      mainTaskID:''
       }
     },
         created() {
+    this.getParams();
     this.getData();
+    
   },
     methods:{
       /*
       *转跳对应任务信息页面
       */
       // 获取 easy-mock 的模拟数据
+    getParams() {
+  
+      var routerParams = this.$route.query.mainTaskID
+      this.mainTaskID = routerParams
+      console.log(routerParams)
+
+    },
+
     getData() {
-      //   this.tableData = res.list;
-      //   this.pageTotal = tableData.length;
+      console.log(this.mainTaskID);
+      var that = this;
+      var data = Qs.stringify({
+        mainTaskID : this.mainTaskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: 'post',
+          url: "http://127.0.0.1:8082/MainTaskInformation/combineMS",
+          data: data,
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          this.cool = response.data.allData.a[0];
+          this.tableData = response.data.allData.b;
+           console.log(response.data.allData);
+        });
     },
     // 触发搜索按钮
     handleSearch() {
       this.$set(this.query, "pageIndex", 1);
       this.getData();
     },
+
+    
     // 删除操作
-    handleDelete(index, row) {
-      // 二次确认删除
-      this.$confirm("确定要删除吗？", "提示", {
+    handleDelete1(row) {
+            this.$confirm("确定要废除吗？", "提示", {
+              
         type: "warning"
       })
-        .then(() => {
-          this.$message.success("删除成功");
-          this.tableData.splice(index, 1);
+      
+     
+         .then(() => {
+            console.log(row.taskId)
+      var that = this;
+      var data = Qs.stringify({
+        substakeID : row.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: 'post',
+          url: "http://127.0.0.1:8082/MainTaskInformation/feicuBySubstaskstaskID",
+          data: data,
+
+          // data:this.$store.state.userName
         })
-        .catch(() => {});
+           this.$message.success("废除成功");
+           this.tableData.splice(index, 1);
+         })
+      //   .then(response => {
+      //     this.cool = response.data.allData.a[0];
+      //     this.tableData = response.data.allData.b;
+      //      console.log(response.data.allData);
+      //   });
+      // 二次确认删除
+
+
+      //   .catch(() => {});
     },
-    // 多选操作
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    delAllSelection() {
-      let length = this.multipleSelection.length;
-      let str = "";
-      for (let j = 0; j < length; j++) {
-        this.tableData.splice(this.multipleSelection[j], 1);
-        str += this.multipleSelection[j].name + " ";
-      }
-      this.$message.error(`删除了${str}`);
-      this.multipleSelection = [];
-    },
+
+feichuAll(){
+     this.$confirm("确定要删除吗？", "提示", {
+              
+        type: "warning"
+      })
+      
+         .then(() => {
+      var that = this;
+      console.log(this.mainTaskID)
+      var data = Qs.stringify({
+        mainStaskID : this.mainTaskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: 'post',
+          url: "http://127.0.0.1:8082/MainTaskInformation/feichuByMainstaskID",
+          data: data,
+
+          // data:this.$store.state.userName
+        })
+        this.$message.success("废除成功");
+         })
+},
+
+
+
     //新增操作
     addData() {
       this.addVisible = true;
@@ -353,8 +415,14 @@ export default {
     // 分页导航
     handlePageChange(val) {},
 
-     mainStaskDetail(){
-         this.$router.push('/admin/mainStaskDetail')
+     mainStaskDetail(row){
+      console.log(row.taskId)
+      this.$router.push({
+        path:"/admin/mainStaskDetail",
+        query:{
+          taskId : row.taskId
+        }
+        });
      },
      goBack() {
         

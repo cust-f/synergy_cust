@@ -11,12 +11,7 @@
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="全部任务" name="first">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+                  
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
                   <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
@@ -30,7 +25,6 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
                   <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                   <el-table-column prop="name" label="需求任务名称"></el-table-column>
                   <el-table-column prop="subname" label="分解任务名称"></el-table-column>
@@ -40,16 +34,10 @@
                   </el-table-column>
                    <el-table-column label="操作" align="center" class="box1">
                     <template slot-scope="scope">
-                  <!--    <div id=a> -->
-                  <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
 
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.$index, scope.row)"
                     type="text"
                     size="small "
                     class="box1"
@@ -72,12 +60,7 @@
 
               <el-tab-pane label="待响应" name="second">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+                 
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
                   <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
@@ -91,14 +74,11 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
                   <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                   <el-table-column prop="name" label="需求任务名称"></el-table-column>
                   <el-table-column prop="subname" label="分解任务名称"></el-table-column>
                   <el-table-column prop="company" label="企业名称"></el-table-column>
                   <el-table-column prop="time" label="截止时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
-                  </el-table-column>
           
                   <el-table-column label="操作" align="center" >
                     <el-button
@@ -106,10 +86,10 @@
                     icon="el-icon-delete"
                     class="red"
                     @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+                  >废除</el-button>
 
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.$index, scope.row)"
                     type="text"
                     size="small "
                     class="box1"
@@ -133,12 +113,7 @@
 
               <el-tab-pane label="任务计划" name="third">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
                   <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
@@ -152,7 +127,6 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
                   <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                   <el-table-column prop="name" label="需求任务名称"></el-table-column>
                   <el-table-column prop="subname" label="分解任务名称"></el-table-column>
@@ -170,12 +144,7 @@
                     <el-button type="danger" size="mini" plain @click="open">审核不通过</el-button>
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
-                    <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
 
                   <el-button
                     @click="Detail"
@@ -200,12 +169,7 @@
 
               <el-tab-pane label="进行中" name="forth">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
                   <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
@@ -219,22 +183,13 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="55" align="center"></el-table-column>
                   <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                   <el-table-column prop="name" label="需求任务名称"></el-table-column>
                   <el-table-column prop="subname" label="分解任务名称"></el-table-column>
                   <el-table-column prop="company" label="企业名称"></el-table-column>
                   <el-table-column prop="time" label="截至时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
-                  </el-table-column>
                   <el-table-column label="操作" align="center" >
 
-                    <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
 
                   <el-button
                     @click="Detail"
@@ -260,12 +215,6 @@
 
               <el-tab-pane label="待审核" name="fifth">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
                   <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
@@ -279,7 +228,6 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
                   <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                   <el-table-column prop="name" label="需求任务名称"></el-table-column>
                   <el-table-column prop="subname" label="分解任务名称"></el-table-column>
@@ -296,12 +244,7 @@
                     <el-button type="danger" size="mini" plain @click="open">审核不通过</el-button>
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
-                    <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
 
                   <el-button
                     @click="Detail"
@@ -326,12 +269,7 @@
 
               <el-tab-pane label="已完成" name="sisth">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
                   <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
@@ -345,14 +283,11 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
                   <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                   <el-table-column prop="name" label="需求任务名称"></el-table-column>
                   <el-table-column prop="subname" label="分解任务名称"></el-table-column>
                   <el-table-column prop="company" label="企业名称"></el-table-column>
                   <el-table-column prop="time" label="完成时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
-                  </el-table-column>
                     <el-table-column label="任务书" align="center" >
                     <el-button type="text" size="small" class="box1">下载</el-button>
                   </el-table-column>
@@ -362,13 +297,7 @@
 
                   <el-table-column label="操作" align="center" class="box1">
                     <template slot-scope="scope">
-                  <!--    <div id=a> -->
-                  <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
                   <el-button
                     @click="Detail"
                     type="text"
@@ -392,12 +321,7 @@
 
               <el-tab-pane label="已废除" name="seventh">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+                 
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
                   <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
@@ -411,23 +335,14 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
                   <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                   <el-table-column prop="name" label="需求任务名称"></el-table-column>
                   <el-table-column prop="subname" label="分解任务名称"></el-table-column>
                   <el-table-column prop="company" label="企业名称"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
-                  </el-table-column>
-    
+
                   <el-table-column label="操作" align="center" >
                         <template slot-scope="scope">
-                  <!--    <div id=a> -->
-                  <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
                   <el-button
                     @click="Detail"
                     type="text"

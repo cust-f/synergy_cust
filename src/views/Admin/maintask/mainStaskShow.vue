@@ -9,9 +9,9 @@
           <div class="container">
             <template>
               <div class="handle-box">
-                <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-                <el-input v-model="query.state" placeholder="需求状态" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
+                <el-input v-model="selectstate" placeholder="需求状态" class="handle-input mr10"></el-input>
+                <el-button type="primary" @click="handleSearch">搜索</el-button>
               </div>
               <el-table
                 :data="tableData"
@@ -21,14 +21,14 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-              <!-- mainTaskID从前台-->
+              <!-- mainTaskID冲-->
                 <el-table-column prop="mainTaskID" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
-                <el-table-column prop="mainTaskType" label="需求类型"></el-table-column>
-                <el-table-column prop="leader" label="项目负责人"></el-table-column>
-                <el-table-column prop="fabudate" label="发布时间"></el-table-column>
-                <el-table-column prop="date" label="截止时间"></el-table-column>
-                <el-table-column prop="state" label="状态" align="center" type="text"></el-table-column>
+                <el-table-column prop="industry_Type" label="需求类型"></el-table-column>
+                <el-table-column prop="principalName" label="项目负责人"></el-table-column>
+                <el-table-column prop="publishTime" label="发布时间"></el-table-column>
+                <el-table-column prop="deadline" label="截止时间"></el-table-column>
+                <el-table-column prop="taskState" label="状态" align="center" type="text"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                   <template slot-scope="scope">
                     <!-- <el-button
@@ -38,7 +38,7 @@
                       @click="handleDelete(scope.$index, scope.row)"
                     >废除</el-button>-->
                     <el-button
-                      @click="substaskDetail1(scope.$index, scope.row)"
+                      @click="substaskDetail1(scope.row)"
                       type="text"
                       size="small"
                     >查看详情</el-button>
@@ -98,7 +98,8 @@ export default {
     return {
       query: {
         pageIndex: 1,
-        pageSize: 10
+        pageSize: 10,
+        name:''
       },
       activeName: "first",
       tableData: [
@@ -199,13 +200,21 @@ export default {
       idx: -1,
       id: -1,
       dialogVisible: false,
-      userName: "123"
+      userName: "123",
+      mainTaskID:'',
+      selectname:''
     };
   },
   created() {
     this.getData();
+    this.GetTime(date);
   },
   methods: {
+   GetTime(date) {     
+        var datee = new Date(date).toJSON();        
+        return new Date(+new Date(datee) + 8 * 3600 * 1000).toISOString().    
+            replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')    },
+
     getData() {
       console.log(this.userName);
       var that = this;
@@ -226,6 +235,29 @@ export default {
           this.tableData = response.data.allData;
         });
     },
+
+      handleSearch() {
+      console.log(this.selectname)
+      var that = this
+      var data = Qs.stringify({
+        username:'aaaa',
+        taskName:this.selectname,
+      })
+      console.log(data)
+      that 
+        .axios({
+          method:'post',
+          url: "http://127.0.0.1:8082/MainTaskInformation/selectByCompanyandTaskName",
+          data:data,         
+           // data:this.$store.state.userName
+       })
+       .then(response =>{
+         console.log(response);
+         this.tableData = response.data.allData;
+       })
+
+    //this.getData();
+  },
     //审核不通过的原因
     open() {
       this.$prompt("请输入审核不通过原因", "提示", {
@@ -244,25 +276,17 @@ export default {
       console.log(tab, event);
     },
 
-    substaskDetail1() {
-      this.$router.push("/admin/substaskDetail");
+    substaskDetail1(row) {
+      console.log(row.mainTaskID)
+      this.$router.push({
+        path:"/admin/substaskDetail",
+        query:{
+          mainTaskID : row.mainTaskID
+        }
+        });
     },
 
-    substaskDetail2() {
-      this.$router.push("/admin/substaskDetail");
-    },
-    substaskDetail3() {
-      this.$router.push("/admin/substaskDetail");
-    },
-    substaskDetail4() {
-      this.$router.push("/admin/substaskDetail");
-    },
-    substaskDetaill() {
-      this.$router.push("/admin/substaskDetail");
-    },
-    substaskDetail6() {
-      this.$router.push("/admin/substaskDetail");
-    },
+    
     chick() {
       this.$router.push("/admin/check/review");
     }
@@ -273,10 +297,7 @@ export default {
     //   this.pageTotal = tableData.length;
   },
   // 触发搜索按钮
-  handleSearch() {
-    this.$set(this.query, "pageIndex", 1);
-    this.getData();
-  },
+
   // 删除操作
   handleDelete(index, row) {
     // 二次确认删除
