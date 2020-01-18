@@ -21,17 +21,17 @@
       <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
 
       <el-table-column prop="taskLeader" label="设计师" align="center"></el-table-column>
+      <el-table-column prop="taskLeader" label="状态" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="二级供应商"></el-table-column>
+      <el-table-column prop="state" label="承接供应商"></el-table-column>
 
-       <el-table-column label="截止日期">
+      <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
           <el-button @click="jumpAcceptDet() " type="text" size="small">查看详情</el-button>
-
         </template>
       </el-table-column>
     </el-table>
@@ -52,7 +52,10 @@
 
 <script>
 export default {
-  name: "pendingAcceptance", 
+  name: "pendingAcceptance",
+  created() {
+    this.getData();
+  },
   data() {
     return {
       query: {
@@ -63,46 +66,6 @@ export default {
       formLabelWidth: "120px",
       activeName: "first",
       tableData: [
-        {
-          id: 1,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-
-          state: "新增",
-          date: "2019-11-17"
-        },
-        {
-          id: 2,
-          taskName: "磨床生产",
-          bussessType: "平面磨床制作",
-          publishTask: "杭机集团长春一机有限公司",
-          taskLeader: "刘柳",
-
-          state: "待审核",
-          date: "2019-12-17"
-        },
-        {
-          id: 3,
-          taskName: "通信技术设计",
-          bussessType: "通信技术",
-          publishTask: "哈尔滨海邻科信息技术有限公司",
-          taskLeader: "周舟",
-
-          state: "已完成",
-          date: "2019-9-22"
-        },
-        {
-          id: 4,
-          taskName: "发电智能制造",
-          bussessType: "发电装备",
-          publishTask: "哈尔滨电机厂有限责任公司",
-          taskLeader: "孙铭",
-
-          state: "进行中",
-          date: "2019-11-13"
-        }
       ],
       multipleSelection: [],
       editVisible: false,
@@ -120,6 +83,9 @@ export default {
     // 全部需求详情页面跳转
     jumpAcceptDet() {
       this.$router.push("/admin/pendingAcceptanceDet");
+    },
+    getData(){
+      
     }
   }
   /*

@@ -13,21 +13,17 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="acceptCompanyName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
+      <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
+      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
+      <el-table-column prop="assignmentState" label="状态" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="状态" align="center"></el-table-column>
-
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
-      </el-table-column>
+      <el-table-column prop="deadline" label="截止日期"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
@@ -60,7 +56,6 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
@@ -196,26 +191,6 @@ export default {
       formLabelWidth: "120px",
       activeName: "first",
       tableData: [
-        {
-          id: 1,
-          taskName: "客车汽车前车灯",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "李名",
-
-          state: "进行中",
-          date: "2019-12-1"
-        },
-        {
-          id: 2,
-          taskName: "中型汽车车架",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "刘柳",
-
-          state: "进行中",
-          date: "2019-11-14"
-        }
       ],
       multipleSelection: [],
       editVisible: false,
@@ -230,10 +205,33 @@ export default {
     this.getData();
   },
   methods: {
+
+    getData() {
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: "1"
+      });
+
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/supplierPlanAuditlist",
+          data: data
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
     // 全部需求详情页面跳转
     jumpplanDet() {
       this.$router.push("/admin/planAuditDet");
     },
+
 
     jumpAuditDet() {
       this.$router.push("/admin/planAuditingDet");

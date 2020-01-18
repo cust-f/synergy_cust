@@ -8,8 +8,10 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'//前台首页
 import twoMenu from '@/views/Front/Home/twoMenu'//前台首页二级页面
 import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
+import resultDetail from '@/views/Front/Home/resultDetail'//成果详情
 import excellentCompany from '@/views/Front/Home/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
+import register from '@/views/Front/register/register'
 import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
 import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
 
@@ -77,6 +79,9 @@ import businessDetail from '@/views/admin/manager/businessDetail'
 import primarysupplyList from '@/views/admin/company/primarysupplyList'//一级供应商列表
 import secondarysupplyList from '@/views/admin/company/secondarysupplyList'//二级供应商列表
 
+import supplyBussess2 from '@/views/admin/supplycompany/supplyBussess2'
+import supplyDetail2 from '@/views/admin/supplycompany/supplyDetail2'
+
 import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail'//一级供应商列表
 
 
@@ -99,6 +104,11 @@ export default new Router({
           component: Home
         },
         {
+          path:'/register',
+          name:'register',
+          component:register
+        },
+        {
           path:"/twoMenu",
           name:"twoMenu",
           component:twoMenu
@@ -113,7 +123,12 @@ export default new Router({
           name: "xuqiuyilan",
           component: xuqiuyilan,
         },
-//优秀企业
+        {
+           path:"/resultDetail",
+           name:"resultDetail",
+           component:resultDetail,
+        },
+        //优秀企业
         {
           path: "/excellentCompany",
           name: "excellentCompany",
@@ -130,6 +145,11 @@ export default new Router({
           path: '/company/excellentCompanyDesigin',
           name: 'excellentCompanyDesigin',
           component: excellentCompanyDesigin,
+        },
+        {
+          path: '/company/excellentCompanyDetail',
+          name: 'excellentCompanyDetail',
+          component: excellentCompanyDetail,
         },
 
       ]
@@ -196,11 +216,7 @@ export default new Router({
             title: "所有供应商的信息"
           }
         },
-        {
-          path: '/company/excellentCompanyDetail',
-          name: 'excellentCompanyDetail',
-          component: excellentCompanyDetail,
-        },
+        
         //单个供应商的详细信息
         {
           path: '/admin/supplyDetail',
@@ -496,7 +512,28 @@ export default new Router({
           meta: {
             title: "详情"
           }
-        },  
+        },
+        //供应商的二级供应商名录
+        {
+          path: '/admin/supplyBussess2',
+          name: 'supplyBussess2',
+          component: supplyBussess2,
+          meta: {
+            title: "供应商信息"
+          }
+        },
+        //供应商企业信息修改
+        {
+          path: '/admin/supplyDetail2',
+          name: 'supplyDetail2',
+          component: supplyDetail2,
+          meta: {
+            title: "供应商企业信息修改"
+          }
+        },
+        
+
+
 
         //流通待响应任务详情页面
         {

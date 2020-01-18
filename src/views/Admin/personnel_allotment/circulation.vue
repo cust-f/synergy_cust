@@ -269,14 +269,9 @@ export default {
         },
         {
           column_name: "Supplier_Audit",
-          column_comment: "供应商审核状态",
+          column_comment: "审核状态",
           width: "45"
         },
-        {
-          column_name: "Core_Enterprise_Audit",
-          column_comment: "核心企业审核状态",
-          width: "45"
-        }
       ],
       Accepted_Task_Data: [
         {
@@ -368,7 +363,8 @@ export default {
       this.$router.push("/#");
     },
     handlePageChange(val) {}
-  }
+  },
+  
 };
 </script>
 <style scope>

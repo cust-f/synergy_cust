@@ -177,7 +177,7 @@ export default {
 
   margin-bottom: 0px;
 
-  margin-left: 125.6px;
+  margin-left: 225.6px;
 
   margin-right: 125.61px;
 

@@ -8,9 +8,9 @@
         <div class="grid-content0">
           <span>首页</span>
             <span>&nbsp;>&nbsp;</span>
-            <span>需求一览</span>
+            <span>服务成果</span>
             <span>&nbsp;>&nbsp;</span>
-            <span>需求详情</span>
+            <span>成果详情</span>
         </div>
       </el-col>
     </el-row>
@@ -18,23 +18,22 @@
     <el-row :gutter="gutterCount" >
       <el-col :span="10"  :push="pushCount" :pull="pullCount">
          <div class="grid-content2 bg-purple-dark">
-        <h2 style="margin:20px 0;">TNGA项目组装线安装工程</h2>
+        <h2 style="margin:20px 0;">设计B30EV-试冲板料</h2>
         <el-divider></el-divider>
         <div class="grid-content3" style="margin-top:50px">      
           
-          <p style =" width :50%; float:left">行业类别：通信设备</p>
+          <p style =" width :50%; float:left">行业类别：交通运输设备</p>
           <p style =" width :50%;float:left">所在地区：吉林省长春市</p>
           
           <p>&nbsp;</p>
           <p style =" width :50%; float:left">联系方式：4006917888</p>
-          <p style =" width :50%; float:left">需求类型：流通</p>
+          <p style =" width :50%; float:left">需求类型：设计</p>
           <p>&nbsp;</p>
-          <p style =" width :50%; float:left">需求开始时间：2019-10-22</p>
-          <p style =" width :50%; float:left">需求截止时间：2019-11-21</p>
+          <p style =" width :50%; float:left">需求发布时间：2019-10-22</p>
+          <p style =" width :50%; float:left">需求完成时间：2019-11-21</p>
           <p>&nbsp;</p>
           <div style="margin:20px 0;">        
-           <el-button type="warning" >下载模板</el-button>
-           <el-button type="warning" @click="open">申请任务</el-button>
+           <el-button type="warning" >下载成果</el-button>
           </div>
         </div>
         </div>

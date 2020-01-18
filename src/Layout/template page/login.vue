@@ -54,12 +54,12 @@ export default {
           var that = this;
           var data = Qs.stringify({
             userName: this.param.username,
-            passWord: this.param.password
+            password: this.param.password
           });
           that
             .axios({
               method: "post",
-              url: "/api/user/login",
+              url: "http://127.0.0.1:8081/user/login",
               data: data
             })
             .then(response => {

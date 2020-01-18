@@ -73,7 +73,7 @@
                           </i>       
                   </div>           
                   <div class="category_item">       	
-                            <div class="cate_ietm_title" style="background:#be7fc5;"><font>通信设备、计算机及其他电子设备</font><p>&nbsp;</p></div>       	
+                            <div class="cate_ietm_title" style="background:#67C23A;"><font>通信设备、计算机及其他电子设备</font><p>&nbsp;</p></div>       	
                             <i class="cate_list">
                               <a href="">通信设备</a>
                               <a href="">雷达及配套设备</a>
@@ -108,7 +108,7 @@
                             </i>       
                       </div>
                        <div class="category_item">       	
-                            <div class="cate_ietm_title" style="background:#be7fc5;"><font>通用设备</font><p>&nbsp;</p></div>       	
+                            <div class="cate_ietm_title" style="background:#909399;"><font>通用设备</font><p>&nbsp;</p></div>       	
                             <i class="cate_list">
                               <a href="">锅炉及原动机</a>
                               <a href="">金属加工机械</a>
@@ -255,7 +255,7 @@
           <el-card class="grid-content3 ">
             <div slot="header" class="titleColor">
               <span>需求一览</span>
-              <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
+              <el-button style="float: right; padding: 5px 0" type="text" @click="serviceResults">>>更多</el-button>
             </div>
             <div v-for="i in demandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%; " class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
@@ -287,7 +287,7 @@
           <el-card class="grid-content3">
             <div slot="header" class="titleColor">
               <span>服务成果</span>
-              <el-button style="float: right; padding: 5px 0" type="text" @click="serviceResults">>>更多</el-button>
+              <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
             </div>
             <div v-for="i in completeddemandTaskList" :key="i.name" style="padding-bottom: 50px;">
               <div style="float:left; width:30%;" class="fontStyle1">{{"["+i.category+"]"}}&nbsp;&nbsp;</div>
@@ -625,7 +625,7 @@ export default {
         {category:"电气机械",name:"汽车刹车片设计",sTime:"2019-09-06"},
         {category:"仪器仪表",name:"绝缘用具更新及试验",sTime:"2019-09-06"},
         {category:"仪器仪表",name:"绝缘用具更新及试验",sTime:"2019-09-06"},
-        {category:"电气机械",name:"安装B30EV-试冲板料-3",sTime:"2019-09-06"},
+        {category:"电气机械",name:"安装B30EV-试冲板料",sTime:"2019-09-06"},
       ],
     };
   },
