@@ -340,10 +340,11 @@ export default {
           
       addList: [
         {
+          dividename: "",
           fabuTime: "",
           endLine: "",
-          bidTime: "",
           TaskState: "",
+          TaskState1: "",
           TaskXiangXi: "",
         }
       ],
@@ -505,8 +506,10 @@ export default {
         });
 
 
- this.$message.success("提交成功");
-      this.addVisible = false;
+    this.$message.success("提交成功");
+    this.tableData.push(this.addList);
+    this.addList = {};
+    this.addVisible = false;
     },
     // 编辑操作
     handleEdit(index, row) {
