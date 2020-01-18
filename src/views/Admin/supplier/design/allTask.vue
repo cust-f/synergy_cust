@@ -65,15 +65,14 @@
       activeName: "first",
       tableData: [
         {
-          id: "",
-          acceptCompanyId: "",
-acceptCompanyName: "",
-          supplierName: "",
-          userId: "",
-          taskCheck: "",
-          companyName: "",
-          state: "",
-          date: ""
+          // id: 1,
+          // acceptCompanyId: "20202020",
+          // bussessType: "车间零部件生产",
+          // publishTask: "一汽大众",
+          // taskLeader: "李名",
+          // company: "光机所",
+          // state: "进行中",
+          // date: "2019-12-1"
         },
         
       ],
@@ -91,10 +90,10 @@ acceptCompanyName: "",
   },
   methods: {
      getData() {
-      console.log(this.acceptCompanyId);
+      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        acceptCompanyId:20202020
+        userName:"1"
       });
       console.log(data);
       that

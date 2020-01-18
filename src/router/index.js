@@ -11,6 +11,7 @@ import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
 import resultDetail from '@/views/Front/Home/resultDetail'//成果详情
 import excellentCompany from '@/views/Front/Home/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
+import register from '@/views/Front/register/register'
 import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
 import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
 
@@ -101,6 +102,11 @@ export default new Router({
           path: '/home',
           name: 'Home',
           component: Home
+        },
+        {
+          path:'/register',
+          name:'register',
+          component:register
         },
         {
           path:"/twoMenu",
