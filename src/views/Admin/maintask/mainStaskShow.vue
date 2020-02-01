@@ -10,7 +10,7 @@
             <template>
               <div class="handle-box">
                 <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
-                <el-input v-model="selectstate" placeholder="需求状态" class="handle-input mr10"></el-input>
+                <!-- <el-input v-model="selectstate" placeholder="需求状态" class="handle-input mr10"></el-input> -->
                 <el-button type="primary" @click="handleSearch">搜索</el-button>
               </div>
               <el-table
@@ -21,13 +21,22 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-              <!-- mainTaskID冲-->
+                <!-- mainTaskID冲-->
                 <el-table-column prop="mainTaskID" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
                 <el-table-column prop="industry_Type" label="需求类型"></el-table-column>
                 <el-table-column prop="principalName" label="项目负责人"></el-table-column>
-                <el-table-column prop="publishTime" label="发布时间"></el-table-column>
-                <el-table-column prop="deadline" label="截止时间"></el-table-column>
+                <el-table-column prop="publishTime" label="发布时间">
+                  <template slot-scope="scope">
+                    {{scope.row.publishTime | formatDate}}
+                    
+                  </template>
+                </el-table-column>
+                <el-table-column prop="deadline" label="截止时间">
+                  <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                  </template>
+                </el-table-column>
                 <el-table-column prop="taskState" label="状态" align="center" type="text"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                   <template slot-scope="scope">
@@ -37,11 +46,7 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
                     >废除</el-button>-->
-                    <el-button
-                      @click="substaskDetail1(scope.row)"
-                      type="text"
-                      size="small"
-                    >查看详情</el-button>
+                    <el-button @click="substaskDetail1(scope.row)" type="text" size="small">查看详情</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -91,6 +96,7 @@
 
 <script>
 import Qs from "qs";
+import { formatDate } from "./dataChange";
 
 export default {
   name: "mainStaskShow",
@@ -99,7 +105,7 @@ export default {
       query: {
         pageIndex: 1,
         pageSize: 10,
-        name:''
+        name: ""
       },
       activeName: "first",
       tableData: [
@@ -201,19 +207,35 @@ export default {
       id: -1,
       dialogVisible: false,
       userName: "123",
-      mainTaskID:'',
-      selectname:''
+      mainTaskID: "",
+      selectname: ""
     };
   },
+
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
+  },
+
+  // Vue.filter("moment", function (value, formatString)
+  // {
+  //   formatString = formatString || "YYYY-MM-DD HH:mm:ss";
+  //   return moment(value).format(formatString);
+  //   });
   created() {
     this.getData();
     this.GetTime(date);
   },
   methods: {
-   GetTime(date) {     
-        var datee = new Date(date).toJSON();        
-        return new Date(+new Date(datee) + 8 * 3600 * 1000).toISOString().    
-            replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')    },
+    GetTime(date) {
+      var datee = new Date(date).toJSON();
+      return new Date(+new Date(datee) + 8 * 3600 * 1000)
+        .toISOString()
+        .replace(/T/g, " ")
+        .replace(/\.[\d]{3}Z/, "");
+    },
 
     getData() {
       console.log(this.userName);
@@ -224,9 +246,9 @@ export default {
       console.log(data);
       that
         .axios({
-          method: 'post',
+          method: "post",
           url: "http://127.0.0.1:8082/MainTaskInformation/listall",
-          data: data,
+          data: data
 
           // data:this.$store.state.userName
         })
@@ -236,28 +258,29 @@ export default {
         });
     },
 
-      handleSearch() {
-      console.log(this.selectname)
-      var that = this
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
       var data = Qs.stringify({
-        username:'aaaa',
-        taskName:this.selectname,
-      })
-      console.log(data)
-      that 
+        username: "aaaa",
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
         .axios({
-          method:'post',
-          url: "http://127.0.0.1:8082/MainTaskInformation/selectByCompanyandTaskName",
-          data:data,         
-           // data:this.$store.state.userName
-       })
-       .then(response =>{
-         console.log(response);
-         this.tableData = response.data.allData;
-       })
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/MainTaskInformation/selectByCompanyandTaskName",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
 
-    //this.getData();
-  },
+      //this.getData();
+    },
     //审核不通过的原因
     open() {
       this.$prompt("请输入审核不通过原因", "提示", {
@@ -277,16 +300,15 @@ export default {
     },
 
     substaskDetail1(row) {
-      console.log(row.mainTaskID)
+      console.log(row.mainTaskID);
       this.$router.push({
-        path:"/admin/substaskDetail",
-        query:{
-          mainTaskID : row.mainTaskID
+        path: "/admin/substaskDetail",
+        query: {
+          mainTaskID: row.mainTaskID
         }
-        });
+      });
     },
 
-    
     chick() {
       this.$router.push("/admin/check/review");
     }

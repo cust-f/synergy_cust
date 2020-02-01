@@ -93,11 +93,11 @@
             <el-table-column prop="taskType" label="任务类别"></el-table-column>
             <el-table-column prop="bidTime" label="开始时间"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
-            <el-table-column label="操作" align="center" width="180">
+            <!-- <el-table-column label="操作" align="center" width="180">
               <template slot-scope>
                 <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
               </template>
-            </el-table-column>
+            </el-table-column> -->
           </el-table>
         </div>
 
@@ -240,7 +240,7 @@
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button @click="addVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveAdd">确 定</el-button>
+            <el-button type="primary" @click="saveAdd11">确 定</el-button>
           </span>
         </el-dialog>
 
@@ -479,9 +479,9 @@ export default {
       this.addDesigner = true;
     },
     //保存新增
-    saveAdd() {
+    saveAdd11() {
 
-      console.log(this.TaskXiangXi)
+      //console.log(this.TaskXiangXi)
        var that = this;
       var data = Qs.stringify({
         userName:'aaaa',
@@ -490,7 +490,7 @@ export default {
         publishTime : this.fabuTime,
         endLine : this.endLine,
         taskCategaty :  this.TaskState,
-        yaoqing : this.cooList.supplyCompany,
+        yaoqing : '1',
         taskType : this.liebieList.supplyCompany,
         mainTaskName : this.name,
         taskXiangxi : this.TaskXiangXi

@@ -37,16 +37,16 @@
             </el-row>
 
            
-
+<!-- v-bind:value="cool.deadline | formatDate" -->
              <el-row >
                 <el-col :span="11">
                     <el-form-item label="发布时间">
-                        <el-input v-model="mainStask.publishTime" :disabled="true"></el-input>
+                        <el-input v-bind:value="mainStask.publishTime | formatDate" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="截止时间">
-                        <el-input v-model="mainStask.deadline" :disabled="true"></el-input>
+                        <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -54,12 +54,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="开始时间">
-                        <el-input v-model="mainStask.beginTime" :disabled="true"></el-input>
+                        <el-input v-bind:value="mainStask.beginTime | formatDate" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="完成时间">
-                        <el-input v-model="mainStask.finishTime" :disabled="true"></el-input>
+                        <el-input v-bind:value="mainStask.finishTime | formatDate" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -222,7 +222,8 @@
 </template>
 
 <script>
-import  Qs from 'qs'
+import  Qs from 'qs';
+import {formatDate} from "./dataChange";
   export default {
       name:"mainStaskDetail",
     data() {
@@ -272,6 +273,13 @@ import  Qs from 'qs'
       idx: -1,
       id: -1,
       taskId:''
+      }
+    },
+
+    filters:{
+      formatDate(time){
+        let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
       }
     },
     created() {
