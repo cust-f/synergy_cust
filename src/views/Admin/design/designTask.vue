@@ -14,7 +14,6 @@
                   
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
-                  <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 </div>
                 <el-table
@@ -374,6 +373,7 @@
 </template>
 
 <script>
+import Qs from 'qs';
 export default {
   name: "designTask",
   data() {
@@ -863,6 +863,37 @@ export default {
     getData() {
       //   this.tableData = res.list;
       //   this.pageTotal = tableData.length;
+    },
+    handleClick(tab, event) {
+        console.log(tab, event);
+        if(tab.name == 'second'){
+        	// 触发‘配置管理’事件
+        	this.second();
+        }else if(tab.name == 'first'){
+        	// 触发‘用户管理’事件
+        	this.first();
+        }else if(tab.name == 'third'){
+          this.third();
+        }
+      },
+    second(){
+      console.log(this,userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName:"aaaa",
+        taskState:0,
+      })
+      console.log(data);
+      that
+        .axios({
+          method:"post",
+          url:"http://127.0.0.1:8082/MainTaskInformation/selectByCompanyandState",
+          data:data
+        })
+        .then(response =>{
+          console.log(response);
+          this.tableData1 = response.data.allData;
+        })
     },
 
     // 触发搜索按钮

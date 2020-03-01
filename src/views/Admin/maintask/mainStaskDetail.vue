@@ -91,15 +91,14 @@
         </div>
 
          <el-divider></el-divider>
-<h3>供应方设计</h3>
-            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<!-- <h3>供应方设计</h3>
+            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; -->
               <div>
 
 
-    <div class="container">
+    <!-- <div class="container">
       <div class="handle-box">
 
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
       </div>
 
       <el-table
@@ -118,11 +117,7 @@
         <el-table-column prop="date" label="开始时间"></el-table-column>
                 <el-table-column prop="money" label="完成时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
-            <!-- <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button> -->
+         
           <el-button @click="mainStaskDetail" type="text" size="small">查看</el-button>
         </el-table-column>
       </el-table>
@@ -136,7 +131,7 @@
           @current-change="handlePageChange"
         ></el-pagination>
       </div>
-    </div>
+    </div> -->
 
     <!-- 编辑弹出框 -->
     <el-dialog title="编辑" :visible.sync="editVisible" width="30%">

@@ -145,7 +145,7 @@
 
 
 
-            <el-row>
+            <!-- <el-row>
                 <el-col :span="12">
                     <el-form-item label="活动名称2">
                         <el-input v-model="form.name2"></el-input>
@@ -159,7 +159,7 @@
                         </el-select>
                     </el-form-item>
                 </el-col>
-            </el-row>
+            </el-row> -->
 
 
             <el-row>

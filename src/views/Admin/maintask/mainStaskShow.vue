@@ -14,7 +14,7 @@
                 <el-button type="primary" @click="handleSearch">搜索</el-button>
               </div>
               <el-table
-                :data="tableData"
+                :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                 border
                 class="table"
                 ref="multipleTable"
@@ -53,11 +53,13 @@
               <div class="pagination">
                 <el-pagination
                   background
-                  layout="total, prev, pager, next"
-                  :current-page="query.pageIndex"
-                  :page-size="query.pageSize"
-                  :total="pageTotal"
-                  @current-change="handlePageChange"
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
                 ></el-pagination>
               </div>
 
@@ -102,11 +104,9 @@ export default {
   name: "mainStaskShow",
   data() {
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10,
-        name: ""
-      },
+      
+      pageIndex: 1,
+      pageSize: 10,
       activeName: "first",
       tableData: [
         {
@@ -311,7 +311,27 @@ export default {
 
     chick() {
       this.$router.push("/admin/check/review");
-    }
+    },
+
+
+
+				handleCurrentChange(cpage) {
+
+					this.pageIndex = cpage;
+
+				},
+
+				handleSizeChange(psize) {
+
+					this.pageSize = psize;
+
+                },
+
+                handleSelectionChange(val) {
+
+                    console.log(val)
+
+                }
   },
   // 获取 easy-mock 的模拟数据
   getData() {
@@ -369,8 +389,9 @@ export default {
     this.$message.success(`修改第 ${this.idx + 1} 行成功`);
     this.$set(this.tableData, this.idx, this.form);
   },
-  // 分页导航
-  handlePageChange(val) {}
+
+
+
 
   /*
    *转跳对应任务信息页面

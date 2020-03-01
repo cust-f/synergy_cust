@@ -73,7 +73,6 @@
           <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
             <el-button type="primary" class="button1">下载装配文档</el-button>
-            <el-button type="primary" class="button1">下载技术文档模板</el-button>
           </div>
           <el-divider></el-divider>
           <h3>分解任务</h3>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -97,15 +96,21 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
-                <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
-                <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
-                <el-table-column prop="companyName" label="企业名称"></el-table-column>
-                <el-table-column prop="taskType" label="任务类型"></el-table-column>
-                <el-table-column prop="finishTime" label="任务完成时间">
-                  <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
-                </el-table-column>
-                <el-table-column label="状态" align="center" prop="taskState"></el-table-column>
+               
+              <el-table-column prop="taskName" label="任务名称"></el-table-column>
+              <el-table-column prop="taskType" label="任务类别"></el-table-column>
+              <el-table-column prop="beginTime" label="开始时间">
+                <template slot-scope="scope">
+                    {{scope.row.beginTime | formatDate}}
+                    
+                  </template>
+              </el-table-column>
+              <el-table-column prop="deadline" label="结束时间">
+                 <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                    
+                  </template>
+              </el-table-column>
 
                 <el-table-column label="操作" width="180" align="center">
                   <template slot-scope="scope">
@@ -152,38 +157,149 @@
               </span>
             </el-dialog>
 
-            <el-dialog title="新增" :visible.sync="addVisible" width="50%">
-              <el-form ref="form" :model="addList" label-width="70px">
-                <el-form-item label="企业名称">
-                  <el-input v-model="addList.name"></el-input>
+                  <!-- 新增弹出框 -->
+        <el-dialog title="新增" :visible.sync="addVisible" width="50%">
+          <el-row>
+            <el-col :span="8"></el-col>
+          </el-row>
+          <el-form ref="form" :model="addList" label-width="120px">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="分解任务名称">
+                  <el-input v-model="addList.taskName"></el-input>
                 </el-form-item>
-                <el-form-item label="任务类型">
-                  <el-input v-model="addList.address"></el-input>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="任务设计状态">
+                  <el-input v-model="addList.taskType"></el-input>
                 </el-form-item>
-                <el-form-item label="金额">
-                  <el-input v-model="addList.money"></el-input>
-                </el-form-item>
-                <el-form-item label="状态">
-                  <el-select v-model="addList.state" placeholder="请选择状态">
-                    <el-option label="成功" value="成功"></el-option>
-                    <el-option label="失败" value="失败"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="注册时间">
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="发布时间">
                   <el-date-picker
                     type="date"
                     placeholder="选择日期"
-                    v-model="addList.date"
+                    v-model="addList.beginTime"
                     value-format="yyyy-MM-dd"
                     style="width: 100%;"
                   ></el-date-picker>
                 </el-form-item>
-              </el-form>
-              <span slot="footer" class="dialog-footer">
-                <el-button @click="addVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveAdd">确 定</el-button>
-              </span>
-            </el-dialog>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="截止时间">
+                  <el-date-picker
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="addList.deadline"
+                    value-format="yyyy-MM-dd"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+
+            <el-row>
+
+                            <el-col :span="11">
+                <el-form-item label="任务种类">
+                  <el-input v-model="addList.TaskState1"></el-input>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11" >
+                <el-form-item label="任务类别">
+                  <el-select
+                    v-model="liebieList.supplyCompany"
+                    placeholder="请选择是或者否"
+                    class="selectsupply"
+                    @change="liebieShu"
+                    style = "width:50%;"
+                  >
+                    <el-option
+                      v-for="leibie in Task"
+                      :key="leibie"
+                      :label="leibie"
+                      :value="leibie"
+                    ></el-option>
+                  </el-select>      
+                </el-form-item>
+              </el-col>
+
+
+            </el-row>
+
+            
+            <el-row>
+
+              <el-col :span="22">
+                <el-form-item label="分解任务详细">
+                  <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="是否邀请">
+                  <el-select
+                    v-model="cooList.supplyCompany"
+                    placeholder="请选择是或者否"
+                    class="selectsupply"
+                    @change="invitate"
+                  >
+                    <el-option
+                      width="180"
+                      v-for="coo in shifou"
+                      :key="coo"
+                      :label="coo"
+                      :value="coo"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="7">
+                <el-form-item label="核心供应商" :style="{display: visiblehexin}">
+                  <el-select
+                    v-model="addList.supplyCompany"
+                    placeholder="请选择供应商"
+                    class="selectsupply"
+                  >
+                    <el-option label="全部" value></el-option>
+                    <el-option
+                      width="180"
+                      v-for="company in supplyCompanies"
+                      :key="company"
+                      :label="company"
+                      :value="company"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              &nbsp;&nbsp;&nbsp;
+              <el-col :span="7">
+                <el-input
+                  placeholder="等待供应方申请"
+                  v-model="input"
+                  :disabled="true"
+                  :style="{display:shenqing}"
+                ></el-input>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addVisible = false">取 消</el-button>
+            <el-button type="primary" @click="saveAdd11">确 定</el-button>
+          </span>
+        </el-dialog>
           </div>
         </el-main>
       </el-container>
@@ -204,6 +320,19 @@ export default {
   data() {
     return {
       dialogVisible: false,
+        personnel: ["许知远", "王添", "白泽"], //总负责人
+      statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
+      supplyCompanies: [
+        "沈阳机床集团有限责任公司",
+        "起重集团有限公司",
+        "长光电子"
+      ], //供应商列表
+      shifou: ["是", "否"],
+      Task:["设计任务","流通任务"],
+      selVal: "",
+      visiblehexin: "none",
+      shenqing: "none",
+      supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
       cool: {
         mainTaskName: "",
         industry_Type: "",
@@ -219,44 +348,26 @@ export default {
       },
       tableData: [
         {
-          id: 1,
-          bussessType: "设计任务",
-          name: "长春光华微电子集团",
-          needname: "车间零部件生产",
-          dividename: "汽车轴承生产",
-          money: 30000,
-          state: "已完成",
-          date: "2019-11-1"
-        },
-        {
-          id: 1,
-          bussessType: "设计任务",
-          needname: "车间零部件生产",
-          name: "中国机械工业集团公司",
-          dividename: "汽车轮毂生产",
-          money: 5000,
-          state: "已完成",
-          date: "2019-11-1"
-        },
-        {
-          id: 1,
-          bussessType: "设计任务",
-          name: "大连冰山集团有限公司",
-          needname: "车间零部件生产",
-          dividename: "汽车轮胎生产",
-          money: 7000,
-          state: "已完成",
-          date: "2019-11-1"
+        
+          taskName:"",
+          taskType:"",
+          beginTime:"",
+          deadline:""
         }
       ],
-      addList: {
-        id: null,
-        address: "",
-        name: "",
-        money: null,
-        state: null,
-        date: null
-      },
+          addList: [
+        {
+          taskName: null,
+          beginTime:"",
+          taskType:"",
+          deadline:"",
+          fabuTime: "",
+          endLine: "",
+          TaskState: "",
+          TaskState1: "",
+          TaskXiangXi: "",
+        }
+      ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -264,7 +375,16 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      mainTaskID: ""
+      mainTaskID: "",
+      cooList: {supplyCompany:''},
+      liebieList:{supplyCompany:''},
+      form: {},
+      name:'',
+      type:'',
+      publishdate:'',
+      deaddate:'',
+      leader:'',
+      xiangxi:'',
     };
   },
 
@@ -281,6 +401,57 @@ export default {
   },
 
   methods: {
+        //保存新增
+    saveAdd11() {
+
+      //console.log(this.TaskXiangXi)
+       var that = this;
+      var data = Qs.stringify({
+        userName:'aaaa',
+        taskName : this.addList.taskName,
+        // taskState : this.addList.TaskState,
+        publishTime : this.addList.beginTime,
+        endLine : this.addList.deadline,
+        taskCategaty :  this.addList.taskType,
+        yaoqing : 1,
+        taskType : 0,
+        mainTaskName : this.name,
+        taskXiangxi : this.addList.TaskXiangXi,
+        mainTaskID : this.mainStaskID
+      });
+      console.log(data);
+      console.log("123木头人")
+
+      that
+        .axios({
+          method:"post",
+          url:'http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation',
+          data:data,
+        })
+
+
+
+    this.$message.success("提交成功");
+    this.tableData.push(this.addList);
+    this.addList = {};
+    this.addVisible = false;
+    },
+
+
+
+    invitate(coo) {
+      
+
+      if (coo == "是") {
+        console.log(coo);
+        this.visiblehexin = "inline";
+        this.shenqing = "none";
+      } else {
+        //console.log(coo);
+        this.shenqing = "inline";
+        this.visiblehexin = "none";
+      }
+    },
     /*
      *转跳对应任务信息页面
      */
@@ -308,6 +479,8 @@ export default {
         })
         .then(response => {
           this.cool = response.data.allData.a[0];
+          this.mainStaskID = response.data.allData.a[0].mainTaskID;
+          this.name = response.data.allData.a[0].mainTaskName;
           this.tableData = response.data.allData.b;
           console.log(response.data.allData);
         });

@@ -87,12 +87,10 @@
             header-cell-class-name="table-header"
             @selection-change="handleSelectionChange"
           >
-            <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-            <el-table-column prop="taskNum" label="子任务编号" align="center"></el-table-column>
-            <el-table-column prop="taskName" label="任务名称"></el-table-column>
-            <el-table-column prop="taskType" label="任务类别"></el-table-column>
-            <el-table-column prop="bidTime" label="开始时间"></el-table-column>
-            <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
+            <el-table-column prop="dividename" label="任务名称"></el-table-column>
+            <el-table-column prop="TaskState" label="任务类别"></el-table-column>
+            <el-table-column prop="fabuTime" label="开始时间"></el-table-column>
+            <el-table-column prop="endLine" label="结束时间"></el-table-column>
             <!-- <el-table-column label="操作" align="center" width="180">
               <template slot-scope>
                 <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
@@ -106,17 +104,17 @@
           <el-row>
             <el-col :span="8"></el-col>
           </el-row>
-          <el-form ref="form" label-width="120px">
+          <el-form ref="form" :model="addList" label-width="120px">
             <el-row>
               <el-col :span="11">
                 <el-form-item label="分解任务名称">
-                  <el-input v-model="dividename"></el-input>
+                  <el-input v-model="addList.dividename"></el-input>
                 </el-form-item>
               </el-col>
 
               <el-col :span="11">
                 <el-form-item label="任务设计状态">
-                  <el-input v-model="TaskState"></el-input>
+                  <el-input v-model="addList.TaskState"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -127,7 +125,7 @@
                   <el-date-picker
                     type="date"
                     placeholder="选择日期"
-                    v-model="fabuTime"
+                    v-model="addList.fabuTime"
                     value-format="yyyy-MM-dd"
                     style="width: 100%;"
                   ></el-date-picker>
@@ -139,7 +137,7 @@
                   <el-date-picker
                     type="date"
                     placeholder="选择日期"
-                    v-model="endLine"
+                    v-model="addList.endLine"
                     value-format="yyyy-MM-dd"
                     style="width: 100%;"
                   ></el-date-picker>
@@ -152,7 +150,7 @@
 
                             <el-col :span="11">
                 <el-form-item label="任务种类">
-                  <el-input v-model="TaskState1"></el-input>
+                  <el-input v-model="addList.TaskState1"></el-input>
                 </el-form-item>
               </el-col>
 
@@ -183,7 +181,7 @@
 
               <el-col :span="22">
                 <el-form-item label="分解任务详细">
-                  <el-input v-model="TaskXiangXi" type="textarea" :rows="2"></el-input>
+                  <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -295,10 +293,12 @@ export default {
 
   data() {
     return {
+      
       query: {
         pageIndex: 1,
         pageSize: 10
       },
+      mainStaskID:'',
       visiblehexin: "none",
       shenqing: "none",
       multipleSelection: [], //批量删除数组
@@ -329,19 +329,18 @@ export default {
       //子任务表格
       tableData: [
         {
-          id: "001",
-          taskNum: "002",
-          taskName: "车辆轴承制造",
-          taskType: "小汽车零件制造",
-          bidTime: "2019-10-5",
-          supplyCompany: "长春光电子微型卫星有限公司"
+        
+          dividename: "请填写",
+          TaskState: "请填写",
+          fabuTime : "请填写",
+          endLine : "请填写"
         }
       ],
           
       addList: [
         {
-          dividename: "",
-          fabuTime: "",
+          dividename: null,
+          fabuTime: null,
           endLine: "",
           TaskState: "",
           TaskState1: "",
@@ -369,7 +368,7 @@ export default {
       xiangxi:'',
 
       //这是新增模态框
-      dividename: "",
+          dividename: "",
           fabuTime: "",
           endLine: "",
           TaskState: "",
@@ -397,6 +396,10 @@ export default {
           data:data,
           
        })
+       .then(response =>{
+         this.mainStaskID = response.data.allData;
+         console.log(response)
+       });
                this.$message.success("提交成功");
   
     },
@@ -485,25 +488,27 @@ export default {
        var that = this;
       var data = Qs.stringify({
         userName:'aaaa',
-        taskName : this.dividename,
+        taskName : this.addList.dividename,
         // taskState : this.addList.TaskState,
-        publishTime : this.fabuTime,
-        endLine : this.endLine,
-        taskCategaty :  this.TaskState,
-        yaoqing : '1',
-        taskType : this.liebieList.supplyCompany,
+        publishTime : this.addList.fabuTime,
+        endLine : this.addList.endLine,
+        taskCategaty :  this.addList.TaskState,
+        yaoqing : 1,
+        taskType : 0,
         mainTaskName : this.name,
-        taskXiangxi : this.TaskXiangXi
+        taskXiangxi : this.addList.TaskXiangXi,
+        mainTaskID : this.mainStaskID
       });
       console.log(data);
       console.log("123木头人")
 
       that
         .axios({
-          method:'post',
-          url:'hhttp://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation',
+          method:"post",
+          url:'http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation',
           data:data,
-        });
+        })
+
 
 
     this.$message.success("提交成功");
