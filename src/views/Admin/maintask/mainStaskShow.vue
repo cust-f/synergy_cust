@@ -29,8 +29,10 @@
                 <el-table-column prop="publishTime" label="发布时间">
                   <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                 </el-table-column>
-                <el-table-column prop="deadline" label="截止时间">
-                  <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+                <el-table-column prop="time" label="截止时间">
+                  <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                  </template>
                 </el-table-column>
                 <el-table-column prop="taskState" label="状态" align="center" type="text"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
