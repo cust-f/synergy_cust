@@ -32,7 +32,7 @@
                     
                   </template>
                 </el-table-column>
-                <el-table-column prop="deadline" label="截止时间">
+                <el-table-column prop="time" label="截止时间">
                   <template slot-scope="scope">
                     {{scope.row.deadline | formatDate}}
                   </template>
