@@ -14,20 +14,20 @@
       @selection-change="handleSelectionChange"
     >
 
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="acceptCompanyName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
+      <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
+      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
       <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="承接供应商" align="center"></el-table-column>
+      <el-table-column prop="acceptCompanyName" label="承接供应商" align="center"></el-table-column>
 
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
+      <el-table-column prop="deadline" label="截止日期">
+    
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template>
@@ -82,46 +82,7 @@ export default {
       formLabelWidth: "120px",
       activeName: "first",
       tableData: [
-        {
-          id: 1,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-
-          state: "新增",
-          date: "2019-11-17"
-        },
-        {
-          id: 2,
-          taskName: "磨床生产",
-          bussessType: "平面磨床制作",
-          publishTask: "杭机集团长春一机有限公司",
-          taskLeader: "刘柳",
-
-          state: "待审核",
-          date: "2019-12-17"
-        },
-        {
-          id: 3,
-          taskName: "通信技术设计",
-          bussessType: "通信技术",
-          publishTask: "哈尔滨海邻科信息技术有限公司",
-          taskLeader: "周舟",
-
-          state: "已完成",
-          date: "2019-9-22"
-        },
-        {
-          id: 4,
-          taskName: "发电智能制造",
-          bussessType: "发电装备",
-          publishTask: "哈尔滨电机厂有限责任公司",
-          taskLeader: "孙铭",
-
-          state: "进行中",
-          date: "2019-11-13"
-        }
+  
       ],
       multipleSelection: [],
       editVisible: false,
@@ -139,6 +100,27 @@ export default {
     // 全部需求详情页面跳转
     jumpAuditDet() {
       this.$router.push("/admin/pendingAuditDet");
+    },
+    getData() {
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: "1"
+      });
+
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/supplierAuditingTaskList",
+          data: data
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
     },
   }
   /*

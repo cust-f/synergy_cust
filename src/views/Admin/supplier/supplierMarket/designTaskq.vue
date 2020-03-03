@@ -35,9 +35,9 @@
                 <finish-Task></finish-Task>
               </el-tab-pane>
 
-              <el-tab-pane label="已废除" name="eighth">
+              <!-- <el-tab-pane label="已废除" name="eighth">
                 <repealed-Task></repealed-Task>
-              </el-tab-pane>
+              </el-tab-pane> -->
             </el-tabs>
           </div>
         </div>
@@ -67,7 +67,7 @@ export default {
     "pending-Audit": pendingAudit, //待审核
     "pending-Acceptance": pendingAcceptance, //待验收
     "finish-Task": finishTask, //已完成任务
-    "repealed-Task": repealedTask //已废除任务
+    // "repealed-Task": repealedTask //已废除任务
   },
   data() {
     return {

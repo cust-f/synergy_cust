@@ -74,7 +74,6 @@
           // state: "进行中",
           // date: "2019-12-1"
         },
-        
       ],
       multipleSelection: [],
       editVisible: false,
