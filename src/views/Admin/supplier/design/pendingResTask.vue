@@ -27,7 +27,7 @@
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpResDet() " type="text" size="small">查看详情</el-button>
+          <el-button @click="pendingResTaskDet() " type="text" size="small">查看详情</el-button>
 
           <el-button @click="planbook=true" type="text" size="small">接收</el-button>
 
@@ -169,6 +169,17 @@ export default {
     jumpResDet() {
       this.$router.push("/admin/pendingResTaskDet");
     },
+
+    pendingResTaskDet(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/pendingResTaskDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
+    },
+
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },

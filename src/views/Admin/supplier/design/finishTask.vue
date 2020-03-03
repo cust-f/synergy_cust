@@ -16,7 +16,7 @@
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-     
+
       <el-table-column prop="taskType" label="需求类型"></el-table-column>
 
       <el-table-column prop="companyName" label="需求企业"></el-table-column>
@@ -24,14 +24,12 @@
       <el-table-column prop="userId" label="需求负责人" align="center"></el-table-column>
 
       <el-table-column prop="acceptCompanyName" label="承接供应商"></el-table-column>
-       
-       <el-table-column prop="finishTime"  label="完成日期">
-        
-      </el-table-column>
+
+      <el-table-column prop="finishTime" label="完成日期"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpfinishDet()" type="text" size="small">查看详情</el-button>
+          <el-button @click="finishTaskDet()" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -70,7 +68,6 @@ export default {
         //   bussessType: "车间零部件生产",
         //   publishTask: "一汽大众",
         //   taskLeader: "李名",
-
         //   state: "进行中",
         //   date: "2019-12-1"
         // },
@@ -80,7 +77,6 @@ export default {
         //   bussessType: "车间零部件生产",
         //   publishTask: "一汽大众",
         //   taskLeader: "刘柳",
-
         //   state: "进行中",
         //   date: "2019-11-14"
         // }
@@ -98,18 +94,19 @@ export default {
     this.getData();
   },
   methods: {
+
     getData() {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName:"1"
+        userName: "1"
       });
       console.log(data);
       that
         .axios({
-          method: 'post',
+          method: "post",
           url: "http://127.0.0.1:8082/supplier/supplierdesignedtasklist",
-          data: data,
+          data: data
 
           // data:this.$store.state.userName
         })
@@ -118,9 +115,15 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-    // 详情页面跳转
-    jumpfinishDet() {
-      this.$router.push("/admin/finishTaskDet");
+
+    finishTaskDet(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/finishTaskDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
     }
   }
   /*

@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
@@ -18,20 +18,18 @@
       <el-table-column prop="acceptCompanyId" label="需求名称"></el-table-column>
 
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
-<!-- 
-      <el-table-column prop="companyName" label=""></el-table-column> -->
 
       <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
       <el-table-column prop="taskCheck" label="状态"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期">
-       
+        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpfinishDet()" type="text" size="small">查看详情</el-button>
+          <el-button @click="allTaskDet()" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -51,8 +49,9 @@
 
 
 <script>
-  import Qs from "qs";
-  export default {
+import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
+export default {
   name: "allTask",
   data() {
     return {
@@ -73,7 +72,7 @@
           // company: "光机所",
           // state: "进行中",
           // date: "2019-12-1"
-        },
+        }
       ],
       multipleSelection: [],
       editVisible: false,
@@ -84,22 +83,38 @@
       id: -1
     };
   },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
+  },
+
   created() {
     this.getData();
+    this.GetTime(date);
   },
   methods: {
-     getData() {
+    GetTime(date) {
+      var datee = new Date(date).toJSON();
+      return new Date(+new Date(datee) + 8 * 3600 * 1000)
+        .toISOString()
+        .replace(/T/g, " ")
+        .replace(/\.[\d]{3}Z/, "");
+    },
+
+    getData() {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName:"1"
+        userName: "1"
       });
       console.log(data);
       that
         .axios({
-          method: 'post',
+          method: "post",
           url: "http://127.0.0.1:8082/supplier/supplierdesigntasklist",
-          data: data,
+          data: data
 
           // data:this.$store.state.userName
         })
@@ -111,7 +126,17 @@
     // 详情页面跳转
     jumpfinishDet() {
       this.$router.push("/admin/finishTaskDet");
-    }
+    },
+
+    allTaskDet(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/allTaskDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
+    },
   }
   /*
    *转跳对应需求信息页面

@@ -24,13 +24,14 @@
       <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期">
+        {{scope.row.publishTime | formatDate}}
       </el-table-column>
 
       <el-table-column prop="Abolish_Reason" label="废除原因"></el-table-column>
 
       <el-table-column label="操作" width="127" align="center">
         <template>
-          <el-button @click="jumprepealedTask()" type="text" size="small">查看详情</el-button>
+          <el-button @click="repealedTaskDet(row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -100,7 +101,17 @@ export default {
     // 全部需求详情页面跳转
     jumprepealedTask() {
       this.$router.push("/admin/repealedTaskDet");
-    }
+    },
+    
+    repealedTaskDet(row) {
+      console.log(row.mainTaskID);
+      this.$router.push({
+        path: "/admin/repealedTaskDet",
+        query: {
+          mainTaskID: row.mainTaskID
+        }
+      });
+    },
   }
   /*
    *转跳对应需求信息页面

@@ -27,7 +27,7 @@
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpplanDet()" type="text" size="small">查看详情</el-button>
+          <el-button @click="planAuditDet()" type="text" size="small">查看详情</el-button>
           <el-button @click="dialogTableVisible=true" type="text" size="small">分配人员</el-button>
           <el-button @click="TableVisible=true" type="text" size="small">分配供应商</el-button>
         </template>
@@ -49,7 +49,7 @@
     <h2>计划书审核菜单</h2>
     <el-divider></el-divider>
     <el-table
-      :data="tableData"
+      :data="tableData2"
       border
       class="table"
       ref="multipleTable"
@@ -80,7 +80,7 @@
 
       <el-table-column label="操作" width="160" align="center">
         <template>
-          <el-button @click="jumpAuditDet()" type="text" size="small">查看详情</el-button>
+          <el-button @click="planAuditingDet()" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -177,7 +177,7 @@ export default {
       accept: false,
       disaccept: false,
       dialogTableVisible: false,
-      TableVisible:false,
+      TableVisible: false,
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -190,8 +190,7 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData: [
-      ],
+      tableData: [],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -203,9 +202,10 @@ export default {
   },
   created() {
     this.getData();
+    this.getData2();
   },
   methods: {
-
+    // 供应商接受的二级计划且未分配的全部任务
     getData() {
       console.log(this.userName);
       var that = this;
@@ -227,14 +227,52 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-    // 全部需求详情页面跳转
-    jumpplanDet() {
-      this.$router.push("/admin/planAuditDet");
-    },
+     //分配给二级供应商且任务计划书未通过的全部任务
+    getData2() {
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: "1"
+      });
 
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/supplierPlanAuditOtherList",
+          data: data
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData2 = response.data.allData;
+        });
+    },
+    // 全部需求详情页面跳转
+
+    planAuditDet(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/planAuditDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
+    },
 
     jumpAuditDet() {
       this.$router.push("/admin/planAuditingDet");
+    },
+
+    planAuditingDet(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/planAuditingDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
     },
     success() {
       this.dialogTableVisible = false;

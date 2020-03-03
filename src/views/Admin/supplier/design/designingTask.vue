@@ -32,7 +32,7 @@
       
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpdesigningDet() " type="text" size="small">查看详情</el-button>
+          <el-button @click="designingTaskDet() " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -82,6 +82,16 @@ export default {
     // 详情页面跳转
     jumpdesigningDet() {
       this.$router.push("/admin/designingTaskDet");
+    },
+
+    designingTaskDet(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/designingTaskDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
     },
     getData() {
       console.log(this.userName);

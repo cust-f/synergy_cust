@@ -31,7 +31,7 @@
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="jumpAuditDet() " type="text" size="small">查看详情</el-button>
+          <el-button @click="pendingAuditDet() " type="text" size="small">查看详情</el-button>
           <el-button type="text" size="small">查看成果</el-button>
           <el-button type="text" size="small">审核通过</el-button>
           <el-button type="text" size="small">审核不通过</el-button>
@@ -101,6 +101,17 @@ export default {
     jumpAuditDet() {
       this.$router.push("/admin/pendingAuditDet");
     },
+
+    pendingAuditDet(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/pendingAuditDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
+    },
+
     getData() {
       console.log(this.userName);
       var that = this;

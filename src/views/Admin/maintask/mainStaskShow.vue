@@ -27,15 +27,10 @@
                 <el-table-column prop="industry_Type" label="需求类型"></el-table-column>
                 <el-table-column prop="principalName" label="项目负责人"></el-table-column>
                 <el-table-column prop="publishTime" label="发布时间">
-                  <template slot-scope="scope">
-                    {{scope.row.publishTime | formatDate}}
-                    
-                  </template>
+                  <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                 </el-table-column>
                 <el-table-column prop="deadline" label="截止时间">
-                  <template slot-scope="scope">
-                    {{scope.row.deadline | formatDate}}
-                  </template>
+                  <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
                 </el-table-column>
                 <el-table-column prop="taskState" label="状态" align="center" type="text"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
@@ -57,9 +52,8 @@
                   :current-page="pageIndex"
                   :page-size="pageSize"
                   :total="tableData.length"
-                  @current-change="handleCurrentChange"  
-			            @size-change="handleSizeChange" 
-                  
+                  @current-change="handleCurrentChange"
+                  @size-change="handleSizeChange"
                 ></el-pagination>
               </div>
 
@@ -80,22 +74,6 @@
 </template>
 
 
-
-
-    </div>
-
- 
-  </div>
-
-  
-        </el-main>
-    </el-container>
-     
-
-</div>
-      
-</template>
-
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
@@ -104,7 +82,6 @@ export default {
   name: "mainStaskShow",
   data() {
     return {
-      
       pageIndex: 1,
       pageSize: 10,
       activeName: "first",
@@ -313,25 +290,17 @@ export default {
       this.$router.push("/admin/check/review");
     },
 
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
 
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
 
-				handleCurrentChange(cpage) {
-
-					this.pageIndex = cpage;
-
-				},
-
-				handleSizeChange(psize) {
-
-					this.pageSize = psize;
-
-                },
-
-                handleSelectionChange(val) {
-
-                    console.log(val)
-
-                }
+    handleSelectionChange(val) {
+      console.log(val);
+    }
   },
   // 获取 easy-mock 的模拟数据
   getData() {
@@ -388,10 +357,7 @@ export default {
     this.editVisible = false;
     this.$message.success(`修改第 ${this.idx + 1} 行成功`);
     this.$set(this.tableData, this.idx, this.form);
-  },
-
-
-
+  }
 
   /*
    *转跳对应任务信息页面
