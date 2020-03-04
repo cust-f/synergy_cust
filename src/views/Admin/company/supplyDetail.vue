@@ -8,16 +8,16 @@
             <el-page-header @back="goBack" content="详情页面">
 </el-page-header>
  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-form ref="form" :model="form" label-width="110px">
+        <el-form ref="Companyform" :model="Companyform" label-width="110px">
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="企业ID">
-                        <el-input v-model="form.Company_ID" :disabled="true"></el-input>
+                        <el-input v-model="Companyform.Company_ID" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="企业名称">
-                        <el-input v-model="form.Company_Name" :disabled="true"></el-input>
+                        <el-input v-model="Companyform.Company_Name" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -25,12 +25,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="企业所在省份">
-                        <el-input v-model="form.Provice" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Provice" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="11">
                     <el-form-item label="企业所在县市">
-                        <el-input v-model="form.City" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.City" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -38,12 +38,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="企业地址">
-                        <el-input v-model="form.Address" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Address" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="邮政编码">
-                        <el-input v-model="form.Postcode" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Postcode" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -51,12 +51,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="企业成立时间">
-                        <el-input v-model="form.Founding_Time" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Founding_Time" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="工商注册号">
-                        <el-input v-model="form.BR_Number" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.BR_Number" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -64,12 +64,12 @@
             <el-row>
                <el-col :span="11">
                     <el-form-item label="供应商业务范围">
-                        <el-input v-model="form.Product" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Product" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="电子邮箱">
-                        <el-input v-model="form.Email" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Email" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -77,12 +77,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="供应商联系人">
-                        <el-input v-model="form.Bussess_Name" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Bussess_Name" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="11">
                     <el-form-item label="办公电话">
-                        <el-input v-model="form.Office_Number" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Office_Number" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -90,12 +90,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="注册资产">
-                        <el-input v-model="form.Registered_Capital" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Registered_Capital" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="11">
                     <el-form-item label="总资本">
-                        <el-input v-model="form.Total_Assets" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Total_Assets" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -103,12 +103,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="固定资产">
-                        <el-input v-model="form.Fixed_Assets" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Fixed_Assets" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="11">
                     <el-form-item label="流动资产">
-                        <el-input v-model="form.Current_Assets" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Current_Assets" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -116,12 +116,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="法人代表">
-                        <el-input v-model="form.Legal_Person" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Legal_Person" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="11">
                     <el-form-item label="员工人数">
-                        <el-input v-model="form.Worker_Number" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Worker_Number" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -129,12 +129,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="开户银行">
-                        <el-input v-model="form.Deposit_Bank" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Deposit_Bank" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="11">
                     <el-form-item label="银行账户">
-                        <el-input v-model="form.Bank_Number" :disabled=yangshi></el-input>
+                        <el-input v-model="Companyform.Bank_Number" :disabled=yangshi></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -144,12 +144,12 @@
             <el-row>
                 <el-col :span="11">
                     <el-form-item label="活动名称2">
-                        <el-input v-model="form.name2"></el-input>
+                        <el-input v-model="Companyform.name2"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="活动区域2">
-                        <el-select v-model="form.region2" placeholder="请选择活动区域">
+                        <el-select v-model="Companyform.region2" placeholder="请选择活动区域">
                             <el-option label="区域一" value="shanghai"></el-option>
                             <el-option label="区域二" value="beijing"></el-option>
                         </el-select>
@@ -161,7 +161,7 @@
             <el-row>
                 <el-col :span="20" class = "xiangxi">
                     <el-form-item label="详细" >
-                            <el-input v-model="form.Introduction" class="gongsiDetail" :disabled="true"></el-input>
+                            <el-input v-model="Companyform.Introduction" class="gongsiDetail" :disabled="true"></el-input>
                     </el-form-item>
                     
                 </el-col>
@@ -190,29 +190,28 @@ export default {
            yangshi:true,
            wancheng:true,
            xiugai:false,
-        form: {
-          Company_ID:'20191006066',
-          Company_Name: '长光卫星国际有限公司',
-          Address: '吉林省长春市卫星路8848号',
-          Postcode: '104300',
-          Founding_Time: '2015-09-10',
-          BR_Number:'S100934',
-          Office_Number:'17866625034',
-          Email:'34895611@163.com',
-          Bussess_Name:'李林甫',
-          Product:'微电子元器件制作',
-          Introduction:'少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。',
-          cool:'17855555',
-          Provice:'吉林省',
-          City:'长春市绿园区',
-          Registered_Capital:'8.5亿',
-          Total_Assets:'10亿',
-          Current_Assets:'2.2亿',
-          Fixed_Assets:'2亿元',
-          Legal_Person:'杨言',
-          Worker_Number:'500人',
-          Deposit_Bank:'中国银行',
-          Bank_Number:'25206589260388885222201',
+        Companyform: {
+        //   Company_ID:'20191006066',
+        //   Company_Name: '长光卫星国际有限公司',
+        //   Address: '吉林省长春市卫星路8848号',
+        //   Postcode: '104300',
+        //   Founding_Time: '2015-09-10',
+        //   BR_Number:'S100934',
+        //   Office_Number:'17866625034',
+        //   Email:'34895611@163.com',
+        //   Bussess_Name:'李林甫',
+        //   Product:'微电子元器件制作',
+        //   Introduction:'少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。',
+        //   Provice:'吉林省',
+        //   City:'长春市绿园区',
+        //   Registered_Capital:'8000',
+        //   Total_Assets:'10亿',
+        //   Current_Assets:'2.2亿',
+        //   Fixed_Assets:'2亿元',
+        //   Legal_Person:'杨言',
+        //   Worker_Number:'500人',
+        //   Deposit_Bank:'中国银行',
+        //   Bank_Number:'25206589260388885222201',
 
         },
         tenderTrendsList:[
@@ -226,6 +225,9 @@ export default {
         { column_name: "黄河西来决昆仑，咆哮万里触龙门。"}
          ],
     };
+    },
+    created(){
+        this.getDate();
     },
     methods:{
         update() {
@@ -248,8 +250,31 @@ export default {
         },
         goBack()
         {
-            this.$router.push('/admin/supplyBussess',);
-        }
+            this.$router.push('/admin/primarysupplyList',);
+        },
+        
+        getDate(){
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        Company_id:"10001",
+        userName:"asd"
+      });
+      console.log(data);
+      that
+        .axios({
+          method: 'post',
+          url: "http://127.0.0.1:8080/getCompanyForm",
+          data: data,
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.Companyform = response.data.allData;
+        });
+
+      }
     }
 }
 </script>
