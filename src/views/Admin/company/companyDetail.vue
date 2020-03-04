@@ -250,6 +250,9 @@ export default {
          ],
       }
     },
+    created(){
+        this.getDate();
+    },
     methods:{
         update() {
                 if (this.yangshi) {
@@ -281,7 +284,9 @@ export default {
             done();
           })
           .catch(_ => {});
-      }
+      },
+
+
 
     }
 }
