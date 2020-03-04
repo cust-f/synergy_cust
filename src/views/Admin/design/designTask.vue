@@ -11,45 +11,38 @@
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="全部任务" name="first">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+                  
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
-                  <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData"
+                   :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
-                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                  <el-table-column prop="name" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="subname" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="company" label="企业名称"></el-table-column>
-                  <el-table-column prop="time" label="截止时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
+                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+
+                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
+                  <el-table-column prop="deadline" label="截止时间">
+                      <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                    
+                  </template>
+                  </el-table-column>
+                  <el-table-column prop="taskState" label="状态" align="center">
                   </el-table-column>
                    <el-table-column label="操作" align="center" class="box1">
                     <template slot-scope="scope">
-                  <!--    <div id=a> -->
-                  <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
 
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.$index, scope.row)"
                     type="text"
                     size="small "
                     class="box1"
@@ -58,58 +51,56 @@
                     </el-table-column>
                 </el-table>
 
-                <div class="pagination">
-                  <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
-                  ></el-pagination>
-                </div>
+              <div class="pagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
+                ></el-pagination>
+              </div>
+
               </el-tab-pane>
 
               <el-tab-pane label="待响应" name="second">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+                 
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
-                  <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
-                  <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData1"
-                  border
+                  :data="tableData1.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                  borders
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
-                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                  <el-table-column prop="name" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="subname" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="company" label="企业名称"></el-table-column>
-                  <el-table-column prop="time" label="截止时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
+                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
+                  <el-table-column prop="deadline" label="截止时间">
+                      <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                    
+                  </template>
                   </el-table-column>
-          
                   <el-table-column label="操作" align="center" >
                     <el-button
                     type="text"
                     icon="el-icon-delete"
                     class="red"
                     @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+                  >废除</el-button>
 
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.$index, scope.row)"
                     type="text"
                     size="small "
                     class="box1"
@@ -119,46 +110,46 @@
 
                   </el-table-column>
                 </el-table>
-                <div class="pagination">
-                  <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
-                  ></el-pagination>
-                </div>
+               <div class="pagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData1.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
+                ></el-pagination>
+              </div>
               </el-tab-pane>
 
               <el-tab-pane label="任务计划" name="third">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
-                  <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
-                  <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData2"
+                  :data="tableData2.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
-                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                  <el-table-column prop="name" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="subname" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="company" label="企业名称"></el-table-column>
-                  <el-table-column prop="time" label="上传时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center" width="80">
+                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
+                  <el-table-column prop="uploadFileTime" label="上传时间">
+                      <template slot-scope="scope">
+                    {{scope.row.uploadFileTime | formatDate}}
+                    
+                  </template>
+                  </el-table-column>
+                  <el-table-column prop="taskState" label="状态" align="center" width="80">
                   </el-table-column>
                   
                   <el-table-column label="任务书" align="center" width="55" >
@@ -170,12 +161,7 @@
                     <el-button type="danger" size="mini" plain @click="open">审核不通过</el-button>
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
-                    <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
 
                   <el-button
                     @click="Detail"
@@ -186,55 +172,48 @@
                   
                     </el-table-column>
                 </el-table>
-                <div class="pagination">
-                  <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
-                  ></el-pagination>
-                </div>
+               <div class="pagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData2.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
+                ></el-pagination>
+              </div>
               </el-tab-pane>
 
               <el-tab-pane label="进行中" name="forth">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
-                  <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
-                  <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData3"
+                  :data="tableData3.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                  <el-table-column prop="name" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="subname" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="company" label="企业名称"></el-table-column>
-                  <el-table-column prop="time" label="截至时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
+                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                   <el-table-column prop="taskName" label="分解任务名称"></el-table-column>         
+                   <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                 
+                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
+                <el-table-column prop="deadline" label="截止时间">
+                      <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                    
+                  </template>
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
 
-                    <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
 
                   <el-button
                     @click="Detail"
@@ -246,46 +225,45 @@
                     </el-table-column>
 
                 </el-table>
-                <div class="pagination">
-                  <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
-                  ></el-pagination>
-                </div>
+               <div class="pagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData3.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
+                ></el-pagination>
+              </div>
               </el-tab-pane>
 
               <el-tab-pane label="待审核" name="fifth">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
-                  <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
-                  <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData4"
+                  :data="tableData4.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
-                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                  <el-table-column prop="name" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="subname" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="company" label="企业名称"></el-table-column>
-                  <el-table-column prop="time" label="上传时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center" width="55">
+                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
+                   <el-table-column prop="uploadFileTime" label="上传时间">
+                      <template slot-scope="scope">
+                    {{scope.row.uploadFileTime | formatDate}}
+                    
+                  </template>
+                  </el-table-column>
+                  <el-table-column prop="assignmentState" label="状态" align="center" width="55">
                   </el-table-column>
                   <el-table-column label="图纸" align="center" width="55">
                     <el-button type="text" size="small" class="box1">查看</el-button>
@@ -296,12 +274,7 @@
                     <el-button type="danger" size="mini" plain @click="open">审核不通过</el-button>
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
-                    <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
 
                   <el-button
                     @click="Detail"
@@ -313,45 +286,43 @@
                     </el-table-column>
                 </el-table>
                 <div class="pagination">
-                  <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
-                  ></el-pagination>
-                </div>
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData4.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
+                ></el-pagination>
+              </div>
               </el-tab-pane>
 
-              <el-tab-pane label="已完成" name="sisth">
+              <el-tab-pane label="已完成" name="sixth">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
-                  <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
-                  <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData5"
+                 :data="tableData5.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
-                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                  <el-table-column prop="name" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="subname" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="company" label="企业名称"></el-table-column>
-                  <el-table-column prop="time" label="完成时间"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
+                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
+                  <el-table-column prop="finishTime" label="完成时间">
+                     <template slot-scope="scope">
+                    {{scope.row.finishTime | formatDate}}
+                    
+                  </template>
                   </el-table-column>
                     <el-table-column label="任务书" align="center" >
                     <el-button type="text" size="small" class="box1">下载</el-button>
@@ -362,13 +333,7 @@
 
                   <el-table-column label="操作" align="center" class="box1">
                     <template slot-scope="scope">
-                  <!--    <div id=a> -->
-                  <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
                   <el-button
                     @click="Detail"
                     type="text"
@@ -379,55 +344,42 @@
 
                 </el-table>
                 <div class="pagination">
-                  <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
-                  ></el-pagination>
-                </div>
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData5.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
+                ></el-pagination>
+              </div>
               </el-tab-pane>
 
               <el-tab-pane label="已废除" name="seventh">
                 <div class="handle-box">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                  >批量删除</el-button>
+                 
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="query.name" placeholder="需求任务名称" class="handle-input mr10"></el-input>
-                  <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
-                  <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData6"
+                  :data="tableData6.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="40" align="center"></el-table-column>
-                  <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                  <el-table-column prop="name" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="subname" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="company" label="企业名称"></el-table-column>
-                  <el-table-column prop="state" label="状态" align="center">
-                  </el-table-column>
-    
+                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="分解任务名称"> </el-table-column>
+                 <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
+
                   <el-table-column label="操作" align="center" >
                         <template slot-scope="scope">
-                  <!--    <div id=a> -->
-                  <el-button
-                    type="text"
-                    icon="el-icon-delete"
-                    class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+
                   <el-button
                     @click="Detail"
                     type="text"
@@ -440,15 +392,17 @@
                  
                 </el-table>
                 <div class="pagination">
-                  <el-pagination
-                    background
-                    layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
-                    :total="pageTotal"
-                    @current-change="handlePageChange"
-                  ></el-pagination>
-                </div>
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData6.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
+                ></el-pagination>
+              </div>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -459,6 +413,8 @@
 </template>
 
 <script>
+import Qs from 'qs';
+import { formatDate } from "./dataChange";
 export default {
   name: "designTask",
   data() {
@@ -935,25 +891,162 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
+      pageIndex: 1,
+      pageSize: 10,
       form: {},
       idx: -1,
       id: -1,
-      radio: "1"
+      radio: "1",
+      selectname:"",
+      taskState:"",
     };
-  },
+    
+  },  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
+      },
   created() {
     this.getData();
   },
   methods: {
     getData() {
-      //   this.tableData = res.list;
-      //   this.pageTotal = tableData.length;
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: "aaaa"
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/SubstaskInformation/selectLiutongByCompanyID1",
+          data: data
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
+    handleClick(tab, event) {
+        console.log(tab, event);
+        if(tab.name == 'second'){
+          // 触发‘配置管理’事件
+          this.taskState = 0,
+          this.second(this.taskState);
+        }else if(tab.name == 'third'){
+           this.taskState = 2,
+          this.second(this.taskState);
+        }else if(tab.name == 'forth'){
+          this.taskState = 4,
+          this.second(this.taskState);
+        }else if(tab.name == 'fifth'){
+          this.taskState = 5,
+          this.second(this.taskState);
+        }else if(tab.name == 'sixth'){
+           this.taskState = 6,
+          this.second(this.taskState);
+        }else if(tab.name == 'seventh'){
+          this.taskState = 7,
+          this.second(this.taskState);
+        }
+      },
+    second(taskState){
+      console.log(this.taskState);
+      var that = this;
+      var data = Qs.stringify({
+        userName:"aaaa",
+        taskState:taskState,
+      })
+      console.log(data);
+      that
+        .axios({
+          method:"post",
+          url:"http://127.0.0.1:8082/MainTaskInformation/selectByCompanyandState",
+          data:data
+        })
+        .then(response =>{
+          if(this.taskState == 0){
+            console.log(response);
+          this.tableData1 = response.data.allData;
+          }
+              else if(this.taskState == 2){
+            console.log(response);
+          this.tableData2 = response.data.allData;
+          }
+           else if(this.taskState == 4){
+            console.log(response);
+          this.tableData3 = response.data.allData;
+          } 
+          else if(this.taskState == 5){
+            console.log(response);
+          this.tableData4 = response.data.allData;
+          }
+           else if(this.taskState == 6){
+            console.log(response);
+          this.tableData5 = response.data.allData;
+          } 
+          else if(this.taskState == 7){
+            console.log(response);
+          this.tableData6 = response.data.allData;
+          }
+        })
     },
 
+    
+
     // 触发搜索按钮
-    handleSearch() {
-      this.$set(this.query, "pageIndex", 1);
-      this.getData();
+     handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        username: "aaaa",
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/SubstaskInformation/selectByCompanyandTaskNameandTaskType",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+
+      //this.getData();
+    },
+    // 触发搜索按钮
+     handleSearchByCondition() {
+      console.log(this.selectname);
+      console.log(this.taskState);
+      var that = this;
+      var data = Qs.stringify({
+        username: "aaaa",
+        taskName: this.selectname,
+        taskState: this.taskState
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/SubstaskInformation/selectByCIDandTNandTS",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData1 = response.data.allData;
+        });
+
+      //this.getData();
     },
     // 删除操作
     handleDelete(index, row) {
@@ -1030,7 +1123,24 @@ export default {
             message: '取消输入'
           });       
         });
-      }
+      },
+      	handleCurrentChange(cpage) {
+
+					this.pageIndex = cpage;
+
+				},
+
+				handleSizeChange(psize) {
+
+					this.pageSize = psize;
+
+                },
+
+                handleSelectionChange(val) {
+
+                    console.log(val)
+
+                }
     }
   }
   

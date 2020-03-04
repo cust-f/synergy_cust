@@ -24,20 +24,17 @@
 
       <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="设计单位" align="center"></el-table-column>
+      <el-table-column prop="state" label="承接供应商" align="center"></el-table-column>
 
       <el-table-column label="截止日期">
         <template slot-scope="scope">{{scope.row.date}}</template>
-      </el-table-column>
-      <el-table-column label="审核" align="center" width="110">
-        <el-button type="success" size="mini" plain @click="accept=true">审核通过</el-button>
-        <br />
-        <el-button type="danger" size="mini" plain @click="disaccept=true">审核不通过</el-button>
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template>
           <el-button @click="jumpAuditDet() " type="text" size="small">查看详情</el-button>
           <el-button type="text" size="small">查看成果</el-button>
+          <el-button type="text" size="small">审核通过</el-button>
+          <el-button type="text" size="small">审核不通过</el-button>
         </template>
       </el-table-column>
     </el-table>

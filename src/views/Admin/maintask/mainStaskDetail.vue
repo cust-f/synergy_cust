@@ -13,12 +13,12 @@
                 
                 <el-col :span="11">
                     <el-form-item label="分解任务名称">
-                        <el-input v-model="mainStask.name" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.taskName" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="分解任务状态">
-                        <el-input v-model="mainStask.state" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.taskState" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -31,22 +31,22 @@
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="任务类型">
-                        <el-input v-model="mainStask.tasktype" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.taskType" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
 
            
-
+<!-- v-bind:value="cool.deadline | formatDate" -->
              <el-row >
                 <el-col :span="11">
                     <el-form-item label="发布时间">
-                        <el-input v-model="mainStask.fabutime" :disabled="true"></el-input>
+                        <el-input v-bind:value="mainStask.publishTime | formatDate" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="截止时间">
-                        <el-input v-model="mainStask.jiezhitime" :disabled="true"></el-input>
+                        <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -54,12 +54,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="开始时间">
-                        <el-input v-model="mainStask.starttime" :disabled="true"></el-input>
+                        <el-input v-bind:value="mainStask.beginTime | formatDate" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="完成时间">
-                        <el-input v-model="mainStask.finishtime" :disabled="true"></el-input>
+                        <el-input v-bind:value="mainStask.finishTime | formatDate" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -67,12 +67,12 @@
             <el-row >
                 <el-col :span="11">
                     <el-form-item label="发布企业名称">
-                        <el-input v-model="mainStask.companyname" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.companyName" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="11">
                     <el-form-item label="接受企业名称">
-                        <el-input v-model="mainStask.supplyname" :disabled="true"></el-input>
+                        <el-input v-model="mainStask.supplierName" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row >
@@ -91,15 +91,14 @@
         </div>
 
          <el-divider></el-divider>
-<h3>供应方设计</h3>
-            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<!-- <h3>供应方设计</h3>
+            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; -->
               <div>
 
 
-    <div class="container">
+    <!-- <div class="container">
       <div class="handle-box">
 
-        <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
       </div>
 
       <el-table
@@ -118,11 +117,7 @@
         <el-table-column prop="date" label="开始时间"></el-table-column>
                 <el-table-column prop="money" label="完成时间"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
-            <!-- <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button> -->
+         
           <el-button @click="mainStaskDetail" type="text" size="small">查看</el-button>
         </el-table-column>
       </el-table>
@@ -136,7 +131,7 @@
           @current-change="handlePageChange"
         ></el-pagination>
       </div>
-    </div>
+    </div> -->
 
     <!-- 编辑弹出框 -->
     <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
@@ -222,6 +217,8 @@
 </template>
 
 <script>
+import  Qs from 'qs';
+import {formatDate} from "./dataChange";
   export default {
       name:"mainStaskDetail",
     data() {
@@ -229,16 +226,16 @@
         dialogVisible: false,
 
         mainStask: {
-          name:"小汽车零件装配",
-          state:'已完成',
+          taskName:"",
+          taskState:'',
           type:'汽车零部件',
-          tasktype:'设计任务',
-          fabutime:'2017-10-1',
-          jiezhitime:'2020-10-8',
-          starttime:'2018-10-1',
-          finishtime:'2019-10-1',
-          companyname:'长春汽车工业有限公司',
-          supplyname:'长春卫星电子信息有限公司',
+          taskType:'',
+          publishTime:'',
+          deadline:'',
+          beginTime:'',
+          finishTime:'',
+          companyName:'',
+          supplierName:'',
 
         },
                 query: {
@@ -269,12 +266,59 @@
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      taskId:''
       }
     },
+
+    filters:{
+      formatDate(time){
+        let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+      }
+    },
+    created() {
+      this.getParams();
+      this.showData();
+    },
     methods:{
+      getParams() {
+  
+      var routerParams = this.$route.query.taskId
+      this.taskId = routerParams
+      console.log(routerParams)
+
+    },
+
+      showData(){
+            console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        subStaskID : this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: 'post',
+          url: "http://127.0.0.1:8082/SubstaskInformation/list",
+          data: data,
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          this.mainStask = response.data.allData[0];
+          this.mainTaskID = response.data.allData[0].mainTaskId;
+           console.log(response.data.allData);
+        });
+      },
       goBack() {
-        this.$router.push('/admin/substaskDetail');
+         this.$router.push({
+        path:"/admin/substaskDetail",
+        query:{
+          mainTaskID : this.mainTaskID
+        }
+        });
+  
       }
     }
   }

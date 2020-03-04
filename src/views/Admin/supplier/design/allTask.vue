@@ -15,16 +15,15 @@
     >
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyId" label="接受企业名称ID"></el-table-column>
+      <el-table-column prop="acceptCompanyId" label="需求名称"></el-table-column>
 
-      <el-table-column prop="acceptCompanyName" label="接受企业名称"></el-table-column>
+      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
+<!-- 
+      <el-table-column prop="companyName" label=""></el-table-column> -->
 
-      <el-table-column prop="companyName" label="需求需求企业"></el-table-column>
+      <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
-      <el-table-column prop="userId" label="设计人员ID" align="center"></el-table-column>
       <el-table-column prop="taskCheck" label="状态"></el-table-column>
-
-      <el-table-column prop="supplierName" label="设计单位"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期">
        
@@ -64,19 +63,19 @@
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      // tableData: [
-      //   {
-      //     id: 1,
-      //     acceptCompanyId: "20202020",
-      //     bussessType: "车间零部件生产",
-      //     publishTask: "一汽大众",
-      //     taskLeader: "李名",
-      //     company: "光机所",
-      //     state: "进行中",
-      //     date: "2019-12-1"
-      //   },
+      tableData: [
+        {
+          // id: 1,
+          // acceptCompanyId: "20202020",
+          // bussessType: "车间零部件生产",
+          // publishTask: "一汽大众",
+          // taskLeader: "李名",
+          // company: "光机所",
+          // state: "进行中",
+          // date: "2019-12-1"
+        },
         
-      // ],
+      ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -91,10 +90,10 @@
   },
   methods: {
      getData() {
-      console.log(this.acceptCompanyId);
+      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        acceptCompanyId:20202020
+        userName:"1"
       });
       console.log(data);
       that
