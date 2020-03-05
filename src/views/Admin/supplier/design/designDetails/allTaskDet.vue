@@ -26,7 +26,7 @@
             </el-col>
             <el-col :span="11">
               <el-form-item label="截止时间">
-               <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
+                <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -120,24 +120,28 @@ export default {
   },
 
   methods: {
+    //返回列表页
     goBack() {
       this.$router.push("/admin/designTaskq");
     },
+    //返回列表页
     goBackagain() {
       this.$router.push("/admin/designTaskq");
       this.dialogVisible = false;
     },
+    //成功弹窗
     success() {
       this.dialogTableVisible = false;
       this.successful = true;
       this.TableVisible = false;
     },
+    //接受数据
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
       console.log(routerParams);
     },
-
+    //数据查找
     getData() {
       console.log(this.taskId);
       var that = this;
@@ -148,15 +152,15 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SupplierdesigntaskController/designTaskDet",
+          url:
+            "http://127.0.0.1:8082/SupplierdesigntaskController/designTaskDet",
           data: data
-          
         })
         .then(response => {
           this.form = response.data.allData;
           console.log(response.data.allData);
         });
-    },
+    }
   }
 };
 </script>

@@ -10,7 +10,7 @@
               <el-tab-pane label="全部任务" name="first">
                 <all-Task></all-Task>
               </el-tab-pane>
-              
+               
               <el-tab-pane label="待响应" name="second">
                 <pending-ResTask></pending-ResTask>
               </el-tab-pane>
@@ -56,11 +56,11 @@ import pendingAudit from "../design/pendingAudit"; //待审核
 import pendingAcceptance from "../design/pendingAcceptance"; //待验收
 import finishTask from "../design/finishTask.vue"; //已完成任务
 import repealedTask from "../design/repealedTask"; //已废除任务
-import allTask from "../design/allTask";
+import allTask from "../design/allTask";//全部任务
 export default {
   name: "designTaskq",
   components: {
-    "all-Task": allTask,
+    "all-Task": allTask,//全部任务
     "pending-ResTask": pendingResTask, //待响应任务
     "plan-Audit": planAudit, //计划审核
     "designing-Task": designingTask, //进行中任务

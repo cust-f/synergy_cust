@@ -102,7 +102,7 @@ export default {
         .replace(/T/g, " ")
         .replace(/\.[\d]{3}Z/, "");
     },
-
+    //读取数据的方法
     getData() {
       console.log(this.userName);
       var that = this;
@@ -123,11 +123,13 @@ export default {
           this.tableData = response.data.allData;
         });
     },
+    
     // 详情页面跳转
-    jumpfinishDet() {
-      this.$router.push("/admin/finishTaskDet");
-    },
+    // jumpfinishDet() {
+    //   this.$router.push("/admin/finishTaskDet");
+    // },‘
 
+    //详情页面跳转方法
     allTaskDet(row) {
       console.log(row.taskId);
       this.$router.push({
@@ -136,7 +138,7 @@ export default {
           taskId: row.taskId
         }
       });
-    },
+    }
   }
   /*
    *转跳对应需求信息页面

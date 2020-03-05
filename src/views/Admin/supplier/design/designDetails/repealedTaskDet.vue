@@ -109,7 +109,7 @@ export default {
       dialogVisible: false,
 
       form: {
-        id: "000101",
+        id: "",
         name: "小汽车零件的装配",
         type: "零件装配制造",
         endtime: "2019-10-17",
@@ -142,7 +142,12 @@ export default {
     },
     nosuccess() {
       this.dialogTableVisibleNo = false;
-    }
+    },
+    getParams() {
+      var routerParams = this.$route.query.id;
+      this.form.id = routerParams;
+      console.log(routerParams);
+    },
   }
 };
 </script>

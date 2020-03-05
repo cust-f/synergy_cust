@@ -48,8 +48,6 @@
   </div>
 </template>
 
-
-
 <script>
 export default {
   name: "repealedTask",
@@ -104,11 +102,11 @@ export default {
     },
     
     repealedTaskDet(row) {
-      console.log(row.mainTaskID);
+      console.log(row.id);
       this.$router.push({
         path: "/admin/repealedTaskDet",
         query: {
-          mainTaskID: row.mainTaskID
+          id: row.id
         }
       });
     },

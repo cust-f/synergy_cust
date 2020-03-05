@@ -13,7 +13,6 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="acceptCompanyName" label="需求名称"></el-table-column>
@@ -26,9 +25,7 @@
 
       <el-table-column prop="acceptCompanyName" label="承接供应商" align="center"></el-table-column>
 
-      <el-table-column prop="deadline" label="截止日期">
-    
-      </el-table-column>
+      <el-table-column prop="deadline" label="截止日期"></el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template>
           <el-button @click="pendingAuditDet() " type="text" size="small">查看详情</el-button>
@@ -70,10 +67,9 @@
 export default {
   name: "pendingAudit",
   data() {
-    
     return {
       accept: false, //接受需求弹窗
-  disaccept: false, 
+      disaccept: false,
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -81,9 +77,7 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData: [
-  
-      ],
+      tableData: [],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -98,10 +92,6 @@ export default {
   },
   methods: {
     // 全部需求详情页面跳转
-    jumpAuditDet() {
-      this.$router.push("/admin/pendingAuditDet");
-    },
-
     pendingAuditDet(row) {
       console.log(row.taskId);
       this.$router.push({
@@ -125,14 +115,12 @@ export default {
           method: "post",
           url: "http://127.0.0.1:8082/supplier/supplierAuditingTaskList",
           data: data
-
-          // data:this.$store.state.userName
         })
         .then(response => {
           console.log(response);
           this.tableData = response.data.allData;
         });
-    },
+    }
   }
   /*
    *转跳对应需求信息页面
