@@ -166,9 +166,9 @@ export default {
     },
 
     // 全部需求详情页面跳转
-    jumpResDet() {
-      this.$router.push("/admin/pendingResTaskDet");
-    },
+    // jumpResDet() {
+    //   this.$router.push("/admin/pendingResTaskDet");
+    // },
 
     pendingResTaskDet(row) {
       console.log(row.taskId);

@@ -112,7 +112,7 @@ export default {
   },
   created() {
     this.getParams();
-    this.getData();
+    //this.getData();
   },
 
   methods: {
@@ -134,7 +134,9 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
+      form.taskId = this.taskId;
       console.log(routerParams);
+      console.log(form.taskId);
     },
 
     getData() {

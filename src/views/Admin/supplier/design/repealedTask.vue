@@ -97,9 +97,9 @@ export default {
   },
   methods: {
     // 全部需求详情页面跳转
-    jumprepealedTask() {
-      this.$router.push("/admin/repealedTaskDet");
-    },
+    // jumprepealedTask() {
+    //   this.$router.push("/admin/repealedTaskDet");
+    // },
     
     repealedTaskDet(row) {
       console.log(row.id);

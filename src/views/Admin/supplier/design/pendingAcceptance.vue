@@ -81,9 +81,9 @@ export default {
   },
   methods: {
     // 全部需求详情页面跳转
-    jumpAcceptDet() {
-      this.$router.push("/admin/pendingAcceptanceDet");
-    },
+    // jumpAcceptDet() {
+    //   this.$router.push("/admin/pendingAcceptanceDet");
+    // },
 
     pendingAcceptanceDet(row) {
       console.log(row.taskId);

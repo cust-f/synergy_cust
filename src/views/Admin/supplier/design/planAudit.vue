@@ -277,9 +277,9 @@ export default {
       });
     },
 
-    jumpAuditDet() {
-      this.$router.push("/admin/planAuditingDet");
-    },
+    // jumpAuditDet() {
+    //   this.$router.push("/admin/planAuditingDet");
+    // },
 
     planAuditingDet(row) {
       console.log(row.taskId);

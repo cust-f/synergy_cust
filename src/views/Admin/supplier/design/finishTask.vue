@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData1"
       border
       class="table"
       ref="multipleTable"
@@ -61,7 +61,7 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData: [
+      tableData1: [
         {
           taskId: 1,
           acceptCompanyName: "小型汽车前车灯",
@@ -102,7 +102,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierdesignedtasklist",
+          url: "http://127.0.0.1:8082/supplier/supplierDesignedTaskList",
           data: data
 
           // data:this.$store.state.userName
@@ -113,9 +113,9 @@ export default {
         });
     },
 
-    jumprepealedTask() {
-      this.$router.push("/admin/finishTaskDet");
-    },
+    // jumprepealedTask() {
+    //   this.$router.push("/admin/finishTaskDet");
+    // },
     finishTaskDet(row) {
       console.log(row.taskId);
       this.$router.push({
