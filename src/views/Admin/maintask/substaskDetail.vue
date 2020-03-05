@@ -474,7 +474,7 @@ export default {
           method: "post",
           url: "http://127.0.0.1:8082/MainTaskInformation/combineMS",
           data: data
-
+          
           // data:this.$store.state.userName
         })
         .then(response => {

@@ -8,12 +8,12 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求ID">
-                <el-input v-model="form.id" :disabled="true"></el-input>
+                <el-input v-model="form.taskId" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求名称">
-                <el-input v-model="form.name" :disabled="true"></el-input>
+                <el-input v-model="form.acceptCompanyId" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -21,19 +21,19 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求类型">
-                <el-input v-model="form.type" :disabled="true"></el-input>
+                <el-input v-model="form.supplierName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="截止时间">
-                <el-input v-model="form.endtime" :disabled="true"></el-input>
+              <el-form-item label="发布需求时间">
+                <el-input v-model="form.deadtime" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布需求企业">
-                <el-input v-model="form.company" :disabled="true"></el-input>
+                <el-input v-model="form.companyName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
@@ -44,21 +44,13 @@
           </el-row>
           <el-row>
             <el-col :span="11">
-              <el-form-item label="负责人员">
-                <el-input v-model="form.leader" :disabled="true"></el-input>
+              <el-form-item label="承接供应商">
+                <el-input v-model="form.supplierName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="负责人电话">
-                <el-input v-model="form.leaderTel" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="设计单位">
-                <el-input v-model="form.designcompany" :disabled="true"></el-input>
+              <el-form-item label="设计师">
+                <el-input v-model="form.designer" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -68,11 +60,23 @@
                 type="textarea"
                 :rows="3"
                 style="width:90%"
-                v-model="form.detail"
+                v-model="form.taskDetail"
                 :disabled="true"
               ></el-input>
             </el-form-item>
           </el-col>
+          <el-col width="100%">
+            <el-form-item label="废除原因">
+              <el-input
+                type="textarea"
+                :rows="3"
+                style="width:90%"
+                v-model="form.fail"
+                :disabled="true"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+
           <el-row :gutter="80"></el-row>
         </el-form>
         <div align="right">
@@ -107,23 +111,27 @@ export default {
       NoAuditpost: false,
 
       form: {
-        id: "000101",
-        name: "小汽车零件的装配",
-        type: "零件装配制造",
-        endtime: "2019-10-17",
-        detail:
-          "协同设计和虚拟可视化仿真，从被提出起就成为计算机和信息科学领域研究的一个热点。早在二十世纪八十年代末，美国斯坦福大学联合Lockheed、EIT 及HP 公司开发的名为PACT 的项目，主要用于研究大规模、分布式并行工程系统。",
-
-        leader: "陈平安",
-        company: "长春奥普光电技术股份有限公司",
-        leaderTel: "18088675187",
-        designcompany: "杭机集团长春一机有限公司",
-        startTime: "2019-5-1",
-        designer: "陈龙"
+        taskId: "",
+        acceptCompanyId: "2",
+        supplierName: "3",
+        deadline: "4",
+        companyName: "5",
+        beginTime: "6",
+        userName: "7",
+        taskState: "8",
+        taskDetail: "9",
+        backState: "0"
       },
-      formLabelWidth: "120px"
+      formLabelWidth: "120px",
+      taskId: "1",
+      backState: ""
     };
   },
+  created() {
+    // this.getParams();
+    // this.getData();
+  },
+
   methods: {
     goBack() {
       this.$router.push("/admin/designTaskq");
@@ -134,6 +142,35 @@ export default {
     nosuccess() {
       this.NoAuditpost = true;
     }
+
+    // getParams() {
+    //   var routerParams = this.$route.query.taskId;
+    //   this.taskId = routerParams;
+    //   console.log(routerParams);
+    // },
+
+    // getData() {
+    //   console.log(this.taskId);
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     taskId: this.taskId
+    //   });
+    //   console.log(data);
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url:
+    //         "http://127.0.0.1:8082/SupplierdesigntaskController/designTaskDet",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       if (response.data.allData.tRefuseReason == null) backState = "否";
+    //       else backState = "是";
+    //       this.form = response.data.allData;
+    //       this.form.backState = this.backState;
+    //       console.log(response.data.allData);
+    //     });
+    // }
   }
 };
 </script>
