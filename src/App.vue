@@ -18,6 +18,12 @@ export default {
   margin: 0;
   border: 0;
 }
+//用于审查元素溢出
+// 	* {
+//     background: #000 !important;
+//     color: #0f0 !important;
+//     outline: solid #f00 1px !important;
+// }
 html,
 body{
   width: 100%;

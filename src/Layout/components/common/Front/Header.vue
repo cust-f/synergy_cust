@@ -1,14 +1,14 @@
 <template>
   <div class="admin-header">
     <el-row class="header-message" :gutter="20">
-      <el-col :span="7" :offset="1">
+      <el-col :span="10" :offset="1">
         <!-- <div class="collapse-btn" @click="collapseChage">
           <i v-if="!collapse" class="el-icon-s-fold"></i>
           <i v-else class="el-icon-s-unfold"></i>
         </div>-->
         <!-- <span>欢迎访问高端装备制造领域的科技服务SaaS应用构建以及示范!</span> -->
       </el-col>
-      <el-col :span="10" :offset="2" :push="4" style="float:right;">
+      <el-col :span="5" :offset="4" style="float:right;">
         <div>
           <ul v-if="log">
             <li>
@@ -134,6 +134,9 @@ export default {
 .el-row {
   margin-left: 0px !important;
 }
+/* .admin-header{
+  width:100%;
+} */
 .admin-header .el-select .el-input {
   width: 100px;
 }
