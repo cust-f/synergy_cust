@@ -85,7 +85,7 @@
               prefix-icon="el-icon-search"
               v-model="input2">
             </el-input>
-            <el-button  type="warning" class="button1" style =" margin:-31px -120px;">搜索</el-button>                
+            <el-button  type="warning" class="button1" style =" margin:0px -120px;">搜索</el-button>                
         </div>
       
     
