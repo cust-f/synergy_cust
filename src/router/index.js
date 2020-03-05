@@ -83,7 +83,7 @@ import supplyBussess2 from '@/views/admin/supplycompany/supplyBussess2'
 import supplyDetail2 from '@/views/admin/supplycompany/supplyDetail2'
 
 import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail'//一级供应商列表
-
+import taskDetail from '@/views/admin/design/taskDetail' //分解任务详细
 
 Vue.use(Router)
 
@@ -182,6 +182,11 @@ export default new Router({
           path: '/admin/mainStaskShow',
           name: 'mainStaskShow',
           component: mainStaskShow,
+        },
+        {
+          path: '/admin/taskDetail',
+          name: 'taskDetail',
+          component: taskDetail,
         },
         //主任务详情及查看所属子任务部分信息
         {
