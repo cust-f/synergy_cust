@@ -28,7 +28,7 @@
       <el-table-column prop="deadline" label="截止日期"></el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="pendingAuditDet() " type="text" size="small">查看详情</el-button>
+          <el-button @click="pendingAuditDet(scope.row) " type="text" size="small">查看详情</el-button>
           <el-button type="text" size="small">查看成果</el-button>
           <el-button type="text" size="small">审核通过</el-button>
           <el-button type="text" size="small">审核不通过</el-button>

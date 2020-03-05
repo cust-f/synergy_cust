@@ -83,6 +83,7 @@ export default {
         acceptCompanyId: "",
         supplierName: "",
         deadline: "",
+        
         companyName: "",
         beginTime: "",
         userName: "",

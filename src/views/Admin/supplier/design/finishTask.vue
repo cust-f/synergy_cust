@@ -28,8 +28,8 @@
       <el-table-column prop="finishTime" label="完成日期"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="jumprepealedTask()" type="text" size="small">查看详情</el-button>
+         <template slot-scope="scope">
+          <el-button @click="finishTaskDet(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
