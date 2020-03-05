@@ -3,7 +3,7 @@
     <el-container>
       <el-main>
         <div class="box">
-          <h3>设计任务</h3>
+          <h3>流通任务</h3>
           <el-divider></el-divider>
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
@@ -1069,7 +1069,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/SubstaskInformation/selectByCompanyandTaskNameandTaskType",
+            "http://127.0.0.1:8082/SubstaskInformation/selectLTByCIDandTNandTT",
           data: data
           // data:this.$store.state.userName
         })
@@ -1095,7 +1095,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/SubstaskInformation/selectByCIDandTNandTS",
+            "http://127.0.0.1:8082/SubstaskInformation/selectLTByCIDandTNandTS",
           data: data
           // data:this.$store.state.userName
         })
@@ -1218,7 +1218,7 @@ export default {
     Detail(row) {
       console.log(row.taskId);
       this.$router.push({
-       path: "/admin/taskDetail",
+       path: "/admin/taskDetail1",
        query:{
          taskId:row.taskId
        }

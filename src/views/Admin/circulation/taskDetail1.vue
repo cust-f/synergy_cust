@@ -220,7 +220,7 @@
 import  Qs from 'qs';
 import {formatDate} from "./dataChange";
   export default {
-      name:"taskDetail",
+      name:"taskDetail1",
     data() {
       return {
         dialogVisible: false,
@@ -313,12 +313,11 @@ import {formatDate} from "./dataChange";
            console.log(response.data.allData);
         });
       },
-      goBack() {
-        console.log(this.taskType)
-
+      goBack() {       
           this.$router.push({
-        path:"/admin/designTask",
+        path:"/admin/circulationTask",
         query:{
+         
         }
         });
         
