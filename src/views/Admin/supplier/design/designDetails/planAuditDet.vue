@@ -38,7 +38,7 @@
             </el-col>
             <el-col :span="11">
               <el-form-item label="发布需求时间">
-                <el-input v-bind:value="mainStask.beginTime | formatDate" :disabled="true"></el-input>
+                <el-input v-bind:value="form.beginTime | formatDate" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -147,7 +147,7 @@ export default {
         userName: "",
         taskState: "",
         taskDetail: "",
-         backState:""
+        status:"",
       },
       formLabelWidth: "120px",
       taskId: ""

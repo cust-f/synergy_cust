@@ -123,7 +123,7 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-    
+
     // 详情页面跳转
     // jumpfinishDet() {
     //   this.$router.push("/admin/finishTaskDet");

@@ -4,16 +4,16 @@
       <el-main style="overflow:hidden">
         <el-page-header @back="goBack" content="需求详情"></el-page-header>
         <br />
-        <el-form ref="form" :model="form" label-width="110px">
+        <el-form ref="form" :model="formPendingAcceptanceDet" label-width="110px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求ID">
-                <el-input v-model="form.taskId" :disabled="true"></el-input>
+                <el-input v-model="formPendingAcceptanceDet.taskId" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求名称">
-                <el-input v-model="form.acceptCompanyId" :disabled="true"></el-input>
+                <el-input v-model="formPendingAcceptanceDet.acceptCompanyId" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -21,43 +21,43 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求类型">
-                <el-input v-model="form.supplierName" :disabled="true"></el-input>
+                <el-input v-model="formPendingAcceptanceDet.supplierName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="截止时间">
-                <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
+                <el-input v-bind:value="formPendingAcceptanceDet.deadline | formatDate" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布需求企业">
-                <el-input v-model="form.companyName" :disabled="true"></el-input>
+                <el-input v-model="formPendingAcceptanceDet.companyName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="发布需求时间">
-                <el-input v-bind:value="mainStask.beginTime | formatDate" :disabled="true"></el-input>
+                <el-input v-bind:value="formPendingAcceptanceDet.beginTime | formatDate" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="承接供应商">
-                <el-input v-model="form.supplierName" :disabled="true"></el-input>
+                <el-input v-model="formPendingAcceptanceDet.supplierName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="设计师">
-                <el-input v-model="form.designer" :disabled="true"></el-input>
+                <el-input v-model="formPendingAcceptanceDet.designer" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="是否为退回">
-                <el-input v-model="form.backState" :disabled="true"></el-input>
+                <el-input v-model="formPendingAcceptanceDet.backState" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -68,7 +68,7 @@
                 type="textarea"
                 :rows="3"
                 style="width:90%"
-                v-model="form.taskDetail"
+                v-model="formPendingAcceptanceDet.taskDetail"
                 :disabled="true"
               ></el-input>
             </el-form-item>
@@ -93,7 +93,7 @@ export default {
       dialogTableVisibleNo: false,
       dialogVisible: false,
 
-      form: {
+      formPendingAcceptanceDet: {
         taskId: "",
         acceptCompanyId: "",
         supplierName: "",

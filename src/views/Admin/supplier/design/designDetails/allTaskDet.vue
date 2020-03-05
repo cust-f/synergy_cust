@@ -4,16 +4,16 @@
       <el-main style="overflow:hidden">
         <el-page-header @back="goBack" content="需求详情"></el-page-header>
         <br />
-        <el-form ref="form" :model="form" label-width="110px">
+        <el-form ref="form" :model="formAllTaskDet" label-width="110px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求ID">
-                <el-input v-model="form.taskId" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.taskId" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求名称">
-                <el-input v-model="form.acceptCompanyId" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.acceptCompanyId" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -21,36 +21,32 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求类型">
-                <el-input v-model="form.supplierName" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.supplierName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="11">
+             <el-col :span="11">
               <el-form-item label="截止时间">
-                <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.deadline" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布需求企业">
-                <el-input v-model="form.companyName" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.companyName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="发布需求时间">
-                <el-input v-bind:value="mainStask.beginTime | formatDate" :disabled="true"></el-input>
+                <el-input v-bind:value="formAllTaskDet.beginTime | formatDate" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
+
           <el-row>
             <el-col :span="11">
-              <el-form-item label="设计师">
-                <el-input v-model="form.userName" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
               <el-form-item label="状态">
-                <el-input v-model="form.taskState" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.status" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -60,7 +56,7 @@
                 type="textarea"
                 :rows="3"
                 style="width:90%"
-                v-model="form.taskDetail"
+                v-model="formAllTaskDet.taskDetail"
                 :disabled="true"
               ></el-input>
             </el-form-item>
@@ -82,7 +78,7 @@ export default {
       successful: false,
       dialogTableVisible: false,
       TableVisible: false,
-      form: {
+      formAllTaskDet: {
         taskId: "",
         acceptCompanyId: "",
         supplierName: "",
@@ -91,6 +87,7 @@ export default {
         beginTime: "",
         userName: "",
         taskState: "",
+        state:"",
         taskDetail: ""
       },
       query: {

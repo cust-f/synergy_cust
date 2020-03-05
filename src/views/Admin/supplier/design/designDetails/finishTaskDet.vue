@@ -4,7 +4,7 @@
       <el-main style="overflow:hidden">
         <el-page-header @back="goBack" content="需求详情"></el-page-header>
         <br />
-        <el-form ref="form" :model="form" label-width="110px">
+       <el-form ref="form" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求ID">
@@ -25,8 +25,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="截止时间">
-                <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
+              <el-form-item label="发布需求时间">
+                <el-input v-model="form.deadtime" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -38,7 +38,7 @@
             </el-col>
             <el-col :span="11">
               <el-form-item label="发布需求时间">
-                <el-input v-bind:value="mainStask.beginTime | formatDate" :disabled="true"></el-input>
+                <el-input v-model="form.startTime" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -65,6 +65,18 @@
               ></el-input>
             </el-form-item>
           </el-col>
+          <el-col width="100%">
+            <el-form-item label="废除原因">
+              <el-input
+                type="textarea"
+                :rows="3"
+                style="width:90%"
+                v-model="form.fail"
+                :disabled="true"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+
           <el-row :gutter="80"></el-row>
         </el-form>
         <div align="right">

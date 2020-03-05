@@ -4,7 +4,7 @@
       <el-main style="overflow:hidden">
         <el-page-header @back="goBack" content="需求详情"></el-page-header>
         <br />
-         <el-form ref="form" :model="form" label-width="110px">
+        <el-form ref="form" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求ID">
@@ -25,8 +25,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="截止时间">
-                <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
+              <el-form-item label="发布需求时间">
+                <el-input v-model="form.deadtime" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -38,7 +38,7 @@
             </el-col>
             <el-col :span="11">
               <el-form-item label="发布需求时间">
-                <el-input v-bind:value="mainStask.beginTime | formatDate" :disabled="true"></el-input>
+                <el-input v-model="form.startTime" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -54,14 +54,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="是否为退回">
-                <el-input v-model="form.backState" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
           <el-col width="100%">
             <el-form-item label="需求细节">
               <el-input
@@ -73,6 +65,18 @@
               ></el-input>
             </el-form-item>
           </el-col>
+          <el-col width="100%">
+            <el-form-item label="废除原因">
+              <el-input
+                type="textarea"
+                :rows="3"
+                style="width:90%"
+                v-model="form.fail"
+                :disabled="true"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+
           <el-row :gutter="80"></el-row>
         </el-form>
         <div align="right">
@@ -108,24 +112,24 @@ export default {
 
       form: {
         taskId: "",
-        acceptCompanyId: "",
-        supplierName: "",
-        deadline: "",
-        companyName: "",
-        beginTime: "",
-        userName: "",
-        taskState: "",
-        taskDetail: "",
-        backState: ""
+        acceptCompanyId: "2",
+        supplierName: "3",
+        deadline: "4",
+        companyName: "5",
+        beginTime: "6",
+        userName: "7",
+        taskState: "8",
+        taskDetail: "9",
+        backState: "0"
       },
       formLabelWidth: "120px",
-      taskId: "",
+      taskId: "1",
       backState: ""
     };
   },
   created() {
-    this.getParams();
-    this.getData();
+    // this.getParams();
+    // this.getData();
   },
 
   methods: {
@@ -137,38 +141,36 @@ export default {
     },
     nosuccess() {
       this.NoAuditpost = true;
-    },
-
-    getParams() {
-      var routerParams = this.$route.query.taskId;
-      this.taskId = routerParams;
-      console.log(routerParams);
-    },
-
-    getData() {
-      console.log(this.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url:
-            "http://127.0.0.1:8082/SupplierdesigntaskController/designTaskDet",
-          data: data
-        })
-        .then(response => {
-          if (response.data.allData.tRefuseReason == null) backState = "否";
-          else backState = "是";
-          this.form = response.data.allData;
-          this.form.backState = this.backState;
-          console.log(response.data.allData);
-        });
     }
 
+    // getParams() {
+    //   var routerParams = this.$route.query.taskId;
+    //   this.taskId = routerParams;
+    //   console.log(routerParams);
+    // },
 
+    // getData() {
+    //   console.log(this.taskId);
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     taskId: this.taskId
+    //   });
+    //   console.log(data);
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url:
+    //         "http://127.0.0.1:8082/SupplierdesigntaskController/designTaskDet",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       if (response.data.allData.tRefuseReason == null) backState = "否";
+    //       else backState = "是";
+    //       this.form = response.data.allData;
+    //       this.form.backState = this.backState;
+    //       console.log(response.data.allData);
+    //     });
+    // }
   }
 };
 </script>

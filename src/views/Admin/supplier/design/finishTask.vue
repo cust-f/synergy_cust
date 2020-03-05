@@ -29,7 +29,7 @@
 
       <el-table-column label="操作" width="180" align="center">
         <template>
-          <el-button @click="finishTaskDet()" type="text" size="small">查看详情</el-button>
+          <el-button @click="jumprepealedTask()" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -62,24 +62,22 @@ export default {
       formLabelWidth: "120px",
       activeName: "first",
       tableData: [
-        // {
-        //   id: 1,
-        //   taskName: "客车汽车前车灯",
-        //   bussessType: "车间零部件生产",
-        //   publishTask: "一汽大众",
-        //   taskLeader: "李名",
-        //   state: "进行中",
-        //   date: "2019-12-1"
-        // },
-        // {
-        //   id: 2,
-        //   taskName: "中型汽车车架",
-        //   bussessType: "车间零部件生产",
-        //   publishTask: "一汽大众",
-        //   taskLeader: "刘柳",
-        //   state: "进行中",
-        //   date: "2019-11-14"
-        // }
+        {
+          taskId: 1,
+          acceptCompanyName: "小型汽车前车灯",
+          supplierName: "车间零部件生产",
+          companyName: "一汽大众",
+          assignmentState: "已废除",
+          deadline: "2019-12-23"
+        },
+        {
+          taskId: 2,
+          acceptCompanyName: "小型汽车前车灯",
+          supplierName: "车间零部件生产",
+          companyName: "一汽大众",
+          assignmentState: "已废除",
+          deadline: "2019-12-23"
+        }
       ],
       multipleSelection: [],
       editVisible: false,
@@ -94,7 +92,6 @@ export default {
     this.getData();
   },
   methods: {
-
     getData() {
       console.log(this.userName);
       var that = this;
@@ -116,6 +113,9 @@ export default {
         });
     },
 
+    jumprepealedTask() {
+      this.$router.push("/admin/finishTaskDet");
+    },
     finishTaskDet(row) {
       console.log(row.taskId);
       this.$router.push({

@@ -181,6 +181,24 @@ export default {
         pageSize: 10
       },
 
+      tableData:[
+        {
+          taskId: 1,
+          acceptCompanyName: "小型汽车前车灯",
+          supplierName: "车间零部件生产",
+          companyName: "一汽大众",
+          assignmentState: "已废除",
+          deadline: "2019-12-23"
+        },
+        {
+          taskId: 1,
+          acceptCompanyName: "小型汽车前车灯",
+          supplierName: "车间零部件生产",
+          companyName: "一汽大众",
+          assignmentState: "已废除",
+          deadline: "2019-12-23"
+        }
+      ],
       from: {
         name: "小汽车零件的装配",
         endtime: "2019-10-17"
@@ -225,7 +243,7 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-     //分配给二级供应商且任务计划书未通过的全部任务
+    //分配给二级供应商且任务计划书未通过的全部任务
     getData2() {
       console.log(this.userName);
       var that = this;

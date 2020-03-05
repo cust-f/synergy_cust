@@ -77,16 +77,16 @@ export default {
   data() {
     return {
       form: {
-        taskId: "",
-        acceptCompanyId: "",
-        supplierName: "",
-        deadline: "",
-        companyName: "",
-        beginTime: "",
-        userName: "",
-        taskState: "",
-        taskDetail: "",
-         backState:""
+        taskId: "1",
+        acceptCompanyId: "2",
+        supplierName: "3",
+        deadline: "4",
+        companyName: "5",
+        beginTime: "6",
+        userName: "7",
+        taskState: "8",
+        taskDetail: "9",
+         backState:"0"
       },
       formLabelWidth: "120px",
       taskId: "",
