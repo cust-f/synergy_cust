@@ -3,18 +3,22 @@
     <el-main>
       <div class="top">
         <div id="charts1" style="height:100%; width:300px; float:left"></div>
+        <br/>
         <div id="charts2" style="height:100%; width:300px; float:left"></div>
+        <br/>
       </div>
-
+      
+     
       <div class="lists">
-        <el-card style="height:100%">
+       
           <el-table
             :data="Not_Accepted_Task_Data"
-            border
-            stripe
+            border           
             class="table"
+            ref="multipleTable"
             header-cell-class-name="table-header"
-            height="100%"
+            @selection-change="handleSelectionChange"
+         
           >
             <template v-for="(item,index) in Not_Accepted_Task_Head">
               <el-table-column
@@ -28,7 +32,7 @@
             </template>
             <el-table-column label="操作" min-width="70px" align="center">
               <template>
-                <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+                <el-button @click="dialogVisible = true" type="text" size="small">查看详情</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -42,7 +46,7 @@
               @current-change="handlePageChange"
             ></el-pagination>
           </div>
-        </el-card>
+        
       </div>
     </el-main>
   </el-container>
@@ -56,7 +60,7 @@ export default {
         pageIndex: 1,
         pageSize: 5
       },
-      pageTotal: 13,
+      pageTotal: 10,
       Not_Accepted_Task_Head: [
         {
           column_name: "Task_ID",
@@ -215,39 +219,7 @@ export default {
           redo: "是",
           Completion_Status: "已完成"
         },
-        {
-          Task_ID: "0011",
-          Task_Name: "磨床生产",
-          Task_Type: "流通任务",
-          People_Number: "30",
-          Finished_time: "35天",
-          Amount_Involved: "15000",
-          Submission_Times: "4",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0012",
-          Task_Name: "汽车电子产品研发",
-          Task_Type: "流通任务",
-          People_Number: "25",
-          Finished_time: "245天",
-          Amount_Involved: "5000",
-          Submission_Times: "5",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0013",
-          Task_Name: "发电智能制造",
-          Task_Type: "流通任务",
-          People_Number: "26",
-          Finished_time: "285天",
-          Amount_Involved: "55000",
-          Submission_Times: "13",
-          redo: "是",
-          Completion_Status: "已完成"
-        }
+       
       ]
     };
   },
@@ -367,7 +339,9 @@ export default {
   height: 320px;
 }
 .lists {
-  width: 98%;
+  width: 100%;
   height: 60%;
+  margin-top: 30%;
+  margin-left: 0%
 }
 </style>
