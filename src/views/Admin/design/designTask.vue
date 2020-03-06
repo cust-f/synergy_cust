@@ -42,7 +42,7 @@
 
 
                   <el-button
-                    @click="Detail(scope.$index, scope.row)"
+                    @click="Detail(scope.row)"
                     type="text"
                     size="small "
                     class="box1"
@@ -73,9 +73,9 @@
                   <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
-                <el-table
+                 <el-table
                   :data="tableData1.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-                  borders
+                  border
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
@@ -92,23 +92,23 @@
                   </template>
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
+                     <template slot-scope="scope">
                     <el-button
                     type="text"
                     icon="el-icon-delete"
                     class="red"
-                    @click="handleDelete(scope.$index, scope.row)"
+                    @click="handleDelete1(scope.row)"
                   >废除</el-button>
 
                   <el-button
-                    @click="Detail(scope.$index, scope.row)"
+                    @click="Detail(scope.row)"
                     type="text"
                     size="small "
                     class="box1"
                   >查看详情</el-button>
-                  
+                     </template>
                     </el-table-column>
 
-                  </el-table-column>
                 </el-table>
                <div class="pagination">
                 <el-pagination
@@ -149,27 +149,30 @@
                     
                   </template>
                   </el-table-column>
-                  <el-table-column prop="taskState" label="状态" align="center" width="80">
+                  <el-table-column prop="assignmentState" label="状态" align="center" width="80">
                   </el-table-column>
                   
                   <el-table-column label="任务书" align="center" width="55" >
                     <el-button type="text" size="small" class="box1">下载</el-button>
                   </el-table-column>
                   <el-table-column label="审核" align="center">
-                    <el-button type="success" size="mini" plain @click="open2">审核通过</el-button>
+                    <template slot-scope="scope">
+                  <el-button type="success" size="mini" plain @click="open2(scope.row)">审核通过</el-button>
                     <br>
-                    <el-button type="danger" size="mini" plain @click="open">审核不通过</el-button>
+                    <el-button type="danger" size="mini" plain @click="open(scope.row)">审核不通过</el-button>
+                    </template>
+                  
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
 
-
+                <template slot-scope="scope">
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.row)"
                     type="text"
                     size="small "
                     class="box1"
                   >查看详情</el-button>
-                  
+                </template>
                     </el-table-column>
                 </el-table>
                <div class="pagination">
@@ -214,14 +217,14 @@
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
 
-
+                  <template slot-scope="scope">
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.row)"
                     type="text"
                     size="small "
                     class="box1"
                   >查看详情</el-button>
-                  
+                  </template>
                     </el-table-column>
 
                 </el-table>
@@ -263,26 +266,30 @@
                     
                   </template>
                   </el-table-column>
-                  <el-table-column prop="assignmentState" label="状态" align="center" width="55">
+
+                  <el-table-column prop="taskCheck" label="状态" align="center" >
                   </el-table-column>
                   <el-table-column label="图纸" align="center" width="55">
                     <el-button type="text" size="small" class="box1">查看</el-button>
                   </el-table-column>
                   <el-table-column label="审核" align="center">
-                    <el-button type="success" size="mini" plain @click="open2">审核通过</el-button>
-                    <br>
-                    <el-button type="danger" size="mini" plain @click="open">审核不通过</el-button>
+                    <template slot-scope="scope">
+                      <el-button type="success" size="mini" plain @click="tuzhishenhe(scope.row)">审核通过</el-button>
+                      <br>
+                      <el-button type="danger" size="mini" plain @click="tuzhiNo(scope.row)">审核不通过</el-button>
+                    </template>
+                    
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
 
-
+                  <template slot-scope="scope">
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.row)"
                     type="text"
                     size="small "
                     class="box1"
                   >查看详情</el-button>
-                  
+                  </template>
                     </el-table-column>
                 </el-table>
                 <div class="pagination">
@@ -335,7 +342,7 @@
                     <template slot-scope="scope">
 
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.row)"
                     type="text"
                     size="small "
                     class="box1"
@@ -381,7 +388,7 @@
                         <template slot-scope="scope">
 
                   <el-button
-                    @click="Detail"
+                    @click="Detail(scope.row)"
                     type="text"
                     size="small "
                     class="box1"
@@ -407,6 +414,45 @@
             </el-tabs>
           </div>
         </div>
+        <!-- 计划书拒绝原因弹出框 -->
+        <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible" width="50%">
+          <el-row>
+            <el-col :span="8"></el-col>
+          </el-row>
+          <el-form ref="form" :model="addList" label-width="120px">
+            <el-row>
+              <el-col>
+                <el-form-item label="审核拒绝原因">
+                  <el-input v-model="addList.FrefuseReason"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addVisible = false">取 消</el-button>
+            <el-button type="primary" @click="saveAdd1">确 定</el-button>
+          </span>
+        </el-dialog>
+  <!--图纸审核拒绝原因弹出框 -->
+        <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible1" width="50%">
+          <el-row>
+            <el-col :span="8"></el-col>
+          </el-row>
+          <el-form ref="form" :model="addList1" label-width="120px">
+            <el-row>
+              <el-col>
+                <el-form-item label="审核拒绝原因">
+                  <el-input v-model="addList1.TrefuseReason"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addVisible1 = false">取 消</el-button>
+            <el-button type="primary" @click="saveAdd2">确 定</el-button>
+          </span>
+        </el-dialog>
+
       </el-main>
     </el-container>
   </div>
@@ -424,6 +470,19 @@ export default {
         pageSize: 10
       },
       activeName: "first",
+      addVisible: false,
+      addVisible1: false,
+      taskId:"",
+      addList: [
+        {
+          FrefuseReason:''
+        }
+      ],
+      addList1: [
+        {
+          TrefuseReason:''
+        }
+      ],
       tableData: [
         {
           id: 1,
@@ -899,6 +958,7 @@ export default {
       radio: "1",
       selectname:"",
       taskState:"",
+      taskCheck:'',
     };
     
   },  filters: {
@@ -1048,17 +1108,71 @@ export default {
 
       //this.getData();
     },
-    // 删除操作
-    handleDelete(index, row) {
-      // 二次确认删除
-      this.$confirm("确定要删除吗？", "提示", {
+    // 废除操作
+    handleDelete1(row) {
+      this.$confirm("确定要废除吗？", "提示", {
         type: "warning"
+      }).then(() => {
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          substakeID: row.taskId
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/MainTaskInformation/feicuBySubstaskstaskID",
+          data: data
+
+          // data:this.$store.state.userName
+        });
+        this.$message.success("废除成功");
+        this.tableData.splice(index, 1);
+      });
+    },
+
+
+
+
+    saveAdd1(){
+      var that =this;
+      var data = Qs.stringify({
+        taskId:this.taskId,
+        FrefuseReason:this.addList.FrefuseReason,
       })
-        .then(() => {
-          this.$message.success("删除成功");
-          this.tableData.splice(index, 1);
+      console.log(data),
+      that
+        .axios({
+          method:"post",
+          url:'http://127.0.0.1:8082/SubstaskInformation/tijiaoFreason',
+          data:data,
+          
         })
-        .catch(() => {});
+    this.$message.success("提交成功");
+    this.addList = {};
+    this.addVisible = false;
+    },
+
+
+
+    saveAdd2(){
+      var that =this;
+      var data = Qs.stringify({
+        taskId:this.taskId,
+        TrefuseReason:this.addList1.TrefuseReason,
+      })
+      console.log(data),
+      that
+        .axios({
+          method:"post",
+          url:'http://127.0.0.1:8082/SubstaskInformation/tijiaoTreason',
+          data:data,
+          
+        })
+    this.$message.success("提交成功");
+    this.addList1 = {};
+    this.addVisible1 = false;
     },
     // 多选操作
     handleSelectionChange(val) {
@@ -1103,26 +1217,113 @@ export default {
     /*
      *转跳对应任务信息页面
      */
-    Detail() {
-      this.$router.push("/admin/mainStaskDetail");
+    Detail(row) {
+      console.log(row.taskId);
+      this.$router.push({
+       path: "/admin/taskDetail",
+       query:{
+         taskId:row.taskId
+       }
+       });
     },
-    open2() {
-      this.$message({
+   
+    open2(row) {
+      if(row.assignmentState == "待审核"||row.assignmentState =="审核未通过"){
+        this.$confirm("确定将任务计划书审核通过么？", "提示", {
+        type: "warning"
+      }).then(()=>{
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          substakeID:row.taskId
+        });
+        console.log(data);
+        that.axios({
+          method:"post",
+          url:
+          "http://127.0.0.1:8082/SubstaskInformation/updateRWJHtoIng",
+          data:data
+        });  
+         this.$message({
         message: "审核通过",
         type: "success"
       });
+      })
+      }
+      else {
+        this.$confirm("任务计划书已审和通过无需再次审核", "提示", {
+        type: "warning"
+      })
+      }
+        
+   
     },
-     open() {
-        this.$prompt('请输入审核不通过的原因', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          });       
+    tuzhishenhe(row){
+      this.taskCheck = row.taskCheck;
+      if(this.taskCheck == "企业验收不通过"||this.taskCheck == "供应商审核通过"){
+        this.$confirm("确定将设计图纸审核通过么？", "提示", {
+        type: "warning"
+      }).then(()=>{
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          substakeID:row.taskId
         });
+        console.log(data);
+        that.axios({
+          method:"post",
+          url:
+          "http://127.0.0.1:8082/SubstaskInformation/updatetoDSHtoAcc",
+          data:data
+        });  
+         this.$message({
+        message: "审核通过",
+        type: "success"
+      });
+      })
+      }
+            else if(this.taskCheck =="企业验收通过"){ this.$confirm("企业已审核通过无需再审核", "提示", {
+        type: "warning"
+      })
+      }
+
+      else{ this.$confirm("带供应商将图纸审核完毕后再行审核", "提示", {
+        type: "warning"
+      })
+      }
+
+    },
+     open(row) {
+       if(row.assignmentState == "待审核"||row.assignmentState =="审核未通过"){
+                 this.addVisible = true;
+        this.taskId = row.taskId;
+        console.log(this.taskId);
+       }
+      else {
+        this.$confirm("任务计划书已审和通过无需再次审核", "提示", {
+        type: "warning"
+      })
+      }
+
+        
+      },
+     tuzhiNo(row) {
+       if(this.taskCheck == "供应商审核通过"||this.taskCheck == "企业验收不通过"){
+        this.addVisible1 = true;
+        this.taskId = row.taskId;
+        console.log(this.taskId);
+       }
+
+      else if(this.taskCheck == "待审核"||this.taskCheck == "供应商验收不通过"){ 
+                this.$confirm("带供应商将图纸审核完毕后再行审核", "提示", {
+        type: "warning"
+      })
+      }
+      else{
+        this.$confirm("企业已通过图纸无法拒绝", "提示", {
+        type: "warning"
+      })
+      }
       },
       	handleCurrentChange(cpage) {
 

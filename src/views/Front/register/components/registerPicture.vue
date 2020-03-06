@@ -1,5 +1,8 @@
 <template>
   <div class="register">
+    <div>
+      <el-button @click="submitUpload">测试</el-button>
+    </div>
     <el-card>
       <el-row>
         <el-col :span="17">
@@ -120,6 +123,7 @@ export default {
       taxImageUrl: [], //税务证书
       logoImageUrl: [], //企业logo
       // companyProfileImageUrl:[],
+      formDate:"",
       businessLicense_formDate: "",
       tax_formDate: "",
       companyProfileUpload_formDate: "",
@@ -132,12 +136,14 @@ export default {
       value2: ""
     };
   },
+
   props: {
     enterpriseName: {
       type: String,
-      default: " "
+      default: "cust"
     }
   },
+
   created() {
     this.carouselShow();
   },
@@ -164,22 +170,22 @@ export default {
     // },
     //企业介绍图片入fromDate
     companyProfileUpload(file) {
-      this.companyProfileUpload_formDate.append(
+      this.formDatee.append(
         "companyProfileFile",
         file.file
       );
     },
     //企业基本信息营业执照图片入fromDate
     taxUpload(file) {
-      this.tax_formDate.append("taxFile", file.file);
+      this.formDate.append("taxFile", file.file);
     },
     //企业基本信息营业执照图片入fromDate
     businessLicenseUpload(file) {
-      this.businessLicense_formDate.append("businessLicenseFile", file.file);
+      this.formDate.append("businessLicenseFile", file.file);
     },
     //企业logo图片入fromDate
     logoUpload(file) {
-      this.logo_formDate.append("logoFile", file.file);
+      this.formDate.append("logoFile", file.file);
     },
     submitUpload() {
       // console.log(this.companyProfileImageUrl.length < 3);
@@ -198,18 +204,21 @@ export default {
       //     return false;
       //   } else {
         this.$emit("checkPicture",true);
+        console.log("执行了图片上传");
           var that = this;
-          this.businessLicense_formDate = new FormData();
-          this.tax_formDate = new FormData();
-          this.companyProfileUpload_formDate = new FormData();
-          this.logo_formDate = new FormData();
-          var rowData = Object.assign(
-            this.businessLicense_formDate,
-            this.tax_formDate,
-            this.companyProfileUpload_formDate,
-            this.logo_formDate
-          );
-          rowData.append("enterpriseName",enterpriseName);
+          that.formDate=new FormData();
+          // this.businessLicense_formDate = new FormData();
+          // this.tax_formDate = new FormData();
+          // this.companyProfileUpload_formDate = new FormData();
+          // this.logo_formDate = new FormData();
+          // var rowData = Object.assign(
+          //   this.businessLicense_formDate,
+          //   this.tax_formDate,
+          //   this.companyProfileUpload_formDate,
+          //   this.logo_formDate
+          // );
+          that.formDate.append("enterpriseName","CUST");
+          console.log(that.formDate)
           let config = {
             headers: {
               "Content-Type": "multipart/form-data"

@@ -75,26 +75,6 @@
     </tbody></table>
     </el-col>
 </div>
-
-
-
-          <!-- <div class="cool">
-            <table class="table1">
-              <tbody>
-                <tr>
-                  <td class="td101">行业分类：</td>
-                  <td class="td102">
-                    <span class="cg_td_a1" width="100%">不限</span>
-                    <span class="cg_td_a2" width="100%">交通运输设备</span>
-                    <span class="cg_td_a2" width="100%">仪器仪表及文化、办公用机械</span>
-                    <span class="cg_td_a2" width="100%">通信设备、计算机及其他电子设备</span>
-                    <span class="cg_td_a2" width="100%">电器机械及器械</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <br />
-          </div> -->
       
         </div> <br/> <br/>
       </el-col>

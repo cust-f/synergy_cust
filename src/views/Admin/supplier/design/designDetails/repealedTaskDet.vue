@@ -4,16 +4,16 @@
       <el-main style="overflow:hidden">
         <el-page-header @back="goBack" content="需求详情"></el-page-header>
         <br />
-        <el-form ref="form" :model="form" label-width="110px">
+        <el-form ref="form" :model="formRepealedTaskDet" label-width="110px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求ID">
-                <el-input v-model="form.id" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.id" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求名称">
-                <el-input v-model="form.name" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.name" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -21,36 +21,36 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求类型">
-                <el-input v-model="form.type" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.type" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="截止时间">
-                <el-input v-model="form.endtime" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.endtime" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布需求企业">
-                <el-input v-model="form.company" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.company" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="发布需求时间">
-                <el-input v-model="form.startTime" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.startTime" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="负责人员">
-                <el-input v-model="form.leader" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.leader" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="负责人电话">
-                <el-input v-model="form.leaderTel" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.leaderTel" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -58,12 +58,12 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="设计单位">
-                <el-input v-model="form.designcompany" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.designcompany" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="设计师">
-                <el-input v-model="form.designer" :disabled="true"></el-input>
+                <el-input v-model="formRepealedTaskDet.designer" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -73,7 +73,7 @@
                 type="textarea"
                 :rows="3"
                 style="width:90%"
-                v-model="form.detail"
+                v-model="formRepealedTaskDet.detail"
                 :disabled="true"
               ></el-input>
             </el-form-item>
@@ -84,7 +84,7 @@
                 type="textarea"
                 :rows="3"
                 style="width:90%"
-                v-model="form.fail"
+                v-model="formRepealedTaskDet.fail"
                 :disabled="true"
               ></el-input>
             </el-form-item>
@@ -108,8 +108,8 @@ export default {
       dialogTableVisibleNo: false,
       dialogVisible: false,
 
-      form: {
-        id: "000101",
+      formRepealedTaskDet: {
+        id: "",
         name: "小汽车零件的装配",
         type: "零件装配制造",
         endtime: "2019-10-17",
@@ -142,7 +142,12 @@ export default {
     },
     nosuccess() {
       this.dialogTableVisibleNo = false;
-    }
+    },
+    getParams() {
+      var routerParams = this.$route.query.id;
+      this.form.id = routerParams;
+      console.log(routerParams);
+    },
   }
 };
 </script>

@@ -329,7 +329,6 @@ export default {
       //子任务表格
       tableData: [
         {
-        
           dividename: "请填写",
           TaskState: "请填写",
           fabuTime : "请填写",
@@ -474,8 +473,6 @@ export default {
     //新增操作
     addData() {
             this.addVisible = true;
-
-     
     },
 
     addDesignerButton() {
