@@ -30,8 +30,8 @@
       <el-table-column prop="Abolish_Reason" label="废除原因"></el-table-column>
 
       <el-table-column label="操作" width="127" align="center">
-        <template>
-          <el-button @click="repealedTaskDet(row)" type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="repealedTaskDet(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>

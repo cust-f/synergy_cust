@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
@@ -27,7 +27,7 @@
 
       <el-table-column prop="deadline" label="截止日期"></el-table-column>
       <el-table-column label="操作" width="180" align="center">
-        <template>
+        <template slot-scope="scope">
           <el-button @click="pendingAuditDet(scope.row) " type="text" size="small">查看详情</el-button>
           <el-button type="text" size="small">查看成果</el-button>
           <el-button type="text" size="small">审核通过</el-button>

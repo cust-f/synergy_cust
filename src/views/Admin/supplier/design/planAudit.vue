@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
@@ -26,8 +26,8 @@
       <el-table-column prop="deadline" label="截止日期"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="planAuditDet()" type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="planAuditDet(scope.row)" type="text" size="small">查看详情</el-button>
           <el-button @click="dialogTableVisible=true" type="text" size="small">分配人员</el-button>
           <el-button @click="TableVisible=true" type="text" size="small">分配供应商</el-button>
         </template>
@@ -49,12 +49,12 @@
     <h2>计划书审核菜单</h2>
     <el-divider></el-divider>
     <el-table
-      :data="tableData2"
+      :data="tableData2.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
       header-cell-class-name="table-header"
-      @selection-change="handleSelectionChange"
+      @selection-change= "handleSelectionChange"
     >
       <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
 
@@ -79,8 +79,8 @@
       </el-table-column>
 
       <el-table-column label="操作" width="160" align="center">
-        <template>
-          <el-button @click="planAuditingDet()" type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="planAuditingDet(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>

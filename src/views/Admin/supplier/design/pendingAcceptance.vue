@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+     :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
@@ -30,8 +30,8 @@
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="pendingAcceptanceDet() " type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="pendingAcceptanceDet(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
