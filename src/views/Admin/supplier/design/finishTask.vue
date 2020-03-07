@@ -61,22 +61,14 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData1: [
+      tableData: [
         {
-          taskId: 1,
-          acceptCompanyName: "小型汽车前车灯",
-          supplierName: "车间零部件生产",
-          companyName: "一汽大众",
-          assignmentState: "已废除",
-          deadline: "2019-12-23"
-        },
-        {
-          taskId: 2,
-          acceptCompanyName: "小型汽车前车灯",
-          supplierName: "车间零部件生产",
-          companyName: "一汽大众",
-          assignmentState: "已废除",
-          deadline: "2019-12-23"
+          taskId: "",
+          acceptCompanyName: "",
+          supplierName: "",
+          companyName: "",
+          assignmentState: "",
+          deadline: ""
         }
       ],
       multipleSelection: [],

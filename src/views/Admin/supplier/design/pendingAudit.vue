@@ -64,6 +64,7 @@
 
 
 <script>
+import Qs from "qs";
 export default {
   name: "pendingAudit",
   data() {
@@ -100,6 +101,35 @@ export default {
           taskId: row.taskId
         }
       });
+    },
+
+    saveAdd() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: "1",
+        taskName: this.addList.dividename,
+        publishTime: this.addList.fabuTime,
+        endLine: this.addList.endLine,
+        taskCategaty: this.addList.TaskState,
+        yaoqing: 1,
+        taskType: 0,
+        mainTaskName: this.name,
+        taskXiangxi: this.addList.TaskXiangXi,
+        mainTaskID: this.mainStaskID
+      });
+      console.log(data);
+      console.log("123木头人");
+
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
+        data: data
+      });
+
+      this.$message.success("提交成功");
+      this.tableData.push(this.addList);
+      this.addList = {};
+      this.addVisible = false;
     },
 
     getData() {

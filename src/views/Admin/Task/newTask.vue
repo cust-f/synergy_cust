@@ -379,13 +379,8 @@ export default {
     tijiao(){
       var that = this;
       var data = Qs.stringify({
-        userName:'aaaa',
-        name:this.name,
-        type:this.type,
-        publishdate:this.publishdate,
-        deaddate:this.deaddate,
-        leader:this.leader,
-        xiangxi:this.xiangxi
+        userName:'1',
+        
       });
       console.log(data)
       that  

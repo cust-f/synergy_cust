@@ -51,7 +51,9 @@
 
 
 <script>
+import Qs from "qs";
 export default {
+  
   name: "pendingAcceptance",
   created() {
     this.getData();
