@@ -1251,7 +1251,7 @@ export default {
       })
       }
       else {
-        this.$confirm("任务计划书已审和通过无需再次审核", "提示", {
+        this.$confirm("任务计划书已审核通过无需再次审核", "提示", {
         type: "warning"
       })
       }
@@ -1287,7 +1287,7 @@ export default {
       })
       }
 
-      else{ this.$confirm("带供应商将图纸审核完毕后再行审核", "提示", {
+      else{ this.$confirm("待供应商将图纸审核完毕后，企业再行审核", "提示", {
         type: "warning"
       })
       }
@@ -1300,7 +1300,7 @@ export default {
         console.log(this.taskId);
        }
       else {
-        this.$confirm("任务计划书已审和通过无需再次审核", "提示", {
+        this.$confirm("任务计划书已审和通过，无需再次审核", "提示", {
         type: "warning"
       })
       }
@@ -1315,12 +1315,12 @@ export default {
        }
 
       else if(this.taskCheck == "待审核"||this.taskCheck == "供应商验收不通过"){ 
-                this.$confirm("带供应商将图纸审核完毕后再行审核", "提示", {
+                this.$confirm("等待供应商将图纸审核完毕后，企业再行审核", "提示", {
         type: "warning"
       })
       }
       else{
-        this.$confirm("企业已通过图纸无法拒绝", "提示", {
+        this.$confirm("企业已通过设计图纸，无法拒绝", "提示", {
         type: "warning"
       })
       }
