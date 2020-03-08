@@ -59,11 +59,10 @@ export default {
           that
             .axios({
               method: "post",
-              url: "http://127.0.0.1:8081/user/login",
+              url: "http://127.0.0.1:8082/user/login",
               data: data
             })
             .then(response => {
-              console.log(response);
               if (response.data.code == 200) {
                 this.$message({
                   type: "success",
@@ -72,6 +71,8 @@ export default {
                 this.$store.commit("SET_TOKEN", true);
                 this.$store.commit("GET_USER", this.username);
                 localStorage.setItem("ms_username", this.param.username);
+                this.$store.commit("SET_List", response.data.allData.data.menuList);
+                console.log(this.$store.state.menuList)
                 this.$router.push("/admin/dashboard");
               } else {
                 this.$message({
@@ -213,7 +214,7 @@ export default {
   width: 100%;
   height: 36px;
   margin-bottom: 10px;
-}  
+}
 .login-tips {
   font-size: 12px;
   line-height: 30px;

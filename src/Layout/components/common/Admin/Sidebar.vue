@@ -2,40 +2,45 @@
   <div class="sidebar">
     <el-menu
       class="sidebar-el-menu"
-      :default-active="onRoutes"
+      :default-active="this.$route.path"
       background-color="#FFF"
       text-color="#000"
       active-text-color="#20a0ff"
       router
     >
       <template v-for="item in items">
-        <template v-if="item.subs">
-          <el-submenu style="margin-bottom:15px;" :index="item.index" :key="item.index">
+        <!-- 判断是否有二级 -->
+        <template v-if="item.children">
+          <el-submenu style="margin-bottom:15px;" :index="item.menuURL" :key="item.menuURL">
             <template slot="title">
-              <i :class="item.icon"></i>
-              <span slot="title">{{ item.title }}</span>
+              <!-- <i :class="item.icon"></i> -->
+             <span @click="redirects(item.menuURL)" slot="title">{{ item.menuName }}</span>
             </template>
-            <template v-for="subItem in item.subs">
-              <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
-                <template slot="title">{{ subItem.title }}</template>
+            <template v-for="subItem in item.children">
+              <!-- 判断是否有三级 -->
+              <el-submenu v-if="subItem.children" :index="subItem.menuURL" :key="subItem.menuURL">
+                <template slot="title">{{ subItem.menuName }}</template>
                 <el-menu-item
-                  v-for="(threeItem,i) in subItem.subs"
+                  v-for="(threeItem,i) in subItem.children"
                   :key="i"
-                  :index="threeItem.index"
-                >{{ threeItem.title }}</el-menu-item>
+                  :index="threeItem.menuURL"
+                >{{ threeItem.menuName }}</el-menu-item>
               </el-submenu>
+
               <el-menu-item
                 style="padding-left:53px;"
-                :index="subItem.index"
-                :key="subItem.index"
-              >{{ subItem.title }}</el-menu-item>
+                v-else
+                :index="subItem.menuURL"
+                :key="subItem.menuURL"
+              >{{ subItem.menuName }}</el-menu-item>
             </template>
           </el-submenu>
         </template>
+
         <template v-else>
-          <el-menu-item style="margin-bottom:15px;" :index="item.index" :key="item.index">
-            <i :class="item.icon"></i>
-            <span slot="title">{{ item.title }}</span>
+          <el-menu-item style="margin-bottom:15px;" :index="item.menuURL" :key="item.menuURL">
+            <!-- <i :class="item.icon"></i> -->
+            <span slot="menuName">{{ item.menuName }}</span>
           </el-menu-item>
         </template>
       </template>
@@ -50,135 +55,141 @@ export default {
   data() {
     return {
       collapse: true,
-      items: [
-        {
-          icon: "el-icon-office-building",
-          index: "/admin/dashboard",
-          title: "系统管理"
-        },
-        {
-            icon: 'el-icon-postcard',
-            index: '2',
-            title: '企业信息管理',
-            subs:[{
-                    index:'/admin/companyDetail',
-                    title:'企业信息详情'
-                },
-                {
-                    index:'/admin/supplyBussess',
-                    title:'企业名录'
-                },
-                ]
-        },
-        {
-          icon: "el-icon-edit-outline",
-          index: "3",
-          title: "任务管理",
-          subs: [
-            {
-              index: "/admin/newTask",
-              title: "新增任务"
-            },
-            {
-              index: "/admin/mainStaskShow",
-              title: "需求详细"
-            }
-          ]
-        },
-        {
-          icon: "el-icon-tickets",
-          index: "4",
-          title: "流通管理",
-          subs: [
-            {
-              index: "/admin/designTask",
-              title: "设计任务"
-            },
-            {
-              index: "/admin/circulationTask",
-              title: "流通任务"
-            }
-          ]
-        },
-        {
-          icon: "el-icon-pie-chart",
-          index: "charts",
-          title: "文件管理"
-        },
-        {
-          icon: "el-icon-s-custom",
-          index: "6",
-          title: "供应方管理",
-          subs: [
-            {
-              index: "/admin/designTaskq",
-              title: "设计任务"
-            },
-             {
-              index: "/admin/circulationTaskq",
-              title: "流通任务"
-            },
-          ]
-        },
-        {
-          icon: "el-icon-edit-outline",
-          index: "7",
-          title: "评价管理",
-          subs: [
-            {
-              index: "/admin/designTaskEvaluation",
-              title: "设计任务评价"
-            },
-            {
-              index: "/admin/circulationTaskEvaluation",
-              title: "流通任务评价"
-            },
-            {
-              index: "/admin/Enterprise_Evaluation/evaluate",
-              title: "企业评价"
-            }
-          ]
-        },
-        {
-          icon: "el-icon-s-custom",
-          index: "8",
-          title: "人员分配",
-          subs: [
-            {
-              index: "/admin/personnel_allotment/desinger",
-              title: "设计人员"
-            },
-            {
-              //icon: "el-icon-receiving",
-              index: "/admin/personnel_allotment/circulation",
-              title: "流通人员"
-            }
-          ]
-        },
-        {
-          icon: "el-icon-s-custom",
-          index: "9",
-          title: "管理员",
-          subs: [
-            {
-              index: "/admin/manager_business",
-              title: "企业管理"
-            },
-            {
-              index: "/admin/userManagement",
-              title: "用户管理"
-            }
-          ]
-        }
-      ],
-      created() {
-        // 通过 Event Bus 进行组件间通信，来折叠侧边栏
-        bus.$on("collapse", msg => {
-          this.collapse = msg;
-          bus.$emit("collapse-content", msg);
-        });
-      }
+      items: this.$store.state.menuList,
+      // items:[
+      //   {
+      //     icon: "el-icon-office-building",
+      //     menuURL: "/admin/dashboard",
+      //     menuName: "系统管理"
+      //   },
+      //   {
+      //       icon: 'el-icon-postcard',
+      //       menuURL: '2',
+      //       menuName: '企业信息管理',
+      //       children:[{
+      //               menuURL:'/admin/companyDetail',
+      //               menuName:'企业信息详情'
+      //           },
+      //           {
+      //               menuURL:'/admin/supplyBussess',
+      //               menuName:'企业名录'
+      //           },
+      //           ]
+      //   },
+      //   {
+      //     icon: "el-icon-edit-outline",
+      //     menuURL: "3",
+      //     menuName: "任务管理",
+      //     children: [
+      //       {
+      //         menuURL: "/admin/newTask",
+      //         menuName: "新增任务"
+      //       },
+      //       {
+      //         menuURL: "/admin/mainStaskShow",
+      //         menuName: "需求详细"
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     icon: "el-icon-tickets",
+      //     menuURL: "4",
+      //     menuName: "流通管理",
+      //     children: [
+      //       {
+      //         menuURL: "/admin/designTask",
+      //         menuName: "设计任务"
+      //       },
+      //       {
+      //         menuURL: "/admin/circulationTask",
+      //         menuName: "流通任务"
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     icon: "el-icon-pie-chart",
+      //     menuURL: "charts",
+      //     menuName: "文件管理"
+      //   },
+      //   {
+      //     icon: "el-icon-s-custom",
+      //     menuURL: "6",
+      //     menuName: "供应方管理",
+      //     children: [
+      //       {
+      //         menuURL: "/admin/designTaskq",
+      //         menuName: "设计任务"
+      //       },
+      //        {
+      //         menuURL: "/admin/circulationTaskq",
+      //         menuName: "流通任务"
+      //       },
+      //     ]
+      //   },
+      //   {
+      //     icon: "el-icon-edit-outline",
+      //     menuURL: "7",
+      //     menuName: "评价管理",
+      //     children: [
+      //       {
+      //         menuURL: "/admin/designTaskEvaluation",
+      //         menuName: "设计任务评价"
+      //       },
+      //       {
+      //         menuURL: "/admin/circulationTaskEvaluation",
+      //         menuName: "流通任务评价"
+      //       },
+      //       {
+      //         menuURL: "/admin/Enterprise_Evaluation/evaluate",
+      //         menuName: "企业评价"
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     icon: "el-icon-s-custom",
+      //     menuURL: "8",
+      //     menuName: "人员分配",
+      //     children: [
+      //       {
+      //         menuURL: "/admin/personnel_allotment/desinger",
+      //         menuName: "设计人员"
+      //       },
+      //       {
+      //         //icon: "el-icon-receiving",
+      //         menuURL: "/admin/personnel_allotment/circulation",
+      //         menuName: "流通人员"
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     icon: "el-icon-s-custom",
+      //     menuURL: "9",
+      //     menuName: "管理员",
+      //     children: [
+      //       {
+      //         menuURL: "/admin/manager_business",
+      //         menuName: "企业管理"
+      //       },
+      //       {
+      //         menuURL: "/admin/userManagement",
+      //         menuName: "用户管理"
+      //       }
+      //     ]
+      //   }
+      // ],
     };
+  },
+  // created() {
+  //   console.log(this.items);
+  // }
+  methods:{
+    redirects(path){
+      console.log("触发啦")
+      console.log(path)
+      var code=path;
+      this.$router.push({ path:code});
+                      // this.$router.push("/admin/dashboard");
+    }
   }
 };
 </script>

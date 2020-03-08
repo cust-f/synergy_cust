@@ -9,12 +9,9 @@
           <v-sidebar></v-sidebar>
         </el-aside>
         <el-main style="padding-top:10px;overflow:hidden;" >
-          <transition name="move" mode="out-in">
             <router-view></router-view>
-          </transition>
         </el-main>
       </el-container>
-      <el-backtop target=".content"></el-backtop>
     </div>
     <el-footer></el-footer>
   </el-container>
@@ -35,11 +32,6 @@ export default {
   components: {
     "header-synergy": headerSynergy,
     vSidebar
-  },
-  created() {
-    // bus.$on("collapse-content", msg => {
-    //   this.collapse = msg;
-    // });
   },
   methods: {}
 };

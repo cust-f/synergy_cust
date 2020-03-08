@@ -149,7 +149,7 @@
                     
                   </template>
                   </el-table-column>
-                  <el-table-column prop="taskState" label="状态" align="center" width="80">
+                  <el-table-column prop="assignmentState" label="状态" align="center" width="80">
                   </el-table-column>
                   
                   <el-table-column label="任务书" align="center" width="55" >
@@ -266,7 +266,8 @@
                     
                   </template>
                   </el-table-column>
-                  <el-table-column prop="assignmentState" label="状态" align="center" width="55">
+
+                  <el-table-column prop="taskCheck" label="状态" align="center" >
                   </el-table-column>
                   <el-table-column label="图纸" align="center" width="55">
                     <el-button type="text" size="small" class="box1">查看</el-button>
@@ -957,6 +958,7 @@ export default {
       radio: "1",
       selectname:"",
       taskState:"",
+      taskCheck:'',
     };
     
   },  filters: {
@@ -1226,6 +1228,7 @@ export default {
     },
    
     open2(row) {
+      if(row.assignmentState == "待审核"||row.assignmentState =="审核未通过"){
         this.$confirm("确定将任务计划书审核通过么？", "提示", {
         type: "warning"
       }).then(()=>{
@@ -1246,9 +1249,18 @@ export default {
         type: "success"
       });
       })
+      }
+      else {
+        this.$confirm("任务计划书已审核通过无需再次审核", "提示", {
+        type: "warning"
+      })
+      }
+        
    
     },
     tuzhishenhe(row){
+      this.taskCheck = row.taskCheck;
+      if(this.taskCheck == "企业验收不通过"||this.taskCheck == "供应商审核通过"){
         this.$confirm("确定将设计图纸审核通过么？", "提示", {
         type: "warning"
       }).then(()=>{
@@ -1269,17 +1281,49 @@ export default {
         type: "success"
       });
       })
+      }
+            else if(this.taskCheck =="企业验收通过"){ this.$confirm("企业已审核通过无需再审核", "提示", {
+        type: "warning"
+      })
+      }
+
+      else{ this.$confirm("待供应商将图纸审核完毕后，企业再行审核", "提示", {
+        type: "warning"
+      })
+      }
+
     },
      open(row) {
-        this.addVisible = true;
+       if(row.assignmentState == "待审核"||row.assignmentState =="审核未通过"){
+                 this.addVisible = true;
         this.taskId = row.taskId;
         console.log(this.taskId);
+       }
+      else {
+        this.$confirm("任务计划书已审和通过，无需再次审核", "提示", {
+        type: "warning"
+      })
+      }
+
         
       },
      tuzhiNo(row) {
+       if(this.taskCheck == "供应商审核通过"||this.taskCheck == "企业验收不通过"){
         this.addVisible1 = true;
         this.taskId = row.taskId;
         console.log(this.taskId);
+       }
+
+      else if(this.taskCheck == "待审核"||this.taskCheck == "供应商验收不通过"){ 
+                this.$confirm("等待供应商将图纸审核完毕后，企业再行审核", "提示", {
+        type: "warning"
+      })
+      }
+      else{
+        this.$confirm("企业已通过设计图纸，无法拒绝", "提示", {
+        type: "warning"
+      })
+      }
       },
       	handleCurrentChange(cpage) {
 

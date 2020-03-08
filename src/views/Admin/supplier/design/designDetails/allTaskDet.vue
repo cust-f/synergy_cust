@@ -4,16 +4,16 @@
       <el-main style="overflow:hidden">
         <el-page-header @back="goBack" content="需求详情"></el-page-header>
         <br />
-        <el-form ref="form" :model="form" label-width="110px">
+        <el-form ref="form" :model="formAllTaskDet" label-width="110px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求ID">
-                <el-input v-model="form.id" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.taskId" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求名称">
-                <el-input v-model="form.name" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.acceptCompanyId" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -21,36 +21,24 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="需求类型">
-                <el-input v-model="form.type" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.supplierName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="11">
-              <el-form-item label="需求时间">
-                <el-input v-model="form.endtime" :disabled="true"></el-input>
+             <el-col :span="11">
+              <el-form-item label="截止时间">
+                <el-input v-model="formAllTaskDet.deadline" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布需求企业">
-                <el-input v-model="form.company" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.companyName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="发布需求时间">
-                <el-input v-model="form.startTime" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="负责人员">
-                <el-input v-model="form.leader" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="负责人电话">
-                <el-input v-model="form.leaderTel" :disabled="true"></el-input>
+                <el-input v-bind:value="formAllTaskDet.beginTime | formatDate" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -58,7 +46,7 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="状态">
-                <el-input v-model="form.status" :disabled="true"></el-input>
+                <el-input v-model="formAllTaskDet.status" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -68,7 +56,7 @@
                 type="textarea"
                 :rows="3"
                 style="width:90%"
-                v-model="form.detail"
+                v-model="formAllTaskDet.taskDetail"
                 :disabled="true"
               ></el-input>
             </el-form-item>
@@ -80,51 +68,96 @@
   </div>
 </template>
 <script>
+import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 
 export default {
-  name: "planAuditDet",
+  name: "allTaskDet",
   data() {
     return {
       successful: false,
       dialogTableVisible: false,
       TableVisible: false,
-       from: {
-        name: "小汽车零件的装配",
-        endtime: "2019-10-17"
+      formAllTaskDet: {
+        taskId: "",
+        acceptCompanyId: "",
+        supplierName: "",
+        deadline: "",
+        
+        companyName: "",
+        beginTime: "",
+        userName: "",
+        taskState: "",
+        state:"",
+        taskDetail: ""
       },
-
-      form: {
-        id: "000101",
-        name: "小汽车零件的装配",
-        type: "零件装配制造",
-        endtime: "2019-10-17",
-        detail:
-          "协同设计和虚拟可视化仿真，从被提出起就成为计算机和信息科学领域研究的一个热点。早在二十世纪八十年代末，美国斯坦福大学联合Lockheed、EIT 及HP 公司开发的名为PACT 的项目，主要用于研究大规模、分布式并行工程系统。",
-
-        leader: "陈平安",
-        company: "长春奥普光电技术股份有限公司",
-        leaderTel: "18088675187",
-        designcompany: "杭机集团长春一机有限公司",
-        startTime: "2019-5-1",
-        status: "审核通过"
+      query: {
+        pageIndex: 1,
+        pageSize: 10
       },
-      formLabelWidth: "120px"
+      multipleSelection: [],
+      formLabelWidth: "120px",
+      taskId: "",
+      multipleSelection: [],
+      pageTotal: 0,
+      idx: -1,
+      id: -1
     };
   },
-   
+
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
+  },
+
+  created() {
+    this.getParams();
+    this.getData();
+  },
+
   methods: {
-    
+    //返回列表页
     goBack() {
       this.$router.push("/admin/designTaskq");
     },
+    //返回列表页
     goBackagain() {
       this.$router.push("/admin/designTaskq");
       this.dialogVisible = false;
     },
+    //成功弹窗
     success() {
       this.dialogTableVisible = false;
       this.successful = true;
       this.TableVisible = false;
+    },
+    //接受数据
+    getParams() {
+      var routerParams = this.$route.query.taskId;
+      this.taskId = routerParams;
+      console.log(routerParams);
+    },
+    //数据查找
+    getData() {
+      console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/SupplierdesigntaskController/designTaskDet",
+          data: data
+        })
+        .then(response => {
+          this.form = response.data.allData;
+          console.log(response.data.allData);
+        });
     }
   }
 };

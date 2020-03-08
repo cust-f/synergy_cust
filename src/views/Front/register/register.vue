@@ -9,7 +9,7 @@
     <el-button style="margin-top: 12px;" @click="next">{{active==3?'提交':'下一步'}}</el-button>
     <register-user v-show="active==1" ref="user" :account="account" @accountSave="accountSave"></register-user>
     <register-company v-show="active==2" ref="company" @companyFrom="companyFrom"></register-company>
-    <register-picture v-show="active==3" ref="picture" @checkPicture ="checkPicture" :enterpriseName="company.Company_Name"></register-picture>
+    <register-picture v-show="active==3" ref="picture" @checkPicture ="checkPicture" :enterpriseName="this.company.Company_Name"></register-picture>
   </div>
 </template>
 
@@ -34,7 +34,9 @@ export default {
         checkPass: "",
         userName: ""
       },
-      company: {}
+      company: {
+        Company_Name:""
+      }
     };
   },
   components: {
@@ -56,8 +58,10 @@ export default {
         this.first = false;
         this.$refs.company.upLoad();
       } else if (this.active == 3) {
+        console.log("第三步呀")
+                this.$refs.picture.submitUpload();
         if(this.check){
-        this.$refs.picture.submitUpload();
+          console.log("图片存在！！")
         var that = this;
         this.account["roleId"] = "1";
         this.company.product = this.company.product.toString();
