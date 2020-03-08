@@ -20,11 +20,17 @@
                 <el-input v-model="name"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="11">
+            <!-- <el-col :span="11">
               <el-form-item label="需求项目类别">
                 <el-input v-model="type"></el-input>
               </el-form-item>
+            </el-col> -->
+                      <el-col :span="11">
+              <el-form-item label="总负责人">
+                <el-input v-model="leader"></el-input>
+              </el-form-item>
             </el-col>
+
           </el-row>
 
           <el-row>
@@ -50,11 +56,25 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="11">
-              <el-form-item label="总负责人">
-                <el-input v-model="leader"></el-input>
-              </el-form-item>
-            </el-col>
+ 
+             <el-col :span="11" >
+                <el-form-item label="任务类别">
+                  <el-select
+                    v-model="type"
+                    placeholder="请选择需求任务类别"
+                    class="selectsupply"
+                    @change="mainStaskType"
+                    style = "width:100%;"
+                  >
+                    <el-option
+                      v-for="leibie in mainStaskType"
+                      :key="leibie.id"
+                      :label="leibie.industryName"
+                      :value="leibie.id"
+                    ></el-option>
+                  </el-select>      
+                </el-form-item>
+              </el-col>
           </el-row>
 
           <el-row>
@@ -148,11 +168,25 @@
 
             <el-row>
 
-                            <el-col :span="11">
-                <el-form-item label="任务种类">
-                  <el-input v-model="addList.TaskState1"></el-input>
+              <el-col :span="11" >
+                <el-form-item label="任务类型">
+                  <el-select
+                    v-model="addList.TaskState1"
+                    placeholder="请选择是或者否"
+                    class="selectsupply"
+                    @change="subStask"
+                    style = "width:50%;"
+                  >
+                    <el-option
+                      v-for="leibie in subStaskType"
+                      :key="leibie.id"
+                      :label="leibie.industryName"
+                      :value="leibie.id"
+                    ></el-option>
+                  </el-select>      
                 </el-form-item>
               </el-col>
+
 
               <el-col :span="11" >
                 <el-form-item label="任务类别">
@@ -314,8 +348,19 @@ export default {
       ], //供应商列表
       shifou: ["是", "否"],
       Task:["设计任务","流通任务"],
+
       selVal: "",
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
+      mainStaskType:[{
+        id:"",
+        industryName:"",
+        pId:""
+      }],
+      subStaskType:[{
+         id:"",
+        industryName:"",
+        pId:""
+      }],
       id: 0, //记录任务数
       //招标信息
       newTask: {
@@ -375,8 +420,28 @@ export default {
           TaskXiangXi: "",
     };
   },
+  created() {
+    this.getDate();
+  },
   methods: {
+    getDate(){
+      var that = this;
+      var data = Qs.stringify({
+          aaaa:'1111'
+      })
+      that
+        .axios({
+          method:"post",
+          url: "http://127.0.0.1:8082/SubstaskInformation/selectMainType",
+          data:data,
+        })
+        .then(response =>{
+         this.mainStaskType = response.data.allData;
+         console.log(response);
+       });
+    },
     tijiao(){
+      console.log(this.type)
       var that = this;
       var data = Qs.stringify({
         userName:'aaaa',
@@ -473,6 +538,20 @@ export default {
     //新增操作
     addData() {
             this.addVisible = true;
+            var that = this;
+      var data = Qs.stringify({
+          PId:this.type
+      })
+      that
+        .axios({
+          method:"post",
+          url: "http://127.0.0.1:8082/SubstaskInformation/selectSubType",
+          data:data,
+        })
+        .then(response =>{
+         this.subStaskType = response.data.allData;
+         console.log(response);
+       });
     },
 
     addDesignerButton() {
