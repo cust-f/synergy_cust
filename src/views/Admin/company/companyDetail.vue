@@ -178,7 +178,7 @@
              <el-row>
                 <el-col :span="12">
                     <el-form-item label="企业ID">
-                        <el-input v-model="form1.companyId" :disabled="true"></el-input>
+                        <el-input  v-model="form1.companyId" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
@@ -204,12 +204,12 @@
            <el-row>
                 <el-col :span="12">
                     <el-form-item label="企业所在省份">
-                        <el-input v-model="form1.province" ></el-input>
+                        <el-input  οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.province" ></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="12">
-                    <el-form-item label="企业所在县市">
-                        <el-input v-model="form1.city" ></el-input>
+                    <el-form-item  label="企业所在县市">
+                        <el-input  οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.city" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -222,7 +222,7 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item label="邮政编码">
-                        <el-input v-model="form1.postcode" ></el-input>
+                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.postcode" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -250,7 +250,7 @@
                 </el-col>
                  <el-col :span="12">
                     <el-form-item label="办公电话">
-                        <el-input v-model="form1.officeNumber" ></el-input>
+                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.officeNumber" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -258,12 +258,12 @@
             <el-row>
                 <el-col :span="12">
                     <el-form-item label="注册资产">
-                        <el-input v-model="form1.registeredCapital" ></el-input>
+                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.registeredCapital" ></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="12">
                     <el-form-item label="总资本">
-                        <el-input v-model="form1.totalAssets" ></el-input>
+                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.totalAssets" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -271,12 +271,12 @@
             <el-row>
                 <el-col :span="12">
                     <el-form-item label="固定资产">
-                        <el-input v-model="form1.fixedAssets" ></el-input>
+                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.fixedAssets" ></el-input>
                     </el-form-item>
                 </el-col>
                  <el-col :span="12">
                     <el-form-item label="流动资产">
-                        <el-input v-model="form1.currentAssets" ></el-input>
+                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.currentAssets" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -289,7 +289,7 @@
                 </el-col>
                  <el-col :span="12">
                     <el-form-item label="员工人数">
-                        <el-input v-model="form1.workerNumber" ></el-input>
+                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.workerNumber" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -302,11 +302,10 @@
                 </el-col>
                  <el-col :span="12">
                     <el-form-item label="银行账户">
-                        <el-input v-model="form1.bankNumber" ></el-input>
+                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.bankNumber" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
-
 
 
 
@@ -352,14 +351,14 @@ export default {
                    Address: '吉林省长春市卫星路8848号',
           postcode: '104300',
           foundingTime: '2015-9-10',
-          bRNumber:'S100934',
+          brNumber:'S100934',
           officeNumber:'17866625034',
           email:'34895611@163.com',
           bussessName:'李林甫',
           product:'微电子元器件制作',
           introduction:'少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。',
           cool:'17855555',
-          provice:'吉林省',
+          province:'吉林省',
           city:'长春市绿园区',
           registeredCapital:'8.5亿',
           totalAssets:'10亿',
@@ -369,22 +368,23 @@ export default {
           workerNumber:'500人',
           deposit_Bank:'中国银行',
           bankNumber:'25206589260388885222201',    
+        //  @input.native="changeCode"
         },
         form1: {
             businessName:'',
           companyID:'',
           companyName: '',
-                   Address: '',
+            address: '',
           postcode: '',
           foundingTime: '',
-          bRNumber:'',
+          brNumber:'',
           officeNumber:'',
           email:'',
           bussessName:'',
           product:'',
           introduction:'',
           cool:'',
-          provice:'',
+          province:'',
           city:'',
           registeredCapital:'',
           totalAssets:'',
@@ -398,7 +398,7 @@ export default {
         companyId:'',
         companyName:'',
         foundingTime: '',
-        bRNumber:'',
+        brNumber:'',
         addVisible: false,
         imagesbox:[
             {id:0,idView:require("../company/1.png")},
@@ -423,6 +423,7 @@ export default {
                     method:"post",
                     url:'http://127.0.0.1:8082/companyDetail/getCompanyForm',
                     data:data,
+                               
                 })
                 .then(response =>{ 
                     console.log(response);
@@ -443,10 +444,30 @@ export default {
       console.log(this.form1)
        var that = this;
       var data = Qs.stringify({
-          company:JSON.stringify(this.form1)
+          companyId:this.form1.companyId,
+          companyName: this.form1.companyName,
+            address: this.form1.address,
+          postcode: this.form1.postcode,
+          FT: this.form1.foundingTime,
+          brNumber:this.form1.brNumber,
+          officeNumber:this.form1.officeNumber,
+          email:this.form1.email,
+          businessName:this.form1.businessName,
+          product:this.form1.product,
+          introduction:this.form1.introduction,
+          cool:this.form1.cool,
+          province:this.form1.province,
+          city:this.form1.city,
+          registeredCapital:this.form1.registeredCapital,
+          totalAssets:this.form1.totalAssets,
+          currentAssets:this.form1.currentAssets,
+          fixedAssets:this.form1.fixedAssets,
+          legalPerson:this.form1.legalPerson,
+          workerNumber:this.form1.workerNumber,
+          deposit_Bank:this.form1.deposit_Bank,
+          bankNumber:this.form1.bankNumber,    
       });
-      console.log(data);
-      console.log("123木头人")
+
 
       that
         .axios({
@@ -461,6 +482,42 @@ export default {
     this.addList = {};
     this.addVisible = false;
     },
+
+    changeCode() {
+  this.$nextTick(() => {
+    if(this.form1.province !== null){
+      this.form1.province = this.form1.province.replace(/[^\d]/g,'')
+    }
+    if(this.form1.city !== null){
+      this.form1.city = this.form1.city.replace(/[^\d]/g,'')
+    }
+        if(this.form1.postcode !== null){
+      this.form1.postcode = this.form1.postcode.replace(/[^\d]/g,'')
+    }
+        if(this.form1.officeNumber !== null){
+      this.form1.officeNumber = this.form1.officeNumber.replace(/[^\d]/g,'')
+    }
+        if(this.form1.registeredCapital !== null){
+      this.form1.registeredCapital = this.form1.registeredCapital.replace(/[^\d]/g,'')
+    }
+        if(this.form1.totalAssets !== null){
+      this.form1.totalAssets = this.form1.totalAssets.replace(/[^\d]/g,'')
+    }
+        if(this.form1.fixedAssets !== null){
+      this.form1.fixedAssets = this.form1.fixedAssets.replace(/[^\d]/g,'')
+    }
+        if(this.form1.currentAssets !== null){
+      this.form1.currentAssets = this.form1.currentAssets.replace(/[^\d]/g,'')
+    }
+        if(this.form1.workerNumber !== null){
+      this.form1.workerNumber = this.form1.workerNumber.replace(/[^\d]/g,'')
+    }
+        if(this.form1.bankNumber !== null){
+      this.form1.bankNumber = this.form1.bankNumber.replace(/[^\d]/g,'')
+    }
+  })
+},
+
 
 
 
