@@ -29,9 +29,9 @@
         <template slot-scope="scope">
           <el-button @click="pendingResTaskDet(scope.row) " type="text" size="small">查看详情</el-button>
 
-          <el-button @click="planbook=true" type="text" size="small">接收</el-button>
+          <el-button @click="accept(scope.row)" type="text" size="small">接收</el-button>
 
-          <el-button @click="disacceptf=true" type="text" size="small">不接收</el-button>
+          <el-button @click="noAccept(scope.row)" type="text" size="small">不接收</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -165,11 +165,41 @@ export default {
         });
     },
 
+    accept(row) {
+      console.log(row.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId,
+        taskState: "1"
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        data: data
+      });
+      planbook=true;
+    },
     // 全部需求详情页面跳转
     // jumpResDet() {
     //   this.$router.push("/admin/pendingResTaskDet");
     // },
 
+    //不接受
+    noAccept(row){
+      console.log(row.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId,
+        taskState:"7"
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        data: data
+      });
+      this.reload();
+    },
+    //详情跳转
     pendingResTaskDet(row) {
       console.log(row.taskId);
       this.$router.push({

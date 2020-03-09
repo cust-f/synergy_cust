@@ -49,7 +49,7 @@
 
 
 <script>
-import Qs from "qs";
+ import Qs from "qs";
 export default {
   name: "finishTask",
   data() {

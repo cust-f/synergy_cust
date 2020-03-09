@@ -30,8 +30,8 @@
         <template slot-scope="scope">
           <el-button @click="pendingAuditDet(scope.row) " type="text" size="small">查看详情</el-button>
           <el-button type="text" size="small">查看成果</el-button>
-          <el-button type="text" size="small">审核通过</el-button>
-          <el-button type="text" size="small">审核不通过</el-button>
+          <el-button @click="changePassStates(scope.row)" type="text" size="small">审核通过</el-button>
+          <el-button @click="changeNoPassStates(scope.row)" type="text" size="small">审核不通过</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -102,36 +102,39 @@ export default {
         }
       });
     },
-
-    saveAdd() {
+    //审核通过
+    changePassStates(row){
+      console.log(row.taskId);
       var that = this;
       var data = Qs.stringify({
-        userName: "1",
-        taskName: this.addList.dividename,
-        publishTime: this.addList.fabuTime,
-        endLine: this.addList.endLine,
-        taskCategaty: this.addList.TaskState,
-        yaoqing: 1,
-        taskType: 0,
-        mainTaskName: this.name,
-        taskXiangxi: this.addList.TaskXiangXi,
-        mainTaskID: this.mainStaskID
+        taskId: row.taskId,
+        taskState:"8"
       });
-      console.log(data);
-      console.log("123木头人");
-
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
+        url: "http://127.0.0.1:8082/supplier/changeStatue",
         data: data
       });
-
-      this.$message.success("提交成功");
-      this.tableData.push(this.addList);
-      this.addList = {};
-      this.addVisible = false;
+      this.$message.success("审核通过");
+      this.reload();
     },
-
+    //审核不通过
+    changeNoPassStates(row){
+      console.log(row.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId,
+        taskState:"4"
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        data: data
+      });
+      this.$message.success("审核不通过");
+      this.reload();
+    },
+    //获取数据
     getData() {
       console.log(this.userName);
       var that = this;
