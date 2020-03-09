@@ -24,13 +24,12 @@
               <el-form-item label="需求项目类别">
                 <el-input v-model="type"></el-input>
               </el-form-item>
-            </el-col> -->
-                      <el-col :span="11">
+            </el-col>-->
+            <el-col :span="11">
               <el-form-item label="总负责人">
                 <el-input v-model="leader"></el-input>
               </el-form-item>
             </el-col>
-
           </el-row>
 
           <el-row>
@@ -56,25 +55,24 @@
             </el-col>
           </el-row>
           <el-row>
- 
-             <el-col :span="11" >
-                <el-form-item label="任务类别">
-                  <el-select
-                    v-model="type"
-                    placeholder="请选择需求任务类别"
-                    class="selectsupply"
-                    @change="mainStaskType"
-                    style = "width:100%;"
-                  >
-                    <el-option
-                      v-for="leibie in mainStaskType"
-                      :key="leibie.id"
-                      :label="leibie.industryName"
-                      :value="leibie.id"
-                    ></el-option>
-                  </el-select>      
-                </el-form-item>
-              </el-col>
+            <el-col :span="11">
+              <el-form-item label="任务类别">
+                <el-select
+                  v-model="type"
+                  placeholder="请选择需求任务类别"
+                  class="selectsupply"
+                  @change="mainStaskType"
+                  style="width:100%;"
+                >
+                  <el-option
+                    v-for="leibie in mainStaskType"
+                    :key="leibie.id"
+                    :label="leibie.industryName"
+                    :value="leibie.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
           </el-row>
 
           <el-row>
@@ -97,7 +95,12 @@
         <br />
         <div class="container">
           <div class="handle-box">
-            <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
+            <el-button
+              :disabled="kongzhi"
+              type="primary"
+              class="handle-del mr10"
+              @click="addData"
+            >新增</el-button>
           </div>
           <el-table
             :data="tableData"
@@ -115,7 +118,7 @@
               <template slot-scope>
                 <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
               </template>
-            </el-table-column> -->
+            </el-table-column>-->
           </el-table>
         </div>
 
@@ -165,17 +168,15 @@
               </el-col>
             </el-row>
 
-
             <el-row>
-
-              <el-col :span="11" >
+              <el-col :span="11">
                 <el-form-item label="任务类型">
                   <el-select
-                    v-model="addList.TaskState1"
+                    v-model="addList.substasktype"
                     placeholder="请选择是或者否"
                     class="selectsupply"
                     @change="subStask"
-                    style = "width:50%;"
+                    style="width:50%;"
                   >
                     <el-option
                       v-for="leibie in subStaskType"
@@ -183,43 +184,37 @@
                       :label="leibie.industryName"
                       :value="leibie.id"
                     ></el-option>
-                  </el-select>      
+                  </el-select>
                 </el-form-item>
               </el-col>
 
-
-              <el-col :span="11" >
+              <el-col :span="11">
                 <el-form-item label="任务类别">
                   <el-select
-                    v-model="liebieList.supplyCompany"
+                    v-model="addList.subStaskType"
                     placeholder="请选择是或者否"
                     class="selectsupply"
                     @change="liebieShu"
-                    style = "width:50%;"
+                    style="width:50%;"
                   >
                     <el-option
                       v-for="leibie in Task"
-                      :key="leibie"
-                      :label="leibie"
-                      :value="leibie"
+                      :key="leibie.id"
+                      :label="leibie.label"
+                      :value="leibie.id"
                     ></el-option>
-                  </el-select>      
+                  </el-select>
                 </el-form-item>
               </el-col>
-
-
             </el-row>
 
-            
             <el-row>
-
               <el-col :span="22">
                 <el-form-item label="分解任务详细">
                   <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
-
 
             <el-row>
               <el-col :span="8">
@@ -233,9 +228,9 @@
                     <el-option
                       width="180"
                       v-for="coo in shifou"
-                      :key="coo"
-                      :label="coo"
-                      :value="coo"
+                      :key="coo.id"
+                      :label="coo.label"
+                      :value="coo.id"
                     ></el-option>
                   </el-select>
                 </el-form-item>
@@ -320,25 +315,26 @@
 </template>
 
 <script>
-import Qs from "qs"
+import Qs from "qs";
 
 export default {
   name: "newTask",
 
   data() {
     return {
-      
       query: {
         pageIndex: 1,
         pageSize: 10
       },
-      mainStaskID:'',
+      zzzz: "null",
+      mainStaskID: "null",
       visiblehexin: "none",
       shenqing: "none",
       multipleSelection: [], //批量删除数组
       editVisible: false,
       addVisible: false,
       addDesigner: false,
+      kongzhi: true,
       personnel: ["许知远", "王添", "白泽"], //总负责人
       statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
       supplyCompanies: [
@@ -346,21 +342,40 @@ export default {
         "起重集团有限公司",
         "长光电子"
       ], //供应商列表
-      shifou: ["是", "否"],
-      Task:["设计任务","流通任务"],
+      shifou: [
+        {
+          id: "0",
+          label: "是"
+        },
+        { id: "1", label: "否" }
+      ],
+      Task: [
+        {
+          id: "0",
+          label: "设计任务"
+        },
+        {
+          id: "1",
+          label: "流通任务"
+        }
+      ],
 
       selVal: "",
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
-      mainStaskType:[{
-        id:"",
-        industryName:"",
-        pId:""
-      }],
-      subStaskType:[{
-         id:"",
-        industryName:"",
-        pId:""
-      }],
+      mainStaskType: [
+        {
+          id: "",
+          industryName: "",
+          pId: ""
+        }
+      ],
+      subStaskType: [
+        {
+          id: "",
+          industryName: "",
+          pId: ""
+        }
+      ],
       id: 0, //记录任务数
       //招标信息
       newTask: {
@@ -376,11 +391,11 @@ export default {
         {
           dividename: "请填写",
           TaskState: "请填写",
-          fabuTime : "请填写",
-          endLine : "请填写"
+          fabuTime: "请填写",
+          endLine: "请填写"
         }
       ],
-          
+
       addList: [
         {
           dividename: null,
@@ -389,6 +404,7 @@ export default {
           TaskState: "",
           TaskState1: "",
           TaskXiangXi: "",
+          subStaskType: ""
         }
       ],
       addList1: [
@@ -401,78 +417,84 @@ export default {
           supplyDesigner: ""
         }
       ],
-      cooList: {supplyCompany:''},
-      liebieList:{supplyCompany:''},
+      cooList: { supplyCompany: "" },
+      liebieList: { supplyCompany: "" },
       form: {},
-      name:'',
-      type:'',
-      publishdate:'',
-      deaddate:'',
-      leader:'',
-      xiangxi:'',
+      name: "",
+      type: "",
+      publishdate: "",
+      deaddate: "",
+      leader: "",
+      xiangxi: "",
 
       //这是新增模态框
-          dividename: "",
-          fabuTime: "",
-          endLine: "",
-          TaskState: "",
-          TaskState1: "",
-          TaskXiangXi: "",
+      dividename: "",
+      fabuTime: "",
+      endLine: "",
+      TaskState: "",
+      TaskState1: "",
+      TaskXiangXi: ""
     };
   },
   created() {
     this.getDate();
   },
   methods: {
-    getDate(){
+    getDate() {
       var that = this;
       var data = Qs.stringify({
-          aaaa:'1111'
-      })
+        aaaa: "1111"
+      });
       that
         .axios({
-          method:"post",
+          method: "post",
           url: "http://127.0.0.1:8082/SubstaskInformation/selectMainType",
-          data:data,
+          data: data
         })
-        .then(response =>{
-         this.mainStaskType = response.data.allData;
-         console.log(response);
-       });
+        .then(response => {
+          this.mainStaskType = response.data.allData;
+          console.log(response);
+        });
     },
-    tijiao(){
-      console.log(this.type)
+    tijiao() {
+      console.log(this.type);
       var that = this;
       var data = Qs.stringify({
-        userName:'aaaa',
-        name:this.name,
-        type:this.type,
-        publishdate:this.publishdate,
-        deaddate:this.deaddate,
-        leader:this.leader,
-        xiangxi:this.xiangxi
+        userName: "aaaa",
+        name: this.name,
+        type: this.type,
+        publishdate: this.publishdate,
+        deaddate: this.deaddate,
+        leader: this.leader,
+        xiangxi: this.xiangxi
       });
-      console.log(data)
-      that  
+      console.log(data);
+      that
         .axios({
-          method:'post',
-          url: "http://127.0.0.1:8082/MainTaskInformation/addMainTaskInformation",
-          data:data,
-          
-       })
-       .then(response =>{
-         this.mainStaskID = response.data.allData;
-         console.log(response)
-       });
-               this.$message.success("提交成功");
-  
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/MainTaskInformation/addMainTaskInformation",
+          data: data
+        })
+        .then(response => {
+          this.zzzz = response.data.allData;
+          if (this.zzzz == "null") {
+            console.log(this.zzzz);
+
+            this.$message.success("提交失败");
+          } else {
+            console.log(this.zzzz);
+
+            this.$message.success("提交成功");
+            this.kongzhi = false;
+          }
+        });
     },
     invitate(coo) {
       console.log(coo);
-      console.log(coo);
 
-      if (coo == "是") {
-        console.log(coo);
+      if (coo == 0) {
+        //console.log(coo);
         this.visiblehexin = "inline";
         this.shenqing = "none";
       } else {
@@ -487,24 +509,23 @@ export default {
       var data = Qs.stringify({
         id: this.tableData.id,
         taskName: this.tableData.taskName
-      }); 
+      });
       that
-      .axios({
-        methods: "post",
-        url: "/api/user/login",
-        data: data
+        .axios({
+          methods: "post",
+          url: "/api/user/login",
+          data: data
         })
-        .then(response =>{
+        .then(response => {
           console.log(response);
-          this.$store.commit("SET_TOKEN" , true);
-          this.$store.commit("GET_USER" , this.id);
-          this.$store.setItem("ms_id" , this.tableData.id);
+          this.$store.commit("SET_TOKEN", true);
+          this.$store.commit("GET_USER", this.id);
+          this.$store.setItem("ms_id", this.tableData.id);
           this.$message({
             type: "success",
             message: this.id
-          })
-        })
-
+          });
+        });
     },
 
     // 删除操作
@@ -537,21 +558,21 @@ export default {
     },
     //新增操作
     addData() {
-            this.addVisible = true;
-            var that = this;
+      this.addVisible = true;
+      var that = this;
       var data = Qs.stringify({
-          PId:this.type
-      })
+        PId: this.type
+      });
       that
         .axios({
-          method:"post",
+          method: "post",
           url: "http://127.0.0.1:8082/SubstaskInformation/selectSubType",
-          data:data,
+          data: data
         })
-        .then(response =>{
-         this.subStaskType = response.data.allData;
-         console.log(response);
-       });
+        .then(response => {
+          this.subStaskType = response.data.allData;
+          console.log(response);
+        });
     },
 
     addDesignerButton() {
@@ -559,38 +580,34 @@ export default {
     },
     //保存新增
     saveAdd11() {
-
       //console.log(this.TaskXiangXi)
-       var that = this;
+      var that = this;
       var data = Qs.stringify({
-        userName:'aaaa',
-        taskName : this.addList.dividename,
+        userName: "aaaa",
+        taskName: this.addList.dividename,
         // taskState : this.addList.TaskState,
-        publishTime : this.addList.fabuTime,
-        endLine : this.addList.endLine,
-        taskCategaty :  this.addList.TaskState,
-        yaoqing : 1,
-        taskType : 0,
-        mainTaskName : this.name,
-        taskXiangxi : this.addList.TaskXiangXi,
-        mainTaskID : this.mainStaskID
+        publishTime: this.addList.fabuTime,
+        endLine: this.addList.endLine,
+        taskCategaty: this.addList.TaskState,
+        yaoqing: this.cooList.supplyCompany,
+        taskType: this.addList.subStaskType,
+        mainTaskName: this.name,
+        taskXiangxi: this.addList.TaskXiangXi,
+        mainTaskID: this.mainStaskID
       });
       console.log(data);
-      console.log("123木头人")
+      console.log("123木头人");
 
-      that
-        .axios({
-          method:"post",
-          url:'http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation',
-          data:data,
-        })
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
+        data: data
+      });
 
-
-
-    this.$message.success("提交成功");
-    this.tableData.push(this.addList);
-    this.addList = {};
-    this.addVisible = false;
+      this.$message.success("提交成功");
+      this.tableData.push(this.addList);
+      this.addList = {};
+      this.addVisible = false;
     },
     // 编辑操作
     handleEdit(index, row) {
@@ -609,7 +626,7 @@ export default {
 </script>
 
 <style>
-.el-select .el-input__inner .selectsupply{
+.el-select .el-input__inner .selectsupply {
   width: 200px;
 }
 .newTask textarea {
