@@ -111,7 +111,7 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column prop="dividename" label="任务名称"></el-table-column>
-            <el-table-column prop="TaskState" label="任务类别"></el-table-column>
+            <el-table-column prop="substasktype" label="任务类别"></el-table-column>
             <el-table-column prop="fabuTime" label="开始时间"></el-table-column>
             <el-table-column prop="endLine" label="结束时间"></el-table-column>
             <!-- <el-table-column label="操作" align="center" width="180">
@@ -137,7 +137,7 @@
 
               <el-col :span="11">
                 <el-form-item label="任务设计状态">
-                  <el-input v-model="addList.TaskState"></el-input>
+                  <el-input v-model="addList.TaskState" placeholder="已存在默认值无需填写" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -172,8 +172,8 @@
               <el-col :span="11">
                 <el-form-item label="任务类型">
                   <el-select
-                    v-model="addList.substasktype"
-                    placeholder="请选择是或者否"
+                    v-model="addList.substasktype1"
+                    placeholder="请选择"
                     class="selectsupply"
                     @change="subStask"
                     style="width:50%;"
@@ -191,7 +191,7 @@
               <el-col :span="11">
                 <el-form-item label="任务类别">
                   <el-select
-                    v-model="addList.subStaskType"
+                    v-model="addList.substasktype"
                     placeholder="请选择是或者否"
                     class="selectsupply"
                     @change="liebieShu"
@@ -390,7 +390,7 @@ export default {
       tableData: [
         {
           dividename: "请填写",
-          TaskState: "请填写",
+          substasktype: "请填写",
           fabuTime: "请填写",
           endLine: "请填写"
         }
@@ -404,7 +404,8 @@ export default {
           TaskState: "",
           TaskState1: "",
           TaskXiangXi: "",
-          subStaskType: ""
+          substasktype: "",
+          substasktype1:'',
         }
       ],
       addList1: [
@@ -477,19 +478,28 @@ export default {
           data: data
         })
         .then(response => {
+          this.mainStaskID = response.data.allData;
           this.zzzz = response.data.allData;
-          if (this.zzzz == "null") {
+          if (this.zzzz != "null") {
             console.log(this.zzzz);
-
-            this.$message.success("提交失败");
-          } else {
-            console.log(this.zzzz);
-
             this.$message.success("提交成功");
             this.kongzhi = false;
+          } 
+
+
+        })
+        .catch(error=> {
+          console.log(error)
+          if(error!=null){
+              this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+              type: "warning"
+            });
           }
-        });
+        })
+
+        
     },
+
     invitate(coo) {
       console.log(coo);
 
@@ -588,15 +598,15 @@ export default {
         // taskState : this.addList.TaskState,
         publishTime: this.addList.fabuTime,
         endLine: this.addList.endLine,
-        taskCategaty: this.addList.TaskState,
+        taskCategaty: this.addList.substasktype1,
         yaoqing: this.cooList.supplyCompany,
-        taskType: this.addList.subStaskType,
+        taskType: this.addList.substasktype,
         mainTaskName: this.name,
         taskXiangxi: this.addList.TaskXiangXi,
         mainTaskID: this.mainStaskID
       });
       console.log(data);
-      console.log("123木头人");
+      console.log(this.addList.substasktype);
 
       that.axios({
         method: "post",

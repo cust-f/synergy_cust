@@ -157,7 +157,7 @@
               </span>
             </el-dialog>
 
-                  <!-- 新增弹出框 -->
+             <!-- 新增弹出框 -->
         <el-dialog title="新增" :visible.sync="addVisible" width="50%">
           <el-row>
             <el-col :span="8"></el-col>
@@ -172,7 +172,7 @@
 
               <el-col :span="11">
                 <el-form-item label="任务设计状态">
-                  <el-input v-model="addList.taskType"></el-input>
+                  <el-input v-model="addList.TaskState" placeholder="已存在默认值无需填写" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -203,47 +203,53 @@
               </el-col>
             </el-row>
 
-
             <el-row>
-
-                            <el-col :span="11">
-                <el-form-item label="任务种类">
-                  <el-input v-model="addList.TaskState1"></el-input>
+              <el-col :span="11">
+                <el-form-item label="任务类型">
+                  <el-select
+                    v-model="addList.substasktype1"
+                    placeholder="请选择"
+                    class="selectsupply"
+                    @change="subStask"
+                    style="width:50%;"
+                  >
+                    <el-option
+                      v-for="leibie in subStaskType"
+                      :key="leibie.id"
+                      :label="leibie.industryName"
+                      :value="leibie.id"
+                    ></el-option>
+                  </el-select>
                 </el-form-item>
               </el-col>
 
-              <el-col :span="11" >
+              <el-col :span="11">
                 <el-form-item label="任务类别">
                   <el-select
-                    v-model="liebieList.supplyCompany"
+                    v-model="addList.taskType"
                     placeholder="请选择是或者否"
                     class="selectsupply"
                     @change="liebieShu"
-                    style = "width:50%;"
+                    style="width:50%;"
                   >
                     <el-option
                       v-for="leibie in Task"
-                      :key="leibie"
-                      :label="leibie"
-                      :value="leibie"
+                      :key="leibie.id"
+                      :label="leibie.label"
+                      :value="leibie.id"
                     ></el-option>
-                  </el-select>      
+                  </el-select>
                 </el-form-item>
               </el-col>
-
-
             </el-row>
 
-            
             <el-row>
-
               <el-col :span="22">
                 <el-form-item label="分解任务详细">
                   <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
-
 
             <el-row>
               <el-col :span="8">
@@ -257,15 +263,15 @@
                     <el-option
                       width="180"
                       v-for="coo in shifou"
-                      :key="coo"
-                      :label="coo"
-                      :value="coo"
+                      :key="coo.id"
+                      :label="coo.label"
+                      :value="coo.id"
                     ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
 
-              <el-col :span="7">
+              <el-col :span="8">
                 <el-form-item label="核心供应商" :style="{display: visiblehexin}">
                   <el-select
                     v-model="addList.supplyCompany"
@@ -284,8 +290,7 @@
                 </el-form-item>
               </el-col>
 
-              &nbsp;&nbsp;&nbsp;
-              <el-col :span="7">
+              <el-col :span="8">
                 <el-input
                   placeholder="等待供应方申请"
                   v-model="input"
@@ -300,6 +305,7 @@
             <el-button type="primary" @click="saveAdd11">确 定</el-button>
           </span>
         </el-dialog>
+
           </div>
         </el-main>
       </el-container>
@@ -320,6 +326,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      type:"",//主任务类型
         personnel: ["许知远", "王添", "白泽"], //总负责人
       statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
       supplyCompanies: [
@@ -327,7 +334,6 @@ export default {
         "起重集团有限公司",
         "长光电子"
       ], //供应商列表
-      shifou: ["是", "否"],
       Task:["设计任务","流通任务"],
       selVal: "",
       visiblehexin: "none",
@@ -355,18 +361,42 @@ export default {
           deadline:""
         }
       ],
+            subStaskType: [
+        {
+          id: "",
+          industryName: "",
+          pId: ""
+        }
+      ],
+            Task: [
+        {
+          id: "0",
+          label: "设计任务"
+        },
+        {
+          id: "1",
+          label: "流通任务"
+        }
+      ],
           addList: [
         {
-          taskName: null,
-          beginTime:"",
-          taskType:"",
-          deadline:"",
-          fabuTime: "",
-          endLine: "",
+           taskName: null,
+          beginTime: null,
+          deadline: "",
           TaskState: "",
           TaskState1: "",
           TaskXiangXi: "",
+          taskType:"",
+          substasktype: "",
+          substasktype1:'',
         }
+      ],
+                shifou: [
+        {
+          id: "0",
+          label: "是"
+        },
+        { id: "1", label: "否" }
       ],
       multipleSelection: [],
       editVisible: false,
@@ -403,47 +433,41 @@ export default {
   methods: {
         //保存新增
     saveAdd11() {
-
-      //console.log(this.TaskXiangXi)
-       var that = this;
+//console.log(this.TaskXiangXi)
+      var that = this;
       var data = Qs.stringify({
-        userName:'aaaa',
-        taskName : this.addList.taskName,
+        userName: "aaaa",
+        taskName: this.addList.taskName,
         // taskState : this.addList.TaskState,
-        publishTime : this.addList.beginTime,
-        endLine : this.addList.deadline,
-        taskCategaty :  this.addList.taskType,
-        yaoqing : 1,
-        taskType : 0,
-        mainTaskName : this.name,
-        taskXiangxi : this.addList.TaskXiangXi,
-        mainTaskID : this.mainStaskID
+        publishTime: this.addList.beginTime,
+        endLine: this.addList.deadline,
+        taskCategaty: this.addList.substasktype1,
+        yaoqing: this.cooList.supplyCompany,
+        taskType: this.addList.taskType,
+        mainTaskName: this.name,
+        taskXiangxi: this.addList.TaskXiangXi,
+        mainTaskID: this.mainStaskID
       });
       console.log(data);
-      console.log("123木头人")
+      console.log(this.addList.substasktype);
 
-      that
-        .axios({
-          method:"post",
-          url:'http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation',
-          data:data,
-        })
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
+        data: data
+      });
 
-
-
-    this.$message.success("提交成功");
-    this.tableData.push(this.addList);
-    this.addList = {};
-    this.addVisible = false;
+      this.$message.success("提交成功");
+      this.tableData.push(this.addList);
+      this.addList = {};
+      this.addVisible = false;
     },
 
+invitate(coo) {
+      console.log(coo);
 
-
-    invitate(coo) {
-      
-
-      if (coo == "是") {
-        console.log(coo);
+      if (coo == 0) {
+        //console.log(coo);
         this.visiblehexin = "inline";
         this.shenqing = "none";
       } else {
@@ -452,6 +476,8 @@ export default {
         this.visiblehexin = "none";
       }
     },
+
+   
     /*
      *转跳对应任务信息页面
      */
@@ -482,7 +508,9 @@ export default {
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
           this.tableData = response.data.allData.b;
+          this.type = response.data.allData.a[0].industry_Type
           console.log(response.data.allData);
+          console.log( this.type)
         });
     },
     // 触发搜索按钮
@@ -547,6 +575,20 @@ export default {
     //新增操作
     addData() {
       this.addVisible = true;
+      var that = this;
+      var data = Qs.stringify({
+        PId: this.type
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/SubstaskInformation/selectSubType",
+          data: data
+        })
+        .then(response => {
+          this.subStaskType = response.data.allData;
+          console.log(response);
+        });
     },
     //保存新增
     saveAdd() {
