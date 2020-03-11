@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+      :data="tableData"
       border
       class="table"
       ref="multipleTable"
@@ -15,7 +15,7 @@
     >
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" label="需求名称"></el-table-column>
      
       <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
@@ -65,7 +65,17 @@ export default {
       formLabelWidth: "120px",
       activeName: "first",
       tableData: [
-      ],
+       { 
+        taskId:"",
+        taskName:"",
+        supplierName:"",
+        publishTask:"",
+        userName:"",
+        supplierName:"",
+        taskCheck:"",
+        deadline:"",
+       }
+       ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -97,7 +107,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa"
+        userName: "1"
       });
 
       console.log(data);

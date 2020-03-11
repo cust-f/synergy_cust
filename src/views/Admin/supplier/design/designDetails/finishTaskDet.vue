@@ -112,7 +112,7 @@ export default {
   },
   created() {
     this.getParams();
-    //this.getData();
+    this.getData();
   },
 
   methods: {
@@ -132,6 +132,8 @@ export default {
       this.dialogTableVisibleNo = false;
     },
     getParams() {
+      // var shishi = "123";
+      // console.log(shishi);
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
       form.taskId = this.taskId;
@@ -150,7 +152,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/SupplierdesigntaskController/designTaskDet",
+            "http://127.0.0.1:8082/supplier/designTaskDet",
           data: data
         })
         .then(response => {
