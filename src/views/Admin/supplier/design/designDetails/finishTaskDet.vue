@@ -107,7 +107,7 @@ export default {
         taskDetail: ""
       },
       formLabelWidth: "120px",
-      taskId: ""
+      taskId:this.$store.state.taskId1
     };
   },
   created() {
@@ -134,10 +134,11 @@ export default {
     getParams() {
       // var shishi = "123";
       // console.log(shishi);
-      var routerParams = this.$route.query.taskId;
-      this.taskId = routerParams;
+      // var routerParams = this.$route.params.taskId;
+      // this.taskId = routerParams;
       form.taskId = this.taskId;
-      console.log(routerParams);
+      console.log(this.taskId);
+      console.log(this.$store.state.taskId1);
       console.log(form.taskId);
     },
 

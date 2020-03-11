@@ -7,7 +7,8 @@ const state = {
     user: window.sessionStorage.getItem('user'),
     token: window.sessionStorage.getItem('token'),
     menuList: "",
-    identity: ""
+    identity: "",
+    taskId1:""
 }
 
 const mutations = {
@@ -35,7 +36,11 @@ const mutations = {
     //标记身份
     SET_IDENTITY: (state, data) => {
         state.identity = data;
-    }
+    },
+    //储存任务ID
+    SET_TASKID: (state, data) => {
+        state.taskId1 = data
+    },
 }
 const actions = {
 

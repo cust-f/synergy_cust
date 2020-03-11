@@ -63,13 +63,13 @@ export default {
       activeName: "first",
       tableData:[
         {
-          taskId: "",
-          taskName: "",
-          taskType:"",
-          companyName: "",
-          userId: "",
-          supplierName:"",
-          deadline: ""
+          taskId: "123",
+          taskName: "123",
+          taskType:"123",
+          companyName: "123",
+          userId: "123",
+          supplierName:"123",
+          deadline: "123"
         }
       ],
       multipleSelection: [],
@@ -83,7 +83,7 @@ export default {
     };
   },
   created() {
-    this.getData();
+    // this.getData();
   },
   methods: {
     getData() {
@@ -111,13 +111,11 @@ export default {
     //   this.$router.push("/admin/finishTaskDet");
     // },
     finishTaskDet(row) {
+      this.$store.commit("SET_TASKID",row.taskId);
       //console.log(row.taskId);
       this.$router.push({
         path: "/admin/finishTaskDet",
         // taskId: row.taskId,
-        query: {
-          taskId: row.taskId,
-        }
       });
     }
   }
