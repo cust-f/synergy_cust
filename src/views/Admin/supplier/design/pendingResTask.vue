@@ -174,7 +174,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        url: "http://127.0.0.1:8082/supplier/changeState",
         data: data
       });
       planbook=true;
@@ -194,7 +194,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        url: "http://127.0.0.1:8082/supplier/changeState",
         data: data
       });
       this.reload();
