@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
@@ -27,11 +27,11 @@
 
       <el-table-column prop="deadline" label="截止日期"></el-table-column>
       <el-table-column label="操作" width="180" align="center">
-        <template>
+        <template slot-scope="scope">
           <el-button @click="pendingAuditDet(scope.row) " type="text" size="small">查看详情</el-button>
           <el-button type="text" size="small">查看成果</el-button>
-          <el-button type="text" size="small">审核通过</el-button>
-          <el-button type="text" size="small">审核不通过</el-button>
+          <el-button @click="changePassStates(scope.row)" type="text" size="small">审核通过</el-button>
+          <el-button @click="changeNoPassStates(scope.row)" type="text" size="small">审核不通过</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,6 +64,7 @@
 
 
 <script>
+import Qs from "qs";
 export default {
   name: "pendingAudit",
   data() {
@@ -101,7 +102,39 @@ export default {
         }
       });
     },
-
+    //审核通过
+    changePassStates(row){
+      console.log(row.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId,
+        taskState:"8"
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        data: data
+      });
+      this.$message.success("审核通过");
+      this.reload();
+    },
+    //审核不通过
+    changeNoPassStates(row){
+      console.log(row.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId,
+        taskState:"4"
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        data: data
+      });
+      this.$message.success("审核不通过");
+      this.reload();
+    },
+    //获取数据
     getData() {
       console.log(this.userName);
       var that = this;
