@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+//设计人员界面
+// import desingerNewList from '@/views/admin/personnel_allotment/desingerNewList'//设计人员新增界面
+// import desingerAcceptList from '@/views/admin/personnel_allotment/desingerAcceptList'//设计人员进行界面
+// import desingerFinishList from '@/views/admin/personnel_allotment/desingerFinishList'//设计人员已完成界面
 
 import login from '@/Layout/template page/login'
 
@@ -41,7 +45,7 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 
 
 import circulation from '@/views/admin/personnel_allotment/circulation'
-import desinger from '@/views/admin/personnel_allotment/desinger'
+
 import virtualMachine from '@/Layout/template page/virtualMachine'
 import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
@@ -336,12 +340,7 @@ export default new Router({
           name: 'circulation',
           component: circulation,
         },
-        //设计人员
-        {
-          path: '/admin/personnel_allotment/desinger',
-          name: 'desinger',
-          component: desinger,
-        },
+       
         //企业评价
         {
           path:'/admin/Enterprise_Evaluation/evaluate',
@@ -598,7 +597,23 @@ export default new Router({
           meta: {
             title: "任务分解"
           }
-        },  
+        },
+        // {
+        //   path:'/admin/personnel_allotment/designerAcceptList',
+        //   name: 'designerAcceptList',
+        //   component: desingerAcceptList,
+        // },
+        // {
+        //   path:'/admin/personnel_allotment/designerNewList',
+        //   name:'designerNewList',
+        //   component:desingerNewList,
+        // },
+        // {
+        //   path:'/admin/personnel_allotment/designerFinishList',
+        //   name : 'designerFinishList',
+        //   component:desingerFinishList,
+        // }
+
       ]
     },
     {
@@ -615,6 +630,7 @@ export default new Router({
     {
       path: '*',
       redirect: '/404'
-    }
+    },
+   
   ]
 })
