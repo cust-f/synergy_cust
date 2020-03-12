@@ -47,6 +47,7 @@
               <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
             </el-table-column>
           </template>
+          
           <el-table-column label="操作" min-width="45px" align="center">
             <template slot-scope="scope">
               <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
