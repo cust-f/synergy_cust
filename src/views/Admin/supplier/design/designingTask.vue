@@ -15,7 +15,7 @@
     >
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" label="需求名称"></el-table-column>
      
       <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
@@ -31,8 +31,8 @@
       </el-table-column>
       
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="designingTaskDet() " type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="designingTaskDet(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -65,7 +65,17 @@ export default {
       formLabelWidth: "120px",
       activeName: "first",
       tableData: [
-      ],
+       { 
+        taskId:"",
+        taskName:"",
+        supplierName:"",
+        publishTask:"",
+        userName:"",
+        supplierName:"",
+        taskCheck:"",
+        deadline:"",
+       }
+       ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -80,9 +90,9 @@ export default {
   },
   methods: {
     // 详情页面跳转
-    jumpdesigningDet() {
-      this.$router.push("/admin/designingTaskDet");
-    },
+    // jumpdesigningDet() {
+    //   this.$router.push("/admin/designingTaskDet");
+    // },
 
     designingTaskDet(row) {
       console.log(row.taskId);

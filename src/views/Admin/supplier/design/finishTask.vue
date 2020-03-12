@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData1"
+      :data="tableData"
       border
       class="table"
       ref="multipleTable"
@@ -21,9 +21,9 @@
 
       <el-table-column prop="companyName" label="需求企业"></el-table-column>
 
-      <el-table-column prop="userId" label="需求负责人" align="center"></el-table-column>
+      <el-table-column prop="userId" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyName" label="承接供应商"></el-table-column>
+      <el-table-column prop="supplierName" label="承接供应商"></el-table-column>
 
       <el-table-column prop="finishTime" label="完成日期"></el-table-column>
 
@@ -49,7 +49,7 @@
 
 
 <script>
-import Qs from "qs";
+ import Qs from "qs";
 export default {
   name: "finishTask",
   data() {
@@ -61,22 +61,15 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData1: [
+      tableData:[
         {
-          taskId: 1,
-          acceptCompanyName: "小型汽车前车灯",
-          supplierName: "车间零部件生产",
-          companyName: "一汽大众",
-          assignmentState: "已废除",
-          deadline: "2019-12-23"
-        },
-        {
-          taskId: 2,
-          acceptCompanyName: "小型汽车前车灯",
-          supplierName: "车间零部件生产",
-          companyName: "一汽大众",
-          assignmentState: "已废除",
-          deadline: "2019-12-23"
+          taskId: "123",
+          taskName: "123",
+          taskType:"123",
+          companyName: "123",
+          userId: "123",
+          supplierName:"123",
+          deadline: "123"
         }
       ],
       multipleSelection: [],
@@ -85,11 +78,12 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      taskId:"",
     };
   },
   created() {
-    this.getData();
+    // this.getData();
   },
   methods: {
     getData() {
@@ -117,12 +111,11 @@ export default {
     //   this.$router.push("/admin/finishTaskDet");
     // },
     finishTaskDet(row) {
-      console.log(row.taskId);
+      this.$store.commit("SET_TASKID",row.taskId);
+      //console.log(row.taskId);
       this.$router.push({
         path: "/admin/finishTaskDet",
-        query: {
-          taskId: row.taskId
-        }
+        // taskId: row.taskId,
       });
     }
   }

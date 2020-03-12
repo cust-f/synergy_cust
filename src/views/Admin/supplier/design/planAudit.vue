@@ -26,8 +26,8 @@
       <el-table-column prop="deadline" label="截止日期"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="planAuditDet()" type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="planAuditDet(scope.row)" type="text" size="small">查看详情</el-button>
           <el-button @click="dialogTableVisible=true" type="text" size="small">分配人员</el-button>
           <el-button @click="TableVisible=true" type="text" size="small">分配供应商</el-button>
         </template>
@@ -79,8 +79,8 @@
       </el-table-column>
 
       <el-table-column label="操作" width="160" align="center">
-        <template>
-          <el-button @click="planAuditingDet()" type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="planAuditingDet(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -181,22 +181,24 @@ export default {
         pageSize: 10
       },
 
-      tableData:[
+      tableData: [
         {
-          taskId: 1,
-          acceptCompanyName: "小型汽车前车灯",
-          supplierName: "车间零部件生产",
-          companyName: "一汽大众",
-          assignmentState: "已废除",
-          deadline: "2019-12-23"
-        },
+          taskId:"",
+          acceptCompanyName: "",
+          supplierName: "",
+          companyName: "",
+          assignmentState: "",
+          deadline: ""
+        }
+      ],
+      tableData2: [
         {
-          taskId: 1,
-          acceptCompanyName: "小型汽车前车灯",
-          supplierName: "车间零部件生产",
-          companyName: "一汽大众",
-          assignmentState: "已废除",
-          deadline: "2019-12-23"
+          taskId: "",
+          acceptCompanyName: "",
+          supplierName: "",
+          companyName: "",
+          assignmentState: "",
+          deadline: "2"
         }
       ],
       from: {
@@ -248,7 +250,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "1"
+        userName: "aaaa"
       });
 
       console.log(data);
