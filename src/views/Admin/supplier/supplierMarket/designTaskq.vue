@@ -35,9 +35,9 @@
                 <finish-Task></finish-Task>
               </el-tab-pane>
 
-              <el-tab-pane label="已废除" name="eighth">
+              <!-- <el-tab-pane label="已废除" name="eighth">
                 <repealed-Task></repealed-Task>
-              </el-tab-pane>
+              </el-tab-pane> -->
             </el-tabs>
           </div>
         </div>
@@ -55,7 +55,7 @@ import designingTask from "../design/designingTask"; //进行中任务
 import pendingAudit from "../design/pendingAudit"; //待审核
 import pendingAcceptance from "../design/pendingAcceptance"; //待验收
 import finishTask from "../design/finishTask.vue"; //已完成任务
-import repealedTask from "../design/repealedTask"; //已废除任务
+// import repealedTask from "../design/repealedTask"; //已废除任务
 import allTask from "../design/allTask";//全部任务
 export default {
   name: "designTaskq",
@@ -67,7 +67,7 @@ export default {
     "pending-Audit": pendingAudit, //待审核
     "pending-Acceptance": pendingAcceptance, //待验收
     "finish-Task": finishTask, //已完成任务
-    "repealed-Task": repealedTask //已废除任务
+    // "repealed-Task": repealedTask //已废除任务
   },
   data() {
     return {

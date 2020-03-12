@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+      :data="tableData"
       border
       class="table"
       ref="multipleTable"
@@ -15,7 +15,7 @@
     >
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
       <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
@@ -174,7 +174,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        url: "http://127.0.0.1:8082/supplier/changeState",
         data: data
       });
       planbook=true;
@@ -194,7 +194,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        url: "http://127.0.0.1:8082/supplier/changeState",
         data: data
       });
       this.reload();
