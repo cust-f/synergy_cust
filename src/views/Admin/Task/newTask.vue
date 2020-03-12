@@ -1,8 +1,8 @@
 <!-- 
  * @description: 新增任务
  * @fileName: newTask.vue 
- * @author: 旋展峰 
- * @date: 2020-01-14 22:55:28 
+ * @author: zjw
+ * @date: 2020-03-12 22:55:28 
  * @path:  
  * @version: V1.0.5 
 !-->
@@ -82,8 +82,29 @@
               </el-form-item>
             </el-col>
           </el-row>
-        </el-form>
+       
 
+        <el-upload
+          class="upload-demo"
+          ref="upload"
+          action="http://127.0.0.1:8082/MainTaskInformation/import"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-success="handleAvatarSuccess"
+          :limit="1"
+          :auto-upload="false"
+        >
+          <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+          <el-button
+            style="margin-left: 10px;"
+            size="small"
+            type="success"
+            @click="submitUpload"
+          >上传到服务器</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+
+ </el-form>
         <div id="div2" align="right">
           <el-button type="primary" class="button1" @click="tijiao">提交</el-button>
         </div>
@@ -102,14 +123,14 @@
               @click="addData"
             >新增</el-button>
           </div>
-          <el-table
-            :data="tableData"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-          >
+              <el-table
+                :data="tableData1"
+                border
+                class="table"
+                ref="multipleTable"
+                header-cell-class-name="table-header"
+                @selection-change="handleSelectionChange"
+              >
             <el-table-column prop="dividename" label="任务名称"></el-table-column>
             <el-table-column prop="substasktype" label="任务类别"></el-table-column>
             <el-table-column prop="fabuTime" label="开始时间"></el-table-column>
@@ -120,6 +141,7 @@
               </template>
             </el-table-column>-->
           </el-table>
+
         </div>
 
         <!-- 新增弹出框 -->
@@ -326,6 +348,8 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
+      technicalFile:"null",
+      ruleForm: "",
       zzzz: "null",
       mainStaskID: "null",
       visiblehexin: "none",
@@ -387,12 +411,12 @@ export default {
         detail: ""
       },
       //子任务表格
-      tableData: [
+      tableData1: [
         {
-          dividename: "请填写",
-          substasktype: "请填写",
-          fabuTime: "请填写",
-          endLine: "请填写"
+          dividename:'',
+          substasktype:'',
+          fabuTime:'',
+          endLine:'',
         }
       ],
 
@@ -405,7 +429,7 @@ export default {
           TaskState1: "",
           TaskXiangXi: "",
           substasktype: "",
-          substasktype1:'',
+          substasktype1: ""
         }
       ],
       addList1: [
@@ -454,19 +478,28 @@ export default {
         })
         .then(response => {
           this.mainStaskType = response.data.allData;
+          this.tableData1 =null;
           console.log(response);
         });
     },
     tijiao() {
       console.log(this.type);
-      var that = this;
+      console.log(this.technicalFile);
+      if(this.technicalFile == 'null'){
+         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+              type: "warning"
+            });
+      }
+      else{
+              var that = this;
       var data = Qs.stringify({
-        userName: "aaaa",
+        userName:"aaaa",
+        technicalFile:this.technicalFile,
         name: this.name,
         type: this.type,
         publishdate: this.publishdate,
         deaddate: this.deaddate,
-        leader: this.leader,
+        principalName: this.leader,
         xiangxi: this.xiangxi
       });
       console.log(data);
@@ -484,22 +517,32 @@ export default {
             console.log(this.zzzz);
             this.$message.success("提交成功");
             this.kongzhi = false;
-          } 
-
-
+          }
         })
-        .catch(error=> {
-          console.log(error)
-          if(error!=null){
-              this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+        .catch(error => {
+          console.log(error);
+          if (error != null) {
+            this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
               type: "warning"
             });
           }
-        })
+        });
+      }
 
-        
     },
-
+      submitUpload() {
+        this.$refs.upload.submit();
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePreview(file) {
+        console.log(file);
+      },
+    handleAvatarSuccess(response, file, fileList){
+      this.technicalFile = response
+      console.log(response)
+    },
     invitate(coo) {
       console.log(coo);
 
@@ -513,30 +556,28 @@ export default {
         this.visiblehexin = "none";
       }
     },
-    getdata() {
-      var menuList;
-      var that = this;
-      var data = Qs.stringify({
-        id: this.tableData.id,
-        taskName: this.tableData.taskName
-      });
-      that
-        .axios({
-          methods: "post",
-          url: "/api/user/login",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.$store.commit("SET_TOKEN", true);
-          this.$store.commit("GET_USER", this.id);
-          this.$store.setItem("ms_id", this.tableData.id);
-          this.$message({
-            type: "success",
-            message: this.id
-          });
-        });
-    },
+    // getdata() {
+    //   var menuList;
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     id: this.tableData.id,
+    //     taskName: this.tableData.taskName
+    //   });
+    //   that
+    //     .axios({
+    //       methods: "post",
+    //       url: "/api/user/login",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       console.log(response);
+
+    //       this.$message({
+    //         type: "success",
+    //         message: this.id
+    //       });
+    //     });
+    // },
 
     // 删除操作
     handleDelete(index, row) {
