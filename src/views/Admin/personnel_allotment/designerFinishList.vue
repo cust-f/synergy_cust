@@ -121,8 +121,8 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 export default {
+      name: "designerFinishList",
   data() {
-    name: "desingerFinishList";
     return {
       query: {
         pageIndex: 1,

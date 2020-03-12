@@ -128,14 +128,13 @@
   </div>
 </template>
 
-
-
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+
 export default {
+  name: "desingerAcceptList",
   data() {
-    name: "desingerAcceptList";
     return {
       query: {
         pageIndex: 1,

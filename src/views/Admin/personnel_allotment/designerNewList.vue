@@ -124,8 +124,8 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 export default {
+      name: "desingerNewList",
   data() {
-    name: "desingerNewList";
     return {
       query: {
         pageIndex: 1,
