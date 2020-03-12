@@ -11,19 +11,17 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        proxyTable: {
       '/api':{
-        target:'http://127.0.0.1:8081',//目标路接口域名
+        target:'http://127.0.0.1:8082',//目标路接口域名
         // secure:false,     //https接口要加这个
         changeOrigin:true,//是否跨域
         pathRewrite:{
           '^/api':'' //重写接口的新路径
         },
         headers:{
-          referer:'http://127.0.0.1:8081'
+          referer:'http://127.0.0.1:8082'
         }
       }
-    },
     },
 
     // Various Dev Server settings

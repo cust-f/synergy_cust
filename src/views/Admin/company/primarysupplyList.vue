@@ -10,12 +10,6 @@
 
     <div class="container">
       <div class="handle-box">
-        <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-        >批量删除</el-button>
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
 
@@ -27,28 +21,18 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="主营业务"></el-table-column>
-        <el-table-column prop="Origin_Region" label="所属地区"></el-table-column>
-        <el-table-column prop="Money" label="注册资本"></el-table-column>
-        
-        <el-table-column prop="date" label="添加时间"></el-table-column>
+        <el-table-column prop="companyId" label="序号" width="55" align="center"></el-table-column>
+        <el-table-column prop="companyName" label="企业名称"></el-table-column>
+        <el-table-column prop="businessName" label="企业联络人"></el-table-column>
+        <el-table-column prop="email" label="企业邮箱"></el-table-column>
+        <el-table-column prop="officeNumber" label="联系人电话"></el-table-column>
+        <el-table-column prop="address" label="企业地址"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
-            <!-- <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button> -->
-            <el-button
-              type="text"
-              icon="el-icon-delete"
-              class="red"
-              @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
-          <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
+           
+
+           <el-button   @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="supplyDetail(scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -83,62 +67,32 @@
     <!-- 新增弹出框 -->
     <el-dialog title="新增" :visible.sync="addVisible" width="60%">
         <el-table
-            :data="tableData"
+            :data="tableData1"
             border
             class="table"
             ref="multipleTable"
             header-cell-class-name="table-header"
             @selection-change="handleSelectionChange"
         >
-        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="企业名称"></el-table-column>
-        <el-table-column prop="bussessType" label="主营业务"></el-table-column>
-        <el-table-column prop="Origin_Region" label="所属地区"></el-table-column>
-        <el-table-column prop="Money" label="注册资本"></el-table-column>
-        
-        <el-table-column prop="date" label="添加时间"></el-table-column>
+        <el-table-column prop="companyId" label="序号" width="55" align="center"></el-table-column>
+        <el-table-column prop="companyName" label="企业名称"></el-table-column>
+        <el-table-column prop="businessName" label="企业联络人"></el-table-column>
+        <el-table-column prop="email" label="企业邮箱"></el-table-column>
+        <el-table-column prop="officeNumber" label="联系人电话"></el-table-column>
+        <el-table-column prop="address" label="企业地址"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button
               type="text"
               icon="el-icon-delete"
               class="red"
-              @click="handleDelete(scope.$index, scope.row)"
+              @click="handle(scope.$index, scope.row)"
             >添加</el-button>
           <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
         </el-table>
-      <!-- <el-form ref="form" :model="addList" label-width="70px">
-        <el-form-item label="企业名称">
-          <el-input v-model="addList.name"></el-input>
-        </el-form-item>
-        <el-form-item label="任务类型">
-          <el-input v-model="addList.address"></el-input>
-        </el-form-item>
-        <el-form-item label="金额">
-          <el-input v-model="addList.money"></el-input>
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="addList.state" placeholder="请选择状态">
-            <el-option label="成功" value="成功"></el-option>
-            <el-option label="失败" value="失败"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="注册时间">
-          <el-date-picker
-            type="date"
-            placeholder="选择日期"
-            v-model="addList.date"
-            value-format="yyyy-MM-dd"
-            style="width: 100%;"
-          ></el-date-picker>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveAdd">确 定</el-button>
-      </span> -->
+    
     </el-dialog>
               </div>
 
@@ -151,6 +105,7 @@
 </template>
 
 <script>
+import Qs from "qs";
 export default {
   name: "primarysupplyList",
   data() {
@@ -159,65 +114,24 @@ export default {
         pageIndex: 1,
         pageSize: 10
         },
-        tableData: [
-        {
-          id: 1,
-          bussessType: "发电装备",
-          name: "哈尔滨电机厂有限责任公司",
-          Origin_Region:'长春',
-          Money:'2000万',          
-          date: "2020-01-01"
+        tableData: {
+          companyId:"",
+          companyName:"",
+          businessName:"",
+          email:"",
+          officeNumber:"",
+          address:""
         },
-        {
-          id: 2,
-          bussessType: "燃气轮机",
-          name: "中船重工龙江广瀚燃气轮机有限公司",
-          Origin_Region:'吉林',
-          date: "2019-11-01",
-          Money:'3000万',          
-
+        tableData1: {
+          companyId:"",
+          companyName:"",
+          businessName:"",
+          email:"",
+          officeNumber:"",
+          address:""
         },
-        {
-          id: 3,
-          bussessType: "卫星应用",
-          name: "哈尔滨航天恒星数据系统科技有限公司",
-          Origin_Region:'松原',
-          date: "2020-01-06",
-          Money:'4000万',  
-        },
-        {
-          id: 4,
-          bussessType: "汽车业数字化",
-          name: "长春一汽启明信息技术有限责任公司",
-          Origin_Region:'辽源',
-          date: "2020-01-05",
-          Money:'8000万',  
-        },
-         {
-          id: 5,
-          bussessType: "卫星微型零件制作",
-          name: "长春微电子信息有限公司",
-          Origin_Region:'白山',
-          date: "2020-01-04",
-          Money:'6000万',  
-        },
-        {
-          id: 6,
-          bussessType: "光电测控仪器设备",
-          name: "长春奥普光电技术股份有限公司",
-          Origin_Region:'哈尔滨',
-          date: "2019-11-01",
-          Money:'7000万',  
-        },
-        {
-          id: 7,
-          bussessType: "磨床生产",
-          name: "杭机集团长春一机有限公司",
-          Origin_Region:'延吉',
-          date: "2019-11-01",
-          Money:'5000万',  
-        }
-      ],
+       
+       
       addList: {
         id: null,
         address: "",
@@ -235,14 +149,84 @@ export default {
       id: -1
     };
   },
+  created() {
+    this.getData();
+  },
   methods:{
       /*
       *转跳对应任务信息页面
       */
+     getData(){
+       var that = this;
+        var data = Qs.stringify({
+        username: "aaaa"
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/primarysupplyList/show",
+          data: data,
+          
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          this.tableData = response.data.allData
+        });
+     },
+    handleDelete(row){
+      console.log(row.companyId)
+      var that = this;
+      var data = Qs.stringify({
+        companyID: row.companyId,
+        username:"aaaa",
+      })
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/primarysupplyList/deleteDate",
+          data: data,
+          
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response)
+            if (response.data == "成功") {
+                this.$message({
+                  type: "success",
+                  message: "删除成功"
+                });
+                }
+            else{
+                this.$message({
+                  type: "warning",
+                  message: "删除失败"
+                });
+            }
+        });
+     
+    },
     supplyDetail(){
          this.$router.push('/admin/supplyDetail')
      },
     addData() {
+        var that = this;
+        var data = Qs.stringify({
+        username: "aaaa"
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/primarysupplyList/newAdd",
+          data: data,
+          
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response)
+          this.tableData1 = response.data.allData
+        });
       this.addVisible = true;
     },
     

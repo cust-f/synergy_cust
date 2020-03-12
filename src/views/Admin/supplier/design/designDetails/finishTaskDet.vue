@@ -107,12 +107,12 @@ export default {
         taskDetail: ""
       },
       formLabelWidth: "120px",
-      taskId: ""
+      taskId:this.$store.state.taskId1
     };
   },
   created() {
     this.getParams();
-    //this.getData();
+    this.getData();
   },
 
   methods: {
@@ -132,10 +132,13 @@ export default {
       this.dialogTableVisibleNo = false;
     },
     getParams() {
-      var routerParams = this.$route.query.taskId;
-      this.taskId = routerParams;
+      // var shishi = "123";
+      // console.log(shishi);
+      // var routerParams = this.$route.params.taskId;
+      // this.taskId = routerParams;
       form.taskId = this.taskId;
-      console.log(routerParams);
+      console.log(this.taskId);
+      console.log(this.$store.state.taskId1);
       console.log(form.taskId);
     },
 
@@ -150,7 +153,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/SupplierdesigntaskController/designTaskDet",
+            "http://127.0.0.1:8082/supplier/designTaskDet",
           data: data
         })
         .then(response => {
