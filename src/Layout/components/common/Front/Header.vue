@@ -87,7 +87,7 @@ export default {
       log: true,
       token:this.$store.state.token,
       collapse: false,
-      username: "admin",
+      username: this.$store.state.user,
       input: "",
       select: ""
     };

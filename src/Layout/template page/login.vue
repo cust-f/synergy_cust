@@ -35,8 +35,8 @@ export default {
   data: function() {
     return {
       param: {
-        username: "admin",
-        password: "123123"
+        username: "",
+        password: ""
       },
       rules: {
         username: [
@@ -69,8 +69,7 @@ export default {
                   message: "登陆成功"
                 });
                 this.$store.commit("SET_TOKEN", true);
-                this.$store.commit("GET_USER", this.username);
-                localStorage.setItem("ms_username", this.param.username);
+                this.$store.commit("GET_USER", this.param.username);
                 this.$store.commit("SET_List", response.data.allData.data.menuList);
                 console.log(this.$store.state.menuList)
                 this.$router.push("/admin/dashboard");
