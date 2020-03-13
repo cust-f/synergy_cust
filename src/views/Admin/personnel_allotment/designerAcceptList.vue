@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="desinger">
-      <h3>已接收设计任务</h3>
+      <h3>接收设计任务</h3>
     </div>
-    
+    <el-divider></el-divider>
     <el-row style="height:600px;">
       <el-card style="height:100%">
         <div style="font-size:20px">已接任务</div>
@@ -19,10 +19,10 @@
         >
           <template>
             <el-table-column
-              prop="taskId"
-              label="需求任务编号"
+              label="序号"
               min-width="90px"
               align="center"
+              type = "index"
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
@@ -124,6 +124,12 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- <div class="block">
+  <el-pagination
+    layout="prev, pager, next"
+    :total="50">
+  </el-pagination>
+</div> -->
     
   </div>
 </template>
@@ -133,7 +139,7 @@ import Qs from "qs";
 import { formatDate } from "./dataChange";
 
 export default {
-  name: "desingerAcceptList",
+  name: "designerAcceptList",
   data() {
     return {
       query: {
