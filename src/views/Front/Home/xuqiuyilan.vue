@@ -96,11 +96,9 @@
 
        <div class="list">
 
-        <div class="cg_bottomlist" >
-           
+        <!-- <div class="cg_bottomlist" >
           <ul class="cg_bottomLeft" >
-            <li class="cg_list001"> 
-                
+            <li class="cg_list001">  
               <a href="#/threeMenu" class="ziti2">福特汽车组装</a>
             </li>
             <li class="cg_list002">
@@ -134,66 +132,26 @@
                 </li>
             </ul>
           </div>
-        </div>
+        </div> -->
 
-
-
-        <div class="cg_bottomlist">
-          <ul class="cg_bottomLeft">
-            <li class="cg_list001">
-              <a class="ziti2" href="#/threeMenu">汽车刹车片设计</a>
+        <div class="cg_bottomlist" v-for="(list,i) in demandTaskList":key = "i">
+          <ul class="cg_bottomLeft" >
+            <li class="cg_list001">  
+              <a href="#/threeMenu" class="ziti2">{{list.Main_Task_Name}}</a>
             </li>
             <li class="cg_list002">
               <a>
-                需求类型：设计
+                需求类型：流通 
               </a>
               <a>
-                行业类别：交通运输设备
+                行业类别：{{list.Industry_Type}}
               </a>
-              <br />
+              <br>
               <a>
-                发布时间：2019-10-22
-              </a>
-              <a>
-                完成时间：2019-12-21
-              </a>
-            </li>
-          </ul>
-          <div class="bottomRight" align="middle">
-            <a href class="fabujigou">发布机构</a>
-            <ul class="jgje">
-                <li>
-                  <a style="width:435px" align="left">
-                    <font>机构名称:</font>
-                    吉林省科技服务中心
-                    <br>
-                    <font>联系电话:</font>
-                    18888888888
-                  </a>
-                </li>
-             </ul>
-            </div>
-          
-        </div>
-
-        <div class="cg_bottomlist">
-          <ul class="cg_bottomLeft">
-            <li class="cg_list001">
-              <a class="ziti2" href="#/threeMenu">长春钢铁厂锅炉制造</a>
-            </li>
-            <li class="cg_list002">
-              <a>
-                需求类型：流通
+                发布时间：{{list.Publish_Time}}
               </a>
               <a>
-                行业类别：专用设备
-              </a>
-              <br/>
-              <a>
-                发布时间：2019-10-22
-              </a>
-              <a>
-                完成时间：2019-11-23
+                完成时间：{{list.Deadline}}
               </a>
             </li>
           </ul>
@@ -201,55 +159,20 @@
             <a href class="fabujigou">发布机构</a>
             <ul class="jgje">
               <li>
-                <a style="width:435px"  align="left">
-                  <font>机构名称:</font>
-                  吉林省科技服务中心
-                  <br>
+                  <a style="width:435px" align="left">
+                    <font>机构名称:</font>
+                    {{list.Company_ID}}
+                    <br>
+
                     <font>联系电话:</font>
-                    18888888888
-                </a>
-              </li>
+                    1231231232132
+                  </a>
+                </li>
             </ul>
           </div>
         </div>
-
-        <div class="cg_bottomlist">
-          <ul class="cg_bottomLeft">
-            <li class="cg_list001">
-              <a class="ziti2" href="#/threeMenu" >车载摄像头制作安装</a>
-            </li>
-            <li class="cg_list002">
-              <a>
-                需求类型：流通
-              </a>
-              <a>
-                任务类型：其他电子设备
-              </a>
-              <a>
-                <br>
-                发布时间：2019-02-15
-              </a>
-              <a>
-                完成时间：2019-05-23
-              </a>
-            </li>
-          </ul>
-              <div class="bottomRight" align="middle">
-                <a href class="fabujigou">发布机构</a>
-                <ul class="jgje">
-                  <li>
-                    <a style="width:435px"  align="left">
-                      <font>机构名称:</font>
-                      黑龙江省大江机械集团
-                      <br>
-                      <font>联系电话:</font>
-                      18888888888
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              </div>
-          </div>
+        
+      </div>
     </el-col>
   </div>
   </el-main>
@@ -459,6 +382,9 @@ export default {
         checkList5: [],
         checkList6: [],
         checkList7: [],
+
+        demandTaskList: "",
+
     };
      radio: '1'
      
@@ -466,7 +392,9 @@ export default {
       
       
   },
-
+  created() {
+    this.getInfo();
+  },
   methods: {
     handleClick(tab, event) {
         console.log(tab, event);
@@ -735,7 +663,14 @@ export default {
         }
     },
 
+    getInfo(){
+      var that = this;
+      that.axiox.post("http://127.0.0.1:8082/getAllList/detail").then(response =>{
+      this.demandTaskList = response.data.allData.demandTask;
+      });
+    }
   },
+
 };
   
 </script>
