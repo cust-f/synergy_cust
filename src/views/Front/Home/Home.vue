@@ -1438,4 +1438,4 @@ ul li {
 /* .tender-header-some ul li{
     margin-bottom: 15px;
 } */
-</style>
+</styles>

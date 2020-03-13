@@ -324,8 +324,8 @@
 <script>
 import Qs from "qs";
 export default {
+  name: "circulation",
   data() {
-    name: "circulation";
     return {
       query: {
         pageIndex: 1,

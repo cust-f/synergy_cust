@@ -18,6 +18,12 @@ import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
+
+//设计人员界面
+import designerNewList from '@/views/admin/personnel_allotment/designerNewList'//设计人员新增界面
+import designerAcceptList from '@/views/admin/personnel_allotment/designerAcceptList'//设计人员进行界面
+import designerFinishList from '@/views/admin/personnel_allotment/designerFinishList'//设计人员已完成界面
+
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff'//新增人员
 import newTask from '@/views/admin/Task/newTask'//新增任务
@@ -41,7 +47,7 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 
 
 import circulation from '@/views/admin/personnel_allotment/circulation'
-import desinger from '@/views/admin/personnel_allotment/desinger'
+
 import virtualMachine from '@/Layout/template page/virtualMachine'
 import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
@@ -336,11 +342,20 @@ export default new Router({
           name: 'circulation',
           component: circulation,
         },
-        //设计人员
         {
-          path: '/admin/personnel_allotment/desinger',
-          name: 'desinger',
-          component: desinger,
+          path:'/admin/designerAcceptList',
+          name: 'designerAcceptList',
+          component: designerAcceptList
+        },
+        {
+          path:'/admin/designerNewList',
+          name:'designerNewList',
+          component:designerNewList
+        },
+        {
+          path:'/admin/designerFinishList',
+          name : 'designerFinishList',
+          component:designerFinishList
         },
         //企业评价
         {
@@ -543,11 +558,7 @@ export default new Router({
             title: "供应商企业信息修改"
           }
         },
-        
-
-
-
-        //流通待响应任务详情页面
+      //流通待响应任务详情页面
         {
           path: '/admin/cPendingResTaskDet',
           name: 'cPendingResTaskDet',
@@ -578,7 +589,6 @@ export default new Router({
           }
         }, 
 
-
         //流通待审核任务详情界面
 
         {
@@ -598,7 +608,7 @@ export default new Router({
           meta: {
             title: "任务分解"
           }
-        },  
+        }
       ]
     },
     {
@@ -615,6 +625,7 @@ export default new Router({
     {
       path: '*',
       redirect: '/404'
-    }
+    },
+   
   ]
 })
