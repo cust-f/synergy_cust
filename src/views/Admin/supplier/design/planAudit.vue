@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+      :data="tableData"
       border
       class="table"
       ref="multipleTable"
@@ -49,7 +49,7 @@
     <h2>计划书审核菜单</h2>
     <el-divider></el-divider>
     <el-table
-      :data="tableData2.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+      :data="tableData2"
       border
       class="table"
       ref="multipleTable"
@@ -183,12 +183,12 @@ export default {
 
       tableData: [
         {
-          taskId: 1,
-          acceptCompanyName: "小型汽车前车灯",
-          supplierName: "车间零部件生产",
-          companyName: "一汽大众",
-          assignmentState: "已废除",
-          deadline: "2019-12-23"
+          taskId:"",
+          acceptCompanyName: "",
+          supplierName: "",
+          companyName: "",
+          assignmentState: "",
+          deadline: ""
         }
       ],
       tableData2: [
@@ -250,7 +250,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "1"
+        userName: "aaaa"
       });
 
       console.log(data);
