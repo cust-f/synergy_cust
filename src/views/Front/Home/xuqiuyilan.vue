@@ -665,7 +665,7 @@ export default {
 
     getInfo(){
       var that = this;
-      that.axiox.post("http://127.0.0.1:8082/getAllList/detail").then(response =>{
+      that.axiox.post("http://localhost:8080/#/xuqiuyilan/getAllList").then(response =>{
       this.demandTaskList = response.data.allData.demandTask;
       });
     }
