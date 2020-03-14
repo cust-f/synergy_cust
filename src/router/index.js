@@ -24,6 +24,13 @@ import designerNewList from '@/views/admin/personnel_allotment/designerNewList'/
 import designerAcceptList from '@/views/admin/personnel_allotment/designerAcceptList'//设计人员进行界面
 import designerFinishList from '@/views/admin/personnel_allotment/designerFinishList'//设计人员已完成界面
 
+//流通人员界面
+import circulationNewList from '@/views/admin/personnel_allotment/circulationNewList'//流通人员新增界面
+import circulationAcceptList from '@/views/admin/personnel_allotment/circulationAcceptList'//流通人员进行界面
+import circulationFinishList from '@/views/admin/personnel_allotment/circulationFinishList'//流通人员已完成界面
+
+
+
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff'//新增人员
 import newTask from '@/views/admin/Task/newTask'//新增任务
@@ -336,22 +343,37 @@ export default new Router({
           component: circulationTask,
 
         },
-        //流通人员
+        //流通人员新增列表
         {
-          path: '/admin/personnel_allotment/circulation',
-          name: 'circulation',
-          component: circulation,
+          path: '/admin/circulationNewList',
+          name: 'circulationNewList',
+          component: circulationNewList,
         },
+        //流通人员已接收列表
+        {
+          path: '/admin/circulationAcceptList',
+          name: 'circulationAcceptList',
+          component: circulationAcceptList,
+        },
+        //流通人员历史任务列表
+        {
+          path: '/admin/circulationFinishList',
+          name: 'circulationFinishList',
+          component: circulationFinishList,
+        },
+        //设计人员接受任务列表
         {
           path:'/admin/designerAcceptList',
           name: 'designerAcceptList',
           component: designerAcceptList
         },
+        //设计人员新增列表
         {
           path:'/admin/designerNewList',
           name:'designerNewList',
           component:designerNewList
         },
+        //新增人员已完成列表
         {
           path:'/admin/designerFinishList',
           name : 'designerFinishList',

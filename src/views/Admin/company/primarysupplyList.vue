@@ -86,7 +86,7 @@
               type="text"
               icon="el-icon-delete"
               class="red"
-              @click="handle(scope.$index, scope.row)"
+              @click="handle(scope.row)"
             >添加</el-button>
           <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
           </template>
@@ -173,6 +173,19 @@ export default {
         .then(response => {
           this.tableData = response.data.allData
         });
+     },
+     handle(row){
+       var that = this;
+       var data = Qs.stringify({
+         username:"aaaa",
+         companyID:row.companyID
+       })
+       that
+          .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/",
+          data: data,
+          })
      },
     handleDelete(row){
       console.log(row.companyId)

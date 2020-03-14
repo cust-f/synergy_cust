@@ -72,7 +72,7 @@
                 </i>
               </div>
               <div class="category_item">
-                <div class="cate_ietm_title" style="background:#78bcaf;">
+                <div class="cate_ietm_title" style="background:#ffbd81;">
                   <font>仪器仪表及文化、办公用机械</font>
                   <p></p>
                 </div>
@@ -86,7 +86,7 @@
                 </i>
               </div>
               <div class="category_item">
-                <div class="cate_ietm_title" style="background:#67C23A;">
+                <div class="cate_ietm_title" style="background:#f0dc70;">
                   <font>通信设备、计算机及其他电子设备</font>
                   <p>&nbsp;</p>
                 </div>
@@ -102,7 +102,7 @@
                 </i>
               </div>
               <div class="category_item">
-                <div class="cate_ietm_title" style="background:#67aff9;">
+                <div class="cate_ietm_title">
                   <font>电气机械及器材</font>
                   <p></p>
                 </div>
@@ -117,7 +117,7 @@
                 </i>
               </div>
               <div class="category_item">
-                <div class="cate_ietm_title" style="background:#be7fc5;">
+                <div class="cate_ietm_title" style="background:#ffbd81;">
                   <font>专用设备</font>
                   <p>&nbsp;</p>
                 </div>
@@ -130,7 +130,7 @@
                 </i>
               </div>
               <div class="category_item">
-                <div class="cate_ietm_title" style="background:#909399;">
+                <div class="cate_ietm_title" style="background:#f0dc70;">
                   <font>通用设备</font>
                   <p>&nbsp;</p>
                 </div>
@@ -150,21 +150,33 @@
         <!-- 登录模块-->
         <el-col :span="6">
           <div class="grid-content">
-            <div class="grid-content-top">
-              <span class="grid-content-top-span">HI!欢迎来到Saas应用</span>
-              <div class="grid-content-top-button">
-                <el-button
-                  style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "
-                  type="primary"
-                  round
-                >登录</el-button>
-                <el-button
-                  style="right:5px;background-color:rgb(250, 101, 105); border-color:rgb(250, 101, 105);"
-                  type="primary"
-                  round
-                >注册</el-button>
+            <el-card style="margin-bottom:5px;">
+              <div v-if="!this.$store.state.token">
+                <span>HI!欢迎来到Saas应用</span>
+                <div class="grid-content-top-button">
+                  <el-button
+                    style=" left:5px; background-color:#50b7c1; border-color:#50b7c1; "
+                    type="primary"
+                    round
+                    @click="login(0)"
+                  >登录</el-button>
+                  <el-button
+                    style="right:5px;background-color:#d3d7d4; border-color:#d3d7d4;"
+                    type="primary"
+                    round
+                    @click="login(1)"
+                  >注册</el-button>
+                </div>
               </div>
-            </div>
+              <div v-else>
+                <div class="user-avator" style="padding-bottom:6%;">
+                  <img src="../../../assets/img/img.jpg" />
+                </div>
+                <div>
+                  <span>HI!欢迎{{this.$store.state.user}}登陆平台！</span>
+                </div>
+              </div>
+            </el-card>
             <div class="grid-content-down">
               <el-card class="box-card" :body-style="{ padding: '5px' }">
                 <el-tabs
@@ -174,30 +186,32 @@
                   class="loginHeight"
                 >
                   <el-tab-pane label="我有需求" name="first">
-                    <el-button
-                      class="xqelbuttonleft"
-                      style="margin-top:0px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >协同设计</el-button>
-                    <el-button
-                      class="xqelbuttonright"
-                      style="margin-top:0px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >企业标准</el-button>
-                    <el-button
-                      class="xqelbuttonleft"
-                      style="margin-top:10px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >综合服务</el-button>
-                    <el-button
-                      class="xqelbuttonright"
-                      style="margin-top:10px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >产业融合</el-button>
+                    <el-row>
+                      <el-tag
+                        class="xqelbuttonleft"
+                        style="margin-top:0px ; margin-left:0px ;"
+                        effect="plain"
+                      >协同设计</el-tag>
+                      <el-tag
+                        class="xqelbuttonright"
+                        style="margin-top:0px ; margin-left:0px ;"
+                        effect="plain"
+                      >企业标准</el-tag>
+                    </el-row>
+                    <el-divider style="margin: 15px 0!important;"></el-divider>
+                    <el-row>
+                      <el-tag
+                        class="xqelbuttonleft"
+                        style="margin-top:10px ; margin-left:0px ;"
+                        effect="plain"
+                      >综合服务</el-tag>
+                      <el-tag
+                        class="xqelbuttonright"
+                        style="margin-top:10px ; margin-left:0px ;"
+                        effect="plain"
+                      >产业融合</el-tag>
+                    </el-row>
+
                     <el-button
                       class="xqelbuttonleft0"
                       @click="dialogVisible = true"
@@ -207,30 +221,32 @@
                     >发布需求</el-button>
                   </el-tab-pane>
                   <el-tab-pane label="我有服务" name="second">
-                    <el-button
-                      class="xqelbuttonleft"
-                      style="margin-top:0px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >协同设计</el-button>
-                    <el-button
-                      class="xqelbuttonright"
-                      style="margin-top:0px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >企业标准</el-button>
-                    <el-button
-                      class="xqelbuttonleft"
-                      style="margin-top:10px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >综合服务</el-button>
-                    <el-button
-                      class="xqelbuttonright"
-                      style="margin-top:10px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >产业融合</el-button>
+                    <el-row>
+                      <el-tag
+                        class="xqelbuttonleft"
+                        style="margin-top:0px ; margin-left:0px ;"
+                        effect="plain"
+                      >协同设计</el-tag>
+                      <el-tag
+                        class="xqelbuttonright"
+                        style="margin-top:0px ; margin-left:0px ;"
+                        effect="plain"
+                      >企业标准</el-tag>
+                    </el-row>
+                    <el-divider style="margin: 15px 0!important;"></el-divider>
+                    <el-row>
+                      <el-tag
+                        class="xqelbuttonleft"
+                        style="margin-top:10px ; margin-left:0px ;"
+                        effect="plain"
+                      >综合服务</el-tag>
+                      <el-tag
+                        class="xqelbuttonright"
+                        style="margin-top:10px ; margin-left:0px ;"
+                        effect="plain"
+                      >产业融合</el-tag>
+                    </el-row>
+
                     <el-button
                       class="xqelbuttonleft0"
                       @click="dialogVisible = true"
@@ -377,19 +393,17 @@
                   @click="serviceResults"
                 >>>更多</el-button>
               </div>
-              <div v-for="(item,i) in demandTaskList" :key="i" style="padding-bottom: 50px;">
-                <div
-                  style="float:left; width:30%; "
-                  class="fontStyle1"
-                >{{"["+item.Industry_Type+"]"}}&nbsp;&nbsp;</div>
-                <div
-                  style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%"
-                >{{item.Main_Task_Name}}</div>
-                <div
-                  style="float:right;width:30%"
+              <el-row v-for="(item,i) in demandTaskList" :key="i" style="margin-bottom:20px;">
+                <el-col :span="6" class="fontStyle1">{{"["+item.Industry_Type+"]"}}</el-col>
+                <el-col :span="12">
+                  <span style="float:left;line-height: 30px;">{{item.Main_Task_Name}}</span>
+                </el-col>
+                <el-col
+                  :span="6"
                   class="fontStyle2"
-                >&nbsp;&nbsp;{{item.Deadline| dataFormat("yyyy-MM-dd")}}</div>
-              </div>
+                  style="line-height: 30px;"
+                >{{item.Deadline| dataFormat("yyyy-MM-dd")}}</el-col>
+              </el-row>
             </el-card>
           </div>
         </el-col>
@@ -405,19 +419,19 @@
                   @click="excellentCompany"
                 >>>更多</el-button>
               </div>
-              <div
+
+              <el-row
                 v-for="(item,i) in supplierlist.companyId"
                 :key="i"
-                style="padding-bottom: 50px;"
+                style="margin-bottom:20px;"
               >
-                <div
-                  style="float:left; width:30%; "
-                  class="fontStyle1"
-                >{{"["+supplierlist.companyProduct[i]+"]"}}&nbsp;&nbsp;</div>
-                <div
-                  style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:60%"
-                >{{supplierlist.companyName[i]}}</div>
-              </div>
+                <el-col :span="6">
+                  <span class="fontStyle1">{{"["+supplierlist.companyProduct[i]+"]"}}</span>
+                </el-col>
+                <el-col :span="18">
+                  <span style="float:left;">{{supplierlist.companyName[i]}}</span>
+                </el-col>
+              </el-row>
             </el-card>
           </div>
         </el-col>
@@ -429,23 +443,24 @@
                 <span>服务成果</span>
                 <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
               </div>
-              <div
+              <el-row
                 v-for="(item,index) in completeddemandTaskList"
                 :key="index"
-                style="padding-bottom: 50px;"
+                style="margin-bottom:20px;"
               >
-                <div
-                  style="float:left; width:30%;"
-                  class="fontStyle1"
-                >{{"["+item.Industry_Type+"]"}}&nbsp;&nbsp;</div>
-                <div
-                  style="float:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;width:40%"
-                >{{item.Main_Task_Name}}</div>
-                <div
-                  style="float:right;width:30%"
-                  class="fontStyle2"
-                >&nbsp;&nbsp;{{item.Finish_Time | dataFormat("yyyy-MM-dd")}}</div>
-              </div>
+                <el-col :span="6">
+                  <span class="fontStyle1">{{"["+item.Industry_Type+"]"}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <a style="float:left;line-height: 30px;">{{item.Main_Task_Name}}</a>
+                </el-col>
+                <el-col :span="6">
+                  <span
+                    class="fontStyle2"
+                    style="line-height: 30px;"
+                  >{{item.Finish_Time | dataFormat("yyyy-MM-dd")}}</span>
+                </el-col>
+              </el-row>
             </el-card>
           </div>
         </el-col>
@@ -930,7 +945,14 @@ export default {
         this.show5 = true;
       }
     },
-
+    //登陆或者注册界面转跳
+    login(option) {
+      if (option == 0) {
+        this.$router.push("/login");
+      } else {
+        this.$router.push("/register");
+      }
+    },
     //登陆注册模块tag页点击事件
     handleClick(tab, event) {
       console.log(tab, event);
@@ -1212,6 +1234,7 @@ export default {
   float: left;
   height: 80%;
   margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 /**登录、注册按钮模块tag页模块所用样式表，用于确认整体高度及布局*/
@@ -1233,11 +1256,9 @@ export default {
   left: 5%;
   width: 40%;
   margin-top: 10%;
-}
-/** 鼠标悬浮左侧按钮的样式表*/
-.xqelbuttonleft:hover {
-  background-color: rgb(192, 189, 189);
-  border-color: rgb(192, 189, 189);
+  height: 45px;
+  font-size: 17px;
+  padding-top: 7px;
 }
 /**下方大按钮用的样式表*/
 .xqelbuttonleft0 {
@@ -1254,11 +1275,9 @@ export default {
   right: 5%;
   width: 40%;
   margin-top: 10%;
-}
-/** 鼠标悬浮右侧按钮的样式表*/
-.xqelbuttonright:hover {
-  background-color: rgb(192, 189, 189);
-  border-color: rgb(192, 189, 189);
+  height: 45px;
+  font-size: 17px;
+  padding-top: 7px;
 }
 
 /**发布需求的弹出窗口的CSS */
@@ -1374,7 +1393,7 @@ export default {
 .cate_ietm_title {
   width: 100%;
   height: 25%;
-  background: #fa6569;
+  background: #94d6da;
   color: #fff;
   font-size: 18px;
   text-align: center;
