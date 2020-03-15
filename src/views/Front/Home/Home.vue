@@ -186,7 +186,7 @@
                   class="loginHeight"
                 >
                   <el-tab-pane label="我有需求" name="first">
-                    <el-row>
+                    <el-row style="margin-top: 9%;">
                       <el-tag
                         class="xqelbuttonleft"
                         style="margin-top:0px ; margin-left:0px ;"
@@ -198,7 +198,7 @@
                         effect="plain"
                       >企业标准</el-tag>
                     </el-row>
-                    <el-divider style="margin: 15px 0!important;"></el-divider>
+
                     <el-row>
                       <el-tag
                         class="xqelbuttonleft"
@@ -221,7 +221,7 @@
                     >发布需求</el-button>
                   </el-tab-pane>
                   <el-tab-pane label="我有服务" name="second">
-                    <el-row>
+                    <el-row style="margin-top: 9%;">
                       <el-tag
                         class="xqelbuttonleft"
                         style="margin-top:0px ; margin-left:0px ;"
@@ -233,7 +233,6 @@
                         effect="plain"
                       >企业标准</el-tag>
                     </el-row>
-                    <el-divider style="margin: 15px 0!important;"></el-divider>
                     <el-row>
                       <el-tag
                         class="xqelbuttonleft"
@@ -263,7 +262,7 @@
       </el-row>
 
       <!--发布需求 弹出框-->
-      <div class="Publishingrequirements">
+      <!-- <div class="Publishingrequirements">
         <el-dialog title="发布需求" :visible.sync="dialogVisible">
           <el-form ref="form" :model="form" :rules="rules" label-width="80px" class size="medium">
             <el-form-item label="需求名称" prop="name">
@@ -377,7 +376,7 @@
             <el-button @click="dialogVisible = false">取 消</el-button>
           </div>
         </el-dialog>
-      </div>
+      </div> -->
 
       <!--第四行  需求一览，优质企业，服务成果-->
       <el-row :gutter="gutterCount">
@@ -577,12 +576,12 @@ export default {
         }
       ],
       //发布需求弹出框内的任务类别筛选数据子类bool值
-      show0: true,
-      show1: false,
-      show2: false,
-      show3: false,
-      show4: false,
-      show5: false,
+      // show0: true,
+      // show1: false,
+      // show2: false,
+      // show3: false,
+      // show4: false,
+      // show5: false,
       //发布需求弹出框内的任务类别筛选数据子类
       //交通运输设备子类
       options0: [
@@ -893,58 +892,58 @@ export default {
     },
 
     //发布需求界面
-    selectOne() {
-      this.form.value0 = "0";
-      //直接就拿到当前的这个对象了
-      if (this.form.value == "0") {
-        this.show0 = true;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-      }
-      if (this.form.value == "1") {
-        this.show0 = false;
-        this.show1 = true;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-      }
-      if (this.form.value == "2") {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = true;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-      }
-      if (this.form.value == "3") {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = true;
-        this.show4 = false;
-        this.show5 = false;
-      }
-      if (this.form.value == "4") {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = true;
-        this.show5 = false;
-      }
-      if (this.form.value == "5") {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = true;
-      }
-    },
+    // selectOne() {
+    //   this.form.value0 = "0";
+    //   //直接就拿到当前的这个对象了
+    //   if (this.form.value == "0") {
+    //     this.show0 = true;
+    //     this.show1 = false;
+    //     this.show2 = false;
+    //     this.show3 = false;
+    //     this.show4 = false;
+    //     this.show5 = false;
+    //   }
+    //   if (this.form.value == "1") {
+    //     this.show0 = false;
+    //     this.show1 = true;
+    //     this.show2 = false;
+    //     this.show3 = false;
+    //     this.show4 = false;
+    //     this.show5 = false;
+    //   }
+    //   if (this.form.value == "2") {
+    //     this.show0 = false;
+    //     this.show1 = false;
+    //     this.show2 = true;
+    //     this.show3 = false;
+    //     this.show4 = false;
+    //     this.show5 = false;
+    //   }
+    //   if (this.form.value == "3") {
+    //     this.show0 = false;
+    //     this.show1 = false;
+    //     this.show2 = false;
+    //     this.show3 = true;
+    //     this.show4 = false;
+    //     this.show5 = false;
+    //   }
+    //   if (this.form.value == "4") {
+    //     this.show0 = false;
+    //     this.show1 = false;
+    //     this.show2 = false;
+    //     this.show3 = false;
+    //     this.show4 = true;
+    //     this.show5 = false;
+    //   }
+    //   if (this.form.value == "5") {
+    //     this.show0 = false;
+    //     this.show1 = false;
+    //     this.show2 = false;
+    //     this.show3 = false;
+    //     this.show4 = false;
+    //     this.show5 = true;
+    //   }
+    // },
     //登陆或者注册界面转跳
     login(option) {
       if (option == 0) {
@@ -1311,7 +1310,9 @@ export default {
 .loginHeight {
   height: 210px;
 }
-
+.loginHeight .el-tabs__content{
+background-color: #ffe8c6;
+}
 /**需求一览，优质企业，服务成果 用的外部样式表 */
 .grid-content2 {
   border-radius: 4px;

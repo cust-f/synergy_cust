@@ -54,16 +54,16 @@ export default {
                     index: '/Home',
                     title: '首页'
                 },
-                // {
-                //     icon: 'el-icon-receiving',
-                //     index: '/xuqiuyilan',
-                //     title: '需求一览'
-                // },
                 {
-                    icon: 'el-icon-edit-outline',
-                    index: '/admin/Enterprise_Evaluation/evaluate',
-                    title: '企业评价'
+                    icon: 'el-icon-receiving',
+                    index: '/xuqiuyilan',
+                    title: '需求一览'
                 },
+                // {
+                //     icon: 'el-icon-edit-outline',
+                //     index: '/admin/Enterprise_Evaluation/evaluate',
+                //     title: '企业评价'
+                // },
                 {
                      icon: 'el-icon-s-custom',
                     index: '8',
