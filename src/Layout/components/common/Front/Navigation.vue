@@ -66,7 +66,7 @@ export default {
                 // },
                 {
                      icon: 'el-icon-s-custom',
-                    index: '8',
+                    index: '/excellentCompany',
                     title: '优质企业',
                 },
                 {
