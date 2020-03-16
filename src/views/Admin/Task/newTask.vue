@@ -722,7 +722,7 @@ export default {
   padding-right: 300px;
 }
 .el-upload--text{
-  width: 80px;
-  height: 35px;
+  width: 85px;
+  height: 40px;
 }
 </style>
