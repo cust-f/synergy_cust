@@ -117,14 +117,14 @@
           <div class="cg_bottomlist" v-for="(list,i) in demandTaskList" :key="i">
             <ul class="cg_bottomLeft">
               <li class="cg_list001">
-                <a href="#/threeMenu" class="ziti2">{{list.Main_Task_Name}}</a>
+                <a href="#/threeMenu" class="ziti2">{{list.mainTaskName}}</a>
               </li>
               <li class="cg_list002">
                 <a>需求类型：流通</a>
-                <a>行业类别：{{list.Industry_Type}}</a>
+                <a>行业类别：{{list.industry_Type}}</a>
                 <br />
-                <a>发布时间：{{list.Publish_Time}}</a>
-                <a>完成时间：{{list.Deadline}}</a>
+                <a>发布时间：{{list.publishTime| dataFormat("yyyy-MM-dd")}}</a>
+                <a>截止时间：{{list.deadline| dataFormat("yyyy-MM-dd")}}</a>
               </li>
             </ul>
             <div class="bottomRight" align="middle">
@@ -133,7 +133,7 @@
                 <li>
                   <a style="width:435px" align="left">
                     <font>机构名称:</font>
-                    {{list.Company_ID}}
+                    {{list.companyName}}
                     <br />
 
                     <font>联系电话:</font>
