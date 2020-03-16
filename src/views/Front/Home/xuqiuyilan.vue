@@ -383,7 +383,7 @@ export default {
         checkList6: [],
         checkList7: [],
 
-        demandTaskList: "",
+        demandTaskList: [],
 
     };
      radio: '1'
@@ -665,8 +665,9 @@ export default {
 
     getInfo(){
       var that = this;
-      that.axiox.post("http://localhost:8080/#/xuqiuyilan/getAllList").then(response =>{
-      this.demandTaskList = response.data.allData.demandTask;
+      that.axios.post("http://127.0.0.1:8082/xuqiuyilan/getAllList").then(response =>{
+        that.demandTaskList = response.data;
+        console.log(that.demandTaskList )
       });
     }
   },
