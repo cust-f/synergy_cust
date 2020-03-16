@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+      :data="tableData"
       border
       class="table"
       ref="multipleTable"
@@ -15,7 +15,7 @@
     >
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyId" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
@@ -28,8 +28,8 @@
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="allTaskDet()" type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="allTaskDet(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,14 +64,12 @@ export default {
       activeName: "first",
       tableData: [
         {
-          // id: 1,
-          // acceptCompanyId: "20202020",
-          // bussessType: "车间零部件生产",
-          // publishTask: "一汽大众",
-          // taskLeader: "李名",
-          // company: "光机所",
-          // state: "进行中",
-          // date: "2019-12-1"
+          taskId:"",
+          taskName:"",
+          companyName:"",
+          supplierName:"",
+          taskCheck:"",
+          deadline:"",
         }
       ],
       multipleSelection: [],
@@ -113,7 +111,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierdesigntasklist",
+          url: "http://127.0.0.1:8082/supplier/supplierDesignTaskList",
           data: data
 
           // data:this.$store.state.userName
@@ -131,12 +129,12 @@ export default {
 
     //详情页面跳转方法
     allTaskDet(row) {
-      console.log(row.taskId);
+      // console.log(row.taskId);
       this.$router.push({
         path: "/admin/allTaskDet",
-        query: {
-          taskId: row.taskId
-        }
+        // query: {
+        //   taskId: row.taskId
+        // }
       });
     }
   }

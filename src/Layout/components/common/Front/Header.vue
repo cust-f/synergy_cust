@@ -1,33 +1,25 @@
 <template>
   <div class="admin-header">
     <el-row class="header-message" :gutter="20">
-      <el-col :span="10" :offset="1">
-        <!-- <div class="collapse-btn" @click="collapseChage">
-          <i v-if="!collapse" class="el-icon-s-fold"></i>
-          <i v-else class="el-icon-s-unfold"></i>
-        </div>-->
+      <el-col :span="8" :offset="1">
         <!-- <span>欢迎访问高端装备制造领域的科技服务SaaS应用构建以及示范!</span> -->
       </el-col>
-      <el-col :span="5" :offset="4" style="float:right;">
+      <el-col :span="6" :offset="3" style="float:right;">
         <div>
-          <ul v-if="log">
+          <ul v-if="log==token">
             <li>
               <el-popover placement="bottom" trigger="hover">
                 <el-row>
-                  <el-col :span="8" class="user-avator">
+                  <el-col :span="10" class="user-avator">
                     <img src="../../../../assets/img/img.jpg" />
                   </el-col>
-                  <el-col :span="12">
-                    <div>
-                      <el-row>
-                        <a @click="logout">退出登陆</a>
-                      </el-row>
-                      <el-row>
-              <router-link to="home" tag="a">返回首页</router-link>
-                      </el-row>
-                      <el-row>
+                  <el-col :span="10" style="float:right;">
+                    <div class="user-option">
+                        <a @click="logout(0)">退出登陆</a>
+                         <el-divider></el-divider>
+                 <a @click="logout(1)">返回首页</a>
+                      <el-divider></el-divider>
                         <a>账号管理</a>
-                      </el-row>
                     </div>
                   </el-col>
                 </el-row>
@@ -37,13 +29,13 @@
           </ul>
           <ul v-else>
             <li>
-            <router-link to="login" tag="a">登陆</router-link>
+              <a @click="login(0)">登陆</a>
             </li>
             <li>
               <a>|</a>
             </li>
             <li>
-             <router-link to="login" tag="a">注册</router-link>
+              <a @click="login(1)">注册</a>
             </li>
           </ul>
           <ul>
@@ -92,9 +84,10 @@ export default {
   name: "adminpage",
   data() {
     return {
-      log: this.$store.state.token,
+      log: true,
+      token:this.$store.state.token,
       collapse: false,
-      username: "admin",
+      username: this.$store.state.user,
       input: "",
       select: ""
     };
@@ -103,28 +96,32 @@ export default {
     navigation
   },
   methods: {
-    // 侧边栏折叠
-    collapseChage() {
-      this.collapse = !this.collapse;
-    },
     /*
      *@description:登出功能函数
      *@modifyContent:
      *@author: 旋展峰
      *@date: 2020-01-14 08:34:47
      */
-    logout() {
+    logout(opinion) {
+      if(opinion==0){
       this.$store.commit("LOGOUT");
+      this.token=false;
       this.$message({
         type: "success",
         message: "登出成功"
       });
       this.$router.push("/home");
-    }
-  },
-  mounted() {
-    if (document.body.clientWidth < 1500) {
-      this.collapseChage();
+      }else{
+      this.$router.push("/home");
+      }
+
+    },
+    login(opinion){
+      if(opinion==0){
+              this.$router.push("/login");
+      }else{
+        this.$router.push("/register");
+      }
     }
   }
 };
@@ -214,6 +211,9 @@ export default {
 .btn-bell .el-icon-bell {
   color: #fff;
 }
+.user-option .el-divider--horizontal{
+  margin:5px 0 !important;
+}
 .user-name {
   margin-left: 10px;
 }
@@ -222,8 +222,8 @@ export default {
 }
 .user-avator img {
   display: block;
-  width: 45px;
-  height: 45px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
 }
 .el-dropdown-link {
