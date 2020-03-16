@@ -1,9 +1,9 @@
 
 <template>
-  <div align="center">
+  <div align="center" class="home">
     <!--第一行 首页轮播图-->
     <div class="BG0">
-      <el-row :gutter="gutterCount">
+      <el-row >
         <el-col :span="24">
           <div class="grid-content0">
             <el-carousel height="400px">
@@ -51,106 +51,125 @@
       </el-row>
 
       <!--第三行  分类门户-->
-      <el-row :gutter="5">
+      <el-row :gutter="6" class="category" style="margin-bottom:20px;">
         <el-col :span="18">
-          <div class="category_wrap">
-            <div class="category_box">
-              <!----这里分类----->
-              <div class="category_item">
-                <div class="cate_ietm_title">
-                  <font>交通运输设备</font>
-                  <p></p>
+          <el-row>
+            <el-col :span="8">
+              <el-card shadow="hover">
+                <div class="category_item">
+                  <div class="cate_ietm_title">
+                    <font>交通运输设备</font>
+                    <p></p>
+                  </div>
+                  <i class="cate_list">
+                    <a href>汽车</a>
+                    <a href>铁路运输设备</a>
+                    <a href>摩托车</a>
+                    <a href>自行车</a>
+                    <a href>船舶及浮动装置</a>
+                    <a href>航空航天器</a>
+                    <a href="l">交通器材及其他交通运输设备</a>
+                  </i>
                 </div>
-                <i class="cate_list">
-                  <a href>汽车</a>
-                  <a href>铁路运输设备</a>
-                  <a href>摩托车</a>
-                  <a href>自行车</a>
-                  <a href>船舶及浮动装置</a>
-                  <a href>航空航天器</a>
-                  <a href="l">交通器材及其他交通运输设备</a>
-                </i>
-              </div>
-              <div class="category_item">
-                <div class="cate_ietm_title" style="background:#ffbd81;">
-                  <font>仪器仪表及文化、办公用机械</font>
-                  <p></p>
+              </el-card>
+            </el-col>
+            <el-col :span="8">
+              <el-card shadow="hover" style="float:left">
+                <div class="category_item">
+                  <div class="cate_ietm_title" style="background:#ffbd81;">
+                    <font>仪器仪表及文化、办公用机械</font>
+                  </div>
+                  <i class="cate_list">
+                    <a href>通用仪器仪表</a>
+                    <a href>专用仪器仪表</a>
+                    <a href>钟表与计时仪器</a>
+                    <!-- <a href>光学仪器及眼镜</a> -->
+                    <a href>文化、办公用机械</a>
+                    <a href>其他仪器仪表的制造及修理</a>
+                  </i>
                 </div>
-                <i class="cate_list">
-                  <a href>通用仪器仪表</a>
-                  <a href>专用仪器仪表</a>
-                  <a href>钟表与计时仪器</a>
-                  <a href>光学仪器及眼镜</a>
-                  <a href>文化、办公用机械</a>
-                  <a href>其他仪器仪表的制造及修理</a>
-                </i>
-              </div>
-              <div class="category_item">
-                <div class="cate_ietm_title" style="background:#f0dc70;">
-                  <font>通信设备、计算机及其他电子设备</font>
-                  <p>&nbsp;</p>
+              </el-card>
+            </el-col>
+            <el-col :span="8">
+              <el-card shadow="hover">
+                <div class="category_item">
+                  <div class="cate_ietm_title" style="background:#f0dc70;">
+                    <font>通信设备、计算机及其他电子设备</font>
+                  </div>
+                  <i class="cate_list">
+                    <a href>通信设备</a>
+                    <a href>雷达及配套设备</a>
+                    <a href>广播电视设备</a>
+                    <a href>电子计算机</a>
+                    <a href>电子器件</a>
+                    <a href>电子元件</a>
+                    <a href>家用视听设备</a>
+                    <a href>其他电子设备</a>
+                  </i>
                 </div>
-                <i class="cate_list">
-                  <a href>通信设备</a>
-                  <a href>雷达及配套设备</a>
-                  <a href>广播电视设备</a>
-                  <a href>电子计算机</a>
-                  <a href>电子器件</a>
-                  <a href>电子元件</a>
-                  <a href>家用视听设备</a>
-                  <a href>其他电子设备</a>
-                </i>
-              </div>
-              <div class="category_item">
-                <div class="cate_ietm_title">
-                  <font>电气机械及器材</font>
-                  <p></p>
+              </el-card>
+            </el-col>
+          </el-row>
+          <!----这里分类----->
+          <el-row>
+            <el-col :span="8">
+              <el-card shadow="hover">
+                <div class="category_item">
+                  <div class="cate_ietm_title">
+                    <font>电气机械及器材</font>
+                  </div>
+                  <i class="cate_list">
+                    <a href>电机</a>
+                    <a href>输配电及控制设备</a>
+                    <a href>电池</a>
+                    <a href>家用电力器具</a>
+                    <a href>非电力家用器具</a>
+                    <a href>照明器具</a>
+                    <a href>其他电气机械及器材</a>
+                  </i>
                 </div>
-                <i class="cate_list">
-                  <a href>电机</a>
-                  <a href>输配电及控制设备</a>
-                  <a href>电池</a>
-                  <a href>家用电力器具</a>
-                  <a href>非电力家用器具</a>
-                  <a href>照明器具</a>
-                  <a href>其他电气机械及器材</a>
-                </i>
-              </div>
-              <div class="category_item">
-                <div class="cate_ietm_title" style="background:#ffbd81;">
-                  <font>专用设备</font>
-                  <p>&nbsp;</p>
+              </el-card>
+            </el-col>
+            <el-col :span="8">
+              <el-card shadow="hover">
+                <div class="category_item">
+                  <div class="cate_ietm_title" style="background:#ffbd81;">
+                    <font>专用设备</font>
+                  </div>
+                  <i class="cate_list">
+                    <a href>矿山、冶金、建筑专用设备</a>
+                    <a href>电子和电工机械专用设备</a>
+                    <a href>医疗仪器设备及器械</a>
+                    <a href>农、林、牧、渔专用机械</a>
+                    <a href style="float:right;">更多</a>
+                  </i>
                 </div>
-                <i class="cate_list">
-                  <a href>矿山、冶金、建筑专用设备</a>
-                  <a href>电子和电工机械专用设备</a>
-                  <a href>医疗仪器设备及器械</a>
-                  <a href>农、林、牧、渔专用机械</a>
-                  <a href style="float:right;">更多</a>
-                </i>
-              </div>
-              <div class="category_item">
-                <div class="cate_ietm_title" style="background:#f0dc70;">
-                  <font>通用设备</font>
-                  <p>&nbsp;</p>
+              </el-card>
+            </el-col>
+            <el-col :span="8">
+              <el-card shadow="hover">
+                <div class="category_item">
+                  <div class="cate_ietm_title" style="background:#f0dc70;">
+                    <font>通用设备</font>
+                  </div>
+                  <i class="cate_list">
+                    <a href>锅炉及原动机</a>
+                    <a href>金属加工机械</a>
+                    <a href>起重运输设备</a>
+                    <a href>烘炉、熔炉及电炉</a>
+                    <a href>金属铸、锻加工</a>
+                    <a href>更多</a>
+                  </i>
                 </div>
-                <i class="cate_list">
-                  <a href>锅炉及原动机</a>
-                  <a href>金属加工机械</a>
-                  <a href>起重运输设备</a>
-                  <a href>烘炉、熔炉及电炉</a>
-                  <a href>金属铸、锻加工</a>
-                  <a href>更多</a>
-                </i>
-              </div>
-            </div>
-          </div>
+              </el-card>
+            </el-col>
+          </el-row>
         </el-col>
 
         <!-- 登录模块-->
-        <el-col :span="6">
+        <el-col :span="6" >
           <div class="grid-content">
-            <el-card style="margin-bottom:5px;">
+            <el-card style="margin-bottom:5px;padding-top: 10px;">
               <div v-if="!this.$store.state.token">
                 <span>HI!欢迎来到Saas应用</span>
                 <div class="grid-content-top-button">
@@ -186,7 +205,7 @@
                   class="loginHeight"
                 >
                   <el-tab-pane label="我有需求" name="first">
-                    <el-row>
+                    <el-row style="margin-top: 9%;">
                       <el-tag
                         class="xqelbuttonleft"
                         style="margin-top:0px ; margin-left:0px ;"
@@ -198,7 +217,7 @@
                         effect="plain"
                       >企业标准</el-tag>
                     </el-row>
-                    <el-divider style="margin: 15px 0!important;"></el-divider>
+
                     <el-row>
                       <el-tag
                         class="xqelbuttonleft"
@@ -214,14 +233,14 @@
 
                     <el-button
                       class="xqelbuttonleft0"
-                      @click="dialogVisible = true"
+                      @click="addNewTask()"
                       style="margin-top:10px ; margin-left:0px ;"
                       type="success"
                       round
                     >发布需求</el-button>
                   </el-tab-pane>
                   <el-tab-pane label="我有服务" name="second">
-                    <el-row>
+                    <el-row style="margin-top: 9%;">
                       <el-tag
                         class="xqelbuttonleft"
                         style="margin-top:0px ; margin-left:0px ;"
@@ -233,7 +252,6 @@
                         effect="plain"
                       >企业标准</el-tag>
                     </el-row>
-                    <el-divider style="margin: 15px 0!important;"></el-divider>
                     <el-row>
                       <el-tag
                         class="xqelbuttonleft"
@@ -249,7 +267,7 @@
 
                     <el-button
                       class="xqelbuttonleft0"
-                      @click="dialogVisible = true"
+                      @click="selectDemand()"
                       style="margin-top:10px ; margin-left:0px ;"
                       type="success"
                       round
@@ -263,7 +281,7 @@
       </el-row>
 
       <!--发布需求 弹出框-->
-      <div class="Publishingrequirements">
+      <!-- <div class="Publishingrequirements">
         <el-dialog title="发布需求" :visible.sync="dialogVisible">
           <el-form ref="form" :model="form" :rules="rules" label-width="80px" class size="medium">
             <el-form-item label="需求名称" prop="name">
@@ -377,7 +395,7 @@
             <el-button @click="dialogVisible = false">取 消</el-button>
           </div>
         </el-dialog>
-      </div>
+      </div>-->
 
       <!--第四行  需求一览，优质企业，服务成果-->
       <el-row :gutter="gutterCount">
@@ -577,12 +595,12 @@ export default {
         }
       ],
       //发布需求弹出框内的任务类别筛选数据子类bool值
-      show0: true,
-      show1: false,
-      show2: false,
-      show3: false,
-      show4: false,
-      show5: false,
+      // show0: true,
+      // show1: false,
+      // show2: false,
+      // show3: false,
+      // show4: false,
+      // show5: false,
       //发布需求弹出框内的任务类别筛选数据子类
       //交通运输设备子类
       options0: [
@@ -809,35 +827,12 @@ export default {
 
       //需求一览数据表（category为需求一览类别,name为需求名称，sTime为项目发布时间）
       demandTaskList: "",
-      // [
-      //   {category:"交通运输",name:"危险品运输半挂车货箱采购项目",sTime:"2019-09-06"},
-      //   {category:"仪器仪表",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06"},
-      //   {category:"电气机械",name:"数据中心采暖系统改造项目",sTime:"2019-09-06"},
-      //   {category:"通信设备",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06"},
-      //   {category:"通信设备",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06"},
-      //   {category:"仪器仪表",name:"LTE-V数据协议及性能测试设备",sTime:"2019-09-06"},
-      //   {category:"通信设备",name:"TNGA（2.5L）项目组装线安装工程",sTime:"2019-09-06"},]
+
       //优质企业数据表（category为企业类别，companyName为企业名称）
       supplierlist: "",
-      // [
-      //   {category:"交通运输",companyName:"长春富晟吉通物流设备有限公司"},
-      //   {category:"仪器仪表",companyName:"长春新产业光电技术有限公司"},
-      //   {category:"电气机械",companyName:"吉林省长春市盛昊电子有限公司"},
-      //   {category:"通信设备",companyName:"哈尔滨哈特信息科技有限公司"},
-      //   {category:"仪器仪表",companyName:"北京京伟电器有限公司 "},
-      //   {category:"交通运输",companyName:"长春沃尔特仓储设备有限公司"},
-      //   {category:"电气机械",companyName:"合肥皖仪科技有限公司"},]
+
       //服务成果数据表（category为服务成果类别，name为服务成果名称，sTime为服务成果完成时间）
       completeddemandTaskList: ""
-      // [
-      //   {category:"仪器仪表",name:"绝缘用具更新及试验",sTime:"2019-09-06"},
-      //   {category:"电气机械",name:"MKS1632数控外圆磨尾架维修",sTime:"2019-09-06"},
-      //   {category:"电气机械",name:"厂区维修服务",sTime:"2019-09-06"},
-      //   {category:"电气机械",name:"汽车刹车片设计",sTime:"2019-09-06"},
-      //   {category:"仪器仪表",name:"绝缘用具更新及试验",sTime:"2019-09-06"},
-      //   {category:"仪器仪表",name:"绝缘用具更新及试验",sTime:"2019-09-06"},
-      //   {category:"电气机械",name:"安装B30EV-试冲板料",sTime:"2019-09-06"},
-      // ],
     };
   },
   //网站下方数据统计图表用（丁宅荣负责添加）
@@ -893,57 +888,16 @@ export default {
     },
 
     //发布需求界面
-    selectOne() {
-      this.form.value0 = "0";
-      //直接就拿到当前的这个对象了
-      if (this.form.value == "0") {
-        this.show0 = true;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
+    addNewTask() {
+      if (!this.$store.state.token) {
+        this.$message.error("抱歉你还未进行登陆");
+      } else {
+        this.$router.push("/admin/newTask");
       }
-      if (this.form.value == "1") {
-        this.show0 = false;
-        this.show1 = true;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-      }
-      if (this.form.value == "2") {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = true;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-      }
-      if (this.form.value == "3") {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = true;
-        this.show4 = false;
-        this.show5 = false;
-      }
-      if (this.form.value == "4") {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = true;
-        this.show5 = false;
-      }
-      if (this.form.value == "5") {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = true;
-      }
+    },
+    //寻找需求
+    selectDemand() {
+      this.$message("功能维护中！");
     },
     //登陆或者注册界面转跳
     login(option) {
@@ -1267,6 +1221,7 @@ export default {
   left: 25%;
   width: 50%;
   height: 50px;
+  margin-bottom: 7%;
 }
 /**右侧按钮的样式表*/
 .xqelbuttonright {
@@ -1311,7 +1266,9 @@ export default {
 .loginHeight {
   height: 210px;
 }
-
+.loginHeight .el-tabs__content {
+  background-color: #ffe8c6;
+}
 /**需求一览，优质企业，服务成果 用的外部样式表 */
 .grid-content2 {
   border-radius: 4px;
@@ -1358,17 +1315,27 @@ export default {
 }
 
 /**布局测试用css*/
-.el-row {
+/**防止污染其他界面 */
+.home .el-card__body {
+  padding: 0;
+}
+.home.el-row {
   margin-bottom: 10px;
 }
-.el-col {
+.home.el-col {
   border-radius: 4px;
 }
 
-.box-card {
+.home.box-card {
   width: 100%;
 }
 
+.home .category .el-card.is-hover-shadow:hover {
+  -webkit-box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.33);
+  box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.33);
+  z-index: 200;
+  position: relative;
+}
 /** */
 
 /**分类门户的样式表*/
@@ -1384,11 +1351,9 @@ export default {
   height: 100%;
 }
 .category_item {
-  width: 33.1%;
-  height: 50%;
+  height: 195px;
   float: left;
-  background: #f5f5f5;
-  margin: 0 2px 0 0;
+  background: #ffffff;
 }
 .cate_ietm_title {
   width: 100%;
@@ -1396,6 +1361,7 @@ export default {
   background: #94d6da;
   color: #fff;
   font-size: 18px;
+  font-weight: 520;
   text-align: center;
   line-height: 50px;
 }
@@ -1414,9 +1380,6 @@ export default {
 a {
   color: #333;
   text-decoration: none;
-}
-a:hover {
-  color: #fa6569;
 }
 
 ul li {

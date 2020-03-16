@@ -1,102 +1,82 @@
 <template>
-<el-main >
-  <div class="xuqiuyilan">
-    
-    <el-col :span="20" push="4" pull="2" >
-      <div>
+  <el-main>
+    <div class="xuqiuyilan">
+      <el-col :span="20" push="4" pull="2">
         <div>
-          <el-col span="6" >
-          <div class="title" width="160px" >
-            <span>首页</span>
-            <span>&nbsp;>&nbsp;</span>
-            <span>需求一览</span>
+          <div>
+            <el-col span="6">
+              <div class="title" width="160px">
+                <span>首页</span>
+                <span>&nbsp;>&nbsp;</span>
+                <span>需求一览</span>
+              </div>
+            </el-col>
           </div>
-          </el-col>
         </div>
-    </div> 
 
-    <div class="zy_kjcg_top">
-    <!--<div><a>科技成果</a></div>-->
-    <table cellpadding="0" cellspacing="0">
-        
-        <tbody><tr>
-            <td class="cg_td01">需求类型：</td>
-            <td class="cg_td02">
-                <a>不限</a>
-                <a>设计</a>
-                <a>流通</a>
-            </td>
-        </tr><tr>
-        <td class="cg_td01">行业类别：</td>
-        <td class="cg_td02">           
-                <a v-bind:class="{ active: isActive0 }" @click="click0">不限</a>
-                <a v-bind:class="{ active: isActive1 }" @click="click1">交通运输设备</a>
-                <a v-bind:class="{ active: isActive2 }" @click="click2">仪器仪表及文化、办公用机械</a>
-                <a v-bind:class="{ active: isActive3 }" @click="click3">通信设备、计算机及其他电子设备</a>
-                <a v-bind:class="{ active: isActive4 }" @click="click4">电气机械及器材</a>
-                <a v-bind:class="{ active: isActive5 }" @click="click5">专用设备</a>
-                <a v-bind:class="{ active: isActive6 }" @click="click6">通用设备</a>
-        </td>
-    </tr>
-        <tr>
-            <td class="cg_td01">下分子类：</td>
-            <td class="cg_td02">
-              <div v-if="show0">
-                <a v-for="item in options0"
-                :key="item.value"
-                >{{item.label}}</a>
-              </div>
-              <div v-if="show1">
-                <a v-for="item in options1"
-                :key="item.value"
-                >{{item.label}}</a>
-              </div>
-              <div v-if="show2">
-                <a v-for="item in options2"
-                :key="item.value"
-                >{{item.label}}</a>
-              </div>
-              <div v-if="show3" >
-                <a v-for="item in options3"
-                :key="item.value"
-                >{{item.label}}</a>
-              </div>
-              <div v-if="show4" >
-                <a v-for="item in options4"
-                :key="item.value"
-                >{{item.label}}</a>
-              </div>
-              <div v-if="show5">
-                <a v-for="item in options5"
-                :key="item.value"
-                >{{item.label}}</a>
-              </div>
-            </td>
-        </tr>
-        
-    </tbody></table>
-</div>
-
-
-        <div style="width:500px; margin:20px 58px;">      
-            <el-input
-              size="small"
-              placeholder="请输入搜索内容"
-              prefix-icon="el-icon-search"
-              v-model="input2">
-            </el-input>
-            <el-button  type="warning" class="button1" style =" margin:0px -120px;">搜索</el-button>                
+        <div class="zy_kjcg_top">
+          <!--<div><a>科技成果</a></div>-->
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr>
+                <td class="cg_td01">需求类型：</td>
+                <td class="cg_td02">
+                  <a>不限</a>
+                  <a>设计</a>
+                  <a>流通</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="cg_td01">行业类别：</td>
+                <td class="cg_td02">
+                  <a v-bind:class="{ active: isActive0 }" @click="click0">不限</a>
+                  <a v-bind:class="{ active: isActive1 }" @click="click1">交通运输设备</a>
+                  <a v-bind:class="{ active: isActive2 }" @click="click2">仪器仪表及文化、办公用机械</a>
+                  <a v-bind:class="{ active: isActive3 }" @click="click3">通信设备、计算机及其他电子设备</a>
+                  <a v-bind:class="{ active: isActive4 }" @click="click4">电气机械及器材</a>
+                  <a v-bind:class="{ active: isActive5 }" @click="click5">专用设备</a>
+                  <a v-bind:class="{ active: isActive6 }" @click="click6">通用设备</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="cg_td01">下分子类：</td>
+                <td class="cg_td02">
+                  <div v-if="show0">
+                    <a v-for="item in options0" :key="item.value">{{item.label}}</a>
+                  </div>
+                  <div v-if="show1">
+                    <a v-for="item in options1" :key="item.value">{{item.label}}</a>
+                  </div>
+                  <div v-if="show2">
+                    <a v-for="item in options2" :key="item.value">{{item.label}}</a>
+                  </div>
+                  <div v-if="show3">
+                    <a v-for="item in options3" :key="item.value">{{item.label}}</a>
+                  </div>
+                  <div v-if="show4">
+                    <a v-for="item in options4" :key="item.value">{{item.label}}</a>
+                  </div>
+                  <div v-if="show5">
+                    <a v-for="item in options5" :key="item.value">{{item.label}}</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      
-    
-    
-      
 
+        <div style="width:500px; margin:20px 58px;">
+          <el-input
+            size="small"
+            placeholder="请输入搜索内容"
+            prefix-icon="el-icon-search"
+            v-model="input2"
+          ></el-input>
+          <el-button type="warning" class="button1" style=" margin:0px -120px;">搜索</el-button>
+        </div>
 
-
-       <div class="list">
-
-        <!-- <div class="cg_bottomlist" >
+        <div class="list">
+          <!-- <div class="cg_bottomlist" >
           <ul class="cg_bottomLeft" >
             <li class="cg_list001">  
               <a href="#/threeMenu" class="ziti2">福特汽车组装</a>
@@ -132,49 +112,40 @@
                 </li>
             </ul>
           </div>
-        </div> -->
+          </div>-->
 
-        <div class="cg_bottomlist" v-for="(list,i) in demandTaskList":key = "i">
-          <ul class="cg_bottomLeft" >
-            <li class="cg_list001">  
-              <a href="#/threeMenu" class="ziti2">{{list.Main_Task_Name}}</a>
-            </li>
-            <li class="cg_list002">
-              <a>
-                需求类型：流通 
-              </a>
-              <a>
-                行业类别：{{list.Industry_Type}}
-              </a>
-              <br>
-              <a>
-                发布时间：{{list.Publish_Time}}
-              </a>
-              <a>
-                完成时间：{{list.Deadline}}
-              </a>
-            </li>
-          </ul>
-          <div class="bottomRight" align="middle">
-            <a href class="fabujigou">发布机构</a>
-            <ul class="jgje">
-              <li>
+          <div class="cg_bottomlist" v-for="(list,i) in demandTaskList" :key="i">
+            <ul class="cg_bottomLeft">
+              <li class="cg_list001">
+                <a href="#/threeMenu" class="ziti2">{{list.Main_Task_Name}}</a>
+              </li>
+              <li class="cg_list002">
+                <a>需求类型：流通</a>
+                <a>行业类别：{{list.Industry_Type}}</a>
+                <br />
+                <a>发布时间：{{list.Publish_Time}}</a>
+                <a>完成时间：{{list.Deadline}}</a>
+              </li>
+            </ul>
+            <div class="bottomRight" align="middle">
+              <a href class="fabujigou">发布机构</a>
+              <ul class="jgje">
+                <li>
                   <a style="width:435px" align="left">
                     <font>机构名称:</font>
                     {{list.Company_ID}}
-                    <br>
+                    <br />
 
                     <font>联系电话:</font>
                     1231231232132
                   </a>
                 </li>
-            </ul>
+              </ul>
+            </div>
           </div>
         </div>
-        
-      </div>
-    </el-col>
-  </div>
+      </el-col>
+    </div>
   </el-main>
 </template>
 
@@ -184,7 +155,7 @@
 export default {
   name: "substaskDetail",
   data() {
-    return { 
+    return {
       //需求大类下的下分子类
     //交通运输设备子类
         options0: [{
@@ -395,370 +366,313 @@ export default {
   created() {
     this.getInfo();
   },
+
+  created() {
+    this.getInfo();
+  },
   methods: {
     handleClick(tab, event) {
-        console.log(tab, event);
-      },
-    
-    tiaozhuan(){
-        this.router.push("/admin/circulationTask")
-
-    },
-    
-    click0()
-    { 
-        this.show0=false;
-        this.show1=false;
-        this.show2=false;
-        this.show3=false;
-        this.show4=false;
-        this.show5=false;
-
-        this.isActive0=true;
-        this.isActive1=false;
-        this.isActive2=false;
-        this.isActive3=false;
-        this.isActive4=false;
-        this.isActive5=false;
-        this.isActive6=false;
-    },
-    click1()
-    {
-        if(this.show0==false)
-        {
-          this.show0=true;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
-
-          this.isActive0=false;
-          this.isActive1=true;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
-        if(this.show0==true)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
-
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
+      console.log(tab, event);
     },
 
-    click2()
-    {
-       if(this.show1==false)
-        {
-          this.show0=false;
-          this.show1=true;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
-
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=true;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
-        if(this.show1==true)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
-
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
+    tiaozhuan() {
+      this.router.push("/admin/circulationTask");
     },
 
-    click3()
-    {
-       if(this.show2==false)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=true;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
+    click0() {
+      this.show0 = false;
+      this.show1 = false;
+      this.show2 = false;
+      this.show3 = false;
+      this.show4 = false;
+      this.show5 = false;
 
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=true;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
-        if(this.show2==true)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
+      this.isActive0 = true;
+      this.isActive1 = false;
+      this.isActive2 = false;
+      this.isActive3 = false;
+      this.isActive4 = false;
+      this.isActive5 = false;
+      this.isActive6 = false;
+    },
+    click1() {
+      if (this.show0 == false) {
+        this.show0 = true;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
 
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
-    }
-    ,
-    click4()
-    {
-       if(this.show3==false)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=true;
-          this.show4=false;
-          this.show5=false;
+        this.isActive0 = false;
+        this.isActive1 = true;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
+      if (this.show0 == true) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
 
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=true;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
-        if(this.show3==true)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
-
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
     },
 
-    click5()
-    {
-        if(this.show4==false)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=true;
-          this.show5=false;
+    click2() {
+      if (this.show1 == false) {
+        this.show0 = false;
+        this.show1 = true;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
 
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=true;
-          this.isActive6=false;
-          return;
-        }
-        if(this.show4==true)
-        {
-           this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = true;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
+      if (this.show1 == true) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
 
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=true;
-          this.isActive6=false;
-          return;
-        }
-          
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
     },
 
-    click6()
-    {
-        if(this.show5==false)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=true;
+    click3() {
+      if (this.show2 == false) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = true;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
 
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=true;
-          return;
-        }
-        if(this.show5==true)
-        {
-          this.show0=false;
-          this.show1=false;
-          this.show2=false;
-          this.show3=false;
-          this.show4=false;
-          this.show5=false;
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = true;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
+      if (this.show2 == true) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
 
-          this.isActive0=false;
-          this.isActive1=false;
-          this.isActive2=false;
-          this.isActive3=false;
-          this.isActive4=false;
-          this.isActive5=false;
-          this.isActive6=false;
-          return;
-        }
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
+    },
+    click4() {
+      if (this.show3 == false) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = true;
+        this.show4 = false;
+        this.show5 = false;
+
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = true;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
+      if (this.show3 == true) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
+
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
     },
 
-    getInfo(){
+    click5() {
+      if (this.show4 == false) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = true;
+        this.show5 = false;
+
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = true;
+        this.isActive6 = false;
+        return;
+      }
+      if (this.show4 == true) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
+
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = true;
+        this.isActive6 = false;
+        return;
+      }
+    },
+
+    click6() {
+      if (this.show5 == false) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = true;
+
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = true;
+        return;
+      }
+      if (this.show5 == true) {
+        this.show0 = false;
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = false;
+        this.show4 = false;
+        this.show5 = false;
+
+        this.isActive0 = false;
+        this.isActive1 = false;
+        this.isActive2 = false;
+        this.isActive3 = false;
+        this.isActive4 = false;
+        this.isActive5 = false;
+        this.isActive6 = false;
+        return;
+      }
+    },
+
+    getInfo() {
       var that = this;
       that.axios.post("http://127.0.0.1:8082/xuqiuyilan/getAllList").then(response =>{
         that.demandTaskList = response.data;
         console.log(that.demandTaskList )
       });
     }
-  },
-
+  }
 };
-  
 </script>
 <style>
-
 .zy_kjcg_top {
-    width: 1200px;
-    margin-left:4%;
+  width: 1200px;
+  margin-left: 4%;
 }
 
 .zy_kjcg_top table {
-    border: solid 1px #ccc;
-    width: 1000px;
-    border-collapse: collapse;
-    background: #fafafa;
+  border: solid 1px #ccc;
+  width: 1000px;
+  border-collapse: collapse;
+  background: #fafafa;
 
-    white-space: normal;
-    line-height: normal;
-    font-weight: normal;
-    font-size: medium;
-    font-style: normal;
-    color: -internal-quirk-inherit;
-    text-align: start;
+  white-space: normal;
+  line-height: normal;
+  font-weight: normal;
+  font-size: medium;
+  font-style: normal;
+  color: -internal-quirk-inherit;
+  text-align: start;
 }
 .cg_td01 {
-    color: #333;
-    width: 100px;
-    text-align: center;
-    padding: 0px;
+  color: #333;
+  width: 100px;
+  text-align: center;
+  padding: 0px;
 }
 .zy_kjcg_top table td {
-    border: dashed 1px #ccc;
-    line-height: 30px;
-    font-size: 14px;
-    font-family: "微软雅黑";
-    color: #666;
-    padding: 20px 40px;
+  border: dashed 1px #ccc;
+  line-height: 30px;
+  font-size: 14px;
+  font-family: "微软雅黑";
+  color: #666;
+  padding: 20px 40px;
 }
 .cg_td02 a {
-    display: block;
-    float: left;
-    margin-right: 50px;
-    
+  display: block;
+  float: left;
+  margin-right: 50px;
 }
 
-.list{
-
+.list {
   float: left;
   width: 1040px;
 }
-.active{
-    color: cornflowerblue;
+.active {
+  color: cornflowerblue;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .title {
   font-size: 14px;
@@ -832,13 +746,13 @@ export default {
   text-decoration: none;
 }
 
-.zuo{
+.zuo {
   width: 300px;
   float: left;
 }
-.you{
+.you {
   width: 600px;
- margin-top: 20px;
+  margin-top: 20px;
 }
 .cg_td_a1 {
   border-collapse: collapse;
@@ -895,7 +809,7 @@ export default {
 
   text-decoration: none;
 }
- .cool {
+.cool {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
@@ -912,14 +826,12 @@ export default {
 
   margin-bottom: 0px;
   width: 1200px;
- height: 200px;
-
- 
+  height: 200px;
 
   text-decoration: none;
-} 
+}
 
-.qwe{
+.qwe {
   float: left;
   width: 900px;
   height: 180px;
@@ -1066,7 +978,7 @@ export default {
 
   margin-left: 0px;
 
-  margin-right:0px;
+  margin-right: 0px;
 
   margin-top: 50px;
 
@@ -1112,7 +1024,6 @@ export default {
   font-weight: 400;
 
   word-break: break-all;
-  
 }
 .cg_list002 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1133,7 +1044,7 @@ export default {
 }
 
 .cg_bottomlist {
-  float:left;
+  float: left;
   margin-left: 5%;
   border-bottom: dashed 1px #ccc;
   width: 1000px;
@@ -1181,7 +1092,6 @@ export default {
   width: 500px;
 
   word-break: break-all;
-
 }
 .fabujigou {
   background-attachment: scroll;
@@ -1205,7 +1115,6 @@ export default {
   font-size: 16px;
 
   font-weight: 400;
-
 
   line-height: 30px;
 
@@ -1293,7 +1202,6 @@ export default {
   word-break: break-all;
 
   width: 300px;
-  
 }
 .bottomRight {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1310,7 +1218,7 @@ export default {
 
   position: relative;
 
-  margin-top: 20px ;
+  margin-top: 20px;
 
   top: 0px;
 
@@ -1336,7 +1244,6 @@ export default {
 
   background-size: auto;
 
-  
   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
 
   font-size: 14px;
@@ -1353,5 +1260,4 @@ export default {
 
   width: 300px;
 }
-
 </style>
