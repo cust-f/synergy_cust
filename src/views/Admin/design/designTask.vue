@@ -8,6 +8,8 @@
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
           <div class="container">
+          
+
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="全部任务" name="first">
                 <div class="handle-box">
@@ -24,7 +26,7 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
                   <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
 
@@ -81,7 +83,7 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
                   <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
                   <el-table-column prop="companyName" label="企业名称"></el-table-column>
@@ -139,7 +141,7 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
                   <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
                   <el-table-column prop="companyName" label="企业名称"></el-table-column>
@@ -157,9 +159,8 @@
                   </el-table-column>
                   <el-table-column label="审核" align="center">
                     <template slot-scope="scope">
-                  <el-button type="success" size="mini" plain @click="open2(scope.row)">审核通过</el-button>
-                    <br>
-                    <el-button type="danger" size="mini" plain @click="open(scope.row)">审核不通过</el-button>
+                  <el-button type="text" size="small"  class="box1" @click="open2(scope.row)">通过</el-button>
+                    <el-button type="text" size="small" class="box1" @click="open(scope.row)">不通过</el-button>
                     </template>
                   
                   </el-table-column>
@@ -204,7 +205,7 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                    <el-table-column prop="taskName" label="分解任务名称"></el-table-column>         
                    <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
                  
@@ -256,7 +257,7 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
                   <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
                   <el-table-column prop="companyName" label="企业名称"></el-table-column>
@@ -274,9 +275,8 @@
                   </el-table-column>
                   <el-table-column label="审核" align="center">
                     <template slot-scope="scope">
-                      <el-button type="success" size="mini" plain @click="tuzhishenhe(scope.row)">审核通过</el-button>
-                      <br>
-                      <el-button type="danger" size="mini" plain @click="tuzhiNo(scope.row)">审核不通过</el-button>
+                      <el-button type="text" size="small"  class="box1" @click="tuzhishenhe(scope.row)">通过</el-button>
+                      <el-button type="text" size="small"  class="box1" @click="tuzhiNo(scope.row)">不通过</el-button>
                     </template>
                     
                   </el-table-column>
@@ -321,7 +321,7 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
                   <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
                   <el-table-column prop="companyName" label="企业名称"></el-table-column>
@@ -379,7 +379,7 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="分解任务名称"> </el-table-column>
                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
                   <el-table-column prop="companyName" label="企业名称"></el-table-column>
@@ -1390,6 +1390,8 @@ export default {
 .box1 {
   font-size: 14px;
 }
+
+
 
 </style>
 
