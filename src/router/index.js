@@ -59,6 +59,7 @@ import pendingResTaskDet from '@/views/admin/supplier/design/designDetails/pendi
 import planAuditDet from '@/views/admin/supplier/design/designDetails/planAuditDet'//任务计划详情页面
 import planAuditingDet from '@/views/admin/supplier/design/designDetails/planAuditingDet'//审核任务计划详情页面
 import repealedTaskDet from '@/views/admin/supplier/design/designDetails/repealedTaskDet'//废除任务详情页面
+import Det from '@/views/admin/supplier/design/designDetails/Det' //测试页面
 //供应商流通界面
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'//流通任务列表
 import cNewTask from '@/views/admin/supplier/circulation/cNewTask'//供应商流通分配
@@ -595,6 +596,16 @@ export default new Router({
           path: '/admin/cNewTask',
           name: 'cNewTask',
           component: cNewTask,
+          meta: {
+            title: "任务分解"
+          }
+        },  
+
+        //测试武将
+        {
+          path: '/admin/Det',
+          name: 'Det',
+          component: Det,
           meta: {
             title: "任务分解"
           }
