@@ -147,14 +147,14 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "1"
+      userName: "supplier"
       });
 
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierdesignRestasklist",
+          url: "http://127.0.0.1:8082/supplier/supplierDesignRestaskList",
           data: data
 
           // data:this.$store.state.userName
@@ -170,7 +170,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
-        taskState: "1"
+        taskState: 1
       });
       that.axios({
         method: "post",
@@ -190,7 +190,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
-        taskState:"7"
+        taskState:7
       });
       that.axios({
         method: "post",

@@ -21,9 +21,9 @@
 
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
+      <el-table-column prop="userName" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyName" label="承接供应商" align="center"></el-table-column>
+      <el-table-column prop="supplierName" label="承接供应商" align="center"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期"></el-table-column>
       <el-table-column label="操作" width="180" align="center">
@@ -75,6 +75,17 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
+      tableData:[
+        {
+          taskId: "123",
+          taskName: "123",
+          supplierName:"123",
+          companyName: "123",
+          userName: "123",
+          supplierName:"123",
+          deadline: "123"
+        }
+      ],
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
@@ -108,29 +119,34 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
-        taskState:"8"
+        taskState: 5
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        url: "http://127.0.0.1:8082/supplier/changeState",
         data: data
       });
       this.$message.success("审核通过");
-      this.reload();
+      this.$router.go(0)
     },
     //审核不通过
     changeNoPassStates(row){
       console.log(row.taskId);
+      var Intl;
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
-        taskState:"4"
-      });
-      that.axios({
+        taskState: 4
+      }); 
+      that
+      .axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeStatue",
+        url: "http://127.0.0.1:8082/supplier/changeState",
         data: data
-      });
+      })
+      .then(response => {
+          console.log(response);
+        });
       this.$message.success("审核不通过");
       this.reload();
     },
@@ -139,7 +155,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "1"
+        userName:"supplier"
       });
 
       console.log(data);

@@ -107,17 +107,14 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "1"
+        userName: "supplier"
       });
-
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierDesigningtasklist",
+          url: "http://127.0.0.1:8082/supplier/supplierDesigningTaskList",
           data: data
-
-          // data:this.$store.state.userName
         })
         .then(response => {
           console.log(response);
