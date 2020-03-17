@@ -484,7 +484,7 @@ invitate(coo) {
     // 获取 easy-mock 的模拟数据
     getParams() {
       var routerParams = this.$route.query.mainTaskID;
-      this.3mainTaskID = routerParams;
+      this.mainTaskID = routerParams;
       console.log(routerParams);
     },
 
