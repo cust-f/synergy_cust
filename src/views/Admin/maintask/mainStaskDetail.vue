@@ -49,7 +49,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="需求方联系电话:">
+              <el-form-item label="需求方电话:">
                 <el-input v-model="cool.demanderTel" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
@@ -70,17 +70,35 @@
         <!-- mainTaskID冲-->
         <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
         <el-table-column prop="companyName" label="供应商"></el-table-column>
-        <el-table-column prop="taskWay" label="承接方式">
-          <template slot-scope="{row: {taskWay}}">
-            <span v-if="+taskWay === 0">邀请</span>
-            <span v-else-if="+taskWay === 1">申请</span>
+        <el-table-column prop="applyWay" label="承接方式">
+          <template slot-scope="{row: {applyWay}}">
+            <span v-if="+applyWay === 0">邀请</span>
+            <span v-else-if="+applyWay === 1">申请</span>
             <span v-else>其他</span>
           </template>
         </el-table-column>
-        <el-table-column prop="checkStatus" label="状态"></el-table-column>
+        <el-table-column prop="checkApplyState" label="申请/邀请状态">
+          <template slot-scope="{row: {checkApplyState}}">
+            <span v-if="+checkApplyState === 0">待审核</span>
+            <span v-else-if="+checkApplyState === 1">通过</span>
+            <span v-else>拒绝</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="applyTime" label="申请/邀请时间">
           <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
         </el-table-column>
+        <el-table-column prop="checkPlanState" label="计划审核状态">
+          <template slot-scope="{row: {checkPlanState}}">
+            <span v-if="+checkPlanState === 0">待上传</span>
+            <span v-else-if="+checkPlanState === 1">待审核</span>
+            <span v-else-if="+checkPlanState === 2">通过</span>
+            <span v-else-if="+checkPlanState === 3">拒绝</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="checkPlanTime" label="计划审核时间">
+          <template slot-scope="scope">{{scope.row.checkPlanTime | formatDate}}</template>
+        </el-table-column>
+
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <!-- <el-button
@@ -177,7 +195,7 @@ export default {
   name: "mainStaskDetail",
   data() {
     return {
-      activeBZT: "3",
+      activeBZT: "",
       mainTaskID: "",
       cool: {
         mainTaskName: "nihao",
@@ -190,9 +208,11 @@ export default {
       tableData1: [
         {
           companyName: "",
-          taskWay: "",
-          checkStatus: "",
-          applyTime: ""
+          applyWay: "",
+          checkApplyState: "",
+          applyTime: "",
+          checkPlanState: "", //计划审核状态
+          checkPlanTime: "" //计划审核时间
         }
       ]
     };
