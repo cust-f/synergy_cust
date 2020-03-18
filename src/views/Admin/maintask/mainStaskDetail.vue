@@ -45,7 +45,7 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务截止日期:">
-                <el-input v-model="cool.deadline" :disabled="true" style="text-align:center"></el-input>
+                <el-input v-bind:value="cool.deadline|formatDate" :disabled="true" style="text-align:center"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
@@ -58,6 +58,9 @@
       </el-card>
       <br />
       <br />
+
+
+             <div v-show="milepostActive1">
       <div class="biaoti">——申请列表——</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-table
         :data="tableData1"
@@ -69,7 +72,7 @@
       >
         <!-- mainTaskID冲-->
         <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="companyName" label="供应商"></el-table-column>
+        <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
         <el-table-column prop="applyWay" label="承接方式">
           <template slot-scope="{row: {applyWay}}">
             <span v-if="+applyWay === 0">邀请</span>
@@ -114,6 +117,10 @@
       </el-table>
       <br />
       <br />
+             </div>
+
+
+       <div v-show="milepostActive2">
       <div class="biaoti">——任务计划——</div>
       <br />
       <el-table
@@ -126,14 +133,18 @@
       >
         <!-- mainTaskID冲-->
         <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="mainTaskName" label="供应商"></el-table-column>
-        <el-table-column prop="industry_Type" label="承接方式"></el-table-column>
-        <el-table-column prop="principalName" label="状态"></el-table-column>
-        <el-table-column prop="publishTime" label="申请/邀请时间">
-          <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+        <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
+        <el-table-column prop="applyWay" label="承接方式"></el-table-column>
+        <el-table-column prop="checkPlanState" label="计划审核状态">
+          <template slot-scope="{row: {checkPlanState}}">
+            <span v-if="+checkPlanState === 0">待上传</span>
+            <span v-else-if="+checkPlanState === 1">待审核</span>
+            <span v-else-if="+checkPlanState === 2">通过</span>
+            <span v-else-if="+checkPlanState === 3">拒绝</span>
+          </template>
         </el-table-column>
-        <el-table-column prop="time" label="审核时间">
-          <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+        <el-table-column prop="checkPlanTime" label="计划审核时间">
+          <template slot-scope="scope">{{scope.row.checkPlanTime | formatDate}}</template>
         </el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
@@ -148,9 +159,13 @@
           </template>
         </el-table-column>
       </el-table>
+        <br />
       <br />
-      <br />
-      <div class="biaoti">——设计提交——</div>
+      </div>
+
+
+       <div v-show="milepostActive3">
+      <div class="biaoti">——合同管理——</div>
       <br />
       <el-table
         :data="tableData3"
@@ -162,14 +177,63 @@
       >
         <!-- mainTaskID冲-->
         <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="mainTaskName" label="供应商"></el-table-column>
-        <el-table-column prop="industry_Type" label="承接方式"></el-table-column>
-        <el-table-column prop="principalName" label="状态"></el-table-column>
-        <el-table-column prop="publishTime" label="申请/邀请时间">
-          <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+        <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
+        <el-table-column prop="applyWay" label="承接方式"></el-table-column>
+        <el-table-column prop="contractState" label="合同审核状态">
+          <template slot-scope="{row: {contractState}}">
+            <span v-if="+contractState === 0">待上传</span>
+            <span v-else-if="+contractState === 1">待审核</span>
+            <span v-else-if="+contractState === 2">通过</span>
+            <span v-else-if="+contractState === 3">未通过</span>
+          </template>
         </el-table-column>
-        <el-table-column prop="time" label="审核时间">
-          <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+        <el-table-column prop="uploadContractTime" label="合同上传时间">
+          <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
+        </el-table-column>
+        <el-table-column prop="contractRefuseReason" label="合同拒绝原因"></el-table-column>
+        <el-table-column label="操作" width="180" align="center">
+          <template slot-scope="scope">
+            <!-- <el-button
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="handleDelete(scope.$index, scope.row)"
+            >废除</el-button>-->
+            <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
+            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+        <br />
+      <br />
+       </div>
+
+
+              <div v-show="milepostActive4">
+      <div class="biaoti">——设计提交——</div>
+      <br />
+      <el-table
+        :data="tableData4"
+        border
+        class="table"
+        ref="multipleTable"
+        header-cell-class-name="table-header"
+        @selection-change="handleSelectionChange"
+      >
+        <!-- mainTaskID冲-->
+        <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+        <el-table-column prop="companyName" label="供应商"></el-table-column>
+        <el-table-column prop="applyWay" label="承接方式"></el-table-column>
+        <el-table-column prop="designerName" label="设计人员姓名"></el-table-column>
+        <el-table-column prop="uploadDesignTime" label="设计提交时间">
+          <template slot-scope="scope">{{scope.row.uploadDesignTime | formatDate}}</template>
+        </el-table-column>
+        <el-table-column prop="designCount" label="设计重做次数">
+        </el-table-column>demandorCheckDesignState
+          <el-table-column prop="demandorCheckDesignState" label="设计验收状态">
+        </el-table-column>
+        <el-table-column prop="demandorCheckDesignTime" label="需求方验收时间">
+          <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
         </el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
@@ -184,6 +248,8 @@
           </template>
         </el-table-column>
       </el-table>
+              </div>
+
     </el-main>
   </div>
 </template>
@@ -197,6 +263,10 @@ export default {
     return {
       activeBZT: "",
       mainTaskID: "",
+      milepostActive1:-1,//
+      milepostActive2:-1,
+      milepostActive3:-1,
+      milepostActive4:-1,
       cool: {
         mainTaskName: "nihao",
         taskName: "nihao",
@@ -207,12 +277,29 @@ export default {
       },
       tableData1: [
         {
-          companyName: "",
+          acceptCompanyName: "",
           applyWay: "",
-          checkApplyState: "",
-          applyTime: "",
+          checkApplyState: "",//任务申请审核状态
+          applyTime: "",//任务申请审核时间
           checkPlanState: "", //计划审核状态
           checkPlanTime: "" //计划审核时间
+        }
+      ],
+            tableData2: [
+        {
+          acceptCompanyName: "",
+          applyWay: "",
+          checkPlanState: "", //计划审核状态
+          checkPlanTime: "" //计划审核时间
+        }
+      ],
+       tableData3: [
+        {
+          acceptCompanyName: "",
+          applyWay: "",
+          contractState:"",//合同审核状态
+          uploadContractTime:"",//合同上传时间
+          contractRefuseReason:"",//合同拒绝原因
         }
       ]
     };
@@ -254,6 +341,22 @@ export default {
         .then(response => {
           console.log(response);
           this.tableData1 = response.data.allData.b;
+          if(this.tableData1 == null){
+            this.milepostActive1 = 0;
+          }
+          this.tableData2 = response.data.allData.c;
+          if(this.tableData2 == null){
+            this.milepostActive2 = 0;
+          }
+          this.tableData3 = response.data.allData.d;
+          if(this.tableData3 == null){
+            this.milepostActive3 = 0;
+          }
+          this.tableData4 = response.data.allData.e;
+          if(this.tableData4 == null){
+            this.milepostActive4 = 0;
+          }
+
           this.cool = response.data.allData.a[0];
           this.activeBZT = response.data.allData.a[0].taskState;
           if (this.activeBZT == "计划提交") {
@@ -308,6 +411,7 @@ export default {
   }
   .biaoti {
     font-size: 18px;
+    color:#303133;
   }
   .el-input.is-disabled .el-input__inner {
     color: #606266;
