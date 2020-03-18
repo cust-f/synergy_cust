@@ -8,6 +8,8 @@
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
           <div class="container">
+          
+
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="全部任务" name="first">
                 <div class="handle-box">
@@ -1388,6 +1390,8 @@ export default {
 .box1 {
   font-size: 14px;
 }
+
+
 
 </style>
 

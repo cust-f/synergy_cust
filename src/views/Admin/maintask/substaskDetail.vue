@@ -72,7 +72,7 @@
           </el-form>
           <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
-            <el-button type="primary" class="button1">下载装配文档</el-button>
+            <el-button type="primary" class="button1" @click="downLoad">下载装配文档</el-button>
           </div>
           <el-divider></el-divider>
           <h3>分解任务</h3>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -414,6 +414,9 @@ export default {
       deaddate:'',
       leader:'',
       xiangxi:'',
+      //科技文档链接
+      technicalFile :"",
+
     };
   },
 
@@ -507,7 +510,8 @@ invitate(coo) {
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
           this.tableData = response.data.allData.b;
-          this.type = response.data.allData.a[0].industry_Type
+          this.type = response.data.allData.a[0].industry_Type;
+          this.technicalFile = response.data.allData.a[0].
           console.log(response.data.allData);
           console.log( this.type)
         });
@@ -569,6 +573,21 @@ invitate(coo) {
         });
         this.$message.success("废除成功");
       });
+    },
+    downLoad(){
+        var that = this;
+        console.log(this.technicalFile);
+        var data = Qs.stringify({
+          technicalFile: this.technicalFile
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/MainTaskInformation/feichuByMainstaskID",
+          data: data
+
+          // data:this.$store.state.userName
+        });
     },
 
     //新增操作

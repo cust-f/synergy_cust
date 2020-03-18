@@ -117,14 +117,14 @@
           <div class="cg_bottomlist" v-for="(list,i) in demandTaskList" :key="i">
             <ul class="cg_bottomLeft">
               <li class="cg_list001">
-                <a href="#/threeMenu" class="ziti2">{{list.Main_Task_Name}}</a>
+                <a href="#/threeMenu" class="ziti2">{{list.mainTaskName}}</a>
               </li>
               <li class="cg_list002">
                 <a>需求类型：流通</a>
-                <a>行业类别：{{list.Industry_Type}}</a>
+                <a>行业类别：{{list.industry_Type}}</a>
                 <br />
-                <a>发布时间：{{list.Publish_Time}}</a>
-                <a>完成时间：{{list.Deadline}}</a>
+                <a>发布时间：{{list.publishTime| dataFormat("yyyy-MM-dd")}}</a>
+                <a>截止时间：{{list.deadline| dataFormat("yyyy-MM-dd")}}</a>
               </li>
             </ul>
             <div class="bottomRight" align="middle">
@@ -133,7 +133,7 @@
                 <li>
                   <a style="width:435px" align="left">
                     <font>机构名称:</font>
-                    {{list.Company_ID}}
+                    {{list.companyName}}
                     <br />
 
                     <font>联系电话:</font>
@@ -157,266 +157,216 @@ export default {
   data() {
     return {
       //需求大类下的下分子类
-      //交通运输设备子类
-      options0: [
-        {
-          value0: "0",
-          label: "不限"
-        },
-        {
-          value0: "1",
-          label: "汽车"
-        },
-        {
-          value0: "2",
-          label: "铁路运输设备"
-        },
-        {
-          value0: "3",
-          label: "摩托车"
-        },
-        {
-          value0: "4",
-          label: "自行车"
-        },
-        {
-          value0: "5",
-          label: "船舶及浮动装置"
-        },
-        {
-          value0: "6",
-          label: "航空航天器"
-        },
-        {
-          value0: "7",
-          label: "交通器材及其他交通运输设备"
-        }
-      ],
-      //仪器仪表及文化、办公用机械
-      options1: [
-        {
-          value0: "0",
-          label: "不限"
-        },
-        {
-          value0: "1",
-          label: "通用仪器仪表"
-        },
-        {
-          value0: "2",
-          label: "专用仪器仪表"
-        },
-        {
-          value0: "3",
-          label: "钟表与计时仪器"
-        },
-        {
-          value0: "4",
-          label: "光学仪器及眼镜"
-        },
-        {
-          value0: "5",
-          label: "文化、办公用机械"
-        },
-        {
-          value0: "6",
-          label: "其他仪器仪表的制造及修理"
-        }
-      ],
-      //通信设备、计算机及其他电子设备
-      options2: [
-        {
-          value0: "0",
-          label: "不限"
-        },
-        {
-          value0: "1",
-          label: "通信设备"
-        },
-        {
-          value0: "2",
-          label: "雷达及配套设备"
-        },
-        {
-          value0: "3",
-          label: "广播电视设备"
-        },
-        {
-          value0: "4",
-          label: "电子计算机"
-        },
-        {
-          value0: "5",
-          label: "电子器件"
-        },
-        {
-          value0: "6",
-          label: "电子元件"
-        },
-        {
-          value0: "7",
-          label: "家用视听设备"
-        },
-        {
-          value0: "8",
-          label: "其他电子设备"
-        }
-      ],
-      //电气机械及器材
-      options3: [
-        {
-          value0: "0",
-          label: "不限"
-        },
-        {
-          value0: "1",
-          label: "电机"
-        },
-        {
-          value0: "2",
-          label: "输配电及控制设备"
-        },
-        {
-          value0: "3",
-          label: "电线、电缆、光缆及电工器材"
-        },
-        {
-          value0: "4",
-          label: "电池"
-        },
-        {
-          value0: "5",
-          label: "家用电力器具"
-        },
-        {
-          value0: "6",
-          label: "非电力家用器具"
-        },
-        {
-          value0: "7",
-          label: "照明器具"
-        },
-        {
-          value0: "8",
-          label: "其他电气机械及器材"
-        }
-      ],
-      //专用设备
-      options4: [
-        {
-          value0: "0",
-          label: "不限"
-        },
-        {
-          value0: "1",
-          label: "矿山、冶金、建筑专用设备"
-        },
-        {
-          value0: "2",
-          label: "化工、木材、非金属加工专用设备"
-        },
-        {
-          value0: "3",
-          label: "食品、饮料、烟草及饲料生产专用设备"
-        },
-        {
-          value0: "4",
-          label: "印刷、制药、日化生产专用设备"
-        },
-        {
-          value0: "5",
-          label: "纺织、服装和皮革工业专用设备"
-        },
-        {
-          value0: "6",
-          label: "电子和电工机械专用设备"
-        },
-        {
-          value0: "7",
-          label: "农、林、牧、渔专用机械"
-        },
-        {
-          value0: "8",
-          label: "医疗仪器设备及器械"
-        },
-        {
-          value0: "9",
-          label: "环保、社会公共安全及其他专用设备"
-        }
-      ],
-      //通用设备
-      options5: [
-        {
-          value0: "0",
-          label: "不限"
-        },
-        {
-          value0: "1",
-          label: "锅炉及原动机"
-        },
-        {
-          value0: "2",
-          label: "金属加工机械"
-        },
-        {
-          value0: "3",
-          label: "起重运输设备"
-        },
-        {
-          value0: "4",
-          label: "泵、阀门、压缩机及类似机械"
-        },
-        {
-          value0: "5",
-          label: "轴承、齿轮、传动和驱动部件"
-        },
-        {
-          value0: "6",
-          label: "烘炉、熔炉及电炉"
-        },
-        {
-          value0: "7",
-          label: "风机、衡器、包装设备等通用设备"
-        },
-        {
-          value0: "8",
-          label: "通用零部件制造及机械修理"
-        },
-        {
-          value0: "9",
-          label: "金属铸、锻加工"
-        }
-      ],
-      //各子类显示判定bool值
-      show0: false,
-      show1: false,
-      show2: false,
-      show3: false,
-      show4: false,
-      show5: false,
+    //交通运输设备子类
+        options0: [{
+          value0: '0',
+          label: '不限'
+        },{
+          value0: '1',
+          label: '汽车'
+        }, {
+          value0: '2',
+          label: '铁路运输设备'
+        }, {
+          value0: '3',
+          label: '摩托车'
+        }, {
+          value0: '4',
+          label: '自行车'
+        }, {
+          value0: '5',
+          label: '船舶及浮动装置'
+        }, {
+          value0: '6',
+          label: '航空航天器'
+        },{
+          value0: '7',
+          label: '交通器材及其他交通运输设备'
+        }],
+        //仪器仪表及文化、办公用机械
+        options1: [{
+          value0: '0',
+          label: '不限'
+        },{
+          value0: '1',
+          label: '通用仪器仪表'
+        }, {
+          value0: '2',
+          label: '专用仪器仪表'
+        }, {
+          value0: '3',
+          label: '钟表与计时仪器'
+        }, {
+          value0: '4',
+          label: '光学仪器及眼镜'
+        }, {
+          value0: '5',
+          label: '文化、办公用机械'
+        }, {
+          value0: '6',
+          label: '其他仪器仪表的制造及修理'
+        }],
+        //通信设备、计算机及其他电子设备
+        options2: [{
+          value0: '0',
+          label: '不限'
+        },{
+          value0: '1',
+          label: '通信设备'
+        }, {
+          value0: '2',
+          label: '雷达及配套设备'
+        }, {
+          value0: '3',
+          label: '广播电视设备'
+        }, {
+          value0: '4',
+          label: '电子计算机'
+        }, {
+          value0: '5',
+          label: '电子器件'
+        }, {
+          value0: '6',
+          label: '电子元件'
+        }, {
+          value0: '7',
+          label: '家用视听设备'
+        }, {
+          value0: '8',
+          label: '其他电子设备'
+        }],
+        //电气机械及器材
+        options3: [{
+          value0: '0',
+          label: '不限'
+        },{
+          value0: '1',
+          label: '电机'
+        }, {
+          value0: '2',
+          label: '输配电及控制设备'
+        }, {
+          value0: '3',
+          label: '电线、电缆、光缆及电工器材'
+        }, {
+          value0: '4',
+          label: '电池'
+        }, {
+          value0: '5',
+          label: '家用电力器具'
+        }, {
+          value0: '6',
+          label: '非电力家用器具'
+        }, {
+          value0: '7',
+          label: '照明器具'
+        }, {
+          value0: '8',
+          label: '其他电气机械及器材'
+        }],
+        //专用设备
+        options4: [{
+          value0: '0',
+          label: '不限'
+        },{
+          value0: '1',
+          label: '矿山、冶金、建筑专用设备'
+        }, {
+          value0: '2',
+          label: '化工、木材、非金属加工专用设备'
+        }, {
+          value0: '3',
+          label: '食品、饮料、烟草及饲料生产专用设备'
+        }, {
+          value0: '4',
+          label: '印刷、制药、日化生产专用设备'
+        }, {
+          value0: '5',
+          label: '纺织、服装和皮革工业专用设备'
+        }, {
+          value0: '6',
+          label: '电子和电工机械专用设备'
+        }, {
+          value0: '7',
+          label: '农、林、牧、渔专用机械'
+        }, {
+          value0: '8',
+          label: '医疗仪器设备及器械'
+        }, {
+          value0: '9',
+          label: '环保、社会公共安全及其他专用设备'
+        }],
+        //通用设备
+        options5:  [{
+          value0: '0',
+          label: '不限'
+        },{
+          value0: '1',
+          label: '锅炉及原动机'
+        }, {
+          value0: '2',
+          label: '金属加工机械'
+        }, {
+          value0: '3',
+          label: '起重运输设备'
+        }, {
+          value0: '4',
+          label: '泵、阀门、压缩机及类似机械'
+        }, {
+          value0: '5',
+          label: '轴承、齿轮、传动和驱动部件'
+        }, {
+          value0: '6',
+          label: '烘炉、熔炉及电炉'
+        }, {
+          value0: '7',
+          label: '风机、衡器、包装设备等通用设备'
+        }, {
+          value0: '8',
+          label: '通用零部件制造及机械修理'
+        }, {
+          value0: '9',
+          label: '金属铸、锻加工'
+        }],
+        //各子类显示判定bool值
+        show0: false,
+        show1: false,
+        show2: false,
+        show3: false,
+        show4: false,
+        show5: false,
 
-      //点击变色的判定值
-      isActive0: false,
-      isActive1: false,
-      isActive2: false,
-      isActive3: false,
-      isActive4: false,
-      isActive5: false,
-      isActive6: false,
+        //点击变色的判定值
+        isActive0: false,
+        isActive1: false,
+        isActive2: false,
+        isActive3: false,
+        isActive4: false,
+        isActive5: false,
+        isActive6: false,
 
-      activeName: "first",
-      checkList1: [],
-      checkList2: [],
-      checkList3: [],
-      checkList4: [],
-      checkList5: [],
-      checkList6: [],
-      checkList7: [],
+        activeName: 'first',
+        checkList1: [],
+        checkList2: [],
+        checkList3: [],
+        checkList4: [],
+        checkList5: [],
+        checkList6: [],
+        checkList7: [],
 
-      demandTaskList: ""
+        demandTaskList: [],
+
     };
-    radio: "1";
+     radio: '1'
+     
+       
+      
+      
   },
+  created() {
+    this.getInfo();
+  },
+
   created() {
     this.getInfo();
   },
@@ -668,12 +618,10 @@ export default {
 
     getInfo() {
       var that = this;
-      that.axiox
-        .post("http://127.0.0.1:8082/xuqiuyilan/getAllList")
-        .then(response => {
-          console.log(response)
-          this.demandTaskList = response.data.allData.demandTask;
-        });
+      that.axios.post("http://127.0.0.1:8082/xuqiuyilan/getAllList").then(response =>{
+        that.demandTaskList = response.data;
+        console.log(that.demandTaskList )
+      });
     }
   }
 };

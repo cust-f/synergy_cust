@@ -8,7 +8,7 @@
 </el-page-header>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 
-            <el-form ref="form" :model="mainStask" label-width="110px">
+            <el-form ref="form" :model="mainStask" labael-width="110px">
             <el-row >
                 
                 <el-col :span="11">
