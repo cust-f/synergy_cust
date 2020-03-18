@@ -5,6 +5,14 @@
         <el-main>
               <h3>流通任务评价详情</h3>
                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+               <el-steps :active="1">
+              <el-step title="步骤 1" icon="el-icon-edit"></el-step>
+              <el-step title="步骤 2" icon="el-icon-upload"></el-step>
+              <el-step title="步骤 3" icon="el-icon-picture"></el-step>
+            </el-steps>
+            <br/><br/>
+            <div id="charts2" style="height:100%; width:300px; float:left"></div>
+
             <el-form ref="form" :model="form" label-width="110px">
             <el-scrollbar style="height:100%">
               <el-row :gutter="80">
@@ -69,51 +77,8 @@ export default {
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row :gutter="80">
-                <el-col :span="20">
-                  <el-form-item label="总体星级">
-                    <div class="block">
-                      <el-rate v-model="value0" :colors="colors"></el-rate>
-                    </div>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="80">
-                <el-col :span="20">
-                  <el-form-item label="流通基础性">
-                    <div class="block">
-                      <el-rate v-model="value1" :colors="colors"></el-rate>
-                    </div>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="80">
-                <el-col :span="20">
-                  <el-form-item label="流通可靠性">
-                    <div class="block">
-                      <el-rate v-model="value2" :colors="colors"></el-rate>
-                    </div>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="80">
-                <el-col :span="20">
-                  <el-form-item label="流通价值性">
-                    <div class="block">
-                      <el-rate v-model="value3" :colors="colors"></el-rate>
-                    </div>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="80">
-                <el-col :span="20">
-                  <el-form-item label="流通保证性">
-                    <div class="block">
-                      <el-rate v-model="value4" :colors="colors"></el-rate>
-                    </div>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+             
+       
             </el-scrollbar>
           </el-form>
         </el-main>
@@ -145,9 +110,58 @@ export default {
       }
     };
   },
+   //初始化俩图标
+  mounted() {
+    
+    this.getCharts2();
+  },
   methods: {
     goBack() {
       this.$router.push("/admin/circulationTaskEvaluation");
+    },
+     getCharts2() {
+      var myChart = echarts.init(document.getElementById("charts2"));
+      var option = {
+        tooltip: {},
+        legend: {
+          x: "left",
+          y: "top",
+          data: ["设计任务", "流通任务"]
+        },
+        radar: {
+          name: {
+            textStyle: {
+              color: "#fff",
+              backgroundColor: "#999",
+              borderRadius: 3,
+              padding: [3, 5]
+            }
+          },
+          indicator: [
+            { name: "人员数量", max: 50 },
+            { name: "时间效率", max: 400 },
+            { name: "涉及金额", max: 50000 },
+            { name: "提交效率", max: 100 },
+            { name: "完成准确度", max: 100 }
+          ]
+        },
+        series: [
+          {
+            type: "radar",
+            data: [
+              {
+                value: [20, 200, 35000, 80, 90],
+                name: "设计任务"
+              },
+              {
+                value: [30, 300, 28000, 93, 87],
+                name: "流通任务"
+              }
+            ]
+          }
+        ]
+      };
+      myChart.setOption(option);
     }
   }
 };

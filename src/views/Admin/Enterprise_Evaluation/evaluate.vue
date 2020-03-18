@@ -55,7 +55,7 @@
 
 <script>
 import Qs from "qs";
-//import { formatDate } from "./dataChange";
+//import {formatDate}   from "./dataChange";
 export default {
   name:"evaluate",
   data() {
@@ -65,7 +65,7 @@ export default {
         pageSize: 5
       },
       pageTotal: 10,
-      
+      tableData:""
       
     };
   },
@@ -106,8 +106,8 @@ export default {
         .then(response => {
           //this.table = response.data.allData;
            
-           this.tableData = response.data.allData;
-           console.log(response.data.allData);
+           that.tableData = response.data.allData;
+           console.log(that.tableData);
           
           
         });
@@ -228,7 +228,7 @@ export default {
 .lists {
   width: 100%;
   height: 60%;
-  margin-top: 30%;
+  margin-top: 10%;
   margin-left: 0%
 }
 </style>
