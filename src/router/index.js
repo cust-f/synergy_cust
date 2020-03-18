@@ -18,6 +18,19 @@ import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
+
+//设计人员界面
+import designerNewList from '@/views/admin/personnel_allotment/designerNewList'//设计人员新增界面
+import designerAcceptList from '@/views/admin/personnel_allotment/designerAcceptList'//设计人员进行界面
+import designerFinishList from '@/views/admin/personnel_allotment/designerFinishList'//设计人员已完成界面
+
+//流通人员界面
+import circulationNewList from '@/views/admin/personnel_allotment/circulationNewList'//流通人员新增界面
+import circulationAcceptList from '@/views/admin/personnel_allotment/circulationAcceptList'//流通人员进行界面
+import circulationFinishList from '@/views/admin/personnel_allotment/circulationFinishList'//流通人员已完成界面
+
+
+
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff'//新增人员
 import newTask from '@/views/admin/Task/newTask'//新增任务
@@ -41,7 +54,7 @@ import staffingTenderManagement from '@/views/admin/projectManagement/staffingTe
 
 
 import circulation from '@/views/admin/personnel_allotment/circulation'
-import desinger from '@/views/admin/personnel_allotment/desinger'
+
 import virtualMachine from '@/Layout/template page/virtualMachine'
 import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
@@ -59,6 +72,9 @@ import pendingResTaskDet from '@/views/admin/supplier/design/designDetails/pendi
 import planAuditDet from '@/views/admin/supplier/design/designDetails/planAuditDet'//任务计划详情页面
 import planAuditingDet from '@/views/admin/supplier/design/designDetails/planAuditingDet'//审核任务计划详情页面
 import repealedTaskDet from '@/views/admin/supplier/design/designDetails/repealedTaskDet'//废除任务详情页面
+// import Det1 from '@/views/admin/supplier/design/designDetails/Det1' //测试页面
+// import Det1 from '@views/admin/supplier/design/designDetails/Det1'
+import det from'@/views/admin/supplier/design/designDetails/det'
 //供应商流通界面
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'//流通任务列表
 import cNewTask from '@/views/admin/supplier/circulation/cNewTask'//供应商流通分配
@@ -330,17 +346,41 @@ export default new Router({
           component: circulationTask,
 
         },
-        //流通人员
+        //流通人员新增列表
         {
-          path: '/admin/personnel_allotment/circulation',
-          name: 'circulation',
-          component: circulation,
+          path: '/admin/circulationNewList',
+          name: 'circulationNewList',
+          component: circulationNewList,
         },
-        //设计人员
+        //流通人员已接收列表
         {
-          path: '/admin/personnel_allotment/desinger',
-          name: 'desinger',
-          component: desinger,
+          path: '/admin/circulationAcceptList',
+          name: 'circulationAcceptList',
+          component: circulationAcceptList,
+        },
+        //流通人员历史任务列表
+        {
+          path: '/admin/circulationFinishList',
+          name: 'circulationFinishList',
+          component: circulationFinishList,
+        },
+        //设计人员接受任务列表
+        {
+          path:'/admin/designerAcceptList',
+          name: 'designerAcceptList',
+          component: designerAcceptList
+        },
+        //设计人员新增列表
+        {
+          path:'/admin/designerNewList',
+          name:'designerNewList',
+          component:designerNewList
+        },
+        //新增人员已完成列表
+        {
+          path:'/admin/designerFinishList',
+          name : 'designerFinishList',
+          component:designerFinishList
         },
         //企业评价
         {
@@ -543,11 +583,7 @@ export default new Router({
             title: "供应商企业信息修改"
           }
         },
-        
-
-
-
-        //流通待响应任务详情页面
+      //流通待响应任务详情页面
         {
           path: '/admin/cPendingResTaskDet',
           name: 'cPendingResTaskDet',
@@ -578,7 +614,6 @@ export default new Router({
           }
         }, 
 
-
         //流通待审核任务详情界面
 
         {
@@ -599,6 +634,15 @@ export default new Router({
             title: "任务分解"
           }
         },  
+        //测试界面
+        {
+          path:'/admin/det',
+          name:'det',
+          component: det,
+          meta:{
+            title:"详情"
+          }
+        }
       ]
     },
     {
@@ -615,6 +659,7 @@ export default new Router({
     {
       path: '*',
       redirect: '/404'
-    }
+    },
+   
   ]
 })

@@ -1,248 +1,170 @@
 <template>
-<div>
-    <el-container>
-
-
-        <el-main style="overflow:hidden">
-          <el-page-header @back="goBack" content="详情页面">
-</el-page-header>
-&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-
-            <el-form ref="form" :model="mainStask" label-width="110px">
-            <el-row >
-                
-                <el-col :span="11">
-                    <el-form-item label="分解任务名称">
-                        <el-input v-model="mainStask.taskName" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="分解任务状态">
-                        <el-input v-model="mainStask.taskState" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-
-            <el-row >
-                <el-col :span="11">
-                    <el-form-item label="分解任务类型" >
-                        <el-input v-model="mainStask.type" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="任务类型">
-                        <el-input v-model="mainStask.taskType" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-
-           
-<!-- v-bind:value="cool.deadline | formatDate" -->
-             <el-row >
-                <el-col :span="11">
-                    <el-form-item label="发布时间">
-                        <el-input v-bind:value="mainStask.publishTime | formatDate" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="截止时间">
-                        <el-input v-bind:value="mainStask.deadline | formatDate" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row >
-
-            <el-row >
-                <el-col :span="11">
-                    <el-form-item label="开始时间">
-                        <el-input v-bind:value="mainStask.beginTime | formatDate" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="完成时间">
-                        <el-input v-bind:value="mainStask.finishTime | formatDate" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row >
-
-            <el-row >
-                <el-col :span="11">
-                    <el-form-item label="发布企业名称">
-                        <el-input v-model="mainStask.companyName" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                    <el-form-item label="接受企业名称">
-                        <el-input v-model="mainStask.supplierName" :disabled="true"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row >
-
-
-
-            
-             
-
-        </el-form>
-
-        <div align="right">   
-              <!-- <el-button type="primary" class="button1" @click="dialogVisible = true">分配设计人员</el-button> -->
-            <el-button type="primary" class="button1">下载设计文档</el-button>
-            <el-button type="primary" class="button1">下载合同</el-button>
-        </div>
-
-         <el-divider></el-divider>
-<!-- <h3>供应方设计</h3>
-            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; -->
-              <div>
-
-
-    <!-- <div class="container">
-      <div class="handle-box">
-
-      </div>
-
-      <el-table
-        :data="tableData"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="供应商名称"></el-table-column>
-
-        <el-table-column prop="bussessType" label="任务类型"></el-table-column>
-
-        <el-table-column prop="date" label="开始时间"></el-table-column>
-                <el-table-column prop="money" label="完成时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-         
-          <el-button @click="mainStaskDetail" type="text" size="small">查看</el-button>
-        </el-table-column>
-      </el-table>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total, prev, pager, next"
-          :current-page="query.pageIndex"
-          :page-size="query.pageSize"
-          :total="pageTotal"
-          @current-change="handlePageChange"
-        ></el-pagination>
-      </div>
-    </div> -->
-
-    <!-- 编辑弹出框 -->
-    <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-      <el-form ref="form" :model="form" label-width="70px">
-        <el-form-item label="用户名">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="form.address"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="editVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveEdit">确 定</el-button>
-      </span>
-    </el-dialog>
-
-  </div>
-        </el-main>
-    </el-container>
-
-  <el-dialog
-  title="人员分配"
-  :visible.sync="dialogVisible"
-  width="60%"
-  :before-close="handleClose">
   <div>
-   <el-row :gutter="0">
-      <el-col :span="8">
-  <el-table
-    :data="tableData1"
-    >
-    <el-table-column
-      prop="personlist"
-      label="人员列表"
-      width="150">
-    </el-table-column>
-      <el-table-column
-        prop="level"
-        label="人员等级"
-        width="120">
-      </el-table-column>
-  </el-table>
-      </el-col>
-      <el-col :span="16">
-  <el-table
-  :data="tableData2"
-    style="width: 100%">
-  
-        <el-table-column
-          prop="tasktype"
-          label="任务类型"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="servicetask"
-          label="服务任务"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="deadline"
-          label="任务截止日期"
-          width="300">
-        </el-table-column>
-        <el-table-column
-          prop="designer"
-          label="设计人员"
-          width="120">
-        </el-table-column>
-</el-table>
-      </el-col>
-   </el-row>
-</div>
-
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
-</el-dialog>
-
-</div>
-    
+    <el-main style="overflow:hidden">
+      <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <el-steps :active="activeBZT">
+        <el-step title="申请/邀请" icon="el-icon-edit"></el-step>
+        <el-step title="计划提交" icon="el-icon-upload"></el-step>
+        <el-step title="任务进行中" icon="el-icon-picture"></el-step>
+        <el-step title="审核" icon="el-icon-message-solid"></el-step>
+        <el-step title="验收" icon="el-icon-s-promotion"></el-step>
+        <el-step title="完成" icon="el-icon-s-claim"></el-step>
+      </el-steps>
+      <br />
+      <br />
+      <div class="biaoti">——基本信息——</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <br />
+      <el-card class="box-card">
+        <el-form ref="cool" :model="cool" label-width="110px" class="form">
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="需求名称:">
+                <el-input v-model="cool.mainTaskName" :disabled="true" style="text-align:center"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="行业类别:">
+                <el-input v-model="cool.industry_Type" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </el-card>
+      <br />
+      <br />
+      <div class="biaoti">——申请列表——</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <el-card class="box-card">
+        <el-table
+          :data="tableData1"
+          border
+          class="table"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <!-- mainTaskID冲-->
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="mainTaskName" label="供应商"></el-table-column>
+          <el-table-column prop="industry_Type" label="承接方式"></el-table-column>
+          <el-table-column prop="principalName" label="状态"></el-table-column>
+          <el-table-column prop="publishTime" label="申请/邀请时间">
+            <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+          </el-table-column>
+          <el-table-column prop="time" label="审核时间">
+            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+          </el-table-column>
+          <el-table-column label="操作" width="180" align="center">
+            <template slot-scope="scope">
+              <!-- <el-button
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="handleDelete(scope.$index, scope.row)"
+              >废除</el-button>-->
+              <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
+              <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-card>
+      <br />
+      <br />
+      <div class="biaoti">——任务计划——</div>
+      <br />
+      <el-card class="box-card">
+        <el-table
+          :data="tableData2"
+          border
+          class="table"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <!-- mainTaskID冲-->
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="mainTaskName" label="供应商"></el-table-column>
+          <el-table-column prop="industry_Type" label="承接方式"></el-table-column>
+          <el-table-column prop="principalName" label="状态"></el-table-column>
+          <el-table-column prop="publishTime" label="申请/邀请时间">
+            <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+          </el-table-column>
+          <el-table-column prop="time" label="审核时间">
+            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+          </el-table-column>
+          <el-table-column label="操作" width="180" align="center">
+            <template slot-scope="scope">
+              <!-- <el-button
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="handleDelete(scope.$index, scope.row)"
+              >废除</el-button>-->
+              <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
+              <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-card>
+      <br />
+      <br />
+      <div class="biaoti">——设计提交——</div>
+      <br />
+      <el-card class="box-card">
+        <el-table
+          :data="tableData3"
+          border
+          class="table"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <!-- mainTaskID冲-->
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="mainTaskName" label="供应商"></el-table-column>
+          <el-table-column prop="industry_Type" label="承接方式"></el-table-column>
+          <el-table-column prop="principalName" label="状态"></el-table-column>
+          <el-table-column prop="publishTime" label="申请/邀请时间">
+            <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+          </el-table-column>
+          <el-table-column prop="time" label="审核时间">
+            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+          </el-table-column>
+          <el-table-column label="操作" width="180" align="center">
+            <template slot-scope="scope">
+              <!-- <el-button
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="handleDelete(scope.$index, scope.row)"
+              >废除</el-button>-->
+              <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
+              <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-card>
+    </el-main>
+  </div>
 </template>
 
 <script>
-import  Qs from 'qs';
-import {formatDate} from "./dataChange";
-  export default {
-      name:"mainStaskDetail",
-    data() {
-      return {
-        dialogVisible: false,
-
-        mainStask: {
-          taskName:"",
-          taskState:'',
-          type:'汽车零部件',
-          taskType:'',
-          publishTime:'',
-          deadline:'',
-          beginTime:'',
-          finishTime:'',
-          companyName:'',
-          supplierName:'',
-
-        },
-                query: {
-        pageIndex: 1,
-        pageSize: 10
-        },
-        tableData: [
+import Qs from "qs";
+import { formatDate } from "./dataChange";
+export default {
+  name: "mainStaskDetail",
+  data() {
+    return {
+      activeBZT: "3",
+      cool: {
+        mainTaskName: "nihao",
+        industry_Type: "nihao",
+        publishTime: "",
+        deadline: "",
+        mainTaskDetail: "",
+        leader: "",
+        taskState: ""
+      },
+      tableData: [
         {
           id: 1,
           bussessType: "车间零部件生产",
@@ -250,83 +172,100 @@ import {formatDate} from "./dataChange";
           money: "2020-2-12",
           state: "成功",
           date: "2019-11-1"
-        },
-      ],
-      addList: {
-        id: null,
-        address: "",
-        name: "",
-        money: null,
-        state: null,
-        date: null
-      },  
-      multipleSelection: [],
-      editVisible: false,
-      addVisible: false,
-      pageTotal: 0,
-      form: {},
-      idx: -1,
-      id: -1,
-      taskId:''
-      }
-    },
+        }
+      ]
+    };
+  },
 
-    filters:{
-      formatDate(time){
-        let date = new Date(time);
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
       return formatDate(date, "yyyy.MM.dd");
-      }
-    },
-    created() {
-      this.getParams();
-      this.showData();
-    },
-    methods:{
-      getParams() {
-  
-      var routerParams = this.$route.query.taskId
-      this.taskId = routerParams
-      console.log(routerParams)
-
+    }
+  },
+  created() {
+    this.getParams();
+    this.showData();
+  },
+  methods: {
+    getParams() {
+      var routerParams = this.$route.query.taskId;
+      this.taskId = routerParams;
+      console.log(routerParams);
     },
 
-      showData(){
-            console.log(this.taskId);
+    showData() {
+      console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        subStaskID : this.taskId
+        subStaskID: this.taskId
       });
       console.log(data);
       that
         .axios({
-          method: 'post',
+          method: "post",
           url: "http://127.0.0.1:8082/SubstaskInformation/list",
-          data: data,
+          data: data
 
           // data:this.$store.state.userName
         })
         .then(response => {
           this.mainStask = response.data.allData[0];
           this.mainTaskID = response.data.allData[0].mainTaskId;
-           console.log(response.data.allData);
+          console.log(response.data.allData);
         });
-      },
-      goBack() {
-         this.$router.push({
-        path:"/admin/substaskDetail",
-        query:{
-          mainTaskID : this.mainTaskID
+    },
+    goBack() {
+      this.$router.push({
+        path: "/admin/substaskDetail",
+        query: {
+          mainTaskID: this.mainTaskID
         }
-        });
-  
-      }
+      });
     }
   }
+};
 </script>
 
 <style>
-.table{
+.table {
+  font-size: 13px;
+}
+.text {
   font-size: 14px;
 }
-    
+
+.item {
+  padding: 18px 0;
+}
+
+.box-card {
+  width: 960px;
+  /* border: 1px solid #00a2e6 ; */
+}
+.el-page-header__title {
+  font-size: 18px;
+}
+.biaoti {
+  font-size: 18px;
+}
+/* 表格字体粗细 */
+.el-table thead {
+  font-weight: 200;
+}
+/* 表格下方每列有无竖线 */
+.el-table__row > td {
+  border: none;
+}
+
+.el-input__inner {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-radius: 0px;
+  text-align: center;
+}
+.el-input.is-disabled .el-input__inner {
+  background-color: #ffffff;
+}
 </style>

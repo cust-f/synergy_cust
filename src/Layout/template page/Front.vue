@@ -8,10 +8,10 @@
 !-->
 <template>
   <el-container>
-    <el-header height="157px">
+    <el-header height="152px">
       <header-synergy ></header-synergy>
     </el-header>
-    <el-main style=" overflow:hidden;">
+    <el-main style=" overflow:hidden;background-color: #f6f6f6;">
         <router-view></router-view>
     </el-main>
     <el-footer>

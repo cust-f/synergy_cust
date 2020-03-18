@@ -22,7 +22,7 @@
                 @selection-change="handleSelectionChange"
               >
                 <!-- mainTaskID冲-->
-                <el-table-column prop="mainTaskID" label="ID" width="55" align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                 <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
                 <el-table-column prop="industry_Type" label="需求类型"></el-table-column>
                 <el-table-column prop="principalName" label="项目负责人"></el-table-column>

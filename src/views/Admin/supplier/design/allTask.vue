@@ -105,7 +105,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "1"
+        userName: "supplier"
       });
       console.log(data);
       that
