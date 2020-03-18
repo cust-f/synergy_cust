@@ -13,7 +13,7 @@
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求名称">
-                <el-input v-model="formPendingResTaskDet.acceptCompanyId" :disabled="true"></el-input>
+                <el-input v-model="formPendingResTaskDet.taskName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -136,7 +136,7 @@ export default {
       ],
       formPendingResTaskDet: {
        taskId: "1",
-        acceptCompanyId: "2",
+        taskName: "2",
         supplierName: "3",
         deadline: "4",
         companyName: "5",

@@ -72,7 +72,7 @@
           </el-form>
           <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
-            <el-button type="primary" class="button1" @click="downLoad">下载装配文档</el-button>
+            <el-button type="primary" class="button1">下载装配文档</el-button>
           </div>
           <el-divider></el-divider>
           <h3>分解任务</h3>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -96,7 +96,7 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-              <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
+               
               <el-table-column prop="taskName" label="任务名称"></el-table-column>
               <el-table-column prop="taskType" label="任务类别"></el-table-column>
               <el-table-column prop="beginTime" label="开始时间">
@@ -121,6 +121,7 @@
                     >编辑</el-button>-->
                     <el-button
                       type="text"
+                      icon="el-icon-delete"
                       class="red"
                       @click="handleDelete1(scope.row)"
                     >废除</el-button>
@@ -414,9 +415,6 @@ export default {
       deaddate:'',
       leader:'',
       xiangxi:'',
-      //科技文档链接
-      technicalFile :"",
-
     };
   },
 
@@ -510,8 +508,7 @@ invitate(coo) {
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
           this.tableData = response.data.allData.b;
-          this.type = response.data.allData.a[0].industry_Type;
-          this.technicalFile = response.data.allData.a[0].
+          this.type = response.data.allData.a[0].industry_Type
           console.log(response.data.allData);
           console.log( this.type)
         });
@@ -573,21 +570,6 @@ invitate(coo) {
         });
         this.$message.success("废除成功");
       });
-    },
-    downLoad(){
-        var that = this;
-        console.log(this.technicalFile);
-        var data = Qs.stringify({
-          technicalFile: this.technicalFile
-        });
-        console.log(data);
-        that.axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/MainTaskInformation/feichuByMainstaskID",
-          data: data
-
-          // data:this.$store.state.userName
-        });
     },
 
     //新增操作
