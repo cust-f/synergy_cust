@@ -137,11 +137,11 @@
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
           <el-table-column prop="checkPlanState" label="计划审核状态">
-            <template slot-scope="{row: {checkPlanState}}">
-              <span v-if="+checkPlanState === 0">待上传</span>
-              <span v-else-if="+checkPlanState === 1">待审核</span>
-              <span v-else-if="+checkPlanState === 2">通过</span>
-              <span v-else-if="+checkPlanState === 3">拒绝</span>
+            <template slot-scope="scope">
+              <span v-if="+scope.row.checkPlanState === 0">待上传</span>
+              <span v-else-if="+scope.row.checkPlanState === 1">待审核</span>
+              <span v-else-if="+scope.row.checkPlanState === 2">通过</span>
+              <span v-else-if="+scope.row.checkPlanState === 3">拒绝</span>
             </template>
           </el-table-column>
           <el-table-column prop="planUploadTime" label="计划上传时间">
@@ -158,8 +158,9 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-              <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+              <el-button type="text" size="small" >下载</el-button>
+              <el-button @click="JHSTG(scope.row)" type="text" size="small" v-if="scope.row.checkPlanState===1">通过</el-button>
+              <el-button @click="JHSJJ(scope.row)" type="text" size="small" v-if="scope.row.checkPlanState===1">拒绝</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -182,17 +183,22 @@
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
           <el-table-column prop="contractState" label="合同审核状态">
-            <template slot-scope="{row: {contractState}}">
-              <span v-if="+contractState === 0">待上传</span>
-              <span v-else-if="+contractState === 1">待审核</span>
-              <span v-else-if="+contractState === 2">通过</span>
-              <span v-else-if="+contractState === 3">未通过</span>
+            <template slot-scope="scope">
+              <span v-if="+scope.row.contractState === 0">待上传</span>
+              <span v-else-if="+scope.row.contractState === 1">待审核</span>
+              <span v-else-if="+scope.row.contractState === 2">通过</span>
+              <span v-else-if="+scope.row.contractState === 3">未通过</span>
             </template>
           </el-table-column>
           <el-table-column prop="uploadContractTime" label="合同上传时间">
             <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
           </el-table-column>
-          <el-table-column prop="contractRefuseReason" label="合同拒绝原因"></el-table-column>
+          <el-table-column prop="checkContractTime" label="合同审核时间">
+                <template slot-scope="scope">
+                  <span v-if="+scope.row.checkContractTime === 'null'">尚未上传</span>
+                  <span  v-else>{{scope.row.checkContractTime | formatDate}}</span>
+                </template>
+          </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
               <!-- <el-button
@@ -201,8 +207,9 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-              <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+              <el-button type="text" size="small" >下载</el-button>
+              <el-button @click="HTSHTG(scope.row)" type="text" size="small" v-if="scope.row.contractState===1">通过</el-button>
+              <el-button @click="HTSHJJ(scope.row)" type="text" size="small" v-if="scope.row.contractState===1">拒绝</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -223,14 +230,21 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" label="供应商"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
           <el-table-column prop="designerName" label="设计人员姓名"></el-table-column>
-          <el-table-column prop="uploadDesignTime" label="设计提交时间">
+          <el-table-column prop="designCount" label="设计重做次数"></el-table-column>demandorCheckDesignState
+          <el-table-column prop="demandorCheckDesignState" label="设计验收状态">
+            <template slot-scope="scope">
+              <span v-if="+scope.row.demandorCheckDesignState===0">待上传</span>
+              <span v-else-if="+scope.row.demandorCheckDesignState===1">待审核</span>
+              <span v-else-if="+scope.row.demandorCheckDesignState===2">通过</span>
+              <span v-else-if="+scope.row.demandorCheckDesignState===3">未通过</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="uploadDesignTime" label="设计上传时间">
             <template slot-scope="scope">{{scope.row.uploadDesignTime | formatDate}}</template>
           </el-table-column>
-          <el-table-column prop="designCount" label="设计重做次数"></el-table-column>demandorCheckDesignState
-          <el-table-column prop="demandorCheckDesignState" label="设计验收状态"></el-table-column>
-          <el-table-column prop="demandorCheckDesignTime" label="需求方验收时间">
+          <el-table-column prop="demandorCheckDesignTime" label="设计审核时间">
             <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
@@ -241,12 +255,95 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-              <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+              <el-button type="text" size="small" >下载</el-button>
+              <el-button @click="SJTG(scope.row)" type="text" size="small" v-if="scope.row.demandorCheckDesignState===1">通过</el-button>
+              <el-button @click="SJJJ(scope.row)" type="text" size="small" v-if="scope.row.demandorCheckDesignState===1">拒绝</el-button>
             </template>
           </el-table-column>
         </el-table>
+
       </div>
+      
+         <!-- 申请拒绝原因弹出框 -->
+        <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible" width="50%">
+          <el-row>
+            <el-col :span="8"></el-col>
+          </el-row>
+          <el-form ref="form" :model="addList" label-width="120px">
+            <el-row>
+              <el-col>
+                <el-form-item label="审核拒绝原因">
+                  <el-input v-model="addList.SQrefuseReason"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addVisible = false">取 消</el-button>
+            <el-button type="primary" @click="SQJJYYTJ">确 定</el-button>
+          </span>
+        </el-dialog>
+
+        <!-- 计划书拒绝原因弹出框 -->
+        <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible1" width="50%">
+          <el-row>
+            <el-col :span="8"></el-col>
+          </el-row>
+          <el-form ref="form" :model="addList1" label-width="120px">
+            <el-row>
+              <el-col>
+                <el-form-item label="审核拒绝原因">
+                  <el-input v-model="addList1.JHSrefuseReason"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addVisible1 = false">取 消</el-button>
+            <el-button type="primary" @click="JHSJJYYTJ">确 定</el-button>
+          </span>
+        </el-dialog>
+
+         <!-- 合同拒绝原因弹出框 -->
+        <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible2" width="50%">
+          <el-row>
+            <el-col :span="8"></el-col>
+          </el-row>
+          <el-form ref="form" :model="addList2" label-width="120px">
+            <el-row>
+              <el-col>
+                <el-form-item label="审核拒绝原因">
+                  <el-input v-model="addList2.HTrefuseReason"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addVisible2 = false">取 消</el-button>
+            <el-button type="primary" @click="HTJJYYTJ">确 定</el-button>
+          </span>
+        </el-dialog>
+
+        <!-- 设计拒绝原因弹出框 -->
+        <el-dialog title="请输入设计不通过的原因" :visible.sync="addVisible3" width="50%">
+          <el-row>
+            <el-col :span="8"></el-col>
+          </el-row>
+          <el-form ref="form" :model="addList3" label-width="120px">
+            <el-row>
+              <el-col>
+                <el-form-item label="审核拒绝原因">
+                  <el-input v-model="addList3.SJrefuseReason"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addVisible3 = false">取 消</el-button>
+            <el-button type="primary" @click="SJJJYYTJ">确 定</el-button>
+          </span>
+        </el-dialog>
+
     </el-main>
   </div>
 </template>
@@ -255,14 +352,25 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 export default {
+  inject:['reload'],
   name: "mainStaskDetail",
   data() {
     return {
-      //申请计划的按钮是否存在
-      ShenQing:"none",
+      //申请拒绝原因       的模态框开始是否存在
+      addVisible: false,
+      //计划书拒绝原因    的模态框开始是否存在
+      addVisible1:false,
+      //合同退回原因      的模态框开始是否存在
+      addVisible2:false,
+      //设计退回原因     的模态框开始是否存在
+      addVisible3:false,
       activeBZT: "",
       mainTaskID: "",
       //SQRWButton:none,
+      //申请任务的id
+      applyID:"",
+      //子任务的id
+      taskID:"",
       //控制4个table是否显示的
       milepostActive1: -1, 
       milepostActive2: -1,
@@ -315,6 +423,18 @@ export default {
       milepostActive: 1,
       // 动态添加类名
       stepActive: "stepActive",
+      addList:{
+        SQrefuseReason:"",//申请拒绝原因
+      },
+      addList1:{
+        JHSrefuseReason:"",//计划书拒绝原因
+      },
+      addList2:{
+        HTrefuseReason:"",//计划书拒绝原因
+      },
+      addList3:{
+        SJrefuseReason:"",//设计拒绝原因
+      }
     };
   },
 
@@ -401,6 +521,187 @@ export default {
           mainTaskID: this.mainTaskID
         }
       });
+    },
+    //申请通过与拒绝
+    SQTG(row){
+      this.$confirm("确定将申请审核通过么？", "提示", {
+        type: "warning"
+      }).then(()=>{
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          ID:row.id,
+          companyID:row.companyId,
+          companyName:row.companyName,
+        });
+        console.log(data);
+        that.axios({
+          method:"post",
+          url:
+          "http://127.0.0.1:8082/SubstaskInformation/shenheSQ",
+          data:data
+        });  
+         this.$message({
+        message: "审核通过",
+        type: "success"
+      });
+      })
+      
+    },
+    SQJJ(row){
+      this.addVisible = true;
+      this.applyID = row.id;
+    },
+    SQJJYYTJ(){
+      var that =this;
+      var data = Qs.stringify({
+        ID:this.applyID,
+        SQrefuseReason:this.addList.SQrefuseReason,
+      })
+      console.log(data),
+      that
+        .axios({
+          method:"post",
+          url:'http://127.0.0.1:8082/SubstaskInformation/SQJJReason',
+          data:data,
+          
+        })
+        this.$message.success("提交成功");
+        this.addList = {};
+        this.addVisible = false;
+    },
+    //计划书通过与拒绝
+    JHSTG(row){
+      this.$confirm("确定将任务计划书审核通过么？", "提示", {
+        type: "warning"
+      }).then(()=>{
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          taskID:row.taskId,
+        });
+        console.log(data);
+        that.axios({
+          method:"post",
+          url:
+          "http://127.0.0.1:8082/SubstaskInformation/RWJHSH",
+          data:data
+        });  
+         this.$message({
+        message: "审核通过",
+        type: "success"
+      });
+      })
+    },
+    JHSJJ(row){
+      this.addVisible1 = true;
+      this.taskId = row.taskId
+    },
+    JHSJJYYTJ(){
+      var that =this;
+      var data = Qs.stringify({
+        taskId:this.taskId,
+        JHSrefuseReason:this.addList1.JHSrefuseReason,
+      })
+      console.log(data),
+      that
+        .axios({
+          method:"post",
+          url:'http://127.0.0.1:8082/SubstaskInformation/JHSJJReason',
+          data:data,
+          
+        })
+        this.$message.success("提交成功");
+        this.addList1 = {};
+        this.addVisible1 = false;
+    },
+    //合同审核
+    HTSHTG(row){
+      this.$confirm("确定将合同审核通过么？", "提示", {
+        type: "warning"
+      }).then(()=>{
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          taskID:row.taskId,
+        });
+        console.log(data);
+        that.axios({
+          method:"post",
+          url:"http://127.0.0.1:8082/SubstaskInformation/HTSHTG",
+          data:data
+        });  
+         this.$message({
+        message: "审核通过",
+        type: "success"
+      });
+      })
+    },
+    HTSHJJ(row){
+      this.addVisible2 = true;
+      this.taskId = row.taskId;
+    },
+    HTJJYYTJ(){
+      var that =this;
+      var data = Qs.stringify({
+        taskId:this.taskId,
+        HTrefuseReason:this.addList2.HTrefuseReason,
+      })
+      console.log(data),
+      that
+        .axios({
+          method:"post",
+          url:'http://127.0.0.1:8082/SubstaskInformation/HTJJReason',
+          data:data,
+          
+        })
+        this.$message.success("提交成功");
+        this.addList2 = {};
+        this.addVisible2 = false;
+    },
+    //设计通过
+    SJTG(row){
+      this.$confirm("确定将设计审核通过么？", "提示", {
+        type: "warning"
+      }).then(()=>{
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          taskID:row.taskId,
+        });
+        console.log(data);
+        that.axios({
+          method:"post",
+          url:"http://127.0.0.1:8082/SubstaskInformation/SJSHTG",
+          data:data
+        });  
+         this.$message({
+        message: "审核通过",
+        type: "success"
+      });
+      })
+    },
+    SJJJ(row){
+      this.addVisible3 = true;
+      this.taskId = row.taskId
+    },
+    SJJJYYTJ(){
+      var that =this;
+      var data = Qs.stringify({
+        taskId:this.taskId,
+        HTrefuseReason:this.addList3.SJrefuseReason,
+      })
+      console.log(data),
+      that
+        .axios({
+          method:"post",
+          url:'http://127.0.0.1:8082/SubstaskInformation/SJJJReason',
+          data:data,
+          
+        })
+        this.$message.success("提交成功");
+        this.addList3 = {};
+        this.addVisible3 = false;
     }
   }
 };
