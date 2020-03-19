@@ -265,7 +265,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/register/getBusiness"
+          url: "http://127.0.0.1:8082/register/getBusiness"
         })
         .then(response => {
           console.log(response);
