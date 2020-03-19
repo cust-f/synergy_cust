@@ -13,7 +13,7 @@
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求名称">
-                <el-input v-model="form.acceptCompanyId" :disabled="true"></el-input>
+                <el-input v-model="form.taskName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

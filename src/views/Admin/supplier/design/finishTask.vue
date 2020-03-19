@@ -63,13 +63,13 @@ export default {
       activeName: "first",
       tableData:[
         {
-          taskId: "123",
-          taskName: "123",
-          taskType:"123",
-          companyName: "123",
-          userId: "123",
-          supplierName:"123",
-          deadline: "123"
+          taskId: "",
+          taskName: "",
+          taskType:"",
+          companyName: "",
+          userId: "",
+          supplierName:"",
+          deadline: ""
         }
       ],
       multipleSelection: [],
@@ -83,14 +83,14 @@ export default {
     };
   },
   created() {
-    // this.getData();
+     this.getData();
   },
   methods: {
     getData() {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "1"
+        userName: "supplier"
       });
       console.log(data);
       that

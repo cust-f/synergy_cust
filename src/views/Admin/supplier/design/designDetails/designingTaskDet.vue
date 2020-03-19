@@ -13,7 +13,7 @@
             </el-col>
             <el-col :span="11">
               <el-form-item label="需求名称">
-                <el-input v-model="form.acceptCompanyId" :disabled="true"></el-input>
+                <el-input v-model="form.taskName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -77,16 +77,16 @@ export default {
   data() {
     return {
       form: {
-        taskId: "1",
-        acceptCompanyId: "2",
-        supplierName: "3",
-        deadline: "4",
-        companyName: "5",
-        beginTime: "6",
-        userName: "7",
-        taskState: "8",
-        taskDetail: "9",
-         backState:"0"
+        taskId: "",
+        taskName: "",
+        supplierName: "",
+        deadline: "",
+        companyName: "",
+        beginTime: "",
+        userName: "",
+        taskState: "",
+        taskDetail: "",
+         backState:""
       },
       formLabelWidth: "120px",
       taskId: "",
