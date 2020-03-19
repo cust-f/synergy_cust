@@ -1,12 +1,30 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view ></router-view>
   </div>
 </template>
 
 <script>
 export default {
   name: "App",
+  //   provide (){
+  //     return{
+  //       reload: this.reload
+  //     }
+  //   },
+  //   data (){
+  //     return{
+  //       isRouterAlive:true
+  //     }
+  //   },
+  //   method:{
+  //   reload(){
+  //     this.isRouterAlive = false
+  //     this.$nextTick(function(){
+  //       this.isRouterAlive = true
+  //     })
+  //   }
+  // },
     created() {
     //在页面加载时读取sessionStorage里的状态信息
     if (sessionStorage.getItem("store")) {
@@ -24,6 +42,7 @@ export default {
       sessionStorage.setItem("store", JSON.stringify(this.$store.state));
     });
   },
+
 };
 </script>
 

@@ -114,14 +114,14 @@
           </div>
           </div>-->
 
-          <div class="cg_bottomlist" v-for="(list,i) in demandTaskList" :key="i">
+          <div class="cg_bottomlist" v-for="(list,index) in dataShow" :key="index">
             <ul class="cg_bottomLeft">
               <li class="cg_list001">
                 <a href="#/threeMenu" class="ziti2">{{list.mainTaskName}}</a>
               </li>
               <li class="cg_list002">
-                <a>需求类型：流通</a>
-                <a>行业类别：{{list.industry_Type}}</a>
+                <a>需求类型：&nbsp;流通</a>
+                <a>行业类别：{{list.taskCategoryMain}}</a>
                 <br />
                 <a>发布时间：{{list.publishTime| dataFormat("yyyy-MM-dd")}}</a>
                 <a>截止时间：{{list.deadline| dataFormat("yyyy-MM-dd")}}</a>
@@ -143,6 +143,22 @@
               </ul>
             </div>
           </div>
+
+
+          <div class="page">
+              <ul>
+                  <li>
+                      <a href="#/xuqiuyilan"  v-on:click="prePage" ><</a>
+                  </li>
+                  <li v-for="(list, index) in totalPage">
+                      <a href="#/xuqiuyilan" v-on:click="toPage(index)" :class="{active: currentPage==index}">{{ index+1 }}</a>
+                  </li>
+                  <li>
+                      <a href="#/xuqiuyilan" v-on:click="nextPage" >></a>
+                  </li>
+              </ul>
+          </div>    
+
         </div>
       </el-col>
     </div>
@@ -354,7 +370,18 @@ export default {
         checkList6: [],
         checkList7: [],
 
-        demandTaskList: [],
+        demandTaskList:[],
+
+        // 总页数
+        pageNum:1,
+        // 每页显示的个数
+        pageSize:5,
+        // 当前页
+        currentPage:0,
+        // 总数据
+        totalPage:[],
+        // 当前显示的数据
+        dataShow:[],
 
     };
      radio: '1'
@@ -364,11 +391,7 @@ export default {
       
   },
   created() {
-    this.getInfo();
-  },
-
-  created() {
-    this.getInfo();
+    this.getInfo()
   },
   methods: {
     handleClick(tab, event) {
@@ -621,7 +644,35 @@ export default {
       that.axios.post("http://127.0.0.1:8082/xuqiuyilan/getAllList").then(response =>{
         that.demandTaskList = response.data;
         console.log(that.demandTaskList )
+        console.log(that.demandTaskList.length)
+
+        // 总页数
+        that.pageNum = Math.ceil(that.demandTaskList.length / that.pageSize) || 1 
+        // 分组
+        for (var i = 0; i<that.pageNum; i++) {
+            that.totalPage[i] = that.demandTaskList.slice(that.pageSize * i, that.pageSize * (i + 1))
+        }
+        // 取值
+        that.dataShow = that.totalPage[that.currentPage]
+        console.log(that.dataShow)
       });
+    },
+
+
+    nextPage: function(){
+        var that = this;
+        if (that.currentPage == that.pageNum - 1) return;
+        that.dataShow = that.totalPage[++that.currentPage]   
+    },
+    prePage: function(){
+        var that = this;
+        if (that.currentPage == 0) return;
+        that.dataShow = that.totalPage[--that.currentPage]
+    },
+    toPage: function(page){
+        var that = this;
+        that.currentPage = page
+        that.dataShow = that.totalPage[that.currentPage];
     }
   }
 };
@@ -1259,5 +1310,49 @@ export default {
   text-decoration: none;
 
   width: 300px;
+}
+
+.page {
+  margin:40px auto;
+  margin-top: 150px;
+  right: 40px;
+  
+	transform:translateX(50%);/**右移元素**/
+	-ms-transform:translateX(50%);
+	-webkit-transform:translateX(50%);
+}
+ul,li{
+  margin: 0px;
+  padding: 0px;
+}
+li{
+  list-style: none
+}
+.page li:first-child>a {
+  margin-left: 0px
+}
+.page a{
+  border: 1px solid #ddd;
+  text-decoration: none;
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #5D6062;
+  cursor: pointer;
+  margin-right: 20px;
+}
+.page a:hover{
+  background-color: #eee;
+}
+.page a.banclick{
+  cursor:not-allowed;
+}
+.page .active a{
+  color: #fff;
+  cursor: default;
+  background-color: #E96463;
+  border-color: #E96463;
 }
 </style>
