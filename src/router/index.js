@@ -36,7 +36,7 @@ import newStaff from '@/views/admin/staff/newStaff'//新增人员
 import newTask from '@/views/admin/Task/newTask'//新增任务
 import mainStaskShow from '@/views/admin/maintask/mainStaskShow'//主任务显示
 import substaskDetail from '@/views/admin/maintask/substaskDetail'//子任务详情
-//import mainStaskDetail from '@/views/admin/maintask/mainStaskDetail'//主任务详情
+import mainStaskDetail from '@/views/admin/maintask/mainStaskDetail'//主任务详情
 import review from '@/views/admin/check/review'
 
 import companyDetail from '@/views/admin/company/companyDetail'//企业详情
@@ -216,14 +216,14 @@ export default new Router({
           component: substaskDetail,
         },
         //查看主任务所属子任务的全部信息
-        // {
-        //   path: '/admin/mainStaskDetail',
-        //   name: 'mainStaskDetail',
-        //   component: mainStaskDetail,
-        //   meta: {
-        //     title: "查看主任务所属子任务的全部信息"
-        //   }
-        // },
+        {
+          path: '/admin/mainStaskDetail',
+          name: 'mainStaskDetail',
+          component: mainStaskDetail,
+          meta: {
+            title: "查看主任务所属子任务的全部信息"
+          }
+        },
         //企业信息详情
         {
           path: '/admin/companyDetail',
