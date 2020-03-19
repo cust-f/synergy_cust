@@ -221,27 +221,27 @@ export default {
   methods: {
     // 获取 easy-mock 的模拟数据
     getData() {
-      //   this.tableData = res.list;
-      //   this.pageTotal = tableData.length;
-      //  console.log(this.userName);
-      // var that = this;
-      // var data = Qs.stringify({
-      //   userName: ""
-      // });
-      // //console.log(data);
-      // that
-      //   .axios({
-      //     method: "post",
-      //     url: "http://127.0.0.1:8082/designer/newlist",
-      //     data: data
+        this.tableData = res.list;
+        this.pageTotal = tableData.length;
+       console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: ""
+      });
+      //console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/newStaff/list",
+          data: data
 
-      //     //  data:this.$store.state.userName
-      //   })
-      //   .then(response => {
-      //     console.log(response);
-      //     this.Not_Accepted_Task_Data = response.data.allData;
-      //     this.form = response.data.allData[0];
-      //   });
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+          //this.form = response.data.allData[0];
+        });
     },
     // 触发搜索按钮
     handleSearch() {
