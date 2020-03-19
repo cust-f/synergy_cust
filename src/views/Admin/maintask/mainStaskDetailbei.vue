@@ -8,20 +8,7 @@
 </el-page-header>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 
- <el-steps :active="2" align-center >
-  <el-step title="步骤1" description="">
-     <template slot="icon" >      
-       <img src="../design/1.png" style="height:50x;width:50px;">    
-     </template>
-  </el-step>
-  <el-step title="步骤2" description=""></el-step>
-  <el-step title="步骤3" description=""></el-step>
-  <el-step title="步骤4" description=""></el-step>
-    <el-step title="步骤5" description=""></el-step>
-  <el-step title="步骤6" description=""></el-step>
-
-</el-steps>
-            <el-form ref="form" :model="mainStask" label-width="110px">
+            <el-form ref="form" :model="mainStask" labael-width="110px">
             <el-row >
                 
                 <el-col :span="11">
@@ -233,7 +220,7 @@
 import  Qs from 'qs';
 import {formatDate} from "./dataChange";
   export default {
-      name:"taskDetail",
+      name:"mainStaskDetail",
     data() {
       return {
         dialogVisible: false,
@@ -280,8 +267,7 @@ import {formatDate} from "./dataChange";
       form: {},
       idx: -1,
       id: -1,
-      taskId:'',
-      taskType:'',
+      taskId:''
       }
     },
 
@@ -320,22 +306,17 @@ import {formatDate} from "./dataChange";
           // data:this.$store.state.userName
         })
         .then(response => {
-          this.mainStask = response.data.allData[0];
-          this.mainTaskID = response.data.allData[0].mainTaskId;
-          this.taskType = response.data.allData[0].taskType;
+           console.log(response)
            console.log(response.data.allData);
         });
       },
       goBack() {
-        console.log(this.taskType)
-
-          this.$router.push({
-        path:"/admin/designTask",
+         this.$router.push({
+        path:"/admin/substaskDetail",
         query:{
+          mainTaskID : this.mainTaskID
         }
         });
-        
-  
   
       }
     }
@@ -346,148 +327,5 @@ import {formatDate} from "./dataChange";
 .table{
   font-size: 14px;
 }
-
-.el-step.is-simple .el-step__title:hover {
-
-  cursor: pointer;
-
-}
-
- 
-
-.el-step.is-simple .el-step__title {
-
-  font-size: 14px;
-
-  margin-top: 5px;
-
-  max-width: 100px !important;
-
-  margin-left: 20px;
-
-}
-
- 
-
-.el-steps--simple {
-
-  background: transparent;
-
-  padding: 30px 30px 35px;
-
-}
-
- 
-
-.el-step.is-simple {
-
-  display: block;
-
-}
-
- 
-
-.el-step.is-simple .el-step__arrow {
-
-  margin-top: -18px;
-
-}
-
- 
-
-.el-step.is-simple .el-step__icon,
-
-.el-step__main .el-step__title {
-
-  width: 140px;
-
-  text-align: center;
-
-}
-
-.el-step__title.is-finish {
-
-  color: #5390e1;
-
-  font-weight: 700;
-
-}
-
- 
-
-.el-step__head.is-finish {
-
-  color: #5390e1;
-
-  border-color: #5390e1;
-
-}
-
-.el-step__line-inner {
-
-  border-style: none;
-
-}
-
- 
-
-.el-step__line {
-
-  left: 9px !important;
-
-}
-
-.el-step__title.is-process,
-
-.is-process .el-step__icon-inner.el-icon-info {
-
-  color: #4255a2;
-
-}
-
- 
-
-.el-step__title.is-finish,
-
-.is-finish .el-step__icon-inner.el-icon-info {
-
-  color: #28bc79;
-
-}
-
- 
-
-.el-step.is-simple:not(:last-of-type) .el-step__title {
-
-  max-width: none;
-
-}
-
-.el-step__title {
-
-  font-size: 12px;
-
-  text-align: center !important;
-
-}
-
- 
-
-.el-step__icon {
-
-  width: 20px;
-
-  height: 20px;
-
-}
-
- 
-
-.el-steps--simple.el-steps-sn {
-
-   padding: 0 !important;
-
-}
-
     
 </style>

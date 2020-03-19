@@ -64,14 +64,7 @@ import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
 //供应商设计界面
 import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//设计任务列表
-import designingTaskDet from '@/views/admin/supplier/design/designDetails/designingTaskDet'//进行中任务详情
-import finishTaskDet from '@/views/admin/supplier/design/designDetails/finishTaskDet'//完成任务详情界面
-import pendingAcceptanceDet from '@/views/admin/supplier/design/designDetails/pendingAcceptanceDet'//待验收设计详情界面
-import pendingAuditDet from '@/views/admin/supplier/design/designDetails/pendingAuditDet'//待审核详情页面
-import pendingResTaskDet from '@/views/admin/supplier/design/designDetails/pendingResTaskDet'//待响应详情页面
-import planAuditDet from '@/views/admin/supplier/design/designDetails/planAuditDet'//任务计划详情页面
-import planAuditingDet from '@/views/admin/supplier/design/designDetails/planAuditingDet'//审核任务计划详情页面
-import repealedTaskDet from '@/views/admin/supplier/design/designDetails/repealedTaskDet'//废除任务详情页面
+import det from'@/views/admin/supplier/design/designDetails/det'//详情
 //供应商流通界面
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'//流通任务列表
 import cNewTask from '@/views/admin/supplier/circulation/cNewTask'//供应商流通分配
@@ -436,82 +429,7 @@ export default new Router({
           meta: {
             title: "二级供应商的信息"
           }
-        },
-
-
-        //进行中任务详情
-        {
-          path: '/admin/designingTaskDet',
-          name: 'designingTaskDet',
-          component: designingTaskDet,
-          meta: {
-            title: "详情"
-          }
-        },
-
-        //完成任务详情
-        {
-          path: '/admin/finishTaskDet',
-          name: 'finishTaskDet',
-          component: finishTaskDet,
-          meta: {
-            title: "详情"
-          }
-        },
-        //待验收设计详情
-        {
-          path: '/admin/pendingAcceptanceDet',
-          name: 'pendingAcceptanceDet',
-          component: pendingAcceptanceDet,
-          meta: {
-            title: "详情"
-          }
-        },
-        //待审核详情
-        {
-          path: '/admin/pendingAuditDet',
-          name: 'pendingAuditDet',
-          component: pendingAuditDet,
-          meta: {
-            title: "详情"
-          }
-        },
-        //待响应详情
-        {
-          path: '/admin/pendingResTaskDet',
-          name: 'pendingResTaskDet',
-          component: pendingResTaskDet,
-          meta: {
-            title: "详情"
-          }
-        },
-        //任务计划详情页面
-        {
-          path: '/admin/planAuditDet',
-          name: 'planAuditDet',
-          component: planAuditDet,
-          meta: {
-            title: "详情"
-          }
-        },
-        //审核任务计划详情页面
-        {
-          path: '/admin/planAuditingDet',
-          name: 'planAuditingDet',
-          component: planAuditingDet,
-          meta: {
-            title: "详情"
-          }
-        },
-        //废除任务详情页面
-        {
-          path: '/admin/repealedTaskDet',
-          name: 'repealedTaskDet',
-          component: repealedTaskDet,
-          meta: {
-            title: "详情"
-          }
-        },       
+        },      
 
          //流通全部任务详情页面
          {
@@ -629,6 +547,15 @@ export default new Router({
           component: cNewTask,
           meta: {
             title: "任务分解"
+          }
+        },  
+        //详情界面
+        {
+          path:'/admin/det',
+          name:'det',
+          component: det,
+          meta:{
+            title:"详情"
           }
         }
       ]

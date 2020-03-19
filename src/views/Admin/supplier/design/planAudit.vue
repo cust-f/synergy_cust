@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData1"
       border
       class="table"
       ref="multipleTable"
@@ -15,13 +15,13 @@
     >
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
-      <el-table-column prop="acceptCompanyName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="supplierName" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型"></el-table-column>
 
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="assignmentState" label="状态" align="center"></el-table-column>
+      <el-table-column prop="taskCode" label="状态" align="center"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期"></el-table-column>
 
@@ -56,18 +56,14 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型"></el-table-column>
 
-      <el-table-column prop="publishTask" label="接受需求企业"></el-table-column>
+      <el-table-column prop="supplierName" label="接受需求企业"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
-
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
-      </el-table-column>
+      <el-table-column prop="deadline" label="截止日期"> </el-table-column>
 
       <el-table-column label="计划书" align="center">
         <el-button type="text" size="small">下载</el-button>
@@ -181,24 +177,23 @@ export default {
         pageSize: 10
       },
 
-      tableData: [
+      tableData1: [
         {
           taskId:"",
-          acceptCompanyName: "",
-          supplierName: "",
+          taskName: "",
+          taskType: "",
           companyName: "",
-          assignmentState: "",
+          taskCode: "",
           deadline: ""
         }
       ],
       tableData2: [
         {
           taskId: "",
-          acceptCompanyName: "",
+          taskName: "",
+          taskType: "",
           supplierName: "",
-          companyName: "",
-          assignmentState: "",
-          deadline: "2"
+          deadline: "",
         }
       ],
       from: {
@@ -219,38 +214,35 @@ export default {
     };
   },
   created() {
-    this.getData();
+    this.getData1();
     this.getData2();
   },
   methods: {
     // 供应商接受的二级计划且未分配的全部任务
-    getData() {
-      console.log(this.userName);
+    getData1() {
+      console.log("123");
       var that = this;
       var data = Qs.stringify({
-        userName: "1"
+      userName: "supplier"
       });
-
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierPlanAuditlist",
+           url: "http://127.0.0.1:8082/supplier/supplierPlanAuditList1",
           data: data
-
-          // data:this.$store.state.userName
         })
         .then(response => {
           console.log(response);
-          this.tableData = response.data.allData;
+          this.tableData1 = response.data.allData;
         });
     },
     //分配给二级供应商且任务计划书未通过的全部任务
     getData2() {
-      console.log(this.userName);
+      console.log("123456789");
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa"
+        userName: "supplier"
       });
 
       console.log(data);
@@ -259,8 +251,6 @@ export default {
           method: "post",
           url: "http://127.0.0.1:8082/supplier/supplierPlanAuditOtherList",
           data: data
-
-          // data:this.$store.state.userName
         })
         .then(response => {
           console.log(response);

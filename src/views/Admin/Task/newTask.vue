@@ -83,7 +83,7 @@
             </el-col>
           </el-row>
        
-
+<el-form-item label="添加附件">
         <el-upload
           class="upload-demo"
           ref="upload"
@@ -94,15 +94,17 @@
           :limit="1"
           :auto-upload="false"
         >
-          <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+          <el-button  size="small" slot="trigger"  type="primary">选取文件</el-button>
+          <br>
           <el-button
             style="margin-left: 10px;"
             size="small"
             type="success"
             @click="submitUpload"
           >上传到服务器</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
+</el-form-item>
 
  </el-form>
         <div id="div2" align="right">
@@ -286,6 +288,28 @@
                 ></el-input>
               </el-col>
             </el-row>
+            <el-form-item label="添加附件">
+        <el-upload
+          class="upload-demo"
+          ref="upload"
+          action="http://127.0.0.1:8082/MainTaskInformation/import"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-success="handleAvatarSuccess"
+          :limit="1"
+          :auto-upload="false"
+        >
+          <el-button  slot="trigger"  size="small" type="primary">选取文件</el-button>
+          <el-button
+            style="margin-left: 10px;"
+            size="small"
+            type="success"
+            @click="submitUpload"
+          >上传到服务器</el-button>
+          <br>
+          <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
+        </el-upload>
+        </el-form-item>
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button @click="addVisible = false">取 消</el-button>
@@ -644,7 +668,8 @@ export default {
         taskType: this.addList.substasktype,
         mainTaskName: this.name,
         taskXiangxi: this.addList.TaskXiangXi,
-        mainTaskID: this.mainStaskID
+        mainTaskID: this.mainStaskID,
+        Technonlgy_File:this.technicalFile
       });
       console.log(data);
       console.log(this.addList.substasktype);
@@ -695,5 +720,9 @@ export default {
 }
 .selectsupply {
   padding-right: 300px;
+}
+.el-upload--text{
+  width: 85px;
+  height: 40px;
 }
 </style>

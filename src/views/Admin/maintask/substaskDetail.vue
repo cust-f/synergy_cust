@@ -96,7 +96,7 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-              <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
+               
               <el-table-column prop="taskName" label="任务名称"></el-table-column>
               <el-table-column prop="taskType" label="任务类别"></el-table-column>
               <el-table-column prop="beginTime" label="开始时间">
@@ -121,6 +121,7 @@
                     >编辑</el-button>-->
                     <el-button
                       type="text"
+                      icon="el-icon-delete"
                       class="red"
                       @click="handleDelete1(scope.row)"
                     >废除</el-button>
