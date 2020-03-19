@@ -21,12 +21,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="需求名称:">
-                  <el-input v-model="cool.mainTaskName" :disabled="true" style="text-align:center"></el-input>
+                  <el-input v-model="cool.mainTaskName" :readonly="true" style="text-align:center"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="子任务名称:">
-                  <el-input v-model="cool.taskName" :disabled="true"></el-input>
+                  <el-input v-model="cool.taskName" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -34,12 +34,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="发布企业名称:">
-                  <el-input v-model="cool.companyName" :disabled="true" style="text-align:center"></el-input>
+                  <el-input v-model="cool.companyName" :readonly="true" style="text-align:center"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="接受企业名称:">
-                  <el-input v-model="cool.supplierName" :disabled="true"></el-input>
+                  <el-input v-model="cool.supplierName" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -49,14 +49,14 @@
                 <el-form-item label="任务截止日期:">
                   <el-input
                     v-bind:value="cool.deadline|formatDate"
-                    :disabled="true"
+                    :readonly="true"
                     style="text-align:center"
                   ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="需求方电话:">
-                  <el-input v-model="cool.demanderTel" :disabled="true"></el-input>
+                  <el-input v-model="cool.demanderTel" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -78,15 +78,15 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="applyWay" label="获取方式">
-            <template slot-scope="{row: {applyWay}}">
-              <span v-if="+applyWay === 0">邀请</span>
-              <span v-else-if="+applyWay === 1">申请</span>
+            <template slot-scope=scope>
+              <span v-if="scope.row.applyWay === 0">邀请</span>
+              <span v-else-if="scope.row.applyWay === 1">申请</span>
             </template>
           </el-table-column>
           <el-table-column prop="checkApplyState" label="申请/邀请状态">
-            <template slot-scope="{row: {checkApplyState}}">
-              <span v-if="+checkApplyState === 0">待审核</span>
-              <span v-else-if="+checkApplyState === 1">通过</span>
+            <template slot-scope="scope">
+              <span v-if="scope.row.checkApplyState === 0">待审核</span>
+              <span v-else-if="scope.row.checkApplyState === 1">通过</span>
               <span v-else>拒绝</span>
             </template>
           </el-table-column>
@@ -132,11 +132,11 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="checkPlanState" label="计划审核状态">
-            <template slot-scope="{row: {checkPlanState}}">
-              <span v-if="+checkPlanState === 0">待上传</span>
-              <span v-else-if="+checkPlanState === 1">待审核</span>
-              <span v-else-if="+checkPlanState === 2">通过</span>
-              <span v-else-if="+checkPlanState === 3">拒绝</span>
+            <template slot-scope="scope">
+              <span v-if="scope.row.checkPlanState === 0">待上传</span>
+              <span v-else-if="scope.row.checkPlanState === 1">待审核</span>
+              <span v-else-if="scope.row.checkPlanState === 2">通过</span>
+              <span v-else-if="scope.row.checkPlanState === 3">拒绝</span>
             </template>
           </el-table-column>
           <el-table-column prop="planUploadTime" label="上传时间">
@@ -178,11 +178,11 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="supplierCheckDesignState" label="内部审核状态">
-            <template slot-scope="{row: {supplierCheckDesignState}}">
+            <template slot-scope="scope">
               <span v-if="+supplierCheckDesignState === 0">待提交</span>
-              <span v-else-if="+supplierCheckDesignState === 1">待审核</span>
-              <span v-else-if="+supplierCheckDesignState === 2">通过</span>
-              <span v-else-if="+supplierCheckDesignState === 3">未通过</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
             </template>
           </el-table-column>
           <el-table-column prop="uploadDesignTime" label="上传时间">
@@ -192,11 +192,11 @@
             <template slot-scope="scope">{{scope.row.supplierCheckDesignTime | formatDate}}</template>
           </el-table-column>
           <el-table-column prop="demandorCheckDesignTime" label="验收状态">
-            <template slot-scope="{row: {demandorCheckDesignState}}">
-              <span v-if="+demandorCheckDesignState === 0">待提交</span>
-              <span v-else-if="+demandorCheckDesignState === 1">待审核</span>
-              <span v-else-if="+demandorCheckDesignState === 2">通过</span>
-              <span v-else-if="+demandorCheckDesignState === 3">未通过</span>
+            <template slot-scope="scope">
+              <span v-if="scope.row.demandorCheckDesignState === 0">待提交</span>
+              <span v-else-if="scope.row.demandorCheckDesignState === 1">待审核</span>
+              <span v-else-if="scope.row.demandorCheckDesignState === 2">通过</span>
+              <span v-else-if="scope.row.demandorCheckDesignState === 3">未通过</span>
             </template>
           </el-table-column>
           <el-table-column prop="demandorCheckDesignTime" label="验收时间">
@@ -229,11 +229,11 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="contractState" label="合同审核状态">
-            <template slot-scope="{row: {contractState}}">
-              <span v-if="+contractState === 0">待上传</span>
-              <span v-else-if="+contractState === 1">待审核</span>
-              <span v-else-if="+contractState === 2">通过</span>
-              <span v-else-if="+contractState === 3">未通过</span>
+            <template slot-scope="scope">
+              <span v-if="scope.row.contractState === 0">待上传</span>
+              <span v-else-if="scope.row.contractState === 1">待审核</span>
+              <span v-else-if="scope.row.contractState === 2">通过</span>
+              <span v-else-if="scope.row.contractState === 3">未通过</span>
             </template>
           </el-table-column>
           <el-table-column prop="uploadContractTime" label="上传时间">
@@ -454,13 +454,12 @@ export default {
 }
 
 .el-input__inner {
-  /* border-left: none;
-  border-right: none;
-  border-top: none; */
-  border: none;
-  border-radius: 0px;
-  /* text-align: center; */
-}
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+  }
 .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
 }
