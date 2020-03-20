@@ -75,10 +75,9 @@
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
         >
-          <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="applyWay" label="获取方式">
-            <template slot-scope=scope>
+            <template slot-scope="scope">
               <span v-if="scope.row.applyWay === 0">邀请</span>
               <span v-else-if="scope.row.applyWay === 1">申请</span>
             </template>
@@ -100,13 +99,13 @@
             <template slot-scope="scope">
               <div v-if="scope.row.applyWay === 0">
                 <div v-if="milepostActive === 0">
-                  <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+                  <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
+                  <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
                 </div>
               </div>
               <div v-else-if="scope.row.applyWay === 1">
                 <div v-if="scope.row.checkApplyState === 2">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝原因</el-button>
+                  <el-button @click="refuseReason(scope.row)" type="text" size="small">拒绝原因</el-button>
                 </div>
               </div>
               <div v-if="milepostActive > 0">
@@ -118,7 +117,7 @@
         <br />
         <br />
       </div>
-      <div v-show="milepostActive>0">
+      <div v-show="show>0">
         <div class="biaoti">——任务计划——</div>
         <br />
         <el-table
@@ -129,7 +128,6 @@
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
         >
-          <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="checkPlanState" label="计划审核状态">
             <template slot-scope="scope">
@@ -153,9 +151,6 @@
               <div v-show="scope.row.checkPlanState > 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
               </div>
-              <!-- <div v-show="milepostActive=3">
-                <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝原因</el-button>
-              </div>-->
             </template>
           </el-table-column>
         </el-table>
@@ -163,7 +158,7 @@
       <br />
       <br />
 
-      <div v-show="milepostActive>1">
+      <div v-show="show>1">
         <div class="biaoti">——设计提交——</div>
         <br />
 
@@ -175,7 +170,6 @@
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
         >
-          <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="supplierCheckDesignState" label="内部审核状态">
             <template slot-scope="scope">
@@ -207,15 +201,15 @@
               <div v-show="scope.row.supplierCheckDesignState > 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
               </div>
-              <div v-show="scope.row.supplierCheckDesignState ===2">
-                <el-button @click="SQJJ(scope.row)" type="text" size="small">通过</el-button>
-                <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+              <div v-show="scope.row.supplierCheckDesignState === 1">
+                <el-button @click="designSuccess(scope.row)" type="text" size="small">通过</el-button>
+                <el-button @click="designRefuse(scope.row)" type="text" size="small">拒绝</el-button>
               </div>
             </template>
           </el-table-column>
         </el-table>
       </div>
-      <div v-show="milepostActive>3">
+      <div v-show="show>3">
         <div class="biaoti">——合同管理——</div>
         <br />
         <el-table
@@ -226,7 +220,6 @@
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
         >
-          <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="contractState" label="合同审核状态">
             <template slot-scope="scope">
@@ -239,8 +232,11 @@
           <el-table-column prop="uploadContractTime" label="上传时间">
             <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
           </el-table-column>
-          <el-table-column prop="checkContractTime" label="审核时间">
-            <template slot-scope="scope">{{scope.row.checkContractTime | formatDate}}</template>
+          <el-table-column prop="checkContractTime" label="合同审核时间">
+            <template slot-scope="scope">
+              <span v-if="+scope.row.checkContractTime === 'null'">尚未上传</span>
+              <span v-else>{{scope.row.checkContractTime | formatDate}}</span>
+            </template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
@@ -253,10 +249,27 @@
             </template>
           </el-table-column>
         </el-table>
-
         <br />
         <br />
       </div>
+      <!-- 拒绝原因弹出框 -->
+      <el-dialog title="被拒绝的原因" :visible.sync="addVisible1" width="50%">
+        <el-row>
+          <el-col :span="8"></el-col>
+        </el-row>
+        <el-form ref="form" :model="addList1" label-width="120px">
+          <el-row>
+            <el-col>
+              <el-form-item label="被拒绝原因">
+                <el-input v-model="addList1.refuseApplyMessage"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addVisible1 = false">确定</el-button>
+        </span>
+      </el-dialog>
     </el-main>
   </div>
 </template>
@@ -327,21 +340,22 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion" },
         { title: "完成", icon: "el-icon-s-claim" }
       ],
+      //申请被拒绝原因
+      addList1: {
+        refuseApplyMessage: ""
+      },
+      //设计计划拒绝弹窗
+      addVisible1: false,
+      //状态
       state: "",
       // 默认步骤数
       milepostActive: 0,
       // 动态添加类名
       stepActive: "stepActive",
-      //申请状态按钮显示隐藏
-      applicationStatus: 0,
-      //任务计划状态按钮显示隐藏
-      taskPlanStatus: 0,
-      //合同管理状态按钮显示隐藏
-      contractManagementStatus: 0,
-      //设计任务状态按钮显示隐藏
-      designState: 0,
       //任务Id
-      taskId: 1
+      taskId: 1,
+      //表格显示控制
+      show: 0
     };
   },
 
@@ -361,7 +375,7 @@ export default {
       this.taskId = routerParams;
       console.log(routerParams);
     },
-
+    //数据显示
     showData() {
       console.log("你好");
       console.log(this.taskId);
@@ -381,24 +395,40 @@ export default {
           this.tableData1 = response.data.allData.b;
           this.tableData2 = response.data.allData.b;
           this.tableData3 = response.data.allData.a;
-          this.tableData4 = response.data.allData.b;
+          this.tableData4 = response.data.allData.a;
           this.cool = response.data.allData.a[0];
           this.state = response.data.allData.a[0].taskState;
-          var state;
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
             this.milepostActive = 1;
+            this.show = 1;
           } else if (this.state == "任务进行中") {
             this.milepostActive = 2;
+            this.show = 2;
           } else if (this.state == "审核") {
             this.milepostActive = 3;
+            this.show = 3;
+          } else if (this.state == "验收") {
+            this.milepostActive = 4;
+            this.show = 4;
+          } else if (this.state == "完成") {
+            this.milepostActive = 5;
+            this.show = 5;
+          } else {
+            this.milepostActive = 6;
+            if (response.data.allData.b[0].refuseApplyMessage != null) {
+              this.show = 0;
+            } else if (response.data.allData.b[0].refusePlanMessage != null) {
+              this.show = 1;
+            }
           }
-          this.taskId = response.data.allData.a[0].taskId;
+          this.this.taskId = response.data.allData.a[0].taskId;
           console.log(response.data.allData.a[0].taskState);
           console.log(response.data.allData);
         });
     },
+    //返回列表
     goBack() {
       this.$router.push({
         path: "/admin/substaskDetail",
@@ -406,7 +436,140 @@ export default {
           taskId: this.taskId
         }
       });
+    },
+    //接受通过
+    accept(row) {
+      this.$confirm("确定接受需求么？", "提示", {
+        type: "warning"
+      }).then(() => {
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          taskID: row.taskId
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/accept",
+          data: data
+        });
+        this.$message({
+          message: "接受成功",
+          type: "success"
+        });
+      });
+    },
+    //接受不通过
+    noAccept(row) {
+      this.$confirm("确定拒绝需求么？", "提示", {
+        type: "warning"
+      }).then(() => {
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          taskID: row.taskId
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/noAccept",
+          data: data
+        });
+        this.$message({
+          message: "拒绝通过",
+          type: "success"
+        });
+      });
+    },
+    //拒绝原因
+    refuseReason(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/getList",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.addList1 = response.allData.b[0];
+          this.addVisible1 = true;
+        });
+    },
+    //设计通过
+    designSuccess(row) {
+      this.$confirm("确定将设计审核通过么？", "提示", {
+        type: "warning"
+      }).then(() => {
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          taskID: row.taskId
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/designSuccess",
+          data: data
+        });
+        this.$message({
+          message: "审核通过",
+          type: "success"
+        });
+      });
+    },
+    //设计不通过
+    designRefuse(row) {
+      this.$confirm("确定审核不通过么？", "提示", {
+        type: "warning"
+      }).then(() => {
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          taskID: row.taskId
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/designRefuse",
+          data: data
+        });
+        this.$message({
+          message: "审核不通过",
+          type: "success"
+        });
+      });
     }
+
+    //设计不通过
+    // designRefuse(row) {
+    //   this.addVisible3 = true;
+    //   this.taskId = row.taskId;
+    // }
+
+    // //设计拒绝原因
+    // designRefuseReason(row) {
+    //   var that =this;
+    //   var data = Qs.stringify({
+    //     taskId:this.taskId,
+    //     HTrefuseReason:this.addList3.SJrefuseReason,
+    //   })
+    //      console.log(data),
+    //   that
+    //     .axios({
+    //       method:"post",
+    //       url:'',
+    //       data:data,
+
+    //     })
+    //     this.$message.success("提交成功");
+    //     this.addList3 = {};
+    //     this.addVisible3 = false;
+    // }
   }
 };
 </script>
@@ -454,12 +617,12 @@ export default {
 }
 
 .el-input__inner {
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-radius: 0px;
-    text-align: center;
-  }
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-radius: 0px;
+  text-align: center;
+}
 .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
 }
