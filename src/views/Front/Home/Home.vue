@@ -526,13 +526,13 @@
             ></line-chart>
           </el-card>
         </el-col>
-        <el-col :span="14" :push="pushCount">
+        <el-col :span="16" >
           <el-card shadow="hover" style="margin-top:5px;">
             <!-- <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div> -->
             <cloumn-chart ref="drawCloumnChart" :cloumnData="cloumnData"></cloumn-chart>
           </el-card>
         </el-col>
-        <el-col :span="6" :push="pushCount">
+        <el-col :span="8" >
           <el-card shadow="hover" style="margin-top:5px;">
             <!-- <div id="quarterlySituation" style="width: 100%;height:350%;"></div> -->
             <pie-chart ref="drawPieChart" :pieData="pieData"></pie-chart>
@@ -661,7 +661,7 @@ export default {
   methods: {
     getInfo() {
       var that = this;
-      that.axios.post("/api/home/detail").then(response => {
+      that.axios.post("http://127.0.0.1:8082/home/detail").then(response => {
         this.taskCountMonth = response.data.allData.mainTaskCount;
         this.demandTaskCount = response.data.allData.designTaskCount;
         this.circulationTaskCount = response.data.allData.circulateTaskCount;
@@ -685,7 +685,7 @@ export default {
       var task;
       var finishTask;
       that.axios
-        .post("/api/dataStatistics/allMonthTaskCount")
+        .post("http://127.0.0.1:8082/dataStatistics/allMonthTaskCount")
         .then(response => {
             this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
             this.lineData.taskCount = response.data.allData.taskCount;
@@ -695,7 +695,7 @@ export default {
     },
     columnChart() {
       let that = this;
-      that.axios.post("/api/dataStatistics/companyRank").then(response => {
+      that.axios.post("http://127.0.0.1:8082/dataStatistics/companyRank").then(response => {
         this.cloumnData.Vintage = response.data.allData.Vintage;
         this.cloumnData.topCompanyName = response.data.allData.companyName;
         this.cloumnData.nowTaskNumber = response.data.allData.countYear;
@@ -705,11 +705,13 @@ export default {
     },
     pipChart(){
       let that =this;
-      that.axios.post("/api/dataStatistics/seasonsTaskCount")
+      that.axios.post("http://127.0.0.1:8082/dataStatistics/seasonsTaskCount")
       .then(response=>{
         this.pieData.searsonCount=response.data.allData.searsonCount;
         this.pieData.seasonsFinishTaskCount=response.data.allData.seasonsFinishTaskCount;
         this.$refs.drawPieChart.getCharts();
+        console.log(this.pieData.searsonCount);
+        console.log(this.pieData.seasonsFinishTaskCount);
       })
     },
     /*
