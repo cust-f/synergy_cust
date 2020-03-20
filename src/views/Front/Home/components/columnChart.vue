@@ -17,6 +17,7 @@ export default {
       // 基于准备好的dom，初始化echarts实例
       var charts = [];
       var myChart = echarts.init(document.getElementById("fulfillDemandTop5"));
+      console.log(this.cloumnData.Vintage)
       var option = {
         title: {
           text: "供应商完成需求量TOP5",
@@ -54,13 +55,13 @@ export default {
         },
         series: [
           {
-            name: "2017年",
+            name: this.cloumnData.Vintage[0],
             type: "bar",
             data: this.cloumnData.lastTaskNumber
             // [1245, 1523, 1587, 1689, 2567]
           },
           {
-            name: "2018年",
+            name: this.cloumnData.Vintage[1],
             type: "bar",
             data: this.cloumnData.nowTaskNumber
             // [1389, 1530, 1750, 1890, 2899]

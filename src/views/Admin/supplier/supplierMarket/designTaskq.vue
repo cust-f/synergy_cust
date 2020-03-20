@@ -78,10 +78,6 @@ export default {
       activeName:"first",
     };
   },
-
-  created() {
-    this.getData();
-  },
   
 }
 </script>

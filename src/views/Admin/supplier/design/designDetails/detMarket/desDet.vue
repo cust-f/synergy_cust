@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h2>{{TaskId}}</h2>
     <el-table
-      :data="tableData1"
+      :data="tableData3"
       border
       class="table"
       ref="multipleTable"
@@ -11,21 +10,26 @@
     >
       <!-- mainTaskID冲-->
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-      <el-table-column prop="checkApplyName" label="状态"></el-table-column>
-      <el-table-column prop="applyTime" label="申请/邀请时间">
+      <el-table-column prop="supplierCheckDesignState" label="状态"></el-table-column>
+      <el-table-column prop="uploadDesignTime" label="上传时间">
         <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
       </el-table-column>
-      <el-table-column prop="checkApplyTime" label="审核时间">
+      <el-table-column prop="supplierCheckDesignTime" label="审核时间">
+        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+      </el-table-column>
+      <el-table-column prop="demandorCheckDesignState" label="验收状态"></el-table-column>
+
+      <el-table-column prop="demandorCheckDesignTime" label="验收时间">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <div v-show="applicationStatus=1">
-            <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+          <div v-show="designState > 0">
+            <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
           </div>
-          <div v-show="applicationStatus=2">
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝原因</el-button>
+          <div v-show="designState=2">
+            <el-button @click="SQJJ(scope.row)" type="text" size="small">通过</el-button>
+            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
           </div>
         </template>
       </el-table-column>
@@ -41,24 +45,26 @@ export default {
   name: "det",
   data() {
     return {
-      //申请表数据
-      tableData1: [
+      //设计提交表数据
+      tableData3: [
         {
-          checkApplyName: "",
-          applyTime: "",
-          checkApplyTime: "",
-          applyWay: ""
+          supplierCheckDesignState: "",
+          uploadDesignTime: "",
+          supplierCheckDesignTime: "",
+          demandorCheckDesignState: "",
+          demandorCheckDesignTime: ""
         }
       ],
       props: {
-        TaskId: {
+        taskId: {
           type: Number,
           required: true
         }
       },
-      //申请状态按钮显示隐藏
-      applicationStatus: 0
+      //设计任务状态按钮显示隐藏
+      designState: 0
     };
+    props.taskId;
   },
   filters: {
     formatDate(time) {
@@ -67,12 +73,11 @@ export default {
     }
   },
   created() {
-    this.getDate1();
+    this.getDate3();
   },
   methods: {
-    getDate1() {
-      console.log(this.TaskId);
-      console.log(this.TaskId);
+    getDate3() {
+      console.log(this.props.taskId);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId
@@ -80,20 +85,16 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/taskAppleDet",
+          url: "http://127.0.0.1:8082/supplier/taskDet",
           data: data
         })
         .then(response => {
-          this.tableData1 = response.data.allData;
-          //判断申请状态按钮的隐藏与显示
-          if ((this.tableData1.applyWay = 0)) {
-            if ((this.tableData1.checkApplyName = 0)) {
-              this.applicationStatus = 1;
-            }
-          } else if ((this.tableData1.applyWay = 1)) {
-            if ((this.tableData1.checkApplyName = 2)) {
-              this.applicationStatus = 2;
-            }
+          this.tableData3 = response.data.allData;
+          //判断进行中按钮的隐藏与显示
+          if ((this.tableData3.supplierCheckDesignState = 1)) {
+            this.designState = 2;
+          } else if ((this.tableData3.supplierCheckDesignState = 2)) {
+            this.designState = 1;
           }
           console.log(response.data.allData);
         });

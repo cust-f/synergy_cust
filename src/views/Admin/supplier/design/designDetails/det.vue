@@ -21,12 +21,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="需求名称:">
-                  <el-input v-model="cool.mainTaskName" :disabled="true" style="text-align:center"></el-input>
+                  <el-input v-model="cool.mainTaskName" :readonly="true" style="text-align:center"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="子任务名称:">
-                  <el-input v-model="cool.taskName" :disabled="true"></el-input>
+                  <el-input v-model="cool.taskName" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -34,12 +34,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="发布企业名称:">
-                  <el-input v-model="cool.companyName" :disabled="true" style="text-align:center"></el-input>
+                  <el-input v-model="cool.companyName" :readonly="true" style="text-align:center"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="接受企业名称:">
-                  <el-input v-model="cool.supplierName" :disabled="true"></el-input>
+                  <el-input v-model="cool.supplierName" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -49,14 +49,14 @@
                 <el-form-item label="任务截止日期:">
                   <el-input
                     v-bind:value="cool.deadline|formatDate"
-                    :disabled="true"
+                    :readonly="true"
                     style="text-align:center"
                   ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="需求方电话:">
-                  <el-input v-model="cool.demanderTel" :disabled="true"></el-input>
+                  <el-input v-model="cool.demanderTel" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -65,44 +65,59 @@
       </div>
       <br />
       <br />
-      <div class="biaoti">——申请列表——</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <el-table
-        :data="tableData1"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <!-- mainTaskID冲-->
-        <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="checkApplyName" label="状态"></el-table-column>
-        <el-table-column prop="applyTime" label="申请/邀请时间">
-          <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
-        </el-table-column>
-        <el-table-column prop="checkApplyTime" label="审核时间">
-          <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
-        </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-            >废除</el-button>-->
-            <div v-show="applicationStatus=1">
-              <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-              <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
-            </div>
-            <div v-show="applicationStatus=2">
-              <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝原因</el-button>
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
-      <br />
-      <br />
+      <div>
+        <div class="biaoti">——申请列表——</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <el-table
+          :data="tableData1"
+          border
+          class="table"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <!-- mainTaskID冲-->
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="applyWay" label="获取方式">
+            <template slot-scope=scope>
+              <span v-if="scope.row.applyWay === 0">邀请</span>
+              <span v-else-if="scope.row.applyWay === 1">申请</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="checkApplyState" label="申请/邀请状态">
+            <template slot-scope="scope">
+              <span v-if="scope.row.checkApplyState === 0">待审核</span>
+              <span v-else-if="scope.row.checkApplyState === 1">通过</span>
+              <span v-else>拒绝</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="applyTime" label="申请/邀请时间">
+            <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
+          </el-table-column>
+          <el-table-column prop="checkApplyTime" label="审核时间">
+            <template slot-scope="scope">{{scope.row.checkApplyTime | formatDate}}</template>
+          </el-table-column>
+          <el-table-column label="操作" width="180" align="center">
+            <template slot-scope="scope">
+              <div v-if="scope.row.applyWay === 0">
+                <div v-if="milepostActive === 0">
+                  <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
+                  <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+                </div>
+              </div>
+              <div v-else-if="scope.row.applyWay === 1">
+                <div v-if="scope.row.checkApplyState === 2">
+                  <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝原因</el-button>
+                </div>
+              </div>
+              <div v-if="milepostActive > 0">
+                <span>任务已接受</span>
+              </div>
+            </template>
+          </el-table-column>
+        </el-table>
+        <br />
+        <br />
+      </div>
       <div v-show="milepostActive>0">
         <div class="biaoti">——任务计划——</div>
         <br />
@@ -116,24 +131,31 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="assignmentState" label="状态"></el-table-column>
+          <el-table-column prop="checkPlanState" label="计划审核状态">
+            <template slot-scope="scope">
+              <span v-if="scope.row.checkPlanState === 0">待上传</span>
+              <span v-else-if="scope.row.checkPlanState === 1">待审核</span>
+              <span v-else-if="scope.row.checkPlanState === 2">通过</span>
+              <span v-else-if="scope.row.checkPlanState === 3">拒绝</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="planUploadTime" label="上传时间">
-            <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+            <template slot-scope="scope">{{scope.row.planUploadTime | formatDate}}</template>
           </el-table-column>
           <el-table-column prop="checkPlanTime" label="审核时间">
-            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+            <template slot-scope="scope">{{scope.row.checkPlanTime | formatDate}}</template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
-              <div v-show="taskPlanStatus=0">
+              <div v-show="scope.row.checkPlanState === 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">上传</el-button>
               </div>
-              <div v-show="taskPlanStatus>0">
+              <div v-show="scope.row.checkPlanState > 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
               </div>
-              <div v-show="milepostActive=3">
+              <!-- <div v-show="milepostActive=3">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝原因</el-button>
-              </div>
+              </div>-->
             </template>
           </el-table-column>
         </el-table>
@@ -155,24 +177,37 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="supplierCheckDesignState" label="状态"></el-table-column>
+          <el-table-column prop="supplierCheckDesignState" label="内部审核状态">
+            <template slot-scope="scope">
+              <span v-if="+supplierCheckDesignState === 0">待提交</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="uploadDesignTime" label="上传时间">
-            <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+            <template slot-scope="scope">{{scope.row.uploadDesignTime | formatDate}}</template>
           </el-table-column>
           <el-table-column prop="supplierCheckDesignTime" label="审核时间">
-            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+            <template slot-scope="scope">{{scope.row.supplierCheckDesignTime | formatDate}}</template>
           </el-table-column>
-          <el-table-column prop="demandorCheckDesignState" label="验收状态"></el-table-column>
-
+          <el-table-column prop="demandorCheckDesignTime" label="验收状态">
+            <template slot-scope="scope">
+              <span v-if="scope.row.demandorCheckDesignState === 0">待提交</span>
+              <span v-else-if="scope.row.demandorCheckDesignState === 1">待审核</span>
+              <span v-else-if="scope.row.demandorCheckDesignState === 2">通过</span>
+              <span v-else-if="scope.row.demandorCheckDesignState === 3">未通过</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="demandorCheckDesignTime" label="验收时间">
-            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+            <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
-              <div v-show="designState > 0">
+              <div v-show="scope.row.supplierCheckDesignState > 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
               </div>
-              <div v-show="designState=2">
+              <div v-show="scope.row.supplierCheckDesignState ===2">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">通过</el-button>
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
               </div>
@@ -180,7 +215,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <div v-show="milepostActive>2">
+      <div v-show="milepostActive>3">
         <div class="biaoti">——合同管理——</div>
         <br />
         <el-table
@@ -193,12 +228,19 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="contractState" label="状态"></el-table-column>
+          <el-table-column prop="contractState" label="合同审核状态">
+            <template slot-scope="scope">
+              <span v-if="scope.row.contractState === 0">待上传</span>
+              <span v-else-if="scope.row.contractState === 1">待审核</span>
+              <span v-else-if="scope.row.contractState === 2">通过</span>
+              <span v-else-if="scope.row.contractState === 3">未通过</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="uploadContractTime" label="上传时间">
-            <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+            <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
           </el-table-column>
           <el-table-column prop="checkContractTime" label="审核时间">
-            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+            <template slot-scope="scope">{{scope.row.checkContractTime | formatDate}}</template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
@@ -228,8 +270,8 @@ export default {
     return {
       //表单数据
       cool: {
-        mainTaskName: "nihao",
-        industry_Type: "nihao",
+        mainTaskName: "",
+        industry_Type: "",
         publishTime: "",
         deadline: "",
         mainTaskDetail: "",
@@ -240,7 +282,7 @@ export default {
       //申请表数据
       tableData1: [
         {
-          checkApplyName: "",
+          checkApplyState: "",
           applyTime: "",
           checkApplyTime: "",
           applyWay: ""
@@ -250,7 +292,8 @@ export default {
       //任务计划表数据
       tableData2: [
         {
-          assignmentState: "",
+          applyWay: "",
+          checkPlanState: "",
           planUploadTime: "",
           checkPlanTime: ""
         }
@@ -284,9 +327,9 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion" },
         { title: "完成", icon: "el-icon-s-claim" }
       ],
-
+      state: "",
       // 默认步骤数
-      milepostActive: 1,
+      milepostActive: 0,
       // 动态添加类名
       stepActive: "stepActive",
       //申请状态按钮显示隐藏
@@ -298,7 +341,7 @@ export default {
       //设计任务状态按钮显示隐藏
       designState: 0,
       //任务Id
-      taskId: "1"
+      taskId: 1
     };
   },
 
@@ -310,8 +353,7 @@ export default {
   },
   created() {
     //  this.getParams();
-    this.showData1();
-    this.showData2();
+    this.showData();
   },
   methods: {
     getParams() {
@@ -320,7 +362,8 @@ export default {
       console.log(routerParams);
     },
 
-    showData1() {
+    showData() {
+      console.log("你好");
       console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
@@ -330,64 +373,29 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/taskAppleDet",
+          url: "http://127.0.0.1:8082/supplier/getList",
           data: data
         })
         .then(response => {
-          this.tableData1 = response.data.allData;
-          this.tableData2 = response.data.allData;
-          console.log(response.data.allData);
-          console.log(this.tableData1.applyWay);
-          //判断申请状态按钮的隐藏与显示
-          if ((this.tableData1.applyWay = 0)) {
-            if ((this.tableData1.checkApplyName = 0)) {
-              this.applicationStatus = 1;
-            }
-          } else if ((this.tableData1.applyWay = 1)) {
-            if ((this.tableData1.checkApplyName = 2)) {
-              this.applicationStatus = 2;
-            }
+          console.log(response);
+          this.tableData1 = response.data.allData.b;
+          this.tableData2 = response.data.allData.b;
+          this.tableData3 = response.data.allData.a;
+          this.tableData4 = response.data.allData.b;
+          this.cool = response.data.allData.a[0];
+          this.state = response.data.allData.a[0].taskState;
+          var state;
+          if (this.state == "申请或邀请中") {
+            this.milepostActive = 0;
+          } else if (this.state == "计划提交") {
+            this.milepostActive = 1;
+          } else if (this.state == "任务进行中") {
+            this.milepostActive = 2;
+          } else if (this.state == "审核") {
+            this.milepostActive = 3;
           }
-          //判断任务计划按钮的隐藏与显示
-          if ((this.tableData2.assignmentState = 1)) {
-            this.taskPlanStatus = 1;
-          } else if ((this.tableData2.assignmentState = 2)) {
-            this.taskPlanStatus = 2;
-          } else if ((this.tableData2.assignmentState = 3)) {
-            this.taskPlanStatus = 3;
-          }
-        });
-    },
-    showData2() {
-      console.log(this.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/supplier/taskDet",
-          data: data
-        })
-        .then(response => {
-          this.cool = response.date.allData;
-          this.tableData3 = response.data.allData;
-          this.tableData4 = response.data.allData;
-          this.milepostActive = cool.taskState - 1;
-          //判断任务计划按钮的隐藏与显示
-          if ((this.tableData3.supplierCheckDesignState = 1)) {
-            this.designState = 2;
-          } else if ((this.tableData3.supplierCheckDesignState = 2)) {
-            this.designState = 1;
-          }
-          //判断合同管理按钮的隐藏与显示
-          if ((this.tableData4.contractState = 1)) {
-            this.designState = 1;
-          } else if ((this.tableData4.contractState = 2)) {
-            this.designState = 1;
-          }
+          this.taskId = response.data.allData.a[0].taskId;
+          console.log(response.data.allData.a[0].taskState);
           console.log(response.data.allData);
         });
     },
@@ -395,7 +403,7 @@ export default {
       this.$router.push({
         path: "/admin/substaskDetail",
         query: {
-          mainTaskID: this.mainTaskID
+          taskId: this.taskId
         }
       });
     }
@@ -446,13 +454,12 @@ export default {
 }
 
 .el-input__inner {
-  /* border-left: none;
-  border-right: none;
-  border-top: none; */
-  border: none;
-  border-radius: 0px;
-  /* text-align: center; */
-}
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+  }
 .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
 }
