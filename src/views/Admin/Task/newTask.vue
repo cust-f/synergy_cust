@@ -372,6 +372,7 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
+      //上传的文件路径
       technicalFile:"null",
       ruleForm: "",
       zzzz: "null",
@@ -554,6 +555,7 @@ export default {
       }
 
     },
+    //上传文件
       submitUpload() {
         this.$refs.upload.submit();
       },
@@ -678,7 +680,15 @@ export default {
         method: "post",
         url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
         data: data
-      });
+      })
+      .catch(error => {
+          console.log(error);
+          if (error != null) {
+            this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+              type: "warning"
+            });
+          }
+        });
 
       this.$message.success("提交成功");
       this.tableData.push(this.addList);

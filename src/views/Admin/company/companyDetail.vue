@@ -148,15 +148,18 @@
 
 
             <el-row>
-                <el-col :span="24" class = "xiangxi">
-                    <el-form-item label="详细" >
+                <el-col :span="24">
+                     <el-form-item label="详细">
+                        <el-input v-model="form.introduction" :disabled=yangshi></el-input>
+                    </el-form-item>
+                    <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
-                            :rows="3"
+                            :rows="1"
                             style="width:100%;"
-                            placeholder="请输入内容" v-model="form.introduction" class="gongsiDetail" :disabled=yangshi ></el-input>
+                            placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
                     </el-form-item>
-                    
+                     -->
                 </el-col>
             </el-row>
 
@@ -528,7 +531,21 @@ export default {
 </script>
 
 
-<style>
+<style >
+.formYS .el-input__inner{
+     /* // 表格样式调整 */
+   
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+}
+.formYS .el-input.is-disabled .el-input__inner{
+    background-color: #ffffff;
+    color:#606266
+}
+ 
   .el-carousel__item h3 {
     color: #475669;
     font-size: 18px;
@@ -545,7 +562,7 @@ export default {
     background-color: #d3dce6;
   }
   .el-carousel__item {
-  width: 85%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
