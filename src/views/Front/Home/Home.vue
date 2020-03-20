@@ -3,7 +3,7 @@
   <div align="center" class="home">
     <!--第一行 首页轮播图-->
     <div class="BG0">
-      <el-row >
+      <el-row>
         <el-col :span="24">
           <div class="grid-content0">
             <el-carousel height="400px">
@@ -19,35 +19,41 @@
 
     <div class="BG">
       <!--第二行  网站访问统计数据-->
-      <el-row :gutter="gutterCount">
-        <el-col :span="24">
-          <div class="grid-content1 fontStyle0">
-            <span class="dataCSS">
-              本月成交任务:&nbsp;&nbsp;&nbsp;
-              <font class="fontStyle">{{taskCountMonth}}</font>&nbsp;&nbsp;项
-            </span>
-
-            <span class="dataCSS">
-              需求任务:&nbsp;&nbsp;&nbsp;
-              <font class="fontStyle">{{demandTaskCount}}</font>&nbsp;&nbsp;项
-            </span>
-
-            <span class="dataCSS">
-              流通任务:&nbsp;&nbsp;&nbsp;
-              <font class="fontStyle">{{circulationTaskCount}}</font>&nbsp;&nbsp;项
-            </span>
-
-            <span class="dataCSS">
-              认证企业:&nbsp;&nbsp;&nbsp;
-              <font class="fontStyle">{{certifiedEnterpriseCount}}</font>&nbsp;&nbsp;家
-            </span>
-
-            <span class="dataCSS">
-              认证供应商:&nbsp;&nbsp;&nbsp;
-              <font class="fontStyle">{{certifiedSupplierCount}}</font>&nbsp;&nbsp;家
-            </span>
-          </div>
-        </el-col>
+      <el-row :gutter="gutterCount" class="Statistics">
+        <div style="margin:0 auto;">
+          <ul>
+            <li>
+              <span class="dataCSS">
+                本月成交任务:
+                <font class="fontStyle">{{taskCountMonth}}</font>项
+              </span>
+            </li>
+            <li>
+              <span class="dataCSS">
+                需求任务:
+                <font class="fontStyle">{{demandTaskCount}}</font>项
+              </span>
+            </li>
+            <li>
+              <span class="dataCSS">
+                流通任务:
+                <font class="fontStyle">{{circulationTaskCount}}</font>项
+              </span>
+            </li>
+            <li>
+              <span class="dataCSS">
+                认证企业:
+                <font class="fontStyle">{{certifiedEnterpriseCount}}</font>家
+              </span>
+            </li>
+            <li>
+              <span class="dataCSS">
+                认证供应商:
+                <font class="fontStyle">{{certifiedSupplierCount}}</font>家
+              </span>
+            </li>
+          </ul>
+        </div>
       </el-row>
 
       <!--第三行  分类门户-->
@@ -57,7 +63,7 @@
             <el-col :span="8">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div class="cate_ietm_title">
+                  <div class="cate_ietm_title" style=" background-size: cover; ">
                     <font>交通运输设备</font>
                     <p></p>
                   </div>
@@ -76,7 +82,10 @@
             <el-col :span="8">
               <el-card shadow="hover" style="float:left">
                 <div class="category_item">
-                  <div class="cate_ietm_title" style="background:#ffbd81;">
+                  <div
+                    class="cate_ietm_title"
+                    :style="{backgroundImage: 'url(' + redPicture + ')' }"
+                  >
                     <font>仪器仪表及文化、办公用机械</font>
                   </div>
                   <i class="cate_list">
@@ -93,7 +102,10 @@
             <el-col :span="8">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div class="cate_ietm_title" style="background:#f0dc70;">
+                  <div
+                    class="cate_ietm_title"
+                    :style="{backgroundImage: 'url(' + orangePicture + ')'}"
+                  >
                     <font>通信设备、计算机及其他电子设备</font>
                   </div>
                   <i class="cate_list">
@@ -115,7 +127,11 @@
             <el-col :span="8">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div class="cate_ietm_title">
+                  <div
+                    class="cate_ietm_title"
+                    :style="{backgroundImage: 'url(' + geometryPicture + ')' }"
+                    style="background-size: cover;"
+                  >
                     <font>电气机械及器材</font>
                   </div>
                   <i class="cate_list">
@@ -133,7 +149,10 @@
             <el-col :span="8">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div class="cate_ietm_title" style="background:#ffbd81;">
+                  <div
+                    class="cate_ietm_title"
+                    :style="{backgroundImage: 'url(' + BluePicture + ')' }"
+                  >
                     <font>专用设备</font>
                   </div>
                   <i class="cate_list">
@@ -149,7 +168,11 @@
             <el-col :span="8">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div class="cate_ietm_title" style="background:#f0dc70;">
+                  <div
+                    class="cate_ietm_title"
+                    :style="{backgroundImage: 'url(' + greedPicture + ')'}"
+                    style="background-size: 100% 100%;"
+                  >
                     <font>通用设备</font>
                   </div>
                   <i class="cate_list">
@@ -167,20 +190,20 @@
         </el-col>
 
         <!-- 登录模块-->
-        <el-col :span="6" >
+        <el-col :span="6">
           <div class="grid-content">
             <el-card style="margin-bottom:5px;padding-top: 10px;">
               <div v-if="!this.$store.state.token">
-                <span>HI!欢迎来到Saas应用</span>
+                <span>欢迎来到Saas应用</span>
                 <div class="grid-content-top-button">
                   <el-button
-                    style=" left:5px; background-color:#50b7c1; border-color:#50b7c1; "
+                    style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "
                     type="primary"
                     round
                     @click="login(0)"
                   >登录</el-button>
                   <el-button
-                    style="right:5px;background-color:#d3d7d4; border-color:#d3d7d4;"
+                    style="right:5px;background-color:rgb(250, 101, 105);; border-color:rgb(250, 101, 105);"
                     type="primary"
                     round
                     @click="login(1)"
@@ -209,12 +232,12 @@
                       <el-tag
                         class="xqelbuttonleft"
                         style="margin-top:0px ; margin-left:0px ;"
-                        effect="plain"
+                        type="warning"
                       >协同设计</el-tag>
                       <el-tag
                         class="xqelbuttonright"
                         style="margin-top:0px ; margin-left:0px ;"
-                        effect="plain"
+                        type="warning"
                       >企业标准</el-tag>
                     </el-row>
 
@@ -222,12 +245,12 @@
                       <el-tag
                         class="xqelbuttonleft"
                         style="margin-top:10px ; margin-left:0px ;"
-                        effect="plain"
+                        type="warning"
                       >综合服务</el-tag>
                       <el-tag
                         class="xqelbuttonright"
                         style="margin-top:10px ; margin-left:0px ;"
-                        effect="plain"
+                        type="warning"
                       >产业融合</el-tag>
                     </el-row>
 
@@ -235,8 +258,8 @@
                       class="xqelbuttonleft0"
                       @click="addNewTask()"
                       style="margin-top:10px ; margin-left:0px ;"
-                      type="success"
                       round
+                      type="success"
                     >发布需求</el-button>
                   </el-tab-pane>
                   <el-tab-pane label="我有服务" name="second">
@@ -496,17 +519,23 @@
         <el-col :span="24">
           <el-card shadow="hover">
             <div class="demandTop5"></div>
-            <div id="monthSituation" style="width: 100%;height:350%;"></div>
+            <!-- <div id="monthSituation" style="width: 100%;height:350%;"></div> -->
+            <line-chart
+            :lineData="lineData"
+              ref="drawLineChart"
+            ></line-chart>
           </el-card>
         </el-col>
-        <el-col :span="14" :push="pushCount">
+        <el-col :span="16" >
           <el-card shadow="hover" style="margin-top:5px;">
-            <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div>
+            <!-- <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div> -->
+            <cloumn-chart ref="drawCloumnChart" :cloumnData="cloumnData"></cloumn-chart>
           </el-card>
         </el-col>
-        <el-col :span="6" :push="pushCount">
+        <el-col :span="8" >
           <el-card shadow="hover" style="margin-top:5px;">
-            <div id="quarterlySituation" style="width: 100%;height:350%;"></div>
+            <!-- <div id="quarterlySituation" style="width: 100%;height:350%;"></div> -->
+            <pie-chart ref="drawPieChart" :pieData="pieData"></pie-chart>
           </el-card>
         </el-col>
       </el-row>
@@ -520,8 +549,17 @@
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 
 <script>
+import lineChart from "./components/lineChart";
+import columnChart from "./components/columnChart";
+import pieChart from "./components/pieChart"
+
 export default {
   name: "Home",
+  components: {
+    "line-chart": lineChart,
+    "cloumn-chart": columnChart,
+    "pie-chart":pieChart
+  },
   data() {
     return {
       //首页轮播图的图片地址数组
@@ -530,6 +568,16 @@ export default {
         require("../../../assets/images/home/轮播图2.jpg"),
         require("../../../assets/images/home/轮播图31.png")
       ],
+      //引入集合头部
+      geometryPicture: require("../../../assets/images/home/banner/geometry.jpg"),
+      //引入绿色头部
+      greedPicture: require("../../../assets/images/home/banner/greed3.jpg"),
+      //引入蓝色头部
+      BluePicture: require("../../../assets/images/home/banner/blue3.jpg"),
+      //引入红色头
+      redPicture: require("../../../assets/images/home/banner/red.png"),
+      //引入橙色头部
+      orangePicture: require("../../../assets/images/home/banner/orange.jpg"),
       //判定发布需求弹出框的bool值
       dialogVisible: false,
       //发布需求弹出框内的表单信息数据
@@ -548,267 +596,34 @@ export default {
         //联系电话
         number: ""
       },
-      //发布需求弹出框内的表单数据验证规则
-      rules: {
-        name: [
-          { required: true, message: "请输入需求名称", trigger: "blur" },
-          { min: 3, message: "长度最少为3字符", trigger: "blur" }
-        ],
-        details: [
-          { required: true, message: "请填写需求详情", trigger: "blur" }
-        ],
-        dateEnd: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择日期",
-            trigger: "change"
-          }
-        ],
-        number: [{ required: true, message: "请填写联系电话", trigger: "blur" }]
+      /**
+       * 数据统计
+       */
+      //折线图
+      lineData:{
+      //发布任务总量
+      finishTaskCount: [],
+      //完成任务总量
+      taskCount: [],    
+      //月份数量 
+      months:[]   
       },
-      //发布需求弹出框内的任务类别筛选数据大类
-      options: [
-        {
-          value: "0",
-          label: "交通运输设备"
-        },
-        {
-          value: "1",
-          label: "仪器仪表及文化、办公用机械"
-        },
-        {
-          value: "2",
-          label: "通信设备、计算机及其他电子设备"
-        },
-        {
-          value: "3",
-          label: "电气机械及器材"
-        },
-        {
-          value: "4",
-          label: "专用设备"
-        },
-        {
-          value: "5",
-          label: "通用设备"
-        }
-      ],
-      //发布需求弹出框内的任务类别筛选数据子类bool值
-      // show0: true,
-      // show1: false,
-      // show2: false,
-      // show3: false,
-      // show4: false,
-      // show5: false,
-      //发布需求弹出框内的任务类别筛选数据子类
-      //交通运输设备子类
-      options0: [
-        {
-          value0: "0",
-          label: "汽车"
-        },
-        {
-          value0: "1",
-          label: "铁路运输设备"
-        },
-        {
-          value0: "2",
-          label: "摩托车"
-        },
-        {
-          value0: "3",
-          label: "自行车"
-        },
-        {
-          value0: "4",
-          label: "船舶及浮动装置"
-        },
-        {
-          value0: "5",
-          label: "航空航天器"
-        },
-        {
-          value0: "6",
-          label: "交通器材及其他交通运输设备"
-        }
-      ],
-      //仪器仪表及文化、办公用机械
-      options1: [
-        {
-          value0: "0",
-          label: "通用仪器仪表"
-        },
-        {
-          value0: "1",
-          label: "专用仪器仪表"
-        },
-        {
-          value0: "2",
-          label: "钟表与计时仪器"
-        },
-        {
-          value0: "3",
-          label: "光学仪器及眼镜"
-        },
-        {
-          value0: "4",
-          label: "文化、办公用机械"
-        },
-        {
-          value0: "5",
-          label: "其他仪器仪表的制造及修理"
-        }
-      ],
-      //通信设备、计算机及其他电子设备
-      options2: [
-        {
-          value0: "0",
-          label: "通信设备"
-        },
-        {
-          value0: "1",
-          label: "雷达及配套设备"
-        },
-        {
-          value0: "2",
-          label: "广播电视设备"
-        },
-        {
-          value0: "3",
-          label: "电子计算机"
-        },
-        {
-          value0: "4",
-          label: "电子器件"
-        },
-        {
-          value0: "5",
-          label: "电子元件"
-        },
-        {
-          value0: "6",
-          label: "家用视听设备"
-        },
-        {
-          value0: "7",
-          label: "其他电子设备"
-        }
-      ],
-      //电气机械及器材
-      options3: [
-        {
-          value0: "0",
-          label: "电机"
-        },
-        {
-          value0: "1",
-          label: "输配电及控制设备"
-        },
-        {
-          value0: "2",
-          label: "电线、电缆、光缆及电工器材"
-        },
-        {
-          value0: "3",
-          label: "电池"
-        },
-        {
-          value0: "4",
-          label: "家用电力器具"
-        },
-        {
-          value0: "5",
-          label: "非电力家用器具"
-        },
-        {
-          value0: "6",
-          label: "照明器具"
-        },
-        {
-          value0: "7",
-          label: "其他电气机械及器材"
-        }
-      ],
-      //专用设备
-      options4: [
-        {
-          value0: "0",
-          label: "矿山、冶金、建筑专用设备"
-        },
-        {
-          value0: "1",
-          label: "化工、木材、非金属加工专用设备"
-        },
-        {
-          value0: "2",
-          label: "食品、饮料、烟草及饲料生产专用设备"
-        },
-        {
-          value0: "3",
-          label: "印刷、制药、日化生产专用设备"
-        },
-        {
-          value0: "4",
-          label: "纺织、服装和皮革工业专用设备"
-        },
-        {
-          value0: "5",
-          label: "电子和电工机械专用设备"
-        },
-        {
-          value0: "6",
-          label: "农、林、牧、渔专用机械"
-        },
-        {
-          value0: "7",
-          label: "医疗仪器设备及器械"
-        },
-        {
-          value0: "8",
-          label: "环保、社会公共安全及其他专用设备"
-        }
-      ],
-      //通用设备
-      options5: [
-        {
-          value0: "0",
-          label: "锅炉及原动机"
-        },
-        {
-          value0: "1",
-          label: "金属加工机械"
-        },
-        {
-          value0: "2",
-          label: "起重运输设备"
-        },
-        {
-          value0: "3",
-          label: "泵、阀门、压缩机及类似机械"
-        },
-        {
-          value0: "4",
-          label: "轴承、齿轮、传动和驱动部件"
-        },
-        {
-          value0: "5",
-          label: "烘炉、熔炉及电炉"
-        },
-        {
-          value0: "6",
-          label: "风机、衡器、包装设备等通用设备"
-        },
-        {
-          value0: "7",
-          label: "通用零部件制造及机械修理"
-        },
-        {
-          value0: "8",
-          label: "金属铸、锻加工"
-        }
-      ],
 
+      //柱状图
+      cloumnData: {
+        //年份
+        Vintage: [],
+        //最高五家公司名称
+        topCompanyName: [],
+        //今年任务完成量
+        nowTaskNumber: [],
+        //去年任务完成量
+        lastTaskNumber: []
+      },
+      pieData:{
+        searsonCount:[],
+        seasonsFinishTaskCount:[]
+      },
       //设定本页面中el-cow与el-col的gutter\push\pull值
       gutterCount: 5,
       pushCount: 2,
@@ -836,13 +651,12 @@ export default {
     };
   },
   //网站下方数据统计图表用（丁宅荣负责添加）
-  mounted() {
-    this.getCharts();
-    this.getCharts2();
-    this.getCharts3();
-  },
+  // mounted() {
+  //   this.getCharts();
+  // },
   created() {
     this.getInfo();
+    this.getStatistics();
   },
   methods: {
     getInfo() {
@@ -857,6 +671,48 @@ export default {
         this.completeddemandTaskList = response.data.allData.serviceTask;
         this.supplierlist = response.data.allData.company;
       });
+    },
+    //数据统计
+    getStatistics() {
+      var myDate = new Date();
+      var nowMonth = myDate.getMonth() + 1;
+      this.lineChart();
+      this.columnChart();
+      this.pipChart();
+    },
+    lineChart() {
+      var that = this;
+      var task;
+      var finishTask;
+      that.axios
+        .post("http://127.0.0.1:8082/dataStatistics/allMonthTaskCount")
+        .then(response => {
+            this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
+            this.lineData.taskCount = response.data.allData.taskCount;
+            this.lineData.months=response.data.allData.monthCount;
+            that.$refs.drawLineChart.getCharts();
+        });
+    },
+    columnChart() {
+      let that = this;
+      that.axios.post("http://127.0.0.1:8082/dataStatistics/companyRank").then(response => {
+        this.cloumnData.Vintage = response.data.allData.Vintage;
+        this.cloumnData.topCompanyName = response.data.allData.companyName;
+        this.cloumnData.nowTaskNumber = response.data.allData.countYear;
+        this.cloumnData.lastTaskNumber = response.data.allData.countLastYear;
+        that.$refs.drawCloumnChart.getCharts();
+      });
+    },
+    pipChart(){
+      let that =this;
+      that.axios.post("http://127.0.0.1:8082/dataStatistics/seasonsTaskCount")
+      .then(response=>{
+        this.pieData.searsonCount=response.data.allData.searsonCount;
+        this.pieData.seasonsFinishTaskCount=response.data.allData.seasonsFinishTaskCount;
+        this.$refs.drawPieChart.getCharts();
+        console.log(this.pieData.searsonCount);
+        console.log(this.pieData.seasonsFinishTaskCount);
+      })
     },
     /*
      *转跳对应任务信息页面
@@ -923,183 +779,6 @@ export default {
     //发布需求界面所用
     //以下为平台数据统计所用图表函数
 
-    getCharts() {
-      var charts = [];
-      var myChart = echarts.init(document.getElementById("quarterlySituation")); // 指定图表的配置项和数据
-      var option = {
-        title: {
-          text: "季度完成量",
-          subtext: " ",
-          left: "center"
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        legend: {
-          orient: "vertical",
-          right: 0,
-          data: ["第一季度", "第二季度", "第三季度", "第四季度"]
-        },
-        series: [
-          {
-            name: "分季完成量",
-            type: "pie",
-            radius: ["50%", "70%"],
-            avoidLabelOverlap: false,
-            label: {
-              normal: {
-                show: false,
-                position: "center"
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: "25",
-                  fontWeight: "bold"
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: [
-              { value: 335, name: "第一季度" },
-              { value: 310, name: "第二季度" },
-              { value: 235, name: "第三季度" },
-              { value: 220, name: "第四季度" }
-              // {value: 1548, name: '搜索引擎'}
-            ]
-          }
-        ]
-      };
-      myChart.setOption(option);
-      charts.push(myChart);
-    },
-
-    getCharts2() {
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-      var myChart = echarts.init(document.getElementById("fulfillDemandTop5"));
-      var option = {
-        title: {
-          text: "供应商完成需求量TOP5",
-          subtext: "数据来自大数据统计"
-        },
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "shadow"
-          }
-        },
-        legend: {
-          data: ["2017年", "2018年"]
-        },
-        grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
-          containLabel: true
-        },
-        xAxis: {
-          type: "value",
-          boundaryGap: [0, 0.01]
-        },
-        yAxis: {
-          type: "category",
-          data: [
-            "上海小糸车灯有限公司 ",
-            "上海胜德塑料厂 ",
-            "上海奥力得特种工具厂",
-            "合肥皖仪科技有限公司",
-            "北京京伟电器有限公司 "
-          ]
-        },
-        series: [
-          {
-            name: "2017年",
-            type: "bar",
-            data: [1245, 1523, 1587, 1689, 2567]
-          },
-          {
-            name: "2018年",
-            type: "bar",
-            data: [1389, 1530, 1750, 1890, 2899]
-          }
-        ]
-      }; // 使用刚指定的配置项和数据显示图表。
-
-      myChart.setOption(option);
-      charts.push(myChart);
-    },
-
-    getCharts3() {
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-      var myChart = echarts.init(document.getElementById("monthSituation"));
-      var option = {
-        title: {
-          text: "月度供需量"
-        },
-        tooltip: {
-          trigger: "axis"
-        },
-        legend: {
-          data: ["完成需求量", "发布需求量"]
-        },
-        grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
-          containLabel: true
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        xAxis: {
-          type: "category",
-          boundaryGap: false,
-          data: [
-            "一月",
-            "二月",
-            "三月",
-            "四月",
-            "五月",
-            "六月",
-            "七月",
-            "八月",
-            "九月",
-            "十月",
-            "十一月",
-            "十二月"
-          ]
-        },
-        yAxis: {
-          type: "value"
-        },
-        series: [
-          {
-            name: "完成需求量",
-            type: "line",
-            stack: "总量",
-            data: [120, 132, 101, 134, 90, 230, 210, 122, 331, 444, 312, 112]
-          },
-          {
-            name: "发布需求量",
-            type: "line",
-            stack: "总量",
-            data: [120, 182, 191, 234, 290, 330, 310, 123, 344, 354, 123, 123]
-          }
-        ]
-      }; // 使用刚指定的配置项和数据显示图表。
-
-      myChart.setOption(option);
-      charts.push(myChart);
-    }
   }
 };
 </script>
@@ -1151,17 +830,24 @@ export default {
   color: rgb(167, 165, 165);
 }
 .dataCSS {
-  width: 25%;
-  height: 100%;
   overflow: hidden;
-  padding-left: 1%;
+  color: #666666;
+  font-size: 16px;
+}
+/**数据统计样式 */
+.Statistics {
+  padding-left: 12.22%;
+}
+.Statistics li {
+  float: left;
+  padding: 0 30px;
 }
 /**网站访问统计数据字体样式（用于访问统计数据内容） */
 .fontStyle {
-  font-size: 24px;
+  font-size: 20px;
+  padding: 0 5px;
   color: orangered;
 }
-
 /**登陆、注册模块用样式表，用于文本居中及背景色更改*/
 .grid-content {
   text-align: center;
@@ -1195,7 +881,7 @@ export default {
 .grid-content-down {
   float: left;
   height: 70%;
-  width: 100%;
+  width: 99%;
   background-color: rgb(255, 255, 255);
 }
 .box-card {
@@ -1358,7 +1044,11 @@ export default {
 .cate_ietm_title {
   width: 100%;
   height: 25%;
-  background: #94d6da;
+  /* background: #94d6da; */
+  background: url(../../../assets/images/home/banner/greed.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  /* background-size: cover; */
   color: #fff;
   font-size: 18px;
   font-weight: 520;
