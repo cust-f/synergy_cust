@@ -5,13 +5,20 @@
         <el-main>
               <h3>流通任务评价详情</h3>
                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-               <el-steps :active="1">
-              <el-step title="步骤 1" icon="el-icon-edit"></el-step>
-              <el-step title="步骤 2" icon="el-icon-upload"></el-step>
-              <el-step title="步骤 3" icon="el-icon-picture"></el-step>
-            </el-steps>
+                     <el-steps :active="milepostActive" align-center>
+        <!-- 步骤图片 -->
+        <el-step
+          v-for="(value, key) in milepost"
+          :class="milepostActive== key+1 ? stepActive: '' "
+          :title="value.title"
+          :icon="value.icon"
+          :key="key"
+        ></el-step>
+      </el-steps>
+     
+
             <br/><br/>
-            <div id="charts2" style="height:100%; width:300px; float:left"></div>
+            <div class="charts1" id="charts1" ></div>
 
             <el-form ref="form" :model="form" label-width="110px">
             <el-scrollbar style="height:100%">
@@ -66,11 +73,7 @@ export default {
 </script>
               -->
               <el-row :gutter="120">
-                <el-col :span="20">
-                  <el-form-item label="详细评价">
-                    <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="textarea"></el-input>
-                  </el-form-item>
-                </el-col>
+                
                 <el-col>
                   <el-form-item>
                     <el-button>确定</el-button>
@@ -107,20 +110,42 @@ export default {
         Trade_Time: "2019-03-13",
         Remark_State: "已评价",
         Accept_Company_ID: "233"
-      }
+      },
+       //步骤条数据
+      milepost: [
+        { title: "申请/邀请", icon: "el-icon-edit" },
+        { title: "计划提交", icon: "el-icon-upload" },
+        { title: "任务进行中", icon: "el-icon-picture" },
+        { title: "审核", icon: "el-icon-message-solid" },
+        { title: "验收", icon: "el-icon-s-promotion" },
+        { title: "完成", icon: "el-icon-s-claim" }
+      ],
+      // 默认步骤数
+      milepostActive: 5,
+      // 动态添加类名
+      stepActive: "stepActive",
+      //申请状态按钮显示隐藏
+      applicationStatus:0,
+      //任务计划状态按钮显示隐藏
+      taskPlanStatus:0,
+      //合同管理状态按钮显示隐藏
+      contractManagementStatus:0,
+      //设计任务状态按钮显示隐藏
+      designState:0
+    
     };
   },
    //初始化俩图标
   mounted() {
     
-    this.getCharts2();
+    this.getCharts1();
   },
   methods: {
     goBack() {
       this.$router.push("/admin/circulationTaskEvaluation");
     },
-     getCharts2() {
-      var myChart = echarts.init(document.getElementById("charts2"));
+     getCharts1() {
+      var myChart = echarts.init(document.getElementById("charts1"));
       var option = {
         tooltip: {},
         legend: {
@@ -189,5 +214,11 @@ export default {
   display: inline-block;
   color: #adadad;
   font-size: 40px;
+}
+.charts1 {
+  width: 66%;
+  margin-top: 10%;
+  margin-left: 10%;
+  height: 320px;
 }
 </style>

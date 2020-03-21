@@ -4,7 +4,7 @@
       <div class="top">
         <div id="charts1" style="height:100%; width:300px; float:left"></div>
         <br/>
-        <div id="charts2" style="height:100%; width:300px; float:left"></div>
+        <div id="charts2" style="height:100%; width:300px; float:right"></div>
         <br/>
       </div>
       
@@ -18,19 +18,22 @@
                   ref="multipleTable"
                  :default-sort = "{prop: 'taskId', order: 'descending'}"
                   header-cell-class-name="table-header"
+                 
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column  prop="taskId" label="任务编号" width="55" align="center"></el-table-column>
+                  <el-table-column prop="taskId" label="任务编号" width="55" align="center"></el-table-column>
                   <el-table-column prop="taskName" label="任务名称"></el-table-column>
                   <el-table-column prop="taskType" label="任务类型"></el-table-column>
-                   <el-table-column prop="staffNumber" label="任务参与人数"></el-table-column>
+                   <!-- <el-table-column prop="staffNumber" label="任务参与人数"></el-table-column>
                     <el-table-column prop="sumMoney" label="任务金额"></el-table-column>
-                  <el-table-column prop="doAgain" label="是否重做"></el-table-column>
-                  <el-table-column prop="operatingTime" label="完成时间">
-                   
+                  <el-table-column prop="doAgain" label="是否重做"></el-table-column> -->
+                  <el-table-column prop="finishTime" label="完成时间">
+                  <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                  </template>
                   </el-table-column>
-                  <el-table-column prop="finishState" label="状态" align="center" width="80">
-                  </el-table-column>
+                  <!-- <el-table-column prop="finishState" label="状态" align="center" width="80">
+                  </el-table-column> -->
                   <el-table-column label="操作" align="center" >
 
                 <template slot-scope="scope">
@@ -55,7 +58,7 @@
 
 <script>
 import Qs from "qs";
-//import {formatDate}   from "./dataChange";
+import {formatDate} from "../design/dataChange";
 export default {
   name:"evaluate",
   data() {
@@ -80,6 +83,15 @@ export default {
     this.getCharts2();
   },
   methods: {
+    Detail(row) {
+      console.log(row.mainTaskID);
+      this.$router.push({
+        path: "/admin/circulationTaskEvaluationDetils",
+        query: {
+          mainTaskID: row.mainTaskID
+        }
+      });
+    },
     //接受数据
     getParams() {
       //需要修改接受企业ID
@@ -92,7 +104,8 @@ export default {
       console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        companyId: "1111"
+        // companyId: "1111"
+        userName:"aaaa"
       });
       console.log(data);
      
@@ -107,7 +120,7 @@ export default {
           //this.table = response.data.allData;
            
            that.tableData = response.data.allData;
-           console.log(that.tableData);
+           console.log(response.data.allData);
           
           
         });
@@ -221,8 +234,8 @@ export default {
   height: 100%;
 }
 .top {
-  width: 66%;
-  margin-left: 10%;
+  width: 70%;
+  margin-left: 5%;
   height: 320px;
 }
 .lists {
