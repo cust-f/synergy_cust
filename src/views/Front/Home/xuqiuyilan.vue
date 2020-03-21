@@ -641,6 +641,15 @@ export default {
 
     getInfo() {
       var that = this;
+          // let data = Qs.stringify({
+          //   userName: this.param.username
+          // });
+          // that
+          //   .axios({
+          //     method: "post",
+          //     url: "/api/user/login",
+          //     data: data
+          //   })
       that.axios.post("http://127.0.0.1:8082/xuqiuyilan/getAllList").then(response =>{
         that.demandTaskList = response.data;
         console.log(that.demandTaskList )
