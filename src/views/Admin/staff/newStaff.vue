@@ -281,24 +281,24 @@ export default {
     //保存新增
     saveAdd() {
        var that = this;
-      // var data = Qs.stringify({
+      var data = Qs.stringify({
         
-      //   userName: this.addList.userName,
-      //   realName : this.addList.TaskState, 
-      //   roleId: this.addList.roleId,
-      //   phone:this.addList.phone,
-      //   email:this.addList.email,
-      //   password:this.addList.password,
+        userName: this.addList.userName,
+        realName : this.addList.realName, 
+        roleId: this.addList.roleId,
+        phone:this.addList.phone,
+        email:this.addList.email,
+        password:this.addList.password,
       
-      // });
-      // console.log(data);
+      });
+      console.log(data);
 
-      // that.axios({
-      //   method: "post",
-      //   url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
-      //   data: data
-      // });
-      //  this.$message.success("提交成功");
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082//newStaff/addlist",
+        data: data
+      });
+       this.$message.success("提交成功");
       this.tableData.push(this.addList);
       console.log(this.addList);
       this.addList = {};
