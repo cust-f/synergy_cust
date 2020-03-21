@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h2>{{TaskId}}</h2>
     <el-table
-      :data="tableData1"
+      :data="tableData4"
       border
       class="table"
       ref="multipleTable"
@@ -11,21 +10,20 @@
     >
       <!-- mainTaskID冲-->
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-      <el-table-column prop="checkApplyName" label="状态"></el-table-column>
-      <el-table-column prop="applyTime" label="申请/邀请时间">
+      <el-table-column prop="contractState" label="状态"></el-table-column>
+      <el-table-column prop="uploadContractTime" label="上传时间">
         <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
       </el-table-column>
-      <el-table-column prop="checkApplyTime" label="审核时间">
+      <el-table-column prop="checkContractTime" label="审核时间">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <div v-show="applicationStatus=1">
-            <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
+          <div v-show="contractManagementStatus=0">
+            <el-button @click="SQJJ(scope.row)" type="text" size="small">上传</el-button>
           </div>
-          <div v-show="applicationStatus=2">
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝原因</el-button>
+          <div v-show="contractManagementStatus=1">
+            <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
           </div>
         </template>
       </el-table-column>
@@ -41,24 +39,24 @@ export default {
   name: "det",
   data() {
     return {
-      //申请表数据
-      tableData1: [
+      //合同管理数据
+      tableData4: [
         {
-          checkApplyName: "",
-          applyTime: "",
-          checkApplyTime: "",
-          applyWay: ""
+          contractState: "",
+          uploadContractTime: "",
+          checkContractTime: ""
         }
       ],
       props: {
-        TaskId: {
+        taskId: {
           type: Number,
           required: true
         }
       },
-      //申请状态按钮显示隐藏
-      applicationStatus: 0
+      //合同管理状态按钮显示隐藏
+      contractManagementStatus: 0,
     };
+    props.taskId;
   },
   filters: {
     formatDate(time) {
@@ -67,12 +65,11 @@ export default {
     }
   },
   created() {
-    this.getDate1();
+    this.getDate4();
   },
   methods: {
-    getDate1() {
-      console.log(this.TaskId);
-      console.log(this.TaskId);
+    getDate() {
+      console.log(this.props.taskId);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId
@@ -80,20 +77,16 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/taskAppleDet",
+          url: "http://127.0.0.1:8082/supplier/taskDet",
           data: data
         })
         .then(response => {
-          this.tableData1 = response.data.allData;
-          //判断申请状态按钮的隐藏与显示
-          if ((this.tableData1.applyWay = 0)) {
-            if ((this.tableData1.checkApplyName = 0)) {
-              this.applicationStatus = 1;
-            }
-          } else if ((this.tableData1.applyWay = 1)) {
-            if ((this.tableData1.checkApplyName = 2)) {
-              this.applicationStatus = 2;
-            }
+          this.tableData4 = response.data.allData;
+          //判断合同管理按钮的隐藏与显示
+          if ((this.tableData4.contractState = 1)) {
+            this.contractManagementStatus = 0;
+          } else if ((this.tableData4.contractState = 2)) {
+            this.contractManagementStatus = 1;
           }
           console.log(response.data.allData);
         });
