@@ -553,7 +553,6 @@ export default {
           }
         });
       }
-
     },
     //上传文件
       submitUpload() {
