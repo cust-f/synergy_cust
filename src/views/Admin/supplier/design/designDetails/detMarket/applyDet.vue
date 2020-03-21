@@ -39,7 +39,7 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="接受企业名称:">
-                  <el-input v-model="cool.acceptCompanyName" :readonly="true"></el-input>
+                  <el-input v-model="cool.supplierName" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -145,9 +145,9 @@
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
-              <div v-show="scope.row.checkPlanState === 0">
-                <el-button @click="upLoadPlan()" type="text" size="small">上传</el-button>
-              </div>
+              <!-- <div v-show="scope.row.checkPlanState === 0"> -->
+              <el-button @click="upLoadPlan()" type="text" size="small">上传</el-button>
+              <!-- </div> -->
               <div v-show="scope.row.checkPlanState > 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
               </div>
@@ -157,57 +157,7 @@
       </div>
       <br />
       <br />
-      <div v-show="show>0">
-        <div v-show="show1 === 2">
-          <div class="biaoti">——合同管理——</div>
-          <br />
-          <el-table
-            :data="tableData4"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-          >
-            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-            <el-table-column prop="contractState" label="合同审核状态">
-              <template slot-scope="scope">
-                <span v-if="scope.row.contractState === 0">待上传</span>
-                <span v-else-if="scope.row.contractState === 1">待审核</span>
-                <span v-else-if="scope.row.contractState === 2">通过</span>
-                <span v-else-if="scope.row.contractState === 3">未通过</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="uploadContractTime" label="上传时间">
-              <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
-            </el-table-column>
-            <el-table-column prop="checkContractTime" label="合同审核时间">
-              <template slot-scope="scope">
-                <span v-if="+scope.row.checkContractTime === 'null'">尚未上传</span>
-                <span v-else>{{scope.row.checkContractTime | formatDate}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="180" align="center">
-              <template slot-scope="scope">
-                <div v-show="scope.row.contractState===0">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">上传</el-button>
-                </div>
-                <div v-show="scope.row.contractState===1">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
-                </div>
-                <div v-show="scope.row.contractState===2">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
-                </div>
-                <div v-show="scope.row.contractState===3">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">重新上传</el-button>
-                </div>
-              </template>
-            </el-table-column>
-          </el-table>
-          <br />
-          <br />
-        </div>
-      </div>
+
       <div v-show="show>1">
         <div class="biaoti">——设计提交——</div>
         <br />
@@ -229,7 +179,6 @@
               <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
             </template>
           </el-table-column>
-          <el-table-column prop="designerName" label="设计师"></el-table-column>
           <el-table-column prop="uploadDesignTime" label="上传时间">
             <template slot-scope="scope">{{scope.row.uploadDesignTime | formatDate}}</template>
           </el-table-column>
@@ -249,11 +198,6 @@
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
-              <div v-show="scope.row.supplierCheckDesignState ===0">
-                <div v-if="scope.row.designerName ===null">
-                  <el-button @click="assignDesigners(scope.row)" type="text" size="small">分配设计人员</el-button>
-                </div>
-              </div>
               <div v-show="scope.row.supplierCheckDesignState > 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
               </div>
@@ -265,25 +209,49 @@
           </el-table-column>
         </el-table>
       </div>
-      <!-- 分配设计人员 -->
-      <el-dialog title="分配设计师" :visible.sync="dialogTableVisible" width="30%">
-        <el-form :model="form">
-          <el-form-item label="设计师" :label-width="formLabelWidth">
-            <el-select v-model="design1" placeholder="请选择分配人员">
-              <el-option
-                v-for="designer in designTask"
-                :key="designer.id"
-                :label="designer.designerName"
-                :value="designer.designerName"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogTableVisible = false">取 消</el-button>
-          <el-button type="primary" @click="tijiao()">确 定</el-button>
-        </div>
-      </el-dialog>
+      <div v-show="show>3">
+        <div class="biaoti">——合同管理——</div>
+        <br />
+        <el-table
+          :data="tableData2"
+          border
+          class="table"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="contractState" label="合同审核状态">
+            <template slot-scope="scope">
+              <span v-if="scope.row.contractState === 0">待上传</span>
+              <span v-else-if="scope.row.contractState === 1">待审核</span>
+              <span v-else-if="scope.row.contractState === 2">通过</span>
+              <span v-else-if="scope.row.contractState === 3">未通过</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="uploadContractTime" label="上传时间">
+            <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
+          </el-table-column>
+          <el-table-column prop="checkContractTime" label="合同审核时间">
+            <template slot-scope="scope">
+              <span v-if="+scope.row.checkContractTime === 'null'">尚未上传</span>
+              <span v-else>{{scope.row.checkContractTime | formatDate}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="180" align="center">
+            <template slot-scope="scope">
+              <div v-show="contractManagementStatus=0">
+                <el-button @click="SQJJ(scope.row)" type="text" size="small">上传</el-button>
+              </div>
+              <div v-show="contractManagementStatus=1">
+                <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
+              </div>
+            </template>
+          </el-table-column>
+        </el-table>
+        <br />
+        <br />
+      </div>
       <!-- 拒绝原因弹出框 -->
       <el-dialog title="被拒绝的原因" :visible.sync="addVisible1" width="50%">
         <el-row>
@@ -304,6 +272,7 @@
       </el-dialog>
       <!-- 计划书上传 -->
       <el-dialog title="上传计划书" :visible.sync="planbook" width="24%" :before-close="handleClose">
+        <el-form>
         <el-upload
           ref="uploadExcel"
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -321,8 +290,8 @@
         </el-upload>
         <el-form-item>
           <el-button size="small" type="primary" @click="uploadFile">立即上传</el-button>
-          <el-button size="small">取消</el-button>
         </el-form-item>
+        </el-form>
       </el-dialog>
 
       <!-- 上传合同 -->
@@ -366,14 +335,9 @@ export default {
         deadline: "",
         mainTaskDetail: "",
         leader: "",
-        taskState: 0,
-        acceptCompanyName: ""
+        taskState: 0
       },
-      designTask: [
-        {
-          userName: ""
-        }
-      ],
+
       //申请表数据
       tableData1: [
         {
@@ -397,7 +361,6 @@ export default {
       //设计提交表数据
       tableData3: [
         {
-          designerName: "",
           supplierCheckDesignState: "",
           uploadDesignTime: "",
           supplierCheckDesignTime: "",
@@ -411,7 +374,7 @@ export default {
         {
           contractState: "",
           uploadContractTime: "",
-          checkContractTime: "",
+          checkContractTime: ""
         }
       ],
       //步骤条数据
@@ -431,29 +394,25 @@ export default {
       planbook: false,
       //合同上传
       conbook: false,
-      //设计人员分配
-      dialogTableVisible: false,
       //设计计划拒绝弹窗
       addVisible1: false,
       //状态
       state: "",
-      state2: "",
       // 默认步骤数
       milepostActive: 0,
       // 动态添加类名
       stepActive: "stepActive",
       //任务Id
-      taskId: 0,
+      taskId: 1,
       //表格显示控制
       show: 0,
-      show1: 0,
       //文件上传数据
       limitNum: 1,
       formLabelWidth: "100px",
-      form: {},
-      fileList: [],
-      userName: "",
-      design1: ""
+      form: {
+        file: ""
+      },
+      fileList: []
     };
   },
 
@@ -464,7 +423,7 @@ export default {
     }
   },
   created() {
-    this.getParams();
+    //  this.getParams();
     this.showData();
   },
   methods: {
@@ -496,7 +455,6 @@ export default {
           this.tableData4 = response.data.allData.a;
           this.cool = response.data.allData.a[0];
           this.state = response.data.allData.a[0].taskState;
-          this.state2 = response.data.allData.b[0].checkPlanState;
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
@@ -505,9 +463,6 @@ export default {
           } else if (this.state == "任务进行中") {
             this.milepostActive = 2;
             this.show = 2;
-            if (this.state2 == 2) {
-              this.show1 = 2;
-            }
           } else if (this.state == "审核") {
             this.milepostActive = 3;
             this.show = 3;
@@ -528,8 +483,6 @@ export default {
           this.this.taskId = response.data.allData.a[0].taskId;
           console.log(response.data.allData.a[0].taskState);
           console.log(response.data.allData);
-          console.log(哈哈哈哈);
-          console.log(this.show1);
         });
     },
     //返回列表
@@ -589,7 +542,7 @@ export default {
     refuseReason(row) {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: row.taskId
       });
       console.log(data);
       that
@@ -612,7 +565,7 @@ export default {
         console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
-          taskID: this.taskId
+          taskID: row.taskId
         });
         console.log(data);
         that.axios({
@@ -634,7 +587,7 @@ export default {
         console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
-          taskID: this.taskId
+          taskID: row.taskId
         });
         console.log(data);
         that.axios({
@@ -648,106 +601,76 @@ export default {
         });
       });
     },
-    //分配设计人员
-    assignDesigners() {
-      this.dialogTableVisible = true;
-      var that = this;
-      var data = Qs.stringify({
-        userName: "supplier"
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/supplier/findDesigner",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.designerName = response.data.allData;
-          console.log(response);
-        });
-    },
-    tijiao() {
-      console.log(this.type);
-      console.log(this.technicalFile);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        userName: this.design1
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/supplier/assignDesigners"
-        })
-        .then(response => {
-          this.mainStaskID = response.data.allData;
-          this.zzzz = response.data.allData;
-          this.$message.success("提交成功");
-          this.dialogTableVisible = false;
-        });
-    },
 
     upLoadPlan() {
       this.planbook = true;
     },
-    submitUpload() {
-      this.$refs.upload.submit();
+    exceedFile(files, fileList) {
+      this.$notify.warning({
+        title: "警告",
+        message: `只能选择 ${
+          this.limitNum
+        } 个文件，当前共选择了 ${files.length + fileList.length} 个`
+      });
     },
-    handlePreview(file) {
+    // 文件状态改变时的钩子
+    fileChange(file, fileList) {
+      console.log("change");
       console.log(file);
+      this.form.file = file.raw;
+      console.log(this.form.file);
+      console.log(fileList);
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    // 上传文件之前的钩子, 参数为上传的文件,若返回 false 或者返回 Promise 且被 reject，则停止上传
+    beforeUploadFile(file) {
+      console.log("before upload");
+      console.log(file);
+      let extension = file.name.substring(file.name.lastIndexOf(".") + 1);
+      let size = file.size / 1024 / 1024;
+      if (extension !== "xlsx") {
+        this.$notify.warning({
+          title: "警告",
+          message: `只能上传Excel2017（即后缀是.xlsx）的文件`
+        });
+      }
+      if (size > 10) {
+        this.$notify.warning({
+          title: "警告",
+          message: `文件大小不得超过10M`
+        });
+      }
     },
-    handleAvatarSuccess(response, file, fileList) {
-      this.technicalFile = response;
+    // 文件上传成功时的钩子
+    handleSuccess(res, file, fileList) {
       this.$notify.success({
         title: "成功",
         message: `文件上传成功`
       });
-      console.log(response);
     },
-    upLoad() {
-      console.log("你好啊");
-      console.log(this.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that.axios({
-        method: "post",
-        url: "http://127.0.0.1:8082/supplier/importCon",
-        data: data
+    // 文件上传失败时的钩子
+    handleError(err, file, fileList) {
+      this.$notify.error({
+        title: "错误",
+        message: `文件上传失败`
       });
     },
-    httpRequest(param) {
-      console.log(param);
-      var that = this;
-      let fileObj = param.file; // 相当于input里取得的files
-      let fd = new FormData(); // FormData 对象
-      fd.append("file", fileObj); // 文件对象
-      fd.append("taskId", this.taskId);
+    uploadFile() {
+      this.$refs.uploadExcel.submit();
+      /*
+      let formData = new FormData()
+      formData.append('file', this.form.file)
+      axios.post('https://jsonplaceholder.typicode.com/posts/', 
+        formData,
+        { "Content-Type": "multipart/form-data" }
+      )
+      .then(res => {
+        console.log('res')
+        console.log(res)
+      })
+      .catch(err => {
 
-      let url = process.env.CMS1_BASE_API + "cdnDel/uploadExcel";
-      let config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
-      that.axios({
-        method: "post",
-        url: "http://127.0.0.1:8082/supplier/importCon",
-        data: url,
-        fd,
-        config
-      });
-      then(response => {
-        console.log(response);
-      });
+      })
+      */
     }
   }
 };

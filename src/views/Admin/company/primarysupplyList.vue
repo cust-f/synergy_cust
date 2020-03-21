@@ -21,7 +21,7 @@
         header-cell-class-name="table-header"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column prop="companyId" label="序号" width="55" align="center"></el-table-column>
+        <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
         <el-table-column prop="companyName" label="企业名称"></el-table-column>
         <el-table-column prop="businessName" label="企业联络人"></el-table-column>
         <el-table-column prop="email" label="企业邮箱"></el-table-column>
@@ -74,7 +74,7 @@
             header-cell-class-name="table-header"
             @selection-change="handleSelectionChange"
         >
-        <el-table-column prop="companyId" label="序号" width="55" align="center"></el-table-column>
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
         <el-table-column prop="companyName" label="企业名称"></el-table-column>
         <el-table-column prop="businessName" label="企业联络人"></el-table-column>
         <el-table-column prop="email" label="企业邮箱"></el-table-column>
@@ -86,7 +86,7 @@
               type="text"
               icon="el-icon-delete"
               class="red"
-              @click="handle(scope.row)"
+              @click="TianJia(scope.row)"
             >添加</el-button>
           <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
           </template>
@@ -174,18 +174,32 @@ export default {
           this.tableData = response.data.allData
         });
      },
-     handle(row){
+     TianJia(row){
        var that = this;
        var data = Qs.stringify({
          username:"aaaa",
-         companyID:row.companyID
+         companyId:row.companyId
        })
        that
           .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/",
+          url: "http://127.0.0.1:8082/companyDetail/tianjiaSupplier",
           data: data,
           })
+          .then(response => {
+              if (response.data.code == 200) {
+                this.$message({
+                  type: "success",
+                  message: "添加成功"
+                });
+                this.addVisible = false;
+          }else{
+             this.$message({
+                  type: "warning",
+                  message: "添加失败"
+                });
+          }
+          });
      },
     handleDelete(row){
       console.log(row.companyId)

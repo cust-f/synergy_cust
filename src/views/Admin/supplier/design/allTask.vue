@@ -19,9 +19,9 @@
 
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="supplierName" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型"></el-table-column>
 
-      <el-table-column prop="taskCheck" label="状态"></el-table-column>
+      <el-table-column prop="taskState" label="状态"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
@@ -29,7 +29,7 @@
 
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <el-button @click="allTaskDet(scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,12 +64,12 @@ export default {
       activeName: "first",
       tableData: [
         {
-          taskId:"",
-          taskName:"",
-          companyName:"",
-          supplierName:"",
-          taskCheck:"",
-          deadline:"",
+          taskId: "",
+          taskName: "",
+          companyName: "",
+          acceptCompanyName: "",
+          taskCheck: "",
+          deadline: ""
         }
       ],
       multipleSelection: [],
@@ -128,13 +128,13 @@ export default {
     // },‘
 
     //详情页面跳转方法
-    allTaskDet(row) {
+    Det(row) {
       // console.log(row.taskId);
       this.$router.push({
-        path: "/admin/allTaskDet",
-        // query: {
-        //   taskId: row.taskId
-        // }
+        path: "/admin/Det",
+        query: {
+          taskId: row.taskId
+        }
       });
     }
   }

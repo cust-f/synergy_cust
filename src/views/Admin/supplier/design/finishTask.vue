@@ -21,15 +21,15 @@
 
       <el-table-column prop="companyName" label="需求企业"></el-table-column>
 
-      <el-table-column prop="userId" label="设计师" align="center"></el-table-column>
+      <el-table-column prop="designerName" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="supplierName" label="承接供应商"></el-table-column>
-
-      <el-table-column prop="finishTime" label="完成日期"></el-table-column>
+      <el-table-column prop="finishTime" label="完成日期">
+        <template slot-scope="scope">{{scope.row.finishTime}}</template>
+      </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
          <template slot-scope="scope">
-          <el-button @click="finishTaskDet(scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -110,12 +110,11 @@ export default {
     // jumprepealedTask() {
     //   this.$router.push("/admin/finishTaskDet");
     // },
-    finishTaskDet(row) {
-      this.$store.commit("SET_TASKID",row.taskId);
-      //console.log(row.taskId);
+    Det(row) {
+      console.log(row.taskId);
       this.$router.push({
-        path: "/admin/finishTaskDet",
-        // taskId: row.taskId,
+        path: "/admin/Det",
+        taskId: row.taskId,
       });
     }
   }

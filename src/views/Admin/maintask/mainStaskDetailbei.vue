@@ -306,8 +306,7 @@ import {formatDate} from "./dataChange";
           // data:this.$store.state.userName
         })
         .then(response => {
-          this.mainStask = response.data.allData[0];
-          this.mainTaskID = response.data.allData[0].mainTaskId;
+           console.log(response)
            console.log(response.data.allData);
         });
       },
