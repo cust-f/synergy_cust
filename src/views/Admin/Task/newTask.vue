@@ -552,7 +552,6 @@ export default {
           }
         });
       }
-
     },
       submitUpload() {
         this.$refs.upload.submit();

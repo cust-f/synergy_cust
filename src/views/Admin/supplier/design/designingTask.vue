@@ -16,23 +16,22 @@
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-     
-      <el-table-column prop="supplierName" label="需求类型"></el-table-column>
 
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型"></el-table-column>
 
-      <el-table-column prop="userName" label="设计师" align="center"></el-table-column>
+      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="supplierName" label="承接供应商" align="center"></el-table-column>
+      <el-table-column prop="designerName" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="taskCheck" label="退回" align="center"></el-table-column>
+      <el-table-column prop="designCount" label="退回次数" align="center"></el-table-column>
 
-       <el-table-column prop="deadline" label="截止日期">
+      <el-table-column prop="deadline" label="截止日期">
+        <template slot-scope="scope">{{scope.row.deadline}}</template>
       </el-table-column>
-      
+
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <el-button @click="designingTaskDet(scope.row) " type="text" size="small">查看详情</el-button>
+          <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -54,7 +53,7 @@
 <script>
 import Qs from "qs";
 export default {
-  name: "designingTask", 
+  name: "designingTask",
   data() {
     return {
       query: {
@@ -65,17 +64,16 @@ export default {
       formLabelWidth: "120px",
       activeName: "first",
       tableData: [
-       { 
-        taskId:"",
-        taskName:"",
-        supplierName:"",
-        publishTask:"",
-        userName:"",
-        supplierName:"",
-        taskCheck:"",
-        deadline:"",
-       }
-       ],
+        {
+          taskId: "",
+          taskName: "",
+          taskType: "",
+          companyName: "",
+          designerName: "",
+          designCount: "",
+          deadline: ""
+        }
+      ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -84,6 +82,12 @@ export default {
       idx: -1,
       id: -1
     };
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
   },
   created() {
     this.getData();
@@ -94,10 +98,10 @@ export default {
     //   this.$router.push("/admin/designingTaskDet");
     // },
 
-    designingTaskDet(row) {
+    Det(row) {
       console.log(row.taskId);
       this.$router.push({
-        path: "/admin/designingTaskDet",
+        path: "/admin/Det",
         query: {
           taskId: row.taskId
         }
@@ -120,8 +124,7 @@ export default {
           console.log(response);
           this.tableData = response.data.allData;
         });
-    },
-
+    }
   }
   /*
    *转跳对应需求信息页面
