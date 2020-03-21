@@ -37,7 +37,7 @@
                   <el-table-column prop="id" label="ID" width="55" align="center" type="index"></el-table-column>
                   <el-table-column prop="userName" label="用户名"></el-table-column>
                   <el-table-column prop="realName" label="真实姓名"></el-table-column>
-                  <el-table-column prop="roleId" label="部门"></el-table-column>
+                  <el-table-column prop="roleName" label="部门"></el-table-column>
                   <el-table-column prop="email" label="邮箱"></el-table-column>
                   <el-table-column prop="phone" label="电话"></el-table-column>
 
@@ -151,6 +151,7 @@
 </template>
 
 <script>
+import Qs from "qs";
 export default {
   name: "newStaff",
   data() {
@@ -161,27 +162,27 @@ export default {
       },
       tableData: [
         {
-          id: 1,
-          realname: "邓力夫",
-          name: "邓力夫",
+          
+          userName: "邓力夫",
+          realName: "邓力夫",
           email: "denglifu@163.com",
-          role: "管理员",
+          roleId: "管理员",
           phone: "16545675821"
         },
         {
-          id: 2,
+         
+          username: "刘强",
           realname: "刘强",
-          name: "刘强",
           email: "liuqiang123@163.com",
-          role: "设计人员",
+          roleId: "设计人员",
           phone: "15874561485"
         },
         {
-          id: 3,
+         
+          username: "夏圆圆",
           realname: "夏圆圆",
-          name: "夏圆圆",
           email: "xiayuanyuan@163.com",
-          role: "流通人员",
+          roleId: "流通人员",
           phone: "16445983697"
         }
       ],
@@ -192,7 +193,7 @@ export default {
         email: "",
         roleId: "",
         phone: "",
-        password:""
+        passWord:""
       },
       multipleSelection: [],
       editVisible: false,
@@ -221,14 +222,12 @@ export default {
   methods: {
     // 获取 easy-mock 的模拟数据
     getData() {
-        this.tableData = res.list;
-        this.pageTotal = tableData.length;
        console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         userName: ""
       });
-      //console.log(data);
+      console.log(data);
       that
         .axios({
           method: "post",
@@ -242,6 +241,8 @@ export default {
           this.tableData = response.data.allData;
           //this.form = response.data.allData[0];
         });
+        this.tableData = res.list;
+        this.pageTotal = tableData.length;
     },
     // 触发搜索按钮
     handleSearch() {
@@ -282,20 +283,22 @@ export default {
     saveAdd() {
        var that = this;
       var data = Qs.stringify({
+        username: "",
+        User_Name: this.addList.userName,
+        Real_Name : this.addList.realName, 
+        Role_Id: this.addList.roleId,
+        Phone:this.addList.phone,
+        Email:this.addList.email,
+        Password1:this.addList.passWord,
         
-        userName: this.addList.userName,
-        realName : this.addList.realName, 
-        roleId: this.addList.roleId,
-        phone:this.addList.phone,
-        email:this.addList.email,
-        password:this.addList.password,
       
       });
       console.log(data);
+      console.log(this.addList.email);
 
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082//newStaff/addlist",
+        url: "http://127.0.0.1:8082/newStaff/addlist",
         data: data
       });
        this.$message.success("提交成功");

@@ -17,21 +17,18 @@
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="supplierName" label="需求类型"></el-table-column>
+      <el-table-column prop="taskCategory" label="需求类型"></el-table-column>
 
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
       <el-table-column prop="userName" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="supplierName" label="承接供应商" align="center"></el-table-column>
-
-      <el-table-column prop="deadline" label="截止日期"></el-table-column>
+      <el-table-column prop="deadline" label="截止日期">
+        <template slot-scope="scope">{{scope.row.deadline}}</template>
+      </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <el-button @click="pendingAuditDet(scope.row) " type="text" size="small">查看详情</el-button>
-          <el-button type="text" size="small">查看成果</el-button>
-          <el-button @click="changePassStates(scope.row)" type="text" size="small">审核通过</el-button>
-          <el-button @click="changeNoPassStates(scope.row)" type="text" size="small">审核不通过</el-button>
+          <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -45,19 +42,6 @@
         @current-change="handlePageChange"
       ></el-pagination>
     </div>
-    <el-dialog title="提示" :visible.sync="accept" width="15%" :before-close="handleClose">
-      <span>审核通过</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="accept=false">确 定</el-button>
-      </span>
-    </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="disaccept" width="15%" :before-close="handleClose">
-      <span>审核不通过</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="disaccept=false">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -75,14 +59,14 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
-      tableData:[
+      tableData: [
         {
           taskId: "123",
           taskName: "123",
-          supplierName:"123",
+          supplierName: "123",
           companyName: "123",
           userName: "123",
-          supplierName:"123",
+          supplierName: "123",
           deadline: "123"
         }
       ],
@@ -104,58 +88,23 @@ export default {
   },
   methods: {
     // 全部需求详情页面跳转
-    pendingAuditDet(row) {
+    Det(row) {
       console.log(row.taskId);
       this.$router.push({
-        path: "/admin/pendingAuditDet",
+        path: "/admin/Det",
         query: {
           taskId: row.taskId
         }
       });
     },
-    //审核通过
-    changePassStates(row){
-      console.log(row.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: row.taskId,
-        taskState: 5
-      });
-      that.axios({
-        method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeState",
-        data: data
-      });
-      this.$message.success("审核通过");
-      this.$router.go(0)
-    },
-    //审核不通过
-    changeNoPassStates(row){
-      console.log(row.taskId);
-      var Intl;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: row.taskId,
-        taskState: 4
-      }); 
-      that
-      .axios({
-        method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeState",
-        data: data
-      })
-      .then(response => {
-          console.log(response);
-        });
-      this.$message.success("审核不通过");
-      this.reload();
-    },
+
+  
     //获取数据
     getData() {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName:"supplier"
+        userName: "supplier"
       });
 
       console.log(data);

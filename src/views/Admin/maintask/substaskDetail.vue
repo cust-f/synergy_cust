@@ -4,7 +4,7 @@
       <el-container>
         <el-main style="overflow:hidden">
           <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-          <el-form ref="cool" :model="cool" label-width="110px" class="form">
+          <el-form ref="cool" :model="cool" label-width="110px" class="formYS">
             <el-row>
               <el-col :span="11">
                 <el-form-item label="需求名称名称">
@@ -21,15 +21,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="发布时间">
-                  <el-input
-                    v-bind:value='cool.publishTime | formatDate'
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-bind:value="cool.publishTime | formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="截止时间">
-                  <el-input  v-bind:value="cool.deadline | formatDate" :disabled="true"></el-input>
+                  <el-input v-bind:value="cool.deadline | formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -42,7 +39,7 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="完成日期">
-                  <el-input  v-bind:value="cool.finishTime | formatDate" :disabled="true"></el-input>
+                  <el-input v-bind:value="cool.finishTime | formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -55,14 +52,11 @@
               </el-col>
             </el-row>
 
-            <el-row></el-row>
+           
             <el-row>
-              <el-col width="100%">
+              <el-col :span="11">
                 <el-form-item label="主项目详情">
                   <el-input
-                    type="textarea"
-                    :rows="3"
-                    style="width:90%"
                     v-model="cool.mainTaskDetail"
                     :disabled="true"
                   ></el-input>
@@ -72,7 +66,7 @@
           </el-form>
           <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
-            <el-button type="primary" class="button1" @click="downLoad">下载装配文档</el-button>
+            <!-- <el-button type="primary" class="button1">下载装配文档</el-button> -->
           </div>
           <el-divider></el-divider>
           <h3>分解任务</h3>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -96,21 +90,14 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-               
-              <el-table-column prop="taskName" label="任务名称"></el-table-column>
-              <el-table-column prop="taskType" label="任务类别"></el-table-column>
-              <el-table-column prop="beginTime" label="开始时间">
-                <template slot-scope="scope">
-                    {{scope.row.beginTime | formatDate}}
-                    
-                  </template>
-              </el-table-column>
-              <el-table-column prop="deadline" label="结束时间">
-                 <template slot-scope="scope">
-                    {{scope.row.deadline | formatDate}}
-                    
-                  </template>
-              </el-table-column>
+                <el-table-column prop="taskName" label="任务名称"></el-table-column>
+                <el-table-column prop="taskType" label="任务类别"></el-table-column>
+                <el-table-column prop="beginTime" label="开始时间">
+                  <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
+                </el-table-column>
+                <el-table-column prop="deadline" label="结束时间">
+                  <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+                </el-table-column>
 
                 <el-table-column label="操作" width="180" align="center">
                   <template slot-scope="scope">
@@ -157,155 +144,180 @@
               </span>
             </el-dialog>
 
-             <!-- 新增弹出框 -->
-        <el-dialog title="新增" :visible.sync="addVisible" width="50%">
-          <el-row>
-            <el-col :span="8"></el-col>
-          </el-row>
-          <el-form ref="form" :model="addList" label-width="120px">
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="分解任务名称">
-                  <el-input v-model="addList.taskName"></el-input>
-                </el-form-item>
-              </el-col>
+            <!-- 新增弹出框 -->
+            <el-dialog title="新增" :visible.sync="addVisible" width="50%">
+              <el-row>
+                <el-col :span="8"></el-col>
+              </el-row>
+              <el-form ref="form" :model="addList" label-width="120px">
+                <el-row>
+                  <el-col :span="11">
+                    <el-form-item label="分解任务名称">
+                      <el-input v-model="addList.taskName"></el-input>
+                    </el-form-item>
+                  </el-col>
 
-              <el-col :span="11">
-                <el-form-item label="任务设计状态">
-                  <el-input v-model="addList.TaskState" placeholder="已存在默认值无需填写" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+                  <el-col :span="11">
+                    <el-form-item label="任务设计状态">
+                      <el-input
+                        v-model="addList.TaskState"
+                        placeholder="已存在默认值无需填写"
+                        :disabled="true"
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
 
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="发布时间">
-                  <el-date-picker
-                    type="date"
-                    placeholder="选择日期"
-                    v-model="addList.beginTime"
-                    value-format="yyyy-MM-dd"
-                    style="width: 100%;"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
+                <el-row>
+                  <el-col :span="11">
+                    <el-form-item label="发布时间">
+                      <el-date-picker
+                        type="date"
+                        placeholder="选择日期"
+                        v-model="addList.beginTime"
+                        value-format="yyyy-MM-dd"
+                        style="width: 100%;"
+                      ></el-date-picker>
+                    </el-form-item>
+                  </el-col>
 
-              <el-col :span="11">
-                <el-form-item label="截止时间">
-                  <el-date-picker
-                    type="date"
-                    placeholder="选择日期"
-                    v-model="addList.deadline"
-                    value-format="yyyy-MM-dd"
-                    style="width: 100%;"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-row>
+                  <el-col :span="11">
+                    <el-form-item label="截止时间">
+                      <el-date-picker
+                        type="date"
+                        placeholder="选择日期"
+                        v-model="addList.deadline"
+                        value-format="yyyy-MM-dd"
+                        style="width: 100%;"
+                      ></el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
 
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="任务类型">
-                  <el-select
-                    v-model="addList.substasktype1"
-                    placeholder="请选择"
-                    class="selectsupply"
-                    @change="subStask"
-                    style="width:50%;"
+                <el-row>
+                  <el-col :span="11">
+                    <el-form-item label="任务类型">
+                      <el-select
+                        v-model="addList.substasktype1"
+                        placeholder="请选择"
+                        class="selectsupply"
+                        @change="subStask"
+                        style="width:50%;"
+                      >
+                        <el-option
+                          v-for="leibie in subStaskType"
+                          :key="leibie.id"
+                          :label="leibie.industryName"
+                          :value="leibie.id"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="11">
+                    <el-form-item label="任务类别">
+                      <el-select
+                        v-model="addList.taskType"
+                        placeholder="请选择是或者否"
+                        class="selectsupply"
+                        @change="liebieShu"
+                        style="width:50%;"
+                      >
+                        <el-option
+                          v-for="leibie in Task"
+                          :key="leibie.id"
+                          :label="leibie.label"
+                          :value="leibie.id"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+
+                <el-row>
+                  <el-col :span="22">
+                    <el-form-item label="分解任务详细">
+                      <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item label="是否邀请">
+                      <el-select
+                        v-model="cooList.shifouyaoqing"
+                        placeholder="请选择是或者否"
+                        class="selectsupply"
+                        @change="invitate"
+                      >
+                        <el-option
+                          width="180"
+                          v-for="coo in shifou"
+                          :key="coo.id"
+                          :label="coo.label"
+                          :value="coo.id"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="8">
+                    <el-form-item label="核心供应商" :style="{display: visiblehexin}">
+                      <el-select
+                        v-model="SupplierListInt"
+                        multiple placeholder="请选择供应商"
+                        class="selectsupply"
+                      >
+                        <el-option
+                          width="180"
+                          v-for="supplier in supplierCompany"
+                          :key="supplier"
+                          :label="supplier.companyName"
+                          :value="supplier.companyId"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="8">
+                    <el-input
+                      placeholder="等待供应方申请"
+                      v-model="input"
+                      :disabled="true"
+                      :style="{display:shenqing}"
+                    ></el-input>
+                  </el-col>
+                </el-row>
+
+                <el-form-item label="添加附件">
+                  <el-upload
+                    class="upload-demo"
+                    ref="upload"
+                    action="http://127.0.0.1:8082/MainTaskInformation/import"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :on-success="handleAvatarSuccess"
+                    :limit="1"
+                    :auto-upload="false"
                   >
-                    <el-option
-                      v-for="leibie in subStaskType"
-                      :key="leibie.id"
-                      :label="leibie.industryName"
-                      :value="leibie.id"
-                    ></el-option>
-                  </el-select>
+                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                    <el-button
+                      style="margin-left: 10px;"
+                      size="small"
+                      type="success"
+                      @click="submitUpload"
+                    >上传到服务器</el-button>
+                    <br />
+                    <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
+                  </el-upload>
                 </el-form-item>
-              </el-col>
-
-              <el-col :span="11">
-                <el-form-item label="任务类别">
-                  <el-select
-                    v-model="addList.taskType"
-                    placeholder="请选择是或者否"
-                    class="selectsupply"
-                    @change="liebieShu"
-                    style="width:50%;"
-                  >
-                    <el-option
-                      v-for="leibie in Task"
-                      :key="leibie.id"
-                      :label="leibie.label"
-                      :value="leibie.id"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="22">
-                <el-form-item label="分解任务详细">
-                  <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="8">
-                <el-form-item label="是否邀请">
-                  <el-select
-                    v-model="cooList.supplyCompany"
-                    placeholder="请选择是或者否"
-                    class="selectsupply"
-                    @change="invitate"
-                  >
-                    <el-option
-                      width="180"
-                      v-for="coo in shifou"
-                      :key="coo.id"
-                      :label="coo.label"
-                      :value="coo.id"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-
-              <el-col :span="8">
-                <el-form-item label="核心供应商" :style="{display: visiblehexin}">
-                  <el-select
-                    v-model="addList.supplyCompany"
-                    placeholder="请选择供应商"
-                    class="selectsupply"
-                  >
-                    <el-option label="全部" value></el-option>
-                    <el-option
-                      width="180"
-                      v-for="company in supplyCompanies"
-                      :key="company"
-                      :label="company"
-                      :value="company"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-
-              <el-col :span="8">
-                <el-input
-                  placeholder="等待供应方申请"
-                  v-model="input"
-                  :disabled="true"
-                  :style="{display:shenqing}"
-                ></el-input>
-              </el-col>
-            </el-row>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="addVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveAdd11">确 定</el-button>
-          </span>
-        </el-dialog>
-
+              </el-form>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="addVisible = false">取 消</el-button>
+                <el-button type="primary" @click="saveAdd11">确 定</el-button>
+              </span>
+            </el-dialog>
           </div>
         </el-main>
       </el-container>
@@ -325,16 +337,20 @@ export default {
   prop: {},
   data() {
     return {
+      //核心供应商
+      supperlier:"",
+            //上传的文件路径
+      technicalFile:"null",
       dialogVisible: false,
-      type:"",//主任务类型
-        personnel: ["许知远", "王添", "白泽"], //总负责人
+      type: "", //主任务类型
+      personnel: ["许知远", "王添", "白泽"], //总负责人
       statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
       supplyCompanies: [
         "沈阳机床集团有限责任公司",
         "起重集团有限公司",
         "长光电子"
       ], //供应商列表
-      Task:["设计任务","流通任务"],
+      Task: ["设计任务", "流通任务"],
       selVal: "",
       visiblehexin: "none",
       shenqing: "none",
@@ -354,21 +370,28 @@ export default {
       },
       tableData: [
         {
-        
-          taskName:"",
-          taskType:"",
-          beginTime:"",
-          deadline:""
+          taskName: "",
+          taskType: "",
+          beginTime: "",
+          deadline: ""
         }
       ],
-            subStaskType: [
+      subStaskType: [
         {
           id: "",
           industryName: "",
           pId: ""
         }
       ],
-            Task: [
+      //供应商列表
+      supplierCompany: [
+        {
+          companyName: "",
+          companyId: "",
+          pId: ""
+        }
+      ],
+      Task: [
         {
           id: "0",
           label: "设计任务"
@@ -378,20 +401,20 @@ export default {
           label: "流通任务"
         }
       ],
-          addList: [
+      addList: [
         {
-           taskName: null,
+          taskName: null,
           beginTime: null,
           deadline: "",
           TaskState: "",
           TaskState1: "",
           TaskXiangXi: "",
-          taskType:"",
+          taskType: "",
           substasktype: "",
-          substasktype1:'',
+          substasktype1: ""
         }
       ],
-                shifou: [
+      shifou: [
         {
           id: "0",
           label: "是"
@@ -406,18 +429,16 @@ export default {
       idx: -1,
       id: -1,
       mainTaskID: "",
-      cooList: {supplyCompany:''},
-      liebieList:{supplyCompany:''},
+      cooList: { shifouyaoqing: "" },
+      SupplierListInt:"",
+      liebieList: { supplyCompany: "" },
       form: {},
-      name:'',
-      type:'',
-      publishdate:'',
-      deaddate:'',
-      leader:'',
-      xiangxi:'',
-      //科技文档链接
-      technicalFile :"",
-
+      name: "",
+      type: "",
+      publishdate: "",
+      deaddate: "",
+      leader: "",
+      xiangxi: ""
     };
   },
 
@@ -434,9 +455,14 @@ export default {
   },
 
   methods: {
-        //保存新增
+    //保存新增
     saveAdd11() {
-//console.log(this.TaskXiangXi)
+      //console.log(this.TaskXiangXi)
+            if(this.technicalFile == 'null'){
+         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+              type: "warning"
+            });
+      }else{   
       var that = this;
       var data = Qs.stringify({
         userName: "aaaa",
@@ -445,28 +471,41 @@ export default {
         publishTime: this.addList.beginTime,
         endLine: this.addList.deadline,
         taskCategaty: this.addList.substasktype1,
-        yaoqing: this.cooList.supplyCompany,
+        yaoqing: this.cooList.shifouyaoqing,
         taskType: this.addList.taskType,
         mainTaskName: this.name,
         taskXiangxi: this.addList.TaskXiangXi,
-        mainTaskID: this.mainStaskID
+        mainTaskID: this.mainStaskID,
+        Technonlgy_File:this.technicalFile,
+        SupperListINt:this.SupplierListInt
+        
       });
+      console.log(this.SupplierListInt);
       console.log(data);
-      console.log(this.addList.substasktype);
 
-      that.axios({
+      that
+        .axios({
         method: "post",
         url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
-        data: data
-      });
-
+        data: data,
+        headers: {"Content-Type": "application/x-www-form-urlencoded"}
+       })
+        .catch(error => {
+          console.log(error);
+          if (error != null) {
+            this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+              type: "warning"
+            });
+          }
+        });
       this.$message.success("提交成功");
       this.tableData.push(this.addList);
       this.addList = {};
       this.addVisible = false;
+      }
     },
 
-invitate(coo) {
+    invitate(coo) {
       console.log(coo);
 
       if (coo == 0) {
@@ -480,7 +519,6 @@ invitate(coo) {
       }
     },
 
-   
     /*
      *转跳对应任务信息页面
      */
@@ -503,7 +541,7 @@ invitate(coo) {
           method: "post",
           url: "http://127.0.0.1:8082/MainTaskInformation/combineMS",
           data: data
-          
+
           // data:this.$store.state.userName
         })
         .then(response => {
@@ -512,9 +550,8 @@ invitate(coo) {
           this.name = response.data.allData.a[0].mainTaskName;
           this.tableData = response.data.allData.b;
           this.type = response.data.allData.a[0].industry_Type;
-          this.technicalFile = response.data.allData.a[0].
           console.log(response.data.allData);
-          console.log( this.type)
+          console.log(this.type);
         });
     },
     // 触发搜索按钮
@@ -591,12 +628,13 @@ invitate(coo) {
         });
     },
 
-    //新增操作
+    //新增操作 查询子任务列别及供应商列表
     addData() {
       this.addVisible = true;
       var that = this;
       var data = Qs.stringify({
-        PId: this.type
+        PId: this.type,
+        username :"aaaa"
       });
       that
         .axios({
@@ -605,8 +643,10 @@ invitate(coo) {
           data: data
         })
         .then(response => {
-          this.subStaskType = response.data.allData;
+          this.subStaskType = response.data.allData.a;
+          this.supplierCompany = response.data.allData.b;
           console.log(response);
+          console.log(this.supperlier)
         });
     },
     //保存新增
@@ -642,12 +682,40 @@ invitate(coo) {
     },
     goBack() {
       this.$router.push("/admin/mainStaskShow");
-    }
+    },
+        //上传文件
+      submitUpload() {
+        this.$refs.upload.submit();
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePreview(file) {
+        console.log(file);
+      },
+    handleAvatarSuccess(response, file, fileList){
+      this.technicalFile = response
+      console.log(response)
+    },
   }
 };
 </script>
 
 <style>
+.formYS .el-input__inner{
+     /* // 表格样式调整 */
+   
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+}
+.formYS .el-input.is-disabled .el-input__inner{
+    background-color: #ffffff;
+    color:#606266
+}
+ 
 .table {
   font-size: 14px;
 }
