@@ -200,6 +200,7 @@ export default {
                 });
           }
           });
+          location.reload();//刷新当前页面
      },
     handleDelete(row){
       console.log(row.companyId)
