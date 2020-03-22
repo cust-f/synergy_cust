@@ -1,6 +1,8 @@
 <template>
   <el-container>
     <el-main>
+       <h3>企业评价</h3>
+               &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div class="top">
         <div id="charts1" style="height:100%; width:300px; float:left"></div>
         <br/>
@@ -18,19 +20,20 @@
                   ref="multipleTable"
                  :default-sort = "{prop: 'taskId', order: 'descending'}"
                   header-cell-class-name="table-header"
-                 
+                
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column prop="taskId" label="任务编号" width="55" align="center"></el-table-column>
                   <el-table-column prop="taskName" label="任务名称"></el-table-column>
-                  <el-table-column prop="taskType" label="任务类型"></el-table-column>
-                   <!-- <el-table-column prop="staffNumber" label="任务参与人数"></el-table-column>
-                    <el-table-column prop="sumMoney" label="任务金额"></el-table-column>
-                  <el-table-column prop="doAgain" label="是否重做"></el-table-column> -->
+
+                  <el-table-column label="任务类型" prop="taskType" show-overflow-tooltip>  
+                      <template slot-scope="scope">
+                        <p v-if="scope.row.taskType=='1'">流通任务</p>
+                        <p v-if="scope.row.taskType=='0'">设计任务</p>
+                    </template>        
+                   </el-table-column>
                   <el-table-column prop="finishTime" label="完成时间">
-                  <template slot-scope="scope">
-                    {{scope.row.deadline | formatDate}}
-                  </template>
+                  
                   </el-table-column>
                   <!-- <el-table-column prop="finishState" label="状态" align="center" width="80">
                   </el-table-column> -->
@@ -68,7 +71,8 @@ export default {
         pageSize: 5
       },
       pageTotal: 10,
-      tableData:""
+      tableData:"",
+     
       
     };
   },
@@ -84,13 +88,23 @@ export default {
   },
   methods: {
     Detail(row) {
-      console.log(row.mainTaskID);
-      this.$router.push({
+      console.log(row.taskType);
+     if (row.taskType==1) {
+        this.$router.push({
         path: "/admin/circulationTaskEvaluationDetils",
         query: {
-          mainTaskID: row.mainTaskID
+          taskID: row.taskId
         }
       });
+      } else {
+        this.$router.push({
+        path: "/admin/designTaskEvaluationDetils",
+        query: {
+          taskID: row.taskId
+        }
+      });
+      }
+     
     },
     //接受数据
     getParams() {

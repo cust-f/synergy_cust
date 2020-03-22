@@ -25,7 +25,7 @@
               <el-row :gutter="80">
                 <el-col :span="11">
                   <el-form-item label="评价ID">
-                    <el-input v-model="form.Remark_ID" :disabled="true"></el-input>
+                    <el-input v-model="form.taskId" :disabled="true"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9">
@@ -76,7 +76,9 @@ export default {
                 
                 <el-col>
                   <el-form-item>
-                    <el-button>确定</el-button>
+                    <el-button
+                     @click=goBack()
+                    >确定</el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -91,6 +93,7 @@ export default {
 </template>
 
 <script>
+import Qs from "qs";
 export default {
   name: "circulationTaskEvaluationDetils",
   data() {
@@ -100,10 +103,13 @@ export default {
       value2: null,
       value3: null,
       value4: null,
-      textarea: "",
-
+     
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
-
+    //初始化方法
+   created() {
+    this.getParams();
+    this.getData();
+  },
       form: {
         Remark_ID: "01",
         Design_ID: "02",
@@ -142,7 +148,41 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/admin/circulationTaskEvaluation");
+      this.$router.push("/admin/Enterprise_Evaluation/evaluate");
+    },
+    //接受数据
+    getParams() {
+      需要修改接受企业ID
+      var routerParams = this.$route.query.taskId;
+      this.taskId = routerParams;
+      console.log(routerParams);
+    },
+    //数据查找
+    getData() {
+      console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        // companyId: "1111"
+       taskId:taskId
+      });
+      console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/evaluate",
+          data: data
+        })
+        .then(response => {
+          //this.table = response.data.allData;
+           
+           that.tableData = response.data.allData;
+           console.log(response.data.allData);
+          
+          
+        });
+         
     },
      getCharts1() {
       var myChart = echarts.init(document.getElementById("charts1"));

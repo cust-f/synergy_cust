@@ -76,7 +76,9 @@ export default {
                 
                 <el-col>
                   <el-form-item>
-                    <el-button>确定</el-button>
+                    <el-button
+                    @click="goBack()
+                    ">确定</el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -142,7 +144,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/admin/circulationTaskEvaluation");
+      this.$router.push("/admin/Enterprise_Evaluation/evaluate");
     },
      getCharts1() {
       var myChart = echarts.init(document.getElementById("charts1"));
