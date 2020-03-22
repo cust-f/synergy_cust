@@ -18,12 +18,7 @@
           <div>
             <div class="container">
               <div class="handle-box">
-                <el-button
-                  type="primary"
-                  icon="el-icon-delete"
-                  class="handle-del mr10"
-                  @click="delAllSelection"
-                >批量删除</el-button>
+                
 
                 <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -39,11 +34,10 @@
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-                  <el-table-column prop="name" label="用户名"></el-table-column>
-                  <el-table-column prop="realname" label="真实姓名"></el-table-column>
-                  <el-table-column prop="role" label="部门"></el-table-column>
+                  <el-table-column prop="id" label="ID" width="55" align="center" type="index"></el-table-column>
+                  <el-table-column prop="userName" label="用户名"></el-table-column>
+                  <el-table-column prop="realName" label="真实姓名"></el-table-column>
+                  <el-table-column prop="roleName" label="部门"></el-table-column>
                   <el-table-column prop="email" label="邮箱"></el-table-column>
                   <el-table-column prop="phone" label="电话"></el-table-column>
 
@@ -80,10 +74,16 @@
             <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
               <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="用户名">
-                  <el-input v-model="form.name"></el-input>
+                  <el-input v-model="form.userName"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱">
                   <el-input v-model="form.email"></el-input>
+                </el-form-item>
+                <el-form-item label="电话">
+                  <el-input v-model="form.phone"></el-input>
+                </el-form-item>
+                <el-form-item label="密码">
+                  <el-input v-model="form.password"></el-input>
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
@@ -96,18 +96,17 @@
             <el-dialog title="新增" :visible.sync="addVisible" width="50%">
               <el-form ref="form" :model="addList" label-width="70px">
                 <el-form-item label="用户名">
-                  <el-input v-model="addList.name"></el-input>
+                  <el-input v-model="addList.userName"></el-input>
                 </el-form-item>
                 <el-form-item label="真实姓名">
-                  <el-input v-model="addList.realname"></el-input>
+                  <el-input v-model="addList.realName"></el-input>
                 </el-form-item>
 
                 <el-form-item label="角色">
-                  <el-select v-model="addList.role" placeholder="请选择角色">
-                    <el-option label="管理员" value="管理员"></el-option>
-                    <el-option label="设计人员" value="设计人员"></el-option>
-                    <el-option label="市场人员" value="市场人员"></el-option>
-                    <el-option label="流通人员" value="流通人员"></el-option>
+                  <el-select v-model="addList.roleId" placeholder="请选择角色">
+                    <el-option label="管理员" value="0"></el-option>
+                    <el-option label="设计人员" value="4"></el-option>
+                    <el-option label="流通人员" value="5"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="邮箱">
@@ -152,6 +151,7 @@
 </template>
 
 <script>
+import Qs from "qs";
 export default {
   name: "newStaff",
   data() {
@@ -162,37 +162,38 @@ export default {
       },
       tableData: [
         {
-          id: 1,
-          realname: "邓力夫",
-          name: "邓力夫",
+          
+          userName: "邓力夫",
+          realName: "邓力夫",
           email: "denglifu@163.com",
-          role: "管理员",
+          roleId: "管理员",
           phone: "16545675821"
         },
         {
-          id: 2,
+         
+          username: "刘强",
           realname: "刘强",
-          name: "刘强",
           email: "liuqiang123@163.com",
-          role: "设计人员",
+          roleId: "设计人员",
           phone: "15874561485"
         },
         {
-          id: 3,
+         
+          username: "夏圆圆",
           realname: "夏圆圆",
-          name: "夏圆圆",
           email: "xiayuanyuan@163.com",
-          role: "流通人员",
+          roleId: "流通人员",
           phone: "16445983697"
         }
       ],
       addList: {
         id: 1,
-        realname: "",
-        name: "",
+        realName: "",
+        userName: "",
         email: "",
-        role: "",
-        phone: ""
+        roleId: "",
+        phone: "",
+        passWord:""
       },
       multipleSelection: [],
       editVisible: false,
@@ -221,8 +222,27 @@ export default {
   methods: {
     // 获取 easy-mock 的模拟数据
     getData() {
-      //   this.tableData = res.list;
-      //   this.pageTotal = tableData.length;
+       console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: ""
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/newStaff/list",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+          //this.form = response.data.allData[0];
+        });
+        this.tableData = res.list;
+        this.pageTotal = tableData.length;
     },
     // 触发搜索按钮
     handleSearch() {
@@ -261,6 +281,27 @@ export default {
     },
     //保存新增
     saveAdd() {
+       var that = this;
+      var data = Qs.stringify({
+        username: "",
+        User_Name: this.addList.userName,
+        Real_Name : this.addList.realName, 
+        Role_Id: this.addList.roleId,
+        Phone:this.addList.phone,
+        Email:this.addList.email,
+        Password1:this.addList.passWord,
+        
+      
+      });
+      console.log(data);
+      console.log(this.addList.email);
+
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/newStaff/addlist",
+        data: data
+      });
+       this.$message.success("提交成功");
       this.tableData.push(this.addList);
       console.log(this.addList);
       this.addList = {};

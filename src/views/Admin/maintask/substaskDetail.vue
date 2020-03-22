@@ -614,6 +614,21 @@ export default {
         this.$message.success("废除成功");
       });
     },
+    downLoad(){
+        var that = this;
+        console.log(this.technicalFile);
+        var data = Qs.stringify({
+          technicalFile: this.technicalFile
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/MainTaskInformation/feichuByMainstaskID",
+          data: data
+
+          // data:this.$store.state.userName
+        });
+    },
 
     //新增操作 查询子任务列别及供应商列表
     addData() {

@@ -29,7 +29,7 @@
             <el-table-column label="操作" min-width="70px" align="center">
               <template slot-scope="scope">
                 <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
-                <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+                <el-button @click="handleEdit(scope.$index, scope.row)" type="text" size="small">查看任务详情</el-button>
                 <el-button type="text" size="small" @click="submitTask(scope.row)">提交任务</el-button>
               </template>
             </el-table-column>
@@ -175,6 +175,11 @@ export default {
     
   },
   methods: {
+    handleEdit(index, row) {
+      this.idx = index;
+      this.form = row;
+      this.dialogVisible = true;
+    },
     
 
     handleDetail(index, row) {
