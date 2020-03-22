@@ -158,11 +158,9 @@
                   </el-col>
 
                   <el-col :span="11">
-                    <el-form-item label="任务设计状态">
+                    <el-form-item label="需求方联络电话">
                       <el-input
-                        v-model="addList.TaskState"
-                        placeholder="已存在默认值无需填写"
-                        :disabled="true"
+                        v-model="addList.Telphone"      
                       ></el-input>
                     </el-form-item>
                   </el-col>
@@ -411,7 +409,8 @@ export default {
           TaskXiangXi: "",
           taskType: "",
           substasktype: "",
-          substasktype1: ""
+          substasktype1: "",
+          Telphone:""//电话
         }
       ],
       shifou: [
@@ -477,6 +476,7 @@ export default {
         taskXiangxi: this.addList.TaskXiangXi,
         mainTaskID: this.mainStaskID,
         Technonlgy_File:this.technicalFile,
+        Telphone:this.addList.Telphone,
         SupperListINt:this.SupplierListInt
         
       });
@@ -502,6 +502,7 @@ export default {
       this.tableData.push(this.addList);
       this.addList = {};
       this.addVisible = false;
+      location.reload()
       }
     },
 
@@ -550,8 +551,9 @@ export default {
           this.name = response.data.allData.a[0].mainTaskName;
           this.tableData = response.data.allData.b;
           this.type = response.data.allData.a[0].industry_Type;
-          console.log(response.data.allData);
+          console.log(response);
           console.log(this.type);
+          console.log(this.name);
         });
     },
     // 触发搜索按钮
