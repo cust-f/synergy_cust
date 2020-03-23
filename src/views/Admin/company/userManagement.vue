@@ -3,15 +3,15 @@
     <el-container>
       <el-main>
         <div class="box">
-          <h3>企业管理</h3>
+          <h3>用户管理</h3>
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <template>
           <div>
             <div class="container">
               <div class="handle-box">
                 
-                <el-button type="primary" icon="el-icon-delete" class="handle-del mr10" @click="delAllSelection">删除</el-button>
-                <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">增加</el-button>
+                <!-- <el-button type="primary" icon="el-icon-delete" class="handle-del mr10" @click="delAllSelection">删除</el-button> -->
+                <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
                 <!-- <el-select v-model="Company_Name" placeholder="企业名称" class="handle-input mr10"></el-select> -->
             <el-select v-model="User_Name" placeholder="账号名称" class="handle-input mr10"></el-select>
             <el-select v-model="Role_Name" placeholder="角色名称" class="handle-input mr10">
@@ -29,21 +29,18 @@
             header-cell-class-name="table-header"
             @selection-change="handleSelectionChange"
           >
-            <el-table-column type="selection" width="55" align="center"></el-table-column>
-            <el-table-column prop="User_Name" label="账号名称" align="center"></el-table-column>
-            <el-table-column prop="Company_Name" label="企业名称"></el-table-column>
-            <el-table-column prop="Role_Name" label="角色名称"></el-table-column>
-            <el-table-column prop="Email" label="邮箱"></el-table-column>
-            <el-table-column prop="Phone" label="联系方式"></el-table-column>
-            <el-table-column prop="Password" width="108" label="用户密码"></el-table-column>
-            <el-table-column label="操作" width="180" align="center">
+            <!-- <el-table-column type="selection" width="55" align="center"></el-table-column> -->
+            <el-table-column prop="User_Name" label="账号名称" width="108" align="center"></el-table-column>
+            <el-table-column prop="Company_Name" label="企业名称" align="center"></el-table-column>
+            <el-table-column prop="Role_Name" label="角色名称" width="108" align="center">
+            </el-table-column>
+            <el-table-column prop="Email" label="邮箱" width="160" align="center"></el-table-column>
+            <el-table-column prop="Phone" label="联系方式" width="160" align="center"></el-table-column>
+            <el-table-column prop="Password" width="108" label="用户密码" align="center"></el-table-column>
+            <el-table-column label="操作" width="160" align="center">
                 <template slot-scope="scope">
-                <!-- <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-                >编辑</el-button>-->
-                <el-button @click="supplyDetail" type="text" size="small">初始化密码</el-button>
+                <el-button type="text" size="small">初始化密码</el-button>
+               <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -70,7 +67,12 @@
                   <el-input v-model="addList.Company_Name"></el-input>
                 </el-form-item>
                 <el-form-item label="角色名称">
-                  <el-input v-model="addList.Role_Name"></el-input>
+                  <el-select v-model="addList.Role_Name" style="width:100%" placeholder="请选择">
+                    <el-option  v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"></el-option>
+                  </el-select>
                 </el-form-item>
                 <el-form-item label="邮箱">
                   <el-input v-model="addList.Email"></el-input>
@@ -101,12 +103,17 @@ export default {
   name: "userManagement",
   data() {
     return {
+      options:[{
+      value:'需求方',
+      label:'需求方',
+      },{
+      value:'供应商',
+      label:'供应商',
+      }],
       query: {
         pageIndex: 1,
         pageSize: 10
       },
-    
-
       addList: {
         id: 1,
         User_Name: "",
@@ -116,6 +123,7 @@ export default {
         Phone: "",
         Password: ""
       },
+
       tableData:[{
         User_Name: "admin",
         Company_Name: "长春第一汽车制造厂",
@@ -124,6 +132,7 @@ export default {
         Phone: "18899228333",
         Password: "123"
       }],
+
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -131,8 +140,7 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      
-
+    
       addForm: {
         User_Name: "",
         Company_Name: "",
@@ -189,7 +197,8 @@ export default {
       this.addList = {};
       },
 
-      
+
+
     // // 获取 easy-mock 的模拟数据
     // getData() {
     //   //   this.tableData = res.list;
@@ -202,17 +211,17 @@ export default {
     //   this.getData();
     // },
     // 删除操作
-    // handleDelete(index, row) {
-    //   // 二次确认删除
-    //   this.$confirm("确定要删除吗？", "提示", {
-    //     type: "warning"
-    //   })
-    //     .then(() => {
-    //       this.$message.success("删除成功");
-    //       this.tableData.splice(index, 1);
-    //     })
-    //     .catch(() => {});
-    // },
+    handleDelete(index, row) {
+      // 二次确认删除
+      this.$confirm("确定要删除吗？", "提示", {
+        type: "warning"
+      })
+        .then(() => {
+          this.$message.success("删除成功");
+          this.tableData.splice(index, 1);
+        })
+        .catch(() => {});
+    },
     // // 多选操作
     // handleSelectionChange(val) {
     //   this.multipleSelection = val;

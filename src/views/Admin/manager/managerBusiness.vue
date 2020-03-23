@@ -10,85 +10,85 @@
             <div class="container">
               <div class="handle-box">
                 
-                <el-button type="primary" icon="el-icon-delete" class="handle-del mr10" @click="delAllSelection">删除</el-button>
-                <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">增加</el-button>
-                <el-input v-model="query.Province" placeholder="所在省" class="handle-input mr10"></el-input>
+           <el-input v-model="query.Province" placeholder="所在省" class="handle-input mr10"></el-input>
                  <el-input v-model="query.City" placeholder="所在市" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="el-icon-search" @click="handleSearch">筛选</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+          </div>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+          <el-table
+            :data="tableData"
+            border
+            class="table"
+            ref="multipleTable"
+            header-cell-class-name="table-header"
+            @selection-change="handleSelectionChange"
+          >
+           <el-table-column label="序号" type="index" width="70" align="center"></el-table-column>
+                  <el-table-column prop="Company_Name" label="企业名称" width="160" align="center"></el-table-column>
+                  <el-table-column prop="Company_Category" label="企业类别" width="90" align="center"></el-table-column>
+                      <!-- <template slot-scope="scope">
+                          <span v-if="+scope.row.Role_Name===0">核心企业</span>
+                          <span v-else-if="+scope.row.Role_Name===1">供应商</span>
+                      </template> -->
+                  <el-table-column prop="Founding_Time" label="成立时间" align="center"></el-table-column>
+                  <el-table-column prop="Province" label="所在省" width="90" align="center"></el-table-column>
+                  <el-table-column prop="City" label="所在市" width="90" align="center"></el-table-column>
+                  <el-table-column prop="Office_Number" label="办公电话" align="center"></el-table-column>
 
-                
-              </div>
-              <div class="box">
-                <el-table
-                  :data="tableData"
-                  border
-                  class="table"
-                  ref="multipleTable"
-                  header-cell-class-name="table-header"
-                  @selection-change="handleSelectionChange"
-                >
-                  <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <!-- <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column> -->
-                  <el-table-column prop="Company_Name" label="企业名称"></el-table-column>
-                  <el-table-column prop="Company_Category" label="企业类别"></el-table-column>
-                  <el-table-column prop="Founding_Time" label="成立时间"></el-table-column>
-                  <el-table-column prop="Province" label="所在省"></el-table-column>
-                  <el-table-column prop="City" label="所在市"></el-table-column>
-                  <el-table-column prop="Office_Number" label="办公电话"></el-table-column>
+                 <el-table-column label="操作" width="180" align="center">
+                 <template slot-scope="scope">
+                 <!-- <el-button @click="handleEdit(scope.row)" type="text" size="small">修改</el-button> -->
+                 <el-button @click="businessDetail(scope.row)" type="text" size="small">查看详情</el-button>
+                 <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+              
+                 </template>
+                 </el-table-column>
+          </el-table>
+          <div class="pagination">
+            <el-pagination
+              background
+              layout="total, prev, pager, next"
+              :current-page="query.pageIndex"
+              :page-size="query.pageSize"
+              :total="pageTotal"
+              @current-change="handlePageChange"
+            ></el-pagination>
+          </div>
+        </div>
 
-                  <el-table-column label="操作" width="60" align="center">
-                    <template slot-scope="scope">
-                       <el-button @click="businessDetail" type="text">详情</el-button>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </div>
-              <div class="pagination">
-                <el-pagination
-                  background
-                  layout="total, prev, pager, next"
-                  :current-page="query.pageIndex"
-                  :page-size="query.pageSize"
-                  :total="pageTotal"
-                  @current-change="handlePageChange"
-                ></el-pagination>
-              </div>
-            </div>
 
-            <!-- 新增弹出框 -->
-            <el-dialog title="企业信息" :visible.sync="addVisible" width="50%">
+          <!-- 新增弹出框
+            <el-dialog title="用户信息" :visible.sync="addVisible" width="50%">
               <el-form ref="form" :model="addList" label-width="70px">
+                <el-form-item label="账号名称">
+                  <el-input v-model="addList.User_Name"></el-input>
+                </el-form-item>
                 <el-form-item label="企业名称">
                   <el-input v-model="addList.Company_Name"></el-input>
                 </el-form-item>
-                <el-form-item label="企业类别">
-                  <el-input v-model="addList.Company_Category"></el-input>
+                <el-form-item label="角色名称">
+                  <el-select v-model="addList.Role_Name" style="width:100%" placeholder="请选择">
+                    <el-option  v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"></el-option>
+                  </el-select>
                 </el-form-item>
-
-                  <el-form-item label="成立时间">
-                <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="addList.Founding_Time"
-                value-format="yyyy-MM-dd"
-                style="width: 100%;"
-                ></el-date-picker>
+                <el-form-item label="邮箱">
+                  <el-input v-model="addList.Email"></el-input>
                 </el-form-item>
-                <el-form-item label="所在省">
-                  <el-input v-model="addList.Province"></el-input>
+                <el-form-item label="联系方式">
+                  <el-input v-model="addList.Phone"></el-input>
                 </el-form-item>
-                <el-form-item label="所在市">
-                  <el-input v-model="addList.City"></el-input>
-                </el-form-item>
-                <el-form-item label="办公电话">
-                  <el-input v-model="addList.Office_Number"></el-input>
+                 <el-form-item label="用户密码">
+                  <el-input v-model="addList.Password"></el-input>
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="saveAdd">确 定</el-button>
                 <el-button @click="addVisible = false">取 消</el-button>               
               </span>
-            </el-dialog>
+            </el-dialog> -->
           </div>
         </template>
       </el-main>
@@ -100,14 +100,13 @@
 
 import Qs from "qs";
 export default {
-  name: "managerBusiness",
+  name: "userManagement",
   data() {
     return {
       query: {
         pageIndex: 1,
         pageSize: 10
       },
-
       addList: {
         id: 1,
         Company_Name: "",
@@ -117,14 +116,16 @@ export default {
         City: "",
         Office_Number: ""
       },
+
       tableData:[{
-        Company_Name: "电子科技有限公司",
+       Company_Name: "电子科技有限公司",
         Company_Category: "1",
         Founding_Time: "2009-09-08",
         Province: "吉林省",
         City: "长春市",
         Office_Number: "17847778888"
       }],
+
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -132,14 +133,14 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-
+    
       addForm: {
+        User_Name: "",
         Company_Name: "",
-        Company_Category: "",
-        Founding_Time: "",
-        Province: "",
-        City: "",
-        Office_Number: ""
+        Role_Name: "",
+        Email: "",
+        Phone: "",
+        Password: ""
       },
       value: ""
     };
@@ -148,54 +149,73 @@ export default {
     this.getData();
   },
   methods: {
-    // getData(){
-    //   //this.tableData=null
-    // },
-   
-      /*
+     /*
       *转跳对应任务信息页面
       */
+     getData(){
+       var that = this;
+        var data = Qs.stringify({
+        username: "aaaa"
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/businessDetail/show",
+          data: data,
+          
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          this.tableData = response.data.allData
+        });
+     },
      businessDetail(){
          this.$router.push('/admin/businessDetail')
      },
-        
+    // getData(){
+    //   //this.tableData=null
+    // },      
      //新增操作
-    addData() {
-      this.addVisible = true;
-      var that = this;
-      var data = Qs.stringify({
-        PId: this.type
-      })
-      },
-     //保存新增
-    saveAdd() {
+    // addData() {
+    //   this.addVisible = true;
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     PId: this.type
+    //   })
+    //   },
+    //  //保存新增
+    // saveAdd() {
 
-      var that = this;
-      var data = Qs.stringify({
-        userName: "aaaa",
-        Company_Name: this.addList.Company_Name,
-        Company_Category: this.addList.Company_Category,
-        Founding_Time: this.addList.Founding_Time,
-        Province: this.addList.Province,
-        City: this.addList.City,
-        Office_Number: this.addList.Office_Number,
-      });
-      console.log(data);
-      console.log(this.addList.company);
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     userName: "aaaa",
+    //     User_Name: this.addList.User_Name,
+    //     Company_Name: this.addList.Company_Name,
+    //     Role_Name: this.addList.Role_Name,
+    //     Email: this.addList.Email,
+    //     Phone: this.addList.Phone,
+    //     Password: this.addList.Password,
+    //   });
+    //   console.log(data);
+    //   console.log(this.addList.user);
 
-      that
-      .axios({
-        method: "post",
-        url: "http://127.0.0.1:8082/companyDetail/addCompanyInformation",
-        data: data
-      });
+    //   that
+    //   .axios({
+    //     method: "post",
+    //     url: "http://127.0.0.1:8082/user/addUserInformation",
+    //     data: data
+    //   });
 
-      this.$message.success("提交成功");
-            this.addVisible = false;
+    //   this.$message.success("提交成功");
+    //         this.addVisible = false;
 
-      this.tableData.push(this.addList);
-      this.addList = {};
-      }
+    //   this.tableData.push(this.addList);
+    //   this.addList = {};
+    //   },
+
+
+
     // // 获取 easy-mock 的模拟数据
     // getData() {
     //   //   this.tableData = res.list;
@@ -207,18 +227,18 @@ export default {
     //   this.$set(this.query, "pageIndex", 1);
     //   this.getData();
     // },
-    // // 删除操作
-    // handleDelete(index, row) {
-    //   // 二次确认删除
-    //   this.$confirm("确定要删除吗？", "提示", {
-    //     type: "warning"
-    //   })
-    //     .then(() => {
-    //       this.$message.success("删除成功");
-    //       this.tableData.splice(index, 1);
-    //     })
-    //     .catch(() => {});
-    // },
+    // 删除操作
+    handleDelete(index, row) {
+      // 二次确认删除
+      this.$confirm("确定要删除吗？", "提示", {
+        type: "warning"
+      })
+        .then(() => {
+          this.$message.success("删除成功");
+          this.tableData.splice(index, 1);
+        })
+        .catch(() => {});
+    },
     // // 多选操作
     // handleSelectionChange(val) {
     //   this.multipleSelection = val;
@@ -233,17 +253,7 @@ export default {
     //   this.$message.error(`删除了${str}`);
     //   this.multipleSelection = [];
     // },
-    // //新增操作
-    // addData() {
-    //   this.addVisible = true;
-    // },
-    // //保存新增
-    // saveAdd() {
-    //   this.tableData.push(this.addList);
-    //   console.log(this.addList);
-    //   this.addList = {};
-    //   this.addVisible = false;
-    // },
+    
     // // 编辑操作
     // handleEdit(index, row) {
     //   this.idx = index;
