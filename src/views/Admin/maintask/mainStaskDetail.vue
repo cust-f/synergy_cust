@@ -86,9 +86,9 @@
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="companyName" label="供应商"></el-table-column>
           <el-table-column prop="applyWay" label="承接方式">
-            <template slot-scope="{row: {applyWay}}">
-              <span v-if="+applyWay === 0">邀请</span>
-              <span v-else-if="+applyWay === 1">申请</span>
+            <template slot-scope="scope">
+              <span v-if="+scope.row.applyWay === 0">邀请</span>
+              <span v-else-if="+scope.row.applyWay === 1">申请</span>
               <span v-else>其他</span>
             </template>
           </el-table-column>
@@ -111,8 +111,8 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button @click="SQTG(scope.row)" type="text" size="small"   v-if="scope.row.checkApplyState===0"  >通过</el-button>
-              <el-button @click="SQJJ(scope.row)" type="text" size="small"  v-if="scope.row.checkApplyState===0" >拒绝</el-button>
+              <el-button @click="SQTG(scope.row)" type="text" size="small"   v-if="scope.row.checkApplyState===0&&scope.row.applyWay===1"  >通过</el-button>
+              <el-button @click="SQJJ(scope.row)" type="text" size="small"  v-if="scope.row.checkApplyState===0&&scope.row.applyWay===1">拒绝</el-button>
             </template>
           </el-table-column>
         </el-table>

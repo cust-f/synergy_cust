@@ -1,261 +1,147 @@
 <template>
   <el-container>
     <el-main>
+       <h3>企业评价</h3>
+               &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div class="top">
         <div id="charts1" style="height:100%; width:300px; float:left"></div>
-        <div id="charts2" style="height:100%; width:300px; float:left"></div>
+        <br/>
+        <div id="charts2" style="height:100%; width:300px; float:right"></div>
+        <br/>
       </div>
-
+      
+     
       <div class="lists">
-        <el-card style="height:100%">
-          <el-table
-            :data="Not_Accepted_Task_Data"
-            border
-            stripe
-            class="table"
-            header-cell-class-name="table-header"
-            height="100%"
-          >
-            <template v-for="(item,index) in Not_Accepted_Task_Head">
-              <el-table-column
-                :prop="item.column_name"
-                :label="item.column_comment"
-                :key="index"
-                :min-width="item.width"
-                v-if="item.column_name != 'id'"
-                align="center"
-              ></el-table-column>
-            </template>
-            <el-table-column label="操作" min-width="70px" align="center">
-              <template>
-                <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="pagination">
-            <el-pagination
-              background
-              layout="total, prev, pager, next"
-              :current-page="query.pageIndex"
-              :page-size="query.pageSize"
-              :total="pageTotal"
-              @current-change="handlePageChange"
-            ></el-pagination>
-          </div>
-        </el-card>
+
+           <el-table
+                  :data="tableData"
+                  border
+                  class="table"
+                  ref="multipleTable"
+                 :default-sort = "{prop: 'taskId', order: 'descending'}"
+                  header-cell-class-name="table-header"
+                
+                  @selection-change="handleSelectionChange"
+                >
+                  <el-table-column prop="taskId" label="任务编号" width="55" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="任务名称"></el-table-column>
+
+                  <el-table-column label="任务类型" prop="taskType" show-overflow-tooltip>  
+                      <template slot-scope="scope">
+                        <p v-if="scope.row.taskType=='1'">流通任务</p>
+                        <p v-if="scope.row.taskType=='0'">设计任务</p>
+                    </template>        
+                   </el-table-column>
+                  <el-table-column prop="finishTime" label="完成时间">
+                  
+                  </el-table-column>
+                  <!-- <el-table-column prop="finishState" label="状态" align="center" width="80">
+                  </el-table-column> -->
+                  <el-table-column label="操作" align="center" >
+
+                <template slot-scope="scope">
+                  <el-button
+                    @click="Detail(scope.row)"
+                    type="text"
+                    size="small "
+                    class="box1"
+                  >查看详情</el-button>
+                </template>
+              </el-table-column>
+              
+     
+          </el-table> 
+            
       </div>
+    
+     
     </el-main>
   </el-container>
 </template>
 
 <script>
+import Qs from "qs";
+import {formatDate} from "../design/dataChange";
 export default {
+  name:"evaluate",
   data() {
     return {
       query: {
         pageIndex: 1,
         pageSize: 5
       },
-      pageTotal: 13,
-      Not_Accepted_Task_Head: [
-        {
-          column_name: "Task_ID",
-          column_comment: "任务ID",
-          width: "40"
-        },
-        {
-          column_name: "Task_Name",
-          column_comment: "任务名称",
-          width: "60"
-        },
-        {
-          column_name: "Task_Type",
-          column_comment: "任务类型",
-          width: "60"
-        },
-        {
-          column_name: "People_Number",
-          column_comment: "参与人员数量",
-          width: "60"
-        },
-        {
-          column_name: "Finished_time",
-          column_comment: "使用时间",
-          width: "50"
-        },
-        {
-          column_name: "Amount_Involved",
-          column_comment: "涉及金额",
-          width: "50"
-        },
-        {
-          column_name: "Submission_Times",
-          column_comment: "提交次数",
-          width: "50"
-        },
-        {
-          column_name: "redo",
-          column_comment: "是否存在重做记录",
-          width: "50"
-        },
-        {
-          column_name: "Completion_Status",
-          column_comment: "完成状态",
-          width: "50"
-        }
-      ],
-      Not_Accepted_Task_Data: [
-        {
-          Task_ID: "0001",
-          Task_Name: "光电测控仪器设备",
-          Task_Type: "设计任务",
-          People_Number: "2",
-          Finished_time: "36天",
-          Amount_Involved: "50000",
-          Submission_Times: "13",
-          redo: "否",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0002",
-          Task_Name: "磨床生产",
-          Task_Type: "设计任务",
-          People_Number: "5",
-          Finished_time: "95天",
-          Amount_Involved: "100000",
-          Submission_Times: "26",
-          redo: "否",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0003",
-          Task_Name: "汽车电子产品研发",
-          Task_Type: "设计任务",
-          People_Number: "16",
-          Finished_time: "364天",
-          Amount_Involved: "230000",
-          Submission_Times: "10",
-          redo: "否",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0004",
-          Task_Name: "铁轨零件制造",
-          Task_Type: "流通任务",
-          People_Number: "9",
-          Finished_time: "160天",
-          Amount_Involved: "5000",
-          Submission_Times: "3",
-          redo: "否",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0005",
-          Task_Name: "武器装备模拟装配",
-          Task_Type: "流通任务",
-          People_Number: "25",
-          Finished_time: "245天",
-          Amount_Involved: "5000",
-          Submission_Times: "5",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0006",
-          Task_Name: "卫星应用数据创新",
-          Task_Type: "流通任务",
-          People_Number: "24",
-          Finished_time: "135天",
-          Amount_Involved: "15000",
-          Submission_Times: "5",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0007",
-          Task_Name: "通信技术设计",
-          Task_Type: "流通任务",
-          People_Number: "22",
-          Finished_time: "96天",
-          Amount_Involved: "25000",
-          Submission_Times: "6",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0008",
-          Task_Name: "高分子材料创新",
-          Task_Type: "流通任务",
-          People_Number: "8",
-          Finished_time: "111天",
-          Amount_Involved: "7000",
-          Submission_Times: "1",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0009",
-          Task_Name: "发电智能制造",
-          Task_Type: "流通任务",
-          People_Number: "26",
-          Finished_time: "323天",
-          Amount_Involved: "52000",
-          Submission_Times: "6",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0010",
-          Task_Name: "武器装备模拟装配",
-          Task_Type: "流通任务",
-          People_Number: "14",
-          Finished_time: "45天",
-          Amount_Involved: "5000",
-          Submission_Times: "2",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0011",
-          Task_Name: "磨床生产",
-          Task_Type: "流通任务",
-          People_Number: "30",
-          Finished_time: "35天",
-          Amount_Involved: "15000",
-          Submission_Times: "4",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0012",
-          Task_Name: "汽车电子产品研发",
-          Task_Type: "流通任务",
-          People_Number: "25",
-          Finished_time: "245天",
-          Amount_Involved: "5000",
-          Submission_Times: "5",
-          redo: "是",
-          Completion_Status: "已完成"
-        },
-        {
-          Task_ID: "0013",
-          Task_Name: "发电智能制造",
-          Task_Type: "流通任务",
-          People_Number: "26",
-          Finished_time: "285天",
-          Amount_Involved: "55000",
-          Submission_Times: "13",
-          redo: "是",
-          Completion_Status: "已完成"
-        }
-      ]
+      pageTotal: 10,
+      tableData:"",
+     
+      
     };
   },
+  //初始化方法
+   created() {
+    this.getParams();
+    this.getData();
+  },
+  //初始化俩图标
   mounted() {
     this.getCharts1();
     this.getCharts2();
   },
   methods: {
+    Detail(row) {
+      console.log(row.taskType);
+     if (row.taskType==1) {
+        this.$router.push({
+        path: "/admin/circulationTaskEvaluationDetils",
+        query: {
+          taskID: row.taskId
+        }
+      });
+      } else {
+        this.$router.push({
+        path: "/admin/designTaskEvaluationDetils",
+        query: {
+          taskID: row.taskId
+        }
+      });
+      }
+     
+    },
+    //接受数据
+    getParams() {
+      //需要修改接受企业ID
+      // var routerParams = this.$route.query.taskId;
+      // this.taskId = routerParams;
+      // console.log(routerParams);
+    },
+    //数据查找
+    getData() {
+      console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        // companyId: "1111"
+        userName:"aaaa"
+      });
+      console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/evaluate",
+          data: data
+        })
+        .then(response => {
+          //this.table = response.data.allData;
+           
+           that.tableData = response.data.allData;
+           console.log(response.data.allData);
+          
+          
+        });
+         
+    },
+   
+    //以下为图标
     getCharts1() {
       var myChart = echarts.init(document.getElementById("charts1"));
       var option = {
@@ -362,12 +248,14 @@ export default {
   height: 100%;
 }
 .top {
-  width: 66%;
-  margin-left: 10%;
+  width: 70%;
+  margin-left: 5%;
   height: 320px;
 }
 .lists {
-  width: 98%;
+  width: 100%;
   height: 60%;
+  margin-top: 10%;
+  margin-left: 0%
 }
 </style>
