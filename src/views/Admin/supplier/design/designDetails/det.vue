@@ -303,24 +303,29 @@
         </span>
       </el-dialog>
       <!-- 计划书上传 -->
-      <el-dialog title="上传计划书" :visible.sync="planbook" width="24%" :before-close="handleClose">
+      <el-dialog title="上传计划书" :visible.sync="conbook" width="20%" :before-close="handleClose">
         <el-upload
-          ref="uploadExcel"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :limit="limitNum"
+          class="upload-demo"
+          ref="upload"
+          action="http://127.0.0.1:8082/supplier/importCon"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-success="handleAvatarSuccess1"
+          :limit="1"
           :auto-upload="false"
-          accept=".xlsx"
-          :before-upload="beforeUploadFile"
-          :on-change="fileChange"
-          :on-exceed="exceedFile"
-          :on-success="handleSuccess"
-          :on-error="handleError"
-          :file-list="fileList"
         >
-          <el-button size="small" plain>选择文件</el-button>
+          <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
+          <br />
+          <el-button
+            style="margin-left: 10px;"
+            size="small"
+            type="success"
+            @click="submitUpload"
+          >上传到服务器</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
         <el-form-item>
-          <el-button size="small" type="primary" @click="uploadFile">立即上传</el-button>
+          <el-button size="small" type="primary" @click="upLoadPlan()">立即上传</el-button>
           <el-button size="small">取消</el-button>
         </el-form-item>
       </el-dialog>
@@ -328,22 +333,27 @@
       <!-- 上传合同 -->
       <el-dialog title="上传合同" :visible.sync="conbook" width="20%" :before-close="handleClose">
         <el-upload
-          ref="uploadExcel"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :limit="limitNum"
+          class="upload-demo"
+          ref="upload"
+          action="http://127.0.0.1:8082/supplier/importCon"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-success="handleAvatarSuccess"
+          :limit="1"
           :auto-upload="false"
-          accept=".xlsx"
-          :before-upload="beforeUploadFile"
-          :on-change="fileChange"
-          :on-exceed="exceedFile"
-          :on-success="handleSuccess"
-          :on-error="handleError"
-          :file-list="fileList"
         >
-          <el-button size="small" plain>选择文件</el-button>
+          <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
+          <br />
+          <el-button
+            style="margin-left: 10px;"
+            size="small"
+            type="success"
+            @click="submitUpload"
+          >上传到服务器</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
         <el-form-item>
-          <el-button size="small" type="primary" @click="uploadFile">立即上传</el-button>
+          <el-button size="small" type="primary" @click="upLoad()">立即上传</el-button>
           <el-button size="small">取消</el-button>
         </el-form-item>
       </el-dialog>
@@ -411,7 +421,7 @@ export default {
         {
           contractState: "",
           uploadContractTime: "",
-          checkContractTime: "",
+          checkContractTime: ""
         }
       ],
       //步骤条数据
@@ -453,7 +463,9 @@ export default {
       form: {},
       fileList: [],
       userName: "",
-      design1: ""
+      design1: "",
+      technicalFile: "null",
+      technicalFile1: "null",
     };
   },
 
@@ -710,43 +722,42 @@ export default {
       });
       console.log(response);
     },
+    handleAvatarSuccess1(response, file, fileList) {
+      this.technicalFile1 = response;
+      this.$notify.success({
+        title: "成功",
+        message: `文件上传成功`
+      });
+      console.log(response);
+    },
     upLoad() {
       console.log("你好啊");
       console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskId,
+        Text_File: this.technicalFile
       });
       console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/importCon",
+        url: "http://127.0.0.1:8082/supplier/textimportCon",
         data: data
       });
     },
-    httpRequest(param) {
-      console.log(param);
+    upLoadPlan() {
+      console.log("你好啊");
+      console.log(this.taskId);
       var that = this;
-      let fileObj = param.file; // 相当于input里取得的files
-      let fd = new FormData(); // FormData 对象
-      fd.append("file", fileObj); // 文件对象
-      fd.append("taskId", this.taskId);
-
-      let url = process.env.CMS1_BASE_API + "cdnDel/uploadExcel";
-      let config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        Text_File1: this.technicalFile1
+      });
+      console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/importCon",
-        data: url,
-        fd,
-        config
-      });
-      then(response => {
-        console.log(response);
+        url: "http://127.0.0.1:8082/supplier/textImportPlan",
+        data: data
       });
     }
   }
