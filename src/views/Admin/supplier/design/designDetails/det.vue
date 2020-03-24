@@ -223,7 +223,7 @@
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="supplierCheckDesignState" label="内部审核状态">
             <template slot-scope="scope">
-              <span v-if="+supplierCheckDesignState === 0">待提交</span>
+              <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
               <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
               <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
               <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
@@ -250,7 +250,7 @@
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
               <div v-show="scope.row.supplierCheckDesignState ===0">
-                <div v-if="scope.row.designerName ===null">
+                <div v-if="giveDesigner === 1">
                   <el-button @click="assignDesigners(scope.row)" type="text" size="small">分配设计人员</el-button>
                 </div>
               </div>
@@ -271,10 +271,10 @@
           <el-form-item label="设计师" :label-width="formLabelWidth">
             <el-select v-model="design1" placeholder="请选择分配人员">
               <el-option
-                v-for="designer in designTask"
-                :key="designer.id"
-                :label="designer.designerName"
-                :value="designer.designerName"
+                v-for="designName in designTask"
+                :key="designName.userId"
+                :label="designName.userName"
+                :value="designName"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -373,6 +373,8 @@ export default {
       },
       designTask: [
         {
+          Id:0,
+          userId:0,
           userName: ""
         }
       ],
@@ -457,7 +459,9 @@ export default {
       userName: "",
       design1: "",
       technicalFile: "",
-      technicalFile1: ""
+      technicalFile1: "",
+      giveDesigner: 0, //人员分配按钮控制
+      designerNub: 0
     };
   },
 
@@ -528,6 +532,9 @@ export default {
             } else if (response.data.allData.b[0].refusePlanMessage != null) {
               this.show = 1;
             }
+          }
+          if (response.data.allData.a[0].supplierDistributionState == 0) {
+            this.giveDesigner = 1;
           }
           this.this.taskId = response.data.allData.a[0].taskId;
           console.log(response.data.allData.a[0].taskState);
@@ -668,27 +675,28 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this.designerName = response.data.allData;
+          this.designTask = response.data.allData.a;
+          // this.designTask.id = response.data.allData.b;
           console.log(response);
         });
     },
+    //分配设计人员上传
     tijiao() {
-      console.log(this.type);
-      console.log(this.technicalFile);
+      console.log(this.design1.userName);
+      console.log("哈哈哈");
       var that = this;
       var data = Qs.stringify({
+        userName: this.design1.userName,
         taskId: this.taskId,
-        userName: this.design1
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/assignDesigners"
+          url: "http://127.0.0.1:8082/supplier/assignDesigners",
+          data: data
         })
         .then(response => {
-          this.mainStaskID = response.data.allData;
-          this.zzzz = response.data.allData;
           this.$message.success("提交成功");
           this.dialogTableVisible = false;
         });
