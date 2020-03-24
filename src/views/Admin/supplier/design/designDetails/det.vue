@@ -303,7 +303,7 @@
         </span>
       </el-dialog>
       <!-- 计划书上传 -->
-      <el-dialog title="上传计划书" :visible.sync="conbook" width="20%" :before-close="handleClose">
+      <el-dialog title="上传计划书" :visible.sync="planbook"  :before-close="handleClose">
         <el-upload
           class="upload-demo"
           ref="upload"
@@ -328,6 +328,7 @@
           <el-button size="small" type="primary" @click="upLoadPlan()">立即上传</el-button>
           <el-button size="small">取消</el-button>
         </el-form-item>
+       
       </el-dialog>
 
       <!-- 上传合同 -->
@@ -352,7 +353,7 @@
           >上传到服务器</el-button>
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
-        <el-form-item>
+         <el-form-item> 
           <el-button size="small" type="primary" @click="upLoad()">立即上传</el-button>
           <el-button size="small">取消</el-button>
         </el-form-item>
@@ -731,6 +732,7 @@ export default {
       console.log(response);
     },
     upLoad() {
+      planbook: true,
       console.log("你好啊");
       console.log(this.taskId);
       var that = this;
@@ -746,6 +748,7 @@ export default {
       });
     },
     upLoadPlan() {
+      this.planbook = true;
       console.log("你好啊");
       console.log(this.taskId);
       var that = this;
