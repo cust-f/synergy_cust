@@ -303,7 +303,7 @@
         </span>
       </el-dialog>
       <!-- 计划书上传 -->
-      <el-dialog title="上传计划书" :visible.sync="planbook" width="25%" :before-close="handleClose">
+      <el-dialog title="上传计划书" :visible.sync="planbook"  :before-close="handleClose">
         <el-upload
           class="upload-demo"
           ref="upload"

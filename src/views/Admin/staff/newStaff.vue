@@ -289,7 +289,7 @@ export default {
         Role_Id: this.addList.roleId,
         Phone:this.addList.phone,
         Email:this.addList.email,
-        Password1:this.addList.passWord,
+        Password1:this.addList.password,
         
       
       });
@@ -315,6 +315,27 @@ export default {
     },
     // 保存编辑
     saveEdit() {
+      
+      var that = this;
+      var data = Qs.stringify({
+        username: "",
+        User_Name: this.form.userName,
+        Phone:this.form.phone,
+        Email:this.form.email,
+        Password:this.form.passWord,
+      });
+      console.log(data);
+      //console.log(this.addList.email);
+
+      that.axios({
+        method: "get",
+        url: "http://127.0.0.1:8082/newStaff/editlist",
+        data: data
+      });
+      // this.$message.success("提交成功");
+      //this.tableData.push(this.form);
+      //this.form = {};
+      console.log(this.form);
       this.editVisible = false;
       this.$message.success(`修改第 ${this.idx + 1} 行成功`);
       this.$set(this.tableData, this.idx, this.form);
