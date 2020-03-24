@@ -146,7 +146,7 @@
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
               <div v-show="scope.row.checkPlanState === 0">
-                <el-button @click="upLoadPlan()" type="text" size="small">上传</el-button>
+                <el-button @click="upLoadPlanT()" type="text" size="small">上传</el-button>
               </div>
               <div v-show="scope.row.checkPlanState > 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
@@ -190,7 +190,7 @@
             <el-table-column label="操作" width="180" align="center">
               <template slot-scope="scope">
                 <div v-show="scope.row.contractState===0">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">上传</el-button>
+                  <el-button @click="upLoadConT()" type="text" size="small">上传</el-button>
                 </div>
                 <div v-show="scope.row.contractState===1">
                   <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
@@ -199,7 +199,7 @@
                   <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
                 <div v-show="scope.row.contractState===3">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">重新上传</el-button>
+                  <el-button @click="upLoadConT(scope.row)" type="text" size="small">重新上传</el-button>
                 </div>
               </template>
             </el-table-column>
@@ -303,7 +303,7 @@
         </span>
       </el-dialog>
       <!-- 计划书上传 -->
-      <el-dialog title="上传计划书" :visible.sync="conbook" width="20%" :before-close="handleClose">
+      <el-dialog title="上传计划书" :visible.sync="planbook" width="25%" :before-close="handleClose">
         <el-upload
           class="upload-demo"
           ref="upload"
@@ -324,10 +324,6 @@
           >上传到服务器</el-button>
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
-        <el-form-item>
-          <el-button size="small" type="primary" @click="upLoadPlan()">立即上传</el-button>
-          <el-button size="small">取消</el-button>
-        </el-form-item>
       </el-dialog>
 
       <!-- 上传合同 -->
@@ -352,10 +348,6 @@
           >上传到服务器</el-button>
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
-        <el-form-item>
-          <el-button size="small" type="primary" @click="upLoad()">立即上传</el-button>
-          <el-button size="small">取消</el-button>
-        </el-form-item>
       </el-dialog>
     </el-main>
   </div>
@@ -464,8 +456,8 @@ export default {
       fileList: [],
       userName: "",
       design1: "",
-      technicalFile: "null",
-      technicalFile1: "null",
+      technicalFile: "",
+      technicalFile1: ""
     };
   },
 
@@ -702,7 +694,10 @@ export default {
         });
     },
 
-    upLoadPlan() {
+    upLoadPlanT() {
+      this.planbook = true;
+    },
+    upLoadConT() {
       this.planbook = true;
     },
     submitUpload() {
@@ -721,22 +716,10 @@ export default {
         message: `文件上传成功`
       });
       console.log(response);
-    },
-    handleAvatarSuccess1(response, file, fileList) {
-      this.technicalFile1 = response;
-      this.$notify.success({
-        title: "成功",
-        message: `文件上传成功`
-      });
-      console.log(response);
-    },
-    upLoad() {
-      console.log("你好啊");
-      console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        Text_File: this.technicalFile
+        Text_File1: this.technicalFile1
       });
       console.log(data);
       that.axios({
@@ -745,9 +728,13 @@ export default {
         data: data
       });
     },
-    upLoadPlan() {
-      console.log("你好啊");
-      console.log(this.taskId);
+    handleAvatarSuccess1(response, file, fileList) {
+      this.technicalFile1 = response;
+      this.$notify.success({
+        title: "成功",
+        message: `文件上传成功`
+      });
+      console.log(response);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
