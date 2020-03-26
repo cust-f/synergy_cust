@@ -377,6 +377,8 @@ export default {
       technicalFile:"null",
       //只能被调用一次
       firstPlayFlag: true, // 第一次播放标记
+      //供应商传值
+      SupplierListInt:"",
       ruleForm: "",
       zzzz: "null",
       mainStaskID: "null",
@@ -623,7 +625,8 @@ export default {
       this.addVisible = true;
       var that = this;
       var data = Qs.stringify({
-        PId: this.type
+        PId: this.type,
+        username :"aaaa"
       });
       that
         .axios({
@@ -633,7 +636,7 @@ export default {
         })
         .then(response => {
           this.subStaskType = response.data.allData.a;
-                    this.supplierCompany = response.data.allData.b;
+          this.supplierCompany = response.data.allData.b;
           console.log(response);
         });
     },
