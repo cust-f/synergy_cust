@@ -158,7 +158,7 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button type="text" size="small" >下载</el-button>
+              <el-button type="text" size="small" v-if ="scope.row.checkPlanState !==0">下载</el-button>
               <el-button @click="JHSTG(scope.row)" type="text" size="small" v-if="scope.row.checkPlanState===1">通过</el-button>
               <el-button @click="JHSJJ(scope.row)" type="text" size="small" v-if="scope.row.checkPlanState===1">拒绝</el-button>
             </template>
@@ -207,7 +207,7 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button type="text" size="small" >下载</el-button>
+              <el-button type="text" size="small" v-if="scope.row.contractState!==0">下载</el-button>
               <el-button @click="HTSHTG(scope.row)" type="text" size="small" v-if="scope.row.contractState===1">通过</el-button>
               <el-button @click="HTSHJJ(scope.row)" type="text" size="small" v-if="scope.row.contractState===1">拒绝</el-button>
             </template>
