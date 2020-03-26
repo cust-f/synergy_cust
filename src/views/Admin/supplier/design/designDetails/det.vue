@@ -146,7 +146,7 @@
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
               <div v-show="scope.row.checkPlanState === 0">
-                <el-button @click="upLoadPlan()" type="text" size="small">上传</el-button>
+                <el-button @click="upLoadPlanT()" type="text" size="small">上传</el-button>
               </div>
               <div v-show="scope.row.checkPlanState > 0">
                 <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
@@ -190,7 +190,7 @@
             <el-table-column label="操作" width="180" align="center">
               <template slot-scope="scope">
                 <div v-show="scope.row.contractState===0">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">上传</el-button>
+                  <el-button @click="upLoadConT()" type="text" size="small">上传</el-button>
                 </div>
                 <div v-show="scope.row.contractState===1">
                   <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
@@ -199,7 +199,7 @@
                   <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
                 <div v-show="scope.row.contractState===3">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">重新上传</el-button>
+                  <el-button @click="upLoadConT(scope.row)" type="text" size="small">重新上传</el-button>
                 </div>
               </template>
             </el-table-column>
@@ -223,7 +223,7 @@
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="supplierCheckDesignState" label="内部审核状态">
             <template slot-scope="scope">
-              <span v-if="+supplierCheckDesignState === 0">待提交</span>
+              <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
               <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
               <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
               <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
@@ -250,7 +250,7 @@
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
               <div v-show="scope.row.supplierCheckDesignState ===0">
-                <div v-if="scope.row.designerName ===null">
+                <div v-if="giveDesigner === 1">
                   <el-button @click="assignDesigners(scope.row)" type="text" size="small">分配设计人员</el-button>
                 </div>
               </div>
@@ -271,10 +271,10 @@
           <el-form-item label="设计师" :label-width="formLabelWidth">
             <el-select v-model="design1" placeholder="请选择分配人员">
               <el-option
-                v-for="designer in designTask"
-                :key="designer.id"
-                :label="designer.designerName"
-                :value="designer.designerName"
+                v-for="designName in designTask"
+                :key="designName.userId"
+                :label="designName.userName"
+                :value="designName"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -303,49 +303,51 @@
         </span>
       </el-dialog>
       <!-- 计划书上传 -->
-      <el-dialog title="上传计划书" :visible.sync="planbook" width="24%" :before-close="handleClose">
+      <el-dialog title="上传计划书" :visible.sync="planbook"  :before-close="handleClose">
         <el-upload
-          ref="uploadExcel"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :limit="limitNum"
+          class="upload-demo"
+          ref="upload"
+          action="http://127.0.0.1:8082/supplier/importCon"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-success="handleAvatarSuccess1"
+          :limit="1"
           :auto-upload="false"
-          accept=".xlsx"
-          :before-upload="beforeUploadFile"
-          :on-change="fileChange"
-          :on-exceed="exceedFile"
-          :on-success="handleSuccess"
-          :on-error="handleError"
-          :file-list="fileList"
         >
-          <el-button size="small" plain>选择文件</el-button>
+          <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
+          <br />
+          <el-button
+            style="margin-left: 10px;"
+            size="small"
+            type="success"
+            @click="submitUpload"
+          >上传到服务器</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
-        <el-form-item>
-          <el-button size="small" type="primary" @click="uploadFile">立即上传</el-button>
-          <el-button size="small">取消</el-button>
-        </el-form-item>
       </el-dialog>
 
       <!-- 上传合同 -->
       <el-dialog title="上传合同" :visible.sync="conbook" width="20%" :before-close="handleClose">
         <el-upload
-          ref="uploadExcel"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :limit="limitNum"
+          class="upload-demo"
+          ref="upload"
+          action="http://127.0.0.1:8082/supplier/importCon"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-success="handleAvatarSuccess"
+          :limit="1"
           :auto-upload="false"
-          accept=".xlsx"
-          :before-upload="beforeUploadFile"
-          :on-change="fileChange"
-          :on-exceed="exceedFile"
-          :on-success="handleSuccess"
-          :on-error="handleError"
-          :file-list="fileList"
         >
-          <el-button size="small" plain>选择文件</el-button>
+          <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
+          <br />
+          <el-button
+            style="margin-left: 10px;"
+            size="small"
+            type="success"
+            @click="submitUpload"
+          >上传到服务器</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
-        <el-form-item>
-          <el-button size="small" type="primary" @click="uploadFile">立即上传</el-button>
-          <el-button size="small">取消</el-button>
-        </el-form-item>
       </el-dialog>
     </el-main>
   </div>
@@ -371,6 +373,8 @@ export default {
       },
       designTask: [
         {
+          Id:0,
+          userId:0,
           userName: ""
         }
       ],
@@ -411,7 +415,7 @@ export default {
         {
           contractState: "",
           uploadContractTime: "",
-          checkContractTime: "",
+          checkContractTime: ""
         }
       ],
       //步骤条数据
@@ -453,7 +457,11 @@ export default {
       form: {},
       fileList: [],
       userName: "",
-      design1: ""
+      design1: "",
+      technicalFile: "",
+      technicalFile1: "",
+      giveDesigner: 0, //人员分配按钮控制
+      designerNub: 0
     };
   },
 
@@ -524,6 +532,9 @@ export default {
             } else if (response.data.allData.b[0].refusePlanMessage != null) {
               this.show = 1;
             }
+          }
+          if (response.data.allData.a[0].supplierDistributionState == 0) {
+            this.giveDesigner = 1;
           }
           this.this.taskId = response.data.allData.a[0].taskId;
           console.log(response.data.allData.a[0].taskState);
@@ -664,33 +675,37 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this.designerName = response.data.allData;
+          this.designTask = response.data.allData.a;
+          // this.designTask.id = response.data.allData.b;
           console.log(response);
         });
     },
+    //分配设计人员上传
     tijiao() {
-      console.log(this.type);
-      console.log(this.technicalFile);
+      console.log(this.design1.userName);
+      console.log("哈哈哈");
       var that = this;
       var data = Qs.stringify({
+        userName: this.design1.userName,
         taskId: this.taskId,
-        userName: this.design1
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/assignDesigners"
+          url: "http://127.0.0.1:8082/supplier/assignDesigners",
+          data: data
         })
         .then(response => {
-          this.mainStaskID = response.data.allData;
-          this.zzzz = response.data.allData;
           this.$message.success("提交成功");
           this.dialogTableVisible = false;
         });
     },
 
-    upLoadPlan() {
+    upLoadPlanT() {
+      this.planbook = true;
+    },
+    upLoadConT() {
       this.planbook = true;
     },
     submitUpload() {
@@ -709,44 +724,35 @@ export default {
         message: `文件上传成功`
       });
       console.log(response);
-    },
-    upLoad() {
-      console.log("你好啊");
-      console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskId,
+        Text_File1: this.technicalFile1
       });
       console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/importCon",
+        url: "http://127.0.0.1:8082/supplier/textimportCon",
         data: data
       });
     },
-    httpRequest(param) {
-      console.log(param);
+    handleAvatarSuccess1(response, file, fileList) {
+      this.technicalFile1 = response;
+      this.$notify.success({
+        title: "成功",
+        message: `文件上传成功`
+      });
+      console.log(response);
       var that = this;
-      let fileObj = param.file; // 相当于input里取得的files
-      let fd = new FormData(); // FormData 对象
-      fd.append("file", fileObj); // 文件对象
-      fd.append("taskId", this.taskId);
-
-      let url = process.env.CMS1_BASE_API + "cdnDel/uploadExcel";
-      let config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        Text_File1: this.technicalFile1
+      });
+      console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/importCon",
-        data: url,
-        fd,
-        config
-      });
-      then(response => {
-        console.log(response);
+        url: "http://127.0.0.1:8082/supplier/textImportPlan",
+        data: data
       });
     }
   }
