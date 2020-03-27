@@ -6,6 +6,7 @@
       background-color="#FFF"
       text-color="#000"
       active-text-color="#20a0ff"
+      :default-openeds="true"
       router
     >
       <template v-for="item in items">
