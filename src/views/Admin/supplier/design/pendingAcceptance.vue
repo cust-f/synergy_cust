@@ -13,25 +13,23 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型"></el-table-column>
+      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
+      <el-table-column prop="designerName" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="taskLeader" label="设计师" align="center"></el-table-column>
-      <el-table-column prop="taskLeader" label="状态" align="center"></el-table-column>
+      <el-table-column prop="supplierCheckDesignState" label="设计状态" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="承接供应商"></el-table-column>
-
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
+      <el-table-column prop="deadline" label="截止日期">
+        <template slot-scope="scope">{{scope.row.deadline}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <el-button @click="pendingAcceptanceDet(scope.row) " type="text" size="small">查看详情</el-button>
+          <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,11 +62,19 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
+      tableData:[
+        {
+          taskId: "",
+          taskName: "",
+          taskType:"",
+          companyName: "",
+          designerName: "",
+          deadline: ""
+        }
+      ],
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData: [
-      ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -87,10 +93,10 @@ export default {
     //   this.$router.push("/admin/pendingAcceptanceDet");
     // },
 
-    pendingAcceptanceDet(row) {
+    Det(row) {
       console.log(row.taskId);
       this.$router.push({
-        path: "/admin/pendingAcceptanceDet",
+        path: "/admin/Det",
         query: {
           taskId: row.taskId
         }

@@ -2,31 +2,23 @@
   <div>
     <el-container>
       <el-main>
-        <h3>用户管理</h3>
-        <el-divider></el-divider>
-        <div class="container">
-          <div class="handle-box">
-            <el-button
-              type="primary"
-              icon="el-icon-delete"
-              class="handle-del mr10"
-              @click="delAllSelection"
-            >批量删除</el-button>
-            <el-button
-              type="primary"
-              icon="el-icon-circle-plus-outline"
-              class="handle-del mr10"
-              @click="addData"
-            >增加</el-button>
-
-            <el-select v-model="name" placeholder="企业名称" class="handle-input mr10"></el-select>
-            <el-select v-model="name" placeholder="用户名" class="handle-input mr10"></el-select>
-
-            <el-select v-model="role" placeholder="角色" class="handle-input mr10">
+        <div class="box">
+          <h3>用户管理</h3>
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <template>
+          <div>
+            <div class="container">
+              <div class="handle-box">
+                
+                <!-- <el-button type="primary" icon="el-icon-delete" class="handle-del mr10" @click="delAllSelection">删除</el-button> -->
+                <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
+                <!-- <el-select v-model="Company_Name" placeholder="企业名称" class="handle-input mr10"></el-select> -->
+            <el-select v-model="User_Name" placeholder="账号名称" class="handle-input mr10"></el-select>
+            <el-select v-model="Role_Name" placeholder="角色名称" class="handle-input mr10">
               <el-option label="需求方" value="1"></el-option>
               <el-option label="供应商" value="2"></el-option>
             </el-select>
-            <el-button type="primary" icon="el-icon-search" @click="choose">筛选</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="choose">搜索</el-button>
           </div>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <el-table
@@ -37,23 +29,18 @@
             header-cell-class-name="table-header"
             @selection-change="handleSelectionChange"
           >
-            <el-table-column type="selection" width="55" align="center"></el-table-column>
-            <el-table-column prop="user_name" label="用户名" align="center"></el-table-column>
-            <el-table-column prop="Company_name" label="企业名称"></el-table-column>
-            <el-table-column prop="role" label="角色"></el-table-column>
-            <el-table-column prop="email" label="邮箱"></el-table-column>
-            <el-table-column prop="Business_Tel" label="联系方式"></el-table-column>
-            <el-table-column prop="password" width="108" label="密码"></el-table-column>
-            <el-table-column label="操作" width="180" align="center">
-              <template slot-scope="scope">
-                <!-- <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-                >编辑</el-button>-->
-                <el-button @click="supplyDetail" type="text" size="small">初始化密码</el-button>
-                <el-button type="text" class="red" @click="freeze(scope.$index, scope.row)">冻结</el-button>
-                <el-button type="text" class="red" @click="unfreeze(scope.$index, scope.row)">解冻</el-button>
+            <!-- <el-table-column type="selection" width="55" align="center"></el-table-column> -->
+            <el-table-column prop="User_Name" label="账号名称" width="108" align="center"></el-table-column>
+            <el-table-column prop="Company_Name" label="企业名称" align="center"></el-table-column>
+            <el-table-column prop="Role_Name" label="角色名称" width="108" align="center">
+            </el-table-column>
+            <el-table-column prop="Email" label="邮箱" width="160" align="center"></el-table-column>
+            <el-table-column prop="Phone" label="联系方式" width="160" align="center"></el-table-column>
+            <el-table-column prop="Password" width="108" label="用户密码" align="center"></el-table-column>
+            <el-table-column label="操作" width="160" align="center">
+                <template slot-scope="scope">
+                <el-button type="text" size="small">初始化密码</el-button>
+               <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -69,139 +56,160 @@
           </div>
         </div>
 
-        <el-dialog title="增加" :visible.sync="addVisible" width="50%">
-          <el-form ref="form" :model="addList" label-width="70px">
-            <el-form-item label="用户名">
-              <el-input v-model="user_name"></el-input>
-            </el-form-item>
-            <el-form-item label="企业名称">
-              <el-input v-model="company_name"></el-input>
-            </el-form-item>
-            <el-form-item label="角色">
-              <el-input v-model="role"></el-input>
-            </el-form-item>
-            <el-form-item label="邮箱">
-              <el-input v-model="email"></el-input>
-            </el-form-item>
 
-            <el-form-item label="联系方式">
-              <el-input v-model="contect"></el-input>
-            </el-form-item>
-            <el-form-item label="密码">
-              <el-input v-model="password"></el-input>
-            </el-form-item>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="addVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveAdd">确 定</el-button>
-          </span>
-        </el-dialog>
+          <!-- 新增弹出框 -->
+            <el-dialog title="用户信息" :visible.sync="addVisible" width="50%">
+              <el-form ref="form" :model="addList" label-width="70px">
+                <el-form-item label="账号名称">
+                  <el-input v-model="addList.User_Name"></el-input>
+                </el-form-item>
+                <el-form-item label="企业名称">
+                  <el-input v-model="addList.Company_Name"></el-input>
+                </el-form-item>
+                <el-form-item label="角色名称">
+                  <el-select v-model="addList.Role_Name" style="width:100%" placeholder="请选择">
+                    <el-option  v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                  <el-input v-model="addList.Email"></el-input>
+                </el-form-item>
+                <el-form-item label="联系方式">
+                  <el-input v-model="addList.Phone"></el-input>
+                </el-form-item>
+                 <el-form-item label="用户密码">
+                  <el-input v-model="addList.Password"></el-input>
+                </el-form-item>
+              </el-form>
+              <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="saveAdd">确 定</el-button>
+                <el-button @click="addVisible = false">取 消</el-button>               
+              </span>
+            </el-dialog>
+          </div>
+        </template>
       </el-main>
     </el-container>
   </div>
 </template>
 
 <script>
+
+import Qs from "qs";
 export default {
   name: "userManagement",
   data() {
     return {
-      input1: "",
-      input2: "",
-      input3: "",
-      input4: "",
+      options:[{
+      value:'需求方',
+      label:'需求方',
+      },{
+      value:'供应商',
+      label:'供应商',
+      }],
       query: {
         pageIndex: 1,
         pageSize: 10
       },
-      multipleSelection: [], //批量删除数组
+      addList: {
+        id: 1,
+        User_Name: "",
+        Company_Name: "",
+        Role_Name: "",
+        Email: "",
+        Phone: "",
+        Password: ""
+      },
+
+      tableData:[{
+        User_Name: "admin",
+        Company_Name: "长春第一汽车制造厂",
+        Role_Name: "需求方",
+        Email: "1233455@qq.com",
+        Phone: "18899228333",
+        Password: "123"
+      }],
+
+      multipleSelection: [],
       editVisible: false,
       addVisible: false,
-
-      id: 0, //记录任务数
-      //招标信息
-      newTask: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        head: "",
-        detail: ""
+      pageTotal: 0,
+      form: {},
+      idx: -1,
+      id: -1,
+    
+      addForm: {
+        User_Name: "",
+        Company_Name: "",
+        Role_Name: "",
+        Email: "",
+        Phone: "",
+        Password: ""
       },
-      //子任务表格
-      tableData: [
-        {
-          user_name: "宋东润",
-          Company_name: "长春第一汽车制造厂",
-          role: "需求方",
-          email: "1235406@163.com",
-          Business_Tel: "0451-82872000",
-          password: "123123"
-        },
-        {
-          user_name: "苏得税",
-          Company_name: "沈阳机床集团有限责任公司",
-          role: "供应商",
-          email: "1231206@163.com",
-          Business_Tel: "0451-82872000",
-          password: "cdfgssf"
-        },
-        {
-          user_name: "加蒂斯",
-          Company_name: "哈尔滨电机厂有限责任公司",
-          role: "供应商",
-          email: "1232306@163.com",
-          Business_Tel: "0456-82372000",
-          password: "fechfr"
-        },
-        {
-          user_name: "刘大海",
-          Company_name: "大连重工-起重集团有限公司",
-          role: "供应商",
-          email: "12306@163.com",
-          Business_Tel: "0451-82872000",
-          password: "xffdsgg"
-        },
-        {
-          user_name: "苏之星",
-          Company_name: "北方重工集团有限公司",
-          role: "供应商",
-          email: "12426@163.com",
-          Business_Tel: "0451-828745390",
-          password: "xffdsgg"
-        },
-        {
-          user_name: "蔡长件",
-          Company_name: "长春光华微电子集团",
-          role: "供应商",
-          email: "123g306@163.com",
-          Business_Tel: "0451-82872000",
-          password: "xffdsgg"
-        },
-        {
-          user_name: "王期间",
-          Company_name: "大连冰山集团有限公司",
-          role: "供应商",
-          email: "12234306@163.com",
-          Business_Tel: "0451-82872000",
-          password: "xffdsgg"
-        }
-      ],
-      addList: [
-        {
-          id: "",
-          taskNum: "",
-          taskName: "",
-          taskType: "",
-          bidTime: "",
-          supplyCompany: "",
-          select: ""
-        }
-      ],
-      form: {}
+      value: ""
     };
   },
+  created() {
+    this.getData();
+  },
   methods: {
+    // getData(){
+    //   //this.tableData=null
+    // },      
+     //新增操作
+    addData() {
+      this.addVisible = true;
+      var that = this;
+      var data = Qs.stringify({
+        PId: this.type
+      })
+      },
+     //保存新增
+    saveAdd() {
+
+      var that = this;
+      var data = Qs.stringify({
+        userName: "aaaa",
+        User_Name: this.addList.User_Name,
+        Company_Name: this.addList.Company_Name,
+        Role_Name: this.addList.Role_Name,
+        Email: this.addList.Email,
+        Phone: this.addList.Phone,
+        Password: this.addList.Password,
+      });
+      console.log(data);
+      console.log(this.addList.user);
+
+      that
+      .axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/user/addUserInformation",
+        data: data
+      });
+
+      this.$message.success("提交成功");
+            this.addVisible = false;
+
+      this.tableData.push(this.addList);
+      this.addList = {};
+      },
+
+
+
+    // // 获取 easy-mock 的模拟数据
+    // getData() {
+    //   //   this.tableData = res.list;
+    //   //   this.pageTotal = tableData.length;
+    // },
+    
+    // // 触发搜索按钮
+    // handleSearch() {
+    //   this.$set(this.query, "pageIndex", 1);
+    //   this.getData();
+    // },
     // 删除操作
     handleDelete(index, row) {
       // 二次确认删除
@@ -211,81 +219,95 @@ export default {
         .then(() => {
           this.$message.success("删除成功");
           this.tableData.splice(index, 1);
-          --this.id;
         })
         .catch(() => {});
     },
-    // 多选操作
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    delAllSelection() {
-      let length = this.multipleSelection.length;
-      this.id = -length;
-      let str = "";
-      for (let j = 0; j < length; j++) {
-        this.tableData.splice(this.multipleSelection[j], 1);
-        str += this.multipleSelection[j].name + " ";
-      }
-      this.$message.error(`删除了${str}`);
-      this.multipleSelection = [];
-    },
-    //新增操作
-    addData() {
-      this.addVisible = true;
-    },
-    //保存新增
-    saveAdd() {
-      ++this.id;
-      this.addList.id = this.id;
-      this.tableData.push(this.addList);
-      console.log(this.addList);
-      this.addList = {};
-      this.addVisible = false;
-    },
-    // 编辑操作
-    handleEdit(index, row) {
-      this.idx = index;
-      this.form = row;
-      this.editVisible = true;
-    },
-    // 保存编辑
-    saveEdit() {
-      this.editVisible = false;
-      this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-      this.$set(this.tableData, this.idx, this.form);
-    }
+    // // 多选操作
+    // handleSelectionChange(val) {
+    //   this.multipleSelection = val;
+    // },
+    // delAllSelection() {
+    //   let length = this.multipleSelection.length;
+    //   let str = "";
+    //   for (let j = 0; j < length; j++) {
+    //     this.tableData.splice(this.multipleSelection[j], 1);
+    //     str += this.multipleSelection[j].name + " ";
+    //   }
+    //   this.$message.error(`删除了${str}`);
+    //   this.multipleSelection = [];
+    // },
+    
+    // // 编辑操作
+    // handleEdit(index, row) {
+    //   this.idx = index;
+    //   this.form = row;
+    //   this.editVisible = true;
+    // },
+    // // 保存编辑
+    // saveEdit() {
+    //   this.editVisible = false;
+    //   this.$message.success(`修改第 ${this.idx + 1} 行成功`);
+    //   this.$set(this.tableData, this.idx, this.form);
+    // },
+    // 分页导航
+   // handlePageChange(val) {},
+
+   // /*
+    // *转跳对应任务信息页面
+   //  */
+
+   // addstaff: function() {
+    //  this.addFormVisible = true;
+  //  },
+
+  //  open() {
+   //   this.$message({
+   //     showClose: true,
+    //    message: "提交成功",
+    //    type: "success"
+   //   });
+    
   }
-};
+}
 </script>
 
-<style>
-.el-select .el-input {
-  width: 130px;
-}
-.input-with-select .el-input-group__prepend {
-  background-color: #fff;
-}
+<style scoped>
 .con {
   width: 500px;
   height: 1000px;
   margin: 0 auto;
   text-align: center;
 }
+
+.handle-box {
+  margin-bottom: 20px;
+}
+
+.handle-select {
+  width: 120px;
+}
+
+.handle-input {
+  width: 300px;
+  display: inline-block;
+}
 .table {
-  /* font-size: 16px; */
+  width: 100%;
+  font-size: 16px;
 }
-.newTask textarea {
-  min-height: 100px !important;
-  width: 500px !important;
+.red {
+  color: #ff0000;
 }
-.tb-edit .el-input {
-  display: none;
+.mr10 {
+  margin-right: 10px;
 }
-.tb-edit .current-row .el-input {
+.table-td-thumb {
   display: block;
+  margin: auto;
+  width: 40px;
+  height: 40px;
 }
-.tb-edit .current-row .el-input + span {
-  display: none;
+.box {
+  font-size: 24px;
 }
 </style>

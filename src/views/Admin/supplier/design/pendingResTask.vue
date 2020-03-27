@@ -27,11 +27,7 @@
 
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <el-button @click="pendingResTaskDet(scope.row) " type="text" size="small">查看详情</el-button>
-
-          <el-button @click="accept(scope.row)" type="text" size="small">接收</el-button>
-
-          <el-button @click="noAccept(scope.row)" type="text" size="small">不接收</el-button>
+          <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -45,38 +41,6 @@
         @current-change="handlePageChange"
       ></el-pagination>
     </div>
-
-    <el-dialog title="上传需求书" :visible.sync="planbook" width="20%" :before-close="handleClose">
-      <el-upload
-        class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        multiple
-        :limit="3"
-        :on-exceed="handleExceed"
-        :file-list="fileList"
-      >
-        <el-button size="small" type="primary">上传需求书</el-button>
-        <div slot="tip" class="el-upload__tip">只能上传doc文件</div>
-      </el-upload>
-      <el-button type="primary" @click="success()">确 定</el-button>
-    </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="acceptf" width="20%" :before-close="handleClose">
-      <span>上传成功，请等待审核</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="acceptf=false">确 定</el-button>
-      </span>
-    </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="disacceptf" width="20%" :before-close="handleClose">
-      <span>拒绝成功</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="disacceptf=false">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -92,21 +56,6 @@ export default {
 
   data() {
     return {
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        }
-      ],
-      acceptf: false, //接受需求弹窗
-      disacceptf: false,
-      planbook: false,
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -114,24 +63,16 @@ export default {
 
       tableData: [
         {
-          // id: "",
-          // acceptCompanyId: "",
-          // acceptCompanyName: "",
-          // supplierName: "",
-          // userId: "",
-          // taskCheck: "",
-          // companyName: "",
-          // state: "",
-          // date: ""
+          taskId: "",
+          taskName: "",
+          supplierName: "",
+          companyName: "",
+          beginTime: "",
+          deadline: ""
         }
       ],
       //接受表单数据
       formLabelWidth: "120px",
-      activeName: "first",
-      tableData: [],
-      multipleSelection: [],
-      editVisible: false,
-      addVisible: false,
       pageTotal: 0,
       form: {},
       idx: -1,
@@ -147,7 +88,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-      userName: "supplier"
+        userName: "supplier"
       });
 
       console.log(data);
@@ -165,45 +106,11 @@ export default {
         });
     },
 
-    accept(row) {
-      console.log(row.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: row.taskId,
-        taskState: 1
-      });
-      that.axios({
-        method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeState",
-        data: data
-      });
-      planbook=true;
-    },
-    // 全部需求详情页面跳转
-    // jumpResDet() {
-    //   this.$router.push("/admin/pendingResTaskDet");
-    // },
-
-    //不接受
-    noAccept(row){
-      console.log(row.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: row.taskId,
-        taskState:7
-      });
-      that.axios({
-        method: "post",
-        url: "http://127.0.0.1:8082/supplier/changeState",
-        data: data
-      });
-      this.reload();
-    },
     //详情跳转
-    pendingResTaskDet(row) {
+    Det(row) {
       console.log(row.taskId);
       this.$router.push({
-        path: "/admin/pendingResTaskDet",
+        path: "/admin/Det",
         query: {
           taskId: row.taskId
         }
