@@ -73,6 +73,19 @@
                 </el-select>
               </el-form-item>
             </el-col>
+            <el-col :span="11">
+              <el-form-item label="shabi">
+                <el-cascader
+                  style="width:100%;"
+                  expand-trigger="hover"
+                  v-model="selectCateKeys"
+                  :options="xuanzelist"
+                  :props="cateProps"
+                  @change="handleChange"
+                  props.checkStrictly = true
+                ></el-cascader>
+              </el-form-item>
+            </el-col>
           </el-row>
 
           <el-row>
@@ -82,31 +95,25 @@
               </el-form-item>
             </el-col>
           </el-row>
-       
-<el-form-item label="添加附件">
-        <el-upload
-          class="upload-demo"
-          ref="upload"
-          action="http://127.0.0.1:8082/MainTaskInformation/import"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :on-success="handleAvatarSuccess"
-          :limit="1"
-          :auto-upload="false"
-        >
-          <el-button  size="small" slot="trigger"  type="primary">选取文件</el-button>
-          <br>
-          <el-button
-            style="margin-left: 10px;"
-            size="small"
-            type="success"
-            @click="submitUpload"
-          >上传到服务器</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
-        </el-upload>
-</el-form-item>
 
- </el-form>
+          <el-form-item label="添加附件">
+            <el-upload
+              class="upload-demo"
+              action="http://127.0.0.1:8082/MainTaskInformation/import"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              :on-success="handleAvatarSuccess"
+              multiple
+              :limit="1"
+              :on-exceed="handleExceed"
+              :file-list="fileList"
+            >
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
+            </el-upload>
+          </el-form-item>
+        </el-form>
         <div id="div2" align="right">
           <el-button type="primary" class="button1" @click="tijiao">提交</el-button>
         </div>
@@ -126,197 +133,186 @@
             >新增</el-button>
           </div>
           <el-table
-                :data="shuju"
-                border
-                class="table"
-                ref="multipleTable"
-                header-cell-class-name="table-header"
-                @selection-change="handleSelectionChange"
-              >
-              <el-table-column prop="taskName" label="任务名称"></el-table-column>
+            :data="shuju"
+            border
+            class="table"
+            ref="multipleTable"
+            header-cell-class-name="table-header"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column prop="taskName" label="任务名称"></el-table-column>
             <el-table-column prop="Telphone" label="需求方联络电话"></el-table-column>
             <el-table-column prop="beginTime" label="开始时间"></el-table-column>
             <el-table-column prop="deadline" label="结束时间"></el-table-column>
-               
-              </el-table>
-
-
-
-
+          </el-table>
         </div>
 
         <!-- 新增弹出框 -->
         <el-dialog title="新增" :visible.sync="addVisible" width="50%">
           <el-row>
-                <el-col :span="8"></el-col>
-              </el-row>
-              <el-form ref="form" :model="addList" label-width="120px">
-                <el-row>
-                  <el-col :span="11">
-                    <el-form-item label="分解任务名称">
-                      <el-input v-model="addList.taskName"></el-input>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="11">
-                    <el-form-item label="需求方联络电话">
-                      <el-input
-                        v-model="addList.Telphone"      
-                      ></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-
-                <el-row>
-                  <el-col :span="11">
-                    <el-form-item label="发布时间">
-                      <el-date-picker
-                        type="date"
-                        placeholder="选择日期"
-                        v-model="addList.beginTime"
-                        value-format="yyyy-MM-dd"
-                        style="width: 100%;"
-                      ></el-date-picker>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="11">
-                    <el-form-item label="截止时间">
-                      <el-date-picker
-                        type="date"
-                        placeholder="选择日期"
-                        v-model="addList.deadline"
-                        value-format="yyyy-MM-dd"
-                        style="width: 100%;"
-                      ></el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-
-                <el-row>
-                  <el-col :span="11">
-                    <el-form-item label="任务类型">
-                      <el-select
-                        v-model="addList.substasktype1"
-                        placeholder="请选择"
-                        class="selectsupply"
-                        @change="subStask"
-                        style="width:50%;"
-                      >
-                        <el-option
-                          v-for="leibie in subStaskType"
-                          :key="leibie.id"
-                          :label="leibie.industryName"
-                          :value="leibie.id"
-                        ></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="11">
-                    <el-form-item label="任务类别">
-                      <el-select
-                        v-model="addList.taskType"
-                        placeholder="请选择是或者否"
-                        class="selectsupply"
-                        @change="liebieShu"
-                        style="width:50%;"
-                      >
-                        <el-option
-                          v-for="leibie in Task"
-                          :key="leibie.id"
-                          :label="leibie.label"
-                          :value="leibie.id"
-                        ></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-
-                <el-row>
-                  <el-col :span="22">
-                    <el-form-item label="分解任务详细">
-                      <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item label="是否邀请">
-                      <el-select
-                        v-model="cooList.shifouyaoqing"
-                        placeholder="请选择是或者否"
-                        class="selectsupply"
-                        @change="invitate"
-                      >
-                        <el-option
-                          width="180"
-                          v-for="coo in shifou"
-                          :key="coo.id"
-                          :label="coo.label"
-                          :value="coo.id"
-                        ></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="8">
-                    <el-form-item label="核心供应商" :style="{display: visiblehexin}">
-                      <el-select
-                        v-model="SupplierListInt"
-                        multiple placeholder="请选择供应商"
-                        class="selectsupply"
-                      >
-                        <el-option
-                          width="180"
-                          v-for="supplier in supplierCompany"
-                          :key="supplier"
-                          :label="supplier.companyName"
-                          :value="supplier.companyId"
-                        ></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="8">
-                    <el-input
-                      placeholder="等待供应方申请"
-                      v-model="input"
-                      :disabled="true"
-                      :style="{display:shenqing}"
-                    ></el-input>
-                  </el-col>
-                </el-row>
-
-                <el-form-item label="添加附件">
-                  <el-upload
-                    class="upload-demo"
-                    ref="upload"
-                    action="http://127.0.0.1:8082/MainTaskInformation/import"
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
-                    :on-success="handleAvatarSuccess"
-                    :limit="1"
-                    :auto-upload="false"
-                  >
-                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                    <el-button
-                      style="margin-left: 10px;"
-                      size="small"
-                      type="success"
-                      @click="submitUpload"
-                    >上传到服务器</el-button>
-                    <br />
-                    <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
-                  </el-upload>
+            <el-col :span="8"></el-col>
+          </el-row>
+          <el-form ref="form" :model="addList" label-width="120px">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="分解任务名称">
+                  <el-input v-model="addList.taskName"></el-input>
                 </el-form-item>
-              </el-form>
-              <span slot="footer" class="dialog-footer">
-                <el-button @click="addVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveAdd11">确 定</el-button>
-              </span>
-            </el-dialog>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="需求方联络电话">
+                  <el-input v-model="addList.Telphone"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="发布时间">
+                  <el-date-picker
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="addList.beginTime"
+                    value-format="yyyy-MM-dd"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="截止时间">
+                  <el-date-picker
+                    type="date"
+                    placeholder="选择日期"
+                    v-model="addList.deadline"
+                    value-format="yyyy-MM-dd"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="任务类型">
+                  <el-select
+                    v-model="addList.substasktype1"
+                    placeholder="请选择"
+                    class="selectsupply"
+                    @change="subStask"
+                    style="width:50%;"
+                  >
+                    <el-option
+                      v-for="leibie in subStaskType"
+                      :key="leibie.id"
+                      :label="leibie.industryName"
+                      :value="leibie.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="任务类别">
+                  <el-select
+                    v-model="addList.taskType"
+                    placeholder="请选择是或者否"
+                    class="selectsupply"
+                    @change="liebieShu"
+                    style="width:50%;"
+                  >
+                    <el-option
+                      v-for="leibie in Task"
+                      :key="leibie.id"
+                      :label="leibie.label"
+                      :value="leibie.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="分解任务详细">
+                  <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="8">
+                <el-form-item label="是否邀请">
+                  <el-select
+                    v-model="cooList.shifouyaoqing"
+                    placeholder="请选择是或者否"
+                    class="selectsupply"
+                    @change="invitate"
+                  >
+                    <el-option
+                      width="180"
+                      v-for="coo in shifou"
+                      :key="coo.id"
+                      :label="coo.label"
+                      :value="coo.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="8">
+                <el-form-item label="核心供应商" :style="{display: visiblehexin}">
+                  <el-select
+                    v-model="SupplierListInt"
+                    multiple
+                    placeholder="请选择供应商"
+                    class="selectsupply"
+                  >
+                    <el-option
+                      width="180"
+                      v-for="supplier in supplierCompany"
+                      :key="supplier"
+                      :label="supplier.companyName"
+                      :value="supplier.companyId"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="8">
+                <el-input
+                  placeholder="等待供应方申请"
+                  v-model="input"
+                  :disabled="true"
+                  :style="{display:shenqing}"
+                ></el-input>
+              </el-col>
+            </el-row>
+
+            <el-form-item label="添加附件">
+              <el-upload
+                class="upload-demo"
+                action="http://127.0.0.1:8082/MainTaskInformation/import"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                :before-remove="beforeRemove"
+                :on-success="handleAvatarSuccess"
+                multiple
+                :limit="1"
+                :on-exceed="handleExceed"
+                :file-list="fileList"
+              >
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
+              </el-upload>
+            </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="addVisible = false">取 消</el-button>
+            <el-button type="primary" @click="saveAdd11">确 定</el-button>
+          </span>
+        </el-dialog>
 
         <!-- 新增设计人员 -->
         <el-dialog title="添加" :visible.sync="addDesigner" width="50%">
@@ -373,12 +369,23 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
+      //级联选择框的配置对象
+      cateProps: {
+        value: "id",
+        label: "industryName",
+        children: "children",
+        checkStrictly: true
+      },
+      //级联选择框双向绑定到的数组
+      selectCateKeys: [],
+      //商品分类列表
+      xuanzelist: [],
       //上传的文件路径
-      technicalFile:"null",
+      technicalFile: "null",
       //只能被调用一次
       firstPlayFlag: true, // 第一次播放标记
       //供应商传值
-      SupplierListInt:"",
+      SupplierListInt: "",
       ruleForm: "",
       zzzz: "null",
       mainStaskID: "null",
@@ -403,7 +410,7 @@ export default {
         },
         { id: "1", label: "否" }
       ],
-            //供应商列表
+      //供应商列表
       supplierCompany: [
         {
           companyName: "",
@@ -451,19 +458,19 @@ export default {
       //子任务表格
       shuju: [
         {
-          taskName:"",
-           Telphone:"",
-            beginTime:"",
-           deadline:""
+          taskName: "",
+          Telphone: "",
+          beginTime: "",
+          deadline: ""
         }
       ],
 
       addList: [
         {
-          taskName:"",
-           Telphone:"",
-            beginTime:"",
-           deadline:"",
+          taskName: "",
+          Telphone: "",
+          beginTime: "",
+          deadline: ""
         }
       ],
       addList1: [
@@ -499,67 +506,71 @@ export default {
     this.getDate();
   },
   methods: {
+  
+    //级联选中框选中变化项会用到这个函数
+    handleChange() {
+      console.log(this.selectCateKeys);
+    },
 
     tijiao() {
       console.log(this.type);
       console.log(this.technicalFile);
-      if(this.technicalFile == 'null'){
-         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-              type: "warning"
-            });
-      }
-      else{
-              var that = this;
-      var data = Qs.stringify({
-        userName:"aaaa",
-        technicalFile:this.technicalFile,
-        name: this.name,
-        type: this.type,
-        publishdate: this.publishdate,
-        deaddate: this.deaddate,
-        principalName: this.leader,
-        xiangxi: this.xiangxi
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url:
-            "http://127.0.0.1:8082/MainTaskInformation/addMainTaskInformation",
-          data: data
-        })
-        .then(response => {
-          this.mainStaskID = response.data.allData;
-          this.zzzz = response.data.allData;
-          if (this.zzzz != "null") {
-            console.log(this.zzzz);
-            this.$message.success("提交成功");
-            this.kongzhi = false;
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          if (error != null) {
-            this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-              type: "warning"
-            });
-          }
+      if (this.technicalFile == "null") {
+        this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+          type: "warning"
         });
+      } else {
+        var that = this;
+        var data = Qs.stringify({
+          userName: "aaaa",
+          technicalFile: this.technicalFile,
+          name: this.name,
+          type: this.type,
+          publishdate: this.publishdate,
+          deaddate: this.deaddate,
+          principalName: this.leader,
+          xiangxi: this.xiangxi
+        });
+        console.log(data);
+        that
+          .axios({
+            method: "post",
+            url:
+              "http://127.0.0.1:8082/MainTaskInformation/addMainTaskInformation",
+            data: data
+          })
+          .then(response => {
+            this.mainStaskID = response.data.allData;
+            this.zzzz = response.data.allData;
+            if (this.zzzz != "null") {
+              console.log(this.zzzz);
+              this.$message.success("提交成功");
+              this.kongzhi = false;
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            if (error != null) {
+              this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+                type: "warning"
+              });
+            }
+          });
       }
     },
     //上传文件
-      submitUpload() {
-        this.$refs.upload.submit();
-      },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-      },
-    handleAvatarSuccess(response, file, fileList){
-      this.technicalFile = response
-      console.log(response)
+    submitUpload() {
+      this.$refs.upload.submit();
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleAvatarSuccess(response, file, fileList) {
+      this.technicalFile = response;
+      console.log(response);
     },
     invitate(coo) {
       console.log(coo);
@@ -597,13 +608,14 @@ export default {
     //     });
     // },
 
-    
     // 多选操作
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
- 
-     getDate() {
+
+
+
+    getDate() {
       var that = this;
       var data = Qs.stringify({
         aaaa: "1111"
@@ -617,8 +629,25 @@ export default {
         .then(response => {
           this.mainStaskType = response.data.allData.a;
           this.shuju = response.data.allData.b;
+          this.xuanzelist = this.getTreeData(response.data.allData.c)
           console.log(response);
+          console.log(this.xuanzelist);
         });
+    },
+
+    //将级联选择器最后一行的数据去掉
+    getTreeData(data){
+      console.log(data.length)
+      for(var i=0;i<data.length;i++){
+        if(data[i].children.length<1){
+          // children若为空数组，则将children设为undefined
+          data[i].children=null;
+        }else {
+          // children若不为空数组，则继续 递归调用 本方法
+          this.getTreeData(data[i].children);
+        }
+      }
+      return data;
     },
     //新增操作
     addData() {
@@ -626,7 +655,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
-        username :"aaaa"
+        username: "aaaa"
       });
       that
         .axios({
@@ -647,51 +676,51 @@ export default {
     //保存新增
     saveAdd11() {
       //console.log(this.TaskXiangXi)
-            if(this.technicalFile == 'null'){
-         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-              type: "warning"
-            });
-      }else{   
-      var that = this;
-      var data = Qs.stringify({
-        userName: "aaaa",
-        taskName: this.addList.taskName,
-        // taskState : this.addList.TaskState,
-        publishTime: this.addList.beginTime,
-        endLine: this.addList.deadline,
-        taskCategaty: this.addList.substasktype1,
-        yaoqing: this.cooList.shifouyaoqing,
-        taskType: this.addList.taskType,
-        mainTaskName: this.name,
-        taskXiangxi: this.addList.TaskXiangXi,
-        mainTaskID: this.mainStaskID,
-        Technonlgy_File:this.technicalFile,
-        Telphone:this.addList.Telphone,
-        SupperListINt:this.SupplierListInt
-        
-      });
-      console.log(this.SupplierListInt);
-      console.log(data);
-
-      that
-        .axios({
-        method: "post",
-        url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
-        data: data,
-        headers: {"Content-Type": "application/x-www-form-urlencoded"}
-       })
-        .catch(error => {
-          console.log(error);
-          if (error != null) {
-            this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-              type: "warning"
-            });
-          }
+      if (this.technicalFile == "null") {
+        this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+          type: "warning"
         });
-      this.$message.success("提交成功");
-      this.addVisible = false;   
-      this.shuju.push(this.addList);
-      this.addList = {};
+      } else {
+        var that = this;
+        var data = Qs.stringify({
+          userName: "aaaa",
+          taskName: this.addList.taskName,
+          // taskState : this.addList.TaskState,
+          publishTime: this.addList.beginTime,
+          endLine: this.addList.deadline,
+          taskCategaty: this.addList.substasktype1,
+          yaoqing: this.cooList.shifouyaoqing,
+          taskType: this.addList.taskType,
+          mainTaskName: this.name,
+          taskXiangxi: this.addList.TaskXiangXi,
+          mainTaskID: this.mainStaskID,
+          Technonlgy_File: this.technicalFile,
+          Telphone: this.addList.Telphone,
+          SupperListINt: this.SupplierListInt
+        });
+        console.log(this.SupplierListInt);
+        console.log(data);
+
+        that
+          .axios({
+            method: "post",
+            url:
+              "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
+            data: data,
+            headers: { "Content-Type": "application/x-www-form-urlencoded" }
+          })
+          .catch(error => {
+            console.log(error);
+            if (error != null) {
+              this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+                type: "warning"
+              });
+            }
+          });
+        this.$message.success("提交成功");
+        this.addVisible = false;
+        this.shuju.push(this.addList);
+        this.addList = {};
       }
     },
     // 编辑操作
@@ -699,8 +728,7 @@ export default {
       this.idx = index;
       this.form = row;
       this.editVisible = true;
-    },
- 
+    }
   }
 };
 </script>
@@ -725,7 +753,7 @@ export default {
 .selectsupply {
   padding-right: 300px;
 }
-.el-upload--text{
+.el-upload--text {
   width: 85px;
   height: 40px;
 }

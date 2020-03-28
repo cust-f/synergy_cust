@@ -13,7 +13,7 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="行业类别">
-                  <el-input v-model="cool.industry_Type" :disabled="true"></el-input>
+                  <el-input v-model="cool.taskCategoryMain" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -34,7 +34,14 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="任务状态">
-                  <el-input v-model="cool.taskState" :disabled="true"></el-input>
+                  <el-input v-model="cool.taskState" :disabled="true">
+                    <template slot-scope="scope">
+                    <span v-if="+scope.row.cool.taskState===0">待上传</span>
+                    <span v-else-if="+scope.row.cool.taskState===1">待审核</span>
+                    <span v-else-if="+scope.row.cool.taskState===2">通过</span>
+                    <span v-else-if="+scope.row.cool.taskState===3">未通过</span>
+                    </template>
+                  </el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -354,6 +361,7 @@ export default {
       shenqing: "none",
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
       cool: {
+        taskCategoryMain:"",
         mainTaskName: "",
         industry_Type: "",
         publishTime: "",
