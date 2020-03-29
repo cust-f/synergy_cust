@@ -36,26 +36,28 @@
             <el-col :span="11">
               <el-form-item label="发布时间">
                 <el-date-picker
-                  type="date"
+                  type="datetime"
                   placeholder="选择日期"
                   v-model="publishdate"
                   style="width: 100%;"
+                  value-format="yyyy-MM-dd HH:mm:ss"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="截止时间">
                 <el-date-picker
-                  type="date"
+                  type="datetime"
                   placeholder="选择日期"
                   v-model="deaddate"
                   style="width: 100%;"
+                  value-format="yyyy-MM-dd HH:mm:ss"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="11">
+            <!-- <el-col :span="11">
               <el-form-item label="任务类别">
                 <el-select
                   v-model="type"
@@ -72,9 +74,9 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="11">
-              <el-form-item label="shabi">
+              <el-form-item label="任务种类">
                 <el-cascader
                   style="width:100%;"
                   expand-trigger="hover"
@@ -171,10 +173,10 @@
               <el-col :span="11">
                 <el-form-item label="发布时间">
                   <el-date-picker
-                    type="date"
+                    type="datetime"
                     placeholder="选择日期"
                     v-model="addList.beginTime"
-                    value-format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd HH:mm:ss"
                     style="width: 100%;"
                   ></el-date-picker>
                 </el-form-item>
@@ -183,44 +185,39 @@
               <el-col :span="11">
                 <el-form-item label="截止时间">
                   <el-date-picker
-                    type="date"
+                    type="datetime"
                     placeholder="选择日期"
                     v-model="addList.deadline"
-                    value-format="yyyy-MM-dd"
                     style="width: 100%;"
+                    value-format="yyyy-MM-dd HH:mm:ss"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
 
             <el-row>
-              <el-col :span="11">
-                <el-form-item label="任务类型">
-                  <el-select
-                    v-model="addList.substasktype1"
-                    placeholder="请选择"
-                    class="selectsupply"
-                    @change="subStask"
-                    style="width:50%;"
-                  >
-                    <el-option
-                      v-for="leibie in subStaskType"
-                      :key="leibie.id"
-                      :label="leibie.industryName"
-                      :value="leibie.id"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
+            <el-col :span="11">
+              <el-form-item label="任务种类">
+                <el-cascader
+                  style="width:100%;"
+                  expand-trigger="hover"
+                  v-model="selectCateKeys1"
+                  :options="xuanzelist"
+                  :props="cateProps"
+                  @change="handleChange1"
+                  props.checkStrictly = true
+                ></el-cascader>
+              </el-form-item>
+            </el-col>
 
               <el-col :span="11">
-                <el-form-item label="任务类别">
+                <el-form-item label="任务类型">
                   <el-select
                     v-model="addList.taskType"
                     placeholder="请选择是或者否"
                     class="selectsupply"
                     @change="liebieShu"
-                    style="width:50%;"
+                    style="width:100%;"
                   >
                     <el-option
                       v-for="leibie in Task"
@@ -233,22 +230,16 @@
               </el-col>
             </el-row>
 
-            <el-row>
-              <el-col :span="22">
-                <el-form-item label="分解任务详细">
-                  <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
 
             <el-row>
-              <el-col :span="8">
+              <el-col :span="11">
                 <el-form-item label="是否邀请">
                   <el-select
                     v-model="cooList.shifouyaoqing"
                     placeholder="请选择是或者否"
                     class="selectsupply"
                     @change="invitate"
+                    style="width:100%;"
                   >
                     <el-option
                       width="180"
@@ -261,13 +252,14 @@
                 </el-form-item>
               </el-col>
 
-              <el-col :span="8">
+              <el-col :span="11">
                 <el-form-item label="核心供应商" :style="{display: visiblehexin}">
                   <el-select
                     v-model="SupplierListInt"
                     multiple
                     placeholder="请选择供应商"
                     class="selectsupply"
+                                        style="width:100%;"
                   >
                     <el-option
                       width="180"
@@ -280,13 +272,24 @@
                 </el-form-item>
               </el-col>
 
-              <el-col :span="8">
+              <el-col :span="11">
+                <el-form-item label="等待申请" :style="{display:shenqing}">
                 <el-input
                   placeholder="等待供应方申请"
                   v-model="input"
                   :disabled="true"
                   :style="{display:shenqing}"
                 ></el-input>
+                </el-form-item>
+              </el-col>
+                
+            </el-row>
+            
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="分解任务详细">
+                  <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
+                </el-form-item>
               </el-col>
             </el-row>
 
@@ -331,7 +334,7 @@
                 type="date"
                 placeholder="选择日期"
                 v-model="addList1.bidTime"
-                value-format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd HH:mm:ss"
                 style="width: 100%;"
               ></el-date-picker>
             </el-form-item>
@@ -378,17 +381,24 @@ export default {
       },
       //级联选择框双向绑定到的数组
       selectCateKeys: [],
-      //商品分类列表
+      //行业分类列表
       xuanzelist: [],
+      //级联选择框双向绑定到的数组 =--子
+      selectCateKeys1: [],
+
       //上传的文件路径
       technicalFile: "null",
       //只能被调用一次
       firstPlayFlag: true, // 第一次播放标记
       //供应商传值
       SupplierListInt: "",
+      //主行业ID
+      mainStaskTypeID:"",
+      //子行业ID
+      subStaskTypeID:"",
       ruleForm: "",
       zzzz: "null",
-      mainStaskID: "null",
+      
       visiblehexin: "none",
       shenqing: "none",
       multipleSelection: [], //批量删除数组
@@ -431,13 +441,13 @@ export default {
 
       selVal: "",
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
-      mainStaskType: [
-        {
-          id: "",
-          industryName: "",
-          pId: ""
-        }
-      ],
+      // mainStaskType: [
+      //   {
+      //     id: "",
+      //     industryName: "",
+      //     pId: ""
+      //   }
+      // ],
       subStaskType: [
         {
           id: "",
@@ -510,7 +520,21 @@ export default {
     //级联选中框选中变化项会用到这个函数
     handleChange() {
       console.log(this.selectCateKeys);
+      this.mainStaskTypeID = this.selectCateKeys[0]
+      this.subStaskTypeID = this.selectCateKeys[1]
+      console.log(this.mainStaskTypeID)
+      console.log(this.subStaskTypeID)
     },
+
+     //级联选中框选中变化项会用到这个函数
+    handleChange1() {
+      console.log(this.selectCateKeys1);
+      this.mainStaskTypeID = this.selectCateKeys1[0]
+      this.subStaskTypeID = this.selectCateKeys1[1]
+      console.log(this.mainStaskTypeID)
+      console.log(this.subStaskTypeID)
+    },
+
 
     tijiao() {
       console.log(this.type);
@@ -525,7 +549,8 @@ export default {
           userName: "aaaa",
           technicalFile: this.technicalFile,
           name: this.name,
-          type: this.type,
+          mainStaskTypeID: this.mainStaskTypeID,
+          subStaskTypeID:this.subStaskTypeID,
           publishdate: this.publishdate,
           deaddate: this.deaddate,
           principalName: this.leader,
@@ -627,7 +652,7 @@ export default {
           data: data
         })
         .then(response => {
-          this.mainStaskType = response.data.allData.a;
+          // this.mainStaskType = response.data.allData.a;
           this.shuju = response.data.allData.b;
           this.xuanzelist = this.getTreeData(response.data.allData.c)
           console.log(response);
@@ -688,7 +713,8 @@ export default {
           // taskState : this.addList.TaskState,
           publishTime: this.addList.beginTime,
           endLine: this.addList.deadline,
-          taskCategaty: this.addList.substasktype1,
+          mainStaskTypeID:this.mainStaskTypeID,
+          subStaskTypeID: this.subStaskTypeID,
           yaoqing: this.cooList.shifouyaoqing,
           taskType: this.addList.taskType,
           mainTaskName: this.name,
@@ -721,6 +747,7 @@ export default {
         this.addVisible = false;
         this.shuju.push(this.addList);
         this.addList = {};
+        this.selectCateKeys1 = {};
       }
     },
     // 编辑操作

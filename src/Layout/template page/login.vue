@@ -59,7 +59,7 @@ export default {
           that
             .axios({
               method: "post",
-              url: "/api/user/login",
+              url: "http://127.0.0.1:8082/user/login",
               data: data
             })
             .then(response => {
