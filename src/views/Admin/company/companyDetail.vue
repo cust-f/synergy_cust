@@ -312,10 +312,6 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-
-
-
-
             <el-row>
                 <el-col :span="24" class = "xiangxi">
                     <el-form-item label="详细" >
