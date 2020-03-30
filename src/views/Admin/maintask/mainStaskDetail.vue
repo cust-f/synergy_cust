@@ -135,7 +135,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
+          <el-table-column prop="companyName" label="供应商"></el-table-column>
           <el-table-column prop="checkPlanState" label="计划审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.checkPlanState === 0">待上传</span>
@@ -145,10 +145,16 @@
             </template>
           </el-table-column>
           <el-table-column prop="planUploadTime" label="计划上传时间">
-            <template slot-scope="scope">{{scope.row.planUploadTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <span v-if="+scope.row.planUploadTime === 0">暂未上传</span>
+              <span v-else> {{scope.row.planUploadTime | formatDate}}</span>
+             </template>
           </el-table-column>
           <el-table-column prop="checkPlanTime" label="计划审核时间">
-            <template slot-scope="scope">{{scope.row.checkPlanTime | formatDate}}</template>
+            <template slot-scope="scope">
+               <span v-if="+scope.row.checkPlanTime === 0">暂未审核</span>
+              <span v-else> {{scope.row.planUploadTime | formatDate}}</span>
+            </template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
@@ -440,8 +446,10 @@ export default {
 
   filters: {
     formatDate(time) {
+      var index=time.lastIndexOf("\.");
+      time=time.substring(0,index);
       let date = new Date(time);
-      return formatDate(date, "yyyy.MM.dd");
+      return formatDate(date, "yyyy-MM-dd hh:mm");
     }
   },
   created() {
@@ -490,7 +498,13 @@ export default {
           if (this.tableData4 == null) {
             this.milepostActive4 = 0;
           }
-
+          // let k = 0;
+          // while(response.data.allData.c[k]!=null){
+          //   if(response.data.allData.c[k].planUploadTime ===null){
+          //         response.data.allData.c[k].planUploadTime =0;
+          //   }
+          // }
+          console.log(response.data.allData.c[0].planUploadTime)
 
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
@@ -531,6 +545,7 @@ export default {
         var that = this;
         var data = Qs.stringify({
           ID:row.id,
+          taskID:row.taskId,
           companyID:row.companyId,
           companyName:row.companyName,
         });
