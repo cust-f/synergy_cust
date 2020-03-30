@@ -17,15 +17,17 @@
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategory" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskType === 1">类型1</span>
+          <span v-else-if="scope.row.taskType === 2">类型2</span>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
       <el-table-column prop="userName" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="deadline" label="截止日期">
-        <template slot-scope="scope">{{scope.row.deadline}}</template>
-      </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
@@ -49,6 +51,7 @@
 
 <script>
 import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
   name: "pendingAudit",
   data() {
@@ -61,13 +64,13 @@ export default {
       },
       tableData: [
         {
-          taskId: "123",
-          taskName: "123",
-          supplierName: "123",
-          companyName: "123",
-          userName: "123",
-          supplierName: "123",
-          deadline: "123"
+          taskId: "",
+          taskName: "",
+          supplierName: "",
+          companyName: "",
+          userName: "",
+          supplierName: "",
+          deadline: ""
         }
       ],
       //接受表单数据
@@ -82,6 +85,12 @@ export default {
       idx: -1,
       id: -1
     };
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
   },
   created() {
     this.getData();
@@ -98,7 +107,6 @@ export default {
       });
     },
 
-  
     //获取数据
     getData() {
       console.log(this.userName);

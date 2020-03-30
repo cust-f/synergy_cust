@@ -13,20 +13,30 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column  label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
+      <el-table-column prop="publishingCompanyName" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型"></el-table-column>
-
-      <el-table-column prop="taskState" label="状态"></el-table-column>
-
-      <el-table-column prop="deadline" label="截止日期">
-        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+      <el-table-column prop="taskType" label="需求类型">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskType === 1">类型1</span>
+          <span v-else-if="scope.row.taskType === 2">类型2</span>
+        </template>
       </el-table-column>
 
+      <el-table-column prop="taskState" label="状态">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskState === 0">待响应</span>
+          <span v-else-if="scope.row.taskState === 1">计划审核</span>
+          <span v-else-if="scope.row.taskState === 2">进行中</span>
+          <span v-else-if="scope.row.taskState === 3">审核</span>
+          <span v-else-if="scope.row.taskState === 4">验收</span>
+          <span v-else-if="scope.row.taskState === 5">完成</span>
+          <span v-else-if="scope.row.taskState === 6">失败</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
@@ -67,8 +77,9 @@ export default {
           taskId: "",
           taskName: "",
           companyName: "",
-          acceptCompanyName: "",
-          taskCheck: "",
+          publishingCompanyName: "",
+          taskState: "",
+          taskType: "",
           deadline: ""
         }
       ],

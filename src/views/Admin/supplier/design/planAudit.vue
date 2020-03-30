@@ -1,12 +1,12 @@
 <template>
-  <div class="planAudit">
+  <div>
     <div class="handle-box">
       <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData1"
+      :data="tableData"
       border
       class="table"
       ref="multipleTable"
@@ -17,97 +17,109 @@
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskType === 1">类型1</span>
+          <span v-else-if="scope.row.taskType === 2">类型2</span>
+        </template>
+      </el-table-column>
 
-      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
+      <el-table-column prop="publishingCompanyName" label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="taskCode" label="状态" align="center"></el-table-column>
-
-      <el-table-column prop="deadline" label="截止日期"></el-table-column>
+      <el-table-column prop="beginTime" label="发布日期" align="center">
+        <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
+      </el-table-column>
+      <el-table-column prop="deadline" label="截止日期">
+        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+      </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        background
+        layout="total, prev, pager, next"
+        :current-page="query.pageIndex"
+        :page-size="query.pageSize"
+        :total="pageTotal"
+        @current-change="handlePageChange"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
+
+
 <script>
+import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
   name: "planAudit",
+  created() {
+    this.getData();
+  },
+
   data() {
     return {
-      successful: false,
-      accept: false,
-      disaccept: false,
-      dialogTableVisible: false,
-      TableVisible: false,
       query: {
         pageIndex: 1,
         pageSize: 10
       },
 
-      tableData1: [
+      tableData: [
         {
           taskId: "",
           taskName: "",
           taskType: "",
-          companyName: "",
-          taskCode: "",
+          publishingCompanyName: "",
+          beginTime: "",
           deadline: ""
         }
       ],
       //接受表单数据
       formLabelWidth: "120px",
-      activeName: "first",
-      tableData: [],
-      multipleSelection: [],
-      editVisible: false,
-      addVisible: false,
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      userName: ""
     };
   },
   created() {
-    this.getData1();
+    this.getData();
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
   },
   methods: {
-    // 供应商接受的二级计划且未分配的全部任务
-    getData1() {
-      console.log("123");
+    getData() {
+      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         userName: "supplier"
       });
+
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/getList",
+          url: "http://127.0.0.1:8082/supplier/supplierPlanResTaskList",
           data: data
         })
         .then(response => {
           console.log(response);
-          this.tableData1 = response.data.allData;
+          this.tableData = response.data.allData;
         });
     },
 
-    // 全部需求详情页面跳转
-
-    planAuditDet(row) {
-      console.log(row.taskId);
-      this.$router.push({
-        path: "/admin/planAuditDet",
-        query: {
-          taskId: row.taskId
-        }
-      });
-    },
-
+    //详情跳转
     Det(row) {
       console.log(row.taskId);
       this.$router.push({
@@ -116,8 +128,32 @@ export default {
           taskId: row.taskId
         }
       });
+    },
+
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 3 个文件，本次选择了 ${
+          files.length
+        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+      );
+    },
+    success() {
+      this.planbook = false;
+      this.acceptf = true;
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`);
     }
   }
+  /*
+   *转跳对应需求信息页面
+   */
 };
 </script>
 
@@ -141,10 +177,9 @@ export default {
   width: 260px;
   display: inline-block;
 }
-.planAudit .table {
+.table {
   width: 100%;
   font-size: 14px;
-  height: 500px;
 }
 .red {
   color: #ff0000;

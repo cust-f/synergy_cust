@@ -17,7 +17,12 @@
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型"></el-table-column>
+     <el-table-column prop="taskType" label="需求类型">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskType === 0">类型0</span>
+          <span v-else-if="scope.row.taskType === 1">类型1</span>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
@@ -26,7 +31,7 @@
       <el-table-column prop="designCount" label="退回次数" align="center"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期">
-        <template slot-scope="scope">{{scope.row.deadline}}</template>
+        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
@@ -52,6 +57,7 @@
 
 <script>
 import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
   name: "designingTask",
   data() {

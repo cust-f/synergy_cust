@@ -6,7 +6,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-     :data="tableData"
+      :data="tableData"
       border
       class="table"
       ref="multipleTable"
@@ -16,7 +16,12 @@
       <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="taskType" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskType === 1">类型1</span>
+          <span v-else-if="scope.row.taskType === 2">类型2</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
       <el-table-column prop="designerName" label="设计师" align="center"></el-table-column>
@@ -24,7 +29,7 @@
       <el-table-column prop="supplierCheckDesignState" label="设计状态" align="center"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期">
-        <template slot-scope="scope">{{scope.row.deadline}}</template>
+        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
@@ -50,8 +55,8 @@
 
 <script>
 import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
-  
   name: "pendingAcceptance",
   created() {
     this.getData();
@@ -62,11 +67,11 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
-      tableData:[
+      tableData: [
         {
           taskId: "",
           taskName: "",
-          taskType:"",
+          taskType: "",
           companyName: "",
           designerName: "",
           deadline: ""
@@ -83,6 +88,12 @@ export default {
       idx: -1,
       id: -1
     };
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
   },
   created() {
     this.getData();
@@ -102,8 +113,8 @@ export default {
         }
       });
     },
-    
-      getData() {
+
+    getData() {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
@@ -122,8 +133,7 @@ export default {
           console.log(response);
           this.tableData = response.data.allData;
         });
-    },
-    
+    }
   }
   /*
    *转跳对应需求信息页面
