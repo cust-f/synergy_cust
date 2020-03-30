@@ -86,9 +86,34 @@ export default {
       gutterCount: 15,
       pushCount:4,
       pullCount:2,
+      taskName:this.$route.query.taskName,
+      taskDetail,
     };
   },
+  created(){
+    this.test();
+    this.getInfo();
+  },
   methods: {
+      getInfo(){
+        var that = this;
+        let data = Qs.stringify({
+          taskName: 钢筋焊接,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "http://127.0.0.1:8082/threeMenu/getTaskDetail",
+            data: data
+          })
+          .then(response =>{
+          that.taskDetail = response.data;
+          console.log(that.response)
+          });
+      },
+      test() {
+        console.log(this.taskID)
+      },
       open() {
         this.$confirm('是否申请?', '提示', {
           confirmButtonText: '确定',
