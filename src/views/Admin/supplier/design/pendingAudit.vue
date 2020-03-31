@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+      <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
@@ -13,7 +12,13 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+     <el-table-column label="序号" type="index" width="55" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
@@ -81,6 +86,8 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
+      selectname:"",
+      YinCang:1,
       form: {},
       idx: -1,
       id: -1
@@ -96,6 +103,27 @@ export default {
     this.getData();
   },
   methods: {
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        username: "supplier",
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/searchByTaskIdInTask",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+      //this.getData();
+    },
     // 全部需求详情页面跳转
     Det(row) {
       console.log(row.taskId);

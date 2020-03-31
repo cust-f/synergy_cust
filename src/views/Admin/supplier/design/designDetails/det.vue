@@ -14,7 +14,7 @@
       <br />
       <br />
       <div>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" >基本信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">基本信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <br />
         <el-card class="box-card">
           <el-form ref="cool" :model="cool" label-width="110px" class="form">
@@ -100,9 +100,9 @@
               <div v-if="scope.row.applyWay === 0">
                 <div v-if="milepostActive === 0">
                   <div v-if="scope.row.checkApplyState <2">
-                  <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
-                  <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
-                </div>
+                    <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
+                    <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
+                  </div>
                 </div>
               </div>
               <div v-else-if="scope.row.applyWay === 1">
@@ -150,11 +150,13 @@
               <div v-show="scope.row.checkPlanState === 0">
                 <el-button @click="upLoadPlanT()" type="text" size="small">上传</el-button>
               </div>
-              <div v-show="scope.row.checkPlanState > 0">
-                <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
-              </div>
-              <div v-show="scope.row.checkPlanState === 3">
-                <el-button @click="refusePlanReason(scope.row)" type="text" size="small">拒绝原因</el-button>
+              <div>
+                <div v-show="scope.row.checkPlanState > 0">
+                  <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
+                </div>
+                <div v-show="scope.row.checkPlanState === 3">
+                  <el-button @click="refusePlanReason(scope.row)" type="text" size="small">拒绝原因</el-button>
+                </div>
               </div>
             </template>
           </el-table-column>
