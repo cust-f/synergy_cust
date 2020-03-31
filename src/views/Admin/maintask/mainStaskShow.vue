@@ -2,9 +2,9 @@
   <div>
     <el-container>
       <el-main>
-        <h3>需求任务</h3>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" >需求任务</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
-          <el-divider></el-divider>
+          <!-- <el-divider></el-divider> -->
 
           <div class="container">
             <template>
@@ -22,7 +22,7 @@
                 @selection-change="handleSelectionChange"
               >
                 <!-- mainTaskID冲-->
-                <el-table-column  label="序号"  type="index" width="40px"  align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                 <el-table-column prop="mainTaskName" label="需求任务名称" align="center"></el-table-column>
                 <el-table-column prop="taskCategoryMain" label="需求类型" align="center"></el-table-column>
                 <el-table-column prop="principalName" label="项目负责人" align="center"></el-table-column>
@@ -428,4 +428,8 @@ export default {
 .container {
   padding: 0px;
 }
+  .biaoti {
+    font-size: 18px;
+    color: #00a2e6;
+  }
 </style>

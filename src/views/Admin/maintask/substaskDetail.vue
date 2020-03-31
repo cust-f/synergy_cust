@@ -82,7 +82,7 @@
             <!-- <el-button type="primary" class="button1">下载装配文档</el-button> -->
           </div>
           <el-divider></el-divider>
-          <h3>分解任务</h3>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" >分解任务</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <div>
             <div class="container">
               <div class="handle-box">
@@ -813,4 +813,12 @@ export default {
   width: 100%;
   font-size: 14px;
 }
+  .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+  /* //返回字体 */
+  .el-page-header__title {
+    font-size: 18px;
+  }
 </style>
