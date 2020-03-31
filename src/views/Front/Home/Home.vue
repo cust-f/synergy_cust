@@ -63,7 +63,7 @@
             <el-col :span="8">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div class="cate_ietm_title" style=" background-size: cover; ">
+                  <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + orangePicture + ')'}" style=" background-size: cover; ">
                     <font>交通运输设备</font>
                     <p></p>
                   </div>
@@ -104,7 +104,6 @@
                 <div class="category_item">
                   <div
                     class="cate_ietm_title"
-                    :style="{backgroundImage: 'url(' + orangePicture + ')'}"
                   >
                     <font>通信设备、计算机及其他电子设备</font>
                   </div>
@@ -197,13 +196,13 @@
                 <span>欢迎来到Saas应用</span>
                 <div class="grid-content-top-button">
                   <el-button
-                    style=" left:5px; background-color:rgb(190, 127, 197); border-color:rgb(190, 127, 197); "
+                    style=" left:5px; background-color:#27b0f0;; border-color:#27b0f0;; "
                     type="primary"
                     round
                     @click="login(0)"
                   >登录</el-button>
                   <el-button
-                    style="right:5px;background-color:rgb(250, 101, 105);; border-color:rgb(250, 101, 105);"
+                    style="right:5px;background-color:#ff6600;; border-color:#ff6600;"
                     type="primary"
                     round
                     @click="login(1)"
@@ -569,11 +568,11 @@ export default {
         require("../../../assets/images/home/轮播图31.png")
       ],
       //引入集合头部
-      geometryPicture: require("../../../assets/images/home/banner/geometry.jpg"),
+      geometryPicture: require("../../../assets/images/home/banner/img22.png"),
       //引入绿色头部
-      greedPicture: require("../../../assets/images/home/banner/greed3.jpg"),
+      greedPicture: require("../../../assets/images/home/banner/img31.png"),
       //引入蓝色头部
-      BluePicture: require("../../../assets/images/home/banner/blue3.jpg"),
+      BluePicture: require("../../../assets/images/home/banner/img23.png"),
       //引入红色头
       redPicture: require("../../../assets/images/home/banner/red.png"),
       //引入橙色头部
