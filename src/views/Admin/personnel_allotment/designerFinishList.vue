@@ -19,7 +19,8 @@
             <el-table-column
               prop="taskId"
               label="需求任务编号"
-              min-width="90px"
+              type="index"
+              width="110px"
               align="center"
               :show-overflow-tooltip="true"
             ></el-table-column>
@@ -157,29 +158,11 @@ export default {
       ],
       Finished_Task_Data: [
         {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
         },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        }
       ],
       form2: {},
       dialogVisible: false,
