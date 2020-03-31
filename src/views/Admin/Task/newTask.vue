@@ -10,8 +10,10 @@
   <el-container>
     <el-main>
       <div class="newTask">
-        <h3>新增需求</h3>
-        <el-divider></el-divider>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          新增需求
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <!-- <el-divider></el-divider> -->
         <!-- <el-button type="small" @click="getdata()"></el-button> -->
         <el-form ref="form" label-width="110px" class="box">
           <el-row>
@@ -123,7 +125,9 @@
       <el-divider></el-divider>
 
       <el-card shadow="always">
-        <h3>需求分解信息</h3>
+       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          需求分解
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <br />
         <div class="container">
           <div class="handle-box">

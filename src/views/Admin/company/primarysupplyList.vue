@@ -3,7 +3,9 @@
     <el-container>
         <el-main>
           <div font-size="24px">
-            <h3>一级供应商列表</h3></div>
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          供应商列表
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</div>
              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <div>
 
