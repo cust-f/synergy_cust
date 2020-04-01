@@ -137,7 +137,7 @@
                     <br />
 
                     <font>联系电话:</font>
-                    1231231232132
+                    {{list.demanderTel}}
                   </a>
                 </li>
               </ul>
@@ -431,7 +431,7 @@ export default {
     passTaskID(){
       this.$router.push({
         path:"/threeMenu",
-        query:{taskID:this.dataShow[1].mainTaskID}
+        query:{taskName:"钢筋焊接"}
         // 
       });
     },

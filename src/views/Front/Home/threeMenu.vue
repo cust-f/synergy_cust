@@ -18,19 +18,19 @@
     <el-row :gutter="gutterCount" >
       <el-col :span="10"  :push="pushCount" :pull="pullCount">
          <div class="grid-content2 bg-purple-dark">
-        <h2 style="margin:20px 0;">TNGA项目组装线安装工程</h2>
+        <h2 style="margin:20px 0;">{{taskDetail.taskName}}</h2>
         <el-divider></el-divider>
         <div class="grid-content3" style="margin-top:50px">      
           
-          <p style =" width :50%; float:left">行业类别：通信设备</p>
+          <p style =" width :50%; float:left">行业类别：{{taskDetail.taskCategoryMain}}</p>
           <p style =" width :50%;float:left">所在地区：吉林省长春市</p>
           
           <p>&nbsp;</p>
-          <p style =" width :50%; float:left">联系方式：4006917888</p>
+          <p style =" width :50%; float:left">联系方式：{{taskDetail.demanderTel}}</p>
           <p style =" width :50%; float:left">需求类型：流通</p>
           <p>&nbsp;</p>
           <p style =" width :50%; float:left">需求开始时间：2019-10-22</p>
-          <p style =" width :50%; float:left">需求截止时间：2019-11-21</p>
+          <p style =" width :50%; float:left">需求截止时间：{{taskDetail.deadline| dataFormat("yyyy-MM-dd")}}</p>
           <p>&nbsp;</p>
           <div style="margin:20px 0;">        
            <el-button type="warning" >下载模板</el-button>
@@ -49,9 +49,9 @@
                 :src= "SRC"/>
               </div>
                 <ul>
-                <li>发布方名称：一汽集团有限公司</li>
+                <li>发布方名称：{{taskDetail.companyName}}</li>
                 <li>&nbsp;</li>
-                <li>发布方介绍：是中国汽车行业中最具实力的汽车公司之一。业务领域包括汽车的研发、生产、销售、物流、服务、汽车零部件、金融服务、汽车保险、移动出行等</li>
+                <!-- <li>发布方介绍：需要从数据库中单独查询</li> -->
                 </ul>
           </div>
       </el-col>
@@ -63,7 +63,7 @@
          <div class="grid-content5 bg-purple-dark">
            <h3 style="margin-top:-80px;margin-left:5px; padding: 0 10px; border-left: 3px solid #ff5500;">需求介绍</h3>
            <el-divider></el-divider>
-           <p style="line-height:40px">&nbsp;&nbsp;&nbsp;&nbsp;截至2018年9月底，全国机动车保有量达3.22亿辆，其中汽车保有量达2.35亿辆，占机动车总量的72.91%。其中，以个人名义登记的小微型载客汽车（私家车）保有量达1.84亿辆，占汽车总量的78.49%。2018年以来，全国私家车保有量月均增加161万辆，保持持续快速增长。这些都是广大的流量载体，实行一贴双码，免费发放给车主挪车贴即获得广告位，庞大的广告位即可招商打广告，广告主和广告商诞生。三方进行相互促进，产生循环的可只持续发展圈子，各取所需。</p>
+           <p style="line-height:40px">&nbsp;&nbsp;&nbsp;&nbsp;{{taskDetail.taskDetail}}</p>
          </div>
      </el-col>
     </el-row>
@@ -77,6 +77,7 @@
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 <script>
+import Qs from "qs";
 export default {
   name: "Home",
   data() {
@@ -87,18 +88,17 @@ export default {
       pushCount:4,
       pullCount:2,
       taskName:this.$route.query.taskName,
-      taskDetail,
+      taskDetail:[],
     };
   },
   created(){
-    this.test();
     this.getInfo();
   },
   methods: {
       getInfo(){
         var that = this;
         let data = Qs.stringify({
-          taskName: 钢筋焊接,
+          taskName: this.taskName,
         });
         that
           .axios({
@@ -108,11 +108,8 @@ export default {
           })
           .then(response =>{
           that.taskDetail = response.data;
-          console.log(that.response)
+          console.log(that.taskDetail)
           });
-      },
-      test() {
-        console.log(this.taskID)
       },
       open() {
         this.$confirm('是否申请?', '提示', {
