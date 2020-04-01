@@ -152,7 +152,7 @@
               </div>
               <div>
                 <div v-show="scope.row.checkPlanState > 0">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
+                  <el-button @click="RWJHXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
                 <div v-show="scope.row.checkPlanState === 3">
                   <el-button @click="refusePlanReason(scope.row)" type="text" size="small">拒绝原因</el-button>
@@ -164,8 +164,8 @@
       </div>
       <br />
       <br />
-      <div v-show="show>0">
-        <div v-show="show1 === 2">
+      <div v-show="show > 0">
+        <div v-show="state2 === 2">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同管理</div>
           <br />
           <el-table
@@ -200,10 +200,10 @@
                   <el-button @click="upLoadConT()" type="text" size="small">上传</el-button>
                 </div>
                 <div v-show="scope.row.contractState===1">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
+                  <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
                 <div v-show="scope.row.contractState===2">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
+                  <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
                 <div v-show="scope.row.contractState===3">
                   <el-button @click="upLoadConT(scope.row)" type="text" size="small">重新上传</el-button>
@@ -216,7 +216,7 @@
         </div>
       </div>
       <div v-show="show>1">
-        <div v-show="show3 === 2">
+        <div v-show="state3 === 2">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
           <br />
           <el-table
@@ -262,7 +262,7 @@
                   </div>
                 </div>
                 <div v-show="scope.row.supplierCheckDesignState > 0">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">下载</el-button>
+                  <el-button @click="SQJJ(scope.row)" type="text" size="small">查看成果</el-button>
                 </div>
                 <div v-show="scope.row.supplierCheckDesignState === 1">
                   <el-button @click="designSuccess(scope.row)" type="text" size="small">通过</el-button>
@@ -328,17 +328,22 @@
           <el-button @click="addVisible2 = false">确定</el-button>
         </span>
       </el-dialog>
+
       <!-- 计划书上传 -->
       <el-dialog title="上传计划书" :visible.sync="planbook" width="24%" :before-close="handleClose">
         <el-upload
           class="upload-demo"
           ref="upload"
-          action="http://127.0.0.1:8082/supplier/importCon"
+          action="http://127.0.0.1:8082/supplier/import"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess1"
+          multiple
+          :before-remove="beforeRemove"
           :limit="1"
           :auto-upload="false"
+          :on-exceed="handleExceed"
+          :file-list="fileList"
         >
           <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
           <br />
@@ -471,8 +476,8 @@ export default {
       addVisible2: false,
       //状态
       state: "",
-      state2: "",
-      state3: "",
+      state2: 0,
+      state3: 0,
       // 默认步骤数
       milepostActive: 0,
       // 动态添加类名
@@ -482,6 +487,7 @@ export default {
       //表格显示控制
       show: 0,
       show1: 0,
+      show3: 0,
       //文件上传数据
       limitNum: 1,
       formLabelWidth: "100px",
@@ -511,6 +517,71 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
       console.log(routerParams);
+    },
+    //任务计划下载
+    RWJHXZ(row) {
+      console.log("shenme");
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/DownloadJHS",
+          data: data
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response.data);
+          this.download(response.data);
+        });
+    },
+    // 下载文件
+    download(data) {
+      if (!data) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([data]));
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", "设计文档.doc");
+      document.body.appendChild(link);
+      link.click();
+    },
+
+    //合同下载
+    HTXZ(row) {
+      console.log("shenme");
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/DownLoadCon",
+          data: data
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response.data);
+          this.download(response.data);
+        });
+    },
+    // 下载文件
+    downloadCon(data) {
+      if (!data) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([data]));
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", "合同.pdf");
+      document.body.appendChild(link);
+      link.click();
     },
     //数据显示
     showData() {
@@ -545,12 +616,6 @@ export default {
           } else if (this.state == "任务进行中") {
             this.milepostActive = 2;
             this.show = 2;
-            if (this.state2 == 2) {
-              this.show1 = 2;
-            }
-            if (this.state3 == 2) {
-              this.show3 = 2;
-            }
           } else if (this.state == "审核") {
             this.milepostActive = 3;
             this.show = 3;
@@ -560,6 +625,11 @@ export default {
           } else if (this.state == "完成") {
             this.milepostActive = 5;
             this.show = 5;
+          } else if (this.state2 == 2) {
+            this.show1 = 2;
+          } else if (this.state3 == 2) {
+            this.show3 = 2;
+            console.log(this.show3);
           } else {
             this.milepostActive = 6;
             if (response.data.allData.b[0].refuseApplyMessage != null) {
@@ -574,7 +644,8 @@ export default {
           // this.taskId = response.data.allData.a[0].taskId;
           console.log(response.data.allData.a[0].taskState);
           console.log(response.data.allData);
-          console.log(this.show1);
+          console.log(this.state2);
+          console.log(this.show);
         });
     },
     //返回列表

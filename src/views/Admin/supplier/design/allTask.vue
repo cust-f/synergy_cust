@@ -24,6 +24,9 @@
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
       <el-table-column prop="publishingCompanyName" label="发布需求企业"></el-table-column>
+      <el-table-column prop="beginTime" label="发布日期">
+        <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
+      </el-table-column>
 
       <el-table-column prop="taskType" label="需求类型">
         <template slot-scope="scope">
@@ -86,7 +89,8 @@ export default {
           publishingCompanyName: "",
           taskState: "",
           taskType: "",
-          deadline: ""
+          deadline: "",
+          beginTime:""
         }
       ],
       multipleSelection: [],
