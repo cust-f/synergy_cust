@@ -37,6 +37,8 @@ import newTask from '@/views/admin/Task/newTask'//新增任务
 import mainStaskShow from '@/views/admin/maintask/mainStaskShow'//主任务显示
 import substaskDetail from '@/views/admin/maintask/substaskDetail'//子任务详情
 import mainStaskDetail from '@/views/admin/maintask/mainStaskDetail'//主任务详情
+import mainStaskDetailbei from '@/views/admin/maintask/mainStaskDetailbei'//主任务详情
+
 import review from '@/views/admin/check/review'
 
 import companyDetail from '@/views/admin/company/companyDetail'//企业详情
@@ -216,6 +218,14 @@ export default new Router({
             title: "查看主任务所属子任务的全部信息"
           }
         },
+        {
+          path: '/admin/mainStaskDetailbei',
+          name: 'mainStaskDetailbei',
+          component: mainStaskDetailbei,
+  
+        },
+
+
         //企业信息详情
         {
           path: '/admin/companyDetail',

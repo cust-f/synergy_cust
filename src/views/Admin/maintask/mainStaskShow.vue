@@ -90,6 +90,7 @@ export default {
   name: "mainStaskShow",
   data() {
     return {
+      usernameX:this.$store.state.user,
       pageIndex: 1,
       pageSize: 10,
       activeName: "first",
@@ -225,10 +226,9 @@ export default {
     },
 
     getData() {
-      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa"
+        userName: this.usernameX
       });
       console.log(data);
       that
@@ -249,7 +249,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "aaaa",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);

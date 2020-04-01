@@ -161,7 +161,10 @@
             </el-dialog>
 
             <!-- 新增弹出框 -->
-            <el-dialog title="新增" :visible.sync="addVisible" width="50%">
+            <el-dialog title="" :visible.sync="addVisible" width="50%">
+                      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          新增
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <el-row>
                 <el-col :span="8"></el-col>
               </el-row>
@@ -176,7 +179,7 @@
                   <el-col :span="11">
                     <el-form-item label="需求方联络电话">
                       <el-input
-                        v-model="addList.Telphone"      
+                        v-model="addList.Telphone"  @blur="animate()"  
                       ></el-input>
                     </el-form-item>
                   </el-col>
@@ -210,7 +213,7 @@
 
                 <el-row>
             <el-col :span="11">
-              <el-form-item label="任务种类">
+              <el-form-item label="行业类别">
                 <el-cascader
                   style="width:100%;"
                   expand-trigger="hover"
@@ -243,14 +246,7 @@
                   </el-col>
                 </el-row>
 
-                <el-row>
-                  <el-col :span="22">
-                    <el-form-item label="分解任务详细">
-                      <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-
+               
       
             <el-row>
               <el-col :span="11">
@@ -306,6 +302,15 @@
                 
             </el-row>
 
+            <el-row>
+                  <el-col :span="22">
+                    <el-form-item label="分解任务详细">
+                      <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
+                    </el-form-item>
+                  </el-col>
+            </el-row>
+
+
                 <el-form-item label="添加附件">
                   <el-upload
                 class="upload-demo"
@@ -349,6 +354,7 @@ export default {
   prop: {},
   data() {
     return {
+            usernameX:this.$store.state.user,
       //级联选择框的配置对象
       cateProps: {
         value: "id",
@@ -485,6 +491,18 @@ export default {
   },
 
   methods: {
+    //手机号校验
+       animate(){
+           var re = /^1\d{10}$/;
+           let str = this.addList.Telphone;
+           if(re.test(str)){
+              //  alert('成功')
+           }else { 
+             this.addList.Telphone=""
+               alert('抱歉手机号不合法')
+              
+          }
+       },
 
 
     dateFormat:function(time) {
@@ -524,7 +542,7 @@ export default {
       }else{   
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa",
+        userName:this.usernameX,
         taskName: this.addList.taskName,
         // taskState : this.addList.TaskState,
         publishTime: this.addList.beginTime,
@@ -710,7 +728,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
-        username :"aaaa"
+        username :this.usernameX
       });
       that
         .axios({

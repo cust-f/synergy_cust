@@ -112,6 +112,7 @@ export default {
   name: "primarysupplyList",
   data() {
     return {
+      usernameX:this.$store.state.user,
         query: {
         pageIndex: 1,
         pageSize: 10
@@ -161,7 +162,7 @@ export default {
      getData(){
        var that = this;
         var data = Qs.stringify({
-        username: "aaaa"
+        username: this.usernameX
       });
       console.log(data);
       that
@@ -179,7 +180,7 @@ export default {
      TianJia(row){
        var that = this;
        var data = Qs.stringify({
-         username:"aaaa",
+         username:this.usernameX,
          companyId:row.companyId
        })
        that
@@ -209,7 +210,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         companyID: row.companyId,
-        username:"aaaa",
+        username:this.usernameX,
       })
       that
         .axios({
@@ -237,12 +238,12 @@ export default {
      
     },
     supplyDetail(){
-         this.$router.push('/admin/supplyDetail')
+         this.$router.push('/admin/companyDetail')
      },
     addData() {
         var that = this;
         var data = Qs.stringify({
-        username: "aaaa"
+        username: this.usernameX
       });
       console.log(data);
       that
