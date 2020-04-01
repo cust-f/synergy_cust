@@ -148,11 +148,11 @@
           <div class="page">
               <ul>
                   <li>
-                      <a href="#/xuqiuyilan"  v-on:click="prePage" ><</a>
+                      <a href="#/xuqiuyilan"  v-on:click="prePage" ></a>
                   </li>
-                  <li v-for="(list, index) in totalPage">
+                  <!-- <li v-for="(list, index) in totalPage">
                       <a href="#/xuqiuyilan" v-on:click="toPage(index)" :class="{active: currentPage==index}">{{ index+1 }}</a>
-                  </li>
+                  </li> -->
                   <li>
                       <a href="#/xuqiuyilan" v-on:click="nextPage" >></a>
                   </li>

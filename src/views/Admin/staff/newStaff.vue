@@ -12,7 +12,7 @@
     <el-container>
       <el-main>
         <div class="box">
-          <h3>人员管理</h3>
+           <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;人员管理</div>
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <template>
           <div>
@@ -33,6 +33,8 @@
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
+                  row-style="height:0"
+                  cell-style="padding:0"
                 >
                   <el-table-column prop="id" label="ID" width="55" align="center" type="index"></el-table-column>
                   <el-table-column prop="userName" label="用户名"></el-table-column>
@@ -226,8 +228,8 @@ export default {
   methods: {
     // 获取 easy-mock 的模拟数据
     getData() {
-      this.tableData = res.list;
-        this.pageTotal = tableData.length;
+      //this.tableData = res.list;
+      //this.pageTotal = tableData.length;
        console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
@@ -256,11 +258,27 @@ export default {
     },
     // 删除操作
     handleDelete(index, row) {
+      //var that= this;
       // 二次确认删除
       this.$confirm("确定要删除吗？", "提示", {
         type: "warning"
       })
-        .then(() => {
+    //  var data = Qs.stringify({
+    //     User_Name: this.row.userName
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "http://127.0.0.1:8082//newStaff/deletelist",
+    //       data: data
+
+    //       //  data:this.$store.state.userName
+    //     })
+        .then(
+           response => {
+          // console.log(response);
+          // this.tableData = response.data.allData;
+          //this.form = response.data.allData[0];
           this.$message.success("删除成功");
           this.tableData.splice(index, 1);
         })
@@ -400,11 +418,17 @@ export default {
 .table-td-thumb {
   display: block;
   margin: auto;
-  width: 40px;
-  height: 40px;
+  width: 40px; 
+  height: 30px;
+ 
 }
 .box {
   font-size: 24px;
 }
+ .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+
 </style>
 

@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="desinger">
-      <h3>新增设计任务</h3>
+      <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;&nbsp;&nbsp;新增任务</div>
     </div>
-    <el-divider></el-divider>
+    <br>    <!-- <el-divider></el-divider> -->
     <el-row style="height:600px;">
       <el-card style="height:100%">
-        <div style="font-size:20px">新增任务</div>
+        
         <el-table
           :data="Not_Accepted_Task_Data"
           border
@@ -221,4 +221,8 @@ export default {
 .el-scrollbar__wrap {
   overflow-y: hidden;
 }
+ .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
 </style>
