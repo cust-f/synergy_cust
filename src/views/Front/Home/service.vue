@@ -8,50 +8,77 @@
         <div class="grid-content0">
           <span>首页</span>
             <span>&nbsp;>&nbsp;</span>
-            <span>需求一览</span>
+            <span>服务机构</span>
             <span>&nbsp;>&nbsp;</span>
-            <span>需求详情</span>
+            <span>服务详情</span>
         </div>
       </el-col>
     </el-row>
     <!--第二行-->
     <el-row :gutter="gutterCount" >
-      <el-col :span="10"  :push="pushCount" :pull="pullCount">
+      <el-col :span="15"  :push="4" :pull="pullCount">
          <div class="grid-content2 bg-purple-dark">
-        <h2 style="margin:20px 0;">TNGA项目组装线安装工程</h2>
+       
         <el-divider></el-divider>
         <div class="grid-content3" style="margin-top:50px">      
           
-          <p style =" width :50%; float:left">行业类别：通信设备</p>
-          <p style =" width :50%;float:left">所在地区：吉林省长春市</p>
-          
+          <p style =" width :50%; float:left">需求名称：通信设备</p>
+          <p style =" width :50%;float:left">需求类别：吉林省长春市</p>
           <p>&nbsp;</p>
-          <p style =" width :50%; float:left">联系方式：4006917888</p>
-          <p style =" width :50%; float:left">需求类型：流通</p>
           <p>&nbsp;</p>
-          <p style =" width :50%; float:left">需求开始时间：2019-10-22</p>
-          <p style =" width :50%; float:left">需求截止时间：2019-11-21</p>
+          <p style =" width :50%; float:left">行业类别：4006917888</p>
+          <p style =" width :50%; float:left">子类别：流通</p>
           <p>&nbsp;</p>
-          <div style="margin:20px 0;">        
-           <el-button type="warning" >下载模板</el-button>
-           <el-button type="warning" @click="open">申请任务</el-button>
-          </div>
+          <p>&nbsp;</p>
+          <p style =" width :50%; float:left">开始时间：2019-10-22</p>
+          <p style =" width :50%; float:left">完成时间：2019-11-21</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p style =" width :50%; float:left">所在地区：吉林省长春市朝阳区前进大街12号</p>
+         
         </div>
         </div>
       </el-col>
-       <el-col :span="5"  :push="5"  >
-          <div class="grid-content4 bg-purple-dark" style="margin-top:0px">
-            <h3 style="margin:30px 0;">发布方信息</h3>
+    </el-row>
+<!--第三行-->
+<el-row :gutter="gutterCount">
+        <el-col :span="7"  :push="4"  >
+          <div class="grid-content4 bg-purple-dark" style="margin-top:-80px">
+            <h3 style="margin:30px 0;">需求方</h3>
              <el-divider></el-divider>
-              <div style="margin:30px 90px;">
+              <div style="margin:30px 90px;" align="center">
               <el-image
-                style="width: 100px; height: 100px"
+                style="width: 80px; height: 80px"
                 :src= "SRC"/>
               </div>
                 <ul>
-                <li>发布方名称：一汽集团有限公司</li>
+                <li>企业名称：一汽集团有限公司</li>
+              <li>&nbsp;</li>
+                <li>企业地区：吉林省长春市</li>
+     <li>&nbsp;</li>
+                <li>联系方式：18836639929</li>
                 <li>&nbsp;</li>
-                <li>发布方介绍：是中国汽车行业中最具实力的汽车公司之一。业务领域包括汽车的研发、生产、销售、物流、服务、汽车零部件、金融服务、汽车保险、移动出行等</li>
+                <li>主营范围：汽车的研发、生产、销售、物流、汽车零部件、金融服务、汽车保险、移动出行等</li>
+                </ul>
+          </div>
+      </el-col>
+        <el-col :span="7"  :push="5"  >
+          <div class="grid-content4 bg-purple-dark" style="margin-top:-80px;margin-left:-35px">
+            <h3 style="margin:30px 0;">发布方</h3>
+             <el-divider></el-divider>
+              <div style="margin:30px 90px;" align="center">
+              <el-image
+                style="width: 80px; height: 80px"
+                :src= "SRC1"/>
+              </div>
+                <ul>
+                <li>企业名称：奥迪集团有限公司</li>
+              <li>&nbsp;</li>
+                <li>企业地区：黑龙江省哈尔滨市</li>
+              <li>&nbsp;</li>
+                <li>联系方式：13622678883</li>
+                <li>&nbsp;</li>
+                <li>主营范围：汽车的研发、生产、销售、物流、服务、汽车零部件、移动出行等</li>
                 </ul>
           </div>
       </el-col>
@@ -61,9 +88,22 @@
     <el-row :gutter="gutterCount">
      <el-col :span="16"  :push="pushCount" :pull="pullCount">
          <div class="grid-content5 bg-purple-dark">
-           <h3 style="margin-top:-80px;margin-left:5px; padding: 0 10px; border-left: 3px solid #ff5500;">需求介绍</h3>
+           <h3 style="margin-top:-1px;margin-left:5px; padding: 0 10px; border-left: 3px solid #ff5500;">需求简介</h3>
            <el-divider></el-divider>
            <p style="line-height:40px">&nbsp;&nbsp;&nbsp;&nbsp;截至2018年9月底，全国机动车保有量达3.22亿辆，其中汽车保有量达2.35亿辆，占机动车总量的72.91%。其中，以个人名义登记的小微型载客汽车（私家车）保有量达1.84亿辆，占汽车总量的78.49%。2018年以来，全国私家车保有量月均增加161万辆，保持持续快速增长。这些都是广大的流量载体，实行一贴双码，免费发放给车主挪车贴即获得广告位，庞大的广告位即可招商打广告，广告主和广告商诞生。三方进行相互促进，产生循环的可只持续发展圈子，各取所需。</p>
+         </div>
+     </el-col>
+    </el-row>
+     <!--第四行-->
+    <el-row :gutter="gutterCount">
+     <el-col :span="16"  :push="pushCount" :pull="pullCount">
+         <div class="grid-content5 bg-purple-dark">
+           <h3 style="margin-top:-150px;margin-left:5px; padding: 0 10px; border-left: 3px solid #ff5500;">完成情况</h3>
+           <el-divider></el-divider>
+           <p style="line-height:40px">&nbsp;&nbsp;&nbsp;&nbsp;1.截至2018年9月底，全国机动车保有量达3.22亿辆，其中汽车保有量达2.35亿辆，占机动车总量的72.91%。
+             &nbsp;2.其中，以个人名义登记的小微型载客汽车（私家车）保有量达1.84亿辆，占汽车总量的78.49%。
+             &nbsp;3.2018年以来，全国私家车保有量月均增加161万辆，保持持续快速增长。
+             &nbsp;4.这些都是广大的流量载体，实行一贴双码，免费发放给车主挪车贴即获得广告位，庞大的广告位即可招商打广告，广告主和广告商诞生。三方进行相互促进，产生循环的可只持续发展圈子，各取所需。</p>
          </div>
      </el-col>
     </el-row>
@@ -83,37 +123,13 @@ export default {
     return {
       SRC:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578498716057&di=2862e7c5e9dc83020a4698017c207fd8&imgtype=0&src=http%3A%2F%2Fstatic.yjcf360.com%2Fgegu%2Fimg%2F000800.jpg',
       //设定el-cow的值
+       SRC1:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585666024421&di=1347c59f700657d0fe7b3089bb08a48a&imgtype=0&src=http%3A%2F%2Fcarlable.autov.com.cn%2Fimages%2Fb49.jpg',
       gutterCount: 15,
       pushCount:4,
       pullCount:2,
-      taskName:this.$route.query.taskName,
-      taskDetail,
     };
   },
-  created(){
-    this.test();
-    this.getInfo();
-  },
   methods: {
-      getInfo(){
-        var that = this;
-        let data = Qs.stringify({
-          taskName: 钢筋焊接,
-        });
-        that
-          .axios({
-            method: "post",
-            url: "http://127.0.0.1:8082/threeMenu/getTaskDetail",
-            data: data
-          })
-          .then(response =>{
-          that.taskDetail = response.data;
-          console.log(that.response)
-          });
-      },
-      test() {
-        console.log(this.taskID)
-      },
       open() {
         this.$confirm('是否申请?', '提示', {
           confirmButtonText: '确定',
@@ -185,7 +201,8 @@ export default {
 {
    font-size: 17px;
    height: 500px;
-   margin: 20px 0;
+   
+   
 }
 .grid-content5
 {

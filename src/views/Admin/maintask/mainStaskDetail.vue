@@ -120,7 +120,7 @@
             <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
           </el-table-column>
 
-          <el-table-column label="操作"  align="center">
+          <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- <el-button
                       type="text"
@@ -181,7 +181,7 @@
               <el-span v-else>{{scope.row.checkPlanTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" >
+          <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
               <!-- <el-button
                       type="text"
@@ -248,7 +248,7 @@
               <el-span v-else>{{scope.row.checkContractTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
               <!-- <el-button
                       type="text"
@@ -256,12 +256,17 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button type="text" size="small" v-if="scope.row.contractState!==0">下载</el-button>
+              <el-button
+                type="text"
+                size="small"
+                v-if="scope.row.contractState!==0"
+                @click="HTXZ(scope.row)"
+              >下载</el-button>
               <el-button
                 @click="HTSHTG(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.contractState===1"
+                v-if="scope.row.contractState===1 || scope.row.contractState===3"
               >通过</el-button>
               <el-button
                 @click="HTSHJJ(scope.row)"
@@ -290,7 +295,12 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-          <el-table-column prop="designerName" label="设计人员姓名"></el-table-column>
+          <el-table-column prop="designerName" label="设计人员姓名">
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
+              <el-span v-else>{{scope.row.designerName}}</el-span>
+            </template>
+          </el-table-column>
           <el-table-column prop="designCount" label="设计重做次数"></el-table-column>demandorCheckDesignState
           <el-table-column prop="demandorCheckDesignState" label="设计验收状态">
             <template slot-scope="scope">
@@ -301,10 +311,16 @@
             </template>
           </el-table-column>
           <el-table-column prop="uploadDesignTime" label="设计上传时间">
-            <template slot-scope="scope">{{scope.row.uploadDesignTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
+              <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
+            </template>
           </el-table-column>
           <el-table-column prop="demandorCheckDesignTime" label="设计审核时间">
-            <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未审核</el-span>
+              <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
+            </template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
@@ -314,7 +330,7 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button type="text" size="small">下载</el-button>
+              <el-button type="text" size="small">查看设计</el-button>
               <el-button
                 @click="SJTG(scope.row)"
                 type="text"
@@ -660,15 +676,28 @@ export default {
           companyName: row.companyName
         });
         console.log(data);
-        that.axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/RWJHSH",
-          data: data
-        });
-        this.$message({
-          message: "审核通过",
-          type: "success"
-        });
+        that
+          .axios({
+            method: "post",
+            url: "http://127.0.0.1:8082/SubstaskInformation/RWJHSH",
+            data: data
+          })
+          .then(response => {
+            if (response.data == "成功") {
+              this.$message({
+                message: "审核通过",
+                type: "success"
+              });
+            } else {
+              this.$confirm(
+                "您已经通过了一个任务计划，无法再通过另一个任务计划",
+                "提示",
+                {
+                  type: "warning"
+                }
+              );
+            }
+          });
       });
     },
     JHSJJ(row) {
@@ -707,11 +736,11 @@ export default {
         .then(response => {
           console.log("cap");
           console.log(response.data);
-          this.download(response.data);
+          this.download(response.data,'JHS');
         });
     },
     // 下载文件
-    download(data) {
+    download(data,leixing) {
       if (!data) {
         return;
       }
@@ -719,7 +748,12 @@ export default {
       let link = document.createElement("a");
       link.style.display = "none";
       link.href = url;
-      link.setAttribute("download", "设计文档.docx");
+      if(leixing === "JHS"){
+        link.setAttribute("download", "设计文档.docx");
+      }
+      else if(leixing ==="HT"){
+        link.setAttribute("download", "合同.docx");
+      }
       document.body.appendChild(link);
       link.click();
     },
@@ -730,11 +764,12 @@ export default {
       }).then(() => {
         console.log(row.taskId);
         var that = this;
-        var data = Qs.sIDtringify({
-          ID: row.id
+        var data = Qs.stringify({
+          taskID: row.taskId
         });
         console.log(data);
-        that.axios({
+        that
+        .axios({
           method: "post",
           url: "http://127.0.0.1:8082/SubstaskInformation/HTSHTG",
           data: data
@@ -744,6 +779,7 @@ export default {
           type: "success"
         });
       });
+     
     },
     HTSHJJ(row) {
       this.addVisible2 = true;
@@ -765,6 +801,23 @@ export default {
       this.addList2 = {};
       this.addVisible2 = false;
     },
+    //合同下载
+    HTXZ(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskID: row.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/SubstaskInformation/DownloadHT",
+          data: data
+        })
+        .then(response => {
+          console.log(response.data);
+          this.download(response.data,"HT");
+        });
+    },
     //设计通过
     SJTG(row) {
       this.$confirm("确定将设计审核通过么？", "提示", {
@@ -782,7 +835,7 @@ export default {
           data: data
         });
         this.$message({
-          message: "审核通过",
+          message: "审核通过,并自动生成评价",
           type: "success"
         });
       });
@@ -855,6 +908,7 @@ export default {
     border-radius: 0px;
     text-align: center;
   }
+
   .el-input.is-disabled .el-input__inner {
     background-color: #ffffff;
   }

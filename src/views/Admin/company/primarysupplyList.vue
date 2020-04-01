@@ -237,7 +237,7 @@ export default {
      
     },
     supplyDetail(){
-         this.$router.push('/admin/supplyDetail')
+         this.$router.push('/admin/companyDetail')
      },
     addData() {
         var that = this;
