@@ -1,448 +1,514 @@
-<template >
-  <div class="mainStaskDetaul">
-    <el-main style="overflow:hidden">
-      <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <el-steps :active="activeBZT">
-        <el-step title="申请/邀请" icon="el-icon-edit"></el-step>
-        <el-step title="计划提交" icon="el-icon-upload"></el-step>
-        <el-step title="任务进行中" icon="el-icon-picture"></el-step>
-        <el-step title="审核" icon="el-icon-message-solid"></el-step>
-        <el-step title="验收" icon="el-icon-s-promotion"></el-step>
-        <el-step title="完成" icon="el-icon-s-claim"></el-step>
-      </el-steps>
-      <br />
-      <br />
-      <div class="biaoti">——基本信息——</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <br />
-      <el-card class="box-card">
-        <el-form ref="cool" :model="cool" label-width="110px" class="form">
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="需求名称:">
-                <el-input v-model="cool.mainTaskName" :disabled="true" style="text-align:center"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="子任务名称:">
-                <el-input v-model="cool.taskName" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="发布企业名称:">
-                <el-input v-model="cool.companyName" :disabled="true" style="text-align:center"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="接受企业名称:">
-                <el-input v-model="cool.supplierName" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="任务截止日期:">
-                <el-input v-bind:value="cool.deadline|formatDate" :disabled="true" style="text-align:center"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="需求方电话:">
-                <el-input v-model="cool.demanderTel" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-      </el-card>
-      <br />
-      <br />
-
-
-             <div v-show="milepostActive1">
-      <div class="biaoti">——申请列表——</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <el-table
-        :data="tableData1"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <!-- mainTaskID冲-->
-        <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-        <el-table-column prop="applyWay" label="承接方式">
-          <template slot-scope="{row: {applyWay}}">
-            <span v-if="+applyWay === 0">邀请</span>
-            <span v-else-if="+applyWay === 1">申请</span>
-            <span v-else>其他</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="checkApplyState" label="申请/邀请状态">
-          <template slot-scope="{row: {checkApplyState}}">
-            <span v-if="+checkApplyState === 0">待审核</span>
-            <span v-else-if="+checkApplyState === 1">通过</span>
-            <span v-else>拒绝</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="applyTime" label="申请/邀请时间">
-          <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
-        </el-table-column>
-        <el-table-column prop="checkPlanState" label="计划审核状态">
-          <template slot-scope="{row: {checkPlanState}}">
-            <span v-if="+checkPlanState === 0">待上传</span>
-            <span v-else-if="+checkPlanState === 1">待审核</span>
-            <span v-else-if="+checkPlanState === 2">通过</span>
-            <span v-else-if="+checkPlanState === 3">拒绝</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="checkPlanTime" label="计划审核时间">
-          <template slot-scope="scope">{{scope.row.checkPlanTime | formatDate}}</template>
-        </el-table-column>
-
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-            >废除</el-button>-->
-            <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <br />
-      <br />
-             </div>
-
-
-       <div v-show="milepostActive2">
-      <div class="biaoti">——任务计划——</div>
-      <br />
-      <el-table
-        :data="tableData2"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <!-- mainTaskID冲-->
-        <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-        <el-table-column prop="applyWay" label="承接方式"></el-table-column>
-        <el-table-column prop="checkPlanState" label="计划审核状态">
-          <template slot-scope="{row: {checkPlanState}}">
-            <span v-if="+checkPlanState === 0">待上传</span>
-            <span v-else-if="+checkPlanState === 1">待审核</span>
-            <span v-else-if="+checkPlanState === 2">通过</span>
-            <span v-else-if="+checkPlanState === 3">拒绝</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="checkPlanTime" label="计划审核时间">
-          <template slot-scope="scope">{{scope.row.checkPlanTime | formatDate}}</template>
-        </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-            >废除</el-button>-->
-            <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-        <br />
-      <br />
+<template>
+  <div>
+    <!--查询-->
+    <div class="searchAll">
+      <div class="clearfix  check-add-del">
+        <!--分类滑块-->
+        <div class="left clearfix">
+          <div class="check left">
+            <span class="check-add-del-span">班级</span>
+            <el-cascader
+              expand-trigger="hover"
+              :options="gradeUnitData"
+              v-model="positionArr"
+              :props="defaultProps"
+              @change="gradeUnitChange">
+            </el-cascader>
+          </div>
+          <el-button @click="onSearch" style="margin-left: 20px"  class="left" type="primary" icon="el-icon-search">查询</el-button>
+        </div>
+        <span class="wuchaxun bns left">{{belongName}}</span>
+        <div class="right">
+        <span>
+          <el-button  v-show="!timeShow"  @click="saveBtn" type="primary">保存</el-button>
+          <el-button  v-show="!timeShow"  @click="quitBtn" type="primary">取消</el-button>
+          <el-button  v-show="timeShow"  @click="editBtn" type="primary">编辑</el-button>
+          <el-button v-show="timeShow" @click="delBtn" type="primary">删除</el-button>
+        </span>
+          <span style="margin-left: 10px">
+          <el-popover
+            placement="top"
+            width="200"
+            ref="importVisible">
+            <p>只能以模板文件上传，否则服务器不识别！！</p>
+            <div class="clearfix">
+              <el-button size="mini" class="left" type="primary" @click="downloadBtn">下载模板</el-button>
+              <el-upload
+                class="right"
+                action="#"
+                :show-file-list="false"
+                :before-upload="importBtn">
+                <el-button type="success" size="mini">上传至服务器</el-button>
+              </el-upload>
+            </div>
+          </el-popover>
+          <el-button v-show="timeShow" v-popover:importVisible type="primary">导入</el-button>
+        </span>
+        </div>
       </div>
+    </div>
+    <!--表格-->
+    <el-table
+      :data="timeData"
+      stripe
+      style="width: 100%">
+      <el-table-column width="80" label="周" fixed="left" prop="label" align="center"></el-table-column>
 
-
-       <div v-show="milepostActive3">
-      <div class="biaoti">——合同管理——</div>
-      <br />
-      <el-table
-        :data="tableData3"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <!-- mainTaskID冲-->
-        <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-        <el-table-column prop="applyWay" label="承接方式"></el-table-column>
-        <el-table-column prop="contractState" label="合同审核状态">
-          <template slot-scope="{row: {contractState}}">
-            <span v-if="+contractState === 0">待上传</span>
-            <span v-else-if="+contractState === 1">待审核</span>
-            <span v-else-if="+contractState === 2">通过</span>
-            <span v-else-if="+contractState === 3">未通过</span>
+      <el-table-column label="上午" align="center">
+        <el-table-column
+          width="118"
+          v-for="(v,i) in titleData" :key="i"
+           align="center">
+          <template slot="header" slot-scope="">
+            <div class="tabletitle-timeline">
+              第{{v.count}}节 <br/>
+              {{v.startTime}}-{{v.endTime}}
+          </div>
           </template>
-        </el-table-column>
-        <el-table-column prop="uploadContractTime" label="合同上传时间">
-          <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
-        </el-table-column>
-        <el-table-column prop="contractRefuseReason" label="合同拒绝原因"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
-            <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-            >废除</el-button>-->
-            <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-        <br />
-      <br />
-       </div>
-
-
-              <div v-show="milepostActive4">
-      <div class="biaoti">——设计提交——</div>
-      <br />
-      <el-table
-        :data="tableData4"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        @selection-change="handleSelectionChange"
-      >
-        <!-- mainTaskID冲-->
-        <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="companyName" label="供应商"></el-table-column>
-        <el-table-column prop="applyWay" label="承接方式"></el-table-column>
-        <el-table-column prop="designerName" label="设计人员姓名"></el-table-column>
-        <el-table-column prop="uploadDesignTime" label="设计提交时间">
-          <template slot-scope="scope">{{scope.row.uploadDesignTime | formatDate}}</template>
-        </el-table-column>
-        <el-table-column prop="designCount" label="设计重做次数">
-        </el-table-column>demandorCheckDesignState
-          <el-table-column prop="demandorCheckDesignState" label="设计验收状态">
-        </el-table-column>
-        <el-table-column prop="demandorCheckDesignTime" label="需求方验收时间">
-          <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
-        </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-            >废除</el-button>-->
-            <el-button @click="SQTG(scope.row)" type="text" size="small">通过</el-button>
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">拒绝</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+            <div >
+              <div v-if="timeShow">
+                {{scope.row[sbjectKey[i]]}}<br/>
+                {{scope.row[teacherKey[i]]}}
+            </div>
+              <div v-else>
+                <el-input
+                  size="mini"
+                  placeholder="科目"
+                  suffix-icon="el-icon-date"
+                  v-model="scope.row[sbjectKey[i]]">
+                </el-input>
+                <el-select
+                  clearable
+                  v-model="scope.row[teacherKey[i]]"
+                  size="mini"
+                  placeholder="任课老师">
+                  <el-option
+                    v-for="(val,ind) in teachers"
+                    :key="ind"
+                    :label="val.teacherName"
+                    :value="val.id"></el-option>
+                </el-select>
               </div>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table-column>
 
-    </el-main>
+      <el-table-column label="下午" align="center">
+        <el-table-column
+          width="118"
+          v-for="(v,i) in titleData" :key="i"
+           align="center">
+          <template slot="header" slot-scope="">
+            <div class="tabletitle-timeline">
+              第{{v.count}}节 <br/>
+              {{v.startTime}}-{{v.endTime}}
+          </div>
+          </template>
+          <template slot-scope="scope">
+            <div >
+              <div v-if="timeShow">
+                {{scope.row[sbjectKey[i]]}}<br/>
+                {{scope.row[teacherKey[i]]}}
+            </div>
+              <div v-else>
+                <el-input
+                  size="mini"
+                  placeholder="科目"
+                  suffix-icon="el-icon-date"
+                  v-model="scope.row[sbjectKey[i]]">
+                </el-input>
+                <el-select
+                  clearable
+                  v-model="scope.row[teacherKey[i]]"
+                  size="mini"
+                  placeholder="任课老师">
+                  <el-option
+                    v-for="(val,ind) in teachers"
+                    :key="ind"
+                    :label="val.teacherName"
+                    :value="val.id"></el-option>
+                </el-select>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table-column>
+
+      <el-table-column label="晚上" align="center">
+        <el-table-column
+          width="118"
+          v-for="(v,i) in titleData" :key="i"
+          align="center">
+          <template slot="header" slot-scope="">
+            <div class="tabletitle-timeline">
+              第{{v.count}}节 <br/>
+              {{v.startTime}}-{{v.endTime}}
+          </div>
+          </template>
+          <template slot-scope="scope">
+            <div >
+              <div v-if="timeShow">
+                {{scope.row[sbjectKey[i]]}}<br/>
+                {{scope.row[teacherKey[i]]}}
+            </div>
+              <div v-else>
+                <el-input
+                  size="mini"
+                  placeholder="科目"
+                  suffix-icon="el-icon-date"
+                  v-model="scope.row[sbjectKey[i]]">
+                </el-input>
+                <el-select
+                  clearable
+                  v-model="scope.row[teacherKey[i]]"
+                  size="mini"
+                  placeholder="任课老师">
+                  <el-option
+                    v-for="(val,ind) in teachers"
+                    :key="ind"
+                    :label="val.teacherName"
+                    :value="val.id"></el-option>
+                </el-select>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
-import Qs from "qs";
-import { formatDate } from "./dataChange";
-export default {
-  name: "mainStaskDetail",
-  data() {
-    return {
-      activeBZT: "",
-      mainTaskID: "",
-      milepostActive1:-1,//
-      milepostActive2:-1,
-      milepostActive3:-1,
-      milepostActive4:-1,
-      cool: {
-        mainTaskName: "nihao",
-        taskName: "nihao",
-        companyName: "",
-        supplierName: "",
-        deadline: "",
-        demanderTel: ""
-      },
-      tableData1: [
-        {
-          acceptCompanyName: "",
-          applyWay: "",
-          checkApplyState: "",//任务申请审核状态
-          applyTime: "",//任务申请审核时间
-          checkPlanState: "", //计划审核状态
-          checkPlanTime: "" //计划审核时间
-        }
-      ],
-            tableData2: [
-        {
-          acceptCompanyName: "",
-          applyWay: "",
-          checkPlanState: "", //计划审核状态
-          checkPlanTime: "" //计划审核时间
-        }
-      ],
-       tableData3: [
-        {
-          acceptCompanyName: "",
-          applyWay: "",
-          contractState:"",//合同审核状态
-          uploadContractTime:"",//合同上传时间
-          contractRefuseReason:"",//合同拒绝原因
-        }
-      ]
-    };
-  },
 
-  filters: {
-    formatDate(time) {
-      let date = new Date(time);
-      return formatDate(date, "yyyy.MM.dd");
-    }
-  },
-  created() {
-    this.getParams();
-    this.showData();
-  },
-  methods: {
-    getParams() {
-      var routerParams = this.$route.query.taskId;
-      this.taskId = routerParams;
-      console.log(routerParams);
+
+  export default {
+     name: "mainStaskDetailbei",
+    data() {
+      return {
+        pageButton:{},//权限按钮
+        //查询
+        gradeUnitData:[],//年级班级数据
+        defaultProps: {value:'id'},//默认节点名与数据绑定
+        positionArr:[],//级联选择值
+
+        timeShow:true,//编辑表与展示表
+        teachers:[],//全部教师
+
+        sbjectKey:['oneS','twoS','threeS','fourS','fiveS','sixS','sevenS','eightS','nineS'],//科目key值
+        teacherKey:['oneT','twoT','threeT','fourT','fiveT','sixT','sevenT','eightT','nineT'],//老师key值
+        //每天的课表
+        timeData:[
+          {
+            id:'1',
+            label:'周一',
+            oneS:'java教程1',
+            oneT:'郑老师',
+            twoS:'语文',
+            twoT:'张老师',
+            threeS:'心理辅导',
+            threeT:'杨老师',
+            fourS:'音乐',
+            fourT:'巩老师',
+            fiveS:'网络',
+            fiveT:'征老师',
+            sixS:'舞蹈',
+            sixT:'程老师',
+            sevenS:'ppt教程',
+            sevenT:'翟老师',
+            eightS:'职业规划',
+            eightT:'郝老师',
+            nineS:'就业指导',
+            nineT:'曹老师'
+          },
+          {
+            id:'2',
+            label:'周二',
+            oneS:'java教程2',
+            oneT:'郑老师',
+            twoS:'语文',
+            twoT:'张老师',
+            threeS:'心理辅导',
+            threeT:'杨老师',
+            fourS:'音乐',
+            fourT:'巩老师',
+            fiveS:'网络',
+            fiveT:'征老师',
+            sixS:'舞蹈',
+            sixT:'程老师',
+            sevenS:'ppt教程',
+            sevenT:'翟老师',
+            eightS:'职业规划',
+            eightT:'郝老师',
+            nineS:'就业指导',
+            nineT:'曹老师'
+          },
+          {
+            id:'3',
+            label:'周三',
+            oneS:'java教程3',
+            oneT:'郑老师',
+            twoS:'语文',
+            twoT:'张老师',
+            threeS:'心理辅导',
+            threeT:'杨老师',
+            fourS:'音乐',
+            fourT:'巩老师',
+            fiveS:'网络',
+            fiveT:'征老师',
+            sixS:'舞蹈',
+            sixT:'程老师',
+            sevenS:'ppt教程',
+            sevenT:'翟老师',
+            eightS:'职业规划',
+            eightT:'郝老师',
+            nineS:'就业指导',
+            nineT:'曹老师'
+          },
+          {
+            id:'4',
+            label:'周四',
+            oneS:'java教程',
+            oneT:'郑老师',
+            twoS:'语文',
+            twoT:'张老师',
+            threeS:'心理辅导',
+            threeT:'杨老师',
+            fourS:'音乐',
+            fourT:'巩老师',
+            fiveS:'网络',
+            fiveT:'征老师',
+            sixS:'舞蹈',
+            sixT:'程老师',
+            sevenS:'ppt教程',
+            sevenT:'翟老师',
+            eightS:'职业规划',
+            eightT:'郝老师',
+            nineS:'就业指导',
+            nineT:'曹老师'
+          },
+          {
+            id:'5',
+            label:'周五',
+            oneS:'java教程',
+            oneT:'郑老师',
+            twoS:'语文',
+            twoT:'张老师',
+            threeS:'心理辅导',
+            threeT:'杨老师',
+            fourS:'音乐',
+            fourT:'巩老师',
+            fiveS:'网络',
+            fiveT:'征老师',
+            sixS:'舞蹈',
+            sixT:'程老师',
+            sevenS:'ppt教程',
+            sevenT:'翟老师',
+            eightS:'职业规划',
+            eightT:'郝老师',
+            nineS:'就业指导',
+            nineT:'曹老师'
+          },
+          {
+            id:'',
+            label:'周六',
+          },
+          {
+            id:'',
+            label:'周天',
+          },
+        ],
+        belongName:'',//班级名
+        belongId:"",//班级id
+        belongType:"803",//803表示班级，教室804
+        timeId:"",
+        //课节数据---标题
+        titleData:[
+          {
+            id:'1',
+            count:1,
+            label:'上午',
+            startTime:'08:00',
+            endTime:'08:30'
+          },
+          {
+            id:'2',
+            count:2,
+            label:'上午',
+            startTime:'09:00',
+            endTime:'09:30'
+          },
+          {
+            id:'3',
+            count:3,
+            label:'下午',
+            startTime:'12:05',
+            endTime:'12:35'
+          },
+          {
+            id:'4',
+            count:4,
+            label:'下午',
+            startTime:'14:00',
+            endTime:'14:30'
+          },
+          {
+            id:'5',
+            count:5,
+            label:'下午',
+            startTime:'16:00',
+            endTime:'16:30'
+          },
+          {
+            id:'6',
+            count:6,
+            label:'下午',
+            startTime:'17:00',
+            endTime:'17:30'
+          },
+          {
+            id:'7',
+            count:7,
+            label:'晚上',
+            startTime:'19:00',
+            endTime:'19:30'
+          },
+          {
+            id:'8',
+            count:8,
+            label:'晚上',
+            startTime:'20:00',
+            endTime:'20:30'
+          },
+          {
+            id:'9',
+            count:9,
+            label:'晚上',
+            startTime:'21:00',
+            endTime:'21:30'
+          },
+        ],
+      }
     },
-
-    showData() {
-      console.log("你好");
-      console.log(this.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        subStaskID: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/list",
-          data: data
-
-          // data:this.$store.state.userName
-        })
-        .then(response => {
-          console.log(response);
-          this.tableData1 = response.data.allData.b;
-          if(this.tableData1 == null){
-            this.milepostActive1 = 0;
-          }
-          this.tableData2 = response.data.allData.c;
-          if(this.tableData2 == null){
-            this.milepostActive2 = 0;
-          }
-          this.tableData3 = response.data.allData.d;
-          if(this.tableData3 == null){
-            this.milepostActive3 = 0;
-          }
-          this.tableData4 = response.data.allData.e;
-          if(this.tableData4 == null){
-            this.milepostActive4 = 0;
-          }
-
-          this.cool = response.data.allData.a[0];
-          this.activeBZT = response.data.allData.a[0].taskState;
-          if (this.activeBZT == "计划提交") {
-            this.activeBZT = 2;
-          } else if (this.activeBZT == "申请或邀请中") {
-            this.activeBZT = 1;
-          } else if (this.activeBZT == "任务进行中") {
-            this.activeBZT = 3;
-          } else if (this.activeBZT == "审核") {
-            this.activeBZT = 4;
-          } else if (this.activeBZT == "验收") {
-            this.activeBZT = 5;
-          } else if (this.activeBZT == "完成") {
-            this.activeBZT = 6;
-          }
-          this.mainTaskID = response.data.allData.a[0].mainTaskId;
-          console.log(response.data.allData.a[0].taskState);
-          console.log(response.data.allData);
+    mounted(){
+      this.timetableLoad();
+    },
+    methods:{
+      timetableLoad(){
+        //根据path来找页面权限，按钮根据code来找对应的按钮权限
+        let self = this;
+        this.pageButton=auth.allButtons();
+        auth.getButtons(this.$route.name).forEach(function (val) {
+          self.pageButton[val.code]=true;
         });
-    },
-    goBack() {
-      this.$router.push({
-        path: "/admin/substaskDetail",
-        query: {
-          mainTaskID: this.mainTaskID
+        //全部教师
+        requestServices.teacherAll().then((res) =>{
+          this.teachers=res.resultData;
+        });
+        //获取年级班级级联
+        requestServices.studentClass()
+          .then((res)=>{
+            this.gradeUnitData=res.resultData
+          });
+      },
+      //年级班级级联
+      gradeUnitChange(val){
+        this.belongId=val[val.length-1];
+        this.belongType='803'
+      },
+      //条件查询
+      onSearch(){
+        let self = this;
+        if(this.belongId&&this.belongType){
+          self.timeShow=true;
+          self.getTimeTableFind();
+        }else{
+          this.$message.warning('请先选择班级')
         }
-      });
+      },
+      //获取课表
+      getTimeTableFind(){},
+      //保存
+      saveBtn(){
+        this.timeShow=true;
+      },
+      //取消
+      quitBtn(){
+        this.timeShow=true;
+      },
+      //编辑
+      editBtn(){
+        let self = this;
+        if(this.belongId!==''&&this.belongType!==''){
+          this.timeShow=false;
+        }else{
+          this.$message({type:'warning',message:'请先选择对应班级'})
+        }
+      },
+      //删除课表
+      delBtn(){
+        this.$confirm('是否删除当前整张课表?', '提示', {
+          confirmButtonText: '是',
+          cancelButtonText: '否',
+          type: 'warning',
+          center: true
+        }).then(() => {
+          let self = this;
+          if (this.timeId!==undefined&&this.timeId!=='') {
+            requestServices.timeTableDelete({id:self.timeId}).then((res) =>{
+              self.getTimeTableFind();//重新获取列表
+            })
+          }else{
+            this.$message({type:'warning',message:'请先选择对应班级'})
+          }
+        });
+      },
+      //导入
+      downloadBtn(){
+        requestServices.timeTableDownload()
+          .then((res)=>{
+            let url = res.resultData;
+            let link = document.createElement('a')
+            link.style.display = 'none'
+            link.href = url
+            link.setAttribute('id', 'downloadLink')
+            link.setAttribute('download','模板.xls')
+            document.body.appendChild(link)
+            link.click()
+            // 删除添加的a链接
+            let objLink = document.getElementById('downloadLink')
+            document.body.removeChild(objLink);
+          })
+      },
+      importBtn(file) {
+        if(!this.belongId){
+          this.$message({type:'warning',message:'请先选择教室或者班级'})
+          return false;
+        }
+        const isXls = file.type === 'application/vnd.ms-excel';
+        const isXlsx = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+        if(!isXls&&!isXlsx){
+          this.$message('上传格式不正确，请确认上传文件后缀名为.xls或.xlsx')
+          return false;
+        }else{
+          let importFd=new FormData();
+          importFd.append('importFile',file)
+          importFd.append('belongId',this.belongId)
+          importFd.append('belongType',this.belongType)
+          requestServices.timeTableImport(importFd)
+            .then((res)=>{
+              this.$message('文件已上传至服务器');
+            })
+        }
+      },
     }
   }
-};
 </script>
-
-<style lang="scss">
-.mainStaskDetaul {
-  .table {
-    font-size: 13px;
+<style>
+  .tabletitle-timeline{
+    line-height: 18px!important;
   }
-  .text {
-    font-size: 14px;
-  }
-
-  .item {
-    padding: 18px 0;
-  }
-
-  .box-card {
-    width: 960px;
-    /* border: 1px solid #00a2e6 ; */
-  }
-  .el-page-header__title {
-    font-size: 18px;
-  }
-  .biaoti {
-    font-size: 18px;
-    color:#303133;
-  }
-  .el-input.is-disabled .el-input__inner {
-    color: #606266;
-  }
-  /* 表格字体粗细 */
-  .el-table thead {
-    font-weight: 200;
-  }
-  /* 表格下方每列有无竖线 */
-  .el-table__row > td {
-    border: none;
-  }
-  // 表格样式调整
-  .el-input__inner {
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-radius: 0px;
-    text-align: center;
-  }
-  .el-input.is-disabled .el-input__inner {
-    background-color: #ffffff;
-  }
-  // 进度样式调整
-  .el-step__title.is-finish {
-    color: #f15e09;
-    border-color: #f15e09;
-  }
-  .el-step__head.is-finish {
-    color: #f15e09;
-    border-color: #f15e09;
-  }
-}
 </style>
+

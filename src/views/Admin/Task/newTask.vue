@@ -375,6 +375,8 @@ export default {
 
   data() {
     return {
+            usernameX:this.$store.state.user,
+
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -563,7 +565,7 @@ export default {
       } else {
         var that = this;
         var data = Qs.stringify({
-          userName: "aaaa",
+          userName: this.usernameX,
           technicalFile: this.technicalFile,
           name: this.name,
           mainStaskTypeID: this.mainStaskTypeID,
@@ -697,7 +699,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
-        username: "aaaa"
+        username: this.usernameX
       });
       that
         .axios({
@@ -725,7 +727,7 @@ export default {
       } else {
         var that = this;
         var data = Qs.stringify({
-          userName: "aaaa",
+          userName: this.usernameX,
           taskName: this.addList.taskName,
           // taskState : this.addList.TaskState,
           publishTime: this.addList.beginTime,
