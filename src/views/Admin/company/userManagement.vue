@@ -91,7 +91,7 @@
                   <el-input v-model="addList.realName"></el-input>
                 </el-form-item>
                 <el-form-item label="联系方式">
-                  <el-input v-model="addList.phone"></el-input>
+                  <el-input v-model="addList.phone" @blur="animate()"></el-input>
                 </el-form-item>
                  <!-- <el-form-item label="用户密码">
                   <el-input v-model="addList.password"></el-input>
@@ -218,7 +218,18 @@ export default {
           this.tableData = response.data.allData;
         });
     },
+     //手机号校验
+       animate(){
+           var re = /^1\d{10}$/;
+           let str = this.addList.phone;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.addList.phone = "";
+               alert('抱歉联系方式不合法')
 
+          }
+       },
     chushihuamima(row){
       var that = this;
       var data = Qs.stringify({
@@ -232,6 +243,11 @@ export default {
             "http://127.0.0.1:8082/user/updatePassword",
           data: data
         })
+        .then(response => {         
+           this.$message.success("初始化密码成功");          
+          this.tableData.splice(index, 1);
+           center: true;
+        });
     },
   
     // 删除操作
