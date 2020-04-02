@@ -131,7 +131,7 @@
             </el-table-column>
 
             <el-table-column label="操作" align="center">
-              <el-button @click="remarkDetail" type="text" size="small">查看详情</el-button>
+              <el-button @click="remarkDetail(scope.row)" type="text" size="small">查看详情</el-button>
             </el-table-column>
           </el-table>
         </div>
@@ -172,7 +172,7 @@ export default {
       radio0: "",
       //任务截至时间
       value: new Date(),
-
+      taskId:"",
       search: "",
       //设定el-cow的值
       gutterCount: 20,
@@ -214,8 +214,14 @@ export default {
   methods: {
     /*
      *转跳对应任务信息页面
-     */ remarkDetail() {
-      this.$router.push("/resultDetail");
+     */ 
+    remarkDetail(row) {
+       console.log(row.taskId);
+      this.$router.push({
+        path:"/service",
+        query:{
+          taskId:row.taskId
+        }});
     },
     recordTabletender() {},
     handleChange(val) {
