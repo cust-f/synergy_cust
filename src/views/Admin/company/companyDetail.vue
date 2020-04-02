@@ -345,6 +345,7 @@ export default {
     name:'companyDetail',
     data(){
        return {
+           usernameX:this.$store.state.user,
            yangshi:true,
            wancheng:true,
            xiugai:false,
@@ -473,7 +474,7 @@ export default {
         getDate(){
             var that = this;
             var data = Qs.stringify({
-                userName:'aaaa'
+                userName:this.usernameX
             });
             console.log(data);
             that

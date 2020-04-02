@@ -354,6 +354,7 @@ export default {
   prop: {},
   data() {
     return {
+            usernameX:this.$store.state.user,
       //级联选择框的配置对象
       cateProps: {
         value: "id",
@@ -496,8 +497,10 @@ export default {
            let str = this.addList.Telphone;
            if(re.test(str)){
               //  alert('成功')
-           }else {
+           }else { 
+             this.addList.Telphone=""
                alert('抱歉手机号不合法')
+              
           }
        },
 
@@ -539,7 +542,7 @@ export default {
       }else{   
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa",
+        userName:this.usernameX,
         taskName: this.addList.taskName,
         // taskState : this.addList.TaskState,
         publishTime: this.addList.beginTime,
@@ -725,7 +728,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
-        username :"aaaa"
+        username :this.usernameX
       });
       that
         .axios({

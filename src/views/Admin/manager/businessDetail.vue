@@ -191,10 +191,10 @@
                 </el-form-item>
               </el-col>
                 <el-col :span="12">
-                <el-form-item label="电子邮箱">
-                  <el-input v-model="form1.email"></el-input>
-                </el-form-item>
-              </el-col>      
+                    <el-form-item label="电子邮箱">
+                        <el-input v-model="form1.email" @blur="youxiang()"></el-input>
+                    </el-form-item>
+                </el-col>
             </el-row>
 
             <el-row>
@@ -217,10 +217,10 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="邮政编码">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.postcode"></el-input>
-                </el-form-item>
-              </el-col>
+                    <el-form-item label="邮政编码">
+                        <el-input  @blur="youzhengbianma()" v-model="form1.postcode" ></el-input>
+                    </el-form-item>
+                </el-col>
             </el-row>
 
             <el-row>
@@ -242,11 +242,11 @@
                   <el-input v-model="form1.businessName"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :span="12">
-                <el-form-item label="办公电话">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.officeNumber"></el-input>
-                </el-form-item>
-              </el-col>
+               <el-col :span="12">
+                    <el-form-item label="办公电话">
+                        <el-input @blur="animate()"  v-model="form1.officeNumber" ></el-input>
+                    </el-form-item>
+                </el-col>
             </el-row>
 
             <el-row>
@@ -288,10 +288,10 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="银行账户">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.bankNumber"></el-input>
-                </el-form-item>
-              </el-col>
+                    <el-form-item label="银行账户">
+                        <el-input @blur="yinhangkahao()" v-model="form1.bankNumber" ></el-input>
+                    </el-form-item>
+                </el-col>
             </el-row>
             <el-row>
               <el-col :span="24" class="xiangxi">
@@ -328,32 +328,6 @@ export default {
       xiugai: false,
       shenhe: true,
       form: {
-        // businessName: "",
-        // companyID: "20191006066",
-        // companyName: "长光卫星国际有限公司",
-        // brNumber: "S100934",
-        // Address: "吉林省长春市卫星路8848号",
-        // postcode: "104300",
-        // foundingTime: "2015-9-10",
-        // officeNumber: "17866625034",
-        // email: "34895611@163.com",
-        // bussessName: "李林甫",
-        // product: "微电子元器件制作",
-        // introduction:
-        //   "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
-        // cool: "17855555",
-        // province: "吉林省",
-        // city: "长春市绿园区",
-        // registeredCapital: "8.5亿",
-        // totalAssets: "10亿",
-        // currentAssets: "2.2亿",
-        // fixedAssets: "2亿元",
-        // legalPerson: "杨言",
-        // LegalTel: "188990002222",
-        // workerNumber: "500人",
-        // deposit_Bank: "中国银行",
-        // bankNumber: "25206589260388885222201"
-        //  @input.native="changeCode"
       },
       form1: {
         businessName: "",
@@ -459,6 +433,51 @@ export default {
       this.addList = {};
       this.addVisible = false;
     },
+      //手机号校验
+       animate(){
+           var re = /^1\d{10}$/;
+           let str = this.form1.officeNumber;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.officeNumber = "";
+               alert('抱歉手机号不合法')
+
+          }
+       },
+           //银行卡号校验/^([1-9]{1})(\d{14}|\d{18})$/
+       yinhangkahao(){
+            var re =  /\d{14}$/
+           let str = this.form1.bankNumber;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.bankNumber="";
+               alert('抱歉银行卡号不合法')
+          }
+       },
+         //邮箱校验
+       youxiang(){
+            var re = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/ 
+           let str = this.form1.email;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.email = "";
+               alert('抱歉邮箱不合法')
+          }
+       },
+       //邮政编码校验
+       youzhengbianma(){
+            var re =   /\d{6}$/
+           let str = this.form1.postcode;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.postcode = "";
+               alert('抱歉邮箱不合法')
+          }
+       },
 
     changeCode() {
       this.$nextTick(() => {
