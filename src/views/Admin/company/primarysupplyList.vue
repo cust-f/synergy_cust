@@ -3,7 +3,9 @@
     <el-container>
         <el-main>
           <div font-size="24px">
-            <h3>一级供应商列表</h3></div>
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          供应商列表
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</div>
              &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <div>
 
@@ -110,6 +112,7 @@ export default {
   name: "primarysupplyList",
   data() {
     return {
+      usernameX:this.$store.state.user,
         query: {
         pageIndex: 1,
         pageSize: 10
@@ -159,7 +162,7 @@ export default {
      getData(){
        var that = this;
         var data = Qs.stringify({
-        username: "aaaa"
+        username: this.usernameX
       });
       console.log(data);
       that
@@ -177,7 +180,7 @@ export default {
      TianJia(row){
        var that = this;
        var data = Qs.stringify({
-         username:"aaaa",
+         username:this.usernameX,
          companyId:row.companyId
        })
        that
@@ -207,7 +210,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         companyID: row.companyId,
-        username:"aaaa",
+        username:this.usernameX,
       })
       that
         .axios({
@@ -235,12 +238,12 @@ export default {
      
     },
     supplyDetail(){
-         this.$router.push('/admin/supplyDetail')
+         this.$router.push('/admin/companyDetail')
      },
     addData() {
         var that = this;
         var data = Qs.stringify({
-        username: "aaaa"
+        username: this.usernameX
       });
       console.log(data);
       that

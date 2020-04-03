@@ -117,7 +117,7 @@
           <div class="cg_bottomlist" v-for="(list,index) in dataShow" :key="index">
             <ul class="cg_bottomLeft">
               <li class="cg_list001">
-                <a href="#/threeMenu" class="ziti2">{{list.mainTaskName}}</a>
+                <a href="#/threeMenu" class="ziti2" @click="passTaskID">{{list.mainTaskName}}</a>
               </li>
               <li class="cg_list002">
                 <a>需求类型：&nbsp;流通</a>
@@ -137,27 +137,45 @@
                     <br />
 
                     <font>联系电话:</font>
-                    1231231232132
+                    {{list.demanderTel}}
                   </a>
                 </li>
               </ul>
             </div>
           </div>
 
+          <!-- 新的分页部分 -->
+          <!-- <el-pagination
+            class="pull-right clearfix"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="pageNo"
+            :page-sizes="pageSizesList"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="totalDataNumber">
+          </el-pagination> -->
 
           <div class="page">
               <ul>
                   <li>
-                      <a href="#/xuqiuyilan"  v-on:click="prePage" ><</a>
+                      <a href="#/xuqiuyilan"  v-on:click="prePage" ></a>
                   </li>
-                  <li v-for="(list, index) in totalPage">
+                  <!-- <li v-for="(list, index) in totalPage">
                       <a href="#/xuqiuyilan" v-on:click="toPage(index)" :class="{active: currentPage==index}">{{ index+1 }}</a>
-                  </li>
+                  </li> -->
                   <li>
                       <a href="#/xuqiuyilan" v-on:click="nextPage" >></a>
                   </li>
               </ul>
           </div>    
+
+          <!-- <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="50">
+          </el-pagination> -->
+
 
         </div>
       </el-col>
@@ -168,6 +186,8 @@
 
 
 <script>
+import Qs from "qs";
+
 export default {
   name: "substaskDetail",
   data() {
@@ -382,6 +402,12 @@ export default {
         totalPage:[],
         // 当前显示的数据
         dataShow:[],
+        
+        // pageNo: 1,
+        // pageSize: 10,
+        // pageSizesList: [10, 15, 20, 30, 50],
+        // tableData: [],//返回的结果集合
+        // totalDataNumber: 0,//数据的总数,
 
     };
      radio: '1'
@@ -400,6 +426,14 @@ export default {
 
     tiaozhuan() {
       this.router.push("/admin/circulationTask");
+    },
+
+    passTaskID(){
+      this.$router.push({
+        path:"/threeMenu",
+        query:{taskName:"钢筋焊接"}
+        // 
+      });
     },
 
     click0() {
@@ -641,18 +675,18 @@ export default {
 
     getInfo() {
       var that = this;
-          // let data = Qs.stringify({
-          //   userName: this.param.username
-          // });
-          // that
-          //   .axios({
-          //     method: "post",
-          //     url: "/api/user/login",
-          //     data: data
-          //   })
-      that.axios.post("http://127.0.0.1:8082/xuqiuyilan/getAllList").then(response =>{
+      // let data = Qs.stringify({
+      //   TaskCategory: "交通运输业"
+      // });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/xuqiuyilan/getAllList",
+          // data: data
+        })
+        .then(response =>{
         that.demandTaskList = response.data;
-        console.log(that.demandTaskList )
+        console.log(that.demandTaskList)
         console.log(that.demandTaskList.length)
 
         // 总页数
@@ -667,6 +701,27 @@ export default {
       });
     },
 
+//     //改变每页显示数量
+//     handleSizeChange(val){
+//       var likeThis=this;
+//       var pageSize = `${val}`;
+//       this.pageNo=1
+//       this.pageSize= parseInt(pageSize);
+//       console.log('pageSize: '+pageSize);
+//       this.$nextTick(() =>
+//         this.getAndDraw(1,pageSize,function (resp) {
+//           likeThis.totalDataNumber = resp.data.Data.Total;
+//         })
+//       )
+//     },
+
+//          //改变页码
+//       handleCurrentChange(val){
+//         var pageSize=this.pageSize;
+// //        this.pageNo=pageNo;
+//         console.log('pageSize:'+this.pageSize)
+//         this.getAndDraw(parseInt(pageNo),parseInt(pageSize));
+//       },
 
     nextPage: function(){
         var that = this;

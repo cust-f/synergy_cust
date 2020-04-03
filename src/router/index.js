@@ -8,7 +8,7 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'//前台首页
 import twoMenu from '@/views/Front/Home/twoMenu'//前台首页二级页面
 import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
-import resultDetail from '@/views/Front/Home/resultDetail'//成果详情
+import service from '@/views/Front/Home/service'//成果详情
 import excellentCompany from '@/views/Front/Home/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
 import register from '@/views/Front/register/register'
@@ -37,6 +37,8 @@ import newTask from '@/views/admin/Task/newTask'//新增任务
 import mainStaskShow from '@/views/admin/maintask/mainStaskShow'//主任务显示
 import substaskDetail from '@/views/admin/maintask/substaskDetail'//子任务详情
 import mainStaskDetail from '@/views/admin/maintask/mainStaskDetail'//主任务详情
+import mainStaskDetailbei from '@/views/admin/maintask/mainStaskDetailbei'//主任务详情
+
 import review from '@/views/admin/check/review'
 
 import companyDetail from '@/views/admin/company/companyDetail'//企业详情
@@ -132,9 +134,9 @@ export default new Router({
           component: xuqiuyilan,
         },
         {
-           path:"/resultDetail",
-           name:"resultDetail",
-           component:resultDetail,
+           path:"/service",
+           name:"service",
+           component:service,
         },
         //优秀企业
         {
@@ -216,6 +218,14 @@ export default new Router({
             title: "查看主任务所属子任务的全部信息"
           }
         },
+        {
+          path: '/admin/mainStaskDetailbei',
+          name: 'mainStaskDetailbei',
+          component: mainStaskDetailbei,
+  
+        },
+
+
         //企业信息详情
         {
           path: '/admin/companyDetail',

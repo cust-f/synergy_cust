@@ -2,9 +2,9 @@
   <div>
     <el-container>
       <el-main>
-        <h3>需求任务</h3>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+<div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" >需求任务</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
-          <el-divider></el-divider>
+          <!-- <el-divider></el-divider> -->
 
           <div class="container">
             <template>
@@ -23,9 +23,9 @@
               >
                 <!-- mainTaskID冲-->
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
-                <el-table-column prop="industry_Type" label="需求类型"></el-table-column>
-                <el-table-column prop="principalName" label="项目负责人"></el-table-column>
+                <el-table-column prop="mainTaskName" label="需求任务名称" align="center"></el-table-column>
+                <el-table-column prop="taskCategoryMain" label="需求类型" align="center"></el-table-column>
+                <el-table-column prop="principalName" label="项目负责人" align="center"></el-table-column>
                 <el-table-column prop="publishTime" label="发布时间">
                   <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                 </el-table-column>
@@ -34,8 +34,14 @@
                     {{scope.row.deadline | formatDate}}
                   </template>
                 </el-table-column>
-                <el-table-column prop="taskState" label="状态" align="center" type="text"></el-table-column>
-                <el-table-column label="操作" width="180" align="center">
+                <el-table-column prop="taskState" label="状态" align="center" type="text">
+                  <template slot-scope="scope">
+                    <span v-if="+scope.row.taskState ===0">进行中</span>
+                    <span v-else-if="+scope.row.taskState ===1">已完成</span>
+                    <span v-else-if="+scope.row.taskState ===2">废除</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="操作"  align="center">
                   <template slot-scope="scope">
                     <!-- <el-button
                       type="text"
@@ -84,6 +90,7 @@ export default {
   name: "mainStaskShow",
   data() {
     return {
+      usernameX:this.$store.state.user,
       pageIndex: 1,
       pageSize: 10,
       activeName: "first",
@@ -193,8 +200,10 @@ export default {
 
   filters: {
     formatDate(time) {
+      var index=time.lastIndexOf("\.");
+      time=time.substring(0,index);
       let date = new Date(time);
-      return formatDate(date, "yyyy.MM.dd");
+      return formatDate(date, "yyyy-MM-dd hh:mm");
     }
   },
 
@@ -217,10 +226,9 @@ export default {
     },
 
     getData() {
-      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa"
+        userName: this.usernameX
       });
       console.log(data);
       that
@@ -241,7 +249,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "aaaa",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
@@ -420,4 +428,8 @@ export default {
 .container {
   padding: 0px;
 }
+  .biaoti {
+    font-size: 18px;
+    color: #00a2e6;
+  }
 </style>
