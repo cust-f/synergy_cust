@@ -11,14 +11,15 @@
               <div class="handle-box">
                 
                 <!-- <el-button type="primary" icon="el-icon-delete" class="handle-del mr10" @click="delAllSelection">删除</el-button> -->
-                <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
-                <!-- <el-select v-model="Company_Name" placeholder="企业名称" class="handle-input mr10"></el-select> -->
-            <el-select v-model="User_Name" placeholder="账号名称" class="handle-input mr10"></el-select>
-            <el-select v-model="Role_Name" placeholder="角色名称" class="handle-input mr10">
-              <el-option label="需求方" value="1"></el-option>
-              <el-option label="供应商" value="2"></el-option>
-            </el-select>
-            <el-button type="primary" icon="el-icon-search" @click="choose">搜索</el-button>
+                <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>            
+            <!-- <el-select v-model="Role_Name" placeholder="角色名称" class="handle-input mr10">
+              <el-option label="系统管理员" value="0"></el-option>
+              <el-option label="企业管理员" value="1"></el-option>
+              <el-option label="设计师" value="2"></el-option>
+              <el-option label="流通人员" value="3"></el-option>
+            </el-select> -->
+            <el-input v-model="User_Name" placeholder="账户名称" class="handle-input mr10"></el-input>
+            <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
           </div>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <el-table
@@ -27,62 +28,74 @@
             class="table"
             ref="multipleTable"
             header-cell-class-name="table-header"
+            :default-sort="{prop: 'userName', order: 'descending'}"
             @selection-change="handleSelectionChange"
           >
-            <!-- <el-table-column type="selection" width="55" align="center"></el-table-column> -->
-            <el-table-column prop="User_Name" label="账号名称" width="108" align="center"></el-table-column>
-            <el-table-column prop="Company_Name" label="企业名称" align="center"></el-table-column>
-            <el-table-column prop="Role_Name" label="角色名称" width="108" align="center">
-            </el-table-column>
-            <el-table-column prop="Email" label="邮箱" width="160" align="center"></el-table-column>
-            <el-table-column prop="Phone" label="联系方式" width="160" align="center"></el-table-column>
-            <el-table-column prop="Password" width="108" label="用户密码" align="center"></el-table-column>
-            <el-table-column label="操作" width="160" align="center">
-                <template slot-scope="scope">
-                <el-button type="text" size="small">初始化密码</el-button>
-               <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="pagination">
-            <el-pagination
-              background
-              layout="total, prev, pager, next"
-              :current-page="query.pageIndex"
-              :page-size="query.pageSize"
-              :total="pageTotal"
-              @current-change="handlePageChange"
-            ></el-pagination>
-          </div>
-        </div>
+                <el-table-column label="序号" type="index" width="70" align="center"></el-table-column>
+                <el-table-column prop="userName" label="用户名称" sortable width="130" align="center"></el-table-column>
+                <el-table-column prop="companyName" label="企业名称" width="180" align="center"></el-table-column>
+                <el-table-column prop="roleName" label="角色名称" align="center">
+                   <template slot-scope="{row: {roleName}}">
+                          <span v-if="+roleName===1">管理员</span>
+                          <span v-else-if="+roleName===2">核心企业</span>
+                          <span v-else-if="+roleName=== 3">供应商</span>
+                          <span v-else-if="+roleName=== 4">设计人员</span>
+                          <span v-else-if="+roleName=== 5">流通人员</span>
+                </template></el-table-column>
+                <el-table-column prop="email" label="邮箱" width="120" align="center"></el-table-column>
+                <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
+                <!-- <el-table-column prop="password" label="用户密码" align="center"></el-table-column> -->
 
+                <el-table-column label="操作" width="180" align="center">
+                  <template slot-scope="scope">
+                     <el-button type="text" size="small" @click="chushihuamima(scope.row)">初始化密码</el-button>
+                    <el-button @click="handleDelete(scope.row.userId)" type="text" size="small">删除</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <div class="pagination">
+                <el-pagination
+                  background
+                  layout="total, prev, pager, next"
+                  :current-page="query.pageIndex"
+                  :page-size="query.pageSize"
+                  :total="pageTotal"
+                  @current-change="handlePageChange"
+                ></el-pagination>
+              </div>
+            </div>
 
           <!-- 新增弹出框 -->
             <el-dialog title="用户信息" :visible.sync="addVisible" width="50%">
               <el-form ref="form" :model="addList" label-width="70px">
                 <el-form-item label="账号名称">
-                  <el-input v-model="addList.User_Name"></el-input>
+                  <el-input v-model="addList.userName"></el-input>
                 </el-form-item>
                 <el-form-item label="企业名称">
-                  <el-input v-model="addList.Company_Name"></el-input>
+                 <el-select v-model="addList.companyName" style="width:100%" placeholder="请选择">
+                    <el-option  v-for="item in optionsCompany"
+                    :key="item.companyId"
+                    :label="item.companyName"
+                    :value="item.companyName"></el-option>
+                  </el-select>
                 </el-form-item>
                 <el-form-item label="角色名称">
-                  <el-select v-model="addList.Role_Name" style="width:100%" placeholder="请选择">
+                  <el-select v-model="addList.roleName" style="width:100%" placeholder="请选择">
                     <el-option  v-for="item in options"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="邮箱">
-                  <el-input v-model="addList.Email"></el-input>
+                <el-form-item label="真实姓名">
+                  <el-input v-model="addList.realName"></el-input>
                 </el-form-item>
                 <el-form-item label="联系方式">
-                  <el-input v-model="addList.Phone"></el-input>
+                  <el-input v-model="addList.phone" @blur="animate()"></el-input>
                 </el-form-item>
-                 <el-form-item label="用户密码">
-                  <el-input v-model="addList.Password"></el-input>
-                </el-form-item>
+                 <!-- <el-form-item label="用户密码">
+                  <el-input v-model="addList.password"></el-input>
+                </el-form-item> -->
               </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="saveAdd">确 定</el-button>
@@ -97,42 +110,44 @@
 </template>
 
 <script>
-
 import Qs from "qs";
 export default {
   name: "userManagement",
   data() {
     return {
       options:[{
-      value:'需求方',
-      label:'需求方',
+      value:'1',
+      label:'管理员',
       },{
-      value:'供应商',
+      value:'2',
+      label:'核心企业',
+      },{
+      value:'3',
       label:'供应商',
+      },{
+      value:'4',
+      label:'设计人员',
+      },{
+      value:'5',
+      label:'流通人员',
       }],
+      optionsCompany:[],
       query: {
         pageIndex: 1,
         pageSize: 10
       },
+      User_Name:"",
       addList: {
-        id: 1,
-        User_Name: "",
-        Company_Name: "",
-        Role_Name: "",
-        Email: "",
-        Phone: "",
-        Password: ""
+        id: "1",
+        userName: "",
+        company_Name: "",
+        roleName: "",
+        email: "",
+        phone: "",
+        password: ""
       },
 
-      tableData:[{
-        User_Name: "admin",
-        Company_Name: "长春第一汽车制造厂",
-        Role_Name: "需求方",
-        Email: "1233455@qq.com",
-        Phone: "18899228333",
-        Password: "123"
-      }],
-
+      tableData:[],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -142,24 +157,120 @@ export default {
       id: -1,
     
       addForm: {
-        User_Name: "",
-        Company_Name: "",
-        Role_Name: "",
-        Email: "",
-        Phone: "",
-        Password: ""
+        userName: "",
+        companyName: "",
+        roleName: "",
+        email: "",
+        phone: "",
+        // password: ""
       },
       value: ""
     };
   },
   created() {
     this.getData();
+    this.getCompanyName();
   },
   methods: {
-    // getData(){
-    //   //this.tableData=null
-    // },      
-     //新增操作
+
+    getCompanyName(){
+      var that = this;
+      this.axios({
+        method:"get",
+        url:"http://127.0.0.1:8082/user/findCompanyName"
+      }).then(response=>{
+        console.log(response);
+        that.optionsCompany = response.data
+      })
+    },
+
+    getData() {
+      var that = this;
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/user/getAllUser"
+        })
+        .then(response => {
+          
+         that.pageTotal=response.data.allData.totalCount;//绑定总的条数
+         that.tableData=response.data.allData.userList;//绑定对象数组
+        });
+    },
+      
+      handleSearch() {
+      console.log(this.User_Name);
+      var that = this;
+      var data = Qs.stringify({
+        username: this.User_Name
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/user/selectUser",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          // console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
+     //手机号校验
+       animate(){
+           var re = /^1\d{10}$/;
+           let str = this.addList.phone;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.addList.phone = "";
+               alert('抱歉联系方式不合法')
+
+          }
+       },
+    chushihuamima(row){
+      var that = this;
+      var data = Qs.stringify({
+        userId: row.userId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/user/updatePassword",
+          data: data
+        })
+        .then(response => {         
+           this.$message.success("初始化密码成功");          
+          this.tableData.splice(index, 1);
+           center: true;
+        });
+    },
+  
+    // 删除操作
+      handleDelete(index) {
+      // 二次确认删除
+      this.$confirm("确定要删除吗？", "提示", {
+        type: "warning"
+      })
+        .then(() => {
+        this.axios({
+          method: "get",
+          url: "http://127.0.0.1:8082/user/delectUser?userID=" +index ,     
+        })
+         .then(response => {      
+           this.$message.success("删除成功");          
+          this.tableData.splice(index, 1); 
+              location.reload();
+        });
+        })
+        .catch(() => {});
+   
+    },
+    //新增操作
     addData() {
       this.addVisible = true;
       var that = this;
@@ -169,16 +280,15 @@ export default {
       },
      //保存新增
     saveAdd() {
-
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa",
-        User_Name: this.addList.User_Name,
-        Company_Name: this.addList.Company_Name,
-        Role_Name: this.addList.Role_Name,
-        Email: this.addList.Email,
-        Phone: this.addList.Phone,
-        Password: this.addList.Password,
+        userName: "admin",
+        User_Name: this.addList.userName,
+        Company_Name: this.addList.companyName,
+        Role_Name: this.addList.roleName,
+        Email: this.addList.email,
+        Phone: this.addList.phone,
+        Password: this.addList.password,
       });
       console.log(data);
       console.log(this.addList.user);
@@ -196,79 +306,24 @@ export default {
       this.tableData.push(this.addList);
       this.addList = {};
       },
-
-
-
-    // // 获取 easy-mock 的模拟数据
-    // getData() {
-    //   //   this.tableData = res.list;
-    //   //   this.pageTotal = tableData.length;
-    // },
-    
-    // // 触发搜索按钮
-    // handleSearch() {
-    //   this.$set(this.query, "pageIndex", 1);
-    //   this.getData();
-    // },
-    // 删除操作
-    handleDelete(index, row) {
-      // 二次确认删除
-      this.$confirm("确定要删除吗？", "提示", {
-        type: "warning"
-      })
-        .then(() => {
-          this.$message.success("删除成功");
-          this.tableData.splice(index, 1);
+    //分页导航 分页查询使用
+    handlePageChange(val) {
+      let that = this;
+      var data = Qs.stringify({
+        page: val - 1
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/user/getAllUser",
+          data: data
         })
-        .catch(() => {});
-    },
-    // // 多选操作
-    // handleSelectionChange(val) {
-    //   this.multipleSelection = val;
-    // },
-    // delAllSelection() {
-    //   let length = this.multipleSelection.length;
-    //   let str = "";
-    //   for (let j = 0; j < length; j++) {
-    //     this.tableData.splice(this.multipleSelection[j], 1);
-    //     str += this.multipleSelection[j].name + " ";
-    //   }
-    //   this.$message.error(`删除了${str}`);
-    //   this.multipleSelection = [];
-    // },
-    
-    // // 编辑操作
-    // handleEdit(index, row) {
-    //   this.idx = index;
-    //   this.form = row;
-    //   this.editVisible = true;
-    // },
-    // // 保存编辑
-    // saveEdit() {
-    //   this.editVisible = false;
-    //   this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-    //   this.$set(this.tableData, this.idx, this.form);
-    // },
-    // 分页导航
-   // handlePageChange(val) {},
-
-   // /*
-    // *转跳对应任务信息页面
-   //  */
-
-   // addstaff: function() {
-    //  this.addFormVisible = true;
-  //  },
-
-  //  open() {
-   //   this.$message({
-   //     showClose: true,
-    //    message: "提交成功",
-    //    type: "success"
-   //   });
-    
+        .then(response => {
+          console.log(response);
+        });
+    }
   }
-}
+};
 </script>
 
 <style scoped>

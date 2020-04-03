@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="desinger">
-      <h3>接收设计任务</h3>
+            <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;&nbsp;&nbsp;已接任务</div>
+
     </div>
-    <el-divider></el-divider>
+    <br>
+    <!-- <el-divider></el-divider> -->
     <el-row style="height:600px;">
       <el-card style="height:100%">
-        <div style="font-size:20px">已接任务</div>
+        <!-- <div style="font-size:20px">已接任务</div> -->
         <el-table
           :data="Accepted_Task_Data"
           border
@@ -19,10 +21,11 @@
         >
           <template>
             <el-table-column
-              label="序号"
-              min-width="90px"
+            prop="taskId"
+              label="需求任务编号"
+              type="index"
+              width="110px"
               align="center"
-              type = "index"
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
@@ -38,14 +41,25 @@
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
-            ></el-table-column>
+            > <template slot-scope="scope">
+              <span v-if="scope.row.taskType === 0">设计任务</span>
+              <span v-else-if="scope.row.taskType === 1">流通任务</span>
+            </template></el-table-column>
+           
             <el-table-column
-              prop="taskCheck"
+              prop="supplierCheckDesignState"
               label="审核状态"
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
-            ></el-table-column>
+            > <template slot-scope="scope">
+              <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
+            </template>
+            </el-table-column>
+
             <el-table-column
               prop="deadline"
               label="截止时间"
@@ -57,7 +71,7 @@
             </el-table-column>
           </template>
 
-          <el-table-column label="操作" min-width="70px" align="center">
+           <el-table-column label="操作" min-width="110px" align="center">
             <template slot-scope="scope">
               <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
                 <el-button @click="submitTask(scope.row)" type="text" size="small">任务提交</el-button>
@@ -84,35 +98,48 @@
         <el-form ref="form1" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="任务ID">
-                <el-input v-model="form1.taskId" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
               <el-form-item label="任务名称">
                 <el-input v-model="form1.taskName" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="11">
               <el-form-item label="任务类型">
                 <el-input v-model="form1.taskCategory" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
+            
             <el-col :span="11">
               <el-form-item label="截止日期">
                 <el-input v-model="form1.deadline" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+             <el-col :span="11">
+              <el-form-item label="任务类别">
+                <el-input v-model="form1.taskType" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
+         
           <el-row>
             <el-form-item label="任务详情">
               <el-input
                 :disabled="true"
                 type="textarea"
-                :rows="7"
+                :rows="5"
                 v-model="form1.taskDetail"
+                style="width:100%;"
+              ></el-input>
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <el-form-item label="拒绝原因">
+              <el-input
+                :disabled="true"
+                type="textarea"
+                :rows="5"
+                v-model="form1.demandorRefuseReason"
                 style="width:100%;"
               ></el-input>
             </el-form-item>
@@ -177,41 +204,11 @@ export default {
       ],
       Accepted_Task_Data: [
         {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
         },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        }
       ],
       form1: {},
       dialogVisible: false,
@@ -230,9 +227,9 @@ export default {
   methods: {
     submitTask(row) {
       if (
-        row.taskCheck == "待审核" ||
-        row.taskCheck == "供应商验收未通过" ||
-        row.taskCheck == "企业验收未通过"
+        row.supplierCheckDesignState == 0 ||
+        row.supplierCheckDesignState == 3
+        
       ) {
         this.$confirm("确定要提交任务吗？", "提示", {
           type: "warning"
@@ -305,4 +302,8 @@ export default {
 .el-scrollbar__wrap {
   overflow-y: hidden;
 }
+ .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
 </style>
