@@ -3,14 +3,33 @@
     <el-main>
        <h3>企业评价</h3>
                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+    <div class="input-group">
+      <label >企业星级:</label>
+      <el-rate  
+          v-model="star"
+          disabled
+          show-score
+          max:5
+          text-color="#ff9900"
+          >
+      </el-rate>
+       </div>
       <div class="top">
-        <div id="charts1" style="height:100%; width:300px; float:left"></div>
+        
+        <bar-chart
+        :barData="barData"
+        ref="drawbarChart"
+        ></bar-chart>
+        
         <br/>
-        <div id="charts2" style="height:100%; width:300px; float:right"></div>
+       <radar-chart
+        :radarData="radarData"
+        ref="drawradarChart"
+        ></radar-chart>
         <br/>
       </div>
+      <br/> <br/><br/> <br/>
       
-     
       <div class="lists">
 
            <el-table
@@ -41,6 +60,14 @@
 
                 <template slot-scope="scope">
                   <el-button
+                    @click="doevaluate(scope.row)"
+                    type="text"
+                    size="small "
+                    class="box2"
+                    id="box2"
+                    
+                  >生成评价</el-button>
+                  <el-button
                     @click="Detail(scope.row)"
                     type="text"
                     size="small "
@@ -62,66 +89,134 @@
 <script>
 import Qs from "qs";
 import {formatDate} from "../design/dataChange";
+import barChart from "./components/barChart"
+import radarChart from "./components/radarChart"
 export default {
   name:"evaluate",
+  components:{
+    "bar-chart":barChart,
+    "radar-chart":radarChart,
+  },
   data() {
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 5
-      },
-      pageTotal: 10,
-      tableData:"",
      
-      
+      tableData:"",
+      radarData:{
+      radarData:[],
+      },
+      barData:{
+      taskCount:[],
+      finishTaskCount:[],
+      },
+     
+
     };
   },
   //初始化方法
    created() {
-    this.getParams();
-    this.getData();
+    this.getCompanyData();//企业星级读取
+    this.getData();//表格数据查找
+    
+    this.getRemarData();//企业雷达图数据
+    this.barChartData();//柱形图数据获取
+    
   },
   //初始化俩图标
-  mounted() {
-    this.getCharts1();
-    this.getCharts2();
-  },
+  // mounted() {
+  
+  // },
+ 
+   
   methods: {
+  //生成评价数据
+    doevaluate(row){
+      var that = this;
+      
+      var data = Qs.stringify({
+       
+        taskId:row.taskId
+      });
+        console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/doevaluate",
+          data: data
+        })
+        .then(() => {
+          //this.table = response.data.allData;
+         this.$message.success("成功生成评价！");
+           //that.tableData = response.data.allData;
+         
+          
+          
+        });
+    },
+    //企业雷达图数据
+    getRemarData(radarData){
+     var that = this;
+      
+      var data = Qs.stringify({
+       
+        userName:"aaaa"
+      });
+        console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/sumRemarkData",
+          data: data
+        })
+        .then(response => {
+         this.radarData.radarData=response.data.allData;
+         that.$refs.drawradarChart.getCharts2();      
+        // this.getCharts2();
+          
+        });
+    },
     Detail(row) {
-      console.log(row.taskType);
+     console.log(row.taskId);
      if (row.taskType==1) {
         this.$router.push({
         path: "/admin/circulationTaskEvaluationDetils",
         query: {
-          taskID: row.taskId
+          taskId: row.taskId
+          
         }
       });
+      
       } else {
         this.$router.push({
         path: "/admin/designTaskEvaluationDetils",
         query: {
-          taskID: row.taskId
+          taskId: row.taskId
         }
       });
+       
       }
-     
+    
     },
-    //接受数据
-    getParams() {
-      //需要修改接受企业ID
-      // var routerParams = this.$route.query.taskId;
-      // this.taskId = routerParams;
-      // console.log(routerParams);
-    },
-    //数据查找
+ 
+    // //接受数据
+    // getParams() {
+    //   // 需要修改接受企业ID
+    //   // var routerParams = this.$route.query.taskId;
+    //   // this.taskId = routerParams;
+    //   // console.log(routerParams);
+    // },
+    //表格数据查找
     getData() {
-      console.log(this.taskId);
+      //console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
         // companyId: "1111"
         userName:"aaaa"
       });
-      console.log(data);
+     // console.log(data);
      
       that
         .axios({
@@ -132,117 +227,93 @@ export default {
         })
         .then(response => {
           //this.table = response.data.allData;
-           
+         
            that.tableData = response.data.allData;
-           console.log(response.data.allData);
-          
-          
+          //  console.log(response.data.allData);
+    
         });
          
     },
-   
-    //以下为图标
-    getCharts1() {
-      var myChart = echarts.init(document.getElementById("charts1"));
-      var option = {
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c}%"
-        },
-        series: [
-          {
-            type: "funnel",
-            left: "10%",
-            top: 60,
-            //x2: 80,
-            bottom: 60,
-            width: "80%",
-            // height: {totalHeight} - y - y2,
-            min: 0,
-            max: 100,
-            minSize: "0%",
-            maxSize: "100%",
-            sort: "ascending", // 金字塔形:'ascending',  漏斗图形:'descending'
-            gap: 2,
-            label: {
-              show: true,
-              position: "inside"
-            },
-            labelLine: {
-              length: 10,
-              lineStyle: {
-                width: 1,
-                type: "solid"
-              }
-            },
-            itemStyle: {
-              borderColor: "#fff",
-              borderWidth: 1
-            },
-            emphasis: {
-              label: {
-                fontSize: 20
-              }
-            },
-            data: [
-              { value: 60, name: "参与人员数量" },
-              { value: 40, name: "使用时间" },
-              { value: 20, name: "涉及金额" },
-              { value: 80, name: "提交次数" },
-              { value: 100, name: "重做任务数量" }
-            ]
-          }
-        ]
-      };
-      myChart.setOption(option);
+    //企业星级读取
+    getCompanyData() {
+      //console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        
+        userName:"aaaa"
+      });
+       
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/companyevaluate",
+          data: data
+        })
+        .then(response => {
+          //this.table = response.data.allData;
+         
+           this.star=response.data.allData[0].star;
+           console.log(this.star);
+    
+        });
+         
     },
-    getCharts2() {
-      var myChart = echarts.init(document.getElementById("charts2"));
-      var option = {
-        tooltip: {},
-        legend: {
-          x: "left",
-          y: "top",
-          data: ["设计任务", "流通任务"]
-        },
-        radar: {
-          name: {
-            textStyle: {
-              color: "#fff",
-              backgroundColor: "#999",
-              borderRadius: 3,
-              padding: [3, 5]
-            }
-          },
-          indicator: [
-            { name: "人员数量", max: 50 },
-            { name: "时间效率", max: 400 },
-            { name: "涉及金额", max: 50000 },
-            { name: "提交效率", max: 100 },
-            { name: "完成准确度", max: 100 }
-          ]
-        },
-        series: [
-          {
-            type: "radar",
-            data: [
-              {
-                value: [20, 200, 35000, 80, 90],
-                name: "设计任务"
-              },
-              {
-                value: [30, 300, 28000, 93, 87],
-                name: "流通任务"
-              }
-            ]
-          }
-        ]
-      };
-      myChart.setOption(option);
-    }
+    //柱形图数据获取
+    barChartData(){
+ 
+      var that = this;
+      var data = Qs.stringify({
+        
+        userName:"aaaa"
+      });
+       console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082//monthTaskCountData",
+          data: data
+        })
+        .then(response => {
+          //this.table = response.data.allData;
+         
+         this.barData.taskCount=response.data.allData.taskCount;
+         this.barData.finishTaskCount=response.data.allData.finishTaskCount;          
+         that.$refs.drawbarChart.getCharts1();
+         //this.getCharts1();
+        });
+
+    },
+ 
   }
-};
+}
+
 </script>
+<style scoped>
+	#inputValue{
+		width:240px;
+		margin-left: 20px;
+		padding-left: 10px;
+		border-radius: 3px;
+	}
+	.input_span span {
+		display: inline-block;
+		width: 85px;
+		height: 30px;
+		background: #eee;
+		line-height: 20px;
+	}
+  .input-group{
+   
+    display: inline;
+  }
+ 
+	
+</style>
+
 <style>
 .el-main {
   height: 100%;
@@ -258,4 +329,6 @@ export default {
   margin-top: 10%;
   margin-left: 0%
 }
+
+
 </style>

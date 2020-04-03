@@ -3,89 +3,44 @@
     <div>
       <el-container>
         <el-main>
-              <h3>流通任务评价详情</h3>
+              <h3>流通任务数据统计</h3>
                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                     <el-steps :active="milepostActive" align-center>
-        <!-- 步骤图片 -->
+                 <!-- 步骤图片 -->
+        
+       <el-steps :active="milepostActive" align-center>      
         <el-step
-          v-for="(value, key) in milepost"
-          :class="milepostActive== key+1 ? stepActive: '' "
-          :title="value.title"
-          :icon="value.icon"
+          v-for="(stpesdata, key) in milepost"
+          :title="stpesdata.title"
+          :icon="stpesdata.icon"
+          :description="stpesdata.description"          
           :key="key"
-        ></el-step>
+         
+        >
+       
+        </el-step>
       </el-steps>
-     
+        
 
             <br/><br/>
-            <div class="charts1" id="charts1" ></div>
-
-            <el-form ref="form" :model="form" label-width="110px">
-            <el-scrollbar style="height:100%">
-              <el-row :gutter="80">
-                <el-col :span="11">
-                  <el-form-item label="评价ID">
-                    <el-input v-model="form.taskId" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="9">
-                  <el-form-item label="设计任务ID">
-                    <el-input v-model="form.Design_ID" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-
-              <el-row :gutter="80">
-                <el-col :span="11">
-                  <el-form-item label="评价时间">
-                    <el-input v-model="form.Trade_Time" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="9">
-                  <el-form-item label="评价状态">
-                    <el-input v-model="form.Remark_State" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="80">
-                <el-col :span="20">
-                  <el-form-item label="接收企业ID">
-                    <el-input v-model="form.Accept_Company_ID" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!-- 
-                <el-input
-  type="textarea"
-  :rows="2"
-  placeholder="请输入内容"
-  v-model="textarea">
-</el-input>
-
-<script>
-export default {
-  data() {
-    return {
-      textarea: ''
-    }
-  }
-}
-</script>
-              -->
-              <el-row :gutter="120">
-                
-                <el-col>
-                  <el-form-item>
-                    <el-button
-                     @click=goBack()
-                    >确定</el-button>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-             
-       
-            </el-scrollbar>
-          </el-form>
+            <!-- 雷达图 -->
+           <radar-chart
+            :radarData="radarData"
+            ref="QradarChart"
+            ></radar-chart> 
+            <br/><br/>
+            
+           
+             <div class="input_span">
+      
+      <el-form ref="form" :model="form">
+      <label >完成质量:</label>   
+       <br/> <br/>
+      </el-form>
+      <span id="one"></span>
+      <span id="two"></span>
+      <span id="three"></span>
+    </div>
+    
         </el-main>
       </el-container>
     </div>
@@ -93,39 +48,46 @@ export default {
 </template>
 
 <script>
+
 import Qs from "qs";
+import { formatDate } from "./dataChange"
+import radarChart from "./components/radarChart"
 export default {
   name: "circulationTaskEvaluationDetils",
+    components:{
+     "radar-chart":radarChart,
+    },
+  
   data() {
     return {
-      value0: null,
-      value1: null,
-      value2: null,
-      value3: null,
-      value4: null,
      
-      colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
-    //初始化方法
-   created() {
-    this.getParams();
-    this.getData();
-  },
-      form: {
-        Remark_ID: "01",
-        Design_ID: "02",
-        Trade_Time: "2019-03-13",
-        Remark_State: "已评价",
-        Accept_Company_ID: "233"
+       form:{
+       designCount:'',
+       },
+
+      radarData:{
+       radarData:[],
       },
+
+       stpesdata:[],
+   
+      taskId:this.$route.query.taskId, //获取值，初始化
+     
+     
+     colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
+    
        //步骤条数据
       milepost: [
-        { title: "申请/邀请", icon: "el-icon-edit" },
-        { title: "计划提交", icon: "el-icon-upload" },
+        
+        { title: "申请/邀请", icon: "el-icon-edit"},
+        { title: "计划提交", icon: "el-icon-upload"},
         { title: "任务进行中", icon: "el-icon-picture" },
         { title: "审核", icon: "el-icon-message-solid" },
-        { title: "验收", icon: "el-icon-s-promotion" },
-        { title: "完成", icon: "el-icon-s-claim" }
+        { title: "验收", icon: "el-icon-s-promotion"},
+        { title: "完成", icon: "el-icon-s-claim"}
+       
       ],
+     
       // 默认步骤数
       milepostActive: 5,
       // 动态添加类名
@@ -141,94 +103,117 @@ export default {
     
     };
   },
-   //初始化俩图标
-  mounted() {
+       //初始化方法
+   created() {
+    // this.getParams();
+    this.getData();
+    this.getData1();//雷达图数据查找
+    this.styleswith();
+   
     
-    this.getCharts1();
   },
-  methods: {
-    goBack() {
-      this.$router.push("/admin/Enterprise_Evaluation/evaluate");
-    },
-    //接受数据
-    getParams() {
-      需要修改接受企业ID
-      var routerParams = this.$route.query.taskId;
-      this.taskId = routerParams;
-      console.log(routerParams);
-    },
-    //数据查找
-    getData() {
-      console.log(this.taskId);
+   //初始化俩图标
+  // mounted() {
+  
+  // },
+  
+   methods: {
+  //   goBack() {
+  //     this.$router.push("/admin/Enterprise_Evaluation/evaluate");
+  //   },
+  //提交次数 背景颜色变化
+     styleswith(){
+      
+       if(this.form.designCount>0&&this.form.designCount<3){
+           document.getElementById("one").style.background="#00D1B2"
+       }
+       if(this.form.designCount>2&&this.form.designCount<4)
+       {
+          document.getElementById("one").style.background = "#eee";
+          document.getElementById("two").style.background = "orange";
+       }
+       if(this.form.designCount>4||this.form.designCount==4)
+       {
+         document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";  
+       }
+       
+     },
+         
+    //步骤图数据查找
+    getData() {  
+      
       var that = this;
+     // console.log(this.taskId);
       var data = Qs.stringify({
-        // companyId: "1111"
-       taskId:taskId
+        taskId:this.taskId
       });
-      console.log(data);
+      //console.log(data);
      
       that
         .axios({
           method: "post",
-          url:
-            "http://127.0.0.1:8082/evaluate",
+          url:  
+            "http://127.0.0.1:8082/evaluateDetils",
           data: data
         })
         .then(response => {
-          //this.table = response.data.allData;
-           
-           that.tableData = response.data.allData;
-           console.log(response.data.allData);
-          
-          
+         
+          // that.stpesdata = response.data.allData[0];
+           that.form=response.data.allData[0];
+           this.styleswith();
+           this.milepost[0].description=response.data.allData[0].applyTime;
+           this.milepost[1].description=response.data.allData[0].planUploadTime;
+           this.milepost[2].description=response.data.allData[0].publishTime;
+           this.milepost[3].description=response.data.allData[0].demandorCheckDesignTime;
+           this.milepost[4].description=response.data.allData[0].checkPlanTime;
+           this.milepost[5].description=response.data.allData[0].finishTime;
+    
+       // publishTime:"",//发布时间
+      //   finishTime:"",//完成时间
+      //   applyTime:"",//申请时间
+      //   planUploadTime:"",//计划书提交时间
+      //   checkPlanTime:"",//审核计划书时间
+      //   demandorCheckDesignTime:"",//项目审核时间
         });
          
     },
-     getCharts1() {
-      var myChart = echarts.init(document.getElementById("charts1"));
-      var option = {
-        tooltip: {},
-        legend: {
-          x: "left",
-          y: "top",
-          data: ["设计任务", "流通任务"]
-        },
-        radar: {
-          name: {
-            textStyle: {
-              color: "#fff",
-              backgroundColor: "#999",
-              borderRadius: 3,
-              padding: [3, 5]
-            }
-          },
-          indicator: [
-            { name: "人员数量", max: 50 },
-            { name: "时间效率", max: 400 },
-            { name: "涉及金额", max: 50000 },
-            { name: "提交效率", max: 100 },
-            { name: "完成准确度", max: 100 }
-          ]
-        },
-        series: [
-          {
-            type: "radar",
-            data: [
-              {
-                value: [20, 200, 35000, 80, 90],
-                name: "设计任务"
-              },
-              {
-                value: [30, 300, 28000, 93, 87],
-                name: "流通任务"
-              }
-            ]
-          }
-        ]
-      };
-      myChart.setOption(option);
-    }
-  }
+  
+
+
+     //雷达图数据查找
+    getData1() {  
+      var that = this;   
+      var data = Qs.stringify({
+        taskId:this.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url:  
+            "http://127.0.0.1:8082/remarkDetils",
+          data: data
+        })
+        .then(response => {
+         
+          // this.radarData.radarData.push( response.data.allData.taskLength),
+          // this.radarData.radarData.push( response.data.allData.planLength),
+          // this.radarData.radarData.push( response.data.allData.checkLength),
+          // this.radarData.radarData.push( response.data.allData.applyLength),
+          // this.radarData.radarData.push( response.data.allData.demandorCheckLength),
+           this.radarData.radarData=response.data.allData;
+          
+          that.$refs.QradarChart.getCharts1();
+         // this.$refs.QadarChart.getCharts();
+         // this.getCharts1();
+         // console.log(response.data.allData);
+           
+                    
+        });
+         
+    },
+
+   }
 };
 </script>
 
@@ -257,8 +242,67 @@ export default {
 }
 .charts1 {
   width: 66%;
-  margin-top: 10%;
-  margin-left: 10%;
+  margin-top: 5%;
+  margin-left: 0%;
   height: 320px;
 }
+.el-input__inner {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+  }
+  .el-input.is-disabled .el-input__inner {
+    background-color: #ffffff;
+  }
+
+</style>
+<style scoped>
+	#inputValue{
+		width:240px;
+    margin-left: 0px;
+		padding-left: 10px;
+		border-radius: 3px;
+	}
+	.input_span span {
+		display: inline-block;
+		width: 85px;
+		height: 30px;
+		background: #eee;
+		line-height: 20px;
+	}
+	
+	#one {
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		border-right: 0px solid;
+		margin-left: 0px;
+		margin-right: 3px;
+	}
+	
+	#two {
+		border-left: 0px solid;
+		border-right: 0px solid;
+		margin-left: -5px;
+		margin-right: 3px;
+	}
+	
+	#three {
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		border-left: 0px solid;
+		margin-left: -5px;
+	}
+	#font span:nth-child(1){
+		color:#00D1B2;;
+		margin-left: 80px;
+	}
+	#font span:nth-child(2){
+		color:orange;
+		margin: 0 60px;
+	}
+	#font span:nth-child(3){
+		color:red;
+	}
 </style>
