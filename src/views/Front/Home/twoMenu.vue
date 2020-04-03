@@ -6,9 +6,9 @@
         <div class="grid-content0">
           <el-breadcrumb separator=">" class="fontStyle">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>
-              <a>服务成果</a>
-            </el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/twoMenu' }">服务成果</el-breadcrumb-item>
+            <el-breadcrumb-item >成果详情</el-breadcrumb-item>
+          
           </el-breadcrumb>
         </div>
       </el-col>
@@ -131,7 +131,9 @@
             </el-table-column>
 
             <el-table-column label="操作" align="center">
+              <template slot-scope="scope">
               <el-button @click="remarkDetail(scope.row)" type="text" size="small">查看详情</el-button>
+              </template>
             </el-table-column>
           </el-table>
         </div>
@@ -197,7 +199,9 @@ export default {
           //供应方
           acceptCompanyName: "",
           //需求名称
-          taskName: ""
+          taskName: "",
+
+          taskId:""
         }
       ]
     };
@@ -215,14 +219,7 @@ export default {
     /*
      *转跳对应任务信息页面
      */ 
-    remarkDetail(row) {
-       console.log(row.taskId);
-      this.$router.push({
-        path:"/service",
-        query:{
-          taskId:row.taskId
-        }});
-    },
+    
     recordTabletender() {},
     handleChange(val) {
       console.log(val);
@@ -323,7 +320,16 @@ export default {
           console.log(response);
           this.tableData = response.data.allData;
         });
-    }
+    },
+    remarkDetail(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/service",
+        query: {
+          taskId: row.taskId
+        }
+      });
+    },
   }
 };
 </script>
