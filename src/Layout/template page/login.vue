@@ -59,7 +59,7 @@ export default {
           that
             .axios({
               method: "post",
-              url: "/api/user/login",
+              url: "/api/users/login",
               data: data
             })
             .then(response => {
@@ -70,8 +70,10 @@ export default {
                 });
                 this.$store.commit("SET_TOKEN", true);
                 this.$store.commit("GET_USER", this.param.username);
+                 localStorage.setItem("ms_username", this.param.username);
                 this.$store.commit("SET_List", response.data.allData.data.menuList);
-                console.log(this.$store.state.menuList)
+                // console.log(localStorage.getItem("ms_username"));
+                // console.log("有用户名的！！！")
                 this.$router.push("/admin/dashboard");
               } else {
                 this.$message({
