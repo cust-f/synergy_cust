@@ -86,12 +86,12 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
-      selectname:"",
+      selectname: "",
       form: {},
-      YinCang:1,
+      YinCang: 1,
       idx: -1,
       id: -1,
-      taskId: ""
+      taskId: 0
     };
   },
   created() {
@@ -153,7 +153,9 @@ export default {
       console.log(row.taskId);
       this.$router.push({
         path: "/admin/Det",
-        taskId: row.taskId
+        query: {
+          taskId: row.taskId
+        }
       });
     }
   }

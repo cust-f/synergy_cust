@@ -97,18 +97,14 @@
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
-              <div v-if="scope.row.applyWay === 0">
-                <div v-if="milepostActive === 0">
-                  <div v-if="scope.row.checkApplyState <2">
-                    <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
-                    <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
-                  </div>
+              <div v-if="milepostActive === 0">
+                <div v-if="scope.row.checkApplyState <2">
+                  <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
+                  <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
                 </div>
               </div>
-              <div v-else-if="scope.row.applyWay === 1">
-                <div v-if="scope.row.checkApplyState === 2">
-                  <el-button @click="refuseReason(scope.row)" type="text" size="small">拒绝原因</el-button>
-                </div>
+              <div v-if="scope.row.checkApplyState === 2">
+                <el-button @click="refuseReason(scope.row)" type="text" size="small">拒绝原因</el-button>
               </div>
               <div v-if="milepostActive > 0">
                 <span>任务已接受</span>
@@ -273,9 +269,11 @@
           </el-table>
         </div>
       </div>
-      <div>
-        <el-button @click="remark = false">取 消</el-button>
-      </div>
+      <!-- <div align-center>
+        <br />
+        <br />
+        <el-button @click="remark = true" align-center>查看评价</el-button>
+      </div>-->
       <!-- 分配设计人员 -->
       <el-dialog title="分配设计师" :visible.sync="dialogTableVisible" width="30%">
         <el-form :model="form">
@@ -611,7 +609,7 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
-          if (this.state == "申请或邀请中") { 
+          if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
             this.milepostActive = 1;
@@ -638,7 +636,7 @@ export default {
             if (response.data.allData.b[0].refuseApplyMessage != null) {
               this.show = 0;
             } else if (response.data.allData.b[0].refusePlanMessage != null) {
-              this.show = 1; 
+              this.show = 1;
             }
           }
           if (response.data.allData.a[0].supplierDistributionState == 0) {
