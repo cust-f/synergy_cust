@@ -117,7 +117,11 @@
             </template>
           </el-table-column>
           <el-table-column prop="applyTime" label="申请/邀请时间">
-            <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
+           
+            <template slot-scope="scope"> 
+              <el-span v-if="+scope.row.applyTime === 0">暂未申请</el-span>
+              <el-span v-if-else>{{scope.row.applyTime | formatDate}}</el-span>   
+            </template>
           </el-table-column>
 
           <el-table-column label="操作" align="center">
@@ -579,13 +583,7 @@ export default {
           if (this.tableData4 == null) {
             this.milepostActive4 = 0;
           }
-          // let k = 0;
-          // while(response.data.allData.c[k]!=null){
-          //   if(response.data.allData.c[k].planUploadTime ===null){
-          //         response.data.allData.c[k].planUploadTime =0;
-          //   }
-          // }
-          console.log(response.data.allData.c[0].planUploadTime);
+
 
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
@@ -605,6 +603,7 @@ export default {
           }
           console.log(this.milepostActive);
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          console.log(this.mainTaskID)
           console.log(response.data.allData.a[0].taskState);
           console.log(response.data.allData);
         });
