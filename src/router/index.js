@@ -8,7 +8,7 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'//前台首页
 import twoMenu from '@/views/Front/Home/twoMenu'//前台首页二级页面
 import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
-import resultDetail from '@/views/Front/Home/resultDetail'//成果详情
+import service from '@/views/Front/Home/service'//成果详情
 import excellentCompany from '@/views/Front/Home/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
 import register from '@/views/Front/register/register'
@@ -134,9 +134,9 @@ export default new Router({
           component: xuqiuyilan,
         },
         {
-           path:"/resultDetail",
-           name:"resultDetail",
-           component:resultDetail,
+           path:"/service",
+           name:"service",
+           component:service,
         },
         //优秀企业
         {
