@@ -117,7 +117,11 @@
             </template>
           </el-table-column>
           <el-table-column prop="applyTime" label="申请/邀请时间">
-            <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
+           
+            <template slot-scope="scope"> 
+              <el-span v-if="+scope.row.applyTime === 0">暂未申请</el-span>
+              <el-span v-if-else>{{scope.row.applyTime | formatDate}}</el-span>   
+            </template>
           </el-table-column>
 
           <el-table-column label="操作" align="center">
@@ -346,6 +350,20 @@
             </template>
           </el-table-column>
         </el-table>
+        <br />
+        <br />
+      </div>
+
+      <div v-show="milepostActive5">
+                <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价图</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+            <br/><br/>
+            <!-- 雷达图 -->
+           <radar-chart
+            :radarData="radarData"
+           
+            ref="QradarChart"
+            ></radar-chart> 
+            <br/><br/>
       </div>
 
       <!-- 申请拒绝原因弹出框 -->
@@ -434,11 +452,21 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+import radarChart from "./radarChart"
+
 export default {
   inject: ["reload"],
   name: "mainStaskDetail",
+    components:{
+     "radar-chart":radarChart,
+    },
+  
   data() {
     return {
+      //雷达图的数据定义
+        radarData:{
+       radarData:[],
+      },
       //申请拒绝原因       的模态框开始是否存在
       addVisible: false,
       //计划书拒绝原因    的模态框开始是否存在
@@ -461,6 +489,7 @@ export default {
       milepostActive2: -1,
       milepostActive3: -1,
       milepostActive4: -1,
+      milepostActive5: -1,
       cool: {
         mainTaskName: "nihao",
         taskName: "nihao",
@@ -579,13 +608,13 @@ export default {
           if (this.tableData4 == null) {
             this.milepostActive4 = 0;
           }
-          // let k = 0;
-          // while(response.data.allData.c[k]!=null){
-          //   if(response.data.allData.c[k].planUploadTime ===null){
-          //         response.data.allData.c[k].planUploadTime =0;
-          //   }
-          // }
-          console.log(response.data.allData.c[0].planUploadTime);
+          this.radarData.radarData=response.data.allData.f;
+          console.log(this.radarData.radarData)
+          that.$refs.QradarChart.getCharts1();
+          if(this.radarData.radarData == null ){
+            this.milepostActive5 = 0;
+          }
+
 
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
@@ -605,6 +634,7 @@ export default {
           }
           console.log(this.milepostActive);
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          console.log(this.mainTaskID)
           console.log(response.data.allData.a[0].taskState);
           console.log(response.data.allData);
         });
@@ -866,6 +896,12 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+  .charts1 {
+  width: 100%;
+  margin-top: 5%;
+  margin-left: 0%;
+  height: 640px;
+}
   .table {
     font-size: 13px;
   }
