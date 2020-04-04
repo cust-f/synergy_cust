@@ -12,7 +12,7 @@
     <el-container>
       <el-main>
         <div class="box">
-          <h3>人员管理</h3>
+           <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;人员管理</div>
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <template>
           <div>
@@ -20,7 +20,7 @@
               <div class="handle-box">
                 
 
-                <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
+                <el-input v-model="query.userName" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
 
                 <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
@@ -33,11 +33,18 @@
                   ref="multipleTable"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
+                  row-style="height:0"
+                  cell-style="padding:0"
                 >
                   <el-table-column prop="id" label="ID" width="55" align="center" type="index"></el-table-column>
                   <el-table-column prop="userName" label="用户名"></el-table-column>
                   <el-table-column prop="realName" label="真实姓名"></el-table-column>
-                  <el-table-column prop="roleName" label="部门"></el-table-column>
+                  <el-table-column prop="roleId" label="部门">
+                      <template slot-scope="scope">
+                 <span v-if="scope.row.roleId === 4">设计人员</span>
+              <span v-else-if="scope.row.roleId === 5">流通人员</span>
+            </template>
+                  </el-table-column>
                   <el-table-column prop="email" label="邮箱"></el-table-column>
                   <el-table-column prop="phone" label="电话"></el-table-column>
 
@@ -71,7 +78,7 @@
             </div>
 
             <!-- 编辑弹出框 -->
-            <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
+            <el-dialog title="人员编辑" :visible.sync="editVisible" width="30%">
               <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="用户名">
                   <el-input v-model="form.userName"></el-input>
@@ -93,7 +100,7 @@
             </el-dialog>
 
             <!-- 新增弹出框 -->
-            <el-dialog title="新增" :visible.sync="addVisible" width="50%">
+            <el-dialog title="人员新增" :visible.sync="addVisible" width="50%">
               <el-form ref="form" :model="addList" label-width="70px">
                 <el-form-item label="用户名">
                   <el-input v-model="addList.userName"></el-input>
@@ -104,7 +111,6 @@
 
                 <el-form-item label="角色">
                   <el-select v-model="addList.roleId" placeholder="请选择角色">
-                    <el-option label="管理员" value="0"></el-option>
                     <el-option label="设计人员" value="4"></el-option>
                     <el-option label="流通人员" value="5"></el-option>
                   </el-select>
@@ -222,6 +228,8 @@ export default {
   methods: {
     // 获取 easy-mock 的模拟数据
     getData() {
+      //this.tableData = res.list;
+      //this.pageTotal = tableData.length;
        console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
@@ -241,8 +249,7 @@ export default {
           this.tableData = response.data.allData;
           //this.form = response.data.allData[0];
         });
-        this.tableData = res.list;
-        this.pageTotal = tableData.length;
+        
     },
     // 触发搜索按钮
     handleSearch() {
@@ -251,11 +258,27 @@ export default {
     },
     // 删除操作
     handleDelete(index, row) {
+      //var that= this;
       // 二次确认删除
       this.$confirm("确定要删除吗？", "提示", {
         type: "warning"
       })
-        .then(() => {
+    //  var data = Qs.stringify({
+    //     User_Name: this.row.userName
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "http://127.0.0.1:8082//newStaff/deletelist",
+    //       data: data
+
+    //       //  data:this.$store.state.userName
+    //     })
+        .then(
+           response => {
+          // console.log(response);
+          // this.tableData = response.data.allData;
+          //this.form = response.data.allData[0];
           this.$message.success("删除成功");
           this.tableData.splice(index, 1);
         })
@@ -290,6 +313,7 @@ export default {
         Phone:this.addList.phone,
         Email:this.addList.email,
         Password1:this.addList.password,
+        //roleName:this.roleName
         
       
       });
@@ -328,7 +352,7 @@ export default {
       //console.log(this.addList.email);
 
       that.axios({
-        method: "get",
+        method: "post",
         url: "http://127.0.0.1:8082/newStaff/editlist",
         data: data
       });
@@ -394,11 +418,17 @@ export default {
 .table-td-thumb {
   display: block;
   margin: auto;
-  width: 40px;
-  height: 40px;
+  width: 40px; 
+  height: 30px;
+ 
 }
 .box {
   font-size: 24px;
 }
+ .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+
 </style>
 

@@ -1,12 +1,13 @@
 <template>
   <div>
     <div class="desinger">
-      <h3>已完成设计任务</h3>
+      <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;&nbsp;&nbsp;历史任务</div>
     </div>
-    <el-divider></el-divider>
+    <br>
+    <!-- <el-divider></el-divider> -->
     <el-row style="height:600px;">
       <el-card style="height:100%">
-        <div style="font-size:20px">历史任务</div>
+        
         <el-table
           :data="Finished_Task_Data"
           border
@@ -19,7 +20,8 @@
             <el-table-column
               prop="taskId"
               label="需求任务编号"
-              min-width="90px"
+              type="index"
+              width="110px"
               align="center"
               :show-overflow-tooltip="true"
             ></el-table-column>
@@ -157,29 +159,11 @@ export default {
       ],
       Finished_Task_Data: [
         {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
         },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        },
-        {
-          taskId: 123,
-          taskName: 123,
-          taskCategory: 123,
-          deadline: "2019-5-4"
-        }
       ],
       form2: {},
       dialogVisible: false,
@@ -239,4 +223,8 @@ export default {
 .el-scrollbar__wrap {
   overflow-y: hidden;
 }
+ .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
 </style>

@@ -187,11 +187,12 @@
                         <el-input v-model="form1.companyName" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>  
-                <el-col :span="12">
-                    <el-form-item label="企业联络电话">
-                        <el-input  v-model="form1.businessTel" :disabled="true"></el-input>
+                 <el-col :span="12">
+                    <el-form-item label="法人代表">
+                        <el-input v-model="form1.legalPerson" :disabled="true"></el-input>
                     </el-form-item>
                 </el-col>
+
             </el-row>
 
              <el-row>
@@ -228,7 +229,7 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item label="邮政编码">
-                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.postcode" ></el-input>
+                        <el-input  @blur="youzhengbianma()" v-model="form1.postcode" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -243,7 +244,7 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item label="电子邮箱">
-                        <el-input v-model="form1.email" ></el-input>
+                        <el-input v-model="form1.email" @blur="youxiang()"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -256,7 +257,7 @@
                 </el-col>
                  <el-col :span="12">
                     <el-form-item label="办公室电话">
-                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.officeNumber" ></el-input>
+                        <el-input @blur="animate()"  v-model="form1.officeNumber" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -288,11 +289,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="12">
-                    <el-form-item label="法人代表">
-                        <el-input v-model="form1.legalPerson" ></el-input>
+              <el-col :span="12">
+                    <el-form-item label="企业联络电话">
+                        <el-input  v-model="form1.businessTel" @blur="animate()" ></el-input>
                     </el-form-item>
                 </el-col>
+               
                  <el-col :span="12">
                     <el-form-item label="员工人数">
                         <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.workerNumber" ></el-input>
@@ -308,7 +310,7 @@
                 </el-col>
                  <el-col :span="12">
                     <el-form-item label="银行账户">
-                        <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.bankNumber" ></el-input>
+                        <el-input @blur="yinhangkahao()" v-model="form1.bankNumber" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -343,6 +345,7 @@ export default {
     name:'companyDetail',
     data(){
        return {
+           usernameX:this.$store.state.user,
            yangshi:true,
            wancheng:true,
            xiugai:false,
@@ -423,10 +426,55 @@ export default {
         this.getDate();
     },
     methods:{
+            //手机号校验
+       animate(){
+           var re = /^1\d{10}$/;
+           let str = this.form1.officeNumber;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.officeNumber = "";
+               alert('抱歉手机号不合法')
+
+          }
+       },
+           //银行卡号校验/^([1-9]{1})(\d{14}|\d{18})$/
+       yinhangkahao(){
+            var re =  /\d{14}$/
+           let str = this.form1.bankNumber;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.bankNumber="";
+               alert('抱歉银行卡号不合法')
+          }
+       },
+         //邮箱校验
+       youxiang(){
+            var re = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/ 
+           let str = this.form1.email;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.email = "";
+               alert('抱歉邮箱不合法')
+          }
+       },
+       //邮政编码校验
+       youzhengbianma(){
+            var re =   /\d{6}$/
+           let str = this.form1.postcode;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.postcode = "";
+               alert('抱歉邮箱不合法')
+          }
+       },
         getDate(){
             var that = this;
             var data = Qs.stringify({
-                userName:'aaaa'
+                userName:this.usernameX
             });
             console.log(data);
             that
