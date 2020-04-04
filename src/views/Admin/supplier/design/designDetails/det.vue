@@ -197,7 +197,7 @@
             <el-table-column label="操作" width="180" align="center">
               <template slot-scope="scope">
                 <div v-show="scope.row.contractState===0">
-                  <el-button @click="upLoadConT()" type="text" size="small">上传</el-button>
+                  <el-button @click="upLoadConT(scope.row)" type="text" size="small">上传</el-button>
                 </div>
                 <div v-show="scope.row.contractState===1">
                   <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
@@ -243,7 +243,7 @@
             <el-table-column prop="supplierCheckDesignTime" label="审核时间">
               <template slot-scope="scope">{{scope.row.supplierCheckDesignTime | formatDate}}</template>
             </el-table-column>
-            <el-table-column prop="demandorCheckDesignTime" label="验收状态">
+            <el-table-column prop="demandorCheckDesignState" label="验收状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.demandorCheckDesignState === 0">待提交</span>
                 <span v-else-if="scope.row.demandorCheckDesignState === 1">待审核</span>
@@ -272,6 +272,9 @@
             </el-table-column>
           </el-table>
         </div>
+      </div>
+      <div>
+        <el-button @click="remark = false">取 消</el-button>
       </div>
       <!-- 分配设计人员 -->
       <el-dialog title="分配设计师" :visible.sync="dialogTableVisible" width="30%">
@@ -362,7 +365,7 @@
         <el-upload
           class="upload-demo"
           ref="upload"
-          action="http://127.0.0.1:8082/supplier/importCon"
+          action="http://127.0.0.1:8082/supplier/import"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess"
@@ -537,7 +540,7 @@ export default {
           this.download(response.data);
         });
     },
-    // 下载文件
+    // 下载计划书文件
     download(data) {
       if (!data) {
         return;
@@ -567,10 +570,10 @@ export default {
         .then(response => {
           console.log("cap");
           console.log(response.data);
-          this.download(response.data);
+          this.downloadCon(response.data);
         });
     },
-    // 下载文件
+    // 下载合同文件
     downloadCon(data) {
       if (!data) {
         return;
@@ -608,7 +611,7 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
-          if (this.state == "申请或邀请中") {
+          if (this.state == "申请或邀请中") { 
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
             this.milepostActive = 1;
@@ -635,7 +638,7 @@ export default {
             if (response.data.allData.b[0].refuseApplyMessage != null) {
               this.show = 0;
             } else if (response.data.allData.b[0].refusePlanMessage != null) {
-              this.show = 1;
+              this.show = 1; 
             }
           }
           if (response.data.allData.a[0].supplierDistributionState == 0) {
@@ -830,7 +833,7 @@ export default {
       this.planbook = true;
     },
     upLoadConT() {
-      this.planbook = true;
+      this.conbook = true;
     },
     submitUpload() {
       this.$refs.upload.submit();
@@ -851,12 +854,12 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        Text_File1: this.technicalFile1
+        Text_File: this.technicalFile
       });
       console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/textimportCon",
+        url: "http://127.0.0.1:8082/supplier/textImportCon",
         data: data
       });
     },
