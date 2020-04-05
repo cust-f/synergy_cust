@@ -30,8 +30,10 @@
             <p style=" width :50%; float:left">子类别：{{list.taskCategoryPart}}</p>
             <p>&nbsp;</p>
             <!-- <p>&nbsp;</p> -->
-            <p style=" width :50%; float:left">开始时间：{{list.beginTime}}</p>
-            <p style=" width :50%; float:left">完成时间：{{list.finishTime}}</p>
+            <p style=" width :50%; float:left">开始时间：{{list.beginTime| dataFormat("yyyy-MM-dd HH:mm:ss")}}
+        
+            </p>
+            <p style=" width :50%; float:left">完成时间：{{list.finishTime| dataFormat("yyyy-MM-dd HH:mm:ss")}}</p>
             <!-- <p>&nbsp;</p> -->
             <!-- <p>&nbsp;</p> -->
           </div>
@@ -102,12 +104,43 @@
             style="margin-top:-150px;margin-left:5px; padding: 0 10px; border-left: 3px solid #ff5500;"
           >完成情况</h3>
           <el-divider></el-divider>
-          <p style="line-height:40px">
+          <br>
+          <radar-chart
+          :radarData="radarData"
+          ref="QradarChart"></radar-chart><br>
+
+          <!-- 步骤图 -->
+           <el-steps :active="milepostActive" align-center>      
+        <el-step
+          v-for="(stpesdata, key) in milepost"
+          :title="stpesdata.title"
+          :icon="stpesdata.icon"
+          :description="stpesdata.description"          
+          :key="key"
+        >
+       
+        </el-step>
+      </el-steps>
+      <br>
+      <br>
+      <br>
+      <br>
+       <div class="input_span">
+      
+      <el-form ref="form" :model="form">
+      <label >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成质量:</label>   
+       <br/> <br/>
+      </el-form>
+      <span id="one"></span>
+      <span id="two"></span>
+      <span id="three"></span>
+    </div>
+          <!-- <p style="line-height:40px">
             &nbsp;&nbsp;&nbsp;&nbsp;1.截至2018年9月底，全国机动车保有量达3.22亿辆，其中汽车保有量达2.35亿辆，占机动车总量的72.91%。
             &nbsp;2.其中，以个人名义登记的小微型载客汽车（私家车）保有量达1.84亿辆，占汽车总量的78.49%。
             &nbsp;3.2018年以来，全国私家车保有量月均增加161万辆，保持持续快速增长。
             &nbsp;4.这些都是广大的流量载体，实行一贴双码，免费发放给车主挪车贴即获得广告位，庞大的广告位即可招商打广告，广告主和广告商诞生。三方进行相互促进，产生循环的可只持续发展圈子，各取所需。
-          </p>
+          </p> -->
         </div>
       </el-col>
     </el-row>
@@ -120,11 +153,18 @@
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 <!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线--><!--分割线-->
 <script>
+import radarChart from "./components/radarChart"
 import Qs from "qs";
 export default {
   name: "Home",
+  components:{
+    "radar-chart":radarChart,
+  },
   data() {
     return {
+      form:{
+       designCount:'',
+       },
       SRC:
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578498716057&di=2862e7c5e9dc83020a4698017c207fd8&imgtype=0&src=http%3A%2F%2Fstatic.yjcf360.com%2Fgegu%2Fimg%2F000800.jpg",
       //设定el-cow的值
@@ -162,7 +202,38 @@ export default {
           officeNumber: "",
           product: ""
         }
-      ]
+      ],
+    
+      radarData:{
+        radarData:[],
+      },
+      stepsdata:[],
+      
+       //步骤条数据
+      milepost: [
+        
+        { title: "申请/邀请", icon: "el-icon-edit",description:""},
+        { title: "计划提交", icon: "el-icon-upload",description:""},
+        { title: "任务进行中", icon: "el-icon-picture" ,description:""},
+        { title: "审核", icon: "el-icon-message-solid" ,description:""},
+        { title: "验收", icon: "el-icon-s-promotion",description:""},
+        { title: "完成", icon: "el-icon-s-claim",description:""}
+       
+      ],
+     
+      // 默认步骤数
+      milepostActive: 5,
+      // 动态添加类名
+      stepActive: "stepActive",
+      //申请状态按钮显示隐藏
+      applicationStatus:0,
+      //任务计划状态按钮显示隐藏
+      taskPlanStatus:0,
+      //合同管理状态按钮显示隐藏
+      contractManagementStatus:0,
+      //设计任务状态按钮显示隐藏
+      designState:0
+
     };
   },
   created() {
@@ -170,8 +241,12 @@ export default {
     this.getData();
     this.getAcceptCompanyData();
     this.getCompanyData();
+    this.getData1();
+    this.getData2();
+    this.styleswith();
   },
   methods: {
+    
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
@@ -244,7 +319,82 @@ export default {
           
         });
     },
-    
+    getData1(){
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/remarkDetils",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+         this.radarData.radarData= response.data.allData;
+          that.$refs.QradarChart.getCharts1();
+          
+        });
+
+    },
+     //步骤图数据查找
+    getData2() {  
+      var that = this;
+      console.log(this.taskId);
+      var data = Qs.stringify({
+        taskId:this.taskId
+      });
+      //console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:  
+            "http://127.0.0.1:8082/evaluateDetils",
+          data: data
+        })
+        .then(response => {
+         
+          // that.stpesdata = response.data.allData[0];
+           that.form.designCount=response.data.allData[6];
+           
+           this.milepost[0].description=response.data.allData[0];
+           this.milepost[1].description=response.data.allData[1];
+           this.milepost[2].description=response.data.allData[2];
+           this.milepost[3].description=response.data.allData[3];
+           this.milepost[4].description=response.data.allData[4];
+           this.milepost[5].description=response.data.allData[5];
+          this.styleswith();
+       // publishTime:"",//发布时间
+      //   finishTime:"",//完成时间
+      //   applyTime:"",//申请时间
+      //   planUploadTime:"",//计划书提交时间
+      //   checkPlanTime:"",//审核计划书时间
+      //   demandorCheckDesignTime:"",//项目审核时间
+        });
+         
+    },
+     styleswith(){
+      
+       if(this.form.designCount>0&&this.form.designCount<3){
+           document.getElementById("one").style.background="#00D1B2"
+       }
+       if(this.form.designCount>2&&this.form.designCount<4)
+       {
+          document.getElementById("one").style.background = "#eee";
+          document.getElementById("two").style.background = "orange";
+       }
+       if(this.form.designCount>4||this.form.designCount==4)
+       {
+         document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";  
+       }
+       
+     },
     open() {
       this.$confirm("是否申请?", "提示", {
         confirmButtonText: "确定",
@@ -339,7 +489,7 @@ ul li {
   min-height: 36px;
 }
 .left{
-  width:200px;
+  width:100px;
   height:100%;
   float: left;
 }
@@ -347,4 +497,53 @@ ul li {
   height: 100%;
   overflow: hidden;
 }
+</style>
+<style scoped>
+	#inputValue{
+		width:240px;
+    margin-left: 0px;
+		padding-left: 10px;
+		border-radius: 3px;
+	}
+	.input_span span {
+		display: inline-block;
+		width: 85px;
+		height: 30px;
+		background: #eee;
+		line-height: 20px;
+    
+	}
+	
+	#one {
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 5px;
+		border-right: 0px solid;
+		margin-left: 150px;
+		margin-right: 3px;
+	}
+	
+	#two {
+		border-left: 0px solid;
+		border-right: 0px solid;
+		margin-left: -5px;
+		margin-right: 3px;
+	}
+	
+	#three {
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		border-left: 0px solid;
+		margin-left: -5px;
+	}
+	#font span:nth-child(1){
+		color:#00D1B2;;
+		margin-left: 80px;
+	}
+	#font span:nth-child(2){
+		color:orange;
+		margin: 0 60px;
+	}
+	#font span:nth-child(3){
+		color:red;
+	}
 </style>

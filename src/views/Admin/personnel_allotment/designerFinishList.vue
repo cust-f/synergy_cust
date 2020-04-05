@@ -9,7 +9,7 @@
       <el-card style="height:100%">
         
         <el-table
-          :data="Finished_Task_Data"
+          :data="Finished_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
           border
           class="table"
           header-cell-class-name="table-header"
@@ -57,14 +57,15 @@
             </template>
           </el-table-column>
         </el-table>
-        <div class="pagination">
+         <div class="pagination">
           <el-pagination
             background
-            layout="total, prev, pager, next"
-            :current-page="query.pageIndex"
-            :page-size="query.pageSize"
-            :total="pageTotal"
-            @current-change="handlePageChange"
+            layout="prev, pager, next, sizes, total, jumper"
+            :current-page="pageIndex"
+            :page-size="pageSize"
+            :total="Finished_Task_Data.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
           ></el-pagination>
         </div>
       </el-card>
@@ -87,7 +88,7 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务类型">
-                <el-input v-model="form2.taskCategory" :disabled="true"></el-input>
+                <el-input v-model="form2.taskCategoryPart" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
@@ -126,10 +127,12 @@ export default {
       name: "designerFinishList",
   data() {
     return {
-      query: {
+      username1: this.$store.state.user,
+      
+      
         pageIndex: 1,
-        pageSize: 10
-      },
+        pageSize: 7,
+      
       pageTotal: 0,
       Finished_Task_Head: [
         {
@@ -164,6 +167,43 @@ export default {
           taskCategory: "",
           deadline: ""
         },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+
       ],
       form2: {},
       dialogVisible: false,
@@ -191,7 +231,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: ""
+        designerName: this.username1
       });
       //console.log(data);
       that
