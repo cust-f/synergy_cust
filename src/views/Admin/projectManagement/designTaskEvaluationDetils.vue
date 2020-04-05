@@ -24,12 +24,12 @@
             <el-scrollbar style="height:100%">
               <el-row :gutter="80">
                 <el-col :span="11">
-                  <el-form-item label="评价ID">
-                    <el-input v-model="form.Remark_ID" :disabled="true"></el-input>
+                  <el-form-item label="任务名称:">
+                    <el-input v-model="form.taskId" :disabled="true"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9">
-                  <el-form-item label="设计任务ID">
+                  <el-form-item label="完成时间：">
                     <el-input v-model="form.Design_ID" :disabled="true"></el-input>
                   </el-form-item>
                 </el-col>
@@ -37,19 +37,26 @@
 
               <el-row :gutter="80">
                 <el-col :span="11">
-                  <el-form-item label="评价时间">
+                  <el-form-item label="项目负责人：">
                     <el-input v-model="form.Trade_Time" :disabled="true"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9">
-                  <el-form-item label="评价状态">
+                  <el-form-item label="联系方式：">
                     <el-input v-model="form.Remark_State" :disabled="true"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="80">
-                <el-col :span="20">
-                  <el-form-item label="接收企业ID">
+                <el-col :span="11">
+                  <el-form-item label="承接企业：">
+                    <el-input v-model="form.Accept_Company_ID" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
+             
+              
+                <el-col :span="9">
+                  <el-form-item label="设计师：">
                     <el-input v-model="form.Accept_Company_ID" :disabled="true"></el-input>
                   </el-form-item>
                 </el-col>
@@ -77,8 +84,8 @@ export default {
                 <el-col>
                   <el-form-item>
                     <el-button
-                    @click="goBack()
-                    ">确定</el-button>
+                     @click=goBack()
+                    >确定</el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -107,11 +114,11 @@ export default {
       colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
 
       form: {
-        Remark_ID: "01",
-        Design_ID: "02",
-        Trade_Time: "2019-03-13",
-        Remark_State: "已评价",
-        Accept_Company_ID: "233"
+        Remark_ID: "",
+        Design_ID: "",
+        Trade_Time: "",
+        Remark_State: "",
+        Accept_Company_ID: ""
       },
        //步骤条数据
       milepost: [
@@ -153,7 +160,7 @@ export default {
         legend: {
           x: "left",
           y: "top",
-          data: ["设计任务", "流通任务"]
+          data: ["设计任务"]
         },
         radar: {
           name: {
@@ -165,11 +172,11 @@ export default {
             }
           },
           indicator: [
-            { name: "人员数量", max: 50 },
-            { name: "时间效率", max: 400 },
-            { name: "涉及金额", max: 50000 },
-            { name: "提交效率", max: 100 },
-            { name: "完成准确度", max: 100 }
+            { name: "任务时长", max: 60 },
+            { name: "计划时长", max: 10 },
+            { name: "审核时长", max: 7 },
+            { name: "申请时长", max: 7 },
+            { name: "验收时长", max: 7 }
           ]
         },
         series: [
@@ -177,12 +184,8 @@ export default {
             type: "radar",
             data: [
               {
-                value: [20, 200, 35000, 80, 90],
+                value: [45, 3, 6, 4, 5],
                 name: "设计任务"
-              },
-              {
-                value: [30, 300, 28000, 93, 87],
-                name: "流通任务"
               }
             ]
           }

@@ -80,7 +80,8 @@
       <div slot="header">
         <span>SaaS服务平台为您找到5000+企业</span>
       </div>
-      <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
+      <el-row v-for="(companys,index) in companyList" :key="index" class="company-info" >
+        <div @click="companyDetail(companys.companyId)">
         <el-col :span="4">
           <el-avatar shape="square" :size="80" fit="fill" :src="url"></el-avatar>
         </el-col>
@@ -94,10 +95,10 @@
             </div>
           </el-row>
           <el-row>
-            <el-col :span="4">
+            <el-col :span="5">
               <span>所在省份: {{companys.province}}</span>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="5">
               <span>所在城市: {{companys.city}}</span>
             </el-col>
             <el-col :span="6">
@@ -108,6 +109,7 @@
             <span>企业所在地: {{companys.address}}</span>
           </el-row>
         </el-col>
+      </div>
       </el-row>
       <!-- <el-divider></el-divider> -->
       <div style="margin-top:20px;">
@@ -124,10 +126,15 @@
     </el-card>
       </el-main>
       <el-aside style="width:300px;">
-        <el-card shadow="never" class="selectCard">
+        <el-card shadow="never" class="selectCard recommend">
       <div slot="header">
         <span>推荐企业</span>
       </div>
+      <ul>
+        <li v-for="item in recommendedCompanyList" :key="item.id" style="margin-bottom: 10px;">
+          <a  @click="companyDetail(item.id)">{{item.companyName}}</a>
+        </li>
+      </ul>
         </el-card>
       </el-aside>
     </el-container>
@@ -147,6 +154,7 @@ export default {
       provinceOption: false, //是否选择了省份
       category: "", //行业类别
       companyList: [],
+      recommendedCompanyList:[],//推荐企业列表
       currentPage: 1,
       pageSize: 15,
       value: this.totalCount <= 15,
@@ -160,6 +168,7 @@ export default {
     this.getProvince();
     this.getCategry();
     this.getCompanyList(this.val);
+    this.getRecommendedCompanyList();
   },
   watch:{
     dynamicTags: function(val) {
@@ -210,6 +219,12 @@ export default {
           this.companyList = response.data.allData.companyList;
           this.totalCount =response.data.allData.totalCount;
         });
+    },
+    getRecommendedCompanyList(){
+            let that = this;
+      that.axios.post("/api/company/recommended").then(response => {
+        this.recommendedCompanyList = response.data.allData;
+      });
     },
     //筛选条件
     getAnswer(){
@@ -382,6 +397,11 @@ export default {
         }
         return true;
       }
+    },
+    //进入企业详情界面
+    companyDetail(id){
+      console.log("触发了呀")
+            this.$router.push({path: "/company/excellentCompanyDetail",name:'companyDetails' ,query: {companyId: id}});
     }
   }
 };
@@ -471,5 +491,9 @@ export default {
 }
 .company-info .el-row {
   margin-bottom: 10px;
+}
+/* 推荐企业列表 */
+.recommend a:hover{
+    color: #0084ff;
 }
 </style>

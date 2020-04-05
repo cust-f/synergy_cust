@@ -1,22 +1,31 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+      <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-     :data="tableData"
+      :data="tableData"
       border
       class="table"
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column label="序号" type="index" width="55" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
+      </el-table-column>
 
+      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="taskType" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskType === 1">类型1</span>
+          <span v-else-if="scope.row.taskType === 2">类型2</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
 
       <el-table-column prop="designerName" label="设计师" align="center"></el-table-column>
@@ -24,7 +33,7 @@
       <el-table-column prop="supplierCheckDesignState" label="设计状态" align="center"></el-table-column>
 
       <el-table-column prop="deadline" label="截止日期">
-        <template slot-scope="scope">{{scope.row.deadline}}</template>
+        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
@@ -50,8 +59,8 @@
 
 <script>
 import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
-  
   name: "pendingAcceptance",
   created() {
     this.getData();
@@ -62,11 +71,11 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
-      tableData:[
+      tableData: [
         {
           taskId: "",
           taskName: "",
-          taskType:"",
+          taskType: "",
           companyName: "",
           designerName: "",
           deadline: ""
@@ -75,14 +84,22 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
+      selectname:"",
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
+      YinCang: 1,
       pageTotal: 0,
       form: {},
       idx: -1,
       id: -1
     };
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
   },
   created() {
     this.getData();
@@ -92,7 +109,27 @@ export default {
     // jumpAcceptDet() {
     //   this.$router.push("/admin/pendingAcceptanceDet");
     // },
-
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        username: "supplier",
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/searchByTaskIdInTask",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+      //this.getData();
+    },
     Det(row) {
       console.log(row.taskId);
       this.$router.push({
@@ -102,8 +139,8 @@ export default {
         }
       });
     },
-    
-      getData() {
+
+    getData() {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
@@ -122,8 +159,7 @@ export default {
           console.log(response);
           this.tableData = response.data.allData;
         });
-    },
-    
+    }
   }
   /*
    *转跳对应需求信息页面

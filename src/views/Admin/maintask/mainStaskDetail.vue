@@ -117,7 +117,10 @@
             </template>
           </el-table-column>
           <el-table-column prop="applyTime" label="申请/邀请时间">
-            <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.applyTime === 0">暂未申请</el-span>
+              <el-span v-if-else>{{scope.row.applyTime | formatDate}}</el-span>
+            </template>
           </el-table-column>
 
           <el-table-column label="操作" align="center">
@@ -199,13 +202,13 @@
                 @click="JHSTG(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState===1"
+                v-if="scope.row.checkPlanState===1 || scope.row.checkPlanState===3"
               >通过</el-button>
               <el-button
                 @click="JHSJJ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState===1"
+                v-if="scope.row.checkPlanState===1 || scope.row.checkPlanState===3"
               >拒绝</el-button>
             </template>
           </el-table-column>
@@ -346,6 +349,43 @@
             </template>
           </el-table-column>
         </el-table>
+        <br />
+        <br />
+      </div>
+
+      <div v-show="milepostActive5">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <div class="SXT">
+          <el-steps :active="milepostActive" align-center>
+            <el-step
+              v-for="(value, key) in milepost1"
+              :class="milepostActive== key+1 ? stepActive: '' "
+              :title="value.title"
+              :icon="value.icon"
+              :description="value.description|formatDate"
+              :key="key"
+            ></el-step>
+          </el-steps>
+        </div>
+
+        <div class="LDT">
+          <!-- 雷达图 -->
+          <radar-chart :radarData="radarData" ref="QradarChart" ></radar-chart>
+          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
+          <div class="input_span">
+            <el-form ref="form" :modelZL="form">
+              <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+              <br />
+              <br />
+            </el-form>
+            <span id="one"></span>
+            <span id="two"></span>
+            <span id="three"></span>
+          </div>
+
+
+
+        </div>
       </div>
 
       <!-- 申请拒绝原因弹出框 -->
@@ -434,11 +474,26 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+import radarChart from "./radarChart";
+
 export default {
   inject: ["reload"],
   name: "mainStaskDetail",
+  components: {
+    "radar-chart": radarChart
+  },
+
   data() {
     return {
+      //质量完成图数据源
+      form: {
+        designCount: ""
+      },
+
+      //雷达图的数据定义
+      radarData: {
+        radarData: []
+      },
       //申请拒绝原因       的模态框开始是否存在
       addVisible: false,
       //计划书拒绝原因    的模态框开始是否存在
@@ -461,6 +516,7 @@ export default {
       milepostActive2: -1,
       milepostActive3: -1,
       milepostActive4: -1,
+      milepostActive5: -1,
       cool: {
         mainTaskName: "nihao",
         taskName: "nihao",
@@ -506,6 +562,15 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion" },
         { title: "完成", icon: "el-icon-s-claim" }
       ],
+      //下图的
+      milepost1: [
+        { title: "申请/邀请", icon: "el-icon-edit", description: "" },
+        { title: "计划提交", icon: "el-icon-upload", description: "" },
+        { title: "任务进行中", icon: "el-icon-picture", description: "" },
+        { title: "审核", icon: "el-icon-message-solid", description: "" },
+        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+        { title: "完成", icon: "el-icon-s-claim", description: "" }
+      ],
       // 默认步骤数
       milepostActive: 1,
       // 动态添加类名
@@ -538,6 +603,20 @@ export default {
     this.showData();
   },
   methods: {
+    //提交次数 背景颜色变化
+    styleswith() {
+      if (this.form.designCount > 0 && this.form.designCount < 3) {
+        document.getElementById("one").style.background = "#00D1B2";
+      }
+      if (this.form.designCount > 2 && this.form.designCount < 4) {
+        document.getElementById("one").style.background = "#eee";
+        document.getElementById("two").style.background = "orange";
+      }
+      if (this.form.designCount > 4 || this.form.designCount == 4) {
+        document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";
+      }
+    },
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
@@ -579,13 +658,26 @@ export default {
           if (this.tableData4 == null) {
             this.milepostActive4 = 0;
           }
-          // let k = 0;
-          // while(response.data.allData.c[k]!=null){
-          //   if(response.data.allData.c[k].planUploadTime ===null){
-          //         response.data.allData.c[k].planUploadTime =0;
-          //   }
-          // }
-          console.log(response.data.allData.c[0].planUploadTime);
+          this.radarData.radarData = response.data.allData.f;
+          console.log(this.radarData.radarData);
+          that.$refs.QradarChart.getCharts1();
+          if (this.radarData.radarData == null) {
+            this.milepostActive5 = 0;
+          } else {
+            this.styleswith();
+            this.milepost1[0].description =
+              response.data.allData.b[0].applyTime;
+            this.milepost1[1].description =
+              response.data.allData.e[0].planUploadTime;
+            this.milepost1[2].description =
+              response.data.allData.e[0].publishTime;
+            this.milepost1[3].description =
+              response.data.allData.e[0].demandorCheckDesignTime;
+            this.milepost1[4].description =
+              response.data.allData.e[0].checkPlanTime;
+            this.milepost1[5].description =
+              response.data.allData.e[0].demandorCheckDesignTime;
+          }
 
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
@@ -605,6 +697,7 @@ export default {
           }
           console.log(this.milepostActive);
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          console.log(this.mainTaskID);
           console.log(response.data.allData.a[0].taskState);
           console.log(response.data.allData);
         });
@@ -736,11 +829,11 @@ export default {
         .then(response => {
           console.log("cap");
           console.log(response.data);
-          this.download(response.data,'JHS');
+          this.download(response.data, "JHS");
         });
     },
     // 下载文件
-    download(data,leixing) {
+    download(data, leixing) {
       if (!data) {
         return;
       }
@@ -748,10 +841,9 @@ export default {
       let link = document.createElement("a");
       link.style.display = "none";
       link.href = url;
-      if(leixing === "JHS"){
+      if (leixing === "JHS") {
         link.setAttribute("download", "设计文档.docx");
-      }
-      else if(leixing ==="HT"){
+      } else if (leixing === "HT") {
         link.setAttribute("download", "合同.docx");
       }
       document.body.appendChild(link);
@@ -768,8 +860,7 @@ export default {
           taskID: row.taskId
         });
         console.log(data);
-        that
-        .axios({
+        that.axios({
           method: "post",
           url: "http://127.0.0.1:8082/SubstaskInformation/HTSHTG",
           data: data
@@ -779,7 +870,6 @@ export default {
           type: "success"
         });
       });
-     
     },
     HTSHJJ(row) {
       this.addVisible2 = true;
@@ -815,7 +905,7 @@ export default {
         })
         .then(response => {
           console.log(response.data);
-          this.download(response.data,"HT");
+          this.download(response.data, "HT");
         });
     },
     //设计通过
@@ -866,6 +956,21 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+  //时序图
+  .SXT {
+    height: 150px;
+  }
+  //雷达图
+  .LDT {
+    height: 300px;
+  }
+   
+  //完成质量
+  .WCZL {
+    font-size: 11px;
+  }
+
+
   .table {
     font-size: 13px;
   }
@@ -921,6 +1026,53 @@ export default {
   .el-step__title.is-process {
     color: #f15e09;
     border-color: #f15e09;
+  }
+  //质量图样式调整
+  #inputValue {
+    width: 240px;
+    margin-left: 0px;
+    padding-left: 10px;
+    border-radius: 3px;
+  }
+  .input_span span {
+    display: inline-block;
+    width: 85px;
+    height: 30px;
+    background: #eee;
+    line-height: 20px;
+  }
+
+  #one {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 0px solid;
+    margin-left: 0px;
+    margin-right: 3px;
+  }
+
+  #two {
+    border-left: 0px solid;
+    border-right: 0px solid;
+    margin-left: -5px;
+    margin-right: 3px;
+  }
+
+  #three {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 0px solid;
+    margin-left: -5px;
+  }
+  #font span:nth-child(1) {
+    color: #00d1b2;
+    margin-left: 80px;
+  }
+  #font span:nth-child(2) {
+    color: orange;
+    margin: 0 60px;
+  }
+  #font span:nth-child(3) {
+    color: red;
   }
 }
 </style>

@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+      <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
@@ -13,22 +12,32 @@
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column label="序号" type="index" width="55" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型"></el-table-column>
+      <el-table-column prop="taskType" label="需求类型">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskType === 1">类型1</span>
+          <span v-else-if="scope.row.taskType === 2">类型2</span>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="companyName" label="需求企业"></el-table-column>
 
       <el-table-column prop="designerName" label="设计师" align="center"></el-table-column>
 
       <el-table-column prop="finishTime" label="完成日期">
-        <template slot-scope="scope">{{scope.row.finishTime}}</template>
+        <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
       </el-table-column>
-
       <el-table-column label="操作" width="180" align="center">
-         <template slot-scope="scope">
+        <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
@@ -49,7 +58,8 @@
 
 
 <script>
- import Qs from "qs";
+import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
   name: "finishTask",
   data() {
@@ -61,14 +71,14 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData:[
+      tableData: [
         {
           taskId: "",
           taskName: "",
-          taskType:"",
+          taskType: "",
           companyName: "",
           userId: "",
-          supplierName:"",
+          supplierName: "",
           deadline: ""
         }
       ],
@@ -76,16 +86,45 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
+      selectname: "",
       form: {},
+      YinCang: 1,
       idx: -1,
       id: -1,
-      taskId:"",
+      taskId: 0
     };
   },
   created() {
-     this.getData();
+    this.getData();
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
   },
   methods: {
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        username: "supplier",
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/searchByTaskIdInTask",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+      //this.getData();
+    },
     getData() {
       console.log(this.userName);
       var that = this;
@@ -114,7 +153,9 @@ export default {
       console.log(row.taskId);
       this.$router.push({
         path: "/admin/Det",
-        taskId: row.taskId,
+        query: {
+          taskId: row.taskId
+        }
       });
     }
   }

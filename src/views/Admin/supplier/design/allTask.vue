@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+      <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
@@ -12,21 +11,41 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'taskState', order: 'descending'}"
     >
-      <el-table-column prop="taskId" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column label="序号" type="index" width="55" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
-
-      <el-table-column prop="taskType" label="需求类型"></el-table-column>
-
-      <el-table-column prop="taskState" label="状态"></el-table-column>
-
-      <el-table-column prop="deadline" label="截止日期">
-        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+      <el-table-column prop="publishingCompanyName" label="发布需求企业"></el-table-column>
+      <el-table-column prop="beginTime" label="发布日期">
+        <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
       </el-table-column>
 
+      <el-table-column prop="taskType" label="需求类型">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskType === 1">类型1</span>
+          <span v-else-if="scope.row.taskType === 2">类型2</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="taskState" sortable label="状态">
+        <template slot-scope="scope">
+          <span v-if="scope.row.taskState === 0">待响应</span>
+          <span v-else-if="scope.row.taskState === 1">计划审核</span>
+          <span v-else-if="scope.row.taskState === 2">进行中</span>
+          <span v-else-if="scope.row.taskState === 3">审核</span>
+          <span v-else-if="scope.row.taskState === 4">验收</span>
+          <span v-else-if="scope.row.taskState === 5">完成</span>
+          <span v-else-if="scope.row.taskState === 6">失败</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
@@ -67,14 +86,18 @@ export default {
           taskId: "",
           taskName: "",
           companyName: "",
-          acceptCompanyName: "",
-          taskCheck: "",
-          deadline: ""
+          publishingCompanyName: "",
+          taskState: "",
+          taskType: "",
+          deadline: "",
+          beginTime:""
         }
       ],
       multipleSelection: [],
       editVisible: false,
+      YinCang: 1,
       addVisible: false,
+      selectname: "",
       pageTotal: 0,
       form: {},
       idx: -1,
@@ -87,12 +110,38 @@ export default {
       return formatDate(date, "yyyy.MM.dd");
     }
   },
-
+  //获取表格序号
+  getIndex($index) {
+    //表格序号
+    return (this.page.currentPage - 1) * this.page.pageSize + $index + 1;
+  },
   created() {
     this.getData();
     this.GetTime(date);
   },
   methods: {
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        username: "supplier",
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/supplier/searchByTaskIdInTaskApply",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+      //this.getData();
+    },
     GetTime(date) {
       var datee = new Date(date).toJSON();
       return new Date(+new Date(datee) + 8 * 3600 * 1000)
