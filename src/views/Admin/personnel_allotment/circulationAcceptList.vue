@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="desinger">
-        <h3>流通接收任务</h3>
+      
       </div>
       <el-divider></el-divider>
       <el-row style="height:600px;">

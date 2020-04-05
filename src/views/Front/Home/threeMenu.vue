@@ -34,7 +34,38 @@
           <p>&nbsp;</p>
           <div style="margin:20px 0;">        
            <el-button type="warning" >下载模板</el-button>
-           <el-button type="warning" @click="open">申请任务</el-button>
+           <el-button type="warning" @click="dialogDateVisible=true">申请任务</el-button>
+           <el-dialog title="申请" :visible.sync="dialogDateVisible">
+              <p style =" width :50%; float:left">行业类别：{{taskDetail.taskCategoryMain}}</p>
+              <p style =" width :50%;float:left">所在地区：吉林省长春市</p>
+              <p>&nbsp;</p>
+              <p style =" width :50%; float:left">联系方式：{{taskDetail.demanderTel}}</p>
+              <p style =" width :50%; float:left">需求类型：流通</p>
+              <p>&nbsp;</p>
+              <p style =" width :50%; float:left">需求开始时间：2019-10-22</p>
+              <p style =" width :50%; float:left">需求截止时间：{{taskDetail.deadline| dataFormat("yyyy-MM-dd")}}</p>
+              <p>&nbsp;</p>
+              <p style =" width :100%; float:left">需求介绍：{{taskDetail.taskDetail}}</p>
+
+              <p style =" width :100%; float:left">联系方式：   
+                <el-input
+                  size="small"
+                  prop="phone"
+                  prefix-icon="el-icon-phone"
+                  placeholder="请输入联系方式"
+                  v-model="inputphone"
+                  style="width:300px;">
+                </el-input>
+              </p>
+              <p>&nbsp;</p>
+              <p align="center">
+                <el-button type="warning" @click="" >申请</el-button>
+              </p>
+
+
+                
+
+          </el-dialog>
           </div>
         </div>
         </div>
@@ -87,8 +118,13 @@ export default {
       gutterCount: 15,
       pushCount:4,
       pullCount:2,
-      taskName:this.$route.query.taskName,
+      taskID:this.$route.query.taskID,
       taskDetail:[],
+      dialogDateVisible:false,
+      inputphone:"",
+      rules:{
+        phone:[{required:true,message:"请输入联系方式"}]
+      }
     };
   },
   created(){
@@ -98,7 +134,7 @@ export default {
       getInfo(){
         var that = this;
         let data = Qs.stringify({
-          taskName: this.taskName,
+          taskID: this.taskID,
         });
         that
           .axios({

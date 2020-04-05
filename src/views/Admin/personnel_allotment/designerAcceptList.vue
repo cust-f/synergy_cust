@@ -10,7 +10,7 @@
       <el-card style="height:100%">
         <!-- <div style="font-size:20px">已接任务</div> -->
         <el-table
-          :data="Accepted_Task_Data"
+          :data="Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
           border
           class="table"
           header-cell-class-name="table-header"
@@ -36,15 +36,12 @@
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
-              prop="taskType"
+              prop="taskCategoryPart"
               label="需求类型"
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
-            > <template slot-scope="scope">
-              <span v-if="scope.row.taskType === 0">设计任务</span>
-              <span v-else-if="scope.row.taskType === 1">流通任务</span>
-            </template></el-table-column>
+            > </el-table-column>
            
             <el-table-column
               prop="supplierCheckDesignState"
@@ -67,7 +64,7 @@
               align="center"
               :show-overflow-tooltip="true"
             >
-              <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+              <template slot-scope="scope">{{scope.row.deadline | dataFormat("yyyy-MM-dd hh:mm")}}</template>
             </el-table-column>
           </template>
 
@@ -80,14 +77,15 @@
             </template>
           </el-table-column>
         </el-table>
-        <div class="pagination">
+         <div class="pagination">
           <el-pagination
             background
-            layout="total, prev, pager, next"
-            :current-page="query.pageIndex"
-            :page-size="query.pageSize"
-            :total="pageTotal"
-            @current-change="handlePageChange"
+            layout="prev, pager, next, sizes, total, jumper"
+            :current-page="pageIndex"
+            :page-size="pageSize"
+            :total="Accepted_Task_Data.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
           ></el-pagination>
         </div>
       </el-card>
@@ -169,10 +167,11 @@ export default {
   name: "designerAcceptList",
   data() {
     return {
-      query: {
+      username1: this.$store.state.user,
+      
         pageIndex: 1,
-        pageSize: 10
-      },
+        pageSize: 7,
+      
       pageTotal: 0,
      
       Accepted_Task_Head: [
@@ -209,6 +208,42 @@ export default {
           taskCategory:"",
           deadline:"",
         },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
       ],
       form1: {},
       dialogVisible: false,
@@ -223,6 +258,7 @@ export default {
   },
   created() {
     this.getTableData();
+    
   },
   methods: {
     submitTask(row) {
@@ -270,7 +306,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: ""
+        designerName: this.username1
       });
       //console.log(data);
       that
