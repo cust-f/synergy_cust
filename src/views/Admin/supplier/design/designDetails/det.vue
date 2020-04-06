@@ -553,6 +553,7 @@ export default {
   created() {
     this.getParams();
     this.showData();
+    this.styleswith();//提交次数 背景颜色变化
   },
   methods: {
     getParams() {
