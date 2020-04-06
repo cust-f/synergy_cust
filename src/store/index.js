@@ -6,9 +6,10 @@ Vue.use(Vuex)
 const state = {
     user: window.sessionStorage.getItem('user'),
     token: window.sessionStorage.getItem('token'),
+    userId: window.sessionStorage.getItem('userId'),
     menuList: "",
     identity: "",
-    taskId1:""
+    taskId1: ""
 }
 
 const mutations = {
@@ -23,10 +24,17 @@ const mutations = {
         state.user = data
         window.sessionStorage.setItem('user', data)
     },
+    //获取用户Id
+    GET_USER: (state, data) => {
+        //把用户名存起来
+        state.userId = data
+        window.sessionStorage.setItem('userId', data)
+    },
     //登出
     LOGOUT: (state) => {
         state.token = null
         state.user = null
+        state.userId = null
         window.sessionStorage.removeItem('token')
     },
     //存储菜单

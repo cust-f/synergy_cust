@@ -15,11 +15,11 @@
                   </el-col>
                   <el-col :span="10" style="float:right;">
                     <div class="user-option">
-                        <a @click="logout(0)">退出登陆</a>
-                         <el-divider></el-divider>
-                 <a @click="logout(1)">返回首页</a>
+                      <a @click="logout(0)">退出登陆</a>
                       <el-divider></el-divider>
-                        <a>账号管理</a>
+                      <a @click="logout(1)">返回首页</a>
+                      <el-divider></el-divider>
+                      <a @click="dialogTableVisible=true">账号管理</a>
                     </div>
                   </el-col>
                 </el-row>
@@ -74,22 +74,91 @@
         </div>
       </el-col>
     </el-row>
+    <el-dialog title="账号管理" :visible.sync="dialogTableVisible" :close-on-click-modal="false" @close="closeDialog">
+      <el-form
+        :model="account"
+        status-icon
+        :rules="rules"
+        ref="account"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="用户名" prop="userName">
+          <el-input disabled v-model="username"></el-input>
+        </el-form-item>
+        <el-form-item label="旧密码" prop="password">
+          <el-input
+            @blur="checkOldPassword"
+            type="password"
+            v-model="account.oldPassword"
+            autocomplete="off"
+            :suffix-icon="icon"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="新密码" prop="newPassword">
+          <el-input type="password" v-model="account.newPassword" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input type="password" v-model="account.checkPass" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('account')" :disabled="checkMessage">提交</el-button>
+          <el-button @click="resetForm('account')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import navigation from "./Navigation";
+import Qs from "qs";
 
 export default {
   name: "adminpage",
   data() {
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else if (value == this.account.oldPassword) {
+        callback(new Error("跟原始密码重复"));
+      } else {
+        if (this.account.checkPass !== "") {
+          this.$refs.account.validateField("checkPass");
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.account.newPassword) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
     return {
       log: true,
-      token:this.$store.state.token,
+      token: this.$store.state.token,
       collapse: false,
-      username: this.$store.state.user,
+      username: localStorage.getItem("ms_username"),
       input: "",
-      select: ""
+      select: "",
+      checkMessage: true,
+      dialogTableVisible: false, //弹出框修改账号信息
+      icon: "el-icon-edit",
+      account: {
+        oldPassword: "",
+        newPassword: "",
+        checkPass: "",
+        userId: this.$store.state.userId
+      },
+      rules: {
+        //oldPassword: [{ validator: validatePass, trigger: "blur" }],
+        newPassword: [{ validator: validatePass, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }]
+      }
     };
   },
   components: {
@@ -103,25 +172,92 @@ export default {
      *@date: 2020-01-14 08:34:47
      */
     logout(opinion) {
-      if(opinion==0){
-      this.$store.commit("LOGOUT");
-      this.token=false;
-      this.$message({
-        type: "success",
-        message: "登出成功"
-      });
-      this.$router.push("/home");
-      }else{
-      this.$router.push("/home");
+      if (opinion == 0) {
+        this.$store.commit("LOGOUT");
+        this.token = false;
+        this.$message({
+          type: "success",
+          message: "登出成功"
+        });
+        this.$router.push("/home");
+      } else {
+        this.$router.push("/home");
       }
-
     },
-    login(opinion){
-      if(opinion==0){
-              this.$router.push("/login");
-      }else{
+    login(opinion) {
+      if (opinion == 0) {
+        this.$router.push("/login");
+      } else {
         this.$router.push("/register");
       }
+    },
+    //向后台检验原来输入的密码是否正确
+    checkOldPassword() {
+      let that = this;
+      var data = Qs.stringify({
+        userName: this.username,
+        password: this.account.oldPassword
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/users/login",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          if (response.data.code == 200) {
+            this.icon = "el-icon-check";
+            this.checkMessage = false;
+          } else {
+            this.icon = "el-icon-close";
+            this.$message({
+              type: "warning",
+              message: "原密码输入错误!"
+            });
+            this.checkMessage = true;
+          }
+        });
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          //修改密码
+          let that = this;
+          var data = Qs.stringify({
+            userName: this.username,
+            password: this.account.newPassword
+          });
+          that
+            .axios({
+              method: "post",
+              url: "/api/users/updatePassword",
+              data: data
+            })
+            .then(response => {
+              this.$message({
+                type: "success",
+                message: "修改密码成功"
+              });
+              this.resetForm("account");
+              this.dialogTableVisible = false;
+            });
+        } else {
+          this.$message({
+            type: "warning",
+            message: "请输入正确有效的信息"
+          });
+        }
+      });
+    },
+    resetForm(formName) {
+      this.account.oldPassword = null;
+      this.icon="el-icon-edit";
+      this.$refs[formName].resetFields();
+    },
+    closeDialog(){
+      this.resetForm("account");
+     this.dialogTableVisible = false;
     }
   }
 };
@@ -211,8 +347,8 @@ export default {
 .btn-bell .el-icon-bell {
   color: #fff;
 }
-.user-option .el-divider--horizontal{
-  margin:5px 0 !important;
+.user-option .el-divider--horizontal {
+  margin: 5px 0 !important;
 }
 .user-name {
   margin-left: 10px;

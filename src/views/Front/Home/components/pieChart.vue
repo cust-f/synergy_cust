@@ -15,7 +15,7 @@ export default {
       var myChart = echarts.init(document.getElementById("quarterlySituation")); // 指定图表的配置项和数据
       var option = {
         title: {
-          text: "季度完成量",
+          text: `${this.pieData.nowYear}年 季度完成量`,
           subtext: " ",
           left: "center"
         },

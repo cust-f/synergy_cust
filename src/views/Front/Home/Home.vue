@@ -63,7 +63,11 @@
             <el-col :span="8">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + orangePicture + ')'}" style=" background-size: cover; ">
+                  <div
+                    class="cate_ietm_title"
+                    :style="{backgroundImage: 'url(' + orangePicture + ')'}"
+                    style=" background-size: cover; "
+                  >
                     <font>交通运输设备</font>
                     <p></p>
                   </div>
@@ -102,9 +106,7 @@
             <el-col :span="8">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div
-                    class="cate_ietm_title"
-                  >
+                  <div class="cate_ietm_title">
                     <font>通信设备、计算机及其他电子设备</font>
                   </div>
                   <i class="cate_list">
@@ -193,7 +195,7 @@
           <div class="grid-content">
             <el-card style="margin-bottom:5px;padding-top: 10px;">
               <div v-if="!this.$store.state.token">
-                <span>欢迎来到Saas应用</span>
+                <span >欢迎来到Saas应用</span>
                 <div class="grid-content-top-button">
                   <el-button
                     style=" left:5px; background-color:#27b0f0;; border-color:#27b0f0;; "
@@ -210,11 +212,11 @@
                 </div>
               </div>
               <div v-else>
-                <div class="user-avator" style="padding-bottom:6%;">
+                <div class="user-avator" style="padding-bottom:6%;padding-left:10px;">
                   <img src="../../../assets/img/img.jpg" />
                 </div>
                 <div>
-                  <span>HI!欢迎{{this.$store.state.user}}登陆平台！</span>
+                  <span style="line-height: 80px;font-size: 18px;">欢迎{{this.$store.state.user}}登陆平台！</span>
                 </div>
               </div>
             </el-card>
@@ -302,123 +304,6 @@
         </el-col>
       </el-row>
 
-      <!--发布需求 弹出框-->
-      <!-- <div class="Publishingrequirements">
-        <el-dialog title="发布需求" :visible.sync="dialogVisible">
-          <el-form ref="form" :model="form" :rules="rules" label-width="80px" class size="medium">
-            <el-form-item label="需求名称" prop="name">
-              <el-input v-model="form.name" placeholder="请输入需求名称"></el-input>
-            </el-form-item>
-            <el-form-item label="需求类别">
-              <el-select
-                v-model="form.value"
-                clearable
-                size="medium"
-                filterable
-                placeholder="选择/输入需求大类"
-                @change="selectOne"
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
-              <el-select
-                v-model="form.value0"
-                clearable
-                size="medium"
-                filterable
-                placeholder="选择/输入需求子类"
-              >
-                <el-option
-                  v-if="show0"
-                  v-for="item in options0"
-                  :key="item.value0"
-                  :label="item.label"
-                  :value="item.value0"
-                ></el-option>
-                <el-option
-                  v-if="show1"
-                  v-for="item in options1"
-                  :key="item.value0"
-                  :label="item.label"
-                  :value="item.value0"
-                ></el-option>
-                <el-option
-                  v-if="show2"
-                  v-for="item in options2"
-                  :key="item.value0"
-                  :label="item.label"
-                  :value="item.value0"
-                ></el-option>
-                <el-option
-                  v-if="show3"
-                  v-for="item in options3"
-                  :key="item.value0"
-                  :label="item.label"
-                  :value="item.value0"
-                ></el-option>
-                <el-option
-                  v-if="show4"
-                  v-for="item in options4"
-                  :key="item.value0"
-                  :label="item.label"
-                  :value="item.value0"
-                ></el-option>
-                <el-option
-                  v-if="show5"
-                  v-for="item in options5"
-                  :key="item.value0"
-                  :label="item.label"
-                  :value="item.value0"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="需求详情" prop="details">
-              <el-input
-                type="textarea"
-                :autosize="{ minRows:4}"
-                v-model="form.Details"
-                placeholder="请输入需求详情"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="截止日期" prop="dateEnd">
-              <el-col :span="10">
-                <el-date-picker
-                  type="date"
-                  placeholder="选择日期"
-                  v-model="form.dateEnd"
-                  style="width: 100%;"
-                ></el-date-picker>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="附件"></el-form-item>
-            <el-form-item label="联系电话" prop="number">
-              <el-input
-                v-model="form.number"
-                type="text"
-                maxlength="11"
-                onkeyup="this.value=this.value.replace(/\D/g,'')"
-                placeholder="请输入联系电话"
-              ></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                type="warning"
-                round
-                @click="submitForm('form')"
-                class="CreatebuttonCSS"
-              >立即发布</el-button>
-            </el-form-item>
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
-          </div>
-        </el-dialog>
-      </div>-->
-
       <!--第四行  需求一览，优质企业，服务成果-->
       <el-row :gutter="gutterCount">
         <!--需求任务-->
@@ -434,14 +319,14 @@
                 >>>更多</el-button>
               </div>
               <el-row v-for="(item,i) in demandTaskList" :key="i" style="margin-bottom:20px;">
-                <el-col :span="6" class="fontStyle1">{{"["+item.Industry_Type+"]"}}</el-col>
+                <el-col :span="6" class="fontStyle1">{{"【"+item.Industry_Type+"】"}}</el-col>
                 <el-col :span="12">
-                  <span style="float:left;line-height: 30px;">{{item.Main_Task_Name}}</span>
+                  <span style="float:left;line-height: 24px;">{{item.Main_Task_Name}}</span>
                 </el-col>
                 <el-col
                   :span="6"
                   class="fontStyle2"
-                  style="line-height: 30px;"
+                  style="line-height: 24px;"
                 >{{item.Deadline| dataFormat("yyyy-MM-dd")}}</el-col>
               </el-row>
             </el-card>
@@ -459,17 +344,26 @@
                   @click="excellentCompany"
                 >>>更多</el-button>
               </div>
-
               <el-row
                 v-for="(item,i) in supplierlist.companyId"
                 :key="i"
                 style="margin-bottom:20px;"
+                :gutter="2"
               >
+              <!-- <el-col :span="1">
+                  <span class="fontStyle1">【</span>
+                </el-col> -->
+                <!-- <el-col :span="6">
+                  <span class="fontStyle1">{{supplierlist.companyProduct[i]}}</span>
+                </el-col> -->
+                <!-- <el-col :span="1">
+                  <span class="fontStyle1">】</span>
+                </el-col> -->
                 <el-col :span="6">
-                  <span class="fontStyle1">{{"["+supplierlist.companyProduct[i]+"]"}}</span>
+                  <span class="fontStyle1" style="line-height: 24px;">{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
                 </el-col>
-                <el-col :span="18">
-                  <span style="float:left;">{{supplierlist.companyName[i]}}</span>
+                <el-col :span="12">
+                  <span style="float:left;line-height: 24px;" >{{supplierlist.companyName[i]}}</span>
                 </el-col>
               </el-row>
             </el-card>
@@ -489,15 +383,15 @@
                 style="margin-bottom:20px;"
               >
                 <el-col :span="6">
-                  <span class="fontStyle1">{{"["+item.Industry_Type+"]"}}</span>
+                  <span class="fontStyle1">{{"【"+item.Industry_Type+"】"}}</span>
                 </el-col>
                 <el-col :span="12">
-                  <a style="float:left;line-height: 30px;">{{item.Main_Task_Name}}</a>
+                  <a style="float:left;line-height: 24px;">{{item.Main_Task_Name}}</a>
                 </el-col>
                 <el-col :span="6">
                   <span
                     class="fontStyle2"
-                    style="line-height: 30px;"
+                    style="line-height: 24px;"
                   >{{item.Finish_Time | dataFormat("yyyy-MM-dd")}}</span>
                 </el-col>
               </el-row>
@@ -519,19 +413,16 @@
           <el-card shadow="hover">
             <div class="demandTop5"></div>
             <!-- <div id="monthSituation" style="width: 100%;height:350%;"></div> -->
-            <line-chart
-            :lineData="lineData"
-              ref="drawLineChart"
-            ></line-chart>
+            <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
           </el-card>
         </el-col>
-        <el-col :span="16" >
+        <el-col :span="16">
           <el-card shadow="hover" style="margin-top:5px;">
             <!-- <div id="fulfillDemandTop5" style="width: 100%;height:350%;"></div> -->
             <cloumn-chart ref="drawCloumnChart" :cloumnData="cloumnData"></cloumn-chart>
           </el-card>
         </el-col>
-        <el-col :span="8" >
+        <el-col :span="8">
           <el-card shadow="hover" style="margin-top:5px;">
             <!-- <div id="quarterlySituation" style="width: 100%;height:350%;"></div> -->
             <pie-chart ref="drawPieChart" :pieData="pieData"></pie-chart>
@@ -550,14 +441,14 @@
 <script>
 import lineChart from "./components/lineChart";
 import columnChart from "./components/columnChart";
-import pieChart from "./components/pieChart"
+import pieChart from "./components/pieChart";
 
 export default {
   name: "Home",
   components: {
     "line-chart": lineChart,
     "cloumn-chart": columnChart,
-    "pie-chart":pieChart
+    "pie-chart": pieChart
   },
   data() {
     return {
@@ -599,13 +490,13 @@ export default {
        * 数据统计
        */
       //折线图
-      lineData:{
-      //发布任务总量
-      finishTaskCount: [],
-      //完成任务总量
-      taskCount: [],    
-      //月份数量 
-      months:[]   
+      lineData: {
+        //发布任务总量
+        finishTaskCount: [],
+        //完成任务总量
+        taskCount: [],
+        //月份数量
+        months: []
       },
 
       //柱状图
@@ -619,9 +510,10 @@ export default {
         //去年任务完成量
         lastTaskNumber: []
       },
-      pieData:{
-        searsonCount:[],
-        seasonsFinishTaskCount:[]
+      pieData: {
+        searsonCount: [],
+        seasonsFinishTaskCount: [],
+        nowYear:""
       },
       //设定本页面中el-cow与el-col的gutter\push\pull值
       gutterCount: 5,
@@ -660,7 +552,7 @@ export default {
   methods: {
     getInfo() {
       var that = this;
-      that.axios.post("http://127.0.0.1:8082/home/detail").then(response => {
+      that.axios.post("/api/home/detail").then(response => {
         this.taskCountMonth = response.data.allData.mainTaskCount;
         this.demandTaskCount = response.data.allData.designTaskCount;
         this.circulationTaskCount = response.data.allData.circulateTaskCount;
@@ -684,17 +576,17 @@ export default {
       var task;
       var finishTask;
       that.axios
-        .post("http://127.0.0.1:8082/dataStatistics/allMonthTaskCount")
+        .post("/api/dataStatistics/allMonthTaskCount")
         .then(response => {
-            this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
-            this.lineData.taskCount = response.data.allData.taskCount;
-            this.lineData.months=response.data.allData.monthCount;
-            that.$refs.drawLineChart.getCharts();
+          this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
+          this.lineData.taskCount = response.data.allData.taskCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
         });
     },
     columnChart() {
       let that = this;
-      that.axios.post("http://127.0.0.1:8082/dataStatistics/companyRank").then(response => {
+      that.axios.post("/api/dataStatistics/companyRank").then(response => {
         this.cloumnData.Vintage = response.data.allData.Vintage;
         this.cloumnData.topCompanyName = response.data.allData.companyName;
         this.cloumnData.nowTaskNumber = response.data.allData.countYear;
@@ -702,16 +594,14 @@ export default {
         that.$refs.drawCloumnChart.getCharts();
       });
     },
-    pipChart(){
-      let that =this;
-      that.axios.post("http://127.0.0.1:8082/dataStatistics/seasonsTaskCount")
-      .then(response=>{
-        this.pieData.searsonCount=response.data.allData.searsonCount;
-        this.pieData.seasonsFinishTaskCount=response.data.allData.seasonsFinishTaskCount;
+    pipChart() {
+      let that = this;
+      that.axios.post("/api/dataStatistics/seasonsTaskCount").then(response => {
+        this.pieData.searsonCount = response.data.allData.searsonCount;
+        this.pieData.seasonsFinishTaskCount = response.data.allData.seasonsFinishTaskCount;
+        this.pieData.nowYear = response.data.allData.nowYear;
         this.$refs.drawPieChart.getCharts();
-        console.log(this.pieData.searsonCount);
-        console.log(this.pieData.seasonsFinishTaskCount);
-      })
+      });
     },
     /*
      *转跳对应任务信息页面
@@ -774,10 +664,9 @@ export default {
           done();
         })
         .catch(_ => {});
-    },
+    }
     //发布需求界面所用
     //以下为平台数据统计所用图表函数
-
   }
 };
 </script>
@@ -810,7 +699,7 @@ export default {
   width: 1300px;
   margin-bottom: 5px;
   padding: 25px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 /**网站访问统计数据的样式表*/
@@ -822,7 +711,12 @@ export default {
   line-height: 50px;
   overflow: hidden;
 }
-
+.titleColor span{
+  font-size: 18px;
+}
+.titleColor .el-button span{
+  font-size: 16px;
+}
 /**网站访问统计数据字体样式（用于访问统计数据标题） */
 .fontStyle0 {
   font-size: 20px;
@@ -967,10 +861,14 @@ export default {
   padding-bottom: 50px;
   overflow: hidden;
 }
-
+.grid-content3 .el-card__body{
+  padding:0px;
+  margin-top:20px;
+}
 /**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，企业，服务的类别字体）*/
 .fontStyle1 {
   color: rgb(230, 158, 24);
+  float:left;
 }
 
 /**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，服务的时间字体）*/
@@ -992,7 +890,7 @@ export default {
   color: #000;
   font-family: "微软雅黑";
   width: 180px;
-  background: #fff;
+  background: #f5f5f5;
   text-align: center;
   margin: 0 auto;
   position: relative;
@@ -1001,16 +899,18 @@ export default {
 
 /**布局测试用css*/
 /**防止污染其他界面 */
-.home .el-card__body {
+/* .home .el-card__body {
   padding: 0;
-}
+} */
 .home.el-row {
   margin-bottom: 10px;
 }
 .home.el-col {
   border-radius: 4px;
 }
-
+.category .el-card__body{
+  padding:0px;
+} 
 .home.box-card {
   width: 100%;
 }
@@ -1020,6 +920,9 @@ export default {
   box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.33);
   z-index: 200;
   position: relative;
+}
+.grid-content2 .el-col{
+overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;
 }
 /** */
 
@@ -1049,7 +952,7 @@ export default {
   background-size: 100% 100%;
   /* background-size: cover; */
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 520;
   text-align: center;
   line-height: 50px;
@@ -1090,7 +993,7 @@ ul li {
 }
 .tender-header span {
   font-size: 800;
-  font-size: 18px;
+  font-size: 16px;
 }
 .tender-header-some {
   padding: 20px;

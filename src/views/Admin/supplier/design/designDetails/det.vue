@@ -269,6 +269,20 @@
           </el-table>
         </div>
       </div>
+      <div class="LDT">
+        <!-- 雷达图 -->
+        <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        <div class="input_span">
+          <el-form ref="form" :model="form">
+            <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+            <br />
+            <br />
+          </el-form>
+          <span id="one"></span>
+          <span id="two"></span>
+          <span id="three"></span>
+        </div>
+      </div>
       <!-- <div align-center>
         <br />
         <br />
@@ -388,10 +402,23 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "../../../design/dataChange";
+import radarChart from "../designDetails/detailComponents/radarChart";
 export default {
+  components: {
+    "radar-chart": radarChart
+  },
   name: "det",
   data() {
     return {
+      //质量完成图数据源
+      form: {
+        designCount: ""
+      },
+
+      //雷达图的数据定义
+      radarData: {
+        radarData: []
+      },
       //表单数据
       cool: {
         mainTaskName: "",
@@ -459,6 +486,20 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion" },
         { title: "完成", icon: "el-icon-s-claim" }
       ],
+      //提交次数 背景颜色变化
+      styleswith() {
+        if (this.form.designCount > 0 && this.form.designCount < 3) {
+          document.getElementById("one").style.background = "#00D1B2";
+        }
+        if (this.form.designCount > 2 && this.form.designCount < 4) {
+          document.getElementById("one").style.background = "#eee";
+          document.getElementById("two").style.background = "orange";
+        }
+        if (this.form.designCount > 4 || this.form.designCount == 4) {
+          document.getElementById("two").style.background = "#eee";
+          document.getElementById("three").style.background = "red";
+        }
+      },
       //申请被拒绝原因
       addList1: {
         refuseApplyMessage: ""
@@ -895,6 +936,16 @@ export default {
   border-color: #f15e09;
 }
 
+.SXT {
+  height: 150px;
+}
+
+.LDT {
+  height: 300px;
+}
+.WCZL {
+  font-size: 11px;
+}
 .table {
   font-size: 13px;
 }
@@ -935,5 +986,51 @@ export default {
 }
 .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
+}
+#inputValue {
+  width: 240px;
+  margin-left: 0px;
+  padding-left: 10px;
+  border-radius: 3px;
+}
+.input_span span {
+  display: inline-block;
+  width: 85px;
+  height: 30px;
+  background: #eee;
+  line-height: 20px;
+}
+
+#one {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 0px;
+  margin-right: 3px;
+}
+
+#two {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
+}
+#font span:nth-child(1) {
+  color: #00d1b2;
+  margin-left: 80px;
+}
+#font span:nth-child(2) {
+  color: orange;
+  margin: 0 60px;
+}
+#font span:nth-child(3) {
+  color: red;
 }
 </style>
