@@ -1,14 +1,17 @@
 <template>
   <div>
     <div class="desinger">
-      <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;&nbsp;&nbsp;新增任务</div>
+      <div
+        class="biaoti"
+        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
+      >&nbsp;&nbsp;&nbsp;&nbsp;新增任务</div>
     </div>
-    <br>    <!-- <el-divider></el-divider> -->
+    <br />
+    <!-- <el-divider></el-divider> -->
     <el-row style="height:600px;">
       <el-card style="height:100%">
-        
         <el-table
-          :data="Not_Accepted_Task_Data"
+          :data="Not_Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
           border
           class="table"
           header-cell-class-name="table-header"
@@ -32,7 +35,7 @@
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
-              prop="taskType"
+              prop="taskCategoryPart"
               label="需求类型"
               min-width="90px"
               align="center"
@@ -45,66 +48,67 @@
               align="center"
               :show-overflow-tooltip="true"
             >
-              <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+              <template slot-scope="scope">{{scope.row.deadline| dataFormat("yyyy-MM-dd hh:mm")}}</template>
             </el-table-column>
           </template>
-          
+
           <el-table-column label="操作" min-width="90px" align="center">
             <template slot-scope="scope">
-              <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+              <el-button type="text" @click="handleEdit(scope.$index, scope.row)"  size="small">查看任务详情</el-button>
               <el-button type="text" size="small" @click="beginTask(scope.row)">开始任务</el-button>
             </template>
           </el-table-column>
         </el-table>
+
         <div class="pagination">
           <el-pagination
             background
-            layout="total, prev, pager, next"
-            :current-page="query.pageIndex"
-            :page-size="query.pageSize"
-            :total="pageTotal"
-            @current-change="handlePageChange"
+            layout="prev, pager, next, sizes, total, jumper"
+            :current-page="pageIndex"
+            :page-size="pageSize"
+            :total="      Not_Accepted_Task_Data.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
           ></el-pagination>
         </div>
       </el-card>
     </el-row>
-    
+
     <el-dialog title="新增任务详情" :visible.sync="dialogVisible" width="60%">
       <div>
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="任务ID">
-                <el-input v-model="form.taskId" :disabled="true"></el-input>
+              <el-form-item label="任务名称">
+                <el-input v-model="form.taskName" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="任务名称">
-                <el-input v-model="form.taskName" :disabled="true"></el-input>
+              <el-form-item label="企业名称">
+                <el-input v-model="form.companyName" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务类型">
-                <el-input v-model="form.taskCategory" :disabled="true"></el-input>
+                <el-input v-model="form.taskCategoryPart" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="截止日期">
-                <el-input  v-bind:value="form.deadline | formatDate"></el-input>
-                
+                <el-input v-bind:value="form.deadline | formatDate"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-form-item label="任务详情">
               <el-input
-                :disabled="true"
+                
                 type="textarea"
                 :rows="7"
                 v-model="form.taskDetail"
-                style="width:100%;"
+                style="width:90%;"
               ></el-input>
             </el-form-item>
           </el-row>
@@ -115,7 +119,6 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-   
   </div>
 </template>
 
@@ -125,25 +128,61 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 export default {
-      name: "designerNewList",
+  name: "designerNewList",
   data() {
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
+      username1: this.$store.state.user,
+
+      pageIndex: 1,
+      pageSize: 7,
       pageTotal: 0,
-   
+
       Not_Accepted_Task_Data: [
         {
-          taskId:"",
+          taskId: "",
           taskName: "",
           taskCategory: "",
           deadline: ""
         },
-        
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
       ],
-      
+
       form: {},
       form1: {},
       form2: {},
@@ -154,12 +193,12 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd");
+      return formatDate(date, "yyyy-MM-dd hh:mm");
     }
   },
   created() {
     this.getData();
- 
+    this.getDetailData();
   },
   methods: {
     beginTask(row) {
@@ -174,6 +213,7 @@ export default {
         url: "http://127.0.0.1:8082/designer/updateDesignState",
         data: data
       });
+
       this.$message({
         message: "任务开始成功",
         type: "success"
@@ -188,7 +228,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        designerName: ""
+        designerName: this.username1
       });
       //console.log(data);
       that
@@ -203,12 +243,35 @@ export default {
           console.log(response);
           this.Not_Accepted_Task_Data = response.data.allData;
           this.form = response.data.allData[0];
-        });
-    }
-  }
-    }
-  
+        })
+    },
+    getDetailData() {
+      //console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      //console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/designer/newlist",
+          data: data
 
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.form = response.data.allData;
+        })
+    },
+    handleEdit(index, row) {
+      this.idx = index;
+      this.form = row;
+      this.dialogVisible = true;
+    },
+  }
+};
 </script>
 <style>
 /* .el-divider {
@@ -221,8 +284,8 @@ export default {
 .el-scrollbar__wrap {
   overflow-y: hidden;
 }
- .biaoti {
-    font-size: 18px;
-    color: #303133;
-  }
+.biaoti {
+  font-size: 18px;
+  color: #303133;
+}
 </style>

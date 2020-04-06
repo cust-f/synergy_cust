@@ -10,7 +10,7 @@
       <el-card style="height:100%">
         <!-- <div style="font-size:20px">已接任务</div> -->
         <el-table
-          :data="Accepted_Task_Data"
+          :data="Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
           border
           class="table"
           header-cell-class-name="table-header"
@@ -36,15 +36,12 @@
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
-              prop="taskType"
+              prop="taskCategoryPart"
               label="需求类型"
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
-            > <template slot-scope="scope">
-              <span v-if="scope.row.taskType === 0">设计任务</span>
-              <span v-else-if="scope.row.taskType === 1">流通任务</span>
-            </template></el-table-column>
+            > </el-table-column>
            
             <el-table-column
               prop="supplierCheckDesignState"
@@ -67,7 +64,7 @@
               align="center"
               :show-overflow-tooltip="true"
             >
-              <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+              <template slot-scope="scope">{{scope.row.deadline | dataFormat("yyyy-MM-dd hh:mm")}}</template>
             </el-table-column>
           </template>
 
@@ -75,19 +72,20 @@
             <template slot-scope="scope">
               <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
                 <el-button @click="submitTask(scope.row)" type="text" size="small">任务提交</el-button>
-              <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+              <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">查看任务详情</el-button>
             
             </template>
           </el-table-column>
         </el-table>
-        <div class="pagination">
+         <div class="pagination">
           <el-pagination
             background
-            layout="total, prev, pager, next"
-            :current-page="query.pageIndex"
-            :page-size="query.pageSize"
-            :total="pageTotal"
-            @current-change="handlePageChange"
+            layout="prev, pager, next, sizes, total, jumper"
+            :current-page="pageIndex"
+            :page-size="pageSize"
+            :total="Accepted_Task_Data.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
           ></el-pagination>
         </div>
       </el-card>
@@ -99,25 +97,26 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务名称">
-                <el-input v-model="form1.taskName" :disabled="true"></el-input>
+                <el-input v-model="form1.taskName" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="任务类型">
-                <el-input v-model="form1.taskCategory" :disabled="true"></el-input>
+              <el-form-item label="企业名称">
+                <el-input v-model="form1.companyName" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             
             <el-col :span="11">
-              <el-form-item label="截止日期">
-                <el-input v-model="form1.deadline" :disabled="true"></el-input>
+              <el-form-item label="任务类别">
+                <el-input v-model="form1.taskCategoryPart" ></el-input>
+                
               </el-form-item>
             </el-col>
              <el-col :span="11">
-              <el-form-item label="任务类别">
-                <el-input v-model="form1.taskType" :disabled="true"></el-input>
+              <el-form-item label="截止日期">
+                <el-input v-bind:value="form1.deadline|formatDate" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -125,22 +124,20 @@
           <el-row>
             <el-form-item label="任务详情">
               <el-input
-                :disabled="true"
                 type="textarea"
-                :rows="5"
+                :rows="3"
                 v-model="form1.taskDetail"
-                style="width:100%;"
+                style="width:90%;"
               ></el-input>
             </el-form-item>
           </el-row>
           <el-row>
             <el-form-item label="拒绝原因">
               <el-input
-                :disabled="true"
                 type="textarea"
-                :rows="5"
+                :rows="3"
                 v-model="form1.demandorRefuseReason"
-                style="width:100%;"
+                style="width:90%;"
               ></el-input>
             </el-form-item>
           </el-row>
@@ -169,10 +166,11 @@ export default {
   name: "designerAcceptList",
   data() {
     return {
-      query: {
+      username1: this.$store.state.user,
+      
         pageIndex: 1,
-        pageSize: 10
-      },
+        pageSize: 7,
+      
       pageTotal: 0,
      
       Accepted_Task_Head: [
@@ -209,6 +207,42 @@ export default {
           taskCategory:"",
           deadline:"",
         },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
+        {
+          taskId:"",
+          taskName:"",
+          taskCategory:"",
+          deadline:"",
+        },
       ],
       form1: {},
       dialogVisible: false,
@@ -223,6 +257,7 @@ export default {
   },
   created() {
     this.getTableData();
+    
   },
   methods: {
     submitTask(row) {
@@ -270,7 +305,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: ""
+        designerName: this.username1
       });
       //console.log(data);
       that
@@ -284,8 +319,13 @@ export default {
         .then(response => {
           // console.log(response);
           this.Accepted_Task_Data = response.data.allData;
-          this.form1 = response.data.allData[0];
+          //this.form1 = response.data.allData[0];
         });
+    },
+    handleEdit(index, row) {
+      this.idx = index;
+      this.form1 = row;
+      this.dialogVisible = true;
     },
     
   }

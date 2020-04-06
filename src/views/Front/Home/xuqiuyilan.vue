@@ -70,6 +70,7 @@
             size="small"
             placeholder="请输入搜索内容"
             prefix-icon="el-icon-search"
+
             v-model="input2"
           ></el-input>
           <el-button type="warning" class="button1" style=" margin:0px -120px;">搜索</el-button>
@@ -161,9 +162,9 @@
                   <li>
                       <a href="#/xuqiuyilan"  v-on:click="prePage" ></a>
                   </li>
-                  <!-- <li v-for="(list, index) in totalPage">
+                  <li v-for="(list, index) in totalPage">
                       <a href="#/xuqiuyilan" v-on:click="toPage(index)" :class="{active: currentPage==index}">{{ index+1 }}</a>
-                  </li> -->
+                  </li>
                   <li>
                       <a href="#/xuqiuyilan" v-on:click="nextPage" >></a>
                   </li>
@@ -431,7 +432,7 @@ export default {
     passTaskID(){
       this.$router.push({
         path:"/threeMenu",
-        query:{taskName:"钢筋焊接"}
+        query:{taskID:3}
         // 
       });
     },

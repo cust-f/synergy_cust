@@ -90,10 +90,16 @@
             </template>
           </el-table-column>
           <el-table-column prop="applyTime" label="申请/邀请时间">
-            <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.applyTime === 0">暂未上传</el-span>
+              <el-span v-else>{{scope.row.applyTime | formatDate}}</el-span>
+            </template>
           </el-table-column>
           <el-table-column prop="checkApplyTime" label="审核时间">
-            <template slot-scope="scope">{{scope.row.checkApplyTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.checkApplyTime === 0">暂未上传</el-span>
+              <el-span v-else>{{scope.row.checkApplyTime | formatDate}}</el-span>
+            </template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
@@ -136,24 +142,37 @@
             </template>
           </el-table-column>
           <el-table-column prop="planUploadTime" label="上传时间">
-            <template slot-scope="scope">{{scope.row.planUploadTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <span v-if="+scope.row.planUploadTime === 0">尚未上传</span>
+              <span v-else>{{scope.row.planUploadTime | formatDate}}</span>
+            </template>
           </el-table-column>
           <el-table-column prop="checkPlanTime" label="审核时间">
-            <template slot-scope="scope">{{scope.row.checkPlanTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <span v-if="+scope.row.checkPlanTime === 0">尚未上传</span>
+              <span v-else>{{scope.row.checkPlanTime | formatDate}}</span>
+            </template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
-              <div v-show="scope.row.checkPlanState === 0">
-                <el-button @click="upLoadPlanT()" type="text" size="small">上传</el-button>
-              </div>
-              <div>
-                <div v-show="scope.row.checkPlanState > 0">
-                  <el-button @click="RWJHXZ(scope.row)" type="text" size="small">下载</el-button>
-                </div>
-                <div v-show="scope.row.checkPlanState === 3">
-                  <el-button @click="refusePlanReason(scope.row)" type="text" size="small">拒绝原因</el-button>
-                </div>
-              </div>
+              <el-button
+                @click="upLoadPlanT()"
+                type="text"
+                size="small"
+                v-show="scope.row.checkPlanState === 0"
+              >上传</el-button>
+              <el-button
+                @click="RWJHXZ(scope.row)"
+                type="text"
+                size="small"
+                v-show="scope.row.checkPlanState > 0"
+              >下载</el-button>
+              <el-button
+                @click="refusePlanReason(scope.row)"
+                type="text"
+                size="small"
+                v-show="scope.row.checkPlanState === 3"
+              >拒绝原因</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -182,11 +201,14 @@
               </template>
             </el-table-column>
             <el-table-column prop="uploadContractTime" label="上传时间">
-              <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
+              <template slot-scope="scope">
+                <span v-if="+scope.row.uploadContractTime === 0">尚未上传</span>
+                <span v-else>{{scope.row.uploadContractTime | formatDate}}</span>
+              </template>
             </el-table-column>
             <el-table-column prop="checkContractTime" label="合同审核时间">
               <template slot-scope="scope">
-                <span v-if="+scope.row.checkContractTime === 'null'">尚未上传</span>
+                <span v-if="+scope.row.checkContractTime === 0">暂未审核</span>
                 <span v-else>{{scope.row.checkContractTime | formatDate}}</span>
               </template>
             </el-table-column>
@@ -232,12 +254,23 @@
                 <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
               </template>
             </el-table-column>
-            <el-table-column prop="designerName" label="设计师"></el-table-column>
-            <el-table-column prop="uploadDesignTime" label="上传时间">
-              <template slot-scope="scope">{{scope.row.uploadDesignTime | formatDate}}</template>
+            <el-table-column prop="designerName" label="设计师">
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
+                <el-span v-else>{{scope.row.designerName}}</el-span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="uploadDesignTime" label="设计上传时间">
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
+                <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
+              </template>
             </el-table-column>
             <el-table-column prop="supplierCheckDesignTime" label="审核时间">
-              <template slot-scope="scope">{{scope.row.supplierCheckDesignTime | formatDate}}</template>
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.supplierCheckDesignTime === 0">暂未上传</el-span>
+                <el-span v-else>{{scope.row.supplierCheckDesignTime | formatDate}}</el-span>
+              </template>
             </el-table-column>
             <el-table-column prop="demandorCheckDesignState" label="验收状态">
               <template slot-scope="scope">
@@ -248,7 +281,10 @@
               </template>
             </el-table-column>
             <el-table-column prop="demandorCheckDesignTime" label="验收时间">
-              <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未上传</el-span>
+                <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
+              </template>
             </el-table-column>
             <el-table-column label="操作" width="180" align="center">
               <template slot-scope="scope">
@@ -267,6 +303,20 @@
               </template>
             </el-table-column>
           </el-table>
+        </div>
+      </div>
+      <div class="LDT">
+        <!-- 雷达图 -->
+        <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        <div class="input_span">
+          <el-form ref="form" :model="form">
+            <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+            <br />
+            <br />
+          </el-form>
+          <span id="one"></span>
+          <span id="two"></span>
+          <span id="three"></span>
         </div>
       </div>
       <!-- <div align-center>
@@ -388,10 +438,23 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "../../../design/dataChange";
+import radarChart from "../designDetails/detailComponents/radarChart";
 export default {
+  components: {
+    "radar-chart": radarChart
+  },
   name: "det",
   data() {
     return {
+      //质量完成图数据源
+      form: {
+        designCount: ""
+      },
+
+      //雷达图的数据定义
+      radarData: {
+        radarData: []
+      },
       //表单数据
       cool: {
         mainTaskName: "",
@@ -459,6 +522,20 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion" },
         { title: "完成", icon: "el-icon-s-claim" }
       ],
+      //提交次数 背景颜色变化
+      styleswith() {
+        if (this.form.designCount > 0 && this.form.designCount < 3) {
+          document.getElementById("one").style.background = "#00D1B2";
+        }
+        if (this.form.designCount > 2 && this.form.designCount < 4) {
+          document.getElementById("one").style.background = "#eee";
+          document.getElementById("two").style.background = "orange";
+        }
+        if (this.form.designCount > 4 || this.form.designCount == 4) {
+          document.getElementById("two").style.background = "#eee";
+          document.getElementById("three").style.background = "red";
+        }
+      },
       //申请被拒绝原因
       addList1: {
         refuseApplyMessage: ""
@@ -895,6 +972,16 @@ export default {
   border-color: #f15e09;
 }
 
+.SXT {
+  height: 150px;
+}
+
+.LDT {
+  height: 300px;
+}
+.WCZL {
+  font-size: 11px;
+}
 .table {
   font-size: 13px;
 }
@@ -935,5 +1022,51 @@ export default {
 }
 .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
+}
+#inputValue {
+  width: 240px;
+  margin-left: 0px;
+  padding-left: 10px;
+  border-radius: 3px;
+}
+.input_span span {
+  display: inline-block;
+  width: 85px;
+  height: 30px;
+  background: #eee;
+  line-height: 20px;
+}
+
+#one {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 0px;
+  margin-right: 3px;
+}
+
+#two {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
+}
+#font span:nth-child(1) {
+  color: #00d1b2;
+  margin-left: 80px;
+}
+#font span:nth-child(2) {
+  color: orange;
+  margin: 0 60px;
+}
+#font span:nth-child(3) {
+  color: red;
 }
 </style>

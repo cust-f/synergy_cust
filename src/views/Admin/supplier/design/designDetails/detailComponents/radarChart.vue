@@ -1,5 +1,5 @@
 <template>
-   <div id="charts2" style="height:100%; width:800px; float:left"></div>
+   <div id="charts1" style="height:100%; width:400px; float:left"></div>
 </template>
 
 
@@ -15,20 +15,17 @@ export default{
   },
  methods: {
 //雷达图
-    getCharts2() {
+    getCharts1() {
       var that = this;
-      var myChart = echarts.init(document.getElementById("charts2"));
+      var myChart = echarts.init(document.getElementById("charts1"));
       
       var option = {
         tooltip: {},
         legend: {
-          orient: 'vertical',
+         orient: 'vertical',
           x: "left",
           y: "top",
-          textStyle: {
-            fontSize: 16
-        },
-          data: ["数据统计"]
+          data: ["完成统计"]
         },
         radar: {
           name: {
@@ -36,29 +33,26 @@ export default{
               color: "#fff",
               backgroundColor: "#999",
               borderRadius: 3,
-              padding: [3, 5],
-              fontSize: 16
+              padding: [3, 5]
             }
           },
           indicator: [
-            { name: "任务时长", max: 100 },
-            { name: "计划时长", max: 100 },
-            { name: "审核时长", max: 100 },
-            { name: "申请时长", max: 100 },
-            { name: "验收时长", max: 100 }
+            { name: "任务时长", max: 6 },
+            { name: "计划时长", max: 6 },
+            { name: "审核时长", max: 6 },
+            { name: "申请时长", max: 2},
+            { name: "验收时长", max: 2 }
           ]
         },
         series: [
           {
+            //name:'完成统计',
             type: "radar",
-            textStyle: {
-            fontSize: 16,
-            },
-            data: [
+             data: [
               {
-                name: "数据统计",
+                name: "完成统计",
                 value:this.radarData.radarData,
-               
+     
               },
              
             ]
