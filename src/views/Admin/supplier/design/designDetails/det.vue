@@ -359,7 +359,7 @@
       </div>
       <!-- 分配设计人员 -->
       <el-dialog title="分配设计师" :visible.sync="dialogTableVisible" width="30%">
-        <el-form :model="form">
+        <el-form :model="form1">
           <el-form-item label="设计师" :label-width="formLabelWidth">
             <el-select v-model="design1" placeholder="请选择分配人员">
               <el-option
