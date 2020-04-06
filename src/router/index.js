@@ -158,7 +158,7 @@ export default new Router({
         },
         {
           path: '/company/excellentCompanyDetail',
-          name: 'excellentCompanyDetail',
+          name: 'companyDetails',
           component: excellentCompanyDetail,
         },
 
