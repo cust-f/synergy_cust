@@ -162,6 +162,7 @@ export default {
   name: "newStaff",
   data() {
     return {
+      username1: this.$store.state.user,
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -233,7 +234,7 @@ export default {
        console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: ""
+        userName: this.username1
       });
       console.log(data);
       that
