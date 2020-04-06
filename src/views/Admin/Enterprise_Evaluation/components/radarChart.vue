@@ -25,6 +25,9 @@ export default{
           orient: 'vertical',
           x: "left",
           y: "top",
+          textStyle: {
+            fontSize: 16
+        },
           data: ["数据统计"]
         },
         radar: {
@@ -33,7 +36,8 @@ export default{
               color: "#fff",
               backgroundColor: "#999",
               borderRadius: 3,
-              padding: [3, 5]
+              padding: [3, 5],
+              fontSize: 16
             }
           },
           indicator: [
@@ -47,6 +51,9 @@ export default{
         series: [
           {
             type: "radar",
+            textStyle: {
+            fontSize: 16,
+            },
             data: [
               {
                 name: "数据统计",
