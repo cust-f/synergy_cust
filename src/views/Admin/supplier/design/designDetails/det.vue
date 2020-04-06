@@ -214,18 +214,31 @@
             </el-table-column>
             <el-table-column label="操作" width="180" align="center">
               <template slot-scope="scope">
-                <div v-show="scope.row.contractState===0">
-                  <el-button @click="upLoadConT(scope.row)" type="text" size="small">上传</el-button>
-                </div>
+                <el-button
+                  @click="upLoadConT(scope.row)"
+                  type="text"
+                  size="small"
+                  v-show="scope.row.contractState===0"
+                >上传</el-button>
+
                 <div v-show="scope.row.contractState===1">
                   <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
                 <div v-show="scope.row.contractState===2">
                   <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
-                <div v-show="scope.row.contractState===3">
-                  <el-button @click="upLoadConT(scope.row)" type="text" size="small">重新上传</el-button>
-                </div>
+                <el-button
+                  @click="upLoadConT(scope.row)"
+                  type="text"
+                  size="small"
+                  v-show="scope.row.contractState===3"
+                >重新上传</el-button>
+                <el-button
+                  @click="refuseConReason(scope.row)"
+                  type="text"
+                  size="small"
+                  v-show="scope.row.contractState===3"
+                >拒绝原因</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -305,25 +318,46 @@
           </el-table>
         </div>
       </div>
-      <div class="LDT">
-        <!-- 雷达图 -->
-        <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-        <div class="input_span">
-          <el-form ref="form" :model="form">
-            <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-            <br />
-            <br />
-          </el-form>
-          <span id="one"></span>
-          <span id="two"></span>
-          <span id="three"></span>
+      <div v-show="show > 4">
+        <br />
+        <br />
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务数据统计</div>
+        <br />
+        <br />
+        <div v-if="reMarkId === 0" align-center>
+          <h3 >核心企业暂未评价</h3>
+        </div>
+        <!-- 步骤图片 -->
+        <div v-if="reMarkId === 1">
+          <el-steps :active="milepostActive1" align-center>
+            <el-step
+              v-for="(stpesdata, key) in milepost1"
+              :title="stpesdata.title"
+              :icon="stpesdata.icon"
+              :description="stpesdata.description"
+              :key="key"
+            ></el-step>
+          </el-steps>
+
+          <br />
+          <br />
+          <!-- 雷达图 -->
+          <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+          <br />
+          <br />
+
+          <div class="input_span">
+            <el-form ref="form" :model="form">
+              <label>完成质量:</label>
+              <br />
+              <br />
+            </el-form>
+            <span id="one"></span>
+            <span id="two"></span>
+            <span id="three"></span>
+          </div>
         </div>
       </div>
-      <!-- <div align-center>
-        <br />
-        <br />
-        <el-button @click="remark = true" align-center>查看评价</el-button>
-      </div>-->
       <!-- 分配设计人员 -->
       <el-dialog title="分配设计师" :visible.sync="dialogTableVisible" width="30%">
         <el-form :model="form">
@@ -379,7 +413,24 @@
           <el-button @click="addVisible2 = false">确定</el-button>
         </span>
       </el-dialog>
-
+      <!-- 合同拒绝原因弹出框 -->
+      <el-dialog title="合同拒绝原因弹出框" :visible.sync="addVisible3" width="50%">
+        <el-row>
+          <el-col :span="8"></el-col>
+        </el-row>
+        <el-form ref="form" :model="addList3" label-width="120px">
+          <el-row>
+            <el-col>
+              <el-form-item label="被拒绝原因">
+                <el-input v-model="addList3.contractRefuseReason" :readonly="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addVisible3 = false">确定</el-button>
+        </span>
+      </el-dialog>
       <!-- 计划书上传 -->
       <el-dialog title="上传计划书" :visible.sync="planbook" width="24%" :before-close="handleClose">
         <el-upload
@@ -407,7 +458,6 @@
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
       </el-dialog>
-
       <!-- 上传合同 -->
       <el-dialog title="上传合同" :visible.sync="conbook" width="24%" :before-close="handleClose">
         <el-upload
@@ -450,7 +500,7 @@ export default {
       form: {
         designCount: ""
       },
-
+      stpesdata: [],
       //雷达图的数据定义
       radarData: {
         radarData: []
@@ -504,7 +554,6 @@ export default {
           demandorCheckDesignTime: ""
         }
       ],
-
       //合同管理数据
       tableData4: [
         {
@@ -522,26 +571,25 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion" },
         { title: "完成", icon: "el-icon-s-claim" }
       ],
-      //提交次数 背景颜色变化
-      styleswith() {
-        if (this.form.designCount > 0 && this.form.designCount < 3) {
-          document.getElementById("one").style.background = "#00D1B2";
-        }
-        if (this.form.designCount > 2 && this.form.designCount < 4) {
-          document.getElementById("one").style.background = "#eee";
-          document.getElementById("two").style.background = "orange";
-        }
-        if (this.form.designCount > 4 || this.form.designCount == 4) {
-          document.getElementById("two").style.background = "#eee";
-          document.getElementById("three").style.background = "red";
-        }
-      },
+      //评价步骤条数据
+      milepost1: [
+        { title: "申请/邀请", icon: "el-icon-edit", description: "" },
+        { title: "计划提交", icon: "el-icon-upload", description: "" },
+        { title: "任务进行中", icon: "el-icon-picture", description: "" },
+        { title: "审核", icon: "el-icon-message-solid", description: "" },
+        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+        { title: "完成", icon: "el-icon-s-claim", description: "" }
+      ],
       //申请被拒绝原因
       addList1: {
         refuseApplyMessage: ""
       },
+      //计划书拒绝原因
       addList2: {
         refusePlanMessage: ""
+      },
+      addList3: {
+        contractRefuseReason: ""
       },
       //计划书上传
       planbook: false,
@@ -549,13 +597,18 @@ export default {
       conbook: false,
       //设计人员分配
       dialogTableVisible: false,
-      //计划拒绝弹窗
+      //申请计划拒绝弹窗
       addVisible1: false,
+      //计划书拒绝弹窗
       addVisible2: false,
+      //合同拒绝弹窗
+      addVisible3: false,
       //状态
       state: "",
       state2: 0,
       state3: 0,
+      // 评价默认步骤数
+      milepostActive1: 5,
       // 默认步骤数
       milepostActive: 0,
       // 动态添加类名
@@ -576,7 +629,8 @@ export default {
       technicalFile: "",
       technicalFile1: "",
       giveDesigner: 0, //人员分配按钮控制
-      designerNub: 0
+      designerNub: 0,
+      reMarkId: 1
     };
   },
 
@@ -589,12 +643,29 @@ export default {
   created() {
     this.getParams();
     this.showData();
+    this.getBZData(); //步骤图数据查找
+    this.getLDData(); //雷达图数据查找
+    this.styleswith(); //提交次数 背景颜色变化
   },
   methods: {
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
       console.log(routerParams);
+    },
+    //提交次数 背景颜色变化
+    styleswith() {
+      if (this.form.designCount > 0 && this.form.designCount < 3) {
+        document.getElementById("one").style.background = "#00D1B2";
+      }
+      if (this.form.designCount > 2 && this.form.designCount < 4) {
+        document.getElementById("one").style.background = "#eee";
+        document.getElementById("two").style.background = "orange";
+      }
+      if (this.form.designCount > 4 || this.form.designCount == 4) {
+        document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";
+      }
     },
     //任务计划下载
     RWJHXZ(row) {
@@ -779,7 +850,7 @@ export default {
         });
       });
     },
-    //拒绝原因
+    //申请拒绝原因
     refuseReason(row) {
       this.addVisible1 = true;
       var that = this;
@@ -815,6 +886,25 @@ export default {
         .then(response => {
           console.log(response);
           this.addList2 = response.data.allData.b[0];
+        });
+    },
+    //合同拒绝原因
+    refuseConReason(row) {
+      this.addVisible3 = true;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/getList",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.addList3 = response.data.allData.a[0];
         });
     },
     //设计通过
@@ -903,12 +993,78 @@ export default {
           this.dialogTableVisible = false;
         });
     },
-
+    //上传计划书方法
     upLoadPlanT() {
       this.planbook = true;
     },
+    //上传合同方法
     upLoadConT() {
       this.conbook = true;
+    },
+    //步骤图数据查找
+    getBZData() {
+      var that = this;
+      // console.log(this.taskId);
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      //console.log(data);
+
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/evaluateDetils",
+          data: data
+        })
+        .then(response => {
+          // that.stpesdata = response.data.allData[0];
+          that.form.designCount = response.data.allData[6]; //完成质量数据
+          this.milepost1[0].description = response.data.allData[0];
+          this.milepost1[1].description = response.data.allData[1];
+          this.milepost1[2].description = response.data.allData[2];
+          this.milepost1[3].description = response.data.allData[3];
+          this.milepost1[4].description = response.data.allData[4];
+          this.milepost1[5].description = response.data.allData[5];
+          this.styleswith();
+          // console.log(response.data.allData)
+
+          // publishTime:"",//发布时间
+          //   finishTime:"",//完成时间
+          //   applyTime:"",//申请时间
+          //   planUploadTime:"",//计划书提交时间
+          //   checkPlanTime:"",//审核计划书时间
+          //   demandorCheckDesignTime:"",//项目审核时间
+        });
+    },
+
+    //雷达图数据查找
+    getLDData() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/remarkDetils",
+          data: data
+        })
+        .then(response => {
+          // this.radarData.radarData.push( response.data.allData.taskLength),
+          // this.radarData.radarData.push( response.data.allData.planLength),
+          // this.radarData.radarData.push( response.data.allData.checkLength),
+          // this.radarData.radarData.push( response.data.allData.applyLength),
+          // this.radarData.radarData.push( response.data.allData.demandorCheckLength),
+          this.radarData.radarData = response.data.allData;
+          if (response.data.allData[0] == null) {
+            this.reMarkId = 0;
+          }
+
+          that.$refs.QradarChart.getCharts1();
+          // this.$refs.QadarChart.getCharts();
+          // this.getCharts1();
+          // console.log(response.data.allData);
+        });
     },
     submitUpload() {
       this.$refs.upload.submit();
@@ -1023,6 +1179,47 @@ export default {
 .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
 }
+.is-horizontal {
+  display: none;
+}
+.el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.block {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.stars {
+  white-space: nowrap;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.stars li {
+  display: inline-block;
+  color: #adadad;
+  font-size: 40px;
+}
+.charts1 {
+  width: 66%;
+  margin-top: 5%;
+  margin-left: 0%;
+  height: 320px;
+}
+.el-input__inner {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-radius: 0px;
+  text-align: center;
+}
+.el-input.is-disabled .el-input__inner {
+  background-color: #ffffff;
+}
+</style>
+
+<style scoped>
 #inputValue {
   width: 240px;
   margin-left: 0px;

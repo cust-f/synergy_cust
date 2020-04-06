@@ -7,7 +7,7 @@
                   &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
             <!-- 步骤图片 -->
             
-          <el-steps :active="milepostActive" align-center>      
+          <el-steps :active="milepostActive1" align-center>      
             <el-step
               v-for="(stpesdata, key) in milepost"
               :title="stpesdata.title"
@@ -106,8 +106,6 @@ export default {
     this.getData(); //步骤图数据查找
     this.getData1();//雷达图数据查找
     this.styleswith();//提交次数 背景颜色变化
-   
-    
   },
    //初始化俩图标
   // mounted() {
