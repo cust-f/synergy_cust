@@ -373,7 +373,7 @@
           <radar-chart :radarData="radarData" ref="QradarChart" ></radar-chart>
           &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
           <div class="input_span">
-            <el-form ref="form" :modelZL="form">
+            <el-form ref="form" :modelZL="formZL">
               <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <br />
               <br />
@@ -382,9 +382,6 @@
             <span id="two"></span>
             <span id="three"></span>
           </div>
-
-
-
         </div>
       </div>
 
@@ -486,7 +483,7 @@ export default {
   data() {
     return {
       //质量完成图数据源
-      form: {
+      formZL: {
         designCount: ""
       },
 
@@ -554,6 +551,19 @@ export default {
           contractRefuseReason: "" //合同拒绝原因
         }
       ],
+      tableData4: [
+        {
+          acceptCompanyName: "",
+          designerName:"",
+          applyWay: "",
+          designCount:"",
+          demandorCheckDesignState:"",
+          contractState: "", //合同审核状态
+          uploadDesignTime: "", //合同上传时间
+          demandorCheckDesignTime:"",
+          contractRefuseReason: "" //合同拒绝原因
+        }
+      ],
       milepost: [
         { title: "申请/邀请", icon: "el-icon-edit" },
         { title: "计划提交", icon: "el-icon-upload" },
@@ -592,10 +602,13 @@ export default {
 
   filters: {
     formatDate(time) {
-      var index = time.lastIndexOf(".");
+      if(time!=null){
+        var index = time.lastIndexOf(".");
       time = time.substring(0, index);
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm");
+      }
+      
     }
   },
   created() {
@@ -605,14 +618,14 @@ export default {
   methods: {
     //提交次数 背景颜色变化
     styleswith() {
-      if (this.form.designCount > 0 && this.form.designCount < 3) {
+      if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
       }
-      if (this.form.designCount > 2 && this.form.designCount < 4) {
+      if (this.formZL.designCount > 2 && this.formZL.designCount < 4) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
       }
-      if (this.form.designCount > 4 || this.form.designCount == 4) {
+      if (this.formZL.designCount > 4 || this.formZL.designCount == 4) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
       }
@@ -658,12 +671,19 @@ export default {
           if (this.tableData4 == null) {
             this.milepostActive4 = 0;
           }
+          
+          console.log(response.data.allData.f);
           this.radarData.radarData = response.data.allData.f;
-          console.log(this.radarData.radarData);
           that.$refs.QradarChart.getCharts1();
-          if (this.radarData.radarData == null) {
+          console.log(this.radarData.radarData)
+     
+          if (response.data.allData.f == null) {
+            console.log(this.milepostActive5)
             this.milepostActive5 = 0;
-          } else {
+          } 
+          if (response.data.allData.f != null){            
+            console.log("cao")
+            this.formZL = response.data.allData.d[0]
             this.styleswith();
             this.milepost1[0].description =
               response.data.allData.b[0].applyTime;
@@ -733,6 +753,7 @@ export default {
           message: "审核通过",
           type: "success"
         });
+                      this.showData();
       });
     },
     SQJJ(row) {
@@ -754,6 +775,8 @@ export default {
       this.$message.success("提交成功");
       this.addList = {};
       this.addVisible = false;
+                    this.showData();
+
     },
     //计划书通过与拒绝
     JHSTG(row) {
@@ -781,6 +804,7 @@ export default {
                 message: "审核通过",
                 type: "success"
               });
+              this.showData();
             } else {
               this.$confirm(
                 "您已经通过了一个任务计划，无法再通过另一个任务计划",
@@ -812,6 +836,7 @@ export default {
       this.$message.success("提交成功");
       this.addList1 = {};
       this.addVisible1 = false;
+      this.showData();
     },
     //任务计划下载
     RWJHXZ(row) {
@@ -869,6 +894,8 @@ export default {
           message: "审核通过",
           type: "success"
         });
+        this.showData();
+
       });
     },
     HTSHJJ(row) {
@@ -890,6 +917,8 @@ export default {
       this.$message.success("提交成功");
       this.addList2 = {};
       this.addVisible2 = false;
+      this.showData();
+
     },
     //合同下载
     HTXZ(row) {
@@ -924,10 +953,13 @@ export default {
           url: "http://127.0.0.1:8082/SubstaskInformation/SJSHTG",
           data: data
         });
+        this.showData();
+
         this.$message({
           message: "审核通过,并自动生成评价",
           type: "success"
         });
+        
       });
     },
     SJJJ(row) {
@@ -949,6 +981,8 @@ export default {
       this.$message.success("提交成功");
       this.addList3 = {};
       this.addVisible3 = false;
+                    this.showData();
+
     }
   }
 };

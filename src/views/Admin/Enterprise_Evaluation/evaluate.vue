@@ -3,24 +3,53 @@
     <el-main>
        <h3>企业评价</h3>
                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-    <div class="input-group">
-      <label >企业星级:</label>
+   
+     <div style="text-align:center" >
+      <label  style="font-size:16px">企业星级</label>
+      </div>
+      <br/>
       <el-rate  
           v-model="star"
-          disabled
-          show-score
+          disabled          
           max:5
-          text-color="#ff9900"
+          text-color="#ff9900"  
+          score-template="{value}"  
+          style="text-align:center"
           >
       </el-rate>
-       </div>
-      <div class="top">
-        
+     
+     <br/>
+      <el-divider></el-divider>
+     <!-- 柱形图部分 -->
+     <el-form>
+      <div style="float:right">
+        <template>
+        <el-select v-model="value" 
+        style="width:100px"
+        >
+            <el-option
+          v-for="item in options"
+          placeholder="请选择"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+          :disabled="item.disabled"
+          width="20px"
+          >
+            </el-option>
+          </el-select> 
+        </template>
+        </div>
+        <div class="top">
         <bar-chart
         :barData="barData"
         ref="drawbarChart"
         ></bar-chart>
         
+        <br/>
+         
+        <!-- 雷达图部分 -->
+      
         <br/>
        <radar-chart
         :radarData="radarData"
@@ -28,8 +57,9 @@
         ></radar-chart>
         <br/>
       </div>
+      </el-form> 
       <br/> <br/><br/> <br/>
-      
+<!--       
       <div class="lists">
 
            <el-table
@@ -54,8 +84,8 @@
                   <el-table-column prop="finishTime" label="完成时间">
                   
                   </el-table-column>
-                  <!-- <el-table-column prop="finishState" label="状态" align="center" width="80">
-                  </el-table-column> -->
+                   <el-table-column prop="finishState" label="状态" align="center" width="80">
+                  </el-table-column> 
                   <el-table-column label="操作" align="center" >
 
                 <template slot-scope="scope">
@@ -79,7 +109,7 @@
      
           </el-table> 
             
-      </div>
+      </div> -->
     
      
     </el-main>
@@ -99,7 +129,22 @@ export default {
   },
   data() {
     return {
-     
+     //选择框
+     options: [{
+          value: '选项1',
+          label: '2020年'
+        }, {
+          value: '选项2',
+          label: '2021年',
+          disabled: true
+        }, {
+          value: '选项3',
+          label: '2022年',
+          disabled: true
+        }],
+        value: "",
+       
+
       tableData:"",
       radarData:{
       radarData:[],
@@ -108,14 +153,15 @@ export default {
       taskCount:[],
       finishTaskCount:[],
       },
-     
+      star:'',
+      userName:this.$route.query.userName, 
 
     };
   },
   //初始化方法
    created() {
     this.getCompanyData();//企业星级读取
-    this.getData();//表格数据查找
+    //this.getData();//表格数据查找
     
     this.getRemarData();//企业雷达图数据
     this.barChartData();//柱形图数据获取
@@ -128,41 +174,15 @@ export default {
  
    
   methods: {
-  //生成评价数据
-    doevaluate(row){
-      var that = this;
-      
-      var data = Qs.stringify({
-       
-        taskId:row.taskId
-      });
-        console.log(data);
-     
-      that
-        .axios({
-          method: "post",
-          url:
-            "http://127.0.0.1:8082/doevaluate",
-          data: data
-        })
-        .then(() => {
-          //this.table = response.data.allData;
-         this.$message.success("成功生成评价！");
-           //that.tableData = response.data.allData;
-         
-          
-          
-        });
-    },
     //企业雷达图数据
     getRemarData(radarData){
      var that = this;
       
       var data = Qs.stringify({
-       
+      // userName:userName
         userName:"aaaa"
       });
-        console.log(data);
+      //  console.log(data);
      
       that
         .axios({
@@ -178,63 +198,7 @@ export default {
           
         });
     },
-    Detail(row) {
-     console.log(row.taskId);
-     if (row.taskType==1) {
-        this.$router.push({
-        path: "/admin/circulationTaskEvaluationDetils",
-        query: {
-          taskId: row.taskId
-          
-        }
-      });
-      
-      } else {
-        this.$router.push({
-        path: "/admin/designTaskEvaluationDetils",
-        query: {
-          taskId: row.taskId
-        }
-      });
-       
-      }
-    
-    },
- 
-    // //接受数据
-    // getParams() {
-    //   // 需要修改接受企业ID
-    //   // var routerParams = this.$route.query.taskId;
-    //   // this.taskId = routerParams;
-    //   // console.log(routerParams);
-    // },
-    //表格数据查找
-    getData() {
-      //console.log(this.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        // companyId: "1111"
-        userName:"aaaa"
-      });
-     // console.log(data);
-     
-      that
-        .axios({
-          method: "post",
-          url:
-            "http://127.0.0.1:8082/evaluate",
-          data: data
-        })
-        .then(response => {
-          //this.table = response.data.allData;
-         
-           that.tableData = response.data.allData;
-          //  console.log(response.data.allData);
-    
-        });
-         
-    },
-    //企业星级读取
+     //企业星级读取
     getCompanyData() {
       //console.log(this.taskId);
       var that = this;
@@ -255,12 +219,12 @@ export default {
           //this.table = response.data.allData;
          
            this.star=response.data.allData[0].star;
-           console.log(this.star);
+          // console.log(this.star);
     
         });
          
     },
-    //柱形图数据获取
+     //柱形图数据获取
     barChartData(){
  
       var that = this;
@@ -268,7 +232,7 @@ export default {
         
         userName:"aaaa"
       });
-       console.log(data);
+      // console.log(data);
      
       that
         .axios({
@@ -287,6 +251,91 @@ export default {
         });
 
     },
+  //生成评价数据
+    // doevaluate(row){
+    //   var that = this;
+      
+    //   var data = Qs.stringify({
+       
+    //     taskId:row.taskId
+    //   });
+    //     console.log(data);
+     
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url:
+    //         "http://127.0.0.1:8082/doevaluate",
+    //       data: data
+    //     })
+    //     .then(() => {
+    //       //this.table = response.data.allData;
+    //      this.$message.success("成功生成评价！");
+    //        //that.tableData = response.data.allData;
+         
+          
+          
+    //     });
+    // },
+    
+    // Detail(row) {
+    //  console.log(row.taskId);
+    //  if (row.taskType==1) {
+    //     this.$router.push({
+    //     path: "/admin/circulationTaskEvaluationDetils",
+    //     query: {
+    //       taskId: row.taskId
+          
+    //     }
+    //   });
+      
+    //   } else {
+    //     this.$router.push({
+    //     path: "/admin/designTaskEvaluationDetils",
+    //     query: {
+    //       taskId: row.taskId
+    //     }
+    //   });
+       
+    //   }
+    
+    // },
+ 
+    // //接受数据
+    // getParams() {
+    //   // 需要修改接受企业ID
+    //   // var routerParams = this.$route.query.taskId;
+    //   // this.taskId = routerParams;
+    //   // console.log(routerParams);
+    // },
+    //表格数据查找
+    // getData() {
+    //   //console.log(this.taskId);
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     // companyId: "1111"
+    //     userName:"aaaa"
+    //   });
+    //  // console.log(data);
+     
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url:
+    //         "http://127.0.0.1:8082/evaluate",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       //this.table = response.data.allData;
+         
+    //        that.tableData = response.data.allData;
+    //       //  console.log(response.data.allData);
+    
+    //     });
+         
+    // },
+   
+   
  
   }
 }
@@ -306,15 +355,16 @@ export default {
 		background: #eee;
 		line-height: 20px;
 	}
-  .input-group{
-   
-    display: inline;
-  }
+ 
  
 	
 </style>
 
 <style>
+ .input-group{
+   
+    display: inline;
+  }
 .el-main {
   height: 100%;
 }
