@@ -1,9 +1,11 @@
 <template>
   <el-container>
     <el-main>
-       <h3>企业评价</h3>
-               &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-   
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          企业评价
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        
+        
      <div style="text-align:center" >
       <label  style="font-size:16px">企业星级</label>
       </div>
@@ -17,15 +19,18 @@
           style="text-align:center"
           >
       </el-rate>
-     
+        
      <br/>
-      <el-divider></el-divider>
+     <el-card shadow="hover" :body-style="{padding: '0px'}"> 
      <!-- 柱形图部分 -->
-     <el-form>
+    
       <div style="float:right">
         <template>
-        <el-select v-model="value" 
-        style="width:100px"
+        <el-select 
+        style="width:100px;margin-right:35px;margin-top:15px"
+        v-model="value"
+        
+        @change="barChartData"
         >
             <el-option
           v-for="item in options"
@@ -44,20 +49,52 @@
         <bar-chart
         :barData="barData"
         ref="drawbarChart"
+        style="margin-top:15px"
         ></bar-chart>
-        
-        <br/>
-         
+        </div>
+     
+     </el-card>
+     <br/>
+     <el-card id="leidatu" shadow="hover"  :body-style="{padding: '0px'}">
         <!-- 雷达图部分 -->
-      
+     <el-form ref="form2" label-width="110px" class="box" style="margin-top:15px">
+       <el-row>
+            <el-col :span="9">
+              <el-form-item label="起始时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                 
+                  style="width: 100%;"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="9">
+              <el-form-item label="截止时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  
+                  style="width: 100%;"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>              
+            </el-col>
+             <el-col :span="5">
+              <el-button type="primary" style="margin-left:55px">搜索</el-button>
+               </el-col>
+          </el-row>
+     </el-form>
         <br/>
        <radar-chart
         :radarData="radarData"
         ref="drawradarChart"
         ></radar-chart>
         <br/>
-      </div>
-      </el-form> 
+      
+      
+      </el-card>
       <br/> <br/><br/> <br/>
 <!--       
       <div class="lists">
@@ -131,20 +168,22 @@ export default {
     return {
      //选择框
      options: [{
-          value: '选项1',
-          label: '2020年'
+            
+            value: '2020',
+           
+           label: '2020'
         }, {
-          value: '选项2',
-          label: '2021年',
+          value: '2021',
+          label: '2021',
           disabled: true
         }, {
-          value: '选项3',
-          label: '2022年',
+          value: '选2022',
+          label: '2022',
           disabled: true
-        }],
-        value: "",
-       
-
+        }],        
+         value: 2020,
+         
+    
       tableData:"",
       radarData:{
       radarData:[],
@@ -230,9 +269,11 @@ export default {
       var that = this;
       var data = Qs.stringify({
         
-        userName:"aaaa"
+        userName:"aaaa",
+        year:this.value,
+        
       });
-      // console.log(data);
+       console.log(data);
      
       that
         .axios({
@@ -378,6 +419,9 @@ export default {
   height: 60%;
   margin-top: 10%;
   margin-left: 0%
+}
+.leidatu{
+ height: 400px;
 }
 
 
