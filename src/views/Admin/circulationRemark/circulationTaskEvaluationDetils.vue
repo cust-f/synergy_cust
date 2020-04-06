@@ -4,21 +4,20 @@
       <el-container>
         <el-main>
               <h3>流通任务数据统计</h3>
-               &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                 <!-- 步骤图片 -->
-        
-       <el-steps :active="milepostActive" align-center>      
-        <el-step
-          v-for="(stpesdata, key) in milepost"
-          :title="stpesdata.title"
-          :icon="stpesdata.icon"
-          :description="stpesdata.description"          
-          :key="key"
-         
-        >
-       
-        </el-step>
-      </el-steps>
+                  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+            <!-- 步骤图片 -->
+            
+          <el-steps :active="milepostActive" align-center>      
+            <el-step
+              v-for="(stpesdata, key) in milepost"
+              :title="stpesdata.title"
+              :icon="stpesdata.icon"
+              :description="stpesdata.description"          
+              :key="key"         
+            >
+          
+            </el-step>
+          </el-steps>
         
 
             <br/><br/>
@@ -30,16 +29,15 @@
             <br/><br/>
             
            
-             <div class="input_span">
-      
-      <el-form ref="form" :model="form">
-      <label >完成质量:</label>   
-       <br/> <br/>
-      </el-form>
-      <span id="one"></span>
-      <span id="two"></span>
-      <span id="three"></span>
-    </div>
+             <div class="input_span">      
+              <el-form ref="form" :model="form">
+              <label >完成质量:</label>   
+              <br/> <br/>
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+            </div>
     
         </el-main>
       </el-container>
@@ -74,17 +72,16 @@ export default {
       taskId:this.$route.query.taskId, //获取值，初始化
      
      
-     colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
     
        //步骤条数据
       milepost: [
         
-        { title: "申请/邀请", icon: "el-icon-edit"},
-        { title: "计划提交", icon: "el-icon-upload"},
-        { title: "任务进行中", icon: "el-icon-picture" },
-        { title: "审核", icon: "el-icon-message-solid" },
-        { title: "验收", icon: "el-icon-s-promotion"},
-        { title: "完成", icon: "el-icon-s-claim"}
+        { title: "申请/邀请", icon: "el-icon-edit",description:""},
+        { title: "计划提交", icon: "el-icon-upload",description:""},
+        { title: "任务进行中", icon: "el-icon-picture",description:"" },
+        { title: "审核", icon: "el-icon-message-solid",description:"" },
+        { title: "验收", icon: "el-icon-s-promotion",description:""},
+        { title: "完成", icon: "el-icon-s-claim",description:""}
        
       ],
      
@@ -106,9 +103,9 @@ export default {
        //初始化方法
    created() {
     // this.getParams();
-    this.getData();
+    this.getData(); //步骤图数据查找
     this.getData1();//雷达图数据查找
-    this.styleswith();
+    this.styleswith();//提交次数 背景颜色变化
    
     
   },
@@ -160,14 +157,16 @@ export default {
         .then(response => {
          
           // that.stpesdata = response.data.allData[0];
-           that.form=response.data.allData[0];
+           that.form.designCount=response.data.allData[6];//完成质量数据
+           
+           this.milepost[0].description=response.data.allData[0];
+           this.milepost[1].description=response.data.allData[1];
+           this.milepost[2].description=response.data.allData[2];
+           this.milepost[3].description=response.data.allData[3];
+           this.milepost[4].description=response.data.allData[4];
+           this.milepost[5].description=response.data.allData[5];
            this.styleswith();
-           this.milepost[0].description=response.data.allData[0].applyTime;
-           this.milepost[1].description=response.data.allData[0].planUploadTime;
-           this.milepost[2].description=response.data.allData[0].publishTime;
-           this.milepost[3].description=response.data.allData[0].demandorCheckDesignTime;
-           this.milepost[4].description=response.data.allData[0].checkPlanTime;
-           this.milepost[5].description=response.data.allData[0].finishTime;
+          // console.log(response.data.allData)
     
        // publishTime:"",//发布时间
       //   finishTime:"",//完成时间

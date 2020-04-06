@@ -7,6 +7,7 @@
       text-color="#000"
       active-text-color="#20a0ff"
       router
+      :default-openeds="openeds"
     >
       <template v-for="item in items">
         <!-- 判断是否有二级 -->
@@ -54,6 +55,7 @@ import bus from "./bus";
 export default {
   data() {
     return {
+      openeds:['0','1','2','0','3','4'],
       collapse: true,
       items: this.$store.state.menuList,
       // items:[
