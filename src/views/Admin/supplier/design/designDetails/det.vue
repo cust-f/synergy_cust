@@ -155,17 +155,24 @@
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
-              <div v-show="scope.row.checkPlanState === 0">
-                <el-button @click="upLoadPlanT()" type="text" size="small">上传</el-button>
-              </div>
-              <div>
-                <div v-show="scope.row.checkPlanState > 0">
-                  <el-button @click="RWJHXZ(scope.row)" type="text" size="small">下载</el-button>
-                </div>
-                <div v-show="scope.row.checkPlanState === 3">
-                  <el-button @click="refusePlanReason(scope.row)" type="text" size="small">拒绝原因</el-button>
-                </div>
-              </div>
+              <el-button
+                @click="upLoadPlanT()"
+                type="text"
+                size="small"
+                v-show="scope.row.checkPlanState === 0"
+              >上传</el-button>
+              <el-button
+                @click="RWJHXZ(scope.row)"
+                type="text"
+                size="small"
+                v-show="scope.row.checkPlanState > 0"
+              >下载</el-button>
+              <el-button
+                @click="refusePlanReason(scope.row)"
+                type="text"
+                size="small"
+                v-show="scope.row.checkPlanState === 3"
+              >拒绝原因</el-button>
             </template>
           </el-table-column>
         </el-table>
