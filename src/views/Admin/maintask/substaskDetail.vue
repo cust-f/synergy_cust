@@ -581,7 +581,7 @@ export default {
       this.tableData.push(this.addList);
       this.addList = {};
       this.addVisible = false;
-      location.reload()
+      // location.reload()
       }
     },
 
