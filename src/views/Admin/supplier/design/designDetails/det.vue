@@ -338,7 +338,6 @@
               :key="key"
             ></el-step>
           </el-steps>
-
           <br />
           <br />
           <!-- 雷达图 -->
