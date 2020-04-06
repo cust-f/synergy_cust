@@ -90,10 +90,16 @@
             </template>
           </el-table-column>
           <el-table-column prop="applyTime" label="申请/邀请时间">
-            <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.applyTime === 0">暂未上传</el-span>
+              <el-span v-else>{{scope.row.applyTime | formatDate}}</el-span>
+            </template>
           </el-table-column>
           <el-table-column prop="checkApplyTime" label="审核时间">
-            <template slot-scope="scope">{{scope.row.checkApplyTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.checkApplyTime === 0">暂未上传</el-span>
+              <el-span v-else>{{scope.row.checkApplyTime | formatDate}}</el-span>
+            </template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
@@ -136,10 +142,16 @@
             </template>
           </el-table-column>
           <el-table-column prop="planUploadTime" label="上传时间">
-            <template slot-scope="scope">{{scope.row.planUploadTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <span v-if="+scope.row.planUploadTime === 0">尚未上传</span>
+              <span v-else>{{scope.row.planUploadTime | formatDate}}</span>
+            </template>
           </el-table-column>
           <el-table-column prop="checkPlanTime" label="审核时间">
-            <template slot-scope="scope">{{scope.row.checkPlanTime | formatDate}}</template>
+            <template slot-scope="scope">
+              <span v-if="+scope.row.checkPlanTime === 0">尚未上传</span>
+              <span v-else>{{scope.row.checkPlanTime | formatDate}}</span>
+            </template>
           </el-table-column>
           <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
@@ -182,11 +194,14 @@
               </template>
             </el-table-column>
             <el-table-column prop="uploadContractTime" label="上传时间">
-              <template slot-scope="scope">{{scope.row.uploadContractTime | formatDate}}</template>
+              <template slot-scope="scope">
+                <span v-if="+scope.row.uploadContractTime === 0">尚未上传</span>
+                <span v-else>{{scope.row.uploadContractTime | formatDate}}</span>
+              </template>
             </el-table-column>
             <el-table-column prop="checkContractTime" label="合同审核时间">
               <template slot-scope="scope">
-                <span v-if="+scope.row.checkContractTime === 'null'">尚未上传</span>
+                <span v-if="+scope.row.checkContractTime === 0">暂未审核</span>
                 <span v-else>{{scope.row.checkContractTime | formatDate}}</span>
               </template>
             </el-table-column>
@@ -232,12 +247,23 @@
                 <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
               </template>
             </el-table-column>
-            <el-table-column prop="designerName" label="设计师"></el-table-column>
-            <el-table-column prop="uploadDesignTime" label="上传时间">
-              <template slot-scope="scope">{{scope.row.uploadDesignTime | formatDate}}</template>
+            <el-table-column prop="designerName" label="设计师">
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
+                <el-span v-else>{{scope.row.designerName}}</el-span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="uploadDesignTime" label="设计上传时间">
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
+                <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
+              </template>
             </el-table-column>
             <el-table-column prop="supplierCheckDesignTime" label="审核时间">
-              <template slot-scope="scope">{{scope.row.supplierCheckDesignTime | formatDate}}</template>
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.supplierCheckDesignTime === 0">暂未上传</el-span>
+                <el-span v-else>{{scope.row.supplierCheckDesignTime | formatDate}}</el-span>
+              </template>
             </el-table-column>
             <el-table-column prop="demandorCheckDesignState" label="验收状态">
               <template slot-scope="scope">
@@ -248,7 +274,10 @@
               </template>
             </el-table-column>
             <el-table-column prop="demandorCheckDesignTime" label="验收时间">
-              <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未上传</el-span>
+                <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
+              </template>
             </el-table-column>
             <el-table-column label="操作" width="180" align="center">
               <template slot-scope="scope">
