@@ -1,73 +1,28 @@
 <template>
   <div>
-    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-          网站数据统计
-        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-    
-      <el-col :span="26" style="margin-top:15px;">
-        <el-row :gutter="20" class="mgb20">
-          
-           <el-col :span="4" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class=" "></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num">101</div>
-                  <div>本月成交任务</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-2">
-                <i class="el-icon-user grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num">14</div>
-                  <div>需求任务</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-           <el-col :span="5" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-3">
-                <i class="el-icon-user grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num">4</div>
-                  <div>流通任务</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class="el-icon-bell grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num">32</div>
-                  <div>认证企业</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class="el-icon-s-data grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num">50</div>
-                  <div>认证供应商</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8" style="margin-top:15px;">
-       
-        <el-card shadow="hover" style="height:482px;margin-top: 10px;">
+    <el-row :gutter="20">
+      <el-col :span="8" style="margin-top:15px;">
+        <el-card shadow="hover" class="mgb20" style="height:252px;">
+          <div class="user-info">
+            <img src="../../../assets/img/img.jpg" class="user-avator" alt />
+            <div class="user-info-cont">
+              <div class="user-info-name">{{name}}</div>
+              <div>{{role}}</div>
+            </div>
+          </div>
+          <div class="user-info-list">
+            上次登录时间：
+            <span>2020-1-6</span>
+          </div>
+          <div class="user-info-list">
+            上次登录地点：
+            <span>长春</span>
+          </div>
+        </el-card>
+        <el-card shadow="hover" style="height:332px;margin-top: 20px;">
           <!-- <div slot="header" class="clearfix">
           <span>需求详情</span>-->
-          <el-tabs v-model="activeName" style="margin-top: 40px;">
+          <el-tabs v-model="activeName">
             <div class="quarterly-situation">年完成总量：{{total_number}}</div>
             <div id="quarterlySituation" style="width: 100%;height:300%"></div>
             <!-- width: 230px;height:300px; -->
@@ -75,44 +30,96 @@
           <!-- </div> -->
         </el-card>
       </el-col>
-        
-        <el-col :span="16" style="margin-top:15px;">
+      <el-col :span="16" style="margin-top:15px;">
+        <el-row :gutter="20" class="mgb20">
+          <el-col :span="8">
+            <el-card shadow="hover" :body-style="{padding: '0px'}">
+              <div class="grid-content grid-con-1">
+                <i class="el-icon-user grid-con-icon"></i>
+                <div class="grid-cont-right">
+                  <div class="grid-num">1234</div>
+                  <div>用户访问量</div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="8">
+            <el-card shadow="hover" :body-style="{padding: '0px'}">
+              <div class="grid-content grid-con-2">
+                <i class="el-icon-bell grid-con-icon"></i>
+                <div class="grid-cont-right">
+                  <div class="grid-num">321</div>
+                  <div>系统消息</div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="8">
+            <el-card shadow="hover" :body-style="{padding: '0px'}">
+              <div class="grid-content grid-con-3">
+                <i class="el-icon-s-data grid-con-icon"></i>
+                <div class="grid-cont-right">
+                  <div class="grid-num">5000</div>
+                  <div>数量</div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
         <el-card shadow="hover" style="height:482px;margin-top:10px;">
           <div slot="header" class="clearfix">
             <span>需求详情</span>
             <el-tabs v-model="activeName">
-              <!-- <el-tab-pane label="分季度完成需求量统计" name="first">
+              <el-tab-pane label="分季度完成需求量统计" name="first">
                 <div id="quarterlySituation" style="width: 600px;height:400px;"></div>
-              </el-tab-pane> -->
+              </el-tab-pane>
 
-              <el-tab-pane label="核心企业发布需求量Top5" name="first">
+              <el-tab-pane label="核心企业发布需求量Top5" name="second">
                 <div id="releaseDemandTop5" style="width: 600px;height:400px;"></div>
               </el-tab-pane>
-              <el-tab-pane label="供应商完成需求量Top5" name="second">
+              <el-tab-pane label="供应商完成需求量Top5" name="thirth">
                 <div id="fulfillDemandTop5" ref="chart" style="width:600px;height:400px"></div>
-              </el-tab-pane>
-              <!-- <el-tab-pane label="企业评分雷达" name="forth">
+              </el-tab-pane>-->
+              <el-tab-pane label="企业评分雷达" name="forth">
                 <div id="comprehensiveScore" style="width: 600px;height:400px;"></div>
-              </el-tab-pane>
-              <el-tab-pane label="分类别需求量统计" name="fifth"> 
+              </el-tab-pane>-->
+              <el-tab-pane label="分类别需求量统计" name="fifth">
                 <div class="demandTop5">日登录人数</div>
                 <br />
                 <div id="numberStatistics" style="width: 100%;height:390%;"></div>
-              </el-tab-pane> -->
+              </el-tab-pane>
             </el-tabs>
           </div>
         </el-card>
-        </el-col>
-        </el-row>
       </el-col>
-   
+    </el-row>
     <el-row :gutter="20">
-     
+      <el-col :span="12">
+        <el-card shadow="hover">
+          <div class="demandTop5">核心企业发布需求量Top5</div>
+          <div id="releaseDemandTop5" style="width: 100%;height:400%;"></div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card shadow="hover">
+          <div class="demandTop5">供应商完成的需求量Top5</div>
+          <div id="fulfillDemandTop5" ref="chart" style="width: 100%;height:400%;"></div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="0">
+        <el-card shadow="hover">
+          <div class="demandTop5">企业综合评分</div>
+          <br />
+          <div id="comprehensiveScore" style="width: 100%;height:390%;"></div>
+        </el-card>
+      </el-col>
       <el-col :span="24">
         <el-card shadow="hover">
           <div class="type-situation">分类别需求量统计</div>
           <br />
-          <div id="typeSituation" style="width: 100%;height:430%"></div>
+          <div id="typeSituation" style="width: 105%;height:430%"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -250,7 +257,7 @@ export default {
           }
         },
         legend: {
-          data: ["2019年", "2020年"]
+          data: ["2017年", "2018年"]
         },
         grid: {
           left: "3%",
@@ -274,12 +281,12 @@ export default {
         },
         series: [
           {
-            name: "2019年",
+            name: "2017年",
             type: "bar",
             data: [1315, 1432, 1679, 1789, 2015]
           },
           {
-            name: "2020年",
+            name: "2018年",
             type: "bar",
             data: [1356, 1530, 1650, 1690, 2121]
           }
@@ -306,7 +313,7 @@ export default {
           }
         },
         legend: {
-          data: ["2019年", "2020年"]
+          data: ["2017年", "2018年"]
         },
         grid: {
           left: "3%",
@@ -330,12 +337,12 @@ export default {
         },
         series: [
           {
-            name: "2019年",
+            name: "2017年",
             type: "bar",
             data: [1245, 1523, 1587, 1689, 2567]
           },
           {
-            name: "2020年",
+            name: "2018年",
             type: "bar",
             data: [1389, 1530, 1750, 1890, 2899]
           }
@@ -412,18 +419,40 @@ export default {
           orient: "vertical",
           left: 10,
           data: [
-            "交通运输设备",
-            "仪器仪表及文化、办公用机械",           
-            "通信设备、计算机及其他电子设备",
+            "仪器仪表",
             "电器机械及器材",
-            "专用设备",
-            "通用设备",        
-            
-           
+            "通信设备",
+            "交通运输设备",
+            "光学仪器仪表",
+            "通用仪器仪表",
+            "输配电及控制设备",
+            "照明器具",
+            "雷达及配套设备",
+            "广播电视设备",
+            "汽车",
+            "铁路运输设备"
           ]
         },
         series: [
-          
+          {
+            name: "占比来源",
+            type: "pie",
+            selectedMode: "single",
+            radius: [0, "30%"],
+
+            label: {
+              position: "inner"
+            },
+            labelLine: {
+              show: false
+            },
+            data: [
+              { value: 550, name: "仪器仪表", selected: true },
+              { value: 600, name: "电器机械及器材" },
+              { value: 1500, name: "通信设备" },
+              { value: 1200, name: "交通运输设备" }
+            ]
+          },
           {
             name: "占比来源",
             type: "pie",
@@ -471,13 +500,14 @@ export default {
               }
             },
             data: [
-              { value: 200, name: "交通运输设备" },
-              { value: 350, name: "仪器仪表及文化、办公用机械",},
-              { value: 300, name:  "通信设备、计算机及其他电子设备", },
-              { value: 300, name: "电器机械及器材", },
-              { value: 600, name: "专用设备", },
-              { value: 900, name: "通用设备",  },
-             
+              { value: 200, name: "光学仪器仪表" },
+              { value: 350, name: "通用仪器仪表" },
+              { value: 300, name: "输配电及控制设备" },
+              { value: 300, name: "照明器具" },
+              { value: 600, name: "雷达及配套设备" },
+              { value: 900, name: "广播电视设备" },
+              { value: 1000, name: "汽车" },
+              { value: 200, name: "铁路运输设备" }
             ]
           }
         ]
@@ -595,7 +625,7 @@ window.onresize = function() {
 .grid-content {
   display: flex;
   align-items: center;
-  height: 80px;
+  height: 100px;
 }
 
 .grid-cont-right {
@@ -612,10 +642,10 @@ window.onresize = function() {
 
 .grid-con-icon {
   font-size: 50px;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   text-align: center;
-  line-height: 80px;
+  line-height: 100px;
   color: #fff;
 }
 
@@ -680,7 +710,7 @@ window.onresize = function() {
 }
 
 .mgb20 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .todo-item {
