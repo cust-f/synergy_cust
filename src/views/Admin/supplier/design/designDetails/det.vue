@@ -334,7 +334,7 @@
           <h3>核心企业暂未评价</h3>
         </div>
         <!-- 步骤图片 -->
-        <div v-if="reMarkId === 1" >
+        <div v-if="reMarkId === 1">
           <el-steps :active="milepostActive1" align-center>
             <el-step
               v-for="(stpesdata, key) in milepost1"
@@ -491,6 +491,26 @@
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
       </el-dialog>
+
+      <!-- 设计拒绝原因弹出框 -->
+      <el-dialog title="请输入设计不通过的原因" :visible.sync="designRefuseReason" width="50%">
+        <el-row>
+          <el-col :span="8"></el-col>
+        </el-row>
+        <el-form ref="form" :model="addList4" label-width="120px">
+          <el-row>
+            <el-col>
+              <el-form-item label="审核拒绝原因">
+                <el-input v-model="addList4.SJrefuseReason"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="designRefuseReason = false">取 消</el-button>
+          <el-button type="primary" @click="SJJJYYTJ">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-main>
   </div>
 </template>
@@ -601,6 +621,9 @@ export default {
       addList3: {
         contractRefuseReason: ""
       },
+      addList4: {
+        SJrefuseReason: ""
+      },
       //计划书上传
       planbook: false,
       //合同上传
@@ -640,7 +663,8 @@ export default {
       technicalFile1: "",
       giveDesigner: 0, //人员分配按钮控制
       designerNub: 0,
-      reMarkId: 1
+      reMarkId: 1,
+      designRefuseReason: false
     };
   },
 
@@ -836,6 +860,7 @@ export default {
           message: "接受成功",
           type: "success"
         });
+        this.showData();
       });
     },
     //接受不通过
@@ -858,6 +883,7 @@ export default {
           message: "拒绝通过",
           type: "success"
         });
+        this.showData();
       });
     },
     //申请拒绝原因
@@ -937,29 +963,12 @@ export default {
           message: "审核通过",
           type: "success"
         });
+        this.showData();
       });
     },
     //设计不通过
     designRefuse(row) {
-      this.$confirm("确定审核不通过么？", "提示", {
-        type: "warning"
-      }).then(() => {
-        console.log(row.taskId);
-        var that = this;
-        var data = Qs.stringify({
-          taskID: this.taskId
-        });
-        console.log(data);
-        that.axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/supplier/designRefuse",
-          data: data
-        });
-        this.$message({
-          message: "审核不通过",
-          type: "success"
-        });
-      });
+      this.designRefuseReason = true;
     },
     //分配设计人员
     assignDesigners() {
@@ -981,6 +990,7 @@ export default {
           // this.designTask.id = response.data.allData.b;
           console.log(response);
         });
+      this.showData();
     },
     //分配设计人员上传
     tijiao() {
@@ -1002,6 +1012,7 @@ export default {
           this.$message.success("提交成功");
           this.dialogTableVisible = false;
         });
+      this.showData();
     },
     //上传计划书方法
     upLoadPlanT() {
@@ -1122,6 +1133,24 @@ export default {
         url: "http://127.0.0.1:8082/supplier/textImportPlan",
         data: data
       });
+    },
+    //提交拒绝原因
+    SJJJYYTJ() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        HTrefuseReason: this.addList4.SJrefuseReason
+      });
+      console.log(data),
+        that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/designRefuse",
+          data: data
+        });
+      this.$message.success("提交成功");
+      this.addList4 = {};
+      this.designRefuseReason = false;
+      this.showData();
     }
   }
 };
