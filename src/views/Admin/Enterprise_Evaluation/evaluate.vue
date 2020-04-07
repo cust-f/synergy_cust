@@ -57,14 +57,14 @@
      <br/>
      <el-card id="leidatu" shadow="hover"  :body-style="{padding: '0px'}">
         <!-- 雷达图部分 -->
-     <el-form ref="form2" label-width="110px" class="box" style="margin-top:15px">
+     <el-form ref="form2" :model="form2" label-width="110px" class="box" style="margin-top:15px">
        <el-row>
             <el-col :span="9">
               <el-form-item label="起始时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                 
+                  v-model="form2.time1"
                   style="width: 100%;"
                   value-format="yyyy-MM-dd"
                 ></el-date-picker>
@@ -75,14 +75,14 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  
+                  v-model="form2.time2"
                   style="width: 100%;"
                   value-format="yyyy-MM-dd"
                 ></el-date-picker>
               </el-form-item>              
             </el-col>
              <el-col :span="5">
-              <el-button type="primary" style="margin-left:55px">搜索</el-button>
+              <el-button type="primary" style="margin-left:55px" @click="getRemarData">搜索</el-button>
                </el-col>
           </el-row>
      </el-form>
@@ -182,7 +182,10 @@ export default {
           disabled: true
         }],        
          value: 2020,
-         
+        form2:{
+         time1:"2020-04-01",
+         time2:"2020-04-04",
+        } ,
     
       tableData:"",
       radarData:{
@@ -219,7 +222,9 @@ export default {
       
       var data = Qs.stringify({
       // userName:userName
-        userName:"aaaa"
+        userName:"aaaa",
+        startTime:this.form2.time1,
+        finishTime:this.form2.time2,
       });
       //  console.log(data);
      
@@ -227,7 +232,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/sumRemarkData",
+            "http://127.0.0.1:8082/findRemarkTimes",
           data: data
         })
         .then(response => {

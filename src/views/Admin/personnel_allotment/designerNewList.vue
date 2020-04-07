@@ -228,7 +228,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        designerName: this.username1
+        designerName: "designer"
       });
       //console.log(data);
       that
