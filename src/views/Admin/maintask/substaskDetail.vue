@@ -144,21 +144,6 @@
               </div>
             </div>
 
-            <!-- 编辑弹出框 -->
-            <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-              <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="用户名">
-                  <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="地址">
-                  <el-input v-model="form.address"></el-input>
-                </el-form-item>
-              </el-form>
-              <span slot="footer" class="dialog-footer">
-                <el-button @click="editVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveEdit">确 定</el-button>
-              </span>
-            </el-dialog>
 
             <!-- 新增弹出框 -->
             <el-dialog title="" :visible.sync="addVisible" width="50%">
@@ -181,6 +166,9 @@
                       <el-input
                         v-model="addList.Telphone"  @blur="animate()"  
                       ></el-input>
+                      <font color= "red">
+                           <el-span v-if="this.addList.Telphone === null"> 您的联络电话格式输入不正确 </el-span>
+                           </font>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -354,7 +342,7 @@ export default {
   prop: {},
   data() {
     return {
-            usernameX:this.$store.state.user,
+            usernameX:localStorage.getItem("ms_username"),
       //级联选择框的配置对象
       cateProps: {
         value: "id",
@@ -498,8 +486,8 @@ export default {
            if(re.test(str)){
               //  alert('成功')
            }else { 
-             this.addList.Telphone=""
-               alert('抱歉手机号不合法')
+             this.addList.Telphone=null
+               
               
           }
        },
@@ -581,7 +569,7 @@ export default {
       this.tableData.push(this.addList);
       this.addList = {};
       this.addVisible = false;
-      location.reload()
+      // location.reload()
       }
     },
 

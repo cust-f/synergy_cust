@@ -54,7 +54,7 @@
 
           <el-table-column label="操作" min-width="90px" align="center">
             <template slot-scope="scope">
-              <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+              <el-button type="text" @click="handleEdit(scope.$index, scope.row)"  size="small">查看任务详情</el-button>
               <el-button type="text" size="small" @click="beginTask(scope.row)">开始任务</el-button>
             </template>
           </el-table-column>
@@ -79,20 +79,20 @@
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="任务ID">
-                <el-input v-model="form.taskId" :disabled="true"></el-input>
+              <el-form-item label="任务名称">
+                <el-input v-model="form.taskName" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="任务名称">
-                <el-input v-model="form.taskName" :disabled="true"></el-input>
+              <el-form-item label="企业名称">
+                <el-input v-model="form.companyName" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务类型">
-                <el-input v-model="form.taskCategoryPart" :disabled="true"></el-input>
+                <el-input v-model="form.taskCategoryPart" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
@@ -104,11 +104,11 @@
           <el-row>
             <el-form-item label="任务详情">
               <el-input
-                :disabled="true"
+                
                 type="textarea"
                 :rows="7"
                 v-model="form.taskDetail"
-                style="width:100%;"
+                style="width:90%;"
               ></el-input>
             </el-form-item>
           </el-row>
@@ -131,7 +131,7 @@ export default {
   name: "designerNewList",
   data() {
     return {
-      username1: this.$store.state.user,
+      username1: localStorage.getItem("ms_username"),
 
       pageIndex: 1,
       pageSize: 7,
@@ -193,11 +193,12 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd");
+      return formatDate(date, "yyyy-MM-dd hh:mm");
     }
   },
   created() {
     this.getData();
+    this.getDetailData();
   },
   methods: {
     beginTask(row) {
@@ -227,7 +228,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        designerName: this.username1
+        designerName: "designer"
       });
       //console.log(data);
       that
@@ -243,7 +244,32 @@ export default {
           this.Not_Accepted_Task_Data = response.data.allData;
           this.form = response.data.allData[0];
         })
-    }
+    },
+    getDetailData() {
+      //console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      //console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/designer/newlist",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.form = response.data.allData;
+        })
+    },
+    handleEdit(index, row) {
+      this.idx = index;
+      this.form = row;
+      this.dialogVisible = true;
+    },
   }
 };
 </script>

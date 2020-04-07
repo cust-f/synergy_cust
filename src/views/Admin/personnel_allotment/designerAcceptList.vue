@@ -72,7 +72,7 @@
             <template slot-scope="scope">
               <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
                 <el-button @click="submitTask(scope.row)" type="text" size="small">任务提交</el-button>
-              <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
+              <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">查看任务详情</el-button>
             
             </template>
           </el-table-column>
@@ -97,25 +97,26 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务名称">
-                <el-input v-model="form1.taskName" :disabled="true"></el-input>
+                <el-input v-model="form1.taskName" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="任务类型">
-                <el-input v-model="form1.taskCategory" :disabled="true"></el-input>
+              <el-form-item label="企业名称">
+                <el-input v-model="form1.companyName" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             
             <el-col :span="11">
-              <el-form-item label="截止日期">
-                <el-input v-model="form1.deadline" :disabled="true"></el-input>
+              <el-form-item label="任务类别">
+                <el-input v-model="form1.taskCategoryPart" ></el-input>
+                
               </el-form-item>
             </el-col>
              <el-col :span="11">
-              <el-form-item label="任务类别">
-                <el-input v-model="form1.taskType" :disabled="true"></el-input>
+              <el-form-item label="截止日期">
+                <el-input v-bind:value="form1.deadline|formatDate" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -123,22 +124,20 @@
           <el-row>
             <el-form-item label="任务详情">
               <el-input
-                :disabled="true"
                 type="textarea"
-                :rows="5"
+                :rows="3"
                 v-model="form1.taskDetail"
-                style="width:100%;"
+                style="width:90%;"
               ></el-input>
             </el-form-item>
           </el-row>
           <el-row>
             <el-form-item label="拒绝原因">
               <el-input
-                :disabled="true"
                 type="textarea"
-                :rows="5"
+                :rows="3"
                 v-model="form1.demandorRefuseReason"
-                style="width:100%;"
+                style="width:90%;"
               ></el-input>
             </el-form-item>
           </el-row>
@@ -167,7 +166,7 @@ export default {
   name: "designerAcceptList",
   data() {
     return {
-      username1: this.$store.state.user,
+      username1: localStorage.getItem("ms_username"),
       
         pageIndex: 1,
         pageSize: 7,
@@ -306,7 +305,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        designerName: this.username1
+        designerName: "designer"
       });
       //console.log(data);
       that
@@ -320,8 +319,13 @@ export default {
         .then(response => {
           // console.log(response);
           this.Accepted_Task_Data = response.data.allData;
-          this.form1 = response.data.allData[0];
+          //this.form1 = response.data.allData[0];
         });
+    },
+    handleEdit(index, row) {
+      this.idx = index;
+      this.form1 = row;
+      this.dialogVisible = true;
     },
     
   }

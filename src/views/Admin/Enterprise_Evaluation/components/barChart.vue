@@ -20,11 +20,17 @@ export default{
       var option = {
     legend: {
       //data: ['发布数量', '完成数量']
+       textStyle: {
+            fontSize: 16
+        }
     },
     tooltip: {},
     
     xAxis: {
       type: 'category',
+      textStyle: {
+            fontSize: 16
+        },
       data:[
             "一月",
             "二月",
@@ -43,6 +49,7 @@ export default{
     yAxis: {},
     // Declare several bar series, each will be mapped to a column of dataset.source by default.
     series: [
+      
         {
           name:'发布数量',
           type: 'bar',

@@ -21,43 +21,43 @@
               <tr>
                 <td class="cg_td01">需求类型：</td>
                 <td class="cg_td02">
-                  <a>不限</a>
-                  <a>设计</a>
-                  <a>流通</a>
+                  <a @click="getInfo()">不限</a>
+                  <a @click="testgetListByTaskType(0)">设计</a>
+                  <a @click="testgetListByTaskType(1)">流通</a>
                 </td>
               </tr>
               <tr>
                 <td class="cg_td01">行业类别：</td>
                 <td class="cg_td02">
                   <a v-bind:class="{ active: isActive0 }" @click="click0">不限</a>
-                  <a v-bind:class="{ active: isActive1 }" @click="click1">交通运输设备</a>
-                  <a v-bind:class="{ active: isActive2 }" @click="click2">仪器仪表及文化、办公用机械</a>
-                  <a v-bind:class="{ active: isActive3 }" @click="click3">通信设备、计算机及其他电子设备</a>
-                  <a v-bind:class="{ active: isActive4 }" @click="click4">电气机械及器材</a>
-                  <a v-bind:class="{ active: isActive5 }" @click="click5">专用设备</a>
-                  <a v-bind:class="{ active: isActive6 }" @click="click6">通用设备</a>
+                  <a v-bind:class="{ active: isActive1 }" @click="click1('交通运输设备')">交通运输设备</a>
+                  <a v-bind:class="{ active: isActive2 }" @click="click2('仪器仪表及文化、办公用机械')">仪器仪表及文化、办公用机械</a>
+                  <a v-bind:class="{ active: isActive3 }" @click="click3('通信设备、计算机及其他电子设备')">通信设备、计算机及其他电子设备</a>
+                  <a v-bind:class="{ active: isActive4 }" @click="click4('电气机械及器材')">电气机械及器材</a>
+                  <a v-bind:class="{ active: isActive5 }" @click="click5('专用设备')">专用设备</a>
+                  <a v-bind:class="{ active: isActive6 }" @click="click6('通用设备')">通用设备</a>
                 </td>
               </tr>
               <tr>
                 <td class="cg_td01">下分子类：</td>
                 <td class="cg_td02">
                   <div v-if="show0">
-                    <a v-for="item in options0" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options0" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show1">
-                    <a v-for="item in options1" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options1" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show2">
-                    <a v-for="item in options2" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options2" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show3">
-                    <a v-for="item in options3" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options3" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show4">
-                    <a v-for="item in options4" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options4" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show5">
-                    <a v-for="item in options5" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options5" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                 </td>
               </tr>
@@ -70,10 +70,9 @@
             size="small"
             placeholder="请输入搜索内容"
             prefix-icon="el-icon-search"
-
-            v-model="input2"
+            v-model="searchInfo"
           ></el-input>
-          <el-button type="warning" class="button1" style=" margin:0px -120px;">搜索</el-button>
+          <el-button type="warning" class="button1" style=" margin:0px -120px;" @click="searchInfoList()">搜索</el-button>
         </div>
 
         <div class="list">
@@ -118,13 +117,17 @@
           <div class="cg_bottomlist" v-for="(list,index) in dataShow" :key="index">
             <ul class="cg_bottomLeft">
               <li class="cg_list001">
-                <a href="#/threeMenu" class="ziti2" @click="passTaskID">{{list.mainTaskName}}</a>
+                <a href="#/threeMenu" class="ziti2" @click="passTaskID(list.taskId)">{{list.taskName}}</a>
               </li>
               <li class="cg_list002">
-                <a>需求类型：&nbsp;流通</a>
-                <a>行业类别：{{list.taskCategoryMain}}</a>
-                <br />
-                <a>发布时间：{{list.publishTime| dataFormat("yyyy-MM-dd")}}</a>
+              <p>
+                <a>需求类型：{{change(list.taskType)}}&nbsp;&nbsp;&nbsp;</a>
+                <br>
+                <a>行业主类别：{{list.taskCategoryMain}}&nbsp;&nbsp;&nbsp;</a>
+                <br>
+                <a>行业子类别：{{list.taskCategoryPart}}</a>      
+              </p>
+                <a>发布时间：{{list.publishTime| dataFormat("yyyy-MM-dd")}}&nbsp;&nbsp;&nbsp;</a>
                 <a>截止时间：{{list.deadline| dataFormat("yyyy-MM-dd")}}</a>
               </li>
             </ul>
@@ -136,7 +139,7 @@
                     <font>机构名称:</font>
                     {{list.companyName}}
                     <br />
-
+                    <br />
                     <font>联系电话:</font>
                     {{list.demanderTel}}
                   </a>
@@ -160,7 +163,7 @@
           <div class="page">
               <ul>
                   <li>
-                      <a href="#/xuqiuyilan"  v-on:click="prePage" ></a>
+                      <a href="#/xuqiuyilan"  v-on:click="prePage" ><</a>
                   </li>
                   <li v-for="(list, index) in totalPage">
                       <a href="#/xuqiuyilan" v-on:click="toPage(index)" :class="{active: currentPage==index}">{{ index+1 }}</a>
@@ -403,7 +406,8 @@ export default {
         totalPage:[],
         // 当前显示的数据
         dataShow:[],
-        
+        //搜索框
+        searchInfo:"",
         // pageNo: 1,
         // pageSize: 10,
         // pageSizesList: [10, 15, 20, 30, 50],
@@ -421,6 +425,15 @@ export default {
     this.getInfo()
   },
   methods: {
+    change(taskType){
+      if(taskType==0)
+        return "设计";
+      if(taskType==1)
+        return "流通";
+      else
+        return "error"
+    },
+
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -429,13 +442,74 @@ export default {
       this.router.push("/admin/circulationTask");
     },
 
-    passTaskID(){
+    passTaskID(taskId){
       this.$router.push({
         path:"/threeMenu",
-        query:{taskID:3}
+        query:{taskID:taskId}
         // 
       });
     },
+
+    
+    testgetListByTaskType(taskType){
+      var that = this;
+      let data = Qs.stringify({
+        taskType: taskType
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/xuqiuyilan/getListByTaskType",
+        data: data
+      }).then(response =>{
+        that.demandTaskList = response.data;
+        console.log(that.demandTaskList)
+        this.pageChange();
+        this.$message({
+        type: "success",
+        message: "成功"
+      });
+      })
+    },
+    
+    testgetListByMainType(TaskCategory){
+      var that = this;
+      let data = Qs.stringify({
+        TaskCategory: TaskCategory
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/xuqiuyilan/getListByMainType",
+        data: data
+      }).then(response =>{
+        that.demandTaskList = response.data;
+        console.log(this.demandTaskList)
+        this.pageChange();
+        this.$message({
+        type: "success",
+        message: "成功"
+      });
+      })
+    },
+    testgetListByPartType(TaskCategory){
+      var that = this;
+      let data = Qs.stringify({
+        TaskCategory: TaskCategory
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/xuqiuyilan/getListByPartType",
+        data: data
+      }).then(response =>{
+        that.demandTaskList = response.data;
+        console.log(this.demandTaskList)
+        this.pageChange();
+        this.$message({
+        type: "success",
+        message: "成功"
+      });
+      })
+    },
+
 
     click0() {
       this.show0 = false;
@@ -453,7 +527,7 @@ export default {
       this.isActive5 = false;
       this.isActive6 = false;
     },
-    click1() {
+    click1(TaskCategory) {
       if (this.show0 == false) {
         this.show0 = true;
         this.show1 = false;
@@ -469,6 +543,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = false;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show0 == true) {
@@ -490,7 +565,7 @@ export default {
       }
     },
 
-    click2() {
+    click2(TaskCategory) {
       if (this.show1 == false) {
         this.show0 = false;
         this.show1 = true;
@@ -506,6 +581,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = false;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show1 == true) {
@@ -527,7 +603,7 @@ export default {
       }
     },
 
-    click3() {
+    click3(TaskCategory) {
       if (this.show2 == false) {
         this.show0 = false;
         this.show1 = false;
@@ -543,6 +619,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = false;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show2 == true) {
@@ -563,7 +640,7 @@ export default {
         return;
       }
     },
-    click4() {
+    click4(TaskCategory) {
       if (this.show3 == false) {
         this.show0 = false;
         this.show1 = false;
@@ -579,6 +656,7 @@ export default {
         this.isActive4 = true;
         this.isActive5 = false;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show3 == true) {
@@ -600,7 +678,7 @@ export default {
       }
     },
 
-    click5() {
+    click5(TaskCategory) {
       if (this.show4 == false) {
         this.show0 = false;
         this.show1 = false;
@@ -616,6 +694,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = true;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show4 == true) {
@@ -637,7 +716,7 @@ export default {
       }
     },
 
-    click6() {
+    click6(TaskCategory) {
       if (this.show5 == false) {
         this.show0 = false;
         this.show1 = false;
@@ -653,6 +732,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = false;
         this.isActive6 = true;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show5 == true) {
@@ -687,9 +767,33 @@ export default {
         })
         .then(response =>{
         that.demandTaskList = response.data;
-        console.log(that.demandTaskList)
         console.log(that.demandTaskList.length)
+        this.pageChange();
+      });
+    },
 
+    searchInfoList() {
+      var that = this;
+      let data = Qs.stringify({
+        searchName: this.searchInfo
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/xuqiuyilan/searchInfo",
+        data: data
+      }).then(response =>{
+        that.demandTaskList = response.data;
+        console.log(that.demandTaskList)
+        this.pageChange();
+        this.$message({
+        type: "success",
+        message: "搜索成功"
+      });
+      })
+    },
+
+    pageChange(){
+        var that = this;
         // 总页数
         that.pageNum = Math.ceil(that.demandTaskList.length / that.pageSize) || 1 
         // 分组
@@ -699,7 +803,6 @@ export default {
         // 取值
         that.dataShow = that.totalPage[that.currentPage]
         console.log(that.dataShow)
-      });
     },
 
 //     //改变每页显示数量
@@ -1074,7 +1177,7 @@ export default {
 
   font-family: Arial, Verdana, "微软雅黑";
 
-  font-size: 14px;
+  font-size: 20px;
 
   font-style: normal;
 
@@ -1120,7 +1223,7 @@ export default {
 
   word-break: break-all;
 
-  height: 150px;
+  height: 120px;
 }
 .cg_list001 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -1150,7 +1253,7 @@ export default {
 
   font-family: Arial, Verdana, "微软雅黑";
 
-  font-size: 14px;
+  font-size: 16px;
 
   font-weight: 400;
 
@@ -1167,6 +1270,7 @@ export default {
 }
 
 .xuqiuyilan .ziti2 {
+
   -webkit-text-size-adjust: auto;
 
   color: rgb(0, 153, 234);
@@ -1175,7 +1279,7 @@ export default {
 
   font-family: "微软雅黑";
 
-  font-size: 18px;
+  font-size: 21px;
 
   font-style: normal;
 

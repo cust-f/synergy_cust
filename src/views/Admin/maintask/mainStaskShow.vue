@@ -90,7 +90,7 @@ export default {
   name: "mainStaskShow",
   data() {
     return {
-      usernameX:this.$store.state.user,
+      usernameX:localStorage.getItem("ms_username"),
       pageIndex: 1,
       pageSize: 10,
       activeName: "first",

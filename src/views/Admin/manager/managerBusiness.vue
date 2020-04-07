@@ -213,6 +213,7 @@ export default {
   },
   created() {
     this.getData();
+    this.getProvice();
   },
   methods: {
     /*
@@ -271,6 +272,26 @@ export default {
         path: "/admin/businessDetail",
         query: { companyId: id }
       });
+    },
+     handleSearch(){
+       var that = this;
+      console.log(this.provicepid)
+      var data = Qs.stringify({
+        provicepid: this.provicepid,
+        citypid:this.citypid
+      });
+      console.log(this.provicepid)
+      console.log(this.citypid)
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/companyDetail/selectBySS",
+          data:data
+        })
+        .then(response => {
+          this.tableData = response.data.allData;
+          console.log(response);
+        });
     },
 
     // 删除操作

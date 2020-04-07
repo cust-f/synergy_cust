@@ -12,22 +12,23 @@
     <el-container>
       <el-main>
         <div class="box">
-           <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;人员管理</div>
+          <div
+            class="biaoti"
+            style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
+          >&nbsp;&nbsp;人员管理</div>
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <template>
           <div>
             <div class="container">
               <div class="handle-box">
-                
-
-                <el-input v-model="query.userName" placeholder="用户名" class="handle-input mr10"></el-input>
+                <el-input v-model="userName" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
 
                 <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
               </div>
               <div class="box">
                 <el-table
-                  :data="tableData"
+                  :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
@@ -36,14 +37,15 @@
                   row-style="height:0"
                   cell-style="padding:0"
                 >
-                  <el-table-column prop="id" label="ID" width="55" align="center" type="index"></el-table-column>
+                  <el-table-column prop="userId" label="序号" width="55" align="center" type="index"></el-table-column>
+
                   <el-table-column prop="userName" label="用户名"></el-table-column>
                   <el-table-column prop="realName" label="真实姓名"></el-table-column>
                   <el-table-column prop="roleId" label="部门">
-                      <template slot-scope="scope">
-                 <span v-if="scope.row.roleId === 4">设计人员</span>
-              <span v-else-if="scope.row.roleId === 5">流通人员</span>
-            </template>
+                    <template slot-scope="scope">
+                      <span v-if="scope.row.roleId === 4">设计人员</span>
+                      <span v-else-if="scope.row.roleId === 5">流通人员</span>
+                    </template>
                   </el-table-column>
                   <el-table-column prop="email" label="邮箱"></el-table-column>
                   <el-table-column prop="phone" label="电话"></el-table-column>
@@ -69,10 +71,11 @@
                 <el-pagination
                   background
                   layout="total, prev, pager, next"
-                  :current-page="query.pageIndex"
-                  :page-size="query.pageSize"
-                  :total="pageTotal"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData.length"
                   @current-change="handlePageChange"
+                  @size-change="handleSizeChange"
                 ></el-pagination>
               </div>
             </div>
@@ -162,10 +165,11 @@ export default {
   name: "newStaff",
   data() {
     return {
-      query: {
+      usernamex: this.$store.state.user,
+      
         pageIndex: 1,
-        pageSize: 10
-      },
+        pageSize: 7,
+      
       tableData: [
         {
           
@@ -230,10 +234,10 @@ export default {
     getData() {
       //this.tableData = res.list;
       //this.pageTotal = tableData.length;
-       console.log(this.userName);
+       console.log(this.usernamex);
       var that = this;
       var data = Qs.stringify({
-        userName: ""
+        userName: "supplier"
       });
       console.log(data);
       that
@@ -247,13 +251,12 @@ export default {
         .then(response => {
           console.log(response);
           this.tableData = response.data.allData;
-          //this.form = response.data.allData[0];
         });
         
     },
     // 触发搜索按钮
     handleSearch() {
-      this.$set(this.query, "pageIndex", 1);
+      //this.$set(this.query, "pageIndex", 1);
       this.getData();
     },
     // 删除操作
@@ -264,7 +267,7 @@ export default {
         type: "warning"
       })
     //  var data = Qs.stringify({
-    //     User_Name: this.row.userName
+    //     userId: this.row.userName
     //   });
     //   that
     //     .axios({
@@ -306,7 +309,7 @@ export default {
     saveAdd() {
        var that = this;
       var data = Qs.stringify({
-        username: "",
+        userName:"supplier" ,
         User_Name: this.addList.userName,
         Real_Name : this.addList.realName, 
         Role_Id: this.addList.roleId,
@@ -314,11 +317,10 @@ export default {
         Email:this.addList.email,
         Password1:this.addList.password,
         //roleName:this.roleName
-        
       
       });
       console.log(data);
-      console.log(this.addList.email);
+      //console.log(this.addList.email);
 
       that.axios({
         method: "post",
@@ -336,17 +338,20 @@ export default {
       this.idx = index;
       this.form = row;
       this.editVisible = true;
+      this.userId=row.userId;
     },
     // 保存编辑
     saveEdit() {
       
       var that = this;
       var data = Qs.stringify({
-        username: "",
+        userId : this.userId,
+        
         User_Name: this.form.userName,
         Phone:this.form.phone,
         Email:this.form.email,
-        Password:this.form.passWord,
+        Password:this.form.password,
+        //userId:row.userId
       });
       console.log(data);
       //console.log(this.addList.email);
@@ -418,17 +423,15 @@ export default {
 .table-td-thumb {
   display: block;
   margin: auto;
-  width: 40px; 
+  width: 40px;
   height: 30px;
- 
 }
 .box {
   font-size: 24px;
 }
- .biaoti {
-    font-size: 18px;
-    color: #303133;
-  }
-
+.biaoti {
+  font-size: 18px;
+  color: #303133;
+}
 </style>
 
