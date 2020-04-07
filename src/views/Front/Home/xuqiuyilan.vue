@@ -21,43 +21,43 @@
               <tr>
                 <td class="cg_td01">需求类型：</td>
                 <td class="cg_td02">
-                  <a>不限</a>
-                  <a>设计</a>
-                  <a>流通</a>
+                  <a @click="getInfo()">不限</a>
+                  <a @click="testgetListByTaskType(0)">设计</a>
+                  <a @click="testgetListByTaskType(1)">流通</a>
                 </td>
               </tr>
               <tr>
                 <td class="cg_td01">行业类别：</td>
                 <td class="cg_td02">
                   <a v-bind:class="{ active: isActive0 }" @click="click0">不限</a>
-                  <a v-bind:class="{ active: isActive1 }" @click="click1">交通运输设备</a>
-                  <a v-bind:class="{ active: isActive2 }" @click="click2">仪器仪表及文化、办公用机械</a>
-                  <a v-bind:class="{ active: isActive3 }" @click="click3">通信设备、计算机及其他电子设备</a>
-                  <a v-bind:class="{ active: isActive4 }" @click="click4">电气机械及器材</a>
-                  <a v-bind:class="{ active: isActive5 }" @click="click5">专用设备</a>
-                  <a v-bind:class="{ active: isActive6 }" @click="click6">通用设备</a>
+                  <a v-bind:class="{ active: isActive1 }" @click="click1('交通运输设备')">交通运输设备</a>
+                  <a v-bind:class="{ active: isActive2 }" @click="click2('仪器仪表及文化、办公用机械')">仪器仪表及文化、办公用机械</a>
+                  <a v-bind:class="{ active: isActive3 }" @click="click3('通信设备、计算机及其他电子设备')">通信设备、计算机及其他电子设备</a>
+                  <a v-bind:class="{ active: isActive4 }" @click="click4('电气机械及器材')">电气机械及器材</a>
+                  <a v-bind:class="{ active: isActive5 }" @click="click5('专用设备')">专用设备</a>
+                  <a v-bind:class="{ active: isActive6 }" @click="click6('通用设备')">通用设备</a>
                 </td>
               </tr>
               <tr>
                 <td class="cg_td01">下分子类：</td>
                 <td class="cg_td02">
                   <div v-if="show0">
-                    <a v-for="item in options0" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options0" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show1">
-                    <a v-for="item in options1" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options1" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show2">
-                    <a v-for="item in options2" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options2" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show3">
-                    <a v-for="item in options3" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options3" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show4">
-                    <a v-for="item in options4" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options4" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                   <div v-if="show5">
-                    <a v-for="item in options5" :key="item.value">{{item.label}}</a>
+                    <a v-for="item in options5" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
                   </div>
                 </td>
               </tr>
@@ -121,8 +121,10 @@
               </li>
               <li class="cg_list002">
               <p>
-                <a>需求类型：流通&nbsp;&nbsp;&nbsp;</a>
+                <a>需求类型：{{change(list.taskType)}}&nbsp;&nbsp;&nbsp;</a>
+                <br>
                 <a>行业主类别：{{list.taskCategoryMain}}&nbsp;&nbsp;&nbsp;</a>
+                <br>
                 <a>行业子类别：{{list.taskCategoryPart}}</a>      
               </p>
                 <a>发布时间：{{list.publishTime| dataFormat("yyyy-MM-dd")}}&nbsp;&nbsp;&nbsp;</a>
@@ -423,6 +425,15 @@ export default {
     this.getInfo()
   },
   methods: {
+    change(taskType){
+      if(taskType==0)
+        return "设计";
+      if(taskType==1)
+        return "流通";
+      else
+        return "error"
+    },
+
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -438,6 +449,67 @@ export default {
         // 
       });
     },
+
+    
+    testgetListByTaskType(taskType){
+      var that = this;
+      let data = Qs.stringify({
+        taskType: taskType
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/xuqiuyilan/getListByTaskType",
+        data: data
+      }).then(response =>{
+        that.demandTaskList = response.data;
+        console.log(that.demandTaskList)
+        this.pageChange();
+        this.$message({
+        type: "success",
+        message: "成功"
+      });
+      })
+    },
+    
+    testgetListByMainType(TaskCategory){
+      var that = this;
+      let data = Qs.stringify({
+        TaskCategory: TaskCategory
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/xuqiuyilan/getListByMainType",
+        data: data
+      }).then(response =>{
+        that.demandTaskList = response.data;
+        console.log(this.demandTaskList)
+        this.pageChange();
+        this.$message({
+        type: "success",
+        message: "成功"
+      });
+      })
+    },
+    testgetListByPartType(TaskCategory){
+      var that = this;
+      let data = Qs.stringify({
+        TaskCategory: TaskCategory
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8082/xuqiuyilan/getListByPartType",
+        data: data
+      }).then(response =>{
+        that.demandTaskList = response.data;
+        console.log(this.demandTaskList)
+        this.pageChange();
+        this.$message({
+        type: "success",
+        message: "成功"
+      });
+      })
+    },
+
 
     click0() {
       this.show0 = false;
@@ -455,7 +527,7 @@ export default {
       this.isActive5 = false;
       this.isActive6 = false;
     },
-    click1() {
+    click1(TaskCategory) {
       if (this.show0 == false) {
         this.show0 = true;
         this.show1 = false;
@@ -471,6 +543,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = false;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show0 == true) {
@@ -492,7 +565,7 @@ export default {
       }
     },
 
-    click2() {
+    click2(TaskCategory) {
       if (this.show1 == false) {
         this.show0 = false;
         this.show1 = true;
@@ -508,6 +581,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = false;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show1 == true) {
@@ -529,7 +603,7 @@ export default {
       }
     },
 
-    click3() {
+    click3(TaskCategory) {
       if (this.show2 == false) {
         this.show0 = false;
         this.show1 = false;
@@ -545,6 +619,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = false;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show2 == true) {
@@ -565,7 +640,7 @@ export default {
         return;
       }
     },
-    click4() {
+    click4(TaskCategory) {
       if (this.show3 == false) {
         this.show0 = false;
         this.show1 = false;
@@ -581,6 +656,7 @@ export default {
         this.isActive4 = true;
         this.isActive5 = false;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show3 == true) {
@@ -602,7 +678,7 @@ export default {
       }
     },
 
-    click5() {
+    click5(TaskCategory) {
       if (this.show4 == false) {
         this.show0 = false;
         this.show1 = false;
@@ -618,6 +694,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = true;
         this.isActive6 = false;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show4 == true) {
@@ -639,7 +716,7 @@ export default {
       }
     },
 
-    click6() {
+    click6(TaskCategory) {
       if (this.show5 == false) {
         this.show0 = false;
         this.show1 = false;
@@ -655,6 +732,7 @@ export default {
         this.isActive4 = false;
         this.isActive5 = false;
         this.isActive6 = true;
+        this.testgetListByMainType(TaskCategory);
         return;
       }
       if (this.show5 == true) {
@@ -689,7 +767,6 @@ export default {
         })
         .then(response =>{
         that.demandTaskList = response.data;
-        console.log(that.demandTaskList)
         console.log(that.demandTaskList.length)
         this.pageChange();
       });
@@ -702,7 +779,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/threeMenu/searchInfo",
+        url: "http://127.0.0.1:8082/xuqiuyilan/searchInfo",
         data: data
       }).then(response =>{
         that.demandTaskList = response.data;
@@ -714,7 +791,7 @@ export default {
       });
       })
     },
-    
+
     pageChange(){
         var that = this;
         // 总页数
@@ -1146,7 +1223,7 @@ export default {
 
   word-break: break-all;
 
-  height: 100px;
+  height: 120px;
 }
 .cg_list001 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
