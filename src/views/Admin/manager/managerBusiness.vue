@@ -22,6 +22,10 @@
                     :value="leibie.id"
                     @change="getCity"
                   ></el-option>
+                    <el-option
+                    label="不限"
+                    value="99"
+                  ></el-option>
                 </el-select>
 
                 <el-select
@@ -36,6 +40,10 @@
                     :key="leibie.id"
                     :label="leibie.districtName"
                     :value="leibie.id"
+                  ></el-option>
+                  <el-option
+                    label="不限"
+                    value="10086"
                   ></el-option>
                 </el-select>
 
@@ -58,21 +66,21 @@
                   width="160"
                   align="center"
                 ></el-table-column>
-                <el-table-column prop="type" label="企业类别" width="90" align="center"></el-table-column>
+                <el-table-column prop="type" label="企业类别"  sortable width="120" align="center"></el-table-column>
                 <!-- <template slot-scope="scope">
                           <span v-if="+scope.row.Role_Name===0">核心企业</span>
                           <span v-else-if="+scope.row.Role_Name===1">供应商</span>
                 </template>-->
-                <el-table-column prop="foundTime" label="成立时间" align="center">
+                <el-table-column prop="foundTime" label="成立时间" sortable width="120" align="center">
                   <template slot-scope="scope">
                     <div>
                       <span>{{scope.row.foundTime | dataFormat("yyyy-MM-dd")}}</span>
                     </div>
                   </template>
                 </el-table-column>
-                <el-table-column prop="province" label="所在省" width="90" align="center"></el-table-column>
-                <el-table-column prop="city" label="所在市" width="90" align="center"></el-table-column>
-                <el-table-column prop="officeNumber" label="办公电话" align="center"></el-table-column>
+                <el-table-column prop="province" label="所在省"  sortable width="100" align="center"></el-table-column>
+                <el-table-column prop="city" label="所在市"  sortable width="100" align="center"></el-table-column>
+                <el-table-column prop="officeNumber" label="办公电话" width="100" align="center"></el-table-column>
 
                 <el-table-column label="操作" width="180" align="center">
                   <template slot-scope="scope">
@@ -203,9 +211,12 @@ export default {
   },
   watch: {
     provicepid(){
-       if(this.provicepid !=0){
+       if(this.provicepid !=0&&this.provicepid!=99){
         this.getCity();
         console.log("ri")
+      }
+      if(this.provicepid ==99){
+        this.citypid="10086"
       }
     }
      
@@ -239,7 +250,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/district/province"
+          url: "http://127.0.0.1:8082/district/HaChangProvince"
         })
         .then(response => {
           this.Provice = response.data.allData.Province;
