@@ -49,6 +49,19 @@ export default {
 <style lang="scss">
    @import "./assets/css/main.css";
   @import "./assets/css/color-dark.css";     /*深色主题*/
+body .el-table th.gutter{
+
+    display: table-cell!important;
+
+}
+
+ 
+
+body .el-table colgroup.gutter{
+
+    display: table-cell!important;
+
+}
 * {
   padding: 0;
   margin: 0;
@@ -88,9 +101,8 @@ body{
   background: rgba(0, 0, 0, 0.1);
   /* -webkit-box-shadow:inset006pxrgba(0,0,0,0.5); */
 }
-body .el-table th.gutter{
-display: table-cell!important;
-}
+
+
 h3{
   font-size: 24px;
 }

@@ -325,7 +325,7 @@
               <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="180" align="center">
+          <el-table-column label="操作" width="150" align="center">
             <template slot-scope="scope">
               <!-- <el-button
                       type="text"

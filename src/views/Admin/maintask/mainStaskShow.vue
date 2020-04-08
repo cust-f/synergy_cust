@@ -13,34 +13,38 @@
                 <!-- <el-input v-model="selectstate" placeholder="需求状态" class="handle-input mr10"></el-input> -->
                 <el-button type="primary" @click="handleSearch">搜索</el-button>
               </div>
+              <div>
               <el-table
                 :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                 border
                 class="table"
-                ref="multipleTable"
+                ref="configurationTable"
+                :default-sort = "{prop: 'taskState,publishTime,time', order: 'descending'}"
+                
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
                 <!-- mainTaskID冲-->
-                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
+                <el-table-column  label="序号"  type="index" width="120"  align="center"></el-table-column>
                 <el-table-column prop="mainTaskName" label="需求任务名称" align="center"></el-table-column>
-                <el-table-column prop="taskCategoryMain" label="需求类型" align="center"></el-table-column>
-                <el-table-column prop="principalName" label="项目负责人" align="center"></el-table-column>
-                <el-table-column prop="publishTime" label="发布时间">
-                  <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
-                </el-table-column>
-                <el-table-column prop="time" label="截止时间">
-                  <template slot-scope="scope">
-                    {{scope.row.deadline | formatDate}}
-                  </template>
-                </el-table-column>
-                <el-table-column prop="taskState" label="状态" align="center" type="text">
+                <el-table-column prop="taskState" label="状态" sortable align="center" type="text">
                   <template slot-scope="scope">
                     <span v-if="+scope.row.taskState ===0">进行中</span>
                     <span v-else-if="+scope.row.taskState ===1">已完成</span>
                     <span v-else-if="+scope.row.taskState ===2">废除</span>
                   </template>
                 </el-table-column>
+                <el-table-column prop="taskCategoryMain" label="需求类型" align="center"></el-table-column>
+                <el-table-column prop="principalName"   label="负责人" align="center"></el-table-column>
+                <el-table-column prop="publishTime" sortable label="发布时间">
+                  <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+                </el-table-column>
+                <el-table-column prop="time" sortable label="截止时间">
+                  <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                  </template>
+                </el-table-column>
+                
                 <el-table-column label="操作"  align="center">
                   <template slot-scope="scope">
                     <!-- <el-button
@@ -53,6 +57,7 @@
                   </template>
                 </el-table-column>
               </el-table>
+              </div>
               <div class="pagination">
                 <el-pagination
                   background
@@ -96,7 +101,7 @@ export default {
       activeName: "first",
       tableData: [
         {
-          id: 1,
+         
           bussessType: "电视测角仪",
           name: "长春奥普光电技术股份有限公司",
           money: 30000,
@@ -109,7 +114,7 @@ export default {
           substaskTask: "线路设计"
         },
         {
-          id: 2,
+          
           bussessType: "磨床生产",
           name: "杭机集团长春一机有限公司",
           money: 5000,
@@ -122,7 +127,7 @@ export default {
           substaskTask: "磨床设计"
         },
         {
-          id: 3,
+          
           bussessType: "汽车集成服务",
           name: "启明信息技术股份有限公司",
           money: 5000,
@@ -135,7 +140,7 @@ export default {
           substaskTask: "汽车电子测试设计"
         },
         {
-          id: 4,
+          
           bussessType: "卫星应用数据",
           name: "哈尔滨航天恒星数据系统科技有限公司",
           money: 5000,
@@ -148,7 +153,6 @@ export default {
           substaskTask: "卫星应用数据采集"
         },
         {
-          id: 5,
           bussessType: "通信技术",
           name: "哈尔滨海邻科信息技术有限公司",
           money: 5000,
@@ -161,7 +165,7 @@ export default {
           substaskTask: "通讯装备设计"
         },
         {
-          id: 6,
+          
           bussessType: "高分子材料创新",
           name: "黑龙江省润特科技有限公司",
           money: 5000,
@@ -242,7 +246,9 @@ export default {
         .then(response => {
           console.log(response);
           this.tableData = response.data.allData;
+          this.$refs.configurationTable.$el.style.width = '99.99%'
         });
+        
     },
 
     handleSearch() {
@@ -406,22 +412,14 @@ export default {
   width: 260px;
   display: inline-block;
 }
-.table {
-  width: 100%;
-  /* font-size: 16px; */
-}
+
 .red {
   color: #ff0000;
 }
 .mr10 {
   margin-right: 10px;
 }
-.table-td-thumb {
-  display: block;
-  margin: auto;
-  width: 40px;
-  height: 40px;
-}
+
 .box {
   font-size: 24px;
 }
@@ -432,4 +430,9 @@ export default {
     font-size: 18px;
     color: #00a2e6;
   }
+
+.el-table--border th.gutter:last-of-type {
+        display: block !important;
+        width: 17px !important;
+    }
 </style>
