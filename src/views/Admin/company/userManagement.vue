@@ -33,8 +33,8 @@
           >
                 <el-table-column label="序号" type="index" width="70" align="center"></el-table-column>
                 <el-table-column prop="userName" label="用户名称" sortable width="130" align="center"></el-table-column>
-                <el-table-column prop="companyName" label="企业名称" width="180" align="center"></el-table-column>
-                <el-table-column prop="roleName" label="角色名称" align="center">
+                <el-table-column prop="companyName" label="企业名称" sortable width="180" align="center"></el-table-column>
+                <el-table-column prop="roleName" label="角色名称" sortable align="center">
                    <template slot-scope="{row: {roleName}}">
                           <span v-if="+roleName===1">管理员</span>
                           <span v-else-if="+roleName===2">核心企业</span>
@@ -92,6 +92,9 @@
                 </el-form-item>
                 <el-form-item label="联系方式">
                   <el-input v-model="addList.phone" @blur="animate()"></el-input>
+                   <font color= "red">
+                           <el-span v-if="this.addList.phone === null"> 您输入的联系方式格式不正确 </el-span>
+                           </font>
                 </el-form-item>
                  <!-- <el-form-item label="用户密码">
                   <el-input v-model="addList.password"></el-input>
@@ -222,11 +225,10 @@ export default {
        animate(){
            var re = /^1\d{10}$/;
            let str = this.addList.phone;
-           if(re.test(str)){
+          if(re.test(str)){
               //  alert('成功')
            }else {
-               this.addList.phone = "";
-               alert('抱歉联系方式不合法')
+               this.addList.phone = null;
 
           }
        },

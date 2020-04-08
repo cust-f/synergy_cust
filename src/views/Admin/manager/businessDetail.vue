@@ -187,12 +187,16 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业成立时间">
-                  <el-input v-model="form1.foundingTime" :disabled="true"></el-input>
+                  <el-input v-model="form1.foundingTime" :disabled="true">
+                  </el-input>
                 </el-form-item>
               </el-col>
                 <el-col :span="12">
                     <el-form-item label="电子邮箱">
                         <el-input v-model="form1.email" @blur="youxiang()"></el-input>
+                          <font color= "red">
+                           <el-span v-if="this.form1.email === null"> 您输入的电子邮箱格式不正确 </el-span>
+                           </font>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -219,6 +223,9 @@
               <el-col :span="12">
                     <el-form-item label="邮政编码">
                         <el-input  @blur="youzhengbianma()" v-model="form1.postcode" ></el-input>
+                          <font color= "red">
+                           <el-span v-if="this.form1.postcode === null"> 您输入的邮政编码格式不正确 </el-span>
+                           </font>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -245,6 +252,9 @@
                <el-col :span="12">
                     <el-form-item label="办公电话">
                         <el-input @blur="animate()"  v-model="form1.officeNumber" ></el-input>
+                         <font color= "red">
+                           <el-span v-if="this.form1.officeNumber === null"> 您输入的办公电话格式不正确 </el-span>
+                           </font>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -290,6 +300,9 @@
               <el-col :span="12">
                     <el-form-item label="银行账户">
                         <el-input @blur="yinhangkahao()" v-model="form1.bankNumber" ></el-input>
+                         <font color= "red">
+                           <el-span v-if="this.form1.bankNumber === null"> 您输入的银行账户格式不正确 </el-span>
+                           </font>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -437,11 +450,10 @@ export default {
        animate(){
            var re = /^1\d{10}$/;
            let str = this.form1.officeNumber;
-           if(re.test(str)){
+            if(re.test(str)){
               //  alert('成功')
            }else {
-               this.form1.officeNumber = "";
-               alert('抱歉手机号不合法')
+               this.form1.officeNumber = null;
 
           }
        },
@@ -449,33 +461,30 @@ export default {
        yinhangkahao(){
             var re =  /\d{14}$/
            let str = this.form1.bankNumber;
-           if(re.test(str)){
+             if(re.test(str)){
               //  alert('成功')
            }else {
-               this.form1.bankNumber="";
-               alert('抱歉银行卡号不合法')
+               this.form1.bankNumber=null;
           }
        },
          //邮箱校验
        youxiang(){
             var re = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/ 
            let str = this.form1.email;
-           if(re.test(str)){
+            if(re.test(str)){
               //  alert('成功')
            }else {
-               this.form1.email = "";
-               alert('抱歉邮箱不合法')
+               this.form1.email = null;
           }
        },
        //邮政编码校验
        youzhengbianma(){
             var re =   /\d{6}$/
            let str = this.form1.postcode;
-           if(re.test(str)){
+          if(re.test(str)){
               //  alert('成功')
            }else {
-               this.form1.postcode = "";
-               alert('抱歉邮箱不合法')
+               this.form1.postcode = null;
           }
        },
 
