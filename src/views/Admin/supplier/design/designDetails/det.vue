@@ -441,9 +441,8 @@
       </el-dialog>
 
       <!-- 计划书上传 -->
-      <el-dialog title="上传计划书" :visible.sync="planbook" width="24%" :before-close="handleClose">
+      <el-dialog title="上传计划书" :visible.sync="planbook" width="400px" :before-close="handleClose">
         <el-upload
-          class="upload-demo"
           ref="upload"
           action="http://127.0.0.1:8082/supplier/import"
           :on-preview="handlePreview"
@@ -469,9 +468,9 @@
       </el-dialog>
 
       <!-- 上传合同 -->
-      <el-dialog title="上传合同" :visible.sync="conbook" width="24%" :before-close="handleClose">
+      <el-dialog title="上传合同" :visible.sync="conbook" width="400px" :before-close="handleClose">
         <el-upload
-          class="upload-demo"
+
           ref="upload"
           action="http://127.0.0.1:8082/supplier/import"
           :on-preview="handlePreview"
@@ -1114,6 +1113,7 @@ export default {
         url: "http://127.0.0.1:8082/supplier/textImportCon",
         data: data
       });
+      this.$router.go(0);
     },
     handleAvatarSuccess1(response, file, fileList) {
       this.technicalFile1 = response;
@@ -1133,6 +1133,7 @@ export default {
         url: "http://127.0.0.1:8082/supplier/textImportPlan",
         data: data
       });
+      this.$router.go(0);
     },
     //提交拒绝原因
     SJJJYYTJ() {
