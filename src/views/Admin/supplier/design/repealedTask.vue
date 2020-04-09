@@ -23,7 +23,7 @@
 
       <el-table-column prop="taskLeader" label="需求负责人" align="center"></el-table-column>
 
-      <el-table-column prop="deadline" label="截止日期">
+      <el-table-column prop="deadline" sortable label="截止日期">
         {{scope.row.publishTime | formatDate}}
       </el-table-column>
 

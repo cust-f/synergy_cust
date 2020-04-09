@@ -230,6 +230,10 @@
                 <el-col :span="12">
                     <el-form-item label="邮政编码">
                         <el-input  @blur="youzhengbianma()" v-model="form1.postcode" ></el-input>
+                           <font color= "red">
+                           <el-span v-if="this.form1.postcode === null"> 您的邮政编码输入不正确 </el-span>
+                           </font>
+                        
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -245,6 +249,9 @@
                 <el-col :span="12">
                     <el-form-item label="电子邮箱">
                         <el-input v-model="form1.email" @blur="youxiang()"></el-input>
+                        <font color= "red">
+                           <el-span v-if="this.form1.email === null"> 您的电子邮箱输入不正确 </el-span>
+                           </font>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -258,6 +265,9 @@
                  <el-col :span="12">
                     <el-form-item label="办公室电话">
                         <el-input @blur="animate()"  v-model="form1.officeNumber" ></el-input>
+                         <font color= "red">
+                           <el-span v-if="this.form1.officeNumber === null"> 您的办公室电话输入不正确 </el-span>
+                           </font>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -291,7 +301,10 @@
             <el-row>
               <el-col :span="12">
                     <el-form-item label="企业联络电话">
-                        <el-input  v-model="form1.businessTel" @blur="animate()" ></el-input>
+                        <el-input  v-model="form1.businessTel" @blur="animate1()" ></el-input>
+                        <font color= "red">
+                           <el-span v-if="this.form1.businessTel === null"> 您的企业联络电话输入不正确 </el-span>
+                           </font>
                     </el-form-item>
                 </el-col>
                
@@ -311,6 +324,9 @@
                  <el-col :span="12">
                     <el-form-item label="银行账户">
                         <el-input @blur="yinhangkahao()" v-model="form1.bankNumber" ></el-input>
+                                           <font color= "red">
+                           <el-span v-if="this.form1.bankNumber === null"> 您的银行账户输入不正确 </el-span>
+                           </font>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -433,8 +449,19 @@ export default {
            if(re.test(str)){
               //  alert('成功')
            }else {
-               this.form1.officeNumber = "";
-               alert('抱歉手机号不合法')
+               this.form1.officeNumber = null;
+              
+
+          }
+       },
+        animate1(){
+           var re = /^1\d{10}$/;
+           let str = this.form1.businessTel;
+           if(re.test(str)){
+              //  alert('成功')
+           }else {
+               this.form1.businessTel = null;
+              
 
           }
        },
@@ -445,8 +472,8 @@ export default {
            if(re.test(str)){
               //  alert('成功')
            }else {
-               this.form1.bankNumber="";
-               alert('抱歉银行卡号不合法')
+               this.form1.bankNumber=null;
+               
           }
        },
          //邮箱校验
@@ -456,8 +483,8 @@ export default {
            if(re.test(str)){
               //  alert('成功')
            }else {
-               this.form1.email = "";
-               alert('抱歉邮箱不合法')
+               this.form1.email = null
+               
           }
        },
        //邮政编码校验
@@ -467,15 +494,16 @@ export default {
            if(re.test(str)){
               //  alert('成功')
            }else {
-               this.form1.postcode = "";
-               alert('抱歉邮箱不合法')
+               this.form1.postcode = null;
+               //alert('抱歉邮箱不合法')
           }
        },
         getDate(){
             var that = this;
             var data = Qs.stringify({
-                userName:this.usernameX
+                userName:localStorage.getItem("ms_username")
             });
+            console.log(localStorage.getItem("ms_username"))
             console.log(data);
             that
                 .axios({

@@ -1,37 +1,55 @@
 <template>
   <div class="register-user">
-    <el-form
-      :model="account"
-      status-icon
-      :rules="rules"
-      ref="account"
-      label-width="100px"
-      class="demo-ruleForm"
-    >
-      <el-form-item label="用户名" prop="userName">
-        <el-input v-model="account.userName"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="account.password" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="确认密码" prop="checkPass">
-        <el-input type="password" v-model="account.checkPass" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('account')">提交</el-button>
-        <el-button @click="resetForm('account')">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <el-card shadow="never">
+      <div slot="header" class="clearfix">
+        <span>新增账号</span>
+      </div>
+      <el-form
+        :model="account"
+        status-icon
+        :rules="rules"
+        ref="account"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="用户名" prop="userName">
+          <el-input v-model="account.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="account.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input type="password" v-model="account.checkPass" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item
+          label="邮箱"
+          prop="email"
+          :rules="[
+//      { required: false, message: '请输入邮箱地址', trigger: 'blur' },待议
+      { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+    ]"
+        >
+          <el-input v-model="account.email" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="手机" prop="phone">
+          <el-input v-model="account.phone" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+    </el-card>
   </div>
 </template>
 
 <script>
+import Qs from "qs";
+
 export default {
   name: "registerUser",
   data() {
     var checkuserName = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("用户名不能为空"));
+      } else if (value === this.existName) {
+        callback(new Error("用户名重复"));
       } else {
         callback();
       }
@@ -50,20 +68,34 @@ export default {
       if (value === "") {
         callback(new Error("请再次输入密码"));
       } else if (value !== this.account.password) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error("两次输入密码不一致"));
+      } else {
+        callback();
+      }
+    };
+    var validDataPhone = (rule, value, callback) => {
+      if (!/^1[3456789]\d{9}$/.test(value)) {
+       // this.$error("手机号码有误，请重填");
+        callback(new Error("手机号码有误，请重填"));
       } else {
         callback();
       }
     };
     return {
       rules: {
-        password: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        password: [
+          { required: true, validator: validatePass, trigger: "blur" }
+        ],
+        checkPass: [
+          { required: true, validator: validatePass2, trigger: "blur" }
+        ],
         userName: [
-          { validator: checkuserName, trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ]
-      }
+          { required: true, validator: checkuserName, trigger: "blur" },
+          { min: 3, max: 7, message: "长度在 3 到 7 个字符", trigger: "blur" }
+        ],
+        phone: [{ required: false, validator: validDataPhone, trigger: "blur" }]
+      },
+      existName: null
     };
   },
   props: {
@@ -71,11 +103,40 @@ export default {
       default: {
         password: "",
         checkPass: "",
-        userName: ""
+        userName: "",
+        email: "",
+        phone: ""
       }
     }
   },
+  watch: {
+    "account.userName": function(val) {
+      this.getexistName();
+    }
+  },
   methods: {
+    getexistName() {
+      let that = this;
+      let data = Qs.stringify({
+        checkName: this.account.userName
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/register/checkName",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          if (response.data.allData.check) {
+            this.existName = this.account.userName;
+            console.log(this.existName);
+          } else {
+            console.log("不存在重名");
+          }
+          // this.city = response.data.allData.city;
+        });
+    },
     submitForm(formName) {
       console.log("呵呵");
       this.$refs[formName].validate(valid => {
@@ -104,5 +165,6 @@ export default {
 .register-user {
   width: 600px;
   margin: 0 auto;
+  margin-bottom: 40px;
 }
 </style>

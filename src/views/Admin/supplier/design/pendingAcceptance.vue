@@ -32,7 +32,7 @@
 
       <el-table-column prop="supplierCheckDesignState" label="设计状态" align="center"></el-table-column>
 
-      <el-table-column prop="deadline" label="截止日期">
+      <el-table-column prop="deadline" sortable label="截止日期">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 

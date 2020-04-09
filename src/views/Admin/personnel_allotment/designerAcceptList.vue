@@ -166,7 +166,7 @@ export default {
   name: "designerAcceptList",
   data() {
     return {
-      username1: this.$store.state.user,
+      username1: localStorage.getItem("ms_username"),
       
         pageIndex: 1,
         pageSize: 7,
