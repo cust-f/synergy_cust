@@ -2,139 +2,165 @@
   <div class="company">
     <el-container>
       <el-main>
-    <el-card shadow="never" class="selectCard company-select">
-      <div slot="header" class="clearfix">
-        <span>优质企业</span>
-      </div>
-      <el-row v-if="!dynamicTags.length==0">
-        <el-col :span="3" style="line-height:53px;">
-          <span>已选择条件</span>
-        </el-col>
-        <el-col :span="20" style="text-align:left;">
-          <el-row>
-            <ul class="company-navigation">
-              <li v-for="(tag,index) in dynamicTags" :key="index">
-                <el-tag
-                  closable
-                  :disable-transitions="false"
-                  @close="handleClose(tag,1)"
-                >{{tag.name}}</el-tag>
-              </li>
-            </ul>
+        <el-card shadow="never" class="selectCard company-select">
+          <div slot="header" class="clearfix">
+            <span>优质企业</span>
+          </div>
+          <el-row v-if="!dynamicTags.length==0">
+            <el-col :span="3" style="line-height:53px;">
+              <span>已选择条件</span>
+            </el-col>
+            <el-col :span="20" style="text-align:left;">
+              <el-row>
+                <ul class="company-navigation">
+                  <li v-for="(tag,index) in dynamicTags" :key="index">
+                    <el-tag
+                      closable
+                      :disable-transitions="false"
+                      @close="handleClose(tag,1)"
+                    >{{tag.name}}</el-tag>
+                  </li>
+                </ul>
+              </el-row>
+            </el-col>
           </el-row>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="3" class="major">
-          <span>省份地区</span>
-        </el-col>
-        <ul class="company-navigation">
-          <li>
-            <a @click="districtProvince(0)">不限</a>
-          </li>
-          <li v-for="(pro,index) in province" :key="index">
-            <a @click="districtProvince(pro)">{{pro.districtName}}</a>
-          </li>
-        </ul>
-      </el-row>
-      <el-row v-if="provinceOption">
-        <el-col :span="3" class="major">
-          <span>城市</span>
-        </el-col>
-        <ul class="company-navigation">
-          <li>
-            <a @click="districtCity(0)">不限</a>
-          </li>
-          <li v-for="(c,index) in city" :key="index">
-            <a @click="districtCity(c)">{{c.districtName}}</a>
-          </li>
-        </ul>
-      </el-row>
-      <el-row>
-        <el-col :span="3" :gutter="2" class="major">
-          <span>行业类别</span>
-        </el-col>
-        <el-col :span="21">
           <el-row>
+            <el-col :span="3" class="major">
+              <span>省份地区</span>
+            </el-col>
             <ul class="company-navigation">
               <li>
-                <a @click="categorySelect(0)">不限</a>
+                <a @click="districtProvince(0)">不限</a>
               </li>
-              <li v-for="(ca,index) in category " :key="index">
-                <a @click="categorySelect(ca)">{{ca.name}}</a>
+              <li v-for="(pro,index) in province" :key="index">
+                <a @click="districtProvince(pro)">{{pro.districtName}}</a>
               </li>
             </ul>
           </el-row>
-        </el-col>
-        <!-- <el-col :span="4" v-for="ca in category" :key="ca.id">{{ca}}</el-col> -->
-      </el-row>
-    </el-card>
+          <el-row v-if="provinceOption">
+            <el-col :span="3" class="major">
+              <span>城市</span>
+            </el-col>
+            <ul class="company-navigation">
+              <li>
+                <a @click="districtCity(0)">不限</a>
+              </li>
+              <li v-for="(c,index) in city" :key="index">
+                <a @click="districtCity(c)">{{c.districtName}}</a>
+              </li>
+            </ul>
+          </el-row>
+          <el-row>
+            <el-col :span="3" :gutter="2" class="major">
+              <span>行业类别</span>
+            </el-col>
+            <el-col :span="21">
+              <el-row>
+                <ul class="company-navigation">
+                  <li>
+                    <a @click="categorySelect(0)">不限</a>
+                  </li>
+                  <li v-for="(ca,index) in category " :key="index">
+                    <a @click="categorySelect(ca)">{{ca.name}}</a>
+                  </li>
+                </ul>
+              </el-row>
+            </el-col>
+            <!-- <el-col :span="4" v-for="ca in category" :key="ca.id">{{ca}}</el-col> -->
+          </el-row>
+        </el-card>
 
-    <div style="width:500px; margin:20px 0px;">
-      <el-input size="small" placeholder="请输入搜索内容" prefix-icon="el-icon-search" v-model="serach">
-        <el-button type="warning" slot="append">搜索</el-button>
-      </el-input>
-    </div>
+        <div style="width:500px; margin:20px 0px;">
+          <el-input
+            size="small"
+            placeholder="请输入搜索内容"
+            prefix-icon="el-icon-search"
+            @change="searchCom"
+            v-model="search"
+          >
+            <el-button type="warning" slot="append" @click="searchCom">搜索</el-button>
+          </el-input>
+        </div>
 
-    <el-card shadow="never" class="selectCard company-detail">
-      <div slot="header">
-        <span>SaaS服务平台为您找到5000+企业</span>
-      </div>
-      <el-row v-for="(companys,index) in companyList" :key="index" class="company-info" >
-        <div @click="companyDetail(companys.companyId)">
-        <el-col :span="4">
-          <el-avatar shape="square" :size="80" fit="fill" :src="url"></el-avatar>
-        </el-col>
-        <el-col :span="20">
-          <el-row>
-            <div style="float:left;">
-              <h2>{{companys.companyName}}</h2>
+        <el-card shadow="never" class="selectCard company-detail">
+          <div slot="header">
+            <span>SaaS服务平台为您寻找企业</span>
+          </div>
+          <div v-if="companyList.length!==0">
+            <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
+              <div @click="companyDetail(companys.companyId)">
+                <el-col :span="4">
+                  <el-avatar shape="square" :size="80" fit="fill" :src="url"></el-avatar>
+                </el-col>
+                <el-col :span="20">
+                  <el-row>
+                    <div style="float:left;">
+                      <h2>{{companys.companyName}}</h2>
+                    </div>
+                    <div style="float:right;">
+                      <el-rate v-model="companys.star" disabled text-color="#ff9900"></el-rate>
+                    </div>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="5">
+                      <span>所在省份: {{companys.province}}</span>
+                    </el-col>
+                    <el-col :span="5">
+                      <span>所在城市: {{companys.city}}</span>
+                    </el-col>
+                    <el-col :span="6">
+                      <span>成立日期: {{companys.foundTime | dataFormat("yyyy-MM-dd")}}</span>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <span>企业所在地: {{companys.address}}</span>
+                  </el-row>
+                </el-col>
+              </div>
+            </el-row>
+          </div>
+          <div v-else>
+            <div class="noResult" style="height:400px;">
+              <el-row :gutter="2" style="margin-top:25%;">
+                <el-col :span="6" :offset="5">
+                  <img src="../../../assets/images/company/noResult.jpg" alt="No Result" />
+                </el-col>
+                <el-col :span="6" :push="1">
+                  <h1 style="font-size:24px;">抱歉，没有找到相关结果！</h1>
+                  <ul style="margin-top:30px;">
+                    <li>1.输入准确的关键词，重新搜索</li>
+                    <li>2.更换筛选条件，重新搜索</li>
+                    <li>3.输入的关键词过于宽泛</li>
+                  </ul>
+                </el-col>
+              </el-row>
             </div>
-            <div style="float:right;">
-              <el-rate v-model="companys.start" disabled  text-color="#ff9900"></el-rate>
-            </div>
-          </el-row>
-          <el-row>
-            <el-col :span="5">
-              <span>所在省份: {{companys.province}}</span>
-            </el-col>
-            <el-col :span="5">
-              <span>所在城市: {{companys.city}}</span>
-            </el-col>
-            <el-col :span="6">
-              <span>成立日期: {{companys.foundTime | dataFormat("yyyy-MM-dd")}}</span>
-            </el-col>
-          </el-row>
-          <el-row>
-            <span>企业所在地: {{companys.address}}</span>
-          </el-row>
-        </el-col>
-      </div>
-      </el-row>
-      <!-- <el-divider></el-divider> -->
-      <div style="margin-top:20px;">
-     <el-pagination
-      :hide-on-single-page="value"
-      @size-change="getCompanyList"
-      @current-change="getCompanyList"
-      :current-page="currentPage"
-      :page-size="pageSize"
-       layout="prev, pager, next, jumper"
-      :total="totalCount">
-    </el-pagination>       
-      </div>
-    </el-card>
+          </div>
+
+          <!-- <el-divider></el-divider> -->
+          <div style="margin-top:20px;">
+            <el-pagination
+              :hide-on-single-page="true"
+              @size-change="getCompanyList"
+              @current-change="getCompanyList"
+              :current-page="currentPage"
+              :page-size="pageSize"
+              layout="prev, pager, next, jumper"
+              :total="totalCount"
+            ></el-pagination>
+          </div>
+        </el-card>
       </el-main>
       <el-aside style="width:300px;">
         <el-card shadow="never" class="selectCard recommend">
-      <div slot="header">
-        <span>推荐企业</span>
-      </div>
-      <ul>
-        <li v-for="item in recommendedCompanyList" :key="item.id" style="margin-bottom: 10px;">
-          <a  @click="companyDetail(item.id)">{{item.companyName}}</a>
-        </li>
-      </ul>
+          <div slot="header">
+            <span>推荐企业</span>
+          </div>
+          <ul>
+            <li v-for="item in recommendedCompanyList" :key="item.id" style="margin-bottom: 10px;">
+              <a @click="companyDetail(item.id)">{{item.companyName}}</a>
+            </li>
+          </ul>
         </el-card>
       </el-aside>
     </el-container>
@@ -154,12 +180,12 @@ export default {
       provinceOption: false, //是否选择了省份
       category: "", //行业类别
       companyList: [],
-      recommendedCompanyList:[],//推荐企业列表
+      recommendedCompanyList: [], //推荐企业列表
       currentPage: 1,
       pageSize: 15,
-      value: this.totalCount <= 15,
-      totalCount:0,
-      serach:"",
+      //value: this.totalCount <= 15,
+      totalCount: 0,
+      search: "",
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
     };
@@ -170,10 +196,10 @@ export default {
     this.getCompanyList(this.val);
     this.getRecommendedCompanyList();
   },
-  watch:{
+  watch: {
     dynamicTags: function(val) {
       this.getAnswer();
-    },
+    }
   },
   methods: {
     getProvince() {
@@ -207,7 +233,7 @@ export default {
     getCompanyList(page) {
       let that = this;
       let data = Qs.stringify({
-        page: page-1
+        page: page - 1
       });
       that
         .axios({
@@ -217,43 +243,52 @@ export default {
         })
         .then(response => {
           this.companyList = response.data.allData.companyList;
-          this.totalCount =response.data.allData.totalCount;
+          this.totalCount = response.data.allData.totalCount;
         });
     },
-    getRecommendedCompanyList(){
-            let that = this;
+    getRecommendedCompanyList() {
+      let that = this;
       that.axios.post("/api/company/recommended").then(response => {
         this.recommendedCompanyList = response.data.allData;
       });
     },
+    searchCom() {
+      console.log("呵呵");
+      this.getAnswer();
+      // this.serach="";
+    },
     //筛选条件
-    getAnswer(){
-      console.log("监听成功");
+    getAnswer() {
       let that = this;
       let url;
       let provinces;
-      let categorys=[];
-      let citys=[];
-      for(let i = 0; i < this.dynamicTags.length; i++){
-        if(this.dynamicTags[i].type=="province"){
-          provinces=this.dynamicTags[i].name
-        }else if(this.dynamicTags[i].type=="city"){
+      let categorys = [];
+      let citys = [];
+      var j;
+      for (let i = 0; i < this.dynamicTags.length; i++) {
+        if (this.dynamicTags[i].type == "province") {
+          provinces = this.dynamicTags[i].name;
+        } else if (this.dynamicTags[i].type == "city") {
           citys.push(this.dynamicTags[i].name);
-        }else if(this.dynamicTags[i].type=="category"){
+        } else if (this.dynamicTags[i].type == "category") {
           categorys.push(this.dynamicTags[i].id);
         }
       }
-      let data = Qs.stringify({
-        province:provinces,
-        city:citys,
-        category:categorys,
-        searchStr:this.search,
-        page: 0
-      });
-      if(this.dynamicTags.length==0){
-        url="/api/companyDetail/getAllCompany"
-      }else{
-        url="/api/company/select"
+      let data = Qs.stringify(
+        {
+          province: provinces,
+          city: citys,
+          category: categorys,
+          searchStr: this.search,
+          page: 0
+        },
+        { arrayFormat: "brackets" }
+      );
+      console.log(this.search);
+      if (this.dynamicTags.length != 0 || this.search != null) {
+        url = "/api/company/select";
+      } else {
+        url = "/api/companyDetail/getAllCompany";
       }
       that
         .axios({
@@ -263,18 +298,17 @@ export default {
         })
         .then(response => {
           console.log(response);
-          if(response.data.code=400){
-          this.companyList = "";
-          this.totalCount =0;
-          this.$message({
+          if (response.data.code == 400) {
+            this.companyList = "";
+            this.totalCount = 0;
+            this.$message({
               type: "warning",
               message: "无符合条件的企业"
             });
-          }else if(response.data.code=200){
-          this.companyList = response.data.allData.companyList;
-          this.totalCount =response.data.allData.totalCount;            
+          } else if ((response.data.code = 200)) {
+            this.companyList = response.data.allData.companyList;
+            this.totalCount = response.data.allData.totalCount;
           }
-
         });
     },
     // getOtherCompany(val){
@@ -399,9 +433,13 @@ export default {
       }
     },
     //进入企业详情界面
-    companyDetail(id){
-      console.log("触发了呀")
-            this.$router.push({path: "/company/excellentCompanyDetail",name:'companyDetails' ,query: {companyId: id}});
+    companyDetail(id) {
+      console.log("触发了呀");
+      this.$router.push({
+        path: "/company/excellentCompanyDetail",
+        name: "companyDetails",
+        query: { companyId: id }
+      });
     }
   }
 };
@@ -411,7 +449,7 @@ export default {
 .company {
   width: 1150px;
   margin: 0 auto;
-  padding-bottom:40px;
+  padding-bottom: 40px;
 }
 .company .el-card__body {
   padding-bottom: 0px;
@@ -430,7 +468,7 @@ export default {
   line-height: 28px;
   /* margin-top:10px; */
 }
-.company-select a:hover{
+.company-select a:hover {
   color: #0084ff;
 }
 .el-tag {
@@ -486,14 +524,14 @@ export default {
   box-shadow: 0 4px 5px -3px rgba(0, 0, 0, 0.06),
     0 4px 12px 4px rgba(0, 0, 0, 0.06);
 }
-.company-info:hover h2{
+.company-info:hover h2 {
   color: #0084ff;
 }
 .company-info .el-row {
   margin-bottom: 10px;
 }
 /* 推荐企业列表 */
-.recommend a:hover{
-    color: #0084ff;
+.recommend a:hover {
+  color: #0084ff;
 }
 </style>

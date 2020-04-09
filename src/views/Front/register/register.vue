@@ -32,7 +32,9 @@ export default {
       account: {
         password: "",
         checkPass: "",
-        userName: ""
+        userName: "",
+        email:"",
+        phone:""
       },
       company: {
         Company_Name:""

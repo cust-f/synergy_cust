@@ -375,7 +375,7 @@ export default {
 
   data() {
     return {
-            usernameX:this.$store.state.user,
+            usernameX:localStorage.getItem("ms_username"),
 
       query: {
         pageIndex: 1,

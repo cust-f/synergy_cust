@@ -333,7 +333,9 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button type="text" size="small">查看设计</el-button>
+              <el-button type="text" size="small"
+              v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
+              >查看设计</el-button>
               <el-button
                 @click="SJTG(scope.row)"
                 type="text"
