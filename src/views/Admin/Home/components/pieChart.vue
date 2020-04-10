@@ -1,5 +1,5 @@
 <template>
-        <div id="quarterlySituation" style="width: 100%;height:350%;"></div>
+        <div id="quarterlySituation" style="width: 100%;height:500%;"></div>
 </template>
 
 <script>
@@ -17,7 +17,9 @@ export default {
         title: {
           text: `${this.pieData.nowYear}年 季度完成量`,
           subtext: " ",
-          left: "center"
+          left: "center",
+          y:20,
+          
         },
         tooltip: {
           trigger: "item",
@@ -26,6 +28,7 @@ export default {
         legend: {
           orient: "vertical",
           right: 0,
+          top:45,
           data: 
           // ["第一季度","第二季度","第三季度","第四季度"]
            this.pieData.searsonCount

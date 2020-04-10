@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Det">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-steps :active="milepostActive" align-center>
@@ -13,6 +13,7 @@
       </el-steps>
       <br />
       <br />
+
       <div>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">基本信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <br />
@@ -65,6 +66,7 @@
       </div>
       <br />
       <br />
+
       <div>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请列表</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <el-table
@@ -121,6 +123,7 @@
         <br />
         <br />
       </div>
+
       <div v-show="show>0">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务计划</div>
         <br />
@@ -179,6 +182,7 @@
       </div>
       <br />
       <br />
+
       <div v-show="show > 0">
         <div v-show="state2 === 2">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同管理</div>
@@ -246,6 +250,7 @@
           <br />
         </div>
       </div>
+
       <div v-show="show>1">
         <div v-show="state3 === 2">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
@@ -318,14 +323,15 @@
           </el-table>
         </div>
       </div>
-      <div v-show="show > 4">
+
+      <div v-show="show > 4" class="det">
         <br />
         <br />
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务数据统计</div>
         <br />
         <br />
         <div v-if="reMarkId === 0" align-center>
-          <h3 >核心企业暂未评价</h3>
+          <h3>核心企业暂未评价</h3>
         </div>
         <!-- 步骤图片 -->
         <div v-if="reMarkId === 1">
@@ -338,16 +344,15 @@
               :key="key"
             ></el-step>
           </el-steps>
-          <br />
-          <br />
+        </div>
+        <br />
+        <br />
+        <div v-if="reMarkId === 1">
           <!-- 雷达图 -->
-          <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-          <br />
-          <br />
-
-          <div class="input_span">
-            <el-form ref="form" :model="form">
-              <label>完成质量:</label>
+          <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+          <div class="input_span" v-if="reMarkId === 1">
+            <el-form ref="form" :modelZL="formZL">
+              <div>完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <br />
               <br />
             </el-form>
@@ -357,6 +362,7 @@
           </div>
         </div>
       </div>
+
       <!-- 分配设计人员 -->
       <el-dialog title="分配设计师" :visible.sync="dialogTableVisible" width="30%">
         <el-form :model="form1">
@@ -376,6 +382,7 @@
           <el-button type="primary" @click="tijiao()">确 定</el-button>
         </div>
       </el-dialog>
+
       <!-- 申请拒绝原因弹出框 -->
       <el-dialog title="申请被拒绝的原因" :visible.sync="addVisible1" width="50%">
         <el-row>
@@ -394,6 +401,7 @@
           <el-button @click="addVisible1 = false">确定</el-button>
         </span>
       </el-dialog>
+
       <!-- 任务计划拒绝原因弹出框 -->
       <el-dialog title="计划书被拒绝的原因" :visible.sync="addVisible2" width="50%">
         <el-row>
@@ -412,6 +420,7 @@
           <el-button @click="addVisible2 = false">确定</el-button>
         </span>
       </el-dialog>
+
       <!-- 合同拒绝原因弹出框 -->
       <el-dialog title="合同拒绝原因弹出框" :visible.sync="addVisible3" width="50%">
         <el-row>
@@ -430,10 +439,10 @@
           <el-button @click="addVisible3 = false">确定</el-button>
         </span>
       </el-dialog>
+
       <!-- 计划书上传 -->
-      <el-dialog title="上传计划书" :visible.sync="planbook" width="24%" :before-close="handleClose">
+      <el-dialog title="上传计划书" :visible.sync="planbook" width="400px" :before-close="handleClose">
         <el-upload
-          class="upload-demo"
           ref="upload"
           action="http://127.0.0.1:8082/supplier/import"
           :on-preview="handlePreview"
@@ -457,10 +466,11 @@
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
       </el-dialog>
+
       <!-- 上传合同 -->
-      <el-dialog title="上传合同" :visible.sync="conbook" width="24%" :before-close="handleClose">
+      <el-dialog title="上传合同" :visible.sync="conbook" width="400px" :before-close="handleClose">
         <el-upload
-          class="upload-demo"
+
           ref="upload"
           action="http://127.0.0.1:8082/supplier/import"
           :on-preview="handlePreview"
@@ -479,6 +489,26 @@
           >上传到服务器</el-button>
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
+      </el-dialog>
+
+      <!-- 设计拒绝原因弹出框 -->
+      <el-dialog title="请输入设计不通过的原因" :visible.sync="designRefuseReason" width="50%">
+        <el-row>
+          <el-col :span="8"></el-col>
+        </el-row>
+        <el-form ref="form" :model="addList4" label-width="120px">
+          <el-row>
+            <el-col>
+              <el-form-item label="审核拒绝原因">
+                <el-input v-model="addList4.SJrefuseReason"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="designRefuseReason = false">取 消</el-button>
+          <el-button type="primary" @click="SJJJYYTJ">确 定</el-button>
+        </span>
       </el-dialog>
     </el-main>
   </div>
@@ -590,6 +620,9 @@ export default {
       addList3: {
         contractRefuseReason: ""
       },
+      addList4: {
+        SJrefuseReason: ""
+      },
       //计划书上传
       planbook: false,
       //合同上传
@@ -629,7 +662,8 @@ export default {
       technicalFile1: "",
       giveDesigner: 0, //人员分配按钮控制
       designerNub: 0,
-      reMarkId: 1
+      reMarkId: 1,
+      designRefuseReason: false
     };
   },
 
@@ -825,6 +859,7 @@ export default {
           message: "接受成功",
           type: "success"
         });
+        this.showData();
       });
     },
     //接受不通过
@@ -847,6 +882,7 @@ export default {
           message: "拒绝通过",
           type: "success"
         });
+        this.showData();
       });
     },
     //申请拒绝原因
@@ -926,29 +962,12 @@ export default {
           message: "审核通过",
           type: "success"
         });
+        this.showData();
       });
     },
     //设计不通过
     designRefuse(row) {
-      this.$confirm("确定审核不通过么？", "提示", {
-        type: "warning"
-      }).then(() => {
-        console.log(row.taskId);
-        var that = this;
-        var data = Qs.stringify({
-          taskID: this.taskId
-        });
-        console.log(data);
-        that.axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/supplier/designRefuse",
-          data: data
-        });
-        this.$message({
-          message: "审核不通过",
-          type: "success"
-        });
-      });
+      this.designRefuseReason = true;
     },
     //分配设计人员
     assignDesigners() {
@@ -970,6 +989,7 @@ export default {
           // this.designTask.id = response.data.allData.b;
           console.log(response);
         });
+      this.showData();
     },
     //分配设计人员上传
     tijiao() {
@@ -991,6 +1011,7 @@ export default {
           this.$message.success("提交成功");
           this.dialogTableVisible = false;
         });
+      this.showData();
     },
     //上传计划书方法
     upLoadPlanT() {
@@ -1092,6 +1113,7 @@ export default {
         url: "http://127.0.0.1:8082/supplier/textImportCon",
         data: data
       });
+      this.$router.go(0);
     },
     handleAvatarSuccess1(response, file, fileList) {
       this.technicalFile1 = response;
@@ -1111,6 +1133,25 @@ export default {
         url: "http://127.0.0.1:8082/supplier/textImportPlan",
         data: data
       });
+      this.$router.go(0);
+    },
+    //提交拒绝原因
+    SJJJYYTJ() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        HTrefuseReason: this.addList4.SJrefuseReason
+      });
+      console.log(data),
+        that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/supplier/designRefuse",
+          data: data
+        });
+      this.$message.success("提交成功");
+      this.addList4 = {};
+      this.designRefuseReason = false;
+      this.showData();
     }
   }
 };
@@ -1127,16 +1168,6 @@ export default {
   border-color: #f15e09;
 }
 
-.SXT {
-  height: 150px;
-}
-
-.LDT {
-  height: 300px;
-}
-.WCZL {
-  font-size: 11px;
-}
 .table {
   font-size: 13px;
 }
@@ -1218,51 +1249,124 @@ export default {
 }
 </style>
 
-<style scoped>
-#inputValue {
-  width: 240px;
-  margin-left: 0px;
-  padding-left: 10px;
-  border-radius: 3px;
-}
-.input_span span {
-  display: inline-block;
-  width: 85px;
-  height: 30px;
-  background: #eee;
-  line-height: 20px;
-}
+<style lang="scss">
+.Det {
+  //时序图
+  .SXT {
+    height: 150px;
+  }
+  //雷达图
+  .LDT {
+    height: 300px;
+  }
 
-#one {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-right: 0px solid;
-  margin-left: 0px;
-  margin-right: 3px;
-}
+  //完成质量
+  .WCZL {
+    font-size: 11px;
+  }
 
-#two {
-  border-left: 0px solid;
-  border-right: 0px solid;
-  margin-left: -5px;
-  margin-right: 3px;
-}
+  .table {
+    font-size: 13px;
+  }
+  .text {
+    font-size: 14px;
+  }
 
-#three {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-left: 0px solid;
-  margin-left: -5px;
-}
-#font span:nth-child(1) {
-  color: #00d1b2;
-  margin-left: 80px;
-}
-#font span:nth-child(2) {
-  color: orange;
-  margin: 0 60px;
-}
-#font span:nth-child(3) {
-  color: red;
+  .item {
+    padding: 18px 0;
+  }
+
+  .box-card {
+    width: 960px;
+    /* border: 1px solid #00a2e6 ; */
+  }
+  //返回字体
+  .el-page-header__title {
+    font-size: 18px;
+  }
+  .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+  .el-input.is-disabled .el-input__inner {
+    color: #606266;
+  }
+  // /* 表格字体粗细 */
+  // .el-table thead {
+  //   font-weight: 200;
+  // }
+  // /* 表格下方每列有无竖线 */
+  // .el-table__row > td {
+  //   border: none;
+  // }
+  // 表格样式调整
+  .el-input__inner {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+  }
+
+  .el-input.is-disabled .el-input__inner {
+    background-color: #ffffff;
+  }
+  // 进度样式调整
+  .el-step__head.is-process {
+    color: #f15e09;
+    border-color: #f15e09;
+  }
+
+  .el-step__title.is-process {
+    color: #f15e09;
+    border-color: #f15e09;
+  }
+  //质量图样式调整
+  #inputValue {
+    width: 240px;
+    margin-left: 0px;
+    padding-left: 10px;
+    border-radius: 3px;
+  }
+  .input_span span {
+    display: inline-block;
+    width: 85px;
+    height: 30px;
+    background: #eee;
+    line-height: 20px;
+  }
+
+  #one {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 0px solid;
+    margin-left: 0px;
+    margin-right: 3px;
+  }
+
+  #two {
+    border-left: 0px solid;
+    border-right: 0px solid;
+    margin-left: -5px;
+    margin-right: 3px;
+  }
+
+  #three {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 0px solid;
+    margin-left: -5px;
+  }
+  #font span:nth-child(1) {
+    color: #00d1b2;
+    margin-left: 80px;
+  }
+  #font span:nth-child(2) {
+    color: orange;
+    margin: 0 60px;
+  }
+  #font span:nth-child(3) {
+    color: red;
+  }
 }
 </style>
