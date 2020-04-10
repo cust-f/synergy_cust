@@ -462,6 +462,7 @@
             size="small"
             type="success"
             @click="submitUpload"
+            align-center
           >上传到服务器</el-button>
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
@@ -486,6 +487,7 @@
             size="small"
             type="success"
             @click="submitUpload"
+            align-center
           >上传到服务器</el-button>
           <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
         </el-upload>
