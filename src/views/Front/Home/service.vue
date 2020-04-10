@@ -30,10 +30,10 @@
             <p style=" width :50%; float:left">子类别：{{list.taskCategoryPart}}</p>
             <p>&nbsp;</p>
             <!-- <p>&nbsp;</p> -->
-            <p style=" width :50%; float:left">开始时间：{{list.beginTime| dataFormat("yyyy-MM-dd HH:mm:ss")}}
+            <p style=" width :50%; float:left">开始时间：{{list.beginTime| dataFormat("yyyy-MM-dd hh:mm")}}
         
             </p>
-            <p style=" width :50%; float:left">完成时间：{{list.finishTime| dataFormat("yyyy-MM-dd HH:mm:ss")}}</p>
+            <p style=" width :50%; float:left">完成时间：{{list.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</p>
             <!-- <p>&nbsp;</p> -->
             <!-- <p>&nbsp;</p> -->
           </div>

@@ -21,7 +21,7 @@
           <div>
             <div class="container">
               <div class="handle-box">
-                <el-input v-model="userName" placeholder="用户名" class="handle-input mr10"></el-input>
+                <el-input v-model="selectName" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
 
                 <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
@@ -33,7 +33,7 @@
                   class="table"
                   ref="multipleTable"
                   header-cell-class-name="table-header"
-                  @selection-change="handleSelectionChange"
+
                   row-style="height:0"
                   cell-style="padding:0"
                 >
@@ -67,17 +67,17 @@
                   </el-table-column>
                 </el-table>
               </div>
-              <div class="pagination">
-                <el-pagination
-                  background
-                  layout="total, prev, pager, next"
-                  :current-page="pageIndex"
-                  :page-size="pageSize"
-                  :total="tableData.length"
-                  @current-change="handlePageChange"
-                  @size-change="handleSizeChange"
-                ></el-pagination>
-              </div>
+               <div class="pagination">
+          <el-pagination
+            background
+            layout="prev, pager, next,total, jumper"
+            :current-page="pageIndex"
+            :page-size="pageSize"
+            :total="tableData.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+          ></el-pagination>
+        </div>
             </div>
 
             <!-- 编辑弹出框 -->
@@ -98,6 +98,7 @@
               </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
+            
                 <el-button type="primary" @click="saveEdit">确 定</el-button>
               </span>
             </el-dialog>
@@ -144,57 +145,75 @@
 
 
 
-<div class="con">
-  <span class="demonstration"></span>
-  <el-pagination
-    layout="prev, pager, next"
-    :total="50">
-  </el-pagination>
-</div>
-        </el-main>
-    </el-container>
-     
-
-</div>
-      
-</template>
-
 <script>
 import Qs from "qs";
 export default {
   name: "newStaff",
   data() {
     return {
-      usernamex: this.$store.state.user,
-      
+      usernamex: localStorage.getItem("ms_username"),
+      //userId:row.userId,
+    
         pageIndex: 1,
         pageSize: 7,
       
       tableData: [
         {
           
-          userName: "邓力夫",
-          realName: "邓力夫",
-          email: "denglifu@163.com",
-          roleId: "管理员",
-          phone: "16545675821"
+          userName: "",
+          realName: "",
+          email: "",
+          roleId: "",
+          phone: ""
         },
         {
-         
-          username: "刘强",
-          realname: "刘强",
-          email: "liuqiang123@163.com",
-          roleId: "设计人员",
-          phone: "15874561485"
+          
+          userName: "",
+          realName: "",
+          email: "",
+          roleId: "",
+          phone: ""
         },
         {
-         
-          username: "夏圆圆",
-          realname: "夏圆圆",
-          email: "xiayuanyuan@163.com",
-          roleId: "流通人员",
-          phone: "16445983697"
-        }
+          
+          userName: "",
+          realName: "",
+          email: "",
+          roleId: "",
+          phone: ""
+        },
+        {
+          
+          userName: "",
+          realName: "",
+          email: "",
+          roleId: "",
+          phone: ""
+        },
+        {
+          
+          userName: "",
+          realName: "",
+          email: "",
+          roleId: "",
+          phone: ""
+        },
+        {
+          
+          userName: "",
+          realName: "",
+          email: "",
+          roleId: "",
+          phone: ""
+        },
+        {
+          
+          userName: "",
+          realName: "",
+          email: "",
+          roleId: "",
+          phone: ""
+        },
       ],
       addList: {
         id: 1,
@@ -209,7 +228,14 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
-      form: {},
+      form: {
+        taskId:"",
+        userName:"",
+        phone:"",
+        email:"",
+        password:"",
+
+      },
       idx: -1,
       id: -1,
 
@@ -223,7 +249,9 @@ export default {
         mobile: "",
         role: ""
       },
-      value: ""
+      value: "",
+      Id:"",
+      selectName:"",
     };
   },
   created() {
@@ -237,7 +265,7 @@ export default {
        console.log(this.usernamex);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernamex
       });
       console.log(data);
       that
@@ -256,36 +284,63 @@ export default {
     },
     // 触发搜索按钮
     handleSearch() {
-      //this.$set(this.query, "pageIndex", 1);
+       var that = this;
+      var data = Qs.stringify({
+        UserName:this.usernamex,
+        userName: this.selectName
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8082/newStaff/selectStaff",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+
+      this.$set(this.selectName, "pageIndex", 1);
       this.getData();
     },
     // 删除操作
     handleDelete(index, row) {
-      //var that= this;
+      var that= this;
       // 二次确认删除
       this.$confirm("确定要删除吗？", "提示", {
+        confirmButtonText:"确定",
+        cancelButtonText:"取消",
         type: "warning"
-      })
-    //  var data = Qs.stringify({
-    //     userId: this.row.userName
-    //   });
-    //   that
-    //     .axios({
-    //       method: "post",
-    //       url: "http://127.0.0.1:8082//newStaff/deletelist",
-    //       data: data
-
-    //       //  data:this.$store.state.userName
-    //     })
+      }).then(()=>{
+        this.$message({
+        type:'success',
+        message:'删除成功！'
+        })
+      }).catch(() => {
+          this.$message({
+            type:'info',
+            message:'已取消删除'
+          })
+        })
+      var data = Qs.stringify({
+      userId:row.userId
+      });
+     that.axios({
+          method: "post",
+          url: "http://127.0.0.1:8082//newStaff/deletelist",
+          data: data
+          //  data:this.$store.state.userName
+        })
         .then(
            response => {
-          // console.log(response);
-          // this.tableData = response.data.allData;
-          //this.form = response.data.allData[0];
-          this.$message.success("删除成功");
+          this.tableData = response.data.allData;
+          //this.$message.success("删除成功");
           this.tableData.splice(index, 1);
-        })
-        .catch(() => {});
+        });
+        
     },
     // 多选操作
     handleSelectionChange(val) {
@@ -334,19 +389,19 @@ export default {
       this.addVisible = false;
     },
     // 编辑操作
-    handleEdit(index, row) {
+    handleEdit(index,row) {
       this.idx = index;
       this.form = row;
       this.editVisible = true;
-      this.userId=row.userId;
+      this.Id = row.userId;
+      console.log(Id);
     },
     // 保存编辑
     saveEdit() {
       
       var that = this;
       var data = Qs.stringify({
-        userId : this.userId,
-        
+        userId : this.Id,
         User_Name: this.form.userName,
         Phone:this.form.phone,
         Email:this.form.email,
@@ -371,6 +426,14 @@ export default {
     },
     // 分页导航
     handlePageChange(val) {},
+
+     handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
 
     /*
      *转跳对应任务信息页面

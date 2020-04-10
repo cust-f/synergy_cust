@@ -131,7 +131,7 @@ export default {
   name: "designerNewList",
   data() {
     return {
-      username1: this.$store.state.user,
+      username1: localStorage.getItem("ms_username"),
 
       pageIndex: 1,
       pageSize: 7,
@@ -228,7 +228,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        designerName: "designer"
+        designerName: this.username1
       });
       //console.log(data);
       that
