@@ -33,7 +33,7 @@
 
       <el-table-column prop="designerName" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="finishTime" label="完成日期">
+      <el-table-column prop="finishTime" sortable label="完成日期">
         <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">

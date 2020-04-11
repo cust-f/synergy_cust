@@ -1,229 +1,308 @@
 <template>
-  <div>
-    <div>
-      <el-container>
-        <el-main>
-              <h3>设计任务评价详情</h3>
-               &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                     <el-steps :active="milepostActive" align-center>
-        <!-- 步骤图片 -->
-        <el-step
-          v-for="(value, key) in milepost"
-          :class="milepostActive== key+1 ? stepActive: '' "
-          :title="value.title"
-          :icon="value.icon"
-          :key="key"
-        ></el-step>
-      </el-steps>
+  <el-container>
+    <el-main>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          数据综合统计
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <el-card shadow="hover" :body-style="{padding: '0px'}"> 
+        <el-col :span="8" >
+         <div class="grid-content grid-con-3">
+                <i class="el-icon-s-data grid-con-icon"></i>
+                <div class="grid-cont-right">
+                  <div class="grid-num" v-html="sumTime">1101</div>
+                  <div>总完成日长</div>
+                </div>
+              </div>
+        </el-col>
+         <el-col :span="16" >
+          <div class="input_span">
+            <el-form ref="form" :model="form">
+              <label style="margin-left:280px;">平均完成质量</label>
+              <br />
+              <br />
+            </el-form>
+            <div style="margin-left:200px;">
+            <span id="one"></span>
+            <span id="two"></span>
+            <span id="three"></span>
+            </div>
+          </div>
+        </el-col>
+      </el-card>
+     <br/>
+     <el-card shadow="hover" :body-style="{padding: '0px'}"> 
+     <!-- 柱形图部分 -->
+    
+      <div style="float:right">
+        <template>
+        <el-select 
+        style="width:100px;margin-right:35px;margin-top:15px"
+        v-model="value"
+        
+        @change="barChartData"
+        >
+            <el-option
+          v-for="item in options"
+          placeholder="请选择"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+          :disabled="item.disabled"
+          width="20px"
+          >
+            </el-option>
+          </el-select> 
+        </template>
+        </div>
+        <div class="top">
+        <bar-chart
+        :barData="barData"
+        ref="drawbarChart"
+        style="margin-top:15px"
+        ></bar-chart>
+        </div>
      
+     </el-card>
+     <br/>
+    
+      <br/> <br/><br/> <br/>
 
-            <br/><br/>
-            <div class="charts1" id="charts1" ></div>
-
-            <el-form ref="form" :model="form" label-width="110px">
-            <el-scrollbar style="height:100%">
-              <el-row :gutter="80">
-                <el-col :span="11">
-                  <el-form-item label="任务名称:">
-                    <el-input v-model="form.taskId" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="9">
-                  <el-form-item label="完成时间：">
-                    <el-input v-model="form.Design_ID" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-
-              <el-row :gutter="80">
-                <el-col :span="11">
-                  <el-form-item label="项目负责人：">
-                    <el-input v-model="form.Trade_Time" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="9">
-                  <el-form-item label="联系方式：">
-                    <el-input v-model="form.Remark_State" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="80">
-                <el-col :span="11">
-                  <el-form-item label="承接企业：">
-                    <el-input v-model="form.Accept_Company_ID" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-             
-              
-                <el-col :span="9">
-                  <el-form-item label="设计师：">
-                    <el-input v-model="form.Accept_Company_ID" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!-- 
-                <el-input
-  type="textarea"
-  :rows="2"
-  placeholder="请输入内容"
-  v-model="textarea">
-</el-input>
-
-<script>
-export default {
-  data() {
-    return {
-      textarea: ''
-    }
-  }
-}
-</script>
-              -->
-              <el-row :gutter="120">
-                
-                <el-col>
-                  <el-form-item>
-                    <el-button
-                     @click=goBack()
-                    >确定</el-button>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-             
-       
-            </el-scrollbar>
-          </el-form>
-        </el-main>
-      </el-container>
-    </div>
-  </div>
+    
+     
+    </el-main>
+  </el-container>
 </template>
 
 <script>
+import Qs from "qs";
+
+import barChart from "./components/barChart"
+
 export default {
-  name: "circulationTaskEvaluationDetils",
+  name:"designTaskEvaluationDetils",
+ 
+  components:{
+    "bar-chart":barChart,
+    
+  },
   data() {
     return {
-      value0: null,
-      value1: null,
-      value2: null,
-      value3: null,
-      value4: null,
-      textarea: "",
-
-      colors: ["#99A9BF", "#F7BA2A", "#FF9900"], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
-
-      form: {
-        Remark_ID: "",
-        Design_ID: "",
-        Trade_Time: "",
-        Remark_State: "",
-        Accept_Company_ID: ""
+     //选择框
+     options: [{
+            
+            value: '2020',
+           
+           label: '2020'
+        }, {
+          value: '2021',
+          label: '2021',
+          disabled: true
+        }, {
+          value: '选2022',
+          label: '2022',
+          disabled: true
+        }],        
+         value: 2020,
+       form: {
+        designCount:[]
       },
-       //步骤条数据
-      milepost: [
-        { title: "申请/邀请", icon: "el-icon-edit" },
-        { title: "计划提交", icon: "el-icon-upload" },
-        { title: "任务进行中", icon: "el-icon-picture" },
-        { title: "审核", icon: "el-icon-message-solid" },
-        { title: "验收", icon: "el-icon-s-promotion" },
-        { title: "完成", icon: "el-icon-s-claim" }
-      ],
-      // 默认步骤数
-      milepostActive: 5,
-      // 动态添加类名
-      stepActive: "stepActive",
-      //申请状态按钮显示隐藏
-      applicationStatus:0,
-      //任务计划状态按钮显示隐藏
-      taskPlanStatus:0,
-      //合同管理状态按钮显示隐藏
-      contractManagementStatus:0,
-      //设计任务状态按钮显示隐藏
-      designState:0
-    
+      sumTime:[],
+     
+      barData:{
+      taskCount:[],
+      finishTaskCount:[],
+      },
+     
+     // userName:this.$route.query.userName, 
+
     };
   },
-   //初始化俩图标
-  mounted() {
+  //初始化方法
+   created() {
+     
+    this.getData();
+    this.barChartData();//柱形图数据获取
     
-    this.getCharts1();
   },
+ 
+   
   methods: {
-    goBack() {
-      this.$router.push("/admin/Enterprise_Evaluation/evaluate");
+
+    styleswith() {
+      if (this.form.designCount > 0 && this.form.designCount < 3) {
+        document.getElementById("one").style.background = "#00D1B2";
+      }
+      if (this.form.designCount > 2 && this.form.designCount < 4) {
+        document.getElementById("one").style.background = "#eee";
+        document.getElementById("two").style.background = "orange";
+      }
+      if (this.form.designCount > 4 || this.form.designCount == 4) {
+        document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";
+      }
     },
-     getCharts1() {
-      var myChart = echarts.init(document.getElementById("charts1"));
-      var option = {
-        tooltip: {},
-        legend: {
-          x: "left",
-          y: "top",
-          data: ["设计任务"]
-        },
-        radar: {
-          name: {
-            textStyle: {
-              color: "#fff",
-              backgroundColor: "#999",
-              borderRadius: 3,
-              padding: [3, 5]
-            }
-          },
-          indicator: [
-            { name: "任务时长", max: 60 },
-            { name: "计划时长", max: 10 },
-            { name: "审核时长", max: 7 },
-            { name: "申请时长", max: 7 },
-            { name: "验收时长", max: 7 }
-          ]
-        },
-        series: [
-          {
-            type: "radar",
-            data: [
-              {
-                value: [45, 3, 6, 4, 5],
-                name: "设计任务"
-              }
-            ]
-          }
-        ]
-      };
-      myChart.setOption(option);
-    }
+     //获取总时长，平均完成质量
+      getData(){
+ 
+      var that = this;
+      var data = Qs.stringify({
+        
+        designer:"designer",      
+        
+      });
+      // console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/findDesignerTaskLists",
+          data: data
+        })
+        .then(response => {
+                  
+         this.form.designCount=response.data.allData[1];
+         this.sumTime=response.data.allData[0];  
+         this.styleswith() ;        
+        
+        });
+
+    },
+    
+     //柱形图数据获取
+    barChartData(){
+ 
+      var that = this;
+      var data = Qs.stringify({
+        
+        designer:"designer",
+        year:this.value,
+        
+      });
+      // console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "http://127.0.0.1:8082/monthDesignerTaskCountData",
+          data: data
+        })
+        .then(response => {
+          //this.table = response.data.allData;
+         
+         this.barData.taskCount=response.data.allData.taskCount;
+         this.barData.finishTaskCount=response.data.allData.finishTaskCount;          
+         that.$refs.drawbarChart.getCharts2();
+         console.log(response.data.allData)
+         
+        });
+
+    },
+    
+ 
   }
-};
+}
+
 </script>
+<style scoped>
+	#inputValue{
+		width:240px;
+		margin-left: 20px;
+		padding-left: 10px;
+		border-radius: 3px;
+	}
+	.input_span span {
+		display: inline-block;
+		width: 85px;
+		height: 30px;
+		background: #eee;
+		line-height: 20px;
+	}
+ 
+ 
+	
+</style>
 
 <style>
-.is-horizontal {
-  display: none;
+ .input-group{
+   
+    display: inline;
+  }
+.el-main {
+  height: 100%;
 }
-.el-scrollbar__wrap {
-  overflow-x: hidden;
+.top {
+  width: 70%;
+  margin-left: 5%;
+  height: 320px;
 }
-.block {
-  margin-top: 10px;
-  margin-bottom: 20px;
+.lists {
+  width: 100%;
+  height: 60%;
+  margin-top: 10%;
+  margin-left: 0%
 }
-.stars {
-  white-space: nowrap;
+.leidatu{
+ height: 400px;
+}
+.grid-content {
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+.grid-cont-right {
+  flex: 1;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-size: 14px;
+  color: #999;
+}
+.grid-num {
+  font-size: 30px;
+  font-weight: bold;
+}
+.grid-con-icon {
+  font-size: 50px;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  line-height: 80px;
+  color: #fff;
+}
+.grid-con-3 .grid-con-icon {
+  background: rgb(242, 94, 67);
 }
 
-.stars li {
-  display: inline-block;
-  color: #adadad;
-  font-size: 40px;
+.grid-con-3 .grid-num {
+  color: rgb(242, 94, 67);
 }
-.charts1 {
-  width: 66%;
-  margin-top: 10%;
-  margin-left: 10%;
-  height: 320px;
+.input_span span {
+  display: inline-block;
+  width: 85px;
+  height: 30px;
+  background: #eee;
+  line-height: 20px;
+}
+
+#one {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 0px;
+  margin-right: 3px;
+}
+
+#two {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
 }
 </style>

@@ -160,6 +160,7 @@ import barChart from "./components/barChart"
 import radarChart from "./components/radarChart"
 export default {
   name:"evaluate",
+  userName: localStorage.getItem("ms_username"),
   components:{
     "bar-chart":barChart,
     "radar-chart":radarChart,
@@ -196,7 +197,7 @@ export default {
       finishTaskCount:[],
       },
       star:'',
-      userName:this.$route.query.userName, 
+     // userName:this.$route.query.userName, 
 
     };
   },
@@ -250,8 +251,7 @@ export default {
         
         userName:"aaaa"
       });
-       
-     
+            
       that
         .axios({
           method: "post",
