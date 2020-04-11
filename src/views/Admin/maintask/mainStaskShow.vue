@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mainstaskshow">
     <el-container>
       <el-main>
 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" >需求任务</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -17,35 +17,34 @@
               <el-table
                 :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                 border
-                class="table"
+                class="table123"
                 ref="configurationTable"
                 :default-sort = "{prop: 'taskState,publishTime,time', order: 'descending'}"
                 
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-                <!-- mainTaskID冲-->
-                <el-table-column  label="序号"  type="index" width="120"  align="center"></el-table-column>
-                <el-table-column prop="mainTaskName" label="需求任务名称" align="center"></el-table-column>
-                <el-table-column prop="taskState" label="状态" sortable align="center" type="text">
+                <el-table-column label="序号" type="index" width="50" align="center" ></el-table-column>
+                <el-table-column prop="mainTaskName" label="需求任务名称" width="150"></el-table-column>
+                <el-table-column prop="taskState" label="状态" sortable  type="text"  width="120">
                   <template slot-scope="scope">
                     <span v-if="+scope.row.taskState ===0">进行中</span>
                     <span v-else-if="+scope.row.taskState ===1">已完成</span>
                     <span v-else-if="+scope.row.taskState ===2">废除</span>
                   </template>
                 </el-table-column>
-                <el-table-column prop="taskCategoryMain" label="需求类型" align="center"></el-table-column>
-                <el-table-column prop="principalName"   label="负责人" align="center"></el-table-column>
-                <el-table-column prop="publishTime" sortable label="发布时间">
+                <el-table-column prop="taskCategoryMain" label="需求类型"  width="120"></el-table-column>
+                <el-table-column prop="principalName"   label="负责人"  width="80"></el-table-column>
+                <el-table-column prop="publishTime" sortable label="发布时间" width="150">
                   <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                 </el-table-column>
-                <el-table-column prop="time" sortable label="截止时间">
+                <el-table-column prop="time" sortable label="截止时间" width="150">
                   <template slot-scope="scope">
                     {{scope.row.deadline | formatDate}}
                   </template>
                 </el-table-column>
                 
-                <el-table-column label="操作"  align="center">
+                <el-table-column label="操作"  width="120">
                   <template slot-scope="scope">
                     <!-- <el-button
                       type="text"
@@ -56,6 +55,7 @@
                     <el-button @click="substaskDetail1(scope.row)" type="text" size="small">查看详情</el-button>
                   </template>
                 </el-table-column>
+                
               </el-table>
               </div>
               <div class="pagination">
@@ -380,24 +380,19 @@ export default {
    */
 };
 </script>
-<style>
-.con {
-  width: 500px;
-  height: 1000px;
-  margin: 0 auto;
-  text-align: center;
+<style lang="scss">
+.mainstaskshow{
+
+
+body .el-table th.gutter{
+display: table-cell!important;
 }
+
 /* .table {
   font-size: 16px;
 } */
 .handle-box {
   margin-bottom: 20px;
-}
-.con {
-  width: 500px;
-  height: 1000px;
-  margin: 0 auto;
-  text-align: center;
 }
 
 .handle-box {
@@ -407,7 +402,11 @@ export default {
 .handle-select {
   width: 120px;
 }
-
+.table123 {
+   display: table-cell!important;
+  /* width: 100%; */
+  font-size: 14px;
+}
 .handle-input {
   width: 260px;
   display: inline-block;
@@ -430,9 +429,10 @@ export default {
     font-size: 18px;
     color: #00a2e6;
   }
+  .el-table th {
+	display: table-cell!important; 
+}
 
-.el-table--border th.gutter:last-of-type {
-        display: block !important;
-        width: 17px !important;
-    }
+
+}
 </style>

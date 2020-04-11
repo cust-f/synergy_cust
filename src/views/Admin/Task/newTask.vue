@@ -812,5 +812,8 @@ export default {
 .newTask textarea{
   width:780px !important
 }
-
+.button1{
+  width:100px;
+height:40px;
+}
 </style>
