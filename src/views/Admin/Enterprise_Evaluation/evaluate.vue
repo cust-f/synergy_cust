@@ -251,8 +251,7 @@ export default {
         
         userName:"aaaa"
       });
-       
-     
+            
       that
         .axios({
           method: "post",

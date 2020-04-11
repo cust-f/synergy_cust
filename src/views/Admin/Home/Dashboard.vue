@@ -113,7 +113,7 @@
         <el-card shadow="hover">
           <div class="type-situation">分类别需求量统计</div>
           <br />
-          <div id="typeSituation" style="width: 100%;height:430%"></div>
+          <div id="typeSituation" :piedata="piedata"  style="width: 100%;height:430%"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -172,6 +172,21 @@ export default {
         seasonsFinishTaskCount: [],
         nowYear:""
       },
+      piedata:{
+        Count:[],
+        categoryFinishTaskList:[],
+      }
+      //  Data: {
+      //   // count:[],
+      //   // categoryName:[],
+      //   value0:[],
+      //   value1:[],
+      //   value2:[],
+      //   value3:[],
+      //   value4:[],
+      //   value5:[],
+      // },
+
       
     };
   },
@@ -190,13 +205,11 @@ export default {
     this.getMonthData();//本月成交任务、需求任务、流通任务的数据查找
     this.getStatistics();
   },
-  mounted() {
+  // mounted() {
    
-    
-    this.getCharts5();
-    this.getCharts4();
-    this.getCharts6();
-  },
+  //    this.getCharts5()
+  // //   this.getCharts6();
+  //  },
 
   methods: {
     //本月成交任务、需求任务、流通任务的数据查找
@@ -233,6 +246,7 @@ export default {
       this.columnChart();
       this.columnChart2();
       this.pipChart();
+      this.pieChart();
     },
     //柱形图数据1
     columnChart() {
@@ -255,7 +269,7 @@ export default {
         this.cloumnData2.nowTaskNumber2 = response.data.allData.countYear;
         this.cloumnData2.lastTaskNumber2 = response.data.allData.countLastYear;
         this.$refs.drawCloumnChart2.getCharts2();
-          console.log(response.data.allData);
+       //   console.log(response.data.allData);
       });
     },
     //饼图数据
@@ -270,6 +284,18 @@ export default {
         
       });
     },
+    //行业类别饼图数据
+    pieChart() {
+      let that = this;
+      that.axios.post("http://127.0.0.1:8082/findTaskCategoryList").then(response => {
+        this.piedata.Count=response.data.allData.Count;
+        this.piedata.categoryFinishTaskList=response.data.allData.categoryFinishTaskList;
+      
+        this.getCharts5();  
+        //console.log(response.data.allData);
+        
+      });
+    },
     changeDate() {
       const now = new Date().getTime();
       this.data.forEach((item, index) => {
@@ -280,60 +306,6 @@ export default {
     },
     
 
-    
-
-    getCharts4() {
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-      var myChart = echarts.init(document.getElementById("comprehensiveScore")); // 指定图表的配置项和数据
-
-      var option = {
-        title: {
-          text: " "
-        },
-        tooltip: {},
-        legend: {
-          data: ["2017年", "2018年"]
-        },
-        radar: {
-          // shape: 'circle',
-          name: {
-            textStyle: {
-              color: "#fff",
-              backgroundColor: "#999",
-              borderRadius: 3,
-              padding: [3, 5]
-            }
-          },
-          indicator: [
-            { name: "销售", max: 10 },
-            { name: "管理", max: 10 },
-            { name: "技术", max: 10 },
-            { name: "客服", max: 10 },
-            { name: "研发", max: 10 } // { name: '市场（Marketing）', max: 25000}
-          ]
-        },
-        series: [
-          {
-            name: "2017 vs 2018",
-            type: "radar", // areaStyle: {normal: {}},
-            itemStyle: { normal: { areaStyle: { type: "default" } } },
-            data: [
-              {
-                value: [8, 5, 6, 6, 6, 6],
-                name: "2017年"
-              },
-              {
-                value: [8, 6, 7, 4, 8, 7],
-                name: "2018年"
-              }
-            ]
-          }
-        ]
-      }; // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
-      charts.push(myChart);
-    },
 
     getCharts5() {
       // 基于准备好的dom，初始化echarts实例
@@ -347,16 +319,17 @@ export default {
         legend: {
           orient: "vertical",
           left: 10,
-          data: [
-            "交通运输设备",
-            "仪器仪表及文化、办公用机械",           
-            "通信设备、计算机及其他电子设备",
-            "电器机械及器材",
-            "专用设备",
-            "通用设备",        
+          data: this.piedata.Count,
+          // [
+          //   "交通运输设备",
+          //   "仪器仪表及文化、办公用机械",           
+          //   "通信设备、计算机及其他电子设备",
+          //   "电器机械及器材",
+          //   "专用设备",
+          //   "通用设备",        
             
            
-          ]
+          // ]
         },
         series: [
           
@@ -406,15 +379,17 @@ export default {
                 }
               }
             },
-            data: [
-              { value: 200, name: "交通运输设备" },
-              { value: 350, name: "仪器仪表及文化、办公用机械",},
-              { value: 300, name:  "通信设备、计算机及其他电子设备", },
-              { value: 300, name: "电器机械及器材", },
-              { value: 600, name: "专用设备", },
-              { value: 900, name: "通用设备",  },
+            data: this.piedata.categoryFinishTaskList,
+            // [            
              
-            ]
+            //   { value:"", name: "交通运输设备" },
+            //   { value:"", name: "仪器仪表及文化、办公用机械",},
+            //   { value:"", name:  "通信设备、计算机及其他电子设备", },
+            //   { value:"", name: "电器机械及器材", },
+            //   { value:"", name: "专用设备", },
+            //   { value:"", name: "通用设备",  },
+             
+            // ]
           }
         ]
       };
@@ -424,91 +399,7 @@ export default {
       charts.push(myChart);
     },
 
-    getCharts6() {
-      // 基于准备好的dom，初始化echarts实例
-      var charts = [];
-      var myChart = echarts.init(document.getElementById("numberStatistics"));
-      var option = {
-        title: {
-          text: " "
-        },
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "cross",
-            label: {
-              backgroundColor: "#6a7985"
-            }
-          }
-        },
-        legend: {
-          data: ["核心企业用户", "供应商企业用户", "已注册用户", "未注册散户"]
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: "category",
-            boundaryGap: false,
-            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
-          }
-        ],
-        yAxis: [
-          {
-            type: "value"
-          }
-        ],
-        series: [
-          {
-            name: "核心企业用户",
-            type: "line",
-            stack: "总量",
-            areaStyle: {},
-            data: [120, 132, 101, 134, 90, 230, 210]
-          },
-          {
-            name: "供应商企业用户",
-            type: "line",
-            stack: "总量",
-            areaStyle: {},
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: "已注册用户",
-            type: "line",
-            stack: "总量",
-            areaStyle: {},
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: "未注册散户",
-            type: "line",
-            stack: "总量",
-            label: {
-              normal: {
-                show: true,
-                position: "top"
-              }
-            },
-            areaStyle: {},
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
-          }
-        ]
-      };
-
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
-      charts.push(myChart);
-    }
+    
   }
 };
 
