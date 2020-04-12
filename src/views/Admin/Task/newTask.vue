@@ -92,13 +92,19 @@
             </el-col>
           </el-row>
 
+
           <el-row>
-            <el-col :span="22">
-              <el-form-item label="需求任务详细">
-                <el-input type="textarea" :rows="3" v-model="xiangxi"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
+                <el-col :span="24" class = "xiangxi">
+                    <el-form-item label="需求任务详细" >
+                            <el-input 
+                            type="textarea"
+                            :rows="3"
+                            style="width:100%;"
+                            placeholder="请输入内容" v-model="xiangxi" class="gongsiDetail"  ></el-input>
+                    </el-form-item>
+                    
+                </el-col>
+            </el-row>
 
           <el-form-item label="添加附件">
             <el-upload
@@ -118,7 +124,7 @@
             </el-upload>
           </el-form-item>
         </el-form>
-        <div id="div2" align="right">
+        <div id="div2" align="center">
           <el-button type="primary" class="button1" @click="tijiao">提交</el-button>
         </div>
       </div>
@@ -147,7 +153,7 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column prop="taskName" label="任务名称"></el-table-column>
-            <el-table-column prop="Telphone" label="需求方联络电话"></el-table-column>
+            <el-table-column prop="Telphone" label="联络电话"></el-table-column>
             <el-table-column prop="beginTime" label="开始时间"></el-table-column>
             <el-table-column prop="deadline" label="结束时间"></el-table-column>
           </el-table>
@@ -156,7 +162,7 @@
         <!-- 新增弹出框 -->
         <el-dialog title="" :visible.sync="addVisible" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-          新增
+          需求分解
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <el-row>
             <el-col :span="8"></el-col>
@@ -170,7 +176,7 @@
               </el-col>
 
               <el-col :span="11">
-                <el-form-item label="需求方联络电话">
+                <el-form-item label="联络电话">
                   <el-input v-model="addList.Telphone" @blur="animate()"></el-input>
                 </el-form-item>
               </el-col>
@@ -295,7 +301,7 @@
             <el-row>
               <el-col :span="22">
                 <el-form-item label="分解任务详细">
-                  <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
+                  <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="4"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -802,5 +808,12 @@ export default {
 .el-upload--text {
   width: 85px;
   height: 40px;
+}
+.newTask textarea{
+  width:780px !important
+}
+.button1{
+  width:100px;
+height:40px;
 }
 </style>

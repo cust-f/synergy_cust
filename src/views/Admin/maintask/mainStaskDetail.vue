@@ -325,7 +325,7 @@
               <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="180" align="center">
+          <el-table-column label="操作" width="150" align="center">
             <template slot-scope="scope">
               <!-- <el-button
                       type="text"
@@ -371,12 +371,12 @@
         </div>
 
         <div class="LDT">
-          <!-- 雷达图 -->
+          <!-- 雷达图 -->   
           <radar-chart :radarData="radarData" ref="QradarChart" ></radar-chart>
-          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
-          <div class="input_span">
+       
+          <div class="input_span"     align="center">
             <el-form ref="form" :modelZL="formZL">
-              <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+              <div class="WCZL">完成质量</div> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <br />
               <br />
             </el-form>
@@ -384,6 +384,7 @@
             <span id="two"></span>
             <span id="three"></span>
           </div>
+          
         </div>
       </div>
 
@@ -1003,7 +1004,8 @@ export default {
    
   //完成质量
   .WCZL {
-    font-size: 11px;
+    font-size: 18px;
+    color: #303133;
   }
 
 
@@ -1072,10 +1074,11 @@ export default {
   }
   .input_span span {
     display: inline-block;
-    width: 85px;
+    width: 150px;
     height: 30px;
     background: #eee;
     line-height: 20px;
+
   }
 
   #one {
