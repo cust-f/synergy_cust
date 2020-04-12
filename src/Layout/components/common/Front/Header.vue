@@ -19,7 +19,7 @@
                       <el-divider></el-divider>
                       <a @click="logout(1)">返回首页</a>
                       <el-divider></el-divider>
-                      <a @click="dialogTableVisible=true">账号管理</a>
+                      <a @click="getUserDetail">账号管理</a>
                     </div>
                   </el-col>
                 </el-row>
@@ -74,7 +74,73 @@
         </div>
       </el-col>
     </el-row>
-    <el-dialog title="账号管理" :visible.sync="dialogTableVisible" :close-on-click-modal="false" @close="closeDialog">
+    <el-dialog
+      title="用户信息"
+      :visible.sync="userDetail"
+      :close-on-click-modal="false"
+      @close="userDetail=false"
+    >
+      <div class="user-detail">
+        <el-row>
+          <el-col :span="3" :offset="6">
+            <span class="titles">所属公司</span>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <span>{{userInfo.companyName}}</span>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="3" :offset="6">
+            <span class="titles">用户名</span>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <span>{{userInfo.userName}}</span>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="3" :offset="6">
+            <span class="titles">姓名</span>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <span>{{userInfo.realName}}</span>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="3" :offset="6">
+            <span class="titles">角色</span>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <span>{{userInfo.roleName}}</span>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="3" :offset="6">
+            <span class="titles">邮箱</span>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <span>{{userInfo.email}}</span>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="3" :offset="6">
+            <span class="titles">电话</span>
+          </el-col>
+          <el-col :span="6" :offset="1">
+            <span>{{userInfo.phone}}</span>
+          </el-col>
+        </el-row>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button  @click="updataUserDetail=true">修改账户信息</el-button>
+        <el-button @click="updataPassword=true" type="primary">修改密码</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      title="修改密码"
+      :visible.sync="updataPassword"
+      :close-on-click-modal="false"
+      @close="closeDialog"
+    >
       <el-form
         :model="account"
         status-icon
@@ -101,11 +167,44 @@
         <el-form-item label="确认密码" prop="checkPass">
           <el-input type="password" v-model="account.checkPass" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('account')" :disabled="checkMessage">提交</el-button>
-          <el-button @click="resetForm('account')">重置</el-button>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm('account')" :disabled="checkMessage">提交</el-button>
+        <el-button @click="resetForm('account')">重置</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      title="修改账户信息"
+      :visible.sync="updataUserDetail"
+      :close-on-click-modal="false"
+      @close="updataUserDetail=false"
+    >
+      <el-form
+        :model="user"
+        status-icon
+        :rules="userRules"
+        ref="user"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
+        <el-form-item
+          prop="email"
+          label="邮箱"
+          :rules="[
+      { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+      { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+    ]"
+        >
+          <el-input v-model="user.email" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="电话" prop="phone">
+          <el-input v-model="user.phone"></el-input>
         </el-form-item>
       </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitUser('user')">提交</el-button>
+        <!-- <el-button @click="resetForm('user')">重置</el-button> -->
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -138,6 +237,16 @@ export default {
         callback();
       }
     };
+  var validDataPhone = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请填写手机号码"));
+      } else if (!/^1[3456789]\d{9}$/.test(value)) {
+        // this.$error("手机号码有误，请重填");
+        callback(new Error("手机号码有误，请重填"));
+      } else {
+        callback();
+      }
+      }
     return {
       log: true,
       token: this.$store.state.token,
@@ -146,13 +255,23 @@ export default {
       input: "",
       select: "",
       checkMessage: true,
-      dialogTableVisible: false, //弹出框修改账号信息
+      updataPassword: false, //弹出框修改账号信息
+      userDetail: false, //用户信息弹框
+      updataUserDetail: false, //用户信息修改弹框
       icon: "el-icon-edit",
+      userInfo: {},
       account: {
         oldPassword: "",
         newPassword: "",
         checkPass: "",
         userId: this.$store.state.userId
+      },
+      user: {
+        email: "",
+        phone: ""
+      },
+      userRules:{
+        phone: [{ required: true, validator: validDataPhone, trigger: "blur" }]
       },
       rules: {
         //oldPassword: [{ validator: validatePass, trigger: "blur" }],
@@ -190,6 +309,24 @@ export default {
       } else {
         this.$router.push("/register");
       }
+    },
+    getUserDetail() {
+      let that = this;
+      let data = Qs.stringify({
+        userName: this.username
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/users/getUserDetail",
+          data: data
+        })
+        .then(response => {
+          this.userInfo = response.data.allData.userDetail;
+          this.user.email = this.userInfo.email;
+          this.user.phone = this.userInfo.phone;
+          this.userDetail = true;
+        });
     },
     //向后台检验原来输入的密码是否正确
     checkOldPassword() {
@@ -240,7 +377,7 @@ export default {
                 message: "修改密码成功"
               });
               this.resetForm("account");
-              this.dialogTableVisible = false;
+              this.updataPassword = false;
             });
         } else {
           this.$message({
@@ -250,14 +387,47 @@ export default {
         }
       });
     },
-    resetForm(formName) {
-      this.account.oldPassword = null;
-      this.icon="el-icon-edit";
-      this.$refs[formName].resetFields();
+    submitUser(formName) {
+
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          //账户信息
+          let that = this;
+          var data = Qs.stringify({
+            userName: this.username,
+            email: this.user.email,
+            phone: this.user.phone
+          });
+          that
+            .axios({
+              method: "post",
+              url: "/api/users/updataUserDetail",
+              data: data
+            })
+            .then(response => {
+              this.$message({
+                type: "success",
+                message: "修改账户信息成功"
+              });
+              this.getUserDetail();
+              this.updataUserDetail = false;
+            });
+        } else {
+          this.$message({
+            type: "warning",
+            message: "请输入正确有效的信息"
+          });
+        }
+      });
     },
-    closeDialog(){
+    resetForm(fromName) {
+      this.account.oldPassword = null;
+      this.icon = "el-icon-edit";
+      this.$refs[fromName].resetFields();
+    },
+    closeDialog() {
       this.resetForm("account");
-     this.dialogTableVisible = false;
+      this.updataPassword = false;
     }
   }
 };
@@ -297,6 +467,22 @@ export default {
   font-size: 22px;
   color: #fff;
   line-height: 70px;
+}
+.user-detail {
+  margin: 0 auto;
+  /* text-align: center; */
+  /* float: left; */
+}
+.user-detail .titles {
+  font-size: 20px;
+  font-weight: 400;
+}
+.user-detail span {
+  font-size: 16px;
+  /* float: left; */
+}
+.user-detail .el-row {
+  margin-bottom: 20px;
 }
 /* .collapse-btn {
   float: left;
