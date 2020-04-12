@@ -71,10 +71,17 @@ export default {
                 this.$store.commit("SET_TOKEN", true);
                 this.$store.commit("GET_USER", this.param.username);
                  localStorage.setItem("ms_username", this.param.username);
+                 localStorage.setItem("designer_name", this.param.username);
                 this.$store.commit("SET_List", response.data.allData.data.menuList);
                 // console.log(localStorage.getItem("ms_username"));
                 // console.log("有用户名的！！！")
-                this.$router.push("/admin/dashboard");
+                if(this.param.username=="designer")
+                {
+                    this.$router.push("/admin/designTaskEvaluationDetils");
+                }else{
+                   this.$router.push("/admin/dashboard");
+                }
+                
               } else {
                 this.$message({
                   type: "warning",

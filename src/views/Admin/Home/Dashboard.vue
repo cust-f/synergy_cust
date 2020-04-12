@@ -43,9 +43,9 @@
           <el-col :span="5" >
             <el-card shadow="hover" :body-style="{padding: '0px'}">
               <div class="grid-content grid-con-1">
-                <i class="el-icon-bell grid-con-icon"></i>
+                <i class="el-icon-user grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">32</div>
+                  <div class="grid-num" v-html="form.coreCompany">32</div>
                   <div>认证企业</div>
                 </div>
               </div>
@@ -54,9 +54,9 @@
           <el-col :span="5" >
             <el-card shadow="hover" :body-style="{padding: '0px'}">
               <div class="grid-content grid-con-1">
-                <i class="el-icon-s-data grid-con-icon"></i>
+                <i class="el-icon-user grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">50</div>
+                  <div class="grid-num" v-html="form.supplierCompany">50</div>
                   <div>认证供应商</div>
                 </div>
               </div>
@@ -143,6 +143,8 @@ export default {
         monthCount:'',
         desingMonthCount:[],
         circulaterMonthCount:[],
+        coreCompany:[],
+        supplierCompany:[],
       },
      
      //柱状图1
@@ -234,6 +236,8 @@ export default {
           this.form.monthCount=response.data.allData[0];
           this.form.desingMonthCount=response.data.allData[1];
           this.form.circulaterMonthCount=response.data.allData[2];
+          this.form.coreCompany=response.data.allData[3];
+          this.form.supplierCompany=response.data.allData[4];
            // console.log(response.data.allData);
           
         });

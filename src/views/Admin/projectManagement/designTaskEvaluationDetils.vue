@@ -5,12 +5,13 @@
           数据综合统计
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-card shadow="hover" :body-style="{padding: '0px'}"> 
+        
         <el-col :span="8" >
          <div class="grid-content grid-con-3">
                 <i class="el-icon-s-data grid-con-icon"></i>
                 <div class="grid-cont-right">
                   <div class="grid-num" v-html="sumTime">1101</div>
-                  <div>总完成日长</div>
+                  <div>完成总天长</div>
                 </div>
               </div>
         </el-col>
@@ -28,6 +29,7 @@
             </div>
           </div>
         </el-col>
+       
       </el-card>
      <br/>
      <el-card shadow="hover" :body-style="{padding: '0px'}"> 
@@ -87,6 +89,7 @@ export default {
   },
   data() {
     return {
+      designername:localStorage.getItem("designer_name"),
      //选择框
      options: [{
             
@@ -129,14 +132,14 @@ export default {
   methods: {
 
     styleswith() {
-      if (this.form.designCount > 0 && this.form.designCount < 3) {
+      if (this.form.designCount > 0 && this.form.designCount < 6) {
         document.getElementById("one").style.background = "#00D1B2";
       }
-      if (this.form.designCount > 2 && this.form.designCount < 4) {
+      if (this.form.designCount > 5 && this.form.designCount < 11) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
       }
-      if (this.form.designCount > 4 || this.form.designCount == 4) {
+      if (this.form.designCount > 10 || this.form.designCount == 11) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
       }
@@ -147,7 +150,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         
-        designer:"designer",      
+        designer:this.designername,      
         
       });
       // console.log(data);
@@ -171,11 +174,11 @@ export default {
     
      //柱形图数据获取
     barChartData(){
- 
+     var charts = [];
       var that = this;
       var data = Qs.stringify({
         
-        designer:"designer",
+        designer:this.designername,  
         year:this.value,
         
       });
@@ -194,7 +197,7 @@ export default {
          this.barData.taskCount=response.data.allData.taskCount;
          this.barData.finishTaskCount=response.data.allData.finishTaskCount;          
          that.$refs.drawbarChart.getCharts2();
-         console.log(response.data.allData)
+         
          
         });
 
@@ -219,12 +222,7 @@ export default {
 		background: #eee;
 		line-height: 20px;
 	}
- 
- 
-	
-</style>
 
-<style>
  .input-group{
    
     display: inline;
@@ -276,6 +274,7 @@ export default {
 .grid-con-3 .grid-num {
   color: rgb(242, 94, 67);
 }
+
 .input_span span {
   display: inline-block;
   width: 85px;
