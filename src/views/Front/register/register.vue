@@ -21,7 +21,7 @@
         @companyFrom="companyFrom"
         @registerUserDe="registerUserDe"
       ></register-company>
-      <register-editor v-show="active==3"></register-editor>
+      <register-editor ref="detail" @registerDetail="registerDetail" v-show="active==3"></register-editor>
       <register-picture
         v-show="active==4"
         ref="picture"
@@ -125,10 +125,13 @@ export default {
     },
     register() {
       var that = this;
-
       that.$refs.company.registerCompanyDetail(); //注册企业信息
     },
     registerUserDe() {
+      var that = this;
+      that.$refs.detail.addSubmit();//企业介绍信息
+    },
+    registerDetail(){
       var that = this;
       that.$refs.user.registerUserDetail(); //用户注册账户信息
     }

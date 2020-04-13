@@ -332,8 +332,8 @@ export default {
         businessName: "",
         product: "",
         middleProduct: [],
-        Introduction:
-          "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
+        // Introduction:
+        //   "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
         Province: "",
         city: "",
         registeredCapital: new Number(),
