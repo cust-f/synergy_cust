@@ -238,7 +238,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/MainTaskInformation/listall",
+          url: "http://127.0.0.1:8081/MainTaskInformation/listall",
           data: data
 
           // data:this.$store.state.userName
@@ -263,7 +263,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/MainTaskInformation/selectByCompanyandTaskName",
+            "http://127.0.0.1:8081/MainTaskInformation/selectByCompanyandTaskName",
           data: data
           // data:this.$store.state.userName
         })
