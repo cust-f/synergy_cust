@@ -25,11 +25,6 @@ export default {
   name: "editor",
   data() {
     return {
-      filterType: this.$route.query.statuses,
-      title: this.$route.query.title,
-      statuses: this.$route.query.statuses,
-      select: this.$route.query.select,
-      id: this.$route.query.id,
       myConfig: {
         // 如果需要上传功能,找后端小伙伴要服务器接口地址
         // serverUrl: this.$config.baseUrl + 'ueditor/ueditorConfig',
@@ -61,89 +56,26 @@ export default {
     ready(editorInstance) {
       console.log(`编辑器实例${editorInstance.key}: `, editorInstance);
     },
-    //编辑获取文章
-    getContent() {
-      var that = this;
-      if (this.$store.state.table == "notice") {
-        var data = Qs.stringify({
-          firstMenu: this.$store.state.parentList,
-          secondMenu: this.filterType,
-          title: this.title
-        });
-      } else {
-        var data = Qs.stringify({
-          firstMenu: this.$store.state.currentAdminNav.menuName,
-          secondMenu: this.filterType,
-          title: this.title
-        });
-      }
-      that
-        .axios({
-          method: "post",
-          url: "/api/wp-admin/getContent",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.content = response.data.allData.content;
-        });
-    },
+
     //新增文章
     addSubmit() {
-      if (this.filterType=="") {
-        this.$message({
-          message: "请选择类别哦",
-          type: "warning"
-        });
-      } else {
         var that = this;
-        if (this.$store.state.table == "notice") {
           var data = Qs.stringify({
-            firstMenu: this.$store.state.parentList,
-            secondMenu: this.filterType,
-            title: this.title,
-            NorA: this.$store.state.currentAdminNav.menuName,
             content: this.content,
-            isFocus: null,
-            picture: null,
-            id: this.id
           });
-        } else {
-          var data = Qs.stringify({
-            firstMenu: this.$store.state.currentAdminNav.menuName,
-            secondMenu: this.filterType,
-            title: this.title,
-            NorA: null,
-            content: this.content,
-            isFocus: null,
-            picture: null,
-            id: this.id
-          });
-        }
+
         that
           .axios({
             method: "post",
-            url: "/api/wp-admin/saveContent",
+            url: "/api/register/setCompanyDetail",
             data: data
           })
           .then(response => {
-            if (response.status == 200) {
-              this.$message({
-                message: "保持成功",
-                type: "success"
-              });
-              window.history.go(-1);
-            } else {
-              this.$message({
-                message: response.data.message,
-                type: "alert"
-              });
-            }
+            this.$emit("registerDetail");
           })
           .catch(function(error) {
             console.log(error);
           });
-      }
     }
   }
 };
