@@ -458,7 +458,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/xuqiuyilan/getListByTaskType",
+        url: "/api/xuqiuyilan/getListByTaskType",
         data: data
       }).then(response =>{
         that.demandTaskList = response.data;
@@ -478,7 +478,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/xuqiuyilan/getListByMainType",
+        url: "/api/xuqiuyilan/getListByMainType",
         data: data
       }).then(response =>{
         that.demandTaskList = response.data;
@@ -497,7 +497,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/xuqiuyilan/getListByPartType",
+        url: "/api/xuqiuyilan/getListByPartType",
         data: data
       }).then(response =>{
         that.demandTaskList = response.data;
@@ -762,7 +762,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/xuqiuyilan/getAllList",
+          url: "/api/xuqiuyilan/getAllList",
           // data: data
         })
         .then(response =>{
@@ -779,7 +779,7 @@ export default {
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/xuqiuyilan/searchInfo",
+        url: "/api/xuqiuyilan/searchInfo",
         data: data
       }).then(response =>{
         that.demandTaskList = response.data;

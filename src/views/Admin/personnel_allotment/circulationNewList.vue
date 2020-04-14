@@ -1,87 +1,116 @@
 <template>
   <div>
-      <div class="desinger">
-        <h3>新增流通任务</h3>
-      </div>
-      <el-divider></el-divider>
-      <el-row style="height:600px;">
-        <el-card style="height:100%">
-          <div style="font-size:20px">新增任务</div>
-          <el-table
-            :data="Not_Accepted_Task_Data"
-            border
-            class="table"
-            header-cell-class-name="table-header"
-            height="100%"
-            style="margin-top:20px"
-          >
-            <template v-for="(item,index) in Not_Accepted_Task_Head">
-              <el-table-column
-                :prop="item.column_name"
-                :label="item.column_comment"
-                :key="index"
-                :min-width="item.width"
-                v-if="item.column_name != 'id'"
-                align="center"
-                :show-overflow-tooltip="true"
-              ></el-table-column>
-            </template>
-            <el-table-column label="操作" min-width="45px" align="center">
-              <template slot-scope="scope">
-                <el-button @click="dialogVisible = true" type="text" size="small">查看任务详情</el-button>
-                <el-button type="text" size="small" @click="beginTask(scope.row)">开始任务</el-button>
-              </template>
+    <div class="desinger">
+      <div
+        class="biaoti"
+        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
+      >&nbsp;&nbsp;&nbsp;&nbsp;新增任务</div>
+    </div>
+    <br />
+    <!-- <el-divider></el-divider> -->
+    <el-row style="height:600px;">
+      <el-card style="height:100%">
+        <el-table
+          :data="Not_Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+          border
+          class="table"
+          header-cell-class-name="table-header"
+          height="100%"
+          style="margin-top:20px"
+        >
+          <template>
+            <el-table-column
+              prop="taskId"
+              label="编号"
+              type="index"
+              width="110px"
+              align="center"
+              :show-overflow-tooltip="true"
+            ></el-table-column>
+            <el-table-column
+              prop="taskName"
+              label="需求任务名称"
+              min-width="90px"
+              align="center"
+              :show-overflow-tooltip="true"
+            ></el-table-column>
+            <el-table-column
+              prop="taskCategoryPart"
+              label="需求类型"
+              min-width="90px"
+              align="center"
+              :show-overflow-tooltip="true"
+            ></el-table-column>
+            <el-table-column
+              prop="deadline"
+              label="截止时间"
+              min-width="90px"
+              align="center"
+              :show-overflow-tooltip="true"
+            >
+              <template slot-scope="scope">{{scope.row.deadline| dataFormat("yyyy-MM-dd hh:mm")}}</template>
             </el-table-column>
-          </el-table>
-          <div class="pagination">
-            <el-pagination
-              background
-              layout="total, prev, pager, next"
-              :current-page="query.pageIndex"
-              :page-size="query.pageSize"
-              :total="pageTotal"
-              @current-change="handlePageChange"
-            ></el-pagination>
-          </div>
-        </el-card>
-      </el-row>
-     
-    <el-dialog title="流通任务详情" :visible.sync="dialogVisible" width="60%">
+          </template>
+
+          <el-table-column label="操作" min-width="90px" align="center">
+            <template slot-scope="scope">
+              <el-button type="text" @click="handleEdit(scope.$index, scope.row)"  size="small">任务详情</el-button>
+              <el-button type="text" size="small" @click="beginTask(scope.row)">开始任务</el-button>
+              <el-button type="text" size="small" @click="xiazai(scope.row)">下载附件</el-button>
+
+            </template>
+          </el-table-column>
+        </el-table>
+
+        <div class="pagination">
+          <el-pagination
+            background
+            layout="prev, pager, next, total, jumper"
+            :current-page="pageIndex"
+            :page-size="pageSize"
+            :total="      Not_Accepted_Task_Data.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+          ></el-pagination>
+        </div>
+      </el-card>
+    </el-row>
+
+    <el-dialog title="新增任务详情" :visible.sync="dialogVisible" width="60%">
       <div>
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="任务ID">
-                <el-input v-model="form.taskId"></el-input>
+              <el-form-item label="任务名称">
+                <el-input v-model="form.taskName" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="任务名称">
-                <el-input v-model="form.taskName"></el-input>
+              <el-form-item label="企业名称">
+                <el-input v-model="form.companyName" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务类型">
-                <el-input v-model="form.taskCategory"></el-input>
+                <el-input v-model="form.taskCategoryPart" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="截止日期">
-                <el-input v-model="form.deadline"></el-input>
+                <el-input v-bind:value="form.deadline | formatDate"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-form-item label="任务详情">
               <el-input
-                :disabled="true"
+                
                 type="textarea"
                 :rows="7"
                 v-model="form.taskDetail"
-                style="width:100%;"
-                placeholder="请输入内容"
+                style="width:90%;"
               ></el-input>
             </el-form-item>
           </el-row>
@@ -92,7 +121,6 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-     
   </div>
 </template>
 
@@ -100,141 +128,192 @@
 
 <script>
 import Qs from "qs";
+import { formatDate } from "./dataChange";
 export default {
   name: "circulationNewList",
   data() {
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
+      username1: localStorage.getItem("ms_username"),
+
+      pageIndex: 1,
+      pageSize: 7,
       pageTotal: 0,
-      Not_Accepted_Task_Head: [
-        {
-          column_name: "taskId",
-          column_comment: "任务ID",
-          width: "30"
-        },
-        {
-          column_name: "taskName",
-          column_comment: "任务名称",
-          width: "55"
-        },
-        {
-          column_name: "taskCategory",
-          column_comment: "任务类别",
-          width: "50"
-        },
-        {
-          column_name: "deadline",
-          column_comment: "截至时间",
-          width: "45"
-        }
-      ],
+
       Not_Accepted_Task_Data: [
         {
-          Circulation_ID: "0001",
-          Circulation_Name: "大汽车零件装配",
-          Circulation_Type: "零件装配制造",
-          Circulation_End_Time: "2019-10-17"
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
         },
         {
-          Circulation_ID: "0002",
-          Circulation_Name: "大帆船的制造",
-          Circulation_Type: "中形设备制造",
-          Circulation_End_Time: "2019-9-15"
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
         },
         {
-          Circulation_ID: "0003",
-          Circulation_Name: "大火箭模拟装配",
-          Circulation_Type: "高端装配制造",
-          Circulation_End_Time: "2019-12-17"
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
         },
         {
-          Circulation_ID: "0004",
-          Circulation_Name: "铁轨零件制造",
-          Circulation_Type: "高端装配制造",
-          Circulation_End_Time: "2019-12-17"
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
         },
-        {
-          Circulation_ID: "0005",
-          Circulation_Name: "武器装备模拟装配",
-          Circulation_Type: "高端装配制造",
-          Circulation_End_Time: "2019-12-17"
-        }
-      ],
-      
-      form: {
-        Circulation_ID: "0001",
-        Circulation_Name: "大汽车零件的装配",
-        Circulation_Type: "零件装配制造",
-        Circulation_End_Time: "2019-10-17",
-        Circulation_Task_Details:
-          "空气滤清器：作用是过滤空气中的灰尘杂质，让洁净的空气进入发动机，这对发动机的寿命和正常工作很重要。"
-      },
-    
 
-      dialogVisible: false
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+        {
+          taskId: "",
+          taskName: "",
+          taskCategory: "",
+          deadline: ""
+        },
+      ],
+
+      form: {},
+      form1: {},
+      form2: {},
+      dialogVisible: false,
+      submit: false
     };
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm");
+    }
   },
   created() {
     this.getData();
-    
+    this.getDetailData();
   },
   methods: {
- 
+    beginTask(row) {
+      console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      console.log(data);
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8081/designer/updateDesignState",
+        data: data
+      });
+
+      this.$message({
+        message: "任务开始成功",
+        type: "success"
+      });
+    },
     goBack() {
       this.$router.push("/#");
     },
     handlePageChange(val) {},
-     //获取新增列表数据
+    //获取新增列表数据
     getData() {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: ""
+        userName: this.username1
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/circulater/circulateNewList",
+          url: "http://127.0.0.1:8081//circulater/circulateNewList",
           data: data
 
           //  data:this.$store.state.userName
         })
         .then(response => {
-         console.log(response);
+          console.log(response);
           this.Not_Accepted_Task_Data = response.data.allData;
           this.form = response.data.allData[0];
+        })
+    },
+    getDetailData() {
+      //console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      //console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/designer/newlist",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.form = response.data.allData;
+        })
+    },
+    handleEdit(index, row) {
+      this.idx = index;
+      this.form = row;
+      this.dialogVisible = true;
+    },
+     xiazai(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/designer/downloadFile",
+          data: data
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response.data);
+          this.download(response.data, "tf");
         });
     },
-   
-    beginTask(row) {
-        //console.log(this.taskId);
-        var that = this;
-        var data = Qs.stringify({
-          taskId:row.taskId
-        });
-        console.log(data);
-        that.axios({
-          method:"post",
-          url:
-          "http://127.0.0.1:8082//circulater/updateCirculationState",
-          data:data
-        });  
-         this.$message({
-        message: "任务开始成功",
-        type: "success"
-      });
-      },
-       
-      
-      
+    // 下载文件
+    download(data, leixing) {
+      if (!data) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([data]));
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      if (leixing === "tf") {
+        link.setAttribute("download", "技术文档.docx");
+      } else if (leixing === "HT") {
+        link.setAttribute("download", "合同.docx");
+      }
+      document.body.appendChild(link);
+      link.click();
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
 
-
-  },
-  
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+  }
 };
 </script>
 <style>
@@ -245,4 +324,11 @@ export default {
   width: 100%;
   font-size: 14px;
 }
-</style>>
+.el-scrollbar__wrap {
+  overflow-y: hidden;
+}
+.biaoti {
+  font-size: 18px;
+  color: #303133;
+}
+</style>

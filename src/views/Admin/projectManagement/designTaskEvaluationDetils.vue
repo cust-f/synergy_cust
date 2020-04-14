@@ -2,7 +2,7 @@
   <el-container>
     <el-main>
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-          数据综合统计
+          数据统计
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-card shadow="hover" :body-style="{padding: '0px'}"> 
         
@@ -18,7 +18,7 @@
          <el-col :span="16" >
           <div class="input_span">
             <el-form ref="form" :model="form">
-              <label style="margin-left:280px;">平均完成质量</label>
+              <label class="grid-cont-right" style="margin-left:285px;">平均完成质量</label>
               <br />
               <br />
             </el-form>
@@ -91,21 +91,9 @@ export default {
     return {
       designername:localStorage.getItem("designer_name"),
      //选择框
-     options: [{
-            
-            value: '2020',
-           
-           label: '2020'
-        }, {
-          value: '2021',
-          label: '2021',
-          disabled: true
-        }, {
-          value: '选2022',
-          label: '2022',
-          disabled: true
-        }],        
-         value: 2020,
+     options: [],        
+        value:'',
+      
        form: {
         designCount:[]
       },
@@ -122,14 +110,26 @@ export default {
   },
   //初始化方法
    created() {
-     
+    this.getYearData(); //获取条件选择时间数据
     this.getData();
     this.barChartData();//柱形图数据获取
+   
     
   },
  
    
   methods: {
+
+    //获取条件选择时间数据
+    getYearData() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then(response => {
+        this.value = response.data.allData.nowYear;
+        this.options= response.data.allData.years;  
+        this.barChartData();
+        console.log(response.data.allData);      
+      });
+    },
 
     styleswith() {
       if (this.form.designCount > 0 && this.form.designCount < 6) {
@@ -159,7 +159,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/findDesignerTaskLists",
+            "/api/findDesignerTaskLists",
           data: data
         })
         .then(response => {
@@ -171,6 +171,7 @@ export default {
         });
 
     },
+
     
      //柱形图数据获取
     barChartData(){
@@ -188,7 +189,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/monthDesignerTaskCountData",
+            "/api/monthDesignerTaskCountData",
           data: data
         })
         .then(response => {
@@ -197,7 +198,7 @@ export default {
          this.barData.taskCount=response.data.allData.taskCount;
          this.barData.finishTaskCount=response.data.allData.finishTaskCount;          
          that.$refs.drawbarChart.getCharts2();
-         
+          console.log(response.data.allData); 
          
         });
 

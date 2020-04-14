@@ -19,7 +19,7 @@
           <template>
             <el-table-column
               prop="taskId"
-              label="需求任务编号"
+              label="编号"
               type="index"
               width="110px"
               align="center"
@@ -53,14 +53,14 @@
           <el-table-column label="操作" min-width="90px" align="center">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="handleDetail">查看图纸</el-button>
-              <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">查看任务详情</el-button>
+              <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
             </template>
           </el-table-column>
         </el-table>
          <div class="pagination">
           <el-pagination
             background
-            layout="prev, pager, next, sizes, total, jumper"
+            layout="prev, pager, next, total, jumper"
             :current-page="pageIndex"
             :page-size="pageSize"
             :total="Finished_Task_Data.length"
@@ -126,7 +126,7 @@ export default {
       name: "designerFinishList",
   data() {
     return {
-      username1: this.$store.state.user,
+      username1:  localStorage.getItem("ms_username"),
       
       
         pageIndex: 1,
@@ -230,13 +230,13 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        designerName: "designer"
+        designerName: this.username1
       });
       //console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/designer/historylist",
+          url: "http://127.0.0.1:8081/designer/historylist",
           data: data
 
           //  data:this.$store.state.userName
@@ -252,6 +252,14 @@ export default {
       this.form2 = row;
       this.dialogVisible = true;
     },
+     handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+    
    
   }
 };
