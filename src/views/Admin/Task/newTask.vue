@@ -28,15 +28,8 @@
                 <el-input v-model="type"></el-input>
               </el-form-item>
             </el-col>-->
-            <el-col :span="11">
-              <el-form-item label="总负责人">
-                <el-input v-model="leader"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="11">
+          
+          <el-col :span="11">
               <el-form-item label="发布时间">
                 <el-date-picker
                   type="datetime"
@@ -47,6 +40,28 @@
                 ></el-date-picker>
               </el-form-item>
             </el-col>
+          </el-row>
+
+          <el-row>
+            
+                <el-col :span="11">
+                <el-form-item label="总负责人">
+                  <el-select
+                    v-model="leader"
+                    placeholder="请选择总负责人"
+                    class="selectsupply"
+                    style="width:100%;"
+                  >
+                    <el-option
+                      width="180px !important"
+                      v-for="coo1 in FZR"
+                      :key="coo1"
+                      :label="coo1"
+                      :value="coo1"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
             <el-col :span="11">
               <el-form-item label="截止时间">
                 <el-date-picker
@@ -235,6 +250,7 @@
                     style="width:100%;"
                   >
                     <el-option
+                    width="180"
                       v-for="leibie in Task"
                       :key="leibie.id"
                       :label="leibie.label"
@@ -357,6 +373,7 @@
               <el-select v-model="addList1.supplyDesigner" placeholder="请选择设计人员">
                 <el-option label="全部" value></el-option>
                 <el-option
+                width="180"
                   v-for="company in supplyCompanies"
                   :key="company"
                   :label="company"
@@ -437,6 +454,11 @@ export default {
           label: "是"
         },
         { id: "1", label: "否" }
+      ],
+      FZR:[
+        {
+          
+        },
       ],
       //供应商列表
       supplierCompany: [
@@ -671,7 +693,7 @@ export default {
     getDate() {
       var that = this;
       var data = Qs.stringify({
-        aaaa: "1111"
+        aaaa: this.usernameX
       });
       that
         .axios({
@@ -683,8 +705,9 @@ export default {
           // this.mainStaskType = response.data.allData.a;
           this.shuju = response.data.allData.b;
           this.xuanzelist = this.getTreeData(response.data.allData.c)
+          this.FZR= response.data.allData.d;
           console.log(response);
-          console.log(this.xuanzelist);
+          console.log(this.FZR);
         });
     },
 
@@ -790,15 +813,14 @@ export default {
 
 <style lang="scss">
 .newTask{
-
+.xuanzeqi{
+  width: 180px !important;
+}
 
 .el-select .el-input__inner .selectsupply {
   width: 200px;
 }
-.newTask textarea {
-  min-height: 100px !important;
-  width: 500px !important;
-}
+
 .tb-edit .el-input {
   display: none;
 }
@@ -815,9 +837,7 @@ export default {
   width: 85px;
   height: 40px;
 }
-.newTask textarea{
-  width:780px !important
-}
+
 .button1{
   width:100px;
 height:40px;

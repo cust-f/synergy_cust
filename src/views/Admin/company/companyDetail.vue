@@ -1,13 +1,18 @@
 <template>
-<div>
+<div class = "companyDetail">
 <el-container>
     <el-main>
-<el-carousel :interval="5000" arrow="always">
+<!-- <el-carousel :interval="5000" arrow="always">
  <el-carousel-item v-for="item in imagesbox" :key="item">
-      <img :src="item.idView" class="image">
+      <img v-bind:src="item" class="image">
     </el-carousel-item>
-  </el-carousel>
+  </el-carousel> --> 
+    <div width = 500 align="center" height = 200px>
+          <el-image :src="imgsrc"></el-image>
+    </div>
+
   <el-divider></el-divider>
+     
 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           企业信息
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -422,11 +427,16 @@ export default {
         foundingTime: '',
         brNumber:'',
         addVisible: false,
-        imagesbox:[
-            {id:0,idView:require("../company/1.png")},
-            {id:1,idView:require("../company/2.jpg")},
-            {id:2,idView:require("../company/3.jpg")},
-        ],
+        imagesbox:{
+            idView:"",
+        },
+            
+            
+            
+        
+            imgsrc:"",
+            
+        
                        
       }
     },
@@ -508,7 +518,7 @@ export default {
             that
                 .axios({
                     method:"post",
-                    url:'http://127.0.0.1:8081/companyDetail/getCompanyForm',
+                    url:'/api/companyDetail/getCompanyForm',
                     data:data,
                                
                 })
@@ -518,7 +528,9 @@ export default {
                     this.form = response.data.allData[0];
                     this.companyId = response.data.allData[0].companyId
                     this.companyName = response.data.allData[0].companyName 
-                    console.log(this.companyName);
+                    this.imgsrc = response.data.allData[0].companyPicture 
+                    console.log(this.imgsrc)
+                   
                 })
                 
         },
@@ -559,7 +571,7 @@ export default {
       that
         .axios({
           method:"post",
-          url:'http://127.0.0.1:8081/companyDetail/updateCompanyForm',
+          url:'/api/companyDetail/updateCompanyForm',
           data:data,
         })
 
@@ -612,10 +624,14 @@ export default {
 
     }
 }
+
 </script>
 
 
-<style >
+<style lang="scss">
+.companyDetail{
+
+
 .formYS .el-input__inner{
      /* // 表格样式调整 */
    
@@ -658,5 +674,9 @@ export default {
 .gongsiDetail{
     height: 80px;
 }
-
+.el-image__error, .el-image__inner, .el-image__placeholder{
+    width:900px;
+    height: 400px;
+}
+}
 </style>

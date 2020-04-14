@@ -19,22 +19,22 @@
                 border
                 class="table123"
                 ref="configurationTable"
-                :default-sort = "{prop: 'taskState,publishTime,time', order: 'descending'}"
+                :default-sort = "{prop: 'taskState,publishTime,time,mainTaskName,taskCategoryMain,principalName', order: 'descending'}"
                 
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
                 <el-table-column label="序号" type="index" width="50" align="center" ></el-table-column>
-                <el-table-column prop="mainTaskName" label="需求任务名称" width="150"></el-table-column>
-                <el-table-column prop="taskState" label="状态" sortable  type="text"  width="120">
+                <el-table-column prop="mainTaskName" label="需求任务名称" sortable width="150"></el-table-column>
+                <el-table-column prop="taskState" label="状态" sortable  type="text"  width="80">
                   <template slot-scope="scope">
                     <span v-if="+scope.row.taskState ===0">进行中</span>
                     <span v-else-if="+scope.row.taskState ===1">已完成</span>
                     <span v-else-if="+scope.row.taskState ===2">废除</span>
                   </template>
                 </el-table-column>
-                <el-table-column prop="taskCategoryMain" label="需求类型"  width="120"></el-table-column>
-                <el-table-column prop="principalName"   label="负责人"  width="80"></el-table-column>
+                <el-table-column prop="taskCategoryMain" label="需求类型" sortable width="120"></el-table-column>
+                <el-table-column prop="principalName"   label="负责人" sortable width="120" align="center"></el-table-column>
                 <el-table-column prop="publishTime" sortable label="发布时间" width="150">
                   <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                 </el-table-column>
@@ -238,7 +238,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/MainTaskInformation/listall",
+          url: "/api/MainTaskInformation/listall",
           data: data
 
           // data:this.$store.state.userName
@@ -263,7 +263,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8081/MainTaskInformation/selectByCompanyandTaskName",
+            "/api/MainTaskInformation/selectByCompanyandTaskName",
           data: data
           // data:this.$store.state.userName
         })

@@ -101,7 +101,15 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" label="供应商"></el-table-column>
+          <el-table-column prop="companyName" label="供应商" >
+            <template slot-scope="scope">
+              <el-button
+                type="text"
+                size="small"
+                @click="companyDetail(scope.row)"
+              >{{scope.row.companyName}}</el-button>
+            </template>
+          </el-table-column>
           <el-table-column prop="applyWay" label="承接方式">
             <template slot-scope="scope">
               <span v-if="+scope.row.applyWay === 0">邀请</span>
@@ -333,8 +341,10 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button type="text" size="small"
-              v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
+              <el-button
+                type="text"
+                size="small"
+                v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
               >查看设计</el-button>
               <el-button
                 @click="SJTG(scope.row)"
@@ -371,12 +381,12 @@
         </div>
 
         <div class="LDT">
-          <!-- 雷达图 -->   
-          <radar-chart :radarData="radarData" ref="QradarChart" ></radar-chart>
-       
-          <div class="input_span"     align="center">
+          <!-- 雷达图 -->
+          <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+
+          <div class="input_span" align="center">
             <el-form ref="form" :modelZL="formZL">
-              <div class="WCZL">完成质量</div> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+              <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <br />
               <br />
             </el-form>
@@ -384,7 +394,6 @@
             <span id="two"></span>
             <span id="three"></span>
           </div>
-          
         </div>
       </div>
 
@@ -467,6 +476,166 @@
           <el-button type="primary" @click="SJJJYYTJ">确 定</el-button>
         </span>
       </el-dialog>
+
+      <!-- detail -->
+      <el-dialog title :visible.sync="addVisibleCD" width="50%">
+            <div width = 500 align="center" height = 200px>
+          <el-image :src="imgsrc"></el-image>
+    </div>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <div align="right" class="formYS">
+          <el-form ref="form" :model="form" label-width="100px">
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业名称">
+                  <el-input v-model="form.companyName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="企业联络电话">
+                  <el-input v-model="form.businessTel" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业所在省份">
+                  <el-input v-model="form.province" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="企业所在县市">
+                  <el-input v-model="form.city" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业地址">
+                  <el-input v-model="form.address" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="邮政编码">
+                  <el-input v-model="form.postcode" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业成立时间">
+                  <el-input v-bind:value="form.foundingTime | formatDate" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="工商注册号">
+                  <el-input v-model="form.brNumber" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业业务范围">
+                  <el-input v-model="form.product" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="电子邮箱">
+                  <el-input v-model="form.email" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业联系人">
+                  <el-input v-model="form.businessName" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="办公室电话">
+                  <el-input v-model="form.officeNumber" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="注册资产">
+                  <el-input v-model="form.registeredCapital" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="总资本">
+                  <el-input v-model="form.totalAssets" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="固定资产">
+                  <el-input v-model="form.fixedAssets" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="流动资产">
+                  <el-input v-model="form.currentAssets" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="法人代表">
+                  <el-input v-model="form.legalPerson" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="员工人数">
+                  <el-input v-model="form.workerNumber" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="开户银行">
+                  <el-input v-model="form.deposit_Bank" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="银行账户">
+                  <el-input v-model="form.bankNumber" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="24">
+                <el-form-item label="详细">
+                  <el-input v-model="form.introduction" :disabled="yangshi"></el-input>
+                </el-form-item>
+                <!-- <el-form-item label="详细" >
+                            <el-input 
+                            type="textarea"
+                            :rows="1"
+                            style="width:100%;"
+                            placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
+                    </el-form-item>
+                -->
+              </el-col>
+            </el-row>
+          </el-form>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="addVisibleCD = false">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-main>
   </div>
 </template>
@@ -502,6 +671,8 @@ export default {
       addVisible2: false,
       //设计退回原因     的模态框开始是否存在
       addVisible3: false,
+      //商品细节的弹框
+      addVisibleCD: false,
       activeBZT: "",
       mainTaskID: "",
       //SQRWButton:none,
@@ -557,13 +728,13 @@ export default {
       tableData4: [
         {
           acceptCompanyName: "",
-          designerName:"",
+          designerName: "",
           applyWay: "",
-          designCount:"",
-          demandorCheckDesignState:"",
+          designCount: "",
+          demandorCheckDesignState: "",
           contractState: "", //合同审核状态
           uploadDesignTime: "", //合同上传时间
-          demandorCheckDesignTime:"",
+          demandorCheckDesignTime: "",
           contractRefuseReason: "" //合同拒绝原因
         }
       ],
@@ -599,19 +770,48 @@ export default {
       },
       addList3: {
         SJrefuseReason: "" //设计拒绝原因
+      },
+      //图片信息
+      imgsrc:"",
+      //企业信息
+      form: {
+        businessName: "",
+        companyID: "20191006066",
+        companyName: "长光卫星国际有限公司",
+        Address: "吉林省长春市卫星路8848号",
+        postcode: "104300",
+        foundingTime: "2015-9-10",
+        brNumber: "S100934",
+        officeNumber: "17866625034",
+        email: "34895611@163.com",
+        bussessName: "李林甫",
+        product: "微电子元器件制作",
+        introduction:
+          "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
+        cool: "17855555",
+        province: "吉林省",
+        city: "长春市绿园区",
+        registeredCapital: "8.5亿",
+        totalAssets: "10亿",
+        currentAssets: "2.2亿",
+        fixedAssets: "2亿元",
+        legalPerson: "杨言",
+        workerNumber: "500人",
+        deposit_Bank: "中国银行",
+        bankNumber: "25206589260388885222201"
+        //  @input.native="changeCode"
       }
     };
   },
 
   filters: {
     formatDate(time) {
-      if(time!=null){
+      if (time != null) {
         var index = time.lastIndexOf(".");
-      time = time.substring(0, index);
-      let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm");
+        time = time.substring(0, index);
+        let date = new Date(time);
+        return formatDate(date, "yyyy-MM-dd hh:mm");
       }
-      
     }
   },
   created() {
@@ -650,7 +850,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/list",
+          url: "/api/SubstaskInformation/list",
           data: data
 
           // data:this.$store.state.userName
@@ -674,19 +874,19 @@ export default {
           if (this.tableData4 == null) {
             this.milepostActive4 = 0;
           }
-          
+
           console.log(response.data.allData.f);
           this.radarData.radarData = response.data.allData.f;
           that.$refs.QradarChart.getCharts1();
-          console.log(this.radarData.radarData)
-     
+          console.log(this.radarData.radarData);
+
           if (response.data.allData.f == null) {
-            console.log(this.milepostActive5)
+            console.log(this.milepostActive5);
             this.milepostActive5 = 0;
-          } 
-          if (response.data.allData.f != null){            
-            console.log("cao")
-            this.formZL = response.data.allData.d[0]
+          }
+          if (response.data.allData.f != null) {
+            console.log("cao");
+            this.formZL = response.data.allData.d[0];
             this.styleswith();
             this.milepost1[0].description =
               response.data.allData.b[0].applyTime;
@@ -749,14 +949,14 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/shenheSQ",
+          url: "/api/SubstaskInformation/shenheSQ",
           data: data
         });
         this.$message({
           message: "审核通过",
           type: "success"
         });
-                      this.showData();
+        this.showData();
       });
     },
     SQJJ(row) {
@@ -772,14 +972,13 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/SQJJReason",
+          url: "/api/SubstaskInformation/SQJJReason",
           data: data
         });
       this.$message.success("提交成功");
       this.addList = {};
       this.addVisible = false;
-                    this.showData();
-
+      this.showData();
     },
     //计划书通过与拒绝
     JHSTG(row) {
@@ -798,7 +997,7 @@ export default {
         that
           .axios({
             method: "post",
-            url: "http://127.0.0.1:8081/SubstaskInformation/RWJHSH",
+            url: "/api/SubstaskInformation/RWJHSH",
             data: data
           })
           .then(response => {
@@ -833,7 +1032,7 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/JHSJJReason",
+          url: "/api/SubstaskInformation/JHSJJReason",
           data: data
         });
       this.$message.success("提交成功");
@@ -851,7 +1050,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/DownloadJHS",
+          url: "/api/SubstaskInformation/DownloadJHS",
           data: data
         })
         .then(response => {
@@ -890,7 +1089,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/HTSHTG",
+          url: "/api/SubstaskInformation/HTSHTG",
           data: data
         });
         this.$message({
@@ -898,7 +1097,6 @@ export default {
           type: "success"
         });
         this.showData();
-
       });
     },
     HTSHJJ(row) {
@@ -914,14 +1112,13 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/HTJJReason",
+          url: "/api/SubstaskInformation/HTJJReason",
           data: data
         });
       this.$message.success("提交成功");
       this.addList2 = {};
       this.addVisible2 = false;
       this.showData();
-
     },
     //合同下载
     HTXZ(row) {
@@ -932,7 +1129,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/DownloadHT",
+          url: "/api/SubstaskInformation/DownloadHT",
           data: data
         })
         .then(response => {
@@ -953,7 +1150,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/SJSHTG",
+          url: "/api/SubstaskInformation/SJSHTG",
           data: data
         });
         this.showData();
@@ -962,7 +1159,6 @@ export default {
           message: "审核通过,并自动生成评价",
           type: "success"
         });
-        
       });
     },
     SJJJ(row) {
@@ -978,14 +1174,36 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/SJJJReason",
+          url: "/api/SubstaskInformation/SJJJReason",
           data: data
         });
       this.$message.success("提交成功");
       this.addList3 = {};
       this.addVisible3 = false;
-                    this.showData();
-
+      this.showData();
+    },
+    companyDetail(row) {
+      var that = this;
+            var data = Qs.stringify({
+                CompanyID:row.companyId
+            });
+            that
+                .axios({
+                    method:"post",
+                    url:'/api/companyDetail/showCompanyDetal',
+                    data:data,
+                               
+                })
+                .then(response =>{ 
+                    console.log(response);
+                   
+                    this.form = response.data.allData[0];
+                    this.companyId = response.data.allData[0].companyId
+                    this.companyName = response.data.allData[0].companyName 
+                    this.imgsrc = response.data.allData[0].companyPicture 
+                    console.log(this.imgsrc)      
+                })
+      this.addVisibleCD = true;
     }
   }
 };
@@ -1001,13 +1219,12 @@ export default {
   .LDT {
     height: 300px;
   }
-   
+
   //完成质量
   .WCZL {
-    font-size: 18px;
+    font-size: 13px;
     color: #303133;
   }
-
 
   .table {
     font-size: 13px;
@@ -1078,7 +1295,6 @@ export default {
     height: 30px;
     background: #eee;
     line-height: 20px;
-
   }
 
   #one {
@@ -1113,5 +1329,23 @@ export default {
   #font span:nth-child(3) {
     color: red;
   }
+  .formYS .el-input__inner{
+     /* // 表格样式调整 */
+   
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+}
+.formYS .el-input.is-disabled .el-input__inner{
+    background-color: #ffffff;
+    color:#606266
+}
+//图片样式
+ .el-image__error, .el-image__inner, .el-image__placeholder{
+    width:500px;
+    height: 200px;
+}
 }
 </style>
