@@ -508,7 +508,7 @@ export default {
             that
                 .axios({
                     method:"post",
-                    url:'http://127.0.0.1:8082/companyDetail/getCompanyForm',
+                    url:'http://127.0.0.1:8081/companyDetail/getCompanyForm',
                     data:data,
                                
                 })
@@ -559,7 +559,7 @@ export default {
       that
         .axios({
           method:"post",
-          url:'http://127.0.0.1:8082/companyDetail/updateCompanyForm',
+          url:'http://127.0.0.1:8081/companyDetail/updateCompanyForm',
           data:data,
         })
 

@@ -96,58 +96,7 @@
       
       </el-card>
       <br/> <br/><br/> <br/>
-<!--       
-      <div class="lists">
-
-           <el-table
-                  :data="tableData"
-                  border
-                  class="table"
-                  ref="multipleTable"
-                 :default-sort = "{prop: 'taskId', order: 'descending'}"
-                  header-cell-class-name="table-header"
-                
-                  @selection-change="handleSelectionChange"
-                >
-                  <el-table-column prop="taskId" label="任务编号" width="55" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="任务名称"></el-table-column>
-
-                  <el-table-column label="任务类型" prop="taskType" show-overflow-tooltip>  
-                      <template slot-scope="scope">
-                        <p v-if="scope.row.taskType=='1'">流通任务</p>
-                        <p v-if="scope.row.taskType=='0'">设计任务</p>
-                    </template>        
-                   </el-table-column>
-                  <el-table-column prop="finishTime" label="完成时间">
-                  
-                  </el-table-column>
-                   <el-table-column prop="finishState" label="状态" align="center" width="80">
-                  </el-table-column> 
-                  <el-table-column label="操作" align="center" >
-
-                <template slot-scope="scope">
-                  <el-button
-                    @click="doevaluate(scope.row)"
-                    type="text"
-                    size="small "
-                    class="box2"
-                    id="box2"
-                    
-                  >生成评价</el-button>
-                  <el-button
-                    @click="Detail(scope.row)"
-                    type="text"
-                    size="small "
-                    class="box1"
-                  >查看详情</el-button>
-                </template>
-              </el-table-column>
-              
-     
-          </el-table> 
-            
-      </div> -->
-    
+   
      
     </el-main>
   </el-container>
@@ -160,13 +109,14 @@ import barChart from "./components/barChart"
 import radarChart from "./components/radarChart"
 export default {
   name:"evaluate",
-  userName: localStorage.getItem("ms_username"),
+    
   components:{
     "bar-chart":barChart,
     "radar-chart":radarChart,
   },
   data() {
     return {
+      userName: localStorage.getItem("ms_username"),
      //选择框
      options: [{
             
@@ -197,7 +147,7 @@ export default {
       finishTaskCount:[],
       },
       star:'',
-     // userName:this.$route.query.userName, 
+     
 
     };
   },
@@ -223,7 +173,7 @@ export default {
       
       var data = Qs.stringify({
       // userName:userName
-        userName:"aaaa",
+        userName:this.userName,
         startTime:this.form2.time1,
         finishTime:this.form2.time2,
       });
@@ -249,10 +199,9 @@ export default {
       var that = this;
       var data = Qs.stringify({
         
-        userName:"aaaa"
+        userName:this.userName,
       });
-       
-     
+            
       that
         .axios({
           method: "post",
@@ -275,7 +224,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         
-        userName:"aaaa",
+       userName:this.userName,
         year:this.value,
         
       });
@@ -298,91 +247,7 @@ export default {
         });
 
     },
-  //生成评价数据
-    // doevaluate(row){
-    //   var that = this;
-      
-    //   var data = Qs.stringify({
-       
-    //     taskId:row.taskId
-    //   });
-    //     console.log(data);
      
-    //   that
-    //     .axios({
-    //       method: "post",
-    //       url:
-    //         "http://127.0.0.1:8082/doevaluate",
-    //       data: data
-    //     })
-    //     .then(() => {
-    //       //this.table = response.data.allData;
-    //      this.$message.success("成功生成评价！");
-    //        //that.tableData = response.data.allData;
-         
-          
-          
-    //     });
-    // },
-    
-    // Detail(row) {
-    //  console.log(row.taskId);
-    //  if (row.taskType==1) {
-    //     this.$router.push({
-    //     path: "/admin/circulationTaskEvaluationDetils",
-    //     query: {
-    //       taskId: row.taskId
-          
-    //     }
-    //   });
-      
-    //   } else {
-    //     this.$router.push({
-    //     path: "/admin/designTaskEvaluationDetils",
-    //     query: {
-    //       taskId: row.taskId
-    //     }
-    //   });
-       
-    //   }
-    
-    // },
- 
-    // //接受数据
-    // getParams() {
-    //   // 需要修改接受企业ID
-    //   // var routerParams = this.$route.query.taskId;
-    //   // this.taskId = routerParams;
-    //   // console.log(routerParams);
-    // },
-    //表格数据查找
-    // getData() {
-    //   //console.log(this.taskId);
-    //   var that = this;
-    //   var data = Qs.stringify({
-    //     // companyId: "1111"
-    //     userName:"aaaa"
-    //   });
-    //  // console.log(data);
-     
-    //   that
-    //     .axios({
-    //       method: "post",
-    //       url:
-    //         "http://127.0.0.1:8082/evaluate",
-    //       data: data
-    //     })
-    //     .then(response => {
-    //       //this.table = response.data.allData;
-         
-    //        that.tableData = response.data.allData;
-    //       //  console.log(response.data.allData);
-    
-    //     });
-         
-    // },
-   
-   
  
   }
 }

@@ -325,7 +325,7 @@
               <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="180" align="center">
+          <el-table-column label="操作" width="150" align="center">
             <template slot-scope="scope">
               <!-- <el-button
                       type="text"
@@ -371,12 +371,12 @@
         </div>
 
         <div class="LDT">
-          <!-- 雷达图 -->
+          <!-- 雷达图 -->   
           <radar-chart :radarData="radarData" ref="QradarChart" ></radar-chart>
-          &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
-          <div class="input_span">
+       
+          <div class="input_span"     align="center">
             <el-form ref="form" :modelZL="formZL">
-              <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+              <div class="WCZL">完成质量</div> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <br />
               <br />
             </el-form>
@@ -384,6 +384,7 @@
             <span id="two"></span>
             <span id="three"></span>
           </div>
+          
         </div>
       </div>
 
@@ -649,7 +650,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/list",
+          url: "http://127.0.0.1:8081/SubstaskInformation/list",
           data: data
 
           // data:this.$store.state.userName
@@ -748,7 +749,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/shenheSQ",
+          url: "http://127.0.0.1:8081/SubstaskInformation/shenheSQ",
           data: data
         });
         this.$message({
@@ -771,7 +772,7 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/SQJJReason",
+          url: "http://127.0.0.1:8081/SubstaskInformation/SQJJReason",
           data: data
         });
       this.$message.success("提交成功");
@@ -797,7 +798,7 @@ export default {
         that
           .axios({
             method: "post",
-            url: "http://127.0.0.1:8082/SubstaskInformation/RWJHSH",
+            url: "http://127.0.0.1:8081/SubstaskInformation/RWJHSH",
             data: data
           })
           .then(response => {
@@ -832,7 +833,7 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/JHSJJReason",
+          url: "http://127.0.0.1:8081/SubstaskInformation/JHSJJReason",
           data: data
         });
       this.$message.success("提交成功");
@@ -850,7 +851,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/DownloadJHS",
+          url: "http://127.0.0.1:8081/SubstaskInformation/DownloadJHS",
           data: data
         })
         .then(response => {
@@ -889,7 +890,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/HTSHTG",
+          url: "http://127.0.0.1:8081/SubstaskInformation/HTSHTG",
           data: data
         });
         this.$message({
@@ -913,7 +914,7 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/HTJJReason",
+          url: "http://127.0.0.1:8081/SubstaskInformation/HTJJReason",
           data: data
         });
       this.$message.success("提交成功");
@@ -931,7 +932,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/DownloadHT",
+          url: "http://127.0.0.1:8081/SubstaskInformation/DownloadHT",
           data: data
         })
         .then(response => {
@@ -952,7 +953,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/SJSHTG",
+          url: "http://127.0.0.1:8081/SubstaskInformation/SJSHTG",
           data: data
         });
         this.showData();
@@ -977,7 +978,7 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/SJJJReason",
+          url: "http://127.0.0.1:8081/SubstaskInformation/SJJJReason",
           data: data
         });
       this.$message.success("提交成功");
@@ -1003,7 +1004,8 @@ export default {
    
   //完成质量
   .WCZL {
-    font-size: 11px;
+    font-size: 18px;
+    color: #303133;
   }
 
 
@@ -1072,10 +1074,11 @@ export default {
   }
   .input_span span {
     display: inline-block;
-    width: 85px;
+    width: 150px;
     height: 30px;
     background: #eee;
     line-height: 20px;
+
   }
 
   #one {

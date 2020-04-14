@@ -90,7 +90,7 @@
             <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
               <div @click="companyDetail(companys.companyId)">
                 <el-col :span="4">
-                  <el-avatar shape="square" :size="80" fit="fill" :src="url"></el-avatar>
+                  <el-avatar shape="square" :size="80" fit="fill" :src="companys.logo"></el-avatar>
                 </el-col>
                 <el-col :span="20">
                   <el-row>

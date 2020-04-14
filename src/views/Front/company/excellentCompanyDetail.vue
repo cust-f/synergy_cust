@@ -1,15 +1,15 @@
 <template>
   <div style="width:1200px;margin:0 auto;">
     <el-row>
-        <div>
-          <div class="title">
-            <span>首页</span>
-            <span>&nbsp; > &nbsp;</span>
-            <span>优质企业</span>
-            <span>&nbsp; > &nbsp;</span>
-            <span>企业详情</span>
-          </div>
-          <br />
+      <div>
+        <div class="title">
+          <span>首页</span>
+          <span>&nbsp; > &nbsp;</span>
+          <span>优质企业</span>
+          <span>&nbsp; > &nbsp;</span>
+          <span>企业详情</span>
+        </div>
+        <br />
       </div>
     </el-row>
     <br />
@@ -30,8 +30,19 @@
 
         <div class="Right">
           <!-- <font style="color:#ff7720;font-size:20px;">[229857]</font> -->
-          <h3 >{{companyDetail.companyName}}</h3>
-          <el-divider></el-divider>
+          <!-- <el-row>
+          <el-col :span="5">-->
+          <div>
+            <div style="float:left">
+              <span style="font-size:24px;font-weight:500;">{{companyDetail.companyName}}</span>
+            </div>
+            <!-- </el-col>
+            <el-col :span="4"></el-col>-->
+            <el-rate v-model="companyDetail.star" disabled text-color="#ff9900" ></el-rate>
+            <!-- </el-col>
+            </el-row>-->
+          </div>
+          <el-divider ></el-divider>
           <el-row>
             <el-col :span="8" :offset="2">
               <li>
@@ -253,9 +264,9 @@ export default {
 };
 </script>
 <style>
-.images{
-  width:300px;
-  height:300px;
+.images {
+  width: 300px;
+  height: 300px;
 }
 .white {
   /* width: 67%; */
@@ -430,6 +441,9 @@ export default {
   text-decoration: none;
 
   width: 920px;
+}
+.Right .el-divider--horizontal{
+  width:87%;
 }
 .ul02 {
   width: 920px;

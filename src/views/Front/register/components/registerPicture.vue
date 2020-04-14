@@ -1,8 +1,5 @@
 <template>
   <div class="register">
-    <div>
-      <el-button @click="submitUpload">测试</el-button>
-    </div>
     <el-card>
       <el-row>
         <el-col :span="17">
@@ -18,6 +15,7 @@
                 :file-list="businessLicenseImageUrl"
                 list-type="picture"
                 :auto-upload="false"
+                ref="uploadBusinessLicense"
                 accept=".jpg, .png"
                 :on-preview="businessLicensePictureCardPreview"
                 :http-request="businessLicenseUpload"
@@ -32,6 +30,7 @@
               <el-upload
                 :action="serverUrl"
                 :file-list="taxImageUrl"
+                ref="uploadTax"
                 list-type="picture"
                 :auto-upload="false"
                 accept=".jpg, .png"
@@ -65,7 +64,7 @@
           <el-upload
             :action="serverUrl"
             list-type="picture-card"
-            ref="upload"
+            ref="uploadLogo"
             :class="{hide:hideLogoUpload}"
             :auto-upload="false"
             accept=".jpg, .png"
@@ -92,7 +91,7 @@
         <el-upload
           :action="serverUrl"
           list-type="picture-card"
-          ref="upload"
+          ref="uploadCompany"
           :class="{hide:hideUpload}"
           :auto-upload="false"
           accept=".jpg, .png"
@@ -123,7 +122,7 @@ export default {
       taxImageUrl: [], //税务证书
       logoImageUrl: [], //企业logo
       // companyProfileImageUrl:[],
-      formDate:"",
+      formDate: "",
       businessLicense_formDate: "",
       tax_formDate: "",
       companyProfileUpload_formDate: "",
@@ -170,22 +169,19 @@ export default {
     // },
     //企业介绍图片入fromDate
     companyProfileUpload(file) {
-      this.formDatee.append(
-        "companyProfileFile",
-        file.file
-      );
+      this.formDate.append("companyProfileFile[]", file.file);
     },
     //企业基本信息营业执照图片入fromDate
     taxUpload(file) {
-      this.formDate.append("taxFile", file.file);
+      this.formDate.append("taxFile[]", file.file);
     },
     //企业基本信息营业执照图片入fromDate
     businessLicenseUpload(file) {
-      this.formDate.append("businessLicenseFile", file.file);
+      this.formDate.append("businessLicenseFile[]", file.file);
     },
     //企业logo图片入fromDate
     logoUpload(file) {
-      this.formDate.append("logoFile", file.file);
+    this.formDate.append("logoFile", file.file)
     },
     submitUpload() {
       // console.log(this.companyProfileImageUrl.length < 3);
@@ -203,47 +199,40 @@ export default {
       //     });
       //     return false;
       //   } else {
-        this.$emit("checkPicture",true);
-        console.log("执行了图片上传");
-          var that = this;
-          that.formDate=new FormData();
-          // this.businessLicense_formDate = new FormData();
-          // this.tax_formDate = new FormData();
-          // this.companyProfileUpload_formDate = new FormData();
-          // this.logo_formDate = new FormData();
-          // var rowData = Object.assign(
-          //   this.businessLicense_formDate,
-          //   this.tax_formDate,
-          //   this.companyProfileUpload_formDate,
-          //   this.logo_formDate
-          // );
-          that.formDate.append("enterpriseName","CUST");
-          console.log(that.formDate)
-          let config = {
-            headers: {
-              "Content-Type": "multipart/form-data"
-            }
-          };
-          that.axios
-            .post("http://127.0.0.1:8081/register/setPicture", this.formDate, config)
-            .then(response => {
-              console.log(response);
-              if (response.data.success) {
-                this.$message({
-                  message: response.data.file,
-                  type: "success"
-                });
-              } else {
-                this.$message({
-                  message: response.data.file,
-                  type: "alert"
-                });
-              }
-            })
-            .catch(response => {
-              console.log(response);
+      this.$emit("checkPicture", true);
+      var that = this;
+      that.formDate = new FormData();
+      this.$refs.uploadCompany.submit();
+      this.$refs.uploadBusinessLicense.submit();
+      this.$refs.uploadTax.submit();
+      this.$refs.uploadLogo.submit();
+      that.formDate.append("enterpriseName", this.enterpriseName);
+      console.log(that.formDate);
+      let config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      that.axios
+        .post("/api/register/setPicture", this.formDate, config)
+        .then(response => {
+          this.$emit("register");
+          if (response.data.success) {
+            this.$message({
+              message: response.data.file,
+              type: "success"
             });
-        // }
+          } else {
+            this.$message({
+              message: response.data.file,
+              type: "alert"
+            });
+          }
+        })
+        .catch(response => {
+          console.log(response);
+        });
+      // }
       // }
     },
     //企业基本信息-营业执照图片回调

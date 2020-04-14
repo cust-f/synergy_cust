@@ -23,7 +23,7 @@ export default{
         tooltip: {},
         legend: {
           orient: 'vertical',
-          x: "left",
+          x: "right",
           y: "top",
           textStyle: {
             fontSize: 16

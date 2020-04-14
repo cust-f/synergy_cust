@@ -74,8 +74,10 @@ export default {
       }
     };
     var validDataPhone = (rule, value, callback) => {
-      if (!/^1[3456789]\d{9}$/.test(value)) {
-       // this.$error("手机号码有误，请重填");
+      if (value === "") {
+        callback();
+      } else if (!/^1[3456789]\d{9}$/.test(value)) {
+        // this.$error("手机号码有误，请重填");
         callback(new Error("手机号码有误，请重填"));
       } else {
         callback();
@@ -95,18 +97,20 @@ export default {
         ],
         phone: [{ required: false, validator: validDataPhone, trigger: "blur" }]
       },
-      existName: null
-    };
-  },
-  props: {
-    account: {
-      default: {
+      existName: null,
+      account: {
         password: "",
         checkPass: "",
         userName: "",
         email: "",
         phone: ""
       }
+    };
+  },
+  props: {
+    enterpriseName: {
+      type: String,
+      default: ""
     }
   },
   watch: {
@@ -130,32 +134,46 @@ export default {
           console.log(response);
           if (response.data.allData.check) {
             this.existName = this.account.userName;
-            console.log(this.existName);
-          } else {
-            console.log("不存在重名");
           }
-          // this.city = response.data.allData.city;
         });
     },
     submitForm(formName) {
-      console.log("呵呵");
       this.$refs[formName].validate(valid => {
-        console.log("滚");
         if (valid) {
-          console.log("111");
-          this.$emit("accountSave", this.account, true);
+          this.$emit("accountSave", true);
         } else {
           this.$message({
             type: "warning",
             message: "下一步失败"
           });
-          this.$emit("accountSave", this.account, false);
+          this.$emit("accountSave", false);
         }
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.$emit("accountSave", this.account, false);
+      this.$emit("accountSave", false);
+    },
+    registerUserDetail() {
+      //传递用户信息
+      let that = this;
+      this.account.companyName = this.enterpriseName;
+      var data = Qs.stringify(this.account);
+      that
+        .axios({
+          method: "post",
+          url: "/api/register/user",
+          data: data
+        })
+        .then(response => {
+          if (response.data.code == 200) {
+            this.$message({
+              type: "success",
+              message: "注册成功，请等待审核"
+            });
+            this.$router.push("/home");
+          }
+        });
     }
   }
 };

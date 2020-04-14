@@ -12,23 +12,24 @@
                 <el-col :span="12">
                   <el-form-item label="企业类别">
                     <div style="float:left;">
-                      <el-radio v-model="form.Company_Category" label="0">核心企业</el-radio>
-                      <el-radio v-model="form.Company_Category" label="1">供应商</el-radio>
+                      <el-radio v-model="form.companyCategory" label="0">核心企业</el-radio>
+                      <el-radio v-model="form.companyCategory" label="1">供应商</el-radio>
                     </div>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9">
-                  <el-form-item label="企业名称" prop="Company_Name">
-                    <el-input v-model="form.Company_Name"></el-input>
+                  <el-form-item label="企业名称" prop="companyName">
+                    <el-input v-model="form.companyName"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
+
               <el-row class="select">
                 <el-col :span="12">
-                  <el-form-item label="企业所在省份" prop="Province">
-                    <!-- <el-input v-model="form.Province"></el-input> -->
+                  <el-form-item label="企业所在省份" prop="province">
+                    <!-- <el-input v-model="form.province"></el-input> -->
                     <el-select
-                      v-model="form.Province"
+                      v-model="form.province"
                       @change="getCity"
                       placeholder="请选择省"
                       style="width: 100%;"
@@ -44,7 +45,7 @@
                 </el-col>
                 <el-col :span="12">
                   <el-form-item label="企业所在县市" prop="City">
-                    <el-select v-model="form.City" placeholder="请选择城市" style="width: 100%;">
+                    <el-select v-model="form.city" placeholder="请选择城市" style="width: 100%;">
                       <el-option
                         v-for="c in city"
                         :key="c.id"
@@ -59,38 +60,47 @@
               <el-row>
                 <el-col :span="9">
                   <el-form-item label="企业地址">
-                    <el-input v-model="form.Address"></el-input>
+                    <el-input v-model="form.address"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" :offset="3">
                   <el-form-item label="邮政编码">
-                    <el-input v-model="form.Postcode"></el-input>
+                    <el-input v-model="form.postcode"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
+
               <el-row>
                 <el-col :span="9">
-                  <el-form-item label="企业成立时间" prop="Founding_Time">
+                  <el-form-item label="企业成立时间" prop="foundingTime">
                     <el-date-picker
                       type="date"
                       placeholder="选择日期"
-                      v-model="form.Founding_Time"
-                      value-format="yyyy-MM-dd"
+                      v-model="form.foundingTime"
+                      format="yyyy-MM-dd"
+                      value-format="yyyy-MM-dd hh:mm:ss"
                       style="width: 100%;"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" :offset="3">
                   <el-form-item label="员工人数">
-                    <el-input v-model="form.Worker_Number"></el-input>
+                    <el-input v-model="form.workerNumber"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
 
               <el-row>
                 <el-col :span="9" class="select">
-                  <el-form-item label="企业业务范围">
-                    <el-cascader ref="producted" v-model="form.product" @change="selectProducts"  :options="options" :props="{ multiple: true}" clearable></el-cascader>
+                  <el-form-item label="企业业务范围" prop="middleProduct">
+                    <el-cascader
+                      ref="producted"
+                      v-model="form.middleProduct"
+                      @change="selectProducts"
+                      :options="options"
+                      :props="props"
+                      clearable
+                    ></el-cascader>
                     <!-- <el-select v-model="form.product" multiple placeholder="请选择">
                       <el-option-group
                         v-for="group in options"
@@ -108,16 +118,15 @@
                     <!-- <el-input v-model="form.product"></!-->
                   </el-form-item>
                 </el-col>
+
                 <el-col :span="9" :offset="3">
                   <el-form-item
                     label="电子邮箱"
-                    prop="Email"
-                    :rules="[
-//      { required: false, message: '请输入邮箱地址', trigger: 'blur' },待议
-      { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-    ]"
+                    prop="email"
+                    :rules="[//      { required: false, message: '请输入邮箱地址', trigger: 'blur' },待议
+{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]"
                   >
-                    <el-input v-model="form.Email"></el-input>
+                    <el-input v-model="form.email"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -125,12 +134,12 @@
               <el-row>
                 <el-col :span="12">
                   <el-form-item label="企业联系人">
-                    <el-input v-model="form.Bussess_Name"></el-input>
+                    <el-input v-model="form.businessName"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
                   <el-form-item label="办公电话">
-                    <el-input v-model="form.Office_Number"></el-input>
+                    <el-input v-model="form.officeNumber"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -138,14 +147,14 @@
               <el-row>
                 <el-col :span="9">
                   <el-form-item label="注册资产">
-                    <el-input v-model="form.Registered_Capital">
+                    <el-input v-model="form.registeredCapital">
                       <template slot="append">万元</template>
                     </el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" :offset="3">
                   <el-form-item label="总资本">
-                    <el-input v-model="form.Total_Assets">
+                    <el-input v-model="form.totalAssets">
                       <template slot="append">万元</template>
                     </el-input>
                   </el-form-item>
@@ -155,14 +164,14 @@
               <el-row>
                 <el-col :span="9">
                   <el-form-item label="固定资产">
-                    <el-input v-model="form.Fixed_Assets">
+                    <el-input v-model="form.fixedAssets">
                       <template slot="append">万元</template>
                     </el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" :offset="3">
                   <el-form-item label="流动资产">
-                    <el-input v-model="form.Current_Assets">
+                    <el-input v-model="form.currentAssets">
                       <template slot="append">万元</template>
                     </el-input>
                   </el-form-item>
@@ -171,57 +180,42 @@
 
               <el-row>
                 <el-col :span="9">
-                  <el-form-item label="法人代表">
-                    <el-input v-model="form.Legal_Person"></el-input>
+                  <el-form-item label="法人代表" prop="legalPerson">
+                    <el-input v-model="form.legalPerson"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" :offset="3">
-                  <el-form-item label="法人联系电话" prop="Legal_Tel">
-                    <el-input v-model="form.Legal_Tel"></el-input>
+                  <el-form-item label="法人联系电话" prop="legalTel">
+                    <el-input v-model="form.legalTel"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+              <el-row>
+                <el-col :span="10">
+                  <el-form-item label="税务证书登记编号" label-width="140px" prop="trNumber">
+                    <el-input v-model="form.trNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9" :offset="2">
+                  <el-form-item label="工商注册号" prop="brNumber">
+                    <el-input v-model="form.brNumber"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
 
               <el-row>
                 <el-col :span="9">
-                  <el-form-item label="税务证书登记编号" label-width="130px" prop="TR_Number">
-                    <el-input v-model="form.TR_Number"></el-input>
+                  <el-form-item label="开户银行" prop="deposit_Bank">
+                    <el-input v-model="form.deposit_Bank"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" :offset="3">
-                  <el-form-item label="工商注册号">
-                    <el-input v-model="form.BR_Number"></el-input>
+                  <el-form-item label="银行账户" prop="bankNumber">
+                    <el-input v-model="form.bankNumber"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
-
-              <el-row>
-                <el-col :span="9">
-                  <el-form-item label="开户银行" prop="Deposit_Bank">
-                    <el-input v-model="form.Deposit_Bank"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="9" :offset="3">
-                  <el-form-item label="银行账户" prop="Bank_Number">
-                    <el-input v-model="form.Bank_Number"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-
-              <!-- <el-row>
-                <el-col :span="24" class="detail">
-                  <el-form-item label="详细">
-                    <el-input
-                      type="textarea"
-                      :rows="3"
-                      style="width:100%;"
-                      placeholder="请输入内容"
-                      v-model="form.Introduction"
-                      class="gongsiDetail"
-                    ></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>-->
             </el-form>
           </div>
         </el-main>
@@ -229,9 +223,9 @@
     </el-card>
   </div>
 </template>
+
 <script>
 import Qs from "qs";
-
 export default {
   name: "registerCompany",
   data() {
@@ -243,14 +237,17 @@ export default {
       }
     };
     var validDataBR_Number = (rule, value, callback) => {
-      if (!value) {
+      if (value === "") {
         callback(new Error("请填写工商注册号"));
       } else if (
         !/[1-9A-GY]{1}[1239]{1}[1-5]{1}[0-9]{5}[0-9A-Z]{10}$|[1-9A-GY]{1}[1239]{1}[1-5]{1}[0-9]{5}[0-9A-Z]{10}-[0-9]{2}$/.test(
           value
         )
       ) {
-        callback(new Error("请输入正确的工商注册号"));
+        //callback(new Error("请输入正确的工商注册号"));
+        callback();
+      } else {
+        callback();
       }
     };
     var validDataTR_Number = (rule, value, callback) => {
@@ -258,6 +255,8 @@ export default {
         callback(new Error("请填写税务登记号"));
       } else if (!/^[0-9a-zA-z_]{18}$/.test(value)) {
         callback(new Error("请输入正确的税务登记号"));
+      } else {
+        callback();
       }
     };
     var validDataLegal_Tel = (rule, value, callback) => {
@@ -267,96 +266,85 @@ export default {
         !/^1[3456789]\d{9}$/.test(value) ||
         !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(value)
       ) {
-        callback(new Error("请输入正确的税务登记号"));
+        callback();
+      } else {
+        callback();
       }
     };
     return {
       rules: {
-        Company_Name: [
-          { required: true, validator: vaildDataEmpty, trigger: "blur" }
+        companyName: [
+          { required: true, message: "请输入企业名称", trigger: "blur" }
         ],
-        Province: [
-          { required: true, validator: vaildDataEmpty, trigger: "blur" }
+        province: [
+          { required: true, message: "请选择省份", trigger: "change" }
         ],
-        useCityrName: [
-          { required: true, validator: vaildDataEmpty, trigger: "blur" }
+        city: [{ required: true, message: "请选择城市", trigger: "change" }],
+        middleProduct: [
+          {
+            required: true,
+            type: "array",
+            message: "请选择业务范围",
+            trigger: "change"
+          }
         ],
-        product: [
-          { required: false, validator: vaildDataEmpty, trigger: "blur" }
+        foundingTime: [
+          { required: true, message: "请选择企业成立时间", trigger: "change" }
         ],
-        Founding_Time: [
-          { required: true, validator: vaildDataEmpty, trigger: "blur" }
+        deposit_Bank: [
+          { required: true, message: "请输入开户银行名称", trigger: "blur" }
         ],
-        Legal_Person: [
-          { required: true, validator: vaildDataEmpty, trigger: "blur" }
+        bankNumber: [
+          { required: true, message: "请输入银行账号", trigger: "blur" }
+          //  {type: 'number',message: '银行账号为数字值', trigger: "blur" }
         ],
-        Deposit_Bank: [
-          { required: true, validator: vaildDataEmpty, trigger: "blur" }
-        ],
-        Bank_Number: [{ required: true, type: "number", trigger: "blur" }],
-        BR_Number: [
+        brNumber: [
           { required: true, validator: validDataBR_Number, trigger: "blur" }
         ],
-        TR_Number: [
+        trNumber: [
           { required: true, validator: validDataTR_Number, trigger: "blur" }
         ],
-        Legal_Person: [
-          { required: true, validator: vaildDataEmpty, trigger: "blur" }
+        legalPerson: [
+          { required: true, message: "请输入法人代表", trigger: "blur" }
         ],
-        Legal_Tel: [
+        legalTel: [
           { required: true, validator: validDataLegal_Tel, trigger: "blur" }
         ]
       },
       //所有业务范围
-      options: [{
-          value: '1',
-          label: '指南',
-          children: [{
-            value: '3',
-            label: '设计原则'
-          }]
-        },
-        {
-            value: '2',
-            label: '导航',
-            children: [{
-              value: '4',
-              label: '侧向导航'
-            }, {
-              value: '5',
-              label: '顶部导航'
-            }]
-          }],
+      options: [],
+      props: { multiple: true, value: "id", label: "name" },
       //平台覆盖的省份
       province: [],
       city: [],
-      stair:"",
-      selectProduct:[],
+      stair: "",
+      selectProduct: [],
       form: {
-        Company_Category: "0",
-        Company_Name: "",
-        Address: "",
-        Postcode: null,
-        Founding_Time: "",
-        BR_Number: "",
-        TR_Number: "",
-        Office_Number: "",
-        Email: "",
-        Bussess_Name: "",
-        product: [],
-        Introduction:
-          "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
+        companyCategory: "0",
+        companyName: "",
+        address: new String(),
+        postcode: new Number(),
+        foundingTime: "",
+        brNumber: "",
+        trNumber: "",
+        officeNumber: "",
+        email: "",
+        businessName: "",
+        product: "",
+        middleProduct: [],
+        // Introduction:
+        //   "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
         Province: "",
-        City: "",
-        Registered_Capital: "",
-        Total_Assets: "",
-        Current_Assets: "",
-        Fixed_Assets: "",
-        Legal_Person: "",
-        Legal_Tel: "",
-        Worker_Number: "",
-        Deposit_Bank: "",
-        Bank_Number: ""
+        city: "",
+        registeredCapital: new Number(),
+        totalAssets: new Number(),
+        currentAssets: new Number(),
+        fixedAssets: new Number(),
+        legalPerson: "",
+        legalTel: "",
+        workerNumber: new Number(),
+        deposit_Bank: "",
+        bankNumber: ""
       }
     };
   },
@@ -365,13 +353,13 @@ export default {
     this.getProvince();
     //this.getCity();
   },
-  watch:{
-    "selectProduct" (newValue,oldValue) {
-      if(oldValue.length==0){
-        this.stair=newValue[0][0];
+  watch: {
+    selectProduct(newValue, oldValue) {
+      if (oldValue.length == 0) {
+        this.stair = newValue[0][0];
         this.checkProduct();
-      }else if(oldValue.length>0 && newValue.length>0){
-       this.checkProduct();
+      } else if (oldValue.length > 0 && newValue.length > 0) {
+        this.checkProduct();
       }
     }
   },
@@ -403,7 +391,7 @@ export default {
         .then(response => {
           console.log(response);
           this.city = response.data.allData.city;
-          this.form.City = "";
+          this.form.city = "";
         });
     },
     // setCity(data) {
@@ -414,47 +402,71 @@ export default {
     //     }
     //   }
     // },
-    selectProducts(value){
-     this.selectProduct= this.form.product;
+    selectProducts(value) {
+      this.selectProduct = this.form.middleProduct;
     },
     //范围
-    checkProduct(){
-      console.log(this.$refs.producted.getCheckedNodes(false));
-      console.log("========================")
-      console.log(this.form.product);
-      console.log(this.form.product[0][0]);
-      console.log("------------------------")
-      console.log(this.$refs.producted.getCheckedNodes(true));
-      console.log("---======------======-------====")
-      
-      let p=this.selectProduct;
-      let newProduct=[];
-      for(let i=0;i<p.length;i++){
-        if(p[i][0]== this.stair){
+    checkProduct() {
+      let p = this.selectProduct;
+      let newProduct = [];
+      for (let i = 0; i < p.length; i++) {
+        if (p[i][0] == this.stair) {
           newProduct.push(p[i]);
-        }else{
-              this.$message({
-                  type: "warning",
-                  message: "不能选择多个一级类别"
-                });
+        } else {
+          this.$message({
+            type: "warning",
+            message: "不能选择多个一级类别"
+          });
         }
       }
-      this.form.product=newProduct;        
+      this.form.middleProduct = newProduct;
+      console.log(this.form.middleProduct);
     },
-    upLoad() {
-      console.log(this.form);
-      this.$emit("companyFrom", this.form);
+    upLoad(formName) {
+      this.$refs[formName].validate(valid => {
+        let a = [];
+        if (valid) {
+          a.push(this.stair);
+          for (let i = 0; i < this.form.middleProduct.length; i++) {
+            a.push(this.form.middleProduct[i][1]);
+          }
+          this.form.product = a.toString();
+          this.$emit("companyFrom", this.form.companyName, true);
+        } else {
+          this.$message({
+            type: "warning",
+            message: "下一步失败"
+          });
+          this.$emit("companyFrom", this.form.companyName, false);
+        }
+      });
     },
     getBusiness() {
       var that = this;
       that
         .axios({
           method: "post",
-          url: "/api/register/getBusiness"
+          url: "/api/industry/getIndustry"
         })
         .then(response => {
           console.log(response);
-          this.options = response.data.allData.IndustryInfoList;
+          this.options = response.data.allData.allProduct;
+        });
+    },
+    registerCompanyDetail() {
+      let that = this;
+      var data = Qs.stringify(this.form);
+      //传递企业信息
+      that
+        .axios({
+          method: "post",
+          url: "/api/register/company",
+          data: data
+        })
+        .then(response => {
+          if (response.data.code == 200) {
+            this.$emit("registerUserDe");
+          }
         });
     }
   }
@@ -462,7 +474,6 @@ export default {
 </script>
 
 <style>
-
 .register-company {
   width: 1000px;
   height: 100%;
@@ -480,6 +491,10 @@ export default {
 .register-company .el-form-item__error {
   line-height: 0px;
   padding-top: 0px;
+}
+.register-company .select .el-form-item__error {
+  line-height: 1 !important;
+  padding-top: 4px !important;
 }
 .gongsiDetail {
   height: 80px;
