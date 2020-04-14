@@ -183,7 +183,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/findRemarkTimes",
+            "/api/findRemarkTimes",
           data: data
         })
         .then(response => {
@@ -206,7 +206,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/companyevaluate",
+            "/api/companyevaluate",
           data: data
         })
         .then(response => {
@@ -234,7 +234,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082//monthTaskCountData",
+            "/api/monthTaskCountData",
           data: data
         })
         .then(response => {

@@ -159,7 +159,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/findDesignerTaskLists",
+            "/api/findDesignerTaskLists",
           data: data
         })
         .then(response => {
@@ -188,7 +188,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/monthDesignerTaskCountData",
+            "/api/monthDesignerTaskCountData",
           data: data
         })
         .then(response => {

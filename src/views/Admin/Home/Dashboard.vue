@@ -229,7 +229,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/findTaskMonthCount",
+            "/api/findTaskMonthCount",
           data: data
         })
         .then(response => {
@@ -291,7 +291,7 @@ export default {
     //行业类别饼图数据
     pieChart() {
       let that = this;
-      that.axios.post("http://127.0.0.1:8082/findTaskCategoryList").then(response => {
+      that.axios.post("/api/findTaskCategoryList").then(response => {
         this.piedata.Count=response.data.allData.Count;
         this.piedata.categoryFinishTaskList=response.data.allData.categoryFinishTaskList;
       
