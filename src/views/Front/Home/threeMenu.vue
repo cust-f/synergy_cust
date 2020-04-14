@@ -59,7 +59,7 @@
               </p>
               <p>&nbsp;</p>
               <p align="center">
-                <el-button type="warning" @click="" >申请</el-button>
+                <!-- <el-button type="warning" @click="" >申请</el-button> -->
               </p>
 
 

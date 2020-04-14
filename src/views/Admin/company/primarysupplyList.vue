@@ -168,7 +168,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/primarysupplyList/show",
+          url: "http://127.0.0.1:8081/primarysupplyList/show",
           data: data,
           
           // data:this.$store.state.userName
@@ -186,7 +186,7 @@ export default {
        that
           .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/companyDetail/tianjiaSupplier",
+          url: "http://127.0.0.1:8081/companyDetail/tianjiaSupplier",
           data: data,
           })
           .then(response => {
@@ -215,7 +215,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/primarysupplyList/deleteDate",
+          url: "http://127.0.0.1:8081/primarysupplyList/deleteDate",
           data: data,
           
           // data:this.$store.state.userName
@@ -249,7 +249,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/primarysupplyList/newAdd",
+          url: "http://127.0.0.1:8081/primarysupplyList/newAdd",
           data: data,
           
           // data:this.$store.state.userName

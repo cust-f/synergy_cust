@@ -21,7 +21,7 @@
           <template>
             <el-table-column
               prop="taskId"
-              label="需求任务编号"
+              label="编号"
               type="index"
               width="110px"
               align="center"
@@ -54,8 +54,10 @@
 
           <el-table-column label="操作" min-width="90px" align="center">
             <template slot-scope="scope">
-              <el-button type="text" @click="handleEdit(scope.$index, scope.row)"  size="small">查看任务详情</el-button>
+              <el-button type="text" @click="handleEdit(scope.$index, scope.row)"  size="small">任务详情</el-button>
               <el-button type="text" size="small" @click="beginTask(scope.row)">开始任务</el-button>
+              <el-button type="text" size="small" @click="xiazai(scope.row)">下载附件</el-button>
+
             </template>
           </el-table-column>
         </el-table>
@@ -63,7 +65,7 @@
         <div class="pagination">
           <el-pagination
             background
-            layout="prev, pager, next, sizes, total, jumper"
+            layout="prev, pager, next, total, jumper"
             :current-page="pageIndex"
             :page-size="pageSize"
             :total="      Not_Accepted_Task_Data.length"
@@ -210,7 +212,7 @@ export default {
       console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/designer/updateDesignState",
+        url: "http://127.0.0.1:8081/designer/updateDesignState",
         data: data
       });
 
@@ -228,13 +230,13 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        designerName: "designer"
+        designerName: this.username1
       });
       //console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/designer/newlist",
+          url: "http://127.0.0.1:8081/designer/newlist",
           data: data
 
           //  data:this.$store.state.userName
@@ -255,7 +257,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/designer/newlist",
+          url: "http://127.0.0.1:8081/designer/newlist",
           data: data
 
           //  data:this.$store.state.userName
@@ -269,6 +271,47 @@ export default {
       this.idx = index;
       this.form = row;
       this.dialogVisible = true;
+    },
+     xiazai(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/designer/downloadFile",
+          data: data
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response.data);
+          this.download(response.data, "tf");
+        });
+    },
+    // 下载文件
+    download(data, leixing) {
+      if (!data) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([data]));
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      if (leixing === "tf") {
+        link.setAttribute("download", "技术文档.docx");
+      } else if (leixing === "HT") {
+        link.setAttribute("download", "合同.docx");
+      }
+      document.body.appendChild(link);
+      link.click();
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
     },
   }
 };

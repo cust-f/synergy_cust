@@ -7,6 +7,7 @@
  * @version: V1.0.5 
 !-->
 <template>
+<div class="newTask" >
   <el-container>
     <el-main>
       <div class="newTask">
@@ -109,7 +110,7 @@
           <el-form-item label="添加附件">
             <el-upload
               class="upload-demo"
-              action="http://127.0.0.1:8082/MainTaskInformation/import"
+              action="http://127.0.0.1:8081/MainTaskInformation/import"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
               :before-remove="beforeRemove"
@@ -152,6 +153,7 @@
             header-cell-class-name="table-header"
             @selection-change="handleSelectionChange"
           >
+                            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
             <el-table-column prop="taskName" label="任务名称"></el-table-column>
             <el-table-column prop="Telphone" label="联络电话"></el-table-column>
             <el-table-column prop="beginTime" label="开始时间"></el-table-column>
@@ -309,7 +311,7 @@
             <el-form-item label="添加附件">
               <el-upload
                 class="upload-demo"
-                action="http://127.0.0.1:8082/MainTaskInformation/import"
+                action="http://127.0.0.1:8081/MainTaskInformation/import"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
@@ -371,6 +373,7 @@
       </el-card>
     </el-main>
   </el-container>
+  </div>
 </template>
 
 <script>
@@ -586,7 +589,7 @@ export default {
           .axios({
             method: "post",
             url:
-              "http://127.0.0.1:8082/MainTaskInformation/addMainTaskInformation",
+              "http://127.0.0.1:8081/MainTaskInformation/addMainTaskInformation",
             data: data
           })
           .then(response => {
@@ -673,7 +676,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/selectMainType",
+          url: "http://127.0.0.1:8081/SubstaskInformation/selectMainType",
           data: data
         })
         .then(response => {
@@ -710,7 +713,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/selectSubType",
+          url: "http://127.0.0.1:8081/SubstaskInformation/selectSubType",
           data: data
         })
         .then(response => {
@@ -756,7 +759,7 @@ export default {
           .axios({
             method: "post",
             url:
-              "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
+              "http://127.0.0.1:8081/SubstaskInformation/addSubstaskInformation",
             data: data,
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
           })
@@ -785,7 +788,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.newTask{
+
+
 .el-select .el-input__inner .selectsupply {
   width: 200px;
 }
@@ -815,5 +821,6 @@ export default {
 .button1{
   width:100px;
 height:40px;
+}
 }
 </style>

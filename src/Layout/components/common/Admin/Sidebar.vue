@@ -8,13 +8,17 @@
       active-text-color="#20a0ff"
       router
       :default-openeds="openeds"
-    >
+      :mode="vertical"
+      >
+    
+      
+    
       <template v-for="item in items">
         <!-- 判断是否有二级 -->
         <template v-if="item.children">
           <el-submenu style="margin-bottom:15px;" :index="item.menuURL" :key="item.menuURL">
             <template slot="title">
-              <!-- <i :class="item.icon"></i> -->
+              <i :class="item.icon"></i>
              <span @click="redirects(item.menuURL)" slot="title">{{ item.menuName }}</span>
             </template>
             <template v-for="subItem in item.children">
@@ -40,7 +44,7 @@
 
         <template v-else>
           <el-menu-item style="margin-bottom:15px;" :index="item.menuURL" :key="item.menuURL">
-            <!-- <i :class="item.icon"></i> -->
+            <i :class="item.icon"></i>
             <span slot="menuName">{{ item.menuName }}</span>
           </el-menu-item>
         </template>
@@ -55,8 +59,10 @@ import bus from "./bus";
 export default {
   data() {
     return {
-      openeds:['0','1','2','0','3','4'],
-      collapse: true,
+      openeds:['1','2','3','4','5','6','7'],
+     
+
+      collapse: false,
       items: this.$store.state.menuList,
       // items:[
       //   {
@@ -191,9 +197,11 @@ export default {
       var code=path;
       this.$router.push({ path:code});
                       // this.$router.push("/admin/dashboard");
+    },
+
     }
-  }
-};
+  };
+
 </script>
 
 <style>
@@ -208,7 +216,7 @@ export default {
 .sidebar::-webkit-scrollbar {
   width: 0;
 }
-.sidebar-el-menu:not(.el-menu--collapse) {
+.sidebar-el-menu {
   width: 230px;
 }
 .sidebar > ul {
@@ -220,8 +228,10 @@ export default {
 }
 .sidebar .el-menu span {
   font-size: 14px !important;
+      font-weight: bold;
 }
 .sidebar .el-menu .el-menu-item {
   font-size: 14px !important;
+  
 }
 </style>

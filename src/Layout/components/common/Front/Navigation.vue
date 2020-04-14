@@ -71,7 +71,7 @@ export default {
                 },
                 {
                      icon: 'el-icon-s-custom',
-                    index: '9',
+                    index: '/twoMenu',
                     title: '服务成果',
                 }
             ]

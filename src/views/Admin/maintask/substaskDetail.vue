@@ -47,7 +47,8 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="完成日期">
-                  <el-input v-bind:value="cool.finishTime " :disabled="true"></el-input>
+                  <el-input v-bind:value="cool.finishTime |formatDate" :disabled="true">
+                </el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -103,6 +104,8 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
+                                        <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+
                 <el-table-column prop="taskName" label="任务名称"></el-table-column>
                 <el-table-column prop="taskCategoryMain" label="任务父类别"></el-table-column>
                 <el-table-column prop="taskCategoryPart" label="任务子类别"></el-table-column>
@@ -466,6 +469,10 @@ export default {
 
   filters: {
     formatDate(time) {
+      if(time === "尚未完成"){
+        return "暂未完成"
+      }
+      
       var index=time.lastIndexOf("\.");
       time=time.substring(0,index);
       let date = new Date(time);
@@ -553,7 +560,7 @@ export default {
       that
         .axios({
         method: "post",
-        url: "http://127.0.0.1:8082/SubstaskInformation/addSubstaskInformation",
+        url: "http://127.0.0.1:8081/SubstaskInformation/addSubstaskInformation",
         data: data,
         headers: {"Content-Type": "application/x-www-form-urlencoded"}
        })
@@ -607,7 +614,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/MainTaskInformation/combineMS",
+          url: "http://127.0.0.1:8081/MainTaskInformation/combineMS",
           data: data
 
           // data:this.$store.state.userName
@@ -656,7 +663,7 @@ export default {
         that.axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/MainTaskInformation/feicuBySubstaskstaskID",
+            "http://127.0.0.1:8081/MainTaskInformation/feicuBySubstaskstaskID",
           data: data
 
           // data:this.$store.state.userName
@@ -686,7 +693,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/MainTaskInformation/feichuByMainstaskID",
+          url: "http://127.0.0.1:8081/MainTaskInformation/feichuByMainstaskID",
           data: data
 
           // data:this.$store.state.userName
@@ -703,7 +710,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/MainTaskInformation/feichuByMainstaskID",
+          url: "http://127.0.0.1:8081/MainTaskInformation/feichuByMainstaskID",
           data: data
 
           // data:this.$store.state.userName
@@ -721,7 +728,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/selectSubType",
+          url: "http://127.0.0.1:8081/SubstaskInformation/selectSubType",
           data: data
         })
         .then(response => {
@@ -827,4 +834,5 @@ export default {
   .el-page-header__title {
     font-size: 18px;
   }
+  
 </style>
