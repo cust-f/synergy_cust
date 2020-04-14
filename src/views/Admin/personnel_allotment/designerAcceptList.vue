@@ -22,7 +22,7 @@
           <template>
             <el-table-column
             prop="taskId"
-              label="需求任务编号"
+              label="编号"
               type="index"
               width="110px"
               align="center"
@@ -72,7 +72,8 @@
             <template slot-scope="scope">
               <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
                 <el-button @click="submitTask(scope.row)" type="text" size="small">任务提交</el-button>
-              <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">查看任务详情</el-button>
+              <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
+              <el-button @click="xiazai(scope.row)" type="text" size="small">下载附件</el-button>
             
             </template>
           </el-table-column>
@@ -80,7 +81,7 @@
          <div class="pagination">
           <el-pagination
             background
-            layout="prev, pager, next, sizes, total, jumper"
+            layout="prev, pager, next,total, jumper"
             :current-page="pageIndex"
             :page-size="pageSize"
             :total="Accepted_Task_Data.length"
@@ -266,7 +267,7 @@ export default {
           console.log(data);
           that.axios({
             method: "post",
-            url: "http://127.0.0.1:8082/designer/updateCheckState",
+            url: "http://127.0.0.1:8081/designer/updateCheckState",
             data: data
           });
           this.$message({
@@ -300,7 +301,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/designer/acceptlist",
+          url: "http://127.0.0.1:8081/designer/acceptlist",
           data: data
 
           //  data:this.$store.state.userName
@@ -315,6 +316,47 @@ export default {
       this.idx = index;
       this.form1 = row;
       this.dialogVisible = true;
+    },
+    xiazai(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/designer/downloadFile",
+          data: data
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response.data);
+          this.download(response.data, "tf");
+        });
+    },
+    // 下载文件
+    download(data, leixing) {
+      if (!data) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([data]));
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      if (leixing === "tf") {
+        link.setAttribute("download", "技术文档.docx");
+      } else if (leixing === "HT") {
+        link.setAttribute("download", "合同.docx");
+      }
+      document.body.appendChild(link);
+      link.click();
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
     },
     
   }

@@ -262,7 +262,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/serviceResult/finishTaskDetail",
+          url: "http://127.0.0.1:8081/serviceResult/finishTaskDetail",
           data: data
 
           //  data:this.$store.state.userName
@@ -285,7 +285,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/serviceResult/finisCompanyDetail",
+          url: "http://127.0.0.1:8081/serviceResult/finisCompanyDetail",
           data: data
 
           //  data:this.$store.state.userName
@@ -307,7 +307,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/serviceResult/finishAcceptCompanyDetail",
+          url: "http://127.0.0.1:8081/serviceResult/finishAcceptCompanyDetail",
           data: data
 
           //  data:this.$store.state.userName
@@ -328,7 +328,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/remarkDetils",
+          url: "http://127.0.0.1:8081/remarkDetils",
           data: data
 
           //  data:this.$store.state.userName
@@ -354,7 +354,7 @@ export default {
         .axios({
           method: "post",
           url:  
-            "http://127.0.0.1:8082/evaluateDetils",
+            "http://127.0.0.1:8081/evaluateDetils",
           data: data
         })
         .then(response => {

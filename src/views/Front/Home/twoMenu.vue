@@ -89,7 +89,8 @@
               <template slot="title" align="center">&nbsp;&nbsp;&nbsp;&nbsp;需求方</template>
               <div class="handle-box">
                 <el-input v-model="search" placeholder="请输入需求方名称"></el-input>
-                <el-button type="primary" @click="handleSearch" align="center">搜索</el-button>
+                <br>
+                <el-button type="primary" @click="handleSearch" >搜索</el-button>
               </div>
             </el-collapse-item>
           </el-collapse>
@@ -230,7 +231,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082//serviceResult/finishlist"
+          url: "http://127.0.0.1:8081//serviceResult/finishlist"
           //data: data
         })
         .then(response => {
@@ -248,7 +249,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/serviceResult/searchCompanyName",
+          url: "http://127.0.0.1:8081/serviceResult/searchCompanyName",
           data: data
           // data:this.$store.state.userName
         })
@@ -270,7 +271,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/serviceResult/searchtaskCategoryMainId",
+          url: "http://127.0.0.1:8081/serviceResult/searchtaskCategoryMainId",
           data: data
           // data:this.$store.state.userName
         })
@@ -285,7 +286,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/serviceResult/finishlistinWeek"
+          url: "http://127.0.0.1:8081/serviceResult/finishlistinWeek"
           //data: data
         })
         .then(response => {
@@ -299,7 +300,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/serviceResult/finishlistinMonth"
+          url: "http://127.0.0.1:8081/serviceResult/finishlistinMonth"
           //data: data
         })
         .then(response => {
@@ -313,7 +314,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/serviceResult/finishlistinYear"
+          url: "http://127.0.0.1:8081/serviceResult/finishlistinYear"
           //data: data
         })
         .then(response => {
@@ -484,6 +485,8 @@ ul li {
 .handle-box {
   margin-bottom: 20px;
   background-color: #fff;
+  margin: auto;
+  text-align: center;
 }
 .color1 {
   background-color: #fff;

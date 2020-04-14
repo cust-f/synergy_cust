@@ -8,7 +8,7 @@
  * @version: V1.0.5 
 !-->
 <template>
-  <div>
+  <div class="newStaff">
     <el-container>
       <el-main>
         <div class="box">
@@ -271,7 +271,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/newStaff/list",
+          url: "http://127.0.0.1:8081/newStaff/list",
           data: data
 
           //  data:this.$store.state.userName
@@ -293,7 +293,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/newStaff/selectStaff",
+          url: "http://127.0.0.1:8081/newStaff/selectStaff",
           data: data
 
           //  data:this.$store.state.userName
@@ -330,7 +330,7 @@ export default {
       });
      that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082//newStaff/deletelist",
+          url: "http://127.0.0.1:8081//newStaff/deletelist",
           data: data
           //  data:this.$store.state.userName
         })
@@ -379,7 +379,7 @@ export default {
 
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/newStaff/addlist",
+        url: "http://127.0.0.1:8081/newStaff/addlist",
         data: data
       });
        this.$message.success("提交成功");
@@ -413,7 +413,7 @@ export default {
 
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/newStaff/editlist",
+        url: "http://127.0.0.1:8081/newStaff/editlist",
         data: data
       });
       // this.$message.success("提交成功");
