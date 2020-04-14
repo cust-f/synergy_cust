@@ -2,7 +2,7 @@
   <el-container>
     <el-main>
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-          数据综合统计
+          数据统计
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-card shadow="hover" :body-style="{padding: '0px'}"> 
         
@@ -18,7 +18,7 @@
          <el-col :span="16" >
           <div class="input_span">
             <el-form ref="form" :model="form">
-              <label style="margin-left:280px;">平均完成质量</label>
+              <label class="grid-cont-right" style="margin-left:285px;">平均完成质量</label>
               <br />
               <br />
             </el-form>
