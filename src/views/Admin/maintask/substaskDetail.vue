@@ -305,7 +305,7 @@
                 <el-form-item label="添加附件">
                   <el-upload
                 class="upload-demo"
-                action="http://127.0.0.1:8082/MainTaskInformation/import"
+                action="/api/MainTaskInformation/import"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
@@ -560,7 +560,7 @@ export default {
       that
         .axios({
         method: "post",
-        url: "http://127.0.0.1:8081/SubstaskInformation/addSubstaskInformation",
+        url: "/api/SubstaskInformation/addSubstaskInformation",
         data: data,
         headers: {"Content-Type": "application/x-www-form-urlencoded"}
        })
@@ -614,7 +614,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/MainTaskInformation/combineMS",
+          url: "/api/MainTaskInformation/combineMS",
           data: data
 
           // data:this.$store.state.userName
@@ -663,7 +663,7 @@ export default {
         that.axios({
           method: "post",
           url:
-            "http://127.0.0.1:8081/MainTaskInformation/feicuBySubstaskstaskID",
+            "/api/MainTaskInformation/feicuBySubstaskstaskID",
           data: data
 
           // data:this.$store.state.userName
@@ -693,7 +693,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/MainTaskInformation/feichuByMainstaskID",
+          url: "/api/MainTaskInformation/feichuByMainstaskID",
           data: data
 
           // data:this.$store.state.userName
@@ -710,7 +710,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/MainTaskInformation/feichuByMainstaskID",
+          url: "/api/MainTaskInformation/feichuByMainstaskID",
           data: data
 
           // data:this.$store.state.userName
@@ -728,7 +728,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/selectSubType",
+          url: "/api/SubstaskInformation/selectSubType",
           data: data
         })
         .then(response => {
@@ -830,6 +830,10 @@ export default {
     font-size: 18px;
     color: #303133;
   }
+  .el-upload--text {
+  width: 85px;
+  height: 40px;
+}
   /* //返回字体 */
   .el-page-header__title {
     font-size: 18px;
