@@ -4,13 +4,19 @@
     <el-main>
 <!-- <el-carousel :interval="5000" arrow="always">
  <el-carousel-item v-for="item in imagesbox" :key="item">
-      <img v-bind:src="item" class="image">
+      <img v-bind:src="item.idView" class="image">
     </el-carousel-item>
-  </el-carousel> --> 
+  </el-carousel>  -->
     <div width = 500 align="center" height = 200px>
           <el-image :src="imgsrc"></el-image>
     </div>
-
+    <!-- <el-table :data="tableData123">
+<el-table-column prop="imgsrc" label="书籍海报" align="center">
+        <template slot-scope="scope">
+          <img :src="scope.row.imgsrc" min-width="70" height="70">
+        </template>
+      </el-table-column>
+      </el-table> -->
   <el-divider></el-divider>
      
 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
@@ -427,14 +433,18 @@ export default {
         foundingTime: '',
         brNumber:'',
         addVisible: false,
-        imagesbox:{
-            idView:"",
-        },
+        imagesbox:[
+            {id:0,idView:require("../company/1.png"),}
+        ],
             
             
             
-        
-            imgsrc:"",
+        tableData123:[{
+             imgsrc:require("../company/1.png"),
+        }
+        ],
+        imgsrc:""
+           
             
         
                        

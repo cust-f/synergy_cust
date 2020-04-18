@@ -16,6 +16,7 @@
           :class="milepostActive== key+1 ? stepActive: '' "
           :title="value.title"
           :icon="value.icon"
+          :description="value.description"
           :key="key"
         ></el-step>
       </el-steps>
@@ -367,7 +368,7 @@
 
       <div v-show="milepostActive5">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <div class="SXT">
+        <!-- <div class="SXT">
           <el-steps :active="milepostActive" align-center>
             <el-step
               v-for="(value, key) in milepost1"
@@ -378,7 +379,7 @@
               :key="key"
             ></el-step>
           </el-steps>
-        </div>
+        </div> -->
 
         <div class="LDT">
           <!-- 雷达图 -->
@@ -739,12 +740,12 @@ export default {
         }
       ],
       milepost: [
-        { title: "申请/邀请", icon: "el-icon-edit" },
-        { title: "计划提交", icon: "el-icon-upload" },
-        { title: "任务进行中", icon: "el-icon-picture" },
-        { title: "审核", icon: "el-icon-message-solid" },
-        { title: "验收", icon: "el-icon-s-promotion" },
-        { title: "完成", icon: "el-icon-s-claim" }
+        { title: "申请/邀请", icon: "el-icon-edit" ,description: ""},
+        { title: "计划提交", icon: "el-icon-upload" ,description: ""},
+        { title: "任务进行中", icon: "el-icon-picture" ,description: ""},
+        { title: "审核", icon: "el-icon-message-solid",description: "" },
+        { title: "验收", icon: "el-icon-s-promotion",description: "" },
+        { title: "完成", icon: "el-icon-s-claim",description: "" }
       ],
       //下图的
       milepost1: [
@@ -806,11 +807,14 @@ export default {
 
   filters: {
     formatDate(time) {
-      if (time != null) {
+      if (time != 0) {
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
         return formatDate(date, "yyyy-MM-dd hh:mm");
+      }
+      else{
+        return("暂未开始")
       }
     }
   },
@@ -888,20 +892,9 @@ export default {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
-            this.milepost1[0].description =
-              response.data.allData.b[0].applyTime;
-            this.milepost1[1].description =
-              response.data.allData.e[0].planUploadTime;
-            this.milepost1[2].description =
-              response.data.allData.e[0].publishTime;
-            this.milepost1[3].description =
-              response.data.allData.e[0].demandorCheckDesignTime;
-            this.milepost1[4].description =
-              response.data.allData.e[0].checkPlanTime;
-            this.milepost1[5].description =
-              response.data.allData.e[0].demandorCheckDesignTime;
+            
           }
-
+              
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
           this.milepostActive = response.data.allData.a[0].taskState;
@@ -917,6 +910,24 @@ export default {
             this.milepostActive = 4;
           } else if (this.milepostActive == "完成") {
             this.milepostActive = 5;
+          }
+          if(this.milepostActive >=0){
+               this.milepost[0].description = this.$options.filters['formatDate'](response.data.allData.a[0].applyTime);
+              if(this.milepostActive>0){
+                  this.milepost[1].description = this.$options.filters['formatDate'](response.data.allData.c[0].planUploadTime);
+              }
+              if(this.milepostActive>1){
+                  this.milepost[2].description = this.$options.filters['formatDate'](response.data.allData.c[0].checkPlanTime);
+              }
+              if(this.milepostActive>2){
+                  this.milepost[3].description = this.$options.filters['formatDate'](response.data.allData.d[0].checkContractTime);
+              }
+              if(this.milepostActive>3){
+                 this.milepost[4].description = this.$options.filters['formatDate'](response.data.allData.e[0].designerAcceptTime);
+              }
+              if(this.milepostActive>0){
+                this.milepost[5].description = this.$options.filters['formatDate'](response.data.allData.e[0].finishTime);
+              }
           }
           console.log(this.milepostActive);
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
