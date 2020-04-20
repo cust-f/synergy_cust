@@ -427,12 +427,10 @@ display: table-cell!important;
 }
   .biaoti {
     font-size: 18px;
-    color: #00a2e6;
   }
-  .el-table th {
-	display: table-cell!important; 
+.el-table th.gutter{
+    display: table-cell!important;
 }
-
 
 }
 </style>

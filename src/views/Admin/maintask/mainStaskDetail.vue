@@ -95,7 +95,7 @@
         <el-table
           :data="tableData1"
           border
-          class="table"
+          class="table1"
           ref="multipleTable"
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
@@ -106,7 +106,6 @@
             <template slot-scope="scope">
               <el-button
                 type="text"
-                size="small"
                 @click="companyDetail(scope.row)"
               >{{scope.row.companyName}}</el-button>
             </template>
@@ -165,15 +164,15 @@
         <el-table
           :data="tableData2"
           border
-          class="table"
+          class="table2"
           ref="multipleTable"
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" label="供应商"></el-table-column>
-          <el-table-column prop="checkPlanState" label="计划审核状态">
+          <el-table-column prop="companyName" width="198" label="供应商"></el-table-column>
+          <el-table-column prop="checkPlanState" width="180" label="计划审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.checkPlanState === 0">待上传</span>
               <span v-else-if="+scope.row.checkPlanState === 1">待审核</span>
@@ -181,13 +180,13 @@
               <span v-else-if="+scope.row.checkPlanState === 3">拒绝</span>
             </template>
           </el-table-column>
-          <el-table-column prop="planUploadTime" label="计划上传时间">
+          <el-table-column prop="planUploadTime" width="180" label="计划上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.planUploadTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkPlanTime" label="计划审核时间">
+          <el-table-column prop="checkPlanTime"  width="180" label="计划审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkPlanTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkPlanTime | formatDate}}</el-span>
@@ -232,15 +231,15 @@
         <el-table
           :data="tableData3"
           border
-          class="table"
+          class="table3"
           ref="multipleTable"
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-          <el-table-column prop="contractState" label="合同审核状态">
+          <el-table-column prop="acceptCompanyName" width="198" label="供应商"></el-table-column>
+          <el-table-column prop="contractState" width="180" label="合同审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.contractState === 0">待上传</span>
               <span v-else-if="+scope.row.contractState === 1">待审核</span>
@@ -248,13 +247,13 @@
               <span v-else-if="+scope.row.contractState === 3">未通过</span>
             </template>
           </el-table-column>
-          <el-table-column prop="uploadContractTime" label="合同上传时间">
+          <el-table-column prop="uploadContractTime" width="180" label="合同上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadContractTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.uploadContractTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkContractTime" label="合同审核时间">
+          <el-table-column prop="checkContractTime" width="180" label="合同审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkContractTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkContractTime | formatDate}}</el-span>
@@ -299,7 +298,7 @@
         <el-table
           :data="tableData4"
           border
-          class="table"
+          class="table4"
           ref="multipleTable"
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
@@ -382,9 +381,10 @@
         </div> -->
 
         <div class="LDT">
+          
           <!-- 雷达图 -->
+          
           <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-
           <div class="input_span" align="center">
             <el-form ref="form" :modelZL="formZL">
               <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -634,7 +634,7 @@
           </el-form>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="addVisibleCD = false">确 定</el-button>
+          <el-button type="primary" @click="addVisibleCD = false">关 闭</el-button>
         </span>
       </el-dialog>
     </el-main>
@@ -1222,6 +1222,10 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+  #demo{
+width:20px; /*设置div宽度为500像素*/
+background:#000; /*设置div背景色为zhidao黑色*/
+}
   //时序图
   .SXT {
     height: 150px;
@@ -1302,7 +1306,7 @@ export default {
   }
   .input_span span {
     display: inline-block;
-    width: 150px;
+    width: 100px;
     height: 30px;
     background: #eee;
     line-height: 20px;
@@ -1357,6 +1361,14 @@ export default {
  .el-image__error, .el-image__inner, .el-image__placeholder{
     width:500px;
     height: 200px;
+}
+.table2 {
+   display: table-cell!important;
+  /* width: 100%; */
+}
+.table3 {
+   display: table-cell!important;
+  /* width: 100%; */
 }
 }
 </style>

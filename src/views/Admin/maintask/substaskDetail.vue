@@ -55,12 +55,12 @@
 
             <el-row>
             <el-col :span="11">
-                <el-form-item label="父行业类别">
+                <el-form-item label="一级行业类别">
                   <el-input v-model="cool.taskCategoryMain" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
-                <el-form-item label="子行业类别">
+                <el-form-item label="二级行业类别">
                   <el-input v-model="cool.taskCategoryPart" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
