@@ -2,15 +2,15 @@
   <div class="Det">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <el-steps :active="milepostActive" align-center>
-        <el-step
-          v-for="(value, key) in milepost"
-          :class="milepostActive== key+1 ? stepActive: '' "
-          :title="value.title"
-          :icon="value.icon"
-          :key="key"
-        ></el-step>
-      </el-steps>
+      <el-steps :active="milepostActive1" align-center>
+            <el-step
+              v-for="(stpesdata, key) in milepost1"
+              :title="stpesdata.title"
+              :icon="stpesdata.icon"
+              :description="stpesdata.description"
+              :key="key"
+            ></el-step>
+          </el-steps>
       <br />
       <br />
 
@@ -78,13 +78,14 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="applyWay" label="获取方式">
+          <el-table-column prop="taskName" label="需求名称"></el-table-column>
+          <el-table-column prop="applyWay" width="100" label="获取方式">
             <template slot-scope="scope">
               <span v-if="scope.row.applyWay === 0">邀请</span>
               <span v-else-if="scope.row.applyWay === 1">申请</span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkApplyState" label="申请/邀请状态">
+          <el-table-column prop="checkApplyState" width="120" label="申请/邀请状态">
             <template slot-scope="scope">
               <span v-if="scope.row.checkApplyState === 0">待审核</span>
               <span v-else-if="scope.row.checkApplyState === 1">通过</span>
@@ -114,9 +115,6 @@
               <div v-if="scope.row.checkApplyState === 2">
                 <el-button @click="refuseReason(scope.row)" type="text" size="small">拒绝原因</el-button>
               </div>
-              <div v-if="milepostActive > 0">
-                <span>任务已接受</span>
-              </div>
             </template>
           </el-table-column>
         </el-table>
@@ -136,7 +134,8 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="checkPlanState" label="计划审核状态">
+          <el-table-column prop="taskName" label="需求名称"></el-table-column>
+          <el-table-column prop="checkPlanState" width="100" label="计划审核状态">
             <template slot-scope="scope">
               <span v-if="scope.row.checkPlanState === 0">待上传</span>
               <span v-else-if="scope.row.checkPlanState === 1">待审核</span>
@@ -196,7 +195,8 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-            <el-table-column prop="contractState" label="合同审核状态">
+            <el-table-column prop="taskName" label="需求名称"></el-table-column>
+            <el-table-column prop="contractState" width="100" label="合同审核状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.contractState === 0">待上传</span>
                 <span v-else-if="scope.row.contractState === 1">待审核</span>
@@ -253,7 +253,7 @@
 
       <div v-show="show>1">
         <div v-show="state3 === 2">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">内部审核</div>
           <br />
           <el-table
             :data="tableData3"
@@ -264,7 +264,8 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-            <el-table-column prop="supplierCheckDesignState" label="内部审核状态">
+            <el-table-column prop="taskName" label="需求名称"></el-table-column>
+            <el-table-column prop="supplierCheckDesignState" width="100" label="审核状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
                 <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
@@ -272,7 +273,7 @@
                 <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
               </template>
             </el-table-column>
-            <el-table-column prop="designerName" label="设计师">
+            <el-table-column prop="designerName" width="120" label="设计师">
               <template slot-scope="scope">
                 <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
                 <el-span v-else>{{scope.row.designerName}}</el-span>
@@ -287,21 +288,7 @@
             <el-table-column prop="supplierCheckDesignTime" label="审核时间">
               <template slot-scope="scope">
                 <el-span v-if="+scope.row.supplierCheckDesignTime === 0">暂未上传</el-span>
-                <el-span v-else>{{scope.row.supplierCheckDesignTime | formatDate}}</el-span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="demandorCheckDesignState" label="验收状态">
-              <template slot-scope="scope">
-                <span v-if="scope.row.demandorCheckDesignState === 0">待提交</span>
-                <span v-else-if="scope.row.demandorCheckDesignState === 1">待审核</span>
-                <span v-else-if="scope.row.demandorCheckDesignState === 2">通过</span>
-                <span v-else-if="scope.row.demandorCheckDesignState === 3">未通过</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="demandorCheckDesignTime" label="验收时间">
-              <template slot-scope="scope">
-                <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未上传</el-span>
-                <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
+                <el-span v-else>{{scope.row.supplierCheckDesignTime| formatDate}}</el-span>
               </template>
             </el-table-column>
             <el-table-column label="操作" width="180" align="center">
@@ -321,17 +308,66 @@
               </template>
             </el-table-column>
           </el-table>
+          <br />
+          <br />
+        </div>
+      </div>
+
+      <div v-show="show>1">
+        <div v-show="designcount > 0">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
+          <br />
+          <el-table
+            :data="tableData5"
+            border
+            class="table"
+            ref="multipleTable"
+            header-cell-class-name="table-header"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+            <el-table-column prop="taskName" label="需求名称"></el-table-column>
+
+            <el-table-column prop="designCount" label="重做次数"></el-table-column>
+
+            <el-table-column prop="demandorCheckDesignState" width="100" label="验收状态">
+              <template slot-scope="scope">
+                <span v-if="scope.row.demandorCheckDesignState === 0">待提交</span>
+                <span v-else-if="scope.row.demandorCheckDesignState === 1">待审核</span>
+                <span v-else-if="scope.row.demandorCheckDesignState === 2">通过</span>
+                <span v-else-if="scope.row.demandorCheckDesignState === 3">未通过</span>
+              </template>
+            </el-table-column>
+
+            <el-table-column prop="demandorCheckDesignTime" label="验收时间">
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未上传</el-span>
+                <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
+              </template>
+            </el-table-column>
+
+            <el-table-column label="操作" width="180" align="center">
+              <template slot-scope="scope">
+                <el-button
+                  v-show="designcount > 1"
+                  @click="refuseDesignReason(scope.row)"
+                  type="text"
+                  size="small"
+                >拒绝原因</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
       </div>
 
       <div v-show="show > 4" class="det">
         <br />
         <br />
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务数据统计</div>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>
         <br />
         <br />
-        <div v-if="reMarkId === 0" align-center>
-          <h3>核心企业暂未评价</h3>
+        <div v-if="reMarkId === 0">
+          <h3 align-center>核心企业暂未评价</h3>
         </div>
         <!-- 步骤图片 -->
         <div v-if="reMarkId === 1">
@@ -349,16 +385,20 @@
         <br />
         <div v-if="reMarkId === 1">
           <!-- 雷达图 -->
-          <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-          <div class="input_span" v-if="reMarkId === 1">
-            <el-form ref="form" :modelZL="formZL">
-              <div>完成质量</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              <br />
-              <br />
-            </el-form>
-            <span id="one"></span>
-            <span id="two"></span>
-            <span id="three"></span>
+          <div class="LDT">
+            <!-- 雷达图 -->
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+
+            <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <br />
+                <br />
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -440,11 +480,30 @@
         </span>
       </el-dialog>
 
+      <!-- 设计验收拒绝原因弹出框 -->
+      <el-dialog title="设计验收拒绝原因弹出框" :visible.sync="addVisible4" width="50%">
+        <el-row>
+          <el-col :span="8"></el-col>
+        </el-row>
+        <el-form ref="form" :model="addList5" label-width="120px">
+          <el-row>
+            <el-col>
+              <el-form-item label="被拒绝原因">
+                <el-input v-model="addList5.demandorRefuseReason" :readonly="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addVisible4 = false">确定</el-button>
+        </span>
+      </el-dialog>
+
       <!-- 计划书上传 -->
       <el-dialog title="上传计划书" :visible.sync="planbook" width="400px" :before-close="handleClose">
         <el-upload
           ref="upload"
-          action="http://127.0.0.1:8082/supplier/import"
+          action="http://127.0.0.1:8081/supplier/import"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess1"
@@ -471,9 +530,8 @@
       <!-- 上传合同 -->
       <el-dialog title="上传合同" :visible.sync="conbook" width="400px" :before-close="handleClose">
         <el-upload
-
           ref="upload"
-          action="http://127.0.0.1:8082/supplier/import"
+          action="http://127.0.0.1:8081/supplier/import"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess"
@@ -501,7 +559,7 @@
         <el-form ref="form" :model="addList4" label-width="120px">
           <el-row>
             <el-col>
-              <el-form-item label="审核拒绝原因">
+              <el-form-item label="设计拒绝原因">
                 <el-input v-model="addList4.SJrefuseReason"></el-input>
               </el-form-item>
             </el-col>
@@ -518,7 +576,7 @@
 
 <script>
 import Qs from "qs";
-import { formatDate } from "../../../design/dataChange";
+import { formatDate } from "../designDetails/dataChange";
 import radarChart from "../designDetails/detailComponents/radarChart";
 export default {
   components: {
@@ -560,7 +618,8 @@ export default {
           checkApplyState: "",
           applyTime: "",
           checkApplyTime: "",
-          applyWay: ""
+          applyWay: "",
+          taskName: ""
         }
       ],
 
@@ -570,11 +629,12 @@ export default {
           applyWay: "",
           checkPlanState: "",
           planUploadTime: "",
-          checkPlanTime: ""
+          checkPlanTime: "",
+          taskName: ""
         }
       ],
 
-      //设计提交表数据
+      //内部审核表数据
       tableData3: [
         {
           designerName: "",
@@ -582,7 +642,8 @@ export default {
           uploadDesignTime: "",
           supplierCheckDesignTime: "",
           demandorCheckDesignState: "",
-          demandorCheckDesignTime: ""
+          demandorCheckDesignTime: "",
+          taskName: ""
         }
       ],
       //合同管理数据
@@ -590,17 +651,27 @@ export default {
         {
           contractState: "",
           uploadContractTime: "",
-          checkContractTime: ""
+          checkContractTime: "",
+          taskName: ""
+        }
+      ],
+      //设计提交数据
+      tableData5: [
+        {
+          demandorCheckDesignState: "",
+          demandorCheckDesignTime: "",
+          designCount: "",
+          taskName: ""
         }
       ],
       //步骤条数据
       milepost: [
-        { title: "申请/邀请", icon: "el-icon-edit" },
-        { title: "计划提交", icon: "el-icon-upload" },
-        { title: "任务进行中", icon: "el-icon-picture" },
-        { title: "审核", icon: "el-icon-message-solid" },
-        { title: "验收", icon: "el-icon-s-promotion" },
-        { title: "完成", icon: "el-icon-s-claim" }
+        { title: "申请/邀请", icon: "el-icon-edit", description: "" },
+        { title: "计划提交", icon: "el-icon-upload", description: "" },
+        { title: "任务进行中", icon: "el-icon-picture", description: "" },
+        { title: "审核", icon: "el-icon-message-solid", description: "" },
+        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+        { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
       //评价步骤条数据
       milepost1: [
@@ -625,6 +696,9 @@ export default {
       addList4: {
         SJrefuseReason: ""
       },
+      addList5: {
+        demandorRefuseReason: ""
+      },
       //计划书上传
       planbook: false,
       //合同上传
@@ -637,10 +711,13 @@ export default {
       addVisible2: false,
       //合同拒绝弹窗
       addVisible3: false,
+      //设计拒绝弹窗
+      addVisible4: false,
       //状态
       state: "",
       state2: 0,
       state3: 0,
+      designcount: 0,
       // 评价默认步骤数
       milepostActive1: 5,
       // 默认步骤数
@@ -672,7 +749,7 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy.MM.dd");
+      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     }
   },
   created() {
@@ -712,7 +789,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/DownloadJHS",
+          url: "http://127.0.0.1:8081/supplier/DownloadJHS",
           data: data
         })
         .then(response => {
@@ -745,7 +822,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/DownLoadCon",
+          url: "http://127.0.0.1:8081/supplier/DownLoadCon",
           data: data
         })
         .then(response => {
@@ -779,7 +856,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/getList",
+          url: "http://127.0.0.1:8081/supplier/getList",
           data: data
         })
         .then(response => {
@@ -788,10 +865,12 @@ export default {
           this.tableData2 = response.data.allData.b;
           this.tableData3 = response.data.allData.a;
           this.tableData4 = response.data.allData.a;
+          this.tableData5 = response.data.allData.a;
           this.cool = response.data.allData.a[0];
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
+          this.designcount = response.data.allData.a[0].designCount;
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
@@ -854,7 +933,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/accept",
+          url: "http://127.0.0.1:8081/supplier/accept",
           data: data
         });
         this.$message({
@@ -877,7 +956,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/noAccept",
+          url: "http://127.0.0.1:8081/supplier/noAccept",
           data: data
         });
         this.$message({
@@ -898,7 +977,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/getList",
+          url: "http://127.0.0.1:8081/supplier/getList",
           data: data
         })
         .then(response => {
@@ -917,7 +996,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/getList",
+          url: "http://127.0.0.1:8081/supplier/getList",
           data: data
         })
         .then(response => {
@@ -936,12 +1015,31 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/getList",
+          url: "http://127.0.0.1:8081/supplier/getList",
           data: data
         })
         .then(response => {
           console.log(response);
           this.addList3 = response.data.allData.a[0];
+        });
+    },
+    //设计拒绝原因
+    refuseDesignReason(row) {
+      this.addVisible4 = true;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/supplier/getList",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.addList5 = response.data.allData.a[0];
         });
     },
     //设计通过
@@ -957,7 +1055,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/designSuccess",
+          url: "http://127.0.0.1:8081/supplier/designSuccess",
           data: data
         });
         this.$message({
@@ -982,7 +1080,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/findDesigner",
+          url: "http://127.0.0.1:8081/supplier/findDesigner",
           data: data
         })
         .then(response => {
@@ -1006,7 +1104,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/assignDesigners",
+          url: "http://127.0.0.1:8081/supplier/assignDesigners",
           data: data
         })
         .then(response => {
@@ -1035,7 +1133,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/evaluateDetils",
+          url: "http://127.0.0.1:8081/evaluateDetils",
           data: data
         })
         .then(response => {
@@ -1048,14 +1146,6 @@ export default {
           this.milepost1[4].description = response.data.allData[4];
           this.milepost1[5].description = response.data.allData[5];
           this.styleswith();
-          // console.log(response.data.allData)
-
-          // publishTime:"",//发布时间
-          //   finishTime:"",//完成时间
-          //   applyTime:"",//申请时间
-          //   planUploadTime:"",//计划书提交时间
-          //   checkPlanTime:"",//审核计划书时间
-          //   demandorCheckDesignTime:"",//项目审核时间
         });
     },
 
@@ -1068,7 +1158,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/remarkDetils",
+          url: "http://127.0.0.1:8081/remarkDetils",
           data: data
         })
         .then(response => {
@@ -1112,7 +1202,7 @@ export default {
       console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/textImportCon",
+        url: "http://127.0.0.1:8081/supplier/textImportCon",
         data: data
       });
       this.$router.go(0);
@@ -1132,7 +1222,7 @@ export default {
       console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8082/supplier/textImportPlan",
+        url: "http://127.0.0.1:8081/supplier/textImportPlan",
         data: data
       });
       this.$router.go(0);
@@ -1147,7 +1237,7 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/designRefuse",
+          url: "http://127.0.0.1:8081/supplier/designRefuse",
           data: data
         });
       this.$message.success("提交成功");
@@ -1158,98 +1248,6 @@ export default {
   }
 };
 </script>
-
-<style>
-.el-step__head.is-process {
-  color: #f15e09;
-  border-color: #f15e09;
-}
-
-.el-step__title.is-process {
-  color: #f15e09;
-  border-color: #f15e09;
-}
-
-.table {
-  font-size: 13px;
-}
-.text {
-  font-size: 14px;
-}
-
-.item {
-  padding: 18px 0;
-}
-
-.box-card {
-  width: 960px;
-  border: none;
-  /* border: 1px solid #00a2e6 ; */
-}
-.el-page-header__title {
-  font-size: 18px;
-}
-.biaoti {
-  font-size: 18px;
-}
-/* 表格字体粗细 */
-.el-table thead {
-  font-weight: 200;
-}
-/* 表格下方每列有无竖线 */
-.el-table__row > td {
-  border: none;
-}
-
-.el-input__inner {
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  border-radius: 0px;
-  text-align: center;
-}
-.el-input.is-disabled .el-input__inner {
-  background-color: #ffffff;
-}
-.is-horizontal {
-  display: none;
-}
-.el-scrollbar__wrap {
-  overflow-x: hidden;
-}
-.block {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-.stars {
-  white-space: nowrap;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.stars li {
-  display: inline-block;
-  color: #adadad;
-  font-size: 40px;
-}
-.charts1 {
-  width: 66%;
-  margin-top: 5%;
-  margin-left: 0%;
-  height: 320px;
-}
-.el-input__inner {
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  border-radius: 0px;
-  text-align: center;
-}
-.el-input.is-disabled .el-input__inner {
-  background-color: #ffffff;
-}
-</style>
 
 <style lang="scss">
 .Det {
