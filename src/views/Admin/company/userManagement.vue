@@ -25,17 +25,19 @@
             <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
           </div>
           <el-table
-            :data="tableData"
-            border
-            class="table.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-            ref="configurationTable"
-            header-cell-class-name="table-header"
-            :default-sort="{prop: 'userName', order: 'descending'}"
-            @selection-change="handleSelectionChange"
+           :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                border
+                class="table"
+                ref="configurationTable"
+                header-cell-class-name="table-header"
+                :default-sort="{prop: 'userName', order: 'descending'}"
+                @selection-change="handleSelectionChange"
           >
-                <el-table-column label="序号" type="index" width="70" align="center"> <template slot-scope="scope">
-        <span>{{(pageIndex - 1) * pageSize + scope.$index + 1}}</span>
-    </template></el-table-column>
+                <el-table-column label="序号" type="index" width="70" align="center">
+                  <template slot-scope="scope">
+                    <span>{{(pageIndex - 1) * pageSize + scope.$index + 1}}</span>
+                        </template>
+                </el-table-column>
                 <el-table-column prop="userName" label="用户名称" sortable width="120" align="center"></el-table-column>
                 <el-table-column prop="companyName" label="企业名称" sortable width="180" align="center"></el-table-column>
                 <el-table-column prop="roleName" label="角色名称" width="130" sortable align="center">
@@ -57,17 +59,19 @@
                   </template>
                 </el-table-column>
               </el-table>
+            </div>
               <div class="pagination">
                 <el-pagination
                   background
-                  layout="total, prev, pager, next"
-                  :current-page="query.pageIndex"
-                  :page-size="query.pageSize"
-                  :total="pageTotal"
-                  @current-change="handlePageChange"
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData.length"
+                  @current-change="handleCurrentChange"
+                  @size-change="handleSizeChange"
                 ></el-pagination>
               </div>
-            </div>
+
 
           <!-- 新增弹出框 -->
             <el-dialog title="用户信息" :visible.sync="addVisible" width="50%" >
@@ -139,10 +143,10 @@ export default {
       label:'流通人员',
       }],
       optionsCompany:[],
-    
+ 
         pageIndex: 1,
         pageSize: 10,
-    
+ 
       User_Name:"",
       addList: {
         id: "1",
@@ -318,23 +322,34 @@ export default {
       this.tableData.push(this.addList);
       this.addList = {};
       },
-    //分页导航 分页查询使用
-    handlePageChange(val) {
-      let that = this;
-      var data = Qs.stringify({
-        page: val - 1
-      });
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8081/user/getAllUser",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-        });
-    }
-  }
+       handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+
+    handleSelectionChange(val) {
+      console.log(val);
+    },
+  //   //分页导航 分页查询使用
+  //   handlePageChange(val) {
+  //     let that = this;
+  //     var data = Qs.stringify({
+  //       page: val - 1
+  //     });
+  //     that
+  //       .axios({
+  //         method: "post",
+  //         url: "http://127.0.0.1:8081/user/getAllUser",
+  //         data: data
+  //       })
+  //       .then(response => {
+  //         console.log(response);
+  //       });
+  //   }
+   }
 };
 </script>
 
@@ -379,4 +394,8 @@ export default {
 .box {
   font-size: 24px;
 }
+.el-pagination {
+    text-align: center; 
+}
+
 </style>
