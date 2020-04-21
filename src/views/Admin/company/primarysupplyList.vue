@@ -14,7 +14,7 @@
       <div class="handle-box">
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
-
+        <br>
       <el-table
         :data="tableData"
         border
@@ -175,6 +175,7 @@ export default {
         })
         .then(response => {
           this.tableData = response.data.allData
+          console.log(response)
         });
      },
      TianJia(row){
@@ -237,8 +238,13 @@ export default {
         });
      
     },
-    supplyDetail(){
-         this.$router.push('/admin/companyDetail')
+    supplyDetail(row){
+         this.$router.push({
+        path: '/admin/othercompanyDetail',
+        query: {
+          companyId: row.companyId
+        }
+      });
      },
     addData() {
         var that = this;

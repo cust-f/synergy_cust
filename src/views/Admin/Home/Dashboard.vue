@@ -112,6 +112,27 @@
       <el-col :span="24">
         <el-card shadow="hover">
           <div class="type-situation">分类别需求量统计</div>
+         <div style="float:right">
+        <template>
+        <el-select 
+        style="width:100px;margin-right:35px;margin-top:15px"
+        v-model="value"
+        
+        @change="pieChart"
+        >
+            <el-option
+          v-for="item in options"
+          placeholder="请选择"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+          :disabled="item.disabled"
+          width="20px"
+          >
+            </el-option>
+          </el-select> 
+        </template>
+        </div>
           <br />
           <div id="typeSituation" :piedata="piedata"  style="width: 100%;height:430%"></div>
         </el-card>
@@ -136,9 +157,12 @@ export default {
   },
   data() {
     return {
+       
       name: localStorage.getItem("ms_username"),
       activeName: "first",
-      total_number: 1000,
+     
+      options: [],        
+       value: '',
       form:{
         monthCount:'',
         desingMonthCount:[],
@@ -177,17 +201,8 @@ export default {
       piedata:{
         Count:[],
         categoryFinishTaskList:[],
-      }
-      //  Data: {
-      //   // count:[],
-      //   // categoryName:[],
-      //   value0:[],
-      //   value1:[],
-      //   value2:[],
-      //   value3:[],
-      //   value4:[],
-      //   value5:[],
-      // },
+      },
+      
 
       
     };
@@ -203,7 +218,7 @@ export default {
   },
   //初始化方法
    created() {
-   
+    this.getYearData() //获取条件选择时间数据
     this.getMonthData();//本月成交任务、需求任务、流通任务的数据查找
     this.getStatistics();
   },
@@ -214,14 +229,22 @@ export default {
   //  },
 
   methods: {
+      //获取条件选择时间数据
+    getYearData() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then(response => {
+        this.value = response.data.allData.nowYear;
+        this.options= response.data.allData.years;  
+        this.pieChart() ;
+            
+      });
+    },
     //本月成交任务、需求任务、流通任务的数据查找
     getMonthData(){
        var that = this;
       
       var data = Qs.stringify({
-       // monthCount:this.form.monthCount,
-        // desingMonthCount:this.form.drawradarChart,
-        // circulaterMonthCount:this.form.circulaterMonthCount,
+      
       });
        // console.log(data);
      
@@ -290,13 +313,27 @@ export default {
     },
     //行业类别饼图数据
     pieChart() {
-      let that = this;
-      that.axios.post("/api/findTaskCategoryList").then(response => {
-        this.piedata.Count=response.data.allData.Count;
-        this.piedata.categoryFinishTaskList=response.data.allData.categoryFinishTaskList;
+       let that = this;
       
+      var data = Qs.stringify({
+           year:this.value,
+      });
+      // console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "/api/findTaskCategoryList",
+          data: data
+        })
+        .then(response => {
+        this.piedata.Count=response.data.allData.Count;
+        this.piedata.categoryFinishTaskList=response.data.allData.categoryFinishTaskList;      
         this.getCharts5();  
         //console.log(response.data.allData);
+       
+      
         
       });
     },

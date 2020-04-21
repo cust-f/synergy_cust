@@ -39,6 +39,7 @@
           :label="item.label"
           :value="item.value"
           :disabled="item.disabled"
+         
           width="20px"
           >
             </el-option>
@@ -62,7 +63,7 @@
             <el-col :span="9">
               <el-form-item label="起始时间">
                 <el-date-picker
-                  type="datetime"
+                  type="date"
                   placeholder="选择日期"
                   v-model="form2.time1"
                   style="width: 100%;"
@@ -73,7 +74,7 @@
             <el-col :span="9">
               <el-form-item label="截止时间">
                 <el-date-picker
-                  type="datetime"
+                  type="date"
                   placeholder="选择日期"
                   v-model="form2.time2"
                   style="width: 100%;"
@@ -118,24 +119,11 @@ export default {
     return {
       userName: localStorage.getItem("ms_username"),
      //选择框
-     options: [{
-            
-            value: '2020',
-           
-           label: '2020'
-        }, {
-          value: '2021',
-          label: '2021',
-          disabled: true
-        }, {
-          value: '选2022',
-          label: '2022',
-          disabled: true
-        }],        
-         value: 2020,
+     options: [],        
+         value:'',
         form2:{
-         time1:"2020-04-01",
-         time2:"2020-04-04",
+         time1:"",
+         time2:"",
         } ,
     
       tableData:"",
@@ -154,7 +142,8 @@ export default {
   //初始化方法
    created() {
     this.getCompanyData();//企业星级读取
-    //this.getData();//表格数据查找
+    this.getYearData(); //获取条件选择年份数据
+    this.getTimeData();///获取条件选择时间数据
     
     this.getRemarData();//企业雷达图数据
     this.barChartData();//柱形图数据获取
@@ -167,6 +156,27 @@ export default {
  
    
   methods: {
+    //获取条件选择时间数据
+    getTimeData() {
+      let that = this;
+      that.axios.post("/api/findTimes").then(response => {
+        this.form2.time1 = response.data.allData[1];//本年第一天
+        this.form2.time2= response.data.allData[0];  //当天时间
+        console.log(response.data.allData);      
+      });
+    },
+
+     //获取条件选择年份数据
+    getYearData() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then(response => {
+        this.value = response.data.allData.nowYear;
+        this.options= response.data.allData.years; 
+        this.barChartData(); 
+        that.$refs.drawradarChart.getCharts2();
+       // console.log(response.data.allData);      
+      });
+    },
     //企业雷达图数据
     getRemarData(radarData){
      var that = this;
@@ -228,7 +238,7 @@ export default {
         year:this.value,
         
       });
-       console.log(data);
+     //  console.log(data);
      
       that
         .axios({
@@ -267,12 +277,7 @@ export default {
 		background: #eee;
 		line-height: 20px;
 	}
- 
- 
-	
-</style>
 
-<style>
  .input-group{
    
     display: inline;

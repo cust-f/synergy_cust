@@ -16,7 +16,7 @@ export default {
                 getCharts() {
       // 基于准备好的dom，初始化echarts实例
       var charts = [];
-      var myChart = echarts.init(document.getElementById("fulfillDemandTop5"));
+      var myChart = echarts.init(document.getElementById("fulfillDemandTop5"), 'light');
       console.log(this.cloumnData.Vintage)
       var option = {
         title: {

@@ -1,11 +1,7 @@
 <template>
   <div class="admin-header">
-    <el-row class="header-message" :gutter="20">
-      <el-col :span="8" :offset="1">
-        <!-- <span>欢迎访问高端装备制造领域的科技服务SaaS应用构建以及示范!</span> -->
-      </el-col>
-      <el-col :span="6" :offset="3" style="float:right;">
-        <div>
+    <el-row class="header-message">
+        <div style="width: 350px;height: 30px;float: right;">
           <ul v-if="log==token">
             <li>
               <el-popover placement="bottom" trigger="hover">
@@ -46,7 +42,6 @@
             <li>帮助中心</li>
           </ul>
         </div>
-      </el-col>
     </el-row>
     <!-- 区域 拉开层次 -->
     <el-row :gutter="20" class="header" style="height:50px;">
@@ -68,7 +63,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="24" style="height: 60px;">
+      <el-col :span="24" style="height: 45px;">
         <div style="background-color:#00A2E6">
           <navigation></navigation>
         </div>
@@ -82,18 +77,18 @@
     >
       <div class="user-detail">
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="5" :offset="4">
             <span class="titles">所属公司</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.companyName}}</span>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="5" :offset="5">
             <span class="titles">用户名</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" >
             <span>{{userInfo.userName}}</span>
           </el-col>
         </el-row>
@@ -101,7 +96,7 @@
           <el-col :span="3" :offset="6">
             <span class="titles">姓名</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.realName}}</span>
           </el-col>
         </el-row>
@@ -109,7 +104,7 @@
           <el-col :span="3" :offset="6">
             <span class="titles">角色</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.roleName}}</span>
           </el-col>
         </el-row>
@@ -117,7 +112,7 @@
           <el-col :span="3" :offset="6">
             <span class="titles">邮箱</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.email}}</span>
           </el-col>
         </el-row>
@@ -125,13 +120,21 @@
           <el-col :span="3" :offset="6">
             <span class="titles">电话</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.phone}}</span>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="5" :offset="4">
+            <span class="titles">真实姓名</span>
+          </el-col>
+          <el-col :span="14" :offset="1">
+            <span>{{userInfo.realName}}</span>
           </el-col>
         </el-row>
       </div>
       <div slot="footer" class="dialog-footer">
-        <el-button  @click="updataUserDetail=true">修改账户信息</el-button>
+        <el-button @click="updataUserDetail=true">修改账户信息</el-button>
         <el-button @click="updataPassword=true" type="primary">修改密码</el-button>
       </div>
     </el-dialog>
@@ -200,6 +203,9 @@
         <el-form-item label="电话" prop="phone">
           <el-input v-model="user.phone"></el-input>
         </el-form-item>
+        <el-form-item label="真实姓名" prop="realName">
+          <el-input v-model="user.realName"></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitUser('user')">提交</el-button>
@@ -237,7 +243,7 @@ export default {
         callback();
       }
     };
-  var validDataPhone = (rule, value, callback) => {
+    var validDataPhone = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请填写手机号码"));
       } else if (!/^1[3456789]\d{9}$/.test(value)) {
@@ -246,7 +252,7 @@ export default {
       } else {
         callback();
       }
-      }
+    };
     return {
       log: true,
       token: this.$store.state.token,
@@ -268,9 +274,10 @@ export default {
       },
       user: {
         email: "",
-        phone: ""
+        phone: "",
+        realName: ""
       },
-      userRules:{
+      userRules: {
         phone: [{ required: true, validator: validDataPhone, trigger: "blur" }]
       },
       rules: {
@@ -322,9 +329,11 @@ export default {
           data: data
         })
         .then(response => {
+          console.log(response);
           this.userInfo = response.data.allData.userDetail;
           this.user.email = this.userInfo.email;
           this.user.phone = this.userInfo.phone;
+          this.user.realName = this.userInfo.realName;
           this.userDetail = true;
         });
     },
@@ -388,7 +397,6 @@ export default {
       });
     },
     submitUser(formName) {
-
       this.$refs[formName].validate(valid => {
         if (valid) {
           //账户信息
@@ -396,7 +404,8 @@ export default {
           var data = Qs.stringify({
             userName: this.username,
             email: this.user.email,
-            phone: this.user.phone
+            phone: this.user.phone,
+            realName:this.user.realName
           });
           that
             .axios({
@@ -442,6 +451,9 @@ export default {
 } */
 .admin-header .el-select .el-input {
   width: 100px;
+}
+.admin-header .el-dialog{
+  width:500px;
 }
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
