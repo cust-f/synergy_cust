@@ -2,9 +2,12 @@
   <div>
     <el-container>
       <el-main>
-        <div class="box">
-          <h3>用户管理</h3>
-        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+         <div font-size="24px">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          用户管理
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</div>
+
+            
         <template>
           <div>
             <div class="container">
@@ -21,20 +24,21 @@
             <el-input v-model="User_Name" placeholder="账户名称" class="handle-input mr10"></el-input>
             <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
           </div>
-&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <el-table
             :data="tableData"
             border
-            class="table"
-            ref="multipleTable"
+            class="table.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+            ref="configurationTable"
             header-cell-class-name="table-header"
             :default-sort="{prop: 'userName', order: 'descending'}"
             @selection-change="handleSelectionChange"
           >
-                <el-table-column label="序号" type="index" width="70" align="center"></el-table-column>
-                <el-table-column prop="userName" label="用户名称" sortable width="130" align="center"></el-table-column>
+                <el-table-column label="序号" type="index" width="70" align="center"> <template slot-scope="scope">
+        <span>{{(pageIndex - 1) * pageSize + scope.$index + 1}}</span>
+    </template></el-table-column>
+                <el-table-column prop="userName" label="用户名称" sortable width="120" align="center"></el-table-column>
                 <el-table-column prop="companyName" label="企业名称" sortable width="180" align="center"></el-table-column>
-                <el-table-column prop="roleName" label="角色名称" sortable align="center">
+                <el-table-column prop="roleName" label="角色名称" width="130" sortable align="center">
                    <template slot-scope="{row: {roleName}}">
                           <span v-if="+roleName===1">管理员</span>
                           <span v-else-if="+roleName===2">核心企业</span>
@@ -46,7 +50,7 @@
                 <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
                 <!-- <el-table-column prop="password" label="用户密码" align="center"></el-table-column> -->
 
-                <el-table-column label="操作" width="180" align="center">
+                <el-table-column label="操作" width="160" align="center">
                   <template slot-scope="scope">
                      <el-button type="text" size="small" @click="chushihuamima(scope.row)">初始化密码</el-button>
                     <el-button @click="handleDelete(scope.row.userId)" type="text" size="small">删除</el-button>
@@ -66,7 +70,7 @@
             </div>
 
           <!-- 新增弹出框 -->
-            <el-dialog title="用户信息" :visible.sync="addVisible" width="50%">
+            <el-dialog title="用户信息" :visible.sync="addVisible" width="50%" >
               <el-form ref="form" :model="addList" label-width="70px">
                 <el-form-item label="账号名称">
                   <el-input v-model="addList.userName"></el-input>
@@ -102,7 +106,7 @@
               </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="saveAdd">确 定</el-button>
-                <el-button @click="addVisible = false">取 消</el-button>               
+                <el-button @click="quxiao">取 消</el-button>               
               </span>
             </el-dialog>
           </div>
@@ -135,10 +139,10 @@ export default {
       label:'流通人员',
       }],
       optionsCompany:[],
-      query: {
+    
         pageIndex: 1,
-        pageSize: 10
-      },
+        pageSize: 10,
+    
       User_Name:"",
       addList: {
         id: "1",
@@ -180,7 +184,7 @@ export default {
       var that = this;
       this.axios({
         method:"get",
-        url:"http://127.0.0.1:8082/user/findCompanyName"
+        url:"http://127.0.0.1:8081/user/findCompanyName"
       }).then(response=>{
         console.log(response);
         that.optionsCompany = response.data
@@ -192,7 +196,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/user/getAllUser"
+          url: "http://127.0.0.1:8081/user/getAllUser"
         })
         .then(response => {
           
@@ -212,7 +216,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/user/selectUser",
+            "http://127.0.0.1:8081/user/selectUser",
           data: data
           // data:this.$store.state.userName
         })
@@ -242,7 +246,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/user/updatePassword",
+            "http://127.0.0.1:8081/user/updatePassword",
           data: data
         })
         .then(response => {         
@@ -250,6 +254,10 @@ export default {
           this.tableData.splice(index, 1);
            center: true;
         });
+    },
+    quxiao(){
+      this.addVisible = false;
+      this.addList = {};
     },
   
     // 删除操作
@@ -261,7 +269,7 @@ export default {
         .then(() => {
         this.axios({
           method: "get",
-          url: "http://127.0.0.1:8082/user/delectUser?userID=" +index ,     
+          url: "http://127.0.0.1:8081/user/delectUser?userID=" +index ,     
         })
          .then(response => {      
            this.$message.success("删除成功");          
@@ -273,13 +281,15 @@ export default {
    
     },
     //新增操作
-    addData() {
+    addData() { 
+     
       this.addVisible = true;
       var that = this;
       var data = Qs.stringify({
         PId: this.type
-      })
-      },
+      })  
+      },   
+     
      //保存新增
     saveAdd() {
       var that = this;
@@ -298,8 +308,8 @@ export default {
       that
       .axios({
         method: "post",
-        url: "http://127.0.0.1:8082/user/addUserInformation",
-        data: data
+        url: "http://127.0.0.1:8081/user/addUserInformation",
+        data: data,
       });
 
       this.$message.success("提交成功");
@@ -317,7 +327,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/user/getAllUser",
+          url: "http://127.0.0.1:8081/user/getAllUser",
           data: data
         })
         .then(response => {
@@ -349,8 +359,10 @@ export default {
   display: inline-block;
 }
 .table {
-  width: 100%;
-  font-size: 16px;
+ 
+   display: table-cell!important;
+  /* width: 100%; */
+  font-size: 14px;
 }
 .red {
   color: #ff0000;
