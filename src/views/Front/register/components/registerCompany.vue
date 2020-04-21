@@ -123,7 +123,7 @@
                   <el-form-item
                     label="电子邮箱"
                     prop="email"
-                    :rules="[//      { required: false, message: '请输入邮箱地址', trigger: 'blur' },待议
+                    :rules="[ { required: true, message: '请输入邮箱地址', trigger: 'blur' },
 { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]"
                   >
                     <el-input v-model="form.email"></el-input>
@@ -192,12 +192,12 @@
               </el-row>
 
               <el-row>
-                <el-col :span="10">
-                  <el-form-item label="税务证书登记编号" label-width="140px" prop="trNumber">
+                <el-col :span="9">
+                  <el-form-item label="税务证书登记编号"  prop="trNumber">
                     <el-input v-model="form.trNumber"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="2">
+                <el-col :span="9" :offset="3">
                   <el-form-item label="工商注册号" prop="brNumber">
                     <el-input v-model="form.brNumber"></el-input>
                   </el-form-item>

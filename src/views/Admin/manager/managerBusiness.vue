@@ -347,7 +347,22 @@ export default {
 
     handleSelectionChange(val) {
       console.log(val);
-    }
+    // //分页导航 分页查询使用
+    // handlePageChange(val) {
+    //   let that = this;
+    //   var data = Qs.stringify({
+    //     page: val - 1
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "http://127.0.0.1:8081/companyDetail/getAllCompany",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       console.log(response);
+    //     });
+    // }
     // //分页导航 分页查询使用
     // handlePageChange(val) {
     //   let that = this;
@@ -471,7 +486,7 @@ export default {
     //    message: "提交成功",
     //    type: "success"
     //   });
-  }
+    }}
 };
 </script>
 

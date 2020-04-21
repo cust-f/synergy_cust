@@ -42,6 +42,7 @@ import mainStaskDetailbei from '@/views/admin/maintask/mainStaskDetailbei'//主�
 import review from '@/views/admin/check/review'
 
 import companyDetail from '@/views/admin/company/companyDetail'//企业详情
+import othercompanyDetail from '@/views/admin/company/othercompanyDetail'//企业详情
 import supplyBussess from '@/views/admin/company/supplyBussess'//供应商名录
 import supplyDetail from '@/views/admin/company/supplyDetail'//供应商详情
 
@@ -234,6 +235,13 @@ export default new Router({
           meta: {
             title: "企业信息详情"
           }
+        },
+         //企业信息详情
+         {
+          path: '/admin/othercompanyDetail',
+          name: 'othercompanyDetail',
+          component: othercompanyDetail,
+          
         },
         //查看所有供应商的信息
         {

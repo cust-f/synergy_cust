@@ -20,7 +20,7 @@ export default {
 
       var that =this;
       var charts = [];
-      var myChart = echarts.init(document.getElementById("monthSituation"));
+      var myChart = echarts.init(document.getElementById("monthSituation"),'light');
 
       var option = {
         title: {
@@ -43,6 +43,10 @@ export default {
             saveAsImage: {}
           }
         },
+     xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
         xAxis: {
           type: "category",
           boundaryGap: false,

@@ -2,6 +2,8 @@
 <div class = "companyDetail">
 <el-container>
     <el-main>
+                  <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+
 <!-- <el-carousel :interval="5000" arrow="always">
  <el-carousel-item v-for="item in imagesbox" :key="item">
       <img v-bind:src="item.idView" class="image">
@@ -187,10 +189,9 @@
   <!-- 新增弹出框 -->
   
         <el-dialog  :visible.sync="addVisible" width="50%">
-            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" font-size="14px">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           修改
         </div>
-        </br>
           <el-row>
             <el-col :span="8"></el-col>
           </el-row>
@@ -377,6 +378,7 @@ export default {
     name:'companyDetail',
     data(){
        return {
+           companyId:"",
            usernameX:this.$store.state.user,
            yangshi:true,
            wancheng:true,
@@ -464,9 +466,23 @@ export default {
     }
   },
     created(){
+        this.getParams();
         this.getDate();
+        
     },
     methods:{
+            goBack() {
+      this.$router.push("/admin/primarysupplyList");
+    },
+    /*
+     *转跳对应任务信息页面
+     */
+    // 获取 easy-mock 的模拟数据
+    getParams() {
+      var routerParams = this.$route.query.companyId;
+      this.companyId = routerParams;
+      console.log(routerParams);
+    },
             //手机号校验
        animate(){
            var re = /^1\d{10}$/;
@@ -526,14 +542,13 @@ export default {
         getDate(){
             var that = this;
             var data = Qs.stringify({
-                userName:localStorage.getItem("ms_username")
+                companyID:this.companyId
             });
-            console.log(localStorage.getItem("ms_username"))
             console.log(data);
             that
                 .axios({
                     method:"post",
-                    url:'/api/companyDetail/getCompanyForm',
+                    url:'/api/companyDetail/getCompanyForm1',
                     data:data,
                                
                 })
