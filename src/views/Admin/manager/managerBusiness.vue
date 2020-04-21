@@ -2,9 +2,11 @@
   <div>
     <el-container>
       <el-main>
-        <div class="box">
-          <h3>企业管理</h3>
-        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <div font-size="24px">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          企业管理
+        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</div>
+          
         <template>
           <div>
             <div class="container">
@@ -14,56 +16,61 @@
                   placeholder="请选择省份"
                   class="selectsupply"
                   style="width:40%;"
-                >
+                >  <el-option
+                    label="不限"
+                    value="99"
+                  ></el-option>
                   <el-option
                     v-for="leibie in Provice"
                     :key="leibie.id"
                     :label="leibie.districtName"
                     :value="leibie.id"
                     @change="getCity"
-                  ></el-option>
-                    <el-option
-                    label="不限"
-                    value="99"
-                  ></el-option>
+                  ></el-option>            
                 </el-select>
-
                 <el-select
                   v-model="citypid"
                   placeholder="请选择城市"
                   class="selectsupply"
                   @change="liebieShu"
                   style="width:40%;"
-                >
+                >  <el-option
+                    label="不限"
+                    value="10086"
+                  ></el-option>
                   <el-option
                     v-for="leibie in City"
                     :key="leibie.id"
                     :label="leibie.districtName"
                     :value="leibie.id"
                   ></el-option>
-                  <el-option
-                    label="不限"
-                    value="10086"
-                  ></el-option>
+                
                 </el-select>
 
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-              </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+              </div>
               <el-table
-                :data="tableData"
+                :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                 border
                 class="table"
-                ref="multipleTable"
+                ref="configurationTable"
                 header-cell-class-name="table-header"
                 :default-sort="{prop: 'companyName', order: 'descending'}"
                 @selection-change="handleSelectionChange"
-              >
-                <el-table-column label="序号" type="index" width="70" align="center"></el-table-column>
+              > 
+
+
+
+                <el-table-column label="序号" type="index" width="50" align="center">
+                  <template slot-scope="scope">
+        <span>{{(pageIndex - 1) * pageSize + scope.$index + 1}}</span>
+    </template>
+                </el-table-column>
                 <el-table-column
                   prop="companyName"
                   label="企业名称"
                   sortable
-                  width="160"
+                  width="150"
                   align="center"
                 ></el-table-column>
                 <el-table-column prop="type" label="企业类别"  sortable width="120" align="center"></el-table-column>
@@ -82,7 +89,7 @@
                 <el-table-column prop="city" label="所在市"  sortable width="100" align="center"></el-table-column>
                 <el-table-column prop="officeNumber" label="办公电话" width="100" align="center"></el-table-column>
 
-                <el-table-column label="操作" width="180" align="center">
+                <el-table-column label="操作" width="160" align="center">
                   <template slot-scope="scope">
                     <!-- <el-button @click="handleEdit(scope.row)" type="text" size="small">修改</el-button> -->
                     <el-button
@@ -97,18 +104,19 @@
                     >删除</el-button>
                   </template>
                 </el-table-column>
-              </el-table>
-              <div class="pagination">
+              </el-table>             
+            </div>  
+             <div class="pagination">
                 <el-pagination
                   background
-                  layout="total, prev, pager, next"
-                  :current-page="query.pageIndex"
-                  :page-size="query.pageSize"
-                  :total="pageTotal"
-                  @current-change="handlePageChange"
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData.length"
+                  @current-change="handleCurrentChange"
+                  @size-change="handleSizeChange"
                 ></el-pagination>
               </div>
-            </div>
 
             <!-- 新增弹出框
             <el-dialog title="用户信息" :visible.sync="addVisible" width="50%">
@@ -157,10 +165,10 @@ export default {
     return {
       provicepid: "",
       citypid:"",
-      query: {
+      
         pageIndex: 1,
-        pageSize: 15
-      },
+        pageSize: 10,
+      
       Provice: [
         {
           districtName: "",
@@ -236,7 +244,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/companyDetail/getAllCompany"
+          url: "http://127.0.0.1:8081/companyDetail/getAllCompany"
         })
         .then(response => {
           that.pageTotal = response.data.allData.totalCount; //绑定总的条数
@@ -250,7 +258,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/district/HaChangProvince"
+          url: "http://127.0.0.1:8081/district/HaChangProvince"
         })
         .then(response => {
           this.Provice = response.data.allData.Province;
@@ -268,7 +276,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/district/city",
+          url: "http://127.0.0.1:8081/district/city",
           data:data
         })
         .then(response => {
@@ -296,7 +304,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/companyDetail/selectBySS",
+          url: "http://127.0.0.1:8081/companyDetail/selectBySS",
           data:data
         })
         .then(response => {
@@ -316,7 +324,7 @@ export default {
           this.axios({
             method: "get",
             url:
-              "http://127.0.0.1:8082/companyDetail/delectCompany?companyID=" +
+              "http://127.0.0.1:8081/companyDetail/delectCompany?companyID=" +
               index
             //data:{"companyID":index}
           }).then(response => {
@@ -329,22 +337,33 @@ export default {
         })
         .catch(() => {});
     },
-    //分页导航 分页查询使用
-    handlePageChange(val) {
-      let that = this;
-      var data = Qs.stringify({
-        page: val - 1
-      });
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8082/companyDetail/getAllCompany",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-        });
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+
+    handleSelectionChange(val) {
+      console.log(val);
     }
+    // //分页导航 分页查询使用
+    // handlePageChange(val) {
+    //   let that = this;
+    //   var data = Qs.stringify({
+    //     page: val - 1
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "http://127.0.0.1:8081/companyDetail/getAllCompany",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       console.log(response);
+    //     });
+    // }
     // // 多选操作
     // handleSelectionChange(val) {
     //   this.multipleSelection = val;
@@ -477,8 +496,9 @@ export default {
   display: inline-block;
 }
 .table {
-  width: 100%;
-  font-size: 16px;
+  display: table-cell!important;
+  /* width: 100%; */
+  font-size: 14px;
 }
 .red {
   color: #ff0000;
