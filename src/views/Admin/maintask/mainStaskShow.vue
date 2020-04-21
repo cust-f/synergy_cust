@@ -109,7 +109,6 @@ export default {
           fabudate: "2018-1-9",
           type: "汽车的制造与使用",
           leader: "王元风",
-          date: "2019-5-1",
           mainstaskTask: "光电测控仪器设备",
           substaskTask: "线路设计"
         },
@@ -119,7 +118,6 @@ export default {
           name: "杭机集团长春一机有限公司",
           money: 5000,
           state: "失败",
-          date: "2019-6-1",
           fabudate: "2018-1-9",
           type: "汽车的制造与使用",
           leader: "王元风",
@@ -132,7 +130,6 @@ export default {
           name: "启明信息技术股份有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-21",
           fabudate: "2018-1-9",
           type: "汽车的制造与使用",
           leader: "王元风",
@@ -148,7 +145,6 @@ export default {
           fabudate: "2018-1-9",
           type: "汽车的制造与使用",
           leader: "王元风",
-          date: "2019-10-12",
           mainstaskTask: "卫星应用数据创新",
           substaskTask: "卫星应用数据采集"
         },
@@ -160,7 +156,6 @@ export default {
           fabudate: "2018-1-9",
           type: "汽车的制造与使用",
           leader: "王元风",
-          date: "2019-8-10",
           mainstaskTask: "通信技术设计",
           substaskTask: "通讯装备设计"
         },
@@ -170,7 +165,6 @@ export default {
           name: "黑龙江省润特科技有限公司",
           money: 5000,
           state: "待审核",
-          date: "2019-11-16",
           fabudate: "2018-1-9",
           type: "汽车的制造与使用",
           leader: "王元风",

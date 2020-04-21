@@ -1,1527 +1,589 @@
 <template>
-  <el-main>
-    <div class="xuqiuyilan">
-      <el-col :span="20" push="4" pull="2">
-        <div>
-          <div>
-            <el-col span="6">
-              <div class="title" width="160px">
-                <span>首页</span>
-                <span>&nbsp;>&nbsp;</span>
-                <span>需求一览</span>
-              </div>
-            </el-col>
+  <div class="xuqiuyilan">
+    <el-container>
+      <el-main>
+        <el-card shadow="never" class="selectCard company-select">
+          <div slot="header" class="clearfix">
+            <span>需求一览</span>
           </div>
-        </div>
+          <el-row v-if="!dynamicTags.length==0">
+            <el-col :span="3" style="line-height:53px;">
+              <span>已选择条件</span>
+            </el-col>
+            <el-col :span="20" style="text-align:left;">
+              <el-row>
+                <ul class="company-navigation">
+                  <li v-for="(tag,index) in dynamicTags" :key="index">
+                    <el-tag
+                      closable
+                      :disable-transitions="false"
+                      @close="handleClose(tag,1)"
+                    >{{tag.name}}</el-tag>
+                  </li>
+                </ul>
+              </el-row>
+            </el-col>
+          </el-row>
+          <!-- <el-row>
+            <el-col :span="3" class="major">
+              <span>省份地区</span>
+            </el-col>
+            <ul class="company-navigation">
+              <li>
+                <a @click="districtProvince(0)">不限</a>
+              </li>
+              <li v-for="(pro,index) in province" :key="index">
+                <a @click="districtProvince(pro)">{{pro.districtName}}</a>
+              </li>
+            </ul>
+          </el-row>
+          <el-row v-if="provinceOption">
+            <el-col :span="3" class="major">
+              <span>城市</span>
+            </el-col>
+            <ul class="company-navigation">
+              <li>
+                <a @click="districtCity(0)">不限</a>
+              </li>
+              <li v-for="(c,index) in city" :key="index">
+                <a @click="districtCity(c)">{{c.districtName}}</a>
+              </li>
+            </ul>
+          </el-row> -->
+          <el-row>
+            <el-col :span="3"  class="major">
+              <span>任务类别</span>
+            </el-col>
+            <el-col :span="21">
+              <el-row>
+                <ul class="company-navigation">
+                  <li>
+                    <a @click="taskTypeSelect(0)">不限</a>
+                  </li>
+                  <li v-for="(ca,index) in taskType " :key="index">
+                    <a @click="taskTypeSelect(ca)">{{ca.name}}</a>
+                  </li>
+                </ul>
+              </el-row>
+            </el-col>
+            <!-- <el-col :span="4" v-for="ca in category" :key="ca.id">{{ca}}</el-col> -->
+          </el-row>
+          <el-row>
+            <el-col :span="3"  class="major">
+              <span>行业类别</span>
+            </el-col>
+            <el-col :span="21">
+              <el-row>
+                <ul class="company-navigation">
+                  <li>
+                    <a @click="categorySelect(0)">不限</a>
+                  </li>
+                  <li v-for="(hangye,index) in category " :key="index">
+                    <a @click="categorySelect(hangye)">{{hangye.name}}</a>
+                  </li>
+                </ul>
+              </el-row>
+            </el-col>
+            <!-- <el-col :span="4" v-for="ca in category" :key="ca.id">{{ca}}</el-col> -->
+          </el-row>
+        </el-card>
 
-        <div class="zy_kjcg_top">
-          <!--<div><a>科技成果</a></div>-->
-          <table cellpadding="0" cellspacing="0">
-            <tbody>
-              <tr>
-                <td class="cg_td01">需求类型：</td>
-                <td class="cg_td02">
-                  <a @click="getInfo()">不限</a>
-                  <a @click="testgetListByTaskType(0)">设计</a>
-                  <a @click="testgetListByTaskType(1)">流通</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="cg_td01">行业类别：</td>
-                <td class="cg_td02">
-                  <a v-bind:class="{ active: isActive0 }" @click="click0">不限</a>
-                  <a v-bind:class="{ active: isActive1 }" @click="click1('交通运输设备')">交通运输设备</a>
-                  <a v-bind:class="{ active: isActive2 }" @click="click2('仪器仪表及文化、办公用机械')">仪器仪表及文化、办公用机械</a>
-                  <a v-bind:class="{ active: isActive3 }" @click="click3('通信设备、计算机及其他电子设备')">通信设备、计算机及其他电子设备</a>
-                  <a v-bind:class="{ active: isActive4 }" @click="click4('电气机械及器材')">电气机械及器材</a>
-                  <a v-bind:class="{ active: isActive5 }" @click="click5('专用设备')">专用设备</a>
-                  <a v-bind:class="{ active: isActive6 }" @click="click6('通用设备')">通用设备</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="cg_td01">下分子类：</td>
-                <td class="cg_td02">
-                  <div v-if="show0">
-                    <a v-for="item in options0" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
-                  </div>
-                  <div v-if="show1">
-                    <a v-for="item in options1" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
-                  </div>
-                  <div v-if="show2">
-                    <a v-for="item in options2" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
-                  </div>
-                  <div v-if="show3">
-                    <a v-for="item in options3" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
-                  </div>
-                  <div v-if="show4">
-                    <a v-for="item in options4" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
-                  </div>
-                  <div v-if="show5">
-                    <a v-for="item in options5" :key="item.value" @click="testgetListByPartType(item.label)">{{item.label}}</a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div style="width:500px; margin:20px 58px;">
+        <div style="width:500px; margin:20px 0px;">
           <el-input
             size="small"
             placeholder="请输入搜索内容"
             prefix-icon="el-icon-search"
-            v-model="searchInfo"
-          ></el-input>
-          <el-button type="warning" class="button1" style=" margin:0px -120px;" @click="searchInfoList()">搜索</el-button>
+            @change="searchCom"
+            v-model="search"
+          >
+            <el-button type="warning" slot="append" @click="searchCom">搜索</el-button>
+          </el-input>
         </div>
 
-        <div class="list">
-          <!-- <div class="cg_bottomlist" >
-          <ul class="cg_bottomLeft" >
-            <li class="cg_list001">  
-              <a href="#/threeMenu" class="ziti2">福特汽车组装</a>
-            </li>
-            <li class="cg_list002">
-              <a>
-                需求类型：流通 
-              </a>
-              <a>
-                行业类别：交通运输设备
-              </a>
-              <br>
-              <a>
-                发布时间：2019-10-12
-              </a>
-              <a>
-                完成时间：2019-12-22
-              </a>
-            </li>
-          </ul>
-          <div class="bottomRight" align="middle">
-            <a href class="fabujigou">发布机构</a>
-            <ul class="jgje">
-              <li>
-                  <a style="width:435px" align="left">
-                    <font>机构名称:</font>
-                    吉林省科技服务中心
-                    <br>
-
-                    <font>联系电话:</font>
-                    1231231232132
-                  </a>
-                </li>
-            </ul>
+        <el-card shadow="never" class="selectCard company-detail">
+          <div slot="header">
+            <span>SaaS服务平台为您寻找需求任务</span>
           </div>
-          </div>-->
-
-          <div class="cg_bottomlist" v-for="(list,index) in dataShow" :key="index">
-            <ul class="cg_bottomLeft">
-              <li class="cg_list001">
-                <a href="#/threeMenu" class="ziti2" @click="passTaskID(list.taskId)">{{list.taskName}}</a>
-              </li>
-              <li class="cg_list002">
-              <p>
-                <a>需求类型：{{change(list.taskType)}}&nbsp;&nbsp;&nbsp;</a>
-                <br>
-                <a>行业主类别：{{list.taskCategoryMain}}&nbsp;&nbsp;&nbsp;</a>
-                <br>
-                <a>行业子类别：{{list.taskCategoryPart}}</a>      
-              </p>
-                <a>发布时间：{{list.publishTime| dataFormat("yyyy-MM-dd")}}&nbsp;&nbsp;&nbsp;</a>
-                <a>截止时间：{{list.deadline| dataFormat("yyyy-MM-dd")}}</a>
-              </li>
-            </ul>
-            <div class="bottomRight" align="middle">
-              <a href class="fabujigou">发布机构</a>
-              <ul class="jgje">
-                <li>
-                  <a style="width:435px" align="left">
-                    <font>机构名称:</font>
-                    {{list.companyName}}
-                    <br />
-                    <br />
-                    <font>联系电话:</font>
-                    {{list.demanderTel}}
-                  </a>
-                </li>
-              </ul>
+          <div v-if="companyList.length!==0">
+            <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
+              <div @click="companyDetail(companys.taskID)">
+                <el-col :span="4">
+                  <el-avatar shape="square" :size="80" fit="fill" :src="companys.logo"></el-avatar>
+                </el-col>
+                <el-col :span="20">
+                  <el-row>
+                    <div style="float:left;">
+                      <h2>{{companys.taskName}}</h2>
+                    </div>
+                    <!-- <div style="float:right;">
+                      <el-rate v-model="companys.star" disabled text-color="#ff9900"></el-rate>
+                    </div> -->
+                  </el-row>
+                  <el-row>
+                    <el-col :span="11">
+                      <span>一级行业类别: {{companys.taskCategotyMain}}</span>
+                    </el-col>
+                      
+                    <el-col :span="11">
+                       <span>主任务名称: {{companys.maintaskName}}</span>
+                    </el-col>
+                    
+                  </el-row>
+                  <el-row>
+                    <el-col :span="11">
+                      <span>二级行业类别: {{companys.taskCategoryPart}}</span>
+                    </el-col>
+                  
+                    <el-col :span="11">
+                      <span>发布日期: {{companys.publishTime | dataFormat("yyyy-MM-dd")}}</span>
+                    </el-col>
+                  </el-row>
+                </el-col>
+              </div>
+            </el-row>
+          </div>
+          <div v-else>
+            <div class="noResult" style="height:400px;">
+              <el-row :gutter="2" style="margin-top:25%;">
+                <el-col :span="6" :offset="5">
+                  <img src="../../../assets/images/company/noResult.jpg" alt="No Result" />
+                </el-col>
+                <el-col :span="6" :push="1">
+                  <h1 style="font-size:24px;">抱歉，没有找到相关结果！</h1>
+                  <ul style="margin-top:30px;">
+                    <li>1.输入准确的关键词，重新搜索</li>
+                    <li>2.更换筛选条件，重新搜索</li>
+                    <li>3.输入的关键词过于宽泛</li>
+                  </ul>
+                </el-col>
+              </el-row>
             </div>
           </div>
 
-          <!-- 新的分页部分 -->
-          <!-- <el-pagination
-            class="pull-right clearfix"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="pageNo"
-            :page-sizes="pageSizesList"
-            :page-size="pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="totalDataNumber">
-          </el-pagination> -->
+          <!-- <el-divider></el-divider> -->
+          <div style="margin-top:20px;">
+            <el-pagination
+              :hide-on-single-page="true"
+              @size-change="getCompanyList"
+              @current-change="getCompanyList"
+              :current-page="currentPage"
+              :page-size="pageSize"
+              layout="prev, pager, next, jumper"
+              :total="totalCount"
+            ></el-pagination>
+          </div>
+        </el-card>
+      </el-main>
 
-          <div class="page">
-              <ul>
-                  <li>
-                      <a href="#/xuqiuyilan"  v-on:click="prePage" ><</a>
-                  </li>
-                  <li v-for="(list, index) in totalPage">
-                      <a href="#/xuqiuyilan" v-on:click="toPage(index)" :class="{active: currentPage==index}">{{ index+1 }}</a>
-                  </li>
-                  <li>
-                      <a href="#/xuqiuyilan" v-on:click="nextPage" >></a>
-                  </li>
-              </ul>
-          </div>    
-
-          <!-- <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="50">
-          </el-pagination> -->
-
-
-        </div>
-      </el-col>
-    </div>
-  </el-main>
+    </el-container>
+  </div>
 </template>
-
-
 
 <script>
 import Qs from "qs";
 
 export default {
-  name: "substaskDetail",
+  name: "excellentCompany",
   data() {
     return {
-      //需求大类下的下分子类
-    //交通运输设备子类
-        options0: [{
-          value0: '0',
-          label: '不限'
-        },{
-          value0: '1',
-          label: '汽车'
-        }, {
-          value0: '2',
-          label: '铁路运输设备'
-        }, {
-          value0: '3',
-          label: '摩托车'
-        }, {
-          value0: '4',
-          label: '自行车'
-        }, {
-          value0: '5',
-          label: '船舶及浮动装置'
-        }, {
-          value0: '6',
-          label: '航空航天器'
-        },{
-          value0: '7',
-          label: '交通器材及其他交通运输设备'
-        }],
-        //仪器仪表及文化、办公用机械
-        options1: [{
-          value0: '0',
-          label: '不限'
-        },{
-          value0: '1',
-          label: '通用仪器仪表'
-        }, {
-          value0: '2',
-          label: '专用仪器仪表'
-        }, {
-          value0: '3',
-          label: '钟表与计时仪器'
-        }, {
-          value0: '4',
-          label: '光学仪器及眼镜'
-        }, {
-          value0: '5',
-          label: '文化、办公用机械'
-        }, {
-          value0: '6',
-          label: '其他仪器仪表的制造及修理'
-        }],
-        //通信设备、计算机及其他电子设备
-        options2: [{
-          value0: '0',
-          label: '不限'
-        },{
-          value0: '1',
-          label: '通信设备'
-        }, {
-          value0: '2',
-          label: '雷达及配套设备'
-        }, {
-          value0: '3',
-          label: '广播电视设备'
-        }, {
-          value0: '4',
-          label: '电子计算机'
-        }, {
-          value0: '5',
-          label: '电子器件'
-        }, {
-          value0: '6',
-          label: '电子元件'
-        }, {
-          value0: '7',
-          label: '家用视听设备'
-        }, {
-          value0: '8',
-          label: '其他电子设备'
-        }],
-        //电气机械及器材
-        options3: [{
-          value0: '0',
-          label: '不限'
-        },{
-          value0: '1',
-          label: '电机'
-        }, {
-          value0: '2',
-          label: '输配电及控制设备'
-        }, {
-          value0: '3',
-          label: '电线、电缆、光缆及电工器材'
-        }, {
-          value0: '4',
-          label: '电池'
-        }, {
-          value0: '5',
-          label: '家用电力器具'
-        }, {
-          value0: '6',
-          label: '非电力家用器具'
-        }, {
-          value0: '7',
-          label: '照明器具'
-        }, {
-          value0: '8',
-          label: '其他电气机械及器材'
-        }],
-        //专用设备
-        options4: [{
-          value0: '0',
-          label: '不限'
-        },{
-          value0: '1',
-          label: '矿山、冶金、建筑专用设备'
-        }, {
-          value0: '2',
-          label: '化工、木材、非金属加工专用设备'
-        }, {
-          value0: '3',
-          label: '食品、饮料、烟草及饲料生产专用设备'
-        }, {
-          value0: '4',
-          label: '印刷、制药、日化生产专用设备'
-        }, {
-          value0: '5',
-          label: '纺织、服装和皮革工业专用设备'
-        }, {
-          value0: '6',
-          label: '电子和电工机械专用设备'
-        }, {
-          value0: '7',
-          label: '农、林、牧、渔专用机械'
-        }, {
-          value0: '8',
-          label: '医疗仪器设备及器械'
-        }, {
-          value0: '9',
-          label: '环保、社会公共安全及其他专用设备'
-        }],
-        //通用设备
-        options5:  [{
-          value0: '0',
-          label: '不限'
-        },{
-          value0: '1',
-          label: '锅炉及原动机'
-        }, {
-          value0: '2',
-          label: '金属加工机械'
-        }, {
-          value0: '3',
-          label: '起重运输设备'
-        }, {
-          value0: '4',
-          label: '泵、阀门、压缩机及类似机械'
-        }, {
-          value0: '5',
-          label: '轴承、齿轮、传动和驱动部件'
-        }, {
-          value0: '6',
-          label: '烘炉、熔炉及电炉'
-        }, {
-          value0: '7',
-          label: '风机、衡器、包装设备等通用设备'
-        }, {
-          value0: '8',
-          label: '通用零部件制造及机械修理'
-        }, {
-          value0: '9',
-          label: '金属铸、锻加工'
-        }],
-        //各子类显示判定bool值
-        show0: false,
-        show1: false,
-        show2: false,
-        show3: false,
-        show4: false,
-        show5: false,
-
-        //点击变色的判定值
-        isActive0: false,
-        isActive1: false,
-        isActive2: false,
-        isActive3: false,
-        isActive4: false,
-        isActive5: false,
-        isActive6: false,
-
-        activeName: 'first',
-        checkList1: [],
-        checkList2: [],
-        checkList3: [],
-        checkList4: [],
-        checkList5: [],
-        checkList6: [],
-        checkList7: [],
-
-        demandTaskList:[],
-
-        // 总页数
-        pageNum:1,
-        // 每页显示的个数
-        pageSize:5,
-        // 当前页
-        currentPage:0,
-        // 总数据
-        totalPage:[],
-        // 当前显示的数据
-        dataShow:[],
-        //搜索框
-        searchInfo:"",
-        // pageNo: 1,
-        // pageSize: 10,
-        // pageSizesList: [10, 15, 20, 30, 50],
-        // tableData: [],//返回的结果集合
-        // totalDataNumber: 0,//数据的总数,
-
+      dynamicTags: [],
+      province: "",
+      city: [],
+      provinceOption: false, //是否选择了省份
+      category: [{id:"",name:""}], //行业类别
+      taskType:[{
+        id:0,name:"设计任务"
+        
+      },{
+        id:1,name:"流通任务"
+        
+      }],
+      companyList: [],
+      recommendedCompanyList: [], //推荐企业列表
+      currentPage: 1,
+      pageSize: 15,
+      //value: this.totalCount <= 15,
+      totalCount: 0,
+      search: "",
+      url:
+        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
     };
-     radio: '1'
-     
-       
-      
-      
   },
   created() {
-    this.getInfo()
+    this.getProvince();
+    this.getCategry();
+    this.getCompanyList(this.val);
+    this.getRecommendedCompanyList();
+  },
+  watch: {
+    dynamicTags: function(val) {
+      this.getAnswer();
+    }
   },
   methods: {
-    change(taskType){
-      if(taskType==0)
-        return "设计";
-      if(taskType==1)
-        return "流通";
-      else
-        return "error"
-    },
-
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
-
-    tiaozhuan() {
-      this.router.push("/admin/circulationTask");
-    },
-
-    passTaskID(taskId){
-      this.$router.push({
-        path:"/threeMenu",
-        query:{taskID:taskId}
-        // 
+    getProvince() {
+      let that = this;
+      that.axios.post("/api/district/HaChangProvince").then(response => {
+        this.province = response.data.allData.Province;
       });
     },
-
-    
-    testgetListByTaskType(taskType){
-      var that = this;
+    getCategry() {
+      let that = this;
+      that.axios.post("/api/industry/allIndustryType").then(response => {
+        this.category = response.data.allData;
+      });
+    },
+    getCity(id) {
+      let that = this;
       let data = Qs.stringify({
-        taskType: taskType
+        pid: id
       });
-      that.axios({
-        method: "post",
-        url: "/api/xuqiuyilan/getListByTaskType",
-        data: data
-      }).then(response =>{
-        that.demandTaskList = response.data;
-        console.log(that.demandTaskList)
-        this.pageChange();
-        this.$message({
-        type: "success",
-        message: "成功"
-      });
-      })
-    },
-    
-    testgetListByMainType(TaskCategory){
-      var that = this;
-      let data = Qs.stringify({
-        TaskCategory: TaskCategory
-      });
-      that.axios({
-        method: "post",
-        url: "/api/xuqiuyilan/getListByMainType",
-        data: data
-      }).then(response =>{
-        that.demandTaskList = response.data;
-        console.log(this.demandTaskList)
-        this.pageChange();
-        this.$message({
-        type: "success",
-        message: "成功"
-      });
-      })
-    },
-    testgetListByPartType(TaskCategory){
-      var that = this;
-      let data = Qs.stringify({
-        TaskCategory: TaskCategory
-      });
-      that.axios({
-        method: "post",
-        url: "/api/xuqiuyilan/getListByPartType",
-        data: data
-      }).then(response =>{
-        that.demandTaskList = response.data;
-        console.log(this.demandTaskList)
-        this.pageChange();
-        this.$message({
-        type: "success",
-        message: "成功"
-      });
-      })
-    },
-
-
-    click0() {
-      this.show0 = false;
-      this.show1 = false;
-      this.show2 = false;
-      this.show3 = false;
-      this.show4 = false;
-      this.show5 = false;
-
-      this.isActive0 = true;
-      this.isActive1 = false;
-      this.isActive2 = false;
-      this.isActive3 = false;
-      this.isActive4 = false;
-      this.isActive5 = false;
-      this.isActive6 = false;
-    },
-    click1(TaskCategory) {
-      if (this.show0 == false) {
-        this.show0 = true;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = true;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        this.testgetListByMainType(TaskCategory);
-        return;
-      }
-      if (this.show0 == true) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        return;
-      }
-    },
-
-    click2(TaskCategory) {
-      if (this.show1 == false) {
-        this.show0 = false;
-        this.show1 = true;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = true;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        this.testgetListByMainType(TaskCategory);
-        return;
-      }
-      if (this.show1 == true) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        return;
-      }
-    },
-
-    click3(TaskCategory) {
-      if (this.show2 == false) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = true;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = true;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        this.testgetListByMainType(TaskCategory);
-        return;
-      }
-      if (this.show2 == true) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        return;
-      }
-    },
-    click4(TaskCategory) {
-      if (this.show3 == false) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = true;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = true;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        this.testgetListByMainType(TaskCategory);
-        return;
-      }
-      if (this.show3 == true) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        return;
-      }
-    },
-
-    click5(TaskCategory) {
-      if (this.show4 == false) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = true;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = true;
-        this.isActive6 = false;
-        this.testgetListByMainType(TaskCategory);
-        return;
-      }
-      if (this.show4 == true) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = true;
-        this.isActive6 = false;
-        return;
-      }
-    },
-
-    click6(TaskCategory) {
-      if (this.show5 == false) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = true;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = true;
-        this.testgetListByMainType(TaskCategory);
-        return;
-      }
-      if (this.show5 == true) {
-        this.show0 = false;
-        this.show1 = false;
-        this.show2 = false;
-        this.show3 = false;
-        this.show4 = false;
-        this.show5 = false;
-
-        this.isActive0 = false;
-        this.isActive1 = false;
-        this.isActive2 = false;
-        this.isActive3 = false;
-        this.isActive4 = false;
-        this.isActive5 = false;
-        this.isActive6 = false;
-        return;
-      }
-    },
-
-    getInfo() {
-      var that = this;
-      // let data = Qs.stringify({
-      //   TaskCategory: "交通运输业"
-      // });
       that
         .axios({
           method: "post",
-          url: "/api/xuqiuyilan/getAllList",
-          // data: data
+          url: "/api/district/city",
+          data: data
         })
-        .then(response =>{
-        that.demandTaskList = response.data;
-        console.log(that.demandTaskList.length)
-        this.pageChange();
-      });
+        .then(response => {
+          console.log(response);
+          this.city = response.data.allData.city;
+        });
     },
-
-    searchInfoList() {
-      var that = this;
+    getCompanyList(page) {
+      let that = this;
       let data = Qs.stringify({
-        searchName: this.searchInfo
+        page: page - 1
       });
-      that.axios({
-        method: "post",
-        url: "/api/xuqiuyilan/searchInfo",
-        data: data
-      }).then(response =>{
-        that.demandTaskList = response.data;
-        console.log(that.demandTaskList)
-        this.pageChange();
-        this.$message({
-        type: "success",
-        message: "搜索成功"
-      });
-      })
+      that
+        .axios({
+          method: "post",
+          url: "/api/MainTaskInformation/getAllTaskList",
+          data: data
+        })
+        .then(response => {
+          console.log(response)
+          this.companyList = response.data.allData.companyList;
+          this.totalCount = response.data.allData.totalCount;
+        });
     },
-
-    pageChange(){
-        var that = this;
-        // 总页数
-        that.pageNum = Math.ceil(that.demandTaskList.length / that.pageSize) || 1 
-        // 分组
-        for (var i = 0; i<that.pageNum; i++) {
-            that.totalPage[i] = that.demandTaskList.slice(that.pageSize * i, that.pageSize * (i + 1))
+    getRecommendedCompanyList() {
+      let that = this;
+      that.axios.post("/api/company/recommended").then(response => {
+        this.recommendedCompanyList = response.data.allData;
+      });
+    },
+    searchCom() {
+      console.log("呵呵");
+      this.getAnswer();
+      // this.serach="";
+    },
+    //筛选条件
+    getAnswer() {
+      let that = this;
+      let url;
+      let taskType;
+      let categorys;
+      var j;
+      for (let i = 0; i < this.dynamicTags.length; i++) {
+        if (this.dynamicTags[i].type == "taskType") {
+          taskType = this.dynamicTags[i].id;
+        }  else if (this.dynamicTags[i].type == "category") {
+          categorys=(this.dynamicTags[i].id);
         }
-        // 取值
-        that.dataShow = that.totalPage[that.currentPage]
-        console.log(that.dataShow)
+      }
+      let data = Qs.stringify(
+        {
+          taskType: taskType,
+          category: categorys,
+          searchStr: this.search,
+          page: 0
+        },
+        { arrayFormat: "brackets" }
+      );
+      console.log(taskType);
+      console.log(categorys);
+      console.log("输入："+this.search)
+      console.log("数组长度：" + this.dynamicTags.length)   
+      if (this.dynamicTags.length != 0 || this.search != null) { 
+        url = "/api/MainTaskInformation/select";
+        console.log(url);
+      }
+      else {
+      url = "/api/MainTaskInformation/getAllTaskList";  
+      console.log(url);
+      }
+      that
+        .axios({
+          method: "post",
+          url: url,
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          if (response.data.code == 400) {
+            this.companyList = "";
+            this.totalCount = 0;
+            this.$message({
+              type: "warning",
+              message: "无符合条件的企业"
+            });
+          } else if ((response.data.code = 200)) {
+            this.companyList = response.data.allData.companyList;
+            this.totalCount = response.data.allData.totalCount;
+          }
+        });
     },
+    // getOtherCompany(val){
 
-//     //改变每页显示数量
-//     handleSizeChange(val){
-//       var likeThis=this;
-//       var pageSize = `${val}`;
-//       this.pageNo=1
-//       this.pageSize= parseInt(pageSize);
-//       console.log('pageSize: '+pageSize);
-//       this.$nextTick(() =>
-//         this.getAndDraw(1,pageSize,function (resp) {
-//           likeThis.totalDataNumber = resp.data.Data.Total;
-//         })
-//       )
-//     },
-
-//          //改变页码
-//       handleCurrentChange(val){
-//         var pageSize=this.pageSize;
-// //        this.pageNo=pageNo;
-//         console.log('pageSize:'+this.pageSize)
-//         this.getAndDraw(parseInt(pageNo),parseInt(pageSize));
-//       },
-
-    nextPage: function(){
-        var that = this;
-        if (that.currentPage == that.pageNum - 1) return;
-        that.dataShow = that.totalPage[++that.currentPage]   
+    // },
+    //关闭筛选的标签
+    /*
+     *@functionName:     js
+     *@params1: tag 要删除的标签
+     *@params2: id 要删除标签的形式 0：该类别下全部 1：单个对应的标签
+     *@description:
+     *@author: 旋展峰
+     *@date: 2020-04-02 22:30:16
+     *@version: V1.0.5
+     */
+    handleClose(tag, id) {
+      if (tag.type == "taskType") {
+        this.deleteTag("taskType", 0);
+        
+      }else if (tag.type == "category") {
+        this.deleteTag("category", 0);
+      }
+       else {
+        //删除对应一个还是不限
+        if (id == 0) {
+          this.deleteTag(tag.type, 0);
+        } else if (id == 1) {
+          this.deleteTag(tag.type, tag.id);
+        }
+      }
     },
-    prePage: function(){
-        var that = this;
-        if (that.currentPage == 0) return;
-        that.dataShow = that.totalPage[--that.currentPage]
+    deleteTag(type, id) {
+      if (id == 0) {
+        //删除对应type的所有元素
+        for (let i = 0; i < this.dynamicTags.length; i++) {
+          if (this.dynamicTags[i].type == type) {
+            this.dynamicTags.splice(i--, 1);
+          }
+        }
+      } else {
+        //删除一个元素
+        for (let i = 0; i < this.dynamicTags.length; i++) {
+          if (
+            this.dynamicTags[i].type == type &&
+            this.dynamicTags[i].id == id
+          ) {
+            this.dynamicTags.splice(i, 1);
+            return;
+          }
+        }
+      }
     },
-    toPage: function(page){
-        var that = this;
-        that.currentPage = page
-        that.dataShow = that.totalPage[that.currentPage];
+    districtProvince(data) {
+      if (data == 0) {
+        let delTag = { type: "province" };
+        this.handleClose(delTag, 0);
+        this.provinceOption = false;
+      } else {
+        let tag = {
+          name: data.districtName,
+          type: "province",
+          id: data.id
+        };
+        this.checkTag(tag);
+        this.dynamicTags.push(tag);
+        this.getCity(data.id);
+        this.provinceOption = true;
+      }
+    },
+    districtCity(data) {
+      if (data == 0) {
+        let delTag = { type: "city" };
+        this.handleClose(delTag, 0);
+      } else {
+        let tag = {
+          name: data.districtName,
+          type: "city",
+          id: data.id
+        };
+        if (this.checkTag(tag)) {
+          this.dynamicTags.push(tag);
+        }
+      }
+    },
+categorySelect(data) {
+      if (data == 0) {
+        let delTag = { type: "category" };
+        this.handleClose(delTag, 0);
+        console.log("nihao")
+      } else {
+        let tag = {
+          name: data.name,
+          type: "category",
+          id: data.id
+        };
+                console.log(tag)
+
+       this.checkTag(tag)
+       this.dynamicTags.push(tag);
+         
+        
+      }
+    },
+    taskTypeSelect(data){
+      if(data== 0 ){
+        let delTag = {type: "taskType"};
+        this.handleClose(delTag,0);
+      }else{
+        let tag = {
+          name: data.name,
+          type:"taskType",
+          id:data.id
+        }
+        this.checkTag(tag)
+        this.dynamicTags.push(tag);
+        
+      }
+    },
+    //查看原来是否存在该省份,或重复选择同一个标签
+    checkTag(data) {
+      if (data.type == "taskType") {
+        for (let i = 0; i < this.dynamicTags.length; i++) {
+          if (this.dynamicTags[i].type == "taskType") {
+            let oldTag = { type: "taskType" };
+            this.handleClose(oldTag, 0);
+            return;
+          }
+        }
+      }   else if (data.type == "category") {
+        for (let i = 0; i < this.dynamicTags.length; i++) {
+          if (this.dynamicTags[i].type == "category") {
+            let oldTag = { type: "category" };
+            this.handleClose(oldTag, 0);
+            return;
+          }
+        }
+      }     
+      else {
+        for (let i = 0; i < this.dynamicTags.length; i++) {
+          if (
+            this.dynamicTags[i].type == data.type &&
+            this.dynamicTags[i].id == data.id
+          ) {
+            this.$message({
+              type: "warning",
+              message: "已经选择过该条件"
+            });
+            return false;
+          }
+        }
+        return true;
+      }
+    },
+    //进入企业详情界面
+    companyDetail(id) {
+      console.log("触发了呀");
+      this.$router.push({
+        path: "/company/excellentCompanyDetail",
+        name: "companyDetails",
+        query: { companyId: id }
+      });
     }
   }
 };
 </script>
+
 <style>
-.zy_kjcg_top {
-  width: 1200px;
-  margin-left: 4%;
+.xuqiuyilan {
+  width: 1150px;
+  margin: 0 auto;
+  padding-bottom: 40px;
 }
-
-.zy_kjcg_top table {
-  border: solid 1px #ccc;
-  width: 1000px;
-  border-collapse: collapse;
-  background: #fafafa;
-
-  white-space: normal;
-  line-height: normal;
-  font-weight: normal;
-  font-size: medium;
-  font-style: normal;
-  color: -internal-quirk-inherit;
-  text-align: start;
+.xiqiuyilan .el-card__body {
+  padding-bottom: 0px;
 }
-.cg_td01 {
-  color: #333;
-  width: 100px;
-  text-align: center;
+.company-detail .el-card__body {
   padding: 0px;
 }
-.zy_kjcg_top table td {
-  border: dashed 1px #ccc;
-  line-height: 30px;
+/* 企业筛选栏 */
+/* 选择标题 */
+.major {
+  line-height: 26px;
+}
+.company-navigation li {
+  float: left;
+  margin-right: 10px;
+  line-height: 28px;
+  /* margin-top:10px; */
+}
+.company-select a:hover {
+  color: #0084ff;
+}
+.el-tag {
+  margin-top: 10px;
+}
+.company-select .el-row {
+  margin-bottom: 15px;
+}
+.selectCard {
+  margin-top: 35px;
+  /* padding-right: 55px; */
+  width: 1000px;
   font-size: 14px;
-  font-family: "微软雅黑";
+}
+.selectCard .span {
+  border-right: 1px solid #f3f3f3;
+  text-align: right;
   color: #666;
-  padding: 20px 40px;
 }
-.cg_td02 a {
-  display: block;
-  float: left;
-  margin-right: 50px;
+.fixed {
+  position: absolute;
+  right: -58px;
 }
-
-.list {
-  float: left;
-  width: 1040px;
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
 }
-.active {
-  color: cornflowerblue;
+.clearfix:after {
+  clear: both;
 }
-
-.title {
-  font-size: 14px;
-  font-style: normal;
-  width: 160px;
-  margin: 20px 64px;
+.el-card__header {
+  background-color: #fbfbfb;
 }
-.td101 {
-  font-family: "微软雅黑";
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 30px;
-  margin-bottom: 0px;
-  text-align: center;
-  text-decoration: none;
-  width: 160px;
+.clearfix span {
+  font-size: 18px;
+  font-weight: 500;
 }
-.td102 {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  border-bottom-color: rgb(204, 204, 204);
-
-  border-bottom-style: dashed;
-
-  border-bottom-width: 1px;
-
-  border-collapse: collapse;
-
-  border-left-color: rgb(204, 204, 204);
-
-  border-left-style: dashed;
-
-  border-left-width: 1px;
-
-  border-right-color: rgb(204, 204, 204);
-
-  border-right-style: dashed;
-
-  border-right-width: 1px;
-
-  border-spacing: 0px 0px;
-
-  border-top-color: rgb(204, 204, 204);
-
-  border-top-style: dashed;
-
-  border-top-width: 1px;
-
-  color: rgb(102, 102, 102);
-
-  font-family: "微软雅黑";
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: 30px;
-
-  padding-bottom: 20px;
-
-  padding-left: 40px;
-
-  padding-right: 40px;
-
-  padding-top: 20px;
-
-  text-decoration: none;
+/* 企业列表样式 */
+.company-info {
+  padding: 20px;
+  border-bottom: 1px solid #f3f3f3;
+  -webkit-transition: -webkit-box-shadow 0.3s;
+  transition: -webkit-box-shadow 0.3s;
+  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s, -webkit-box-shadow 0.3s;
 }
-
-.zuo {
-  width: 300px;
-  float: left;
-}
-.you {
-  width: 600px;
-  margin-top: 20px;
-}
-.cg_td_a1 {
-  border-collapse: collapse;
-  border-spacing: 0px 0px;
-  color: rgb(225, 119, 32);
-  display: block;
-  float: left;
-  font-family: "微软雅黑";
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: 30px;
-
-  margin-right: 50px;
-
-  outline-color: invert;
-
-  outline-style: none;
-
-  outline-width: 0px;
-
-  text-decoration: none;
-}
-.cg_td_a2 {
-  border-collapse: collapse;
-  border-spacing: 0px 0px;
-  display: block;
-  float: left;
-  font-family: "微软雅黑";
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: 30px;
-
-  margin-right: 50px;
-
-  outline-color: invert;
-
-  outline-style: none;
-
-  outline-width: 0px;
-
-  text-decoration: none;
-}
-.cool {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  margin-bottom: 0px;
-  width: 1200px;
-  height: 200px;
-
-  text-decoration: none;
-}
-
-.qwe {
-  float: left;
-  width: 900px;
-  height: 180px;
-  border: 1px solid black;
-}
-.xuqiuyilan .button1 {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  background-attachment: scroll;
-
-  background-clip: border-box;
-
-  background-color: rgb(255, 119, 32);
-
-  background-image: none;
-
-  background-origin: padding-box;
-
-  background-position-x: 0%;
-
-  background-position-y: 0%;
-
-  background-repeat: repeat;
-
-  background-size: auto;
-
-  border-bottom-color: rgb(255, 255, 255);
-
-  border-bottom-style: none;
-
-  border-bottom-width: 0px;
-
-  border-left-color: rgb(255, 255, 255);
-
-  border-left-style: none;
-
-  border-left-width: 0px;
-
-  border-right-color: rgb(255, 255, 255);
-
-  border-right-style: none;
-
-  border-right-width: 0px;
-
-  border-top-color: rgb(255, 255, 255);
-
-  border-top-style: none;
-
-  border-top-width: 0px;
-
-  color: rgb(255, 255, 255);
-
-  cursor: pointer;
-
-  float: right;
-
-  font-family: "微软雅黑";
-
-  font-size: 16px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: 30px;
-
-  margin-bottom: 0px;
-
-  margin-left: 0px;
-
-  margin-right: 0px;
-
-  margin-top: 0px;
-
-  outline-color: invert;
-
-  outline-style: none;
-
-  outline-width: 0px;
-
-  padding-bottom: 0px;
-
-  padding-left: 0px;
-
-  padding-right: 0px;
-
-  padding-top: 0px;
-
-  text-decoration: none;
-
-  width: 120px;
-}
-.ziti1 {
-  font-size: 14px;
-}
-.cg_bottomLeft {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  -webkit-text-size-adjust: auto;
-
-  background-attachment: scroll;
-
-  background-clip: border-box;
-
-  background-color: transparent;
-
-  background-image: none;
-
-  background-origin: padding-box;
-
-  background-position-x: 0%;
-
-  background-position-y: 0%;
-
-  background-repeat: repeat;
-
-  background-size: auto;
-
-  color: rgb(51, 51, 51);
-
-  float: left;
-
-  font-family: Arial, Verdana, "微软雅黑";
-
-  font-size: 20px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  list-style-image: none;
-
-  list-style-position: outside;
-
-  list-style-type: none;
-
-  margin-bottom: 40px;
-
-  margin-left: 0px;
-
-  margin-right: 0px;
-
-  margin-top: 50px;
-
-  outline-color: invert;
-
-  outline-style: none;
-
-  outline-width: 0px;
-
-  padding-bottom: 0px;
-
-  padding-left: 0px;
-
-  padding-right: 0px;
-
-  padding-top: 0px;
-
-  text-decoration: none;
-
-  vertical-align: baseline;
-
-  width: 48%;
-
-  word-break: break-all;
-
-  height: 120px;
-}
-.cg_list001 {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  -webkit-text-size-adjust: auto;
-
-  color: rgb(51, 51, 51);
-
-  font-family: Arial, Verdana, "微软雅黑";
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  word-break: break-all;
-}
-.cg_list002 {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  -webkit-text-size-adjust: auto;
-
-  color: rgb(51, 51, 51);
-
-  font-family: Arial, Verdana, "微软雅黑";
-
-  font-size: 16px;
-
-  font-weight: 400;
-
-  list-style-position: outside;
-
-  word-break: break-all;
-}
-
-.cg_bottomlist {
-  float: left;
-  margin-left: 5%;
-  border-bottom: dashed 1px #ccc;
-  width: 1000px;
-}
-
-.xuqiuyilan .ziti2 {
-
-  -webkit-text-size-adjust: auto;
-
-  color: rgb(0, 153, 234);
-
-  display: block;
-
-  font-family: "微软雅黑";
-
-  font-size: 21px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: 40px;
-
-  list-style-image: none;
-
-  list-style-position: outside;
-
-  list-style-type: none;
-
-  outline-color: invert;
-
-  outline-style: none;
-
-  outline-width: 0px;
-
-  overflow: hidden;
-
-  text-decoration: none;
-
-  text-overflow: ellipsis;
-
-  white-space: nowrap;
-
-  width: 500px;
-
-  word-break: break-all;
-}
-.fabujigou {
-  background-attachment: scroll;
-
-  background-clip: border-box;
-
-  background-color: rgb(255, 230, 197);
-
-  background-origin: padding-box;
-
-  background-repeat: repeat;
-
-  background-size: auto;
-
-  color: rgb(255, 119, 32);
-
-  display: block;
-
-  font-family: "微软雅黑";
-
-  font-size: 16px;
-
-  font-weight: 400;
-
-  line-height: 30px;
-
-  outline-color: invert;
-
+.company-info:hover {
   position: relative;
-
-  text-align: center;
-
-  top: 15px;
-
-  width: 100px;
+  z-index: 1;
+  -webkit-box-shadow: 0 4px 5px -3px rgba(0, 0, 0, 0.06),
+    0 4px 12px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 5px -3px rgba(0, 0, 0, 0.06),
+    0 4px 12px 4px rgba(0, 0, 0, 0.06);
 }
-.jgje {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  -webkit-text-size-adjust: auto;
-
-  background-attachment: scroll;
-
-  background-clip: border-box;
-
-  background-color: transparent;
-
-  background-origin: padding-box;
-
-  background-repeat: repeat;
-
-  background-size: auto;
-
-  border-bottom-color: rgb(244, 156, 37);
-
-  border-bottom-style: dashed;
-
-  border-bottom-width: 1px;
-
-  border-left-color: rgb(244, 156, 37);
-
-  border-left-style: dashed;
-
-  border-left-width: 1px;
-
-  border-right-color: rgb(244, 156, 37);
-
-  border-right-style: dashed;
-
-  border-right-width: 1px;
-
-  border-top-color: rgb(244, 156, 37);
-
-  border-top-style: dashed;
-
-  border-top-width: 1px;
-
-  color: rgb(51, 51, 51);
-
-  font-family: Arial, Verdana, "微软雅黑";
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  height: 70px;
-
-  outline-color: invert;
-
-  overflow: hidden;
-
-  padding-bottom: 10px;
-
-  padding-left: 10px;
-
-  padding-right: 10px;
-
-  padding-top: 20px;
-
-  text-decoration: none;
-
-  vertical-align: baseline;
-
-  word-break: break-all;
-
-  width: 300px;
+.company-info:hover h2 {
+  color: #0084ff;
 }
-.bottomRight {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  float: right;
-
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  position: relative;
-
-  margin-top: 20px;
-
-  top: 0px;
-
-  width: 322px;
+.company-info .el-row {
+  margin-bottom: 10px;
 }
-
-.table1 {
-  background-attachment: scroll;
-
-  background-clip: border-box;
-
-  background-color: rgb(255, 255, 255);
-
-  background-image: none;
-
-  background-origin: padding-box;
-
-  background-position-x: 0%;
-
-  background-position-y: 0%;
-
-  background-repeat: repeat;
-
-  background-size: auto;
-
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-variant: normal;
-
-  font-weight: 400;
-
-  line-height: normal;
-
-  text-decoration: none;
-
-  width: 300px;
-}
-
-.page {
-  margin:40px auto;
-  margin-top: 150px;
-  right: 40px;
-  
-	transform:translateX(50%);/**右移元素**/
-	-ms-transform:translateX(50%);
-	-webkit-transform:translateX(50%);
-}
-ul,li{
-  margin: 0px;
-  padding: 0px;
-}
-li{
-  list-style: none
-}
-.page li:first-child>a {
-  margin-left: 0px
-}
-.page a{
-  border: 1px solid #ddd;
-  text-decoration: none;
-  position: relative;
-  float: left;
-  padding: 6px 12px;
-  margin-left: -1px;
-  line-height: 1.42857143;
-  color: #5D6062;
-  cursor: pointer;
-  margin-right: 20px;
-}
-.page a:hover{
-  background-color: #eee;
-}
-.page a.banclick{
-  cursor:not-allowed;
-}
-.page .active a{
-  color: #fff;
-  cursor: default;
-  background-color: #E96463;
-  border-color: #E96463;
+/* 推荐企业列表 */
+.recommend a:hover {
+  color: #0084ff;
 }
 </style>
