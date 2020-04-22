@@ -1,4 +1,5 @@
 <template>
+<div class = "excellent">
   <div class="company">
     <el-container>
       <el-main>
@@ -165,6 +166,7 @@
       </el-aside>
     </el-container>
   </div>
+</div>
 </template>
 
 <script>
@@ -242,6 +244,7 @@ export default {
           data: data
         })
         .then(response => {
+          console.log(response)
           this.companyList = response.data.allData.companyList;
           this.totalCount = response.data.allData.totalCount;
         });
@@ -274,6 +277,8 @@ export default {
           categorys.push(this.dynamicTags[i].id);
         }
       }
+      console.log(provinces)
+      console.log(citys)
       let data = Qs.stringify(
         {
           province: provinces,
@@ -401,6 +406,8 @@ export default {
           type: "category",
           id: data.id
         };
+                console.log(tag)
+
         if (this.checkTag(tag)) {
           this.dynamicTags.push(tag);
         }
@@ -445,7 +452,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang = "scss">
+.excellent{
+
+
 .company {
   width: 1150px;
   margin: 0 auto;
@@ -533,5 +543,6 @@ export default {
 /* 推荐企业列表 */
 .recommend a:hover {
   color: #0084ff;
+}
 }
 </style>
