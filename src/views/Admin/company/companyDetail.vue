@@ -21,7 +21,11 @@
      
 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           企业信息
-        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+          
+        </div> <br><div >
+                      <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+        </div>
+       <br>
 <div align="right" class="formYS">
     
         <el-form ref="form" :model="form" label-width="100px" > 
@@ -190,7 +194,7 @@
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" font-size="14px">
           修改
         </div>
-        </br>
+        <br>
           <el-row>
             <el-col :span="8"></el-col>
           </el-row>
@@ -540,10 +544,10 @@ export default {
                 .then(response =>{ 
                     console.log(response);
                    
-                    this.form = response.data.allData[0];
-                    this.companyId = response.data.allData[0].companyId
-                    this.companyName = response.data.allData[0].companyName 
-                    this.imgsrc = response.data.allData[0].companyPicture 
+                    this.form = response.data.allData.companyDetail[0];
+                    this.companyId = response.data.allData.companyDetail[0].companyId
+                    this.companyName = response.data.allData.companyDetail[0].companyName 
+                    this.imgsrc = response.data.allData.companyDetail[0].companyPicture 
                     console.log(this.imgsrc)
                    
                 })

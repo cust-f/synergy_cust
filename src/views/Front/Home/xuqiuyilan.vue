@@ -488,9 +488,8 @@ categorySelect(data) {
     companyDetail(id) {
       console.log("触发了呀");
       this.$router.push({
-        path: "/company/excellentCompanyDetail",
-        name: "companyDetails",
-        query: { companyId: id }
+        path: "/company/xuqiuyilanDetail",
+        query: { taskID: id }
       });
     }
   }
