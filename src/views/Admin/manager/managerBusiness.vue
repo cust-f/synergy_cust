@@ -63,8 +63,8 @@
 
                 <el-table-column label="序号" type="index" width="50" align="center">
                   <template slot-scope="scope">
-        <span>{{(pageIndex - 1) * pageSize + scope.$index + 1}}</span>
-    </template>
+                    <span>{{(pageIndex - 1) * pageSize + scope.$index + 1}}</span>
+                        </template>
                 </el-table-column>
                 <el-table-column
                   prop="companyName"
@@ -515,4 +515,8 @@ export default {
 .box {
   font-size: 24px;
 }
+.el-pagination {
+    text-align: center; 
+}
+
 </style>
