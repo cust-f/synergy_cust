@@ -5,22 +5,24 @@
 <script>
 export default {
   props: {
-    lineData:{
-      type:Object
+    lineData: {
+      type: Object
     }
   },
   data() {
     return {};
   },
-//   mounted() {
-//     this.getCharts3();
-//   },
+  //   mounted() {
+  //     this.getCharts3();
+  //   },
   methods: {
     getCharts() {
-
-      var that =this;
+      var that = this;
       var charts = [];
-      var myChart = echarts.init(document.getElementById("monthSituation"),'light');
+      var myChart = echarts.init(
+        document.getElementById("monthSituation"),
+        "light"
+      );
 
       var option = {
         title: {
@@ -43,10 +45,10 @@ export default {
             saveAsImage: {}
           }
         },
-     xAxis: {
-        type: 'value',
-        boundaryGap: [0, 0.01]
-    },
+        xAxis: {
+          type: "value",
+          boundaryGap: [0, 0.01]
+        },
         xAxis: {
           type: "category",
           boundaryGap: false,
@@ -81,12 +83,21 @@ export default {
             name: "发布需求量",
             type: "line",
             stack: "总量",
+            itemStyle: {
+              normal: {
+               color:'#ff461f',
+                lineStyle: {
+                  color: "#ff461f",
+                  width: 3
+                }
+              }
+            },
             data: this.lineData.taskCount
             // data: [0,0,9]
           }
         ]
       }; // 使用刚指定的配置项和数据显示图表。
-      console.log(option)
+      console.log(option);
       myChart.setOption(option);
       charts.push(myChart);
     }
