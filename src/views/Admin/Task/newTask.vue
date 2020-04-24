@@ -110,7 +110,7 @@
 
 
           <el-row>
-                <el-col :span="24" class = "xiangxi">
+                <el-col :span="22" class = "xiangxi">
                     <el-form-item label="需求任务详细" >
                             <el-input 
                             type="textarea"

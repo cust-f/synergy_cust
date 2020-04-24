@@ -975,13 +975,13 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa"
+        userName: localStorage.getItem("ms_username")
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/selectLiutongByCompanyID1",
+          url: "/api/SubstaskInformation/selectLiutongByCompanyID1",
           data: data
 
           // data:this.$store.state.userName
@@ -1025,7 +1025,7 @@ export default {
       that
         .axios({
           method:"post",
-          url:"http://127.0.0.1:8082/MainTaskInformation/selectByCompanyandState",
+          url:"/api/MainTaskInformation/selectByCompanyandState",
           data:data
         })
         .then(response =>{
@@ -1071,7 +1071,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/SubstaskInformation/selectByCompanyandTaskNameandTaskType",
+            "/api/SubstaskInformation/selectByCompanyandTaskNameandTaskType",
           data: data
           // data:this.$store.state.userName
         })
@@ -1097,7 +1097,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/SubstaskInformation/selectByCIDandTNandTS",
+            "/api/SubstaskInformation/selectByCIDandTNandTS",
           data: data
           // data:this.$store.state.userName
         })
@@ -1122,7 +1122,7 @@ export default {
         that.axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/MainTaskInformation/feicuBySubstaskstaskID",
+            "/api/MainTaskInformation/feicuBySubstaskstaskID",
           data: data
 
           // data:this.$store.state.userName
@@ -1145,7 +1145,7 @@ export default {
       that
         .axios({
           method:"post",
-          url:'http://127.0.0.1:8082/SubstaskInformation/tijiaoFreason',
+          url:'/api/SubstaskInformation/tijiaoFreason',
           data:data,
           
         })
@@ -1166,7 +1166,7 @@ export default {
       that
         .axios({
           method:"post",
-          url:'http://127.0.0.1:8082/SubstaskInformation/tijiaoTreason',
+          url:'/api/SubstaskInformation/tijiaoTreason',
           data:data,
           
         })
@@ -1241,7 +1241,7 @@ export default {
         that.axios({
           method:"post",
           url:
-          "http://127.0.0.1:8082/SubstaskInformation/updateRWJHtoIng",
+          "/api/SubstaskInformation/updateRWJHtoIng",
           data:data
         });  
          this.$message({
@@ -1273,7 +1273,7 @@ export default {
         that.axios({
           method:"post",
           url:
-          "http://127.0.0.1:8082/SubstaskInformation/updatetoDSHtoAcc",
+          "/api/SubstaskInformation/updatetoDSHtoAcc",
           data:data
         });  
          this.$message({
