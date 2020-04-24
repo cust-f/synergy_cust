@@ -551,7 +551,7 @@ export default {
         mainTaskID: this.mainStaskID,
         Technonlgy_File:this.technicalFile,
         Telphone:this.addList.Telphone,
-        SupperListINt:this.SupplierListInt
+        SupperListINt:this.SupplierListInt  
         
       });
       console.log(this.SupplierListInt);
