@@ -63,6 +63,15 @@ export default {
           {
             name: this.cloumnData.Vintage[1],
             type: "bar",
+                        itemStyle: {
+              normal: {
+                                    color:'#ff461f',
+                lineStyle: {
+                  color: "#ff461f",
+                  width: 3
+                }
+              }
+            },
             data: this.cloumnData.nowTaskNumber
             // [1389, 1530, 1750, 1890, 2899]
           }

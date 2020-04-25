@@ -1,16 +1,16 @@
 <template>
   <div style="width:1200px;margin:0 auto;">
-    <el-row>
-      <div>
-        <div class="title">
-          <span>首页</span>
-          <span>&nbsp; > &nbsp;</span>
-          <span>优质企业</span>
-          <span>&nbsp; > &nbsp;</span>
-          <span>企业详情</span>
+    <!--第一行 -->
+    <el-row >
+      <el-col :span="20" >
+        <div style="margin-top:15px;">
+          <el-breadcrumb separator=">">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/excellentCompany' }">优质企业</el-breadcrumb-item>
+            <el-breadcrumb-item >企业详情</el-breadcrumb-item>
+          </el-breadcrumb>
         </div>
-        <br />
-      </div>
+      </el-col>
     </el-row>
     <br />
     <el-card shadow="never" style="margin-bottom:20px;">
@@ -120,7 +120,7 @@
           </el-row>
         </div>
       </div>
-      <div class="white">
+      <div class="white" :class="{'companyContent':! companyDetailContent==null}">
         <el-tabs type="card">
           <el-tab-pane label="企业信息">
             <div>
@@ -183,6 +183,9 @@ export default {
 .white {
   /* width: 67%; */
   margin-top: 20px;
+}
+.companyContent{
+  height: 600px;
 }
 .divtap {
   border-right: 1px solid #000;

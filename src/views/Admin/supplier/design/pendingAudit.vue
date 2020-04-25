@@ -11,6 +11,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'deadline', order: 'ascending'}"
     >
      <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -20,18 +21,18 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型">
+      <el-table-column prop="taskType" sortable label="需求类型">
         <template slot-scope="scope">
           <span v-if="scope.row.taskType === 1">类型1</span>
           <span v-else-if="scope.row.taskType === 2">类型2</span>
         </template>
       </el-table-column>
 
-      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
+      <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="userName" label="设计师" align="center"></el-table-column>
+      <el-table-column prop="userName" sortable label="设计师" align="center"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
@@ -114,7 +115,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/searchByTaskIdInTask",
+          url: "http://127.0.0.1:8081/supplier/searchByTaskIdInTask",
           data: data
           // data:this.$store.state.userName
         })
@@ -147,7 +148,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierAuditingTaskList",
+          url: "http://127.0.0.1:8081/supplier/supplierAuditingTaskList",
           data: data
         })
         .then(response => {

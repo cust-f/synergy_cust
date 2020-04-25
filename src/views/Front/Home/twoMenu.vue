@@ -46,7 +46,7 @@
 
             <el-collapse-item name="2">
               <template slot="title" align="center">&nbsp;&nbsp;&nbsp;&nbsp;需求类别</template>
-              <el-radio v-model="radio0" label="1"  @click.native="getData()">&nbsp;&nbsp;不限</el-radio>
+              <el-radio v-model="radio0" label="4"  @click.native="getData()">&nbsp;&nbsp;不限</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
@@ -100,7 +100,8 @@
      <div class = "color1">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content5">
-          <el-table :data="tableData" style="width: 100%">
+          <el-table :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
+          style="width: 100%">
             <el-table-column label="序号" type="index" align="center"></el-table-column>
 
             <el-table-column prop="mainTaskName" label="需求名称" align="center"></el-table-column>
@@ -137,16 +138,19 @@
               </template>
             </el-table-column>
           </el-table>
-        </div>
-        <div class="block">
-          <el-pagination 
-            @size-change="handleSizeChange"
+          <div class="pagination">
+          <el-pagination
+            background
+            layout="prev, pager, next,total, jumper"
+            :current-page="pageIndex"
+            :page-size="pageSize"
+            :total="tableData.length"
             @current-change="handleCurrentChange"
-            :current-page.sync="currentPage3"
-            :page-size="100"
-            layout="prev, pager, next, jumper"
-            :total="1000"
-          >&nbsp;&nbsp;&nbsp;&nbsp;</el-pagination><br><br><br></div>
+            @size-change="handleSizeChange"
+          ></el-pagination>
+        </div>
+        </div>
+        
         
       </el-col></div>
 
@@ -207,6 +211,11 @@ export default {
        
       ],
        mainTaskID: "",
+        pageIndex: 1,
+        
+        pageSize: 10,
+        
+
     };
   },
   filters: {
@@ -332,6 +341,13 @@ export default {
           mainTaskID: row.mainTaskID
         }
       });
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
     },
   }
 };

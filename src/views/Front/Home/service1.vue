@@ -51,14 +51,14 @@
               <li>
                 <a>
                   企业所在省：
-                  <font>{{company.adress}}</font>
+                  <font>{{Province}}</font>
                 </a>
               </li>
               <br />
               <li>
                 <a>
                   企业所在市：
-                  <font>{{company.city}}</font>
+                  <font>{{City}}</font>
                 </a>
               </li>
               <br />
@@ -117,15 +117,15 @@
         </div>
       </div>
       <div class="son">
-         <el-tabs v-model="editableTabsValue" type="card" @edit="handleTabsClick">
-  <el-tab-pane
-    :key="item.name"
-    v-for="item in editableTabs"
-    :label="item.title"
-    :name="item.name"
-  >
-  <div class="np_top">
-        <!-- <div class="preview">
+        <el-tabs v-model="activeName" type="card" @tab-click="updataDetail">
+          <el-tab-pane
+            v-for="(item,index) in list"
+            :key="index"
+            :label="item.taskName"
+            :name="item.taskId"
+          >
+            <div class="np_top">
+              <!-- <div class="preview">
           <div class="BigTime">
             <el-carousel height="400" width="400" direction="vertical" arrow="always">
               <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
@@ -133,78 +133,78 @@
               </el-carousel-item>
             </el-carousel>
           </div>
-        </div>-->
+              </div>-->
 
-        <div class="Right">
-          <!-- <font style="color:#ff7720;font-size:20px;">[229857]</font> -->
-          <!-- <el-row>
-          <el-col :span="5">-->
-          <div>
-            <div style="float:left">
-              <span style="font-size:22px;font-weight:500;">{{list.taskName}}</span>
-              <br />
-              <br />
-            </div>
-            <!-- </el-col>
-            <el-col :span="4"></el-col>-->
-            <!-- <el-rate v-model="companyDetail.star" disabled text-color="#ff9900"></el-rate> -->
-            <!-- </el-col>
-            </el-row>-->
-          </div>
+              <div class="Right">
+                <!-- <font style="color:#ff7720;font-size:20px;">[229857]</font> -->
+                <!-- <el-row>
+                <el-col :span="5">-->
+                <div>
+                  <div style="float:left">
+                    <span style="font-size:22px;font-weight:500;">{{taskData.taskName}}</span>
+                    <br />
+                    <br />
+                  </div>
+                  <!-- </el-col>
+                  <el-col :span="4"></el-col>-->
+                  <!-- <el-rate v-model="companyDetail.star" disabled text-color="#ff9900"></el-rate> -->
+                  <!-- </el-col>
+                  </el-row>-->
+                </div>
 
-          <el-row>
-            <el-col :span="5" :offset="2">
-              <li>
-                <a>
-                  企业所在省：
-                  <font>{{company.adress}}</font>
-                </a>
-              </li>
-              <br />
-              <li>
-                <a>
-                  企业所在市：
-                  <font>{{company.city}}</font>
-                </a>
-              </li>
-              <br />
-              <li>
-                <a>
-                  行业类别：
-                  <font>{{list.taskCategoryMain}}</font>
-                </a>
-              </li>
-              <br />
-            </el-col>
-            <el-col :span="10" :offset="4">
-              <li>
-                <a>
-                  二级类别：
-                  <font>{{list.taskCategoryPart}}</font>
-                </a>
-              </li>
-              <br />
-              <li>
-                <a>
-                  开始时间：
-                  <font>{{list.beginTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
-                </a>
-              </li>
-              <br />
-              <li>
-                <a>
-                  完成时间：
-                  <font>{{list.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
-                </a>
-              </li>
+                <el-row>
+                  <el-col :span="5" :offset="2">
+                    <li>
+                      <a>
+                        企业所在省：
+                        <font>{{company.province}}</font>
+                      </a>
+                    </li>
+                    <br />
+                    <li>
+                      <a>
+                        企业所在市：
+                        <font>{{company.city}}</font>
+                      </a>
+                    </li>
+                    <br />
+                    <li>
+                      <a>
+                        行业类别：
+                        <font>{{taskData.taskCategoryMain}}</font>
+                      </a>
+                    </li>
+                    <br />
+                  </el-col>
+                  <el-col :span="10" :offset="4">
+                    <li>
+                      <a>
+                        二级类别：
+                        <font>{{taskData.taskCategoryPart}}</font>
+                      </a>
+                    </li>
+                    <br />
+                    <li>
+                      <a>
+                        开始时间：
+                        <font>{{taskData.beginTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                      </a>
+                    </li>
+                    <br />
+                    <li>
+                      <a>
+                        完成时间：
+                        <font>{{taskData.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                      </a>
+                    </li>
 
-              <!-- <li>
+                    <!-- <li>
                 <a>
                   法人联系电话：
                   <font>{{companyDetail.legalTel}}</font>
                 </a>
-              </li>-->
-              <!-- <br />
+                    </li>-->
+                    <!-- <br />
               <li>
                 <a>
                   办公电话：
@@ -217,151 +217,151 @@
                   经营范围：
                   <font>{{companyDetail.product}}</font>
                 </a>
-              </li>-->
-            </el-col>
-          </el-row>
-        </div>
-      </div>
-      <div class="white">
-       
-        <el-tabs type="card">
-          <el-tab-pane label="需求方">
-            <div class="BigTime">
-              <div class="block" :key="fit">
-                <el-image style="width: 150px; height: 150px" :src="url" ></el-image>
+                    </li>-->
+                  </el-col>
+                </el-row>
               </div>
             </div>
+            <div class="white">
+              <el-tabs type="card">
+                <el-tab-pane label="需求方">
+                  <div class="BigTime">
+                    <div class="block">
+                      <el-image style="width: 150px; height: 150px" :src="url"></el-image>
+                    </div>
+                  </div>
 
-            <div class="Right1">
-              <el-row>
-                <el-col :span="15" :offset="2">
-                  <li>
-                    <a>
-                      企业名称：
-                      <font>{{company.companyName}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      经营范围：
-                      <font>{{company.product}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      联系电话：
-                      <font>{{company.officeNumber}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      企业地址：
-                      <font>{{company.address}}</font>
-                    </a>
-                  </li>
-                  <br />
-                </el-col>
-              </el-row>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="供应方">
-            <div class="BigTime">
-              <div class="block" :key="fit">
-                <el-image style="width: 150px; height: 150px" :src="url1"></el-image>
-              </div>
+                  <div class="Right1">
+                    <el-row>
+                      <el-col :span="15" :offset="2">
+                        <li>
+                          <a>
+                            企业名称：
+                            <font>{{company.companyName}}</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            经营范围：
+                            <font>{{company.product}}</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            联系电话：
+                            <font>{{company.officeNumber}}</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            企业地址：
+                            <font>{{company.address}}</font>
+                          </a>
+                        </li>
+                        <br />
+                      </el-col>
+                    </el-row>
+                  </div>
+                </el-tab-pane>
+                <el-tab-pane label="供应方">
+                  <div class="BigTime">
+                    <div class="block">
+                      <el-image style="width: 150px; height: 150px" :src="url1"></el-image>
+                    </div>
+                  </div>
+
+                  <div class="Right1">
+                    <el-row>
+                      <el-col :span="13" :offset="2">
+                        <li>
+                          <a>
+                            企业名称：
+                            <font>{{supplier.companyName}}</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            经营范围：
+                            <font>{{supplier.product}}</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            联系电话：
+                            <font>{{supplier.officeNumber}}</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            企业地址：
+                            <font>{{supplier.address}}</font>
+                          </a>
+                        </li>
+                        <br />
+                      </el-col>
+                    </el-row>
+                  </div>
+                </el-tab-pane>
+              </el-tabs>
             </div>
 
-            <div class="Right1">
-              <el-row>
-                <el-col :span="13" :offset="2">
-                  <li>
-                    <a>
-                      企业名称：
-                      <font>{{supplier.companyName}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      经营范围：
-                      <font>{{supplier.product}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      联系电话：
-                      <font>{{supplier.officeNumber}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      企业地址：
-                      <font>{{supplier.address}}</font>
-                    </a>
-                  </li>
-                  <br />
-                </el-col>
-              </el-row>
+            <div class="white">
+              <el-tabs type="card">
+                <el-tab-pane label="需求详情">
+                  <div>
+                    <div class="message" v-html="taskData.taskDetail"></div>
+                    <!-- <el-divider></el-divider> -->
+                  </div>
+                </el-tab-pane>
+              </el-tabs>
+            </div>
+
+            <div class="white">
+              <el-tabs type="card">
+                <el-tab-pane label="服务成果">
+                  <div>
+                    <!-- 步骤图 -->
+                    <el-steps :active="milepostActive" align-center>
+                      <el-step
+                        v-for="(stpesdata, key) in milepost"
+                        :title="stpesdata.title"
+                        :icon="stpesdata.icon"
+                        :description="stpesdata.description"
+                        :key="key"
+                      ></el-step>
+                    </el-steps>
+                    <br />
+                    <br />
+                    <div class="chart">
+
+                    <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+                    <br />
+                    </div>
+
+                    <div class="input_span">
+                      <el-form ref="form" :model="form">
+                        <div
+                          style="font-size:10px"
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成质量:</div>
+                      </el-form>
+
+                      <span id="one"></span>
+                      <span id="two"></span>
+                      <span id="three"></span>
+                    </div>
+                  </div>
+                </el-tab-pane>
+              </el-tabs>
             </div>
           </el-tab-pane>
         </el-tabs>
       </div>
-
-      <div class="white">
-        <el-tabs type="card">
-          <el-tab-pane label="需求详情">
-            <div>
-              <div class="message" v-html="list.taskDetail"></div>
-              <!-- <el-divider></el-divider> -->
-            </div>
-          </el-tab-pane>
-        </el-tabs>
-      </div>
-
-      <div class="white">
-        <el-tabs type="card" >
-          <el-tab-pane 
-          label="服务成果"
-          >
-            <div>
-              <!-- 步骤图 -->
-              <el-steps :active="milepostActive" align-center>
-                <el-step
-                  v-for="(stpesdata, key) in milepost"
-                  :title="stpesdata.title"
-                  :icon="stpesdata.icon"
-                  :description="stpesdata.description"
-                  :key="key"
-                ></el-step>
-              </el-steps>
-              <br>
-              <br>
-
-              <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-              <br />
-
-              <div class="input_span">
-                <el-form ref="form" :model="form">
-                  <div style="font-size:10px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成质量:</div>
-
-                </el-form>
-
-                <span id="one"></span>
-                <span id="two"></span>
-                <span id="three"></span>
-              </div>
-            </div>
-          </el-tab-pane>
-        </el-tabs>
-      </div>
-  </el-tab-pane>
-         </el-tabs>
-         </div>
     </el-card>
   </div>
 </template>
@@ -371,7 +371,7 @@ import Qs from "qs";
 import radarChart from "./components/radarChart";
 
 export default {
-  name: "service1",
+  name: "Home",
   components: {
     "radar-chart": radarChart
   },
@@ -380,19 +380,22 @@ export default {
       form: {
         designCount: ""
       },
-      editableTabsValue:"1",
+      activeName: "",
+      Province: "",
+      City: "",
+      editableTabsValue: "1",
       companyDetail: "",
       companyDetailContent: "",
-      editableTabs: [{
-          title: "1",
-          name: "1",
-          taskId:"",
-        },
-        {
-          title: "2",
-          name: "2",
-          taskId:"",
-        }],
+      // editableTabs: [{
+      //     title: "1",
+      //     name: "1",
+      //     taskId:"",
+      //   },
+      //   {
+      //     title: "2",
+      //     name: "2",
+      //     taskId:"",
+      //   }],
       url:
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578498716057&di=2862e7c5e9dc83020a4698017c207fd8&imgtype=0&src=http%3A%2F%2Fstatic.yjcf360.com%2Fgegu%2Fimg%2F000800.jpg",
       //设定el-cow的值
@@ -401,15 +404,19 @@ export default {
 
       list: [
         {
-          taskName: "",
-          taskType: "",
-          taskCategoryMain: "",
-          taskCategoryPart: "",
-          beginTime: "",
-          finishTime: "",
-          taskDetail: ""
+          taskId: "",
+          taskName: ""
         }
       ],
+      taskData:[{
+        taskName:"",
+        taskCategoryMain:"",
+        taskCategoryPart:"",
+        taskDetail:"",
+        finishTime:"",
+        beginTime:"",
+        taskType:"",
+      }],
       maintask: [
         {
           mainTaskName: "",
@@ -466,12 +473,10 @@ export default {
   },
   created() {
     this.getParams();
+    this.getListData();
     this.getData();
-    this.getAcceptCompanyData();
-    this.getCompanyData();
-    this.getData1();
-    this.getData2();
-    this.styleswith();
+
+    this.activeName = this.list[0].taskId;
   },
   methods: {
     getParams() {
@@ -489,7 +494,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081//serviceResult/mainTaskDetail",
+          url: "http://127.0.0.1:8081/serviceResult/mainTaskDetail",
           data: data
 
           //  data:this.$store.state.userName
@@ -497,40 +502,51 @@ export default {
         .then(response => {
           console.log(response);
           //this.$set(this,'list',response.data.alldata)
-          this.maintask = response.data.allData[0];
+          this.maintask = response.data.allData.a[0];
+          this.Province = response.data.allData.b;
+          this.City = response.data.allData.c;
           //this.list = response.data.allData.b[0];
         });
     },
-     getListData() {
+    getListData() {
       console.log(this.maintaskId);
       var that = this;
       var data = Qs.stringify({
-        maintaskId: this.maintaskId
+        mainTaskId: this.maintaskId
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081//serviceResult/TaskDetail",
+          url: "http://127.0.0.1:8081/serviceResult/TaskDetail",
           data: data
 
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           //this.$set(this,'list',response.data.alldata)
-          
-          this.list = response.data.allData[0];
+          this.list = response.data.allData.List;
+          this.activeName = this.list[0].taskId;
+          this.getAcceptCompanyData();
+          this.getCompanyData();
+          this.getData1();
+          this.getData2();
+          this.styleswith();
+          this.getTaskData();
+
+          console.log("ooo");
+          console.log(this.activeName);
         });
     },
 
     getCompanyData() {
-      console.log(this.taskId);
       var that = this;
+      console.log(this.activeName+"================")
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.activeName
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -542,6 +558,7 @@ export default {
         .then(response => {
           console.log(response);
           //this.$set(this,'list',response.data.alldata)
+         // console.log(response)
           this.company = response.data.allData[0];
         });
     },
@@ -549,7 +566,7 @@ export default {
       console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.activeName
       });
       console.log(data);
       that
@@ -566,10 +583,35 @@ export default {
           this.supplier = response.data.allData[0];
         });
     },
+
+      getTaskData() {
+      console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.activeName
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/serviceResult/findTask",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          //this.$set(this,'list',response.data.alldata)
+          this.taskData = response.data.allData[0];
+        });
+    },
+
+
+
     getData1() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.activeName
       });
       console.log(data);
       that
@@ -591,7 +633,7 @@ export default {
       var that = this;
       console.log(this.taskId);
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.activeName
       });
       //console.log(data);
 
@@ -633,9 +675,18 @@ export default {
         document.getElementById("three").style.background = "red";
       }
     },
-     handleClick(tab, event) {
-        console.log(tab, event);
-      }
+    handleClick(tab, event) {
+      console.log(tab, event);
+    },
+    updataDetail(data) {
+      console.log(data);
+      this.getAcceptCompanyData();
+      this.getCompanyData();
+      this.getData1();
+      this.getData2();
+      this.styleswith();
+      this.getTaskData();
+    }
   }
 };
 </script>
@@ -779,6 +830,11 @@ export default {
 .ulr {
   width: 200px;
 }
+.chart{
+  width:150px;
+  height:150px;
+}
+
 .Right {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
@@ -877,7 +933,6 @@ export default {
   height: 30px;
   background: #eee;
   line-height: 20px;
-  
 }
 
 #one {
