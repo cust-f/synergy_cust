@@ -46,41 +46,41 @@
 
             <el-collapse-item name="2">
               <template slot="title" align="center">&nbsp;&nbsp;&nbsp;&nbsp;需求类别</template>
-              <el-radio v-model="radio0" label="1"  @click.native="getData()">&nbsp;&nbsp;不限</el-radio>
+              <el-radio v-model="radio0" label="4"  @click.native="getData()">&nbsp;&nbsp;不限</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
-                label="2"
+                label="5"
                 @click.native="clickitem(2)"
               >&nbsp;&nbsp;交通运输设备</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
-                label="3"
+                label="6"
                 @click.native="clickitem(3)"
               >&nbsp;&nbsp;仪器仪表及文化</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
-                label="4"
+                label="7"
                 @click.native="clickitem(4)"
               >&nbsp;&nbsp;通信设备</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
-                label="5"
+                label="8"
                 @click.native="clickitem(5)"
               >&nbsp;&nbsp;电气机械及器材</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
-                label="6"
+                label="9"
                 @click.native="clickitem(6)"
               >&nbsp;&nbsp;专用设备</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
-                label="7"
+                label="10"
                 @click.native="clickitem(7)"
               >&nbsp;&nbsp;通用设备</el-radio>
             </el-collapse-item>

@@ -76,8 +76,9 @@
       @close="userDetail=false"
     >
       <div class="user-detail">
+        <div style="margin:0 auto;">
         <el-row>
-          <el-col :span="5" :offset="4">
+          <el-col :span="5" :offset="1">
             <span class="titles">所属公司</span>
           </el-col>
           <el-col :span="14" :offset="1">
@@ -85,7 +86,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="5" :offset="5">
+          <el-col :span="5" :offset="2">
             <span class="titles">用户名</span>
           </el-col>
           <el-col :span="14" >
@@ -93,7 +94,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="3" :offset="3">
             <span class="titles">姓名</span>
           </el-col>
           <el-col :span="14" :offset="1">
@@ -101,7 +102,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="3" :offset="3">
             <span class="titles">角色</span>
           </el-col>
           <el-col :span="14" :offset="1">
@@ -109,7 +110,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="3" :offset="3">
             <span class="titles">邮箱</span>
           </el-col>
           <el-col :span="14" :offset="1">
@@ -117,21 +118,22 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="3" :offset="3">
             <span class="titles">电话</span>
           </el-col>
           <el-col :span="14" :offset="1">
             <span>{{userInfo.phone}}</span>
           </el-col>
         </el-row>
-        <el-row>
+        <!-- <el-row>
           <el-col :span="5" :offset="4">
             <span class="titles">真实姓名</span>
           </el-col>
           <el-col :span="14" :offset="1">
             <span>{{userInfo.realName}}</span>
           </el-col>
-        </el-row>
+        </el-row> -->
+        </div>
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="updataUserDetail=true">修改账户信息</el-button>
@@ -149,7 +151,7 @@
         status-icon
         :rules="rules"
         ref="account"
-        label-width="100px"
+        label-width="70px"
         class="demo-ruleForm"
       >
         <el-form-item label="用户名" prop="userName">
@@ -453,7 +455,7 @@ export default {
   width: 100px;
 }
 .admin-header .el-dialog{
-  width:500px;
+  width:350px;
 }
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
@@ -486,7 +488,7 @@ export default {
   /* float: left; */
 }
 .user-detail .titles {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
 }
 .user-detail span {
