@@ -1,0 +1,915 @@
+<template>
+  <div style="width:1200px;margin:0 auto;">
+    <el-row>
+      <div>
+        <div class="title">
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/twoMenu' }">服务成果</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/service_new' }">成果详情</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+        <br />
+      </div>
+    </el-row>
+    <br />
+    <el-card shadow="never" style="margin-bottom:20px;">
+      <div slot="header">
+        <span>成果详情</span>
+      </div>
+
+      <div class="np_top">
+        <!-- <div class="preview">
+          <div class="BigTime">
+            <el-carousel height="400" width="400" direction="vertical" arrow="always">
+              <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
+                <img :src="item.idView" class="images" />
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+        </div>-->
+
+        <div class="Right">
+          <!-- <font style="color:#ff7720;font-size:20px;">[229857]</font> -->
+          <!-- <el-row>
+          <el-col :span="5">-->
+          <div>
+            <div style="float:left">
+              <span style="font-size:22px;font-weight:500;">{{maintask.mainTaskName}}</span>
+              <br />
+              <br />
+            </div>
+            <!-- </el-col>
+            <el-col :span="4"></el-col>-->
+            <!-- <el-rate v-model="companyDetail.star" disabled text-color="#ff9900"></el-rate> -->
+            <!-- </el-col>
+            </el-row>-->
+          </div>
+
+          <el-row>
+            <el-col :span="5" :offset="1">
+              <li>
+                <a>
+                  企业所在省：
+                  <font>{{company.adress}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  企业所在市：
+                  <font>{{company.city}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  行业类别：
+                  <font>{{maintask.taskCategoryMain}}</font>
+                </a>
+              </li>
+              <br />
+            </el-col>
+            <el-col :span="10" :offset="4">
+              <li>
+                <a>
+                  二级类别：
+                  <font>{{maintask.taskCategoryPart}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  开始时间：
+                  <font>{{maintask.publishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  完成时间：
+                  <font>{{maintask.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                </a>
+              </li>
+
+              <!-- <li>
+                <a>
+                  法人联系电话：
+                  <font>{{companyDetail.legalTel}}</font>
+                </a>
+              </li>-->
+              <!-- <br />
+              <li>
+                <a>
+                  办公电话：
+                  <font>{{companyDetail.workerNumber}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  经营范围：
+                  <font>{{companyDetail.product}}</font>
+                </a>
+              </li>-->
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+      <div class="son">
+         <el-tabs v-model="editableTabsValue" type="card" @edit="handleTabsClick">
+  <el-tab-pane
+    :key="item.name"
+    v-for="item in editableTabs"
+    :label="item.title"
+    :name="item.name"
+  >
+  <div class="np_top">
+        <!-- <div class="preview">
+          <div class="BigTime">
+            <el-carousel height="400" width="400" direction="vertical" arrow="always">
+              <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
+                <img :src="item.idView" class="images" />
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+        </div>-->
+
+        <div class="Right">
+          <!-- <font style="color:#ff7720;font-size:20px;">[229857]</font> -->
+          <!-- <el-row>
+          <el-col :span="5">-->
+          <div>
+            <div style="float:left">
+              <span style="font-size:22px;font-weight:500;">{{list.taskName}}</span>
+              <br />
+              <br />
+            </div>
+            <!-- </el-col>
+            <el-col :span="4"></el-col>-->
+            <!-- <el-rate v-model="companyDetail.star" disabled text-color="#ff9900"></el-rate> -->
+            <!-- </el-col>
+            </el-row>-->
+          </div>
+
+          <el-row>
+            <el-col :span="5" :offset="2">
+              <li>
+                <a>
+                  企业所在省：
+                  <font>{{company.adress}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  企业所在市：
+                  <font>{{company.city}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  行业类别：
+                  <font>{{list.taskCategoryMain}}</font>
+                </a>
+              </li>
+              <br />
+            </el-col>
+            <el-col :span="10" :offset="4">
+              <li>
+                <a>
+                  二级类别：
+                  <font>{{list.taskCategoryPart}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  开始时间：
+                  <font>{{list.beginTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  完成时间：
+                  <font>{{list.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                </a>
+              </li>
+
+              <!-- <li>
+                <a>
+                  法人联系电话：
+                  <font>{{companyDetail.legalTel}}</font>
+                </a>
+              </li>-->
+              <!-- <br />
+              <li>
+                <a>
+                  办公电话：
+                  <font>{{companyDetail.workerNumber}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  经营范围：
+                  <font>{{companyDetail.product}}</font>
+                </a>
+              </li>-->
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+      <div class="white">
+       
+        <el-tabs type="card">
+          <el-tab-pane label="需求方">
+            <div class="BigTime">
+              <div class="block" :key="fit">
+                <el-image style="width: 150px; height: 150px" :src="url" ></el-image>
+              </div>
+            </div>
+
+            <div class="Right1">
+              <el-row>
+                <el-col :span="15" :offset="2">
+                  <li>
+                    <a>
+                      企业名称：
+                      <font>{{company.companyName}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      经营范围：
+                      <font>{{company.product}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      联系电话：
+                      <font>{{company.officeNumber}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      企业地址：
+                      <font>{{company.address}}</font>
+                    </a>
+                  </li>
+                  <br />
+                </el-col>
+              </el-row>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="供应方">
+            <div class="BigTime">
+              <div class="block" :key="fit">
+                <el-image style="width: 150px; height: 150px" :src="url1"></el-image>
+              </div>
+            </div>
+
+            <div class="Right1">
+              <el-row>
+                <el-col :span="13" :offset="2">
+                  <li>
+                    <a>
+                      企业名称：
+                      <font>{{supplier.companyName}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      经营范围：
+                      <font>{{supplier.product}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      联系电话：
+                      <font>{{supplier.officeNumber}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      企业地址：
+                      <font>{{supplier.address}}</font>
+                    </a>
+                  </li>
+                  <br />
+                </el-col>
+              </el-row>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+
+      <div class="white">
+        <el-tabs type="card">
+          <el-tab-pane label="需求详情">
+            <div>
+              <div class="message" v-html="list.taskDetail"></div>
+              <!-- <el-divider></el-divider> -->
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+
+      <div class="white">
+        <el-tabs type="card" >
+          <el-tab-pane 
+          label="服务成果"
+          >
+            <div>
+              <!-- 步骤图 -->
+              <el-steps :active="milepostActive" align-center>
+                <el-step
+                  v-for="(stpesdata, key) in milepost"
+                  :title="stpesdata.title"
+                  :icon="stpesdata.icon"
+                  :description="stpesdata.description"
+                  :key="key"
+                ></el-step>
+              </el-steps>
+              <br>
+              <br>
+
+              <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+              <br />
+
+              <div class="input_span">
+                <el-form ref="form" :model="form">
+                  <div style="font-size:10px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成质量:</div>
+
+                </el-form>
+
+                <span id="one"></span>
+                <span id="two"></span>
+                <span id="three"></span>
+              </div>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+  </el-tab-pane>
+         </el-tabs>
+         </div>
+    </el-card>
+  </div>
+</template>
+
+<script>
+import Qs from "qs";
+import radarChart from "./components/radarChart";
+
+export default {
+  name: "service1",
+  components: {
+    "radar-chart": radarChart
+  },
+  data() {
+    return {
+      form: {
+        designCount: ""
+      },
+      editableTabsValue:"1",
+      companyDetail: "",
+      companyDetailContent: "",
+      editableTabs: [{
+          title: "1",
+          name: "1",
+          taskId:"",
+        },
+        {
+          title: "2",
+          name: "2",
+          taskId:"",
+        }],
+      url:
+        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578498716057&di=2862e7c5e9dc83020a4698017c207fd8&imgtype=0&src=http%3A%2F%2Fstatic.yjcf360.com%2Fgegu%2Fimg%2F000800.jpg",
+      //设定el-cow的值
+      url1:
+        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585666024421&di=1347c59f700657d0fe7b3089bb08a48a&imgtype=0&src=http%3A%2F%2Fcarlable.autov.com.cn%2Fimages%2Fb49.jpg",
+
+      list: [
+        {
+          taskName: "",
+          taskType: "",
+          taskCategoryMain: "",
+          taskCategoryPart: "",
+          beginTime: "",
+          finishTime: "",
+          taskDetail: ""
+        }
+      ],
+      maintask: [
+        {
+          mainTaskName: "",
+          taskCategoryMain: "",
+          taskCategoryPart: "",
+          publishTime: "",
+          finishTime: "",
+          maintaskDetail: ""
+        }
+      ],
+      company: [
+        {
+          companyName: "",
+          address: "",
+          officeNumber: "",
+          product: ""
+        }
+      ],
+      supplier: [
+        {
+          companyName: "",
+          address: "",
+          officeNumber: "",
+          product: ""
+        }
+      ],
+      radarData: {
+        radarData: []
+      },
+      stepsdata: [],
+
+      //步骤条数据
+      milepost: [
+        { title: "申请/邀请", icon: "el-icon-edit", description: "" },
+        { title: "计划提交", icon: "el-icon-upload", description: "" },
+        { title: "任务进行中", icon: "el-icon-picture", description: "" },
+        { title: "审核", icon: "el-icon-message-solid", description: "" },
+        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+        { title: "完成", icon: "el-icon-s-claim", description: "" }
+      ],
+      // 默认步骤数
+      milepostActive: 5,
+      // 动态添加类名
+      stepActive: "stepActive",
+      //申请状态按钮显示隐藏
+      applicationStatus: 0,
+      //任务计划状态按钮显示隐藏
+      taskPlanStatus: 0,
+      //合同管理状态按钮显示隐藏
+      contractManagementStatus: 0,
+      //设计任务状态按钮显示隐藏
+      designState: 0
+    };
+  },
+  created() {
+    this.getParams();
+    this.getData();
+    this.getAcceptCompanyData();
+    this.getCompanyData();
+    this.getData1();
+    this.getData2();
+    this.styleswith();
+  },
+  methods: {
+    getParams() {
+      var routerParams = this.$route.query.mainTaskID;
+      this.maintaskId = routerParams;
+      console.log(routerParams);
+    },
+    getData() {
+      console.log(this.maintaskId);
+      var that = this;
+      var data = Qs.stringify({
+        maintaskId: this.maintaskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081//serviceResult/mainTaskDetail",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          //this.$set(this,'list',response.data.alldata)
+          this.maintask = response.data.allData[0];
+          //this.list = response.data.allData.b[0];
+        });
+    },
+     getListData() {
+      console.log(this.maintaskId);
+      var that = this;
+      var data = Qs.stringify({
+        maintaskId: this.maintaskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081//serviceResult/TaskDetail",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          //this.$set(this,'list',response.data.alldata)
+          
+          this.list = response.data.allData[0];
+        });
+    },
+
+    getCompanyData() {
+      console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/serviceResult/finisCompanyDetail",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          //this.$set(this,'list',response.data.alldata)
+          this.company = response.data.allData[0];
+        });
+    },
+    getAcceptCompanyData() {
+      console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/serviceResult/finishAcceptCompanyDetail",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          //this.$set(this,'list',response.data.alldata)
+          this.supplier = response.data.allData[0];
+        });
+    },
+    getData1() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/remarkDetils",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.radarData.radarData = response.data.allData;
+          that.$refs.QradarChart.getCharts1();
+        });
+    },
+    //步骤图数据查找
+    getData2() {
+      var that = this;
+      console.log(this.taskId);
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      //console.log(data);
+
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/evaluateDetils",
+          data: data
+        })
+        .then(response => {
+          // that.stpesdata = response.data.allData[0];
+          that.form.designCount = response.data.allData[6];
+
+          this.milepost[0].description = response.data.allData[0];
+          this.milepost[1].description = response.data.allData[1];
+          this.milepost[2].description = response.data.allData[2];
+          this.milepost[3].description = response.data.allData[3];
+          this.milepost[4].description = response.data.allData[4];
+          this.milepost[5].description = response.data.allData[5];
+          this.styleswith();
+          // publishTime:"",//发布时间
+          //   finishTime:"",//完成时间
+          //   applyTime:"",//申请时间
+          //   planUploadTime:"",//计划书提交时间
+          //   checkPlanTime:"",//审核计划书时间
+          //   demandorCheckDesignTime:"",//项目审核时间
+        });
+    },
+    styleswith() {
+      if (this.form.designCount > 0 && this.form.designCount < 3) {
+        document.getElementById("one").style.background = "#00D1B2";
+      }
+      if (this.form.designCount > 2 && this.form.designCount < 4) {
+        document.getElementById("one").style.background = "#eee";
+        document.getElementById("two").style.background = "orange";
+      }
+      if (this.form.designCount > 4 || this.form.designCount == 4) {
+        document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";
+      }
+    },
+     handleClick(tab, event) {
+        console.log(tab, event);
+      }
+  }
+};
+</script>
+<style>
+.images {
+  width: 200px;
+  height: 200px;
+}
+.white {
+  /* width: 67%; */
+  margin-top: 20px;
+}
+.divtap {
+  border-right: 1px solid #000;
+  border-top: 1px solid #000;
+}
+.designcomment {
+  width: 80%;
+  text-align: center;
+}
+.yqk_nr_bt {
+  display: block;
+  width: 200px;
+  font-size: 16px;
+  line-height: 40px;
+  color: #00a2e6;
+}
+.title {
+  font-size: 14px;
+  font-style: normal;
+  width: 250px;
+  margin-top: 22px;
+}
+.np_top {
+  /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  border-bottom-color: rgb(225, 225, 225);
+
+  border-bottom-style: solid;
+
+  border-bottom-width: 1px;
+
+  border-left-color: rgb(225, 225, 225);
+
+  border-left-style: solid;
+
+  border-left-width: 1px;
+
+  border-right-color: rgb(225, 225, 225);
+
+  border-right-style: solid;
+
+  border-right-width: 1px;
+
+  border-top-color: rgb(225, 225, 225);
+
+  border-top-style: solid;
+
+  border-top-width: 1px; */
+
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+
+  font-size: 14px;
+
+  font-style: normal;
+
+  font-variant: normal;
+
+  font-weight: 400;
+
+  line-height: normal;
+
+  margin-bottom: 0px;
+
+  /* margin-left: 305.6px; */
+
+  margin-right: 65.61px;
+
+  margin-top: 0px;
+
+  overflow: hidden;
+
+  padding-bottom: 10px;
+
+  padding-left: 10px;
+
+  padding-right: 10px;
+
+  padding-top: 10px;
+
+  text-decoration: none;
+
+  width: 1280px;
+}
+.BigTime {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  float: left;
+
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+
+  font-size: 14px;
+
+  font-style: normal;
+
+  font-variant: normal;
+
+  font-weight: 400;
+
+  height: 150px;
+
+  line-height: normal;
+
+  margin-bottom: 0px;
+
+  margin-left: 15px;
+
+  margin-right: 0px;
+
+  margin-top: 10px;
+
+  overflow: hidden;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
+
+  position: relative;
+
+  text-decoration: none;
+
+  width: 150px;
+}
+.ull {
+  width: 200px;
+}
+.ulr {
+  width: 200px;
+}
+.Right {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  float: left;
+
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+
+  font-size: 14px;
+
+  font-style: normal;
+
+  font-variant: normal;
+
+  font-weight: 400;
+
+  line-height: normal;
+
+  margin-bottom: 10px;
+
+  margin-left: 40px;
+
+  margin-right: 0px;
+
+  margin-top: 0px;
+
+  overflow: hidden;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
+
+  text-decoration: none;
+
+  width: 800px;
+}
+.Right1 {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  float: left;
+
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+
+  font-size: 14px;
+
+  font-style: normal;
+
+  font-variant: normal;
+
+  font-weight: 400;
+
+  line-height: normal;
+
+  margin-bottom: 10px;
+
+  margin-left: 40px;
+
+  margin-right: 0px;
+
+  margin-top: 50px;
+
+  overflow: hidden;
+
+  padding-bottom: 0px;
+
+  padding-left: 0px;
+
+  padding-right: 0px;
+
+  padding-top: 0px;
+
+  text-decoration: none;
+
+  width: 800px;
+}
+.Right .el-divider--horizontal {
+  width: 87%;
+}
+.ul02 {
+  width: 920px;
+}
+</style>
+<style scoped>
+#inputValue {
+  width: 240px;
+  margin-left: 0px;
+  padding-left: 10px;
+  border-radius: 3px;
+}
+.input_span span {
+  display: inline-block;
+  width: 85px;
+  height: 30px;
+  background: #eee;
+  line-height: 20px;
+  
+}
+
+#one {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 150px;
+  margin-right: 3px;
+}
+
+#two {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
+}
+#font span:nth-child(1) {
+  color: #00d1b2;
+  margin-left: 80px;
+}
+#font span:nth-child(2) {
+  color: orange;
+  margin: 0 60px;
+}
+#font span:nth-child(3) {
+  color: red;
+}
+</style>

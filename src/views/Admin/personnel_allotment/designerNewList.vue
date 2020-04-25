@@ -8,8 +8,9 @@
     </div>
     <br />
     <!-- <el-divider></el-divider> -->
-    <el-row style="height:600px;">
-      <el-card style="height:100%">
+    <div>
+    <el-row >
+    
         <el-table
           :data="Not_Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
           border
@@ -73,46 +74,43 @@
             @size-change="handleSizeChange"
           ></el-pagination>
         </div>
-      </el-card>
+      
+      
     </el-row>
+    </div>
 
-    <el-dialog title="新增任务详情" :visible.sync="dialogVisible" width="60%">
+    <el-dialog title="任务详情" :visible.sync="dialogVisible" width="60%" v-bind:class="biaoti"
+        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">
       <div>
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
-            <el-col :span="11">
-              <el-form-item label="任务名称">
-                <el-input v-model="form.taskName" ></el-input>
-              </el-form-item>
+            <el-col :span="11" :offset="2">
+              <span class = "titles">任务名称:</span>
+              <span>{{form.taskName}}</span><br><br>
             </el-col>
+
             <el-col :span="11">
-              <el-form-item label="企业名称">
-                <el-input v-model="form.companyName" ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="任务类型">
-                <el-input v-model="form.taskCategoryPart" ></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="截止日期">
-                <el-input v-bind:value="form.deadline | formatDate"></el-input>
-              </el-form-item>
+              <span class = "titles">企业名称:</span>
+                <span>{{form.companyName}}</span><br>
+            
             </el-col>
           </el-row>
           <el-row>
-            <el-form-item label="任务详情">
-              <el-input
-                
-                type="textarea"
-                :rows="7"
-                v-model="form.taskDetail"
-                style="width:90%;"
-              ></el-input>
-            </el-form-item>
+            <el-col :span="11" :offset="2">
+              <span class="titles">任务类别:</span>
+                <span >{{form.taskCategoryPart}}</span><br><br>
+            </el-col>
+            <el-col :span="11">
+              <span class="titles">截止日期:</span>
+                <span >{{form.deadline |formatDate}}</span><br>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="22" :offset="2">
+              <span class="titles">任务详情:</span>
+            <span>{{form.taskDetail}}</span>
+            </el-col>
+            
           </el-row>
         </el-form>
       </div>
@@ -203,30 +201,7 @@ export default {
     this.getDetailData();
   },
   methods: {
-    beginTask(row) {
-      console.log(this.taskId);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: row.taskId
-      });
-      console.log(data);
-      that.axios({
-        method: "post",
-        url: "http://127.0.0.1:8081/designer/updateDesignState",
-        data: data
-      });
-
-      this.$message({
-        message: "任务开始成功",
-        type: "success"
-      });
-    },
-    goBack() {
-      this.$router.push("/#");
-    },
-    handlePageChange(val) {},
-    //获取新增列表数据
-    getData() {
+     getData() {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
@@ -247,6 +222,34 @@ export default {
           this.form = response.data.allData[0];
         })
     },
+    beginTask(row) {
+      console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId
+      });
+      console.log(data);
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8081/designer/updateDesignState",
+        data: data
+      }).then(response => {
+              this.$message({
+                type: "success",
+                message: "任务开始成功"
+              });
+              this.getData();
+              
+            });
+     
+      
+    },
+    goBack() {
+      this.$router.push("/#");
+    },
+    handlePageChange(val) {},
+    //获取新增列表数据
+   
     getDetailData() {
       //console.log(this.userName);
       var that = this;
@@ -330,5 +333,10 @@ export default {
 .biaoti {
   font-size: 18px;
   color: #303133;
+}
+.titles{
+  font-size: 15px;
+  font-weight: 400;
+
 }
 </style>

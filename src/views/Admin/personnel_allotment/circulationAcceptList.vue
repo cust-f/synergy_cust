@@ -250,6 +250,7 @@ export default {
     
   },
   methods: {
+    
     submitTask(row) {
       if (
         row.supplierCheckDesignState == 0 ||

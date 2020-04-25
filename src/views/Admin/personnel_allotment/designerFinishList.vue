@@ -5,8 +5,8 @@
     </div>
     <br>
     <!-- <el-divider></el-divider> -->
-    <el-row style="height:600px;">
-      <el-card style="height:100%">
+    <el-row >
+      
         
         <el-table
           :data="Finished_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
@@ -68,44 +68,40 @@
             @size-change="handleSizeChange"
           ></el-pagination>
         </div>
-      </el-card>
+      
     </el-row>
-    <el-dialog title="完成任务详情" :visible.sync="dialogVisible" width="60%">
+     <el-dialog title="任务详情" :visible.sync="dialogVisible" width="60%" v-bind:class="biaoti"
+        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">
       <div>
         <el-form ref="form2" :model="form" label-width="110px">
           <el-row>
-            <el-col :span="11">
-              <el-form-item label="任务名称">
-                <el-input v-model="form2.taskName"></el-input>
-              </el-form-item>
+            <el-col :span="11" :offset="2">
+              <span class = "titles">任务名称:</span>
+              <span>{{form2.taskName}}</span><br><br>
             </el-col>
+
             <el-col :span="11">
-              <el-form-item label="企业名称">
-                <el-input v-model="form2.taskName" ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="任务类型">
-                <el-input v-model="form2.taskCategoryPart"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="截止日期">
-                <el-input v-bind:value="form2.deadline|formatDate" ></el-input>
-              </el-form-item>
+              <span class = "titles">企业名称:</span>
+                <span>{{form2.companyName}}</span><br>
+            
             </el-col>
           </el-row>
           <el-row>
-            <el-form-item label="任务详情">
-              <el-input
-                type="textarea"
-                :rows="7"
-                v-model="form2.taskDetail"
-                style="width:100%;"
-              ></el-input>
-            </el-form-item>
+            <el-col :span="11" :offset="2">
+              <span class="titles">任务类别:</span>
+                <span >{{form2.taskCategoryPart}}</span><br><br>
+            </el-col>
+            <el-col :span="11">
+              <span class="titles">截止日期:</span>
+                <span >{{form2.deadline |formatDate}}</span><br>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="22" :offset="2">
+              <span class="titles">任务详情:</span>
+            <span>{{form2.taskDetail}}</span>
+            </el-col>
+            
           </el-row>
         </el-form>
       </div>
