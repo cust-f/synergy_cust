@@ -11,7 +11,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
-      :default-sort="{prop: 'taskState', order: 'descending'}"
+      :default-sort="{prop: 'beginTime', order: 'ascending'}"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -21,7 +21,7 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
       <el-table-column prop="taskState" sortable label="状态">
         <template slot-scope="scope">
@@ -35,12 +35,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="publishingCompanyName" label="发布需求企业"></el-table-column>
+      <el-table-column prop="publishingCompanyName" sortable label="发布需求企业"></el-table-column>
       <el-table-column prop="beginTime" sortable label="发布日期">
         <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
       </el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型">
+      <el-table-column prop="taskType" sortable label="需求类型">
         <template slot-scope="scope">
           <span v-if="scope.row.taskType === 1">类型1</span>
           <span v-else-if="scope.row.taskType === 2">类型2</span>
@@ -123,7 +123,7 @@ export default {
   methods: {
     handleSearch() {
       console.log(this.selectname);
-      var that = this;
+      var that = this; 
       var data = Qs.stringify({
         username: "supplier",
         taskName: this.selectname
@@ -133,7 +133,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/supplier/searchByTaskIdInTaskApply",
+            "/api/supplier/searchByTaskIdInTaskApply",
           data: data
           // data:this.$store.state.userName
         })
@@ -161,7 +161,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierDesignTaskList",
+          url: "/api/supplier/supplierDesignTaskList",
           data: data
 
           // data:this.$store.state.userName

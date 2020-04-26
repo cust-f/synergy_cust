@@ -18,9 +18,9 @@
       <!--第二行  本月需求信息统计-->
       <el-row :gutter="gutterCount" class="color1">
         <el-col :span="20" :push="pushCount" :pull="pullCount">
-          <div class="grid-content0">
+          
             <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;服务成果</div>
-          </div>
+          
         </el-col>
       </el-row>
     </div>
@@ -46,42 +46,42 @@
 
             <el-collapse-item name="2">
               <template slot="title" align="center">&nbsp;&nbsp;&nbsp;&nbsp;需求类别</template>
-              <el-radio v-model="radio0" label="1"  @click.native="getData()">&nbsp;&nbsp;不限</el-radio>
-              <br />
-              <el-radio
-                v-model="radio0"
-                label="2"
-                @click.native="clickitem(2)"
-              >&nbsp;&nbsp;交通运输设备</el-radio>
-              <br />
-              <el-radio
-                v-model="radio0"
-                label="3"
-                @click.native="clickitem(3)"
-              >&nbsp;&nbsp;仪器仪表及文化</el-radio>
-              <br />
-              <el-radio
-                v-model="radio0"
-                label="4"
-                @click.native="clickitem(4)"
-              >&nbsp;&nbsp;通信设备</el-radio>
+              <el-radio v-model="radio0" label="4"  @click.native="getData()">&nbsp;&nbsp;不限</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
                 label="5"
-                @click.native="clickitem(5)"
-              >&nbsp;&nbsp;电气机械及器材</el-radio>
+                @click.native="clickitem4(2)"
+              >&nbsp;&nbsp;交通运输设备</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
                 label="6"
-                @click.native="clickitem(6)"
-              >&nbsp;&nbsp;专用设备</el-radio>
+                @click.native="clickitem4(3)"
+              >&nbsp;&nbsp;仪器仪表及文化</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
                 label="7"
-                @click.native="clickitem(7)"
+                @click.native="clickitem4(4)"
+              >&nbsp;&nbsp;通信设备</el-radio>
+              <br />
+              <el-radio
+                v-model="radio0"
+                label="8"
+                @click.native="clickitem4(5)"
+              >&nbsp;&nbsp;电气机械及器材</el-radio>
+              <br />
+              <el-radio
+                v-model="radio0"
+                label="9"
+                @click.native="clickitem4(6)"
+              >&nbsp;&nbsp;专用设备</el-radio>
+              <br />
+              <el-radio
+                v-model="radio0"
+                label="10"
+                @click.native="clickitem4(7)"
               >&nbsp;&nbsp;通用设备</el-radio>
             </el-collapse-item>
 
@@ -100,10 +100,11 @@
      <div class = "color1">
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content5">
-          <el-table :data="tableData" style="width: 100%">
+          <el-table :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
+          style="width: 100%">
             <el-table-column label="序号" type="index" align="center"></el-table-column>
 
-            <el-table-column prop="taskName" label="需求名称" align="center"></el-table-column>
+            <el-table-column prop="mainTaskName" label="需求名称" align="center"></el-table-column>
 
             <el-table-column prop="taskCategoryMainId" label="需求类别" align="center">
               <template slot-scope="scope">
@@ -116,16 +117,16 @@
               </template>
             </el-table-column>
 
-            <el-table-column prop="taskType" label="需求类型" align="center">
+            <!-- <el-table-column prop="taskType" label="需求类型" align="center">
               <template slot-scope="scope">
               <span v-if="scope.row.taskType === 0">设计</span>
               <span v-else-if="scope.row.taskType === 1">流通</span>
               </template>
-            </el-table-column>
+            </el-table-column> -->
 
             <el-table-column prop="companyName" label="需求方" align="center"></el-table-column>
 
-            <el-table-column prop="acceptCompanyName" label="供应方" align="center"></el-table-column>
+            <!-- <el-table-column prop="acceptCompanyName" label="供应方" align="center"></el-table-column> -->
 
             <el-table-column prop="finishTime" label="完成时间" align="center">
               <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
@@ -137,16 +138,19 @@
               </template>
             </el-table-column>
           </el-table>
-        </div>
-        <div class="block">
-          <el-pagination 
-            @size-change="handleSizeChange"
+          <div class="pagination">
+          <el-pagination
+            background
+            layout="prev, pager, next,total, jumper"
+            :current-page="pageIndex"
+            :page-size="pageSize"
+            :total="tableData.length"
             @current-change="handleCurrentChange"
-            :current-page.sync="currentPage3"
-            :page-size="100"
-            layout="prev, pager, next, jumper"
-            :total="1000"
-          >&nbsp;&nbsp;&nbsp;&nbsp;</el-pagination><br><br><br></div>
+            @size-change="handleSizeChange"
+          ></el-pagination>
+        </div>
+        </div>
+        
         
       </el-col></div>
 
@@ -179,7 +183,7 @@ export default {
       search: "",
       //设定el-cow的值
       gutterCount: 20,
-      pushCount: 2,
+      pushCount: 5,
       pullCount: 2,
       pushCount0: 3,
 
@@ -202,9 +206,16 @@ export default {
           //需求名称
           taskName: "",
 
-          taskId:""
-        }
-      ]
+      
+        },
+       
+      ],
+       mainTaskID: "",
+        pageIndex: 1,
+        
+        pageSize: 10,
+        
+
     };
   },
   filters: {
@@ -260,7 +271,7 @@ export default {
 
       //this.getData();
     },
-    clickitem(e) {
+    clickitem4(e) {
       e === this.radio0 ? (this.radio0 = "") : (this.radio0 = e);
       console.log(this.radio0);
       var that = this;
@@ -323,13 +334,20 @@ export default {
         });
     },
     remarkDetail(row) {
-      console.log(row.taskId);
+      console.log(row.mainTaskID);
       this.$router.push({
-        path: "/service",
+        path: "/service1",
         query: {
-          taskId: row.taskId
+          mainTaskID: row.mainTaskID
         }
       });
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
     },
   }
 };
@@ -357,8 +375,8 @@ export default {
 /**第一行用css样式*/
 .grid-content0 {
   border-radius: 4px;
-  height: 36px;
-  margin-top: 20px;
+  height: 20px;
+  margin-top: 10px;
    background-color: #fff;
 }
 /**第二行用css样式 网站访问统计数据块*/

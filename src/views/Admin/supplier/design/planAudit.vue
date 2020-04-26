@@ -11,6 +11,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'beginTime', order: 'ascending'}"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -20,9 +21,9 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型">
+      <el-table-column prop="taskType" sortable label="需求类型">
         <template slot-scope="scope">
           <span v-if="scope.row.taskType === 1">类型1</span>
           <span v-else-if="scope.row.taskType === 2">类型2</span>
@@ -117,7 +118,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierPlanResTaskList",
+          url: "/api/supplier/supplierPlanResTaskList",
           data: data
         })
         .then(response => {
@@ -136,7 +137,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/searchByTaskIdInTaskApply",
+          url: "/api/supplier/searchByTaskIdInTaskApply",
           data: data
           // data:this.$store.state.userName
         })

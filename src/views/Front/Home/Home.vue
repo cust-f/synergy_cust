@@ -4,18 +4,188 @@
     <!--第一行 首页轮播图-->
     <div class="BG0">
       <div>
-        <el-row style="width: 1300px;margin: 5px;padding: 25px;">
-          <el-col :span="17">
+        <!-- <el-row style="width: 1300px;margin: 5px;padding: 25px;"> -->
             <div class="grid-content0">
-              <el-carousel height="400px">
+              <el-carousel height="410px">
                 <!--备注，需要向img_list写入图片地址-->
                 <el-carousel-item v-for="item in img_list" :key="item">
                   <img style="width: 100%; height: 100%;" :src="item" />
                 </el-carousel-item>
               </el-carousel>
             </div>
+        <!-- </el-row> -->
+      </div>
+    </div>
+
+    <div class="BG">
+      <!--第二行  网站访问统计数据-->
+      <el-row :gutter="gutterCount" class="Statistics">
+        <div style="margin:0 auto;">
+          <ul>
+            <li>
+              <span class="dataCSS">
+                本月成交任务:
+                <font class="fontStyle">{{taskCountMonth}}</font>项
+              </span>
+            </li>
+            <li>
+              <span class="dataCSS">
+                需求任务:
+                <font class="fontStyle">{{demandTaskCount}}</font>项
+              </span>
+            </li>
+            <li>
+              <span class="dataCSS">
+                流通任务:
+                <font class="fontStyle">{{circulationTaskCount}}</font>项
+              </span>
+            </li>
+            <li>
+              <span class="dataCSS">
+                认证企业:
+                <font class="fontStyle">{{certifiedEnterpriseCount}}</font>家
+              </span>
+            </li>
+            <li>
+              <span class="dataCSS">
+                认证供应商:
+                <font class="fontStyle">{{certifiedSupplierCount}}</font>家
+              </span>
+            </li>
+          </ul>
+        </div>
+      </el-row>
+
+      <!--第三行  分类门户-->
+      <el-row :gutter="6" class="category" style="margin-bottom:20px;">
+        <el-col :span="17">
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-card shadow="hover">
+              <div class="category_item">
+                <div
+                  class="cate_ietm_title"
+                  :style="{backgroundImage: 'url(' + orangePicture + ')'}"
+                  style=" background-size: cover; "
+                >
+                  <font>交通运输设备</font>
+                  <p></p>
+                </div>
+                <i class="cate_list">
+                  <a href>汽车</a>
+                  <a href>铁路运输设备</a>
+                  <a href>摩托车</a>
+                  <a href>自行车</a>
+                  <a href>船舶及浮动装置</a>
+                  <a href>航空航天器</a>
+                  <a href="l">交通器材及其他交通运输设备</a>
+                </i>
+              </div>
+            </el-card>
           </el-col>
-          <!-- 登录模块-->
+          <el-col :span="8">
+            <el-card shadow="hover" style="float:left">
+              <div class="category_item">
+                <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + redPicture + ')' }">
+                  <font>仪器仪表及文化、办公用机械</font>
+                </div>
+                <i class="cate_list">
+                  <a href>通用仪器仪表</a>
+                  <a href>专用仪器仪表</a>
+                  <a href>钟表与计时仪器</a>
+                  <!-- <a href>光学仪器及眼镜</a> -->
+                  <a href>文化、办公用机械</a>
+                  <a href>其他仪器仪表的制造及修理</a>
+                </i>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="8">
+            <el-card shadow="hover">
+              <div class="category_item">
+                <div class="cate_ietm_title">
+                  <font>通信设备、计算机及其他电子设备</font>
+                </div>
+                <i class="cate_list">
+                  <a href>通信设备</a>
+                  <a href>雷达及配套设备</a>
+                  <a href>广播电视设备</a>
+                  <a href>电子计算机</a>
+                  <a href>电子器件</a>
+                  <a href>电子元件</a>
+                  <a href>家用视听设备</a>
+                  <a href>其他电子设备</a>
+                </i>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <!----这里分类----->
+        <el-row :gutter="20" style="margin-top:25px;">
+          <el-col :span="8">
+            <el-card shadow="hover">
+              <div class="category_item">
+                <div
+                  class="cate_ietm_title"
+                  :style="{backgroundImage: 'url(' + geometryPicture + ')' }"
+                  style="background-size: cover;"
+                >
+                  <font>电气机械及器材</font>
+                </div>
+                <i class="cate_list">
+                  <a href>电机</a>
+                  <a href>输配电及控制设备</a>
+                  <a href>电池</a>
+                  <a href>家用电力器具</a>
+                  <a href>非电力家用器具</a>
+                  <a href>照明器具</a>
+                  <a href>其他电气机械及器材</a>
+                </i>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="8">
+            <el-card shadow="hover">
+              <div class="category_item">
+                <div
+                  class="cate_ietm_title"
+                  :style="{backgroundImage: 'url(' + BluePicture + ')' }"
+                >
+                  <font>专用设备</font>
+                </div>
+                <i class="cate_list">
+                  <a href>矿山、冶金、建筑专用设备</a>
+                  <a href>电子和电工机械专用设备</a>
+                  <a href>医疗仪器设备及器械</a>
+                  <a href>农、林、牧、渔专用机械</a>
+                  <a href style="float:right;">更多</a>
+                </i>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="8">
+            <el-card shadow="hover">
+              <div class="category_item">
+                <div
+                  class="cate_ietm_title"
+                  :style="{backgroundImage: 'url(' + greedPicture + ')'}"
+                  style="background-size: 100% 100%;"
+                >
+                  <font>通用设备</font>
+                </div>
+                <i class="cate_list">
+                  <a href>锅炉及原动机</a>
+                  <a href>金属加工机械</a>
+                  <a href>起重运输设备</a>
+                  <a href>烘炉、熔炉及电炉</a>
+                  <a href>金属铸、锻加工</a>
+                  <a href>更多</a>
+                </i>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row></el-col>
+                  <!-- 登录模块-->
           <el-col :span="6" :offset="1">
             <div class="grid-content">
               <el-card style="margin-bottom:5px;padding-top: 10px;">
@@ -83,7 +253,7 @@
                       <el-button
                         class="xqelbuttonleft0"
                         @click="addNewTask()"
-                        style="margin-top:10px ; margin-left:0px ;"
+                        style="margin-top:30px ; margin-left:0px ;"
                         round
                         type="primary"
                       >发布需求</el-button>
@@ -117,7 +287,7 @@
                       <el-button
                         class="xqelbuttonleft0"
                         @click="selectDemand()"
-                        style="margin-top:10px ; margin-left:0px ;"
+                        style="margin-top:30px ; margin-left:0px ;"
                         type="primary"
                         round
                       >寻找需求</el-button>
@@ -127,186 +297,15 @@
               </div>
             </div>
           </el-col>
-        </el-row>
-      </div>
-    </div>
-
-    <div class="BG">
-      <!--第二行  网站访问统计数据-->
-      <el-row :gutter="gutterCount" class="Statistics">
-        <div style="margin:0 auto;">
-          <ul>
-            <li>
-              <span class="dataCSS">
-                本月成交任务:
-                <font class="fontStyle">{{taskCountMonth}}</font>项
-              </span>
-            </li>
-            <li>
-              <span class="dataCSS">
-                需求任务:
-                <font class="fontStyle">{{demandTaskCount}}</font>项
-              </span>
-            </li>
-            <li>
-              <span class="dataCSS">
-                流通任务:
-                <font class="fontStyle">{{circulationTaskCount}}</font>项
-              </span>
-            </li>
-            <li>
-              <span class="dataCSS">
-                认证企业:
-                <font class="fontStyle">{{certifiedEnterpriseCount}}</font>家
-              </span>
-            </li>
-            <li>
-              <span class="dataCSS">
-                认证供应商:
-                <font class="fontStyle">{{certifiedSupplierCount}}</font>家
-              </span>
-            </li>
-          </ul>
-        </div>
-      </el-row>
-
-      <!--第三行  分类门户-->
-      <el-row :gutter="6" class="category" style="margin-bottom:20px;">
-        <el-row :gutter="30">
-          <el-col :span="8">
-            <el-card shadow="hover">
-              <div class="category_item">
-                <div
-                  class="cate_ietm_title"
-                  :style="{backgroundImage: 'url(' + orangePicture + ')'}"
-                  style=" background-size: cover; "
-                >
-                  <font>交通运输设备</font>
-                  <p></p>
-                </div>
-                <i class="cate_list">
-                  <a href>汽车</a>
-                  <a href>铁路运输设备</a>
-                  <a href>摩托车</a>
-                  <a href>自行车</a>
-                  <a href>船舶及浮动装置</a>
-                  <a href>航空航天器</a>
-                  <a href="l">交通器材及其他交通运输设备</a>
-                </i>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8">
-            <el-card shadow="hover" style="float:left">
-              <div class="category_item">
-                <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + redPicture + ')' }">
-                  <font>仪器仪表及文化、办公用机械</font>
-                </div>
-                <i class="cate_list">
-                  <a href>通用仪器仪表</a>
-                  <a href>专用仪器仪表</a>
-                  <a href>钟表与计时仪器</a>
-                  <!-- <a href>光学仪器及眼镜</a> -->
-                  <a href>文化、办公用机械</a>
-                  <a href>其他仪器仪表的制造及修理</a>
-                </i>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8">
-            <el-card shadow="hover">
-              <div class="category_item">
-                <div class="cate_ietm_title">
-                  <font>通信设备、计算机及其他电子设备</font>
-                </div>
-                <i class="cate_list">
-                  <a href>通信设备</a>
-                  <a href>雷达及配套设备</a>
-                  <a href>广播电视设备</a>
-                  <a href>电子计算机</a>
-                  <a href>电子器件</a>
-                  <a href>电子元件</a>
-                  <a href>家用视听设备</a>
-                  <a href>其他电子设备</a>
-                </i>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-        <!----这里分类----->
-        <el-row :gutter="30" style="margin-top:50px;">
-          <el-col :span="8">
-            <el-card shadow="hover">
-              <div class="category_item">
-                <div
-                  class="cate_ietm_title"
-                  :style="{backgroundImage: 'url(' + geometryPicture + ')' }"
-                  style="background-size: cover;"
-                >
-                  <font>电气机械及器材</font>
-                </div>
-                <i class="cate_list">
-                  <a href>电机</a>
-                  <a href>输配电及控制设备</a>
-                  <a href>电池</a>
-                  <a href>家用电力器具</a>
-                  <a href>非电力家用器具</a>
-                  <a href>照明器具</a>
-                  <a href>其他电气机械及器材</a>
-                </i>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8">
-            <el-card shadow="hover">
-              <div class="category_item">
-                <div
-                  class="cate_ietm_title"
-                  :style="{backgroundImage: 'url(' + BluePicture + ')' }"
-                >
-                  <font>专用设备</font>
-                </div>
-                <i class="cate_list">
-                  <a href>矿山、冶金、建筑专用设备</a>
-                  <a href>电子和电工机械专用设备</a>
-                  <a href>医疗仪器设备及器械</a>
-                  <a href>农、林、牧、渔专用机械</a>
-                  <a href style="float:right;">更多</a>
-                </i>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8">
-            <el-card shadow="hover">
-              <div class="category_item">
-                <div
-                  class="cate_ietm_title"
-                  :style="{backgroundImage: 'url(' + greedPicture + ')'}"
-                  style="background-size: 100% 100%;"
-                >
-                  <font>通用设备</font>
-                </div>
-                <i class="cate_list">
-                  <a href>锅炉及原动机</a>
-                  <a href>金属加工机械</a>
-                  <a href>起重运输设备</a>
-                  <a href>烘炉、熔炉及电炉</a>
-                  <a href>金属铸、锻加工</a>
-                  <a href>更多</a>
-                </i>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
       </el-row>
 
       <!--第四行  需求一览，优质企业，服务成果-->
       <el-row :gutter="gutterCount">
         <!--需求任务-->
         <el-col :span="8">
-          <div class="grid-content2">
+          <div class="grid-content2 one">
             <el-card class="grid-content3">
-              <div slot="header" class="titleColor">
+              <div slot="header" class="titleColor" >
                 <span>需求一览</span>
                 <el-button
                   style="float: right; padding: 5px 0"
@@ -330,7 +329,7 @@
         </el-col>
 
         <el-col :span="8">
-          <div class="grid-content2">
+          <div class="grid-content2 tow">
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
                 <span>优质企业</span>
@@ -370,9 +369,9 @@
         </el-col>
 
         <el-col :span="8">
-          <div class="grid-content2">
+          <div class="grid-content2 three">
             <el-card class="grid-content3">
-              <div slot="header" class="titleColor">
+              <div slot="header" class="titleColor" >
                 <span>服务成果</span>
                 <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
               </div>
@@ -468,6 +467,9 @@ export default {
       redPicture: require("../../../assets/images/home/banner/red.png"),
       //引入橙色头部
       orangePicture: require("../../../assets/images/home/banner/orange.jpg"),
+
+      sPicture: require("../../../assets/images/home/banner/banner3.jpg"),
+      bPicture: require("../../../assets/images/home/banner/banner1.jpg"),
       //判定发布需求弹出框的bool值
       dialogVisible: false,
       //发布需求弹出框内的表单信息数据
@@ -683,9 +685,8 @@ export default {
 .BG0 {
   box-sizing: border-box;
   background-color: white;
-  margin-bottom: 5px;
-  padding-top: 17px;
-  padding-bottom: 20px;
+  margin-bottom: 15px;
+  /* padding-bottom: 20px; */
   font-size: 18px;
 }
 
@@ -713,8 +714,27 @@ export default {
   line-height: 50px;
   overflow: hidden;
 }
+.home .one .el-card__header{
+  /* backdrop-filter: ; */
+  background: url(../../../assets/images/home/banner/banner1.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.home .tow .el-card__header{
+  /* backdrop-filter: ; */
+  background: url(../../../assets/images/home/banner/banner2.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.home .three .el-card__header{
+  /* backdrop-filter: ; */
+  background: url(../../../assets/images/home/banner/banner3.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 .titleColor span {
   font-size: 18px;
+  color: #ffffff;
 }
 .titleColor .el-button span {
   font-size: 16px;
@@ -732,6 +752,7 @@ export default {
 /**数据统计样式 */
 .Statistics {
   padding-left: 12.22%;
+  margin-bottom:15px;
 }
 .Statistics li {
   float: left;
@@ -746,7 +767,7 @@ export default {
 /**登陆、注册模块用样式表，用于文本居中及背景色更改*/
 .grid-content {
   text-align: center;
-  height: 400px;
+  height: 441px;;
 }
 
 /**登录、注册按钮模块标题模块所用样式表，用于确认整体高度及布局  */
@@ -803,6 +824,7 @@ export default {
   width: 50%;
   height: 50px;
   margin-bottom: 7%;
+  font-size: 18px;
 }
 /**右侧按钮的样式表*/
 .xqelbuttonright {
