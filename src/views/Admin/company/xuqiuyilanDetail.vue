@@ -66,7 +66,7 @@
                   </li>
                   <br />
                   <div class="applybutten">
-                    <el-button type="warning" @click="applyTask()">申请任务</el-button>
+                    <el-button v-show="applyIf === 0" type="warning" @click="applyTask()">申请任务</el-button>
                   </div>
                 </el-col>
               </el-row>
@@ -156,11 +156,11 @@ export default {
   name: "xuqiuyilanDetail",
   data() {
     return {
-      circulationQuantity:0,
+      circulationQuantity: 0,
       //需求信息
       cool: {
         taskName: "",
-        taskType: "",
+        taskType: ""
       },
       //申请框
       applyList: {
@@ -168,9 +168,11 @@ export default {
         beginTime: "",
         deadline: "",
         businessTel: "",
-        taskTypeName: ""
+        taskTypeName: "",
+        applyTime: ""
       },
       companyList: {
+        companyName: "",
         companyCategory: "",
         address: "",
         businessName: "",
@@ -184,13 +186,19 @@ export default {
         { id: 2, idView: require("../company/3.jpg") }
       ],
       taskId: 43,
-      companyId: 1111,
-      applyDiaLog: false
+      publishingCompanyId: 0,
+      userName: "supplier",
+      applyDiaLog: false,
+      //判断企业是否申请过此任务
+      applyIf: 0,
+      //接受企业名称
+      companyName: ""
     };
   },
   created() {
-    // this.getParams();
-    this.showData();
+    this.showTaskData();
+    this.showCompanyData();
+    this.applyIf();
   },
 
   filters: {
@@ -203,7 +211,7 @@ export default {
     // //获取详情值
     // getParams() {
     //   var routerParams = this.$route.query.taskId;
-    //   this.taskId = routerParams;
+    //   this.taskID = routerParams;
     //   console.log(routerParams);
     // },
     //申请弹窗
@@ -211,13 +219,12 @@ export default {
       this.applyDiaLog = true;
     },
     //数据显示
-    showData() {
+    showTaskData() {
       console.log("你好");
       console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId,
-        companyId: this.companyId
+        taskId: this.taskId
       });
       console.log(data);
       that
@@ -228,14 +235,31 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this.cool = response.data.allData.a[0];
-          this.applyList = response.data.allData.a[0];
-          this.companyList = response.data.allData.b[0];
-          if ((response.data.allData.a[0].taskType = 1)) {
+          this.cool = response.data.allData;
+          this.applyList = response.data.allData;
+          this.publishingCompanyId = response.data.allData;
+          if ((response.data.allData.taskType = 1)) {
             this.applyList.taskTypeName = "流通";
           } else {
             this.applyList.taskTypeName = "设计";
           }
+        });
+    },
+    showCompanyData() {
+      var that = this;
+      var data = Qs.stringify({
+        companyId: this.publishingCompanyId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/xuqiuyilan/getCompanyDet",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.companyList = response.data.allData;
         });
     },
     //返回首页
@@ -247,7 +271,24 @@ export default {
         }
       });
     },
-
+    //判断企业是否申请过此任务
+    applyIf() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.userName
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/xuqiuyilan/applyIf",
+          data: data
+        })
+        .then(response => {
+          this.applyIf = 1;
+          this.companyName = response.data.allData;
+        });
+    },
     //返回首页
     goBack() {
       this.$router.push({
@@ -258,7 +299,27 @@ export default {
       });
     },
     //申请数据上传
-    apply() {}
+    apply() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        taskName: this.cool.taskName,
+        publishingCompanyId: this.publishingCompanyId,
+        userName: this.userName,
+        beginTime: this.applyList.beginTime,
+        deadline: this.applyList.deadline,
+        taskType: this.applyList.taskType,
+        applyTime: this.applyList.applyTime,
+        circulationQuantity: this.circulationQuantity
+      });
+      that.axios({
+        method: "post",
+        url: "http://127.0.0.1:8081/xuqiuyilan/addApplyInformational",
+        data: data
+      });
+      this.$message.success("提交成功");
+      this.circulationQuantity = 0;
+    }
   }
 };
 </script>

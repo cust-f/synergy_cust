@@ -121,7 +121,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/searchByTaskIdInTask",
+          url: "/api/supplier/searchByTaskIdInTask",
           data: data
           // data:this.$store.state.userName
         })
@@ -151,7 +151,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/supplierAcceptingTaskList",
+          url: "/api/supplier/supplierAcceptingTaskList",
           data: data
 
           // data:this.$store.state.userName

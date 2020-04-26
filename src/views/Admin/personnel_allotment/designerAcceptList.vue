@@ -6,8 +6,8 @@
     </div>
     <br>
     <!-- <el-divider></el-divider> -->
-    <el-row style="height:600px;">
-      <el-card style="height:100%">
+    <el-row >
+      
         <!-- <div style="font-size:20px">已接任务</div> -->
         <el-table
           :data="Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
@@ -56,6 +56,15 @@
               <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
             </template>
             </el-table-column>
+             <el-table-column
+              prop="designerAcceptTime"
+              label="接收时间"
+              min-width="90px"
+              align="center"
+              :show-overflow-tooltip="true"
+            >
+              <template slot-scope="scope">{{scope.row.designerAcceptTime | dataFormat("yyyy-MM-dd hh:mm")}}</template>
+            </el-table-column>
 
             <el-table-column
               prop="deadline"
@@ -71,7 +80,8 @@
            <el-table-column label="操作" min-width="110px" align="center">
             <template slot-scope="scope">
               <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
-                <el-button @click="submitTask(scope.row)" type="text" size="small">任务提交</el-button>
+                <el-button @click="submitTask(scope.row)" type="text" size="small"
+                 v-if="scope.row.supplierCheckDesignState===0 || scope.row.supplierCheckDesignState===1 ||scope.row.supplierCheckDesignState===3">任务提交</el-button>
               <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
               <el-button @click="xiazai(scope.row)" type="text" size="small">下载附件</el-button>
             
@@ -89,58 +99,44 @@
             @size-change="handleSizeChange"
           ></el-pagination>
         </div>
-      </el-card>
+      
     </el-row>
     
-    <el-dialog title="已接任务详情" :visible.sync="dialogVisible" width="60%">
+     <el-dialog title="任务详情" :visible.sync="dialogVisible" width="60%" v-bind:class="biaoti"
+        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">
       <div>
         <el-form ref="form1" :model="form" label-width="110px">
           <el-row>
-            <el-col :span="11">
-              <el-form-item label="任务名称">
-                <el-input v-model="form1.taskName" ></el-input>
-              </el-form-item>
+            <el-col :span="11" :offset="2">
+              <span class = "titles">任务名称:</span>
+              <span>{{form1.taskName}}</span><br><br>
             </el-col>
+
             <el-col :span="11">
-              <el-form-item label="企业名称">
-                <el-input v-model="form1.companyName" ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
+              <span class = "titles">企业名称:</span>
+                <span>{{form1.companyName}}</span><br>
             
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11" :offset="2">
+              <span class="titles">任务类别:</span>
+                <span >{{form1.taskCategoryPart}}</span><br><br>
+            </el-col>
             <el-col :span="11">
-              <el-form-item label="任务类别">
-                <el-input v-model="form1.taskCategoryPart" ></el-input>
-                
-              </el-form-item>
-            </el-col>
-             <el-col :span="11">
-              <el-form-item label="截止日期">
-                <el-input v-bind:value="form1.deadline|formatDate" ></el-input>
-              </el-form-item>
+              <span class="titles">截止日期:</span>
+                <span >{{form1.deadline |formatDate}}</span><br>
             </el-col>
           </el-row>
-         
           <el-row>
-            <el-form-item label="任务详情">
-              <el-input
-                type="textarea"
-                :rows="3"
-                v-model="form1.taskDetail"
-                style="width:90%;"
-              ></el-input>
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="拒绝原因">
-              <el-input
-                type="textarea"
-                :rows="3"
-                v-model="form1.demandorRefuseReason"
-                style="width:90%;"
-              ></el-input>
-            </el-form-item>
+            <el-col :span="22" :offset="2">
+              <span class="titles">任务详情:</span>
+            <span>{{form1.taskDetail}}</span><br><br>
+            </el-col>
+            <el-col :span="22" :offset="2">
+              <span class="titles">拒绝原因:</span>
+            <span>{{form1.refuseReason}}</span>
+            </el-col>
           </el-row>
         </el-form>
       </div>
@@ -149,6 +145,7 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
+            
     <!-- <div class="block">
   <el-pagination
     layout="prev, pager, next"

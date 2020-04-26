@@ -503,7 +503,7 @@
       <el-dialog title="上传计划书" :visible.sync="planbook" width="400px" :before-close="handleClose">
         <el-upload
           ref="upload"
-          action="http://127.0.0.1:8081/supplier/import"
+          action="/api/supplier/import"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess1"
@@ -531,7 +531,7 @@
       <el-dialog title="上传合同" :visible.sync="conbook" width="400px" :before-close="handleClose">
         <el-upload
           ref="upload"
-          action="http://127.0.0.1:8081/supplier/import"
+          action="/api/supplier/import"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess"
@@ -789,7 +789,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/DownloadJHS",
+          url: "/api/supplier/DownloadJHS",
           data: data
         })
         .then(response => {
@@ -822,7 +822,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/DownLoadCon",
+          url: "/api/supplier/DownLoadCon",
           data: data
         })
         .then(response => {
@@ -856,7 +856,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/getList",
+          url: "/api/supplier/getList",
           data: data
         })
         .then(response => {
@@ -933,7 +933,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/accept",
+          url: "/api/supplier/accept",
           data: data
         });
         this.$message({
@@ -956,7 +956,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/noAccept",
+          url: "/api/supplier/noAccept",
           data: data
         });
         this.$message({
@@ -977,7 +977,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/getList",
+          url: "/api/supplier/getList",
           data: data
         })
         .then(response => {
@@ -996,7 +996,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/getList",
+          url: "/api/supplier/getList",
           data: data
         })
         .then(response => {
@@ -1015,7 +1015,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/getList",
+          url: "/api/supplier/getList",
           data: data
         })
         .then(response => {
@@ -1034,7 +1034,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/getList",
+          url: "/api/supplier/getList",
           data: data
         })
         .then(response => {
@@ -1055,7 +1055,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/designSuccess",
+          url: "/api/supplier/designSuccess",
           data: data
         });
         this.$message({
@@ -1080,7 +1080,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/findDesigner",
+          url: "/api/supplier/findDesigner",
           data: data
         })
         .then(response => {
@@ -1104,7 +1104,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/assignDesigners",
+          url: "/api/supplier/assignDesigners",
           data: data
         })
         .then(response => {
@@ -1133,7 +1133,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/evaluateDetils",
+          url: "/api/evaluateDetils",
           data: data
         })
         .then(response => {
@@ -1158,7 +1158,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/remarkDetils",
+          url: "/api/remarkDetils",
           data: data
         })
         .then(response => {
@@ -1202,7 +1202,7 @@ export default {
       console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8081/supplier/textImportCon",
+        url: "/api/supplier/textImportCon",
         data: data
       });
       this.$router.go(0);
@@ -1222,7 +1222,7 @@ export default {
       console.log(data);
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8081/supplier/textImportPlan",
+        url: "/api/supplier/textImportPlan",
         data: data
       });
       this.$router.go(0);
@@ -1237,7 +1237,7 @@ export default {
       console.log(data),
         that.axios({
           method: "post",
-          url: "http://127.0.0.1:8081/supplier/designRefuse",
+          url: "/api/supplier/designRefuse",
           data: data
         });
       this.$message.success("提交成功");
