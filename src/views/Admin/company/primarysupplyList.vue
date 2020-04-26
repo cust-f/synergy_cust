@@ -15,8 +15,46 @@
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
         <br>
+        <div class="handle-box">
+                <el-select
+                  v-model="provicepid"
+                  placeholder="请选择省份"
+                  class="selectsupply"
+                  style="width:40%;"
+                >  <el-option
+                    label="不限"
+                    value="99"
+                  ></el-option>
+                  <el-option
+                    v-for="leibie in Provice"
+                    :key="leibie.id"
+                    :label="leibie.districtName"
+                    :value="leibie.id"
+                    @change="getCity"
+                  ></el-option>            
+                </el-select>
+                <el-select
+                  v-model="citypid"
+                  placeholder="请选择城市"
+                  class="selectsupply"
+                  @change="liebieShu"
+                  style="width:40%;"
+                >  <el-option
+                    label="不限"
+                    value="10086"
+                  ></el-option>
+                  <el-option
+                    v-for="leibie in City"
+                    :key="leibie.id"
+                    :label="leibie.districtName"
+                    :value="leibie.id"
+                  ></el-option>       
+                </el-select>
+                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+              </div>
+              <br>
       <el-table
-        :data="tableData"
+        :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
         border
         class="table"
         ref="multipleTable"
@@ -38,16 +76,17 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total, prev, pager, next"
-          :current-page="query.pageIndex"
-          :page-size="query.pageSize"
-          :total="pageTotal"
-          @current-change="handlePageChange"
-        ></el-pagination>
-      </div>
+              <div class="pagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex"
+                  :page-size="pageSize"
+                  :total="tableData.length"
+                  @current-change="handleCurrentChange"
+                  @size-change="handleSizeChange"
+                ></el-pagination>
+              </div>
     </div>
 
     <!-- 编辑弹出框 -->
@@ -112,11 +151,12 @@ export default {
   name: "primarysupplyList",
   data() {
     return {
+            provicepid: "",
+                  citypid:"",
       usernameX:localStorage.getItem("ms_username"),
-        query: {
-        pageIndex: 1,
-        pageSize: 10
-        },
+            pageIndex: 1,
+      pageSize: 10,
+
         tableData: {
           companyId:"",
           companyName:"",
@@ -149,11 +189,46 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      Provice: [
+        {
+          districtName: "",
+          pid: "",
+          districtSqe: "",
+          hierarchy: "",
+          type: "",
+          id: ""
+        }
+      ],
+      City: [
+        {
+          districtName: "",
+          pid: "",
+          districtSqe: "",
+          hierarchy: "",
+          type: "",
+          id: ""
+        }
+      ],
     };
+  },
+  watch: {
+    provicepid(){
+       if(this.provicepid !=0&&this.provicepid!=99){
+        this.getCity();
+        console.log("ri")
+      }
+      if(this.provicepid ==99){
+        this.citypid="10086"
+        this.City  = null;
+      }
+    }
+     
+    
   },
   created() {
     this.getData();
+    this.getProvice();
   },
   methods:{
       /*
@@ -168,7 +243,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/primarysupplyList/show",
+          url: "/api/primarysupplyList/show",
           data: data,
           
           // data:this.$store.state.userName
@@ -178,6 +253,38 @@ export default {
           console.log(response)
         });
      },
+     getProvice() {
+      var that = this;
+      that
+        .axios({
+          method: "post",
+          url: "/api/district/HaChangProvince"
+        })
+        .then(response => {
+          this.Provice = response.data.allData.Province;
+          console.log(response);
+          console.log(this.Provice);
+        });
+        
+    },
+      getCity() {
+      var that = this;
+      console.log(this.provicepid)
+      var data = Qs.stringify({
+        pid: this.provicepid
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/district/city",
+          data:data
+        })
+        .then(response => {
+          this.City = response.data.allData.city;
+          console.log(response);
+          console.log(this.City);
+        });
+    },
      TianJia(row){
        var that = this;
        var data = Qs.stringify({
@@ -187,7 +294,7 @@ export default {
        that
           .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/companyDetail/tianjiaSupplier",
+          url: "/api/companyDetail/tianjiaSupplier",
           data: data,
           })
           .then(response => {
@@ -216,7 +323,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/primarysupplyList/deleteDate",
+          url: "/api/primarysupplyList/deleteDate",
           data: data,
           
           // data:this.$store.state.userName
@@ -255,7 +362,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/primarysupplyList/newAdd",
+          url: "/api/primarysupplyList/newAdd",
           data: data,
           
           // data:this.$store.state.userName
@@ -265,6 +372,35 @@ export default {
           this.tableData1 = response.data.allData
         });
       this.addVisible = true;
+    },
+        handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+         handleSearch(){
+       var that = this;
+      console.log(this.provicepid)
+      var data = Qs.stringify({
+        provicepid: this.provicepid,
+        citypid:this.citypid,
+        gyslb:"gyslbsc",
+        username: this.usernameX
+      });
+      console.log(this.provicepid)
+      console.log(this.citypid)
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/selectBySS",
+          data:data
+        })
+        .then(response => {
+          this.tableData = response.data.allData;
+          console.log(response);
+        });
     },
     
   }
