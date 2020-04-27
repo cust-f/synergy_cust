@@ -102,12 +102,9 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" label="供应商" >
+          <el-table-column prop="companyName" label="供应商">
             <template slot-scope="scope">
-              <el-button
-                type="text"
-                @click="companyDetail(scope.row)"
-              >{{scope.row.companyName}}</el-button>
+              <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
             </template>
           </el-table-column>
           <el-table-column prop="applyWay" label="承接方式">
@@ -164,15 +161,15 @@
         <el-table
           :data="tableData2"
           border
-          class="table2"
+          class="table1"
           ref="multipleTable"
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" width="198" label="供应商"></el-table-column>
-          <el-table-column prop="checkPlanState" width="180" label="计划审核状态">
+          <el-table-column label="序号" type="index"  align="center"></el-table-column>
+          <el-table-column prop="companyName"  label="供应商"></el-table-column>
+          <el-table-column prop="checkPlanState"  label="计划审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.checkPlanState === 0">待上传</span>
               <span v-else-if="+scope.row.checkPlanState === 1">待审核</span>
@@ -180,19 +177,19 @@
               <span v-else-if="+scope.row.checkPlanState === 3">拒绝</span>
             </template>
           </el-table-column>
-          <el-table-column prop="planUploadTime" width="180" label="计划上传时间">
+          <el-table-column prop="planUploadTime"  label="计划上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.planUploadTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkPlanTime"  width="180" label="计划审核时间">
+          <el-table-column prop="checkPlanTime"  label="计划审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkPlanTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkPlanTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="180" align="center">
+          <el-table-column label="操作"  align="center">
             <template slot-scope="scope">
               <!-- <el-button
                       type="text"
@@ -378,12 +375,11 @@
               :key="key"
             ></el-step>
           </el-steps>
-        </div> -->
+        </div>-->
 
         <div class="LDT">
-          
           <!-- 雷达图 -->
-          
+
           <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
           <div class="input_span" align="center">
             <el-form ref="form" :modelZL="formZL">
@@ -479,13 +475,26 @@
       </el-dialog>
 
       <!-- detail -->
+
       <el-dialog title :visible.sync="addVisibleCD" width="50%">
-            <div width = 500 align="center" height = 200px>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
+        <div width="500" align="center" height="200px">
           <el-image :src="imgsrc"></el-image>
-    </div>
+        </div>
+
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
+        <div width="500" align="center" height="200px">
+                  <el-image  :src="qiyezhizhao"></el-image>
+        </div>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
+        <div width="500" align="center" height="200px">
+                <el-image  :src="shuiwudengjizheng"></el-image>
+        </div>
+
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
-        <br><div >
-                      <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+        <br />
+        <div>
+          <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
         </div>
         <div align="right" class="formYS">
           <el-form ref="form" :model="form" label-width="100px">
@@ -743,12 +752,12 @@ export default {
         }
       ],
       milepost: [
-        { title: "申请/邀请", icon: "el-icon-edit" ,description: ""},
-        { title: "计划提交", icon: "el-icon-upload" ,description: ""},
-        { title: "任务进行中", icon: "el-icon-picture" ,description: ""},
-        { title: "审核", icon: "el-icon-message-solid",description: "" },
-        { title: "验收", icon: "el-icon-s-promotion",description: "" },
-        { title: "完成", icon: "el-icon-s-claim",description: "" }
+        { title: "申请/邀请", icon: "el-icon-edit", description: "" },
+        { title: "计划提交", icon: "el-icon-upload", description: "" },
+        { title: "任务进行中", icon: "el-icon-picture", description: "" },
+        { title: "审核", icon: "el-icon-message-solid", description: "" },
+        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+        { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
       //下图的
       milepost1: [
@@ -776,7 +785,7 @@ export default {
         SJrefuseReason: "" //设计拒绝原因
       },
       //图片信息
-      imgsrc:"",
+      imgsrc: "",
       //企业信息
       form: {
         businessName: "",
@@ -804,7 +813,9 @@ export default {
         deposit_Bank: "中国银行",
         bankNumber: "25206589260388885222201"
         //  @input.native="changeCode"
-      }
+      },
+      shuiwudengjizheng: require("../company/税务登记证.jpg"),
+      qiyezhizhao: require("../company/营业执照.jpg")
     };
   },
 
@@ -815,9 +826,8 @@ export default {
         time = time.substring(0, index);
         let date = new Date(time);
         return formatDate(date, "yyyy-MM-dd hh:mm");
-      }
-      else{
-        return("暂未开始")
+      } else {
+        return "暂未开始";
       }
     }
   },
@@ -895,9 +905,8 @@ export default {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
-            
           }
-              
+
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
           this.milepostActive = response.data.allData.a[0].taskState;
@@ -914,23 +923,35 @@ export default {
           } else if (this.milepostActive == "完成") {
             this.milepostActive = 5;
           }
-          if(this.milepostActive >=0){
-               this.milepost[0].description = this.$options.filters['formatDate'](response.data.allData.a[0].applyTime);
-              if(this.milepostActive>0){
-                  this.milepost[1].description = this.$options.filters['formatDate'](response.data.allData.c[0].planUploadTime);
-              }
-              if(this.milepostActive>1){
-                  this.milepost[2].description = this.$options.filters['formatDate'](response.data.allData.c[0].checkPlanTime);
-              }
-              if(this.milepostActive>2){
-                  this.milepost[3].description = this.$options.filters['formatDate'](response.data.allData.d[0].checkContractTime);
-              }
-              if(this.milepostActive>3){
-                 this.milepost[4].description = this.$options.filters['formatDate'](response.data.allData.e[0].designerAcceptTime);
-              }
-              if(this.milepostActive>0){
-                this.milepost[5].description = this.$options.filters['formatDate'](response.data.allData.e[0].finishTime);
-              }
+          if (this.milepostActive >= 0) {
+            this.milepost[0].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].applyTime
+            );
+            if (this.milepostActive > 0) {
+              this.milepost[1].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.c[0].planUploadTime);
+            }
+            if (this.milepostActive > 1) {
+              this.milepost[2].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.c[0].checkPlanTime);
+            }
+            if (this.milepostActive > 2) {
+              this.milepost[3].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.d[0].checkContractTime);
+            }
+            if (this.milepostActive > 3) {
+              this.milepost[4].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.e[0].designerAcceptTime);
+            }
+            if (this.milepostActive > 0) {
+              this.milepost[5].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.e[0].finishTime);
+            }
           }
           console.log(this.milepostActive);
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
@@ -1198,25 +1219,28 @@ export default {
     },
     companyDetail(row) {
       var that = this;
-            var data = Qs.stringify({
-                CompanyID:row.companyId
-            });
-            that
-                .axios({
-                    method:"post",
-                    url:'/api/companyDetail/showCompanyDetal',
-                    data:data,
-                               
-                })
-                .then(response =>{ 
-                    console.log(response);
-                   
-                    this.form = response.data.allData.companyDetail[0];
-                    this.companyId = response.data.allData.companyDetail[0].companyId
-                    this.companyName = response.data.allData.companyDetail[0].companyName 
-                    this.imgsrc = response.data.allData.companyDetail[0].companyPicture 
-                    console.log(this.imgsrc)      
-                })
+      var data = Qs.stringify({
+        CompanyID: row.companyId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/showCompanyDetal",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+
+          this.form = response.data.allData.companyDetail[0];
+          this.companyId = response.data.allData.companyDetail[0].companyId;
+          this.companyName = response.data.allData.companyDetail[0].companyName;
+          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
+          this.qiyezhizhao =
+            response.data.allData.companyDetail[0].businessLicence;
+          this.shuiwudengjizheng =
+            response.data.allData.companyDetail[0].tRCertificate;
+          console.log(this.imgsrc);
+        });
       this.addVisibleCD = true;
     }
   }
@@ -1225,10 +1249,10 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
-  #demo{
-width:20px; /*设置div宽度为500像素*/
-background:#000; /*设置div背景色为zhidao黑色*/
-}
+  #demo {
+    width: 20px; /*设置div宽度为500像素*/
+    background: #000; /*设置div背景色为zhidao黑色*/
+  }
   //时序图
   .SXT {
     height: 150px;
@@ -1286,6 +1310,7 @@ background:#000; /*设置div背景色为zhidao黑色*/
     border-radius: 0px;
     text-align: center;
   }
+
 
   .el-input.is-disabled .el-input__inner {
     background-color: #ffffff;
@@ -1347,31 +1372,38 @@ background:#000; /*设置div背景色为zhidao黑色*/
   #font span:nth-child(3) {
     color: red;
   }
-  .formYS .el-input__inner{
-     /* // 表格样式调整 */
-   
+  .formYS .el-input__inner {
+    /* // 表格样式调整 */
+
     border-left: none;
     border-right: none;
     border-top: none;
     border-radius: 0px;
-    text-align: center;
-}
-.formYS .el-input.is-disabled .el-input__inner{
+    text-align: left;
+  }
+  .formYS .el-input.is-disabled .el-input__inner {
     background-color: #ffffff;
-    color:#606266
-}
-//图片样式
- .el-image__error, .el-image__inner, .el-image__placeholder{
-    width:500px;
+    color: #606266;
+  }
+  //图片样式
+  .el-image__error,
+  .el-image__inner,
+  .el-image__placeholder {
+    width: 500px;
     height: 200px;
-}
-.table2 {
-   display: table-cell!important;
-  /* width: 100%; */
-}
-.table3 {
-   display: table-cell!important;
-  /* width: 100%; */
-}
+  }
+  .table2 {
+    display: table-cell !important;
+    /* width: 100%; */
+  }
+  .table3 {
+    display: table-cell !important;
+    /* width: 100%; */
+  }
+  //营业制造
+  .yingyezhizhao {
+    width: 600px;
+    height: 300px;
+  }
 }
 </style>

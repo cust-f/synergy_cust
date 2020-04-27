@@ -531,7 +531,7 @@ categorySelect(data) {
 .selectCard {
   margin-top: 35px;
   /* padding-right: 55px; */
-  width: 1000px;
+  width: 1100px;
   font-size: 14px;
 }
 .selectCard .span {

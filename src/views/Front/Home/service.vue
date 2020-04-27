@@ -17,17 +17,18 @@
     <!--第二行-->
     <el-row :gutter="gutterCount">
       <el-col :span="15" :push="4" :pull="pullCount">
-        <div class="grid-content2 bg-purple-dark">
+        
           <el-divider></el-divider>
-          <h3 style=" width :50%; float:left">{{list.taskName}}</h3>
-          <div class="grid-content3" style="margin-top:50px">
-            <p>&nbsp;</p>
+          
+          <div class="grid-content3" style="margin-top:0px">
+            <h3 style=" width :50%;">{{list.taskName}}</h3>
+             <p>&nbsp;</p>
             <p style=" width :50%; float:left">所在地区：{{company.address}}</p>
             <p style=" width :50%;float:left">需求类别：{{list.taskType}}</p>
 
             <p>&nbsp;</p>
             <p style=" width :50%; float:left">行业类别：{{list.taskCategoryMain}}</p>
-            <p style=" width :50%; float:left">子类别：{{list.taskCategoryPart}}</p>
+            <p style=" width :50%; float:left">二级类别：{{list.taskCategoryPart}}</p>
             <p>&nbsp;</p>
             <!-- <p>&nbsp;</p> -->
             <p style=" width :50%; float:left">开始时间：{{list.beginTime| dataFormat("yyyy-MM-dd hh:mm")}}
@@ -37,7 +38,7 @@
             <!-- <p>&nbsp;</p> -->
             <!-- <p>&nbsp;</p> -->
           </div>
-        </div>
+        
       </el-col>
     </el-row>
     <!--第三行-->
@@ -52,12 +53,13 @@
           <div class="right">
           <ul> 
             <li>企业名称:{{company.companyName}}</li>
-          <br>
-            <li>企业地区：{{company.address}}</li>
-            <br>
+          
+            
+            
             <li>联系方式：{{company.officeNumber}}</li>
-         <br>
+         
             <li>主营范围：{{company.product}}</li>
+            <li>企业地区：{{company.address}}</li>
           </ul>
           </div>
         </div>
@@ -71,12 +73,13 @@
           </div>
           <div class="right" ><ul >
             <li>企业名称：{{supplier.companyName}}</li>
-            <br>
-            <li>企业地区：{{supplier.address}}</li>
-           <br>
+            
+            
+           
             <li>联系方式：{{supplier.officeNumber}}</li>
-            <br>
+            
             <li>主营范围：{{supplier.product}}</li>
+            <li>企业地区：{{supplier.address}}</li>
           </ul></div>
           
           </div>
@@ -99,12 +102,15 @@
     <!--第四行-->
     <el-row :gutter="gutterCount">
       <el-col :span="16" :push="pushCount" :pull="pullCount">
-        <div class="grid-content5 bg-purple-dark">
-          <h3
-            style="margin-top:-150px;margin-left:5px; padding: 0 10px; border-left: 3px solid #ff5500;"
-          >完成情况</h3>
-          <el-divider></el-divider>
-          <br>
+<!--         
+  <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+    <el-tab-pane
+    :key="item.name"
+    v-for="(item, index) in editableTabs"
+    :label="item.title"
+    :name="item.name" -->
+  >
+       
           <radar-chart
           :radarData="radarData"
           ref="QradarChart"></radar-chart><br>
@@ -131,17 +137,15 @@
       <label >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成质量:</label>   
        <br/> <br/>
       </el-form>
+
       <span id="one"></span>
       <span id="two"></span>
       <span id="three"></span>
     </div>
-          <!-- <p style="line-height:40px">
-            &nbsp;&nbsp;&nbsp;&nbsp;1.截至2018年9月底，全国机动车保有量达3.22亿辆，其中汽车保有量达2.35亿辆，占机动车总量的72.91%。
-            &nbsp;2.其中，以个人名义登记的小微型载客汽车（私家车）保有量达1.84亿辆，占汽车总量的78.49%。
-            &nbsp;3.2018年以来，全国私家车保有量月均增加161万辆，保持持续快速增长。
-            &nbsp;4.这些都是广大的流量载体，实行一贴双码，免费发放给车主挪车贴即获得广告位，庞大的广告位即可招商打广告，广告主和广告商诞生。三方进行相互促进，产生循环的可只持续发展圈子，各取所需。
-          </p> -->
-        </div>
+         
+<!--         
+          </el-tab-pane>
+</el-tabs> -->
       </el-col>
     </el-row>
   </div>
@@ -232,9 +236,24 @@ export default {
       //合同管理状态按钮显示隐藏
       contractManagementStatus:0,
       //设计任务状态按钮显示隐藏
-      designState:0
+      designState:0,
+
+      activeName: '2',
+        editableTabs: [{
+          title: 'Tab 1',
+          name: '1',
+          content: 'Tab 1 content'
+        }, {
+          title: 'Tab 2',
+          name: '2',
+          content: 'Tab 2 content'
+        }],
+        tabIndex: 2
+      
+    
 
     };
+    
   },
   created() {
     this.getParams();
@@ -450,7 +469,7 @@ export default {
 }
 .grid-content2 {
   font-size: 24px;
-  height: 150px;
+  height: 0px;
 }
 .grid-content3 {
   font-size: 17px;
