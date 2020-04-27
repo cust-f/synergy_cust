@@ -29,7 +29,7 @@
           <div class="Right">
             <div>
               <div class="title-detail">
-                <font>{{taskId}}</font>
+                <font>{{taskID}}</font>
                 <font>{{applyList.taskName}}</font>
               </div>
             </div>
@@ -200,7 +200,7 @@ export default {
       ],
       beginTime1: "",
       deadline1: "",
-      taskId: 43,
+      taskID:0,
       publishingCompanyId: 0,
       userName: "supplier",
       applyDiaLog: false,
@@ -222,12 +222,12 @@ export default {
     }
   },
   methods: {
-    // //获取详情值
-    // getParams() {
-    //   var routerParams = this.$route.query.taskId;
-    //   this.taskID = routerParams;
-    //   console.log(routerParams);
-    // },
+    //获取详情值
+    getParams() {
+      var routerParams = this.$route.query.taskID;
+      this.taskID = routerParams;
+      console.log(routerParams);
+    },
     //申请弹窗
     applyTask() {
       this.applyDiaLog = true;
@@ -236,7 +236,7 @@ export default {
     showTaskData() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskID
       });
       console.log(data);
       that
@@ -270,7 +270,7 @@ export default {
     showApply() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId,
+        taskId: this.taskID,
         userName: this.userName
       });
       console.log(data);
@@ -295,16 +295,13 @@ export default {
     goBack() {
       this.$router.push({
         path: "/xuqiuyilan",
-        query: {
-          taskId: this.taskId
-        }
       });
     },
     //申请数据上传
     apply() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId,
+        taskId: this.taskID,
         taskName: this.applyList.taskName,
         publishingCompanyId: this.publishingCompanyId,
         userName: this.userName,
