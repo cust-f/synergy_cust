@@ -4,11 +4,11 @@
       <el-row>
         <div>
           <div class="title">
-            <span @click="goHome()">首页</span>
-            <span>&nbsp; > &nbsp;</span>
-            <span @click="goBack()">需求一览</span>
-            <span>&nbsp; > &nbsp;</span>
-            <span>需求详情</span>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item :to="{ path: '/xuqiuyilan' }">需求一览</el-breadcrumb-item>
+              <el-breadcrumb-item :to="{ path: 'admin/xuqiuyilanDetail' }">需求详情</el-breadcrumb-item>
+            </el-breadcrumb>
           </div>
           <br />
         </div>
@@ -18,7 +18,7 @@
         <div class="np_top">
           <div class="preview">
             <div class="BigTime">
-              <el-carousel height="400" width="400" direction="vertical" arrow="always">
+              <el-carousel height="200" width="200" direction="vertical" arrow="always">
                 <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
                   <img :src="item.idView" class="images" />
                 </el-carousel-item>
@@ -62,20 +62,6 @@
                   <br />
                   <li>
                     <a>
-                      需求开始时间：
-                      <font>{{applyList.beginTime|formatDate}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      需求结束时间：
-                      <font>{{applyList.deadline|formatDate}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
                       发布需求企业：
                       <font>{{applyList.companyName}}</font>
                     </a>
@@ -86,16 +72,141 @@
             </ul>
           </div>
         </div>
-        <div class="white">
-          <el-tabs type="card">
+        <div class=".np_top1">
+          <el-tabs type="border-card">
             <el-tab-pane label="需求详情">
-              <div>
-                <div class="message">{{companyList.introduction}}</div>
+              <div class="Right1">
+                <ul class="ul02">
+                  <el-row>
+                    <el-col :span="8" class="task-detail">
+                      <li>
+                        <a>
+                          需求开始时间：
+                          <font>{{applyList.beginTime|formatDate}}</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          需求截止时间：
+                          <font>{{applyList.deadline|formatDate}}</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          需求方联系电话：
+                          <font>{{applyList.businessTel}}</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          发布企业：
+                          <font>{{companyList.companyName}}</font>
+                        </a>
+                      </li>
+                      <br />
+
+                      <li>
+                        <a>
+                          行业类别：
+                          <font>{{applyList.taskCategoryMain}}</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          需求类别：
+                          <font>{{applyList.taskCategoryPart}}</font>
+                        </a>
+                      </li>
+                      <br />
+                    </el-col>
+                  </el-row>
+                </ul>
+              </div>
+              <div class="left">
+                <el-card class="box-card">
+                  <div slot="header" class="clearfix">
+                    <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107;font-size: 18px; ">企业简介</div>
+                  </div>
+                  <div>文件1</div>
+                  <div>文件2</div>
+                  <div>文件3</div>
+                </el-card>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="需求方详情">
+              <div class="Right1">
+                <div class="title-company-detail">
+                  <font @click="companyDetail()">{{companyList.companyName}}</font>
+                </div>
+                <br />
                 <el-divider></el-divider>
+                <ul class="ul02">
+                  <el-row>
+                    <el-col :span="8" class="task-detail">
+                      <li>
+                        <a>
+                          经营范围：
+                          <font>{{companyList.product}}</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          企业所在省：
+                          <font>{{companyList.province}}省</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          企业所在市：
+                          <font>{{companyList.city}}市</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          企业地址：
+                          <font>{{companyList.address}}</font>
+                        </a>
+                      </li>
+                      <br />
+
+                      <li>
+                        <a>
+                          联系电话：
+                          <font>{{companyList.businessTel}}</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          email：
+                          <font>{{companyList.email}}</font>
+                        </a>
+                      </li>
+                      <br />
+                    </el-col>
+                  </el-row>
+                </ul>
+              </div>
+              <div class="left">
+                <el-card class="box-card">
+                  <div slot="header" class="clearfix">
+                    <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;">企业简介</div>
+                  </div>
+                  <div>{{companyList.introduction}}</div>
+                </el-card>
               </div>
             </el-tab-pane>
           </el-tabs>
         </div>
+        <br />
+        <br />
         <div class="dialog-footer">
           <el-button v-show="applyIf === 0" type="warning" @click="applyTask()">申请任务</el-button>
         </div>
@@ -115,43 +226,8 @@
       <el-form ref="form" :model="applyList" label-width="120px">
         <el-row>
           <el-col :span="20">
-            <el-form-item label="行业类别:">
-              <el-input v-bind:value="applyList.taskCategoryMain" :readonly="true"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-row></el-row>
-          <el-col :span="20">
-            <el-form-item label="所在地区:">
-              <el-input v-model="companyList.address" :readonly="true"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="20">
-            <el-form-item label="需求类型:">
-              <el-input v-model="applyList.taskTypeName" :readonly="true"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="20">
-            <el-form-item label="需求开始时间:">
-              <el-input v-bind:value="applyList.beginTime|formatDate" :readonly="true"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-row></el-row>
-          <el-col :span="20">
-            <el-form-item label="需求截至时间:">
-              <el-input v-bind:value="applyList.deadline|formatDate" :readonly="true"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="20">
             <el-form-item label="联系方式:">
-              <el-input v-model="companyList.businessTel"></el-input>
+              <el-input v-model="applyList1.supplierTel"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -190,11 +266,18 @@ export default {
         }
       ],
       companyList: {
+        companyId:0,
+        province: "",
+        city: "",
         companyName: "",
         companyCategory: "",
         address: "",
         businessName: "",
-        introduction: ""
+        introduction: "",
+        product: "",
+        address: "",
+        businessTel: "",
+        email: ""
       },
       TaskDetail: "",
       TaskDetailContent: "",
@@ -211,7 +294,14 @@ export default {
       //判断企业是否申请过此任务
       applyIf: 0,
       //接受企业名称
-      companyName1: ""
+      companyName1: 0,
+      companyId: 0,
+      //联系电话
+      applyList1: [
+        {
+          supplierTel: ""
+        }
+      ]
     };
   },
   created() {
@@ -254,7 +344,7 @@ export default {
           console.log(response);
           this.applyList = response.data.allData.a[0];
           this.companyList = response.data.allData.b[0];
-          console.log(response.data.allData.a[0].taskType);
+          companyId = response.data.allData.b[0].companyId;
           if (response.data.allData.a[0].taskType == 1) {
             this.applyList.taskTypeName = "流通";
           } else {
@@ -305,21 +395,38 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID,
         taskName: this.applyList.taskName,
-        publishingCompanyId: this.applyList.companyName,
+        publishingCompanyId: this.companyList.companyId,
         userName: this.userName,
         taskType: this.applyList.taskType,
         taskCategoryMain: this.applyList.taskCategoryMain,
         taskCategoryMainId: this.applyList.taskCategoryMainId,
         taskCategory: this.applyList.taskCategory,
-        taskCategoryPart: this.applyList.taskCategoryPart
+        taskCategoryPart: this.applyList.taskCategoryPart,
+        supplierTel: this.applyList1.supplierTel
       });
-      that.axios({
-        method: "post",
-        url: "/api/xuqiuyilan/addApplyInformational",
-        data: data
-      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/addApplyInformational",
+          data: data
+        })
+        .catch(error => {
+          console.log(error);
+          if (error != null) {
+            this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+              type: "warning"
+            });
+          }
+        });
       this.$message.success("提交成功");
       this.$router.go(0);
+    },
+    companyDetail(companyId) {
+      console.log("触发了呀");
+      this.$router.push({
+        path: "company/excellentCompanyDetail",
+        query: { companyId: companyId }
+      });
     }
   }
 };
@@ -490,18 +597,181 @@ export default {
     width: 87%;
   }
   .ul02 {
-    width: 920px;
+    width: 900px;
   }
   .task-detail {
     font-size: 16px;
+    width: 900px;
   }
   .title-detail {
     color: #ff7720;
     font-size: 25px;
     float: left;
   }
+  .title-company-detail {
+    color: #0f0e0d;
+    font-size: 20px;
+    float: left;
+  }
   .dialog-footer {
     text-align: center;
+  }
+  .np_top1 {
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 0px;
+
+    /* margin-left: 305.6px; */
+
+    margin-right: 65.61px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 10px;
+
+    padding-left: 10px;
+
+    padding-right: 10px;
+
+    padding-top: 10px;
+
+    text-decoration: none;
+
+    width: 1280px;
+  }
+  .Right1 {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    float: left;
+
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 10px;
+
+    margin-left: 0px;
+
+    margin-right: 0px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 0px;
+
+    padding-left: 0px;
+
+    padding-right: 0px;
+
+    padding-top: 0px;
+
+    text-decoration: none;
+
+    width: 600px;
+  }
+  .box-card {
+    width: 480px;
+  }
+  .Right1 {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    float: left;
+
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 10px;
+
+    margin-left: 0px;
+
+    margin-right: 0px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 0px;
+
+    padding-left: 0px;
+
+    padding-right: 0px;
+
+    padding-top: 0px;
+
+    text-decoration: none;
+
+    width: 600px;
+  }
+  .np_top {
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 0px;
+
+    margin-right: 65.61px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 10px;
+
+    padding-left: 10px;
+
+    padding-right: 10px;
+
+    padding-top: 10px;
+
+    text-decoration: none;
+
+    width: 1280px;
+  }
+  .left {
+    margin-left: 30px;
+    float: right;
   }
 }
 </style>

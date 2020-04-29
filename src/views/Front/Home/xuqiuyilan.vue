@@ -488,7 +488,7 @@ categorySelect(data) {
     companyDetail(id) {
       console.log("触发了呀");
       this.$router.push({
-        path: "admin/xuqiuyilanDetail.vue",
+        path: "admin/xuqiuyilanDetail",
         query: { taskID: id }
       });
     }

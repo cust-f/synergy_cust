@@ -307,7 +307,7 @@
           <br />
           <br />
         </div>
-      </div> -->
+      </div>-->
 
       <div v-show="show>1">
         <div v-show="designcount > 0">
@@ -343,9 +343,9 @@
             </el-table-column>
 
             <el-table-column label="操作" width="180" align="center">
-               <template slot-scope="scope">
+              <template slot-scope="scope">
                 <el-button
-                  @click="upLoadConT(scope.row)"
+                  @click="upLoadCirculationPlan(scope.row)"
                   type="text"
                   size="small"
                   v-show="scope.row.contractState===0"
@@ -358,7 +358,7 @@
                   <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
                 <el-button
-                  @click="upLoadConT(scope.row)"
+                  @click="upLoadCirculationPlan(scope.row)"
                   type="text"
                   size="small"
                   v-show="scope.row.contractState===3"
@@ -566,6 +566,30 @@
         </el-upload>
       </el-dialog>
 
+      <!-- 上传流通规格书 -->
+      <el-dialog title="流通规格书" :visible.sync="upCirculation" width="400px" :before-close="handleClose">
+        <el-upload
+          ref="upload"
+          action="/api/supplier/import"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-success="handleAvatarSuccess2"
+          :limit="1"
+          :auto-upload="false"
+        >
+          <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
+          <br />
+          <el-button
+            style="margin-left:10px;"
+            size="small"
+            type="success"
+            @click="submitUpload"
+            align-center
+          >上传到服务器</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
+        </el-upload>
+      </el-dialog>
+
       <!-- 流通拒绝原因弹出框 -->
       <!-- <el-dialog title="请输入流通不通过的原因" :visible.sync="designRefuseReason" width="50%">
         <el-row>
@@ -677,7 +701,7 @@ export default {
           demandorCheckDesignTime: "",
           designCount: "",
           taskName: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       //步骤条数据
@@ -758,7 +782,8 @@ export default {
       giveDesigner: 0, //人员分配按钮控制
       designerNub: 0,
       reMarkId: 1,
-      designRefuseReason: false
+      designRefuseReason: false,
+      upCirculation:false,
     };
   },
 
@@ -1134,6 +1159,10 @@ export default {
     upLoadConT() {
       this.conbook = true;
     },
+    //上传流通计划书
+    upLoadCirculationPlan() {
+      this.upCirculation = true;
+    },
     //步骤图数据查找
     getBZData() {
       var that = this;
@@ -1236,6 +1265,26 @@ export default {
       that.axios({
         method: "post",
         url: "/api/supplier/textImportPlan",
+        data: data
+      });
+      this.$router.go(0);
+    },
+    handleAvatarSuccess2(response, file, fileList) {
+      this.technicalFile1 = response;
+      this.$notify.success({
+        title: "成功",
+        message: `文件上传成功`
+      });
+      console.log(response);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        Text_File1: this.technicalFile1
+      });
+      console.log(data);
+      that.axios({
+        method: "post",
+        url: "/api/supplier/textImportCirPlan",
         data: data
       });
       this.$router.go(0);
