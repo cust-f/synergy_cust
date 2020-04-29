@@ -10,7 +10,7 @@
 <div class="newTask" >
   <el-container>
     <el-main>
-      <div class="newTask">
+      <div >
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           新增需求
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -53,7 +53,7 @@
                     style="width:100%;"
                   >
                     <el-option
-                      width="180px !important"
+                      width="180"
                       v-for="coo1 in FZR"
                       :key="coo1"
                       :label="coo1"
@@ -125,18 +125,18 @@
           <el-form-item label="添加附件">
             <el-upload
               class="upload-demo"
-              action="http://127.0.0.1:8081/MainTaskInformation/import"
+              action="/api/MainTaskInformation/import"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
               :before-remove="beforeRemove"
               :on-success="handleAvatarSuccess"
               multiple
-              :limit="1"
+              :limit="10"
               :on-exceed="handleExceed"
               :file-list="fileList"
             >
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
+              <div slot="tip" class="el-upload__tip"></div>
             </el-upload>
           </el-form-item>
         </el-form>
@@ -315,6 +315,52 @@
               </el-col>
                 
             </el-row>
+
+             <el-row v-if="sfsmkj">
+                  <el-col :span="11">
+                    <el-form-item label="是否私密指定">
+                      <el-select
+                        v-model="cooList.shifousimi"
+                        placeholder="请选择是或者否"
+                        class="selectsupply"
+                        @change="simizhiding"
+                        style="width:100%;"
+                      >
+                        <el-option
+                          width="180"
+                          v-for="coo in shifousimi"
+                          :key="coo.id"
+                          :label="coo.label"
+                          :value="coo.id"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="11">
+                    <el-form-item label="私密指派" :style="{display:sm}">
+                      <el-input
+                        placeholder="仅有该供应方可见"
+                        v-model="input"
+                        :disabled="true"
+                        :style="{display:sm}"
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="11">
+                    <el-form-item label="非私密指派" :style="{display:busm}">
+                      <el-input
+                        placeholder="全部可见"
+                        v-model="input"
+                        :disabled="true"
+                        :style="{display:busm}"
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
+                  
+                </el-row>
+
             
             <el-row>
               <el-col :span="22">
@@ -333,12 +379,12 @@
                 :before-remove="beforeRemove"
                 :on-success="handleAvatarSuccess"
                 multiple
-                :limit="1"
+                :limit="10"
                 :on-exceed="handleExceed"
                 :file-list="fileList"
               >
                 <el-button size="small" type="primary">点击上传</el-button>
-                <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
+                <div slot="tip" class="el-upload__tip"></div>
               </el-upload>
             </el-form-item>
           </el-form>
@@ -401,8 +447,11 @@ export default {
 
   data() {
     return {
+      shangchuancishu:0,
             usernameX:localStorage.getItem("ms_username"),
-
+            sfsmkj:false,//是否私密指派
+sm:"none",//私密
+      busm:"none",//不私秘
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -422,7 +471,8 @@ export default {
       selectCateKeys1: [],
 
       //上传的文件路径
-      technicalFile: "null",
+      technicalFile: [],
+      technicalFileWanzheng:"",
       //只能被调用一次
       firstPlayFlag: true, // 第一次播放标记
       //供应商传值
@@ -454,6 +504,13 @@ export default {
           label: "是"
         },
         { id: "1", label: "否" }
+      ],
+      shifousimi: [
+        
+        { id: "1", label: "是" },{
+          id: "0",
+          label: "否"
+        },
       ],
       FZR:[
         {
@@ -533,7 +590,7 @@ export default {
           supplyDesigner: ""
         }
       ],
-      cooList: { supplyCompany: "" },
+      cooList: { supplyCompany: "",shifousimi:"", },
       liebieList: { supplyCompany: "" },
       form: {},
       name: "",
@@ -597,7 +654,7 @@ export default {
         var that = this;
         var data = Qs.stringify({
           userName: this.usernameX,
-          technicalFile: this.technicalFile,
+          technicalFile: this.technicalFileWanzheng,
           name: this.name,
           mainStaskTypeID: this.mainStaskTypeID,
           subStaskTypeID:this.subStaskTypeID,
@@ -611,7 +668,7 @@ export default {
           .axios({
             method: "post",
             url:
-              "http://127.0.0.1:8081/MainTaskInformation/addMainTaskInformation",
+              "/api/MainTaskInformation/addMainTaskInformation",
             data: data
           })
           .then(response => {
@@ -621,6 +678,7 @@ export default {
               console.log(this.zzzz);
               this.$message.success("提交成功");
               this.kongzhi = false;
+              this.technicalFileWanzheng = "";
             }
           })
           .catch(error => {
@@ -644,8 +702,11 @@ export default {
       console.log(file);
     },
     handleAvatarSuccess(response, file, fileList) {
-      this.technicalFile = response;
-      console.log(response);
+
+      this.technicalFile[this.shangchuancishu] = response;
+      this.technicalFileWanzheng = this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu]
+      this.shangchuancishu = this.shangchuancishu+1;
+      console.log(this.technicalFileWanzheng);
     },
     invitate(coo) {
       console.log(coo);
@@ -654,10 +715,26 @@ export default {
         //console.log(coo);
         this.visiblehexin = "inline";
         this.shenqing = "none";
+                this.sfsmkj = true;
       } else {
         //console.log(coo);
         this.shenqing = "inline";
         this.visiblehexin = "none";
+                this.sfsmkj = false;
+      }
+    },
+    
+    simizhiding(coo) {
+      console.log(coo);
+
+      if (coo == 0) {
+        //console.log(coo);
+        this.busm = "inline";
+        this.sm = "none";
+      } else {
+        //console.log(coo);
+        this.sm = "inline";
+        this.busm = "none";
       }
     },
     // getdata() {
@@ -757,6 +834,10 @@ export default {
           type: "warning"
         });
       } else {
+                if(this.cooList.shifousimi !=1){
+        this.cooList.shifousimi = 0;
+        console.log("是否私密" + this.cooList.shifousimi)
+      }
         var that = this;
         var data = Qs.stringify({
           userName: this.usernameX,
@@ -767,11 +848,12 @@ export default {
           mainStaskTypeID:this.mainStaskTypeID,
           subStaskTypeID: this.subStaskTypeID,
           yaoqing: this.cooList.shifouyaoqing,
+          sssm:this.cooList.shifousimi,
           taskType: this.addList.taskType,
           mainTaskName: this.name,
           taskXiangxi: this.addList.TaskXiangXi,
           mainTaskID: this.mainStaskID,
-          Technonlgy_File: this.technicalFile,
+          Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.addList.Telphone,
           SupperListINt: this.SupplierListInt
         });
@@ -798,7 +880,9 @@ export default {
         this.addVisible = false;
         this.shuju.push(this.addList);
         this.addList = {};
+                      this.technicalFileWanzheng = "";
         this.selectCateKeys1 = {};
+        
       }
     },
     // 编辑操作
@@ -806,7 +890,11 @@ export default {
       this.idx = index;
       this.form = row;
       this.editVisible = true;
-    }
+    },
+    //控制上传
+     handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
   }
 };
 </script>
@@ -815,6 +903,9 @@ export default {
 .newTask{
 .xuanzeqi{
   width: 180px !important;
+}
+.el-select-dropdown el-popper{
+  min-width:180px;
 }
 
 .el-select .el-input__inner .selectsupply {
