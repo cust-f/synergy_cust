@@ -23,11 +23,7 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskType" sortable label="需求类型">
-        <template slot-scope="scope">
-          <span v-if="scope.row.taskType === 1">类型1</span>
-          <span v-else-if="scope.row.taskType === 2">类型2</span>
-        </template>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型">
       </el-table-column>
 
       <el-table-column prop="publishingCompanyName" sortable label="发布需求企业"></el-table-column>
@@ -83,7 +79,8 @@ export default {
           taskType: "",
           companyName: "",
           beginTime: "",
-          deadline: ""
+          deadline: "",
+          taskCategoryPart:""
         }
       ],
       //接受表单数据
@@ -131,7 +128,7 @@ export default {
     Det(row) {
       console.log(row.taskId);
       this.$router.push({
-        path: "/admin/Det",
+        path: "/admin/designDet",
         query: {
           taskId: row.taskId
         }

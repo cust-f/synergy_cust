@@ -33,34 +33,28 @@
                 <font>{{applyList.taskName}}</font>
               </div>
             </div>
+            <br />
             <el-divider></el-divider>
             <ul class="ul02">
               <el-row>
                 <el-col :span="8" class="task-detail">
                   <li>
                     <a>
-                      价格：
-                      <font>面议</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      限制类别：
+                      行业类别：
                       <font>{{applyList.taskCategoryMain}}</font>
                     </a>
                   </li>
                   <br />
                   <li>
                     <a>
-                      任务类别：
+                      需求类别：
                       <font>{{applyList.taskCategoryPart}}</font>
                     </a>
                   </li>
                   <br />
                   <li>
                     <a>
-                      需求类型:
+                      需求类型：
                       <font v-if="applyList.taskType === 1">流通需求</font>
                       <font v-if="applyList.taskType === 0">设计需求</font>
                     </a>
@@ -68,14 +62,25 @@
                   <br />
                   <li>
                     <a>
-                      其他：
-                      <font></font>
+                      需求开始时间：
+                      <font>{{applyList.beginTime|formatDate}}</font>
                     </a>
                   </li>
                   <br />
-                  <div class="applybutten">
-                    <el-button v-show="applyIf === 0" type="warning" @click="applyTask()">申请任务</el-button>
-                  </div>
+                  <li>
+                    <a>
+                      需求结束时间：
+                      <font>{{applyList.deadline|formatDate}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      发布需求企业：
+                      <font>{{applyList.companyName}}</font>
+                    </a>
+                  </li>
+                  <br />
                 </el-col>
               </el-row>
             </ul>
@@ -83,7 +88,7 @@
         </div>
         <div class="white">
           <el-tabs type="card">
-            <el-tab-pane label="企业信息">
+            <el-tab-pane label="需求详情">
               <div>
                 <div class="message">{{companyList.introduction}}</div>
                 <el-divider></el-divider>
@@ -91,22 +96,31 @@
             </el-tab-pane>
           </el-tabs>
         </div>
+        <div class="dialog-footer">
+          <el-button v-show="applyIf === 0" type="warning" @click="applyTask()">申请任务</el-button>
+        </div>
       </el-card>
     </div>
 
     <!-- 申请任务弹出框 -->
-    <el-dialog title="申请任务弹出框" :visible.sync="applyDiaLog" width="50%">
+    <el-dialog
+      title="申请任务"
+      :visible.sync="applyDiaLog"
+      width="30%"
+      style="padding: 0 10px; border-left: 3px solid #4e58c5;"
+    >
       <el-row>
         <el-col :span="8"></el-col>
       </el-row>
       <el-form ref="form" :model="applyList" label-width="120px">
         <el-row>
-          <el-col :span="11">
+          <el-col :span="20">
             <el-form-item label="行业类别:">
               <el-input v-bind:value="applyList.taskCategoryMain" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-row></el-row>
+          <el-col :span="20">
             <el-form-item label="所在地区:">
               <el-input v-model="companyList.address" :readonly="true"></el-input>
             </el-form-item>
@@ -114,12 +128,7 @@
         </el-row>
 
         <el-row>
-          <el-col :span="11">
-            <el-form-item label="业务联系方式:">
-              <el-input v-model="companyList.businessTel" :readonly="true"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="11">
+          <el-col :span="20">
             <el-form-item label="需求类型:">
               <el-input v-model="applyList.taskTypeName" :readonly="true"></el-input>
             </el-form-item>
@@ -127,31 +136,29 @@
         </el-row>
 
         <el-row>
-          <el-col :span="11">
+          <el-col :span="20">
             <el-form-item label="需求开始时间:">
               <el-input v-bind:value="applyList.beginTime|formatDate" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-row></el-row>
+          <el-col :span="20">
             <el-form-item label="需求截至时间:">
               <el-input v-bind:value="applyList.deadline|formatDate" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-
         <el-row>
-          <el-col :span="11" v-if="circulationQuantityIf ===0">
-            <el-form-item label="流通数量:">
-              <template>
-                <el-input-number  v-model="circulationQuantity" :step="100" step-strictly></el-input-number>
-              </template>
+          <el-col :span="20">
+            <el-form-item label="联系方式:">
+              <el-input v-model="companyList.businessTel"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
+        <el-form-item label-width="0" class="dialog-footer">
+          <el-button type="warning" @click="apply()">确认申请</el-button>
+        </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="warning" @click="apply()">确认申请</el-button>
-      </span>
     </el-dialog>
   </div>
 </template>
@@ -164,14 +171,11 @@ export default {
   name: "xuqiuyilanDetail",
   data() {
     return {
-      circulationQuantity: 0,
-      //流通数量控制器
-      circulationQuantityIf:1,
       //申请框
       applyList: [
         {
           taskName: "",
-          publishingCompanyId: 0,
+          companyId: 0,
           taskType: "",
           beginTime: "",
           deadline: "",
@@ -179,9 +183,10 @@ export default {
           taskTypeName: "",
           applyTime: "",
           taskCategoryMain: "",
-          taskCategoryMainId:0,
-          taskCategory:"",
-          taskCategoryPart:0
+          taskCategoryMainId: 0,
+          taskCategory: "",
+          taskCategoryPart: 0,
+          companyName: ""
         }
       ],
       companyList: {
@@ -200,8 +205,7 @@ export default {
       ],
       beginTime1: "",
       deadline1: "",
-      taskID:0,
-      publishingCompanyId: 0,
+      taskID: 40,
       userName: "supplier",
       applyDiaLog: false,
       //判断企业是否申请过此任务
@@ -213,6 +217,7 @@ export default {
   created() {
     this.showTaskData();
     this.showApply();
+    // this.getParams();
   },
 
   filters: {
@@ -248,13 +253,10 @@ export default {
         .then(response => {
           console.log(response);
           this.applyList = response.data.allData.a[0];
-          this.publishingCompanyId =
-            response.data.allData.a[0].publishingCompanyId;
           this.companyList = response.data.allData.b[0];
           console.log(response.data.allData.a[0].taskType);
-          if ((response.data.allData.a[0].taskType == 1)) {
+          if (response.data.allData.a[0].taskType == 1) {
             this.applyList.taskTypeName = "流通";
-            this.circulationQuantityIf = 0;
           } else {
             this.applyList.taskTypeName = "设计";
           }
@@ -294,7 +296,7 @@ export default {
     //返回首页
     goBack() {
       this.$router.push({
-        path: "/xuqiuyilan",
+        path: "/xuqiuyilan"
       });
     },
     //申请数据上传
@@ -303,14 +305,13 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID,
         taskName: this.applyList.taskName,
-        publishingCompanyId: this.publishingCompanyId,
+        publishingCompanyId: this.applyList.companyName,
         userName: this.userName,
         taskType: this.applyList.taskType,
-        circulationQuantity: this.circulationQuantity,
-        taskCategoryMain:this.applyList.taskCategoryMain,
-        taskCategoryMainId:this.applyList.taskCategoryMainId,
-        taskCategory:this.applyList.taskCategory,
-        taskCategoryPart:this.applyList.taskCategoryPart,
+        taskCategoryMain: this.applyList.taskCategoryMain,
+        taskCategoryMainId: this.applyList.taskCategoryMainId,
+        taskCategory: this.applyList.taskCategory,
+        taskCategoryPart: this.applyList.taskCategoryPart
       });
       that.axios({
         method: "post",
@@ -318,7 +319,6 @@ export default {
         data: data
       });
       this.$message.success("提交成功");
-      this.circulationQuantity = 0;
       this.$router.go(0);
     }
   }
@@ -497,8 +497,11 @@ export default {
   }
   .title-detail {
     color: #ff7720;
-    font-size: 20px;
+    font-size: 25px;
     float: left;
+  }
+  .dialog-footer {
+    text-align: center;
   }
 }
 </style>

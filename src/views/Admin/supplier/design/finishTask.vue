@@ -23,18 +23,13 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskType" sortable label="需求类型">
-        <template slot-scope="scope">
-          <span v-if="scope.row.taskType === 1">类型1</span>
-          <span v-else-if="scope.row.taskType === 2">类型2</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
 
       <el-table-column prop="companyName" sortable label="需求企业"></el-table-column>
 
       <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="finishTime"  sortable label="完成日期">
+      <el-table-column prop="finishTime" sortable label="完成日期">
         <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
@@ -80,7 +75,8 @@ export default {
           companyName: "",
           userId: "",
           supplierName: "",
-          deadline: ""
+          deadline: "",
+          taskCategoryPart:""
         }
       ],
       multipleSelection: [],
@@ -153,7 +149,7 @@ export default {
     Det(row) {
       console.log(row.taskId);
       this.$router.push({
-        path: "/admin/Det",
+        path: "/admin/designDet",
         query: {
           taskId: row.taskId
         }

@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+      <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
@@ -12,28 +11,33 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'beginTime', order: 'ascending'}"
     >
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column label="序号" type="index" width="55" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
+      </el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型">
+      </el-table-column>
 
-      <el-table-column prop="taskLeader" label="数目" align="center"></el-table-column>
+      <el-table-column prop="publishingCompanyName" sortable label="发布需求企业"></el-table-column>
 
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
+      <el-table-column prop="beginTime" sortable label="发布日期" align="center">
+        <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
+      </el-table-column>
+      <el-table-column prop="deadline" sortable label="截止日期">
+        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="jumpResDet() " type="text" size="small">查看详情</el-button>
-
-          <el-button @click="planbook = true" type="text" size="small">接受</el-button>
-
-          <el-button @click="disacceptf=true" type="text" size="small">不接受</el-button>
+        <template slot-scope="scope">
+          <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -47,156 +51,110 @@
         @current-change="handlePageChange"
       ></el-pagination>
     </div>
-
-    <el-dialog title="提示" :visible.sync="acceptf" width="15%" :before-close="handleClose">
-      <span>接受成功,请等待供应商审核</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="acceptf=false">确 定</el-button>
-      </span>
-    </el-dialog>
-
-    <el-dialog title="提示" :visible.sync="disacceptf" width="15%" :before-close="handleClose">
-      <span>拒绝成功</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="disacceptf=false">确 定</el-button>
-      </span>
-    </el-dialog>
-
-    <el-dialog title="上传需求书" :visible.sync="planbook" width="20%" :before-close="handleClose">
-      <el-upload
-        class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        multiple
-        :limit="3"
-        :on-exceed="handleExceed"
-        :file-list="fileList"
-      >
-        <el-button size="small" type="primary">上传需求书</el-button>
-        <div slot="tip" class="el-upload__tip">只能上传doc文件</div>
-      </el-upload>
-      <el-button type="primary" @click="success()">确 定</el-button>
-    </el-dialog>
   </div>
 </template>
 
 
 
 <script>
+import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
-  name: "cPendingResTask",
+  name: "pendingResTask",
+  created() {
+    this.getData();
+  },
 
   data() {
     return {
-      acceptf: false, //接受需求弹窗
-      disacceptf: false,
-      planbook:false,
       query: {
         pageIndex: 1,
         pageSize: 10
       },
-      fileList: [
+
+      tableData: [
         {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+          taskId: "",
+          taskName: "",
+          taskType: "",
+          companyName: "",
+          beginTime: "",
+          deadline: "",
+          taskCategoryPart:""
         }
       ],
       //接受表单数据
       formLabelWidth: "120px",
-      activeName: "first",
-      tableData: [
-        {
-          id: 1,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "50000",
-          date: "2019-11-17"
-        },
-        {
-          id: 2,
-          taskName: "磨床生产",
-          bussessType: "平面磨床制作",
-          publishTask: "杭机集团长春一机有限公司",
-          taskLeader: "40000",
-
-          date: "2019-12-17"
-        },
-        {
-          id: 3,
-          taskName: "通信技术设计",
-          bussessType: "通信技术",
-          publishTask: "哈尔滨海邻科信息技术有限公司",
-          taskLeader: "40000",
-          date: "2019-9-22"
-        },
-        {
-          id: 4,
-          taskName: "发电智能制造",
-          bussessType: "发电装备",
-          publishTask: "哈尔滨电机厂有限责任公司",
-          taskLeader: "40000",
-          date: "2019-11-13"
-        },
-        {
-          id: 5,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "50000",
-          date: "2019-11-17"
-        },
-        {
-          id: 6,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "40000",
-          date: "2019-11-17"
-        },
-        {
-          id: 7,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "60000",
-          date: "2019-11-17"
-        },
-        {
-          id: 8,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "50000",
-          date: "2019-11-17"
-        }
-      ],
-      multipleSelection: [],
-      editVisible: false,
-      addVisible: false,
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      selectname: "",
+      YinCang: 1,
+      userName: ""
     };
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
   },
   created() {
     this.getData();
   },
   methods: {
-    // 全部需求详情页面跳转
-    jumpResDet() {
-      this.$router.push("/admin/cPendingResTaskDet");
+    getData() {
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: "supplier"
+      });
+
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/supplierPendingResConTaskList",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
     },
 
+    //详情跳转
+    Det(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/circulationDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
+    },
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        username: "supplier",
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/searchByConTaskIdInTaskApply",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+      //this.getData();
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
