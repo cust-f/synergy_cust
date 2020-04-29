@@ -91,7 +91,7 @@
               </div>
 
               <el-table
-                :data="tableData"
+                :data="shuju"
                 border
                 class="table"
                 ref="multipleTable"
@@ -279,6 +279,51 @@
                   </el-col>
                 </el-row>
 
+                <el-row v-if="sfsmkj">
+                  <el-col :span="11">
+                    <el-form-item label="是否私密指定">
+                      <el-select
+                        v-model="cooList.shifousimi"
+                        placeholder="请选择是或者否"
+                        class="selectsupply"
+                        @change="simizhiding"
+                        style="width:100%;"
+                      >
+                        <el-option
+                          width="180"
+                          v-for="coo in shifousimi"
+                          :key="coo.id"
+                          :label="coo.label"
+                          :value="coo.id"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="11">
+                    <el-form-item label="私密指派" :style="{display:sm}">
+                      <el-input
+                        placeholder="仅有该供应方可见"
+                        v-model="input"
+                        :disabled="true"
+                        :style="{display:sm}"
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="11">
+                    <el-form-item label="非私密指派" :style="{display:busm}">
+                      <el-input
+                        placeholder="全部可见"
+                        v-model="input"
+                        :disabled="true"
+                        :style="{display:busm}"
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
+                  
+                </el-row>
+
                 <el-row>
                   <el-col :span="22">
                     <el-form-item label="分解任务详细">
@@ -329,6 +374,7 @@ export default {
   prop: {},
   data() {
     return {
+      sfsmkj:false,//是否私密指派
       usernameX: localStorage.getItem("ms_username"),
       //级联选择框的配置对象
       cateProps: {
@@ -359,6 +405,8 @@ export default {
       selVal: "",
       visiblehexin: "none",
       shenqing: "none",
+      sm:"none",//私密
+      busm:"none",//不私秘
       supplyDesigners: ["韩钟工程师", "李林工程师", "张志正工程师"],
       cool: {
         taskCategoryMain: "",
@@ -375,12 +423,16 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
-      tableData: [
+      shuju: [
         {
           taskName: "",
           taskType: "",
           beginTime: "",
-          deadline: ""
+          publishTime:"",
+          taskState:"",
+          deadline: "",
+          taskCategoryMain:"",
+          taskCategoryPart:"",
         }
       ],
       subStaskType: [
@@ -410,24 +462,31 @@ export default {
       ],
       addList: [
         {
-          taskName: null,
-          beginTime: null,
-          deadline: "",
-          TaskState: "",
-          TaskState1: "",
-          TaskXiangXi: "",
+          taskName: "",
           taskType: "",
-          substasktype: "",
-          substasktype1: "",
-          Telphone: "" //电话
+          beginTime: "",
+          publishTime:"",
+          taskState:"",
+          deadline: "",
+          taskCategoryMain:"",
+          taskCategoryPart:"",
         }
       ],
+      //是否申请
       shifou: [
         {
           id: "0",
           label: "是"
         },
         { id: "1", label: "否" }
+      ],
+      //是否私密
+            shifousimi: [
+        
+        { id: "1", label: "是" },{
+          id: "0",
+          label: "否"
+        },
       ],
       multipleSelection: [],
       editVisible: false,
@@ -437,7 +496,7 @@ export default {
       idx: -1,
       id: -1,
       mainTaskID: "",
-      cooList: { shifouyaoqing: "" },
+      cooList: { shifouyaoqing: "" ,shifousimi:"",},
       SupplierListInt: "",
       liebieList: { supplyCompany: "" },
       form: {},
@@ -526,12 +585,18 @@ export default {
     },
     //保存新增
     saveAdd11() {
+      
       //console.log(this.TaskXiangXi)
       if (this.technicalFile == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning"
         });
       } else {
+
+        if(this.cooList.shifousimi !=1){
+        this.cooList.shifousimi = 0;
+        console.log("是否私密" + this.cooList.shifousimi)
+      }
         var that = this;
         var data = Qs.stringify({
           userName: this.usernameX,
@@ -542,6 +607,7 @@ export default {
           mainStaskTypeID: this.mainStaskTypeID,
           subStaskTypeID: this.subStaskTypeID,
           yaoqing: this.cooList.shifouyaoqing,
+          sssm:this.cooList.shifousimi,
           taskType: this.addList.taskType,
           mainTaskName: this.name,
           taskXiangxi: this.addList.TaskXiangXi,
@@ -568,10 +634,12 @@ export default {
               });
             }
           });
-        this.$message.success("提交成功");
-        this.tableData.push(this.addList);
-        this.addList = {};
+        this.$message.success("提交成功");        
         this.addVisible = false;
+        this.shuju.push(this.addList);
+        
+        this.addList = {};
+        this.getData();
         // location.reload()
       }
     },
@@ -583,10 +651,26 @@ export default {
         //console.log(coo);
         this.visiblehexin = "inline";
         this.shenqing = "none";
+        this.sfsmkj = true;
       } else {
         //console.log(coo);
         this.shenqing = "inline";
         this.visiblehexin = "none";
+                this.sfsmkj = false;
+      }
+    },
+
+    simizhiding(coo) {
+      console.log(coo);
+
+      if (coo == 0) {
+        //console.log(coo);
+        this.busm = "inline";
+        this.sm = "none";
+      } else {
+        //console.log(coo);
+        this.sm = "inline";
+        this.busm = "none";
       }
     },
 
@@ -619,7 +703,7 @@ export default {
           this.cool = response.data.allData.a[0];
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
-          this.tableData = response.data.allData.b;
+          this.shuju = response.data.allData.b;
           this.type = response.data.allData.a[0].industry_Type;
           if (this.cool.taskState === 0) {
             this.cool.taskState = "进行中";
@@ -663,7 +747,7 @@ export default {
           // data:this.$store.state.userName
         });
         this.$message.success("废除成功");
-        this.tableData.splice(index, 1);
+        this.shuju.splice(index, 1);
       });
       //   .then(response => {
       //     this.cool = response.data.allData.a[0];

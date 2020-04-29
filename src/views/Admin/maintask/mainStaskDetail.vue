@@ -167,7 +167,7 @@
           @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
-          <el-table-column label="序号" type="index"  align="center"></el-table-column>
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="companyName"  label="供应商"></el-table-column>
           <el-table-column prop="checkPlanState"  label="计划审核状态">
             <template slot-scope="scope">
@@ -228,15 +228,15 @@
         <el-table
           :data="tableData3"
           border
-          class="table3"
+          class="table1"
           ref="multipleTable"
           header-cell-class-name="table-header"
           @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" width="198" label="供应商"></el-table-column>
-          <el-table-column prop="contractState" width="180" label="合同审核状态">
+          <el-table-column prop="acceptCompanyName"  label="供应商"></el-table-column>
+          <el-table-column prop="contractState" label="合同审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.contractState === 0">待上传</span>
               <span v-else-if="+scope.row.contractState === 1">待审核</span>
@@ -244,19 +244,19 @@
               <span v-else-if="+scope.row.contractState === 3">未通过</span>
             </template>
           </el-table-column>
-          <el-table-column prop="uploadContractTime" width="180" label="合同上传时间">
+          <el-table-column prop="uploadContractTime" label="合同上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadContractTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.uploadContractTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkContractTime" width="180" label="合同审核时间">
+          <el-table-column prop="checkContractTime"  label="合同审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkContractTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkContractTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="180" align="center">
+          <el-table-column label="操作"  align="center">
             <template slot-scope="scope">
               <!-- <el-button
                       type="text"
@@ -1080,33 +1080,35 @@ export default {
       console.log("shenme");
       var that = this;
       var data = Qs.stringify({
-        ID: row.id
+        taskID: row.id,
+        leixing:"jihuashu"
       });
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/DownloadJHS",
-          data: data
+          url: "/api/SubstaskInformation/DownloadHTHT",
+          data: data,
         })
         .then(response => {
           console.log("cap");
-          console.log(response.data);
+          console.log(response);
           this.download(response.data, "JHS");
         });
     },
+    
     // 下载文件
     download(data, leixing) {
       if (!data) {
         return;
       }
-      let url = window.URL.createObjectURL(new Blob([data]));
+      let url = window.URL.createObjectURL(new Blob([data], {type: 'application/zip'}));
       let link = document.createElement("a");
       link.style.display = "none";
       link.href = url;
       if (leixing === "JHS") {
-        link.setAttribute("download", "设计文档.docx");
+        link.setAttribute("download", "设计文档.zip");
       } else if (leixing === "HT") {
-        link.setAttribute("download", "合同.docx");
+        link.setAttribute("download", "合同.zip");
       }
       document.body.appendChild(link);
       link.click();
@@ -1159,16 +1161,18 @@ export default {
     HTXZ(row) {
       var that = this;
       var data = Qs.stringify({
-        taskID: row.taskId
+        taskID: row.taskId,
+        leixing:"hetong",
       });
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/DownloadHT",
-          data: data
+          url: "/api/SubstaskInformation/DownloadHTHT",
+          data: data,
+          responseType: 'blob'
         })
         .then(response => {
-          console.log(response.data);
+          console.log(response);
           this.download(response.data, "HT");
         });
     },
