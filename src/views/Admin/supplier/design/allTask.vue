@@ -40,9 +40,9 @@
         <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
       </el-table-column>
 
-      <el-table-column prop="taskType" sortable label="需求类型">
+      <el-table-column prop="taskType" sortable label="行业类别">
         <template slot-scope="scope">
-          <span v-if="scope.row.taskType === 1">类型1</span>
+          <span v-if="scope.row.taskType === 0">设计</span>
           <span v-else-if="scope.row.taskType === 2">类型2</span>
         </template>
       </el-table-column>

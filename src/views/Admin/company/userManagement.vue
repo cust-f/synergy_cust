@@ -116,7 +116,7 @@
                 <el-form-item label="联系方式">
                   <el-input v-model="addList.phone" @blur="animate()"></el-input>
                   <font color="red">
-                    <el-span v-if="this.addList.phone === null">您输入的用户名重复</el-span>
+                    <el-span v-if="this.addList.phone === null">您输入的联系方式格式不正确</el-span>
                   </font>
                 </el-form-item>
                 <!-- <el-form-item label="用户密码">

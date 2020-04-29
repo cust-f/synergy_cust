@@ -29,8 +29,8 @@
           <div class="Right">
             <div>
               <div class="title-detail">
-                <font>{{taskId}}</font>
-                <font>{{cool.taskName}}</font>
+                <font>{{taskID}}</font>
+                <font>{{applyList.taskName}}</font>
               </div>
             </div>
             <el-divider></el-divider>
@@ -47,21 +47,29 @@
                   <li>
                     <a>
                       限制类别：
-                      <font>很多类</font>
+                      <font>{{applyList.taskCategoryMain}}</font>
                     </a>
                   </li>
                   <br />
                   <li>
                     <a>
                       任务类别：
-                      <font>{{companyList.companyCategory}}</font>
+                      <font>{{applyList.taskCategoryPart}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      需求类型:
+                      <font v-if="applyList.taskType === 1">流通需求</font>
+                      <font v-if="applyList.taskType === 0">设计需求</font>
                     </a>
                   </li>
                   <br />
                   <li>
                     <a>
                       其他：
-                      <font>{{cool.all}}</font>
+                      <font></font>
                     </a>
                   </li>
                   <br />
@@ -95,7 +103,7 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="行业类别:">
-              <el-input v-bind:value="companyList.companyCategory" :readonly="true"></el-input>
+              <el-input v-bind:value="applyList.taskCategoryMain" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="11">
@@ -132,10 +140,10 @@
         </el-row>
 
         <el-row>
-          <el-col :span="11">
+          <el-col :span="11" v-if="circulationQuantityIf ===0">
             <el-form-item label="流通数量:">
               <template>
-                <el-input-number v-model="circulationQuantity" :step="100" step-strictly></el-input-number>
+                <el-input-number  v-model="circulationQuantity" :step="100" step-strictly></el-input-number>
               </template>
             </el-form-item>
           </el-col>
@@ -157,20 +165,25 @@ export default {
   data() {
     return {
       circulationQuantity: 0,
-      //需求信息
-      cool: {
-        taskName: "",
-        taskType: ""
-      },
+      //流通数量控制器
+      circulationQuantityIf:1,
       //申请框
-      applyList: {
-        taskType: "",
-        beginTime: "",
-        deadline: "",
-        businessTel: "",
-        taskTypeName: "",
-        applyTime: ""
-      },
+      applyList: [
+        {
+          taskName: "",
+          publishingCompanyId: 0,
+          taskType: "",
+          beginTime: "",
+          deadline: "",
+          businessTel: "",
+          taskTypeName: "",
+          applyTime: "",
+          taskCategoryMain: "",
+          taskCategoryMainId:0,
+          taskCategory:"",
+          taskCategoryPart:0
+        }
+      ],
       companyList: {
         companyName: "",
         companyCategory: "",
@@ -185,20 +198,21 @@ export default {
         { id: 1, idView: require("../company/2.jpg") },
         { id: 2, idView: require("../company/3.jpg") }
       ],
-      taskId: 43,
+      beginTime1: "",
+      deadline1: "",
+      taskID:0,
       publishingCompanyId: 0,
       userName: "supplier",
       applyDiaLog: false,
       //判断企业是否申请过此任务
       applyIf: 0,
       //接受企业名称
-      companyName: ""
+      companyName1: ""
     };
   },
   created() {
     this.showTaskData();
-    this.showCompanyData();
-    this.applyIf();
+    this.showApply();
   },
 
   filters: {
@@ -208,117 +222,104 @@ export default {
     }
   },
   methods: {
-    // //获取详情值
-    // getParams() {
-    //   var routerParams = this.$route.query.taskId;
-    //   this.taskID = routerParams;
-    //   console.log(routerParams);
-    // },
+    //获取详情值
+    getParams() {
+      var routerParams = this.$route.query.taskID;
+      this.taskID = routerParams;
+      console.log(routerParams);
+    },
     //申请弹窗
     applyTask() {
       this.applyDiaLog = true;
     },
     //数据显示
     showTaskData() {
-      console.log("你好");
-      console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskID
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/xuqiuyilan/getAllDet",
+          url: "/api/xuqiuyilan/getAllDet",
           data: data
         })
         .then(response => {
           console.log(response);
-          this.cool = response.data.allData;
-          this.applyList = response.data.allData;
-          this.publishingCompanyId = response.data.allData;
-          if ((response.data.allData.taskType = 1)) {
+          this.applyList = response.data.allData.a[0];
+          this.publishingCompanyId =
+            response.data.allData.a[0].publishingCompanyId;
+          this.companyList = response.data.allData.b[0];
+          console.log(response.data.allData.a[0].taskType);
+          if ((response.data.allData.a[0].taskType == 1)) {
             this.applyList.taskTypeName = "流通";
+            this.circulationQuantityIf = 0;
           } else {
             this.applyList.taskTypeName = "设计";
           }
         });
     },
-    showCompanyData() {
-      var that = this;
-      var data = Qs.stringify({
-        companyId: this.publishingCompanyId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8081/xuqiuyilan/getCompanyDet",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.companyList = response.data.allData;
-        });
-    },
     //返回首页
     goHome() {
       this.$router.push({
-        path: "/Home",
-        query: {
-          taskId: this.taskId
-        }
+        path: "/Home"
       });
     },
     //判断企业是否申请过此任务
-    applyIf() {
+    showApply() {
       var that = this;
       var data = Qs.stringify({
+        taskId: this.taskID,
         userName: this.userName
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/xuqiuyilan/applyIf",
+          url: "/api/xuqiuyilan/applyIf",
           data: data
         })
         .then(response => {
-          this.applyIf = 1;
-          this.companyName = response.data.allData;
+          this.companyName1 = response.data.allData[0].Id;
+          console.log(this.companyName1);
+          if (this.companyName1 == 0) {
+            this.applyIf = 0;
+          } else {
+            this.applyIf = 1;
+          }
+          console.log(this.applyIf);
         });
     },
     //返回首页
     goBack() {
       this.$router.push({
         path: "/xuqiuyilan",
-        query: {
-          taskId: this.taskId
-        }
       });
     },
     //申请数据上传
     apply() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId,
-        taskName: this.cool.taskName,
+        taskId: this.taskID,
+        taskName: this.applyList.taskName,
         publishingCompanyId: this.publishingCompanyId,
         userName: this.userName,
-        beginTime: this.applyList.beginTime,
-        deadline: this.applyList.deadline,
         taskType: this.applyList.taskType,
-        applyTime: this.applyList.applyTime,
-        circulationQuantity: this.circulationQuantity
+        circulationQuantity: this.circulationQuantity,
+        taskCategoryMain:this.applyList.taskCategoryMain,
+        taskCategoryMainId:this.applyList.taskCategoryMainId,
+        taskCategory:this.applyList.taskCategory,
+        taskCategoryPart:this.applyList.taskCategoryPart,
       });
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8081/xuqiuyilan/addApplyInformational",
+        url: "/api/xuqiuyilan/addApplyInformational",
         data: data
       });
       this.$message.success("提交成功");
       this.circulationQuantity = 0;
+      this.$router.go(0);
     }
   }
 };
@@ -492,7 +493,7 @@ export default {
     width: 920px;
   }
   .task-detail {
-    font-size: 18px;
+    font-size: 16px;
   }
   .title-detail {
     color: #ff7720;
