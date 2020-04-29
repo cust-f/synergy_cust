@@ -59,7 +59,7 @@ export default{
           }
         ]
       };
-      myChart.setOption(option);
+      myChart.setOption(option,true);
     },
  
   }

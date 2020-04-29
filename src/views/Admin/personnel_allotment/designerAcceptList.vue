@@ -79,7 +79,7 @@
 
            <el-table-column label="操作" min-width="110px" align="center">
             <template slot-scope="scope">
-              <el-button @click="handleDetail" type="text" size="small">进入工作台</el-button>
+              <el-button @click="handleDetail(scope.row)" type="text" size="small">进入工作台</el-button>
                 <el-button @click="submitTask(scope.row)" type="text" size="small"
                  v-if="scope.row.supplierCheckDesignState===0 || scope.row.supplierCheckDesignState===1 ||scope.row.supplierCheckDesignState===3">任务提交</el-button>
               <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
@@ -278,10 +278,17 @@ export default {
         });
       }
     },
-
-    handleDetail(index, row) {
-      this.$router.push("/admin/personnel_allotment/virtualMachine");
+     handleDetail(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/personnel_allotment/virtualMachine",
+        query: {
+          taskId: row.taskId
+        }
+      });
     },
+
+   
     goBack() {
       this.$router.push("/#");
     },

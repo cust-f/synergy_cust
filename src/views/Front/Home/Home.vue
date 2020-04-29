@@ -60,8 +60,8 @@
       <el-row :gutter="6" class="category" style="margin-bottom:20px;">
         <el-col :span="17">
         <el-row :gutter="20">
-          <el-col :span="8">
-            <el-card shadow="hover">
+          <el-col :span="8" style="padding-left: 0px;">
+            <el-card shadow="hover" pa>
               <div class="category_item">
                 <div
                   class="cate_ietm_title"
@@ -83,7 +83,7 @@
               </div>
             </el-card>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" style="padding-left:0px">
             <el-card shadow="hover" style="float:left">
               <div class="category_item">
                 <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + redPicture + ')' }">
@@ -100,7 +100,7 @@
               </div>
             </el-card>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" style="padding-left:0px;padding-right: 15px;">
             <el-card shadow="hover">
               <div class="category_item">
                 <div class="cate_ietm_title">
@@ -122,7 +122,7 @@
         </el-row>
         <!----这里分类----->
         <el-row :gutter="20" style="margin-top:25px;">
-          <el-col :span="8">
+          <el-col :span="8" style="padding-left: 0px;" >
             <el-card shadow="hover">
               <div class="category_item">
                 <div
@@ -144,7 +144,7 @@
               </div>
             </el-card>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" style="padding-left:0px">
             <el-card shadow="hover">
               <div class="category_item">
                 <div
@@ -163,7 +163,7 @@
               </div>
             </el-card>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" style="padding-left:0px;padding-right: 15px;">
             <el-card shadow="hover">
               <div class="category_item">
                 <div
@@ -186,7 +186,7 @@
           </el-col>
         </el-row></el-col>
                   <!-- 登录模块-->
-          <el-col :span="6" :offset="1">
+          <el-col :span="7">
             <div class="grid-content">
               <el-card style="margin-bottom:5px;padding-top: 10px;">
                 <div v-if="!this.$store.state.token">
@@ -767,7 +767,7 @@ export default {
 /**登陆、注册模块用样式表，用于文本居中及背景色更改*/
 .grid-content {
   text-align: center;
-  height: 441px;;
+  height: 434px;;
 }
 
 /**登录、注册按钮模块标题模块所用样式表，用于确认整体高度及布局  */
