@@ -122,22 +122,19 @@
                         </a>
                       </li>
                       <br />
+                      <li>
+                        <a>
+                          规格文件：
+                          <el-button type="warning" >下载规格文件</el-button>
+                        </a>
+                      </li>
+                       
                     </el-col>
                   </el-row>
                 </ul>
+               
               </div>
-              <div class="left">
-                <el-card class="box-card">
-                  <div slot="header" class="clearfix">
-                    <div
-                      style="margin:-18px -20px; padding:10px 20px; background:#ffc107;font-size: 18px; "
-                    >企业简介</div>
-                  </div>
-                  <div>文件1</div>
-                  <div>文件2</div>
-                  <div>文件3</div>
-                </el-card>
-              </div>
+              
             </el-tab-pane>
             <el-tab-pane label="需求方详情">
               <div class="Right1">
@@ -219,11 +216,9 @@
 
     <!-- 申请任务弹出框 -->
     <el-dialog
-      title="申请任务"
       :visible.sync="applyDiaLog"
       width="30%"
-      style="padding: 0 10px; border-left: 3px solid #4e58c5;"
-    >
+    ><div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请任务</div>
       <el-row>
         <el-col :span="8"></el-col>
       </el-row>
@@ -431,12 +426,11 @@ export default {
         taskCategoryPart: this.applyList.taskCategoryPart,
         supplierTel: this.ruleForm.buyerPhone
       });
-      that
-        .axios({
-          method: "post",
-          url: "/api/xuqiuyilan/addApplyInformational",
-          data: data
-        })
+      that.axios({
+        method: "post",
+        url: "/api/xuqiuyilan/addApplyInformational",
+        data: data
+      });
       this.$message.success("提交成功");
       this.$router.go(0);
     },
@@ -450,7 +444,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scope>
 .xuqiuyilanDet {
   .overallSituation {
     width: 1200px;

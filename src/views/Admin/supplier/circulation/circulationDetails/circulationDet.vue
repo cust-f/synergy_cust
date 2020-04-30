@@ -716,7 +716,6 @@ export default {
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },
         { title: "计划提交", icon: "el-icon-upload", description: "" },
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
-        { title: "审核", icon: "el-icon-message-solid", description: "" },
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
@@ -725,7 +724,6 @@ export default {
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },
         { title: "计划提交", icon: "el-icon-upload", description: "" },
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
-        { title: "审核", icon: "el-icon-message-solid", description: "" },
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
@@ -940,9 +938,6 @@ export default {
           } else if (this.state == "任务进行中") {
             this.milepostActive = 2;
             this.show = 2;
-          } else if (this.state == "审核") {
-            this.milepostActive = 3;
-            this.show = 3;
           } else if (this.state == "验收") {
             this.milepostActive = 4;
             this.show = 4;
