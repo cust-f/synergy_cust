@@ -30,10 +30,10 @@
               <el-tab-pane label="已完成" name="seventh">
                 <cFinish-Task></cFinish-Task>
               </el-tab-pane>
-<!-- 
+
               <el-tab-pane label="已废除" name="eighth">
                 <cRepealed-Task></cRepealed-Task>
-              </el-tab-pane> -->
+              </el-tab-pane>
             </el-tabs>
           </div>
         </div>

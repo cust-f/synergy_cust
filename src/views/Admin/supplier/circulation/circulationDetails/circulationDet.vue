@@ -524,7 +524,7 @@
           :on-success="handleAvatarSuccess1"
           multiple
           :before-remove="beforeRemove"
-          :limit="1"
+          :on-change="change"
           :auto-upload="false"
           :on-exceed="handleExceed"
           :file-list="fileList"
@@ -550,7 +550,8 @@
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess"
-          :limit="1"
+          :on-change="change"
+          multiple
           :auto-upload="false"
         >
           <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
@@ -567,14 +568,20 @@
       </el-dialog>
 
       <!-- 上传流通规格书 -->
-      <el-dialog title="流通规格书" :visible.sync="upCirculation" width="400px" :before-close="handleClose">
+      <el-dialog
+        title="流通规格书"
+        :visible.sync="upCirculation"
+        width="400px"
+        :before-close="handleClose"
+      >
         <el-upload
           ref="upload"
           action="/api/supplier/import"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess2"
-          :limit="1"
+          :on-change="change"
+          multiple
           :auto-upload="false"
         >
           <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
@@ -783,7 +790,7 @@ export default {
       designerNub: 0,
       reMarkId: 1,
       designRefuseReason: false,
-      upCirculation:false,
+      upCirculation: false
     };
   },
 
@@ -801,6 +808,20 @@ export default {
     this.styleswith(); //提交次数 背景颜色变化
   },
   methods: {
+    change() {
+      //判断上传文件数量
+      this.length = document.querySelector("input[type=file]").files.length;
+      if (this.length > 0) {
+        Array.from(document.querySelector("input[type=file]").files).forEach(
+          file => {
+            if (this.fileList.indexOf(file) == -1) {
+              this.fileList.push(file);
+            }
+          }
+        );
+      }
+      return false;
+    },
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;

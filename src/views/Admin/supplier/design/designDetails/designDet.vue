@@ -380,7 +380,7 @@
               :key="key"
             ></el-step>
           </el-steps>
-        </div> -->
+        </div>-->
         <br />
         <br />
         <div v-if="reMarkId === 1">
@@ -509,7 +509,7 @@
           :on-success="handleAvatarSuccess1"
           multiple
           :before-remove="beforeRemove"
-          :limit="1"
+          :on-change="change"
           :auto-upload="false"
           :on-exceed="handleExceed"
           :file-list="fileList"
@@ -535,7 +535,7 @@
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess"
-          :limit="1"
+          :on-change="change" multiple
           :auto-upload="false"
         >
           <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
@@ -747,6 +747,21 @@ export default {
   },
 
   filters: {
+    
+    change() {
+      //判断上传文件数量
+      this.length = document.querySelector("input[type=file]").files.length;
+      if (this.length > 0) {
+        Array.from(document.querySelector("input[type=file]").files).forEach(
+          file => {
+            if (this.fileList.indexOf(file) == -1) {
+              this.fileList.push(file);
+            }
+          }
+        );
+      }
+      return false;
+    },
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");

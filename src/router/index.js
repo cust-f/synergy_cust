@@ -68,6 +68,7 @@ import designDet from'@/views/admin/supplier/design/designDetails/designDet'//�
 //供应商流通界面
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'//流通任务列表
 import circulationDet from '@/views/admin/supplier/circulation/circulationDetails/circulationDet'//供应商流通分配
+import text from '@/views/admin/supplier/circulation/circulationDetails/text'//供应商流通分配
 
 
 import managerBusiness from '@/views/admin/manager/managerBusiness'
@@ -412,6 +413,15 @@ export default new Router({
           }
         },
         
+        //供应商流通任务测试页面
+        {
+          path: '/admin/text',
+          name: 'text',
+          component: text,
+          meta: {
+            title: "测试页面"
+          }
+        },
 
         //企业管理
         {

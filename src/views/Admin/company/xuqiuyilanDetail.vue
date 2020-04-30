@@ -129,7 +129,9 @@
               <div class="left">
                 <el-card class="box-card">
                   <div slot="header" class="clearfix">
-                    <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107;font-size: 18px; ">企业简介</div>
+                    <div
+                      style="margin:-18px -20px; padding:10px 20px; background:#ffc107;font-size: 18px; "
+                    >企业简介</div>
                   </div>
                   <div>文件1</div>
                   <div>文件2</div>
@@ -197,7 +199,9 @@
               <div class="left">
                 <el-card class="box-card">
                   <div slot="header" class="clearfix">
-                    <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;">企业简介</div>
+                    <div
+                      style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;"
+                    >企业简介</div>
                   </div>
                   <div>{{companyList.introduction}}</div>
                 </el-card>
@@ -226,8 +230,8 @@
       <el-form ref="form" :model="applyList" label-width="120px">
         <el-row>
           <el-col :span="20">
-            <el-form-item label="联系方式:">
-              <el-input v-model="applyList1.supplierTel"></el-input>
+            <el-form-item label="联系电话:" prop="buyerPhone" required>
+              <el-input v-model="ruleForm.buyerPhone"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -246,7 +250,30 @@ import { formatDate } from "./dataChange";
 export default {
   name: "xuqiuyilanDetail",
   data() {
+    var checkPhone = (rule, value, callback) => {
+      const phoneReg = /^1[34578]\d{9}$$/;
+      if (!value) {
+        return callback(new Error("电话号码不能为空"));
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(+value)) {
+          callback(new Error("请输入数字值"));
+        } else {
+          if (phoneReg.test(value)) {
+            callback();
+          } else {
+            callback(new Error("电话号码格式不正确"));
+          }
+        }
+      }, 100);
+    };
     return {
+      ruleForm: {
+        buyerPhone: ""
+      },
+      rules: {
+        buyerPhone: [{ validator: checkPhone, trigger: "blur" }]
+      },
       //申请框
       applyList: [
         {
@@ -266,7 +293,7 @@ export default {
         }
       ],
       companyList: {
-        companyId:0,
+        companyId: 0,
         province: "",
         city: "",
         companyName: "",
@@ -402,7 +429,7 @@ export default {
         taskCategoryMainId: this.applyList.taskCategoryMainId,
         taskCategory: this.applyList.taskCategory,
         taskCategoryPart: this.applyList.taskCategoryPart,
-        supplierTel: this.applyList1.supplierTel
+        supplierTel: this.ruleForm.buyerPhone
       });
       that
         .axios({
@@ -410,14 +437,6 @@ export default {
           url: "/api/xuqiuyilan/addApplyInformational",
           data: data
         })
-        .catch(error => {
-          console.log(error);
-          if (error != null) {
-            this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-              type: "warning"
-            });
-          }
-        });
       this.$message.success("提交成功");
       this.$router.go(0);
     },
