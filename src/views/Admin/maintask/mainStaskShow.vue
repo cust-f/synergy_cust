@@ -374,8 +374,9 @@ export default {
    */
 };
 </script>
-<style lang="scss">
-.mainstaskshow{
+<style scoped>
+
+
 
 
 body .el-table th.gutter{
@@ -426,5 +427,5 @@ display: table-cell!important;
     display: table-cell!important;
 }
 
-}
+
 </style>

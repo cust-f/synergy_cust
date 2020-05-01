@@ -101,6 +101,12 @@
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
 
                 <el-table-column prop="taskName" label="任务名称"></el-table-column>
+                <el-table-column prop="taskType" label="任务类型">
+                  <template slot-scope="scope">
+                    <span v-if="+scope.row.taskType === 0">设计任务</span>
+                    <span v-else-if="+scope.row.taskType === 1">流通任务</span>
+                  </template>
+                </el-table-column>
                 <el-table-column prop="taskCategoryMain" label="任务父类别"></el-table-column>
                 <el-table-column prop="taskCategoryPart" label="任务子类别"></el-table-column>
                 <el-table-column prop="taskState" label="任务状态"></el-table-column>
@@ -297,10 +303,21 @@
                           :value="coo.id"
                         ></el-option>
                       </el-select>
+                      
                     </el-form-item>
                   </el-col>
 
-                  <el-col :span="11">
+                <el-col :span="11">
+                  <el-form-item label="仅该供应方可见" :style="{display:sm}">
+                  </el-form-item>
+                 <el-form-item label="全部可见" :style="{display:busm}">
+                  </el-form-item>
+                      <!-- <font color="black">
+                        <el-span :style="{display:busm}">全部可见</el-span>
+                      </font> -->
+                </el-col>
+
+                  <!-- <el-col :span="11">
                     <el-form-item label="私密指派" :style="{display:sm}">
                       <el-input
                         placeholder="仅有该供应方可见"
@@ -320,13 +337,13 @@
                         :style="{display:busm}"
                       ></el-input>
                     </el-form-item>
-                  </el-col>
+                  </el-col> -->
                   
                 </el-row>
 
                 <el-row>
                   <el-col :span="22">
-                    <el-form-item label="分解任务详细">
+                    <el-form-item label="分解任务详情">
                       <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
                     </el-form-item>
                   </el-col>
@@ -341,12 +358,12 @@
                     :before-remove="beforeRemove"
                     :on-success="handleAvatarSuccess"
                     multiple
-                    :limit="1"
+                    :limit="10"
                     :on-exceed="handleExceed"
                     :file-list="fileList"
                   >
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">只能上传单个文件，若要上传多个文件请将全部文件打包压缩成一个文件之后上传</div>
+                    <div slot="tip" class="el-upload__tip"></div>
                   </el-upload>
                 </el-form-item>
               </el-form>
@@ -391,7 +408,9 @@ export default {
       //核心供应商
       supperlier: "",
       //上传的文件路径
-      technicalFile: "null",
+      technicalFile: [],
+      technicalFileWanzheng:"",
+      shangchuancishu:0,
       dialogVisible: false,
       type: "", //主任务类型
       personnel: ["许知远", "王添", "白泽"], //总负责人
@@ -699,7 +718,8 @@ export default {
 
           // data:this.$store.state.userName
         })
-        .then(response => {
+        .then(response => {          console.log(response);
+
           this.cool = response.data.allData.a[0];
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
@@ -717,7 +737,6 @@ export default {
           } else {
             this.cool.finishTime = dateFormat(this.cool.finishTime);
           }
-          console.log(response);
           console.log(this.type);
           console.log(this.name);
         });
@@ -840,12 +859,23 @@ export default {
 
     mainStaskDetail(row) {
       console.log(row.taskId);
-      this.$router.push({
+      if(row.taskType == 0){
+        this.$router.push({
         path: "/admin/mainStaskDetail",
         query: {
           taskId: row.taskId
         }
       });
+      }
+      else{
+        this.$router.push({
+        path: "/admin/mainStaskDetailLT",
+        query: {
+          taskId: row.taskId
+        }
+      });
+      }
+      
     },
     goBack() {
       this.$router.push("/admin/mainStaskShow");
@@ -861,8 +891,10 @@ export default {
       console.log(file);
     },
     handleAvatarSuccess(response, file, fileList) {
-      this.technicalFile = response;
-      console.log(response);
+      this.technicalFile[this.shangchuancishu] = response;
+      this.technicalFileWanzheng = this.technicalFileWanzheng + "linklink"+this.technicalFile[this.shangchuancishu]
+      this.shangchuancishu = this.shangchuancishu+1;
+      console.log(this.technicalFileWanzheng);
     },
     //将级联选择器最后一行的数据去掉
     getTreeData(data) {
@@ -890,6 +922,16 @@ export default {
   border-top: none;
   border-radius: 0px;
   text-align: center;
+}
+
+  .el-dialog__body{
+   padding-right: 20px; 
+   padding-top: 20px;
+  }
+
+.el-dialog__header{
+  padding-right: 0%;
+  padding-top: 0%;
 }
 .formYS .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;

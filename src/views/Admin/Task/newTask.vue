@@ -111,7 +111,7 @@
 
           <el-row>
                 <el-col :span="22" class = "xiangxi">
-                    <el-form-item label="需求任务详细" >
+                    <el-form-item label="需求任务详情" >
                             <el-input 
                             type="textarea"
                             :rows="3"
@@ -364,7 +364,7 @@
             
             <el-row>
               <el-col :span="22">
-                <el-form-item label="分解任务详细">
+                <el-form-item label="分解任务详情">
                   <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="4"></el-input>
                 </el-form-item>
               </el-col>
@@ -704,9 +704,17 @@ sm:"none",//私密
     handleAvatarSuccess(response, file, fileList) {
 
       this.technicalFile[this.shangchuancishu] = response;
-      this.technicalFileWanzheng = this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu]
+      //console.log(this.technicalFileWanzheng)
+      if(this.technicalFileWanzheng.length > 0){ 
+        //console.log("ok")
+        this.technicalFileWanzheng = this.technicalFileWanzheng +'linklink'+ this.technicalFile[this.shangchuancishu]
+       
+      }
+      else{
+             this.technicalFileWanzheng = this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu]
+      }
       this.shangchuancishu = this.shangchuancishu+1;
-      console.log(this.technicalFileWanzheng);
+      //console.log(this.technicalFileWanzheng);
     },
     invitate(coo) {
       console.log(coo);
