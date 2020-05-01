@@ -57,20 +57,6 @@
                       <font>{{maintask.taskCategoryPart}}</font>
                     </a>
                   </li>
-                  <br />
-                  <li>
-                    <a>
-                      开始时间：
-                      <font>{{maintask.publishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      完成时间：
-                      <font>{{maintask.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
-                    </a>
-                  </li>
                 </el-col>
               </el-row>
             </div>
@@ -78,11 +64,9 @@
           <el-col :span="10">
             <div class="left">
               <el-card class="box-card" style="float:left ;margin-bottom: 10px;">
-               <div slot="header" class="clearfix">
-
-    <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107;">需求方</div>
-
-  </div>
+                <div slot="header" class="clearfix">
+                  <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107;">需求方</div>
+                </div>
                 <div class="text item">
                   <el-row>
                     <el-col :span="18" :offset="2">
@@ -201,13 +185,10 @@
 
             <el-col :span="10">
               <div class="left">
-                <el-card class="box-card" style="float:left ;margin-bottom: 10px;" >
-                  
-                   <div slot="header" class="clearfix">
-
-    <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107;">供应方</div>
-
-  </div>
+                <el-card class="box-card" style="float:left ;margin-bottom: 10px;">
+                  <div slot="header" class="clearfix">
+                    <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107;">供应方</div>
+                  </div>
                   <div class="text item">
                     <el-row>
                       <el-col :span="18" :offset="2">
@@ -651,7 +632,6 @@ export default {
         .then(response => {
           // that.stpesdata = response.data.allData[0];
           that.form.designCount = response.data.allData[6];
-        
 
           this.milepost[0].description = response.data.allData[0];
           this.milepost[1].description = response.data.allData[1];
@@ -667,7 +647,7 @@ export default {
           //   checkPlanTime:"",//审核计划书时间
           //   demandorCheckDesignTime:"",//项目审核时间
         });
-        console.log(form.designCount)
+      console.log(form.designCount);
     },
     getCharts1() {
       var that = this;
@@ -720,8 +700,7 @@ export default {
       if (this.form.designCount > 2 && this.form.designCount < 4) {
         //document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
-      }
-      else{
+      } else {
         //document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
       }
@@ -1020,11 +999,10 @@ export default {
 .ul02 {
   width: 920px;
 }
-.el-tabs--card>.el-tabs__header {
-    border-bottom: 0px solid #E4E7ED;
-    margin-bottom: 0px;
+.el-tabs--card > .el-tabs__header {
+  border-bottom: 0px solid #e4e7ed;
+  margin-bottom: 0px;
 }
-
 </style>
 
 
@@ -1106,18 +1084,18 @@ export default {
   float: right;
 }
 .el-tabs__header {
-    border-bottom: 0px solid #E4E7ED;
-    padding: 0;
-    position: relative;
-    margin: 0 0 0px;
+  border-bottom: 0px solid #e4e7ed;
+  padding: 0;
+  position: relative;
+  margin: 0 0 0px;
 }
 .el-tabs__content {
-    overflow: hidden;
-    position: relative;
+  overflow: hidden;
+  position: relative;
 }
-.el-tabs--card>.el-tabs__header {
-    border-bottom: 1px solid #E4E7ED;
-    margin-bottom: 0px;
+.el-tabs--card > .el-tabs__header {
+  border-bottom: 1px solid #e4e7ed;
+  margin-bottom: 0px;
 }
 </style>
 

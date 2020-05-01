@@ -40,12 +40,7 @@
         <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
       </el-table-column>
 
-      <el-table-column prop="taskType" sortable label="行业类别">
-        <template slot-scope="scope">
-          <span v-if="scope.row.taskType === 0">设计</span>
-          <span v-else-if="scope.row.taskType === 2">类型2</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="行业类别"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
@@ -91,7 +86,8 @@ export default {
           taskState: "",
           taskType: "",
           deadline: "",
-          beginTime:""
+          beginTime: "",
+          taskCategoryPart:""
         }
       ],
       multipleSelection: [],
@@ -123,7 +119,7 @@ export default {
   methods: {
     handleSearch() {
       console.log(this.selectname);
-      var that = this; 
+      var that = this;
       var data = Qs.stringify({
         username: "supplier",
         taskName: this.selectname
@@ -132,8 +128,7 @@ export default {
       that
         .axios({
           method: "post",
-          url:
-            "/api/supplier/searchByTaskIdInTaskApply",
+          url: "/api/supplier/searchByTaskIdInTaskApply",
           data: data
           // data:this.$store.state.userName
         })
@@ -172,16 +167,10 @@ export default {
         });
     },
 
-    // 详情页面跳转
-    // jumpfinishDet() {
-    //   this.$router.push("/admin/finishTaskDet");
-    // },‘
-
     //详情页面跳转方法
     Det(row) {
-      // console.log(row.taskId);
       this.$router.push({
-        path: "/admin/Det",
+        path: "/admin/designDet",
         query: {
           taskId: row.taskId
         }
