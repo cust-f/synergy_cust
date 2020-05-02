@@ -14,7 +14,7 @@
         </div>
       </el-row>
       <br />
-      <el-card shadow="never" style="margin-bottom:20px;">
+      <el-card shadow="never">
         <div class="np_top">
           <div class="preview">
             <div class="BigTime">
@@ -36,123 +36,70 @@
             <br />
             <el-divider></el-divider>
             <ul class="ul02">
-              <el-row>
-                <el-col :span="8" class="task-detail">
-                  <li>
-                    <a>
-                      行业类别：
-                      <font>{{applyList.taskCategoryMain}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      需求类别：
-                      <font>{{applyList.taskCategoryPart}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      需求类型：
-                      <font v-if="applyList.taskType === 1">流通需求</font>
-                      <font v-if="applyList.taskType === 0">设计需求</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      发布需求企业：
-                      <font>{{applyList.companyName}}</font>
-                    </a>
-                  </li>
-                  <br />
-                </el-col>
-              </el-row>
+              <el-col :span="8" class="task-detail">
+                <li>
+                  <a>
+                    行业类别：
+                    <font>{{applyList.taskCategoryMain}}</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求类别：
+                    <font>{{applyList.taskCategoryPart}}</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求类型：
+                    <font v-if="applyList.taskType === 1">流通需求</font>
+                    <font v-if="applyList.taskType === 0">设计需求</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求开始时间：
+                    <font>{{applyList.beginTime|formatDate}}</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求截止时间：
+                    <font>{{applyList.deadline|formatDate}}</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求方联系电话：
+                    <font>{{applyList.businessTel}}</font>
+                  </a>
+                </li>
+                <br />
+                <el-button
+                  v-show="applyIf === 0"
+                  type="warning"
+                  class="button-style"
+                  @click="applyTask()"
+                >申请任务</el-button>
+              </el-col>
             </ul>
           </div>
-        </div>
-        <div class=".np_top1">
-          <el-tabs type="border-card">
-            <el-tab-pane label="需求详情">
-              <div class="Right1">
-                <ul class="ul02">
-                  <el-row>
-                    <el-col :span="8" class="task-detail">
-                      <li>
-                        <a>
-                          需求开始时间：
-                          <font>{{applyList.beginTime|formatDate}}</font>
-                        </a>
-                      </li>
-                      <br />
-                      <li>
-                        <a>
-                          需求截止时间：
-                          <font>{{applyList.deadline|formatDate}}</font>
-                        </a>
-                      </li>
-                      <br />
-                      <li>
-                        <a>
-                          需求方联系电话：
-                          <font>{{applyList.businessTel}}</font>
-                        </a>
-                      </li>
-                      <br />
-                      <li>
-                        <a>
-                          发布企业：
-                          <font>{{companyList.companyName}}</font>
-                        </a>
-                      </li>
-                      <br />
-
-                      <li>
-                        <a>
-                          行业类别：
-                          <font>{{applyList.taskCategoryMain}}</font>
-                        </a>
-                      </li>
-                      <br />
-                      <li>
-                        <a>
-                          需求类别：
-                          <font>{{applyList.taskCategoryPart}}</font>
-                        </a>
-                      </li>
-                      <br />
-                      <li>
-                        <a>
-                          规格文件：
-                          <el-button type="warning" >下载规格文件</el-button>
-                        </a>
-                      </li>
-                       
-                    </el-col>
-                  </el-row>
-                </ul>
-               
+          <div class="left">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <div
+                  style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;"
+                >{{companyList.companyName}}</div>
               </div>
-              
-            </el-tab-pane>
-            <el-tab-pane label="需求方详情">
-              <div class="Right1">
-                <div class="title-company-detail">
-                  <font @click="companyDetail()">{{companyList.companyName}}</font>
-                </div>
-                <br />
-                <el-divider></el-divider>
+              <div>
                 <ul class="ul02">
                   <el-row>
                     <el-col :span="8" class="task-detail">
-                      <li>
-                        <a>
-                          经营范围：
-                          <font>{{companyList.product}}</font>
-                        </a>
-                      </li>
-                      <br />
                       <li>
                         <a>
                           企业所在省：
@@ -193,43 +140,114 @@
                   </el-row>
                 </ul>
               </div>
-              <div class="left">
+            </el-card>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div class=".np_top1">
+          <el-tabs type="border-card">
+            <el-tab-pane label="需求详情">
+              <div class="Right2">
+                <ul class="ul03">
+                  <el-row>
+                    <el-col :span="8" class="title-task-detail">
+                      <div>{{applyList.taskDetail}}</div>
+                    </el-col>
+                  </el-row>
+                </ul>
+              </div>
+              <div class="left1">
                 <el-card class="box-card">
                   <div slot="header" class="clearfix">
-                    <div
-                      style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;"
-                    >企业简介</div>
+                    <span>附件</span>
                   </div>
-                  <div>{{companyList.introduction}}</div>
+                  <el-link
+                    type="primary"
+                    v-for="(item,i) in FileName"
+                    v-if="item!=null"
+                    @click="downloadFile(this)"
+                  >(文件){{item}}</el-link>
                 </el-card>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="需求方详情">
+              <div>
+                <div class="title-company-detail">
+                  <font>{{companyList.companyName}}</font>
+                </div>
+                <br />
+                <el-divider></el-divider>
+                <div>{{companyList.introduction }}</div>
               </div>
             </el-tab-pane>
           </el-tabs>
         </div>
         <br />
         <br />
-        <div class="dialog-footer">
-          <el-button v-show="applyIf === 0" type="warning" @click="applyTask()">申请任务</el-button>
-        </div>
       </el-card>
     </div>
-
     <!-- 申请任务弹出框 -->
-    <el-dialog
-      :visible.sync="applyDiaLog"
-      width="30%"
-    ><div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请任务</div>
+    <el-dialog :visible.sync="applyDiaLog" width="50%">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-row>
         <el-col :span="8"></el-col>
       </el-row>
-      <el-form ref="form" :model="applyList" label-width="120px">
+      <el-form ref="ruleForm" :rules="rules" :model="applyList1" label-width="120px">
         <el-row>
-          <el-col :span="20">
-            <el-form-item label="联系电话:" prop="buyerPhone" required>
-              <el-input v-model="ruleForm.buyerPhone"></el-input>
+          <el-col :span="11">
+            <el-form-item label="需求方：">
+              <el-input v-model="companyList.companyName" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="11">
+            <el-form-item label="需求名：">
+              <el-input v-model="applyList.taskName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="行业类别：">
+              <el-input v-model="applyList.taskCategoryMain" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="11">
+            <el-form-item label="需求类别：">
+              <el-input v-model="applyList.taskCategoryPart" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="需求开始时间：">
+              <el-input v-bind:value="applyList.beginTime|formatDate" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="11">
+            <el-form-item label="需求截止时间：">
+              <el-input v-bind:value="applyList.deadline|formatDate" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="需求方电话：">
+              <el-input v-model="applyList.email" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="11">
+            <el-form-item label="联系电话" prop="supplierTel">
+              <el-input v-model="applyList1.supplierTel" placeholder="请输入联系电话"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <el-form-item label-width="0" class="dialog-footer">
           <el-button type="warning" @click="apply()">确认申请</el-button>
         </el-form-item>
@@ -245,29 +263,28 @@ import { formatDate } from "./dataChange";
 export default {
   name: "xuqiuyilanDetail",
   data() {
-    var checkPhone = (rule, value, callback) => {
-      const phoneReg = /^1[34578]\d{9}$$/;
-      if (!value) {
-        return callback(new Error("电话号码不能为空"));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(+value)) {
-          callback(new Error("请输入数字值"));
-        } else {
-          if (phoneReg.test(value)) {
-            callback();
-          } else {
-            callback(new Error("电话号码格式不正确"));
-          }
-        }
-      }, 100);
-    };
     return {
-      ruleForm: {
-        buyerPhone: ""
-      },
+      TelIf: 1,
       rules: {
-        buyerPhone: [{ validator: checkPhone, trigger: "blur" }]
+        supplierTel: [
+          {
+            required: true,
+            message: "请输入手机号码",
+            trigger: "blur"
+          },
+          {
+            validator: function(rule, value, callback) {
+              if (/^1[34578]\d{9}$/.test(value) == false) {
+                callback(new Error("手机号格式错误"));
+                TelIf = 2;
+              } else {
+                callback();
+                TelIf = 1;
+              }
+            },
+            trigger: "blur"
+          }
+        ]
       },
       //申请框
       applyList: [
@@ -284,7 +301,8 @@ export default {
           taskCategoryMainId: 0,
           taskCategory: "",
           taskCategoryPart: 0,
-          companyName: ""
+          companyName: "",
+          taskDetail: ""
         }
       ],
       companyList: {
@@ -301,6 +319,7 @@ export default {
         businessTel: "",
         email: ""
       },
+
       TaskDetail: "",
       TaskDetailContent: "",
       imagesbox: [
@@ -310,7 +329,7 @@ export default {
       ],
       beginTime1: "",
       deadline1: "",
-      taskID: 40,
+      taskID: 0,
       userName: "supplier",
       applyDiaLog: false,
       //判断企业是否申请过此任务
@@ -318,27 +337,38 @@ export default {
       //接受企业名称
       companyName1: 0,
       companyId: 0,
+      FileName: [],
+      FilePath: [],
+      FileNum: 0,
+      count: 0,
       //联系电话
       applyList1: [
         {
           supplierTel: ""
         }
-      ]
+      ],
+      formLabelWidth: "80px"
     };
   },
   created() {
+    this.getParams();
     this.showTaskData();
     this.showApply();
-    // this.getParams();
+    this.getFileName();
+    this.getFileNum();
+    this.getFilePath();
   },
 
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd");
+      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     }
   },
   methods: {
+    downloadFile(item) {
+      console.log(item);
+    },
     //获取详情值
     getParams() {
       var routerParams = this.$route.query.taskID;
@@ -366,12 +396,66 @@ export default {
           console.log(response);
           this.applyList = response.data.allData.a[0];
           this.companyList = response.data.allData.b[0];
-          companyId = response.data.allData.b[0].companyId;
+          this.companyId = response.data.allData.b[0].companyId;
           if (response.data.allData.a[0].taskType == 1) {
             this.applyList.taskTypeName = "流通";
           } else {
             this.applyList.taskTypeName = "设计";
           }
+        });
+    },
+    //数据显示
+    getFileName() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/getFileName",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.FileName = response.data;
+          console.log(this.FileName);
+        });
+    },
+    getFileNum() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/getFileNum",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.FileNum = response.data;
+          console.log(this.FileNum);
+        });
+    },
+    getFilePath() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/getFilePath",
+          data: data
+        })
+        .then(response => {
+          // console.log(response);
+          // this.FilePath = response.data.allData;
         });
     },
     //返回首页
@@ -411,6 +495,16 @@ export default {
         path: "/xuqiuyilan"
       });
     },
+    //手机号校验
+    animate() {
+      var re = /^1\d{10}$/;
+      let str = this.applyList1.supplierTel;
+      if (re.test(str)) {
+        this.TelIf = 1;
+      } else {
+        this.TelIf = 2;
+      }
+    },
     //申请数据上传
     apply() {
       var that = this;
@@ -424,15 +518,21 @@ export default {
         taskCategoryMainId: this.applyList.taskCategoryMainId,
         taskCategory: this.applyList.taskCategory,
         taskCategoryPart: this.applyList.taskCategoryPart,
-        supplierTel: this.ruleForm.buyerPhone
+        supplierTel: this.applyList1.supplierTel
       });
-      that.axios({
-        method: "post",
-        url: "/api/xuqiuyilan/addApplyInformational",
-        data: data
-      });
-      this.$message.success("提交成功");
-      this.$router.go(0);
+      if (this.TelIf == 1) {
+        that.axios({
+          method: "post",
+          url: "/api/xuqiuyilan/addApplyInformational",
+          data: data
+        });
+        this.$message.success("提交成功");
+        this.$router.go(0);
+      } else if (this.TelIf == 0) {
+        this.$message.success("请填写手机号");
+      } else if (this.TelIf == 2) {
+        this.$message.success("请输入正确的手机号");
+      }
     },
     companyDetail(companyId) {
       console.log("触发了呀");
@@ -453,6 +553,9 @@ export default {
   .images {
     width: 300px;
     height: 300px;
+  }
+  .center {
+    text-align: center;
   }
   .inner {
     border: none;
@@ -604,17 +707,17 @@ export default {
 
     text-decoration: none;
 
-    width: 920px;
-  }
-  .Right .el-divider--horizontal {
-    width: 87%;
+    width: 400px;
   }
   .ul02 {
     width: 900px;
   }
+  .ul03 {
+    width: 800px;
+  }
   .task-detail {
     font-size: 16px;
-    width: 900px;
+    width: 400px;
   }
   .title-detail {
     color: #ff7720;
@@ -626,6 +729,10 @@ export default {
     font-size: 20px;
     float: left;
   }
+  .title-task-detail {
+    font-size: 16px;
+    width: 750px;
+  }
   .dialog-footer {
     text-align: center;
   }
@@ -633,7 +740,7 @@ export default {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
       sans-serif;
 
-    font-size: 14px;
+    font-size: 55px;
 
     font-style: normal;
 
@@ -663,50 +770,10 @@ export default {
 
     text-decoration: none;
 
-    width: 1280px;
-  }
-  .Right1 {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-    float: left;
-
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
-    font-size: 14px;
-
-    font-style: normal;
-
-    font-variant: normal;
-
-    font-weight: 400;
-
-    line-height: normal;
-
-    margin-bottom: 10px;
-
-    margin-left: 0px;
-
-    margin-right: 0px;
-
-    margin-top: 0px;
-
-    overflow: hidden;
-
-    padding-bottom: 0px;
-
-    padding-left: 0px;
-
-    padding-right: 0px;
-
-    padding-top: 0px;
-
-    text-decoration: none;
-
-    width: 600px;
+    width: 80px;
   }
   .box-card {
-    width: 480px;
+    width: 350px;
   }
   .Right1 {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -747,6 +814,46 @@ export default {
     text-decoration: none;
 
     width: 600px;
+  }
+  .Right2 {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    float: left;
+
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 10px;
+
+    margin-left: 0px;
+
+    margin-right: 0px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 0px;
+
+    padding-left: 0px;
+
+    padding-right: 0px;
+
+    padding-top: 0px;
+
+    text-decoration: none;
+
+    width: 750px;
   }
   .np_top {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
@@ -783,8 +890,24 @@ export default {
     width: 1280px;
   }
   .left {
-    margin-left: 30px;
+    margin-left: 50px;
+    float: left;
+  }
+  .left1 {
     float: right;
+  }
+  .el-dialog__header {
+    padding: 0px 0px 0px;
+  }
+  .button-style {
+    float: right;
+  }
+  .nobroad {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
   }
 }
 </style>
