@@ -289,78 +289,7 @@
         <br />
       </div>
 
-      <div v-show="milepostActive4">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <br />
-        <el-table
-          :data="tableData4"
-          border
-          class="table4"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
-        >
-          <!-- mainTaskID冲-->
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-          <el-table-column prop="designerName" label="设计人员姓名">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
-              <el-span v-else>{{scope.row.designerName}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="designCount" label="设计重做次数"></el-table-column>demandorCheckDesignState
-          <el-table-column prop="demandorCheckDesignState" label="设计验收状态">
-            <template slot-scope="scope">
-              <span v-if="+scope.row.demandorCheckDesignState===0">待上传</span>
-              <span v-else-if="+scope.row.demandorCheckDesignState===1">待审核</span>
-              <span v-else-if="+scope.row.demandorCheckDesignState===2">通过</span>
-              <span v-else-if="+scope.row.demandorCheckDesignState===3">未通过</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="uploadDesignTime" label="设计上传时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
-              <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="demandorCheckDesignTime" label="设计审核时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未审核</el-span>
-              <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" width="150" align="center">
-            <template slot-scope="scope">
-              <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-              >废除</el-button>-->
-              <el-button
-                type="text"
-                size="small"
-                v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
-              >查看设计</el-button>
-              <el-button
-                @click="SJTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
-              >通过</el-button>
-              <el-button
-                @click="SJJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
-              >拒绝</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <br />
-        <br />
-      </div>
+      
 
       <div v-show="milepostActive5">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -660,7 +589,7 @@ import radarChart from "./radarChart";
 
 export default {
   inject: ["reload"],
-  name: "mainStaskDetail",
+  name: "mainStaskDetailLT",
   components: {
     "radar-chart": radarChart
   },
@@ -711,11 +640,11 @@ export default {
         taskCategoryPart: "",
         taskCategoryMain: ""
       },
-      tableData1: [     
+      tableData1: [
       ],
-      tableData2: [     
+      tableData2: [
       ],
-      tableData3: [      
+      tableData3: [
       ],
       tableData4: [
       ],
@@ -724,7 +653,7 @@ export default {
         { title: "计划提交", icon: "el-icon-upload", description: "" },
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
         { title: "审核", icon: "el-icon-message-solid", description: "" },
-        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+        // { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
       //下图的
@@ -733,7 +662,7 @@ export default {
         { title: "计划提交", icon: "el-icon-upload", description: "" },
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
         { title: "审核", icon: "el-icon-message-solid", description: "" },
-        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+         { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
       // 默认步骤数
@@ -783,7 +712,7 @@ export default {
         //  @input.native="changeCode"
       },
       shuiwudengjizheng: require("../company/税务登记证.jpg"),
-      qiyezhizhao: require("../company/营业执照.jpg")
+      qiyezhizhao: "",
     };
   },
 
@@ -886,10 +815,8 @@ export default {
             this.milepostActive = 2;
           } else if (this.milepostActive == "审核") {
             this.milepostActive = 3;
-          } else if (this.milepostActive == "验收") {
-            this.milepostActive = 4;
           } else if (this.milepostActive == "完成") {
-            this.milepostActive = 5;
+            this.milepostActive = 4;
           }
           if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
@@ -911,11 +838,6 @@ export default {
               ](response.data.allData.d[0].checkContractTime);
             }
             if (this.milepostActive > 3) {
-              this.milepost[4].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.e[0].designerAcceptTime);
-            }
-            if (this.milepostActive > 0) {
               this.milepost[5].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.e[0].finishTime);

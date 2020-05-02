@@ -5,8 +5,8 @@
           <div font-size="24px">
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           供应商列表
-        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</div>
-             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        </div></div>
+            <br>
               <div>
 
 
@@ -14,7 +14,6 @@
       <div class="handle-box">
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
-        <br>
         <div class="handle-box">
                 <el-select
                   v-model="provicepid"
@@ -52,7 +51,6 @@
                 </el-select>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
               </div>
-              <br>
       <el-table
         :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
         border
@@ -270,6 +268,7 @@ export default {
       getCity() {
       var that = this;
       console.log(this.provicepid)
+      this.citypid = "";
       var data = Qs.stringify({
         pid: this.provicepid
       });
@@ -400,6 +399,7 @@ export default {
         .then(response => {
           this.tableData = response.data.allData;
           console.log(response);
+          //this.citypid = ""
         });
     },
     
@@ -413,5 +413,8 @@ export default {
     margin:0 auto;
     text-align: center
 }
+  .biaoti {
+    font-size: 18px;
+  }
 
 </style>
