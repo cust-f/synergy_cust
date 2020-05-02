@@ -711,45 +711,13 @@ export default {
         taskCategoryPart: "",
         taskCategoryMain: ""
       },
-      tableData1: [
-        {
-          companyName: "",
-          applyWay: "",
-          checkApplyState: "", //任务申请审核状态
-          applyTime: "", //任务申请审核时间
-          checkPlanState: "", //计划审核状态
-          checkPlanTime: "" //计划审核时间
-        }
+      tableData1: [     
       ],
-      tableData2: [
-        {
-          acceptCompanyName: "",
-          applyWay: "",
-          checkPlanState: "", //计划审核状态
-          checkPlanTime: "" //计划审核时间
-        }
+      tableData2: [     
       ],
-      tableData3: [
-        {
-          acceptCompanyName: "",
-          applyWay: "",
-          contractState: "", //合同审核状态
-          uploadContractTime: "", //合同上传时间
-          contractRefuseReason: "" //合同拒绝原因
-        }
+      tableData3: [      
       ],
       tableData4: [
-        {
-          acceptCompanyName: "",
-          designerName: "",
-          applyWay: "",
-          designCount: "",
-          demandorCheckDesignState: "",
-          contractState: "", //合同审核状态
-          uploadDesignTime: "", //合同上传时间
-          demandorCheckDesignTime: "",
-          contractRefuseReason: "" //合同拒绝原因
-        }
       ],
       milepost: [
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },

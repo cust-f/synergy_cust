@@ -55,7 +55,7 @@ body .el-table th.gutter{
 
 }
 
- 
+
 
 body .el-table colgroup.gutter{
 

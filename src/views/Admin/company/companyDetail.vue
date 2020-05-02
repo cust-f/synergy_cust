@@ -526,6 +526,7 @@ export default {
   created() {
     this.getDate();
   },
+
   methods: {
     //手机号校验
     animate() {
