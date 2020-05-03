@@ -473,7 +473,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .register-company {
   width: 1000px;
   height: 100%;

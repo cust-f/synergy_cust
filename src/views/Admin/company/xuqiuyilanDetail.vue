@@ -4,21 +4,21 @@
       <el-row>
         <div>
           <div class="title">
-            <span @click="goHome()">首页</span>
-            <span>&nbsp; > &nbsp;</span>
-            <span @click="goBack()">需求一览</span>
-            <span>&nbsp; > &nbsp;</span>
-            <span>需求详情</span>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item :to="{ path: '/xuqiuyilan' }">需求一览</el-breadcrumb-item>
+              <el-breadcrumb-item :to="{ path: 'admin/xuqiuyilanDetail' }">需求详情</el-breadcrumb-item>
+            </el-breadcrumb>
           </div>
           <br />
         </div>
       </el-row>
       <br />
-      <el-card shadow="never" style="margin-bottom:20px;">
+      <el-card shadow="never">
         <div class="np_top">
           <div class="preview">
             <div class="BigTime">
-              <el-carousel height="400" width="400" direction="vertical" arrow="always">
+              <el-carousel height="200" width="200" direction="vertical" arrow="always">
                 <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
                   <img :src="item.idView" class="images" />
                 </el-carousel-item>
@@ -33,125 +33,225 @@
                 <font>{{applyList.taskName}}</font>
               </div>
             </div>
+            <br />
             <el-divider></el-divider>
             <ul class="ul02">
-              <el-row>
-                <el-col :span="8" class="task-detail">
-                  <li>
-                    <a>
-                      价格：
-                      <font>面议</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      限制类别：
-                      <font>{{applyList.taskCategoryMain}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      任务类别：
-                      <font>{{applyList.taskCategoryPart}}</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      需求类型:
-                      <font v-if="applyList.taskType === 1">流通需求</font>
-                      <font v-if="applyList.taskType === 0">设计需求</font>
-                    </a>
-                  </li>
-                  <br />
-                  <li>
-                    <a>
-                      其他：
-                      <font></font>
-                    </a>
-                  </li>
-                  <br />
-                  <div class="applybutten">
-                    <el-button v-show="applyIf === 0" type="warning" @click="applyTask()">申请任务</el-button>
-                  </div>
-                </el-col>
-              </el-row>
+              <el-col :span="8" class="task-detail">
+                <li>
+                  <a>
+                    行业类别：
+                    <font>{{applyList.taskCategoryMain}}</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求类别：
+                    <font>{{applyList.taskCategoryPart}}</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求类型：
+                    <font v-if="applyList.taskType === 1">流通需求</font>
+                    <font v-if="applyList.taskType === 0">设计需求</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求开始时间：
+                    <font>{{applyList.beginTime|formatDate}}</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求截止时间：
+                    <font>{{applyList.deadline|formatDate}}</font>
+                  </a>
+                </li>
+                <br />
+                <li>
+                  <a>
+                    需求方联系电话：
+                    <font>{{applyList.businessTel}}</font>
+                  </a>
+                </li>
+                <br />
+                <el-button
+                  v-show="applyIf === 0"
+                  type="warning"
+                  class="button-style"
+                  @click="applyTask()"
+                >申请任务</el-button>
+              </el-col>
             </ul>
           </div>
-        </div>
-        <div class="white">
-          <el-tabs type="card">
-            <el-tab-pane label="企业信息">
+          <div class="left">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <div
+                  style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;"
+                >{{companyList.companyName}}</div>
+              </div>
               <div>
-                <div class="message">{{companyList.introduction}}</div>
+                <ul class="ul02">
+                  <el-row>
+                    <el-col :span="8" class="task-detail">
+                      <li>
+                        <a>
+                          企业所在省：
+                          <font>{{companyList.province}}省</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          企业所在市：
+                          <font>{{companyList.city}}市</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          企业地址：
+                          <font>{{companyList.address}}</font>
+                        </a>
+                      </li>
+                      <br />
+
+                      <li>
+                        <a>
+                          联系电话：
+                          <font>{{companyList.businessTel}}</font>
+                        </a>
+                      </li>
+                      <br />
+                      <li>
+                        <a>
+                          email：
+                          <font>{{companyList.email}}</font>
+                        </a>
+                      </li>
+                      <br />
+                    </el-col>
+                  </el-row>
+                </ul>
+              </div>
+            </el-card>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div class=".np_top1">
+          <el-tabs type="border-card">
+            <el-tab-pane label="需求详情">
+              <div class="Right2">
+                <ul class="ul03">
+                  <el-row>
+                    <el-col :span="8" class="title-task-detail">
+                      <div>{{applyList.taskDetail}}</div>
+                    </el-col>
+                  </el-row>
+                </ul>
+              </div>
+              <div class="left1">
+                <el-card class="box-card">
+                  <div slot="header" class="clearfix">
+                    <span>附件</span>
+                  </div>
+                  <el-link
+                    type="primary"
+                    v-for="(item,i) in FileName"
+                    v-if="item!=null"
+                    @click="downloadFile(this)"
+                  >(文件){{item}}</el-link>
+                </el-card>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="需求方详情">
+              <div>
+                <div class="title-company-detail">
+                  <font>{{companyList.companyName}}</font>
+                </div>
+                <br />
                 <el-divider></el-divider>
+                <div>{{companyList.introduction }}</div>
               </div>
             </el-tab-pane>
           </el-tabs>
         </div>
+        <br />
+        <br />
       </el-card>
     </div>
-
     <!-- 申请任务弹出框 -->
-    <el-dialog title="申请任务弹出框" :visible.sync="applyDiaLog" width="50%">
+    <el-dialog :visible.sync="applyDiaLog" width="50%">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-row>
         <el-col :span="8"></el-col>
       </el-row>
-      <el-form ref="form" :model="applyList" label-width="120px">
+      <el-form ref="ruleForm" :rules="rules" :model="applyList1" label-width="120px">
         <el-row>
           <el-col :span="11">
-            <el-form-item label="行业类别:">
-              <el-input v-bind:value="applyList.taskCategoryMain" :readonly="true"></el-input>
+            <el-form-item label="需求方：">
+              <el-input v-model="companyList.companyName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
+
           <el-col :span="11">
-            <el-form-item label="所在地区:">
-              <el-input v-model="companyList.address" :readonly="true"></el-input>
+            <el-form-item label="需求名：">
+              <el-input v-model="applyList.taskName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-
         <el-row>
           <el-col :span="11">
-            <el-form-item label="业务联系方式:">
-              <el-input v-model="companyList.businessTel" :readonly="true"></el-input>
+            <el-form-item label="行业类别：">
+              <el-input v-model="applyList.taskCategoryMain" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
+
           <el-col :span="11">
-            <el-form-item label="需求类型:">
-              <el-input v-model="applyList.taskTypeName" :readonly="true"></el-input>
+            <el-form-item label="需求类别：">
+              <el-input v-model="applyList.taskCategoryPart" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-
         <el-row>
           <el-col :span="11">
-            <el-form-item label="需求开始时间:">
+            <el-form-item label="需求开始时间：">
               <el-input v-bind:value="applyList.beginTime|formatDate" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
+
           <el-col :span="11">
-            <el-form-item label="需求截至时间:">
+            <el-form-item label="需求截止时间：">
               <el-input v-bind:value="applyList.deadline|formatDate" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
-          <el-col :span="11" v-if="circulationQuantityIf ===0">
-            <el-form-item label="流通数量:">
-              <template>
-                <el-input-number  v-model="circulationQuantity" :step="100" step-strictly></el-input-number>
-              </template>
+          <el-col :span="11">
+            <el-form-item label="需求方电话：">
+              <el-input v-model="applyList.email" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="11">
+            <el-form-item label="联系电话" prop="supplierTel">
+              <el-input v-model="applyList1.supplierTel" placeholder="请输入联系电话"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
+
+        <el-form-item label-width="0" class="dialog-footer">
+          <el-button type="warning" @click="apply()">确认申请</el-button>
+        </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="warning" @click="apply()">确认申请</el-button>
-      </span>
     </el-dialog>
   </div>
 </template>
@@ -164,14 +264,33 @@ export default {
   name: "xuqiuyilanDetail",
   data() {
     return {
-      circulationQuantity: 0,
-      //流通数量控制器
-      circulationQuantityIf:1,
+      TelIf: 1,
+      rules: {
+        supplierTel: [
+          {
+            required: true,
+            message: "请输入手机号码",
+            trigger: "blur"
+          },
+          {
+            validator: function(rule, value, callback) {
+              if (/^1[34578]\d{9}$/.test(value) == false) {
+                callback(new Error("手机号格式错误"));
+                TelIf = 2;
+              } else {
+                callback();
+                TelIf = 1;
+              }
+            },
+            trigger: "blur"
+          }
+        ]
+      },
       //申请框
       applyList: [
         {
           taskName: "",
-          publishingCompanyId: 0,
+          companyId: 0,
           taskType: "",
           beginTime: "",
           deadline: "",
@@ -179,18 +298,28 @@ export default {
           taskTypeName: "",
           applyTime: "",
           taskCategoryMain: "",
-          taskCategoryMainId:0,
-          taskCategory:"",
-          taskCategoryPart:0
+          taskCategoryMainId: 0,
+          taskCategory: "",
+          taskCategoryPart: 0,
+          companyName: "",
+          taskDetail: ""
         }
       ],
       companyList: {
+        companyId: 0,
+        province: "",
+        city: "",
         companyName: "",
         companyCategory: "",
         address: "",
         businessName: "",
-        introduction: ""
+        introduction: "",
+        product: "",
+        address: "",
+        businessTel: "",
+        email: ""
       },
+
       TaskDetail: "",
       TaskDetailContent: "",
       imagesbox: [
@@ -200,28 +329,46 @@ export default {
       ],
       beginTime1: "",
       deadline1: "",
-      taskID:0,
-      publishingCompanyId: 0,
+      taskID: 0,
       userName: "supplier",
       applyDiaLog: false,
       //判断企业是否申请过此任务
       applyIf: 0,
       //接受企业名称
-      companyName1: ""
+      companyName1: 0,
+      companyId: 0,
+      FileName: [],
+      FilePath: [],
+      FileNum: 0,
+      count: 0,
+      //联系电话
+      applyList1: [
+        {
+          supplierTel: ""
+        }
+      ],
+      formLabelWidth: "80px"
     };
   },
   created() {
+    this.getParams();
     this.showTaskData();
     this.showApply();
+    this.getFileName();
+    this.getFileNum();
+    this.getFilePath();
   },
 
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd");
+      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     }
   },
   methods: {
+    downloadFile(item) {
+      console.log(item);
+    },
     //获取详情值
     getParams() {
       var routerParams = this.$route.query.taskID;
@@ -248,16 +395,67 @@ export default {
         .then(response => {
           console.log(response);
           this.applyList = response.data.allData.a[0];
-          this.publishingCompanyId =
-            response.data.allData.a[0].publishingCompanyId;
           this.companyList = response.data.allData.b[0];
-          console.log(response.data.allData.a[0].taskType);
-          if ((response.data.allData.a[0].taskType == 1)) {
+          this.companyId = response.data.allData.b[0].companyId;
+          if (response.data.allData.a[0].taskType == 1) {
             this.applyList.taskTypeName = "流通";
-            this.circulationQuantityIf = 0;
           } else {
             this.applyList.taskTypeName = "设计";
           }
+        });
+    },
+    //数据显示
+    getFileName() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/getFileName",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.FileName = response.data;
+          console.log(this.FileName);
+        });
+    },
+    getFileNum() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/getFileNum",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.FileNum = response.data;
+          console.log(this.FileNum);
+        });
+    },
+    getFilePath() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/getFilePath",
+          data: data
+        })
+        .then(response => {
+          // console.log(response);
+          // this.FilePath = response.data.allData;
         });
     },
     //返回首页
@@ -294,8 +492,18 @@ export default {
     //返回首页
     goBack() {
       this.$router.push({
-        path: "/xuqiuyilan",
+        path: "/xuqiuyilan"
       });
+    },
+    //手机号校验
+    animate() {
+      var re = /^1\d{10}$/;
+      let str = this.applyList1.supplierTel;
+      if (re.test(str)) {
+        this.TelIf = 1;
+      } else {
+        this.TelIf = 2;
+      }
     },
     //申请数据上传
     apply() {
@@ -303,28 +511,40 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID,
         taskName: this.applyList.taskName,
-        publishingCompanyId: this.publishingCompanyId,
+        publishingCompanyId: this.companyList.companyId,
         userName: this.userName,
         taskType: this.applyList.taskType,
-        circulationQuantity: this.circulationQuantity,
-        taskCategoryMain:this.applyList.taskCategoryMain,
-        taskCategoryMainId:this.applyList.taskCategoryMainId,
-        taskCategory:this.applyList.taskCategory,
-        taskCategoryPart:this.applyList.taskCategoryPart,
+        taskCategoryMain: this.applyList.taskCategoryMain,
+        taskCategoryMainId: this.applyList.taskCategoryMainId,
+        taskCategory: this.applyList.taskCategory,
+        taskCategoryPart: this.applyList.taskCategoryPart,
+        supplierTel: this.applyList1.supplierTel
       });
-      that.axios({
-        method: "post",
-        url: "/api/xuqiuyilan/addApplyInformational",
-        data: data
+      if (this.TelIf == 1) {
+        that.axios({
+          method: "post",
+          url: "/api/xuqiuyilan/addApplyInformational",
+          data: data
+        });
+        this.$message.success("提交成功");
+        this.$router.go(0);
+      } else if (this.TelIf == 0) {
+        this.$message.success("请填写手机号");
+      } else if (this.TelIf == 2) {
+        this.$message.success("请输入正确的手机号");
+      }
+    },
+    companyDetail(companyId) {
+      console.log("触发了呀");
+      this.$router.push({
+        path: "company/excellentCompanyDetail",
+        query: { companyId: companyId }
       });
-      this.$message.success("提交成功");
-      this.circulationQuantity = 0;
-      this.$router.go(0);
     }
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scope>
 .xuqiuyilanDet {
   .overallSituation {
     width: 1200px;
@@ -333,6 +553,9 @@ export default {
   .images {
     width: 300px;
     height: 300px;
+  }
+  .center {
+    text-align: center;
   }
   .inner {
     border: none;
@@ -484,21 +707,207 @@ export default {
 
     text-decoration: none;
 
-    width: 920px;
-  }
-  .Right .el-divider--horizontal {
-    width: 87%;
+    width: 400px;
   }
   .ul02 {
-    width: 920px;
+    width: 900px;
+  }
+  .ul03 {
+    width: 800px;
   }
   .task-detail {
     font-size: 16px;
+    width: 400px;
   }
   .title-detail {
     color: #ff7720;
+    font-size: 25px;
+    float: left;
+  }
+  .title-company-detail {
+    color: #0f0e0d;
     font-size: 20px;
     float: left;
+  }
+  .title-task-detail {
+    font-size: 16px;
+    width: 750px;
+  }
+  .dialog-footer {
+    text-align: center;
+  }
+  .np_top1 {
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 55px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 0px;
+
+    /* margin-left: 305.6px; */
+
+    margin-right: 65.61px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 10px;
+
+    padding-left: 10px;
+
+    padding-right: 10px;
+
+    padding-top: 10px;
+
+    text-decoration: none;
+
+    width: 80px;
+  }
+  .box-card {
+    width: 350px;
+  }
+  .Right1 {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    float: left;
+
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 10px;
+
+    margin-left: 0px;
+
+    margin-right: 0px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 0px;
+
+    padding-left: 0px;
+
+    padding-right: 0px;
+
+    padding-top: 0px;
+
+    text-decoration: none;
+
+    width: 600px;
+  }
+  .Right2 {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    float: left;
+
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 10px;
+
+    margin-left: 0px;
+
+    margin-right: 0px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 0px;
+
+    padding-left: 0px;
+
+    padding-right: 0px;
+
+    padding-top: 0px;
+
+    text-decoration: none;
+
+    width: 750px;
+  }
+  .np_top {
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 0px;
+
+    margin-right: 65.61px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 10px;
+
+    padding-left: 10px;
+
+    padding-right: 10px;
+
+    padding-top: 10px;
+
+    text-decoration: none;
+
+    width: 1280px;
+  }
+  .left {
+    margin-left: 50px;
+    float: left;
+  }
+  .left1 {
+    float: right;
+  }
+  .el-dialog__header {
+    padding: 0px 0px 0px;
+  }
+  .button-style {
+    float: right;
+  }
+  .nobroad {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
   }
 }
 </style>
