@@ -4,7 +4,7 @@
             <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;&nbsp;&nbsp;已接任务</div>
 
     </div>
-    <br>
+    
     <!-- <el-divider></el-divider> -->
     <el-row >
       
@@ -18,6 +18,7 @@
           style="margin-top:20px"
           fit="true"
           over-flow:auto
+          :default-sort = "{prop: 'designerAcceptTime', order: 'descending'}"
         >
           <template>
             <el-table-column
@@ -31,6 +32,7 @@
             <el-table-column
               prop="taskName"
               label="需求任务名称"
+               sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
@@ -38,6 +40,7 @@
             <el-table-column
               prop="taskCategoryPart"
               label="需求类型"
+               sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
@@ -46,6 +49,7 @@
             <el-table-column
               prop="supplierCheckDesignState"
               label="审核状态"
+               sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
@@ -59,6 +63,7 @@
              <el-table-column
               prop="designerAcceptTime"
               label="接收时间"
+               sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
@@ -68,6 +73,7 @@
 
             <el-table-column
               prop="deadline"
+               sortable
               label="截止时间"
               min-width="90px"
               align="center"
@@ -102,8 +108,8 @@
       
     </el-row>
     
-     <el-dialog title="任务详情" :visible.sync="dialogVisible" width="60%" v-bind:class="biaoti"
-        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">
+     <el-dialog :visible.sync="dialogVisible" width="60%" >
+       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div>
         <el-form ref="form1" :model="form" label-width="110px">
           <el-row>
@@ -381,4 +387,7 @@ export default {
     font-size: 18px;
     color: #303133;
   }
+.el-dialog__header {
+    padding: 0px 0px 0px;
+}
 </style>

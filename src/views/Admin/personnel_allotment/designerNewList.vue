@@ -6,7 +6,7 @@
         style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
       >&nbsp;&nbsp;&nbsp;&nbsp;新增任务</div>
     </div>
-    <br />
+    
     <!-- <el-divider></el-divider> -->
     <div>
     <el-row >
@@ -18,6 +18,7 @@
           header-cell-class-name="table-header"
           height="100%"
           style="margin-top:20px"
+           :default-sort = "{prop: 'supplierDistributionTime', order: 'descending'}"
         >
           <template>
             <el-table-column
@@ -31,6 +32,7 @@
             <el-table-column
               prop="taskName"
               label="需求任务名称"
+              sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
@@ -38,13 +40,26 @@
             <el-table-column
               prop="taskCategoryPart"
               label="需求类型"
+              sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
               prop="deadline"
+              label="分配时间"
+              sortable
+              min-width="90px"
+              align="center"
+              :show-overflow-tooltip="true"
+            >
+              <template slot-scope="scope">{{scope.row.supplierDistributionTime| dataFormat("yyyy-MM-dd hh:mm")}}</template>
+            </el-table-column>
+
+            <el-table-column
+              prop="deadline"
               label="截止时间"
+              sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
@@ -79,8 +94,8 @@
     </el-row>
     </div>
 
-    <el-dialog title="任务详情" :visible.sync="dialogVisible" width="60%" v-bind:class="biaoti"
-        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">
+    <el-dialog :visible.sync="dialogVisible" width="60%">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div>
         <el-form ref="form" :model="form" label-width="110px">
           <el-row>
@@ -226,7 +241,8 @@ export default {
       console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        taskId: row.taskId
+        taskId: row.taskId,
+        designerName: this.username1
       });
       console.log(data);
       that.axios({
@@ -338,5 +354,8 @@ export default {
   font-size: 15px;
   font-weight: 400;
 
+}
+.el-dialog__header {
+    padding: 0px 0px 0px;
 }
 </style>
