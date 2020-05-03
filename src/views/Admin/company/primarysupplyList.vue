@@ -14,6 +14,7 @@
       <div class="handle-box">
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
+      <br>
         <div class="handle-box">
                 <el-select
                   v-model="provicepid"
@@ -50,7 +51,9 @@
                   ></el-option>       
                 </el-select>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                
               </div>
+              <br>
       <el-table
         :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
         border
@@ -61,10 +64,11 @@
       >
         <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
         <el-table-column prop="companyName" label="企业名称"></el-table-column>
-        <el-table-column prop="businessName" label="企业联络人"></el-table-column>
-        <el-table-column prop="email" label="企业邮箱"></el-table-column>
-        <el-table-column prop="officeNumber" label="联系人电话"></el-table-column>
-        <el-table-column prop="address" label="企业地址"></el-table-column>
+        <el-table-column prop="province" label="企业所在省份"></el-table-column>
+        <el-table-column prop="city" label="企业所在城市"></el-table-column>
+        <el-table-column prop="foundingTime" label="企业成立时间">
+          <template slot-scope="scope">{{scope.row.foundingTime | formatDate}}</template>
+        </el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
            
@@ -145,6 +149,8 @@
 
 <script>
 import Qs from "qs";
+import { formatDate } from "./dataChange";
+
 export default {
   name: "primarysupplyList",
   data() {
@@ -209,6 +215,14 @@ export default {
         }
       ],
     };
+  },
+  filters: {
+    formatDate(time) {
+      var index = time.lastIndexOf(".");
+      time = time.substring(0, index);
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm");
+    }
   },
   watch: {
     provicepid(){

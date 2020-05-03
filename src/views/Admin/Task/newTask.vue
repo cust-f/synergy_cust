@@ -131,12 +131,12 @@
               :before-remove="beforeRemove"
               :on-success="handleAvatarSuccess"
               multiple
-              :limit="10"
+              :limit="3"
               :on-exceed="handleExceed"
               :file-list="fileList"
             >
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip"></div>
+              <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
             </el-upload>
           </el-form-item>
         </el-form>
@@ -318,7 +318,7 @@
 
              <el-row v-if="sfsmkj">
                   <el-col :span="11">
-                    <el-form-item label="是否私密指定">
+                    <el-form-item label="是否发布">
                       <el-select
                         v-model="cooList.shifousimi"
                         placeholder="请选择是或者否"
@@ -336,28 +336,10 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-
-                  <el-col :span="11">
-                    <el-form-item label="私密指派" :style="{display:sm}">
-                      <el-input
-                        placeholder="仅有该供应方可见"
-                        v-model="input"
-                        :disabled="true"
-                        :style="{display:sm}"
-                      ></el-input>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="11">
-                    <el-form-item label="非私密指派" :style="{display:busm}">
-                      <el-input
-                        placeholder="全部可见"
-                        v-model="input"
-                        :disabled="true"
-                        :style="{display:busm}"
-                      ></el-input>
-                    </el-form-item>
-                  </el-col>
+                    <font color="red">
+                    <el-span class = "simichakan" :style="{display:sm}">仅该供应方可见</el-span>
+                    <el-span class = "simichakan"  :style="{display:busm}">全部可见</el-span>
+                    </font>
                   
                 </el-row>
 
@@ -379,12 +361,12 @@
                 :before-remove="beforeRemove"
                 :on-success="handleAvatarSuccess"
                 multiple
-                :limit="10"
+                :limit="3"
                 :on-exceed="handleExceed"
                 :file-list="fileList"
               >
                 <el-button size="small" type="primary">点击上传</el-button>
-                <div slot="tip" class="el-upload__tip"></div>
+                <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
               </el-upload>
             </el-form-item>
           </el-form>
@@ -507,8 +489,8 @@ sm:"none",//私密
       ],
       shifousimi: [
         
-        { id: "1", label: "是" },{
-          id: "0",
+        { id: "0", label: "是" },{
+          id: "1",
           label: "否"
         },
       ],
