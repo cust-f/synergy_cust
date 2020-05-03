@@ -86,6 +86,19 @@
             </el-col>
             <!-- <el-col :span="4" v-for="ca in category" :key="ca.id">{{ca}}</el-col> -->
           </el-row>
+          <el-row v-if="zihangyeOption">
+            <el-col :span="3" class="major">
+              <span>子行业类别</span>
+            </el-col>
+            <ul class="company-navigation">
+              <li>
+                <a @click="zicategorySelect(0)">不限</a>
+              </li>
+              <li v-for="(zi,index) in zihangye" :key="index">
+                <a @click="zicategorySelect(zi)">{{zi.industryName}}</a>
+              </li>
+            </ul>
+          </el-row>
         </el-card>
 
         <div style="width:500px; margin:20px 0px;">
@@ -189,7 +202,8 @@ export default {
       dynamicTags: [],
       province: "",
       city: [],
-      provinceOption: false, //是否选择了省份
+      zihangye:[],
+      zihangyeOption: false, //是否选择了省份
       category: [{id:"",name:""}], //行业类别
       taskType:[{
         id:0,name:"设计任务"
@@ -249,6 +263,22 @@ export default {
           this.city = response.data.allData.city;
         });
     },
+    getzihangye(id) {
+      let that = this;
+      let data = Qs.stringify({
+        pid: id
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/MainTaskInformation/zihangye",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.zihangye = response.data.allData.zihangye;
+        });
+    },
     getCompanyList(page) {
       let that = this;
       let data = Qs.stringify({
@@ -283,6 +313,7 @@ export default {
       let url;
       let taskType;
       let categorys;
+      let zihangye;
       var j;
       for (let i = 0; i < this.dynamicTags.length; i++) {
         if (this.dynamicTags[i].type == "taskType") {
@@ -290,12 +321,16 @@ export default {
         }  else if (this.dynamicTags[i].type == "category") {
           categorys=(this.dynamicTags[i].id);
         }
+        else if (this.dynamicTags[i].type == "zihangye"){
+          zihangye = this.dynamicTags[i].id;
+        }
       }
       let data = Qs.stringify(
         {
           taskType: taskType,
           category: categorys,
           searchStr: this.search,
+          zihangye:zihangye,
           page: 0
         },
         { arrayFormat: "brackets" }
@@ -352,6 +387,8 @@ export default {
         
       }else if (tag.type == "category") {
         this.deleteTag("category", 0);
+        this.deleteTag("zihangye",0);
+        this.zihangyeOption = false;
       }
        else {
         //删除对应一个还是不限
@@ -426,12 +463,30 @@ categorySelect(data) {
           type: "category",
           id: data.id
         };
-                console.log(tag)
+      console.log(tag)
 
        this.checkTag(tag)
-       this.dynamicTags.push(tag);
-         
-        
+       this.dynamicTags.push(tag)
+       this.getzihangye(data.id)
+       this.zihangyeOption = true;    
+      }
+    },
+    zicategorySelect(data){
+    if (data == 0) {
+        let delTag = { type: "zihangye" };
+        this.handleClose(delTag, 0);
+        console.log("nihao")
+      } else {
+        let tag = {
+          name: data.industryName,
+          type: "zihangye",
+          id: data.id
+        };
+      console.log(tag)
+
+       this.checkTag(tag)
+       this.dynamicTags.push(tag)
+ 
       }
     },
     taskTypeSelect(data){
@@ -467,7 +522,15 @@ categorySelect(data) {
             return;
           }
         }
-      }     
+      }   else if (data.type == "zihangye") {
+        for (let i = 0; i < this.dynamicTags.length; i++) {
+          if (this.dynamicTags[i].type == "zihangye") {
+            let oldTag = { type: "zihangye" };
+            this.handleClose(oldTag, 0);
+            return;
+          }
+        }
+      }  
       else {
         for (let i = 0; i < this.dynamicTags.length; i++) {
           if (
@@ -488,7 +551,7 @@ categorySelect(data) {
     companyDetail(id) {
       console.log("触发了呀");
       this.$router.push({
-        path: "admin/xuqiuyilanDetail.vue",
+        path: "admin/xuqiuyilanDetail",
         query: { taskID: id }
       });
     }

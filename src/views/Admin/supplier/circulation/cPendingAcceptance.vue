@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+      <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
@@ -12,25 +11,31 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'deadline', order: 'descending'}"
     >
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
+      <el-table-column label="序号" type="index" width="55" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
+      </el-table-column>
 
-      <el-table-column prop="taskName" label="名称"></el-table-column>
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
+      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型">
+      </el-table-column>
+      <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
-      <el-table-column prop="count" label="数量"></el-table-column>
-      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
+      <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="state" label="生产单位"></el-table-column>
+      <el-table-column prop="supplierCheckDesignState" sortable label="设计状态" align="center"></el-table-column>
 
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
+      <el-table-column prop="deadline" sortable label="截止日期">
+        <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="jumpAcceptDet() " type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -50,75 +55,108 @@
 
 
 <script>
+import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
-  name: "cPendingAcceptance",
+  name: "pendingAcceptance",
+  created() {
+    this.getData();
+  },
   data() {
     return {
       query: {
         pageIndex: 1,
         pageSize: 10
       },
+      tableData: [
+        {
+          taskId: "",
+          taskName: "",
+          taskType: "",
+          companyName: "",
+          designerName: "",
+          deadline: "",
+          taskCategoryPart:""
+        }
+      ],
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData: [
-        {
-          id: 1,
-          taskName: "光电测控仪器设备",
-          bussessType: "电视测角仪",
-          publishTask: "长春奥普光电技术股份有限公司",
-          taskLeader: "李华",
-          count: "50000",
-          state: "新增",
-          date: "2019-11-17"
-        },
-        {
-          id: 2,
-          taskName: "磨床生产",
-          bussessType: "平面磨床制作",
-          publishTask: "杭机集团长春一机有限公司",
-          taskLeader: "刘柳",
-          count: "50000",
-          state: "待审核",
-          date: "2019-12-17"
-        },
-        {
-          id: 3,
-          taskName: "通信技术设计",
-          bussessType: "通信技术",
-          publishTask: "哈尔滨海邻科信息技术有限公司",
-          taskLeader: "周舟",
-          count: "50000",
-          state: "已完成",
-          date: "2019-9-22"
-        },
-        {
-          id: 4,
-          taskName: "发电智能制造",
-          bussessType: "发电装备",
-          publishTask: "哈尔滨电机厂有限责任公司",
-          taskLeader: "孙铭",
-          count: "50000",
-          state: "进行中",
-          date: "2019-11-13"
-        }
-      ],
+      selectname:"",
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
+      YinCang: 1,
       pageTotal: 0,
       form: {},
       idx: -1,
       id: -1
     };
   },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
+  },
   created() {
     this.getData();
   },
   methods: {
     // 全部需求详情页面跳转
-    jumpAcceptDet() {
-      this.$router.push("/admin/cPendingAcceptanceDet");
+    // jumpAcceptDet() {
+    //   this.$router.push("/admin/pendingAcceptanceDet");
+    // },
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        username: "supplier",
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/searchByConTaskIdInTask",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+      //this.getData();
+    },
+    Det(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/circulationDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
+    },
+
+    getData() {
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: "supplier"
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/supplierAcceptingConTaskList",
+          data: data
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
     }
   }
   /*

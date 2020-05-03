@@ -21,30 +21,27 @@
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
         <br />
         <div>
-
-       
           <el-form ref="form" :model="form" label-width="100px">
             <el-row>
               <el-col :span="12">
-                <el-form-item label=""   >
+                <el-form-item label>
                   <el-image align="left" class="yingyezhizhao" :src="qiyezhizhao"></el-image>
                 </el-form-item>
               </el-col>
             </el-row>
-          </el-form> 
-          </div>
- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
-        <br />
-          <el-form ref="form" :model="form" label-width="100px">
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="" align="left">
-                  <el-image align="left" class="yingyezhizhao" :src="shuiwudengjizheng"></el-image>
-                </el-form-item>
-              </el-col>
-            </el-row>
           </el-form>
+        </div>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
+        <br />
+        <el-form ref="form" :model="form" label-width="100px">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label align="left">
+                <el-image align="left" class="yingyezhizhao" :src="shuiwudengjizheng"></el-image>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
 
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
@@ -187,7 +184,7 @@
 
             <el-row>
               <el-col :span="24">
-                <el-form-item label="详细">
+                <el-form-item label="企业简介">
                   <el-input v-model="form.introduction" :disabled="yangshi"></el-input>
                 </el-form-item>
                 <!-- <el-form-item label="详细" >
@@ -209,12 +206,51 @@
         <!-- 新增弹出框 -->
 
         <el-dialog :visible.sync="addVisible" width="50%">
+          
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证修改</div>
+
+          
+          <div>
+          <el-upload
+            class="avatar-uploader"
+            action="/api/MainTaskInformation/importTP"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="shuiwudengjizheng" :src="shuiwudengjizheng" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+          </div>
+
+
+          <br />
+
+                    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照修改</div>
+
+          
+          <div>
+          <el-upload
+            class="avatar-uploader"
+            action="/api/MainTaskInformation/importTP"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess1"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="qiyezhizhao" :src="qiyezhizhao" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+          </div>
+
+
+          <br />
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5;"
             font-size="14px"
-          >修改</div>
-          <br />
+          >信息修改</div>
+          <br>
+          <br>
           <el-row>
             <el-col :span="8"></el-col>
           </el-row>
@@ -372,7 +408,7 @@
             </el-row>
             <el-row>
               <el-col :span="24" class="xiangxi">
-                <el-form-item label="详细">
+                <el-form-item label="企业简介">
                   <el-input
                     type="textarea"
                     :rows="3"
@@ -402,6 +438,7 @@ export default {
   data() {
     return {
       usernameX: this.$store.state.user,
+      imageUrl:"",//shuwu照片
       yangshi: true,
       wancheng: true,
       xiugai: false,
@@ -464,8 +501,12 @@ export default {
       brNumber: "",
       addVisible: false,
       imagesbox: [{ id: 0, idView: require("../company/1.png") }],
-      shuiwudengjizheng :require("../company/税务登记证.jpg"),
-      qiyezhizhao : require("../company/营业执照.jpg"),
+      shuiwudengjizheng: "",
+            shuiwudengjizheng1: "",
+
+      qiyezhizhao:"",
+            qiyezhizhao1:"",
+
       tableData123: [
         {
           imgsrc: require("../company/1.png")
@@ -485,6 +526,7 @@ export default {
   created() {
     this.getDate();
   },
+
   methods: {
     //手机号校验
     animate() {
@@ -556,7 +598,12 @@ export default {
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
           this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
+          this.qiyezhizhao = response.data.allData.companyDetail[0].businessLicence;
+          this.shuiwudengjizheng = response.data.allData.companyDetail[0].tRCertificate;
+          this.qiyezhizhao1 = this.qiyezhizhao;
+          this.shuiwudengjizheng1 = this.shuiwudengjizheng;
           console.log(this.imgsrc);
+          console.log(this.qiyezhizhao);
         });
     },
     update() {
@@ -572,7 +619,7 @@ export default {
         companyName: this.form1.companyName,
         address: this.form1.address,
         postcode: this.form1.postcode,
-        FT: this.form1.foundingTime,
+        foundingTimeold: this.form.foundingTime,
         brNumber: this.form1.brNumber,
         officeNumber: this.form1.officeNumber,
         email: this.form1.email,
@@ -589,7 +636,12 @@ export default {
         legalPerson: this.form1.legalPerson,
         workerNumber: this.form1.workerNumber,
         deposit_Bank: this.form1.deposit_Bank,
-        bankNumber: this.form1.bankNumber
+        bankNumber: this.form1.bankNumber,
+        businessTel:this.form.businessTel,
+        businessLicence:this.qiyezhizhao1,
+        tRCertificate:this.shuiwudengjizheng1,
+        companyPicture:this.imgsrc,
+
       });
 
       that.axios({
@@ -602,6 +654,33 @@ export default {
       this.addList = {};
       this.addVisible = false;
     },
+    //上传税务登记样式触发
+      handleAvatarSuccess(res, file) {
+        console.log(res)
+        console.log(file)
+        this.shuiwudengjizheng = URL.createObjectURL(file.raw);
+        this.shuiwudengjizheng1 = res;
+      },
+      //企业营业执照
+      handleAvatarSuccess1(res, file) {
+        console.log(res)
+        
+        console.log(file)
+        this.qiyezhizhao = URL.createObjectURL(file.raw);
+        this.qiyezhizhao1 = res;
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      },
 
     changeCode() {
       this.$nextTick(() => {
@@ -656,6 +735,33 @@ export default {
 
 <style lang="scss">
 .companyDetail {
+  .el-upload--text{
+    width:180px
+  }
+  //上传按钮的样式
+    .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
   .formYS .el-input__inner {
     /* // 表格样式调整 */
 
@@ -669,7 +775,15 @@ export default {
     background-color: #ffffff;
     color: #606266;
   }
-
+  .el-dialog__body {
+    padding-right: 40px;
+    padding-top: 20px;
+  }
+//弹出框的样式
+  .el-dialog__header {
+    padding-right: 0%;
+    padding-top: 0%;
+  }
   .el-carousel__item h3 {
     color: #475669;
     font-size: 18px;
