@@ -162,12 +162,12 @@
                   <div slot="header" class="clearfix">
                     <span>附件</span>
                   </div>
-                  <el-link
+                  <!-- <el-link
                     type="primary"
                     v-for="(item,i) in FileName"
                     v-if="item!=null"
                     @click="downloadFile(this)"
-                  >(文件){{item}}</el-link>
+                  >(文件){{item}}</el-link> -->
                 </el-card>
               </div>
             </el-tab-pane>
