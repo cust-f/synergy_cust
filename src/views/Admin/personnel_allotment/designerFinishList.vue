@@ -3,7 +3,7 @@
     <div class="desinger">
       <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;&nbsp;&nbsp;历史任务</div>
     </div>
-    <br>
+    
     <!-- <el-divider></el-divider> -->
     <el-row >
       
@@ -15,11 +15,13 @@
           header-cell-class-name="table-header"
           height="100%"
           style="margin-top:20px"
+           :default-sort = "{prop: 'demandorCheckDesignTime', order: 'descending'}"
         >
           <template>
             <el-table-column
               prop="taskId"
               label="编号"
+              
               type="index"
               width="110px"
               align="center"
@@ -28,6 +30,7 @@
             <el-table-column
               prop="taskName"
               label="需求任务名称"
+              sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
@@ -35,13 +38,25 @@
             <el-table-column
               prop="taskCategoryPart"
               label="需求类型"
+              sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
+              prop="demandorCheckDesignTime"
+              label="完成时间"
+              sortable
+              min-width="90px"
+              align="center"
+              :show-overflow-tooltip="true"
+            >
+              <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
+            </el-table-column>
+            <el-table-column
               prop="deadline"
               label="截止时间"
+              sortable
               min-width="90px"
               align="center"
               :show-overflow-tooltip="true"
@@ -70,8 +85,8 @@
         </div>
       
     </el-row>
-     <el-dialog title="任务详情" :visible.sync="dialogVisible" width="60%" v-bind:class="biaoti"
-        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">
+     <el-dialog :visible.sync="dialogVisible" width="60%">
+       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div>
         <el-form ref="form2" :model="form" label-width="110px">
           <el-row>
@@ -275,4 +290,9 @@ export default {
     font-size: 18px;
     color: #303133;
   }
+  
+
+.el-dialog__header {
+    padding: 0px 0px 0px;
+}
 </style>

@@ -337,6 +337,7 @@
                   <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
                   <div class="input_span" align="center">
+                    
                     <el-form ref="form" :modelZL="formZL">
                       <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                       <br />
@@ -385,7 +386,7 @@ export default {
 
   data() {
     return {
-      form: {
+      formZL: {
         designCount: ""
       },
       activeName: "",
@@ -527,7 +528,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          //console.log(response);
+          console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.list = response.data.allData.List;
           this.activeName = this.list[0].taskId;
@@ -541,6 +542,7 @@ export default {
 
           console.log("ooo");
           console.log(this.activeName);
+          
         });
     },
 
@@ -650,7 +652,7 @@ export default {
         })
         .then(response => {
           // that.stpesdata = response.data.allData[0];
-          that.form.designCount = response.data.allData[6];
+          this.formZL.designCount = response.data.allData[6];
         
 
           this.milepost[0].description = response.data.allData[0];
@@ -666,8 +668,9 @@ export default {
           //   planUploadTime:"",//计划书提交时间
           //   checkPlanTime:"",//审核计划书时间
           //   demandorCheckDesignTime:"",//项目审核时间
+          console.log(this.form.designCount+"-------");
         });
-        console.log(form.designCount)
+       
     },
     getCharts1() {
       var that = this;
@@ -713,16 +716,17 @@ export default {
       };
       myChart.setOption(option, true);
     },
-    styleswith() {
-      if (this.form.designCount > 0 && this.form.designCount < 3) {
+
+     styleswith() {
+      if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
       }
-      if (this.form.designCount > 2 && this.form.designCount < 4) {
-        //document.getElementById("one").style.background = "#eee";
+      if (this.formZL.designCount > 2 && this.formZL.designCount < 4) {
+        document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
       }
-      else{
-        //document.getElementById("two").style.background = "#eee";
+      if (this.formZL.designCount > 4 || this.formZL.designCount == 4) {
+        document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
       }
     },
@@ -746,12 +750,14 @@ export default {
 /* //雷达图 */
 .LDT {
   height: 300px;
+  margin-left: 50px;
 }
 
 /* //完成质量 */
 .WCZL {
   font-size: 13px;
   color: #303133;
+  margin-left: 20px;
 }
 .images {
   width: 200px;
