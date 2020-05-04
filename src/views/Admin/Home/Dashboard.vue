@@ -11,7 +11,7 @@
         <el-date-picker
           v-model="value1"
           type="daterange"
-          
+          unlink-panels="false"
           range-separator="至"
           start-placeholder="开始日期"
           end-placeholder="结束日期">
@@ -626,7 +626,7 @@ export default {
     //柱形图数据1
     columnChart() {
       let that = this;
-      that.axios.post("/api/dataStatistics/companyRank").then(response => {
+      that.axios.post("/api/companyRank").then(response => {
         this.cloumnData1.Vintage1 = response.data.allData.Vintage;
         this.cloumnData1.topCompanyName1 = response.data.allData.companyName;
         this.cloumnData1.nowTaskNumber1 = response.data.allData.countYear;
