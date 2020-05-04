@@ -282,7 +282,7 @@
         <el-card shadow="hover" style="height:482px;margin-top: 10px;">
          
             <pie-chart ref="drawPieChart" :pieData="pieData" ></pie-chart>
-          
+          <div v-show="noDataPie" style="margin-top: 200px;margin-left:105px;color:#ccc">无数据</div>
         
         </el-card>
       </el-col>
@@ -346,6 +346,8 @@
         </div>
           <br />
           <div id="typeSituation" :piedata="piedata"  style="width: 100%;height:430%"></div>
+           <div v-show="noData" style="margin-top: 50px;margin-left:405px;color:#ccc">无数据</div>
+        
         </el-card>
       </el-col>
     </el-row>
@@ -374,6 +376,8 @@ export default {
       isWeekData: false,
       isMonthData: false,
       isParagraphData:true,
+      noDataPie:true,
+      noData:true,
       activeName: 'first',
       options: [],        
        value: '',
@@ -646,12 +650,15 @@ export default {
     //饼图数据
     pipChart() {
       let that = this;
-      that.axios.post("/api/dataStatistics/seasonsTaskCount").then(response => {
+      that.axios.post("/api/seasonsTaskCount").then(response => {
         this.pieData.searsonCount = response.data.allData.searsonCount;
         this.pieData.seasonsFinishTaskCount = response.data.allData.seasonsFinishTaskCount;
         this.pieData.nowYear = response.data.allData.nowYear;
-        
-        this.$refs.drawPieChart.getCharts();        
+         this.$refs.drawPieChart.getCharts();           
+        this.noDataPie=false;
+       
+       
+             
         
       });
     },
@@ -673,8 +680,11 @@ export default {
         })
         .then(response => {
         this.piedata.Count=response.data.allData.Count;
-        this.piedata.categoryFinishTaskList=response.data.allData.categoryFinishTaskList;      
-        this.getCharts5();  
+        this.piedata.categoryFinishTaskList=response.data.allData.categoryFinishTaskList;    
+           this.getCharts5();  
+           this.noData=false;
+        
+        
         //console.log(response.data.allData);
        
       
