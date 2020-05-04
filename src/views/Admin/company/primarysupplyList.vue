@@ -6,7 +6,7 @@
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           供应商列表
         </div></div>
-            <br>
+        <br>
               <div>
 
 
@@ -53,7 +53,6 @@
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 
               </div>
-              <br>
       <el-table
         :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
         border

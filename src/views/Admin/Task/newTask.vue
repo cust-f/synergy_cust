@@ -837,6 +837,7 @@ sm:"none",//私密
           mainTaskID: this.mainStaskID,
           Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.addList.Telphone,
+          taskID:"100086",
           SupperListINt: this.SupplierListInt
         });
         console.log(this.SupplierListInt);

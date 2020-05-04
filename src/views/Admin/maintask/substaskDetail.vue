@@ -497,8 +497,8 @@
               :on-exceed="handleExceed"
               :file-list="fileList"
             >
-              <el-button size="small" type="primary">上传文件不能超过3个</el-button>
-              <div slot="tip" class="el-upload__tip"></div>
+              <el-button size="small" type="primary">上传文件</el-button>
+              <div slot="tip" class="el-upload__tip">上传文件不得超过3个</div>
             </el-upload>
           </el-form-item>
         </el-form>
