@@ -91,6 +91,7 @@ export default {
       selectname: "",
       form: {},
       idx: -1,
+      username: localStorage.getItem("ms_username"),
       id: -1
     };
   },
@@ -112,7 +113,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        userName: this.username,
         taskName: this.selectname
       });
       console.log(data);
@@ -147,7 +148,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.username
       });
       console.log(data);
       that

@@ -224,6 +224,7 @@
                   size="small"
                   v-show="scope.row.contractState===0"
                 >上传</el-button>
+                <el-button @click="HTFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
 
                 <div v-show="scope.row.contractState===1">
                   <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
@@ -350,7 +351,10 @@
                   size="small"
                   v-show="scope.row.demandorCheckDesignState===0"
                 >上传</el-button>
-
+                <el-button
+                  @click="FHQDFileHistory()"
+                  v-show="scope.row.demandorCheckDesignState > 0"
+                >历史上传</el-button>
                 <div v-show="scope.row.demandorCheckDesignState===1">
                   <el-button @click="FFQDXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
@@ -404,7 +408,7 @@
         </div>
       </div>
 
-      <!-- 申请拒绝原因弹出框 -->
+      <!-- 申请拒绝原因 -->
       <el-dialog :visible.sync="addVisible1" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请被拒绝的原因</div>
         <el-row>
@@ -424,7 +428,7 @@
         </span>
       </el-dialog>
 
-      <!-- 任务计划拒绝原因弹出框 -->
+      <!-- 任务计划拒绝原因 -->
       <el-dialog title="计划书被拒绝的原因" :visible.sync="addVisible2" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书被拒绝的原因</div>
         <el-row>
@@ -444,9 +448,9 @@
         </span>
       </el-dialog>
 
-      <!-- 合同拒绝原因弹出框 -->
+      <!-- 合同拒绝原因 -->
       <el-dialog :visible.sync="addVisible3" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同拒绝原因弹出框</div>
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同拒绝原因</div>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -464,9 +468,9 @@
         </span>
       </el-dialog>
 
-      <!-- 流通验收拒绝原因弹出框 -->
-      <el-dialog title="流通验收拒绝原因弹出框" :visible.sync="addVisible4" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通验收拒绝原因弹出框</div>
+      <!-- 流通验收拒绝原因 -->
+      <el-dialog title="流通验收拒绝原因" :visible.sync="addVisible4" width="50%">
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通验收拒绝原因</div>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -557,6 +561,52 @@
           >上传到服务器</el-button>
         </el-upload>
       </el-dialog>
+
+      <!-- 文件历史 -->
+      <el-dialog title :visible.sync="fileHistoryDia" width="55%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
+        <br />
+        <br />
+        <div>
+          <el-table
+            :data="tableData6"
+            border
+            class="table"
+            ref="multipleTable"
+            header-cell-class-name="table-header"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column label="序号" type="index" width="55" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.$index + 1}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="fileName" label="文件名">
+              <template slot-scope="scope">
+                <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="publishingCompanyName" label="发布企业" width="180" align="center"></el-table-column>
+            <el-table-column prop="fileType" width="100" label="文件类型">
+              <template slot-scope="scope">
+                <span v-if="scope.row.fileType === 0">合同文件</span>
+                <span v-else-if="scope.row.fileType === 1">发货清单</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
+            <el-table-column prop="uploadTime" label="上传时间">
+              <template slot-scope="scope">
+                <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-dialog>
+      <!-- 测试后门 -->
+      <!-- <div>
+        <el-button @click="HTFileHistory()">合同</el-button>
+        <el-button @click="FHQDFileHistory()">发货清单</el-button>
+      </div>-->
     </el-main>
   </div>
 </template>
@@ -638,6 +688,21 @@ export default {
           taskCategoryPart: ""
         }
       ],
+
+      //文件历史数据
+      tableData6: [
+        {
+          taskName: "",
+          uploadTime: "",
+          filePath: "",
+          fileName: "",
+          fileType: 0,
+          publishingCompanyName: ""
+        }
+      ],
+      fileHistoryDia: false,
+      //文件类型
+      fileType: 0,
       //步骤条数据
       milepost: [
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },
@@ -709,7 +774,11 @@ export default {
       designerNub: 0,
       reMarkId: 1,
       designRefuseReason: false,
-      upCirculation: false
+      upCirculation: false,
+      //需要隐藏控制器
+      yinCang: 1,
+      //测试用taskId
+      textTaskId: 40
     };
   },
 
@@ -727,6 +796,46 @@ export default {
     this.styleswith(); //提交次数 背景颜色变化
   },
   methods: {
+    FHQDFileHistory() {
+      this.fileType = 1;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.textTaskId,
+        fileType: this.fileType
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/getFileHistory",
+          data: data
+        })
+        .then(response => {
+          // console.log(response);
+          this.tableData6 = response.data.allData;
+          this.fileHistoryDia = true;
+        });
+    },
+    HTFileHistory() {
+      this.fileType = 0;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.textTaskId,
+        fileType: this.fileType
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/getFileHistory",
+          data: data
+        })
+        .then(response => {
+          // console.log(response);
+          this.tableData6 = response.data.allData;
+          this.fileHistoryDia = true;
+        });
+    },
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
@@ -758,7 +867,8 @@ export default {
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/DownloadHTHT",
-          data: data
+          data: data,
+          responseType: "blob"
         })
         .then(response => {
           console.log(response);
@@ -776,7 +886,8 @@ export default {
         .axios({
           method: "post",
           url: "/api/supplier/Download",
-          data: data
+          data: data,
+          responseType: "blob"
         })
         .then(response => {
           console.log(response);
@@ -788,7 +899,8 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
-        leixing: "fahuoqingdan"
+        leixing: "fahuoqingdan",
+        responseType: "blob"
       });
       that
         .axios({
@@ -1040,31 +1152,31 @@ export default {
           data: data
         })
         .then(response => {
-            if (this.milepostActive > 0) {
-              this.milepost[0].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData[0]);
-            }
-            if (this.milepostActive > 1) {
-              this.milepost[1].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData[1]);
-            }
-            if (this.milepostActive > 2) {
-              this.milepost[2].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData[2]);
-            }
-            if (this.milepostActive > 3) {
-              this.milepost[3].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData[4]);
-            }
-            if (this.milepostActive >= 4) {
-              this.milepost[4].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData[5]);
-            }
+          if (this.milepostActive > 0) {
+            this.milepost[0].description = this.$options.filters["formatDate"](
+              response.data.allData[0]
+            );
+          }
+          if (this.milepostActive > 1) {
+            this.milepost[1].description = this.$options.filters["formatDate"](
+              response.data.allData[1]
+            );
+          }
+          if (this.milepostActive > 2) {
+            this.milepost[2].description = this.$options.filters["formatDate"](
+              response.data.allData[2]
+            );
+          }
+          if (this.milepostActive > 3) {
+            this.milepost[3].description = this.$options.filters["formatDate"](
+              response.data.allData[4]
+            );
+          }
+          if (this.milepostActive >= 4) {
+            this.milepost[4].description = this.$options.filters["formatDate"](
+              response.data.allData[5]
+            );
+          }
         });
     },
     //雷达图数据查找

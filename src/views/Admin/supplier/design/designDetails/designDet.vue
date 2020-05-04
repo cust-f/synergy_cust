@@ -35,7 +35,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="需求方:">
-                  <el-input v-model="cool.companyName" :readonly="true" style="text-align:center"  @click.native="companyDetil()"></el-input>
+                  <el-input
+                    v-model="cool.companyName"
+                    :readonly="true"
+                    style="text-align:center"
+                    @click.native="companyDetil()"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -241,7 +246,7 @@
                   size="small"
                   v-show="scope.row.contractState===0"
                 >上传</el-button>
-
+                <el-button @click="HTFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
                 <div v-show="scope.row.contractState===1">
                   <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
@@ -443,7 +448,7 @@
         </div>
       </el-dialog>
 
-      <!-- 申请拒绝原因弹出框 -->
+      <!-- 申请拒绝原因 -->
       <el-dialog :visible.sync="addVisible1" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请被拒绝原因</div>
         <br />
@@ -465,7 +470,7 @@
         </span>
       </el-dialog>
 
-      <!-- 任务计划拒绝原因弹出框 -->
+      <!-- 任务计划拒绝原因 -->
       <el-dialog :visible.sync="addVisible2" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书被拒绝原因</div>
         <br />
@@ -487,7 +492,7 @@
         </span>
       </el-dialog>
 
-      <!-- 合同拒绝原因弹出框 -->
+      <!-- 合同拒绝原因 -->
       <el-dialog :visible.sync="addVisible3" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同拒绝原因</div>
         <br />
@@ -509,7 +514,7 @@
         </span>
       </el-dialog>
 
-      <!-- 设计验收拒绝原因弹出框 -->
+      <!-- 设计验收拒绝原因 -->
       <el-dialog :visible.sync="addVisible4" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计验收拒绝原因</div>
         <br />
@@ -543,6 +548,7 @@
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess1"
           multiple
+          :limit="3"
           :before-remove="beforeRemove"
           :on-change="change"
           :auto-upload="false"
@@ -573,6 +579,7 @@
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess"
           :on-change="change"
+          :limit="3"
           multiple
           :auto-upload="false"
         >
@@ -588,7 +595,7 @@
         </el-upload>
       </el-dialog>
 
-      <!-- 设计拒绝原因弹出框 -->
+      <!-- 设计拒绝原因 -->
       <el-dialog :visible.sync="designRefuseReason" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入设计不通过的原因</div>
         <br />
@@ -611,8 +618,8 @@
         </span>
       </el-dialog>
 
-      <!-- 公司信息弹出框 -->
-      <el-dialog :visible.sync="companyDag" width="70%">
+      <!-- 公司信息 -->
+      <el-dialog :visible.sync="companyDag" width="50%">
         <el-row>
           <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">公司信息</div>
           <br />
@@ -675,24 +682,23 @@
         </el-row>
       </el-dialog>
 
-      <el-dialog :visible.sync="taskDetilDag" width="70%">
+      <el-dialog :visible.sync="taskDetilDag" width="50%">
         <el-row>
-          <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">公司信息</div>
+          <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求详情</div>
           <br />
-            <div class="title-detail">
-              <font>需求详情</font>
-            </div>
+          <div class="title-detail">
+            <font>需求详情</font>
+          </div>
+          <br />
+          <el-divider></el-divider>
+          <el-col :span="8" class="task-detail">
+            <li>
+              <a>
+                <font>{{cool.taskDetail}}</font>
+              </a>
+            </li>
             <br />
-            <el-divider></el-divider>
-            <el-col :span="8" class="task-detail">
-              <li>
-                <a>
-                  <font>{{cool.taskDetail}}</font>
-                </a>
-              </li>
-              <br />
-            </el-col>
-        
+          </el-col>
         </el-row>
       </el-dialog>
     </el-main>
@@ -872,7 +878,7 @@ export default {
       formLabelWidth: "100px",
       form: {},
       fileList: [],
-      userName: "",
+      username: localStorage.getItem("ms_username"),
       design1: "",
       //上传的文件路径
       technicalFile: [],
@@ -883,9 +889,10 @@ export default {
       shangchuancishu: 0,
       designRefuseReason: false,
       taskTpyeName: "",
+      fileNumber: 0,
       //公司弹窗
       companyDag: false,
-      taskDetilDag:false
+      taskDetilDag: false
     };
   },
 
@@ -949,7 +956,8 @@ export default {
         .axios({
           method: "post",
           url: "/api/supplier/Download",
-          data: data
+          data: data,
+          responseType: "blob"
         })
         .then(response => {
           console.log("cap");
@@ -1011,6 +1019,7 @@ export default {
           data: data
         })
         .then(response => {
+          console.log(this.fileNumber);
           console.log(response);
           this.tableData1 = response.data.allData.b;
           this.tableData2 = response.data.allData.b;
@@ -1232,7 +1241,7 @@ export default {
       this.dialogTableVisible = true;
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.username
       });
       console.log(data);
       that
@@ -1327,7 +1336,11 @@ export default {
           }
         });
     },
-
+    change() {
+      this.fileNumber = this.fileNumber + 1;
+      console.log("fileNumber");
+      console.log(this.fileNumber);
+    },
     //雷达图数据查找
     getLDData() {
       var that = this;
@@ -1365,6 +1378,7 @@ export default {
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
+      this.fileNumber = this.fileNumber - 1;
     },
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;

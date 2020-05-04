@@ -76,7 +76,7 @@ export default {
           userId: "",
           supplierName: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       multipleSelection: [],
@@ -88,7 +88,8 @@ export default {
       YinCang: 1,
       idx: -1,
       id: -1,
-      taskId: 0
+      taskId: 0,
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   created() {
@@ -105,7 +106,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
@@ -123,10 +124,10 @@ export default {
       //this.getData();
     },
     getData() {
-      console.log(this.userName);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
       console.log(data);
       that
