@@ -3,8 +3,8 @@
     <el-container>
       <el-main>
         <div class="box">
-          <h3>流通任务</h3>
-          <el-divider></el-divider>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通任务</div>
+
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
           <div class="container">
@@ -779,14 +779,24 @@ export default {
     /*
      *转跳对应任务信息页面
      */
-    Detail(row) {
+        Detail(row) {
       console.log(row.taskId);
-      this.$router.push({
-       path: "/admin/taskDetail1",
-       query:{
-         taskId:row.taskId
-       }
-       });
+      if(row.taskType == 0){
+        this.$router.push({
+        path: "/admin/mainStaskDetail",
+        query: {
+          taskId: row.taskId
+        }
+      });
+      }
+      else{
+        this.$router.push({
+        path: "/admin/mainStaskDetailLT",
+        query: {
+          taskId: row.taskId
+        }
+      });
+      }
     },
    
    open2(row) {
@@ -951,6 +961,9 @@ export default {
 }
 .box1 {
   font-size: 14px;
+}
+.biaoti {
+  font-size: 18px;
 }
 
 </style>

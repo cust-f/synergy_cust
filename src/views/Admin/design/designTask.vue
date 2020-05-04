@@ -3,8 +3,7 @@
     <el-container>
       <el-main>
         <div class="box">
-          <h3>设计任务</h3>
-          <el-divider></el-divider>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计任务</div>
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
           <div class="container">
@@ -151,10 +150,10 @@
                     
                   </template>
                   </el-table-column>
-                  <el-table-column prop="assignmentState" label="状态" align="center" width="80">
-                  </el-table-column>
+                  <!-- <el-table-column prop="assignmentState" label="状态" align="center" width="80">
+                  </el-table-column> -->
                   
-                  <el-table-column label="任务书" align="center" width="55" >
+                  <!-- <el-table-column label="任务书" align="center" width="55" >
                     <el-button type="text" size="small" class="box1">下载</el-button>
                   </el-table-column>
                   <el-table-column label="审核" align="center">
@@ -163,7 +162,7 @@
                     <el-button type="text" size="small" class="box1" @click="open(scope.row)">不通过</el-button>
                     </template>
                   
-                  </el-table-column>
+                  </el-table-column> -->
                   <el-table-column label="操作" align="center" >
 
                 <template slot-scope="scope">
@@ -268,7 +267,7 @@
                   </template>
                   </el-table-column>
 
-                  <el-table-column prop="taskCheck" label="状态" align="center" >
+                  <!-- <el-table-column prop="taskCheck" label="状态" align="center" >
                   </el-table-column>
                   <el-table-column label="图纸" align="center" width="55">
                     <el-button type="text" size="small" class="box1">查看</el-button>
@@ -279,7 +278,7 @@
                       <el-button type="text" size="small"  class="box1" @click="tuzhiNo(scope.row)">不通过</el-button>
                     </template>
                     
-                  </el-table-column>
+                  </el-table-column> -->
                   <el-table-column label="操作" align="center" >
 
                   <template slot-scope="scope">
@@ -1219,12 +1218,22 @@ export default {
      */
     Detail(row) {
       console.log(row.taskId);
-      this.$router.push({
-       path: "/admin/taskDetail",
-       query:{
-         taskId:row.taskId
-       }
-       });
+      if(row.taskType == 0){
+        this.$router.push({
+        path: "/admin/mainStaskDetail",
+        query: {
+          taskId: row.taskId
+        }
+      });
+      }
+      else{
+        this.$router.push({
+        path: "/admin/mainStaskDetailLT",
+        query: {
+          taskId: row.taskId
+        }
+      });
+      }
     },
    
     open2(row) {
@@ -1390,7 +1399,9 @@ export default {
 .box1 {
   font-size: 14px;
 }
-
+.biaoti {
+  font-size: 18px;
+}
 
 
 </style>

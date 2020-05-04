@@ -74,6 +74,8 @@
           </el-form>
           <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
+            <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
+            <el-button type="primary" class="button1" @click="xiazaiMAINmoban">下载</el-button>
             <!-- <el-button type="primary" class="button1">下载装配文档</el-button> -->
           </div>
           <el-divider></el-divider>
@@ -107,8 +109,8 @@
                     <span v-else-if="+scope.row.taskType === 1">流通任务</span>
                   </template>
                 </el-table-column>
-                <el-table-column prop="taskCategoryMain" label="任务父类别"></el-table-column>
-                <el-table-column prop="taskCategoryPart" label="任务子类别"></el-table-column>
+                <el-table-column prop="taskCategoryMain" label="一级行业类别"></el-table-column>
+                <el-table-column prop="taskCategoryPart" label="二级行业类别"></el-table-column>
                 <el-table-column prop="taskState" label="任务状态"></el-table-column>
                 <el-table-column prop="publishTime" label="开始时间">
                   <template slot-scope="scope">{{scope.row.publishTime |formatDate}}</template>
@@ -203,10 +205,10 @@
                       <el-cascader
                         style="width:100%;"
                         expand-trigger="hover"
-                        v-model="selectCateKeys"
+                        v-model="selectCateKeys1"
                         :options="xuanzelist"
                         :props="cateProps"
-                        @change="handleChange"
+                        @change="handleChange1"
                         props.checkStrictly="true"
                       ></el-cascader>
                     </el-form-item>
@@ -216,7 +218,7 @@
                     <el-form-item label="任务类别">
                       <el-select
                         v-model="addList.taskType"
-                        placeholder="请选择是或者否"
+                        placeholder="请选择"
                         class="selectsupply"
                         @change="liebieShu"
                         style="width:100%;"
@@ -287,7 +289,7 @@
 
                 <el-row v-if="sfsmkj">
                   <el-col :span="11">
-                    <el-form-item label="是否私密指定">
+                    <el-form-item label="是否发布">
                       <el-select
                         v-model="cooList.shifousimi"
                         placeholder="请选择是或者否"
@@ -303,20 +305,24 @@
                           :value="coo.id"
                         ></el-option>
                       </el-select>
-                      
+                    
                     </el-form-item>
+                    
                   </el-col>
-
-                <el-col :span="11">
+                    <font color="red">
+                    <el-span class = "simichakan" :style="{display:sm}">仅该供应方可见</el-span>
+                    <el-span class = "simichakan"  :style="{display:busm}">全部可见</el-span>
+                    </font>
+                <!-- <el-col :span="11">
                   <el-form-item label="仅该供应方可见" :style="{display:sm}">
                   </el-form-item>
                  <el-form-item label="全部可见" :style="{display:busm}">
                   </el-form-item>
-                      <!-- <font color="black">
+                      
+                </el-col> -->
+<!-- <font color="black">
                         <el-span :style="{display:busm}">全部可见</el-span>
                       </font> -->
-                </el-col>
-
                   <!-- <el-col :span="11">
                     <el-form-item label="私密指派" :style="{display:sm}">
                       <el-input
@@ -358,11 +364,11 @@
                     :before-remove="beforeRemove"
                     :on-success="handleAvatarSuccess"
                     multiple
-                    :limit="10"
+                    :limit="3"
                     :on-exceed="handleExceed"
                     :file-list="fileList"
                   >
-                    <el-button size="small" type="primary">点击上传</el-button>
+                    <el-button size="small" type="primary">上传文件不能超过3个</el-button>
                     <div slot="tip" class="el-upload__tip"></div>
                   </el-upload>
                 </el-form-item>
@@ -370,6 +376,135 @@
               <span slot="footer" class="dialog-footer">
                 <el-button @click="addVisible = false">取 消</el-button>
                 <el-button type="primary" @click="saveAdd11">确 定</el-button>
+              </span>
+            </el-dialog>
+
+
+            <el-dialog title :visible.sync="xiugaiTC" width="50%">
+              <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">修改</div>
+              <br>
+               <el-form ref="form" label-width="110px" class="box">
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="需求任务名称">
+                <el-input v-model="name"></el-input>
+              </el-form-item>
+            </el-col>
+
+          
+          <el-col :span="11">
+              <el-form-item label="发布时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="cool.publishTime"
+                  style="width: 100%;"
+                  value-format="yyyy-MM-dd HH:mm:ss"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            
+                <el-col :span="11">
+                <el-form-item label="总负责人">
+                  <el-select
+                    v-model="cool.principalName"
+                    placeholder="请选择总负责人"
+                    class="selectsupply"
+                    style="width:100%;"
+                  >
+                    <el-option
+                      width="180"
+                      v-for="coo1 in FZR"
+                      :key="coo1"
+                      :label="coo1"
+                      :value="coo1"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            <el-col :span="11">
+              <el-form-item label="截止时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="cool.deadline"
+                  style="width: 100%;"
+                  value-format="yyyy-MM-dd HH:mm:ss"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <!-- <el-col :span="11">
+              <el-form-item label="任务类别">
+                <el-select
+                  v-model="type"
+                  placeholder="请选择需求任务类别"
+                  class="selectsupply"
+                  @change="mainStaskType"
+                  style="width:100%;"
+                >
+                  <el-option
+                    v-for="leibie in mainStaskType"
+                    :key="leibie.id"
+                    :label="leibie.industryName"
+                    :value="leibie.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col> -->
+            <el-col :span="11">
+              <el-form-item label="任务种类">
+                <el-cascader
+                  style="width:100%;"
+                  expand-trigger="hover"
+                  v-model="selectCateKeys"
+                  :options="xuanzelist"
+                  :props="cateProps"
+                  @change="handleChange"
+                  props.checkStrictly = true
+                ></el-cascader>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+
+          <el-row>
+                <el-col :span="22" class = "xiangxi">
+                    <el-form-item label="需求任务详情" >
+                            <el-input 
+                            type="textarea"
+                            :rows="3"
+                            style="width:100%;"
+                            placeholder="请输入内容" v-model="cool.mainTaskDetail" class="gongsiDetail"  ></el-input>
+                    </el-form-item>                   
+                </el-col>
+            </el-row>
+
+          <el-form-item label="添加附件">
+            <el-upload
+              class="upload-demo"
+              action="/api/MainTaskInformation/import"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              :on-success="handleAvatarSuccess"
+              multiple
+              :limit="3"
+              :on-exceed="handleExceed"
+              :file-list="fileList"
+            >
+              <el-button size="small" type="primary">上传文件</el-button>
+              <div slot="tip" class="el-upload__tip">上传文件不得超过3个</div>
+            </el-upload>
+          </el-form-item>
+        </el-form>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="xiugaiTC = false">取 消</el-button>
+                <el-button type="primary" @click="xiugaixuqiuxinxi">确 定</el-button>
               </span>
             </el-dialog>
           </div>
@@ -391,6 +526,8 @@ export default {
   prop: {},
   data() {
     return {
+      //xiugaixuqiu
+      zhurenwuxiangxi:"",
       sfsmkj:false,//是否私密指派
       usernameX: localStorage.getItem("ms_username"),
       //级联选择框的配置对象
@@ -400,6 +537,8 @@ export default {
         children: "children",
         checkStrictly: true
       },
+      //级联选择框双向绑定到的数组 =--子
+      selectCateKeys1: [],
       //级联选择框双向绑定到的数组
       selectCateKeys: [],
       //行业分类列表
@@ -442,6 +581,8 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
+      subStaskTypeID:"",
+      mainStaskTypeID:"",
       shuju: [
         {
           taskName: "",
@@ -491,6 +632,7 @@ export default {
           taskCategoryPart:"",
         }
       ],
+
       //是否申请
       shifou: [
         {
@@ -502,14 +644,21 @@ export default {
       //是否私密
             shifousimi: [
         
-        { id: "1", label: "是" },{
-          id: "0",
+        { id: "0", label: "是" },{
+          id: "1",
           label: "否"
+        },
+      ],
+      //fuzeren
+            FZR:[
+        {
+          
         },
       ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
+      xiugaiTC:false,
       pageTotal: 0,
       form: {},
       idx: -1,
@@ -544,9 +693,31 @@ export default {
   created() {
     this.getParams();
     this.getData();
+    //fuzeren
+    this.getDate();
   },
 
   methods: {
+    getDate() {
+      var that = this;
+      var data = Qs.stringify({
+        aaaa: this.usernameX
+      });
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/SubstaskInformation/selectMainType",
+          data: data
+        })
+        .then(response => {
+          // this.mainStaskType = response.data.allData.a;
+          //this.shuju = response.data.allData.b;
+          this.xuanzelist = this.getTreeData(response.data.allData.c)
+          this.FZR= response.data.allData.d;
+          console.log(response);
+          console.log(this.FZR);
+        });
+    },
     //手机号校验
     animate() {
       var re = /^1\d{10}$/;
@@ -631,8 +802,9 @@ export default {
           mainTaskName: this.name,
           taskXiangxi: this.addList.TaskXiangXi,
           mainTaskID: this.mainStaskID,
-          Technonlgy_File: this.technicalFile,
+          Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.addList.Telphone,
+          taskID:"100086",
           SupperListINt: this.SupplierListInt
         });
         console.log(this.SupplierListInt);
@@ -645,12 +817,21 @@ export default {
             data: data,
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
           })
+        .then(response => {
+             console.log(response)
+            if(response.data=="成功"){
+              this.$message.success("提交成功");        
+            }
+          })
           .catch(error => {
             console.log(error);
             if (error != null) {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
                 type: "warning"
               });
+            }
+            else{
+                            this.$message.success("提交成功");        
             }
           });
         this.$message.success("提交成功");        
@@ -692,7 +873,48 @@ export default {
         this.busm = "none";
       }
     },
-
+    xiugaixuqiuxinxi(){
+      var that = this;
+      var data = Qs.stringify({
+        mainTaskID:this.mainTaskID,
+        mainTaskName:this.name,
+        principalName:this.cool.principalName,
+        publishTime1:this.cool.publishTime,
+        deadline1:this.cool.deadline,
+        taskCategoryMainId: this.mainStaskTypeID,
+        taskCategoryPartId: this.subStaskTypeID,
+        technicalFile:this.technicalFileWanzheng,
+        mainTaskDetail:this.cool.mainTaskDetail,
+        username:this.usernameX,
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/MainTaskInformation/updateMainXX",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+            this.mainStaskID = response.data.allData;
+            this.zzzz = response.data.allData;
+            if (this.zzzz != "null") {
+              console.log(this.zzzz);
+              this.$message.success("提交成功");
+              this.xiugaiTC = false;
+              this.technicalFileWanzheng = "";
+              this.getData();
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            if (error != null) {
+              this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
+                type: "warning"
+              });
+            }
+          });
+    },
     /*
      *转跳对应任务信息页面
      */
@@ -813,6 +1035,9 @@ export default {
         // data:this.$store.state.userName
       });
     },
+    xiugaitanchu(){
+        this.xiugaiTC = true;
+    },
 
     //新增操作 查询子任务列别及供应商列表
     addData() {
@@ -832,7 +1057,8 @@ export default {
           this.xuanzelist = this.getTreeData(response.data.allData.a);
           this.supplierCompany = response.data.allData.b;
           console.log(response);
-          console.log(this.supperlier);
+          console.log(this.xuanzelist);
+          console.log(response.data.allData.a)
         });
     },
     //保存新增
@@ -890,11 +1116,20 @@ export default {
     handlePreview(file) {
       console.log(file);
     },
-    handleAvatarSuccess(response, file, fileList) {
+        handleAvatarSuccess(response, file, fileList) {
+
       this.technicalFile[this.shangchuancishu] = response;
-      this.technicalFileWanzheng = this.technicalFileWanzheng + "linklink"+this.technicalFile[this.shangchuancishu]
+      //console.log(this.technicalFileWanzheng)
+      if(this.technicalFileWanzheng.length > 0){ 
+        //console.log("ok")
+        this.technicalFileWanzheng = this.technicalFileWanzheng +'linklink'+ this.technicalFile[this.shangchuancishu]
+       
+      }
+      else{
+             this.technicalFileWanzheng = this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu]
+      }
       this.shangchuancishu = this.shangchuancishu+1;
-      console.log(this.technicalFileWanzheng);
+      //console.log(this.technicalFileWanzheng);
     },
     //将级联选择器最后一行的数据去掉
     getTreeData(data) {
@@ -908,12 +1143,70 @@ export default {
         }
       }
       return data;
-    }
+    },
+        //级联选中框选中变化项会用到这个函数主
+    handleChange1() {
+      console.log(this.selectCateKeys1);
+      this.mainStaskTypeID = this.selectCateKeys1[0]
+      this.subStaskTypeID = this.selectCateKeys1[1]
+      console.log(this.mainStaskTypeID)
+      console.log(this.subStaskTypeID)
+    },
+    //任务计划下载
+    xiazaiMAINmoban() {
+      console.log("shenme");
+      var that = this;
+      var data = Qs.stringify({
+        taskID: this.mainTaskID,
+        leixing:"ZRWFJ"
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/DownloadHTHT",
+          data: data,
+          responseType: 'blob'
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response);
+          response.data = window.URL.createObjectURL(new Blob([response.data], {type: 'application/octet-stream'} ) ) ;
+          this.download(response.data, "ZFJ");
+        });
+    },
+    
+    // 下载文件
+    download(data, leixing) {
+      console.log("调用")
+      if (!data) {
+        return;
+      }
+      //let url = window.URL.createObjectURL(new Blob([data], {type: 'application/octet-stream'} ) ) ;
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = data;
+      if (leixing === "JHS") {
+        link.setAttribute("download", "设计文档.zip");
+      } else if (leixing === "HT") {
+        link.setAttribute("download", "合同.zip");
+      }
+      else if(leixing ==="ZFJ"){
+        link.setAttribute("download", "主任务附件.zip");
+      }
+      document.body.appendChild(link);
+      link.click();
+    },
+    
+   
   }
 };
 </script>
 
 <style>
+.simichakan{
+  line-height:40px;
+  font-color :red;
+}
 .formYS .el-input__inner {
   /* // 表格样式调整 */
 
