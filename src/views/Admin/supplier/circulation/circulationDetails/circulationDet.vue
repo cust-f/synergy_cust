@@ -602,6 +602,235 @@
           </el-table>
         </div>
       </el-dialog>
+
+      <!-- detail -->
+
+      <el-dialog title :visible.sync="addVisibleCD" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
+        <div width="500" align="center" height="200px">
+          <el-image :src="imgsrc"></el-image>
+        </div>
+        <br />
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
+        <div width="500" align="center" height="200px">
+          <el-image :src="qiyezhizhao"></el-image>
+        </div>
+        <br />
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
+        <div width="500" align="center" height="200px">
+          <el-image :src="shuiwudengjizheng"></el-image>
+        </div>
+        <br />
+
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
+        <br />
+        <div>
+          <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+        </div>
+        <div align="right" class="formYS">
+          <el-form ref="form" :model="form" label-width="100px">
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业名称">
+                  <el-input v-model="form.companyName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="企业联络电话">
+                  <el-input v-model="form.businessTel" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业所在省份">
+                  <el-input v-model="form.province" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="企业所在县市">
+                  <el-input v-model="form.city" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业地址">
+                  <el-input v-model="form.address" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="邮政编码">
+                  <el-input v-model="form.postcode" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业成立时间">
+                  <el-input v-bind:value="form.foundingTime | formatDate" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="工商注册号">
+                  <el-input v-model="form.brNumber" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业业务范围">
+                  <el-input v-model="form.product" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="电子邮箱">
+                  <el-input v-model="form.email" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业联系人">
+                  <el-input v-model="form.businessName" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="办公室电话">
+                  <el-input v-model="form.officeNumber" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="注册资产">
+                  <el-input v-model="form.registeredCapital" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="总资本">
+                  <el-input v-model="form.totalAssets" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="固定资产">
+                  <el-input v-model="form.fixedAssets" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="流动资产">
+                  <el-input v-model="form.currentAssets" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="法人代表">
+                  <el-input v-model="form.legalPerson" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="员工人数">
+                  <el-input v-model="form.workerNumber" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="开户银行">
+                  <el-input v-model="form.deposit_Bank" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="银行账户">
+                  <el-input v-model="form.bankNumber" :disabled="yangshi"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="24">
+                <el-form-item label="详细">
+                  <el-input v-model="form.introduction" :disabled="yangshi"></el-input>
+                </el-form-item>
+                <!-- <el-form-item label="详细" >
+                            <el-input 
+                            type="textarea"
+                            :rows="1"
+                            style="width:100%;"
+                            placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
+                    </el-form-item>
+                -->
+              </el-col>
+            </el-row>
+          </el-form>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="addVisibleCD = false">关 闭</el-button>
+        </span>
+      </el-dialog>
+      <!-- 全部子任务 -->
+      <el-dialog :visible.sync="quanbuzirenwu" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">全部子任务</div>
+        <br />
+        <el-table
+          :data="zirenwu"
+          border
+          class="table"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="taskName" label="子任务名称"></el-table-column>
+          <el-table-column prop="taskState" label="子任务状态"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应方">
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.acceptCompanyName === 0">暂未有供应方接受</el-span>
+              <el-span v-else>{{scope.row.acceptCompanyName}}</el-span>
+            </template>
+          </el-table-column>
+        </el-table>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="quanbuzirenwu = false">关 闭</el-button>
+        </span>
+      </el-dialog>
+      <!-- 子任务详情 + 下载 -->
+      <el-dialog :visible.sync="XZJXQ" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">子任务详情</div>
+        <br />
+        <el-form ref="form" :model="addList3" label-width="120px">
+          <el-row>
+            <el-col>
+              <el-form-item label="需求任务详情">
+                <el-input
+                  type="textarea"
+                  :rows="3"
+                  :disabled="true"
+                  style="width:100%;"
+                  placeholder="请输入内容"
+                  v-model="zirenwuXX"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="xiazaiZRWFJ">下载子任务附件</el-button>
+          <el-button type="primary" @click="XZJXQ = false">关 闭</el-button>
+        </span>
+      </el-dialog>
       <!-- 测试后门 -->
       <!-- <div>
         <el-button @click="HTFileHistory()">合同</el-button>
@@ -622,6 +851,12 @@ export default {
   name: "circulationDet",
   data() {
     return {
+      //商品细节的弹框
+      addVisibleCD: false,
+      //全部子任务
+      quanbuzirenwu: false,
+      //子任务详情和下载
+      XZJXQ: false,
       //质量完成图数据源
       form: {
         designCount: ""
@@ -796,6 +1031,27 @@ export default {
     this.styleswith(); //提交次数 背景颜色变化
   },
   methods: {
+    //下载子任务附件
+    xiazaiZRWFJ() {
+      console.log("shenme");
+      var that = this;
+      var data = Qs.stringify({
+        taskID: this.taskID,
+        leixing: "ZIRWHJ"
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/DownloadHTHT",
+          data: data,
+          responseType: "blob"
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response);
+          this.download(response.data, "ZRWFJ");
+        });
+    },
     FHQDFileHistory() {
       this.fileType = 1;
       var that = this;
@@ -930,6 +1186,8 @@ export default {
         link.setAttribute("download", "合同.zip");
       } else if (leixing === "FFQD") {
         link.setAttribute("download", "发货清单.zip");
+      } else if (leixing === "ZRWFJ") {
+        link.setAttribute("download", "子任务附件.zip");
       }
       document.body.appendChild(link);
       link.click();

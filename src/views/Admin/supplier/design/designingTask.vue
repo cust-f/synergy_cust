@@ -91,7 +91,7 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      userName: localStorage.getItem("ms_username")
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   filters: {
@@ -147,7 +147,7 @@ export default {
       console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: this.username
+        userName: this.usernameX
       });
       console.log(data);
       that

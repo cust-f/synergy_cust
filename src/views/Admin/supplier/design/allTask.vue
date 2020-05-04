@@ -148,7 +148,6 @@ export default {
     },
     //读取数据的方法
     getData() {
-      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
         userName: this.usernameX
