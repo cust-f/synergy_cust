@@ -39,14 +39,14 @@
               <el-col :span="8" class="task-detail">
                 <li>
                   <a>
-                    行业类别：
+                    一级指标：
                     <font>{{applyList.taskCategoryMain}}</font>
                   </a>
                 </li>
                 <br />
                 <li>
                   <a>
-                    需求类别：
+                    二级指标：
                     <font>{{applyList.taskCategoryPart}}</font>
                   </a>
                 </li>
@@ -99,7 +99,6 @@
               <div>
                 <ul class="ul02">
                   <el-row>
-                    
                     <el-col :span="8" class="task-detail">
                       <li>
                         <a>
@@ -338,7 +337,7 @@ export default {
       ],
       beginTime1: "",
       deadline1: "",
-      taskID: 44,
+      taskID: 0,
       userName: localStorage.getItem("ms_username"),
       applyDiaLog: false,
       //判断企业是否申请过此任务
@@ -383,28 +382,27 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/supplier/DownloadTelFile",
-          data: data
+          url: "/api/xuqiuyilan/DownloadTelFile",
+          data: data,
+          responseType: "blob", //服务器返回的数据类型
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
         })
         .then(response => {
           console.log(response);
           this.FileName = row.realName;
-          this.download(response.data);
+          const content = response.data;
+          const blob = new Blob([content]);
+          let url = window.URL.createObjectURL(blob); //表示一个指定的file对象或Blob对象
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = url;
+          link.setAttribute("download", this.FileName);
+          document.body.appendChild(link);
+          link.click();
+          URL.revokeObjectURL(link.href); //释放url
         });
-    },
-    // 下载文件
-    download(data) {
-      if (!data) {
-        return;
-      }
-      let url = window.URL.createObjectURL(data); //表示一个指定的file对象或Blob对象
-      console.log(url, "看一下这是啥");
-      let link = document.createElement("a");
-      link.style.display = "none";
-      link.href = url;
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
     },
     //获取详情值
     getParams() {
