@@ -90,7 +90,8 @@ export default {
       id: -1,
       selectname: "",
       userName: "",
-      YinCang: 1
+      YinCang: 1,
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   created() {
@@ -104,10 +105,10 @@ export default {
   },
   methods: {
     getData() {
-      console.log(this.userName);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
 
       console.log(data);
@@ -126,7 +127,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);

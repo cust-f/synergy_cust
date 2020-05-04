@@ -206,42 +206,52 @@
         <!-- 新增弹出框 -->
 
         <el-dialog :visible.sync="addVisible" width="50%">
-          
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证修改</div>
-
-          
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片修改</div>
           <div>
-          <el-upload
-            class="avatar-uploader"
-            action="/api/MainTaskInformation/importTP"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-          >
-            <img v-if="shuiwudengjizheng" :src="shuiwudengjizheng" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+            <el-upload
+              class="avatar-uploader"
+              action="/api/MainTaskInformation/importTP"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess3"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img v-if="imgsrc" :src="imgsrc" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
           </div>
-
 
           <br />
 
-                    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照修改</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照修改</div>
 
-          
           <div>
-          <el-upload
-            class="avatar-uploader"
-            action="/api/MainTaskInformation/importTP"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess1"
-            :before-upload="beforeAvatarUpload"
-          >
-            <img v-if="qiyezhizhao" :src="qiyezhizhao" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+            <el-upload
+              class="avatar-uploader"
+              action="/api/MainTaskInformation/importTP"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess1"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img v-if="qiyezhizhao" :src="qiyezhizhao" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
           </div>
 
+          <br />
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证修改</div>
+
+          <div>
+            <el-upload
+              class="avatar-uploader"
+              action="/api/MainTaskInformation/importTP"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img v-if="shuiwudengjizheng" :src="shuiwudengjizheng" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </div>
 
           <br />
           <div
@@ -249,8 +259,8 @@
             style="padding: 0 10px; border-left: 3px solid #4e58c5;"
             font-size="14px"
           >信息修改</div>
-          <br>
-          <br>
+          <br />
+          <br />
           <el-row>
             <el-col :span="8"></el-col>
           </el-row>
@@ -438,7 +448,7 @@ export default {
   data() {
     return {
       usernameX: this.$store.state.user,
-      imageUrl:"",//shuwu照片
+      imageUrl: "", //shuwu照片
       yangshi: true,
       wancheng: true,
       xiugai: false,
@@ -502,17 +512,18 @@ export default {
       addVisible: false,
       imagesbox: [{ id: 0, idView: require("../company/1.png") }],
       shuiwudengjizheng: "",
-            shuiwudengjizheng1: "",
+      shuiwudengjizheng1: "",
 
-      qiyezhizhao:"",
-            qiyezhizhao1:"",
+      qiyezhizhao: "",
+      qiyezhizhao1: "",
 
       tableData123: [
         {
           imgsrc: require("../company/1.png")
         }
       ],
-      imgsrc: ""
+      imgsrc: "",
+      imgsrc1:""
     };
   },
   filters: {
@@ -598,12 +609,15 @@ export default {
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
           this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
-          this.qiyezhizhao = response.data.allData.companyDetail[0].businessLicence;
-          this.shuiwudengjizheng = response.data.allData.companyDetail[0].tRCertificate;
-          this.qiyezhizhao1 = this.qiyezhizhao;
-          this.shuiwudengjizheng1 = this.shuiwudengjizheng;
-          console.log(this.imgsrc);
-          console.log(this.qiyezhizhao);
+          this.qiyezhizhao =
+          response.data.allData.companyDetail[0].businessLicence;
+          this.shuiwudengjizheng =
+          response.data.allData.companyDetail[0].tRCertificate;
+          this.qiyezhizhao1 = this.qiyezhizhao.substring(22);
+          this.shuiwudengjizheng1 = this.shuiwudengjizheng.substring(22);
+          this.imgsrc1 = this.imgsrc.substring(22);
+          console.log(this.imgsrc1);
+          console.log(this.qiyezhizhao1);
         });
     },
     update() {
@@ -612,7 +626,6 @@ export default {
     },
 
     saveAdd11() {
-      console.log(this.form1);
       var that = this;
       var data = Qs.stringify({
         companyId: this.form1.companyId,
@@ -637,11 +650,10 @@ export default {
         workerNumber: this.form1.workerNumber,
         deposit_Bank: this.form1.deposit_Bank,
         bankNumber: this.form1.bankNumber,
-        businessTel:this.form.businessTel,
-        businessLicence:this.qiyezhizhao1,
-        tRCertificate:this.shuiwudengjizheng1,
-        companyPicture:this.imgsrc,
-
+        businessTel: this.form.businessTel,
+        businessLicence: this.qiyezhizhao1,
+        tRCertificate: this.shuiwudengjizheng1,
+        companyPicture: this.imgsrc1
       });
 
       that.axios({
@@ -655,32 +667,39 @@ export default {
       this.addVisible = false;
     },
     //上传税务登记样式触发
-      handleAvatarSuccess(res, file) {
-        console.log(res)
-        console.log(file)
-        this.shuiwudengjizheng = URL.createObjectURL(file.raw);
-        this.shuiwudengjizheng1 = res;
-      },
-      //企业营业执照
-      handleAvatarSuccess1(res, file) {
-        console.log(res)
-        
-        console.log(file)
-        this.qiyezhizhao = URL.createObjectURL(file.raw);
-        this.qiyezhizhao1 = res;
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+    handleAvatarSuccess(res, file) {
+      console.log(res);
+      console.log(file);
+      this.shuiwudengjizheng = URL.createObjectURL(file.raw);
+      this.shuiwudengjizheng1 = res;
+    },
+    //企业营业执照
+    handleAvatarSuccess1(res, file) {
+      console.log(res);
 
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-      },
+      console.log(file);
+      this.qiyezhizhao = URL.createObjectURL(file.raw);
+      this.qiyezhizhao1 = res;
+    },
+        //上传税务登记样式触发
+    handleAvatarSuccess3(res, file) {
+      console.log(res);
+      console.log(file);
+      this.imgsrc = URL.createObjectURL(file.raw);
+      this.imgsrc1 = res;
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
 
     changeCode() {
       this.$nextTick(() => {
@@ -735,11 +754,11 @@ export default {
 
 <style lang="scss">
 .companyDetail {
-  .el-upload--text{
-    width:180px
+  .el-upload--text {
+    width: 180px;
   }
   //上传按钮的样式
-    .avatar-uploader .el-upload {
+  .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;
@@ -747,7 +766,7 @@ export default {
     overflow: hidden;
   }
   .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
+    border-color: #409eff;
   }
   .avatar-uploader-icon {
     font-size: 28px;
@@ -779,7 +798,7 @@ export default {
     padding-right: 40px;
     padding-top: 20px;
   }
-//弹出框的样式
+  //弹出框的样式
   .el-dialog__header {
     padding-right: 0%;
     padding-top: 0%;

@@ -13,7 +13,7 @@
       @selection-change="handleSelectionChange"
       :default-sort="{prop: 'deadline', order: 'ascending'}"
     >
-     <el-table-column label="序号" type="index" width="55" align="center">
+      <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
           <span>{{scope.$index + 1}}</span>
         </template>
@@ -23,8 +23,7 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable label="需求类型">
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
 
       <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
 
@@ -73,7 +72,7 @@ export default {
           userName: "",
           supplierName: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       //接受表单数据
@@ -84,11 +83,12 @@ export default {
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
-      selectname:"",
-      YinCang:1,
+      selectname: "",
+      YinCang: 1,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   filters: {
@@ -105,7 +105,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
@@ -135,10 +135,10 @@ export default {
 
     //获取数据
     getData() {
-      console.log(this.userName);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
 
       console.log(data);

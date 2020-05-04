@@ -97,6 +97,7 @@ export default {
       selectname: "",
       pageTotal: 0,
       form: {},
+      usernameX: localStorage.getItem("ms_username"),
       idx: -1,
       id: -1
     };
@@ -118,10 +119,10 @@ export default {
   },
   methods: {
     handleSearch() {
-      console.log(this.selectname);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: userNameX,
         taskName: this.selectname
       });
       console.log(data);
@@ -147,10 +148,9 @@ export default {
     },
     //读取数据的方法
     getData() {
-      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
       console.log(data);
       that

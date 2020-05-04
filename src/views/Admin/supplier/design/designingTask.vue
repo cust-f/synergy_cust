@@ -23,8 +23,7 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable label="行业类别">
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="行业类别"></el-table-column>
 
       <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
 
@@ -80,7 +79,7 @@ export default {
           designerName: "",
           designCount: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       multipleSelection: [],
@@ -91,7 +90,8 @@ export default {
       selectname: "",
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   filters: {
@@ -112,7 +112,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        userName: this.username,
         taskName: this.selectname
       });
       console.log(data);
@@ -144,10 +144,10 @@ export default {
       return (this.page.currentPage - 1) * this.page.pageSize + $index + 1;
     },
     getData() {
-      console.log(this.userName);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
       console.log(data);
       that

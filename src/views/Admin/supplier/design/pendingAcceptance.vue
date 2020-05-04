@@ -21,8 +21,7 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
-      <el-table-column prop="taskCategoryPart" sortable label="需求类型">
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
       <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
 
       <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
@@ -76,13 +75,13 @@ export default {
           companyName: "",
           designerName: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      selectname:"",
+      selectname: "",
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -90,7 +89,8 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   filters: {
@@ -111,7 +111,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
@@ -139,10 +139,10 @@ export default {
     },
 
     getData() {
-      console.log(this.userName);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
       console.log(data);
       that

@@ -23,8 +23,7 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable label="需求类型">
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
 
       <el-table-column prop="publishingCompanyName" sortable label="发布需求企业"></el-table-column>
 
@@ -80,7 +79,7 @@ export default {
           companyName: "",
           beginTime: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       //接受表单数据
@@ -91,7 +90,7 @@ export default {
       id: -1,
       selectname: "",
       YinCang: 1,
-      userName: ""
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   filters: {
@@ -105,10 +104,10 @@ export default {
   },
   methods: {
     getData() {
-      console.log(this.userName);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
 
       console.log(data);
@@ -138,7 +137,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
