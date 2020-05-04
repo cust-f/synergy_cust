@@ -130,7 +130,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/evaluateDetils",
+          url: "http:/api/evaluateDetils",
           data: data
         })
         .then(response => {
@@ -164,7 +164,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/remarkDetils",
+          url: "http:/api/remarkDetils",
           data: data
         })
         .then(response => {

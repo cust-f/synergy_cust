@@ -26,7 +26,8 @@
                 class="handle-del mr10"
                 @click="delAllSelection"
               >批量删除</el-button>
-              <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
+              <el-button type="primary" class="handle-del mr10" @click="addData">导入</el-button>
+              <el-button type="primary" class="handle-del mr10" @click="addData">导出</el-button>
             </div>
 
             <el-table
@@ -164,24 +165,7 @@ export default {
           state: "未评价",
           Grade: " "
         },
-        {
-           id: 6, 
-          Maintask:"车间零部件生产",
-          Subtask: "火车的制造",
-          Suppliername: "长春光华微电子集团",
-          time:"2020-01-02",
-          state: "未评价",
-          Grade: " "
-        },
-        {
-          id: 7, 
-          Maintask:"卫星微型零件制作",
-          Subtask: "高精密轮轴制造",
-          Suppliername: "北方重工集团有限公司",
-          time:"2019-08-08",
-          state: "未评价",
-          Grade: " "
-        }
+        
       ],
 
       multipleSelection: [],
