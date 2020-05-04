@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <el-container>
         <el-main>
           <div font-size="24px">
@@ -104,46 +104,41 @@
         <el-button @click="editVisible = false">取 消</el-button>
         <el-button type="primary" @click="saveEdit">确 定</el-button>
       </span>
-    </el-dialog> -->
+          </el-dialog>-->
 
-    <!-- 新增弹出框 -->
-    <el-dialog title="新增" :visible.sync="addVisible" width="60%">
-        <el-table
-            :data="tableData1"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-        >
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="companyName" label="企业名称"></el-table-column>
-        <el-table-column prop="businessName" label="企业联络人"></el-table-column>
-        <el-table-column prop="email" label="企业邮箱"></el-table-column>
-        <el-table-column prop="officeNumber" label="联系人电话"></el-table-column>
-        <el-table-column prop="address" label="企业地址"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              icon="el-icon-delete"
-              class="red"
-              @click="TianJia(scope.row)"
-            >添加</el-button>
-          <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
-          </template>
-        </el-table-column>
-        </el-table>
-    
-    </el-dialog>
-              </div>
-
-        </el-main>
+          <!-- 新增弹出框 -->
+          <el-dialog title="新增" :visible.sync="addVisible" width="60%">
+            <el-table
+              :data="tableData1"
+              border
+              class="table"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+              <el-table-column prop="companyName" label="企业名称"></el-table-column>
+              <el-table-column prop="businessName" label="企业联络人"></el-table-column>
+              <el-table-column prop="email" label="企业邮箱"></el-table-column>
+              <el-table-column prop="officeNumber" label="联系人电话"></el-table-column>
+              <el-table-column prop="address" label="企业地址"></el-table-column>
+              <el-table-column label="操作" width="180" align="center">
+                <template slot-scope="scope">
+                  <el-button
+                    type="text"
+                    icon="el-icon-delete"
+                    class="red"
+                    @click="TianJia(scope.row)"
+                  >添加</el-button>
+                  <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-dialog>
+        </div>
+      </el-main>
     </el-container>
-    
-    
-</div>
-      
+  </div>
 </template>
 
 <script>
@@ -154,30 +149,29 @@ export default {
   name: "primarysupplyList",
   data() {
     return {
-            provicepid: "",
-                  citypid:"",
-      usernameX:localStorage.getItem("ms_username"),
-            pageIndex: 1,
+      provicepid: "",
+      citypid: "",
+      usernameX: localStorage.getItem("ms_username"),
+      pageIndex: 1,
       pageSize: 10,
 
-        tableData: {
-          companyId:"",
-          companyName:"",
-          businessName:"",
-          email:"",
-          officeNumber:"",
-          address:""
-        },
-        tableData1: {
-          companyId:"",
-          companyName:"",
-          businessName:"",
-          email:"",
-          officeNumber:"",
-          address:""
-        },
-       
-       
+      tableData: {
+        companyId: "",
+        companyName: "",
+        businessName: "",
+        email: "",
+        officeNumber: "",
+        address: ""
+      },
+      tableData1: {
+        companyId: "",
+        companyName: "",
+        businessName: "",
+        email: "",
+        officeNumber: "",
+        address: ""
+      },
+
       addList: {
         id: null,
         address: "",
@@ -212,7 +206,7 @@ export default {
           type: "",
           id: ""
         }
-      ],
+      ]
     };
   },
   filters: {
@@ -224,30 +218,28 @@ export default {
     }
   },
   watch: {
-    provicepid(){
-       if(this.provicepid !=0&&this.provicepid!=99){
+    provicepid() {
+      if (this.provicepid != 0 && this.provicepid != 99) {
         this.getCity();
-        console.log("ri")
+        console.log("ri");
       }
-      if(this.provicepid ==99){
-        this.citypid="10086"
-        this.City  = null;
+      if (this.provicepid == 99) {
+        this.citypid = "10086";
+        this.City = null;
       }
     }
-     
-    
   },
   created() {
     this.getData();
     this.getProvice();
   },
-  methods:{
-      /*
-      *转跳对应任务信息页面
-      */
-     getData(){
-       var that = this;
-        var data = Qs.stringify({
+  methods: {
+    /*
+     *转跳对应任务信息页面
+     */
+    getData() {
+      var that = this;
+      var data = Qs.stringify({
         username: this.usernameX
       });
       console.log(data);
@@ -255,16 +247,16 @@ export default {
         .axios({
           method: "post",
           url: "/api/primarysupplyList/show",
-          data: data,
-          
+          data: data
+
           // data:this.$store.state.userName
         })
         .then(response => {
-          this.tableData = response.data.allData
-          console.log(response)
+          this.tableData = response.data.allData;
+          console.log(response);
         });
-     },
-     getProvice() {
+    },
+    getProvice() {
       var that = this;
       that
         .axios({
@@ -276,11 +268,10 @@ export default {
           console.log(response);
           console.log(this.Provice);
         });
-        
     },
-      getCity() {
+    getCity() {
       var that = this;
-      console.log(this.provicepid)
+      console.log(this.provicepid);
       this.citypid = "";
       var data = Qs.stringify({
         pid: this.provicepid
@@ -289,7 +280,7 @@ export default {
         .axios({
           method: "post",
           url: "/api/district/city",
-          data:data
+          data: data
         })
         .then(response => {
           this.City = response.data.allData.city;
@@ -297,77 +288,75 @@ export default {
           console.log(this.City);
         });
     },
-     TianJia(row){
-       var that = this;
-       var data = Qs.stringify({
-         username:this.usernameX,
-         companyId:row.companyId
-       })
-       that
-          .axios({
+    TianJia(row) {
+      var that = this;
+      var data = Qs.stringify({
+        username: this.usernameX,
+        companyId: row.companyId
+      });
+      that
+        .axios({
           method: "post",
           url: "/api/companyDetail/tianjiaSupplier",
-          data: data,
-          })
-          .then(response => {
-              if (response.data.code == 200) {
-                this.$message({
-                  type: "success",
-                  message: "添加成功"
-                });
-                this.addVisible = false;
-          }else{
-             this.$message({
-                  type: "warning",
-                  message: "添加失败"
-                });
+          data: data
+        })
+        .then(response => {
+          if (response.data.code == 200) {
+            this.$message({
+              type: "success",
+              message: "添加成功"
+            });
+            this.addVisible = false;
+          } else {
+            this.$message({
+              type: "warning",
+              message: "添加失败"
+            });
           }
-          });
-          location.reload();//刷新当前页面
-     },
-    handleDelete(row){
-      console.log(row.companyId)
+        });
+      location.reload(); //刷新当前页面
+    },
+    handleDelete(row) {
+      console.log(row.companyId);
       var that = this;
       var data = Qs.stringify({
         companyID: row.companyId,
-        username:this.usernameX,
-      })
+        username: this.usernameX
+      });
       that
         .axios({
           method: "post",
           url: "/api/primarysupplyList/deleteDate",
-          data: data,
-          
+          data: data
+
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response)
-            if (response.data == "成功") {
-                this.$message({
-                  type: "success",
-                  message: "删除成功"
-                });
-                }
-            else{
-                this.$message({
-                  type: "warning",
-                  message: "删除失败"
-                });
-            }
+          console.log(response);
+          if (response.data == "成功") {
+            this.$message({
+              type: "success",
+              message: "删除成功"
+            });
+          } else {
+            this.$message({
+              type: "warning",
+              message: "删除失败"
+            });
+          }
         });
-     
     },
-    supplyDetail(row){
-         this.$router.push({
-        path: '/admin/othercompanyDetail',
+    supplyDetail(row) {
+      this.$router.push({
+        path: "/admin/othercompanyDetail",
         query: {
           companyId: row.companyId
         }
       });
-     },
+    },
     addData() {
-        var that = this;
-        var data = Qs.stringify({
+      var that = this;
+      var data = Qs.stringify({
         username: this.usernameX
       });
       console.log(data);
@@ -375,59 +364,57 @@ export default {
         .axios({
           method: "post",
           url: "/api/primarysupplyList/newAdd",
-          data: data,
-          
+          data: data
+
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response)
-          this.tableData1 = response.data.allData
+          console.log(response);
+          this.tableData1 = response.data.allData;
         });
       this.addVisible = true;
     },
-        handleCurrentChange(cpage) {
+    handleCurrentChange(cpage) {
       this.pageIndex = cpage;
     },
 
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-         handleSearch(){
-       var that = this;
-      console.log(this.provicepid)
+    handleSearch() {
+      var that = this;
+      console.log(this.provicepid);
       var data = Qs.stringify({
         provicepid: this.provicepid,
-        citypid:this.citypid,
-        gyslb:"gyslbsc",
+        citypid: this.citypid,
+        gyslb: "gyslbsc",
         username: this.usernameX
       });
-      console.log(this.provicepid)
-      console.log(this.citypid)
+      console.log(this.provicepid);
+      console.log(this.citypid);
       that
         .axios({
           method: "post",
           url: "/api/companyDetail/selectBySS",
-          data:data
+          data: data
         })
         .then(response => {
           this.tableData = response.data.allData;
           console.log(response);
           //this.citypid = ""
         });
-    },
-    
+    }
   }
 };
 </script>
 <style>
-.con{
-    width:500px;
-    height: 1000px;
-    margin:0 auto;
-    text-align: center
+.con {
+  width: 500px;
+  height: 1000px;
+  margin: 0 auto;
+  text-align: center;
 }
-  .biaoti {
-    font-size: 18px;
-  }
-
+.biaoti {
+  font-size: 18px;
+}
 </style>

@@ -39,14 +39,14 @@
               <el-col :span="8" class="task-detail">
                 <li>
                   <a>
-                    行业类别：
+                    一级指标：
                     <font>{{applyList.taskCategoryMain}}</font>
                   </a>
                 </li>
                 <br />
                 <li>
                   <a>
-                    需求类别：
+                    二级指标：
                     <font>{{applyList.taskCategoryPart}}</font>
                   </a>
                 </li>
@@ -76,7 +76,7 @@
                 <li>
                   <a>
                     需求方联系电话：
-                    <font>{{applyList.businessTel}}</font>
+                    <font>{{companyList.businessTel}}</font>
                   </a>
                 </li>
                 <br />
@@ -162,12 +162,16 @@
                   <div slot="header" class="clearfix">
                     <span>附件</span>
                   </div>
-                  <!-- <el-link
-                    type="primary"
-                    v-for="(item,i) in FileName"
-                    v-if="item!=null"
-                    @click="downloadFile(this)"
-                  >(文件){{item}}</el-link> -->
+                  <div>
+                    <el-table :data="tableData" class="customer-table" :show-header="false">
+                      <el-table-column>
+                        <template slot-scope="scope">
+                          <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column>
+                    </el-table>
+                  </div>
                 </el-card>
               </div>
             </el-tab-pane>
@@ -197,7 +201,7 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方：">
-              <el-input v-model="companyList.companyName" :readonly="true"></el-input>
+              <el-input class=".no-el-input" v-model="companyList.companyName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
@@ -237,7 +241,7 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方电话：">
-              <el-input v-model="applyList.email" :readonly="true"></el-input>
+              <el-input v-model="companyList.businessTel" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
@@ -294,7 +298,6 @@ export default {
           taskType: "",
           beginTime: "",
           deadline: "",
-          businessTel: "",
           taskTypeName: "",
           applyTime: "",
           taskCategoryMain: "",
@@ -319,7 +322,12 @@ export default {
         businessTel: "",
         email: ""
       },
-
+      tableData: [
+        {
+          realName: "",
+          realPath: ""
+        }
+      ],
       TaskDetail: "",
       TaskDetailContent: "",
       imagesbox: [
@@ -330,17 +338,17 @@ export default {
       beginTime1: "",
       deadline1: "",
       taskID: 0,
-      userName: "supplier",
+      userName: localStorage.getItem("ms_username"),
       applyDiaLog: false,
       //判断企业是否申请过此任务
       applyIf: 0,
       //接受企业名称
       companyName1: 0,
       companyId: 0,
-      FileName: [],
-      FilePath: [],
+      YinCang: 1,
       FileNum: 0,
       count: 0,
+      FileName: "",
       //联系电话
       applyList1: [
         {
@@ -354,8 +362,6 @@ export default {
     this.getParams();
     this.showTaskData();
     this.showApply();
-    this.getFileName();
-    this.getFileNum();
     this.getFilePath();
   },
 
@@ -366,8 +372,37 @@ export default {
     }
   },
   methods: {
-    downloadFile(item) {
-      console.log(item);
+    //下载
+    downloadFile(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskID: this.taskId,
+        url: row.realPath
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/DownloadTelFile",
+          data: data,
+          responseType: "blob", //服务器返回的数据类型
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+        })
+        .then(response => {
+          console.log(response);
+          this.FileName = row.realName;
+          const content = response.data;
+          const blob = new Blob([content]);
+          let url = window.URL.createObjectURL(blob); //表示一个指定的file对象或Blob对象
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = url;
+          link.setAttribute("download", this.FileName);
+          document.body.appendChild(link);
+          link.click();
+          URL.revokeObjectURL(link.href); //释放url
+        });
     },
     //获取详情值
     getParams() {
@@ -404,43 +439,7 @@ export default {
           }
         });
     },
-    //数据显示
-    getFileName() {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskID
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/xuqiuyilan/getFileName",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.FileName = response.data;
-          console.log(this.FileName);
-        });
-    },
-    getFileNum() {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskID
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/xuqiuyilan/getFileNum",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.FileNum = response.data;
-          console.log(this.FileNum);
-        });
-    },
+    //技术文件
     getFilePath() {
       var that = this;
       var data = Qs.stringify({
@@ -455,7 +454,7 @@ export default {
         })
         .then(response => {
           // console.log(response);
-          // this.FilePath = response.data.allData;
+          this.tableData = response.data.allData;
         });
     },
     //返回首页
@@ -520,7 +519,9 @@ export default {
         taskCategoryPart: this.applyList.taskCategoryPart,
         supplierTel: this.applyList1.supplierTel
       });
-      if (this.TelIf == 1) {
+      if (this.applyList1.supplierTel == 0) {
+        this.$message.success("请填写手机号");
+      } else {
         that.axios({
           method: "post",
           url: "/api/xuqiuyilan/addApplyInformational",
@@ -528,10 +529,6 @@ export default {
         });
         this.$message.success("提交成功");
         this.$router.go(0);
-      } else if (this.TelIf == 0) {
-        this.$message.success("请填写手机号");
-      } else if (this.TelIf == 2) {
-        this.$message.success("请输入正确的手机号");
       }
     },
     companyDetail(companyId) {
@@ -908,6 +905,51 @@ export default {
     border-top: none;
     border-radius: 0px;
     text-align: center;
+  }
+  .no-el-input__inner {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+  }
+  // 去掉表格单元格边框
+  .customer-table th {
+    border: none;
+  }
+  .customer-table td,
+  .customer-table th.is-leaf {
+    border: none;
+  }
+  // 表格最外边框
+  .el-table--border,
+  .el-table--group {
+    border: none;
+  }
+  // 头部边框
+  .customer-table thead tr th.is-leaf {
+    border: 1px solid #ebeef5;
+    border-right: none;
+  }
+  .customer-table thead tr th:nth-last-of-type(2) {
+    border-right: 1px solid #ebeef5;
+  }
+  // 表格最外层边框-底部边框
+  .el-table--border::after,
+  .el-table--group::after {
+    width: 0;
+  }
+  .customer-table::before {
+    width: 0;
+  }
+  .customer-table .el-table__fixed-right::before,
+  .el-table__fixed::before {
+    width: 0;
+  }
+  // 表格有滚动时表格头边框
+  .el-table--border th.gutter:last-of-type {
+    border: 1px solid #ebeef5;
+    border-left: none;
   }
 }
 </style>
