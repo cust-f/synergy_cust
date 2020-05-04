@@ -701,6 +701,47 @@
           </el-col>
         </el-row>
       </el-dialog>
+
+      <!-- 文件历史 -->
+      <el-dialog title :visible.sync="fileHistoryDia" width="55%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
+        <br />
+        <br />
+        <div>
+          <el-table
+            :data="tableData6"
+            border
+            class="table"
+            ref="multipleTable"
+            header-cell-class-name="table-header"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column label="序号" type="index" width="55" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.$index + 1}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="fileName" label="文件名">
+              <template slot-scope="scope">
+                <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="publishingCompanyName" label="发布企业" width="180" align="center"></el-table-column>
+            <el-table-column prop="fileType" width="100" label="文件类型">
+              <template slot-scope="scope">
+                <span v-if="scope.row.fileType === 0">合同文件</span>
+                <span v-else-if="scope.row.fileType === 1">发货清单</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
+            <el-table-column prop="uploadTime" label="上传时间">
+              <template slot-scope="scope">
+                <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-dialog>
     </el-main>
   </div>
 </template>
@@ -800,6 +841,23 @@ export default {
           taskName: ""
         }
       ],
+
+      //文件历史数据
+      tableData6: [
+        {
+          taskName: "",
+          uploadTime: "",
+          filePath: "",
+          fileName: "",
+          fileType: 0,
+          publishingCompanyName: ""
+        }
+      ],
+      //需要隐藏控制器
+      yinCang: 1,
+      fileHistoryDia: false,
+      //文件类型
+      fileType: 0,
       //步骤条数据
       milepost: [
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },
@@ -929,6 +987,26 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
       console.log(routerParams);
+    },
+     HTFileHistory() {
+      this.fileType = 0;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.textTaskId,
+        fileType: this.fileType
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/getFileHistory",
+          data: data
+        })
+        .then(response => {
+          // console.log(response);
+          this.tableData6 = response.data.allData;
+          this.fileHistoryDia = true;
+        });
     },
     //提交次数 背景颜色变化
     styleswith() {

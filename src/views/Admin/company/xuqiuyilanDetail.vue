@@ -99,6 +99,7 @@
               <div>
                 <ul class="ul02">
                   <el-row>
+                    
                     <el-col :span="8" class="task-detail">
                       <li>
                         <a>
