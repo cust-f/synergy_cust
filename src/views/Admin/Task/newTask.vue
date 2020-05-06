@@ -472,7 +472,8 @@ sm:"none",//私密
       editVisible: false,
       addVisible: false,
       addDesigner: false,
-      kongzhi: true,
+      //控制新增按钮点击
+      kongzhi: false,
       personnel: ["许知远", "王添", "白泽"], //总负责人
       statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
       supplyCompanies: [
