@@ -26,8 +26,8 @@
                 class="handle-del mr10"
                 @click="delAllSelection"
               >批量删除</el-button>
-              <el-button type="primary" class="handle-del mr10" @click="addData">导入</el-button>
-              <el-button type="primary" class="handle-del mr10" @click="addData">导出</el-button>
+              <el-button type="primary" icon="el-icon-upload" class="handle-del mr10" @click="addData">导入</el-button>
+              <el-button type="primary" icon="el-icon-download" class="handle-del mr10" @click="addData">导出</el-button>
             </div>
 
             <el-table

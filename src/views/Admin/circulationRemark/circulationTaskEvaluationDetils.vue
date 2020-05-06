@@ -52,12 +52,14 @@ export default {
   data() {
     return {
       form: {
-        designCount: ""
+        designCount: "",//设计完成质量
+        circulationCount:"",//流通完成质量
       },
 
       radarData: {
         radarData: []
       },
+      
 
       stpesdata: [],
 
@@ -92,7 +94,8 @@ export default {
     // this.getParams();
     this.getData(); //步骤图数据查找
     this.getData1(); //雷达图数据查找
-    this.styleswith(); //提交次数 背景颜色变化
+   
+    this.getCirculationCount();
   },
   //初始化俩图标
   // mounted() {
@@ -105,17 +108,18 @@ export default {
     //   },
     //提交次数 背景颜色变化
     styleswith() {
-      if (this.form.designCount > 0 && this.form.designCount < 3) {
+      if (this.form.circulationCount > -4 ) {
         document.getElementById("one").style.background = "#00D1B2";
       }
-      if (this.form.designCount > 2 && this.form.designCount < 4) {
+      if (this.form.circulationCount < -3 && this.form.circulationCount > -8) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
       }
-      if (this.form.designCount > 4 || this.form.designCount == 4) {
+      if (this.form.circulationCount < -7 || this.form.circulationCount == -8) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
       }
+     
     },
 
     //步骤图数据查找
@@ -130,7 +134,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http:/api/evaluateDetils",
+          url: "/api/evaluateDetils",
           data: data
         })
         .then(response => {
@@ -156,29 +160,48 @@ export default {
     },
 
     //雷达图数据查找
-    getData1() {
-      var that = this;
+    // getData1() {
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     taskId: this.taskId
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "http:/api/remarkDetils",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       // this.radarData.radarData.push( response.data.allData.taskLength),
+    //       // this.radarData.radarData.push( response.data.allData.planLength),
+    //       // this.radarData.radarData.push( response.data.allData.checkLength),
+    //       // this.radarData.radarData.push( response.data.allData.applyLength),
+    //       // this.radarData.radarData.push( response.data.allData.demandorCheckLength),
+    //       this.radarData.radarData = response.data.allData;
+
+    //       that.$refs.QradarChart.getCharts1();
+    //       // this.$refs.QadarChart.getCharts();
+    //       // this.getCharts1();
+    //       // console.log(response.data.allData);
+    //     });
+    // },
+    getCirculationCount(){
+     var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+       // taskId: this.taskId
+       taskId:this.taskId,
       });
       that
         .axios({
           method: "post",
-          url: "http:/api/remarkDetils",
+          url: "/api/findCirculationCount",
           data: data
         })
         .then(response => {
-          // this.radarData.radarData.push( response.data.allData.taskLength),
-          // this.radarData.radarData.push( response.data.allData.planLength),
-          // this.radarData.radarData.push( response.data.allData.checkLength),
-          // this.radarData.radarData.push( response.data.allData.applyLength),
-          // this.radarData.radarData.push( response.data.allData.demandorCheckLength),
-          this.radarData.radarData = response.data.allData;
-
-          that.$refs.QradarChart.getCharts1();
-          // this.$refs.QadarChart.getCharts();
-          // this.getCharts1();
-          // console.log(response.data.allData);
+        
+         this.form.circulationCount=response.data.allData,
+          this.styleswith();
+         
         });
     }
   }

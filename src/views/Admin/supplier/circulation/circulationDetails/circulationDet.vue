@@ -63,7 +63,7 @@
 
             <el-row>
               <el-col :span="11">
-                <el-form-item label="一级指标:">
+                <el-form-item label="一级行业类别:">
                   <el-input
                     v-model="cool.taskCategoryMain"
                     :readonly="true"
@@ -72,7 +72,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="11">
-                <el-form-item label="二级指标:">
+                <el-form-item label="二级行业类别:">
                   <el-input v-model="cool.taskCategoryPart" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
@@ -80,7 +80,7 @@
 
             <el-row>
               <el-col :span="11">
-                <el-form-item label="任务截止日期:">
+                <el-form-item label="截止时间:">
                   <el-input
                     v-bind:value="cool.deadline|formatDate"
                     :readonly="true"
@@ -168,7 +168,7 @@
         >
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="taskName" label="需求名称"></el-table-column>
-          <el-table-column prop="checkPlanState" width="100" label="计划审核状态">
+          <el-table-column prop="checkPlanState" width="100" label="审核状态">
             <template slot-scope="scope">
               <span v-if="scope.row.checkPlanState === 0">待上传</span>
               <span v-else-if="scope.row.checkPlanState === 1">待审核</span>
@@ -229,7 +229,7 @@
           >
             <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
             <el-table-column prop="taskName" label="需求名称"></el-table-column>
-            <el-table-column prop="contractState" width="100" label="合同审核状态">
+            <el-table-column prop="contractState" width="100" label="审核状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.contractState === 0">待上传</span>
                 <span v-else-if="scope.row.contractState === 1">待审核</span>
@@ -243,7 +243,7 @@
                 <span v-else>{{scope.row.uploadContractTime | formatDate}}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="checkContractTime" label="合同审核时间">
+            <el-table-column prop="checkContractTime" label="审核时间">
               <template slot-scope="scope">
                 <span v-if="+scope.row.checkContractTime === 0">暂未审核</span>
                 <span v-else>{{scope.row.checkContractTime | formatDate}}</span>
@@ -257,7 +257,12 @@
                   size="small"
                   v-show="scope.row.contractState===0"
                 >上传</el-button>
-                <el-button @click="HTFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
+                <el-button
+                  type="text"
+                  size="small"
+                  @click="HTFileHistory()"
+                  v-show="scope.row.contractState > 0"
+                >历史上传</el-button>
 
                 <div v-show="scope.row.contractState===1">
                   <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
@@ -285,67 +290,9 @@
         </div>
       </div>
 
-      <!-- <div v-show="show>1">
-        <div v-show="state3 === 2">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">内部审核</div>
-          <br />
-          <el-table
-            :data="tableData3"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-          >
-            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-            <el-table-column prop="taskName" label="需求名称"></el-table-column>
-            <el-table-column prop="supplierCheckDesignState" width="100" label="审核状态">
-              <template slot-scope="scope">
-                <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
-                <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
-                <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
-                <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="designerName" width="120" label="流通负责人">
-            </el-table-column>
-            <el-table-column prop="uploadDesignTime" label="流通上传时间">
-              <template slot-scope="scope">
-                <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
-                <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="supplierCheckDesignTime" label="审核时间">
-              <template slot-scope="scope">
-                <el-span v-if="+scope.row.supplierCheckDesignTime === 0">暂未上传</el-span>
-                <el-span v-else>{{scope.row.supplierCheckDesignTime| formatDate}}</el-span>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="180" align="center">
-              <template slot-scope="scope">
-                <div v-show="scope.row.supplierCheckDesignState ===0">
-                  <div v-if="giveDesigner === 1">
-                    <el-button @click="assignDesigners(scope.row)" type="text" size="small">分配流通人员</el-button>
-                  </div>
-                </div>
-                <div v-show="scope.row.supplierCheckDesignState > 0">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">查看成果</el-button>
-                </div>
-                <div v-show="scope.row.supplierCheckDesignState === 1">
-                  <el-button @click="designSuccess(scope.row)" type="text" size="small">通过</el-button>
-                  <el-button @click="designRefuse(scope.row)" type="text" size="small">拒绝</el-button>
-                </div>
-              </template>
-            </el-table-column>
-          </el-table>
-          <br />
-          <br />
-        </div>
-      </div>-->
-
       <div v-show="show>1">
         <div v-show="state3===2">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通提交</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>
           <br />
           <el-table
             :data="tableData5"
@@ -357,7 +304,7 @@
           >
             <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
             <el-table-column prop="taskName" label="需求名称"></el-table-column>
-
+            <el-table-column prop="taskCategory" label="需求类别"></el-table-column>
             <el-table-column prop="taskCategoryPart" label="需求类别"></el-table-column>
 
             <el-table-column prop="demandorCheckDesignState" width="100" label="验收状态">
@@ -385,27 +332,14 @@
                   v-show="scope.row.demandorCheckDesignState===0"
                 >上传</el-button>
                 <el-button
+                  type="text"
+                  size="small"
                   @click="FHQDFileHistory()"
                   v-show="scope.row.demandorCheckDesignState > 0"
                 >历史上传</el-button>
-                <div v-show="scope.row.demandorCheckDesignState===1">
+                <div v-show="scope.row.demandorCheckDesignState > 1">
                   <el-button @click="FFQDXZ(scope.row)" type="text" size="small">下载</el-button>
                 </div>
-                <div v-show="scope.row.demandorCheckDesignState===2">
-                  <el-button @click="FFQDXZ(scope.row)" type="text" size="small">下载</el-button>
-                </div>
-                <el-button
-                  @click="upLoadCirculationPlan(scope.row)"
-                  type="text"
-                  size="small"
-                  v-show="scope.row.demandorCheckDesignState===3"
-                >重新上传</el-button>
-                <el-button
-                  @click="refuseConReason(scope.row)"
-                  type="text"
-                  size="small"
-                  v-show="scope.row.demandorCheckDesignState===3"
-                >拒绝原因</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -462,7 +396,7 @@
       </el-dialog>
 
       <!-- 任务计划拒绝原因 -->
-      <el-dialog title="计划书被拒绝的原因" :visible.sync="addVisible2" width="50%">
+      <el-dialog :visible.sync="addVisible2" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书被拒绝的原因</div>
         <el-row>
           <el-col :span="8"></el-col>
@@ -502,7 +436,7 @@
       </el-dialog>
 
       <!-- 流通验收拒绝原因 -->
-      <el-dialog title="流通验收拒绝原因" :visible.sync="addVisible4" width="50%">
+      <!-- <el-dialog :visible.sync="addVisible4" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通验收拒绝原因</div>
         <el-row>
           <el-col :span="8"></el-col>
@@ -519,7 +453,7 @@
         <span slot="footer" class="dialog-footer">
           <el-button @click="addVisible4 = false">确定</el-button>
         </span>
-      </el-dialog>
+      </el-dialog>-->
 
       <!-- 计划书上传 -->
       <el-dialog :visible.sync="planbook" width="400px" :before-close="handleClose">
@@ -571,7 +505,7 @@
 
       <!-- 上传流通规格书 -->
       <el-dialog :visible.sync="upCirculation" width="400px" :before-close="handleClose">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传流通规格书</div>
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传发货清单</div>
         <br />
         <br />
         <el-upload
@@ -863,11 +797,6 @@
           <el-button type="primary" @click="quanbuzirenwu = false">关 闭</el-button>
         </span>
       </el-dialog>
-      <!-- 测试后门 -->
-      <!-- <div>
-        <el-button @click="HTFileHistory()">合同</el-button>
-        <el-button @click="FHQDFileHistory()">发货清单</el-button>
-      </div>-->
     </el-main>
   </div>
 </template>
@@ -982,14 +911,12 @@ export default {
       taskId: 0,
       //表格显示控制
       show: 0,
-      show1: 0,
-      show3: 0,
       //文件上传数据
       limitNum: 1,
       formLabelWidth: "100px",
       form: {},
       fileList: [],
-      userName: "",
+      userName: localStorage.getItem("ms_username"),
       design1: "",
       //文件上传数
       shangchuancishu: 0,
@@ -1049,7 +976,6 @@ export default {
   created() {
     this.getParams();
     this.showData();
-    this.getBZData(); //步骤图数据查找
     this.getLDData(); //雷达图数据查找
     this.styleswith(); //提交次数 背景颜色变化
   },
@@ -1252,7 +1178,8 @@ export default {
       console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskId,
+        userName: this.userName
       });
       console.log(data);
       that
@@ -1270,10 +1197,8 @@ export default {
           this.tableData5 = response.data.allData.a;
           this.cool = response.data.allData.a[0];
           this.state = response.data.allData.a[0].taskState;
-          console.log(this.state);
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
-          this.state4 = response.data.allData.a[0].demandorCheckDesignState;
           this.designcount = response.data.allData.a[0].designCount;
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
@@ -1289,11 +1214,6 @@ export default {
           } else if (this.state == "完成") {
             this.milepostActive = 4;
             this.show = 5;
-          } else if (this.state2 == 2) {
-            this.show1 = 2;
-          } else if (this.state3 == 2) {
-            this.show3 = 2;
-            console.log(this.show3);
           } else {
             this.milepostActive = 6;
             if (response.data.allData.b[0].refuseApplyMessage != null) {
@@ -1302,6 +1222,37 @@ export default {
               this.show = 1;
             }
           }
+          if (response.data.allData.a[0].supplierDistributionState == 0) {
+            this.giveDesigner = 1;
+          }
+
+          if (this.milepostActive > 0) {
+            this.milepost[0].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].applyTime
+            );
+          }
+          if (this.milepostActive > 1) {
+            this.milepost[1].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].checkPlanTime
+            );
+          }
+          if (this.milepostActive > 2) {
+            this.milepost[2].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].publishTime
+            );
+          }
+          if (this.milepostActive > 3) {
+            this.milepost[4].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].demandorCheckDesignTime
+            );
+          }
+          if (this.milepostActive >= 4) {
+            this.milepost[5].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].finishTime
+            );
+          }
+
+          console.log("合同状态" + this.show3);
         });
     },
     //返回列表
@@ -1588,6 +1539,7 @@ export default {
         });
       this.$router.go(0);
     },
+    
     handleAvatarSuccess2(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
       this.technicalFileWanzheng =
@@ -1603,7 +1555,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        Text_File2: this.technicalFile2
+        Text_File2: this.technicalFileWanzheng
       });
       console.log(data);
       that

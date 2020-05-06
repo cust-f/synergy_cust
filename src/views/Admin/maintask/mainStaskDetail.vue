@@ -1368,12 +1368,11 @@ export default {
           .axios({
             method: "post",
             url: "/api/SubstaskInformation/addSubstaskInformation",
-            data: data,
+            data: data
           })
           .then(response => {
             console.log(response);
             if (response.data == "成功") {
-              
               this.$message.success("修改成功");
               this.$refs.upload.clearFiles()
               this.technicalFileWanzheng = "";
@@ -1624,7 +1623,7 @@ export default {
             this.formZL = response.data.allData.d[0];
             this.styleswith();
           }
-                   
+
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
           this.milepostActive = response.data.allData.a[0].taskState;
@@ -1640,18 +1639,15 @@ export default {
             this.milepostActive = 4;
           } else if (this.milepostActive == "完成") {
             this.milepostActive = 5;
-          } 
-          if(this.cool.taskType ===0){
-            this.cool.taskType = "设计任务"
-          }else{
-            this.cool.taskType = "流通任务"
           }
           if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].applyTime
             );
             if (this.milepostActive > 0) {
-              this.milepost[1].description = this.$options.filters["formatDate"](response.data.allData.c[0].planUploadTime);
+              this.milepost[1].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.c[0].planUploadTime);
             }
             if (this.milepostActive > 1) {
               this.milepost[2].description = this.$options.filters[
@@ -1685,24 +1681,18 @@ export default {
         });
     },
     goBack() {
-        if(this.mainTaskID == 0){
-          this.$router.push({
-        path: "/admin/designTask",
-        
-      });
-        }
-        else{
-                  this.$router.push({
-        path: "/admin/substaskDetail",
-        query: {
-          mainTaskID: this.mainTaskID
-        }
-      });
-        }
-
-       
-      
-      
+      if (this.mainTaskID == 0) {
+        this.$router.push({
+          path: "/admin/designTask"
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/substaskDetail",
+          query: {
+            mainTaskID: this.mainTaskID
+          }
+        });
+      }
     },
     //申请通过与拒绝
     SQTG(row) {

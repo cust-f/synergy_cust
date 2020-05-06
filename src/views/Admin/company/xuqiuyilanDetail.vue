@@ -39,14 +39,14 @@
               <el-col :span="8" class="task-detail">
                 <li>
                   <a>
-                    一级指标：
+                    一级行业类别：
                     <font>{{applyList.taskCategoryMain}}</font>
                   </a>
                 </li>
                 <br />
                 <li>
                   <a>
-                    二级指标：
+                    二级行业类别：
                     <font>{{applyList.taskCategoryPart}}</font>
                   </a>
                 </li>
@@ -99,7 +99,7 @@
               <div>
                 <ul class="ul02">
                   <el-row>
-                    <el-col :span="8" class="task-detail">
+                    <el-col :span="8" class="conpany-detail">
                       <li>
                         <a>
                           企业所在省：
@@ -145,48 +145,46 @@
         </div>
         <br />
         <br />
-        <div class=".np_top1">
-          <el-tabs type="border-card">
-            <el-tab-pane label="需求详情">
-              <div class="Right2">
-                <ul class="ul03">
-                  <el-row>
-                    <el-col :span="8" class="title-task-detail">
-                      <div>{{applyList.taskDetail}}</div>
-                    </el-col>
-                  </el-row>
-                </ul>
-              </div>
-              <div class="left1">
-                <el-card class="box-card">
-                  <div slot="header" class="clearfix">
-                    <span>附件</span>
-                  </div>
-                  <div>
-                    <el-table :data="tableData" class="customer-table" :show-header="false">
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column>
-                    </el-table>
-                  </div>
-                </el-card>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="需求方详情">
-              <div>
-                <div class="title-company-detail">
-                  <font>{{companyList.companyName}}</font>
+        <el-tabs type="border-card" class="overallSituation12">
+          <el-tab-pane label="需求详情">
+            <div class="Right2">
+              <ul class="ul03">
+                <el-row>
+                  <el-col :span="8" class="title-task-detail">
+                    <div>{{applyList.taskDetail}}</div>
+                  </el-col>
+                </el-row>
+              </ul>
+            </div>
+            <div class="left1">
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>附件</span>
                 </div>
-                <br />
-                <el-divider></el-divider>
-                <div>{{companyList.introduction }}</div>
+                <div>
+                  <el-table :data="tableData" class="customer-table" :show-header="false">
+                    <el-table-column>
+                      <template slot-scope="scope">
+                        <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column>
+                  </el-table>
+                </div>
+              </el-card>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="需求方详情">
+            <div>
+              <div class="title-company-detail">
+                <font>{{companyList.companyName}}</font>
               </div>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
+              <br />
+              <el-divider></el-divider>
+              <div>{{companyList.introduction }}</div>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
         <br />
         <br />
       </el-card>
@@ -387,7 +385,7 @@ export default {
           responseType: "blob", //服务器返回的数据类型
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
-          },
+          }
         })
         .then(response => {
           console.log(response);
@@ -547,6 +545,12 @@ export default {
     width: 1200px;
     margin: 0 auto;
   }
+
+  .overallSituation12 {
+    margin: 0 auto;
+    margin-bottom: -20px;
+  }
+
   .images {
     width: 300px;
     height: 300px;
@@ -614,7 +618,7 @@ export default {
 
     text-decoration: none;
 
-    width: 1280px;
+    width: 1150px;
   }
   .BigTime {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -716,6 +720,10 @@ export default {
     font-size: 16px;
     width: 400px;
   }
+  .company-detail {
+    font-size: 16px;
+    width: 300px;
+  }
   .title-detail {
     color: #ff7720;
     font-size: 25px;
@@ -746,14 +754,6 @@ export default {
     font-weight: 400;
 
     line-height: normal;
-
-    margin-bottom: 0px;
-
-    /* margin-left: 305.6px; */
-
-    margin-right: 65.61px;
-
-    margin-top: 0px;
 
     overflow: hidden;
 
@@ -852,40 +852,6 @@ export default {
 
     width: 750px;
   }
-  .np_top {
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
-    font-size: 14px;
-
-    font-style: normal;
-
-    font-variant: normal;
-
-    font-weight: 400;
-
-    line-height: normal;
-
-    margin-bottom: 0px;
-
-    margin-right: 65.61px;
-
-    margin-top: 0px;
-
-    overflow: hidden;
-
-    padding-bottom: 10px;
-
-    padding-left: 10px;
-
-    padding-right: 10px;
-
-    padding-top: 10px;
-
-    text-decoration: none;
-
-    width: 1280px;
-  }
   .left {
     margin-left: 50px;
     float: left;
@@ -906,7 +872,7 @@ export default {
     border-radius: 0px;
     text-align: center;
   }
-  .no-el-input__inner {
+  .Mystyle.el-input__inner {
     border-left: none;
     border-right: none;
     border-top: none;

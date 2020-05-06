@@ -55,7 +55,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="11">
-                <el-form-item label="需求类别:">
+                <el-form-item label="需求类型:">
                   <el-input v-bind:value="taskTpyeName" :readonly="true"></el-input>
                 </el-form-item>
               </el-col>
@@ -80,7 +80,7 @@
 
             <el-row>
               <el-col :span="11">
-                <el-form-item label="任务截止日期:">
+                <el-form-item label="截止日期:">
                   <el-input
                     v-bind:value="cool.deadline|formatDate"
                     :readonly="true"
@@ -358,7 +358,7 @@
       </div>
 
       <div v-show="show>1">
-        <div v-show="designcount > 0">
+        <div v-show="designCount > 0">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
           <br />
           <el-table
@@ -1063,7 +1063,7 @@ export default {
       formLabelWidth: "100px",
       form: {},
       fileList: [],
-      username: localStorage.getItem("ms_username"),
+      userName: localStorage.getItem("ms_username"),
       design1: "",
       //上传的文件路径
       technicalFile: [],
@@ -1083,20 +1083,6 @@ export default {
   },
 
   filters: {
-    change() {
-      //判断上传文件数量
-      this.length = document.querySelector("input[type=file]").files.length;
-      if (this.length > 0) {
-        Array.from(document.querySelector("input[type=file]").files).forEach(
-          file => {
-            if (this.fileList.indexOf(file) == -1) {
-              this.fileList.push(file);
-            }
-          }
-        );
-      }
-      return false;
-    },
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
@@ -1104,7 +1090,6 @@ export default {
   },
   created() {
     this.getParams();
-    this.getBZData(); //步骤图数据查找
     this.showData();
     this.getLDData(); //雷达图数据查找
     this.styleswith(); //提交次数 背景颜色变化
@@ -1266,9 +1251,11 @@ export default {
     showData() {
       console.log("你好");
       console.log(this.taskId);
+      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskId,
+        userName: this.userName
       });
       console.log(data);
       that
@@ -1291,7 +1278,6 @@ export default {
           this.state3 = response.data.allData.a[0].contractState;
           this.designCount = response.data.allData.a[0].designCount;
           this.taskType = response.data.allData.a[0].taskType;
-          console.log(this.designCount);
           if (this.taskType == 0) {
             this.taskTpyeName = "设计需求";
           } else if (this.taskType == 1) {
@@ -1314,11 +1300,6 @@ export default {
           } else if (this.state == "完成") {
             this.milepostActive = 5;
             this.show = 5;
-          } else if (this.state2 == 2) {
-            this.show1 = 2;
-          } else if (this.state3 == 2) {
-            this.show3 = 2;
-            console.log(this.show3);
           } else {
             this.milepostActive = 6;
             if (response.data.allData.b[0].refuseApplyMessage != null) {
@@ -1329,6 +1310,37 @@ export default {
           }
           if (response.data.allData.a[0].supplierDistributionState == 0) {
             this.giveDesigner = 1;
+          }
+
+          if (this.milepostActive > 0) {
+            this.milepost[0].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].applyTime
+            );
+          }
+          if (this.milepostActive > 1) {
+            this.milepost[1].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].checkPlanTime
+            );
+          }
+          if (this.milepostActive > 2) {
+            this.milepost[2].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].publishTime
+            );
+          }
+          if (this.milepostActive > 3) {
+            this.milepost[3].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].supplierCheckDesignTime
+            );
+          }
+          if (this.milepostActive > 4) {
+            this.milepost[4].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].demandorCheckDesignTime
+            );
+          }
+          if (this.milepostActive >= 5) {
+            this.milepost[5].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].finishTime
+            );
           }
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
         });
@@ -1550,12 +1562,10 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskId
       });
-      //console.log(data);
-
       that
         .axios({
           method: "post",
-          url: "/api/evaluateDetils",
+          url: "/api/supplier/evaluateDetils",
           data: data
         })
         .then(response => {
@@ -1604,20 +1614,11 @@ export default {
           data: data
         })
         .then(response => {
-          // this.radarData.radarData.push( response.data.allData.taskLength),
-          // this.radarData.radarData.push( response.data.allData.planLength),
-          // this.radarData.radarData.push( response.data.allData.checkLength),
-          // this.radarData.radarData.push( response.data.allData.applyLength),
-          // this.radarData.radarData.push( response.data.allData.demandorCheckLength),
           this.radarData.radarData = response.data.allData;
           if (response.data.allData[0] == null) {
             this.reMarkId = 0;
           }
-
           that.$refs.QradarChart.getCharts1();
-          // this.$refs.QadarChart.getCharts();
-          // this.getCharts1();
-          // console.log(response.data.allData);
         });
     },
     submitUpload() {
@@ -1656,9 +1657,8 @@ export default {
         })
         .then(response => {
           this.technicalFileWanzheng = "";
-          this.shangchuancishu = 0;
         });
-      // this.$router.go(0);
+      this.$router.go(0);
     },
     handleAvatarSuccess1(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
@@ -1686,7 +1686,6 @@ export default {
         })
         .then(response => {
           this.technicalFileWanzheng = "";
-          this.shangchuancishu = 0;
         });
       this.$router.go(0);
     },
