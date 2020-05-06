@@ -19,7 +19,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
+      <el-table-column prop="taskId" label="需求ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
