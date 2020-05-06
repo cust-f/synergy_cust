@@ -101,17 +101,19 @@
           </el-row>
         </el-card>
 
-        <div style="width:500px; margin:20px 0px;">
-          <el-input
+        <div style="width:600px; margin:20px 0px;">
+          <el-input  class = "neirong"
             size="small"
             placeholder="请输入搜索内容"
             prefix-icon="el-icon-search"
             @change="searchCom"
             v-model="search"
-          >
-            <el-button type="warning" slot="append" @click="searchCom">搜索</el-button>
+           
+          > 
           </el-input>
+          <el-button class = "sousuo" style="display:inline-block;float: right;" slot="append" @click="searchCom">搜索</el-button>
         </div>
+        <br>
 
         <el-card shadow="never" class="selectCard company-detail">
           <div slot="header">
@@ -120,10 +122,12 @@
           <div v-if="companyList.length!==0">
             <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
               <div @click="companyDetail(companys.taskID)">
-                <el-col :span="4">
-                  <el-avatar shape="square" :size="80" fit="fill" :src="companys.logo"></el-avatar>
+                <el-col :span="2">
+                  <font color="white" style = "float:left;">
+                    你好
+                  </font>
                 </el-col>
-                <el-col :span="20">
+                <el-col :span="22">
                   <el-row>
                     <div style="float:left;">
                       <h2>{{companys.taskName}}</h2>
@@ -133,21 +137,24 @@
                     </div> -->
                   </el-row>
                   <el-row>
-                    <el-col :span="11">
+                    <el-col :span="9">
                       <span>一级行业类别: {{companys.taskCategotyMain}}</span>
                     </el-col>
                       
-                    <el-col :span="11">
+                    <el-col :span="9">
                        <span>主任务名称: {{companys.maintaskName}}</span>
                     </el-col>
-                    
+
+                     <el-col :span="6">
+                       <span>任务类型: {{companys.taskType}}</span>
+                    </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="11">
+                    <el-col :span="9">
                       <span>二级行业类别: {{companys.taskCategoryPart}}</span>
                     </el-col>
                   
-                    <el-col :span="11">
+                    <el-col :span="9">
                       <span>发布日期: {{companys.publishTime | dataFormat("yyyy-MM-dd")}}</span>
                     </el-col>
                   </el-row>
@@ -559,7 +566,7 @@ categorySelect(data) {
 };
 </script>
 
-<style>
+<style scoped>
 .xuqiuyilan {
   width: 1150px;
   margin: 0 auto;
@@ -648,4 +655,26 @@ categorySelect(data) {
 .recommend a:hover {
   color: #0084ff;
 }
+.sousuo{
+  color:white ;
+  padding-top: 7px;
+  padding-bottom: 8px;
+  padding-right: 25px;
+  padding-left:25px ;
+  background-color: #ff7720;
+ 
+}
+.neirong{ 
+  border-color:#ff7720;
+  float:left;
+  width:520px;
+  min-width:85%;
+}
+  .neirong .el-input__inner {
+    border-right-color: #ff7720;
+    border-top-color: #ff7720;
+    border-left-color: #ff7720;
+    border-bottom-color: #ff7720;
+
+  }
 </style>

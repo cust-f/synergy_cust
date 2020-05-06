@@ -20,7 +20,7 @@
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable ></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求名称" sortable ></el-table-column>
                   <el-table-column prop="taskState" label="状态" sortable  width="80" >
                     <template slot-scope="scope">
                       <span v-if="+scope.row.taskState ===0">进行中</span>
@@ -36,7 +36,7 @@
                     width="100"
                     align="center"
                   ></el-table-column>
-                  <el-table-column prop="taskCategoryMain" label="需求类型" sortable></el-table-column>
+                  <el-table-column prop="taskCategoryMain" label="一级行业类别" sortable></el-table-column>
                   <el-table-column prop="publishTime" sortable label="发布时间" width="150">
                     <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                   </el-table-column>
