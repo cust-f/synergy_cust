@@ -8,7 +8,10 @@
     </el-carousel-item>
         </el-carousel>-->
         <div width="500" align="center" height="200px">
-          <el-image class="qiyetupian" :src="imgsrc"></el-image>
+          <el-image class="qiyetupian" :src="imgsrc" :onerror="errorImg01">
+
+
+          </el-image>
         </div>
         <!-- <el-table :data="tableData123">
 <el-table-column prop="imgsrc" label="书籍海报" align="center">
@@ -25,7 +28,7 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label>
-                  <el-image align="left" class="yingyezhizhao" :src="qiyezhizhao"></el-image>
+                  <el-image align="left" class="yingyezhizhao" :src="qiyezhizhao" :onerror="errorImg02"></el-image>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -37,7 +40,7 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label align="left">
-                <el-image align="left" class="yingyezhizhao" :src="shuiwudengjizheng"></el-image>
+                <el-image align="left" class="yingyezhizhao" :src="shuiwudengjizheng" :onerror="errorImg03"></el-image>
               </el-form-item>
             </el-col>
           </el-row>
@@ -523,9 +526,20 @@ export default {
         }
       ],
       imgsrc: "",
-      imgsrc1:""
+      imgsrc1:"",
+      //默认企业图片
+      errorImg01: 'this.src="' + require("../company/1.png") + '"',
+            //默认营业执照
+      errorImg02: 'this.src="' + require("../company/营业执照.jpg") + '"',
+            //默认税务登记
+      errorImg03: 'this.src="' + require("../company/税务登记证.jpg") + '"',
     };
   },
+  //  computed: {
+  //   imgsrc() {
+  //     return "/course/img/" + this.course.courseId + ".png";
+  //   }
+  // },
   filters: {
     formatDate(time) {
       var index = time.lastIndexOf(".");
@@ -650,6 +664,7 @@ export default {
         workerNumber: this.form1.workerNumber,
         deposit_Bank: this.form1.deposit_Bank,
         bankNumber: this.form1.bankNumber,
+        star:this.form.star,
         businessTel: this.form.businessTel,
         businessLicence: this.qiyezhizhao1,
         tRCertificate: this.shuiwudengjizheng1,
