@@ -257,7 +257,12 @@
                   size="small"
                   v-show="scope.row.contractState===0"
                 >上传</el-button>
-                <el-button @click="HTFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
+                <el-button
+                  type="text"
+                  size="small"
+                  @click="HTFileHistory()"
+                  v-show="scope.row.contractState > 0"
+                >历史上传</el-button>
 
                 <div v-show="scope.row.contractState===1">
                   <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
@@ -327,6 +332,8 @@
                   v-show="scope.row.demandorCheckDesignState===0"
                 >上传</el-button>
                 <el-button
+                  type="text"
+                  size="small"
                   @click="FHQDFileHistory()"
                   v-show="scope.row.demandorCheckDesignState > 0"
                 >历史上传</el-button>
@@ -498,7 +505,7 @@
 
       <!-- 上传流通规格书 -->
       <el-dialog :visible.sync="upCirculation" width="400px" :before-close="handleClose">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传流通规格书</div>
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传发货清单</div>
         <br />
         <br />
         <el-upload
@@ -1532,6 +1539,7 @@ export default {
         });
       this.$router.go(0);
     },
+    
     handleAvatarSuccess2(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
       this.technicalFileWanzheng =
@@ -1547,7 +1555,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        Text_File2: this.technicalFile2
+        Text_File2: this.technicalFileWanzheng
       });
       console.log(data);
       that

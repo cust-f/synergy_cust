@@ -99,7 +99,7 @@
               <div>
                 <ul class="ul02">
                   <el-row>
-                    <el-col :span="8" class="task-detail">
+                    <el-col :span="8" class="conpany-detail">
                       <li>
                         <a>
                           企业所在省：
@@ -717,6 +717,10 @@ export default {
     width: 800px;
   }
   .task-detail {
+    font-size: 16px;
+    width: 400px;
+  }
+  .company-detail {
     font-size: 16px;
     width: 300px;
   }
