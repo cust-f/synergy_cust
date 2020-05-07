@@ -71,20 +71,25 @@
                 </el-form-item>
               </el-col>
             </el-row>
-                        <!-- <el-card class="box-card"> -->
-                  <div slot="header" class="clearfix">
-                   
-                  </div>
-                  <div> <span class="biaoti">附件下载:</span>
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="附件下载">
+                  <div> 
                     <el-table :data="fujian" class="customer-table" :show-header="false">
+                      <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
                       <el-table-column>
                         <template slot-scope="scope">
-                          <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                          <el-link style="color:#409EFF" @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
                         </template>
                       </el-table-column>
                       <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
                     </el-table>
                   </div>
+                </el-form-item>
+              </el-col>
+            </el-row> 
+                        <!-- <el-card class="box-card"> -->
+                 
                 <!-- </el-card> -->
           </el-form>
           <br>
@@ -501,6 +506,34 @@
                 </el-col>
             </el-row>
 
+            <el-row>
+                <el-col :span="22" class = "xiangxi">
+                    <el-form-item label="附件管理" >
+                <div> 
+                    <el-table :data="fujian" class="customer-table" :show-header="false">
+                      <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
+                      <el-table-column>
+                        <template slot-scope="scope">
+                          <el-link style="color:#409EFF" @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="操作" align="center" width="120">
+                        <template slot-scope="scope">
+                    <el-button
+                      size="small"
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="shanchuwenjian(scope.row)"
+                    >删除文件</el-button>
+                  </template>
+                </el-table-column>
+                    </el-table>
+                  </div>
+                    </el-form-item>                   
+                </el-col>
+            </el-row>
+
           <el-form-item label="添加附件">
             <el-upload
               class="upload-demo"
@@ -518,27 +551,7 @@
               <el-button size="small" type="primary">上传文件</el-button>
             </el-upload>
           </el-form-item>
-          <div> <span class="biaoti">附件管理:</span>
-                    <el-table :data="fujian" class="customer-table" :show-header="false">
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
-                        </template>
-                      </el-table-column>
-                      <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
-                      <el-table-column label="操作" align="center">
-                        <template slot-scope="scope">
-                    <el-button
-                      size="small"
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="shanchuwenjian(scope.row)"
-                    >删除文件</el-button>
-                  </template>
-                </el-table-column>
-                    </el-table>
-                  </div>
+         
         </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button @click="xiugaiTC = false">取 消</el-button>
@@ -1329,7 +1342,7 @@ export default {
 }
 
   .el-dialog__body{
-   padding-right: 20px; 
+   padding-right: 0px; 
    padding-top: 20px;
   }
 
