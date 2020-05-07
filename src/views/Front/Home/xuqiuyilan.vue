@@ -117,7 +117,7 @@
 
         <el-card shadow="never" class="selectCard company-detail">
           <div slot="header">
-            <span>SaaS服务平台为您寻找需求任务</span>
+            <span style="color:white">SaaS服务平台为您寻找需求任务</span>
           </div>
           <div v-if="companyList.length!==0">
             <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
@@ -613,10 +613,26 @@ categorySelect(data) {
   position: absolute;
   right: -58px;
 }
+
+.selectCard company-detail{
+            color:white ;
+
+}
+.clearfix{
+    background-color: #ff7720;
+            color:white ;
+
+}
+ .el-card /deep/ .el-card__header{
+      background-color: #ff7720;
+      border-bottom-color: #ff7720;
+
+}
 .clearfix:before,
 .clearfix:after {
   display: table;
   content: "";
+
 }
 .clearfix:after {
   clear: both;
