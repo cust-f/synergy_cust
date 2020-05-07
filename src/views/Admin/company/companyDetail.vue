@@ -739,6 +739,7 @@ export default {
       this.shuiwudengjizheng = URL.createObjectURL(file.raw);
       this.shuiwudengjizheng1 = res;
     },
+    
     //企业营业执照
     handleAvatarSuccess1(res, file) {
       console.log(res);
