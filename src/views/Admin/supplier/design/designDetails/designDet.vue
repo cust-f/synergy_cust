@@ -1083,7 +1083,10 @@ export default {
       //公司弹窗
       companyDag: false,
       taskDetilDag: false,
-      mainTaskID: 0
+      mainTaskID: 0,
+      imgsrc: require("../../../company/2.jpg"),
+      shuiwudengjizheng: require("../../../company/税务登记证.jpg"),
+      qiyezhizhao: require("../../../company/营业执照.jpg")
     };
   },
 
@@ -1714,7 +1717,11 @@ export default {
           console.log("123");
           console.log(response);
           this.companyMessage = response.data.allData[0];
-          console.log(response.data.allData.companyId);
+          console.log(response.data.allData[0].companyId);
+          // this.imgsrc = response.data.allData[0].companyPicture;
+          // this.qiyezhizhao = response.data.allData[0].businessLicence;
+          // this.shuiwudengjizheng = response.data.allData[0].tRCertificate;
+          console.log(this.shuiwudengjizheng);
         });
     },
     ziTaskDetail() {

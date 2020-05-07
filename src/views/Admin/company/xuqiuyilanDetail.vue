@@ -19,8 +19,8 @@
           <div class="preview">
             <div class="BigTime">
               <el-carousel height="200" width="200" direction="vertical" arrow="always">
-                <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
-                  <img :src="item.idView" class="images" />
+                <el-carousel-item>
+                  <img :src="login" class="images" />
                 </el-carousel-item>
               </el-carousel>
             </div>
@@ -29,7 +29,6 @@
           <div class="Right">
             <div>
               <div class="title-detail">
-                <font>{{taskID}}</font>
                 <font>{{applyList.taskName}}</font>
               </div>
             </div>
@@ -321,14 +320,10 @@ export default {
       ],
       TaskDetail: "",
       TaskDetailContent: "",
-      imagesbox: [
-        { id: 0, idView: require("../company/1.png") },
-        { id: 1, idView: require("../company/2.jpg") },
-        { id: 2, idView: require("../company/3.jpg") }
-      ],
       beginTime1: "",
       deadline1: "",
       taskID: 0,
+      login: require("../company/2.jpg"),
       userName: localStorage.getItem("ms_username"),
       applyDiaLog: false,
       //判断企业是否申请过此任务
@@ -428,6 +423,7 @@ export default {
           } else {
             this.applyList.taskTypeName = "设计";
           }
+          this.login= response.data.allData.b[0].companyPicture
         });
     },
     //技术文件
