@@ -405,7 +405,7 @@
             <span id="three"></span>
           </div>-->
           <div class="input_span" align="center">
-            <el-form ref="form" :modelZL="formZL">
+            <el-form ref="formZL" :modelZL="formZL">
               <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <br />
               <br />
@@ -1540,14 +1540,14 @@ export default {
     },
     //提交次数 背景颜色变化
     styleswith() {
-      if (this.form.circulationCount > -4) {
+      if (this.formZL.circulationCount > -4) {
         document.getElementById("one").style.background = "#00D1B2";
       }
-      if (this.form.circulationCount < -3 && this.form.circulationCount > -8) {
+      if (this.formZL.circulationCount < -3 && this.formZL.circulationCount > -8) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
       }
-      if (this.form.circulationCount < -7 || this.form.circulationCount == -8) {
+      if (this.formZL.circulationCount < -7 || this.formZL.circulationCount == -8) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
       }
