@@ -61,22 +61,15 @@
                 <br />
                 <li>
                   <a>
-                    需求开始时间：
+                    开始时间：
                     <font>{{applyList.beginTime|formatDate}}</font>
                   </a>
                 </li>
                 <br />
                 <li>
                   <a>
-                    需求截止时间：
+                    截止时间：
                     <font>{{applyList.deadline|formatDate}}</font>
-                  </a>
-                </li>
-                <br />
-                <li>
-                  <a>
-                    需求方联系电话：
-                    <font>{{companyList.businessTel}}</font>
                   </a>
                 </li>
                 <br />
@@ -99,17 +92,17 @@
               <div>
                 <ul class="ul02">
                   <el-row>
-                    <el-col :span="8" class="conpany-detail">
+                    <el-col :span="8" class="company-detail">
                       <li>
                         <a>
-                          企业所在省：
+                          所在省：
                           <font>{{companyList.province}}省</font>
                         </a>
                       </li>
                       <br />
                       <li>
                         <a>
-                          企业所在市：
+                          所在市：
                           <font>{{companyList.city}}市</font>
                         </a>
                       </li>
@@ -165,10 +158,10 @@
                   <el-table :data="tableData" class="customer-table" :show-header="false">
                     <el-table-column>
                       <template slot-scope="scope">
-                        <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                        <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
                       </template>
                     </el-table-column>
-                    <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column>
+                    <el-table-column prop="filePath" label="真实地址" v-if="YinCang===0"></el-table-column>
                   </el-table>
                 </div>
               </el-card>
@@ -204,33 +197,33 @@
           </el-col>
 
           <el-col :span="11">
-            <el-form-item label="需求名：">
+            <el-form-item label="需求名">
               <el-input v-model="applyList.taskName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="行业类别：">
+            <el-form-item label="一级行业类别">
               <el-input v-model="applyList.taskCategoryMain" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
-            <el-form-item label="需求类别：">
+            <el-form-item label="二级行业类别">
               <el-input v-model="applyList.taskCategoryPart" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="需求开始时间：">
+            <el-form-item label="需求开始时间">
               <el-input v-bind:value="applyList.beginTime|formatDate" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
-            <el-form-item label="需求截止时间：">
+            <el-form-item label="需求截止时间">
               <el-input v-bind:value="applyList.deadline|formatDate" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
@@ -238,14 +231,14 @@
 
         <el-row>
           <el-col :span="11">
-            <el-form-item label="需求方电话：">
+            <el-form-item label="需求方电话">
               <el-input v-model="companyList.businessTel" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
-            <el-form-item label="联系电话" prop="supplierTel">
-              <el-input v-model="applyList1.supplierTel" placeholder="请输入联系电话"></el-input>
+            <el-form-item label="联系方式" prop="supplierTel">
+              <el-input v-model="applyList1.supplierTel" placeholder="请输入用于联系的手机号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -322,8 +315,8 @@ export default {
       },
       tableData: [
         {
-          realName: "",
-          realPath: ""
+          fileName: "",
+          filePath: ""
         }
       ],
       TaskDetail: "",
@@ -375,7 +368,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
-        url: row.realPath
+        url: row.filePath
       });
       that
         .axios({
@@ -389,7 +382,7 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this.FileName = row.realName;
+          this.FileName = row.fileName;
           const content = response.data;
           const blob = new Blob([content]);
           let url = window.URL.createObjectURL(blob); //表示一个指定的file对象或Blob对象
@@ -722,7 +715,7 @@ export default {
   }
   .company-detail {
     font-size: 16px;
-    width: 300px;
+    width: 320px;
   }
   .title-detail {
     color: #ff7720;
