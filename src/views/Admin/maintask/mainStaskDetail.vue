@@ -1298,6 +1298,7 @@ export default {
 
     },
     XGZRW() {
+      //设置文件路径
             if(this.technicalFileWanzheng!=0&&this.WZLJ!=0){
         console.log("nihao")
         this.technicalFileWanzheng = this.WZLJ + "linklink" + this.technicalFileWanzheng
@@ -1305,8 +1306,10 @@ export default {
       if(this.technicalFileWanzheng == 0 &&this.WZLJ!=0){
         this.technicalFileWanzheng = this.WZLJ
       }
-      //console.log(this.TaskXiangXi)
-      if (this.technicalFile == "null") {
+          this.mainStaskTypeID = this.selectCateKeys[0] 
+          this.subStaskTypeID = this.selectCateKeys[1] 
+      //先对要修改的文件进行判断
+      if (this.technicalFile == "null"||this.mainStaskTypeID =="null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning"
         });
@@ -1580,6 +1583,8 @@ export default {
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
+          this.selectCateKeys[0] = response.data.allData.a[0].taskCategoryMainId
+          this.selectCateKeys[1] = response.data.allData.a[0].taskCategory
           if(this.cooList.shifousimi ==0){
             this.cooList.shifousimi = "是"
           }

@@ -1598,6 +1598,8 @@ export default {
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
            this.cooList.shifousimi = response.data.allData.a[0].sssm;
+                     this.selectCateKeys[0] = response.data.allData.a[0].taskCategoryMainId
+          this.selectCateKeys[1] = response.data.allData.a[0].taskCategory
           if(this.cooList.shifousimi ==0){
             this.cooList.shifousimi = "是"
           }

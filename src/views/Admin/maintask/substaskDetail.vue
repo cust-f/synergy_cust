@@ -402,6 +402,10 @@
             </el-dialog>
 
 
+                        <!-- 修改弹出框 -->
+
+
+
             <el-dialog title :visible.sync="xiugaiTC" width="50%">
               <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">修改</div>
               <br>
@@ -986,6 +990,8 @@ export default {
       if(this.technicalFileWanzheng == 0 &&this.WZLJ!=0){
         this.technicalFileWanzheng = this.WZLJ
       }
+      this.mainStaskTypeID = this.selectCateKeys[0]
+      this.subStaskTypeID = this.selectCateKeys[1]
       console.log(this.technicalFileWanzheng)
       var that = this;
       var data = Qs.stringify({
@@ -1071,6 +1077,9 @@ export default {
           this.type = response.data.allData.a[0].industry_Type;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
+          this.selectCateKeys[0] = response.data.allData.a[0].taskCategoryMainId
+          this.selectCateKeys[1] = response.data.allData.a[0].taskCategoryPartId
+          console.log(this.selectCateKeys)
           console.log(this.fujian.length)
           if (this.cool.taskState === 0) {
             this.cool.taskState = "进行中";
