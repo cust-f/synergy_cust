@@ -7,7 +7,7 @@
           <el-form ref="cool" :model="cool" label-width="110px" class="formYS">
             <el-row>
               <el-col :span="11">
-                <el-form-item label="需求名称名称">
+                <el-form-item label="需求名称">
                   <el-input v-model="cool.mainTaskName" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
@@ -33,7 +33,7 @@
 
             <el-row>
               <el-col :span="11">
-                <el-form-item label="任务状态">
+                <el-form-item label="需求状态">
                   <el-input v-model="cool.taskState" :disabled="true">
                     <template slot-scope="scope">
                       <span v-if="+scope.row.cool.taskState===0">待上传</span>
@@ -65,21 +65,37 @@
             </el-row>
 
             <el-row>
-              <el-col :span="11">
-                <el-form-item label="主项目详情">
+              <el-col :span="22">
+                <el-form-item label="需求详情">
                   <el-input v-model="cool.mainTaskDetail" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
+                        <!-- <el-card class="box-card"> -->
+                  <div slot="header" class="clearfix">
+                   
+                  </div>
+                  <div> <span class="biaoti">附件下载:</span>
+                    <el-table :data="fujian" class="customer-table" :show-header="false">
+                      <el-table-column>
+                        <template slot-scope="scope">
+                          <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                        </template>
+                      </el-table-column>
+                      <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
+                    </el-table>
+                  </div>
+                <!-- </el-card> -->
           </el-form>
+          <br>
           <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
             <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
-            <el-button type="primary" class="button1" @click="xiazaiMAINmoban">下载</el-button>
+            <el-button type="primary" class="button1" @click="xiazaiMAINmoban">打包下载</el-button>
             <!-- <el-button type="primary" class="button1">下载装配文档</el-button> -->
           </div>
           <el-divider></el-divider>
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">分解任务</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求分解</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <div>
             <div class="container">
               <div class="handle-box">
@@ -102,8 +118,8 @@
               >
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
 
-                <el-table-column prop="taskName" label="任务名称"></el-table-column>
-                <el-table-column prop="taskType" label="任务类型">
+                <el-table-column prop="taskName" label="需求名称"></el-table-column>
+                <el-table-column prop="taskType" label="需求类型">
                   <template slot-scope="scope">
                     <span v-if="+scope.row.taskType === 0">设计任务</span>
                     <span v-else-if="+scope.row.taskType === 1">流通任务</span>
@@ -111,11 +127,11 @@
                 </el-table-column>
                 <el-table-column prop="taskCategoryMain" label="一级行业类别"></el-table-column>
                 <el-table-column prop="taskCategoryPart" label="二级行业类别"></el-table-column>
-                <el-table-column prop="taskState" label="任务状态"></el-table-column>
+                <el-table-column prop="taskState" label="需求状态"></el-table-column>
                 <el-table-column prop="publishTime" label="开始时间">
                   <template slot-scope="scope">{{scope.row.publishTime |formatDate}}</template>
                 </el-table-column>
-                <el-table-column prop="deadline" label="结束时间">
+                <el-table-column prop="deadline" label="截止时间">
                   <template slot-scope="scope">{{scope.row.deadline |formatDate}}</template>
                 </el-table-column>
 
@@ -364,11 +380,12 @@
                     :before-remove="beforeRemove"
                     :on-success="handleAvatarSuccess"
                     multiple
-                    :limit="3"
+                    :limit="10"
                     :on-exceed="handleExceed"
+                    ref = "upload"
                     :file-list="fileList"
                   >
-                    <el-button size="small" type="primary">上传文件不能超过3个</el-button>
+                    <el-button size="small" type="primary">上传文件</el-button>
                     <div slot="tip" class="el-upload__tip"></div>
                   </el-upload>
                 </el-form-item>
@@ -457,7 +474,7 @@
               </el-form-item>
             </el-col> -->
             <el-col :span="11">
-              <el-form-item label="任务种类">
+              <el-form-item label="行业类别">
                 <el-cascader
                   style="width:100%;"
                   expand-trigger="hover"
@@ -493,14 +510,35 @@
               :before-remove="beforeRemove"
               :on-success="handleAvatarSuccess"
               multiple
-              :limit="3"
+              :limit="10"
               :on-exceed="handleExceed"
+              ref = "upload"
               :file-list="fileList"
             >
               <el-button size="small" type="primary">上传文件</el-button>
-              <div slot="tip" class="el-upload__tip">上传文件不得超过3个</div>
             </el-upload>
           </el-form-item>
+          <div> <span class="biaoti">附件管理:</span>
+                    <el-table :data="fujian" class="customer-table" :show-header="false">
+                      <el-table-column>
+                        <template slot-scope="scope">
+                          <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                        </template>
+                      </el-table-column>
+                      <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
+                      <el-table-column label="操作" align="center">
+                        <template slot-scope="scope">
+                    <el-button
+                      size="small"
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="shanchuwenjian(scope.row)"
+                    >删除文件</el-button>
+                  </template>
+                </el-table-column>
+                    </el-table>
+                  </div>
         </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button @click="xiugaiTC = false">取 消</el-button>
@@ -524,8 +562,13 @@ import { formatDate } from "./dataChange";
 export default {
   name: "substaskDetail",
   prop: {},
+  inject:['reload'],
   data() {
     return {
+      //初始完整路径
+      WZLJ:"",
+      //文件数目
+      WJSM:"",
       //xiugaixuqiu
       zhurenwuxiangxi:"",
       sfsmkj:false,//是否私密指派
@@ -632,6 +675,13 @@ export default {
           taskCategoryPart:"",
         }
       ],
+      //附件
+            fujian: [
+        {
+          realName: "",
+          realPath: ""
+        }
+      ],
 
       //是否申请
       shifou: [
@@ -698,6 +748,48 @@ export default {
   },
 
   methods: {
+    shanchuwenjian(row){
+        let ks = this.WZLJ.indexOf(row.realPath)
+        let qianzui,houzui;
+        console.log(row.wenjiancixu)
+        if(row.wenjiancixu ==this.WJSM-1){
+          qianzui = this.WZLJ.substr(0,ks-8)
+          houzui = ""
+        }
+        else{
+          qianzui = this.WZLJ.substr(0,ks)
+          houzui = this.WZLJ.substr(ks+row.realPath.length+8)
+        }
+        this.WZLJ = qianzui+houzui
+        console.log(this.WZLJ)
+        this.fujian.splice(row.wenjiancixu,1)
+    },
+    downloadFile(row) {
+      var that = this;
+      var data = Qs.stringify({
+        //taskID: this.taskId,
+        url: row.realPath
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/DownloadTelFile",
+          data: data,
+          responseType: "blob", //服务器返回的数据类型
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+        })
+        .then(response => {
+          
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = window.URL.createObjectURL(new Blob([response.data], {type: 'application/octet-stream'} ) )  ;
+          link.setAttribute("download",  row.realName); 
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
     getDate() {
       var that = this;
       var data = Qs.stringify({
@@ -837,7 +929,7 @@ export default {
         this.$message.success("提交成功");        
         this.addVisible = false;
         this.shuju.push(this.addList);
-        
+        this.technicalFileWanzheng = ""
         this.addList = {};
         this.getData();
         // location.reload()
@@ -874,6 +966,14 @@ export default {
       }
     },
     xiugaixuqiuxinxi(){
+      if(this.technicalFileWanzheng!=0&&this.WZLJ!=0){
+        console.log("nihao")
+        this.technicalFileWanzheng = this.WZLJ + "linklink" + this.technicalFileWanzheng
+      }
+      if(this.technicalFileWanzheng == 0 &&this.WZLJ!=0){
+        this.technicalFileWanzheng = this.WZLJ
+      }
+      console.log(this.technicalFileWanzheng)
       var that = this;
       var data = Qs.stringify({
         mainTaskID:this.mainTaskID,
@@ -902,7 +1002,10 @@ export default {
               console.log(this.zzzz);
               this.$message.success("提交成功");
               this.xiugaiTC = false;
+              this.$refs.upload.clearFiles()
               this.technicalFileWanzheng = "";
+              this.technicalFile = "";
+              this.shangchuancishu = "",
               this.getData();
             }
           })
@@ -912,6 +1015,11 @@ export default {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
                 type: "warning"
               });
+              this.$refs.upload.clearFiles();
+              this.technicalFileWanzheng = "",
+              this.technicalFile = "";
+              this.shangchuancishu = "";
+
             }
           });
     },
@@ -946,7 +1054,11 @@ export default {
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
           this.shuju = response.data.allData.b;
+          this.fujian = response.data.allData.c;
           this.type = response.data.allData.a[0].industry_Type;
+          this.WZLJ = response.data.allData.WZLJ;
+          this.WJSM = response.data.allData.SM;
+          console.log(this.fujian.length)
           if (this.cool.taskState === 0) {
             this.cool.taskState = "进行中";
           } else if (this.cool.taskState === 1) {
@@ -1205,7 +1317,6 @@ export default {
 <style>
 .simichakan{
   line-height:40px;
-  font-color :red;
 }
 .formYS .el-input__inner {
   /* // 表格样式调整 */
@@ -1250,4 +1361,38 @@ export default {
 .el-page-header__title {
   font-size: 18px;
 }
+
+  /* // 去掉表格单元格边框 */
+  .customer-table th {
+    border: none;
+  }
+  .customer-table td,
+  .customer-table th.is-leaf {
+    border: none;
+  }
+  /* // 表格最外边框 */
+   .customer-table .el-table--border,
+    .customer-table .el-table--group {
+    border: none;
+  }
+  /* // 头部边框 */
+  .customer-table thead tr th.is-leaf {
+    border: 1px solid #ebeef5;
+    border-right: none;
+  }
+  .customer-table thead tr th:nth-last-of-type(2) {
+    border-right: 1px solid #ebeef5;
+  }
+  /* // 表格最外层边框-底部边框 */
+    .customer-table .el-table--border::after,
+    .customer-table .el-table--group::after {
+    width: 0;
+  }
+  .customer-table::before {
+    width: 0;
+  }
+  .customer-table .el-table__fixed-right::before,
+  .el-table__fixed::before {
+    width: 0;
+  }
 </style>
