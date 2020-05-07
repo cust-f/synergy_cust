@@ -480,6 +480,8 @@ export default {
           TrefuseReason:''
         }
       ],
+                  usernameX: localStorage.getItem("ms_username"),
+
       tableData: [
 
       ],
@@ -625,7 +627,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "aaaa",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
@@ -650,7 +652,7 @@ export default {
       console.log(this.taskState);
       var that = this;
       var data = Qs.stringify({
-        username: "aaaa",
+        username: this.usernameX,
         taskName: this.selectname,
         taskState: this.taskState
       });
