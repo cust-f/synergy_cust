@@ -186,7 +186,7 @@
             </el-row>
 
             <el-row>
-              <el-col :span="24">
+              <el-col :span="36">
                 <el-form-item label="企业简介">
                   <el-input v-model="form.introduction" :disabled="yangshi"></el-input>
                 </el-form-item>
