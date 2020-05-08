@@ -482,6 +482,27 @@ export default {
           TrefuseReason:''
         }
       ],
+      tableData: [
+
+      ],
+      tableData1: [
+     
+      ],
+      tableData2: [
+   
+      ],
+      tableData3: [
+      
+      ],
+      tableData4: [
+
+      ],
+      tableData5: [
+
+      ],
+      tableData6: [
+  
+      ],
             usernameX: localStorage.getItem("ms_username"),
       addList: {
         id: null,
@@ -517,10 +538,10 @@ export default {
   },
   methods: {
     getData() {
-      console.log(this.userName);
+      //console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: localStorage.getItem("ms_username")
+        userName: this.usernameX
       });
       console.log(data);
       that
@@ -563,7 +584,7 @@ export default {
       console.log(this.taskState);
       var that = this;
       var data = Qs.stringify({
-        userName:"aaaa",
+        userName:this.usernameX,
         taskState:taskState,
       })
       console.log(data);
