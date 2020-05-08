@@ -763,7 +763,7 @@ export default {
                   height: 0
                 },
                 b: {
-                  fontSize: 16,
+                  fontSize: 14,
                   lineHeight: 33
                 },
                 per: {
