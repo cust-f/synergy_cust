@@ -224,7 +224,7 @@
                         <li>
                           <a>
                             经营范围：
-                            <font>{{supplier.product}}</font>
+                            <font>{{product}}</font>
                           </a>
                         </li>
                         <br />
@@ -471,12 +471,13 @@ export default {
           product: ""
         }
       ],
+      product:"",
       supplier: [
         {
           companyName: "",
           address: "",
           officeNumber: "",
-          product: ""
+          // product: ""
         }
       ],
       radarData: {
@@ -579,6 +580,7 @@ export default {
           this.getCirculationCount();
           //this.styleswith1();
           this.getLTData();
+          this.getproduct();
 
           console.log("ooo");
           console.log(this.activeName);
@@ -628,6 +630,31 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.supplier = response.data.allData[0];
         });
+    },
+
+    getproduct(){
+       console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.activeName
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/getCompay",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          //this.$set(this,'list',response.data.alldata)
+          this.product = response.data.allData[0].b;
+          console.log("product"+this.product)
+          
+        });
+
     },
 
     getTaskData() {
@@ -904,6 +931,7 @@ export default {
       this.getTaskData();
       this.getLTData();
       this.getCirculationCount();
+      this.getproduct();
       //this.getCharts1();
     }
   }

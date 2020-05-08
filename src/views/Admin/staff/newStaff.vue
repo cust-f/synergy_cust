@@ -35,12 +35,13 @@
                   header-cell-class-name="table-header"
                   row-style="height:0"
                   cell-style="padding:0"
+                   :default-sort = "{prop: 'userName', order: 'descending'}"
                 >
                   <el-table-column prop="userId" label="序号" width="55" align="center" type="index"></el-table-column>
 
-                  <el-table-column prop="userName" label="用户名"></el-table-column>
-                  <el-table-column prop="realName" label="真实姓名"></el-table-column>
-                  <el-table-column prop="roleId" label="部门">
+                  <el-table-column prop="userName" label="用户名" sortable width="90"></el-table-column>
+                  <el-table-column prop="realName" label="真实姓名"  sortable width="120"></el-table-column>
+                  <el-table-column prop="roleId" label="部门" sortable width="100">
                     <template slot-scope="scope">
                       <span v-if="scope.row.roleId === 4">设计人员</span>
                       <span v-else-if="scope.row.roleId === 5">流通人员</span>
@@ -49,8 +50,8 @@
                       <span v-else-if="scope.row.roleId === 1">管理员</span>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="email" label="邮箱"></el-table-column>
-                  <el-table-column prop="phone" label="电话"></el-table-column>
+                  <el-table-column prop="email" label="邮箱" sortable></el-table-column>
+                  <el-table-column prop="phone" label="电话" sortable></el-table-column>
 
                   <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
@@ -545,7 +546,7 @@ export default {
   font-size: 24px;
 }
 .biaoti {
-  font-size: 18px;
+  font-size: 15px;
   color: #303133;
 }
 </style>

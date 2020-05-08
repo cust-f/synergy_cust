@@ -39,15 +39,6 @@
             :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
-            prop="taskCategoryPart"
-            label="需求类型"
-            sortable
-            min-width="90px"
-            align="center"
-            :show-overflow-tooltip="true"
-          ></el-table-column>
-
-          <el-table-column
             prop="supplierCheckDesignState"
             label="审核状态"
             sortable
@@ -56,12 +47,22 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="scope">
-              <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
+              <span v-if="scope.row.supplierCheckDesignState === 0"><el-tag>待提交</el-tag></span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 1"><el-tag>待审核</el-tag></span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 2"><el-tag type="success">通过</el-tag></span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 3"><el-tag type="danger">未通过</el-tag></span>
             </template>
           </el-table-column>
+          <el-table-column
+            prop="taskCategoryPart"
+            label="需求类型"
+            sortable
+            min-width="90px"
+            align="center"
+            :show-overflow-tooltip="true"
+          ></el-table-column>
+
+          
           <el-table-column
             prop="designerAcceptTime"
             label="接收时间"
@@ -117,7 +118,7 @@
     <el-dialog :visible.sync="dialogVisible" width="60%">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <div class="formYS">
+      <div class="dialogCSS">
         <el-form ref="form1" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
@@ -173,16 +174,28 @@
                 <el-input v-model="form1.refuseReason" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+
             <el-row>
-              <br>
-            <el-col :span="21" offset="1">
-              <span class="titles">需求详情:</span>
-            <span>{{form1.taskDetail}}</span>
+            
+            <el-col :span="22">
+               <el-form-item label="任务详情">
+              <el-input
+                 v-model="form1.taskDetail"
+                type="textarea"
+                :rows="7"
+                :disabled="true"
+               
+                
+              ></el-input>
+            </el-form-item>
             </el-col>
+              
+            
             
           </el-row>
             
-          </el-row>
+          
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -455,8 +468,16 @@ export default {
 };
 </script>
 <style>
-.formYS .el-input.is-disabled .el-input__inner {
+.dialogCSS .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
+  color: #303133;
+  
+}
+.dialogCSS.el-textarea.is-disabled .el-textarea__inner {
+    background-color: #ffffff;
+    border-color: #E4E7ED;
+    color: #303133;
+    cursor: not-allowed;
 }
 /* .el-divider {
   margin: 25px 0px !important;

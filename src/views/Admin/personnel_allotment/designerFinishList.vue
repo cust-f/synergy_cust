@@ -89,7 +89,7 @@
     <el-dialog :visible.sync="dialogVisible" width="60%">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <div class="formYS">
+      <div class="dialogCSS">
         <el-form ref="form2" :model="form" label-width="110px">
           <el-row>
             <el-col :span="11">
@@ -141,11 +141,17 @@
           </el-row>
           <br>
           <el-row>
+            <el-col :span="22"> <el-form-item label="任务详情">
+              <el-input
+                :disabled="true"
+                type="textarea"
+                :rows="7"
+                v-model="form2.taskDetail"
+                style="width:100%;"
+              ></el-input>
+            </el-form-item></el-col>>
 
-            <el-col :span="21" offset="1">
-              <span class="titles">需求详情:</span>
-            <span>{{form2.taskDetail}}</span>
-            </el-col>
+           
             
           </el-row>
         </el-form>
@@ -349,6 +355,17 @@ export default {
 /* .el-divider {
   margin: 25px 0px !important;
 } */
+.dialogCSS .el-input.is-disabled .el-input__inner {
+  background-color: #ffffff;
+  color: #303133;
+  
+}
+.dialogCSS.el-textarea.is-disabled .el-textarea__inner {
+    background-color: #ffffff;
+    border-color: #E4E7ED;
+    color: #303133;
+    cursor: not-allowed;
+}
 .table {
   width: 100%;
   font-size: 14px;
