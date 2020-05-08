@@ -505,7 +505,7 @@
         </span>
       </el-dialog>
 
-      <!-- detail -->
+      <!-- qiyedetail -->
 
       <el-dialog title :visible.sync="addVisibleCD" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
@@ -669,8 +669,7 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情">
-                  <div class="XX">
-                    {{form.introduction}}
+                  <div class="XX" v-html="companyDetailContent">
                   </div>
                 </el-form-item>
                 <!-- <el-form-item label="详细" >
@@ -1008,6 +1007,8 @@ export default {
 
   data() {
     return {
+      //企业详情路径
+      companyDetailContent:"",
       //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
             //默认营业执照
@@ -1999,6 +2000,7 @@ export default {
             response.data.allData.companyDetail[0].businessLicence;
           this.shuiwudengjizheng =
             response.data.allData.companyDetail[0].tRCertificate;
+          this.companyDetailContent = response.data.allData.companyDetailContent;
           console.log(this.imgsrc);
         });
       this.addVisibleCD = true;
