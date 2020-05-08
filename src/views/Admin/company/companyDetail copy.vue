@@ -223,11 +223,9 @@
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </div>
-
           <br />
 
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照修改</div>
-
           <div>
             <el-upload
               class="avatar-uploader"

@@ -169,10 +169,11 @@
               </el-col>
             </el-row>
 
-            <el-row>
+ <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情">
-                  <el-input v-model="form.introduction" :disabled="yangshi"></el-input>
+                  <div class="XX" v-html="companyDetailContent">
+                  </div>
                 </el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
@@ -417,6 +418,8 @@ export default {
   name: "companyDetail",
   data() {
     return {
+      //企业详情路径
+      companyDetailContent:"",
      usernameX: this.$store.state.user,
       imageUrl:"",//shuwu照片
       yangshi: true,
@@ -513,6 +516,7 @@ export default {
           response.data.allData.companyDetail[0].businessLicence;
           this.shuiwudengjizheng =
           response.data.allData.companyDetail[0].tRCertificate;
+             this.companyDetailContent = response.data.allData.companyDetailContent;
           this.qiyezhizhao1 = this.qiyezhizhao.substring(22);
           this.shuiwudengjizheng1 = this.shuiwudengjizheng.substring(22);
           this.imgsrc1 = this.imgsrc.substring(22);
