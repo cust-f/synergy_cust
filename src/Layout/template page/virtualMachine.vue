@@ -12,12 +12,12 @@
               <el-main width="73%" id="kvm-left">
                 <el-tabs type="card" v-model="activeName" @tab-click="updataDetail">
                   <el-tab-pane
-                    v-for="(item,index) in virtualMachineList"
+                    v-for="(item,index) in VisualMachineList"
                     :key="index"
                     :label="item.taskName"
                     :name="item.taskId"
                   >
-                    <div class="show-iframe">
+                    <div class="show-iframe" style="height:1000px;">
                       <iframe
                         style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
                         frameborder="0"
@@ -31,11 +31,11 @@
 
               <div
                 id="movebar"
-                style="width:2px; z-index:2; background:#cccccc; margin-left:-20px; margin-top:76px; height:91%"
+                style="width:2px; z-index:2; background:#cccccc;"
               ></div>
 
               <el-aside width="27%" id="kvm-right">
-                <el-tabs v-model="activeTab" type="border-card" style="height:73%; margin-top:5px">
+                <el-tabs v-model="activeTab" type="border-card" style="padding-bottom:25px;">
                   <el-tab-pane class="cur" label="任务详情" name="first">
                     <br />
                     <el-row>
@@ -55,7 +55,7 @@
                     <br />
                     <el-row>
                       <el-col :span="6" align="right">截止日期:</el-col>
-                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskDeadline}}</el-col>
+                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskDeadline |dataFormat("yyyy-MM-dd")}}</el-col>
                     </el-row>
                     <br />
                     <el-row>
@@ -65,11 +65,11 @@
                       </el-col>
                     </el-row>
                   </el-tab-pane>
-                  <el-tab-pane class="cur" label="文档提交" name="second">
+                  <!-- <el-tab-pane class="cur" label="文档提交" name="second">
                     假装这里有个富文本编辑器
                     <br />
                   </el-tab-pane>
-                  <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane>
+                  <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane> -->
                 </el-tabs>
               </el-aside>
             </el-container>
@@ -93,7 +93,7 @@ export default {
       taskDetail: "",
       activeTab: "first",
       activeName: "",
-      virtualMachineList: ""
+      VisualMachineList: ""
     };
   },
   components: {
@@ -103,20 +103,7 @@ export default {
     this.getVirtualTab();
   },
   mounted() {
-    /**
-     * iframe-宽高自适应显示
-     */
-    function changeMobsfIframe() {
-      const oIframe = document.getElementsByClassName("show-iframe");
-      const deviceWidth = document.documentElement.clientWidth;
-      const deviceHeight = document.documentElement.clientHeight;
-      console.log(oIframe.length);
-      for (var i = 0; i < oIframe.length; i++) {
-        oIframe[i].style.height = Number(deviceHeight) - 40 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
-        console.log("height")
-      }
-    }
-    changeMobsfIframe();
+    this.changeMobsfIframe();
     window.onresize = function() {
       changeMobsfIframe();
       var kvm_left = document.getElementById("kvm-left");
@@ -132,10 +119,23 @@ export default {
     this.dragControllerDiv(move);
   },
   methods: {
+        /**
+     * iframe-宽高自适应显示
+     */
+     changeMobsfIframe() {
+      const oIframe = document.getElementsByClassName("show-iframe");
+      const deviceWidth = document.documentElement.clientWidth;
+      const deviceHeight = document.documentElement.clientHeight;
+      console.log(oIframe.length);
+      for (var i = 0; i < oIframe.length; i++) {
+        oIframe[i].style.height = Number(deviceHeight) - 40 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
+        console.log("height")
+      }
+    },
     getVirtualTab() {
       var that = this;
       var data = Qs.stringify({
-        taskId: 1 //未对接
+        taskId: this.$route.query.taskId 
       });
       that
         .axios({
@@ -144,8 +144,9 @@ export default {
           data: data
         })
         .then(response => {
-          this.virtualMachineList = response.data.allData.VisualMachineList;
-          this.activeName = this.virtualMachineList[0].taskId;
+          console.log(response)
+          this.VisualMachineList = response.data.allData.VisualMachineList;
+          this.activeName = this.VisualMachineList[0].taskId;
           this.getTaskDetail(this.activeName);
         });
     },
