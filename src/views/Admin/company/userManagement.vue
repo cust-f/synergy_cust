@@ -49,13 +49,13 @@
                   align="center"
                 ></el-table-column>
                 <el-table-column prop="roleName" label="角色名称" width="130" sortable align="center">
-                  <template slot-scope="{row: {roleName}}">
+                  <!-- <template slot-scope="{row: {roleName}}">
                     <span v-if="+roleName===1">管理员</span>
                     <span v-else-if="+roleName===2">核心企业</span>
                     <span v-else-if="+roleName=== 3">供应商</span>
                     <span v-else-if="+roleName=== 4">设计人员</span>
                     <span v-else-if="+roleName=== 5">流通人员</span>
-                  </template>
+                  </template> -->
                 </el-table-column>
                 <el-table-column prop="email" label="邮箱" width="120" align="center"></el-table-column>
                 <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
@@ -384,22 +384,7 @@ export default {
     handleSelectionChange(val) {
       console.log(val);
     }
-    //   //分页导航 分页查询使用
-    //   handlePageChange(val) {
-    //     let that = this;
-    //     var data = Qs.stringify({
-    //       page: val - 1
-    //     });
-    //     that
-    //       .axios({
-    //         method: "post",
-    //         url: "http://127.0.0.1:8081/user/getAllUser",
-    //         data: data
-    //       })
-    //       .then(response => {
-    //         console.log(response);
-    //       });
-    //   }
+  
   }
 };
 </script>
