@@ -579,17 +579,17 @@
       <el-dialog :visible.sync="companyDag" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
         <div width="500" align="center" height="200px">
-          <el-image :src="imgsrc"></el-image>
+          <el-image :src="imgsrc" :onerror="errorImg01"></el-image>
         </div>
         <br />
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
         <div width="500" align="center" height="200px">
-          <el-image :src="qiyezhizhao"></el-image>
+          <el-image :src="qiyezhizhao" :onerror="errorImg02"></el-image>
         </div>
         <br />
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
         <div width="500" align="center" height="200px">
-          <el-image :src="shuiwudengjizheng"></el-image>
+          <el-image :src="shuiwudengjizheng" :onerror="errorImg03"></el-image>
         </div>
         <br />
 
@@ -735,8 +735,9 @@
 
             <el-row>
               <el-col>
-                <el-form-item label="详细">
-                  <div class="leftDet">{{companyMessage.introduction}}</div>
+                <el-form-item label="企业详情">
+                  <br />
+                  <div class="leftDet" v-html="companyDetailContent"></div>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -772,6 +773,7 @@
         </div>
 
         <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="xiazaiZRWFJ">打包下载</el-button>
           <el-button type="primary" @click="taskDetilDag = false">关 闭</el-button>
         </span>
       </el-dialog>
@@ -792,7 +794,7 @@
           <el-table-column prop="taskState" label="子任务状态"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应方">
             <template slot-scope="scope">
-              <el-span v-if="+scope.row.acceptCompanyName === 0">暂未有供应方接受</el-span>
+              <el-span v-if="+scope.row.acceptCompanyName === 0"></el-span>
               <el-span v-else>{{scope.row.acceptCompanyName}}</el-span>
             </template>
           </el-table-column>
@@ -816,6 +818,14 @@ export default {
   name: "circulationDet",
   data() {
     return {
+      companyDetailContent: "",
+      //默认企业图片
+      errorImg01: 'this.src="' + require("../../../company/2.jpg") + '"',
+      //默认营业执照
+      errorImg02:
+        'this.src="' + require("../../../company/税务登记证.jpg") + '"',
+      //默认税务登记
+      errorImg03: 'this.src="' + require("../../../company/营业执照.jpg") + '"',
       //商品细节的弹框
       companyDag: false,
       //全部子任务
@@ -927,7 +937,8 @@ export default {
       design1: "",
       //文件上传数
       shangchuancishu: 0,
-
+      jingyingfanwei: "",
+      companyId:0,
       //上传的文件路径
       technicalFile: [],
       technicalFileWanzheng: "",
@@ -1244,6 +1255,7 @@ export default {
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
           this.designcount = response.data.allData.a[0].designCount;
+          this.companyId = response.date.allData.a[0].companyId;
           if (this.taskType == 0) {
             this.taskTpyeName = "设计需求";
           } else {
@@ -1654,17 +1666,24 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/supplier/getCompay",
+          url: "/api/companyDetail/getCompanyFormBytaskId",
           data: data
         })
         .then(response => {
-          console.log("123");
-          console.log(response);
-          this.companyMessage = response.data.allData[0];
-          // this.imgsrc = response.data.allData[0].companyPicture;
-          // this.qiyezhizhao = response.data.allData[0].businessLicence;
-          // this.shuiwudengjizheng = response.data.allData[0].tRCertificate;
-          console.log(this.shuiwudengjizheng);
+          this.companyMessage = response.data.allData.companyDetail[0];
+          this.companyId = response.data.allData.companyDetail[0].companyId;
+          this.companyName = response.data.allData.companyDetail[0].companyName;
+          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
+          this.qiyezhizhao =
+            response.data.allData.companyDetail[0].businessLicence;
+          this.shuiwudengjizheng =
+            response.data.allData.companyDetail[0].tRCertificate;
+          this.jingyingfanwei = response.data.allData.b;
+          this.companyDetailContent =
+            response.data.allData.companyDetailContent;
+          response.data.allData.companyDetail[0].tRCertificate;
+          this.companyDetailContent =
+            response.data.allData.companyDetailContent;
         });
     },
     ziTaskDetail() {
@@ -1761,6 +1780,7 @@ export default {
   .leftDet {
     float: left;
     text-align: left;
+    width: 95%;
   }
   .el-step__title.is-process {
     color: #f15e09;
