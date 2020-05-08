@@ -75,8 +75,8 @@
                 ></el-table-column>
                 <el-table-column prop="companyCategory" label="企业类别"  sortable width="120" align="center">
                <template slot-scope="{row: {companyCategory}}">
-                    <span v-if="+companyCategory===1">制造业</span>
-                    <span v-else-if="+companyCategory===2">服务业</span>
+                    <span v-if="+companyCategory===1">供应商</span>
+                    <span v-else-if="+companyCategory===2">核心企业</span>
                   </template></el-table-column>
                 <el-table-column prop="foundingTime" label="成立时间" sortable width="120" align="center">
                   <template slot-scope="scope">
@@ -87,7 +87,7 @@
                 </el-table-column>
                 <el-table-column prop="province" label="所在省"  sortable width="100" align="center"></el-table-column>
                 <el-table-column prop="city" label="所在市"  sortable width="100" align="center"></el-table-column>
-                <el-table-column prop="officeNumber" label="办公电话" width="100" align="center"></el-table-column>
+                <el-table-column prop="officeNumber" label="办公电话" width="140" align="center"></el-table-column>
 
                 <el-table-column label="操作" width="160" align="center">
                   <template slot-scope="scope">

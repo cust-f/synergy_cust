@@ -539,7 +539,7 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa"
+        userName: this.usernameX
       });
       console.log(data);
       that
