@@ -324,7 +324,7 @@
                   style="margin-bottom:20px;"
                   :gutter="10"
                 >
-                  <el-col :span="9" class="fontStyle1">
+                  <el-col :span="8" class="fontStyle1">
                     <el-tooltip
                       :content="item.Industry_Type"
                       placement="top-start"
@@ -370,7 +370,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="9">
+                <el-col :span="8">
                   <el-tooltip
                     :content="supplierlist.companyProduct[i]"
                     placement="left-start"
@@ -382,7 +382,7 @@
                     >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
                   </el-tooltip>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="14">
                   <el-tooltip :content="supplierlist.companyName[i]" placement="top" effect="light">
                     <a
                       @click="excellentCompanyDetail(item)"
@@ -408,7 +408,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="9">
+                <el-col :span="8">
                   <el-tooltip
                     :content="item.Industry_Type"
                     placement="left-start"
