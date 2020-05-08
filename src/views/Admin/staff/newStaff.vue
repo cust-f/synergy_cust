@@ -35,19 +35,23 @@
                   header-cell-class-name="table-header"
                   row-style="height:0"
                   cell-style="padding:0"
+                   :default-sort = "{prop: 'userName', order: 'descending'}"
                 >
                   <el-table-column prop="userId" label="序号" width="55" align="center" type="index"></el-table-column>
 
-                  <el-table-column prop="userName" label="用户名"></el-table-column>
-                  <el-table-column prop="realName" label="真实姓名"></el-table-column>
-                  <el-table-column prop="roleId" label="部门">
+                  <el-table-column prop="userName" label="用户名" sortable width="90"></el-table-column>
+                  <el-table-column prop="realName" label="真实姓名"  sortable width="120"></el-table-column>
+                  <el-table-column prop="roleId" label="部门" sortable width="100">
                     <template slot-scope="scope">
                       <span v-if="scope.row.roleId === 4">设计人员</span>
                       <span v-else-if="scope.row.roleId === 5">流通人员</span>
+                      <span v-else-if="scope.row.roleId === 3">供应商</span>
+                      <span v-else-if="scope.row.roleId === 2">核心企业</span>
+                      <span v-else-if="scope.row.roleId === 1">管理员</span>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="email" label="邮箱"></el-table-column>
-                  <el-table-column prop="phone" label="电话"></el-table-column>
+                  <el-table-column prop="email" label="邮箱" sortable></el-table-column>
+                  <el-table-column prop="phone" label="电话" sortable></el-table-column>
 
                   <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
@@ -80,7 +84,8 @@
             </div>
 
             <!-- 编辑弹出框 -->
-            <el-dialog title="人员编辑" :visible.sync="editVisible" width="30%">
+            <el-dialog :visible.sync="editVisible" width="30%">
+              <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">人员编辑</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <el-form ref="form" :model="form" label-width="70px" :rules="userRules">
                 <el-form-item label="用户名">
                   <el-input v-model="form.userName"></el-input>
@@ -110,7 +115,8 @@
             </el-dialog>
 
             <!-- 新增弹出框 -->
-            <el-dialog title="人员新增" :visible.sync="addVisible" width="50%">
+            <el-dialog :visible.sync="addVisible" width="50%">
+              <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">人员新增</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <el-form ref="form" :model="addList" label-width="70px" :rules="userRules">
                 <el-form-item label="用户名">
                   <el-input v-model="addList.userName"></el-input>
@@ -268,9 +274,8 @@ export default {
       selectName: "",
       userRules: {
         phone: [{ required: true, validator: validDataPhone, trigger: "blur" }]
-      },
+      }
     };
-    
   },
   created() {
     this.getData();
@@ -380,36 +385,38 @@ export default {
     },
     //保存新增
     saveAdd(formName) {
-       this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernamex,
-        User_Name: this.addList.userName,
-        Real_Name: this.addList.realName,
-        Role_Id: this.addList.roleId,
-        Phone: this.addList.phone,
-        Email: this.addList.email,
-        Password1: this.addList.password
-        //roleName:this.roleName
-      });
-      console.log(data);
-      //console.log(this.addList.email);
+          var that = this;
+          var data = Qs.stringify({
+            userName: this.usernamex,
+            User_Name: this.addList.userName,
+            Real_Name: this.addList.realName,
+            Role_Id: this.addList.roleId,
+            Phone: this.addList.phone,
+            Email: this.addList.email,
+            Password1: this.addList.password
+            //roleName:this.roleName
+          });
+          console.log(data);
+          //console.log(this.addList.email);
 
-      that.axios({
-        method: "post",
-        url: "http://127.0.0.1:8081/newStaff/addlist",
-        data: data
-      }).then(response => {
+          that
+            .axios({
+              method: "post",
+              url: "http://127.0.0.1:8081/newStaff/addlist",
+              data: data
+            })
+            .then(response => {
               this.$message({
                 type: "success",
                 message: "提交成功"
               });
-               this.tableData.push(this.addList);
-      console.log(this.addList);
-      this.addList = {};
-      this.addVisible = false;
-      this.getData();
+              this.tableData.push(this.addList);
+              console.log(this.addList);
+              this.addList = {};
+              this.addVisible = false;
+              this.getData();
             });
         } else {
           this.$message({
@@ -432,43 +439,43 @@ export default {
     saveEdit(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-      var that = this;
-      var data = Qs.stringify({
-        userId: this.Id,
-        User_Name: this.form.userName,
-        Phone: this.form.phone,
-        Email: this.form.email,
-        Password: this.form.password
-        //userId:row.userId
-      });
-      console.log(data);
-      //console.log(this.addList.email);
+          var that = this;
+          var data = Qs.stringify({
+            userId: this.Id,
+            User_Name: this.form.userName,
+            Phone: this.form.phone,
+            Email: this.form.email,
+            Password: this.form.password
+            //userId:row.userId
+          });
+          console.log(data);
+          //console.log(this.addList.email);
 
-      that.axios({
-        method: "post",
-        url: "http://127.0.0.1:8081/newStaff/editlist",
-        data: data
-      }).
-      then(response => {
+          that
+            .axios({
+              method: "post",
+              url: "http://127.0.0.1:8081/newStaff/editlist",
+              data: data
+            })
+            .then(response => {
               this.$message({
                 type: "success",
                 message: "修改账户信息成功"
               });
               this.getData();
               this.editVisible = false;
-            });}else {
+            });
+        } else {
           this.$message({
             type: "warning",
             message: "请输入正确有效的信息"
           });
         }
 
-      // this.$message.success("提交成功");
-      //this.tableData.push(this.form);
-      //this.form = {};
+        // this.$message.success("提交成功");
+        //this.tableData.push(this.form);
+        //this.form = {};
       });
-    
-     
     },
     // 分页导航
     handlePageChange(val) {},
@@ -539,7 +546,7 @@ export default {
   font-size: 24px;
 }
 .biaoti {
-  font-size: 18px;
+  font-size: 15px;
   color: #303133;
 }
 </style>
