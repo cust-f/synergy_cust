@@ -85,7 +85,77 @@
         </div>
       
     </el-row>
-     <el-dialog :visible.sync="dialogVisible" width="60%">
+
+    <el-dialog :visible.sync="dialogVisible" width="60%">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <div class="formYS">
+        <el-form ref="form2" :model="form" label-width="110px">
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="需求名称">
+                <el-input v-model="form2.taskName" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="企业名称">
+                <el-input v-model="form2.companyName" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="一级行业类别">
+                <el-input v-model="form2.taskCategoryMain" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="二级行业类别">
+                <el-input v-model="form2.taskCategoryPart" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="开始时间">
+                <el-input
+                  v-bind:value="form2.beginTime|formatDate"
+                  :disabled="true"
+                  style="text-align:center"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="截止日期">
+                <el-input
+                  v-bind:value="form2.deadline|formatDate"
+                  :disabled="true"
+                  style="text-align:center"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <br>
+          <el-row>
+
+            <el-col :span="21" offset="1">
+              <span class="titles">需求详情:</span>
+            <span>{{form2.taskDetail}}</span>
+            </el-col>
+            
+          </el-row>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+     <!-- <el-dialog :visible.sync="dialogVisible" width="60%">
        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div>
         <el-form ref="form2" :model="form" label-width="110px">
@@ -124,7 +194,7 @@
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 

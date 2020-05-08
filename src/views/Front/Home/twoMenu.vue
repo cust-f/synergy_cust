@@ -183,8 +183,8 @@ export default {
       search: "",
       //设定el-cow的值
       gutterCount: 20,
-      pushCount: 5,
-      pullCount: 2,
+      pushCount: 3,
+      pullCount: 3,
       pushCount0: 3,
 
       //第二行网站统计数据

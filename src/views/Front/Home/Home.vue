@@ -360,7 +360,7 @@
                     style="line-height: 24px;"
                   >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="18">
                   <span style="float:left;line-height: 24px;">{{supplierlist.companyName[i]}}</span>
                 </el-col>
               </el-row>
