@@ -28,11 +28,7 @@
 
       <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
-
-      <el-table-column prop="designCount" sortable label="退回次数" align="center"></el-table-column>
-
-      <el-table-column prop="deadline" sortable label="截止日期">
+      <el-table-column prop="deadline" sortable label="截止时间">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 

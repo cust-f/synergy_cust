@@ -117,7 +117,7 @@ export default {
       default: ""
     }
   },
-  watch: {
+  0: {
     "account.userName": function(val) {
       this.getexistName();
     }
