@@ -57,11 +57,11 @@
                     <span v-else-if="+roleName=== 5">流通人员</span>
                   </template> -->
                 </el-table-column>
-                <el-table-column prop="email" label="邮箱" width="120" align="center"></el-table-column>
+                <el-table-column prop="email" label="邮箱" width="160" align="center"></el-table-column>
                 <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
                 <!-- <el-table-column prop="password" label="用户密码" align="center"></el-table-column> -->
 
-                <el-table-column label="操作" width="160" align="center">
+                <el-table-column label="操作" width="140" align="center">
                   <template slot-scope="scope">
                     <el-button type="text" size="small" @click="chushihuamima(scope.row)">初始化密码</el-button>
                     <el-button @click="handleDelete(scope.row.userId)" type="text" size="small">删除</el-button>
