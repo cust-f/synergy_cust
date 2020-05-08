@@ -328,7 +328,6 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-          <el-table-column prop="designCount" label="设计重做次数"></el-table-column>
           <el-table-column prop="demandorCheckDesignState" label="清单验收状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.demandorCheckDesignState===0">待上传</span>
@@ -659,8 +658,8 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情">
-                  <div class="XX">{{form.introduction}}</div>
-                </el-form-item>
+                  <div class="XX" v-html="companyDetailContent">
+                  </div>                </el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -990,6 +989,8 @@ export default {
 
   data() {
     return {
+            //企业详情路径
+      companyDetailContent:"",
       //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
       //默认营业执照
@@ -2007,6 +2008,8 @@ export default {
             response.data.allData.companyDetail[0].businessLicence;
           this.shuiwudengjizheng =
             response.data.allData.companyDetail[0].tRCertificate;
+                      this.companyDetailContent = response.data.allData.companyDetailContent;
+
           console.log(this.imgsrc);
         });
       this.addVisibleCD = true;
