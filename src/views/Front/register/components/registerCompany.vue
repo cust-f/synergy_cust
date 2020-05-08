@@ -24,7 +24,7 @@
                 </el-col>
               </el-row>
 
-              <el-row class="select">
+              <el-row class="select" style="margin-bottom: 16px;">
                 <el-col :span="12">
                   <el-form-item label="企业所在省份" prop="province">
                     <!-- <el-input v-model="form.province"></el-input> -->
@@ -144,7 +144,7 @@
                 </el-col>
               </el-row>
 
-              <el-row>
+              <el-row style="margin-bottom: 16px;">
                 <el-col :span="9">
                   <el-form-item label="注册资产">
                     <el-input v-model="form.registeredCapital">
@@ -161,7 +161,7 @@
                 </el-col>
               </el-row>
 
-              <el-row>
+              <el-row style="margin-bottom: 16px;">
                 <el-col :span="9">
                   <el-form-item label="固定资产">
                     <el-input v-model="form.fixedAssets">
@@ -193,7 +193,7 @@
 
               <el-row>
                 <el-col :span="9">
-                  <el-form-item label="税务证书登记编号"  prop="trNumber">
+                  <el-form-item label="税务证书编号"  prop="trNumber">
                     <el-input v-model="form.trNumber"></el-input>
                   </el-form-item>
                 </el-col>
@@ -336,10 +336,10 @@ export default {
         //   "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
         Province: "",
         city: "",
-        registeredCapital: new Number(),
-        totalAssets: new Number(),
-        currentAssets: new Number(),
-        fixedAssets: new Number(),
+        registeredCapital:"",
+        totalAssets: "",
+        currentAssets:"",
+        fixedAssets: "",
         legalPerson: "",
         legalTel: "",
         workerNumber: new Number(),

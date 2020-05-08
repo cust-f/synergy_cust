@@ -22,7 +22,7 @@
           <div class="BigTime">
             <el-carousel height="400" width="400" direction="vertical" arrow="always">
               <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
-                <img :src="item.idView" class="images" />
+                <img :src="item" class="images" />
               </el-carousel-item>
             </el-carousel>
           </div>
@@ -38,13 +38,13 @@
             </div>
             <!-- </el-col>
             <el-col :span="4"></el-col>-->
-            <el-rate v-model="companyDetail.star" disabled text-color="#ff9900"></el-rate>
+            <el-rate v-model="companyDetail.star" style="margin-left:135px;line-height:2;" disabled text-color="#ff9900"></el-rate>
             <!-- </el-col>
             </el-row>-->
           </div>
           <el-divider></el-divider>
-          <el-row>
-            <el-col :span="8" :offset="2">
+          <el-row class="Detail">
+            <el-col :span="9" :offset="2">
               <li>
                 <a>
                   企业所在省：
@@ -81,7 +81,7 @@
                 </a>
               </li>
             </el-col>
-            <el-col :span="8" :offset="4">
+            <el-col :span="9" :offset="2">
               <li>
                 <a>
                   工商注册号：
@@ -144,9 +144,9 @@ export default {
       companyDetail: "",
       companyDetailContent: "",
       imagesbox: [
-        { id: 0, idView: require("../company/1.png") },
-        { id: 1, idView: require("../company/2.jpg") },
-        { id: 2, idView: require("../company/3.jpg") }
+        // { id: 0, idView: require("../company/1.png") },
+        // { id: 1, idView: require("../company/2.jpg") },
+        // { id: 2, idView: require("../company/3.jpg") }
       ]
     };
   },
@@ -162,14 +162,15 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/companyDetail/getBusinessForm",
+          url: "/api/company/detail",
           data: data
         })
         .then(response => {
           console.log(response);
           this.companyDetailContent =
             response.data.allData.companyDetailContent;
-          this.companyDetail = response.data.allData.companyDetail[0];
+          this.companyDetail = response.data.allData.companyDetail;
+          this.imagesbox=response.data.allData.companyCarousel;
         });
     }
   }
@@ -359,6 +360,9 @@ export default {
 }
 .Right .el-divider--horizontal {
   width: 87%;
+}
+.Detail li{
+    margin-top: 10px;
 }
 .ul02 {
   width: 920px;
