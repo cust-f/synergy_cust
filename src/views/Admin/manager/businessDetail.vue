@@ -757,5 +757,7 @@ export default {
     width: 1200px;
     height: 200px;
     }
-
+.XX{
+    text-align:left;
+  }
 </style>
