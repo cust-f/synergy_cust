@@ -45,7 +45,7 @@ export default {
     methods: {
           //进入企业详情界面
     companyDetail(id) {
-      console.log("触发了呀");
+
       this.$router.push({
         path: "/company/excellentCompanyDetail",
         name: "companyDetails",

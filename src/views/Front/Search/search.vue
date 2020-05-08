@@ -1,8 +1,8 @@
 <template>
-  <div class="serach">
-    <el-container style="width:1300px;margin:0 auto;">
+  <div class="search">
+    <el-container style="width:1200px;margin:0 auto;">
       <el-header>
-        <el-breadcrumb separator=">">
+        <el-breadcrumb separator=">" style="margin-top:20px;">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>搜索</el-breadcrumb-item>
         </el-breadcrumb>
@@ -11,7 +11,7 @@
        <el-aside style="width:300px;">
         <side-navigation :sidenavigationList="navigation" :type="type" @otherSearch="otherSearch"></side-navigation>
       </el-aside>
-      <el-main style="width:1000px;">
+      <el-main style="width:900px;">
         <el-card>
           <div slot="header">
             <div>
@@ -28,13 +28,13 @@
             <company-list :companyList="companyInfo" ></company-list>
           </div>
           <div v-show="finishTaskInfo.length>0">
-            <task-list :taskList="finishTaskInfo">
-
+            <task-list :taskList="finishTaskInfo" :type="1">
+                【成果】
             </task-list>
           </div>
           <div v-show="unfinishedTaskInfo.length>0">
-            <task-list :taskList="unfinishedTaskInfo">
-                
+            <task-list :taskList="unfinishedTaskInfo" :type="0" >
+                【需求】
             </task-list>
           </div>
           <div v-show="finishTaskInfo.length<=0&&companyInfo.length<=0&&unfinishedTaskInfo.length<=0">
@@ -104,19 +104,20 @@ export default {
   },
   watch:{
     type: function(val) {
-      this.getSearchResult();
+      this.getSearchResult(this.currentPage);
     }
   },
   created(){
-      this.getSearchResult();
+      this.getSearchResult(this.currentPage);
   },
   methods: {
-    getSearchResult() {
+    getSearchResult(page) {
+        console.log("======================")
       var that = this;
       var data = Qs.stringify({
         keyWords: this.keyWords,
         type: this.type,
-        page: this.currentPage,
+        page: page,
         size: this.pageSize
       });
       that
@@ -126,13 +127,14 @@ export default {
           url: "/api/home/search"
         })
         .then(response => {
+            console.log(response)
           this.totalNumber = response.data.allData.totalNumber; //总条数
           this.companyInfo = response.data.allData.company.companyList; //企业列表
-          this.finishTaskInfo = response.data.allData.finish.finishTaskList; //需求列表
-          this.unfinishedTaskInfo =
-            response.data.allData.unfinished.unfinishedTaskList; //成果列表
+          this.unfinishedTaskInfo = response.data.allData.unfinished.unfinishedTaskList; //需求列表
+          this.finishTaskInfo =
+           response.data.allData.finish.finishTaskList ; //成果列表
             if(this.navigationSearch){
-                this.navigationSearch=0;
+                //this.navigationSearch=0;
             }else{
              this.navigation = [
             { name: "全部", number: this.totalNumber, type: 0 },
@@ -142,12 +144,12 @@ export default {
               type: 1
             },
             {
-              name: "需求一栏",
+              name: "服务成果",
               number: response.data.allData.finish.finishNumber,
               type: 2
             },
             {
-              name: "服务成果",
+              name: "需求一栏",
               number: response.data.allData.unfinished.unfinishedNumber,
               type: 3
             }
@@ -163,3 +165,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.search .el-card__body{
+    padding:0px;
+}
+</style>
