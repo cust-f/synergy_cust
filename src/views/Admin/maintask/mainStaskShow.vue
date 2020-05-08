@@ -36,7 +36,7 @@
                     width="100"
                     align="center"
                   ></el-table-column>
-                  <el-table-column prop="taskCategoryMain" label="一级行业类别" sortable></el-table-column>
+                  <el-table-column prop="taskCategoryMain" label="一级行业类别" width="150" sortable></el-table-column>
                   <el-table-column prop="publishTime" sortable label="发布时间" width="150">
                     <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                   </el-table-column>

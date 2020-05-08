@@ -34,13 +34,7 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="需求状态">
-                  <el-input v-model="cool.taskState" :disabled="true">
-                    <template slot-scope="scope">
-                      <span v-if="+scope.row.cool.taskState===0">待上传</span>
-                      <span v-else-if="+scope.row.cool.taskState===1">待审核</span>
-                      <span v-else-if="+scope.row.cool.taskState===2">通过</span>
-                      <span v-else-if="+scope.row.cool.taskState===3">未通过</span>
-                    </template>
+                  <el-input v-model="cool.taskState" :disabled="true">        
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -67,7 +61,12 @@
             <el-row>
               <el-col :span="22">
                 <el-form-item label="需求详情">
-                  <el-input v-model="cool.mainTaskDetail" :disabled="true"></el-input>
+                  <template slot-scope="scope">
+                    <el-button
+                      class="anniu"
+                      @click="xuqiuXX(scope.row)"
+                    >{{cool.mainTaskDetail}}</el-button>
+                  </template>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -124,15 +123,13 @@
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
 
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
+                <el-table-column prop="taskState" label="需求状态"></el-table-column>
                 <el-table-column prop="taskType" label="需求类型">
                   <template slot-scope="scope">
                     <span v-if="+scope.row.taskType === 0">设计任务</span>
                     <span v-else-if="+scope.row.taskType === 1">流通任务</span>
                   </template>
                 </el-table-column>
-                <el-table-column prop="taskCategoryMain" label="一级行业类别"></el-table-column>
-                <el-table-column prop="taskCategoryPart" label="二级行业类别"></el-table-column>
-                <el-table-column prop="taskState" label="需求状态"></el-table-column>
                 <el-table-column prop="publishTime" label="开始时间">
                   <template slot-scope="scope">{{scope.row.publishTime |formatDate}}</template>
                 </el-table-column>
@@ -562,6 +559,25 @@
                 <el-button type="primary" @click="xiugaixuqiuxinxi">确 定</el-button>
               </span>
             </el-dialog>
+
+             <!-- 子任务详情 + 下载 -->
+      <el-dialog :visible.sync="RWXQ" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求详情</div>
+        <br />
+        <el-form ref="form" :model="addList3" label-width="10px">
+          <el-row>
+            <el-col>
+              <el-form-item label>
+                <div>{{ cool.mainTaskDetail}}</div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <br />         
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="RWXQ = false">关 闭</el-button>
+        </span>
+      </el-dialog>
           </div>
         </el-main>
       </el-container>
@@ -582,6 +598,8 @@ export default {
   inject:['reload'],
   data() {
     return {
+      //任务详情
+      RWXQ:false,
       //初始完整路径
       WZLJ:"",
       //文件数目
@@ -765,6 +783,9 @@ export default {
   },
 
   methods: {
+    xuqiuXX(row){
+      this.RWXQ = true;
+    },
     shanchuwenjian(row){
         let ks = this.WZLJ.indexOf(row.realPath)
         let qianzui,houzui;
@@ -1336,7 +1357,25 @@ export default {
 };
 </script>
 
-<style>
+<style >
+  .anniu {
+    width: 100%;
+    border-left: cadetblue;
+    background-color: white;
+    color: #409eff;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-color: #dcdfe6;
+    border-radius: 0px;
+  }
+.el-table__empty-block{
+    min-height:40px
+}
+.el-table td, .el-table th{
+  padding-top:7px;
+  padding-bottom: 7px;
+}
 .simichakan{
   line-height:40px;
 }

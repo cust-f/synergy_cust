@@ -107,9 +107,7 @@
                 </el-form-item>
               </el-col>
             </el-row>
-           
           </el-form>
-       
         </div>
       </el-card>
       <br />
@@ -194,7 +192,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" label="供应商"></el-table-column>
+          <el-table-column prop="companyName" label="供应商" width="250"></el-table-column>
           <el-table-column prop="checkPlanState" label="计划审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.checkPlanState === 0">待上传</span>
@@ -233,13 +231,13 @@
                 @click="JHSTG(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState===1 || scope.row.checkPlanState===3"
+                v-if="scope.row.checkPlanState===1"
               >通过</el-button>
               <el-button
                 @click="JHSJJ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState===1 || scope.row.checkPlanState===3"
+                v-if="scope.row.checkPlanState===1"
               >拒绝</el-button>
             </template>
           </el-table-column>
@@ -261,7 +259,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
           <el-table-column prop="contractState" label="合同审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.contractState === 0">待上传</span>
@@ -296,16 +294,12 @@
                 v-if="scope.row.contractState!==0"
                 @click="HTXZ(scope.row)"
               >下载</el-button>
-              <el-button
-                type="text"
-                size="small"
-                @click="CKLSHT(scope.row)"
-              >历史上传</el-button>
+
               <el-button
                 @click="HTSHTG(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.contractState===1 || scope.row.contractState===3"
+                v-if="scope.row.contractState===1 "
               >通过</el-button>
               <el-button
                 @click="HTSHJJ(scope.row)"
@@ -313,6 +307,7 @@
                 size="small"
                 v-if="scope.row.contractState===1"
               >拒绝</el-button>
+              <el-button type="text" size="small" @click="CKLSHT(scope.row)">历史上传</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -407,10 +402,8 @@
             ></el-step>
           </el-steps>
         </div>-->
-<!-- 雷达图 -->
+        <!-- 雷达图 -->
         <div class="LDT">
-          
-
           <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
           <div class="input_span" align="center">
             <el-form ref="form" :modelZL="formZL">
@@ -509,20 +502,20 @@
 
       <el-dialog title :visible.sync="addVisibleCD" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
-        <br>
+        <br />
         <div width="500" align="center" height="200px">
           <el-image :src="imgsrc" :onerror="errorImg01"></el-image>
         </div>
         <br />
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
-                <br>
+        <br />
 
         <div width="500" align="center" height="200px">
           <el-image :src="qiyezhizhao" :onerror="errorImg02"></el-image>
         </div>
         <br />
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
-                <br>
+        <br />
 
         <div width="500" align="center" height="200px">
           <el-image :src="shuiwudengjizheng" :onerror="errorImg03"></el-image>
@@ -669,8 +662,7 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情">
-                  <div class="XX" v-html="companyDetailContent">
-                  </div>
+                  <div class="XX" v-html="companyDetailContent"></div>
                 </el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
@@ -689,7 +681,7 @@
         </span>
       </el-dialog>
       <!-- 全部子任务 -->
-      <el-dialog :visible.sync="quanbuzirenwu" width="50%">
+      <el-dialog :visible.sync="quanbuzirenwu" width="40%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">全部子任务</div>
         <br />
         <el-table
@@ -721,31 +713,27 @@
         <el-form ref="form" :model="addList3" label-width="10px">
           <el-row>
             <el-col>
-              <el-form-item label="">
-                <div>
-                  {{ zirenwuXX}}
-                </div>
-                 
+              <el-form-item label>
+                <div>{{ zirenwuXX}}</div>
               </el-form-item>
             </el-col>
           </el-row>
-          <br>
-             <!-- <el-card class="box-card"> -->
-                  <div slot="header" class="clearfix">
-                   
-                  </div>
-                  <div>         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">附件下载</div>
-                    <el-table :data="fujian" class="customer-table" :show-header="false">
-                      <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
-                        </template>
-                      </el-table-column>
-                      <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
-                    </el-table>
-                  </div>
-                <!-- </el-card> -->
+          <br />
+          <!-- <el-card class="box-card"> -->
+          <div slot="header" class="clearfix"></div>
+          <div>
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">附件下载</div>
+            <el-table :data="fujian" class="customer-table" :show-header="false">
+              <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
+              <el-table-column>
+                <template slot-scope="scope">
+                  <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                </template>
+              </el-table-column>
+              <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
+            </el-table>
+          </div>
+          <!-- </el-card> -->
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button type="primary" @click="xiazaiZRWFJ">打包下载</el-button>
@@ -839,7 +827,6 @@
           </el-row>
 
           <el-row>
-            
             <el-col :span="11">
               <el-form-item label="新增供应商" :style="{display: true}">
                 <el-select
@@ -882,9 +869,7 @@
               <el-span class="simichakan" :style="{display:sm}">自身可见</el-span>
               <el-span class="simichakan" :style="{display:busm}">全部可见</el-span>
             </font>
-
           </el-row>
-
 
           <el-row>
             <el-col :span="22">
@@ -897,28 +882,31 @@
           <el-row>
             <el-col :span="22">
               <el-form-item label="附件下载">
-                <div> 
-                    <el-table :data="fujian" class="customer-table" :show-header="false">
-                      <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <el-link  style="color:#409EFF" @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
-                        </template>
-                      </el-table-column>
-                      <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
-                      <el-table-column label="操作" align="center" width="120">
-                        <template slot-scope="scope">
-                    <el-button
-                      size="small"
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="shanchuwenjian(scope.row)"
-                    >删除文件</el-button>
-                  </template>
-                </el-table-column>
-                    </el-table>
-                  </div>
+                <div>
+                  <el-table :data="fujian" class="customer-table" :show-header="false">
+                    <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
+                    <el-table-column>
+                      <template slot-scope="scope">
+                        <el-link
+                          style="color:#409EFF"
+                          @click.native="downloadFile(scope.row)"
+                        >{{scope.row.realName}}</el-link>
+                      </template>
+                    </el-table-column>
+                    <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
+                    <el-table-column label="操作" align="center" width="120">
+                      <template slot-scope="scope">
+                        <el-button
+                          size="small"
+                          type="text"
+                          icon="el-icon-delete"
+                          class="red"
+                          @click="shanchuwenjian(scope.row)"
+                        >删除文件</el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </div>
               </el-form-item>
             </el-col>
           </el-row>
@@ -933,7 +921,7 @@
               :on-success="handleAvatarSuccess"
               multiple
               :limit="10"
-             ref = "upload"
+              ref="upload"
               :on-exceed="handleExceed"
               :file-list="fileList"
             >
@@ -941,17 +929,16 @@
               <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
             </el-upload>
           </el-form-item>
-            
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="ZRWXG = false">取 消</el-button>
           <el-button type="primary" @click="XGZRW">确 定</el-button>
         </span>
       </el-dialog>
-<!-- 文件历史 -->
+      <!-- 文件历史 -->
       <el-dialog title :visible.sync="fileHistoryDia" width="55%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
-        <br>
+        <br />
         <div>
           <el-table
             :data="tableData6"
@@ -986,9 +973,7 @@
             </el-table-column>
           </el-table>
         </div>
-       
       </el-dialog>
-
     </el-main>
   </div>
 </template>
@@ -1008,12 +993,12 @@ export default {
   data() {
     return {
       //企业详情路径
-      companyDetailContent:"",
+      companyDetailContent: "",
       //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
-            //默认营业执照
+      //默认营业执照
       errorImg02: 'this.src="' + require("../company/营业执照.jpg") + '"',
-            //默认税务登记
+      //默认税务登记
       errorImg03: 'this.src="' + require("../company/税务登记证.jpg") + '"',
       usernameX: localStorage.getItem("ms_username"),
       //
@@ -1044,7 +1029,7 @@ export default {
       //子任务修改
       ZRWXG: false,
       //合同历史记录
-      fileHistoryDia:false,
+      fileHistoryDia: false,
       activeBZT: "",
       //主任务ID
       mainTaskID: 0,
@@ -1129,7 +1114,7 @@ export default {
       //子行业类别ID
       subStaskTypeID: "",
       //附件
-            fujian: [
+      fujian: [
         {
           realName: "",
           realPath: ""
@@ -1236,23 +1221,22 @@ export default {
     this.showData();
   },
   methods: {
-        shanchuwenjian(row){
-        let ks = this.WZLJ.indexOf(row.realPath)
-        let qianzui,houzui;
-        console.log(row.wenjiancixu)
-        if(row.wenjiancixu ==this.WJSM-1){
-          qianzui = this.WZLJ.substr(0,ks-8)
-          houzui = ""
-        }
-        else{
-          qianzui = this.WZLJ.substr(0,ks)
-          houzui = this.WZLJ.substr(ks+row.realPath.length+8)
-        }
-        this.WZLJ = qianzui+houzui
-        console.log(this.WZLJ)
-        this.fujian.splice(row.wenjiancixu,1)
+    shanchuwenjian(row) {
+      let ks = this.WZLJ.indexOf(row.realPath);
+      let qianzui, houzui;
+      console.log(row.wenjiancixu);
+      if (row.wenjiancixu == this.WJSM - 1) {
+        qianzui = this.WZLJ.substr(0, ks - 8);
+        houzui = "";
+      } else {
+        qianzui = this.WZLJ.substr(0, ks);
+        houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
+      }
+      this.WZLJ = qianzui + houzui;
+      console.log(this.WZLJ);
+      this.fujian.splice(row.wenjiancixu, 1);
     },
-        downloadFile(row) {
+    downloadFile(row) {
       var that = this;
       var data = Qs.stringify({
         //taskID: this.taskId,
@@ -1266,25 +1250,26 @@ export default {
           responseType: "blob", //服务器返回的数据类型
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
-          },
+          }
         })
         .then(response => {
-          
           let link = document.createElement("a");
           link.style.display = "none";
-          link.href = window.URL.createObjectURL(new Blob([response.data], {type: 'application/octet-stream'} ) )  ;
-          link.setAttribute("download",  row.realName); 
+          link.href = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/octet-stream" })
+          );
+          link.setAttribute("download", row.realName);
           document.body.appendChild(link);
           link.click();
         });
     },
-    CKLSHT(row){
+    CKLSHT(row) {
       this.fileHistoryDia = true;
-      var that = this
+      var that = this;
       var data = Qs.stringify({
-          taskId: row.taskId,
-          fileType: "0"
-      })
+        taskId: row.taskId,
+        fileType: "0"
+      });
       that
         .axios({
           method: "post",
@@ -1296,21 +1281,21 @@ export default {
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
         });
-
     },
     XGZRW() {
       //设置文件路径
-            if(this.technicalFileWanzheng!=0&&this.WZLJ!=0){
-        console.log("nihao")
-        this.technicalFileWanzheng = this.WZLJ + "linklink" + this.technicalFileWanzheng
+      if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
+        console.log("nihao");
+        this.technicalFileWanzheng =
+          this.WZLJ + "linklink" + this.technicalFileWanzheng;
       }
-      if(this.technicalFileWanzheng == 0 &&this.WZLJ!=0){
-        this.technicalFileWanzheng = this.WZLJ
+      if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
+        this.technicalFileWanzheng = this.WZLJ;
       }
-          this.mainStaskTypeID = this.selectCateKeys[0] 
-          this.subStaskTypeID = this.selectCateKeys[1] 
+      this.mainStaskTypeID = this.selectCateKeys[0];
+      this.subStaskTypeID = this.selectCateKeys[1];
       //先对要修改的文件进行判断
-      if (this.technicalFile == "null"||this.mainStaskTypeID =="null") {
+      if (this.technicalFile == "null" || this.mainStaskTypeID == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning"
         });
@@ -1324,12 +1309,11 @@ export default {
         } else {
           this.cool.taskType = 1;
         }
-        if(this.cooList.shifousimi =="是"){
-            this.cooList.shifousimi = 0
-          }
-          else{
-            this.cooList.shifousimi = 1
-          }
+        if (this.cooList.shifousimi == "是") {
+          this.cooList.shifousimi = 0;
+        } else {
+          this.cooList.shifousimi = 1;
+        }
         var that = this;
         var data = Qs.stringify({
           userName: this.usernameX,
@@ -1351,12 +1335,12 @@ export default {
         });
         console.log(this.SupplierListInt);
         console.log(data);
-              if (this.cool.taskType == 0) {
-                console.log("nihao")
-                this.cool.taskType = "设计任务";
-              } else {
-                this.cool.taskType = "流通任务";
-              }
+        if (this.cool.taskType == 0) {
+          console.log("nihao");
+          this.cool.taskType = "设计任务";
+        } else {
+          this.cool.taskType = "流通任务";
+        }
         that
           .axios({
             method: "post",
@@ -1367,13 +1351,12 @@ export default {
             console.log(response);
             if (response.data != null) {
               this.$message.success("修改成功");
-              this.$refs.upload.clearFiles()
+              this.$refs.upload.clearFiles();
               this.technicalFileWanzheng = "";
               this.technicalFile = "";
               this.shangchuancishu = "";
               //this.getData();
-
-            }  
+            }
           })
           .catch(error => {
             console.log(error);
@@ -1381,18 +1364,16 @@ export default {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
                 type: "warning"
               });
-              this.$refs.upload.clearFiles()
+              this.$refs.upload.clearFiles();
               this.technicalFileWanzheng = "";
               this.technicalFile = "";
               this.shangchuancishu = "";
             }
-            
           });
-         
 
         this.ZRWXG = false;
         this.showData();
-       // this.getData();
+        // this.getData();
         // location.reload()
       }
     },
@@ -1584,13 +1565,13 @@ export default {
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
-          this.selectCateKeys[0] = response.data.allData.a[0].taskCategoryMainId
-          this.selectCateKeys[1] = response.data.allData.a[0].taskCategory
-          if(this.cooList.shifousimi ==0){
-            this.cooList.shifousimi = "是"
-          }
-          else{
-            this.cooList.shifousimi = "否"
+          this.selectCateKeys[0] =
+            response.data.allData.a[0].taskCategoryMainId;
+          this.selectCateKeys[1] = response.data.allData.a[0].taskCategory;
+          if (this.cooList.shifousimi == 0) {
+            this.cooList.shifousimi = "是";
+          } else {
+            this.cooList.shifousimi = "否";
           }
           //判断4个table是否隐藏
           if (this.tableData1 == null) {
@@ -1640,10 +1621,10 @@ export default {
           } else if (this.milepostActive == "完成") {
             this.milepostActive = 5;
           }
-                    if(this.cool.taskType ===0){
-            this.cool.taskType = "设计任务"
-          }else{
-            this.cool.taskType = "流通任务"
+          if (this.cool.taskType === 0) {
+            this.cool.taskType = "设计任务";
+          } else {
+            this.cool.taskType = "流通任务";
           }
           if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
@@ -1809,23 +1790,33 @@ export default {
     //任务计划下载
     RWJHXZ(row) {
       console.log("shenme");
-      var that = this;
-      var data = Qs.stringify({
-        taskID: row.id,
-        leixing: "jihuashu"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/DownloadHTHT",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          console.log("cap");
-          console.log(response);
-          this.download(response.data, "JHS");
+        var that = this;
+        var data = Qs.stringify({
+          taskID: row.id,
+          leixing: "jihuashu"
         });
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/DownloadHTHT",
+            data: data,
+            responseType: "blob"
+          })
+          .then(response => {
+            console.log("cap");
+            console.log(response);
+            this.download(response.data, "JHS");
+          })
+           .catch(error => {
+            console.log(error);
+            if (error != null) {
+              this.$confirm("文件不存在或者文件路径有误", "提示", {
+                type: "warning"
+              });
+              
+            }
+         });
+      
     },
     //下载子任务附件
     xiazaiZRWFJ() {
@@ -2000,7 +1991,8 @@ export default {
             response.data.allData.companyDetail[0].businessLicence;
           this.shuiwudengjizheng =
             response.data.allData.companyDetail[0].tRCertificate;
-          this.companyDetailContent = response.data.allData.companyDetailContent;
+          this.companyDetailContent =
+            response.data.allData.companyDetailContent;
           console.log(this.imgsrc);
         });
       this.addVisibleCD = true;
@@ -2011,6 +2003,9 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+  .el-dialog__body {
+    padding-right: 20px;
+  }
   #demo {
     width: 20px; /*设置div宽度为500像素*/
     background: #000; /*设置div背景色为zhidao黑色*/
@@ -2175,8 +2170,8 @@ export default {
     width: 600px;
     height: 300px;
   }
-  .XX{
-    text-align:left;
+  .XX {
+    text-align: left;
   }
 }
 </style>
