@@ -1,5 +1,5 @@
 <template>
-  <div class="circulationDet">
+  <div class="designDet">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-steps :active="milepostActive" align-center>
@@ -80,7 +80,7 @@
 
             <el-row>
               <el-col :span="11">
-                <el-form-item label="截止时间">
+                <el-form-item label="截止日期">
                   <el-input
                     v-bind:value="cool.deadline|formatDate"
                     :readonly="true"
@@ -99,6 +99,7 @@
       </div>
       <br />
       <br />
+
       <div>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请列表</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <el-table
@@ -167,7 +168,7 @@
         >
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="taskName" label="需求名称"></el-table-column>
-          <el-table-column prop="checkPlanState" width="100" label="审核状态">
+          <el-table-column prop="checkPlanState" width="100" label="计划审核状态">
             <template slot-scope="scope">
               <span v-if="scope.row.checkPlanState === 0">待上传</span>
               <span v-else-if="scope.row.checkPlanState === 1">待审核</span>
@@ -228,7 +229,7 @@
           >
             <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
             <el-table-column prop="taskName" label="需求名称"></el-table-column>
-            <el-table-column prop="contractState" width="100" label="审核状态">
+            <el-table-column prop="contractState" width="100" label="合同审核状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.contractState === 0">待上传</span>
                 <span v-else-if="scope.row.contractState === 1">待审核</span>
@@ -242,7 +243,7 @@
                 <span v-else>{{scope.row.uploadContractTime | formatDate}}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="checkContractTime" label="审核时间">
+            <el-table-column prop="checkContractTime" label="合同审核时间">
               <template slot-scope="scope">
                 <span v-if="+scope.row.checkContractTime === 0">暂未审核</span>
                 <span v-else>{{scope.row.checkContractTime | formatDate}}</span>
@@ -257,17 +258,16 @@
                   v-show="scope.row.contractState===0"
                 >上传</el-button>
                 <el-button
-                  type="text"
-                  size="small"
                   @click="HTFileHistory()"
                   v-show="scope.row.contractState > 0"
+                  type="text"
+                  size="small"
                 >历史上传</el-button>
-
                 <el-button
-                  v-show="scope.row.contractState===1"
                   @click="HTXZ(scope.row)"
                   type="text"
                   size="small"
+                  v-show="scope.row.contractState===1"
                 >下载</el-button>
                 <el-button
                   v-show="scope.row.contractState===2"
@@ -296,8 +296,70 @@
       </div>
 
       <div v-show="show>1">
-        <div v-show="state3===2">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>
+        <div v-show="state3 === 2">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">内部审核</div>
+          <br />
+          <el-table
+            :data="tableData3"
+            border
+            class="table"
+            ref="multipleTable"
+            header-cell-class-name="table-header"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+            <el-table-column prop="taskName" label="需求名称"></el-table-column>
+            <el-table-column prop="supplierCheckDesignState" width="100" label="审核状态">
+              <template slot-scope="scope">
+                <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
+                <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
+                <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
+                <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="designerName" width="120" label="设计师">
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
+                <el-span v-else>{{scope.row.designerName}}</el-span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="uploadDesignTime" label="设计上传时间">
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
+                <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="supplierCheckDesignTime" label="审核时间">
+              <template slot-scope="scope">
+                <el-span v-if="+scope.row.supplierCheckDesignTime === 0">暂未审核</el-span>
+                <el-span v-else>{{scope.row.supplierCheckDesignTime| formatDate}}</el-span>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="180" align="center">
+              <template slot-scope="scope">
+                <div v-show="scope.row.supplierCheckDesignState ===0">
+                  <div v-if="giveDesigner === 1">
+                    <el-button @click="assignDesigners(scope.row)" type="text" size="small">分配设计人员</el-button>
+                  </div>
+                </div>
+                <div v-show="scope.row.supplierCheckDesignState > 0">
+                  <el-button @click="SQJJ(scope.row)" type="text" size="small">查看成果</el-button>
+                </div>
+                <div v-show="scope.row.supplierCheckDesignState === 1">
+                  <el-button @click="designSuccess(scope.row)" type="text" size="small">通过</el-button>
+                  <el-button @click="designRefuse(scope.row)" type="text" size="small">拒绝</el-button>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+          <br />
+          <br />
+        </div>
+      </div>
+
+      <div v-show="show>1">
+        <div v-show="designCount > 0">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
           <br />
           <el-table
             :data="tableData5"
@@ -309,8 +371,8 @@
           >
             <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
             <el-table-column prop="taskName" label="需求名称"></el-table-column>
-            <el-table-column prop="taskCategory" label="需求类别"></el-table-column>
-            <el-table-column prop="taskCategoryPart" label="需求类别"></el-table-column>
+
+            <el-table-column prop="designCount" label="重做次数"></el-table-column>
 
             <el-table-column prop="demandorCheckDesignState" width="100" label="验收状态">
               <template slot-scope="scope">
@@ -331,27 +393,18 @@
             <el-table-column label="操作" width="180" align="center">
               <template slot-scope="scope">
                 <el-button
-                  @click="upLoadCirculationPlan(scope.row)"
+                  v-show="designcount > 1"
+                  @click="refuseDesignReason(scope.row)"
                   type="text"
                   size="small"
-                  v-show="scope.row.demandorCheckDesignState===0"
-                >上传</el-button>
-                <el-button
-                  type="text"
-                  size="small"
-                  @click="FHQDFileHistory()"
-                  v-show="scope.row.demandorCheckDesignState > 0"
-                >历史上传</el-button>
-                <div v-show="scope.row.demandorCheckDesignState > 1">
-                  <el-button @click="FFQDXZ(scope.row)" type="text" size="small">下载</el-button>
-                </div>
+                >拒绝原因</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
       </div>
 
-      <div v-show="show > 4" class="det">
+      <div v-show="show > 4" class="designDet">
         <br />
         <br />
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>
@@ -360,6 +413,20 @@
         <div v-if="reMarkId === 0">
           <h3 align-center>核心企业暂未评价</h3>
         </div>
+        <!-- 步骤图片 -->
+        <!-- <div v-if="reMarkId === 1">
+          <el-steps :active="milepostActive1" align-center>
+            <el-step
+              v-for="(stpesdata, key) in milepost1"
+              :title="stpesdata.title"
+              :icon="stpesdata.icon"
+              :description="stpesdata.description"
+              :key="key"
+            ></el-step>
+          </el-steps>
+        </div>-->
+        <br />
+        <br />
         <div v-if="reMarkId === 1">
           <!-- 雷达图 -->
           <div class="LDT">
@@ -380,9 +447,34 @@
         </div>
       </div>
 
+      <!-- 分配设计人员 -->
+      <el-dialog :visible.sync="dialogTableVisible" width="30%">
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">分配设计师</div>
+        <br />
+        <br />
+        <el-form :model="form1">
+          <el-form-item label="设计师" :label-width="formLabelWidth">
+            <el-select v-model="design1" placeholder="请选择分配人员">
+              <el-option
+                v-for="designName in designTask"
+                :key="designName.userName"
+                :label="designName.userName"
+                :value="designName.userName"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogTableVisible = false">取 消</el-button>
+          <el-button type="primary" @click="tijiao()">确 定</el-button>
+        </div>
+      </el-dialog>
+
       <!-- 申请拒绝原因 -->
       <el-dialog :visible.sync="addVisible1" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请被拒绝的原因</div>
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请被拒绝原因</div>
+        <br />
+        <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -402,7 +494,9 @@
 
       <!-- 任务计划拒绝原因 -->
       <el-dialog :visible.sync="addVisible2" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书被拒绝的原因</div>
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书被拒绝原因</div>
+        <br />
+        <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -423,6 +517,8 @@
       <!-- 合同拒绝原因 -->
       <el-dialog :visible.sync="addVisible3" width="50%">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同拒绝原因</div>
+        <br />
+        <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -440,9 +536,11 @@
         </span>
       </el-dialog>
 
-      <!-- 流通验收拒绝原因 -->
-      <!-- <el-dialog :visible.sync="addVisible4" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通验收拒绝原因</div>
+      <!-- 设计验收拒绝原因 -->
+      <el-dialog :visible.sync="addVisible4" width="50%">
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计验收拒绝原因</div>
+        <br />
+        <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -458,11 +556,13 @@
         <span slot="footer" class="dialog-footer">
           <el-button @click="addVisible4 = false">确定</el-button>
         </span>
-      </el-dialog>-->
+      </el-dialog>
 
       <!-- 计划书上传 -->
       <el-dialog :visible.sync="planbook" width="400px" :before-close="handleClose">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书上传</div>
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传计划书</div>
+        <br />
+        <br />
         <el-upload
           ref="upload"
           action="/api/supplier/import"
@@ -470,7 +570,12 @@
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess1"
           multiple
+          :limit="3"
+          :before-remove="beforeRemove"
+          :on-change="change"
           :auto-upload="false"
+          :on-exceed="handleExceed"
+          :file-list="fileList"
         >
           <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
           <br />
@@ -485,14 +590,18 @@
       </el-dialog>
 
       <!-- 上传合同 -->
-      <el-dialog title="上传合同" :visible.sync="conbook" width="400px" :before-close="handleClose">
+      <el-dialog :visible.sync="conbook" width="400px" :before-close="handleClose">
         <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传合同</div>
+        <br />
+        <br />
         <el-upload
           ref="upload"
           action="/api/supplier/import"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleAvatarSuccess"
+          :on-change="change"
+          :limit="3"
           multiple
           :auto-upload="false"
         >
@@ -508,71 +617,27 @@
         </el-upload>
       </el-dialog>
 
-      <!-- 上传流通规格书 -->
-      <el-dialog :visible.sync="upCirculation" width="400px" :before-close="handleClose">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传发货清单</div>
+      <!-- 设计拒绝原因 -->
+      <el-dialog :visible.sync="designRefuseReason" width="50%">
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入设计不通过的原因</div>
         <br />
         <br />
-        <el-upload
-          ref="upload"
-          action="/api/supplier/import"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :on-success="handleAvatarSuccess2"
-          multiple
-          :auto-upload="false"
-        >
-          <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
-          <br />
-          <el-button
-            style="margin-left:10px;"
-            size="small"
-            type="success"
-            @click="submitUpload"
-            align-center
-          >上传到服务器</el-button>
-        </el-upload>
-      </el-dialog>
-
-      <!-- 文件历史 -->
-      <el-dialog title :visible.sync="fileHistoryDia" width="55%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
-        <br />
-        <br />
-        <div>
-          <el-table
-            :data="tableData6"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-          >
-            <el-table-column label="序号" type="index" width="55" align="center">
-              <template slot-scope="scope">
-                <span>{{scope.$index + 1}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="fileName" label="文件名">
-              <template slot-scope="scope">
-                <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
-              </template>
-            </el-table-column>
-            <el-table-column prop="publishingCompanyName" label="发布企业" width="180" align="center"></el-table-column>
-            <el-table-column prop="fileType" width="100" label="文件类型">
-              <template slot-scope="scope">
-                <span v-if="scope.row.fileType === 0">合同文件</span>
-                <span v-else-if="scope.row.fileType === 1">发货清单</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
-            <el-table-column prop="uploadTime" label="上传时间">
-              <template slot-scope="scope">
-                <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
+        <el-row>
+          <el-col :span="8"></el-col>
+        </el-row>
+        <el-form ref="form" :model="addList4" label-width="120px">
+          <el-row>
+            <el-col>
+              <el-form-item label="设计拒绝原因">
+                <el-input v-model="addList4.SJrefuseReason"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="designRefuseReason = false">取 消</el-button>
+          <el-button type="primary" @click="SJJJYYTJ">确 定</el-button>
+        </span>
       </el-dialog>
 
       <!-- 公司信息 -->
@@ -803,22 +868,62 @@
           <el-button type="primary" @click="quanbuzirenwu = false">关 闭</el-button>
         </span>
       </el-dialog>
+
+      <!-- 文件历史 -->
+      <el-dialog title :visible.sync="fileHistoryDia" width="55%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
+        <br />
+        <br />
+        <div>
+          <el-table
+            :data="tableData6"
+            border
+            class="table"
+            ref="multipleTable"
+            header-cell-class-name="table-header"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column label="序号" type="index" width="55" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.$index + 1}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="fileName" label="文件名">
+              <template slot-scope="scope">
+                <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="publishingCompanyName" label="发布企业" width="180" align="center"></el-table-column>
+            <el-table-column prop="fileType" width="100" label="文件类型">
+              <template slot-scope="scope">
+                <span v-if="scope.row.fileType === 0">合同文件</span>
+                <span v-else-if="scope.row.fileType === 1">发货清单</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
+            <el-table-column prop="uploadTime" label="上传时间">
+              <template slot-scope="scope">
+                <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-dialog>
     </el-main>
   </div>
 </template>
 
 <script>
 import Qs from "qs";
-import { formatDate } from "../../design/designDetails/dataChange";
-import radarChart from "../../circulation/circulationDetails/radarChart";
+import { formatDate } from "../designDetails/dataChange";
+import radarChart from "../designDetails/detailComponents/radarChart";
 export default {
   components: {
     "radar-chart": radarChart
   },
-  name: "circulationDet",
+  name: "designDet",
   data() {
     return {
-      companyDetailContent: "",
       //默认企业图片
       errorImg01: 'this.src="' + require("../../../company/2.jpg") + '"',
       //默认营业执照
@@ -826,16 +931,9 @@ export default {
         'this.src="' + require("../../../company/税务登记证.jpg") + '"',
       //默认税务登记
       errorImg03: 'this.src="' + require("../../../company/营业执照.jpg") + '"',
-      //商品细节的弹框
-      companyDag: false,
-      //全部子任务
       quanbuzirenwu: false,
-      //子任务详情和下载
-      taskDetilDag: false,
       //质量完成图数据源
-      form: {
-        designCount: ""
-      },
+      form1: {},
       stpesdata: [],
       //雷达图的数据定义
       radarData: {
@@ -843,22 +941,20 @@ export default {
       },
       //表单数据
       cool: {},
-      designTask: [
-        {
-          Id: "",
-          userId: "",
-          userName: ""
-        }
-      ],
+      designTask: [],
       //申请表数据
       tableData1: [],
-      mainTaskID: 0,
-      taskTpyeName: "",
+
       //任务计划表数据
       tableData2: [],
+
+      //内部审核表数据
+      tableData3: [],
+      //合同管理数据
       tableData4: [],
-      //流通提交数据
+      //设计提交数据
       tableData5: [],
+      zirenwu: [],
 
       //文件历史数据
       tableData6: [
@@ -871,8 +967,14 @@ export default {
           publishingCompanyName: ""
         }
       ],
-      tableData7: [],
-      zirenwu: [],
+      tableData7: [
+        {
+          realName: "",
+          realPath: ""
+        }
+      ],
+      //需要隐藏控制器
+      yinCang: 1,
       fileHistoryDia: false,
       //文件类型
       fileType: 0,
@@ -881,6 +983,7 @@ export default {
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },
         { title: "计划提交", icon: "el-icon-upload", description: "" },
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
+        { title: "审核", icon: "el-icon-message-solid", description: "" },
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
@@ -901,11 +1004,27 @@ export default {
       addList5: {
         demandorRefuseReason: ""
       },
+      companyMessage: [
+        {
+          companyId: 0,
+          province: "",
+          city: "",
+          companyName: "",
+          companyCategory: "",
+          address: "",
+          businessName: "",
+          introduction: "",
+          product: "",
+          address: "",
+          businessTel: "",
+          email: ""
+        }
+      ],
       //计划书上传
       planbook: false,
       //合同上传
       conbook: false,
-      //流通人员分配
+      //设计人员分配
       dialogTableVisible: false,
       //申请计划拒绝弹窗
       addVisible1: false,
@@ -913,13 +1032,15 @@ export default {
       addVisible2: false,
       //合同拒绝弹窗
       addVisible3: false,
-      //流通拒绝弹窗
+      //设计拒绝弹窗
       addVisible4: false,
       //状态
       state: "",
       state2: 0,
       state3: 0,
-      designcount: 0,
+      designCount: 0,
+      // 评价默认步骤数
+      milepostActive1: 5,
       // 默认步骤数
       milepostActive: 0,
       // 动态添加类名
@@ -928,6 +1049,8 @@ export default {
       taskId: 0,
       //表格显示控制
       show: 0,
+      show1: 0,
+      show3: 0,
       //文件上传数据
       limitNum: 1,
       formLabelWidth: "100px",
@@ -935,51 +1058,21 @@ export default {
       fileList: [],
       userName: localStorage.getItem("ms_username"),
       design1: "",
-      //文件上传数
-      shangchuancishu: 0,
-      jingyingfanwei: "",
-      companyId:0,
       //上传的文件路径
       technicalFile: [],
       technicalFileWanzheng: "",
       giveDesigner: 0, //人员分配按钮控制
       designerNub: 0,
       reMarkId: 1,
+      shangchuancishu: 0,
       designRefuseReason: false,
-      upCirculation: false,
-      //需要隐藏控制器
-      yinCang: 1,
-      //测试用taskId
-      textTaskId: 40,
-      circulationCount: "", //流通完成质量
-      companyMessage: [
-        {
-          companyId: 0,
-          companyName: "",
-          businessTel: 0,
-          province: "",
-          city: "",
-          companyName: "",
-          companyCategory: "",
-          address: "",
-          postcode: 0,
-          foundingTime: "",
-          brNumber: "",
-          product: "",
-          email: "",
-          businessName: "",
-          officeNumber: 0,
-          registeredCapital: 0,
-          totalAssets: 0,
-          fixedAssets: 0,
-          currentAssets: 0,
-          legalPerson: "",
-          workerNumber: 0,
-          deposit_Bank: "",
-          bankNumber: 0,
-          introduction: ""
-        }
-      ],
+      taskTpyeName: "",
+      fileNumber: 0,
+      //公司弹窗
+      companyDag: false,
+      taskDetilDag: false,
+      mainTaskID: 0,
+      jingyingfanwei: "",
       imgsrc: require("../../../company/2.jpg"),
       shuiwudengjizheng: require("../../../company/税务登记证.jpg"),
       qiyezhizhao: require("../../../company/营业执照.jpg")
@@ -996,7 +1089,6 @@ export default {
     this.getParams();
     this.showData();
     this.getLDData(); //雷达图数据查找
-    this.getCirculationCount(); //提交次数 背景颜色变化
     this.getFilePath();
   },
   methods: {
@@ -1016,161 +1108,6 @@ export default {
         .then(response => {
           console.log(response);
           this.tableData7 = response.data.allData;
-        });
-    },
-    //下载子任务附件
-    xiazaiZRWFJ() {
-      console.log("shenme");
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskID,
-        leixing: "ZIRWHJ"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/DownloadHTHT",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          console.log("cap");
-          console.log(response);
-          this.download(response.data, "ZRWFJ");
-        });
-    },
-    FHQDFileHistory() {
-      this.fileType = 1;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        fileType: this.fileType
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getFileHistory",
-          data: data
-        })
-        .then(response => {
-          // console.log(response);
-          this.tableData6 = response.data.allData;
-          this.fileHistoryDia = true;
-        });
-    },
-    HTFileHistory() {
-      this.fileType = 0;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        fileType: this.fileType
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getFileHistory",
-          data: data
-        })
-        .then(response => {
-          // console.log(response);
-          this.tableData6 = response.data.allData;
-          this.fileHistoryDia = true;
-        });
-    },
-    getParams() {
-      var routerParams = this.$route.query.taskId;
-      this.taskId = routerParams;
-      console.log(routerParams);
-    },
-    //提交次数 背景颜色变化
-    styleswith() {
-      if (this.form.circulationCount > -4) {
-        document.getElementById("one").style.background = "#00D1B2";
-      }
-      if (this.form.circulationCount < -3 && this.form.circulationCount > -8) {
-        document.getElementById("one").style.background = "#eee";
-        document.getElementById("two").style.background = "orange";
-      }
-      if (this.form.circulationCount < -7 || this.form.circulationCount == -8) {
-        document.getElementById("two").style.background = "#eee";
-        document.getElementById("three").style.background = "red";
-      }
-    },
-    //任务计划下载
-    RWJHXZ(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskId,
-        leixing: "jihuashu"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/DownloadHTHT",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          console.log(response);
-          this.download(response.data, "JHS");
-        });
-    },
-    //合同下载
-    HTXZ(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskId,
-        leixing: "hetong"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/Download",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          console.log(response);
-          this.download(response.data, "HT");
-        });
-    },
-    //发货清单下载
-    FFQDXZ(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskId,
-        leixing: "fahuoqingdan",
-        responseType: "blob"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/Download",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          console.log(response);
-          this.download(response.data, "FFQD");
-        });
-    },
-    getCirculationCount() {
-      var that = this;
-      var data = Qs.stringify({
-        // taskId: this.taskId
-        taskId: this.taskId
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/findCirculationCount",
-          data: data
-        })
-        .then(response => {
-          (this.form.circulationCount = response.data.allData),
-            this.styleswith();
         });
     },
     //个别文件下载
@@ -1204,7 +1141,112 @@ export default {
           URL.revokeObjectURL(link.href); //释放url
         });
     },
-    // 下载文件
+    getParams() {
+      var routerParams = this.$route.query.taskId;
+      this.taskId = routerParams;
+      console.log(routerParams);
+    },
+    //下载子任务附件
+    xiazaiZRWFJ() {
+      console.log("shenme");
+      var that = this;
+      var data = Qs.stringify({
+        taskID: this.taskId,
+        leixing: "ZIRWHJ"
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/DownloadHTHT",
+          data: data,
+          responseType: "blob"
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response);
+          this.download(response.data, "ZRWFJ");
+        });
+    },
+    HTFileHistory() {
+      this.fileType = 0;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        fileType: this.fileType
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/getFileHistory",
+          data: data
+        })
+        .then(response => {
+          // console.log(response);
+          this.tableData6 = response.data.allData;
+          this.fileHistoryDia = true;
+        });
+    },
+    //提交次数 背景颜色变化
+    styleswith() {
+      if (this.designCount > 0 && this.designCount < 3) {
+        document.getElementById("one").style.background = "#00D1B2";
+        console.log("这里是很好，看看是不是样式问题");
+      }
+      if (this.designCount > 2 && this.designCount < 4) {
+        document.getElementById("one").style.background = "#eee";
+        document.getElementById("two").style.background = "orange";
+        console.log("这里是一般，看看是不是样式问题");
+      }
+      if (this.designCount > 4 || this.designCount == 4) {
+        document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";
+        console.log("这里是最差，看看是不是样式问题");
+      } else {
+        console.log("为啥没去上面啊");
+      }
+    },
+    //任务计划下载
+    RWJHXZ(row) {
+      console.log("shenme");
+      var that = this;
+      var data = Qs.stringify({
+        taskID: this.taskId,
+        leixing: "jihuashu"
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/Download",
+          data: data,
+          responseType: "blob"
+        })
+        .then(response => {
+          console.log("cap");
+          console.log(response);
+          this.download(response.data, "JHS");
+        });
+    },
+    //合同下载
+    HTXZ(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskID: this.taskId,
+        leixing: "hetong"
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/Download",
+          data: data,
+          responseType: "blob"
+        })
+        .then(response => {
+          console.log(response);
+          this.download(response.data, "HT");
+        });
+    },
+    //下载文件
     download(data, leixing) {
       if (!data) {
         return;
@@ -1219,8 +1261,6 @@ export default {
         link.setAttribute("download", "设计文档.zip");
       } else if (leixing === "HT") {
         link.setAttribute("download", "合同.zip");
-      } else if (leixing === "FFQD") {
-        link.setAttribute("download", "发货清单.zip");
       } else if (leixing === "ZRWFJ") {
         link.setAttribute("download", "子任务附件.zip");
       }
@@ -1231,6 +1271,7 @@ export default {
     showData() {
       console.log("你好");
       console.log(this.taskId);
+      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
@@ -1254,11 +1295,13 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
-          this.designcount = response.data.allData.a[0].designCount;
-          this.companyId = response.date.allData.a[0].companyId;
+          this.designCount = response.data.allData.a[0].designCount;
+          console.log("重做次数" + this.designCount);
+          this.styleswith();
+          this.taskType = response.data.allData.a[0].taskType;
           if (this.taskType == 0) {
             this.taskTpyeName = "设计需求";
-          } else {
+          } else if (this.taskType == 1) {
             this.taskTpyeName = "流通需求";
           }
           if (this.state == "申请或邀请中") {
@@ -1269,11 +1312,14 @@ export default {
           } else if (this.state == "任务进行中") {
             this.milepostActive = 2;
             this.show = 2;
-          } else if (this.state == "验收") {
+          } else if (this.state == "审核") {
             this.milepostActive = 3;
+            this.show = 3;
+          } else if (this.state == "验收") {
+            this.milepostActive = 4;
             this.show = 4;
           } else if (this.state == "完成") {
-            this.milepostActive = 4;
+            this.milepostActive = 5;
             this.show = 5;
           } else {
             this.milepostActive = 6;
@@ -1303,17 +1349,21 @@ export default {
             );
           }
           if (this.milepostActive > 3) {
+            this.milepost[3].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].supplierCheckDesignTime
+            );
+          }
+          if (this.milepostActive > 4) {
             this.milepost[4].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].demandorCheckDesignTime
             );
           }
-          if (this.milepostActive >= 4) {
+          if (this.milepostActive >= 5) {
             this.milepost[5].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].finishTime
             );
           }
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
-          console.log("合同状态" + this.show3);
         });
     },
     //返回列表
@@ -1333,7 +1383,8 @@ export default {
         console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
-          taskID: row.taskId
+          taskID: row.taskId,
+          userName: this.userName
         });
         console.log(data);
         that.axios({
@@ -1376,8 +1427,7 @@ export default {
       this.addVisible1 = true;
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId,  
-        userName: this.userName
+        taskId: this.taskId
       });
       console.log(data);
       that
@@ -1429,7 +1479,7 @@ export default {
           this.addList3 = response.data.allData.a[0];
         });
     },
-    //流通拒绝原因
+    //设计拒绝原因
     refuseDesignReason(row) {
       this.addVisible4 = true;
       var that = this;
@@ -1448,6 +1498,77 @@ export default {
           this.addList5 = response.data.allData.a[0];
         });
     },
+    //设计通过
+    designSuccess(row) {
+      this.$confirm("确定将设计审核通过么？", "提示", {
+        type: "warning"
+      }).then(() => {
+        console.log(row.taskId);
+        var that = this;
+        var data = Qs.stringify({
+          taskID: this.taskId
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "/api/supplier/designSuccess",
+          data: data
+        });
+        this.$message({
+          message: "审核通过",
+          type: "success"
+        });
+        this.showData();
+      });
+    },
+    //设计不通过
+    designRefuse(row) {
+      this.designRefuseReason = true;
+    },
+    //分配设计人员
+    assignDesigners() {
+      this.dialogTableVisible = true;
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.username
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/findDesigner",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.designTask = response.data.allData.a;
+          // this.designTask.id = response.data.allData.b;
+          console.log(response);
+        });
+      this.showData();
+    },
+    //分配设计人员上传
+    tijiao() {
+      console.log(this.design1);
+      console.log("哈哈哈");
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.design1,
+        taskId: this.taskId
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/assignDesigners",
+          data: data
+        })
+        .then(response => {
+          this.$message.success("提交成功");
+          this.dialogTableVisible = false;
+        });
+      this.showData();
+    },
     //上传计划书方法
     upLoadPlanT() {
       this.planbook = true;
@@ -1455,53 +1576,6 @@ export default {
     //上传合同方法
     upLoadConT() {
       this.conbook = true;
-    },
-    //上传流通计划书
-    upLoadCirculationPlan() {
-      this.upCirculation = true;
-    },
-    //步骤图数据查找
-    getBZData() {
-      var that = this;
-      // console.log(this.taskId);
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      //console.log(data);
-
-      that
-        .axios({
-          method: "post",
-          url: "/api/evaluateDetils",
-          data: data
-        })
-        .then(response => {
-          if (this.milepostActive > 0) {
-            this.milepost[0].description = this.$options.filters["formatDate"](
-              response.data.allData[0]
-            );
-          }
-          if (this.milepostActive > 1) {
-            this.milepost[1].description = this.$options.filters["formatDate"](
-              response.data.allData[1]
-            );
-          }
-          if (this.milepostActive > 2) {
-            this.milepost[2].description = this.$options.filters["formatDate"](
-              response.data.allData[2]
-            );
-          }
-          if (this.milepostActive > 3) {
-            this.milepost[3].description = this.$options.filters["formatDate"](
-              response.data.allData[4]
-            );
-          }
-          if (this.milepostActive >= 4) {
-            this.milepost[4].description = this.$options.filters["formatDate"](
-              response.data.allData[5]
-            );
-          }
-        });
     },
     //雷达图数据查找
     getLDData() {
@@ -1516,20 +1590,11 @@ export default {
           data: data
         })
         .then(response => {
-          // this.radarData.radarData.push( response.data.allData.taskLength),
-          // this.radarData.radarData.push( response.data.allData.planLength),
-          // this.radarData.radarData.push( response.data.allData.checkLength),
-          // this.radarData.radarData.push( response.data.allData.applyLength),
-          // this.radarData.radarData.push( response.data.allData.demandorCheckLength),
           this.radarData.radarData = response.data.allData;
           if (response.data.allData[0] == null) {
             this.reMarkId = 0;
           }
-
           that.$refs.QradarChart.getCharts1();
-          // this.$refs.QadarChart.getCharts();
-          // this.getCharts1();
-          // console.log(response.data.allData);
         });
     },
     submitUpload() {
@@ -1540,6 +1605,7 @@ export default {
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
+      this.fileNumber = this.fileNumber - 1;
     },
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
@@ -1567,9 +1633,8 @@ export default {
         })
         .then(response => {
           this.technicalFileWanzheng = "";
-          this.shangchuancishu = 0;
         });
-      // this.$router.go(0);
+      this.$router.go(0);
     },
     handleAvatarSuccess1(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
@@ -1597,38 +1662,6 @@ export default {
         })
         .then(response => {
           this.technicalFileWanzheng = "";
-          this.shangchuancishu = 0;
-        });
-      this.$router.go(0);
-    },
-
-    handleAvatarSuccess2(response, file, fileList) {
-      this.technicalFile[this.shangchuancishu] = response;
-      this.technicalFileWanzheng =
-        this.technicalFileWanzheng +
-        this.technicalFile[this.shangchuancishu] +
-        "linklink";
-      this.shangchuancishu = this.shangchuancishu + 1;
-      this.$notify.success({
-        title: "成功",
-        message: `文件上传成功`
-      });
-      console.log(response);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        Text_File2: this.technicalFileWanzheng
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplierCon/textImportCir",
-          data: data
-        })
-        .then(response => {
-          this.technicalFileWanzheng = "";
-          this.shangchuancishu = 0;
         });
       this.$router.go(0);
     },
@@ -1699,6 +1732,8 @@ export default {
           method: "post",
           url: "/api/MainTaskInformation/combineMS",
           data: data
+
+          // data:this.$store.state.userName
         })
         .then(response => {
           this.zirenwu = response.data.allData.b;
@@ -1710,7 +1745,18 @@ export default {
 </script>
 
 <style lang="scss">
-.circulationDet {
+.designDet {
+  .anniu {
+    width: 100%;
+    border-left: cadetblue;
+    background-color: white;
+    color: #409eff;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-color: #dcdfe6;
+    border-radius: 0px;
+  }
   //时序图
   .SXT {
     height: 150px;
@@ -1776,15 +1822,16 @@ export default {
     color: #f15e09;
     border-color: #f15e09;
   }
-  .leftDet {
-    float: left;
-    text-align: left;
-    width: 95%;
-  }
+
   .el-step__title.is-process {
     color: #f15e09;
     border-color: #f15e09;
   }
+  .minheight {
+    min-height: 100px;
+    font-size: 16px;
+  }
+
   //质量图样式调整
   #inputValue {
     width: 240px;
@@ -1835,16 +1882,70 @@ export default {
   .el-dialog__header {
     padding: 0px 0px 0px;
   }
-  .anniu {
-    width: 100%;
-    border-left: cadetblue;
-    background-color: white;
-    color: #409eff;
-    border-left-width: 0px;
-    border-right-width: 0px;
-    border-top-width: 0px;
-    border-color: #dcdfe6;
-    border-radius: 0px;
+  .task-detail {
+    font-size: 16px;
+    width: 400px;
+  }
+  .title-detail {
+    color: #000000;
+    font-size: 25px;
+    float: left;
+    width: 350px;
+  }
+
+  .left {
+    float: left;
+    width: 400px;
+  }
+  .box-card1 {
+    margin-left: 20px;
+    width: 350px;
+    float: left;
+  }
+  .leftDet {
+    float: left;
+    text-align: left;
+    width: 95%;
+  }
+  .Right {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    float: left;
+
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 0px;
+
+    margin-left: 20px;
+
+    margin-right: 0px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 0px;
+
+    padding-left: 0px;
+
+    padding-right: 0px;
+
+    padding-top: 0px;
+
+    text-decoration: none;
+
+    width: 350px;
   }
 }
 </style>
