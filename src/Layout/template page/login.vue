@@ -73,6 +73,8 @@ export default {
                  localStorage.setItem("ms_username", this.param.username);
                  localStorage.setItem("designer_name", this.param.username);
                 this.$store.commit("SET_List", response.data.allData.data.menuList);
+                this.$store.commit("SET_OPENMENU", response.data.allData.openArray);
+                // console.log(response)
                 // console.log(localStorage.getItem("ms_username"));
                 // console.log("有用户名的！！！")
                 if(this.param.username=="designer")

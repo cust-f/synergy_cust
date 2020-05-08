@@ -9,7 +9,8 @@ const state = {
     userId: window.sessionStorage.getItem('userId'),
     menuList: "",
     identity: "",
-    taskId1: ""
+    taskId1: "",
+    openMenu:[]
 }
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
         //把用户名存起来
         state.userId = data
         window.sessionStorage.setItem('userId', data)
+    },
+    SET_OPENMENU:(state,data)=>{
+        state.openMenu=data;
     },
     //登出
     LOGOUT: (state) => {
