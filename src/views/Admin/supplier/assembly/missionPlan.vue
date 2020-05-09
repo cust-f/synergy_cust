@@ -12,12 +12,12 @@
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="checkPlanState" width="100" label="计划审核状态">
+      <el-table-column prop="checkPlanState" width="100" label="计划审核状态" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.checkPlanState === 0">待上传</span>
-          <span v-else-if="scope.row.checkPlanState === 1">待审核</span>
-          <span v-else-if="scope.row.checkPlanState === 2">通过</span>
-          <span v-else-if="scope.row.checkPlanState === 3">拒绝</span>
+          <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.checkPlanState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.checkPlanState === 3">拒绝</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="planUploadTime" label="上传时间">
@@ -94,8 +94,13 @@
       <el-form ref="form" :model="addList2" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item label="被拒绝原因">
-              <el-input v-model="addList2.refusePlanMessage" :readonly="true"></el-input>
+            <el-form-item>
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 5, maxRows: 7}"
+                v-model="addList2.refusePlanMessage"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
