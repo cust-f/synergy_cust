@@ -18,16 +18,16 @@
         <span>成果详情</span>
       </div>
 
-      <div class="np_top">
+      <div class="service_top">
         <el-row>
-          <el-col :span="10">
-            <div class="Right">
+          <el-col :span="11">
+            <div class="service_right">
               <el-row>
                 <span style="font-size:22px;font-weight:500;">{{maintask.mainTaskName}}</span>
               </el-row>
               <el-divider></el-divider>
               <el-row>
-                <el-col :span="6" :offset="3">
+                <el-col :span="13">
                   <li>
                     <a>
                       企业所在省：
@@ -50,17 +50,32 @@
                   </li>
                   <br />
                 </el-col>
-                <el-col :span="10" :offset="3">
+                <el-col :span="10">
                   <li>
                     <a>
                       二级类别：
                       <font>{{maintask.taskCategoryPart}}</font>
                     </a>
                   </li>
+                  <br />
+                  <li>
+                    <a>
+                      开始时间：
+                      <font>{{maintask.publishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                    </a>
+                  </li>
+                  <br />
+                  <li>
+                    <a>
+                      完成时间：
+                      <font>{{maintask.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                    </a>
+                  </li>
                 </el-col>
               </el-row>
             </div>
           </el-col>
+
           <el-col :span="10">
             <div class="left">
               <el-card class="box-card" style="float:left ;margin-bottom: 10px;">
@@ -125,15 +140,15 @@
         </el-tabs>
         <el-card shadow="never">
           <el-row>
-            <el-col :span="13">
-              <div class="Right">
+            <el-col :span="14">
+              <div class="service_right">
                 <el-row>
                   <span style="font-size:22px;font-weight:500;">{{taskData.taskName}}</span>
                 </el-row>
                 <el-divider></el-divider>
 
                 <el-row>
-                  <el-col :span="6" :offset="3">
+                  <el-col :span="13">
                     <li>
                       <a>
                         企业所在省：
@@ -155,9 +170,16 @@
                       </a>
                     </li>
                     <br />
+                    <li>
+                      <a>
+                        需求类别：
+                        <font>{{taskData.taskType}}</font>
+                      </a>
+                    </li>
+                    <br />
                   </el-col>
 
-                  <el-col :span="10" :offset="3">
+                  <el-col :span="10">
                     <li>
                       <a>
                         二级类别：
@@ -202,7 +224,7 @@
                         <li>
                           <a>
                             经营范围：
-                            <font>{{supplier.product}}</font>
+                            <font>{{product}}</font>
                           </a>
                         </li>
                         <br />
@@ -299,7 +321,8 @@
             <div class="white">
               <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">服务成果</div>
               <el-divider></el-divider>
-              <div>
+
+              <div v-show="!see">
                 <!-- 步骤图 -->
                 <el-steps :active="milepostActive" align-center>
                   <el-step
@@ -315,11 +338,12 @@
 
                 <div class="LDT">
                   <!-- 雷达图 -->
-                  <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+                  <div id="charts1" style="height:100%; width:400px; float:left">
+                    <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+                  </div>
 
                   <div class="input_span" align="center">
-                    
-                    <el-form ref="form" :modelZL="formZL">
+                    <el-form ref="formZL" :modelZL="formZL">
                       <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                       <br />
                       <br />
@@ -329,23 +353,37 @@
                     <span id="three"></span>
                   </div>
                 </div>
+              </div>
+              <div v-show="see">
+                <!-- 步骤图 -->
+                <el-steps :active="milepostActive1" align-center>
+                  <el-step
+                    v-for="(stpesdata, key) in milepost1"
+                    :title="stpesdata.title"
+                    :icon="stpesdata.icon"
+                    :description="stpesdata.description"
+                    :key="key"
+                  ></el-step>
+                </el-steps>
+                <br />
+                <br />
 
-                <!-- <div id="charts1" style="height:100%; width:600px; float:left">
-                      <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+                <div class="LDT">
+                  <div id="charts2" style="height:300px; width:400px; float:left">
+                    <radar-chart :radarData="radarData1" ref="QradarChart1"></radar-chart>
+                    <br />
+                  </div>
+                  <div class="input_span" align="center">
+                    <el-form ref="formZL" :modelZL="formZL">
+                      <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                       <br />
-                    </div>
-
-                    <div class="input_span">
-                      <el-form ref="form" :model="form">
-                        <div
-                          style="font-size:10px"
-                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成质量:</div>
-                      </el-form>
-
-                      <span id="one"></span>
-                      <span id="two"></span>
-                      <span id="three"></span>
-                </div>-->
+                      <br />
+                    </el-form>
+                    <span id="one1"></span>
+                    <span id="two2"></span>
+                    <span id="three3"></span>
+                  </div>
+                </div>
               </div>
             </div>
           </el-row>
@@ -358,11 +396,13 @@
 <script>
 import Qs from "qs";
 import radarChart from "./components/radarChart";
+import radarChart1 from "./components/radarChart copy";
 
 export default {
   name: "Home",
   components: {
-    "radar-chart": radarChart
+    "radar-chart": radarChart,
+    "radar-chart": radarChart1
   },
 
   data() {
@@ -370,6 +410,10 @@ export default {
       formZL: {
         designCount: ""
       },
+      formLT: {
+        circulationCount: ""
+      },
+      see: "",
       activeName: "",
       Province: "",
       City: "",
@@ -427,15 +471,19 @@ export default {
           product: ""
         }
       ],
+      product:"",
       supplier: [
         {
           companyName: "",
           address: "",
           officeNumber: "",
-          product: ""
+          // product: ""
         }
       ],
       radarData: {
+        radarData: []
+      },
+      radarData1: {
         radarData: []
       },
       stepsdata: [],
@@ -449,8 +497,17 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
+      milepost1: [
+        { title: "申请/邀请", icon: "el-icon-edit", description: "" },
+        { title: "计划提交", icon: "el-icon-upload", description: "" },
+        { title: "任务进行中", icon: "el-icon-picture", description: "" },
+        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+        { title: "完成", icon: "el-icon-s-claim", description: "" }
+      ],
       // 默认步骤数
       milepostActive: 5,
+
+      milepostActive1: 4,
       // 动态添加类名
       stepActive: "stepActive"
     };
@@ -520,10 +577,14 @@ export default {
           //this.styleswith();
           this.getTaskData();
           //this.getCharts1();
+          this.getCirculationCount();
+          //this.styleswith1();
+          this.getLTData();
+          this.getproduct();
 
           console.log("ooo");
           console.log(this.activeName);
-          
+          console.log(this.taskType);
         });
     },
 
@@ -571,6 +632,31 @@ export default {
         });
     },
 
+    getproduct(){
+       console.log(this.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.activeName
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/getCompay",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          //this.$set(this,'list',response.data.alldata)
+          this.product = response.data.allData[0].b;
+          console.log("product"+this.product)
+          
+        });
+
+    },
+
     getTaskData() {
       console.log(this.taskId);
       var that = this;
@@ -590,6 +676,13 @@ export default {
           console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.taskData = response.data.allData[0];
+          this.see = this.taskData.taskType;
+          console.log("see:" + this.see);
+          if (this.taskData.taskType === 0) {
+            this.taskData.taskType = "设计任务";
+          } else {
+            this.taskData.taskType = "流通任务";
+          }
         });
     },
 
@@ -611,8 +704,40 @@ export default {
           console.log(response);
           this.radarData.radarData = response.data.allData;
           console.log(this.radarData.radarData);
+
           //that.$refs.QradarChart.getCharts1();
+          //that.$refs.QradarChart1.getCharts2();
           this.getCharts1();
+
+          this.getCharts2();
+          //that.getCharts1();
+        });
+    },
+    //流通雷达图数据获取
+    getLTData() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.activeName
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "http://127.0.0.1:8081/remarkDetils",
+          data: data
+
+          //  data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.radarData1.radarData = response.data.allData;
+          //console.log(this.radarData.radarData);
+
+          //that.$refs.QradarChart.getCharts1();
+          //that.$refs.QradarChart1.getCharts2();
+          //this.getCharts1();
+
+          this.getCharts2();
           //that.getCharts1();
         });
     },
@@ -634,7 +759,6 @@ export default {
         .then(response => {
           // that.stpesdata = response.data.allData[0];
           this.formZL.designCount = response.data.allData[6];
-        
 
           this.milepost[0].description = response.data.allData[0];
           this.milepost[1].description = response.data.allData[1];
@@ -642,16 +766,16 @@ export default {
           this.milepost[3].description = response.data.allData[3];
           this.milepost[4].description = response.data.allData[4];
           this.milepost[5].description = response.data.allData[5];
+
+          this.milepost1[0].description = response.data.allData[0];
+          this.milepost1[1].description = response.data.allData[1];
+          this.milepost1[2].description = response.data.allData[2];
+          this.milepost1[3].description = response.data.allData[3];
+          // this.milepost1[4].description = response.data.allData[4];
+          this.milepost1[4].description = response.data.allData[5];
           this.styleswith();
-          // publishTime:"",//发布时间
-          //   finishTime:"",//完成时间
-          //   applyTime:"",//申请时间
-          //   planUploadTime:"",//计划书提交时间
-          //   checkPlanTime:"",//审核计划书时间
-          //   demandorCheckDesignTime:"",//项目审核时间
-          console.log(this.form.designCount+"-------");
+          console.log(this.form.designCount + "-------");
         });
-       
     },
     getCharts1() {
       var that = this;
@@ -697,8 +821,70 @@ export default {
       };
       myChart.setOption(option, true);
     },
+    //流通雷达图数据获取
+    getCharts2() {
+      var that = this;
+      var myChart = echarts.init(document.getElementById("charts2"));
 
-     styleswith() {
+      var option = {
+        tooltip: {},
+        legend: {
+          orient: "vertical",
+          x: "left",
+          y: "top",
+          data: ["完成统计"]
+        },
+        radar: {
+          name: {
+            textStyle: {
+              color: "#fff",
+              backgroundColor: "#999",
+              borderRadius: 3,
+              padding: [3, 5]
+            }
+          },
+          indicator: [
+            { name: "任务时长", max: 60 },
+            { name: "计划时长", max: 60 },
+            { name: "审核时长", max: 60 },
+            { name: "申请时长", max: 20 }
+          ]
+        },
+        series: [
+          {
+            //name:'完成统计',
+            type: "radar",
+            data: [
+              {
+                name: "完成统计",
+                value: this.radarData.radarData
+              }
+            ]
+          }
+        ]
+      };
+      myChart.setOption(option, true);
+    },
+    getCirculationCount() {
+      var that = this;
+      var data = Qs.stringify({
+        // taskId: this.taskId
+        taskId: this.activeName
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/findCirculationCount",
+          data: data
+        })
+        .then(response => {
+          (this.formLT.circulationCount = response.data.allData),
+            console.log(this.formLT.circulationCount + "----------------");
+          this.styleswith1();
+        });
+    },
+
+    styleswith() {
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
       }
@@ -711,6 +897,27 @@ export default {
         document.getElementById("three").style.background = "red";
       }
     },
+
+    styleswith1() {
+      if (this.formLT.circulationCount > -4) {
+        document.getElementById("one1").style.background = "#00D1B2";
+      }
+      if (
+        this.formLT.circulationCount < -3 &&
+        this.formLT.circulationCount > -8
+      ) {
+        document.getElementById("one1").style.background = "#eee";
+        document.getElementById("two2").style.background = "orange";
+      }
+      if (
+        this.formLT.circulationCount < -7 ||
+        this.formLT.circulationCount == -8
+      ) {
+        document.getElementById("two2").style.background = "#eee";
+        document.getElementById("three3").style.background = "red";
+      }
+    },
+
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -722,6 +929,9 @@ export default {
       this.getData2();
       //this.styleswith();
       this.getTaskData();
+      this.getLTData();
+      this.getCirculationCount();
+      this.getproduct();
       //this.getCharts1();
     }
   }
@@ -769,7 +979,7 @@ export default {
   width: 250px;
   margin-top: 22px;
 }
-.np_top {
+.service_top {
   /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   border-bottom-color: rgb(225, 225, 225);
@@ -884,7 +1094,7 @@ export default {
   height: 150px;
 }
 
-.Right {
+.service_right {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   float: left;
@@ -923,7 +1133,7 @@ export default {
 
   width: 600px;
 }
-.Right1 {
+.service_right1 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   float: left;
@@ -1045,6 +1255,27 @@ export default {
 }
 
 #three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
+}
+#one1{
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 150px;
+  margin-right: 3px;
+}
+
+#two2 {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three3 {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border-left: 0px solid;

@@ -17,7 +17,7 @@
                     :label="item.taskName"
                     :name="item.taskId"
                   >
-                    <div class="show-iframe" style="height:1000px;">
+                    <div class="show-iframe" style="height:855px;">
                       <iframe
                         style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
                         frameborder="0"
@@ -39,17 +39,17 @@
                   <el-tab-pane class="cur" label="任务详情" name="first">
                     <br />
                     <el-row>
-                      <el-col :span="6" align="right">设计任务ID:</el-col>
+                      <el-col :span="6" align="right">任务ID:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskCode}}</el-col>
                     </el-row>
                     <br />
                     <el-row>
-                      <el-col :span="6" align="right">设计任务名称:</el-col>
+                      <el-col :span="6" align="right">任务名称:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskName}}</el-col>
                     </el-row>
                     <br />
                     <el-row>
-                      <el-col :span="6" align="right">设计任务类型:</el-col>
+                      <el-col :span="6" align="right">任务类型:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskType}}</el-col>
                     </el-row>
                     <br />
@@ -59,7 +59,7 @@
                     </el-row>
                     <br />
                     <el-row>
-                      <el-col :span="6" align="right">设计任务详情:</el-col>
+                      <el-col :span="6" align="right">任务详情:</el-col>
                       <el-col :span="15" style="margin-left:40px">
                         <span>{{taskDetail.taskDescription}}</span>
                       </el-col>

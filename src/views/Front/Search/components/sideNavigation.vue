@@ -1,14 +1,14 @@
 <template>
     <div class="sidenavigation">
-      <!-- <div class="sidenavigation-header">
-        <h2>{{currentParent.menuName}}</h2>
-      </div> -->
+      <div class="sidenavigation-header">
+        <h2>搜索</h2>
+      </div>
       <div class="sidenavigation-item">
         <transition-group name="side-navigation" appear tag="ul">
           <li
             v-for="item in sidenavigationList"
             :key="item.type"
-            :class="currentShow===item.id?'currentShowCss':''"
+            :class="currentShow===item.type?'currentShowCss':''"
           >
             <!-- <span class="el-icon-arrow-right"></span> -->
             <a @click="recordTable(item.type)">{{item.name}}<span>【{{item.number}}条】</span></a>
@@ -41,7 +41,7 @@ export default {
   methods: {
     recordTable(index) {
         // this.
-        //this.currentShow=index;
+        this.currentShow=index;
          this.$emit("otherSearch", index,1);
     }
   }

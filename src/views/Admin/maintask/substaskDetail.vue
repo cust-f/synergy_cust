@@ -1096,7 +1096,7 @@ export default {
           this.shuju = response.data.allData.b;
           this.fujian = response.data.allData.c;
           this.type = response.data.allData.a[0].industry_Type;
-          this.WZLJ = response.data.allData.WZLJ;
+          //this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.selectCateKeys[0] = response.data.allData.a[0].taskCategoryMainId
           this.selectCateKeys[1] = response.data.allData.a[0].taskCategoryPartId

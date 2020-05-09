@@ -72,13 +72,13 @@
                     <p></p>
                   </div>
                   <i class="cate_list">
-                    <a href>汽车</a>
-                    <a href>铁路运输设备</a>
-                    <a href>摩托车</a>
-                    <a href>自行车</a>
-                    <a href>船舶及浮动装置</a>
-                    <a href>航空航天器</a>
-                    <a href="l">交通器材及其他交通运输设备</a>
+                    <a @click="demandRedirects('汽车',8)">汽车</a>
+                    <a @click="demandRedirects('铁路运输设备',9)">铁路运输设备</a>
+                    <a @click="demandRedirects('摩托车',10)">摩托车</a>
+                    <a @click="demandRedirects('自行车',11)">自行车</a>
+                    <a @click="demandRedirects('船舶及浮动装置',12)">船舶及浮动装置</a>
+                    <a @click="demandRedirects('航空航天器',13)">航空航天器</a>
+                    <a @click="demandRedirects('交通器材及其他交通运输设备',14)">交通器材及其他交通运输设备</a>
                   </i>
                 </div>
               </el-card>
@@ -93,12 +93,12 @@
                     <font>仪器仪表及文化、办公用机械</font>
                   </div>
                   <i class="cate_list">
-                    <a href>通用仪器仪表</a>
-                    <a href>专用仪器仪表</a>
-                    <a href>钟表与计时仪器</a>
+                    <a @click="demandRedirects('通用仪器仪表',15)">通用仪器仪表</a>
+                    <a @click="demandRedirects('专用仪器仪表',16)">专用仪器仪表</a>
+                    <a @click="demandRedirects('钟表与计时仪器',17)">钟表与计时仪器</a>
                     <!-- <a href>光学仪器及眼镜</a> -->
-                    <a href>文化、办公用机械</a>
-                    <a href>其他仪器仪表的制造及修理</a>
+                    <a @click="demandRedirects('文化、办公用机械',19)">文化、办公用机械</a>
+                    <a @click="demandRedirects('其他仪器仪表的制造及修理',20)">其他仪器仪表的制造及修理</a>
                   </i>
                 </div>
               </el-card>
@@ -110,14 +110,14 @@
                     <font>通信设备、计算机及其他电子设备</font>
                   </div>
                   <i class="cate_list">
-                    <a href>通信设备</a>
-                    <a href>雷达及配套设备</a>
-                    <a href>广播电视设备</a>
-                    <a href>电子计算机</a>
-                    <a href>电子器件</a>
-                    <a href>电子元件</a>
-                    <a href>家用视听设备</a>
-                    <a href>其他电子设备</a>
+                    <a @click="demandRedirects('通信设备',21)">通信设备</a>
+                    <a @click="demandRedirects('雷达及配套设备',22)">雷达及配套设备</a>
+                    <a @click="demandRedirects('广播电视设备',23)">广播电视设备</a>
+                    <a @click="demandRedirects('电子计算机',24)">电子计算机</a>
+                    <a @click="demandRedirects('电子器件',25)">电子器件</a>
+                    <a @click="demandRedirects('电子元件',26)">电子元件</a>
+                    <a @click="demandRedirects('家用视听设备',27)">家用视听设备</a>
+                    <a @click="demandRedirects('其他电子设备',28)">其他电子设备</a>
                   </i>
                 </div>
               </el-card>
@@ -136,13 +136,13 @@
                     <font>电气机械及器材</font>
                   </div>
                   <i class="cate_list">
-                    <a href>电机</a>
-                    <a href>输配电及控制设备</a>
-                    <a href>电池</a>
-                    <a href>家用电力器具</a>
-                    <a href>非电力家用器具</a>
-                    <a href>照明器具</a>
-                    <a href>其他电气机械及器材</a>
+                    <a @click="demandRedirects('电机',29)">电机</a>
+                    <a @click="demandRedirects('输配电及控制设备',30)">输配电及控制设备</a>
+                    <a @click="demandRedirects('电池',31)">电池</a>
+                    <a @click="demandRedirects('家用电力器具',32)">家用电力器具</a>
+                    <a @click="demandRedirects('非电力家用器具',33)">非电力家用器具</a>
+                    <a @click="demandRedirects('照明器具',34)">照明器具</a>
+                    <a @click="demandRedirects('其他电气机械及器材',35)">其他电气机械及器材</a>
                   </i>
                 </div>
               </el-card>
@@ -157,11 +157,11 @@
                     <font>专用设备</font>
                   </div>
                   <i class="cate_list">
-                    <a href>矿山、冶金、建筑专用设备</a>
-                    <a href>电子和电工机械专用设备</a>
-                    <a href>医疗仪器设备及器械</a>
-                    <a href>农、林、牧、渔专用机械</a>
-                    <a href style="float:right;">更多</a>
+                    <a @click="demandRedirects('矿山、冶金、建筑专用设备',37)">矿山、冶金、建筑专用设备</a>
+                    <a @click="demandRedirects('电子和电工机械专用设备',42)">电子和电工机械专用设备</a>
+                    <a @click="demandRedirects('医疗仪器设备及器械',44)">医疗仪器设备及器械</a>
+                    <a @click="demandRedirects('农、林、牧、渔专用机械',43)">农、林、牧、渔专用机械</a>
+                    <a @click="demandRedirects('更多',0)" style="float:right;">更多</a>
                   </i>
                 </div>
               </el-card>
@@ -177,12 +177,12 @@
                     <font>通用设备</font>
                   </div>
                   <i class="cate_list">
-                    <a href>锅炉及原动机</a>
-                    <a href>金属加工机械</a>
-                    <a href>起重运输设备</a>
-                    <a href>烘炉、熔炉及电炉</a>
-                    <a href>金属铸、锻加工</a>
-                    <a href>更多</a>
+                    <a @click="demandRedirects('锅炉及原动机',46)">锅炉及原动机</a>
+                    <a @click="demandRedirects('金属加工机械',47)">金属加工机械</a>
+                    <a @click="demandRedirects('起重运输设备',48)">起重运输设备</a>
+                    <a @click="demandRedirects('烘炉、熔炉及电炉',51)">烘炉、熔炉及电炉</a>
+                    <a @click="demandRedirects('金属铸、锻加工',54)">金属铸、锻加工</a>
+                    <a @click="demandRedirects('更多',0)">更多</a>
                   </i>
                 </div>
               </el-card>
@@ -317,24 +317,37 @@
                   @click="serviceResults"
                 >>>更多</el-button>
               </div>
-              <el-row
-                v-for="(item,i) in demandTaskList"
-                :key="i"
-                style="margin-bottom:20px;"
-                :gutter="10"
-              >
-                <el-col :span="9" class="fontStyle1">
-                  <span style="float:left;line-height: 24px;">{{"【"+item.Industry_Type+"】"}}</span>
-                </el-col>
-                <el-col :span="9">
-                  <span style="float:left;line-height: 24px;">{{item.Main_Task_Name}}</span>
-                </el-col>
-                <el-col
-                  :span="6"
-                  class="fontStyle2"
-                  style="line-height: 24px;"
-                >{{item.Deadline| dataFormat("yyyy-MM-dd")}}</el-col>
-              </el-row>
+              <el-tooltip content="Bottom center" placement="top-start" effect="light">
+                <el-row
+                  v-for="(item,i) in demandTaskList"
+                  :key="i"
+                  style="margin-bottom:20px;"
+                  :gutter="10"
+                >
+                  <el-col :span="8" class="fontStyle1">
+                    <el-tooltip
+                      :content="item.Industry_Type"
+                      placement="top-start"
+                      effect="light"
+                    >
+                      <span style="float:left;line-height: 24px;">{{"【"+item.Industry_Type+"】"}}</span>
+                    </el-tooltip>
+                  </el-col>
+                  <el-col :span="9">
+                    <el-tooltip :content="item.Main_Task_Name" placement="top" effect="light">
+                      <a
+                        @click="serviceDetail(item.mainTaskID)"
+                        style="float:left;line-height: 24px;"
+                      >{{item.Main_Task_Name}}</a>
+                    </el-tooltip>
+                  </el-col>
+                  <el-col
+                    :span="6"
+                    class="fontStyle2"
+                    style="line-height: 24px;"
+                  >{{item.Deadline| dataFormat("yyyy-MM-dd")}}</el-col>
+                </el-row>
+              </el-tooltip>
             </el-card>
           </div>
         </el-col>
@@ -350,29 +363,32 @@
                   @click="excellentCompany"
                 >>>更多</el-button>
               </div>
+
               <el-row
                 v-for="(item,i) in supplierlist.companyId"
                 :key="i"
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <!-- <el-col :span="1">
-                  <span class="fontStyle1">【</span>
-                </el-col>-->
-                <!-- <el-col :span="6">
-                  <span class="fontStyle1">{{supplierlist.companyProduct[i]}}</span>
-                </el-col>-->
-                <!-- <el-col :span="1">
-                  <span class="fontStyle1">】</span>
-                </el-col>-->
-                <el-col :span="9">
-                  <span
-                    class="fontStyle1"
-                    style="line-height: 24px;"
-                  >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
+                <el-col :span="8">
+                  <el-tooltip
+                    :content="supplierlist.companyProduct[i]"
+                    placement="left-start"
+                    effect="light"
+                  >
+                    <span
+                      class="fontStyle1"
+                      style="line-height: 24px;"
+                    >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
+                  </el-tooltip>
                 </el-col>
-                <el-col :span="12">
-                  <span style="float:left;line-height: 24px;">{{supplierlist.companyName[i]}}</span>
+                <el-col :span="14">
+                  <el-tooltip :content="supplierlist.companyName[i]" placement="top" effect="light">
+                    <a
+                      @click="excellentCompanyDetail(item)"
+                      style="float:left;line-height: 24px;"
+                    >{{supplierlist.companyName[i]}}</a>
+                  </el-tooltip>
                 </el-col>
               </el-row>
             </el-card>
@@ -392,11 +408,22 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="9">
-                  <span class="fontStyle1">{{"【"+item.Industry_Type+"】"}}</span>
+                <el-col :span="8">
+                  <el-tooltip
+                    :content="item.Industry_Type"
+                    placement="left-start"
+                    effect="light"
+                  >
+                    <span class="fontStyle1">{{"【"+item.Industry_Type+"】"}}</span>
+                  </el-tooltip>
                 </el-col>
                 <el-col :span="9">
-                  <a style="float:left;line-height: 24px;">{{item.Main_Task_Name}}</a>
+                  <el-tooltip :content="item.Main_Task_Name" placement="top" effect="light">
+                    <a
+                      @click="needsDetail(item.mainTaskID)"
+                      style="float:left;line-height: 24px;"
+                    >{{item.Main_Task_Name}}</a>
+                  </el-tooltip>
                 </el-col>
                 <el-col :span="6">
                   <span
@@ -620,19 +647,39 @@ export default {
       });
     },
     /*
-     *转跳对应任务信息页面
+     *转跳对应任务信息二级页面
      */
     serviceResults() {
       this.$router.push({ path: "/xuqiuyilan" });
     },
-
     excellentCompany() {
       this.$router.push({ path: "/excellentCompany" });
     },
     needs() {
       this.$router.push({ path: "/twoMenu" });
     },
-
+    /**
+     * 专挑到详情界面
+     */
+    serviceDetail(id) {
+      this.$router.push({
+        path: "admin/xuqiuyilanDetail",
+        query: { taskID: id }
+      });
+    },
+    excellentCompanyDetail(id) {
+      this.$router.push({
+        path: "/company/excellentCompanyDetail",
+        name: "companyDetails",
+        query: { companyId: id }
+      });
+    },
+    needsDetail(id) {
+      this.$router.push({
+        path: "/service1",
+        query: { mainTaskID: id }
+      });
+    },
     //发布需求的表单验证
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -673,13 +720,17 @@ export default {
       console.log(tab, event);
     },
 
-    //发布需求界面关闭前的最后一次确认
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
+    demandRedirects(name, id) {
+      let redirects = {
+        name: name,
+        id: id
+      };
+      this.$router.push({
+        path: "/xuqiuyilan",
+        query: {
+          redirects: redirects
+        }
+      });
     }
     //发布需求界面所用
     //以下为平台数据统计所用图表函数

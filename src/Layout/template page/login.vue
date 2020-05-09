@@ -36,15 +36,20 @@ export default {
     return {
       param: {
         username: "",
-        password: ""
+        password: "",
+        
       },
       rules: {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" }
         ],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
-      }
+      },
+      roleID:"",
     };
+  },
+  created(){
+    this.getRoleId();
   },
   methods: {
     submitForm() {
@@ -73,14 +78,30 @@ export default {
                  localStorage.setItem("ms_username", this.param.username);
                  localStorage.setItem("designer_name", this.param.username);
                 this.$store.commit("SET_List", response.data.allData.data.menuList);
+                this.$store.commit("SET_OPENMENU", response.data.allData.openArray);
+                // console.log(response)
+                this.roleID = response.data.allData.roleId;
+                
+                console.log(this.roleID);
+                //this.param.roleID = response.data.allData.roleId;
                 // console.log(localStorage.getItem("ms_username"));
                 // console.log("有用户名的！！！")
-                if(this.param.username=="designer")
+               
+              
+                 if(this.roleID === 4)
                 {
-                    this.$router.push("/admin/designTaskEvaluationDetils");
-                }else{
-                   this.$router.push("/admin/dashboard");
+                    this.$router.push("/admin/designerNewList");
                 }
+                else if(this.roleID === 2)
+                {
+                   this.$router.push("/admin/mainStaskShow");
+                }
+                else if(this.roleID === 3)
+                {
+                  this.$router.push("/admin/designTaskq");
+                }
+                else
+                this.$router.push("/admin/dashboard");
                 
               } else {
                 this.$message({
@@ -181,8 +202,37 @@ export default {
           return false;
         }
       });
+    },
+    // getRoleId(){
+    //   var that = this;
+    //   var data = Qs.stringify({
+        
+    //     userName: this.param.username
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "/api/users//findroleId",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       this.roleID = response.data.allData;
+    //       console.log(roleID)
+    //       //  if(this.roleID==4)
+    //       //       {
+    //       //           this.$router.push("/admin/designerNewList");
+    //       //       }else{
+    //       //          this.$router.push("/admin/dashboard");
+    //       //       }
+        
+            
+          
+    //     });
+    // },
+
+
     }
-  }
+  
 };
 </script>
 

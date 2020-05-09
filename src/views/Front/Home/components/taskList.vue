@@ -3,12 +3,13 @@
         <el-row v-for="(task,index) in taskList" :key="index" class="company-info">
               <div @click="companyDetail(task.taskID)">
                 <el-col :span="4">
-                  <el-avatar shape="square" :size="80" fit="fill" :src="task.logo"></el-avatar>
+                  <!-- <el-avatar shape="square" :size="80" fit="fill" :src="task.logo"></el-avatar> -->
                 </el-col>
                 <el-col :span="20">
                   <el-row>
                     <div style="float:left;">
-                      <h2>{{task.taskName}}</h2>
+                      <h2 style="float:left;">{{task.taskName}}</h2>
+                      <span style="  line-height: 36px;font-size: 18px; color: #ff7720"><slot></slot></span>
                     </div>
                     <!-- <div style="float:right;">
                       <el-rate v-model="companys.star" disabled text-color="#ff9900"></el-rate>
@@ -20,7 +21,8 @@
                     </el-col>
                       
                     <el-col :span="11">
-                       <span>主任务名称: {{task.maintaskName}}</span>
+                        <span v-if="type==0">主任务名称: {{task.maintaskName}}</span>
+                        <span v-else-if="type==1">公司名称: {{task.companyName}}</span>
                     </el-col>
                     
                   </el-row>
@@ -45,16 +47,29 @@ export default {
         taskList:{
             default:[],
             type:Array
+        },
+        //需求Or成果
+        type:{
+          default:0,
+          type:Number
         }
     },
     methods: {
           //进入企业详情界面
     companyDetail(id) {
-      console.log("触发了呀");
-      this.$router.push({
+      console.log(id);
+      if(this.type==0){
+         this.$router.push({
         path: "admin/xuqiuyilanDetail",
         query: { taskID: id }
-      });
+      });     
+      }else{
+         this.$router.push({
+        path: "/service1",
+        query: { mainTaskID: id }
+      });  
+      }
+
     }  
     },
 }
