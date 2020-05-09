@@ -324,7 +324,7 @@
                   style="margin-bottom:20px;"
                   :gutter="10"
                 >
-                  <el-col :span="8" class="fontStyle1">
+                  <el-col :span="5" class="fontStyle1">
                     <el-tooltip
                       :content="item.Industry_Type"
                       placement="top-start"
@@ -333,7 +333,7 @@
                       <span style="float:left;line-height: 24px;">{{"【"+item.Industry_Type+"】"}}</span>
                     </el-tooltip>
                   </el-col>
-                  <el-col :span="9">
+                  <el-col :span="11">
                     <el-tooltip :content="item.Main_Task_Name" placement="top" effect="light">
                       <a
                         @click="serviceDetail(item.mainTaskID)"
@@ -370,7 +370,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="8">
+                <el-col :span="5">
                   <el-tooltip
                     :content="supplierlist.companyProduct[i]"
                     placement="left-start"
@@ -408,7 +408,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="8">
+                <el-col :span="5">
                   <el-tooltip
                     :content="item.Industry_Type"
                     placement="left-start"
@@ -417,7 +417,7 @@
                     <span class="fontStyle1">{{"【"+item.Industry_Type+"】"}}</span>
                   </el-tooltip>
                 </el-col>
-                <el-col :span="9">
+                <el-col :span="11">
                   <el-tooltip :content="item.Main_Task_Name" placement="top" effect="light">
                     <a
                       @click="needsDetail(item.mainTaskID)"

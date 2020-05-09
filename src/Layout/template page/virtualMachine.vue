@@ -38,11 +38,11 @@
                 <el-tabs v-model="activeTab" type="border-card" style="padding-bottom:25px;">
                   <el-tab-pane class="cur" label="任务详情" name="first">
                     <br />
-                    <el-row>
+                    <!-- <el-row>
                       <el-col :span="6" align="right">任务ID:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskCode}}</el-col>
-                    </el-row>
-                    <br />
+                    </el-row> -->
+                    <!-- <br /> -->
                     <el-row>
                       <el-col :span="6" align="right">任务名称:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskName}}</el-col>

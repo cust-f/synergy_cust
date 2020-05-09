@@ -423,23 +423,23 @@ export default {
       this.form1 = row;
       this.dialogVisible = true;
     },
-    xiazai(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: row.taskId
-      });
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8081/designer/downloadFile",
-          data: data
-        })
-        .then(response => {
-          console.log("cap");
-          console.log(response.data);
-          this.download(response.data, "tf");
-        });
-    },
+    // xiazai(row) {
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     taskId: row.taskId
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "http://127.0.0.1:8081/designer/downloadFile",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       console.log("cap");
+    //       console.log(response.data);
+    //       this.download(response.data, "tf");
+    //     });
+    // },
     // 下载文件
     // download(data, leixing) {
     //   if (!data) {
@@ -467,13 +467,13 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .dialogCSS .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
   color: #303133;
   
 }
-.dialogCSS.el-textarea.is-disabled .el-textarea__inner {
+.dialogCSS .el-textarea.is-disabled .el-textarea__inner {
     background-color: #ffffff;
     border-color: #E4E7ED;
     color: #303133;
