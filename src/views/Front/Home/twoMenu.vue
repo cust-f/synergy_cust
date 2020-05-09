@@ -26,7 +26,7 @@
     </div>
   <el-row>
    <div class="color1">
-      <el-col :span="4" :push="pushCount" :pull="pullCount">
+      <el-col :span="4" :push="3" :pull="pullCount" >
         <div class = "color1">
           <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item name="1">
@@ -88,9 +88,15 @@
             <el-collapse-item name="3">
               <template slot="title" align="center">&nbsp;&nbsp;&nbsp;&nbsp;需求方</template>
               <div class="handle-box">
-                <el-input v-model="search" placeholder="请输入需求方名称"></el-input>
+                <el-row>
+                  <el-col :span="17"><el-input v-model="search" placeholder="请输入需求方名称" ></el-input></el-col>
+                  <el-col :span="7"><el-button type="primary" @click="handleSearch" >搜索</el-button></el-col>
+                   
+                
+                </el-row>
+                <!-- <el-input v-model="search" placeholder="请输入需求方名称" ></el-input>
                 <br>
-                <el-button type="primary" @click="handleSearch" >搜索</el-button>
+                <el-button type="primary" @click="handleSearch" >搜索</el-button> -->
               </div>
             </el-collapse-item>
           </el-collapse>
@@ -183,8 +189,8 @@ export default {
       search: "",
       //设定el-cow的值
       gutterCount: 20,
-      pushCount: 5,
-      pullCount: 2,
+      pushCount: 3,
+      pullCount: 3,
       pushCount0: 3,
 
       //第二行网站统计数据
@@ -503,8 +509,8 @@ ul li {
 .handle-box {
   margin-bottom: 20px;
   background-color: #fff;
-  margin: auto;
-  text-align: center;
+  /* margin: auto;
+  text-align: center; */
 }
 .color1 {
   background-color: #fff;

@@ -14,6 +14,7 @@
       <div class="handle-box">
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
+      <br>
         <div class="handle-box">
                 <el-select
                   v-model="provicepid"

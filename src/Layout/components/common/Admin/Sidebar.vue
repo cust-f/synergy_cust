@@ -7,7 +7,7 @@
       text-color="#000"
       active-text-color="#20a0ff"
       router
-      :default-openeds="openeds"
+      :default-openeds="openMenu"
       :mode="vertical"
       >
       <template v-for="item in items">
@@ -16,7 +16,7 @@
           <el-submenu style="margin-bottom:15px;" :index="item.menuURL" :key="item.menuURL">
             <template slot="title">
               <i :class="item.icon"></i>
-             <span @click="redirects(item.menuURL)" slot="title">{{ item.menuName }}</span>
+             <span  slot="title">{{ item.menuName }}</span>
             </template>
             <template v-for="subItem in item.children">
               <!-- 判断是否有三级 -->
@@ -56,24 +56,23 @@ import bus from "./bus";
 export default {
   data() {
     return {
-      openeds:['1','2','3','4','5','6','7'],
-     
-
+      openMenu:this.$store.state.openMenu,
       collapse: false,
       items: this.$store.state.menuList,
     };
   },
-  // created() {
-  //   console.log(this.items);
-  // }
+  created() {
+    console.log(this.openMenu);
+    console.log("==========")
+  },
   methods:{
-    redirects(path){
-      console.log("触发啦")
-      console.log(path)
-      var code=path;
-      this.$router.push({ path:code});
-                      // this.$router.push("/admin/dashboard");
-    },
+    // redirects(path){
+    //   console.log("触发啦")
+    //   console.log(path)
+    //   var code=path;
+    //   this.$router.push({ path:code});
+    //                   // this.$router.push("/admin/dashboard");
+    // },
 
     }
   };
