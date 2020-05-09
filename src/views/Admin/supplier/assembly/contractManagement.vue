@@ -110,8 +110,13 @@
       <el-form ref="form" :model="addList3" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item label="被拒绝原因">
-              <el-input v-model="addList3.contractRefuseReason" :readonly="true"></el-input>
+            <el-form-item>
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 5, maxRows: 7}"
+                v-model="addList3.contractRefuseReason"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -139,14 +144,14 @@
               <span>{{scope.$index + 1}}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="fileName" label="文件名">
+          <el-table-column prop="fileName" label="文件名" align="center">
             <template slot-scope="scope">
               <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
             </template>
           </el-table-column>
           <el-table-column prop="publishingCompanyName" label="发布企业" width="180" align="center"></el-table-column>
-          <el-table-column prop="fileType" width="100" label="文件类型">
-            <template slot-scope="scope">
+          <el-table-column prop="fileType" width="100" label="文件类型" align="center">
+            <template slot-scope="scope" align="center">
               <span v-if="scope.row.fileType === 0">合同文件</span>
               <span v-else-if="scope.row.fileType === 1">发货清单</span>
             </template>

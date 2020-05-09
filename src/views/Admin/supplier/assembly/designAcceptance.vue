@@ -14,12 +14,12 @@
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
       <el-table-column prop="designCount" label="重做次数"></el-table-column>
-      <el-table-column prop="demandorCheckDesignState" width="100" label="验收状态">
+      <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.demandorCheckDesignState === 0">待提交</span>
-          <span v-else-if="scope.row.demandorCheckDesignState === 1">待审核</span>
-          <span v-else-if="scope.row.demandorCheckDesignState === 2">通过</span>
-          <span v-else-if="scope.row.demandorCheckDesignState === 3">未通过</span>
+          <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="demandorCheckDesignTime" label="验收时间">
@@ -50,8 +50,13 @@
       <el-form ref="form" :model="addList5" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item label="被拒绝原因">
-              <el-input v-model="addList5.demandorRefuseReason" :readonly="true"></el-input>
+            <el-form-item>
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 5, maxRows: 7}"
+                v-model="addList5.demandorRefuseReason"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
