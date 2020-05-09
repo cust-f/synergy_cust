@@ -1407,7 +1407,7 @@ export default {
           this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
       }
       this.shangchuancishu = this.shangchuancishu + 1;
-      //console.log(this.technicalFileWanzheng);
+      console.log(this.technicalFileWanzheng);
     },
     //是否发布（私密）
     simizhiding(coo) {
