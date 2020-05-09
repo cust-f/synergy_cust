@@ -1005,8 +1005,8 @@ export default {
     },
     xiugaixuqiuxinxi(){
       if(this.technicalFileWanzheng!=0&&this.WZLJ!=0){
-        console.log("nihao")
-        this.technicalFileWanzheng = this.WZLJ + "linklink" + this.technicalFileWanzheng
+        this.technicalFileWanzheng = this.WZLJ + "linklink" + this.technicalFileWanzheng 
+        console.log("nihao" + this.technicalFileWanzheng)
       }
       if(this.technicalFileWanzheng == 0 &&this.WZLJ!=0){
         this.technicalFileWanzheng = this.WZLJ
@@ -1096,7 +1096,7 @@ export default {
           this.shuju = response.data.allData.b;
           this.fujian = response.data.allData.c;
           this.type = response.data.allData.a[0].industry_Type;
-          //this.WZLJ = response.data.allData.WZLJ;
+          this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.selectCateKeys[0] = response.data.allData.a[0].taskCategoryMainId
           this.selectCateKeys[1] = response.data.allData.a[0].taskCategoryPartId
@@ -1272,19 +1272,20 @@ export default {
       console.log(file);
     },
         handleAvatarSuccess(response, file, fileList) {
-
       this.technicalFile[this.shangchuancishu] = response;
       //console.log(this.technicalFileWanzheng)
-      if(this.technicalFileWanzheng.length > 0){ 
+      if (this.technicalFileWanzheng.length > 0) {
         //console.log("ok")
-        this.technicalFileWanzheng = this.technicalFileWanzheng +'linklink'+ this.technicalFile[this.shangchuancishu]
-       
+        this.technicalFileWanzheng =
+          this.technicalFileWanzheng +
+          "linklink" +
+          this.technicalFile[this.shangchuancishu];
+      } else {
+        this.technicalFileWanzheng =
+          this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
       }
-      else{
-             this.technicalFileWanzheng = this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu]
-      }
-      this.shangchuancishu = this.shangchuancishu+1;
-      //console.log(this.technicalFileWanzheng);
+      this.shangchuancishu = this.shangchuancishu + 1;
+      console.log(this.technicalFileWanzheng);
     },
     //将级联选择器最后一行的数据去掉
     getTreeData(data) {
