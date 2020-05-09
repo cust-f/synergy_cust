@@ -1,3 +1,4 @@
+
 <template>
    <div id="charts1" style="height:380px; width:450px; float:left"></div>
 </template>

@@ -231,6 +231,7 @@ export default {
     };
   },
   created() {
+    this.getParams();
     this.getProvince();
     this.getCategry();
     this.getCompanyList(this.val);
@@ -243,15 +244,16 @@ export default {
   },
   methods: {
     getParams() {
-      var routerParams = this.$route.query.redirects;
-      //this.mainTaskID = routerParams;
-      if (data == 0) {
+      if(this.$route.query.redirects!=null){
+        var routerParams = this.$route.query.redirects;
+      console.log("fuck"+this.$route.query)
+      if (this.$route.query.redirects == 0) {
         let delTag = { type: "zihangye" };
         this.handleClose(delTag, 0);
         console.log("nihao")
       } else {
         let tag = {
-          name: routerParams.industryName,
+          name: routerParams.name,
           type: "zihangye",
           id: routerParams.id
         };
@@ -259,8 +261,10 @@ export default {
 
        this.checkTag(tag)
        this.dynamicTags.push(tag)
- 
+
       }
+      }
+      
     },
     getProvince() {
       let that = this;
