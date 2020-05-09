@@ -44,7 +44,7 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="需求类型">
-              <el-input v-bind:value="cool.taskTpye" :readonly="true"></el-input>
+              <el-input v-bind:value="taskTpyeName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -314,7 +314,7 @@
 </template>
 <script>
 import Qs from "qs";
-import { formatDate } from "../dataChange";
+import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
@@ -333,18 +333,19 @@ export default {
       companyMessage: [],
       // 子任务详情
       zirenwu: [],
+      taskTpyeName: "",
       //技术文档附件下载表
       fileTable: [],
       //企业弹窗所需图片
-      imgsrc: require("../../../../company/2.jpg"),
-      shuiwudengjizheng: require("../../../../company/税务登记证.jpg"),
-      qiyezhizhao: require("../../../../company/营业执照.jpg"),
+      imgsrc: require("../../company/2.jpg"),
+      shuiwudengjizheng: require("../../company/2.jpg"),
+      qiyezhizhao: require("../../company/2.jpg"),
       //企业弹窗所需图片默认
-      errorImg01: 'this.src="' + require("../../../../company/2.jpg") + '"',
+      errorImg01: 'this.src="' + require("../../company/2.jpg") + '"',
       errorImg02:
-        'this.src="' + require("../../../../company/税务登记证.jpg") + '"',
+        'this.src="' + require("../../company/2.jpg") + '"',
       errorImg03:
-        'this.src="' + require("../../../../company/营业执照.jpg") + '"'
+        'this.src="' + require("../../company/2.jpg") + '"'
     };
   },
   filters: {
@@ -377,6 +378,16 @@ export default {
       this.cool = msg;
       this.mainTaskId = this.cool.mainTaskId;
       this.taskId = this.cool.taskId;
+      if (this.cool.taskType == 0) {
+        this.taskTpyeName = "设计需求";
+      } else if (this.cool.taskType == 1) {
+        this.taskTpyeName = "流通需求";
+      }
+    },
+    getParams() {
+      var routerParams = this.$route.query.taskId;
+      this.taskId = routerParams;
+      console.log(routerParams);
     },
     //单独附件下载
     downloadFile(row) {

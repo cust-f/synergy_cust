@@ -1,40 +1,197 @@
 <template>
-  <div>
-    <div>
-      <essential-Information ref="essentialInformation"></essential-Information>
-    </div>
-    <div>
-      <mission-Plan ref="missionPlan"></mission-Plan>
-    </div>
+  <div class="designDet">
+    <el-main style="overflow:hidden">
+      <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <el-steps :active="milepostActive" align-center>
+        <el-step
+          v-for="(stpesdata, key) in milepost"
+          :title="stpesdata.title"
+          :icon="stpesdata.icon"
+          :description="stpesdata.description"
+          :key="key"
+        ></el-step>
+      </el-steps>
+      <br />
+      <br />
+      <!-- 基本信息模块 -->
+      <div>
+        <essential-Information ref="essentialInformation"></essential-Information>
+      </div>
+      <br />
+      <br />
+      <!-- 申请信息模块 -->
+      <div>
+        <application-Information ref="applicationInformation"></application-Information>
+      </div>
+      <br />
+      <br />
+      <!-- 任务计划模块 -->
+      <div v-show="show>0">
+        <mission-Plan ref="missionPlan"></mission-Plan>
+      </div>
+      <br />
+      <br />
+      <!-- 合同模块 -->
+      <div v-show="show > 0">
+        <div v-show="state2 === 2">
+          <contract-Management ref="contractManagement"></contract-Management>
+        </div>
+      </div>
+      <br />
+      <!-- 内部审核模块 -->
+      <div v-show="show>1">
+        <div v-show="state3 === 2">
+          <Internal-Audit ref="InternalAudit"></Internal-Audit>
+        </div>
+      </div>
+      <br />
+      <!-- 设计模块 -->
+      <div v-show="show>1">
+        <div v-show="designCount>0 ">
+          <design-Acceptance ref="designAcceptance"></design-Acceptance>
+        </div>
+      </div>
+      <div v-show="show > 4" class="designDet">
+        <br />
+        <br />
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>
+        <br />
+        <br />
+        <!-- 评价模块 -->
+        <div v-if="reMarkId === 0">
+          <h3 align-center>核心企业暂未评价</h3>
+        </div>
+        <br />
+        <br />
+        <div v-if="reMarkId === 1">
+          <!-- 雷达图 -->
+          <div class="LDT">
+            <!-- 雷达图 -->
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+
+            <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <br />
+                <br />
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </el-main>
   </div>
 </template>
 <script>
 import Qs from "qs";
 import { formatDate } from "../designDetails/dataChange";
-import essentialInformation from "../designDetails/detailComponents/essentialInformation";
-import missionPlan from "../designDetails/detailComponents/missionPlan";
+import essentialInformation from "../../assembly/essentialInformation";
+import applicationInformation from "../../assembly/applicationInformation";
+import missionPlan from "../../assembly/missionPlan";
+import contractManagement from "../../assembly/contractManagement";
+import InternalAudit from "../../assembly/InternalAudit";
+import designAcceptance from "../../assembly/designAcceptance";
+import radarChart from "../../assembly/radarChart";
 export default {
   data() {
     return {
+      //步骤条数据
+      milepost: [
+        { title: "申请/邀请", icon: "el-icon-edit", description: "" },
+        { title: "计划提交", icon: "el-icon-upload", description: "" },
+        { title: "任务进行中", icon: "el-icon-picture", description: "" },
+        { title: "审核", icon: "el-icon-message-solid", description: "" },
+        { title: "验收", icon: "el-icon-s-promotion", description: "" },
+        { title: "完成", icon: "el-icon-s-claim", description: "" }
+      ],
+      //步骤图默认步骤数
+      milepostActive: 0,
       //任务Id
       taskId: 0,
       //获取用户名
       userName: localStorage.getItem("ms_username"),
-      //基本信息数据
+      //主要信息数据
       cool: {},
-      PlantableData: []
+      taskApplyTableData: {},
+      taskTableData: {},
+      //表格显示控制
+      show: 0,
+      show1: 0,
+      show3: 0,
+      //状态显示控制
+
+      state: "",
+      state2: 0,
+      state3: 0,
+      reMarkId: 1,
+      //重做次数
+      designCount: 0,
+      //雷达图的数据定义
+      radarData: {
+        radarData: []
+      }
     };
   },
   created() {
     this.getParams();
     this.showData();
+    this.getLDData();
   },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
+    }
+  },
+  
   methods: {
     //taskId传递方法，获取通过主界面传过来的taskId
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
       console.log(routerParams);
+    },
+    //雷达图数据查找
+    getLDData() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/remarkDetils",
+          data: data
+        })
+        .then(response => {
+          this.radarData.radarData = response.data.allData;
+          if (response.data.allData[0] == null) {
+            this.reMarkId = 0;
+          }
+          that.$refs.QradarChart.getCharts1();
+        });
+    },
+    //质量图方法
+    styleswith() {
+      if (this.designCount > 0 && this.designCount < 3) {
+        document.getElementById("one").style.background = "#00D1B2";
+        console.log("这里是很好，看看是不是样式问题");
+      }
+      if (this.designCount > 2 && this.designCount < 4) {
+        document.getElementById("one").style.background = "#eee";
+        document.getElementById("two").style.background = "orange";
+        console.log("这里是一般，看看是不是样式问题");
+      }
+      if (this.designCount > 4 || this.designCount == 4) {
+        document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";
+        console.log("这里是最差，看看是不是样式问题");
+      } else {
+        console.log("为啥没去上面啊");
+      }
     },
     //数据显示方法
     showData() {
@@ -56,20 +213,216 @@ export default {
         .then(response => {
           console.log(response);
           this.cool = response.data.allData.a[0];
-          this.PlantableData = response.data.allData.b;
+          this.taskApplyTableData = response.data.allData.b;
+          this.taskTableData = response.data.allData.a;
+          this.state = response.data.allData.a[0].taskState;
+          this.state2 = response.data.allData.b[0].checkPlanState;
+          this.state3 = response.data.allData.a[0].contractState;
+          this.designCount = response.data.allData.a[0].designCount;
+
           this.sendMsg();
+          if (this.state == "申请或邀请中") {
+            this.milepostActive = 0;
+          } else if (this.state == "计划提交") {
+            this.milepostActive = 1;
+            this.show = 1;
+          } else if (this.state == "任务进行中") {
+            this.milepostActive = 2;
+            this.show = 2;
+          } else if (this.state == "审核") {
+            this.milepostActive = 3;
+            this.show = 3;
+          } else if (this.state == "验收") {
+            this.milepostActive = 4;
+            this.show = 4;
+          } else if (this.state == "完成") {
+            this.milepostActive = 5;
+            this.show = 5;
+          } else {
+            this.milepostActive = 6;
+            if (response.data.allData.b[0].refuseApplyMessage != null) {
+              this.show = 0;
+            } else if (response.data.allData.b[0].refusePlanMessage != null) {
+              this.show = 1;
+            }
+          }
+          if (this.milepostActive >= 0) {
+            this.milepost[0].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].applyTime
+            );
+          }
+          if (this.milepostActive > 1) {
+            this.milepost[1].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].checkPlanTime
+            );
+          }
+          if (this.milepostActive > 2) {
+            this.milepost[2].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].publishTime
+            );
+          }
+          if (this.milepostActive > 3) {
+            this.milepost[3].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].supplierCheckDesignTime
+            );
+          }
+          if (this.milepostActive > 4) {
+            this.milepost[4].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].demandorCheckDesignTime
+            );
+          }
+          if (this.milepostActive >= 5) {
+            this.milepost[5].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].finishTime
+            );
+          }
+          this.styleswith();
+          console.log("重做次数" + response.data.allData.a[0].finishTime);
         });
     },
     //数据传递方法
     sendMsg() {
       this.$refs.essentialInformation.getMsg(this.cool);
-      this.$refs.missionPlan.getMsg(this.PlantableData);
+      this.$refs.applicationInformation.getMsg(this.taskApplyTableData);
+      this.$refs.missionPlan.getMsg(this.taskApplyTableData);
+      this.$refs.contractManagement.getMsg(this.taskTableData);
+      this.$refs.InternalAudit.getMsg(this.taskTableData);
+      this.$refs.designAcceptance.getMsg(this.taskTableData);
+    },
+    //返回列表
+    goBack() {
+      this.$router.push({
+        path: "/admin/designTaskq",
+        query: {
+          taskId: this.taskId
+        }
+      });
     }
   },
   components: {
     "essential-Information": essentialInformation, //基本信息
-    "mission-Plan": missionPlan
+    "application-Information": applicationInformation,
+    "mission-Plan": missionPlan,
+    "contract-Management": contractManagement,
+    "Internal-Audit": InternalAudit,
+    "design-Acceptance": designAcceptance,
+    "radar-chart": radarChart
   }
 };
 </script>
+<style lang="scss">
+.designDet {
+  //雷达图
+  .LDT {
+    height: 300px;
+  }
 
+  //完成质量
+  .WCZL {
+    font-size: 11px;
+  }
+
+  .table {
+    font-size: 13px;
+  }
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    padding: 18px 0;
+  }
+
+  .box-card {
+    width: 960px;
+    /* border: 1px solid #00a2e6 ; */
+  }
+  //返回字体
+  .el-page-header__title {
+    font-size: 18px;
+  }
+  .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+  .el-input.is-disabled .el-input__inner {
+    color: #606266;
+  }
+
+  // 进度样式调整
+  .el-step__head.is-process {
+    color: #f15e09;
+    border-color: #f15e09;
+  }
+
+  .el-step__title.is-process {
+    color: #f15e09;
+    border-color: #f15e09;
+  }
+  .minheight {
+    min-height: 100px;
+    font-size: 16px;
+  }
+
+  //质量图样式调整
+  #inputValue {
+    width: 240px;
+    margin-left: 0px;
+    padding-left: 10px;
+    border-radius: 3px;
+  }
+  .input_span span {
+    display: inline-block;
+    width: 85px;
+    height: 30px;
+    background: #eee;
+    line-height: 20px;
+  }
+
+  #one {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 0px solid;
+    margin-left: 0px;
+    margin-right: 3px;
+  }
+
+  #two {
+    border-left: 0px solid;
+    border-right: 0px solid;
+    margin-left: -5px;
+    margin-right: 3px;
+  }
+
+  #three {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 0px solid;
+    margin-left: -5px;
+  }
+  #font span:nth-child(1) {
+    color: #00d1b2;
+    margin-left: 80px;
+  }
+  #font span:nth-child(2) {
+    color: orange;
+    margin: 0 60px;
+  }
+  #font span:nth-child(3) {
+    color: red;
+  }
+  .el-dialog__header {
+    padding: 0px 0px 0px;
+  }
+  .task-detail {
+    font-size: 16px;
+    width: 400px;
+  }
+  .title-detail {
+    color: #000000;
+    font-size: 25px;
+    float: left;
+    width: 350px;
+  }
+}
+</style>

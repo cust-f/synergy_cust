@@ -1333,7 +1333,7 @@ export default {
             this.giveDesigner = 1;
           }
 
-          if (this.milepostActive > 0) {
+          if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].applyTime
             );

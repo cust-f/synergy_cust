@@ -1,4 +1,4 @@
-<!--任务计划组件-->
+<!--申请信息组件-->
 <template>
   <div class="missionPlan">
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请列表</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -48,18 +48,45 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 申请拒绝原因 -->
+    <el-dialog :visible.sync="addVisible1" width="50%">
+      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请被拒绝原因</div>
+      <br />
+      <br />
+      <el-row>
+        <el-col :span="8"></el-col>
+      </el-row>
+      <el-form ref="form" :model="addList1" label-width="120px">
+        <el-row>
+          <el-col>
+            <el-form-item label="被拒绝原因">
+              <el-input v-model="addList1.refuseApplyMessage" :readonly="true"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="addVisible1 = false">确定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import Qs from "qs";
-import { formatDate } from "../dataChange";
+import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+      //拒绝原因弹窗
+      addVisible1: false,
       taskId: 0,
       userName: localStorage.getItem("ms_username"),
-      PlantableData: []
+      PlantableData: {},
+      addList1: {
+        refuseApplyMessage: ""
+      }
     };
   },
 
@@ -73,6 +100,7 @@ export default {
     getMsg(msg) {
       this.PlantableData = msg;
       this.taskId = this.PlantableData.taskId;
+      console.log("我要看看这里的TaskId：" + this.taskId);
     },
     //下载子任务附件
     xiazaiZRWFJ() {
@@ -116,7 +144,7 @@ export default {
           message: "接受成功",
           type: "success"
         });
-        this.$parent.showData();
+        this.$router.go(0);
       });
     },
     //接受不通过
@@ -139,7 +167,7 @@ export default {
           message: "拒绝通过",
           type: "success"
         });
-        this.showData();
+        this.$router.go(0);
       });
     },
     //申请拒绝原因
@@ -177,14 +205,8 @@ export default {
   .el-input.is-disabled .el-input__inner {
     color: #606266;
   }
-
   .el-input.is-disabled .el-input__inner {
     background-color: #ffffff;
-  }
-  // 进度样式调整
-  .el-step__head.is-process {
-    color: #f15e09;
-    border-color: #f15e09;
   }
 
   .el-step__title.is-process {
@@ -193,20 +215,6 @@ export default {
   }
   .el-dialog__header {
     padding: 0px 0px 0px;
-  }
-  .task-detail {
-    font-size: 16px;
-    width: 400px;
-  }
-  .title-detail {
-    color: #000000;
-    font-size: 25px;
-    float: left;
-    width: 350px;
-  }
-  .left {
-    float: left;
-    width: 400px;
   }
 }
 </style>
