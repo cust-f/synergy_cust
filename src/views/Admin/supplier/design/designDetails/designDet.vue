@@ -13,418 +13,54 @@
       </el-steps>
       <br />
       <br />
-
+      <!-- 基本信息模块 -->
       <div>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">基本信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <br />
-        <el-card class="box-card">
-          <el-form ref="cool" :model="cool" label-width="110px" class="form">
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="需求名称">
-                  <template slot-scope="scope">
-                    <el-button
-                      class="anniu"
-                      type="primary"
-                      text-decoration="underline"
-                      @click="ziTaskDetail(scope.row)"
-                    >{{cool.mainTaskName}}</el-button>
-                  </template>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="子任务名称">
-                  <el-button
-                    class="anniu"
-                    type="primary"
-                    text-decoration="underline"
-                    @click="taskDetil()"
-                  >{{cool.taskName}}</el-button>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="需求方">
-                  <el-button
-                    class="anniu"
-                    type="primary"
-                    text-decoration="underline"
-                    @click.native="companyDetil()"
-                  >{{cool.companyName}}</el-button>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="需求类型">
-                  <el-input v-bind:value="taskTpyeName" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="一级行业类别">
-                  <el-input
-                    v-model="cool.taskCategoryMain"
-                    :readonly="true"
-                    style="text-align:center"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="二级行业类别">
-                  <el-input v-model="cool.taskCategoryPart" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="截止日期">
-                  <el-input
-                    v-bind:value="cool.deadline|formatDate"
-                    :readonly="true"
-                    style="text-align:center"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="需求方电话">
-                  <el-input v-model="cool.demanderTel" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </el-card>
+        <essential-Information ref="essentialInformation"></essential-Information>
       </div>
       <br />
       <br />
-
+      <!-- 申请信息模块 -->
       <div>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请列表</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-table
-          :data="tableData1"
-          border
-          class="table"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="taskName" label="需求名称"></el-table-column>
-          <el-table-column prop="applyWay" width="100" label="获取方式">
-            <template slot-scope="scope">
-              <span v-if="scope.row.applyWay === 0">邀请</span>
-              <span v-else-if="scope.row.applyWay === 1">申请</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="checkApplyState" width="120" label="申请/邀请状态">
-            <template slot-scope="scope">
-              <span v-if="scope.row.checkApplyState === 0">待审核</span>
-              <span v-else-if="scope.row.checkApplyState === 1">通过</span>
-              <span v-else>拒绝</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="applyTime" label="申请/邀请时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.applyTime === 0">暂未开始</el-span>
-              <el-span v-else>{{scope.row.applyTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="checkApplyTime" label="审核时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.checkApplyTime === 0">暂未审核</el-span>
-              <el-span v-else>{{scope.row.checkApplyTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" width="180" align="center">
-            <template slot-scope="scope">
-              <div v-if="milepostActive === 0">
-                <div v-if="scope.row.checkApplyState <2">
-                  <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
-                  <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
-                </div>
-              </div>
-              <div v-if="scope.row.checkApplyState === 2">
-                <el-button @click="refuseReason(scope.row)" type="text" size="small">拒绝原因</el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-        <br />
-        <br />
+        <application-Information ref="applicationInformation"></application-Information>
       </div>
-
+      <br />
+      <br />
+      <!-- 任务计划模块 -->
       <div v-show="show>0">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务计划</div>
-        <br />
-        <el-table
-          :data="tableData2"
-          border
-          class="table"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="taskName" label="需求名称"></el-table-column>
-          <el-table-column prop="checkPlanState" width="100" label="计划审核状态">
-            <template slot-scope="scope">
-              <span v-if="scope.row.checkPlanState === 0">待上传</span>
-              <span v-else-if="scope.row.checkPlanState === 1">待审核</span>
-              <span v-else-if="scope.row.checkPlanState === 2">通过</span>
-              <span v-else-if="scope.row.checkPlanState === 3">拒绝</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="planUploadTime" label="上传时间">
-            <template slot-scope="scope">
-              <span v-if="+scope.row.planUploadTime === 0">暂未上传</span>
-              <span v-else>{{scope.row.planUploadTime | formatDate}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="checkPlanTime" label="审核时间">
-            <template slot-scope="scope">
-              <span v-if="+scope.row.checkPlanTime === 0">暂未审核</span>
-              <span v-else>{{scope.row.checkPlanTime | formatDate}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" width="180" align="center">
-            <template slot-scope="scope">
-              <el-button
-                @click="upLoadPlanT()"
-                type="text"
-                size="small"
-                v-show="scope.row.checkPlanState === 0"
-              >上传</el-button>
-              <el-button
-                @click="RWJHXZ(scope.row)"
-                type="text"
-                size="small"
-                v-show="scope.row.checkPlanState > 0"
-              >下载</el-button>
-              <el-button
-                @click="refusePlanReason(scope.row)"
-                type="text"
-                size="small"
-                v-show="scope.row.checkPlanState === 3"
-              >拒绝原因</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <mission-Plan ref="missionPlan"></mission-Plan>
       </div>
       <br />
       <br />
-
+      <!-- 合同模块 -->
       <div v-show="show > 0">
         <div v-show="state2 === 2">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同管理</div>
-          <br />
-          <el-table
-            :data="tableData4"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-          >
-            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-            <el-table-column prop="taskName" label="需求名称"></el-table-column>
-            <el-table-column prop="contractState" width="100" label="合同审核状态">
-              <template slot-scope="scope">
-                <span v-if="scope.row.contractState === 0">待上传</span>
-                <span v-else-if="scope.row.contractState === 1">待审核</span>
-                <span v-else-if="scope.row.contractState === 2">通过</span>
-                <span v-else-if="scope.row.contractState === 3">未通过</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="uploadContractTime" label="上传时间">
-              <template slot-scope="scope">
-                <span v-if="+scope.row.uploadContractTime === 0">暂未上传</span>
-                <span v-else>{{scope.row.uploadContractTime | formatDate}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="checkContractTime" label="合同审核时间">
-              <template slot-scope="scope">
-                <span v-if="+scope.row.checkContractTime === 0">暂未审核</span>
-                <span v-else>{{scope.row.checkContractTime | formatDate}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="180" align="center">
-              <template slot-scope="scope">
-                <el-button
-                  @click="upLoadConT(scope.row)"
-                  type="text"
-                  size="small"
-                  v-show="scope.row.contractState===0"
-                >上传</el-button>
-                <el-button
-                  @click="HTFileHistory()"
-                  v-show="scope.row.contractState > 0"
-                  type="text"
-                  size="small"
-                >历史上传</el-button>
-                <el-button
-                  @click="HTXZ(scope.row)"
-                  type="text"
-                  size="small"
-                  v-show="scope.row.contractState===1"
-                >下载</el-button>
-                <el-button
-                  v-show="scope.row.contractState===2"
-                  @click="HTXZ(scope.row)"
-                  type="text"
-                  size="small"
-                >下载</el-button>
-                <el-button
-                  @click="upLoadConT(scope.row)"
-                  type="text"
-                  size="small"
-                  v-show="scope.row.contractState===3"
-                >重新上传</el-button>
-                <el-button
-                  @click="refuseConReason(scope.row)"
-                  type="text"
-                  size="small"
-                  v-show="scope.row.contractState===3"
-                >拒绝原因</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <br />
-          <br />
+          <contract-Management ref="contractManagement"></contract-Management>
         </div>
       </div>
-
+      <br />
+      <!-- 内部审核模块 -->
       <div v-show="show>1">
         <div v-show="state3 === 2">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">内部审核</div>
-          <br />
-          <el-table
-            :data="tableData3"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-          >
-            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-            <el-table-column prop="taskName" label="需求名称"></el-table-column>
-            <el-table-column prop="supplierCheckDesignState" width="100" label="审核状态">
-              <template slot-scope="scope">
-                <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
-                <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
-                <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
-                <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="designerName" width="120" label="设计师">
-              <template slot-scope="scope">
-                <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
-                <el-span v-else>{{scope.row.designerName}}</el-span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="uploadDesignTime" label="设计上传时间">
-              <template slot-scope="scope">
-                <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
-                <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="supplierCheckDesignTime" label="审核时间">
-              <template slot-scope="scope">
-                <el-span v-if="+scope.row.supplierCheckDesignTime === 0">暂未审核</el-span>
-                <el-span v-else>{{scope.row.supplierCheckDesignTime| formatDate}}</el-span>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="180" align="center">
-              <template slot-scope="scope">
-                <div v-show="scope.row.supplierCheckDesignState ===0">
-                  <div v-if="giveDesigner === 1">
-                    <el-button @click="assignDesigners(scope.row)" type="text" size="small">分配设计人员</el-button>
-                  </div>
-                </div>
-                <div v-show="scope.row.supplierCheckDesignState > 0">
-                  <el-button @click="SQJJ(scope.row)" type="text" size="small">查看成果</el-button>
-                </div>
-                <div v-show="scope.row.supplierCheckDesignState === 1">
-                  <el-button @click="designSuccess(scope.row)" type="text" size="small">通过</el-button>
-                  <el-button @click="designRefuse(scope.row)" type="text" size="small">拒绝</el-button>
-                </div>
-              </template>
-            </el-table-column>
-          </el-table>
-          <br />
-          <br />
+          <Internal-Audit ref="InternalAudit"></Internal-Audit>
         </div>
       </div>
-
+      <br />
+      <!-- 设计模块 -->
       <div v-show="show>1">
-        <div v-show="designCount > 0">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
-          <br />
-          <el-table
-            :data="tableData5"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-          >
-            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-            <el-table-column prop="taskName" label="需求名称"></el-table-column>
-
-            <el-table-column prop="designCount" label="重做次数"></el-table-column>
-
-            <el-table-column prop="demandorCheckDesignState" width="100" label="验收状态">
-              <template slot-scope="scope">
-                <span v-if="scope.row.demandorCheckDesignState === 0">待提交</span>
-                <span v-else-if="scope.row.demandorCheckDesignState === 1">待审核</span>
-                <span v-else-if="scope.row.demandorCheckDesignState === 2">通过</span>
-                <span v-else-if="scope.row.demandorCheckDesignState === 3">未通过</span>
-              </template>
-            </el-table-column>
-
-            <el-table-column prop="demandorCheckDesignTime" label="验收时间">
-              <template slot-scope="scope">
-                <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未验收</el-span>
-                <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
-              </template>
-            </el-table-column>
-
-            <el-table-column label="操作" width="180" align="center">
-              <template slot-scope="scope">
-                <el-button
-                  v-show="designcount > 1"
-                  @click="refuseDesignReason(scope.row)"
-                  type="text"
-                  size="small"
-                >拒绝原因</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
+        <div v-show="designCount>0 ">
+          <design-Acceptance ref="designAcceptance"></design-Acceptance>
         </div>
       </div>
-
       <div v-show="show > 4" class="designDet">
         <br />
         <br />
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>
         <br />
         <br />
+        <!-- 评价模块 -->
         <div v-if="reMarkId === 0">
           <h3 align-center>核心企业暂未评价</h3>
         </div>
-        <!-- 步骤图片 -->
-        <!-- <div v-if="reMarkId === 1">
-          <el-steps :active="milepostActive1" align-center>
-            <el-step
-              v-for="(stpesdata, key) in milepost1"
-              :title="stpesdata.title"
-              :icon="stpesdata.icon"
-              :description="stpesdata.description"
-              :key="key"
-            ></el-step>
-          </el-steps>
-        </div>-->
         <br />
         <br />
         <div v-if="reMarkId === 1">
@@ -446,538 +82,22 @@
           </div>
         </div>
       </div>
-
-      <!-- 分配设计人员 -->
-      <el-dialog :visible.sync="dialogTableVisible" width="30%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">分配设计师</div>
-        <br />
-        <br />
-        <el-form :model="form1">
-          <el-form-item label="设计师" :label-width="formLabelWidth">
-            <el-select v-model="design1" placeholder="请选择分配人员">
-              <el-option
-                v-for="designName in designTask"
-                :key="designName.userName"
-                :label="designName.userName"
-                :value="designName.userName"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogTableVisible = false">取 消</el-button>
-          <el-button type="primary" @click="tijiao()">确 定</el-button>
-        </div>
-      </el-dialog>
-
-      <!-- 申请拒绝原因 -->
-      <el-dialog :visible.sync="addVisible1" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请被拒绝原因</div>
-        <br />
-        <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList1" label-width="120px">
-          <el-row>
-            <el-col>
-              <el-form-item label="被拒绝原因">
-                <el-input v-model="addList1.refuseApplyMessage" :readonly="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible1 = false">确定</el-button>
-        </span>
-      </el-dialog>
-
-      <!-- 任务计划拒绝原因 -->
-      <el-dialog :visible.sync="addVisible2" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书被拒绝原因</div>
-        <br />
-        <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList2" label-width="120px">
-          <el-row>
-            <el-col>
-              <el-form-item label="被拒绝原因">
-                <el-input v-model="addList2.refusePlanMessage" :readonly="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible2 = false">确定</el-button>
-        </span>
-      </el-dialog>
-
-      <!-- 合同拒绝原因 -->
-      <el-dialog :visible.sync="addVisible3" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同拒绝原因</div>
-        <br />
-        <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList3" label-width="120px">
-          <el-row>
-            <el-col>
-              <el-form-item label="被拒绝原因">
-                <el-input v-model="addList3.contractRefuseReason" :readonly="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible3 = false">确定</el-button>
-        </span>
-      </el-dialog>
-
-      <!-- 设计验收拒绝原因 -->
-      <el-dialog :visible.sync="addVisible4" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计验收拒绝原因</div>
-        <br />
-        <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList5" label-width="120px">
-          <el-row>
-            <el-col>
-              <el-form-item label="被拒绝原因">
-                <el-input v-model="addList5.demandorRefuseReason" :readonly="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible4 = false">确定</el-button>
-        </span>
-      </el-dialog>
-
-      <!-- 计划书上传 -->
-      <el-dialog :visible.sync="planbook" width="400px" :before-close="handleClose">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传计划书</div>
-        <br />
-        <br />
-        <el-upload
-          ref="upload"
-          action="/api/supplier/import"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :on-success="handleAvatarSuccess1"
-          multiple
-          :limit="3"
-          :before-remove="beforeRemove"
-          :on-change="change"
-          :auto-upload="false"
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
-          <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
-          <br />
-          <el-button
-            style="margin-left: 10px;"
-            size="small"
-            type="success"
-            @click="submitUpload"
-            align-center
-          >上传到服务器</el-button>
-        </el-upload>
-      </el-dialog>
-
-      <!-- 上传合同 -->
-      <el-dialog :visible.sync="conbook" width="400px" :before-close="handleClose">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传合同</div>
-        <br />
-        <br />
-        <el-upload
-          ref="upload"
-          action="/api/supplier/import"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :on-success="handleAvatarSuccess"
-          :on-change="change"
-          :limit="3"
-          multiple
-          :auto-upload="false"
-        >
-          <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
-          <br />
-          <el-button
-            style="margin-left: 10px;"
-            size="small"
-            type="success"
-            @click="submitUpload"
-            align-center
-          >上传到服务器</el-button>
-        </el-upload>
-      </el-dialog>
-
-      <!-- 设计拒绝原因 -->
-      <el-dialog :visible.sync="designRefuseReason" width="50%">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入设计不通过的原因</div>
-        <br />
-        <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList4" label-width="120px">
-          <el-row>
-            <el-col>
-              <el-form-item label="设计拒绝原因">
-                <el-input v-model="addList4.SJrefuseReason"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="designRefuseReason = false">取 消</el-button>
-          <el-button type="primary" @click="SJJJYYTJ">确 定</el-button>
-        </span>
-      </el-dialog>
-
-      <!-- 公司信息 -->
-      <el-dialog :visible.sync="companyDag" width="50%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
-        <div width="500" align="center" height="200px">
-          <el-image :src="imgsrc" :onerror="errorImg01"></el-image>
-        </div>
-        <br />
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
-        <div width="500" align="center" height="200px">
-          <el-image :src="qiyezhizhao" :onerror="errorImg02"></el-image>
-        </div>
-        <br />
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
-        <div width="500" align="center" height="200px">
-          <el-image :src="shuiwudengjizheng" :onerror="errorImg03"></el-image>
-        </div>
-        <br />
-
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
-        <br />
-        <div>
-          <el-rate label="企业级别：" v-model="companyMessage.star" disabled text-color="#ff9900"></el-rate>
-        </div>
-        <div align="right" class="formYS">
-          <el-form ref="form" :model="form" label-width="100px">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业名称">
-                  <el-input v-model="companyMessage.companyName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="企业联络电话">
-                  <el-input v-model="companyMessage.businessTel" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业所在省份">
-                  <el-input v-model="companyMessage.province" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="企业所在县市">
-                  <el-input v-model="companyMessage.city" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业地址">
-                  <el-input v-model="companyMessage.address" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="邮政编码">
-                  <el-input v-model="companyMessage.postcode" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业成立时间">
-                  <el-input
-                    v-bind:value="companyMessage.foundingTime | formatDate"
-                    :readonly="true"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="工商注册号">
-                  <el-input v-model="companyMessage.brNumber" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业业务范围">
-                  <el-input v-model="companyMessage.product" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="电子邮箱">
-                  <el-input v-model="companyMessage.email" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业联系人">
-                  <el-input v-model="companyMessage.businessName" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="办公室电话">
-                  <el-input v-model="companyMessage.officeNumber" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="注册资产">
-                  <el-input v-model="companyMessage.registeredCapital" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="总资本">
-                  <el-input v-model="companyMessage.totalAssets" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="固定资产">
-                  <el-input v-model="companyMessage.fixedAssets" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="流动资产">
-                  <el-input v-model="companyMessage.currentAssets" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="法人代表">
-                  <el-input v-model="companyMessage.legalPerson" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="员工人数">
-                  <el-input v-model="companyMessage.workerNumber" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="开户银行">
-                  <el-input v-model="companyMessage.deposit_Bank" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="银行账户">
-                  <el-input v-model="companyMessage.bankNumber" :readonly="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col>
-               <el-form-item label="企业详情">
-                  <br />
-                  <div class="leftDet" v-html="companyDetailContent"></div>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="companyDag = false">关 闭</el-button>
-        </span>
-      </el-dialog>
-
-      <el-dialog :visible.sync="taskDetilDag" width="50%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">子任务详情</div>
-        <br />
-        <el-form ref="form" :model="cool" label-width="120px">
-          <el-row>
-            <el-col>
-              <div class="minheight">{{cool.taskDetail}}</div>
-            </el-col>
-          </el-row>
-        </el-form>
-        <br />
-        <br />
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">附件下载</div>
-        <div>
-          <el-table :data="tableData7" class="customer-table" :show-header="false">
-            <el-table-column>
-              <template slot-scope="scope">
-                <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
-              </template>
-            </el-table-column>
-            <el-table-column prop="filePath" label="真实地址" v-if="yinCang===0"></el-table-column>
-          </el-table>
-        </div>
-
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="xiazaiZRWFJ">打包下载</el-button>
-          <el-button type="primary" @click="taskDetilDag = false">关 闭</el-button>
-        </span>
-      </el-dialog>
-      <!-- 子任务详情 -->
-      <el-dialog :visible.sync="quanbuzirenwu" width="50%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">全部子任务</div>
-        <br />
-        <el-table
-          :data="zirenwu"
-          border
-          class="table"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="taskName" label="子任务名称"></el-table-column>
-          <el-table-column prop="taskState" label="子任务状态"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应方">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.acceptCompanyName === 0"></el-span>
-              <el-span v-else>{{scope.row.acceptCompanyName}}</el-span>
-            </template>
-          </el-table-column>
-        </el-table>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="quanbuzirenwu = false">关 闭</el-button>
-        </span>
-      </el-dialog>
-
-      <!-- 文件历史 -->
-      <el-dialog title :visible.sync="fileHistoryDia" width="55%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
-        <br />
-        <br />
-        <div>
-          <el-table
-            :data="tableData6"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
-          >
-            <el-table-column label="序号" type="index" width="55" align="center">
-              <template slot-scope="scope">
-                <span>{{scope.$index + 1}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="fileName" label="文件名">
-              <template slot-scope="scope">
-                <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
-              </template>
-            </el-table-column>
-            <el-table-column prop="publishingCompanyName" label="发布企业" width="180" align="center"></el-table-column>
-            <el-table-column prop="fileType" width="100" label="文件类型">
-              <template slot-scope="scope">
-                <span v-if="scope.row.fileType === 0">合同文件</span>
-                <span v-else-if="scope.row.fileType === 1">发货清单</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
-            <el-table-column prop="uploadTime" label="上传时间">
-              <template slot-scope="scope">
-                <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-      </el-dialog>
     </el-main>
   </div>
 </template>
-
 <script>
 import Qs from "qs";
 import { formatDate } from "../designDetails/dataChange";
-import radarChart from "../designDetails/detailComponents/radarChart";
+import essentialInformation from "../../assembly/essentialInformation";
+import applicationInformation from "../../assembly/applicationInformation";
+import missionPlan from "../../assembly/missionPlan";
+import contractManagement from "../../assembly/contractManagement";
+import InternalAudit from "../../assembly/InternalAudit";
+import designAcceptance from "../../assembly/designAcceptance";
+import radarChart from "../../assembly/radarChart";
 export default {
-  components: {
-    "radar-chart": radarChart
-  },
-  name: "designDet",
   data() {
     return {
-      //默认企业图片
-      errorImg01: 'this.src="' + require("../../../company/2.jpg") + '"',
-      //默认营业执照
-      errorImg02:
-        'this.src="' + require("../../../company/税务登记证.jpg") + '"',
-      //默认税务登记
-      errorImg03: 'this.src="' + require("../../../company/营业执照.jpg") + '"',
-      quanbuzirenwu: false,
-      //质量完成图数据源
-      form1: {},
-      stpesdata: [],
-      //雷达图的数据定义
-      radarData: {
-        radarData: []
-      },
-      //表单数据
-      cool: {},
-      designTask: [],
-      //申请表数据
-      tableData1: [],
-
-      //任务计划表数据
-      tableData2: [],
-
-      //内部审核表数据
-      tableData3: [],
-      //合同管理数据
-      tableData4: [],
-      //设计提交数据
-      tableData5: [],
-      zirenwu: [],
-
-      //文件历史数据
-      tableData6: [
-        {
-          taskName: "",
-          uploadTime: "",
-          filePath: "",
-          fileName: "",
-          fileType: 0,
-          publishingCompanyName: ""
-        }
-      ],
-      tableData7: [
-        {
-          realName: "",
-          realPath: ""
-        }
-      ],
-      //需要隐藏控制器
-      yinCang: 1,
-      fileHistoryDia: false,
-      //文件类型
-      fileType: 0,
       //步骤条数据
       milepost: [
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },
@@ -987,207 +107,74 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" }
       ],
-      //申请被拒绝原因
-      addList1: {
-        refuseApplyMessage: ""
-      },
-      //计划书拒绝原因
-      addList2: {
-        refusePlanMessage: ""
-      },
-      addList3: {
-        contractRefuseReason: ""
-      },
-      addList4: {
-        SJrefuseReason: ""
-      },
-      addList5: {
-        demandorRefuseReason: ""
-      },
-      companyMessage: [
-        {
-          companyId: 0,
-          province: "",
-          city: "",
-          companyName: "",
-          companyCategory: "",
-          address: "",
-          businessName: "",
-          introduction: "",
-          product: "",
-          address: "",
-          businessTel: "",
-          email: ""
-        }
-      ],
-      //计划书上传
-      planbook: false,
-      //合同上传
-      conbook: false,
-      //设计人员分配
-      dialogTableVisible: false,
-      //申请计划拒绝弹窗
-      addVisible1: false,
-      //计划书拒绝弹窗
-      addVisible2: false,
-      //合同拒绝弹窗
-      addVisible3: false,
-      //设计拒绝弹窗
-      addVisible4: false,
-      //状态
-      state: "",
-      state2: 0,
-      state3: 0,
-      designCount: 0,
-      // 评价默认步骤数
-      milepostActive1: 5,
-      // 默认步骤数
+      //步骤图默认步骤数
       milepostActive: 0,
-      // 动态添加类名
-      stepActive: "stepActive",
       //任务Id
       taskId: 0,
+      //获取用户名
+      userName: localStorage.getItem("ms_username"),
+      //主要信息数据
+      cool: {},
+      taskApplyTableData: {},
+      taskTableData: {},
       //表格显示控制
       show: 0,
       show1: 0,
       show3: 0,
-      //文件上传数据
-      limitNum: 1,
-      formLabelWidth: "100px",
-      form: {},
-      fileList: [],
-      userName: localStorage.getItem("ms_username"),
-      design1: "",
-      //上传的文件路径
-      technicalFile: [],
-      technicalFileWanzheng: "",
-      giveDesigner: 0, //人员分配按钮控制
-      designerNub: 0,
+      //状态显示控制
+
+      state: "",
+      state2: 0,
+      state3: 0,
       reMarkId: 1,
-      shangchuancishu: 0,
-      designRefuseReason: false,
-      taskTpyeName: "",
-      fileNumber: 0,
-      //公司弹窗
-      companyDag: false,
-      taskDetilDag: false,
-      mainTaskID: 0,
-      jingyingfanwei: "",
-      imgsrc: require("../../../company/2.jpg"),
-      shuiwudengjizheng: require("../../../company/税务登记证.jpg"),
-      qiyezhizhao: require("../../../company/营业执照.jpg")
+      //重做次数
+      designCount: 0,
+      //雷达图的数据定义
+      radarData: {
+        radarData: []
+      }
     };
   },
-
+  created() {
+    this.getParams();
+    this.showData();
+    this.getLDData();
+  },
   filters: {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     }
   },
-  created() {
-    this.getParams();
-    this.showData();
-    this.getLDData(); //雷达图数据查找
-    this.getFilePath();
-  },
+  
   methods: {
-    //技术文件
-    getFilePath() {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/xuqiuyilan/getFilePath",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.tableData7 = response.data.allData;
-        });
-    },
-    //个别文件下载
-    downloadFile(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskId,
-        url: row.filePath
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/xuqiuyilan/DownloadTelFile",
-          data: data,
-          responseType: "blob", //服务器返回的数据类型
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        })
-        .then(response => {
-          console.log(response);
-          const content = response.data;
-          const blob = new Blob([content]);
-          let url = window.URL.createObjectURL(blob); //表示一个指定的file对象或Blob对象
-          let link = document.createElement("a");
-          link.style.display = "none";
-          link.href = url;
-          link.setAttribute("download", row.fileName);
-          document.body.appendChild(link);
-          link.click();
-          URL.revokeObjectURL(link.href); //释放url
-        });
-    },
+    //taskId传递方法，获取通过主界面传过来的taskId
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
       console.log(routerParams);
     },
-    //下载子任务附件
-    xiazaiZRWFJ() {
-      console.log("shenme");
+    //雷达图数据查找
+    getLDData() {
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskId,
-        leixing: "ZIRWHJ"
+        taskId: this.taskId
       });
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/DownloadHTHT",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          console.log("cap");
-          console.log(response);
-          this.download(response.data, "ZRWFJ");
-        });
-    },
-    HTFileHistory() {
-      this.fileType = 0;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        fileType: this.fileType
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getFileHistory",
+          url: "/api/remarkDetils",
           data: data
         })
         .then(response => {
-          // console.log(response);
-          this.tableData6 = response.data.allData;
-          this.fileHistoryDia = true;
+          this.radarData.radarData = response.data.allData;
+          if (response.data.allData[0] == null) {
+            this.reMarkId = 0;
+          }
+          that.$refs.QradarChart.getCharts1();
         });
     },
-    //提交次数 背景颜色变化
+    //质量图方法
     styleswith() {
       if (this.designCount > 0 && this.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
@@ -1206,68 +193,7 @@ export default {
         console.log("为啥没去上面啊");
       }
     },
-    //任务计划下载
-    RWJHXZ(row) {
-      console.log("shenme");
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskId,
-        leixing: "jihuashu"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/Download",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          console.log("cap");
-          console.log(response);
-          this.download(response.data, "JHS");
-        });
-    },
-    //合同下载
-    HTXZ(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskId,
-        leixing: "hetong"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/Download",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          console.log(response);
-          this.download(response.data, "HT");
-        });
-    },
-    //下载文件
-    download(data, leixing) {
-      if (!data) {
-        return;
-      }
-      let url = window.URL.createObjectURL(
-        new Blob([data], { type: "application/zip" })
-      );
-      let link = document.createElement("a");
-      link.style.display = "none";
-      link.href = url;
-      if (leixing === "JHS") {
-        link.setAttribute("download", "设计文档.zip");
-      } else if (leixing === "HT") {
-        link.setAttribute("download", "合同.zip");
-      } else if (leixing === "ZRWFJ") {
-        link.setAttribute("download", "子任务附件.zip");
-      }
-      document.body.appendChild(link);
-      link.click();
-    },
-    //数据显示
+    //数据显示方法
     showData() {
       console.log("你好");
       console.log(this.taskId);
@@ -1286,24 +212,15 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this.tableData1 = response.data.allData.b;
-          this.tableData2 = response.data.allData.b;
-          this.tableData3 = response.data.allData.a;
-          this.tableData4 = response.data.allData.a;
-          this.tableData5 = response.data.allData.a;
           this.cool = response.data.allData.a[0];
+          this.taskApplyTableData = response.data.allData.b;
+          this.taskTableData = response.data.allData.a;
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
           this.designCount = response.data.allData.a[0].designCount;
-          console.log("重做次数" + this.designCount);
-          this.styleswith();
-          this.taskType = response.data.allData.a[0].taskType;
-          if (this.taskType == 0) {
-            this.taskTpyeName = "设计需求";
-          } else if (this.taskType == 1) {
-            this.taskTpyeName = "流通需求";
-          }
+
+          this.sendMsg();
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
@@ -1329,11 +246,7 @@ export default {
               this.show = 1;
             }
           }
-          if (response.data.allData.a[0].supplierDistributionState == 0) {
-            this.giveDesigner = 1;
-          }
-
-          if (this.milepostActive > 0) {
+          if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].applyTime
             );
@@ -1363,8 +276,18 @@ export default {
               response.data.allData.a[0].finishTime
             );
           }
-          this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          this.styleswith();
+          console.log("重做次数" + response.data.allData.a[0].finishTime);
         });
+    },
+    //数据传递方法
+    sendMsg() {
+      this.$refs.essentialInformation.getMsg(this.cool);
+      this.$refs.applicationInformation.getMsg(this.taskApplyTableData);
+      this.$refs.missionPlan.getMsg(this.taskApplyTableData);
+      this.$refs.contractManagement.getMsg(this.taskTableData);
+      this.$refs.InternalAudit.getMsg(this.taskTableData);
+      this.$refs.designAcceptance.getMsg(this.taskTableData);
     },
     //返回列表
     goBack() {
@@ -1374,392 +297,21 @@ export default {
           taskId: this.taskId
         }
       });
-    },
-    //接受通过
-    accept(row) {
-      this.$confirm("确定接受需求么？", "提示", {
-        type: "warning"
-      }).then(() => {
-        console.log(row.taskId);
-        var that = this;
-        var data = Qs.stringify({
-          taskID: row.taskId
-        });
-        console.log(data);
-        that.axios({
-          method: "post",
-          url: "/api/supplier/accept",
-          data: data
-        });
-        this.$message({
-          message: "接受成功",
-          type: "success"
-        });
-        this.showData();
-      });
-    },
-    //接受不通过
-    noAccept(row) {
-      this.$confirm("确定拒绝需求么？", "提示", {
-        type: "warning"
-      }).then(() => {
-        console.log(row.taskId);
-        var that = this;
-        var data = Qs.stringify({
-          taskID: row.taskId
-        });
-        console.log(data);
-        that.axios({
-          method: "post",
-          url: "/api/supplier/noAccept",
-          data: data
-        });
-        this.$message({
-          message: "拒绝通过",
-          type: "success"
-        });
-        this.showData();
-      });
-    },
-    //申请拒绝原因
-    refuseReason(row) {
-      this.addVisible1 = true;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getList",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.addList1 = response.data.allData.b[0];
-        });
-    },
-    //计划书拒绝原因
-    refusePlanReason(row) {
-      this.addVisible2 = true;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getList",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.addList2 = response.data.allData.b[0];
-        });
-    },
-    //合同拒绝原因
-    refuseConReason(row) {
-      this.addVisible3 = true;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getList",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.addList3 = response.data.allData.a[0];
-        });
-    },
-    //设计拒绝原因
-    refuseDesignReason(row) {
-      this.addVisible4 = true;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getList",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.addList5 = response.data.allData.a[0];
-        });
-    },
-    //设计通过
-    designSuccess(row) {
-      this.$confirm("确定将设计审核通过么？", "提示", {
-        type: "warning"
-      }).then(() => {
-        console.log(row.taskId);
-        var that = this;
-        var data = Qs.stringify({
-          taskID: this.taskId
-        });
-        console.log(data);
-        that.axios({
-          method: "post",
-          url: "/api/supplier/designSuccess",
-          data: data
-        });
-        this.$message({
-          message: "审核通过",
-          type: "success"
-        });
-        this.showData();
-      });
-    },
-    //设计不通过
-    designRefuse(row) {
-      this.designRefuseReason = true;
-    },
-    //分配设计人员
-    assignDesigners() {
-      this.dialogTableVisible = true;
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.username
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/findDesigner",
-          data: data
-        })
-        .then(response => {
-          console.log(response);
-          this.designTask = response.data.allData.a;
-          // this.designTask.id = response.data.allData.b;
-          console.log(response);
-        });
-      this.showData();
-    },
-    //分配设计人员上传
-    tijiao() {
-      console.log(this.design1);
-      console.log("哈哈哈");
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.design1,
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/assignDesigners",
-          data: data
-        })
-        .then(response => {
-          this.$message.success("提交成功");
-          this.dialogTableVisible = false;
-        });
-      this.showData();
-    },
-    //上传计划书方法
-    upLoadPlanT() {
-      this.planbook = true;
-    },
-    //上传合同方法
-    upLoadConT() {
-      this.conbook = true;
-    },
-    //雷达图数据查找
-    getLDData() {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/remarkDetils",
-          data: data
-        })
-        .then(response => {
-          this.radarData.radarData = response.data.allData;
-          if (response.data.allData[0] == null) {
-            this.reMarkId = 0;
-          }
-          that.$refs.QradarChart.getCharts1();
-        });
-    },
-    submitUpload() {
-      this.$refs.upload.submit();
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-      this.fileNumber = this.fileNumber - 1;
-    },
-    handleAvatarSuccess(response, file, fileList) {
-      this.technicalFile[this.shangchuancishu] = response;
-      this.technicalFileWanzheng =
-        this.technicalFileWanzheng +
-        this.technicalFile[this.shangchuancishu] +
-        "linklink";
-      this.shangchuancishu = this.shangchuancishu + 1;
-      this.$notify.success({
-        title: "成功",
-        message: `文件上传成功`
-      });
-      console.log(response);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        Text_File: this.technicalFileWanzheng
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/textImportCon",
-          data: data
-        })
-        .then(response => {
-          this.technicalFileWanzheng = "";
-        });
-      this.$router.go(0);
-    },
-    handleAvatarSuccess1(response, file, fileList) {
-      this.technicalFile[this.shangchuancishu] = response;
-      this.technicalFileWanzheng =
-        this.technicalFileWanzheng +
-        this.technicalFile[this.shangchuancishu] +
-        "linklink";
-      this.shangchuancishu = this.shangchuancishu + 1;
-      this.$notify.success({
-        title: "成功",
-        message: `文件上传成功`
-      });
-      console.log(response);
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        Text_File1: this.technicalFileWanzheng
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/textImportPlan",
-          data: data
-        })
-        .then(response => {
-          this.technicalFileWanzheng = "";
-        });
-      this.$router.go(0);
-    },
-    //提交拒绝原因
-    SJJJYYTJ() {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        HTrefuseReason: this.addList4.SJrefuseReason
-      });
-      console.log(data),
-        that.axios({
-          method: "post",
-          url: "/api/supplier/designRefuse",
-          data: data
-        });
-      this.$message.success("提交成功");
-      this.addList4 = {};
-      this.designRefuseReason = false;
-      this.showData();
-    },
-    companyDetil(row) {
-      this.getCompay();
-      this.companyDag = true;
-    },
-    taskDetil(row) {
-      this.taskDetilDag = true;
-    },
-    //需求方信息弹窗
-    getCompay() {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/companyDetail/getCompanyFormBytaskId",
-          data: data
-        })
-        .then(response => {
-          this.companyMessage = response.data.allData.companyDetail[0];
-          this.companyId = response.data.allData.companyDetail[0].companyId;
-          this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
-          this.qiyezhizhao =
-            response.data.allData.companyDetail[0].businessLicence;
-          this.shuiwudengjizheng =
-            response.data.allData.companyDetail[0].tRCertificate;
-          this.jingyingfanwei = response.data.allData.b;
-          this.companyDetailContent =
-            response.data.allData.companyDetailContent;
-          response.data.allData.companyDetail[0].tRCertificate;
-          this.companyDetailContent =
-            response.data.allData.companyDetailContent;
-        });
-    },
-    ziTaskDetail() {
-      this.quanbuzirenwu = true;
-      var that = this;
-      var data = Qs.stringify({
-        mainTaskID: this.mainTaskID
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/MainTaskInformation/combineMS",
-          data: data
-
-          // data:this.$store.state.userName
-        })
-        .then(response => {
-          this.zirenwu = response.data.allData.b;
-          console.log(this.zirenwu);
-        });
     }
+  },
+  components: {
+    "essential-Information": essentialInformation, //基本信息
+    "application-Information": applicationInformation,
+    "mission-Plan": missionPlan,
+    "contract-Management": contractManagement,
+    "Internal-Audit": InternalAudit,
+    "design-Acceptance": designAcceptance,
+    "radar-chart": radarChart
   }
 };
 </script>
-
 <style lang="scss">
 .designDet {
-  .anniu {
-    width: 100%;
-    border-left: cadetblue;
-    background-color: white;
-    color: #409eff;
-    border-left-width: 0px;
-    border-right-width: 0px;
-    border-top-width: 0px;
-    border-color: #dcdfe6;
-    border-radius: 0px;
-  }
-  //时序图
-  .SXT {
-    height: 150px;
-  }
   //雷达图
   .LDT {
     height: 300px;
@@ -1796,26 +348,7 @@ export default {
   .el-input.is-disabled .el-input__inner {
     color: #606266;
   }
-  // /* 表格字体粗细 */
-  // .el-table thead {
-  //   font-weight: 200;
-  // }
-  // /* 表格下方每列有无竖线 */
-  // .el-table__row > td {
-  //   border: none;
-  // }
-  // 表格样式调整
-  .el-input__inner {
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-radius: 0px;
-    text-align: center;
-  }
 
-  .el-input.is-disabled .el-input__inner {
-    background-color: #ffffff;
-  }
   // 进度样式调整
   .el-step__head.is-process {
     color: #f15e09;
@@ -1889,61 +422,6 @@ export default {
     color: #000000;
     font-size: 25px;
     float: left;
-    width: 350px;
-  }
-
-  .left {
-    float: left;
-    width: 400px;
-  }
-  .box-card1 {
-    margin-left: 20px;
-    width: 350px;
-    float: left;
-  }
-  .leftDet {
-    float: left;
-    text-align: left;
-    width: 95%;
-  }
-  .Right {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-    float: left;
-
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
-    font-size: 14px;
-
-    font-style: normal;
-
-    font-variant: normal;
-
-    font-weight: 400;
-
-    line-height: normal;
-
-    margin-bottom: 0px;
-
-    margin-left: 20px;
-
-    margin-right: 0px;
-
-    margin-top: 0px;
-
-    overflow: hidden;
-
-    padding-bottom: 0px;
-
-    padding-left: 0px;
-
-    padding-right: 0px;
-
-    padding-top: 0px;
-
-    text-decoration: none;
-
     width: 350px;
   }
 }
