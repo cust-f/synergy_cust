@@ -242,6 +242,26 @@ export default {
     }
   },
   methods: {
+    getParams() {
+      var routerParams = this.$route.query.redirects;
+      //this.mainTaskID = routerParams;
+      if (data == 0) {
+        let delTag = { type: "zihangye" };
+        this.handleClose(delTag, 0);
+        console.log("nihao")
+      } else {
+        let tag = {
+          name: routerParams.industryName,
+          type: "zihangye",
+          id: routerParams.id
+        };
+      console.log(tag)
+
+       this.checkTag(tag)
+       this.dynamicTags.push(tag)
+ 
+      }
+    },
     getProvince() {
       let that = this;
       that.axios.post("/api/district/HaChangProvince").then(response => {
