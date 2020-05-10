@@ -107,7 +107,8 @@
       <el-col :span="20" :push="pushCount" :pull="pullCount">
         <div class="grid-content5">
           <el-table :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
-          style="width: 100%">
+          style="width: 100% font-size:13px"
+          >
             <el-table-column label="序号" type="index" align="center"></el-table-column>
 
             <el-table-column prop="mainTaskName" label="需求名称" align="center"></el-table-column>
@@ -522,5 +523,9 @@ element.style {
 .biaoti {
     font-size: 18px;
     color: #303133;
+  }
+  .table{
+    font-size: 14px;
+    font-family:"微软雅黑";
   }
 </style>

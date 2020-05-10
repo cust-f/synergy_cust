@@ -16,8 +16,7 @@
         class="table"
         ref="multipleTable"
         header-cell-class-name="table-header"
-        style="margin-top:20px "        
-        
+        style="margin-top:20px "
         :default-sort="{prop: 'designerAcceptTime,taskName', order: 'descending'}"
       >
         <template>
@@ -46,8 +45,11 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="scope">
-              <span v-if="scope.row.supplierCheckDesignState===1&&scope.row.demandorRefuseReason!=null">
-                <el-tag>待审核</el-tag><el-tag type="danger" @click="handleEdit1(scope.$index,scope.row)">拒绝原因</el-tag>
+              <span
+                v-if="scope.row.supplierCheckDesignState===1&&scope.row.demandorRefuseReason!=null"
+              >
+                <el-tag>待审核</el-tag>
+                <el-tag type="danger" @click="handleEdit1(scope.$index,scope.row)">拒绝原因</el-tag>
               </span>
               <span v-else-if="scope.row.supplierCheckDesignState === 0">
                 <el-tag>待提交</el-tag>
@@ -61,7 +63,6 @@
               <span v-else-if="scope.row.supplierCheckDesignState === 3">
                 <el-tag type="danger">未通过</el-tag>
               </span>
-              
             </template>
           </el-table-column>
           <el-table-column
@@ -123,87 +124,88 @@
           @size-change="handleSizeChange"
         ></el-pagination>
       </div>
+      
+        <el-dialog :visible.sync="dialogVisible" width="55%" class="dialog">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+          <div class="dialogCSS">
+            <el-form ref="form1" :model="form" label-width="110px">
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="需求名称">
+                    <el-input v-model="form1.taskName" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
 
-      <el-dialog :visible.sync="dialogVisible" width="60%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <div class="dialogCSS">
-          <el-form ref="form1" :model="form" label-width="110px">
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="需求名称">
-                  <el-input v-model="form1.taskName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
+                <el-col :span="11">
+                  <el-form-item label="企业名称">
+                    <el-input v-model="form1.companyName" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-              <el-col :span="11">
-                <el-form-item label="企业名称">
-                  <el-input v-model="form1.companyName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="一级行业类别">
+                    <el-input v-model="form1.taskCategoryMain" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
 
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="一级行业类别">
-                  <el-input v-model="form1.taskCategoryMain" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
+                <el-col :span="11">
+                  <el-form-item label="二级行业类别">
+                    <el-input v-model="form1.taskCategoryPart" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="开始时间">
+                    <el-input
+                      v-bind:value="form1.beginTime|formatDate"
+                      :disabled="true"
+                      style="text-align:center"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
 
-              <el-col :span="11">
-                <el-form-item label="二级行业类别">
-                  <el-input v-model="form1.taskCategoryPart" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="开始时间">
-                  <el-input
-                    v-bind:value="form1.beginTime|formatDate"
-                    :disabled="true"
-                    style="text-align:center"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-
-              <el-col :span="11">
-                <el-form-item label="截止日期">
-                  <el-input
-                    v-bind:value="form1.deadline|formatDate"
-                    :disabled="true"
-                    style="text-align:center"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <!-- <el-row>
+                <el-col :span="11">
+                  <el-form-item label="截止日期">
+                    <el-input
+                      v-bind:value="form1.deadline|formatDate"
+                      :disabled="true"
+                      style="text-align:center"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!-- <el-row>
               <el-col :span="22">
                 <el-form-item label="拒绝原因">
                   <el-input v-model="form1.demandorRefuseReason" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
-            </el-row> -->
+              </el-row>-->
 
-            <el-row>
-              <el-col :span="22">
-                <el-form-item label="任务详情">
-                  <el-input v-model="form1.taskDetail" type="textarea" :rows="7" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-        </span>
-      </el-dialog>
+              <el-row>
+                <el-col :span="22">
+                  <el-form-item label="任务详情">
+                    <el-input v-model="form1.taskDetail" type="textarea" :rows="7" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+          </div>
+          <span slot="footer" class="dialog-footer" style="padding-right: 60px;">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          </span>
+        </el-dialog>
+      </div>
       <!-- 拒绝原因弹出框 -->
       <el-dialog :visible.sync="resonvisible">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <el-form :model="form1">
           <el-form-item :label-width="formLabelWidth">
-            <el-input v-model="form1.demandorRefuseReason" autocomplete="off" disabled="true"></el-input>
+            <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{form1.demandorRefuseReason}}</span>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -211,10 +213,8 @@
           <el-button type="primary" @click="resonvisible=false">确 定</el-button>
         </div>
       </el-dialog>
-
-     
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -232,7 +232,7 @@ export default {
 
       pageTotal: 0,
       resonvisible: false,
-      tableHeight:window.innerHeight,
+      tableHeight: window.innerHeight,
 
       Accepted_Task_Head: [
         {
@@ -355,7 +355,7 @@ export default {
     },
     handlePageChange(val) {},
 
-   xiazaiZRWFJ(row) {
+    xiazaiZRWFJ(row) {
       console.log("shenme");
       var that = this;
       var data = Qs.stringify({
@@ -479,37 +479,52 @@ export default {
   }
 };
 </script>
-<style scoped>
-.dialogCSS .el-input.is-disabled .el-input__inner {
-  background-color: #ffffff;
-  color: #303133;
-}
-.el-textarea.is-disabled .el-textarea__inner {
-  background-color: #ffffff;
-  border-color: #e4e7ed;
-  color: #303133;
-  cursor: not-allowed;
-}
-/* .el-divider {
+<style lang="scss">
+.designer {
+  .dialogCSS .el-input.is-disabled .el-input__inner {
+    background-color: #ffffff;
+    color: #303133;
+  }
+  .el-textarea.is-disabled .el-textarea__inner {
+    background-color: #ffffff;
+    border-color: #e4e7ed;
+    color: #303133;
+    cursor: not-allowed;
+  }
+  /* .el-divider {
   margin: 25px 0px !important;
 } */
-.table {
-  width: 100%;
-  font-size: 14px;
-  height: 750px;
+  .table {
+    width: 100%;
+    font-size: 14px;
+    height: 750px;
+  }
+  .el-scrollbar__wrap {
+    overflow-y: hidden;
+  }
+  .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+  .el-dialog__header {
+    padding: 0px 0px 0px;
+  }
+  element.style {
+    margin-top: 20px;
+    height: 1001px;
+  }
+ 
 }
-.el-scrollbar__wrap {
-  overflow-y: hidden;
-}
-.biaoti {
-  font-size: 18px;
-  color: #303133;
-}
-.el-dialog__header {
-  padding: 0px 0px 0px;
-}
-element.style {
-  margin-top: 20px;
-  height: 1001px;
+
+
+.el-dialog__body{
+  padding-top: 30px;
+      padding-right: 0px !important;
+      padding-bottom: 30px;
+      padding-left: 20px;
+      /* color: #606266; */
+      font-size: 14px;
+      word-break: break-all;
+
 }
 </style>

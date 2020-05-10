@@ -93,7 +93,7 @@
       
     </el-row>
     </div>
-    <el-dialog :visible.sync="dialogVisible" width="60%">
+    <el-dialog :visible.sync="dialogVisible" width="55%" style="padding-right: 0px;">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>
 &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div class="dialogCSS">
@@ -502,5 +502,17 @@ export default {
     border-color: #E4E7ED;
     color: #303133;
     cursor: not-allowed;
+}
+
+
+.el-dialog__body {
+  
+    padding-top: 30px;
+    padding-right: 0px !important;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    /* color: #606266; */
+    font-size: 14px;
+    word-break: break-all;
 }
 </style>
