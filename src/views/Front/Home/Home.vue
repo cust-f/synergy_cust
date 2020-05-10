@@ -68,17 +68,17 @@
                     :style="{backgroundImage: 'url(' + orangePicture + ')'}"
                     style=" background-size: cover; "
                   >
-                    <font>交通运输设备</font>
+                    <font @click="demandPRedirects('交通运输设备',2)"> 交通运输设备</font>
                     <p></p>
                   </div>
                   <i class="cate_list">
-                    <a @click="demandRedirects('汽车',8)">汽车</a>
-                    <a @click="demandRedirects('铁路运输设备',9)">铁路运输设备</a>
-                    <a @click="demandRedirects('摩托车',10)">摩托车</a>
-                    <a @click="demandRedirects('自行车',11)">自行车</a>
-                    <a @click="demandRedirects('船舶及浮动装置',12)">船舶及浮动装置</a>
-                    <a @click="demandRedirects('航空航天器',13)">航空航天器</a>
-                    <a @click="demandRedirects('交通器材及其他交通运输设备',14)">交通器材及其他交通运输设备</a>
+                    <a @click="demandRedirects('汽车',8,'交通运输设备',2)">汽车</a>
+                    <a @click="demandRedirects('铁路运输设备',9,'交通运输设备',2)">铁路运输设备</a>
+                    <a @click="demandRedirects('摩托车',10,'交通运输设备',2)">摩托车</a>
+                    <a @click="demandRedirects('自行车',11,'交通运输设备',2)">自行车</a>
+                    <a @click="demandRedirects('船舶及浮动装置',12,'交通运输设备',2)">船舶及浮动装置</a>
+                    <a @click="demandRedirects('航空航天器',13,'交通运输设备',2)">航空航天器</a>
+                    <a @click="demandRedirects('交通器材及其他交通运输设备',14,'交通运输设备',2)">交通器材及其他交通运输设备</a>
                   </i>
                 </div>
               </el-card>
@@ -90,15 +90,15 @@
                     class="cate_ietm_title"
                     :style="{backgroundImage: 'url(' + redPicture + ')' }"
                   >
-                    <font>仪器仪表及文化、办公用机械</font>
+                    <font @click="demandPRedirects('仪器仪表及文化、办公用机械',3)">仪器仪表及文化、办公用机械</font>
                   </div>
                   <i class="cate_list">
-                    <a @click="demandRedirects('通用仪器仪表',15)">通用仪器仪表</a>
-                    <a @click="demandRedirects('专用仪器仪表',16)">专用仪器仪表</a>
-                    <a @click="demandRedirects('钟表与计时仪器',17)">钟表与计时仪器</a>
+                    <a @click="demandRedirects('通用仪器仪表',15,'仪器仪表及文化、办公用机械',3)">通用仪器仪表</a>
+                    <a @click="demandRedirects('专用仪器仪表',16,'仪器仪表及文化、办公用机械',3)">专用仪器仪表</a>
+                    <a @click="demandRedirects('钟表与计时仪器',17,'仪器仪表及文化、办公用机械',3)">钟表与计时仪器</a>
                     <!-- <a href>光学仪器及眼镜</a> -->
-                    <a @click="demandRedirects('文化、办公用机械',19)">文化、办公用机械</a>
-                    <a @click="demandRedirects('其他仪器仪表的制造及修理',20)">其他仪器仪表的制造及修理</a>
+                    <a @click="demandRedirects('文化、办公用机械',19,'仪器仪表及文化、办公用机械',3)">文化、办公用机械</a>
+                    <a @click="demandRedirects('其他仪器仪表的制造及修理',20,'仪器仪表及文化、办公用机械',3)">其他仪器仪表的制造及修理</a>
                   </i>
                 </div>
               </el-card>
@@ -107,17 +107,17 @@
               <el-card shadow="hover">
                 <div class="category_item">
                   <div class="cate_ietm_title">
-                    <font>通信设备、计算机及其他电子设备</font>
+                    <font @click="demandPRedirects('通信设备、计算机及其他电子设备',4)">通信设备、计算机及其他电子设备</font>
                   </div>
                   <i class="cate_list">
-                    <a @click="demandRedirects('通信设备',21)">通信设备</a>
-                    <a @click="demandRedirects('雷达及配套设备',22)">雷达及配套设备</a>
-                    <a @click="demandRedirects('广播电视设备',23)">广播电视设备</a>
-                    <a @click="demandRedirects('电子计算机',24)">电子计算机</a>
-                    <a @click="demandRedirects('电子器件',25)">电子器件</a>
-                    <a @click="demandRedirects('电子元件',26)">电子元件</a>
-                    <a @click="demandRedirects('家用视听设备',27)">家用视听设备</a>
-                    <a @click="demandRedirects('其他电子设备',28)">其他电子设备</a>
+                    <a @click="demandRedirects('通信设备',21,'通信设备、计算机及其他电子设备',4)">通信设备</a>
+                    <a @click="demandRedirects('雷达及配套设备',22,'通信设备、计算机及其他电子设备',4)">雷达及配套设备</a>
+                    <a @click="demandRedirects('广播电视设备',23,'通信设备、计算机及其他电子设备',4)">广播电视设备</a>
+                    <a @click="demandRedirects('电子计算机',24,'通信设备、计算机及其他电子设备',4)">电子计算机</a>
+                    <a @click="demandRedirects('电子器件',25,'通信设备、计算机及其他电子设备',4)">电子器件</a>
+                    <a @click="demandRedirects('电子元件',26,'通信设备、计算机及其他电子设备',4)">电子元件</a>
+                    <a @click="demandRedirects('家用视听设备',27,'通信设备、计算机及其他电子设备',4)">家用视听设备</a>
+                    <a @click="demandRedirects('其他电子设备',28,'通信设备、计算机及其他电子设备',4)">其他电子设备</a>
                   </i>
                 </div>
               </el-card>
@@ -133,16 +133,16 @@
                     :style="{backgroundImage: 'url(' + geometryPicture + ')' }"
                     style="background-size: cover;"
                   >
-                    <font>电气机械及器材</font>
+                    <font @click="demandPRedirects('电气机械及器材',5)"> 电气机械及器材</font>
                   </div>
                   <i class="cate_list">
-                    <a @click="demandRedirects('电机',29)">电机</a>
-                    <a @click="demandRedirects('输配电及控制设备',30)">输配电及控制设备</a>
-                    <a @click="demandRedirects('电池',31)">电池</a>
-                    <a @click="demandRedirects('家用电力器具',32)">家用电力器具</a>
-                    <a @click="demandRedirects('非电力家用器具',33)">非电力家用器具</a>
-                    <a @click="demandRedirects('照明器具',34)">照明器具</a>
-                    <a @click="demandRedirects('其他电气机械及器材',35)">其他电气机械及器材</a>
+                    <a @click="demandRedirects('电机',29,'电气机械及器材',5)">电机</a>
+                    <a @click="demandRedirects('输配电及控制设备',30,'电气机械及器材',5)">输配电及控制设备</a>
+                    <a @click="demandRedirects('电池',31,'电气机械及器材',5)">电池</a>
+                    <a @click="demandRedirects('家用电力器具',32,'电气机械及器材',5)">家用电力器具</a>
+                    <a @click="demandRedirects('非电力家用器具',33,'电气机械及器材',5)">非电力家用器具</a>
+                    <a @click="demandRedirects('照明器具',34,'电气机械及器材',5)">照明器具</a>
+                    <a @click="demandRedirects('其他电气机械及器材',35,'电气机械及器材',5)">其他电气机械及器材</a>
                   </i>
                 </div>
               </el-card>
@@ -154,14 +154,14 @@
                     class="cate_ietm_title"
                     :style="{backgroundImage: 'url(' + BluePicture + ')' }"
                   >
-                    <font>专用设备</font>
+                    <font @click="demandPRedirects('专用设备',6)">专用设备</font>
                   </div>
                   <i class="cate_list">
-                    <a @click="demandRedirects('矿山、冶金、建筑专用设备',37)">矿山、冶金、建筑专用设备</a>
-                    <a @click="demandRedirects('电子和电工机械专用设备',42)">电子和电工机械专用设备</a>
-                    <a @click="demandRedirects('医疗仪器设备及器械',44)">医疗仪器设备及器械</a>
-                    <a @click="demandRedirects('农、林、牧、渔专用机械',43)">农、林、牧、渔专用机械</a>
-                    <a @click="demandRedirects('更多',0)" style="float:right;">更多</a>
+                    <a @click="demandRedirects('矿山、冶金、建筑专用设备',37,'专用设备',6)">矿山、冶金、建筑专用设备</a>
+                    <a @click="demandRedirects('电子和电工机械专用设备',42,'专用设备',6)">电子和电工机械专用设备</a>
+                    <a @click="demandRedirects('医疗仪器设备及器械',44,'专用设备',6)">医疗仪器设备及器械</a>
+                    <a @click="demandRedirects('农、林、牧、渔专用机械',43,'专用设备',6)">农、林、牧、渔专用机械</a>
+                    <a @click="demandPRedirects('专用设备',6)" style="float:right;">更多</a>
                   </i>
                 </div>
               </el-card>
@@ -174,15 +174,15 @@
                     :style="{backgroundImage: 'url(' + greedPicture + ')'}"
                     style="background-size: 100% 100%;"
                   >
-                    <font>通用设备</font>
+                    <font @click="demandPRedirects('通用设备',7)">通用设备</font>
                   </div>
                   <i class="cate_list">
-                    <a @click="demandRedirects('锅炉及原动机',46)">锅炉及原动机</a>
-                    <a @click="demandRedirects('金属加工机械',47)">金属加工机械</a>
-                    <a @click="demandRedirects('起重运输设备',48)">起重运输设备</a>
-                    <a @click="demandRedirects('烘炉、熔炉及电炉',51)">烘炉、熔炉及电炉</a>
-                    <a @click="demandRedirects('金属铸、锻加工',54)">金属铸、锻加工</a>
-                    <a @click="demandRedirects('更多',0)">更多</a>
+                    <a @click="demandRedirects('锅炉及原动机',46,'通用设备',7)">锅炉及原动机</a>
+                    <a @click="demandRedirects('金属加工机械',47,'通用设备',7)">金属加工机械</a>
+                    <a @click="demandRedirects('起重运输设备',48,'通用设备',7)">起重运输设备</a>
+                    <a @click="demandRedirects('烘炉、熔炉及电炉',51,'通用设备',7)">烘炉、熔炉及电炉</a>
+                    <a @click="demandRedirects('金属铸、锻加工',54,'通用设备',7)">金属铸、锻加工</a>
+                    <a @click="demandPRedirects('通用设备',7)">更多</a>
                   </i>
                 </div>
               </el-card>
@@ -324,28 +324,28 @@
                   style="margin-bottom:20px;"
                   :gutter="10"
                 >
-                  <el-col :span="5" class="fontStyle1">
+                  <el-col :span="6" class="fontStyle1">
                     <el-tooltip
-                      :content="item.Industry_Type"
+                      :content="item.types"
                       placement="top-start"
                       effect="light"
                     >
-                      <span style="float:left;line-height: 24px;">{{"【"+item.Industry_Type+"】"}}</span>
+                      <span style="float:left;line-height: 24px;">{{"【"+item.types+"】"}}</span>
                     </el-tooltip>
                   </el-col>
-                  <el-col :span="11">
-                    <el-tooltip :content="item.Main_Task_Name" placement="top" effect="light">
+                  <el-col :span="9">
+                    <el-tooltip :content="item.taskName" placement="top" effect="light">
                       <a
-                        @click="serviceDetail(item.mainTaskID)"
+                        @click="serviceDetail(item.taskId)"
                         style="float:left;line-height: 24px;"
-                      >{{item.Main_Task_Name}}</a>
+                      >{{item.taskName}}</a>
                     </el-tooltip>
                   </el-col>
                   <el-col
                     :span="6"
                     class="fontStyle2"
                     style="line-height: 24px;"
-                  >{{item.Deadline| dataFormat("yyyy-MM-dd")}}</el-col>
+                  >{{item.deadline| dataFormat("yyyy-MM-dd")}}</el-col>
                 </el-row>
               </el-tooltip>
             </el-card>
@@ -370,7 +370,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="5">
+                <el-col :span="6">
                   <el-tooltip
                     :content="supplierlist.companyProduct[i]"
                     placement="left-start"
@@ -408,28 +408,28 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="5">
+                <el-col :span="6">
                   <el-tooltip
-                    :content="item.Industry_Type"
+                    :content="item.types"
                     placement="left-start"
                     effect="light"
                   >
-                    <span class="fontStyle1">{{"【"+item.Industry_Type+"】"}}</span>
+                    <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
                   </el-tooltip>
                 </el-col>
-                <el-col :span="11">
-                  <el-tooltip :content="item.Main_Task_Name" placement="top" effect="light">
+                <el-col :span="9">
+                  <el-tooltip :content="item.taskName" placement="top" effect="light">
                     <a
-                      @click="needsDetail(item.mainTaskID)"
+                      @click="needsDetail(item.taskId)"
                       style="float:left;line-height: 24px;"
-                    >{{item.Main_Task_Name}}</a>
+                    >{{item.taskName}}</a>
                   </el-tooltip>
                 </el-col>
                 <el-col :span="6">
                   <span
                     class="fontStyle2"
                     style="line-height: 24px;"
-                  >{{item.Finish_Time | dataFormat("yyyy-MM-dd")}}</span>
+                  >{{item.finishTime | dataFormat("yyyy-MM-dd")}}</span>
                 </el-col>
               </el-row>
             </el-card>
@@ -720,15 +720,32 @@ export default {
       console.log(tab, event);
     },
 
-    demandRedirects(name, id) {
-      let redirects = {
+    demandRedirects(cName,cId,name, id) {
+      let Predirects = {
+        name: name,
+        id: id
+      };
+    let CPredirects = {
+        name: cName,
+        id: cId
+      };
+      this.$router.push({
+        path: "/xuqiuyilan",
+        query: {
+          Predirects: Predirects,
+          CPredirects:CPredirects
+        }
+      });
+    },
+    demandPRedirects(name, id){
+     let Predirects = {
         name: name,
         id: id
       };
       this.$router.push({
         path: "/xuqiuyilan",
         query: {
-          redirects: redirects
+          Predirects: Predirects
         }
       });
     }
@@ -885,7 +902,7 @@ export default {
   float: left;
   position: relative;
   left: 25%;
-  width: 50%;
+  width: 40%;
   height: 50px;
   margin-bottom: 7%;
   font-size: 18px;

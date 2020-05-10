@@ -192,7 +192,7 @@
                     <li>
                       <a>
                         开始时间：
-                        <font>{{taskData.beginTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                        <font>{{taskData.publishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
                       </a>
                     </li>
                     <br />
