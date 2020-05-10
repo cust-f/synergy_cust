@@ -140,9 +140,9 @@
           </el-table-column>
           <el-table-column prop="checkApplyState" label="申请/邀请状态">
             <template slot-scope="scope">
-              <span v-if="+scope.row.checkApplyState === 0">待审核</span>
-              <span v-else-if="+scope.row.checkApplyState === 1">通过</span>
-              <span v-else>拒绝</span>
+              <el-tag  v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
+              <el-tag  v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
+              <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
           <el-table-column prop="applyTime" label="申请/邀请时间">
@@ -195,10 +195,11 @@
           <el-table-column prop="companyName" label="供应商" width="250"></el-table-column>
           <el-table-column prop="checkPlanState" label="计划审核状态">
             <template slot-scope="scope">
-              <span v-if="+scope.row.checkPlanState === 0">待上传</span>
-              <span v-else-if="+scope.row.checkPlanState === 1">待审核</span>
-              <span v-else-if="+scope.row.checkPlanState === 2">通过</span>
-              <span v-else-if="+scope.row.checkPlanState === 3">拒绝</span>
+              <el-tag  v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
+              <el-tag  v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
+              <el-tag  v-else-if="+scope.row.checkPlanState === 2" type="success">通过</el-tag>
+              <el-tag v-else type="danger">拒绝</el-tag>
+              
             </template>
           </el-table-column>
           <el-table-column prop="planUploadTime" label="计划上传时间">
@@ -262,10 +263,11 @@
           <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
           <el-table-column prop="contractState" label="合同审核状态">
             <template slot-scope="scope">
-              <span v-if="+scope.row.contractState === 0">待上传</span>
-              <span v-else-if="+scope.row.contractState === 1">待审核</span>
-              <span v-else-if="+scope.row.contractState === 2">通过</span>
-              <span v-else-if="+scope.row.contractState === 3">未通过</span>
+              <el-tag  v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
+              <el-tag  v-else-if="+scope.row.contractState === 1">待审核</el-tag>
+              <el-tag  v-else-if="+scope.row.contractState === 2" type="success">通过</el-tag>
+              <el-tag v-else type="danger">拒绝</el-tag>
+              
             </template>
           </el-table-column>
           <el-table-column prop="uploadContractTime" label="合同上传时间">
@@ -338,10 +340,10 @@
           <el-table-column prop="designCount" label="设计重做次数"></el-table-column>demandorCheckDesignState
           <el-table-column prop="demandorCheckDesignState" label="设计验收状态">
             <template slot-scope="scope">
-              <span v-if="+scope.row.demandorCheckDesignState===0">待上传</span>
-              <span v-else-if="+scope.row.demandorCheckDesignState===1">待审核</span>
-              <span v-else-if="+scope.row.demandorCheckDesignState===2">通过</span>
-              <span v-else-if="+scope.row.demandorCheckDesignState===3">未通过</span>
+              <el-tag  v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
+              <el-tag  v-else-if="+scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+              <el-tag  v-else-if="+scope.row.demandorCheckDesignState === 2" type="success">通过</el-tag>
+              <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
           <el-table-column prop="uploadDesignTime" label="设计上传时间">
@@ -1235,7 +1237,7 @@ export default {
       this.WZLJ = qianzui + houzui;
       console.log(this.WZLJ);
       this.fujian.splice(row.wenjiancixu, 1);
-    },
+    }, 
     downloadFile(row) {
       var that = this;
       var data = Qs.stringify({
@@ -1793,6 +1795,7 @@ export default {
         var that = this;
         var data = Qs.stringify({
           taskID: row.id,
+          companyId: row.companyId,
           leixing: "jihuashu"
         });
         that
@@ -2046,7 +2049,7 @@ export default {
     color: #303133;
   }
 
-  .table {
+.el-table{
     font-size: 13px;
   }
   .text {

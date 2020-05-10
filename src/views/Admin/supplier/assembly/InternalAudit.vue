@@ -57,7 +57,7 @@
     </el-table>
     <!-- 分配设计人员 -->
     <el-dialog :visible.sync="dialogTableVisible" width="30%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">分配设计师</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">分配设计师</div>
       <br />
       <br />
       <el-form>
@@ -80,22 +80,22 @@
 
     <!-- 拒绝设计原因 -->
     <el-dialog :visible.sync="designRefuseReason" width="50%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入设计不通过的原因</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
       <br />
       <br />
       <el-row>
         <el-col :span="8"></el-col>
       </el-row>
-      <el-form ref="form" :model="addList4" label-width="120px">
+      <el-form ref="applyList4" :rules="rules" :model="addList4" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item>
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 5, maxRows: 7}"
-                v-model="addList4.SJrefuseReason"
-              ></el-input>
-            </el-form-item>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 7}"
+              v-model="addList4.SJrefuseReason"
+              placeholder="请输入拒绝原因"
+              autocomplete="off"
+            ></el-input>
           </el-col>
         </el-row>
       </el-form>
@@ -112,7 +112,27 @@ import Qs from "qs";
 import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
+    var validDataPhone = (rule, value, callback) => {
+      if (value === "") {
+        this.mustHaveSomeThing = 0;
+        callback(new Error("拒绝信息不能为空"));
+      } else {
+        this.mustHaveSomeThing = 1;
+        callback();
+      }
+    };
     return {
+      rules: {
+        SJrefuseReason: [
+          {
+            required: false,
+            message: "请输入聚聚原因",
+            trigger: "blur",
+            validator: validDataPhone
+          }
+        ]
+      },
+      mustHaveSomeThing: 0,
       taskId: 0,
       //设计人员
       design1: "",
@@ -156,12 +176,13 @@ export default {
         var that = this;
         var data = Qs.stringify({
           taskID: this.taskId,
-          designCount: row.designCount
+          designCount: row.designCount,
+          userName: this.userName
         });
         console.log(data);
         that.axios({
           method: "post",
-          url: "/api/supplier/  ",
+          url: "/api/supplier/designSuccess",
           data: data
         });
         this.$message({
@@ -220,21 +241,25 @@ export default {
     },
     //提交拒绝原因
     SJJJYYTJ() {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        HTrefuseReason: this.addList4.SJrefuseReason
-      });
-      console.log(data),
-        that.axios({
-          method: "post",
-          url: "/api/supplier/designRefuse",
-          data: data
+      if (this.mustHaveSomeThing == 0) {
+        this.$message.error("请输入拒绝原因");
+      } else {
+        var that = this;
+        var data = Qs.stringify({
+          taskId: this.taskId,
+          HTrefuseReason: this.addList4.SJrefuseReason
         });
-      this.$message.success("提交成功");
-      this.addList4 = {};
-      this.designRefuseReason = false;
-      this.$router.go(0);
+        console.log(data),
+          that.axios({
+            method: "post",
+            url: "/api/supplier/designRefuse",
+            data: data
+          });
+        this.$message.success("提交成功");
+        this.addList4 = {};
+        this.designRefuseReason = false;
+        this.$router.go(0);
+      }
     }
   }
 };

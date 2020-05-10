@@ -53,6 +53,7 @@
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 
               </div>
+              <br>
       <el-table
         :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
         border
@@ -62,9 +63,9 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="companyName" label="企业名称"></el-table-column>
-        <el-table-column prop="province" label="企业所在省份"></el-table-column>
-        <el-table-column prop="city" label="企业所在城市"></el-table-column>
+        <el-table-column prop="companyName" width="250" label="企业名称"></el-table-column>
+        <el-table-column prop="province" label="省份"></el-table-column>
+        <el-table-column prop="city" label="城市"></el-table-column>
         <el-table-column prop="foundingTime" label="企业成立时间">
           <template slot-scope="scope">{{scope.row.foundingTime | formatDate}}</template>
         </el-table-column>

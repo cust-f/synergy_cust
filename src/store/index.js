@@ -10,7 +10,8 @@ const state = {
     menuList: "",
     identity: "",
     taskId1: "",
-    openMenu:[]
+    openMenu:[],
+    userLogo:""
 }
 
 const mutations = {
@@ -33,6 +34,9 @@ const mutations = {
     },
     SET_OPENMENU:(state,data)=>{
         state.openMenu=data;
+    },
+    SET_USERLOGO:(state,data)=>{
+        state.userLogo=data;
     },
     //登出
     LOGOUT: (state) => {

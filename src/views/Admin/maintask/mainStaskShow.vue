@@ -23,9 +23,9 @@
                   <el-table-column prop="mainTaskName" label="需求名称" sortable ></el-table-column>
                   <el-table-column prop="taskState" label="状态" sortable  width="80" >
                     <template slot-scope="scope">
-                      <el-tag v-if="+scope.row.taskState ===0" style="color:green;">进行中</el-tag>
-                      <el-tag v-else-if="+scope.row.taskState ===1" style="color:blue;">已完成</el-tag>
-                      <el-tag v-else-if="+scope.row.taskState ===2" style="color:red;">废除</el-tag>
+                      <el-tag v-if="+scope.row.taskState ===0" type="info">进行中</el-tag>
+                      <el-tag v-else-if="+scope.row.taskState ===1"  type="success">已完成</el-tag>
+                      <el-tag v-else-if="+scope.row.taskState ===2" type="danger">废除</el-tag>
                     </template>
                   </el-table-column>
                   
