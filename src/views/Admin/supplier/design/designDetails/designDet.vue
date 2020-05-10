@@ -26,7 +26,7 @@
       <br />
       <br />
       <!-- 任务计划模块 -->
-      <div v-show="show>0">
+      <div v-show="show>0 && state4 === 1">
         <mission-Plan ref="missionPlan"></mission-Plan>
       </div>
       <br />
@@ -111,6 +111,7 @@ export default {
       milepostActive: 0,
       //任务Id
       taskId: 0,
+      state4: 0,
       //获取用户名
       userName: localStorage.getItem("ms_username"),
       //主要信息数据
@@ -146,7 +147,7 @@ export default {
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     }
   },
-  
+
   methods: {
     //taskId传递方法，获取通过主界面传过来的taskId
     getParams() {
@@ -218,6 +219,7 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
+          this.state4 = response.data.allData.b[0].checkApplyState;
           this.designCount = response.data.allData.a[0].designCount;
 
           this.sendMsg();

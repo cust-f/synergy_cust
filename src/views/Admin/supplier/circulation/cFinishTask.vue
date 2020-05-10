@@ -27,8 +27,6 @@
 
       <el-table-column prop="companyName" sortable label="需求企业"></el-table-column>
 
-      <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
-
       <el-table-column prop="finishTime" sortable label="完成日期">
         <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
       </el-table-column>
@@ -76,7 +74,7 @@ export default {
           userId: "",
           supplierName: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       multipleSelection: [],

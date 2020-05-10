@@ -70,18 +70,7 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData: [
-        {
-          taskId: "",
-          taskName: "",
-          taskType: "",
-          companyName: "",
-          designerName: "",
-          designCount: "",
-          deadline: "",
-          taskCategoryPart: ""
-        }
-      ],
+      tableData: [],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
