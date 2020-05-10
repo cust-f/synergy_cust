@@ -73,6 +73,10 @@ Vue.filter('dataFormat', function (value, fmt) {
     return fmt;
   });
 
+  // 跳转后返回顶部
+router.afterEach((to,from,next) => {
+  window.scrollTo(0,0);
+})
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
