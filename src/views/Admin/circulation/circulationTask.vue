@@ -3,8 +3,8 @@
     <el-container>
       <el-main>
         <div class="box">
-          <h3>流通任务</h3>
-          <el-divider></el-divider>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通任务</div>
+
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
           <div class="container">
@@ -480,460 +480,28 @@ export default {
           TrefuseReason:''
         }
       ],
+                  usernameX: localStorage.getItem("ms_username"),
+
       tableData: [
-        {
-          id: 1,
-          name: "光电测控仪器设备",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "电视测角仪",
-          company: "长春奥普光电技术股份有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 2,
-          name: "磨床生产",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "平面磨床制作",
-          company: "杭机集团长春一机有限公司",
-          time: "2019-12-15"
-        },
-        {
-          id: 3,
-          name: "汽车电子产品研发",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "汽车集成服务",
-          company: "启明信息技术股份有限公司",
-          time: "2020-01-05"
-        },
-        {
-          id: 4,
-          name: "卫星应用数据创新",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "卫星应用数据",
-          company: "哈尔滨航天恒星数据系统科技有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 5,
-          name: "通信技术设计",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "通信技术",
-          company: "哈尔滨海邻科信息技术有限公司",
-          time: "2019-11-30"
-        },
-        {
-          id: 6,
-          name: "高分子材料创新",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "高分子材料创新",
-          company: "黑龙江省润特科技有限公司",
-          time: "2020-01-07"
-        },
-        {
-          id: 7,
-          name: "发电智能制造",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "发电装备",
-          company: "哈尔滨电机厂有限责任公司",
-          time: "2019-11-15"
-        }
+
       ],
       tableData1: [
-        {
-          id: 1,
-          name: "光电测控仪器设备",
-          remarkstate: "未评价",
-          state: "待响应",
-          subname: "电视测角仪",
-          company: "长春奥普光电技术股份有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 2,
-          name: "磨床生产",
-          remarkstate: "未评价",
-          state: "待响应",
-          subname: "平面磨床制作",
-          company: "杭机集团长春一机有限公司",
-          time: "2019-12-15"
-        },
-        {
-          id: 3,
-          name: "汽车电子产品研发",
-          remarkstate: "未评价",
-          state: "待响应",
-          subname: "汽车集成服务",
-          company: "启明信息技术股份有限公司",
-          time: "2020-01-05"
-        },
-        {
-          id: 4,
-          name: "卫星应用数据创新",
-          remarkstate: "未评价",
-          state: "待响应",
-          subname: "卫星应用数据",
-          company: "哈尔滨航天恒星数据系统科技有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 5,
-          name: "通信技术设计",
-          remarkstate: "未评价",
-          state: "待响应",
-          subname: "通信技术",
-          company: "哈尔滨海邻科信息技术有限公司",
-          time: "2019-11-30"
-        },
-        {
-          id: 6,
-          name: "高分子材料创新",
-          remarkstate: "未评价",
-          state: "待响应",
-          subname: "高分子材料创新",
-          company: "黑龙江省润特科技有限公司",
-          time: "2020-01-07"
-        },
-        {
-          id: 7,
-          name: "发电智能制造",
-          remarkstate: "未评价",
-          state: "待响应",
-          subname: "发电装备",
-          company: "哈尔滨电机厂有限责任公司",
-          time: "2019-11-15"
-        }
+     
       ],
       tableData2: [
-        {
-          id: 1,
-          name: "光电测控仪器设备",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "电视测角仪",
-          company: "长春奥普光电技术股份有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 2,
-          name: "磨床生产",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "平面磨床制作",
-          company: "杭机集团长春一机有限公司",
-          time: "2019-12-15"
-        },
-        {
-          id: 3,
-          name: "汽车电子产品研发",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "汽车集成服务",
-          company: "启明信息技术股份有限公司",
-          time: "2020-01-05"
-        },
-        {
-          id: 4,
-          name: "卫星应用数据创新",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "卫星应用数据",
-          company: "哈尔滨航天恒星数据系统科技有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 5,
-          name: "通信技术设计",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "通信技术",
-          company: "哈尔滨海邻科信息技术有限公司",
-          time: "2019-11-30"
-        },
-        {
-          id: 6,
-          name: "高分子材料创新",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "高分子材料创新",
-          company: "黑龙江省润特科技有限公司",
-          time: "2020-01-07"
-        },
-        {
-          id: 7,
-          name: "发电智能制造",
-          remarkstate: "未评价",
-          state: "待完成",
-          subname: "发电装备",
-          company: "哈尔滨电机厂有限责任公司",
-          time: "2019-11-15"
-        }
+   
       ],
       tableData3: [
-        {
-          id: 1,
-          name: "光电测控仪器设备",
-          remarkstate: "未评价",
-          state: "进行中",
-          subname: "电视测角仪",
-          company: "长春奥普光电技术股份有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 2,
-          name: "磨床生产",
-          remarkstate: "未评价",
-          state: "进行中",
-          subname: "平面磨床制作",
-          company: "杭机集团长春一机有限公司",
-          time: "2019-12-15"
-        },
-        {
-          id: 3,
-          name: "汽车电子产品研发",
-          remarkstate: "未评价",
-          state: "进行中",
-          subname: "汽车集成服务",
-          company: "启明信息技术股份有限公司",
-          time: "2020-01-05"
-        },
-        {
-          id: 4,
-          name: "卫星应用数据创新",
-          remarkstate: "未评价",
-          state: "进行中",
-          subname: "卫星应用数据",
-          company: "哈尔滨航天恒星数据系统科技有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 5,
-          name: "通信技术设计",
-          remarkstate: "未评价",
-          state: "进行中",
-          subname: "通信技术",
-          company: "哈尔滨海邻科信息技术有限公司",
-          time: "2019-11-30"
-        },
-        {
-          id: 6,
-          name: "高分子材料创新",
-          remarkstate: "未评价",
-          state: "进行中",
-          subname: "高分子材料创新",
-          company: "黑龙江省润特科技有限公司",
-          time: "2020-01-07"
-        },
-        {
-          id: 7,
-          name: "发电智能制造",
-          remarkstate: "未评价",
-          state: "进行中",
-          subname: "发电装备",
-          company: "哈尔滨电机厂有限责任公司",
-          time: "2019-11-15"
-        }
+      
       ],
       tableData4: [
-        {
-          id: 1,
-          name: "光电测控仪器设备",
-          remarkstate: "未评价",
-          state: "待审核",
-          subname: "电视测角仪",
-          company: "长春奥普光电技术股份有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 2,
-          name: "磨床生产",
-          remarkstate: "未评价",
-          state: "待审核",
-          subname: "平面磨床制作",
-          company: "杭机集团长春一机有限公司",
-          time: "2019-12-15"
-        },
-        {
-          id: 3,
-          name: "汽车电子产品研发",
-          remarkstate: "未评价",
-          state: "待审核",
-          subname: "汽车集成服务",
-          company: "启明信息技术股份有限公司",
-          time: "2020-01-05"
-        },
-        {
-          id: 4,
-          name: "卫星应用数据创新",
-          remarkstate: "未评价",
-          state: "待审核",
-          subname: "卫星应用数据",
-          company: "哈尔滨航天恒星数据系统科技有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 5,
-          name: "通信技术设计",
-          remarkstate: "未评价",
-          state: "待审核",
-          subname: "通信技术",
-          company: "哈尔滨海邻科信息技术有限公司",
-          time: "2019-11-30"
-        },
-        {
-          id: 6,
-          name: "高分子材料创新",
-          remarkstate: "未评价",
-          state: "待审核",
-          subname: "高分子材料创新",
-          company: "黑龙江省润特科技有限公司",
-          time: "2020-01-07"
-        },
-        {
-          id: 7,
-          name: "发电智能制造",
-          remarkstate: "未评价",
-          state: "待审核",
-          subname: "发电装备",
-          company: "哈尔滨电机厂有限责任公司",
-          time: "2019-11-15"
-        }
+
       ],
       tableData5: [
-        {
-          id: 1,
-          name: "光电测控仪器设备",
-          remarkstate: "未评价",
-          state: "已完成",
-          subname: "电视测角仪",
-          company: "长春奥普光电技术股份有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 2,
-          name: "磨床生产",
-          remarkstate: "未评价",
-          state: "已完成",
-          subname: "平面磨床制作",
-          company: "杭机集团长春一机有限公司",
-          time: "2019-12-15"
-        },
-        {
-          id: 3,
-          name: "汽车电子产品研发",
-          remarkstate: "未评价",
-          state: "已完成",
-          subname: "汽车集成服务",
-          company: "启明信息技术股份有限公司",
-          time: "2020-01-05"
-        },
-        {
-          id: 4,
-          name: "卫星应用数据创新",
-          remarkstate: "未评价",
-          state: "已完成",
-          subname: "卫星应用数据",
-          company: "哈尔滨航天恒星数据系统科技有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 5,
-          name: "通信技术设计",
-          remarkstate: "未评价",
-          state: "已完成",
-          subname: "通信技术",
-          company: "哈尔滨海邻科信息技术有限公司",
-          time: "2019-11-30"
-        },
-        {
-          id: 6,
-          name: "高分子材料创新",
-          remarkstate: "未评价",
-          state: "已完成",
-          subname: "高分子材料创新",
-          company: "黑龙江省润特科技有限公司",
-          time: "2020-01-07"
-        },
-        {
-          id: 7,
-          name: "发电智能制造",
-          remarkstate: "未评价",
-          state: "已完成",
-          subname: "发电装备",
-          company: "哈尔滨电机厂有限责任公司",
-          time: "2019-11-15"
-        }
+
       ],
       tableData6: [
-        {
-          id: 1,
-          name: "光电测控仪器设备",
-          remarkstate: "未评价",
-          state: "已废除",
-          subname: "电视测角仪",
-          company: "长春奥普光电技术股份有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 2,
-          name: "磨床生产",
-          remarkstate: "未评价",
-          state: "已废除",
-          subname: "平面磨床制作",
-          company: "杭机集团长春一机有限公司",
-          time: "2019-12-15"
-        },
-        {
-          id: 3,
-          name: "汽车电子产品研发",
-          remarkstate: "未评价",
-          state: "已废除",
-          subname: "汽车集成服务",
-          company: "启明信息技术股份有限公司",
-          time: "2020-01-05"
-        },
-        {
-          id: 4,
-          name: "卫星应用数据创新",
-          remarkstate: "未评价",
-          state: "已废除",
-          subname: "卫星应用数据",
-          company: "哈尔滨航天恒星数据系统科技有限公司",
-          time: "2019-11-15"
-        },
-        {
-          id: 5,
-          name: "通信技术设计",
-          remarkstate: "未评价",
-          state: "已废除",
-          subname: "通信技术",
-          company: "哈尔滨海邻科信息技术有限公司",
-          time: "2019-11-30"
-        },
-        {
-          id: 6,
-          name: "高分子材料创新",
-          remarkstate: "未评价",
-          state: "已废除",
-          subname: "高分子材料创新",
-          company: "黑龙江省润特科技有限公司",
-          time: "2020-01-07"
-        },
-        {
-          id: 7,
-          name: "发电智能制造",
-          remarkstate: "未评价",
-          state: "已废除",
-          subname: "发电装备",
-          company: "哈尔滨电机厂有限责任公司",
-          time: "2019-11-15"
-        }
+  
       ],
       addList: {
         id: null,
@@ -971,13 +539,13 @@ export default {
       console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "aaaa"
+        userName: this.usernameX
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/SubstaskInformation/selecLTByCompanyID",
+          url: "/api//SubstaskInformation/selecLTByCompanyID",
           data: data
 
           // data:this.$store.state.userName
@@ -1021,7 +589,7 @@ export default {
       that
         .axios({
           method:"post",
-          url:"http://127.0.0.1:8082/MainTaskInformation/selectLTByCompanyandState",
+          url:"/api/MainTaskInformation/selectLTByCompanyandState",
           data:data
         })
         .then(response =>{
@@ -1059,7 +627,7 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "aaaa",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
@@ -1067,7 +635,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/SubstaskInformation/selectLTByCIDandTNandTT",
+            "/api/SubstaskInformation/selectLTByCIDandTNandTT",
           data: data
           // data:this.$store.state.userName
         })
@@ -1084,7 +652,7 @@ export default {
       console.log(this.taskState);
       var that = this;
       var data = Qs.stringify({
-        username: "aaaa",
+        username: this.usernameX,
         taskName: this.selectname,
         taskState: this.taskState
       });
@@ -1093,7 +661,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/SubstaskInformation/selectLTByCIDandTNandTS",
+            "/api/SubstaskInformation/selectLTByCIDandTNandTS",
           data: data
           // data:this.$store.state.userName
         })
@@ -1118,7 +686,7 @@ export default {
         that.axios({
           method: "post",
           url:
-            "http://127.0.0.1:8082/MainTaskInformation/feicuBySubstaskstaskID",
+            "/api/MainTaskInformation/feicuBySubstaskstaskID",
           data: data
 
           // data:this.$store.state.userName
@@ -1141,7 +709,7 @@ export default {
       that
         .axios({
           method:"post",
-          url:'http://127.0.0.1:8082/SubstaskInformation/tijiaoFreason',
+          url:'/api/SubstaskInformation/tijiaoFreason',
           data:data,
           
         })
@@ -1162,7 +730,7 @@ export default {
       that
         .axios({
           method:"post",
-          url:'http://127.0.0.1:8082/SubstaskInformation/tijiaoTreason',
+          url:'/api/SubstaskInformation/tijiaoTreason',
           data:data,
           
         })
@@ -1213,14 +781,24 @@ export default {
     /*
      *转跳对应任务信息页面
      */
-    Detail(row) {
+        Detail(row) {
       console.log(row.taskId);
-      this.$router.push({
-       path: "/admin/taskDetail1",
-       query:{
-         taskId:row.taskId
-       }
-       });
+      if(row.taskType == 0){
+        this.$router.push({
+        path: "/admin/mainStaskDetail",
+        query: {
+          taskId: row.taskId
+        }
+      });
+      }
+      else{
+        this.$router.push({
+        path: "/admin/mainStaskDetailLT",
+        query: {
+          taskId: row.taskId
+        }
+      });
+      }
     },
    
    open2(row) {
@@ -1237,7 +815,7 @@ export default {
         that.axios({
           method:"post",
           url:
-          "http://127.0.0.1:8082/SubstaskInformation/updateRWJHtoIng",
+          "/api/SubstaskInformation/updateRWJHtoIng",
           data:data
         });  
          this.$message({
@@ -1269,7 +847,7 @@ export default {
         that.axios({
           method:"post",
           url:
-          "http://127.0.0.1:8082/SubstaskInformation/updatetoDSHtoAcc",
+          "/api/SubstaskInformation/updatetoDSHtoAcc",
           data:data
         });  
          this.$message({
@@ -1385,6 +963,9 @@ export default {
 }
 .box1 {
   font-size: 14px;
+}
+.biaoti {
+  font-size: 18px;
 }
 
 </style>

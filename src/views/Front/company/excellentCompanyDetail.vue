@@ -1,16 +1,16 @@
 <template>
   <div style="width:1200px;margin:0 auto;">
-    <el-row>
-      <div>
-        <div class="title">
-          <span>首页</span>
-          <span>&nbsp; > &nbsp;</span>
-          <span>优质企业</span>
-          <span>&nbsp; > &nbsp;</span>
-          <span>企业详情</span>
+    <!--第一行 -->
+    <el-row >
+      <el-col :span="20" >
+        <div style="margin-top:15px;">
+          <el-breadcrumb separator=">">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/excellentCompany' }">优质企业</el-breadcrumb-item>
+            <el-breadcrumb-item >企业详情</el-breadcrumb-item>
+          </el-breadcrumb>
         </div>
-        <br />
-      </div>
+      </el-col>
     </el-row>
     <br />
     <el-card shadow="never" style="margin-bottom:20px;">
@@ -22,7 +22,7 @@
           <div class="BigTime">
             <el-carousel height="400" width="400" direction="vertical" arrow="always">
               <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
-                <img :src="item.idView" class="images" />
+                <img :src="item" class="images" />
               </el-carousel-item>
             </el-carousel>
           </div>
@@ -38,13 +38,13 @@
             </div>
             <!-- </el-col>
             <el-col :span="4"></el-col>-->
-            <el-rate v-model="companyDetail.star" disabled text-color="#ff9900" ></el-rate>
+            <el-rate v-model="companyDetail.star" style="margin-left:135px;line-height:2;" disabled text-color="#ff9900"></el-rate>
             <!-- </el-col>
             </el-row>-->
           </div>
-          <el-divider ></el-divider>
-          <el-row>
-            <el-col :span="8" :offset="2">
+          <el-divider></el-divider>
+          <el-row class="Detail">
+            <el-col :span="9" :offset="2">
               <li>
                 <a>
                   企业所在省：
@@ -81,7 +81,7 @@
                 </a>
               </li>
             </el-col>
-            <el-col :span="8" :offset="4">
+            <el-col :span="9" :offset="2">
               <li>
                 <a>
                   工商注册号：
@@ -118,108 +118,18 @@
               </li>
             </el-col>
           </el-row>
-
-          <!--        <ul class="ul02">
-            <div class="ull">  
-            <li>
-                <a>
-                    企业所在省：
-                    <font >黑龙江</font>
-                </a>
-            </li>
-            <br>
-            <li>
-                <a>
-                    企业所在市：
-                    <font >哈尔滨</font>
-                </a>
-            </li>
-            <br>
-            <li>
-                <a>
-                    企业地址：
-                    <font>哈尔滨高新区科技创新城创新创业广场11号楼科技一街1039号C504室</font>
-                </a>
-            </li>
-             <br>
-            <li>
-                <a>
-                    注册资本：
-                    <font >2.5亿元</font>
-                </a>
-            </li>
-               <br>
-           
-            <li>
-                <a>
-                    成立时间：
-                    <font >2010年12月</font>
-                </a>
-            </li>   
-                </div>
-                <div class="ulr">
-            <br>
-            <li>
-                <a>
-                    工商注册号：
-                    <font>201010101010</font>
-                </a>
-            </li>
-               <br>
-            <li>
-                <a>
-                    法人代表：
-                    <font >张晓天</font>
-                </a>
-            </li>
-               <br>
-            <li>
-                <a>
-                    法人联系电话：
-                    <font >10086</font>
-                </a>
-            </li>
-               <br>
-            <li>
-                <a>
-                    办公电话：
-                    <font >18888881234</font>
-                </a>
-            </li>
-                        <br>
-            <li>
-                <a>
-                    经营范围：
-                    <font >智能教学设备、软件的研发与销售；企业管理咨询、商务信息咨询；信息技术服务，工程技术服务</font>
-                </a>
-            </li>
-                        <br>
-</div>
-          </ul>-->
         </div>
       </div>
-      <el-row class="white">
+      <div class="white" :class="{'companyContent':! companyDetailContent==null}">
         <el-tabs type="card">
           <el-tab-pane label="企业信息">
-            <el-col :span="20" :offset="1">
-              <div style="display:block">
-                <ul>
-                  <li class="yqk_nr_bt">
-                    <a>企业简介</a>
-                  </li>
-                  <li>
-                    <a>哈尔滨科大志远科技有限公司成立于2013年11月07日，注册地位于哈尔滨高新区科技创新城创新创业广场11号楼科技一街1039号C504室，法人代表为张晓天。经营范围包括智能教学设备、软件的研发与销售；企业管理咨询、商务信息咨询；信息技术服务，工程技术服务(涉及许可经营的项目，经审批机关批准并经工商行政管理机关登记注册后方可经营)。黑龙江棵乐信息技术有限公司是为中小微企业提供企业移动管理服务的专业企业，棵乐信息始终坚持专注于移动互联网时代的企业客户关系管理、营销管理、HR管理等方向，通过打造“管理信息化咨询平台+云服务平台”两大平台联动的商业模式，为客户提供从战略规划、商业模式设计、组织及人力资源优化、业务流程优化及管理、PC端和移动端IT系统规划及落地、云服务综合运营、管理等全链条综合持续服务，切实帮助企业与政府客户实现转型升级与价值落地。</a>
-                  </li>
-                  <li>
-                    <a></a>
-                  </li>
-                </ul>
-              </div>
-            </el-col>
+            <div>
+              <div class="message" v-html="companyDetailContent"></div>
+              <el-divider></el-divider>
+            </div>
           </el-tab-pane>
         </el-tabs>
-        <el-divider></el-divider>
-      </el-row>
+      </div>
     </el-card>
   </div>
 </template>
@@ -232,10 +142,11 @@ export default {
   data() {
     return {
       companyDetail: "",
+      companyDetailContent: "",
       imagesbox: [
-        { id: 0, idView: require("../company/1.png") },
-        { id: 1, idView: require("../company/2.jpg") },
-        { id: 2, idView: require("../company/3.jpg") }
+        // { id: 0, idView: require("../company/1.png") },
+        // { id: 1, idView: require("../company/2.jpg") },
+        // { id: 2, idView: require("../company/3.jpg") }
       ]
     };
   },
@@ -251,13 +162,15 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/companyDetail/getBusinessForm",
+          url: "/api/company/detail",
           data: data
         })
         .then(response => {
-          console.log("-------------------");
           console.log(response);
-          this.companyDetail = response.data.allData.companyDetail[0];
+          this.companyDetailContent =
+            response.data.allData.companyDetailContent;
+          this.companyDetail = response.data.allData.companyDetail;
+          this.imagesbox=response.data.allData.companyCarousel;
         });
     }
   }
@@ -271,6 +184,9 @@ export default {
 .white {
   /* width: 67%; */
   margin-top: 20px;
+}
+.companyContent{
+  height: 600px;
 }
 .divtap {
   border-right: 1px solid #000;
@@ -442,8 +358,11 @@ export default {
 
   width: 920px;
 }
-.Right .el-divider--horizontal{
-  width:87%;
+.Right .el-divider--horizontal {
+  width: 87%;
+}
+.Detail li{
+    margin-top: 10px;
 }
 .ul02 {
   width: 920px;

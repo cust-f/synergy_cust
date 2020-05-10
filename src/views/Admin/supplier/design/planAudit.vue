@@ -11,6 +11,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'beginTime', order: 'ascending'}"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -20,14 +21,9 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型">
-        <template slot-scope="scope">
-          <span v-if="scope.row.taskType === 1">类型1</span>
-          <span v-else-if="scope.row.taskType === 2">类型2</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
 
       <el-table-column prop="publishingCompanyName" label="发布需求企业"></el-table-column>
 
@@ -82,7 +78,8 @@ export default {
           taskType: "",
           publishingCompanyName: "",
           beginTime: "",
-          deadline: ""
+          deadline: "",
+          taskCategoryPart: ""
         }
       ],
       //接受表单数据
@@ -91,9 +88,10 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      selectname:"",
+      selectname: "",
       userName: "",
-      YinCang: 1
+      YinCang: 1,
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   created() {
@@ -107,17 +105,17 @@ export default {
   },
   methods: {
     getData() {
-      console.log(this.userName);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
 
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierPlanResTaskList",
+          url: "/api/supplier/supplierPlanResTaskList",
           data: data
         })
         .then(response => {
@@ -129,14 +127,14 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/searchByTaskIdInTaskApply",
+          url: "/api/supplier/searchByTaskIdInTaskApply",
           data: data
           // data:this.$store.state.userName
         })
@@ -151,7 +149,7 @@ export default {
     Det(row) {
       console.log(row.taskId);
       this.$router.push({
-        path: "/admin/Det",
+        path: "/admin/designDet",
         query: {
           taskId: row.taskId
         }

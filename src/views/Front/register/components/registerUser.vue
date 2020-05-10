@@ -34,6 +34,9 @@
         <el-form-item label="手机" prop="phone">
           <el-input v-model="account.phone" autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="真实姓名" prop="realName">
+          <el-input v-model="account.realName" autocomplete="off"></el-input>
+        </el-form-item>
       </el-form>
     </el-card>
   </div>
@@ -103,7 +106,8 @@ export default {
         checkPass: "",
         userName: "",
         email: "",
-        phone: ""
+        phone: "",
+        realName: ""
       }
     };
   },
@@ -113,7 +117,7 @@ export default {
       default: ""
     }
   },
-  watch: {
+  0: {
     "account.userName": function(val) {
       this.getexistName();
     }

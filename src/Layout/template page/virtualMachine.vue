@@ -9,112 +9,73 @@
         <el-main style="padding-top:10spx;overflow:hidden;">
           <el-container>
             <el-container>
-              
               <el-main width="73%" id="kvm-left">
-                <el-tabs type="card" v-model="activeName" @tab-click="handleClick">
-                  <el-tab-pane label="光华电子" name="first">
-                    <iframe
-                      id="show-iframe"
-                      style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
-                      frameborder="0"
-                      scrolling="yes"
-                      src="http://10.34.51.107:9000"
-                    ></iframe>
+                <el-tabs type="card" v-model="activeName" @tab-click="updataDetail">
+                  <el-tab-pane
+                    v-for="(item,index) in VisualMachineList"
+                    :key="index"
+                    :label="item.taskName"
+                    :name="item.taskId"
+                  >
+                    <div class="show-iframe" style="height:855px;">
+                      <iframe
+                        style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
+                        frameborder="0"
+                        scrolling="yes"
+                        :src="item.ip"
+                      ></iframe>
+                    </div>
                   </el-tab-pane>
-                  <el-tab-pane label="富维海拉" name="second">配置管理</el-tab-pane>
-                  <el-tab-pane label="一汽福晟" name="third">角色管理</el-tab-pane>
-                  <el-tab-pane label="大陆电子" name="fourth">定时任务补偿</el-tab-pane>
                 </el-tabs>
               </el-main>
 
               <div
                 id="movebar"
-                style="width:15px; z-index:2; background:#cccccc; margin-left:-20px; margin-top:76px; height:91%"
+                style="width:2px; z-index:2; background:#cccccc;"
               ></div>
 
               <el-aside width="27%" id="kvm-right">
-                <div style="height:128px; margin-top:50px">
-                  <el-row>
-                    <el-col :span="11">
-                      <el-button class="buttons" type="info" @click="backtolist">返回</el-button>
-                    </el-col>
-                    <el-col :span="11">
-                      <el-button class="buttons" type="warning">发送Ctrl+Alt+Del</el-button>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="11">
-                      <el-button class="buttons" type="danger">断开连接</el-button>
-                    </el-col>
-                    <el-col :span="11">
-                      <el-button class="buttons" type="danger">关闭虚拟机</el-button>
-                    </el-col>
-                  </el-row>
-                </div>
-
-                <el-tabs v-model="activeTab" type="border-card" style="height:73%; margin-top:5px">
+                <el-tabs v-model="activeTab" type="border-card" style="padding-bottom:25px;">
                   <el-tab-pane class="cur" label="任务详情" name="first">
-                    <el-form ref="form" :model="form" label-width="100px" style="margin-right:20px">
-                      <br />
-                      <el-row>
-                        <!-- <el-form-item label="设计任务ID">
-                          <el-input v-model="form.Desinger_ID" :disabled="true"></el-input>
-                        </el-form-item> -->
-                        <el-col :span="6" align="right">设计任务ID:</el-col>
-                        <el-col :span="15" style="margin-left:40px">0023</el-col>
-                      </el-row>
-                      <br />
-                      <el-row>
-                        <!-- <el-form-item label="设计任务名称">
-                          <el-input v-model="form.Desinger_Name" :disabled="true"></el-input>
-                        </el-form-item> -->
-                        <el-col :span="6" align="right">设计任务名称:</el-col>
-                        <el-col :span="15" style="margin-left:40px">空气滤清器</el-col>
-                      </el-row>
-                      <br />
-                      <el-row>
-                        <!-- <el-form-item label="设计任务类型">
-                          <el-input v-model="form.Desinger_Type" :disabled="true"></el-input>
-                        </el-form-item> -->
-                        <el-col :span="6" align="right">设计任务类型:</el-col>
-                        <el-col :span="15" style="margin-left:40px">设计任务</el-col>
-                      </el-row>
-                      <br />
-                      <el-row>
-                        <!-- <el-form-item label="截止日期">
-                          <el-input v-model="form.Desinger_End_Time" :disabled="true"></el-input>
-                        </el-form-item> -->
-                        <el-col :span="6" align="right">截止日期:</el-col>
-                        <el-col :span="15" style="margin-left:40px">2020-2-25</el-col>
-                      </el-row>
-                      <br />
-                      <el-row>
-                        <el-col :span="6" align="right">设计任务详情:</el-col>
-                        <el-col :span="15" style="margin-left:40px"><el-input
-                            type="textarea"
-                            :rows="5"
-                            v-model="form.Desinger_Task_Details"
-                            style="width:80%;"
-                          >作用是过滤空气中的灰尘杂质，让洁净的空气进入发动机，这对发动机的寿命和正常工作很重要。</el-input></el-col>
-                        <!-- <el-form-item label="设计任务详情">
-                          
-                        </el-form-item> -->
-                      </el-row>
-                    </el-form>
+                    <br />
+                    <el-row>
+                      <el-col :span="6" align="right">任务ID:</el-col>
+                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskCode}}</el-col>
+                    </el-row>
+                    <br />
+                    <el-row>
+                      <el-col :span="6" align="right">任务名称:</el-col>
+                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskName}}</el-col>
+                    </el-row>
+                    <br />
+                    <el-row>
+                      <el-col :span="6" align="right">任务类型:</el-col>
+                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskType}}</el-col>
+                    </el-row>
+                    <br />
+                    <el-row>
+                      <el-col :span="6" align="right">截止日期:</el-col>
+                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskDeadline |dataFormat("yyyy-MM-dd")}}</el-col>
+                    </el-row>
+                    <br />
+                    <el-row>
+                      <el-col :span="6" align="right">任务详情:</el-col>
+                      <el-col :span="15" style="margin-left:40px">
+                        <span>{{taskDetail.taskDescription}}</span>
+                      </el-col>
+                    </el-row>
                   </el-tab-pane>
-                  <el-tab-pane class="cur" label="文档提交" name="second">
+                  <!-- <el-tab-pane class="cur" label="文档提交" name="second">
                     假装这里有个富文本编辑器
                     <br />
                   </el-tab-pane>
-                  <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane>
+                  <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane> -->
                 </el-tabs>
-
               </el-aside>
             </el-container>
           </el-container>
         </el-main>
       </el-container>
-      <el-backtop target=".content"></el-backtop>
     </div>
     <el-footer></el-footer>
   </el-container>
@@ -124,29 +85,25 @@
 <script>
 import headerSynergy from "../components/common/Front/Header";
 import bus from "../components/common/Admin/bus";
+import Qs from "qs";
 
 export default {
   data() {
     return {
-      form: {},
+      taskDetail: "",
       activeTab: "first",
-      activeName: "first"
+      activeName: "",
+      VisualMachineList: ""
     };
   },
   components: {
     "header-synergy": headerSynergy
   },
+  created() {
+    this.getVirtualTab();
+  },
   mounted() {
-    /**
-     * iframe-宽高自适应显示
-     */
-    function changeMobsfIframe() {
-      const oIframe = document.getElementById("show-iframe");
-      const deviceWidth = document.documentElement.clientWidth;
-      const deviceHeight = document.documentElement.clientHeight;
-      oIframe.style.height = Number(deviceHeight) - 40 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
-    }
-    changeMobsfIframe();
+    this.changeMobsfIframe();
     window.onresize = function() {
       changeMobsfIframe();
       var kvm_left = document.getElementById("kvm-left");
@@ -162,6 +119,55 @@ export default {
     this.dragControllerDiv(move);
   },
   methods: {
+        /**
+     * iframe-宽高自适应显示
+     */
+     changeMobsfIframe() {
+      const oIframe = document.getElementsByClassName("show-iframe");
+      const deviceWidth = document.documentElement.clientWidth;
+      const deviceHeight = document.documentElement.clientHeight;
+      console.log(oIframe.length);
+      for (var i = 0; i < oIframe.length; i++) {
+        oIframe[i].style.height = Number(deviceHeight) - 40 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
+        console.log("height")
+      }
+    },
+    getVirtualTab() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.$route.query.taskId 
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/VisualMachine/getDesignVisualMachine",
+          data: data
+        })
+        .then(response => {
+          console.log(response)
+          this.VisualMachineList = response.data.allData.VisualMachineList;
+          this.activeName = this.VisualMachineList[0].taskId;
+          this.getTaskDetail(this.activeName);
+        });
+    },
+    getTaskDetail(id) {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: id
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/VisualMachine/getTaskDetail",
+          data: data
+        })
+        .then(response => {
+          this.taskDetail = response.data.allData.taskDetail;
+        });
+    },
+    updataDetail(data) {
+      this.getTaskDetail(this.activeName);
+    },
     backtolist() {
       this.$router.push("/admin/personnel_allotment/desinger");
     },

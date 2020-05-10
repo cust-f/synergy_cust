@@ -37,11 +37,14 @@ export default{
             }
           },
           indicator: [
-            { name: "任务时长", max: 6 },
-            { name: "计划时长", max: 6 },
-            { name: "审核时长", max: 6 },
-            { name: "申请时长", max: 2},
-            { name: "验收时长", max: 2 }
+                { name: "申请时长", max: 100 },
+                { name: "计划时长", max: 100 },  
+                { name: "审核时长", max: 100 }, 
+                { name: "验收时长", max: 100 },
+                { name: "任务时长", max: 100 },
+            
+          
+           
           ]
         },
         series: [

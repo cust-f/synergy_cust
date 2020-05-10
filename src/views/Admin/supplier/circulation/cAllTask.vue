@@ -1,15 +1,7 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-button
-        type="primary"
-        icon="el-icon-delete"
-        class="handle-del mr10"
-        @click="delAllSelection"
-      >批量删除</el-button>
-      <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+      <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
@@ -19,29 +11,40 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'beginTime', order: 'ascending'}"
     >
-      <el-table-column type="selection" width="40" align="center"></el-table-column>
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
-
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
-
-      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
-       <el-table-column prop="count" label="数量" align="center"></el-table-column>
-      <el-table-column prop="state" label="状态"></el-table-column>
-
-      <el-table-column prop="company" label="生产单位"></el-table-column>
-
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
+      <el-table-column label="序号" type="index" width="55" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
       </el-table-column>
 
+      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
+
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
+
+      <el-table-column prop="taskState" align="center" sortable label="状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
+          <el-tag class="jinxingzhong" v-else-if="scope.row.taskState === 1">计划审核</el-tag>
+          <el-tag class="jinxingzhong" v-else-if="scope.row.taskState === 2">进行中</el-tag>
+          <el-tag class="shenhe" v-else-if="scope.row.taskState === 3">审核</el-tag>
+          <el-tag class="yanshou" v-else-if="scope.row.taskState === 4">验收</el-tag>
+          <el-tag type="success" v-else-if="scope.row.taskState === 5">完成</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.taskState === 6">已废除</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="publishingCompanyName" sortable label="发布需求企业"></el-table-column>
+      <el-table-column prop="beginTime" sortable label="发布日期">
+        <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
+      </el-table-column>
+
+      <el-table-column prop="taskCategoryPart" sortable label="行业类别"></el-table-column>
+
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="jumpfinishDet()" type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,8 +64,10 @@
 
 
 <script>
+import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
-  name: "cAllTask",
+  name: "allTask",
   data() {
     return {
       query: {
@@ -74,44 +79,103 @@ export default {
       activeName: "first",
       tableData: [
         {
-          id: 1,
-          taskName: "客车汽车前车灯",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "李名",
-          company: "光机所",
-          state: "进行中",
-          count:"50000",
-          date: "2019-12-1"
-        },
-        {
-          id: 2,
-          taskName: "中型汽车车架",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "刘柳",
-          company: "光机所",
-          state: "待审核",
-          count:"50000",
-          date: "2019-11-14"
+          taskId: "",
+          taskName: "",
+          companyName: "",
+          publishingCompanyName: "",
+          taskState: "",
+          taskType: "",
+          deadline: "",
+          beginTime: "",
+          taskCategoryPart: ""
         }
       ],
       multipleSelection: [],
       editVisible: false,
+      YinCang: 1,
       addVisible: false,
+      selectname: "",
       pageTotal: 0,
       form: {},
       idx: -1,
+      username: localStorage.getItem("ms_username"),
       id: -1
     };
   },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
+  },
+  //获取表格序号
+  getIndex($index) {
+    //表格序号
+    return (this.page.currentPage - 1) * this.page.pageSize + $index + 1;
+  },
   created() {
     this.getData();
+    this.GetTime(date);
   },
   methods: {
-    // 详情页面跳转
-    jumpfinishDet() {
-      this.$router.push("/admin/cAllTaskDet");
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.username,
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/searchByConTaskIdInTaskApply",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+      //this.getData();
+    },
+    GetTime(date) {
+      var datee = new Date(date).toJSON();
+      return new Date(+new Date(datee) + 8 * 3600 * 1000)
+        .toISOString()
+        .replace(/T/g, " ")
+        .replace(/\.[\d]{3}Z/, "");
+    },
+    //读取数据的方法
+    getData() {
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.username
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/supplierConTaskList",
+          data: data
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
+
+    //详情页面跳转方法
+    Det(row) {
+      this.$router.push({
+        path: "/admin/circulationDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
     }
   }
   /*
@@ -158,5 +222,20 @@ export default {
 }
 .box {
   font-size: 24px;
+}
+.jinxingzhong {
+  color: #616130;
+  background-color: #d6d6ad;
+  border-color: #d6d6ad;
+}
+.shenhe {
+  color: #842b00;
+  background-color: #ffdcb9;
+  border-color: #ffdcb9;
+}
+.yanshou {
+  color: #336666;
+  background-color: #c4e1e1;
+  border-color: #c4e1e1;
 }
 </style>

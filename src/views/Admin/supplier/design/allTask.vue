@@ -11,7 +11,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
-      :default-sort="{prop: 'taskState', order: 'descending'}"
+      :default-sort="{prop: 'beginTime', order: 'ascending'}"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -19,33 +19,28 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
+      <el-table-column prop="taskId" label="需求ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskState" sortable label="状态">
+      <el-table-column prop="taskState" align="center" sortable label="状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.taskState === 0">待响应</span>
-          <span v-else-if="scope.row.taskState === 1">计划审核</span>
-          <span v-else-if="scope.row.taskState === 2">进行中</span>
-          <span v-else-if="scope.row.taskState === 3">审核</span>
-          <span v-else-if="scope.row.taskState === 4">验收</span>
-          <span v-else-if="scope.row.taskState === 5">完成</span>
-          <span v-else-if="scope.row.taskState === 6">失败</span>
+          <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
+          <el-tag class="jinxingzhong" v-else-if="scope.row.taskState === 1">计划审核</el-tag>
+          <el-tag class="jinxingzhong" v-else-if="scope.row.taskState === 2">进行中</el-tag>
+          <el-tag class="shenhe" v-else-if="scope.row.taskState === 3">审核</el-tag>
+          <el-tag class="yanshou" v-else-if="scope.row.taskState === 4">验收</el-tag>
+          <el-tag type="success" v-else-if="scope.row.taskState === 5">完成</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.taskState === 6">已废除</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column prop="publishingCompanyName" label="发布需求企业"></el-table-column>
-      <el-table-column prop="beginTime" sortable label="发布日期">
+      <el-table-column prop="publishingCompanyName" sortable label="发布需求企业"></el-table-column>
+      <el-table-column prop="beginTime" sortable label="开始日期">
         <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
       </el-table-column>
 
-      <el-table-column prop="taskType" label="需求类型">
-        <template slot-scope="scope">
-          <span v-if="scope.row.taskType === 1">类型1</span>
-          <span v-else-if="scope.row.taskType === 2">类型2</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="行业类别"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
@@ -91,7 +86,8 @@ export default {
           taskState: "",
           taskType: "",
           deadline: "",
-          beginTime:""
+          beginTime: "",
+          taskCategoryPart: ""
         }
       ],
       multipleSelection: [],
@@ -101,6 +97,7 @@ export default {
       selectname: "",
       pageTotal: 0,
       form: {},
+      usernameX: localStorage.getItem("ms_username"),
       idx: -1,
       id: -1
     };
@@ -122,18 +119,17 @@ export default {
   },
   methods: {
     handleSearch() {
-      console.log(this.selectname);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: userNameX,
         taskName: this.selectname
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url:
-            "http://127.0.0.1:8082/supplier/searchByTaskIdInTaskApply",
+          url: "/api/supplier/searchByTaskIdInTaskApply",
           data: data
           // data:this.$store.state.userName
         })
@@ -152,16 +148,15 @@ export default {
     },
     //读取数据的方法
     getData() {
-      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierDesignTaskList",
+          url: "/api/supplier/supplierDesignTaskList",
           data: data
 
           // data:this.$store.state.userName
@@ -172,16 +167,10 @@ export default {
         });
     },
 
-    // 详情页面跳转
-    // jumpfinishDet() {
-    //   this.$router.push("/admin/finishTaskDet");
-    // },‘
-
     //详情页面跳转方法
     Det(row) {
-      // console.log(row.taskId);
       this.$router.push({
-        path: "/admin/Det",
+        path: "/admin/designDet",
         query: {
           taskId: row.taskId
         }
@@ -232,5 +221,20 @@ export default {
 }
 .box {
   font-size: 24px;
+}
+.jinxingzhong {
+  color: #616130;
+  background-color: #d6d6ad;
+  border-color: #d6d6ad;
+}
+.shenhe {
+  color: #842b00;
+  background-color: #ffdcb9;
+  border-color: #ffdcb9;
+}
+.yanshou {
+  color: #336666;
+  background-color: #c4e1e1;
+  border-color: #c4e1e1;
 }
 </style>

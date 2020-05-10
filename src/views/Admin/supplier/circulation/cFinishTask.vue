@@ -1,15 +1,7 @@
 <template>
   <div>
     <div class="handle-box">
-      <el-button
-        type="primary"
-        icon="el-icon-delete"
-        class="handle-del mr10"
-        @click="delAllSelection"
-      >批量删除</el-button>
-      <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
+      <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
@@ -19,27 +11,28 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'beginTime', order: 'descending'}"
     >
-      <el-table-column type="selection" width="40" align="center"></el-table-column>
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
-
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
-      <el-table-column prop="count" label="数量"></el-table-column>
-      <el-table-column prop="taskLeader" label="负责人" align="center"></el-table-column>
-
-      <el-table-column prop="state" label="生产单位"></el-table-column>
-
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
+      <el-table-column label="序号" type="index" width="55" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
       </el-table-column>
 
+      <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
+
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
+
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
+
+      <el-table-column prop="companyName" sortable label="需求企业"></el-table-column>
+
+      <el-table-column prop="finishTime" sortable label="完成日期">
+        <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
+      </el-table-column>
       <el-table-column label="操作" width="180" align="center">
-        <template>
-          <el-button @click="jumpfinishDet()" type="text" size="small">查看详情</el-button>
+        <template slot-scope="scope">
+          <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -59,8 +52,10 @@
 
 
 <script>
+import Qs from "qs";
+import { formatDate } from "../../maintask/dataChange";
 export default {
-  name: "cFinishTask",
+  name: "finishTask",
   data() {
     return {
       query: {
@@ -72,42 +67,92 @@ export default {
       activeName: "first",
       tableData: [
         {
-          id: 1,
-          taskName: "客车汽车前车灯",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "李名",
-          count: "50000",
-          state: "进行中",
-          date: "2019-12-1"
-        },
-        {
-          id: 2,
-          taskName: "中型汽车车架",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "刘柳",
-          count: "50000",
-          state: "进行中",
-          date: "2019-11-14"
+          taskId: "",
+          taskName: "",
+          taskType: "",
+          companyName: "",
+          userId: "",
+          supplierName: "",
+          deadline: "",
+          taskCategoryPart: ""
         }
       ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
+      selectname: "",
       form: {},
+      YinCang: 1,
       idx: -1,
-      id: -1
+      id: -1,
+      username: localStorage.getItem("ms_username"),
+      taskId: 0
     };
   },
   created() {
     this.getData();
   },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy.MM.dd");
+    }
+  },
   methods: {
-    // 详情页面跳转
-    jumpfinishDet() {
-      this.$router.push("/admin/cFinishTaskDet");
+    handleSearch() {
+      console.log(this.selectname);
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.username,
+        taskName: this.selectname
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/searchByConTaskIdInTask",
+          data: data
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+      //this.getData();
+    },
+    getData() {
+      console.log(this.userName);
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.username
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/supplierConedTaskList",
+          data: data
+
+          // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
+
+    // jumprepealedTask() {
+    //   this.$router.push("/admin/finishTaskDet");
+    // },
+    Det(row) {
+      console.log(row.taskId);
+      this.$router.push({
+        path: "/admin/circulationDet",
+        query: {
+          taskId: row.taskId
+        }
+      });
     }
   }
   /*

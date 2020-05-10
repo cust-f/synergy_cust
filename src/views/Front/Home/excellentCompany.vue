@@ -1,4 +1,5 @@
 <template>
+<div class = "excellent">
   <div class="company">
     <el-container>
       <el-main>
@@ -86,8 +87,10 @@
           <div slot="header">
             <span>SaaS服务平台为您寻找企业</span>
           </div>
-          <div v-if="companyList.length!==0">
-            <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
+
+          <div v-if="companyLists.length!==0">
+            <company-list  :companyList="companyLists"></company-list>
+            <!-- <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
               <div @click="companyDetail(companys.companyId)">
                 <el-col :span="4">
                   <el-avatar shape="square" :size="80" fit="fill" :src="companys.logo"></el-avatar>
@@ -117,7 +120,7 @@
                   </el-row>
                 </el-col>
               </div>
-            </el-row>
+            </el-row> -->
           </div>
           <div v-else>
             <div class="noResult" style="height:400px;">
@@ -165,13 +168,18 @@
       </el-aside>
     </el-container>
   </div>
+</div>
 </template>
 
 <script>
 import Qs from "qs";
+import companyList from "./components/companyList"
 
 export default {
   name: "excellentCompany",
+  components:{
+    "company-list":companyList
+  },
   data() {
     return {
       dynamicTags: [],
@@ -179,7 +187,7 @@ export default {
       city: [],
       provinceOption: false, //是否选择了省份
       category: "", //行业类别
-      companyList: [],
+      companyLists: [],
       recommendedCompanyList: [], //推荐企业列表
       currentPage: 1,
       pageSize: 15,
@@ -242,7 +250,8 @@ export default {
           data: data
         })
         .then(response => {
-          this.companyList = response.data.allData.companyList;
+          console.log(response)
+          this.companyLists = response.data.allData.companyList;
           this.totalCount = response.data.allData.totalCount;
         });
     },
@@ -274,6 +283,8 @@ export default {
           categorys.push(this.dynamicTags[i].id);
         }
       }
+      console.log(provinces)
+      console.log(citys)
       let data = Qs.stringify(
         {
           province: provinces,
@@ -299,14 +310,14 @@ export default {
         .then(response => {
           console.log(response);
           if (response.data.code == 400) {
-            this.companyList = "";
+            this.companyLists = "";
             this.totalCount = 0;
             this.$message({
               type: "warning",
               message: "无符合条件的企业"
             });
           } else if ((response.data.code = 200)) {
-            this.companyList = response.data.allData.companyList;
+            this.companyLists = response.data.allData.companyList;
             this.totalCount = response.data.allData.totalCount;
           }
         });
@@ -401,6 +412,8 @@ export default {
           type: "category",
           id: data.id
         };
+                console.log(tag)
+
         if (this.checkTag(tag)) {
           this.dynamicTags.push(tag);
         }
@@ -432,20 +445,13 @@ export default {
         return true;
       }
     },
-    //进入企业详情界面
-    companyDetail(id) {
-      console.log("触发了呀");
-      this.$router.push({
-        path: "/company/excellentCompanyDetail",
-        name: "companyDetails",
-        query: { companyId: id }
-      });
-    }
+
   }
 };
 </script>
 
-<style>
+<style lang = "scss">
+
 .company {
   width: 1150px;
   margin: 0 auto;
@@ -507,31 +513,10 @@ export default {
   font-size: 18px;
   font-weight: 500;
 }
-/* 企业列表样式 */
-.company-info {
-  padding: 20px;
-  border-bottom: 1px solid #f3f3f3;
-  -webkit-transition: -webkit-box-shadow 0.3s;
-  transition: -webkit-box-shadow 0.3s;
-  transition: box-shadow 0.3s;
-  transition: box-shadow 0.3s, -webkit-box-shadow 0.3s;
-}
-.company-info:hover {
-  position: relative;
-  z-index: 1;
-  -webkit-box-shadow: 0 4px 5px -3px rgba(0, 0, 0, 0.06),
-    0 4px 12px 4px rgba(0, 0, 0, 0.06);
-  box-shadow: 0 4px 5px -3px rgba(0, 0, 0, 0.06),
-    0 4px 12px 4px rgba(0, 0, 0, 0.06);
-}
-.company-info:hover h2 {
-  color: #0084ff;
-}
-.company-info .el-row {
-  margin-bottom: 10px;
-}
+
 /* 推荐企业列表 */
 .recommend a:hover {
   color: #0084ff;
 }
+
 </style>

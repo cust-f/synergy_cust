@@ -91,6 +91,8 @@ export default {
       } else if (this.active == 4) {
         this.active--;
         this.first = false;
+      }else{
+        this.active--;
       }
     },
     /*

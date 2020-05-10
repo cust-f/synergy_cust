@@ -11,6 +11,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+      :default-sort="{prop: 'deadline', order: 'descending'}"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -19,18 +20,13 @@
       </el-table-column>
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="taskType" label="需求类型">
-        <template slot-scope="scope">
-          <span v-if="scope.row.taskType === 1">类型1</span>
-          <span v-else-if="scope.row.taskType === 2">类型2</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="companyName" label="发布需求企业"></el-table-column>
+      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
+      <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="designerName" label="设计师" align="center"></el-table-column>
+      <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="supplierCheckDesignState" label="设计状态" align="center"></el-table-column>
+      <el-table-column prop="supplierCheckDesignState" sortable label="设计状态" align="center"></el-table-column>
 
       <el-table-column prop="deadline" sortable label="截止日期">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
@@ -78,13 +74,14 @@ export default {
           taskType: "",
           companyName: "",
           designerName: "",
-          deadline: ""
+          deadline: "",
+          taskCategoryPart: ""
         }
       ],
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      selectname:"",
+      selectname: "",
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -92,7 +89,8 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      id: -1
+      id: -1,
+      usernameX: localStorage.getItem("ms_username")
     };
   },
   filters: {
@@ -113,14 +111,14 @@ export default {
       console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
-        username: "supplier",
+        username: this.usernameX,
         taskName: this.selectname
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/searchByTaskIdInTask",
+          url: "/api/supplier/searchByTaskIdInTask",
           data: data
           // data:this.$store.state.userName
         })
@@ -133,7 +131,7 @@ export default {
     Det(row) {
       console.log(row.taskId);
       this.$router.push({
-        path: "/admin/Det",
+        path: "/admin/designDet",
         query: {
           taskId: row.taskId
         }
@@ -141,16 +139,16 @@ export default {
     },
 
     getData() {
-      console.log(this.userName);
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        userName: "supplier"
+        userName: this.usernameX
       });
       console.log(data);
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8082/supplier/supplierAcceptingTaskList",
+          url: "/api/supplier/supplierAcceptingTaskList",
           data: data
 
           // data:this.$store.state.userName

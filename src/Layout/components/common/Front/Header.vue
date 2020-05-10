@@ -1,52 +1,47 @@
 <template>
   <div class="admin-header">
-    <el-row class="header-message" :gutter="20">
-      <el-col :span="8" :offset="1">
-        <!-- <span>欢迎访问高端装备制造领域的科技服务SaaS应用构建以及示范!</span> -->
-      </el-col>
-      <el-col :span="6" :offset="3" style="float:right;">
-        <div>
-          <ul v-if="log==token">
-            <li>
-              <el-popover placement="bottom" trigger="hover">
-                <el-row>
-                  <el-col :span="10" class="user-avator">
-                    <img src="../../../../assets/img/img.jpg" />
-                  </el-col>
-                  <el-col :span="10" style="float:right;">
-                    <div class="user-option">
-                      <a @click="logout(0)">退出登陆</a>
-                      <el-divider></el-divider>
-                      <a @click="logout(1)">返回首页</a>
-                      <el-divider></el-divider>
-                      <a @click="getUserDetail">账号管理</a>
-                    </div>
-                  </el-col>
-                </el-row>
-                <span slot="reference">欢迎{{username}}!</span>
-              </el-popover>
-            </li>
-          </ul>
-          <ul v-else>
-            <li>
-              <a @click="login(0)">登陆</a>
-            </li>
-            <li>
-              <a>|</a>
-            </li>
-            <li>
-              <a @click="login(1)">注册</a>
-            </li>
-          </ul>
-          <ul>
-            <li>联系客服</li>
-            <li>|</li>
-            <li>关于我们</li>
-            <li>|</li>
-            <li>帮助中心</li>
-          </ul>
-        </div>
-      </el-col>
+    <el-row class="header-message">
+      <div style="width: 350px;height: 30px;float: right;">
+        <ul v-if="log==token">
+          <li>
+            <el-popover placement="bottom" trigger="hover">
+              <el-row>
+                <el-col :span="10" class="user-avator">
+                  <img src="../../../../assets/img/img.jpg" />
+                </el-col>
+                <el-col :span="10" style="float:right;">
+                  <div class="user-option">
+                    <a @click="logout(0)">退出登陆</a>
+                    <el-divider></el-divider>
+                    <a @click="logout(1)">返回首页</a>
+                    <el-divider></el-divider>
+                    <a @click="getUserDetail">账号管理</a>
+                  </div>
+                </el-col>
+              </el-row>
+              <span slot="reference">欢迎{{username}}!</span>
+            </el-popover>
+          </li>
+        </ul>
+        <ul v-else>
+          <li>
+            <a @click="login(0)">登陆</a>
+          </li>
+          <li>
+            <a>|</a>
+          </li>
+          <li>
+            <a @click="login(1)">注册</a>
+          </li>
+        </ul>
+        <ul>
+          <li>联系客服</li>
+          <li>|</li>
+          <li>关于我们</li>
+          <li>|</li>
+          <li>帮助中心</li>
+        </ul>
+      </div>
     </el-row>
     <!-- 区域 拉开层次 -->
     <el-row :gutter="20" class="header" style="height:50px;">
@@ -57,88 +52,177 @@
       </el-col>
       <!-- 用户名下拉菜单 -->
       <el-col :span="8" style="float:right;">
-        <el-input placeholder="请输入内容" v-model="input" style="width:400px;">
+        <el-input
+          placeholder="请输入内容"
+          v-model="searchModel"
+          @keyup.enter.native="searchResult"
+          style="width:400px;"
+        >
           <el-select v-model="select" slot="prepend" placeholder="请选择">
-            <el-option label="餐厅名" value="1"></el-option>
-            <el-option label="订单号" value="2"></el-option>
-            <el-option label="用户电话" value="3"></el-option>
+            <el-option label="全部" value="0"></el-option>
+            <el-option label="成果" value="1"></el-option>
+            <el-option label="企业" value="2"></el-option>
           </el-select>
           <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="24" style="height: 60px;">
+      <el-col :span="24" style="height: 45px;">
         <div style="background-color:#00A2E6">
           <navigation></navigation>
         </div>
       </el-col>
     </el-row>
     <el-dialog
-      title="用户信息"
       :visible.sync="userDetail"
       :close-on-click-modal="false"
       @close="userDetail=false"
+      class="info"
     >
-      <div class="user-detail">
+      <el-container style="width:50%;height:100%;background-color:#f5f5f5;float:left;">
+        <el-header>
+          <div
+            style="font-size:18px;margin:5px 5px;margin-left:5px;border-left: 3px solid rgb(78, 88, 197);"
+          >
+            <span style="margin-left:10px;font-size:20px;">账号管理</span>
+          </div>
+        </el-header>
+        <el-aside style="width:100%;text-align:center;margin-top: 150px;">
+          <el-upload
+            class="avatar-uploader"
+            :action="serverUrl"
+            :data="updateData()"
+            accept=".jpg, .png"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+          >
+            <img v-if="userInfo.userLogo" :src="userInfo.userLogo" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+
+          <h3 style="margin:10px 0px;font-size:20px;">{{userInfo.userName}}
+          </h3>
+          <span>{{userInfo.email}}</span>
+        </el-aside>
+        <el-row style="text-align:center;margin-top:34px;">
+          <el-col :span="8" :offset="4"><el-button icon="el-icon-edit-outline" @click="updataUserDetail=true">修改信息</el-button></el-col>
+           <el-col :span="8"><el-button icon="el-icon-edit" @click="updataPassword=true" >修改密码</el-button></el-col>
+        </el-row>
+      </el-container>
+      <el-container style="width:50%;padding-left: 10px;padding-right: 10px;">
+               <el-header>
+          <div
+            style="margin:5px 5px;"
+          >
+          </div>
+        </el-header>
+        <el-row class="Detail">
+          <el-container>
+            <el-main>
+              <h2 style="font-size:18px;">{{personalDetail.parent}}
+                 <i  class="el-icon-user"></i>
+              </h2>
+              <el-divider></el-divider>
+              <div>
+                <ul>
+                  <li v-for="(item,index) in personalDetail.children" :key="index">
+                    <el-row>
+                      <el-col :span="8"><i class="el-icon-notebook-2" style="margin-right:10px;"></i>{{item.name}}</el-col>
+                      <el-col :span="14">{{item.value}}</el-col>
+                    </el-row>
+                  </li>
+                </ul>
+              </div>
+            </el-main>
+          </el-container>
+        </el-row>
+
+        <el-row class="Detail"  style="margin-top:20px;">
+          <el-container >
+            <el-main>
+              <h2 style="font-size:18px;">{{detail.parent}}
+                <i class="el-icon-postcard"></i>
+              </h2>
+              <el-divider></el-divider>
+              <div>
+                <ul>
+                  <li v-for="(item,index) in detail.children" :key="index">
+                    <el-row :gutter="10">
+                      <el-col :span="8"><i :class="item.icon" style="margin-right:10px;"></i>{{item.name}}</el-col>
+                      <el-col :span="14">{{item.value}}</el-col>
+                    </el-row>
+                  </li>
+                </ul>
+              </div>
+            </el-main>
+          </el-container>
+        </el-row>
+      </el-container>
+      <!-- <div class="user-detail">
+        <div style="margin:0 auto;">
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="5" :offset="1">
             <span class="titles">所属公司</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.companyName}}</span>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="5" :offset="2">
             <span class="titles">用户名</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" >
             <span>{{userInfo.userName}}</span>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="3" :offset="3">
             <span class="titles">姓名</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.realName}}</span>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="3" :offset="3">
             <span class="titles">角色</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.roleName}}</span>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="3" :offset="3">
             <span class="titles">邮箱</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.email}}</span>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="3" :offset="6">
+          <el-col :span="3" :offset="3">
             <span class="titles">电话</span>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="14" :offset="1">
             <span>{{userInfo.phone}}</span>
           </el-col>
         </el-row>
-      </div>
-      <div slot="footer" class="dialog-footer">
-        <el-button  @click="updataUserDetail=true">修改账户信息</el-button>
+        </div>
+      </div>-->
+      <!-- <div slot="footer" class="dialog-footer">
+        <el-button @click="updataUserDetail=true">修改账户信息</el-button>
         <el-button @click="updataPassword=true" type="primary">修改密码</el-button>
-      </div>
+      </div>-->
     </el-dialog>
+
     <el-dialog
       title="修改密码"
       :visible.sync="updataPassword"
       :close-on-click-modal="false"
+      top="20vh"
+      class="updata"
       @close="closeDialog"
     >
       <el-form
@@ -146,7 +230,7 @@
         status-icon
         :rules="rules"
         ref="account"
-        label-width="100px"
+        label-width="70px"
         class="demo-ruleForm"
       >
         <el-form-item label="用户名" prop="userName">
@@ -177,6 +261,8 @@
       title="修改账户信息"
       :visible.sync="updataUserDetail"
       :close-on-click-modal="false"
+      class="updata"
+      top="20vh"
       @close="updataUserDetail=false"
     >
       <el-form
@@ -199,6 +285,9 @@
         </el-form-item>
         <el-form-item label="电话" prop="phone">
           <el-input v-model="user.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="真实姓名" prop="realName">
+          <el-input v-model="user.realName"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -237,7 +326,7 @@ export default {
         callback();
       }
     };
-  var validDataPhone = (rule, value, callback) => {
+    var validDataPhone = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请填写手机号码"));
       } else if (!/^1[3456789]\d{9}$/.test(value)) {
@@ -246,20 +335,23 @@ export default {
       } else {
         callback();
       }
-      }
+    };
     return {
       log: true,
       token: this.$store.state.token,
       collapse: false,
       username: localStorage.getItem("ms_username"),
-      input: "",
-      select: "",
+      serverUrl: "/api/users/updataPicture",
+      searchModel: "",
+      select: "0",
       checkMessage: true,
       updataPassword: false, //弹出框修改账号信息
       userDetail: false, //用户信息弹框
       updataUserDetail: false, //用户信息修改弹框
       icon: "el-icon-edit",
       userInfo: {},
+      personalDetail: {}, //右上角
+      detail: {}, //有下角
       account: {
         oldPassword: "",
         newPassword: "",
@@ -268,9 +360,11 @@ export default {
       },
       user: {
         email: "",
-        phone: ""
+        phone: "",
+        realName: "",
+        userLogo: ""
       },
-      userRules:{
+      userRules: {
         phone: [{ required: true, validator: validDataPhone, trigger: "blur" }]
       },
       rules: {
@@ -322,11 +416,25 @@ export default {
           data: data
         })
         .then(response => {
+          console.log(response);
           this.userInfo = response.data.allData.userDetail;
+          this.personalDetail = response.data.allData.personalDetail;
+          this.detail = response.data.allData.detail;
           this.user.email = this.userInfo.email;
           this.user.phone = this.userInfo.phone;
+          this.user.realName = this.userInfo.realName;
           this.userDetail = true;
         });
+    },
+    //搜索
+    searchResult() {
+      this.$router.push({
+        path: "/search",
+        query: {
+          keyWords: this.searchModel,
+          type: this.select
+        }
+      });
     },
     //向后台检验原来输入的密码是否正确
     checkOldPassword() {
@@ -355,6 +463,13 @@ export default {
             this.checkMessage = true;
           }
         });
+    },
+    updateData() {
+      let data = { userName: this.username };
+      return data;
+    },
+    handleAvatarSuccess(res, file) {
+      this.userInfo.userLogo = URL.createObjectURL(file.raw);
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -388,7 +503,6 @@ export default {
       });
     },
     submitUser(formName) {
-
       this.$refs[formName].validate(valid => {
         if (valid) {
           //账户信息
@@ -396,7 +510,8 @@ export default {
           var data = Qs.stringify({
             userName: this.username,
             email: this.user.email,
-            phone: this.user.phone
+            phone: this.user.phone,
+            realName: this.user.realName
           });
           that
             .axios({
@@ -443,12 +558,31 @@ export default {
 .admin-header .el-select .el-input {
   width: 100px;
 }
+.admin-header .el-dialog {
+  width: 800px;
+  height: 600px;
+}
+.info .el-dialog__body {
+  height: 100%;
+  padding: 0px 0px;
+}
+.info .el-dialog__header {
+  padding: 0px 0px;
+}
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
 }
 .admin-header ul li {
   float: left;
   margin-left: 15px;
+}
+.admin-header .Detail ul li{
+   float: none;
+   margin-top:10px;
+}
+.admin-header .Detail .el-divider--horizontal{
+  margin-top:10px;
+  margin-bottom:24px;
 }
 .header-message {
   width: 100%;
@@ -474,12 +608,15 @@ export default {
   /* float: left; */
 }
 .user-detail .titles {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
 }
 .user-detail span {
   font-size: 16px;
   /* float: left; */
+}
+.updata .el-dialog{
+  height: 450px;
 }
 .user-detail .el-row {
   margin-bottom: 20px;
@@ -554,5 +691,30 @@ export default {
 }
 .el-dropdown-menu__item {
   text-align: center;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 50%;
+  width: 115px;
+  height: 115px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 50px;
+  height: 50px;
+  line-height: 120px;
+  text-align: center;
+}
+.avatar {
+  width: 115px;
+  height: 115px;
+  display: block;
 }
 </style>

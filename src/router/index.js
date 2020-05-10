@@ -8,12 +8,13 @@ import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home'//前台首页
 import twoMenu from '@/views/Front/Home/twoMenu'//前台首页二级页面
 import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
-import service from '@/views/Front/Home/service'//成果详情
+import service1 from '@/views/Front/Home/service1'//成果详情
 import excellentCompany from '@/views/Front/Home/excellentCompany'//优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
 import register from '@/views/Front/register/register'
 import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
 import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
+import search from '@/views/Front/Search/search'//搜索界面
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
@@ -37,11 +38,13 @@ import newTask from '@/views/admin/Task/newTask'//新增任务
 import mainStaskShow from '@/views/admin/maintask/mainStaskShow'//主任务显示
 import substaskDetail from '@/views/admin/maintask/substaskDetail'//子任务详情
 import mainStaskDetail from '@/views/admin/maintask/mainStaskDetail'//主任务详情
+import mainStaskDetailLT from '@/views/admin/maintask/mainStaskDetailLT'//流通任务详情
 import mainStaskDetailbei from '@/views/admin/maintask/mainStaskDetailbei'//主任务详情
 
 import review from '@/views/admin/check/review'
 
 import companyDetail from '@/views/admin/company/companyDetail'//企业详情
+import othercompanyDetail from '@/views/admin/company/othercompanyDetail'//企业详情
 import supplyBussess from '@/views/admin/company/supplyBussess'//供应商名录
 import supplyDetail from '@/views/admin/company/supplyDetail'//供应商详情
 
@@ -54,9 +57,6 @@ import circulationTaskEvaluation from '@/views/admin/circulationRemark/circulati
 import circulationTaskEvaluationDetils from '@/views/admin/circulationRemark/circulationTaskEvaluationDetils'//流通任务评价详情
 import staffingTenderManagement from '@/views/admin/projectManagement/staffingTenderManagement'
 
-
-import circulation from '@/views/admin/personnel_allotment/circulation'
-
 import virtualMachine from '@/Layout/template page/virtualMachine'
 import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
@@ -66,19 +66,12 @@ import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
 
 //供应商设计界面
 import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//设计任务列表
-import det from'@/views/admin/supplier/design/designDetails/det'//详情
+import designDet from'@/views/admin/supplier/design/designDetails/designDet'//详情
 //供应商流通界面
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'//流通任务列表
-import cNewTask from '@/views/admin/supplier/circulation/cNewTask'//供应商流通分配
-import cAllTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cAllTaskDet'  //全部任务详情
-import cPendingResTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cPendingResTaskDet'//待响应界面详情
-import cPlanAuditDet from '@/views/admin/supplier/circulation/circulationDetails/cPlanAuditDet'//任务计划界面详情
-import cPlanAuditingDet from '@/views/admin/supplier/circulation/circulationDetails/cPlanAuditingDet'//计划审核详情界面
-import circulationTaskDet from '@/views/admin/supplier/circulation/circulationDetails/circulationTaskDet'//流通任务进行中详情界面
-import cPendingAcceptanceDet from '@/views/admin/supplier/circulation/circulationDetails/cPendingAcceptanceDet'//待验收任务详情界面
-import cFinishTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cFinishTaskDet'//完成任务详情界面
-import cRepealedTaskDet from '@/views/admin/supplier/circulation/circulationDetails/cRepealedTaskDet'//已废除任务详情界面
-import cPendingAuditDet from '@/views/admin/supplier/circulation/circulationDetails/cPendingAuditDet'//流通进行中任务详情
+import circulationDet from '@/views/admin/supplier/circulation/circulationDetails/circulationDet'//供应商流通分配
+import text from '@/views/admin/supplier/circulation/circulationDetails/text'//供应商流通分配
+
 
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
@@ -134,9 +127,9 @@ export default new Router({
           component: xuqiuyilan,
         },
         {
-           path:"/service",
-           name:"service",
-           component:service,
+           path:"/service1",
+           name:"service1",
+           component:service1,
         },
         //优秀企业
         {
@@ -159,9 +152,13 @@ export default new Router({
         {
           path: '/company/excellentCompanyDetail',
           name: 'companyDetails',
-          component: excellentCompanyDetail,
+          component: excellentCompanyDetail
         },
-
+        {
+          path:'/search',
+          name:search,
+          component:search
+        }
       ]
     },
     {
@@ -219,6 +216,14 @@ export default new Router({
           }
         },
         {
+          path: '/admin/mainStaskDetailLT',
+          name: 'mainStaskDetailLT',
+          component: mainStaskDetailLT,
+          meta: {
+            title: "查看主任务所属子任务的全部信息"
+          }
+        },
+        {
           path: '/admin/mainStaskDetailbei',
           name: 'mainStaskDetailbei',
           component: mainStaskDetailbei,
@@ -234,6 +239,13 @@ export default new Router({
           meta: {
             title: "企业信息详情"
           }
+        },
+         //企业信息详情
+         {
+          path: '/admin/othercompanyDetail',
+          name: 'othercompanyDetail',
+          component: othercompanyDetail,
+          
         },
         //查看所有供应商的信息
         {
@@ -404,7 +416,26 @@ export default new Router({
           component: circulationTaskq,
           
         },
+
+        //供应商流通任务列表
+        {
+          path: '/admin/circulationDet',
+          name: 'circulationDet',
+          component: circulationDet,
+          meta: {
+            title: "需求详情"
+          }
+        },
         
+        //供应商流通任务测试页面
+        {
+          path: '/admin/text',
+          name: 'text',
+          component: text,
+          meta: {
+            title: "测试页面"
+          }
+        },
 
         //企业管理
         {
@@ -440,56 +471,6 @@ export default new Router({
             title: "二级供应商的信息"
           }
         },      
-
-         //流通全部任务详情页面
-         {
-          path: '/admin/cAllTaskDet',
-          name: 'cAllTaskDet',
-          component: cAllTaskDet,
-          meta: {
-            title: "详情"
-          }
-        },  
-
-        //流通完成任务详情页面
-        {
-          path: '/admin/cFinishTaskDet',
-          name: 'cFinishTaskDet',
-          component: cFinishTaskDet,
-          meta: {
-            title: "详情"
-          }
-        },  
-
-        //流通进行中任务详情页面
-        {
-          path: '/admin/circulationTaskDet',
-          name: 'circulationTaskDet',
-          component: circulationTaskDet,
-          meta: {
-            title: "详情"
-          }
-        },  
-
-        //流通待验收任务详情页面
-        {
-          path: '/admin/cPendingAcceptanceDet',
-          name: 'cPendingAcceptanceDet',
-          component: cPendingAcceptanceDet,
-          meta: {
-            title: "详情"
-          }
-        },  
-
-        //流通待审核任务详情页面
-        {
-          path: '/admin/cPlanAuditDet',
-          name: 'cPlanAuditDet',
-          component: cPlanAuditDet,
-          meta: {
-            title: "详情"
-          }
-        },
         //供应商的二级供应商名录
         {
           path: '/admin/supplyBussess2',
@@ -508,62 +489,12 @@ export default new Router({
             title: "供应商企业信息修改"
           }
         },
-      //流通待响应任务详情页面
-        {
-          path: '/admin/cPendingResTaskDet',
-          name: 'cPendingResTaskDet',
-          component: cPendingResTaskDet,
-          meta: {
-            title: "详情"
-          }
-        }, 
-        
-        //流通计划审核详情界面
-        {
-          path: '/admin/cPlanAuditingDet',
-          name: 'cPlanAuditingDet',
-          component: cPlanAuditingDet,
-          meta: {
-            title: "详情"
-          }
-        }, 
-        
-        //流通已废除任务详情界面
 
-        {
-          path: '/admin/cRepealedTaskDet',
-          name: 'cRepealedTaskDet',
-          component: cRepealedTaskDet,
-          meta: {
-            title: "详情"
-          }
-        }, 
-
-        //流通待审核任务详情界面
-
-        {
-          path: '/admin/cPendingAuditDet',
-          name: 'cPendingAuditDet',
-          component: cPendingAuditDet,
-          meta: {
-            title: "详情"
-          }
-        }, 
-
-        //一级供应商新增界面
-        {
-          path: '/admin/cNewTask',
-          name: 'cNewTask',
-          component: cNewTask,
-          meta: {
-            title: "任务分解"
-          }
-        },  
         //详情界面
         {
-          path:'/admin/det',
-          name:'det',
-          component: det,
+          path:'/admin/designDet',
+          name:'designDet',
+          component: designDet,
           meta:{
             title:"详情"
           }

@@ -1,0 +1,145 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200414.142815.1836.0.001.json",
+    "dumpEventTime": "2020-04-14T14:28:15Z",
+    "dumpEventTimeStamp": "1586845695873",
+    "processId": 1836,
+    "cwd": "D:\\哈长\\1234\\synergy_cust",
+    "commandLine": [
+      "D:\\Node.js\\node.exe",
+      "D:\\哈长\\1234\\synergy_cust\\node_modules\\worker-farm\\lib\\child\\index.js",
+      "D:\\Node.js\\node.exe",
+      "D:\\哈长\\1234\\synergy_cust\\build\\build.js"
+    ],
+    "nodejsVersion": "v12.14.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.14.0",
+      "v8": "7.7.299.13-node.16",
+      "uv": "1.33.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.39.2",
+      "napi": "5",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.14.0/node-v12.14.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.14.0/node-v12.14.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.14.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.18362",
+    "osVersion": "Windows 10 Pro",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz",
+        "speed": 2195,
+        "user": 9303093,
+        "nice": 0,
+        "sys": 10924437,
+        "idle": 59382015,
+        "irq": 1420343
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz",
+        "speed": 2195,
+        "user": 8121718,
+        "nice": 0,
+        "sys": 7867828,
+        "idle": 63619453,
+        "irq": 128859
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz",
+        "speed": 2195,
+        "user": 10523187,
+        "nice": 0,
+        "sys": 9104937,
+        "idle": 59980875,
+        "irq": 91468
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz",
+        "speed": 2195,
+        "user": 9144859,
+        "nice": 0,
+        "sys": 8758671,
+        "idle": 61705468,
+        "irq": 73375
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "VMware Network Adapter VMnet1",
+        "internal": false,
+        "mac": "00:50:56:c0:00:01",
+        "address": "fe80::3587:2791:4b1e:ab59",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 19
+      },
+      {
+        "name": "VMware Network Adapter VMnet1",
+        "internal": false,
+        "mac": "00:50:56:c0:00:01",
+        "address": "192.168.19.1",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "VMware Network Adapter VMnet8",
+        "internal": false,
+        "mac": "00:50:56:c0:00:08",
+        "address": "fe80::3974:deb4:1c87:84a0",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 3
+      },
+      {
+        "name": "VMware Network Adapter VMnet8",
+        "internal": false,
+        "mac": "00:50:56:c0:00:08",
+        "address": "192.168.37.1",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "VMware Network Adapter VMnet18",
+        "internal": false,
+        "mac": "00:50:56:c0:00:12",
+        "address": "fe80::3d:a2dd:4189:9286",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 20
+      },
+      {
+        "name": "VMware Network Adapter VMnet18",
+        "internal": false,
+        "mac": "00:50:56:c0:00:12",
+        "address": "192.168.204.1",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "VMware Network Adapter VMnet19",
+        "internal": false,
+        "mac": "00:50:56:c0:00:13",
+        "addr

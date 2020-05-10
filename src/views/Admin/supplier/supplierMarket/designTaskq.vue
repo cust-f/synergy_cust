@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-main>
-        <h3>设计任务</h3>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计任务</div>
         <el-divider></el-divider>
         <div>
           <div class="container">
@@ -88,7 +88,10 @@ export default {
   margin: 0 auto;
   text-align: center;
 }
-
+.biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
 .handle-box {
   margin-bottom: 20px;
 }

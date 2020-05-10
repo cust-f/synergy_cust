@@ -16,7 +16,7 @@ export default {
                 getCharts() {
       // 基于准备好的dom，初始化echarts实例
       var charts = [];
-      var myChart = echarts.init(document.getElementById("fulfillDemandTop5"));
+      var myChart = echarts.init(document.getElementById("fulfillDemandTop5"), 'light');
       console.log(this.cloumnData.Vintage)
       var option = {
         title: {
@@ -63,6 +63,15 @@ export default {
           {
             name: this.cloumnData.Vintage[1],
             type: "bar",
+                        itemStyle: {
+              normal: {
+                                    color:'#ff461f',
+                lineStyle: {
+                  color: "#ff461f",
+                  width: 3
+                }
+              }
+            },
             data: this.cloumnData.nowTaskNumber
             // [1389, 1530, 1750, 1890, 2899]
           }

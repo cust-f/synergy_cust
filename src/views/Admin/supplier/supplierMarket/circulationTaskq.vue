@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-main>
-        <h3>流通任务</h3>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通任务</div>
         <el-divider></el-divider>
         <div>
           <div class="container">
@@ -10,7 +10,7 @@
               <el-tab-pane label="全部任务" name="first">
                 <cAll-Task></cAll-Task>
               </el-tab-pane>
-              
+
               <el-tab-pane label="待响应" name="second">
                 <cPending-ResTask></cPending-ResTask>
               </el-tab-pane>
@@ -67,7 +67,7 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
-      activeName:"first",
+      activeName: "first"
     };
   },
 
@@ -95,6 +95,10 @@ export default {
 .handle-input {
   width: 260px;
   display: inline-block;
+}
+.biaoti {
+  font-size: 18px;
+  color: #303133;
 }
 .table {
   width: 100%;

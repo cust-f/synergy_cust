@@ -160,8 +160,8 @@ export default {
     getTimeData() {
       let that = this;
       that.axios.post("/api/findTimes").then(response => {
-        this.form2.time1 = response.data.allData[1];//本年第一天
-        this.form2.time2= response.data.allData[0];  //当天时间
+        this.form2.time1 = response.data.allData[0];//本年第一天
+        this.form2.time2= response.data.allData[1];  //当天时间
         console.log(response.data.allData);      
       });
     },

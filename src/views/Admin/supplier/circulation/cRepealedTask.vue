@@ -1,107 +1,75 @@
 <template>
-  <div>
-    <div class="handle-box">
-      <el-input v-model="query.name" placeholder="需求名称" class="handle-input mr10"></el-input>
-      <el-input v-model="query.state" placeholder="状态" class="handle-input mr10"></el-input>
-      <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-    </div>
-    <el-table
-      :data="tableData"
-      border
-      class="table"
-      ref="multipleTable"
-      header-cell-class-name="table-header"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-
-      <el-table-column prop="bussessType" label="需求类型"></el-table-column>
-
-      <el-table-column prop="publishTask" label="发布需求企业"></el-table-column>
-
-      <el-table-column prop="taskLeader" label="数目" align="center"></el-table-column>
-
-      <el-table-column label="截止日期">
-        <template slot-scope="scope">{{scope.row.date}}</template>
-      </el-table-column>
-
-      <el-table-column prop="Abolish_Reason" label="废除原因"></el-table-column>
-
-
-      <el-table-column label="操作" width="127" align="center">
-        <template>
-          <el-button @click="jumprepealedTask()" type="text" size="small">查看详情</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <div class="pagination">
-      <el-pagination
-        background
-        layout="total, prev, pager, next"
-        :current-page="query.pageIndex"
-        :page-size="query.pageSize"
-        :total="pageTotal"
-        @current-change="handlePageChange"
-      ></el-pagination>
-    </div>
-  </div>
+  <el-form-item label="附件上传" label-width="80px">
+    <el-form-item label="附件上传" label-width="80px">
+      <el-upload
+        style="padding-left:0px"
+        class="upload-demo"
+        action="admin/zuul/lcloud-elis-rms-gwb/um/rmsAnnex/upload"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :before-remove="beforeRemove"
+        :data="{idSalesTccUserNotetice:form.idSalesTccUserNotetice }"
+        multiple
+        :auto-upload="false"
+        :http-request="uploadFile"
+        ref="upload"
+        :limit="5"
+        :on-exceed="handleExceed"
+        :file-list="fileList"
+      >
+        <el-button size="small" type="primary">点击上传</el-button>
+      </el-upload>
+    </el-form-item>
+  </el-form-item>
 </template>
-
-
 
 <script>
 export default {
   name: "cRepealedTask",
   data() {
-    return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
-      //接受表单数据
-      formLabelWidth: "120px",
-      activeName: "first",
-      tableData: [
-        {
-          id: 1,
-          taskName: "小型汽车前车灯",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "50000",
-          Abolish_Reason: "设计不合理",
-          state: "已废除",
-          date: "2019-12-23"
-        },
-        {
-          id: 2,
-          taskName: "小型汽车车架",
-          bussessType: "车间零部件生产",
-          publishTask: "一汽大众",
-          taskLeader: "30000",
-          Abolish_Reason: "设计超时",
-          state: "已废除",
-          date: "2019-11-19"
-        }
-      ],
-
-      multipleSelection: [],
-      editVisible: false,
-      addVisible: false,
-      pageTotal: 0,
-      form: {},
-      idx: -1,
-      id: -1
-    };
+    return {};
   },
-  created() {
-    this.getData();
-  },
+  created() {},
   methods: {
-    // 全部需求详情页面跳转
-    jumprepealedTask() {
-      this.$router.push("/admin/cRepealedTaskDet");
+    uploadFile(file) {
+      this.formDate.append("file", file.file);
+    },
+    //发布
+    saveProject1() {
+      this.formDate = new FormData();
+      this.$refs.upload.submit();
+      var uid = JSON.parse(window.sessionStorage.getItem("keyLimit")).username;
+      this.formDate.append("noticeTitle", this.form.noticeTitle);
+      this.formDate.append("noticeType", this.form.noticeType);
+      this.formDate.append("isPublic", this.form.isPublic);
+      this.formDate.append("note", this.form.note);
+      this.formDate.append(
+        "idSalesTccUserNotetice",
+        this.form.idSalesTccUserNotetice
+      );
+      this.formDate.append("uid", uid);
+      let config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      this.axios
+        .post(
+          "admin/zuul/lcloud-elis-rms-gwb/um/userNotice/save",
+          this.formDate,
+          config
+        )
+        .then(res => {
+          if (res.code == "0") {
+            if (res.object.status == 200) {
+              this.$emit("close");
+              this.$emit("getNoticeList");
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
   /*
