@@ -17,11 +17,11 @@
           <span v-else-if="scope.row.applyWay === 1">申请</span>
         </template>
       </el-table-column>
-      <el-table-column prop="checkApplyState" width="120" label="申请/邀请状态">
+      <el-table-column prop="checkApplyState" width="120" align="center" label="申请/邀请状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.checkApplyState === 0">待审核</span>
-          <span v-else-if="scope.row.checkApplyState === 1">通过</span>
-          <span v-else>拒绝</span>
+          <el-tag type="warning" v-if="scope.row.checkApplyState === 0">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.checkApplyState === 1">通过</el-tag>
+          <el-tag type="danger" v-else>拒绝</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="applyTime" label="申请/邀请时间">

@@ -119,7 +119,9 @@ export default {
       state3: 0,
       reMarkId: 1,
       //重做次数
-      circulationCount: "", //流通完成质量
+      form: {
+        circulationCount: "" //流通完成质量
+      },
       //雷达图的数据定义
       radarData: {
         radarData: []
@@ -221,7 +223,7 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
-          console.log("看看到没到这"+this.state3);
+          console.log("看看到没到这" + this.state3);
           this.sendMsg();
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;

@@ -12,12 +12,12 @@
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="supplierCheckDesignState" width="100" label="审核状态">
+      <el-table-column prop="supplierCheckDesignState" width="100" label="审核状态" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.supplierCheckDesignState === 0">待提交</span>
-          <span v-else-if="scope.row.supplierCheckDesignState === 1">待审核</span>
-          <span v-else-if="scope.row.supplierCheckDesignState === 2">通过</span>
-          <span v-else-if="scope.row.supplierCheckDesignState === 3">未通过</span>
+          <el-tag v-if="scope.row.supplierCheckDesignState === 0">待提交</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.supplierCheckDesignState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.supplierCheckDesignState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.supplierCheckDesignState === 3">未通过</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="designerName" width="120" label="设计师">
@@ -74,7 +74,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogTableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="tijiao()"> 确 定</el-button>
+        <el-button type="primary" @click="tijiao()">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -89,8 +89,12 @@
       <el-form ref="form" :model="addList4" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item label="设计拒绝原因">
-              <el-input v-model="addList4.SJrefuseReason"></el-input>
+            <el-form-item>
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 5, maxRows: 7}"
+                v-model="addList4.SJrefuseReason"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -152,7 +156,7 @@ export default {
         var that = this;
         var data = Qs.stringify({
           taskID: this.taskId,
-          designCount:row.designCount
+          designCount: row.designCount
         });
         console.log(data);
         that.axios({
