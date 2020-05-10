@@ -16,22 +16,22 @@
           border
           class="table"
           header-cell-class-name="table-header"
-          height="100%"
+          height="tableHeight"
           style="margin-top:20px"
            :default-sort = "{prop: 'supplierDistributionTime', order: 'descending'}"
         >
           <template>
             <el-table-column
               prop="taskId"
-              label="编号"
+              label="序号"
               type="index"
-              width="110px"
+              width="60px"
               align="center"
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
               prop="taskName"
-              label="需求任务名称"
+              label="需求名称"
               sortable
               min-width="90px"
               align="center"
@@ -72,7 +72,7 @@
             <template slot-scope="scope">
               <el-button type="text" @click="handleEdit(scope.$index, scope.row)"  size="small">任务详情</el-button>
               <el-button type="text" size="small" @click="beginTask(scope.row)">开始任务</el-button>
-              <el-button type="text" size="small" @click="xiazaiMAINmoban(scope.row)">下载附件</el-button>
+              <el-button type="text" size="small" @click="xiazaiZRWFJ(scope.row)">下载附件</el-button>
 
             </template>
           </el-table-column>
@@ -233,51 +233,52 @@ export default {
       pageIndex: 1,
       pageSize: 7,
       pageTotal: 0,
+      tableHeight:window.innerHeight,
 
       Not_Accepted_Task_Data: [
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
 
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
       ],
 
       form: {},
@@ -340,6 +341,10 @@ export default {
               
             });
      this.getData();
+
+
+     this.$router.push('/admin/designerAcceptList');
+
       
     },
     goBack() {
@@ -373,48 +378,51 @@ export default {
       this.form = row;
       this.dialogVisible = true;
     },
-    xiazaiMAINmoban(row) {
+    xiazaiZRWFJ(row) {
       console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: row.taskId,
-        leixing:"ZRWFJ"
+        leixing: "ZIRWHJ"
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/DownloadHTHT",
           data: data,
-          responseType: 'blob'
+          responseType: "blob"
         })
         .then(response => {
           console.log("cap");
           console.log(response);
-          response.data = window.URL.createObjectURL(new Blob([response.data], {type: 'application/octet-stream'} ) ) ;
-          this.download(response.data, "ZFJ");
+          this.download(response.data, "ZRWFJ");
         });
     },
 
-     download(data, leixing) {
-      console.log("调用")
+    // 下载文件
+    download(data, leixing) {
       if (!data) {
         return;
       }
-      //let url = window.URL.createObjectURL(new Blob([data], {type: 'application/octet-stream'} ) ) ;
+      let url = window.URL.createObjectURL(
+        new Blob([data], { type: "application/zip" })
+      );
       let link = document.createElement("a");
       link.style.display = "none";
-      link.href = data;
+      link.href = url;
       if (leixing === "JHS") {
         link.setAttribute("download", "设计文档.zip");
       } else if (leixing === "HT") {
         link.setAttribute("download", "合同.zip");
-      }
-      else if(leixing ==="ZFJ"){
-        link.setAttribute("download", "任务附件.zip");
+      } else if (leixing === "ZRWFJ") {
+        link.setAttribute("download", "子任务附件.zip");
       }
       document.body.appendChild(link);
       link.click();
     },
+  
+
+
     //  xiazai(row) {
     //   var that = this;
     //   var data = Qs.stringify({
@@ -466,6 +474,8 @@ export default {
 .table {
   width: 100%;
   font-size: 14px;
+  height: 750px;
+
 }
 .el-scrollbar__wrap {
   overflow-y: hidden;
@@ -487,7 +497,7 @@ export default {
   color: #303133;
   
 }
-.dialogCSS.el-textarea.is-disabled .el-textarea__inner {
+.el-textarea.is-disabled .el-textarea__inner {
     background-color: #ffffff;
     border-color: #E4E7ED;
     color: #303133;

@@ -14,8 +14,10 @@
     </el-row>
     <br />
     <el-card shadow="never" style="margin-bottom:20px;" class="tatolheader">
+     
       <div slot="header">
-        <span>成果详情</span>
+        <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;">成果详情</div>
+        
       </div>
 
       <div class="service_top">
