@@ -224,6 +224,7 @@
       top="20vh"
       class="updata"
       @close="closeDialog"
+      width="450px"
     >
 
       <div style="text-align:center;">
@@ -267,13 +268,14 @@
       class="updata"
       top="20vh"
       @close="updataUserDetail=false"
+      width="450px"
     >
       <el-form
         :model="user"
         status-icon
         :rules="userRules"
         ref="user"
-        label-width="100px"
+        label-width="70px"
         class="demo-ruleForm"
       >
         <el-form-item

@@ -265,12 +265,12 @@ export default {
             );
           }
           if (this.milepostActive > 3) {
-            this.milepost[4].description = this.$options.filters["formatDate"](
-              response.data.allData.a[0].demandorCheckDesignTime
+            this.milepost[3].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].checkCircuaterTime
             );
           }
           if (this.milepostActive >= 4) {
-            this.milepost[5].description = this.$options.filters["formatDate"](
+            this.milepost[4].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].finishTime
             );
           }

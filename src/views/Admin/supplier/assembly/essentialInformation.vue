@@ -241,10 +241,8 @@
 
           <el-row>
             <el-col>
-              <el-form-item label="企业详情">
-                <br />
-                <div class="leftDet" v-html="companyDetailContent"></div>
-              </el-form-item>
+              <el-form-item label="企业详情"></el-form-item>
+              <div class="leftDet" v-html="companyDetailContent"></div>
             </el-col>
           </el-row>
         </el-form>
@@ -342,10 +340,8 @@ export default {
       qiyezhizhao: require("../../company/2.jpg"),
       //企业弹窗所需图片默认
       errorImg01: 'this.src="' + require("../../company/2.jpg") + '"',
-      errorImg02:
-        'this.src="' + require("../../company/2.jpg") + '"',
-      errorImg03:
-        'this.src="' + require("../../company/2.jpg") + '"'
+      errorImg02: 'this.src="' + require("../../company/2.jpg") + '"',
+      errorImg03: 'this.src="' + require("../../company/2.jpg") + '"'
     };
   },
   filters: {
@@ -525,7 +521,8 @@ export default {
   .leftDet {
     float: left;
     text-align: left;
-    width: 95%;
+    width: 90%;
+    padding: 0px 30px 0px;
   }
   //各个详情按钮弹窗
   .anniu {

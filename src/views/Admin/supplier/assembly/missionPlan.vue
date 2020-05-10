@@ -1,4 +1,4 @@
-<!--合同管理组件-->
+<!--任务计划组件-->
 <template>
   <div class="contractManagement">
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务计划</div>
@@ -44,13 +44,13 @@
             @click="RWJHXZ(scope.row)"
             type="text"
             size="small"
-            v-show="scope.row.checkPlanState > 0"
+            v-show="scope.row.checkPlanState > 0 && scope.row.pathPath "
           >下载</el-button>
           <el-button
+            v-show="scope.row.checkPlanState === 3 && scope.row.judgePlanBook === 0"
             @click="refusePlanReason(scope.row)"
             type="text"
             size="small"
-            v-show="scope.row.checkPlanState === 3"
           >拒绝原因</el-button>
         </template>
       </el-table-column>
@@ -85,7 +85,7 @@
 
     <!-- 任务计划拒绝原因 -->
     <el-dialog :visible.sync="addVisible2" width="50%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书被拒绝原因</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
       <br />
       <br />
       <el-row>
@@ -94,14 +94,12 @@
       <el-form ref="form" :model="addList2" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item>
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 5, maxRows: 7}"
-                v-model="addList2.refusePlanMessage"
-                :readonly="true"
-              ></el-input>
-            </el-form-item>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 7}"
+              v-model="addList2.refusePlanMessage"
+              :readonly="true"
+            ></el-input>
           </el-col>
         </el-row>
       </el-form>
@@ -131,7 +129,9 @@ export default {
       technicalFileWanzheng: "",
       addList2: {
         refuseApplyMessage: ""
-      }
+      },
+      judgePlan: "",
+      judgePlanBook: 0
     };
   },
 
@@ -140,6 +140,9 @@ export default {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     }
+  },
+  created() {
+    this.judgePlanBoo();
   },
   methods: {
     //获得信息
@@ -156,8 +159,7 @@ export default {
       console.log("shenme");
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskId,
-        userName: this.userName,
+        taskID: row.id,
         leixing: "jihuashu"
       });
       that
@@ -179,6 +181,28 @@ export default {
           link.setAttribute("download", "设计文档.zip");
           document.body.appendChild(link);
           link.click();
+        });
+    },
+
+    judgePlanBoo(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        userName: this.userName
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/judgePlan",
+          data: data
+        })
+        .then(response => {
+          this.judgePlan = response.date;
+          if (this.judgePlan != null) {
+            this.judgePlanBook = 0;
+          } else {
+            this.judgePlanBook = 1;
+          }
         });
     },
 
@@ -232,7 +256,8 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        Text_File1: this.technicalFileWanzheng
+        Text_File1: this.technicalFileWanzheng,
+        userName: this.userName
       });
       console.log(data);
       that
