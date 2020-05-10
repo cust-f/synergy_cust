@@ -57,7 +57,7 @@
     </el-table>
     <!-- 分配设计人员 -->
     <el-dialog :visible.sync="dialogTableVisible" width="30%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">分配设计师</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">分配设计师</div>
       <br />
       <br />
       <el-form>
@@ -80,7 +80,7 @@
 
     <!-- 拒绝设计原因 -->
     <el-dialog :visible.sync="designRefuseReason" width="50%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入设计不通过的原因</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
       <br />
       <br />
       <el-row>
@@ -89,13 +89,11 @@
       <el-form ref="form" :model="addList4" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item>
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 5, maxRows: 7}"
-                v-model="addList4.SJrefuseReason"
-              ></el-input>
-            </el-form-item>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 7}"
+              v-model="addList4.SJrefuseReason"
+            ></el-input>
           </el-col>
         </el-row>
       </el-form>
@@ -161,7 +159,7 @@ export default {
         console.log(data);
         that.axios({
           method: "post",
-          url: "/api/supplier/  ",
+          url: "/api/supplier/designSuccess",
           data: data
         });
         this.$message({

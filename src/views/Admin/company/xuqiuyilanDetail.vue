@@ -106,18 +106,20 @@
                         </a>
                       </li>
                       <br />
-                      <li>
-                        <a>
-                          企业地址：
-                          <font>{{companyList.address}}</font>
-                        </a>
-                      </li>
+                      <el-popover placement="top-start" width="200" trigger="hover">
+                        <div>{{companyList.address}}</div>
+                        <li slot="reference">
+                          <a slot="reference">
+                            企业地址：
+                            <font>{{companyList.address}}</font>
+                          </a>
+                        </li>
+                      </el-popover>
                       <br />
-
                       <li>
                         <a>
                           联系电话：
-                          <font>{{companyList.businessTel}}</font>
+                          <font>{{applyList.demanderTel}}</font>
                         </a>
                       </li>
                       <br />
@@ -173,7 +175,7 @@
               </div>
               <br />
               <el-divider></el-divider>
-              <div>{{companyList.introduction }}</div>
+              <div v-html="companyDetailContent"></div>
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -237,7 +239,7 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方电话">
-              <el-input v-model="companyList.businessTel" :readonly="true"></el-input>
+              <el-input v-model="applyList.demanderTel" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
@@ -281,8 +283,7 @@ export default {
       //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
       //默认营业执照
-      errorImg02:
-        'this.src="' + require("../company/2.jpg") + '"',
+      errorImg02: 'this.src="' + require("../company/2.jpg") + '"',
       //默认税务登记
       errorImg03: 'this.src="' + require("../company/3.jpg") + '"',
       telphone: 1,
@@ -334,6 +335,7 @@ export default {
           filePath: ""
         }
       ],
+      address: "",
       TaskDetail: "",
       TaskDetailContent: "",
       beginTime1: "",
@@ -346,6 +348,7 @@ export default {
       applyIf: 0,
       //接受企业名称
       companyName1: 0,
+      companyDetailContent: "",
       companyId: 0,
       YinCang: 1,
       FileNum: 0,
@@ -378,12 +381,13 @@ export default {
   methods: {
     //登录验证
     userlogin() {
-      var userName = localStorage.getItem("ms_username");
-      if (userName == "null") {
+      if (this.userName == null) {
         this.Dengluyanzheng = 0;
-        console.log(userName);
+        console.log("用户名" + this.userName);
+        console.log("没登陆 ");
       } else {
         this.Dengluyanzheng = 1;
+        console.log("用户名" + this.userName);
         console.log("登录了 ");
       }
     },
@@ -445,8 +449,7 @@ export default {
         .then(response => {
           console.log(response);
           this.applyList = response.data.allData.a[0];
-          this.companyList = response.data.allData.b[0];
-          this.companyId = response.data.allData.b[0].companyId;
+          this.getCompay();
           if (response.data.allData.a[0].taskType == 1) {
             this.applyList.taskTypeName = "流通";
           } else {
@@ -554,6 +557,27 @@ export default {
         path: "company/excellentCompanyDetail",
         query: { companyId: companyId }
       });
+    },
+    getCompay() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/getCompanyFormBytaskId",
+          data: data
+        })
+        .then(response => {
+          this.companyList = response.data.allData.companyDetail[0];
+          this.companyId = response.data.allData.companyDetail[0].companyId;
+          this.companyName = response.data.allData.companyDetail[0].companyName;
+          this.address = response.data.allData.companyDetail[0].address;
+          this.companyDetailContent =
+            response.data.allData.companyDetailContent;
+        });
     }
   }
 };
@@ -741,7 +765,7 @@ export default {
   }
   .company-detail {
     font-size: 16px;
-    width: 320px;
+    width: 500px;
   }
   .title-detail {
     color: #ff7720;
@@ -755,7 +779,7 @@ export default {
   }
   .title-task-detail {
     font-size: 16px;
-    width: 750px;
+    width: 700px;
   }
   .dialog-footer {
     text-align: center;
@@ -870,7 +894,7 @@ export default {
 
     text-decoration: none;
 
-    width: 750px;
+    width: 720px;
   }
   .left {
     margin-left: 50px;

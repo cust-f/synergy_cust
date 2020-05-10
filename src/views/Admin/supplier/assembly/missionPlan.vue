@@ -1,4 +1,4 @@
-<!--合同管理组件-->
+<!--任务计划组件-->
 <template>
   <div class="contractManagement">
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务计划</div>
@@ -46,12 +46,7 @@
             size="small"
             v-show="scope.row.checkPlanState > 0"
           >下载</el-button>
-          <el-button
-            @click="refusePlanReason(scope.row)"
-            type="text"
-            size="small"
-            v-show="scope.row.checkPlanState === 3"
-          >拒绝原因</el-button>
+          <el-button v-show="scope.row.checkPlanState === 3" @click="refusePlanReason(scope.row)" type="text" size="small">拒绝原因</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -85,7 +80,7 @@
 
     <!-- 任务计划拒绝原因 -->
     <el-dialog :visible.sync="addVisible2" width="50%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划书被拒绝原因</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
       <br />
       <br />
       <el-row>
@@ -94,14 +89,12 @@
       <el-form ref="form" :model="addList2" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item>
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 5, maxRows: 7}"
-                v-model="addList2.refusePlanMessage"
-                :readonly="true"
-              ></el-input>
-            </el-form-item>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 7}"
+              v-model="addList2.refusePlanMessage"
+              :readonly="true"
+            ></el-input>
           </el-col>
         </el-row>
       </el-form>
@@ -232,7 +225,8 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        Text_File1: this.technicalFileWanzheng
+        Text_File1: this.technicalFileWanzheng,
+        userName: this.userName
       });
       console.log(data);
       that

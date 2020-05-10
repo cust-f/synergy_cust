@@ -39,9 +39,10 @@
         </template>
       </el-table-column>
     </el-table>
+
     <!-- 设计验收拒绝原因 -->
     <el-dialog :visible.sync="addVisible4" width="50%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计验收拒绝原因</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
       <br />
       <br />
       <el-row>
@@ -50,14 +51,12 @@
       <el-form ref="form" :model="addList5" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item>
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 5, maxRows: 7}"
-                v-model="addList5.demandorRefuseReason"
-                :readonly="true"
-              ></el-input>
-            </el-form-item>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 7}"
+              v-model="addList5.demandorRefuseReason"
+              :readonly="true"
+            ></el-input>
           </el-col>
         </el-row>
       </el-form>
