@@ -20,7 +20,7 @@
             <div class="BigTime">
               <el-carousel height="250" width="250" direction="vertical" arrow="always">
                 <el-carousel-item>
-                  <img :src="login" class="images" :onerror="errorImg01" />
+                  <img :src="logo" class="images" :onerror="errorImg01" />
                 </el-carousel-item>
               </el-carousel>
             </div>
@@ -72,12 +72,7 @@
                   </a>
                 </li>
                 <br />
-                <el-button
-                  v-show="applyIf === 0 && Dengluyanzheng ===1"
-                  type="warning"
-                  class="button-style"
-                  @click="applyTask()"
-                >申请任务</el-button>
+                <el-button type="warning" class="button-style" @click="applyTask()">申请任务</el-button>
               </el-col>
             </ul>
           </div>
@@ -280,12 +275,8 @@ export default {
       }
     };
     return {
-      //默认企业图片
-      errorImg01: 'this.src="' + require("../company/1.png") + '"',
-      //默认营业执照
-      errorImg02: 'this.src="' + require("../company/2.jpg") + '"',
-      //默认税务登记
-      errorImg03: 'this.src="' + require("../company/3.jpg") + '"',
+      //默认logo
+      errorImg01: 'this.src="' + require("../company/2.jpg") + '"',
       telphone: 1,
       rules: {
         supplierTel: [
@@ -341,7 +332,7 @@ export default {
       beginTime1: "",
       deadline1: "",
       taskID: 0,
-      login: require("../company/2.jpg"),
+      logo: require("../company/2.jpg"),
       userName: localStorage.getItem("ms_username"),
       applyDiaLog: false,
       //判断企业是否申请过此任务
@@ -365,7 +356,6 @@ export default {
     };
   },
   created() {
-    this.userlogin();
     this.getParams();
     this.showTaskData();
     this.showApply();
@@ -379,18 +369,6 @@ export default {
     }
   },
   methods: {
-    //登录验证
-    userlogin() {
-      if (this.userName == null) {
-        this.Dengluyanzheng = 0;
-        console.log("用户名" + this.userName);
-        console.log("没登陆 ");
-      } else {
-        this.Dengluyanzheng = 1;
-        console.log("用户名" + this.userName);
-        console.log("登录了 ");
-      }
-    },
     //下载
     downloadFile(row) {
       var that = this;
@@ -431,7 +409,25 @@ export default {
     },
     //申请弹窗
     applyTask() {
-      this.applyDiaLog = true;
+      if (this.$store.state.token) {
+        if (this.applyIf != 0) {
+          this.$message.error("您已申请，请勿重复申请");
+        } else {
+          this.applyDiaLog = true;
+        }
+      } else {
+        this.$confirm("登陆后才能进行申请，是否登陆？", "提示", {
+          confirmButtonText: "登陆",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.$router.push({
+              path: "/Login"
+            });
+          })
+          .catch(() => {});
+      }
     },
     //数据显示
     showTaskData() {
@@ -513,19 +509,8 @@ export default {
         path: "/xuqiuyilan"
       });
     },
-    //手机号校验
-    animate() {
-      var re = /^1\d{10}$/;
-      let str = this.applyList1.supplierTel;
-      if (re.test(str)) {
-        //  alert('成功')
-      } else {
-        this.applyList1.supplierTel = 0;
-      }
-    },
     //申请数据上传
     apply() {
-      console.log("给我看看这个是什么？" + this.telphone);
       if (this.telphone == 1) {
         this.$message.error("您的手机号填写有误");
       } else {
@@ -558,6 +543,7 @@ export default {
         query: { companyId: companyId }
       });
     },
+
     getCompay() {
       var that = this;
       var data = Qs.stringify({
@@ -575,6 +561,7 @@ export default {
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
           this.address = response.data.allData.companyDetail[0].address;
+          this.logo = response.date.allData.companyDetail[0].logo;
           this.companyDetailContent =
             response.data.allData.companyDetailContent;
         });
@@ -765,7 +752,7 @@ export default {
   }
   .company-detail {
     font-size: 16px;
-    width: 500px;
+    width: 800px;
   }
   .title-detail {
     color: #ff7720;

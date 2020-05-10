@@ -44,9 +44,14 @@
             @click="RWJHXZ(scope.row)"
             type="text"
             size="small"
-            v-show="scope.row.checkPlanState > 0"
+            v-show="scope.row.checkPlanState > 0 && scope.row.pathPath "
           >下载</el-button>
-          <el-button v-show="scope.row.checkPlanState === 3" @click="refusePlanReason(scope.row)" type="text" size="small">拒绝原因</el-button>
+          <el-button
+            v-show="scope.row.checkPlanState === 3 && scope.row.judgePlanBook === 0"
+            @click="refusePlanReason(scope.row)"
+            type="text"
+            size="small"
+          >拒绝原因</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -124,7 +129,9 @@ export default {
       technicalFileWanzheng: "",
       addList2: {
         refuseApplyMessage: ""
-      }
+      },
+      judgePlan: "",
+      judgePlanBook: 0
     };
   },
 
@@ -133,6 +140,9 @@ export default {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     }
+  },
+  created() {
+    this.judgePlanBoo();
   },
   methods: {
     //获得信息
@@ -149,8 +159,7 @@ export default {
       console.log("shenme");
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskId,
-        userName: this.userName,
+        taskID: row.id,
         leixing: "jihuashu"
       });
       that
@@ -172,6 +181,28 @@ export default {
           link.setAttribute("download", "设计文档.zip");
           document.body.appendChild(link);
           link.click();
+        });
+    },
+
+    judgePlanBoo(row) {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        userName: this.userName
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/judgePlan",
+          data: data
+        })
+        .then(response => {
+          this.judgePlan = response.date;
+          if (this.judgePlan != null) {
+            this.judgePlanBook = 0;
+          } else {
+            this.judgePlanBook = 1;
+          }
         });
     },
 

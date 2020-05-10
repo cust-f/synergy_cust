@@ -13,7 +13,7 @@
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="designCount" label="重做次数"></el-table-column>
+      <el-table-column prop="designCount" label="上传次数"></el-table-column>
       <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>

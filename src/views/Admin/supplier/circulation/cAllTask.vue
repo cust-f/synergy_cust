@@ -23,13 +23,13 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskState" sortable label="状态">
+      <el-table-column prop="taskState" align="center" sortable label="状态">
         <template slot-scope="scope">
-          <el-tag type="info" v-if="scope.row.taskState === 0">待响应</el-tag>
-          <el-tag v-else-if="scope.row.taskState === 1">计划审核</el-tag>
-          <el-tag type="success" v-else-if="scope.row.taskState === 2">进行中</el-tag>
-          <el-tag v-else-if="scope.row.taskState === 3">审核</el-tag>
-          <el-tag color="info" v-else-if="scope.row.taskState === 4">验收</el-tag>
+          <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
+          <el-tag class="jinxingzhong" v-else-if="scope.row.taskState === 1">计划审核</el-tag>
+          <el-tag class="jinxingzhong" v-else-if="scope.row.taskState === 2">进行中</el-tag>
+          <el-tag class="shenhe" v-else-if="scope.row.taskState === 3">审核</el-tag>
+          <el-tag class="yanshou" v-else-if="scope.row.taskState === 4">验收</el-tag>
           <el-tag type="success" v-else-if="scope.row.taskState === 5">完成</el-tag>
           <el-tag type="danger" v-else-if="scope.row.taskState === 6">已废除</el-tag>
         </template>
@@ -222,5 +222,20 @@ export default {
 }
 .box {
   font-size: 24px;
+}
+.jinxingzhong {
+  color: #616130;
+  background-color: #d6d6ad;
+  border-color: #d6d6ad;
+}
+.shenhe {
+  color: #842b00;
+  background-color: #ffdcb9;
+  border-color: #ffdcb9;
+}
+.yanshou {
+  color: #336666;
+  background-color: #c4e1e1;
+  border-color: #c4e1e1;
 }
 </style>

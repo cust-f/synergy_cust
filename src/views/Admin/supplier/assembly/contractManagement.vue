@@ -13,7 +13,7 @@
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
       <el-table-column prop="contractState" width="100" align="center" label="合同审核状态">
-        <template slot-scope="scope" >
+        <template slot-scope="scope">
           <el-tag v-if="scope.row.contractState === 0">待上传</el-tag>
           <el-tag type="warning" v-else-if="scope.row.contractState === 1">待审核</el-tag>
           <el-tag type="success" v-else-if="scope.row.contractState === 2">通过</el-tag>
@@ -75,8 +75,8 @@
     </el-table>
 
     <!-- 上传合同 -->
-    <el-dialog :visible.sync="conbook" width="400px" :before-close="handleClose">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传合同</div>
+    <el-dialog :visible.sync="conbook" width="400px">
+      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传合同</div>
       <br />
       <br />
       <el-upload
@@ -99,6 +99,7 @@
         >上传到服务器</el-button>
       </el-upload>
     </el-dialog>
+
     <!-- 合同拒绝原因 -->
     <el-dialog :visible.sync="addVisible3" width="50%">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
