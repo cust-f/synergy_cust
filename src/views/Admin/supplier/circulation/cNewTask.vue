@@ -21,7 +21,7 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="截止日期">
+              <el-form-item label="截止时间">
                 <el-date-picker
                   type="date"
                   placeholder="选择日期"

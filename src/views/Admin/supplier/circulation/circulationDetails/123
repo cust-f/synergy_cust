@@ -26,7 +26,7 @@
       <br />
       <br />
       <!-- 任务计划模块 -->
-      <div v-show="show > 0">
+      <div v-show="show>0">
         <mission-Plan ref="missionPlan"></mission-Plan>
       </div>
       <br />
@@ -86,7 +86,8 @@ import essentialInformation from "../../assembly/essentialInformation";
 import applicationInformation from "../../assembly/applicationInformation";
 import missionPlan from "../../assembly/missionPlan";
 import contractManagement from "../../assembly/contractManagement";
-import deliveryList from "../../assembly/deliveryList";
+import InternalAudit from "../../assembly/InternalAudit";
+import designAcceptance from "../../assembly/designAcceptance";
 import radarChart from "../circulationDetails/radarChart";
 export default {
   data() {
@@ -114,14 +115,13 @@ export default {
       show1: 0,
       show3: 0,
       //状态显示控制
+
       state: "",
       state2: 0,
       state3: 0,
       reMarkId: 1,
       //重做次数
-      form: {
-        circulationCount: "" //流通完成质量
-      },
+      circulationCount: "", //流通完成质量
       //雷达图的数据定义
       radarData: {
         radarData: []
@@ -223,15 +223,14 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
-          console.log("看看到没到这" + this.state3);
+          this.designCount = response.data.allData.a[0].designCount;
+
           this.sendMsg();
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
-            console.log(this.state);
             this.milepostActive = 1;
             this.show = 1;
-            console.log(this.show);
           } else if (this.state == "任务进行中") {
             this.milepostActive = 2;
             this.show = 2;
@@ -283,7 +282,8 @@ export default {
       this.$refs.applicationInformation.getMsg(this.taskApplyTableData);
       this.$refs.missionPlan.getMsg(this.taskApplyTableData);
       this.$refs.contractManagement.getMsg(this.taskTableData);
-      this.$refs.deliveryList.getMsg(this.taskTableData);
+      this.$refs.InternalAudit.getMsg(this.taskTableData);
+      this.$refs.designAcceptance.getMsg(this.taskTableData);
     },
     //返回列表
     goBack() {

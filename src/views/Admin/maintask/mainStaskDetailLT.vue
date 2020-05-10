@@ -192,7 +192,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" label="供应商"></el-table-column>
+          <el-table-column prop="companyName" label="供应商"  width="250"></el-table-column>
           <el-table-column prop="checkPlanState" label="计划审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.checkPlanState === 0">待上传</span>
@@ -231,13 +231,13 @@
                 @click="JHSTG(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState===1 || scope.row.checkPlanState===3"
+                v-if="scope.row.checkPlanState===1"
               >通过</el-button>
               <el-button
                 @click="JHSJJ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState===1 || scope.row.checkPlanState===3"
+                v-if="scope.row.checkPlanState===1"
               >拒绝</el-button>
             </template>
           </el-table-column>
@@ -259,7 +259,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应商"  width="250"></el-table-column>
           <el-table-column prop="contractState" label="合同审核状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.contractState === 0">待上传</span>
@@ -294,12 +294,11 @@
                 v-if="scope.row.contractState!==0"
                 @click="HTXZ(scope.row)"
               >下载</el-button>
-              <el-button type="text" size="small" @click="CKLSHT(scope.row)">历史上传</el-button>
               <el-button
                 @click="HTSHTG(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.contractState===1 || scope.row.contractState===3"
+                v-if="scope.row.contractState===1"
               >通过</el-button>
               <el-button
                 @click="HTSHJJ(scope.row)"
@@ -307,6 +306,7 @@
                 size="small"
                 v-if="scope.row.contractState===1"
               >拒绝</el-button>
+            <el-button type="text" size="small" @click="CKLSHT(scope.row)">历史上传</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -328,7 +328,6 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-          <el-table-column prop="designCount" label="设计重做次数"></el-table-column>
           <el-table-column prop="demandorCheckDesignState" label="清单验收状态">
             <template slot-scope="scope">
               <span v-if="+scope.row.demandorCheckDesignState===0">待上传</span>
@@ -659,8 +658,8 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情">
-                  <div class="XX">{{form.introduction}}</div>
-                </el-form-item>
+                  <div class="XX" v-html="companyDetailContent">
+                  </div>                </el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -990,6 +989,8 @@ export default {
 
   data() {
     return {
+            //企业详情路径
+      companyDetailContent:"",
       //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
       //默认营业执照
@@ -1832,7 +1833,15 @@ export default {
           console.log("cap");
           console.log(response);
           this.download(response.data, "JHS");
-        });
+        })           .catch(error => {
+            console.log(error);
+            if (error != null) {
+              this.$confirm("文件不存在或者文件路径有误", "提示", {
+                type: "warning"
+              });
+              
+            }
+         });
     },
     //下载子任务附件
     xiazaiZRWFJ() {
@@ -2007,6 +2016,8 @@ export default {
             response.data.allData.companyDetail[0].businessLicence;
           this.shuiwudengjizheng =
             response.data.allData.companyDetail[0].tRCertificate;
+                      this.companyDetailContent = response.data.allData.companyDetailContent;
+
           console.log(this.imgsrc);
         });
       this.addVisibleCD = true;

@@ -7,11 +7,12 @@
       <img v-bind:src="item.idView" class="image">
     </el-carousel-item>
         </el-carousel>-->
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
+        <br />
         <div width="500" align="center" height="200px">
-          <el-image class="qiyetupian" :src="imgsrc" :onerror="errorImg01">
+          <el-image class="qiyetupian" :src="imgsrc" :onerror="errorImg01"></el-image>           
 
-
-          </el-image>
+          
         </div>
         <!-- <el-table :data="tableData123">
 <el-table-column prop="imgsrc" label="书籍海报" align="center">
@@ -185,34 +186,38 @@
               </el-col>
             </el-row>
 
-            <!-- <el-row>
+            <el-row>
+
               <el-col :span="24">
-                <el-form-item label="企业简介">
+                <el-form-item label="企业详情">
+
                   <el-input v-model="form.introduction" :disabled="yangshi"></el-input>
                 </el-form-item>
-                <el-form-item label="详细" >
+                <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
                             :rows="1"
                             style="width:100%;"
                             placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
-                    </el-form-item>
+                    </el-form-item> -->
                
               </el-col>
-            </el-row> -->
+            </el-row>
           </el-form>
         </div>
         <div align="center">
           <el-button type="primary" class="button1" @click="update" :disabled="xiugai">修改</el-button>
-          <el-button type="primary" class="button1" @click="update1" :disabled="xiugai">修改企业简介</el-button>
+          <el-button type="primary" class="button1" @click="update1" :disabled="xiugai">修改企业详情</el-button>
         </div>
 
         <!-- 新增弹出框 -->
 
         <el-dialog :visible.sync="addVisible" width="50%">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片修改</div>
+           <el-row>
+            <el-col :span="11" style="margin-left:5px">
+          
           <div>
-            <el-upload
+            <!-- <el-upload
               class="avatar-uploader"
               action="/api/MainTaskInformation/importTP"
               :show-file-list="false"
@@ -221,44 +226,110 @@
             >
               <img v-if="imgsrc" :src="imgsrc" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+            </el-upload> -->
+            
+              <el-upload
+             
+                action="/api/MainTaskInformation/importTP"
+                :file-list="form1.logo"
+                list-type="picture"
+                :auto-upload="false"
+                ref="uploadLogo"                
+                accept=".jpg, .png"
+                :on-preview="businessLicensePictureCardPreview"
+                :http-request="logoUpload"
+                :before-upload="beforeAvatarUpload"
+           
+                :on-change="logoChange"
+                :on-remove="logoRemove"
+               
+              >
+              <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+                <el-button size="small" type="primary">企业LOGO修改</el-button>
+                </div>
+                
+              </el-upload>
+            
           </div>
+            </el-col>
+            
+            
+            <el-col :span="11" style="margin-left:40px">
+           
+            <div>
+            
+              <el-upload
+                action="/api/MainTaskInformation/importTP"
+                :file-list="form1.businessLicense"
+                list-type="picture"
+                :auto-upload="false"
+                ref="uploadBusinessLicense"                
+                accept=".jpg, .png"
+                :on-preview="businessLicensePictureCardPreview"
+                :http-request="businessLicenseUpload"
+                :before-upload="beforeAvatarUpload"
+              >
+              <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+                <el-button size="small" type="primary">企业营业执照修改</el-button>
+                </div>
+              </el-upload>
+            
+          </div>
+            </el-col>
+            </el-row>
           <br />
-
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照修改</div>
+          <el-row>
+          <el-col :span="11" style="margin-left:5px">
+          
+            <div>
+            
+              <el-upload
+                action="/api/MainTaskInformation/importTP"
+                :file-list="form1.tRCertificate"
+                list-type="picture"
+                :auto-upload="false"
+                ref="uploadTax"                
+                accept=".jpg, .png"
+                :on-preview="businessLicensePictureCardPreview"
+                :http-request="taxUpload"
+                :before-upload="beforeAvatarUpload"
+              >
+              <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+                <el-button size="small" type="primary">企业税务登记证修改</el-button>
+                </div>
+              </el-upload>
+           
+          </div>
+          </el-col>
+           <el-col :span="11" style="margin-left:40px">
+          
           <div>
-            <el-upload
-              class="avatar-uploader"
-              action="/api/MainTaskInformation/importTP"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess1"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="qiyezhizhao" :src="qiyezhizhao" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+                       
+              <el-upload
+                action="/api/MainTaskInformation/importTP"
+                :file-list="form1.companyPicture"
+                list-type="picture"
+                :auto-upload="false"
+                ref="uploadCompany"                
+                accept=".jpg, .png"
+                :on-preview="businessLicensePictureCardPreview"
+                :http-request="companyProfileUpload"
+                :before-upload="beforeAvatarUpload"
+               
+              >
+              <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+                <el-button size="small" type="primary">企业图片修改</el-button>
+                </div>
+                
+              </el-upload>
+            
           </div>
-
-          <br />
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证修改</div>
-
-          <div>
-            <el-upload
-              class="avatar-uploader"
-              action="/api/MainTaskInformation/importTP"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="shuiwudengjizheng" :src="shuiwudengjizheng" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </div>
-
-          <br />
+            </el-col>
+          </el-row>
+          <br/>
           <div
             class="biaoti"
-            style="padding: 0 10px; border-left: 3px solid #4e58c5;"
+            style="padding: 0 10px; border-left: 3px solid #4e58c5;margin-left:5px"
             font-size="14px"
           >信息修改</div>
           <br />
@@ -266,7 +337,7 @@
           <el-row>
             <el-col :span="8"></el-col>
           </el-row>
-          <el-form ref="form" :model="form1" label-width="120px">
+          <el-form ref="form" :model="form1" label-width="120px" style="margin-left:-20px">
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业名称">
@@ -309,7 +380,10 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业地址">
-                  <el-input v-model="form1.address"></el-input>
+                  <el-tooltip :content="form1.address" placement="top" effect="light">
+                 <el-input ref="acp" v-model="form1.address" ></el-input>
+                  </el-tooltip>
+                 
                 </el-form-item>
               </el-col>
               <el-col :span="12">
@@ -418,12 +492,12 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row>
+            <!-- <el-row>
               <el-col :span="24" class="xiangxi">
-                <el-form-item label="企业简介">
+                <el-form-item label="企业详情">
                   <el-input
                     type="textarea"
-                    :rows="3"
+                    :rows="5"
                     style="width:100%;"
                     placeholder="请输入内容"
                     v-model="form1.introduction"
@@ -431,11 +505,11 @@
                   ></el-input>
                 </el-form-item>
               </el-col>
-            </el-row>
+            </el-row> -->
           </el-form>
-          <span slot="footer" class="dialog-footer">
+          <span slot="footer" class="dialog-footer" style="margin-top:-15px">
             <el-button @click="addVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveAdd11">确 定</el-button>
+            <el-button type="primary" @click="submitUpload">确 定</el-button>
           </span>
         </el-dialog>
       </el-main>
@@ -455,6 +529,7 @@ export default {
       wancheng: true,
       xiugai: false,
       shenhe: true,
+     
       form: {
         businessName: "",
         companyID: "20191006066",
@@ -505,7 +580,11 @@ export default {
         legalPerson: "",
         workerNumber: "",
         deposit_Bank: "",
-        bankNumber: ""
+        bankNumber: "",
+        companyPicture:[],
+        businessLicence:[],
+        tRCertificate:[],
+        logo:[],
       },
       companyId: "",
       companyName: "",
@@ -515,10 +594,16 @@ export default {
       imagesbox: [{ id: 0, idView: require("../company/1.png") }],
       shuiwudengjizheng: "",
       shuiwudengjizheng1: "",
-
+       formDate: "",
       qiyezhizhao: "",
       qiyezhizhao1: "",
 
+      serverUrl: "/api/api/pictureUpload",
+      companyProfileImageUrl: [], //企业介绍图片
+      businessLicenseImageUrl: [], //企业营业执照
+      taxImageUrl: [], //税务证书
+      logoImageUrl: [], //企业logo
+      urls:[],
       tableData123: [
         {
           imgsrc: require("../company/1.png")
@@ -547,11 +632,24 @@ export default {
       return formatDate(date, "yyyy-MM-dd hh:mm");
     }
   },
+    props: {
+    enterpriseName: {
+      type: String,
+      default: "cust"
+    }
+  },
   created() {
     this.getDate();
+    this.getPictureDate();
+    this.carouselShow();
   },
-
+  mounted: function() {},
   methods: {
+    //请求展示的图片
+    carouselShow() {
+      this.hideUpload = this.companyProfileImageUrl.length >= 3;
+    },
+   
     //手机号校验
     animate() {
       var re = /^1\d{10}$/;
@@ -602,6 +700,7 @@ export default {
         //alert('抱歉邮箱不合法')
       }
     },
+    
     getDate() {
       var that = this;
       var data = Qs.stringify({
@@ -616,8 +715,7 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
-
+         
           this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
@@ -626,12 +724,112 @@ export default {
           response.data.allData.companyDetail[0].businessLicence;
           this.shuiwudengjizheng =
           response.data.allData.companyDetail[0].tRCertificate;
-          this.qiyezhizhao1 = this.qiyezhizhao.substring(22);
+
+          this.qiyezhizhao1= this.qiyezhizhao.substring(22);
           this.shuiwudengjizheng1 = this.shuiwudengjizheng.substring(22);
           this.imgsrc1 = this.imgsrc.substring(22);
-          console.log(this.imgsrc1);
-          console.log(this.qiyezhizhao1);
+
+        
+
         });
+    },
+    getPictureDate() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: localStorage.getItem("ms_username")
+      });
+      console.log(localStorage.getItem("ms_username"));
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/showPicture",
+          data: data
+        })
+        .then(response => {
+                  
+          this.form1.companyPicture=response.data.allData.companyPicture;          
+          this.form1.businessLicense=response.data.allData.businessPicture;
+          this.form1.tRCertificate=response.data.allData.tRCertificatePicture; 
+          this.form1.logo=response.data.allData.logoPicture;  
+          console.log(response);       
+          
+        });
+    },
+     //企业介绍图片入fromDate
+    companyProfileUpload(file) {
+      this.formDate.append("companyProfileFile[]", file.file);
+    },
+    //企业基本信息营业执照图片入fromDate
+    taxUpload(file) {
+      this.formDate.append("taxFile[]", file.file);
+    },
+    //企业基本信息营业执照图片入fromDate
+    businessLicenseUpload(file) {
+      this.formDate.append("businessLicenseFile[]", file.file);
+    },
+    //企业logo图片入fromDate
+    logoUpload(file) {
+    this.formDate.append("logoFile", file.file)
+    },
+     
+    
+    submitUpload() {
+      this.$emit("checkPicture", true);
+      var that = this;
+      that.formDate = new FormData();
+      this.$refs.uploadCompany.submit();
+      this.$refs.uploadBusinessLicense.submit();
+      this.$refs.uploadTax.submit();
+      this.$refs.uploadLogo.submit();
+      that.formDate.append("enterpriseName", this.form1.companyName);
+      console.log(that.formDate);
+      let config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      that.axios
+        .post("/api/companyDetail/setPicture", this.formDate, config)
+        .then(response => {
+          this.$emit("companyDetail");
+          // if (response.code==200) {
+            this.saveAdd11();
+            this.$message({
+              message: response.data.file,
+              type: "success"
+            });
+
+          // } else {
+          //   this.$message({
+          //     message: response.data.file,
+          //     type: "alert"
+          //   });
+          // }
+        })
+        .catch(response => {
+          console.log(response);
+        });
+      
+    },
+    //企业基本信息-营业执照图片回调
+    businessLicensePictureCardPreview(file) {
+      this.businessLicenseImageUrl = file.url;
+    },
+    //企业基本信息-税务证书图片回调
+    taxPictureCardPreview(file) {
+      this.taxImageUrl = file.url;
+    },
+    //企业介绍图片上传
+    handlePictureCardPreview(file) {
+      this.companyProfileImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    //企业logo图片上传
+    logoPictureCardPreview(file) {
+      this.logoImageUrl = file.url;
+      // this.logoImageUrl = URL.createObjectURL(file.raw);;
+      this.dialogVisible2 = true;
     },
     update() {
       this.form1 = this.form;
@@ -665,21 +863,30 @@ export default {
         bankNumber: this.form1.bankNumber,
         star:this.form.star,
         businessTel: this.form.businessTel,
-        businessLicence: this.qiyezhizhao1,
-        tRCertificate: this.shuiwudengjizheng1,
-        companyPicture: this.imgsrc1
+        // businessLicence: this.qiyezhizhao1,
+        // tRCertificate: this.shuiwudengjizheng1,
+        // companyPicture: this.imgsrc1,
+        companyPicture:this.form1.companyPicture, //企业介绍图片
+        businessLicence:this.form1.businessLicence, //企业营业执照
+        tRCertificate:this.form1.tRCertificate, //税务证书
+        logo:this.form1.logo,
+        
       });
-
       that.axios({
         method: "post",
         url: "/api/companyDetail/updateCompanyForm",
         data: data
       });
-
+      //this.getPictureDate();
+      this.getDate();
       this.$message.success("提交成功");
       this.addList = {};
       this.addVisible = false;
+     
+     
     },
+    
+    
     //上传税务登记样式触发
     handleAvatarSuccess(res, file) {
       console.log(res);
@@ -760,13 +967,27 @@ export default {
           this.form1.bankNumber = this.form1.bankNumber.replace(/[^\d]/g, "");
         }
       });
+    },
+    // 限制上传三张图片
+    onChange(file, fileList) {
+      // this.sequence = fileList;
+      this.hideUpload = fileList.length >= 3;
+    },
+    onRemove(file, fileList) {
+      this.hideUpload = fileList.length >= 3;
+    },
+    logoChange(file, fileList) {
+      this.hideLogoUpload = fileList.length >= 1;
+    },
+    logoRemove(file, fileList) {
+      this.hideLogoUpload = fileList.length >= 1;
     }
   }
 };
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 .companyDetail {
   .el-upload--text {
     width: 180px;

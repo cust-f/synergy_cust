@@ -231,6 +231,7 @@ export default {
     };
   },
   created() {
+    this.getParams();
     this.getProvince();
     this.getCategry();
     this.getCompanyList(this.val);
@@ -242,6 +243,29 @@ export default {
     }
   },
   methods: {
+    getParams() {
+      if(this.$route.query.redirects!=null){
+        var routerParams = this.$route.query.redirects;
+      console.log("fuck"+this.$route.query)
+      if (this.$route.query.redirects == 0) {
+        let delTag = { type: "zihangye" };
+        this.handleClose(delTag, 0);
+        console.log("nihao")
+      } else {
+        let tag = {
+          name: routerParams.name,
+          type: "zihangye",
+          id: routerParams.id
+        };
+      console.log(tag)
+
+       this.checkTag(tag)
+       this.dynamicTags.push(tag)
+
+      }
+      }
+      
+    },
     getProvince() {
       let that = this;
       that.axios.post("/api/district/HaChangProvince").then(response => {

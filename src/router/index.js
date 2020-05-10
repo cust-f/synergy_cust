@@ -14,6 +14,7 @@ import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesig
 import register from '@/views/Front/register/register'
 import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
 import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
+import search from '@/views/Front/Search/search'//搜索界面
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
@@ -151,9 +152,13 @@ export default new Router({
         {
           path: '/company/excellentCompanyDetail',
           name: 'companyDetails',
-          component: excellentCompanyDetail,
+          component: excellentCompanyDetail
         },
-
+        {
+          path:'/search',
+          name:search,
+          component:search
+        }
       ]
     },
     {

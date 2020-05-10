@@ -73,21 +73,21 @@
                   width="150"
                   align="center"
                 ></el-table-column>
-                <el-table-column prop="type" label="企业类别"  sortable width="120" align="center"></el-table-column>
-                <!-- <template slot-scope="scope">
-                          <span v-if="+scope.row.Role_Name===0">核心企业</span>
-                          <span v-else-if="+scope.row.Role_Name===1">供应商</span>
-                </template>-->
-                <el-table-column prop="foundTime" label="成立时间" sortable width="120" align="center">
+                <el-table-column prop="companyCategory" label="企业类别"  sortable width="120" align="center">
+               <template slot-scope="{row: {companyCategory}}">
+                    <span v-if="+companyCategory===1">供应商</span>
+                    <span v-else-if="+companyCategory===2">核心企业</span>
+                  </template></el-table-column>
+                <el-table-column prop="foundingTime" label="成立时间" sortable width="120" align="center">
                   <template slot-scope="scope">
                     <div>
-                      <span>{{scope.row.foundTime | dataFormat("yyyy-MM-dd")}}</span>
+                      <span>{{scope.row.foundingTime | dataFormat("yyyy-MM-dd")}}</span>
                     </div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="province" label="所在省"  sortable width="100" align="center"></el-table-column>
                 <el-table-column prop="city" label="所在市"  sortable width="100" align="center"></el-table-column>
-                <el-table-column prop="officeNumber" label="办公电话" width="100" align="center"></el-table-column>
+                <el-table-column prop="officeNumber" label="办公电话" width="140" align="center"></el-table-column>
 
                 <el-table-column label="操作" width="160" align="center">
                   <template slot-scope="scope">
@@ -175,7 +175,7 @@ export default {
           pid: "",
           districtSqe: "",
           hierarchy: "",
-          type: "",
+          companyCategory: "",
           id: ""
         }
       ],
@@ -185,7 +185,7 @@ export default {
           pid: "",
           districtSqe: "",
           hierarchy: "",
-          type: "",
+          companyCategory: "",
           id: ""
         }
       ],
@@ -224,7 +224,11 @@ export default {
         console.log("ri")
       }
       if(this.provicepid ==99){
-        this.citypid="10086"
+        this.citypid="10086";
+        this.City = null;
+      }
+      else{
+        this.citypid = null;
       }
     }
      
@@ -244,7 +248,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/companyDetail/getAllCompany"
+          url: "http://127.0.0.1:8081/companyDetail/getAllCompanies"
         })
         .then(response => {
           that.pageTotal = response.data.allData.totalCount; //绑定总的条数
@@ -330,6 +334,7 @@ export default {
           }).then(response => {
             this.$message.success("删除成功");
             this.tableData.splice(index, 1);
+             location.reload();
           });
           //end
           // this.$message.success("删除成功");
@@ -348,129 +353,7 @@ export default {
     handleSelectionChange(val) {
       console.log(val);
     }
-    // //分页导航 分页查询使用
-    // handlePageChange(val) {
-    //   let that = this;
-    //   var data = Qs.stringify({
-    //     page: val - 1
-    //   });
-    //   that
-    //     .axios({
-    //       method: "post",
-    //       url: "http://127.0.0.1:8081/companyDetail/getAllCompany",
-    //       data: data
-    //     })
-    //     .then(response => {
-    //       console.log(response);
-    //     });
-    // }
-    // // 多选操作
-    // handleSelectionChange(val) {
-    //   this.multipleSelection = val;
-    // },
-    // delAllSelection() {
-    //   let length = this.multipleSelection.length;
-    //   let str = "";
-    //   for (let j = 0; j < length; j++) {
-    //     this.tableData.splice(this.multipleSelection[j], 1);
-    //     str += this.multipleSelection[j].name + " ";
-    //   }
-    //   this.$message.error(`删除了${str}`);
-    //   this.multipleSelection = [];
-    // },
-
-    // // 编辑操作
-    // handleEdit(index, row) {
-    //   this.idx = index;
-    //   this.form = row;
-    //   this.editVisible = true;
-    // },
-    // // 保存编辑
-    // saveEdit() {
-    //   this.editVisible = false;
-    //   this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-    //   this.$set(this.tableData, this.idx, this.form);
-    // }, // getData(){
-    //   //this.tableData=null
-    // },
-    //新增操作
-    // addData() {
-    //   this.addVisible = true;
-    //   var that = this;
-    //   var data = Qs.stringify({
-    //     PId: this.type
-    //   })
-    //   },
-    //  //保存新增
-    // saveAdd() {
-
-    //   var that = this;
-    //   var data = Qs.stringify({
-    //     userName: "aaaa",
-    //     User_Name: this.addList.User_Name,
-    //     Company_Name: this.addList.Company_Name,
-    //     Role_Name: this.addList.Role_Name,
-    //     Email: this.addList.Email,
-    //     Phone: this.addList.Phone,
-    //     Password: this.addList.Password,
-    //   });
-    //   console.log(data);
-    //   console.log(this.addList.user);
-
-    //   that
-    //   .axios({
-    //     method: "post",
-    //     url: "http://127.0.0.1:8082/user/addUserInformation",
-    //     data: data
-    //   });
-
-    //   this.$message.success("提交成功");
-    //         this.addVisible = false;
-
-    //   this.tableData.push(this.addList);
-    //   this.addList = {};
-    //   },
-
-    // // 获取 easy-mock 的模拟数据
-    // getData() {
-    //   //   this.tableData = res.list;
-    //   //   this.pageTotal = tableData.length;
-    // },
-
-    // // 触发搜索按钮
-    // handleSearch() {
-    //   this.$set(this.query, "pageIndex", 1);
-    //   // this.getData();
-    //    var that = this;
-
-    //   that
-    //     .axios({
-    //       method: "get",
-    //       url: "http://127.0.0.1:8082/companyDetail/selectCompany?City=" + this.query.City + "&Address=" + this.query.Province,//+ "123" +"&&Address = " + "2345",
-    //       // data:{City:"123",Address:"2345"}
-    //     })
-    //     .then(response => {
-
-    //      that.pageTotal=response.data.allData.totalCount;//绑定总的条数
-    //      that.tableData=response.data.allData.companyList;//绑定对象数组
-    //      console.log(that.tableData)
-    //     });
-    // },
-
-    // /*
-    // *转跳对应任务信息页面
-    //  */
-
-    // addstaff: function() {
-    //  this.addFormVisible = true;
-    //  },
-
-    //  open() {
-    //   this.$message({
-    //     showClose: true,
-    //    message: "提交成功",
-    //    type: "success"
-    //   });
+    
   }
 };
 </script>
