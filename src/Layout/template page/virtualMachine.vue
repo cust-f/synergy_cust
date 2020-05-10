@@ -50,7 +50,10 @@
                     <br />
                     <el-row>
                       <el-col :span="6" align="right">任务类型:</el-col>
-                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskType}}</el-col>
+                      <el-col :span="6" style="margin-left:40px">{{taskDetail.taskType}}</el-col>
+                      <el-col :span="9" align="center">
+                        <a @click="returnAcceptMession()">返回</a>
+                      </el-col>
                     </el-row>
                     <br />
                     <el-row>
@@ -62,6 +65,12 @@
                       <el-col :span="6" align="right">任务详情:</el-col>
                       <el-col :span="15" style="margin-left:40px">
                         <span>{{taskDetail.taskDescription}}</span>
+                      </el-col>
+                    </el-row>
+                    <br />
+                    <el-row>
+                      <el-col :span="24" align="center">
+                        <el-button @click="returnAcceptMession()">返回已接任务</el-button>
                       </el-col>
                     </el-row>
                   </el-tab-pane>
@@ -247,7 +256,10 @@ export default {
           move = false;
         }
       };
-    }
+    },
+    returnAcceptMession()  {
+      this.$router.push({path:"/admin/designerAcceptList"});
+    }  
   }
 };
 </script>
