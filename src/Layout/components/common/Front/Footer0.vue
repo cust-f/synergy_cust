@@ -1,8 +1,7 @@
 <template>
     
 <div class="footer_bottom">
-    	<div class="footer_about"><a href="">网站简介</a>|<a href="">版权说明</a>|<a href="">免责声明</a>|<a href="">服务条款</a>|<a href="">友情链接</a>|<a href="">联系我们</a>|<a href="">网站地图</a></div>
-        <div class="footer_copy">版权所有 xxxxxxxx Copyright © 2007-2014 All Rights Reserved 京ICP备xxxxxxxxx号-2      京公网安备xxxxxxxxxx  <br>外包网不良信息举报电话：xxxxxxxxx 举报邮箱：xxxxxxxxx<br>未经本站同意，不得转载本网站之所有项目信息及作品</div>
+        <div class="footer_copy">Copyright @ 2008 长春理工大学日立项目组 | 地址：中国吉林省长春市卫星路7186号(南)</div>
         
     </div>
 </template>
@@ -19,7 +18,7 @@ export default {
     margin: 0 auto;
     text-align: center;
     font-family: "simsun";
-    padding: 0 0 0 0;
+    padding: 20px 0px;
 }
 .footer_about {
     color: #eee;

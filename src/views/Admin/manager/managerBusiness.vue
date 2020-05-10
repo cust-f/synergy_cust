@@ -59,8 +59,6 @@
                 @selection-change="handleSelectionChange"
               > 
 
-
-
                 <el-table-column label="序号" type="index" width="50" align="center">
                   <template slot-scope="scope">
                     <span>{{(pageIndex - 1) * pageSize + scope.$index + 1}}</span>
@@ -76,7 +74,7 @@
                 <el-table-column prop="companyCategory" label="企业类别"  sortable width="120" align="center">
                <template slot-scope="{row: {companyCategory}}">
                     <span v-if="+companyCategory===1">供应商</span>
-                    <span v-else-if="+companyCategory===2">核心企业</span>
+                    <span v-else-if="+companyCategory===0">核心企业</span>
                   </template></el-table-column>
                 <el-table-column prop="foundingTime" label="成立时间" sortable width="120" align="center">
                   <template slot-scope="scope">
