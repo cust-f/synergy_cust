@@ -59,8 +59,6 @@
                 @selection-change="handleSelectionChange"
               > 
 
-
-
                 <el-table-column label="序号" type="index" width="50" align="center">
                   <template slot-scope="scope">
                     <span>{{(pageIndex - 1) * pageSize + scope.$index + 1}}</span>
