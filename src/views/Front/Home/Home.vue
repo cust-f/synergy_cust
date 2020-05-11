@@ -319,7 +319,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="8">
+                <el-col :span="6">
                   <el-tooltip
                     :content="item.types"
                     placement="left-start"

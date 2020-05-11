@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="desinger">
+  <div id="designerAccept">
+    
       <div
         class="biaoti"
         style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
@@ -124,7 +124,7 @@
           @size-change="handleSizeChange"
         ></el-pagination>
       </div>
-      <div class="dialog">
+      <div id="wrapper">
         <el-dialog :visible.sync="dialogVisible" width="55%" class="dialog">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <div class="dialogCSS">
@@ -194,7 +194,7 @@
               </el-row>
             </el-form>
           </div>
-          <span slot="footer" class="dialog-footer" style="padding-right: 60px;">
+          <span slot="footer" class="dialog-footer" style="padding-right: 50px;">
             <el-button @click="dialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
           </span>
@@ -214,7 +214,7 @@
           <el-button type="primary" @click="resonvisible=false">确 定</el-button>
         </div>
       </el-dialog>
-    </div>
+    
   </div>
 </template>
 
@@ -480,8 +480,11 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.designer {
+<style>
+#designerAccept.el-dialog__header{
+
+}
+
   .dialogCSS .el-input.is-disabled .el-input__inner {
     background-color: #ffffff;
     color: #303133;
@@ -509,14 +512,14 @@ export default {
   }
   .el-dialog__header {
     padding: 0px 0px 0px;
+    
   }
   element.style {
     margin-top: 20px;
     height: 1001px;
   }
-}
 
-.dialog.el-dialog__body {
+.el-dialog__body {
   padding-top: 30px;
   padding-right: 0px !important;
   padding-bottom: 30px;
@@ -525,4 +528,5 @@ export default {
   font-size: 14px;
   word-break: break-all;
 }
+
 </style>
