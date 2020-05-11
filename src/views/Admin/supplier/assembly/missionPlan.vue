@@ -178,7 +178,7 @@ export default {
           let link = document.createElement("a");
           link.style.display = "none";
           link.href = url;
-          link.setAttribute("download", "设计文档.zip");
+          link.setAttribute("download", "任务书.zip");
           document.body.appendChild(link);
           link.click();
         });

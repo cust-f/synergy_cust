@@ -11,7 +11,7 @@
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="applyWay" width="100" label="获取方式">
+      <el-table-column prop="applyWay" width="100" label="承接方式">
         <template slot-scope="scope">
           <span v-if="scope.row.applyWay === 0">邀请</span>
           <span v-else-if="scope.row.applyWay === 1">申请</span>
