@@ -389,22 +389,15 @@
           </el-steps>
         </div>-->
 
+<div
+            class="loading1"
+            v-loading="loading"
+            element-loading-text="评价生成中......"
+          >     
         <div class="LDT">
-          <!-- 雷达图 -->
-
           <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-          <!-- <div class="input_span" align="center">
-            <el-form ref="form" :modelZL="formZL">
-              <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              <br />
-              <br />
-            </el-form>
-            <span id="one"></span>
-            <span id="two"></span>
-            <span id="three"></span>
-          </div>-->
           <div class="input_span" align="center">
-            <el-form ref="formZL" :modelZL="formZL">
+            <el-form ref="form" :modelZL="formZL">
               <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <br />
               <br />
@@ -414,6 +407,8 @@
             <span id="three"></span>
           </div>
         </div>
+         </div>
+
       </div>
 
       <!-- 申请拒绝原因弹出框 -->
@@ -990,6 +985,8 @@ export default {
 
   data() {
     return {
+            loading:true,
+
             //企业详情路径
       companyDetailContent:"",
       //默认企业图片
@@ -1638,6 +1635,7 @@ export default {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
+                                    this.loading=false;
           }
 
           //判断el-step到第几步骤
@@ -1966,6 +1964,7 @@ export default {
           url: "/api/SubstaskInformation/QDSHTG",
           data: data
         });
+        this.GBXJ();
         this.showData();
 
         this.$message({
@@ -1994,6 +1993,24 @@ export default {
       this.addList3 = {};
       this.addVisible3 = false;
       this.showData();
+    },
+            //改变星级别
+    GBXJ() {
+        var that = this;
+        var data = Qs.stringify({
+          username: this.usernameX
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "/api/sumRemarkData",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+        });
+        this.showData();
+
     },
     companyDetail(row) {
       var that = this;
