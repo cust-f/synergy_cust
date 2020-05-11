@@ -21,7 +21,7 @@
                     :label="item.taskName"
                     :name="item.taskId"
                   >
-                    <div class="show-iframe" style="height:855px;">
+                    <div class="show-iframe" id="visual" :style="{height:(screenHeight-80)+'px'}">
                       <iframe
                         style="width:100%;height:100%;                                                                                                                                                                                                                                                                                            position：absolute;width: 100%;height:90%; top: 0;left:0;bottom:0;"
                         frameborder="0"
@@ -38,15 +38,15 @@
                 style="width:2px; z-index:2; background:#cccccc;"
               ></div>
 
-              <el-aside width="27%" id="kvm-right">
-                <el-tabs v-model="activeTab" type="border-card" >
-                  <el-tab-pane class="cur" style="height:855px;" label="任务详情" name="first">
+              <el-aside width="27%" id="kvm-right" >
+                <el-tabs v-model="activeTab" type="border-card"  >
+                  <el-tab-pane class="cur" :style="{height:(screenHeight-80)+'px'}" label="任务详情" name="first">
                     <br />
                     <el-row>
                       <el-col :span="6" align="right">公司名称:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskCode}}</el-col>
-                    </el-row> -->
-                    <!-- <br /> -->
+                    </el-row> 
+                    <br />
                     <el-row>
                       <el-col :span="6" align="right">任务名称:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskName}}</el-col>
@@ -105,25 +105,34 @@ export default {
       taskDetail: "",
       activeTab: "first",
       activeName: "",
-      VisualMachineList: ""
+      VisualMachineList: "",
+      screenHeight: document.documentElement.clientHeight
     };
   },
   components: {
     "header-synergy": headerSynergy
+  },
+  watch:{
+        'screenHeight': function (val) { // 监听屏幕高度变化
+      var oIframe = document.getElementById('maindiv')
+      // alert(this.$store.getters.screenHeight)
+      oIframe.style.height = (Number(val) - 40) + 'px'
+    }
   },
   created() {
     this.getVirtualTab();
   },
   mounted() {
     this.changeMobsfIframe();
+        var _this = this
     window.onresize = function() {
-      changeMobsfIframe();
-      var kvm_left = document.getElementById("kvm-left");
-      var kvm_right = document.getElementById("kvm-right");
-      kvm_left.style.width = "67%";
-      kvm_right.style.width = "33%";
+      // this.changeMobsfIframe();
+      // var kvm_left = document.getElementById("kvm-left");
+      // var kvm_right = document.getElementById("kvm-right");
+      // kvm_left.style.width = "67%";
+      // kvm_right.style.width = "33%";
+     _this.screenHeight = document.documentElement.clientHeight // 窗口高度
     };
-
     /**
      * 鼠标拖动改变窗口大小
      */
@@ -141,7 +150,7 @@ export default {
       console.log(oIframe.length);
       for (var i = 0; i < oIframe.length; i++) {
         oIframe[i].style.height = Number(deviceHeight) - 40 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
-        console.log("height")
+
       }
     },
     getVirtualTab() {
