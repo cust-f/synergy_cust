@@ -124,7 +124,7 @@
           @size-change="handleSizeChange"
         ></el-pagination>
       </div>
-      
+      <div class="dialog">
         <el-dialog :visible.sync="dialogVisible" width="55%" class="dialog">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <div class="dialogCSS">
@@ -200,6 +200,7 @@
           </span>
         </el-dialog>
       </div>
+
       <!-- 拒绝原因弹出框 -->
       <el-dialog :visible.sync="resonvisible">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -214,7 +215,7 @@
         </div>
       </el-dialog>
     </div>
-
+  </div>
 </template>
 
 <script>
@@ -513,18 +514,15 @@ export default {
     margin-top: 20px;
     height: 1001px;
   }
- 
 }
 
-
-.el-dialog__body{
+.dialog.el-dialog__body {
   padding-top: 30px;
-      padding-right: 0px !important;
-      padding-bottom: 30px;
-      padding-left: 20px;
-      /* color: #606266; */
-      font-size: 14px;
-      word-break: break-all;
-
+  padding-right: 0px !important;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  /* color: #606266; */
+  font-size: 14px;
+  word-break: break-all;
 }
 </style>

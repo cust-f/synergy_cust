@@ -79,6 +79,7 @@ export default {
                  localStorage.setItem("designer_name", this.param.username);
                 this.$store.commit("SET_List", response.data.allData.data.menuList);
                 this.$store.commit("SET_OPENMENU", response.data.allData.openArray);
+                this.$store.commit("SET_USERLOGO", response.data.allData.userLogo);
                 // console.log(response)
                 this.roleID = response.data.allData.roleId;
                 

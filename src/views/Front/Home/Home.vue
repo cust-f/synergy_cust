@@ -30,7 +30,7 @@
             </li>
             <li>
               <span class="dataCSS">
-                需求任务:
+                设计任务:
                 <font class="fontStyle">{{demandTaskCount}}</font>项
               </span>
             </li>
@@ -212,7 +212,7 @@
               </div>
               <div v-else>
                 <div class="user-avator" style="padding-bottom:6%;padding-left:10px;">
-                  <img src="../../../assets/img/img.jpg" />
+                  <img :src="this.$store.state.userLogo" />
                 </div>
                 <div>
                   <span style="line-height: 80px;font-size: 18px;">欢迎{{userName}}登陆平台</span>
@@ -307,7 +307,45 @@
       <el-row :gutter="gutterCount">
         <!--需求任务-->
         <el-col :span="8">
-          <div class="grid-content2 one">
+                    <div class="grid-content2 one">
+            <el-card class="grid-content3">
+              <div slot="header" class="titleColor">
+                <span>需求一栏</span>
+                <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
+              </div>
+              <el-row
+                v-for="(item,index) in demandTaskList"
+                :key="index"
+                style="margin-bottom:20px;"
+                :gutter="10"
+              >
+                <el-col :span="8">
+                  <el-tooltip
+                    :content="item.types"
+                    placement="left-start"
+                    effect="light"
+                  >
+                    <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
+                  </el-tooltip>
+                </el-col>
+                <el-col :span="9">
+                  <el-tooltip :content="item.taskName" placement="top" effect="light">
+                    <a
+                      @click="needsDetail(item.taskId)"
+                      style="float:left;line-height: 24px;"
+                    >{{item.taskName}}</a>
+                  </el-tooltip>
+                </el-col>
+                <el-col :span="6">
+                  <span
+                    class="fontStyle2"
+                    style="line-height: 24px;"
+                  >{{item.deadline | dataFormat("yyyy-MM-dd")}}</span>
+                </el-col>
+              </el-row>
+            </el-card>
+          </div>
+          <!-- <div class="grid-content2 one">
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
                 <span>需求一览</span>
@@ -318,38 +356,39 @@
                 >>>更多</el-button>
               </div>
               <el-tooltip content="Bottom center" placement="top-start" effect="light">
-                <el-row
-                  v-for="(item,i) in demandTaskList"
-                  :key="i"
-                  style="margin-bottom:20px;"
-                  :gutter="10"
-                >
-                  <el-col :span="6" class="fontStyle1">
-                    <el-tooltip
-                      :content="item.types"
-                      placement="top-start"
-                      effect="light"
-                    >
-                      <span style="float:left;line-height: 24px;">{{"【"+item.types+"】"}}</span>
-                    </el-tooltip>
-                  </el-col>
-                  <el-col :span="9">
-                    <el-tooltip :content="item.taskName" placement="top" effect="light">
-                      <a
-                        @click="serviceDetail(item.taskId)"
-                        style="float:left;line-height: 24px;"
-                      >{{item.taskName}}</a>
-                    </el-tooltip>
-                  </el-col>
-                  <el-col
-                    :span="6"
+              <el-row
+                v-for="(item,index) in completeddemandTaskList"
+                :key="index"
+                style="margin-bottom:20px;"
+                :gutter="10"
+              >
+                <el-col :span="8">
+                  <el-tooltip
+                    :content="item.types"
+                    placement="left-start"
+                    effect="light"
+                  >
+                    <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
+                  </el-tooltip>
+                </el-col>
+                <el-col :span="9">
+                  <el-tooltip :content="item.taskName" placement="top" effect="light">
+                    <a
+                      @click="needsDetail(item.taskId)"
+                      style="float:left;line-height: 24px;"
+                    >{{item.taskName}}</a>
+                  </el-tooltip>
+                </el-col>
+                <el-col :span="6">
+                  <span
                     class="fontStyle2"
                     style="line-height: 24px;"
-                  >{{item.deadline| dataFormat("yyyy-MM-dd")}}</el-col>
-                </el-row>
+                  >{{item.finishTime | dataFormat("yyyy-MM-dd")}}</span>
+                </el-col>
+              </el-row>
               </el-tooltip>
             </el-card>
-          </div>
+          </div> -->
         </el-col>
 
         <el-col :span="8">
@@ -573,13 +612,13 @@ export default {
       activeName: "first",
 
       //需求一览数据表（category为需求一览类别,name为需求名称，sTime为项目发布时间）
-      demandTaskList: "",
+      demandTaskList: [],
 
       //优质企业数据表（category为企业类别，companyName为企业名称）
       supplierlist: "",
 
       //服务成果数据表（category为服务成果类别，name为服务成果名称，sTime为服务成果完成时间）
-      completeddemandTaskList: ""
+      completeddemandTaskList: []
     };
   },
   //网站下方数据统计图表用（丁宅荣负责添加）
@@ -602,6 +641,7 @@ export default {
         this.demandTaskList = response.data.allData.demandTask;
         this.completeddemandTaskList = response.data.allData.serviceTask;
         this.supplierlist = response.data.allData.company;
+                console.log(this.demandTaskList)
       });
     },
     //数据统计

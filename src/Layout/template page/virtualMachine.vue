@@ -1,16 +1,20 @@
 
 <template>
-  <el-container style="overflow: hidden;">
+  <el-container style="overflow: hidden;" class="visual">
     <div style="padding:0px;">
       <header-synergy></header-synergy>
     </div>
     <div>
       <el-container style="padding:0px;overflow:hidden;">
-        <el-main style="padding-top:10spx;overflow:hidden;">
+        <el-header style="height:50px;">
+          <el-page-header style="padding-top:15px;margin-left:15px;" @back="goBack" content="任务工作台">
+</el-page-header>
+        </el-header>
+        <el-main style="overflow:hidden;">
           <el-container>
             <el-container>
-              <el-main width="73%" id="kvm-left">
-                <el-tabs type="card" v-model="activeName" @tab-click="updataDetail">
+              <el-main width="73%" id="kvm-left" class="work">
+                <el-tabs type="border-card" v-model="activeName" @tab-click="updataDetail">
                   <el-tab-pane
                     v-for="(item,index) in VisualMachineList"
                     :key="index"
@@ -35,11 +39,11 @@
               ></div>
 
               <el-aside width="27%" id="kvm-right">
-                <el-tabs v-model="activeTab" type="border-card" style="padding-bottom:25px;">
-                  <el-tab-pane class="cur" label="任务详情" name="first">
+                <el-tabs v-model="activeTab" type="border-card" >
+                  <el-tab-pane class="cur" style="height:855px;" label="任务详情" name="first">
                     <br />
-                    <!-- <el-row>
-                      <el-col :span="6" align="right">任务ID:</el-col>
+                    <el-row>
+                      <el-col :span="6" align="right">公司名称:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskCode}}</el-col>
                     </el-row> -->
                     <!-- <br /> -->
@@ -150,6 +154,9 @@ export default {
           this.getTaskDetail(this.activeName);
         });
     },
+    goBack(){
+       window.history.go(-1);
+    },
     getTaskDetail(id) {
       var that = this;
       var data = Qs.stringify({
@@ -247,7 +254,10 @@ export default {
           move = false;
         }
       };
-    }
+    },
+    returnAcceptMession()  {
+      this.$router.push({path:"/admin/designerAcceptList"});
+    }  
   }
 };
 </script>
@@ -257,4 +267,21 @@ export default {
   margin-top: 15px;
   width: 150px;
 }
+.visual .el-main{
+  padding:0px 0px;
+      /* background-color: #F5F7FA; */
+}
+.visual .el-tabs__header {
+  margin:0px 0px;
+}
+.visual .el-tabs__content{
+  padding: 0;
+}
+/* .visual .el-tabs__nav-scroll{
+  background-color: #F5F7FA;
+}
+.visual .el-tabs--card>.el-tabs__header .el-tabs__nav{
+  background-color: #FFF;
+} */
+.work{} 
 </style>
