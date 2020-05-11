@@ -1484,7 +1484,8 @@ export default {
       this.addVisible4 = true;
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskId,
+        userName:this.userName
       });
       console.log(data);
       that

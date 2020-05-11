@@ -14,7 +14,9 @@
       <div class="handle-box">
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
-      <br>
+      <div style="width:100%; height:20px">
+
+      </div>
         <div class="handle-box">
                 <el-select
                   v-model="provicepid"
@@ -418,4 +420,7 @@ export default {
 .biaoti {
   font-size: 18px;
 }
+.el-table{
+    font-size: 13px;
+  }
 </style>

@@ -138,7 +138,7 @@
               <span v-else>其他</span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkApplyState" label="申请/邀请状态">
+          <el-table-column prop="checkApplyState" label="申请/邀请状态"  align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
               <el-tag  v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
@@ -193,7 +193,7 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="companyName" label="供应商"  width="250"></el-table-column>
-          <el-table-column prop="checkPlanState" label="计划审核状态">
+          <el-table-column prop="checkPlanState" label="审核状态"  align="center">
             <template slot-scope="scope">
                <el-tag  v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
               <el-tag  v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
@@ -201,13 +201,13 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="planUploadTime" label="计划上传时间">
+          <el-table-column prop="planUploadTime" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.planUploadTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkPlanTime" label="计划审核时间">
+          <el-table-column prop="checkPlanTime" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkPlanTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkPlanTime | formatDate}}</el-span>
@@ -260,7 +260,7 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应商"  width="250"></el-table-column>
-          <el-table-column prop="contractState" label="合同审核状态">
+          <el-table-column prop="contractState" label="审核状态"  align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
               <el-tag  v-else-if="+scope.row.contractState === 1">待审核</el-tag>
@@ -268,13 +268,13 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="uploadContractTime" label="合同上传时间">
+          <el-table-column prop="uploadContractTime" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadContractTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.uploadContractTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkContractTime" label="合同审核时间">
+          <el-table-column prop="checkContractTime" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkContractTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkContractTime | formatDate}}</el-span>
@@ -327,8 +327,8 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-          <el-table-column prop="demandorCheckDesignState" label="清单验收状态">
+          <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
+          <el-table-column prop="demandorCheckDesignState" label="验收状态"  widht="80" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
               <el-tag  v-else-if="+scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -336,13 +336,13 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="uploadCircuaterTime" label="清单上传时间">
+          <el-table-column prop="uploadCircuaterTime" widht="80" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadCircuaterTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.uploadCircuaterTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="demandorCheckDesignTime" label="清单审核时间">
+          <el-table-column prop="demandorCheckDesignTime" widht="80" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkCircuaterTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkCircuaterTime | formatDate}}</el-span>
@@ -658,8 +658,10 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情">
-                  <div class="XX" v-html="companyDetailContent">
-                  </div>                </el-form-item>
+                       </el-form-item>                
+                       <el-form-item label=""><div class="XX" v-html="companyDetailContent">
+                  </div>           
+                       </el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -2027,6 +2029,9 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+    .el-dialog__footer {
+  padding-right: 20px;
+}
   #demo {
     width: 20px; /*设置div宽度为500像素*/
     background: #000; /*设置div背景色为zhidao黑色*/

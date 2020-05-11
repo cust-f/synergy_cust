@@ -26,7 +26,14 @@
 
       <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="supplierCheckDesignState" sortable label="设计状态" align="center"></el-table-column>
+      <el-table-column prop="demandorCheckDesignState" sortable label="验收状态" align="center">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="deadline" sortable label="截止日期">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>

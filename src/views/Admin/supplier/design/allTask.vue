@@ -35,7 +35,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="publishingCompanyName" sortable label="发布需求企业"></el-table-column>
+      <el-table-column prop="publishingCompanyName" sortable label="需求方"></el-table-column>
       <el-table-column prop="beginTime" sortable label="开始日期">
         <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
       </el-table-column>

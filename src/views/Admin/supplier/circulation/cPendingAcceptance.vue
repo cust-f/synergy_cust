@@ -21,12 +21,17 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
-      <el-table-column prop="taskCategoryPart" sortable label="需求类型">
-      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
       <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
 
-      <el-table-column prop="demandorCheckDesignState" sortable label="验收状态" align="center"></el-table-column>
-
+      <el-table-column prop="demandorCheckDesignState" sortable label="验收状态" align="center">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column prop="deadline" sortable label="截止时间">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
@@ -74,13 +79,13 @@ export default {
           companyName: "",
           designerName: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      selectname:"",
+      selectname: "",
       multipleSelection: [],
       editVisible: false,
       addVisible: false,

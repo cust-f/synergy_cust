@@ -26,7 +26,7 @@
       <el-table-column prop="taskCategoryPart" sortable label="行业类别">
       </el-table-column>
 
-      <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
+      <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
 
       <el-table-column prop="deadline" sortable label="截止时间">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>

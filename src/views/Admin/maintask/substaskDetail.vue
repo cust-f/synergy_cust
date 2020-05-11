@@ -129,11 +129,11 @@
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
 
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
-                <el-table-column prop="taskState" label="需求状态">
+                <el-table-column prop="taskState" label="需求状态"  align="center">
                   <template slot-scope="scope">
                     <el-tag
                       v-if="scope.row.taskState ==='申请或邀请中'"
-                      type="info"
+                      
                     >{{scope.row.taskState}}</el-tag>
                     <el-tag
                       v-else-if="scope.row.taskState ==='计划提交'"
@@ -1383,11 +1383,18 @@ export default {
 </script>
 
 <style >
-:first-child.el-upload-list__item {
+.el-upload-list__item{
   width: 90%;
 }
+.first-child.el-upload-list__item {
+  width: 90%;
+}
+
 .el-dialog__footer {
   padding-right: 70px;
+}
+.anniu .el-dialog__footer {
+  padding-right: 20px;
 }
 .anniu {
   width: 100%;
