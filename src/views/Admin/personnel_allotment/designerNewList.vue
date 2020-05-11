@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div class="desinger">
-      <div
-        class="biaoti"
-        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
-      >&nbsp;&nbsp;&nbsp;&nbsp;新增任务</div>
-    </div>
+  <div class="desingerNew">
+    <div
+      class="biaoti"
+      style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
+    >&nbsp;&nbsp;&nbsp;&nbsp;新增任务</div>
 
     <!-- <el-divider></el-divider> -->
     <div>
@@ -92,84 +90,84 @@
       </el-row>
     </div>
     <div class="dialog1">
-    <el-dialog :visible.sync="dialogVisible">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <div class="dialogCSS">
-        <el-form ref="form" :model="form" label-width="110px">
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="需求名称">
-                <el-input v-model="form.taskName" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
+      <el-dialog :visible.sync="dialogVisible">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <div class="dialogCSS">
+          <el-form ref="form" :model="form" label-width="110px">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="需求名称">
+                  <el-input v-model="form.taskName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
 
-            <el-col :span="11">
-              <el-form-item label="企业名称">
-                <el-input v-model="form.companyName" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
+              <el-col :span="11">
+                <el-form-item label="企业名称">
+                  <el-input v-model="form.companyName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
 
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="一级行业类别">
-                <el-input v-model="form.taskCategoryMain" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="一级行业类别">
+                  <el-input v-model="form.taskCategoryMain" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
 
-            <el-col :span="11">
-              <el-form-item label="二级行业类别">
-                <el-input v-model="form.taskCategoryPart" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="开始时间">
-                <el-input
-                  v-bind:value="form.beginTime|formatDate"
-                  :disabled="true"
-                  style="text-align:center"
-                ></el-input>
-              </el-form-item>
-            </el-col>
+              <el-col :span="11">
+                <el-form-item label="二级行业类别">
+                  <el-input v-model="form.taskCategoryPart" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="开始时间">
+                  <el-input
+                    v-bind:value="form.beginTime|formatDate"
+                    :disabled="true"
+                    style="text-align:center"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
 
-            <el-col :span="11">
-              <el-form-item label="截止日期">
-                <el-input
-                  v-bind:value="form.deadline|formatDate"
-                  :disabled="true"
-                  style="text-align:center"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <br />
-          <el-row>
-            <el-col :span="22">
-              <el-form-item label="任务详情">
-                <el-input
-                  :disabled="true"
-                  type="textarea"
-                  :rows="7"
-                  v-model="form.taskDetail"
-                  style="width:100%;"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!-- <el-col :span="22">
+              <el-col :span="11">
+                <el-form-item label="截止日期">
+                  <el-input
+                    v-bind:value="form.deadline|formatDate"
+                    :disabled="true"
+                    style="text-align:center"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <br />
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="任务详情">
+                  <el-input
+                    :disabled="true"
+                    type="textarea"
+                    :rows="7"
+                    v-model="form.taskDetail"
+                    style="width:100%;"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <!-- <el-col :span="22">
               <el-form-item label="拒绝原因">
                 <el-input v-model="form1.refuseReason" :disabled="true"></el-input>
               </el-form-item>
-          </el-col>-->
-        </el-form>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
+            </el-col>-->
+          </el-form>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
 
     <!-- <el-dialog :visible.sync="dialogVisible" width="60%">
@@ -337,6 +335,7 @@ export default {
           this.getData();
         });
       this.getData();
+      this.$router.go(0);
 
       this.$router.push("/admin/designerAcceptList");
     },
@@ -458,55 +457,48 @@ export default {
   }
 };
 </script>
-<style>
-/* .el-divider {
-  margin: 25px 0px !important;
-} */
-.table {
-  width: 100%;
-  font-size: 14px;
-  height: 750px;
+<style lang="scss">
+.desingerNew {
+  .table {
+    width: 100%;
+    font-size: 14px;
+    height: 750px;
+  }
+  .el-scrollbar__wrap {
+    overflow-y: hidden;
+  }
+  .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+  .titles {
+    font-size: 15px;
+    font-weight: 400;
+  }
+  .el-dialog__header {
+    padding: 0px 0px 0px;
+  }
+  .dialogCSS .el-input.is-disabled .el-input__inner {
+    background-color: #ffffff;
+    color: #303133;
+  }
+  .el-textarea.is-disabled .el-textarea__inner {
+    background-color: #ffffff;
+    border-color: #e4e7ed;
+    color: #303133;
+    cursor: not-allowed;
+  }
+  .dialog1 {
+    width: 50%;
+  }
+  .el-dialog__body {
+    padding-top: 30px;
+    padding-right: 0px !important;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    /* color: #606266; */
+    font-size: 14px;
+    word-break: break-all;
+  }
 }
-.el-scrollbar__wrap {
-  overflow-y: hidden;
-}
-.biaoti {
-  font-size: 18px;
-  color: #303133;
-}
-.titles {
-  font-size: 15px;
-  font-weight: 400;
-}
-.el-dialog__header {
-  padding: 0px 0px 0px;
-}
-.dialogCSS .el-input.is-disabled .el-input__inner {
-  background-color: #ffffff;
-  color: #303133;
-}
-.el-textarea.is-disabled .el-textarea__inner {
-  background-color: #ffffff;
-  border-color: #e4e7ed;
-  color: #303133;
-  cursor: not-allowed;
-}
-.dialog1{
-  width:50%;
-}
-.el-dialog__body {
-  padding-top: 30px;
-  padding-right: 0px !important;
-  padding-bottom: 30px;
-  padding-left: 20px;
-  /* color: #606266; */
-  font-size: 14px;
-  word-break: break-all;}
-
-
-
-
-
-
-
 </style>
