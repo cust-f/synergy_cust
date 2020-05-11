@@ -1,6 +1,12 @@
 <template>
 <div class = "excellent">
   <div class="company">
+          <el-row :gutter="20" style="font:size:14px;margin-top:10px;margin-left:15px;">
+          <el-breadcrumb separator=">" >
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item >优质企业</el-breadcrumb-item>
+          </el-breadcrumb>
+    </el-row>
     <el-container>
       <el-main>
         <el-card shadow="never" class="selectCard company-select">
@@ -155,7 +161,7 @@
         </el-card>
       </el-main>
       <el-aside style="width:300px;">
-        <el-card shadow="never" class="selectCard recommend">
+        <el-card shadow="never" style="width:300px;" class="selectCard recommend">
           <div slot="header">
             <span>推荐企业</span>
           </div>
