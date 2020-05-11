@@ -37,7 +37,17 @@
             </el-col>
           </el-row>
         </el-form>
-
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" >企业Logo</div>
+        <br />
+        <el-form ref="form" :model="form" label-width="100px">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label>
+                <el-image align="left" style="width:200px;height:200px" :src="logo" :onerror="errorImg00"></el-image>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
 
@@ -468,12 +478,17 @@ export default {
       qiyezhizhao:"",
             qiyezhizhao1:"",
 
+      logoPicture:"",//企业logo
+            logoPicture1:"",//企业logo url
 
       tableData123: [
         {
           imgsrc: require("../company/1.png")
         }
       ],
+       logo:"",
+                  //默认企业图片
+      errorImg00: 'this.src="' + require("../company/2.jpg") + '"',
       imgsrc: "",
       imgsrc1:"",
           //默认企业图片
@@ -523,8 +538,11 @@ export default {
           this.qiyezhizhao1 = this.qiyezhizhao.substring(22);
           this.shuiwudengjizheng1 = this.shuiwudengjizheng.substring(22);
           this.imgsrc1 = this.imgsrc.substring(22);
+ this.form.logoPicture = response.data.allData.companyDetail[0].logo;
+          this.form.logoPicture1=this.form.logoPicture.substring(22);
           console.log(this.imgsrc1);
           console.log(this.qiyezhizhao1);
+           console.log(this.logoPicture1);
         });
     },
     update() {
@@ -761,6 +779,8 @@ export default {
     height: 200px;
     }
 .XX{
-    text-align:left;
+  position:relative;
+   left: -865px;
+   top: -20px;
   }
 </style>

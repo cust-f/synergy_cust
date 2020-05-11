@@ -134,7 +134,7 @@ export default {
     height:40px
 }
 .el-submenu .el-menu-item {
-    height: 35px;
+    height: 40px;
     line-height: 50px;
     padding: 0 45px;
     min-width: 200px;
