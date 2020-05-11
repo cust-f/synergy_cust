@@ -23,10 +23,22 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable label="需求类型">
+      <el-table-column prop="applyWay" width="100" label="获取方式">
+        <template slot-scope="scope">
+          <span v-if="scope.row.applyWay === 0">邀请</span>
+          <span v-else-if="scope.row.applyWay === 1">申请</span>
+        </template>
       </el-table-column>
 
-      <el-table-column prop="publishingCompanyName" sortable label="发布需求企业"></el-table-column>
+      <el-table-column prop="checkApplyState" sortable width="120" align="center" label="状态">
+        <template slot-scope="scope">
+          <el-tag type="warning" v-if="scope.row.checkApplyState === 0">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.checkApplyState === 1">通过</el-tag>
+          <el-tag type="danger" v-else>拒绝</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="publishingCompanyName" sortable label="需求方"></el-table-column>
 
       <el-table-column prop="beginTime" sortable label="发布日期" align="center">
         <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
@@ -80,7 +92,7 @@ export default {
           companyName: "",
           beginTime: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       //接受表单数据
@@ -91,7 +103,7 @@ export default {
       id: -1,
       selectname: "",
       YinCang: 1,
-      username: localStorage.getItem("ms_username"),
+      username: localStorage.getItem("ms_username")
     };
   },
   filters: {

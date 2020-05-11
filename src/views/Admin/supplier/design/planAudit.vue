@@ -25,7 +25,16 @@
 
       <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
 
-      <el-table-column prop="publishingCompanyName" label="发布需求企业"></el-table-column>
+      <el-table-column prop="publishingCompanyName" sortable label="需求方"></el-table-column>
+
+       <el-table-column prop="checkPlanState" sortable width="100" label="审核状态" align="center">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.checkPlanState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.checkPlanState === 3">拒绝</el-tag>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="beginTime" sortable label="发布日期" align="center">
         <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>

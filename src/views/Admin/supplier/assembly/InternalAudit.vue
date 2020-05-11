@@ -61,7 +61,7 @@
       <br />
       <br />
       <el-form>
-        <el-form-item label="设计师" :label-width="formLabelWidth">
+        <el-form-item label="设计师">
           <el-select v-model="design1" placeholder="请选择分配人员">
             <el-option
               v-for="designName in designTask"
@@ -86,7 +86,7 @@
       <el-row>
         <el-col :span="8"></el-col>
       </el-row>
-      <el-form ref="applyList4" :rules="rules" :model="addList4" label-width="120px">
+      <el-form ref="applyList4" :model="addList4" label-width="120px">
         <el-row>
           <el-col>
             <el-input
@@ -112,26 +112,26 @@ import Qs from "qs";
 import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
-    var validDataPhone = (rule, value, callback) => {
-      if (value === "") {
-        this.mustHaveSomeThing = 0;
-        callback(new Error("拒绝信息不能为空"));
-      } else {
-        this.mustHaveSomeThing = 1;
-        callback();
-      }
-    };
+    // var validDataPhone = (rule, value, callback) => {
+    //   if (value == null) {
+    //     this.mustHaveSomeThing = 0;
+    //     callback(new Error("拒绝信息不能为空"));
+    //   } else {
+    //     this.mustHaveSomeThing = 1;
+    //     callback();
+    //   }
+    // };
     return {
-      rules: {
-        SJrefuseReason: [
-          {
-            required: false,
-            message: "请输入聚聚原因",
-            trigger: "blur",
-            validator: validDataPhone
-          }
-        ]
-      },
+      // rules: {
+      //   SJrefuseReason: [
+      //     {
+      //       required: true,
+      //       message: "请输入拒绝原因",
+      //       trigger: "blur",
+      //       validator: validDataPhone
+      //     }
+      //   ]
+      // },
       mustHaveSomeThing: 0,
       taskId: 0,
       //设计人员
@@ -241,9 +241,10 @@ export default {
     },
     //提交拒绝原因
     SJJJYYTJ() {
-      if (this.mustHaveSomeThing == 0) {
+      if (this.addList4.SJrefuseReason == "") {
         this.$message.error("请输入拒绝原因");
       } else {
+        console.log("this.addList4.SJrefuseReason:"+this.addList4.SJrefuseReason)
         var that = this;
         var data = Qs.stringify({
           taskId: this.taskId,

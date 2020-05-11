@@ -23,14 +23,14 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="upLoadCircuaterTime"  label="清单上传时间">
+      <el-table-column prop="upLoadCircuaterTime" label="清单上传时间">
         <template slot-scope="scope">
           <el-span v-if="+scope.row.uploadCircuaterTime === 0">暂未验收</el-span>
           <el-span v-else>{{scope.row.uploadCircuaterTime | formatDate}}</el-span>
         </template>
       </el-table-column>
 
-      <el-table-column prop="checkCircuaterTime"  label="验收时间">
+      <el-table-column prop="checkCircuaterTime" label="验收时间">
         <template slot-scope="scope">
           <el-span v-if="+scope.row.checkCircuaterTime === 0">暂未验收</el-span>
           <el-span v-else>{{scope.row.checkCircuaterTime | formatDate}}</el-span>
@@ -207,25 +207,32 @@ export default {
           URL.revokeObjectURL(link.href); //释放url
         });
     },
-
-    //发货清单下载
+    //合同下载
     FFQDXZ(row) {
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
-        leixing: "fahuoqingdan",
-        responseType: "blob"
+        leixing: "FHQD"
       });
       that
         .axios({
           method: "post",
-          url: "/api/supplier/Download",
+          url: "/api/SubstaskInformation/DownloadHTHT",
           data: data,
           responseType: "blob"
         })
         .then(response => {
+          console.log("cap");
           console.log(response);
-          this.download(response.data, "FFQD");
+          let url = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/zip" })
+          );
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = url;
+          link.setAttribute("download", "发货清单.zip");
+          document.body.appendChild(link);
+          link.click();
         });
     },
     FHQDFileHistory() {

@@ -1,38 +1,36 @@
 <template>
-  <div>
-    <div class="desinger">
+  <div id="designerAccept">
+    
       <div
         class="biaoti"
         style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
       >&nbsp;&nbsp;&nbsp;&nbsp;已接任务</div>
-    </div>
 
-    <!-- <el-divider></el-divider> -->
-    <el-row>
+      <!-- <el-divider></el-divider> -->
+
       <!-- <div style="font-size:20px">已接任务</div> -->
       <el-table
         :data="Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+        :height="tableHeight"
         border
         class="table"
+        ref="multipleTable"
         header-cell-class-name="table-header"
-        height="100%"
-        style="margin-top:20px"
-        fit="true"
-        over-flow:auto
-        :default-sort="{prop: 'designerAcceptTime', order: 'descending'}"
+        style="margin-top:20px "
+        :default-sort="{prop: 'designerAcceptTime,taskName', order: 'descending'}"
       >
         <template>
           <el-table-column
             prop="taskId"
-            label="编号"
+            label="序号"
             type="index"
-            width="110px"
+            width="60px"
             align="center"
             :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
             prop="taskName"
-            label="需求任务名称"
+            label="需求名称"
             sortable
             min-width="90px"
             align="center"
@@ -42,15 +40,29 @@
             prop="supplierCheckDesignState"
             label="审核状态"
             sortable
-            min-width="90px"
+            min-width="110px"
             align="center"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="scope">
-              <span v-if="scope.row.supplierCheckDesignState === 0"><el-tag>待提交</el-tag></span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 1"><el-tag>待审核</el-tag></span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 2"><el-tag type="success">通过</el-tag></span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 3"><el-tag type="danger">未通过</el-tag></span>
+              <span
+                v-if="scope.row.supplierCheckDesignState===1&&scope.row.demandorRefuseReason!=null"
+              >
+                <el-tag>待审核</el-tag>
+                <el-tag type="danger" @click="handleEdit1(scope.$index,scope.row)">拒绝原因</el-tag>
+              </span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 0">
+                <el-tag>待提交</el-tag>
+              </span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 1">
+                <el-tag>待审核</el-tag>
+              </span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 2">
+                <el-tag type="success">通过</el-tag>
+              </span>
+              <span v-else-if="scope.row.supplierCheckDesignState === 3">
+                <el-tag type="danger">未通过</el-tag>
+              </span>
             </template>
           </el-table-column>
           <el-table-column
@@ -62,7 +74,6 @@
             :show-overflow-tooltip="true"
           ></el-table-column>
 
-          
           <el-table-column
             prop="designerAcceptTime"
             label="接收时间"
@@ -98,7 +109,7 @@
               v-if="scope.row.supplierCheckDesignState===0 || scope.row.supplierCheckDesignState===1 ||scope.row.supplierCheckDesignState===3"
             >任务提交</el-button>
             <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
-            <el-button @click="xiazaiMAINmoban(scope.row)" type="text" size="small">下载附件</el-button>
+            <el-button @click="xiazaiZRWFJ(scope.row)" type="text" size="small">下载附件</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -113,103 +124,97 @@
           @size-change="handleSizeChange"
         ></el-pagination>
       </div>
-    </el-row>
+      <div id="wrapper">
+        <el-dialog :visible.sync="dialogVisible" width="55%" class="dialog">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+          <div class="dialogCSS">
+            <el-form ref="form1" :model="form" label-width="110px">
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="需求名称">
+                    <el-input v-model="form1.taskName" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
 
-    <el-dialog :visible.sync="dialogVisible" width="60%">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>
-&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <div class="dialogCSS">
-        <el-form ref="form1" :model="form" label-width="110px">
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="需求名称">
-                <el-input v-model="form1.taskName" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
+                <el-col :span="11">
+                  <el-form-item label="企业名称">
+                    <el-input v-model="form1.companyName" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-col :span="11">
-              <el-form-item label="企业名称">
-                <el-input v-model="form1.companyName" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="一级行业类别">
+                    <el-input v-model="form1.taskCategoryMain" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
 
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="一级行业类别">
-                <el-input v-model="form1.taskCategoryMain" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
+                <el-col :span="11">
+                  <el-form-item label="二级行业类别">
+                    <el-input v-model="form1.taskCategoryPart" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="开始时间">
+                    <el-input
+                      v-bind:value="form1.beginTime|formatDate"
+                      :disabled="true"
+                      style="text-align:center"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
 
-            <el-col :span="11">
-              <el-form-item label="二级行业类别">
-                <el-input v-model="form1.taskCategoryPart" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="开始时间">
-                <el-input
-                  v-bind:value="form1.beginTime|formatDate"
-                  :disabled="true"
-                  style="text-align:center"
-                ></el-input>
-              </el-form-item>
-            </el-col>
+                <el-col :span="11">
+                  <el-form-item label="截止日期">
+                    <el-input
+                      v-bind:value="form1.deadline|formatDate"
+                      :disabled="true"
+                      style="text-align:center"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!-- <el-row>
+              <el-col :span="22">
+                <el-form-item label="拒绝原因">
+                  <el-input v-model="form1.demandorRefuseReason" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              </el-row>-->
 
-            <el-col :span="11">
-              <el-form-item label="截止日期">
-                <el-input
-                  v-bind:value="form1.deadline|formatDate"
-                  :disabled="true"
-                  style="text-align:center"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="22">
-              <el-form-item label="拒绝原因">
-                <el-input v-model="form1.refuseReason" :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-            <el-row>
-            
-            <el-col :span="22">
-               <el-form-item label="任务详情">
-              <el-input
-                 v-model="form1.taskDetail"
-                type="textarea"
-                :rows="7"
-                :disabled="true"
-               
-                
-              ></el-input>
-            </el-form-item>
-            </el-col>
-              
-            
-            
-          </el-row>
-            
-          
-        </el-form>
+              <el-row>
+                <el-col :span="22">
+                  <el-form-item label="任务详情">
+                    <el-input v-model="form1.taskDetail" type="textarea" :rows="7" :disabled="true"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+          </div>
+          <span slot="footer" class="dialog-footer" style="padding-right: 50px;">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          </span>
+        </el-dialog>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
 
-    <!-- <div class="block">
-  <el-pagination
-    layout="prev, pager, next"
-    :total="50">
-  </el-pagination>
-    </div>-->
+      <!-- 拒绝原因弹出框 -->
+      <el-dialog :visible.sync="resonvisible">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <el-form :model="form1">
+          <el-form-item :label-width="formLabelWidth">
+            <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{form1.demandorRefuseReason}}</span>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="resonvisible = false">取 消</el-button>
+          <el-button type="primary" @click="resonvisible=false">确 定</el-button>
+        </div>
+      </el-dialog>
+    
   </div>
 </template>
 
@@ -224,9 +229,11 @@ export default {
       username1: localStorage.getItem("ms_username"),
 
       pageIndex: 1,
-      pageSize: 5,
+      pageSize: 7,
 
       pageTotal: 0,
+      resonvisible: false,
+      tableHeight: window.innerHeight,
 
       Accepted_Task_Head: [
         {
@@ -256,37 +263,38 @@ export default {
         }
       ],
       Accepted_Task_Data: [
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: "",
-          taskType: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        },
-        {
-          taskId: "",
-          taskName: "",
-          taskCategory: "",
-          deadline: ""
-        }
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: "",
+        //   taskType: "",
+        //   demandorRefuseReason:""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // },
+        // {
+        //   taskId: "",
+        //   taskName: "",
+        //   taskCategory: "",
+        //   deadline: ""
+        // }
       ],
       form1: {},
       dialogVisible: false,
@@ -347,12 +355,13 @@ export default {
       this.$router.push("/#");
     },
     handlePageChange(val) {},
-    xiazaiMAINmoban(row) {
+
+    xiazaiZRWFJ(row) {
       console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: row.taskId,
-        leixing: "ZRWFJ"
+        leixing: "ZIRWHJ"
       });
       that
         .axios({
@@ -364,28 +373,27 @@ export default {
         .then(response => {
           console.log("cap");
           console.log(response);
-          response.data = window.URL.createObjectURL(
-            new Blob([response.data], { type: "application/octet-stream" })
-          );
-          this.download(response.data, "ZFJ");
+          this.download(response.data, "ZRWFJ");
         });
     },
 
+    // 下载文件
     download(data, leixing) {
-      console.log("调用");
       if (!data) {
         return;
       }
-      //let url = window.URL.createObjectURL(new Blob([data], {type: 'application/octet-stream'} ) ) ;
+      let url = window.URL.createObjectURL(
+        new Blob([data], { type: "application/zip" })
+      );
       let link = document.createElement("a");
       link.style.display = "none";
-      link.href = data;
+      link.href = url;
       if (leixing === "JHS") {
         link.setAttribute("download", "设计文档.zip");
       } else if (leixing === "HT") {
         link.setAttribute("download", "合同.zip");
-      } else if (leixing === "ZFJ") {
-        link.setAttribute("download", "任务附件.zip");
+      } else if (leixing === "ZRWFJ") {
+        link.setAttribute("download", "子任务附件.zip");
       }
       document.body.appendChild(link);
       link.click();
@@ -423,23 +431,28 @@ export default {
       this.form1 = row;
       this.dialogVisible = true;
     },
-    xiazai(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: row.taskId
-      });
-      that
-        .axios({
-          method: "post",
-          url: "http://127.0.0.1:8081/designer/downloadFile",
-          data: data
-        })
-        .then(response => {
-          console.log("cap");
-          console.log(response.data);
-          this.download(response.data, "tf");
-        });
+    handleEdit1(index, row) {
+      this.idx = index;
+      this.form1 = row;
+      this.resonvisible = true;
     },
+    // xiazai(row) {
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     taskId: row.taskId
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "http://127.0.0.1:8081/designer/downloadFile",
+    //       data: data
+    //     })
+    //     .then(response => {
+    //       console.log("cap");
+    //       console.log(response.data);
+    //       this.download(response.data, "tf");
+    //     });
+    // },
     // 下载文件
     // download(data, leixing) {
     //   if (!data) {
@@ -468,32 +481,52 @@ export default {
 };
 </script>
 <style>
-.dialogCSS .el-input.is-disabled .el-input__inner {
-  background-color: #ffffff;
-  color: #303133;
-  
+#designerAccept.el-dialog__header{
+
 }
-.dialogCSS.el-textarea.is-disabled .el-textarea__inner {
+
+  .dialogCSS .el-input.is-disabled .el-input__inner {
     background-color: #ffffff;
-    border-color: #E4E7ED;
+    color: #303133;
+  }
+  .el-textarea.is-disabled .el-textarea__inner {
+    background-color: #ffffff;
+    border-color: #e4e7ed;
     color: #303133;
     cursor: not-allowed;
-}
-/* .el-divider {
+  }
+  /* .el-divider {
   margin: 25px 0px !important;
 } */
-.table {
-  width: 100%;
+  .table {
+    width: 100%;
+    font-size: 14px;
+    height: 750px;
+  }
+  .el-scrollbar__wrap {
+    overflow-y: hidden;
+  }
+  .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+  .el-dialog__header {
+    padding: 0px 0px 0px;
+    
+  }
+  element.style {
+    margin-top: 20px;
+    height: 1001px;
+  }
+
+.el-dialog__body {
+  padding-top: 30px;
+  padding-right: 0px !important;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  /* color: #606266; */
   font-size: 14px;
+  word-break: break-all;
 }
-.el-scrollbar__wrap {
-  overflow-y: hidden;
-}
-.biaoti {
-  font-size: 18px;
-  color: #303133;
-}
-.el-dialog__header {
-  padding: 0px 0px 0px;
-}
+
 </style>

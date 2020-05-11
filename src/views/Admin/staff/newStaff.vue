@@ -39,8 +39,8 @@
                 >
                   <el-table-column prop="userId" label="序号" width="55" align="center" type="index"></el-table-column>
 
-                  <el-table-column prop="userName" label="用户名" sortable width="90"></el-table-column>
-                  <el-table-column prop="realName" label="真实姓名"  sortable width="120"></el-table-column>
+                  <el-table-column prop="userName" label="用户名" sortable width="120"></el-table-column>
+                  <el-table-column prop="realName" label="真实姓名"  sortable width="100"></el-table-column>
                   <el-table-column prop="roleId" label="部门" sortable width="100">
                     <template slot-scope="scope">
                       <span v-if="scope.row.roleId === 4">设计人员</span>
@@ -59,11 +59,13 @@
                         type="text"
                         icon="el-icon-edit"
                         @click="handleEdit(scope.$index, scope.row)"
+                         size="small"
                       >编辑</el-button>
                       <el-button
                         type="text"
                         icon="el-icon-delete"
                         class="red"
+                         size="small"
                         @click="handleDelete(scope.$index, scope.row)"
                       >删除</el-button>
                     </template>
@@ -529,6 +531,7 @@ export default {
 .table {
   width: 100%;
   font-size: 14px;
+  
 }
 .red {
   color: #ff0000;
