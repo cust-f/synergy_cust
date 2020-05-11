@@ -58,7 +58,8 @@ import circulationTaskEvaluationDetils from '@/views/admin/circulationRemark/cir
 import staffingTenderManagement from '@/views/admin/projectManagement/staffingTenderManagement'
 
 import virtualMachine from '@/Layout/template page/virtualMachine'
-import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'
+import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'//核心企业
+import evaluateS from '@/views/admin/Enterprise_Evaluation/evaluateS'//供应商
 
  import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
  import userManagement from '@/views/admin/company/userManagement'  //用户管理
@@ -394,13 +395,18 @@ export default new Router({
           name : 'designerFinishList',
           component:designerFinishList
         },
-        //企业评价
+        //核心企业评价
         {
           path:'/admin/Enterprise_Evaluation/evaluate',
           name:'evaluate',
           component:evaluate,
         },
-
+        //供应商企业评价
+        {
+          path:'/admin/Enterprise_Evaluation/evaluateS',
+          name:'evaluateS',
+          component:evaluateS,
+        },
          //供应商设计任务列表
         {
           path: '/admin/designTaskq',
