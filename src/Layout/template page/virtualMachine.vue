@@ -54,10 +54,7 @@
                     <br />
                     <el-row>
                       <el-col :span="6" align="right">任务类型:</el-col>
-                      <el-col :span="6" style="margin-left:40px">{{taskDetail.taskType}}</el-col>
-                      <el-col :span="9" align="center">
-                        <a @click="returnAcceptMession()">返回</a>
-                      </el-col>
+                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskType}}</el-col>
                     </el-row>
                     <br />
                     <el-row>
@@ -72,11 +69,13 @@
                       </el-col>
                     </el-row>
                     <br />
-                    <el-row>
-                      <el-col :span="24" align="center">
-                        <el-button @click="returnAcceptMession()">返回已接任务</el-button>
+                     <el-row>
+                      <el-col :span="6" align="right">联系电话:</el-col>
+                      <el-col :span="15" style="margin-left:40px">
+                        <span>{{taskDetail.phone}}</span>
                       </el-col>
                     </el-row>
+                    <br />
                   </el-tab-pane>
                   <!-- <el-tab-pane class="cur" label="文档提交" name="second">
                     假装这里有个富文本编辑器
