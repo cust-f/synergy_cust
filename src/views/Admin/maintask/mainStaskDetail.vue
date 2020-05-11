@@ -125,7 +125,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" width="250" label="供应商">
+          <el-table-column prop="companyName" width="200" label="供应商">
             <template slot-scope="scope">
               <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
             </template>
@@ -330,13 +330,13 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName"  width="250" label="供应商"></el-table-column>
-          <el-table-column prop="designerName" label="设计人员" widht="80">
+          <el-table-column prop="acceptCompanyName"  width="200" label="供应商"></el-table-column>
+          <!-- <el-table-column prop="designerName" label="设计人员" widht="70">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
               <el-span v-else>{{scope.row.designerName}}</el-span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column prop="designCount" label="重做次数" width="80"></el-table-column>demandorCheckDesignState
           <el-table-column prop="demandorCheckDesignState" width="80" label="验收状态" align="center">
             <template slot-scope="scope">
@@ -994,6 +994,8 @@ export default {
 
   data() {
     return {
+      //图片赋值次数
+      TPDZCS:1,
       //企业详情路径
       companyDetailContent: "",
       //默认企业图片
@@ -1855,7 +1857,7 @@ export default {
       link.style.display = "none";
       link.href = url;
       if (leixing === "JHS") {
-        link.setAttribute("download", "设计文档.zip");
+        link.setAttribute("download", "计划书.zip");
       } else if (leixing === "HT") {
         link.setAttribute("download", "合同.zip");
       } else if (leixing === "ZRWFJ") {
@@ -1985,17 +1987,21 @@ export default {
         })
         .then(response => {
           console.log(response);
-
-          this.form = response.data.allData.companyDetail[0];
+          if(this.TPDZCS ==1){
+            this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
-          this.qiyezhizhao =
-            response.data.allData.companyDetail[0].businessLicence;
-          this.shuiwudengjizheng =
-            response.data.allData.companyDetail[0].tRCertificate;
-          this.companyDetailContent =
+                    this.companyDetailContent =
             response.data.allData.companyDetailContent;
+          this.imgsrc = response.data.allData.companyPicture;
+          this.qiyezhizhao =
+            response.data.allData.BusinessLicence;
+          this.shuiwudengjizheng =
+            response.data.allData.tRCertificate;
+            this.TPDZCS = this.TPDZCS + 1;
+          }
+          
+
           console.log(this.imgsrc);
         });
       this.addVisibleCD = true;

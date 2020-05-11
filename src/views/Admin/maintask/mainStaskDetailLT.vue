@@ -125,7 +125,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" width="250" label="供应商">
+          <el-table-column prop="companyName" width="200" label="供应商">
             <template slot-scope="scope">
               <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
             </template>
@@ -327,7 +327,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应商" width="200"></el-table-column>
           <el-table-column prop="demandorCheckDesignState" label="验收状态"  widht="80" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
@@ -1878,7 +1878,7 @@ export default {
       link.style.display = "none";
       link.href = url;
       if (leixing === "JHS") {
-        link.setAttribute("download", "设计文档.zip");
+        link.setAttribute("download", "计划书.zip");
       } else if (leixing === "HT") {
         link.setAttribute("download", "合同.zip");
       } else if (leixing === "ZRWFJ") {
