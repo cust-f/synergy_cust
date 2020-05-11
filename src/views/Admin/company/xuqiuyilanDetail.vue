@@ -101,7 +101,7 @@
                         </a>
                       </li>
                       <br />
-                      <el-popover placement="top-start" width="200" trigger="hover">
+                      <el-popover placement="top-start"  trigger="hover">
                         <div>{{companyList.address}}</div>
                         <li class="det" slot="reference">
                           <a slot="reference">
