@@ -310,7 +310,7 @@
                     <div class="grid-content2 one">
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
-                <span>需求一栏</span>
+                <span>需求一览</span>
                 <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
               </div>
               <el-row
@@ -328,7 +328,7 @@
                     <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
                   </el-tooltip>
                 </el-col>
-                <el-col :span="9">
+                <el-col :span="11">
                   <el-tooltip :content="item.taskName" placement="top" effect="light">
                     <a
                       @click="needsDetail(item.taskId)"
@@ -336,7 +336,7 @@
                     >{{item.taskName}}</a>
                   </el-tooltip>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="5">
                   <span
                     class="fontStyle2"
                     style="line-height: 24px;"
@@ -421,7 +421,7 @@
                     >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
                   </el-tooltip>
                 </el-col>
-                <el-col :span="14">
+                <el-col :span="17">
                   <el-tooltip :content="supplierlist.companyName[i]" placement="top" effect="light">
                     <a
                       @click="excellentCompanyDetail(item)"
@@ -456,7 +456,7 @@
                     <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
                   </el-tooltip>
                 </el-col>
-                <el-col :span="9">
+                <el-col :span="11">
                   <el-tooltip :content="item.taskName" placement="top" effect="light">
                     <a
                       @click="needsDetail(item.taskId)"
@@ -464,7 +464,7 @@
                     >{{item.taskName}}</a>
                   </el-tooltip>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="5">
                   <span
                     class="fontStyle2"
                     style="line-height: 24px;"

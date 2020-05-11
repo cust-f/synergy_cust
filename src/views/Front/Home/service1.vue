@@ -16,7 +16,7 @@
     <el-card shadow="never" style="margin-bottom:20px;" class="tatolheader">
      
       <div slot="header">
-        <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;">成果详情</div>
+        <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;">成果详情</div>
         
       </div>
 
