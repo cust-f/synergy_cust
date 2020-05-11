@@ -103,7 +103,7 @@
                       <br />
                       <el-popover placement="top-start" width="200" trigger="hover">
                         <div>{{companyList.address}}</div>
-                        <li slot="reference">
+                        <li class="det" slot="reference">
                           <a slot="reference">
                             企业地址：
                             <font>{{companyList.address}}</font>
@@ -561,7 +561,7 @@ export default {
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
           this.address = response.data.allData.companyDetail[0].address;
-          this.logo = response.date.allData.companyDetail[0].logo;
+          this.logo = response.data.allData.companyDetail[0].logo;
           this.companyDetailContent =
             response.data.allData.companyDetailContent;
         });
@@ -741,7 +741,13 @@ export default {
     width: 400px;
   }
   .ul02 {
-    width: 900px;
+    width: 300px;
+  }
+  .det {
+    width: 350px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .ul03 {
     width: 800px;
@@ -752,7 +758,7 @@ export default {
   }
   .company-detail {
     font-size: 16px;
-    width: 800px;
+    width: 300px;
   }
   .title-detail {
     color: #ff7720;
@@ -761,7 +767,7 @@ export default {
   }
   .title-company-detail {
     color: #0f0e0d;
-    font-size: 20px;
+    font-size: 18px;
     float: left;
   }
   .title-task-detail {
