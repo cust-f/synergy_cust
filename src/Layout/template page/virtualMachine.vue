@@ -45,8 +45,8 @@
                     <el-row>
                       <el-col :span="6" align="right">公司名称:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskCode}}</el-col>
-                    </el-row>
-                    <br />
+                    </el-row> -->
+                    <!-- <br /> -->
                     <el-row>
                       <el-col :span="6" align="right">任务名称:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskName}}</el-col>

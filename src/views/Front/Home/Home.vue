@@ -319,7 +319,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="8">
+                <el-col :span="6">
                   <el-tooltip
                     :content="item.types"
                     placement="left-start"
@@ -409,7 +409,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="8">
+                <el-col :span="6">
                   <el-tooltip
                     :content="supplierlist.companyProduct[i]"
                     placement="left-start"
@@ -447,7 +447,7 @@
                 style="margin-bottom:20px;"
                 :gutter="10"
               >
-                <el-col :span="8">
+                <el-col :span="6">
                   <el-tooltip
                     :content="item.types"
                     placement="left-start"
@@ -942,7 +942,7 @@ export default {
   float: left;
   position: relative;
   left: 25%;
-  width: 50%;
+  width: 40%;
   height: 50px;
   margin-bottom: 7%;
   font-size: 18px;

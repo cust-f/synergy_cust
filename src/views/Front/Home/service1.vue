@@ -14,8 +14,10 @@
     </el-row>
     <br />
     <el-card shadow="never" style="margin-bottom:20px;" class="tatolheader">
+     
       <div slot="header">
-        <span>成果详情</span>
+        <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;">成果详情</div>
+        
       </div>
 
       <div class="service_top">
@@ -95,7 +97,7 @@
                       <li>
                         <a>
                           经营范围：
-                          <font>{{company.product}}</font>
+                          <font>{{product}}</font>
                         </a>
                       </li>
                       <br />
@@ -190,7 +192,7 @@
                     <li>
                       <a>
                         开始时间：
-                        <font>{{taskData.beginTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                        <font>{{taskData.publishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
                       </a>
                     </li>
                     <br />
@@ -224,7 +226,7 @@
                         <li>
                           <a>
                             经营范围：
-                            <font>{{product}}</font>
+                            <font>{{ productCompany}}</font>
                           </a>
                         </li>
                         <br />
@@ -420,6 +422,7 @@ export default {
       editableTabsValue: "1",
       companyDetail: "",
       companyDetailContent: "",
+       productCompany:"",
       // editableTabs: [{
       //     title: "1",
       //     name: "1",
@@ -517,6 +520,7 @@ export default {
     this.getListData();
     this.getData();
     //this.getCharts1();
+     this.getproduct();
 
     this.activeName = this.list[0].taskId;
   },
@@ -642,7 +646,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/supplier/getCompay",
+          url: "/api//serviceResult/getCompay",
           data: data
 
           //  data:this.$store.state.userName
@@ -650,7 +654,8 @@ export default {
         .then(response => {
           console.log(response);
           //this.$set(this,'list',response.data.alldata)
-          this.product = response.data.allData[0].b;
+          this.product = response.data.allData.c;
+          this.productCompany = response.data.allData.b;
           console.log("product"+this.product)
           
         });
