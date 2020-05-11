@@ -13,7 +13,7 @@
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
 
-      <el-table-column prop="designCount" label="重做次数"></el-table-column>
+      <el-table-column prop="designCount" width="100" label="上传次数"></el-table-column>
       <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
@@ -31,7 +31,7 @@
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
           <el-button
-            v-show="scope.row.designCount > 1 && scope.row.demandorCheckDesignState!=2 "
+            v-show="scope.row.demandorCheckDesignState === 3"
             @click="refuseDesignReason(scope.row)"
             type="text"
             size="small"
@@ -39,9 +39,10 @@
         </template>
       </el-table-column>
     </el-table>
+
     <!-- 设计验收拒绝原因 -->
     <el-dialog :visible.sync="addVisible4" width="50%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计验收拒绝原因</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
       <br />
       <br />
       <el-row>
@@ -50,14 +51,12 @@
       <el-form ref="form" :model="addList5" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item>
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 5, maxRows: 7}"
-                v-model="addList5.demandorRefuseReason"
-                :readonly="true"
-              ></el-input>
-            </el-form-item>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 7}"
+              v-model="addList5.demandorRefuseReason"
+              :readonly="true"
+            ></el-input>
           </el-col>
         </el-row>
       </el-form>

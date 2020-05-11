@@ -20,7 +20,7 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label>
-                  <el-image align="left" class="yingyezhizhao" :src="qiyezhizhao" :onerror="errorImg02"></el-image>
+                  <el-image align="left" class="yingyezhizhao" :src="qiyezhizhao" :onerror="errorImg02" ></el-image>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -169,11 +169,10 @@
               </el-col>
             </el-row>
 
- <el-row>
+            <el-row>
               <el-col :span="24">
-                <el-form-item label="企业详情">
-                  <div class="XX" v-html="companyDetailContent">
-                  </div>
+                <el-form-item label="企业详情"> 
+               
                 </el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
@@ -183,9 +182,13 @@
                             placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
                     </el-form-item>
                 -->
-              </el-col>
+              </el-col> 
             </el-row>
-          </el-form>
+            <el-row>
+               <div class="XX" v-html="companyDetailContent">
+                  </div>  
+            </el-row>
+          </el-form> 
         </div>
         <!-- <div align="center">
             <el-button type="primary" class="button1" @click="update" :disabled=xiugai>修改</el-button>

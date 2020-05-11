@@ -38,20 +38,25 @@
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <div v-if="scope.row.checkApplyState < 1">
-            <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
-            <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
+          <div v-if="scope.row.applyWay === 0">
+            <div v-if="scope.row.checkApplyState < 1">
+              <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
+              <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
+            </div>
           </div>
-          <div v-if="scope.row.checkApplyState === 2&&scope.row.applyWay == 1">
-            <el-button @click="refuseReason(scope.row)" type="text" size="small">拒绝原因</el-button>
-          </div>
+          <el-button
+            v-if="scope.row.checkApplyState === 2 && scope.row.applyWay === 1"
+            @click="refuseReason(scope.row)"
+            type="text"
+            size="small"
+          >拒绝原因</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 申请拒绝原因 -->
     <el-dialog :visible.sync="addVisible1" width="50%">
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请被拒绝原因</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
       <br />
       <br />
       <el-row>
@@ -60,9 +65,12 @@
       <el-form ref="form" :model="addList1" label-width="120px">
         <el-row>
           <el-col>
-            <el-form-item label="被拒绝原因">
-              <el-input v-model="addList1.refuseApplyMessage" :readonly="true"></el-input>
-            </el-form-item>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 7}"
+              v-model="addList1.refuseApplyMessage"
+              :readonly="true"
+            ></el-input>
           </el-col>
         </el-row>
       </el-form>
@@ -99,8 +107,13 @@ export default {
   methods: {
     getMsg(msg) {
       this.PlantableData = msg;
-      this.taskId = this.PlantableData.taskId;
+      this.getParams();
       console.log("我要看看这里的TaskId：" + this.taskId);
+    },
+    getParams() {
+      var routerParams = this.$route.query.taskId;
+      this.taskId = routerParams;
+      console.log(routerParams);
     },
     //下载子任务附件
     xiazaiZRWFJ() {
@@ -155,7 +168,8 @@ export default {
         console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
-          taskID: row.taskId
+          taskID: row.taskId,
+          userName: this.userName
         });
         console.log(data);
         that.axios({
@@ -175,7 +189,8 @@ export default {
       this.addVisible1 = true;
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskId,
+        userName: this.userName
       });
       console.log(data);
       that

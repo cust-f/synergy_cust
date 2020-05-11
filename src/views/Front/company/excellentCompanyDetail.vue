@@ -69,7 +69,7 @@
               <li>
                 <a>
                   注册资本：
-                  <font>{{companyDetail.registeredCapital}}</font>
+                  <font>{{companyDetail.registeredCapital}}万元</font>
                 </a>
               </li>
               <br />
@@ -85,7 +85,7 @@
               <li>
                 <a>
                   工商注册号：
-                  <font>{{companyDetail.businessName}}</font>
+                  <font>{{companyDetail.brNumber}}</font>
                 </a>
               </li>
               <br />
@@ -106,7 +106,7 @@
               <li>
                 <a>
                   办公电话：
-                  <font>{{companyDetail.workerNumber}}</font>
+                  <font>{{companyDetail.officeNumber}}</font>
                 </a>
               </li>
               <br />
@@ -125,6 +125,7 @@
           <el-tab-pane label="企业信息">
             <div>
               <div class="message" v-html="companyDetailContent"></div>
+              <br>
               <el-divider></el-divider>
             </div>
           </el-tab-pane>

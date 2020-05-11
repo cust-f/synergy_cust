@@ -7,7 +7,7 @@
             <el-popover placement="bottom" trigger="hover">
               <el-row>
                 <el-col :span="10" class="user-avator">
-                  <img src="../../../../assets/img/img.jpg" />
+                  <img :src="this.$store.state.userLogo" />
                 </el-col>
                 <el-col :span="10" style="float:right;">
                   <div class="user-option">
@@ -224,7 +224,10 @@
       top="20vh"
       class="updata"
       @close="closeDialog"
+      width="450px"
     >
+
+      <div style="text-align:center;">
       <el-form
         :model="account"
         status-icon
@@ -232,8 +235,7 @@
         ref="account"
         label-width="70px"
         class="demo-ruleForm"
-      >
-        <el-form-item label="用户名" prop="userName">
+      >        <el-form-item label="用户名" prop="userName">
           <el-input disabled v-model="username"></el-input>
         </el-form-item>
         <el-form-item label="旧密码" prop="password">
@@ -252,6 +254,8 @@
           <el-input type="password" v-model="account.checkPass" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
+      </div>
+
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm('account')" :disabled="checkMessage">提交</el-button>
         <el-button @click="resetForm('account')">重置</el-button>
@@ -264,13 +268,14 @@
       class="updata"
       top="20vh"
       @close="updataUserDetail=false"
+      width="450px"
     >
       <el-form
         :model="user"
         status-icon
         :rules="userRules"
         ref="user"
-        label-width="100px"
+        label-width="70px"
         class="demo-ruleForm"
       >
         <el-form-item
@@ -470,6 +475,8 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       this.userInfo.userLogo = URL.createObjectURL(file.raw);
+      this.$message("修改成功");
+      this.$store.commit("SET_USERLOGO",this.userInfo.userLogo );
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -549,7 +556,7 @@ export default {
 </script>
 
 <style>
-.el-row {
+.admin-header .el-row {
   margin-left: 0px !important;
 }
 /* .admin-header{

@@ -1237,7 +1237,7 @@ export default {
       this.WZLJ = qianzui + houzui;
       console.log(this.WZLJ);
       this.fujian.splice(row.wenjiancixu, 1);
-    },
+    }, 
     downloadFile(row) {
       var that = this;
       var data = Qs.stringify({
@@ -1795,6 +1795,7 @@ export default {
         var that = this;
         var data = Qs.stringify({
           taskID: row.id,
+          companyId: row.companyId,
           leixing: "jihuashu"
         });
         that

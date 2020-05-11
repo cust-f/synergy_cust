@@ -25,7 +25,7 @@
 
       <el-table-column prop="taskCategoryPart" sortable label="行业类别"></el-table-column>
 
-      <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
+      <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
 
       <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
 
@@ -70,18 +70,7 @@ export default {
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
-      tableData: [
-        {
-          taskId: "",
-          taskName: "",
-          taskType: "",
-          companyName: "",
-          designerName: "",
-          designCount: "",
-          deadline: "",
-          taskCategoryPart: ""
-        }
-      ],
+      tableData: [],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,

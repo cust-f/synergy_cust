@@ -20,7 +20,7 @@
             <div class="BigTime">
               <el-carousel height="250" width="250" direction="vertical" arrow="always">
                 <el-carousel-item>
-                  <img :src="login" class="images" :onerror="errorImg01" />
+                  <img :src="logo" class="images" :onerror="errorImg01" />
                 </el-carousel-item>
               </el-carousel>
             </div>
@@ -72,12 +72,7 @@
                   </a>
                 </li>
                 <br />
-                <el-button
-                  v-show="applyIf === 0 && Dengluyanzheng ===1"
-                  type="warning"
-                  class="button-style"
-                  @click="applyTask()"
-                >申请任务</el-button>
+                <el-button type="warning" class="button-style" @click="applyTask()">申请任务</el-button>
               </el-col>
             </ul>
           </div>
@@ -106,18 +101,20 @@
                         </a>
                       </li>
                       <br />
-                      <li>
-                        <a>
-                          企业地址：
-                          <font>{{companyList.address}}</font>
-                        </a>
-                      </li>
+                      <el-popover placement="top-start" width="200" trigger="hover">
+                        <div>{{companyList.address}}</div>
+                        <li class="det" slot="reference">
+                          <a slot="reference">
+                            企业地址：
+                            <font>{{companyList.address}}</font>
+                          </a>
+                        </li>
+                      </el-popover>
                       <br />
-
                       <li>
                         <a>
                           联系电话：
-                          <font>{{companyList.businessTel}}</font>
+                          <font>{{applyList.demanderTel}}</font>
                         </a>
                       </li>
                       <br />
@@ -173,7 +170,7 @@
               </div>
               <br />
               <el-divider></el-divider>
-              <div>{{companyList.introduction }}</div>
+              <div v-html="companyDetailContent"></div>
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -237,7 +234,7 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方电话">
-              <el-input v-model="companyList.businessTel" :readonly="true"></el-input>
+              <el-input v-model="applyList.demanderTel" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
@@ -278,13 +275,8 @@ export default {
       }
     };
     return {
-      //默认企业图片
-      errorImg01: 'this.src="' + require("../company/1.png") + '"',
-      //默认营业执照
-      errorImg02:
-        'this.src="' + require("../company/2.jpg") + '"',
-      //默认税务登记
-      errorImg03: 'this.src="' + require("../company/3.jpg") + '"',
+      //默认logo
+      errorImg01: 'this.src="' + require("../company/2.jpg") + '"',
       telphone: 1,
       rules: {
         supplierTel: [
@@ -334,18 +326,20 @@ export default {
           filePath: ""
         }
       ],
+      address: "",
       TaskDetail: "",
       TaskDetailContent: "",
       beginTime1: "",
       deadline1: "",
       taskID: 0,
-      login: require("../company/2.jpg"),
+      logo: require("../company/2.jpg"),
       userName: localStorage.getItem("ms_username"),
       applyDiaLog: false,
       //判断企业是否申请过此任务
       applyIf: 0,
       //接受企业名称
       companyName1: 0,
+      companyDetailContent: "",
       companyId: 0,
       YinCang: 1,
       FileNum: 0,
@@ -362,7 +356,6 @@ export default {
     };
   },
   created() {
-    this.userlogin();
     this.getParams();
     this.showTaskData();
     this.showApply();
@@ -376,17 +369,6 @@ export default {
     }
   },
   methods: {
-    //登录验证
-    userlogin() {
-      var userName = localStorage.getItem("ms_username");
-      if (userName == "null") {
-        this.Dengluyanzheng = 0;
-        console.log(userName);
-      } else {
-        this.Dengluyanzheng = 1;
-        console.log("登录了 ");
-      }
-    },
     //下载
     downloadFile(row) {
       var that = this;
@@ -427,7 +409,25 @@ export default {
     },
     //申请弹窗
     applyTask() {
-      this.applyDiaLog = true;
+      if (this.$store.state.token) {
+        if (this.applyIf != 0) {
+          this.$message.error("您已申请，请勿重复申请");
+        } else {
+          this.applyDiaLog = true;
+        }
+      } else {
+        this.$confirm("登陆后才能进行申请，是否登陆？", "提示", {
+          confirmButtonText: "登陆",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.$router.push({
+              path: "/Login"
+            });
+          })
+          .catch(() => {});
+      }
     },
     //数据显示
     showTaskData() {
@@ -445,8 +445,7 @@ export default {
         .then(response => {
           console.log(response);
           this.applyList = response.data.allData.a[0];
-          this.companyList = response.data.allData.b[0];
-          this.companyId = response.data.allData.b[0].companyId;
+          this.getCompay();
           if (response.data.allData.a[0].taskType == 1) {
             this.applyList.taskTypeName = "流通";
           } else {
@@ -510,19 +509,8 @@ export default {
         path: "/xuqiuyilan"
       });
     },
-    //手机号校验
-    animate() {
-      var re = /^1\d{10}$/;
-      let str = this.applyList1.supplierTel;
-      if (re.test(str)) {
-        //  alert('成功')
-      } else {
-        this.applyList1.supplierTel = 0;
-      }
-    },
     //申请数据上传
     apply() {
-      console.log("给我看看这个是什么？" + this.telphone);
       if (this.telphone == 1) {
         this.$message.error("您的手机号填写有误");
       } else {
@@ -554,6 +542,29 @@ export default {
         path: "company/excellentCompanyDetail",
         query: { companyId: companyId }
       });
+    },
+
+    getCompay() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID
+      });
+      console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/getCompanyFormBytaskId",
+          data: data
+        })
+        .then(response => {
+          this.companyList = response.data.allData.companyDetail[0];
+          this.companyId = response.data.allData.companyDetail[0].companyId;
+          this.companyName = response.data.allData.companyDetail[0].companyName;
+          this.address = response.data.allData.companyDetail[0].address;
+          this.logo = response.data.allData.companyDetail[0].logo;
+          this.companyDetailContent =
+            response.data.allData.companyDetailContent;
+        });
     }
   }
 };
@@ -730,7 +741,13 @@ export default {
     width: 400px;
   }
   .ul02 {
-    width: 900px;
+    width: 300px;
+  }
+  .det {
+    width: 350px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .ul03 {
     width: 800px;
@@ -741,7 +758,7 @@ export default {
   }
   .company-detail {
     font-size: 16px;
-    width: 320px;
+    width: 300px;
   }
   .title-detail {
     color: #ff7720;
@@ -750,12 +767,12 @@ export default {
   }
   .title-company-detail {
     color: #0f0e0d;
-    font-size: 20px;
+    font-size: 18px;
     float: left;
   }
   .title-task-detail {
     font-size: 16px;
-    width: 750px;
+    width: 700px;
   }
   .dialog-footer {
     text-align: center;
@@ -870,7 +887,7 @@ export default {
 
     text-decoration: none;
 
-    width: 750px;
+    width: 720px;
   }
   .left {
     margin-left: 50px;

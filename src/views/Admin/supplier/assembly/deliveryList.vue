@@ -13,22 +13,27 @@
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="taskCategory" label="需求类别"></el-table-column>
-      <el-table-column prop="taskCategoryPart" label="需求类别"></el-table-column>
 
-      <el-table-column prop="demandorCheckDesignState" width="100" label="验收状态">
+      <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.demandorCheckDesignState === 0">待提交</span>
-          <span v-else-if="scope.row.demandorCheckDesignState === 1">待审核</span>
-          <span v-else-if="scope.row.demandorCheckDesignState === 2">通过</span>
-          <span v-else-if="scope.row.demandorCheckDesignState === 3">未通过</span>
+          <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column prop="demandorCheckDesignTime" label="验收时间">
+      <el-table-column prop="upLoadCircuaterTime" label="清单上传时间">
         <template slot-scope="scope">
-          <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未验收</el-span>
-          <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
+          <el-span v-if="+scope.row.uploadCircuaterTime === 0">暂未验收</el-span>
+          <el-span v-else>{{scope.row.uploadCircuaterTime | formatDate}}</el-span>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="checkCircuaterTime" label="验收时间">
+        <template slot-scope="scope">
+          <el-span v-if="+scope.row.checkCircuaterTime === 0">暂未验收</el-span>
+          <el-span v-else>{{scope.row.checkCircuaterTime | formatDate}}</el-span>
         </template>
       </el-table-column>
 
@@ -46,12 +51,42 @@
             @click="FHQDFileHistory()"
             v-show="scope.row.demandorCheckDesignState > 0"
           >历史上传</el-button>
-          <div v-show="scope.row.demandorCheckDesignState > 1">
-            <el-button @click="FFQDXZ(scope.row)" type="text" size="small">下载</el-button>
-          </div>
+          <el-button
+            v-show="scope.row.demandorCheckDesignState > 1"
+            @click="FFQDXZ(scope.row)"
+            type="text"
+            size="small"
+          >下载</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 上传流通规格书 -->
+    <el-dialog :visible.sync="upCirculation" width="400px" :before-close="handleClose">
+      <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传发货清单</div>
+      <br />
+      <br />
+      <el-upload
+        ref="upload"
+        action="/api/supplier/import"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :on-success="handleAvatarSuccess"
+        multiple
+        :auto-upload="false"
+      >
+        <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
+        <br />
+        <el-button
+          style="margin-left:10px;"
+          size="small"
+          type="success"
+          @click="submitUpload"
+          align-center
+        >上传到服务器</el-button>
+      </el-upload>
+    </el-dialog>
+
     <!-- 文件历史 -->
     <el-dialog title :visible.sync="fileHistoryDia" width="55%">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
@@ -64,7 +99,6 @@
           class="table"
           ref="multipleTable"
           header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
         >
           <el-table-column label="序号" type="index" width="55" align="center">
             <template slot-scope="scope">
@@ -105,7 +139,12 @@ export default {
       yinCang: 1,
       userName: localStorage.getItem("ms_username"),
       deliveryList: [],
-      fileHistoryMessage: [],
+      fileHistoryMessage: [
+        {
+          publishingCompanyName: "123",
+          fileType: "123"
+        }
+      ],
       upCirculation: false,
       //文件历史弹窗
       fileHistoryDia: false,
@@ -116,7 +155,9 @@ export default {
       shangchuancishu: 0,
       //上传的文件路径
       technicalFile: [],
-      technicalFileWanzheng: ""
+      technicalFileWanzheng: "",
+      filePath: "",
+      uploadTime: ""
     };
   },
 
@@ -166,44 +207,32 @@ export default {
           URL.revokeObjectURL(link.href); //释放url
         });
     },
-    HTFileHistory() {
-      this.fileType = 0;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        fileType: this.fileType
-      });
-      console.log(data);
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getFileHistory",
-          data: data
-        })
-        .then(response => {
-          // console.log(response);
-          this.fileHistoryMessage = response.data.allData;
-          this.fileHistoryDia = true;
-        });
-    },
-    //发货清单下载
+    //合同下载
     FFQDXZ(row) {
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
-        leixing: "fahuoqingdan",
-        responseType: "blob"
+        leixing: "FHQD"
       });
       that
         .axios({
           method: "post",
-          url: "/api/supplier/Download",
+          url: "/api/SubstaskInformation/DownloadHTHT",
           data: data,
           responseType: "blob"
         })
         .then(response => {
+          console.log("cap");
           console.log(response);
-          this.download(response.data, "FFQD");
+          let url = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/zip" })
+          );
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = url;
+          link.setAttribute("download", "发货清单.zip");
+          document.body.appendChild(link);
+          link.click();
         });
     },
     FHQDFileHistory() {
@@ -222,7 +251,7 @@ export default {
         })
         .then(response => {
           // console.log(response);
-          this.tableData6 = response.data.allData;
+          this.fileHistoryMessage = response.data.allData;
           this.fileHistoryDia = true;
         });
     },
@@ -284,7 +313,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/supplier/textImportCir",
+          url: "/api/supplierCon/textImportCir",
           data: data
         })
         .then(response => {

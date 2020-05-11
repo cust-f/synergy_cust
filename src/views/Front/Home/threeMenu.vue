@@ -46,7 +46,7 @@
               <p style =" width :50%; float:left">需求截止时间：{{taskDetail.deadline| dataFormat("yyyy-MM-dd")}}</p>
               <p>&nbsp;</p>
               <p style =" width :100%; float:left">需求介绍：{{taskDetail.taskDetail}}</p>
-
+              <p>&nbsp;</p>
               <p style =" width :100%; float:left">联系方式：   
                 <el-input
                   size="small"
@@ -59,7 +59,7 @@
               </p>
               <p>&nbsp;</p>
               <p align="center">
-                <!-- <el-button type="warning" @click="" >申请</el-button> -->
+                <el-button type="warning" @click="MBDownload" >申请</el-button>
               </p>
 
 
@@ -139,7 +139,7 @@ export default {
         that
           .axios({
             method: "post",
-            url: "http://127.0.0.1:8082/threeMenu/getTaskDetail",
+            url: "/api/threeMenu/getTaskDetail",
             data: data
           })
           .then(response =>{
@@ -163,7 +163,34 @@ export default {
             message: '已取消申请'
           });          
         });
-      }
+      },
+      //模板下载
+      MBDownload() {
+        var that = this;
+        var data = Qs.stringify({
+          taskID: this.taskID
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/threeMenu/DownloadMB",
+            data: data
+          })
+          .then(response => {
+            console.log(response.data);
+            this.download(response.data);
+          });
+      },
+      // 下载文件
+      download(data) {
+        let url = window.URL.createObjectURL(new Blob([data]));
+        let link = document.createElement("a");
+        link.style.display = "none";
+        link.href = url;
+        link.setAttribute("download", "模板.docx");
+        document.body.appendChild(link);
+        link.click();
+      },
     }
 };
 

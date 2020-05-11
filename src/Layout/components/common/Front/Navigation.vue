@@ -116,9 +116,28 @@ export default {
     line-height: 43px !important;
 }
 .el-submenu{
+  margin-bottom: 0px !important;
 }
 
 .el-menu.el-menu--horizontal {
     border-bottom: solid 0px #e6e6e6;
 }
+.el-submenu__title {
+    font-size: 14px;
+    color: #303133;
+    padding: 0 20px;
+    cursor: pointer;
+    -webkit-transition: border-color .3s,background-color .3s,color .3s;
+    transition: border-color .3s,background-color .3s,color .3s;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height:40px
+}
+.el-submenu .el-menu-item {
+    height: 35px;
+    line-height: 50px;
+    padding: 0 45px;
+    min-width: 200px;
+}
+
 </style>

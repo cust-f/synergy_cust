@@ -25,9 +25,9 @@
 
       <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
 
-      <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
+      <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
 
-      <el-table-column prop="userName" sortable label="设计师" align="center"></el-table-column>
+      <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
