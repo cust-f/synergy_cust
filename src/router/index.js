@@ -16,6 +16,7 @@ import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
 import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
 import search from '@/views/Front/Search/search'//搜索界面
 import dashbordFront from '@/views/Front/Home/dashbordFront'
+import Data from '@/views/Front/Home/Data'
 
 
 //后台界面
@@ -164,6 +165,12 @@ export default new Router({
           name:search,
           component:search
         },
+        {
+          path:'/Data',
+          name:'Data',
+          component:Data
+        }
+
         // {
         //   path: '/admin/dashboard',
         //   name: 'Dashboard',

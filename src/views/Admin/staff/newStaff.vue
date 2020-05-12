@@ -302,7 +302,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           this.tableData = response.data.allData;
         });
     },
@@ -323,7 +323,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           this.tableData = response.data.allData;
         });
 
@@ -400,7 +400,7 @@ export default {
             Password1: this.addList.password
             //roleName:this.roleName
           });
-          console.log(data);
+         // console.log(data);
           //console.log(this.addList.email);
 
           that
@@ -415,7 +415,7 @@ export default {
                 message: "提交成功"
               });
               this.tableData.push(this.addList);
-              console.log(this.addList);
+              //console.log(this.addList);
               this.addList = {};
               this.addVisible = false;
               this.getData();
@@ -435,7 +435,7 @@ export default {
       this.form = row;
       this.editVisible = true;
       this.Id = row.userId;
-      console.log(Id);
+      //console.log(Id);
     },
     // 保存编辑
     saveEdit(formName) {
@@ -450,7 +450,7 @@ export default {
             Password: this.form.password
             //userId:row.userId
           });
-          console.log(data);
+          //console.log(data);
           //console.log(this.addList.email);
 
           that

@@ -328,7 +328,7 @@
                   <el-popover :content="item.taskName" placement="top-start" trigger="hover">
                     <a
                     slot="reference"
-                      @click="needsDetail(item.taskId)"
+                      @click="serviceDetail(item.taskId)"
                       style="float:left;line-height: 24px;"
                     >{{item.taskName}}</a>
                   </el-popover>

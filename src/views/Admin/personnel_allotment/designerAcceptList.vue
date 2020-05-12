@@ -319,12 +319,12 @@ export default {
         this.$confirm("确定要提交任务吗？", "提示", {
           type: "warning"
         }).then(() => {
-          console.log(row.taskId);
+          //console.log(row.taskId);
           var that = this;
           var data = Qs.stringify({
             taskId: row.taskId
           });
-          console.log(data);
+          //console.log(data);
           that.axios({
             method: "post",
             url: "http://127.0.0.1:8081/designer/updateCheckState",
@@ -342,7 +342,7 @@ export default {
       }
     },
     handleDetail(row) {
-      console.log(row.taskId);
+      //console.log(row.taskId);
       this.$router.push({
         path: "/admin/personnel_allotment/virtualMachine",
         query: {
@@ -357,7 +357,7 @@ export default {
     handlePageChange(val) {},
 
     xiazaiZRWFJ(row) {
-      console.log("shenme");
+      //console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: row.taskId,
@@ -371,8 +371,8 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
+         // console.log("cap");
+          //console.log(response);
           this.download(response.data, "ZRWFJ");
         });
     },
@@ -401,7 +401,7 @@ export default {
 
     //获取已接收任务列表数据
     getTableData() {
-      console.log(this.userName);
+      //console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         designerName: this.username1

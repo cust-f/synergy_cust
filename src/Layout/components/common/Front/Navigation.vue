@@ -76,7 +76,7 @@ export default {
                 },
                 {
                      icon: 'el-icon-s-custom',
-                    index: '/admin/dashboard',
+                    index: '/Data',
                     title: '网站数据',
                 }
             ]

@@ -792,7 +792,7 @@ export default {
   
    top: -20px;
     width: 937px;
-    height: 170px;
+    /* height: 170px; */
     /* border: 1px solid #00a2e6 ; */
   }
 </style>
