@@ -60,7 +60,7 @@
             </div>
             <br>
             <div align="">
-              <font size="4">{{ form.businessTel}}</font>
+              <font size="4">{{ form.officeNumber}}</font>
             </div>
           </div>
         </div>
@@ -792,7 +792,7 @@ export default {
   
    top: -20px;
     width: 937px;
-    height: 150px;
+    height: 170px;
     /* border: 1px solid #00a2e6 ; */
   }
 </style>
