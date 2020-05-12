@@ -37,32 +37,39 @@
             </el-col>
           </el-row>
         </el-form>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" >企业Logo</div>
+ <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
-        <el-form ref="form" :model="form" label-width="100px">
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label>
-                <el-image align="left" style="width:200px;height:200px" :src="logo" :onerror="errorImg00"></el-image>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
-        <br />
+        <div style="width:800px;height:250px;">
+        
+          <div style="float: left">
+            <el-image
+              align="left"
+              style="width:200px;height:200px"
+              :src="logo"
+              :onerror="errorImg00"
+            ></el-image>
+          </div>
 
-        <div>
-          <el-rate label="企业星级：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+          <div style="float: right;width:490px;height:250px; ">
+              <br>
+                <br>
+            <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+            <br>
+            <div align="">
+              <font size="5">{{ form.companyName}}</font>
+            </div>
+            <br>
+            <div align="">
+              <font size="4">{{ form.businessTel}}</font>
+            </div>
+          </div>
         </div>
+
         <br />
         <div align="right" class="formYS">
           <el-form ref="form" :model="form" label-width="100px">
-            <el-row>
-              <!-- <el-col :span="12">
-                    <el-form-item label="企业ID">
-                        <el-input v-model="form.companyId" :disabled="true"></el-input>
-                    </el-form-item>
-              </el-col>-->
+            <!-- <el-row>
+           
               <el-col :span="12">
                 <el-form-item label="企业名称">
                   <el-input v-model="form.companyName" :disabled="true"></el-input>
@@ -73,7 +80,7 @@
                   <el-input v-model="form.brNumber" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
-            </el-row>
+            </el-row> -->
 
             <el-row>
               <el-col :span="12">
@@ -134,8 +141,8 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="办公电话">
-                  <el-input v-model="form.officeNumber" :disabled="yangshi"></el-input>
+                <el-form-item label="工商注册号">
+                  <el-input v-model="form.brNumber" :disabled="yangshi"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -181,9 +188,7 @@
 
             <el-row>
               <el-col :span="24">
-                <el-form-item label="企业详情"> 
-               
-                </el-form-item>
+                <el-form-item label="企业详情"></el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -191,13 +196,14 @@
                             style="width:100%;"
                             placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
                     </el-form-item>
-                -->
+                --> <el-card class="box-card">
+                  <font font-size="12px">
+                    <div class="XX" v-html="companyDetailContent"></div>
+                  </font>
+                </el-card>
               </el-col> 
             </el-row>
-            <el-row>
-               <div class="XX" v-html="companyDetailContent">
-                  </div>  
-            </el-row>
+           
           </el-form> 
         </div>
         <!-- <div align="center">
@@ -779,8 +785,14 @@ export default {
     height: 200px;
     }
 .XX{
-  position:relative;
-   left: -865px;
+    text-align: left;
+  }
+  .box-card {
+   position:relative;
+  
    top: -20px;
+    width: 937px;
+    height: 150px;
+    /* border: 1px solid #00a2e6 ; */
   }
 </style>
