@@ -26,8 +26,8 @@
       <el-table-column prop="taskState" align="center" sortable label="状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
-          <el-tag class="jinxingzhong" v-else-if="scope.row.taskState === 1">计划审核</el-tag>
-          <el-tag class="jinxingzhong" v-else-if="scope.row.taskState === 2">进行中</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.taskState === 1">计划审核</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.taskState === 2">进行中</el-tag>
           <el-tag class="shenhe" v-else-if="scope.row.taskState === 3">审核</el-tag>
           <el-tag class="yanshou" v-else-if="scope.row.taskState === 4">验收</el-tag>
           <el-tag type="success" v-else-if="scope.row.taskState === 5">完成</el-tag>
@@ -42,7 +42,7 @@
 
       <el-table-column prop="taskCategoryPart" sortable label="行业类别"></el-table-column>
 
-      <el-table-column label="操作" width="180" align="center">
+      <el-table-column label="操作" width="100" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
         </template>
@@ -227,14 +227,14 @@ export default {
   background-color: #d6d6ad;
   border-color: #d6d6ad;
 }
-.shenhe {
-  color: #842b00;
-  background-color: #ffdcb9;
-  border-color: #ffdcb9;
+.shenhe{
+    color:#FF8040;
+  background-color:#FFE6D9;
+  border-color:#FFDCB9;
 }
-.yanshou {
-  color: #336666;
-  background-color: #c4e1e1;
-  border-color: #c4e1e1;
+.yanshou{
+   color:#E066FF;
+  background-color:#EBD3E8;
+  border-color:#FFF0F5;
 }
 </style>

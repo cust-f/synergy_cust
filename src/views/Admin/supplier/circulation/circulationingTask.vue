@@ -23,16 +23,22 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable label="行业类别">
-      </el-table-column>
-
       <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
+
+      <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="deadline" sortable label="截止时间">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
-      <el-table-column label="操作" width="180" align="center">
+      <el-table-column label="操作" width="120" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
@@ -76,7 +82,7 @@ export default {
           designerName: "",
           designCount: "",
           deadline: "",
-          taskCategoryPart:""
+          taskCategoryPart: ""
         }
       ],
       multipleSelection: [],
