@@ -683,6 +683,12 @@ export default {
         //alert('抱歉邮箱不合法')
       }
     },
+    update1() {
+      this.$router.push({
+        path: "/admin/companyEditor",
+        query: { companyId: this.form.companyId }
+      });
+    },
     getDate() {
       var that = this;
       var data = Qs.stringify({
@@ -695,9 +701,11 @@ export default {
           data: data
         })
         .then(response => {
+         
           this.form = response.data.allData.companyDetail[0];
           this.form.companyId =
             response.data.allData.companyDetail[0].companyId;
+             console.log(this.form.companyId+"无语！！！！！！！！！！！！！！！");
           this.companyName = response.data.allData.companyDetail[0].companyName;
 
           // this.form.companyPicture =
@@ -719,15 +727,20 @@ export default {
     //企业详情的转换
     getCompanyIntroduction() {
       var that = this;
+            var timestamp = new Date().getTime();
       var data = Qs.stringify({
-        userName: localStorage.getItem("ms_username")
+        userName: localStorage.getItem("ms_username"),
+        time:timestamp
       });
 
       that
         .axios({
           method: "post",
           url: "/api/companyDetail/showCompanyIntroduction",
-          data: data
+          data: data,
+                    params: {
+            date: timestamp
+          }
         })
         .then(response => {
           this.introductiont = response.data.allData.companyDetailContent;
@@ -735,15 +748,19 @@ export default {
     },
     getPicture() {
       var that = this;
+      var timestamp = new Date().getTime();
       var data = Qs.stringify({
-        userName: localStorage.getItem("ms_username")
+        userName: localStorage.getItem("ms_username"),
+        time:timestamp
       });
-
       that
         .axios({
           method: "post",
           url: "/api/company/getPicture",
-          data: data
+          data: data,
+          params: {
+            date: timestamp
+          }
         })
         .then(response => {
           console.log(response);
@@ -813,8 +830,6 @@ export default {
     },
     //企业LOGO
     handleAvatarSuccess2(res, file) {
-      console.log(res);
-      console.log(file);
       this.shuiwudengjizheng = URL.createObjectURL(file.raw);
       this.shuiwudengjizheng1 = res;
     },
