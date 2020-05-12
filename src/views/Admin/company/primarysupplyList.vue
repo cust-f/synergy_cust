@@ -421,6 +421,6 @@ export default {
   font-size: 18px;
 }
 .el-table{
-    font-size: 13px;
+    font-size: 14px;
   }
 </style>

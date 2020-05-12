@@ -125,13 +125,13 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" width="200" label="供应商">
+          <el-table-column prop="companyName" width="250" label="供应商">
             <template slot-scope="scope">
               <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
             </template>
           </el-table-column>
-          <el-table-column prop="supplierTel" label="联络电话"></el-table-column>
-          <el-table-column prop="applyWay" label="承接方式">
+          <el-table-column prop="supplierTel" label="联络电话" width="100"></el-table-column>
+          <el-table-column prop="applyWay" label="承接方式" width="80">
             <template slot-scope="scope">
               <span v-if="+scope.row.applyWay === 0">邀请</span>
               <span v-else-if="+scope.row.applyWay === 1">申请</span>

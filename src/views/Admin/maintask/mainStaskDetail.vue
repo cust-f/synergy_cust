@@ -125,13 +125,13 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" width="200" label="供应商">
+          <el-table-column prop="companyName" width="250" label="供应商">
             <template slot-scope="scope">
               <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
             </template>
           </el-table-column>
-          <el-table-column prop="supplierTel" label="联络电话"></el-table-column>
-          <el-table-column prop="applyWay" label="承接方式">
+          <el-table-column prop="supplierTel" label="联络电话" width="100"></el-table-column>
+          <el-table-column prop="applyWay" label="承接方式" width="80">
             <template slot-scope="scope">
               <span v-if="+scope.row.applyWay === 0">邀请</span>
               <span v-else-if="+scope.row.applyWay === 1">申请</span>
@@ -405,26 +405,47 @@
           </el-steps>
         </div>-->
         <!-- 雷达图 --> 
-                  <div
+                 <!-- 评价模块 -->
+        <div v-if="reMarkId === 0">
+          <div
             class="loading1"
             v-loading="loading"
             element-loading-text="评价生成中......"
-          >     
-        <div class="LDT">
-          <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-          <div class="input_span" align="center">
-            <el-form ref="form" :modelZL="formZL">
-              <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              <br />
-              <br />
-            </el-form>
-            <span id="one"></span>
-            <span id="two"></span>
-            <span id="three"></span>
+          >
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+
+            <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <br />
+                <br />
+              </el-form>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
         </div>
-         </div>
+        <br />
+        <br />
+        <div v-if="reMarkId === 1">
+          <!-- 雷达图 -->
+          <div class="LDT">
+            <!-- 雷达图 -->
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
+            <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <br />
+                <br />
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+            </div>
+          </div>
+        </div>
         
       </div>
 
@@ -1003,7 +1024,7 @@ export default {
   data() {
     return {
       //显示评价的
-      reMarkId:"",
+      reMarkId:0,
       //
       loading:true,
       //图片赋值次数
@@ -1611,10 +1632,7 @@ export default {
 
           that.$refs.QradarChart.getCharts1();
           console.log(this.radarData.radarData);
-          //response.data.allData.d[0] =null
-          if(response.data.allData.d[0] ==null){
-          }
-          if (response.data.allData.f == null) {
+          if (response.data.allData.f === null) {
             console.log(this.milepostActive5);
             this.milepostActive5 = 0;
           }
@@ -1622,7 +1640,7 @@ export default {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
-                        this.loading=false;
+                        //this.loading=false;
 
           }
 

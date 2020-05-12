@@ -162,44 +162,38 @@
             </el-col>
           </el-row>
         </el-form>-->
+
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
+        <div style="width:800px;height:250px">
+        
+          <div style="float: left" >
+            <el-image
+              align="left"
+              style="width:200px;height:200px"
+              :src="logo"
+              :onerror="errorImg00"
+            ></el-image>
+          </div>
 
-        <div>
-          <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业Logo</div> -->
-          <div width="800">
-            <div>
-              <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+          <div style="float: right;width:490px;height:250px">
+              <br>
+            <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+            <br>
+            <div align="">
+              <font size="5">{{ form.companyName}}</font>
             </div>
-                    <br />
-
-            <div style="float: left" width="300">
-              <el-image
-                align="left"
-                style="width:200px;height:200px"
-                :src="logo"
-                :onerror="errorImg00"
-              ></el-image>
+            <br>
+            <div align="">
+              <font size="4">{{ form.businessTel}}</font>
             </div>
-
-           
           </div>
         </div>
-        <div align="right" class="formYS">
-          <el-form ref="form" :model="form" label-width="100px">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业名称">
-                  <el-input v-model="form.companyName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="联络电话">
-                  <el-input v-model="form.businessTel" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
 
+        <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业Logo</div> -->
+
+        <div class="formYS">
+          <el-form ref="form" :model="form" label-width="100px">
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业所在省份">
@@ -320,21 +314,22 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情"></el-form-item>
-                <el-card class="box-card">
-                  <font font-size="14px">
-                    <div class="XX" v-html="companyDetailContent"></div>
-                  </font>
-                </el-card>
-                <!-- <el-form-item label="详细" >
+              </el-col>
+
+              <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
                             :rows="1"
                             style="width:100%;"
                             placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
                     </el-form-item>
-                -->
-              </el-col>
+              -->
             </el-row>
+            <el-card class="box-card">
+              <font font-size="14px">
+                <div class="XX" v-html="companyDetailContent"></div>
+              </font>
+            </el-card>
           </el-form>
         </div>
         <!-- <div align="center">
