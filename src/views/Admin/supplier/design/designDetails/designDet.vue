@@ -171,7 +171,6 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
-      console.log(routerParams);
     },
     //雷达图数据查找
     getLDData() {
@@ -197,32 +196,24 @@ export default {
     styleswith() {
       if (this.designCount > 0 && this.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
-        console.log("这里是很好，看看是不是样式问题");
       }
       if (this.designCount > 2 && this.designCount < 4) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
-        console.log("这里是一般，看看是不是样式问题");
       }
       if (this.designCount > 4 || this.designCount == 4) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
-        console.log("这里是最差，看看是不是样式问题");
       } else {
-        console.log("为啥没去上面啊");
       }
     },
     //数据显示方法
     showData() {
-      console.log("你好");
-      console.log(this.taskId);
-      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
         userName: this.userName
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -230,7 +221,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.cool = response.data.allData.a[0];
           this.taskApplyTableData = response.data.allData.b;
           this.taskTableData = response.data.allData.a;
@@ -297,7 +287,6 @@ export default {
             );
           }
           this.styleswith();
-          console.log("重做次数" + response.data.allData.a[0].finishTime);
         });
     },
     //数据传递方法

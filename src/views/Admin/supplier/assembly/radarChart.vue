@@ -45,15 +45,17 @@ export default{
             { name: "验收时长", max: 20 }
           ]
         },
-        series: [
+         series: [
           {
-            //name:'完成统计',
             type: "radar",
-             data: [
+            textStyle: {
+            fontSize: 16,
+            },
+            data: [
               {
-                name: "完成统计",
+                name: "数据统计(单位：天)",
                 value:this.radarData.radarData,
-     
+               
               },
              
             ]

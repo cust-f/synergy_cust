@@ -115,13 +115,11 @@ export default {
     //   this.$router.push("/admin/pendingAcceptanceDet");
     // },
     handleSearch() {
-      console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
         taskName: this.selectname
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -130,13 +128,11 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
       //this.getData();
     },
     Det(row) {
-      console.log(row.taskId);
       this.$router.push({
         path: "/admin/designDet",
         query: {
@@ -146,12 +142,10 @@ export default {
     },
 
     getData() {
-      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
         userName: this.usernameX
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -161,7 +155,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
     }

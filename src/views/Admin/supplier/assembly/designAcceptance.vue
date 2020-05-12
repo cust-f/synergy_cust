@@ -107,7 +107,6 @@ export default {
         taskId: this.taskId,
         userName: this.userName
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -115,7 +114,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.addList5 = response.data.allData.a[0];
         });
     }

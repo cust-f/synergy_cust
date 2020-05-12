@@ -101,7 +101,7 @@ import applicationInformation from "../../assembly/applicationInformation";
 import missionPlan from "../../assembly/missionPlan";
 import contractManagement from "../../assembly/contractManagement";
 import deliveryList from "../../assembly/deliveryList";
-import radarChart from "../circulationDetails/radarChart";
+import radarChart from "../../../Enterprise_Evaluation/components/radarChartSCir";
 export default {
   data() {
     return {
@@ -160,7 +160,6 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
-      console.log(routerParams);
     },
     getCirculationCount() {
       var that = this;
@@ -215,15 +214,11 @@ export default {
     },
     //数据显示方法
     showData() {
-      console.log("你好");
-      console.log(this.taskId);
-      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
         userName: this.userName
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -231,22 +226,18 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.cool = response.data.allData.a[0];
           this.taskApplyTableData = response.data.allData.b;
           this.taskTableData = response.data.allData.a;
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
-          console.log("看看到没到这" + this.state3);
           this.sendMsg();
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
-            console.log(this.state);
             this.milepostActive = 1;
             this.show = 1;
-            console.log(this.show);
           } else if (this.state == "任务进行中") {
             this.milepostActive = 2;
             this.show = 2;

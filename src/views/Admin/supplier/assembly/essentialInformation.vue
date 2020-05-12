@@ -357,7 +357,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskId
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -365,7 +365,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.fileTable = response.data.allData;
         });
     },
@@ -383,7 +382,6 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
-      console.log(routerParams);
     },
     //单独附件下载
     downloadFile(row) {
@@ -403,7 +401,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           const content = response.data;
           const blob = new Blob([content]);
           let url = window.URL.createObjectURL(blob); //表示一个指定的file对象或Blob对象
@@ -418,7 +415,6 @@ export default {
     },
     //子任务附件下载
     xiazaiZRWFJ() {
-      console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
@@ -432,8 +428,6 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
           this.download(response.data, "ZRWFJ");
         });
     },
@@ -472,7 +466,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskId
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -500,7 +494,7 @@ export default {
       var data = Qs.stringify({
         mainTaskID: this.mainTaskId
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -509,7 +503,6 @@ export default {
         })
         .then(response => {
           this.zirenwu = response.data.allData.b;
-          console.log(this.zirenwu);
         });
     }
   }
