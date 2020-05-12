@@ -528,15 +528,15 @@ export default {
     getParams() {
       var routerParams = this.$route.query.mainTaskID;
       this.maintaskId = routerParams;
-      console.log(routerParams);
+     // console.log(routerParams);
     },
     getData() {
-      console.log(this.maintaskId);
+     // console.log(this.maintaskId);
       var that = this;
       var data = Qs.stringify({
         maintaskId: this.maintaskId
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -546,7 +546,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.maintask = response.data.allData.a[0];
           this.Province = response.data.allData.b;
@@ -555,12 +555,12 @@ export default {
         });
     },
     getListData() {
-      console.log(this.maintaskId);
+      //console.log(this.maintaskId);
       var that = this;
       var data = Qs.stringify({
         mainTaskId: this.maintaskId
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -586,15 +586,15 @@ export default {
           this.getLTData();
           this.getproduct();
 
-          console.log("ooo");
-          console.log(this.activeName);
-          console.log(this.taskType);
+          //console.log("ooo");
+          //console.log(this.activeName);
+          //console.log(this.taskType);
         });
     },
 
     getCompanyData() {
       var that = this;
-      console.log(this.activeName + "================");
+      //console.log(this.activeName + "================");
       var data = Qs.stringify({
         taskId: this.activeName
       });
@@ -608,19 +608,19 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           //this.$set(this,'list',response.data.alldata)
           // console.log(response)
           this.company = response.data.allData[0];
         });
     },
     getAcceptCompanyData() {
-      console.log(this.taskId);
+      ///console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
         taskId: this.activeName
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -630,19 +630,19 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.supplier = response.data.allData[0];
         });
     },
 
     getproduct(){
-       console.log(this.taskId);
+       ////console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
         taskId: this.activeName
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -652,23 +652,23 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.product = response.data.allData.c;
           this.productCompany = response.data.allData.b;
-          console.log("product"+this.product)
+         //console.log("product"+this.product)
           
         });
 
     },
 
     getTaskData() {
-      console.log(this.taskId);
+      //console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
         taskId: this.activeName
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -678,11 +678,11 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+         //console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.taskData = response.data.allData[0];
           this.see = this.taskData.taskType;
-          console.log("see:" + this.see);
+          //console.log("see:" + this.see);
           if (this.taskData.taskType === 0) {
             this.taskData.taskType = "设计任务";
           } else {
@@ -696,7 +696,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.activeName
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -706,9 +706,9 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           this.radarData.radarData = response.data.allData;
-          console.log(this.radarData.radarData);
+          //console.log(this.radarData.radarData);
 
           //that.$refs.QradarChart.getCharts1();
           //that.$refs.QradarChart1.getCharts2();
@@ -724,7 +724,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.activeName
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -734,7 +734,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           this.radarData1.radarData = response.data.allData;
           //console.log(this.radarData.radarData);
 
@@ -749,7 +749,7 @@ export default {
     //步骤图数据查找
     getData2() {
       var that = this;
-      console.log(this.taskId);
+     // console.log(this.taskId);
       var data = Qs.stringify({
         taskId: this.activeName
       });
@@ -779,7 +779,7 @@ export default {
           // this.milepost1[4].description = response.data.allData[4];
           this.milepost1[4].description = response.data.allData[5];
           this.styleswith();
-          console.log(this.form.designCount + "-------");
+          //console.log(this.form.designCount + "-------");
         });
     },
     getCharts1() {
@@ -884,7 +884,7 @@ export default {
         })
         .then(response => {
           (this.formLT.circulationCount = response.data.allData),
-            console.log(this.formLT.circulationCount + "----------------");
+           // console.log(this.formLT.circulationCount + "----------------");
           this.styleswith1();
         });
     },
@@ -924,10 +924,10 @@ export default {
     },
 
     handleClick(tab, event) {
-      console.log(tab, event);
+     // console.log(tab, event);
     },
     updataDetail(data) {
-      console.log(data);
+     // console.log(data);
       this.getAcceptCompanyData();
       this.getCompanyData();
       this.getData1();
