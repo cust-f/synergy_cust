@@ -136,7 +136,6 @@
               :file-list="fileList"
             >
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
             </el-upload>
           </el-form-item>
         </el-form>
@@ -366,7 +365,6 @@
                 :file-list="fileList"
               >
                 <el-button size="small" type="primary">点击上传</el-button>
-                <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
               </el-upload>
             </el-form-item>
           </el-form>
@@ -473,7 +471,7 @@ sm:"none",//私密
       addVisible: false,
       addDesigner: false,
       //控制新增按钮点击
-      kongzhi: false,
+      kongzhi: true,
       personnel: ["许知远", "王添", "白泽"], //总负责人
       statuses: ["数控机床制造", "精密汽车零部件制造"], //任务类别
       supplyCompanies: [
@@ -886,6 +884,12 @@ sm:"none",//私密
 <style lang="scss">
 .newTask{
 .xuanzeqi{
+  .el-upload-list__item{
+  width: 90%;
+}
+.first-child.el-upload-list__item {
+  width: 90%;
+}
   width: 180px !important;
 }
 .el-select-dropdown el-popper{

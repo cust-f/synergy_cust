@@ -1,5 +1,5 @@
 <template>
-  <div id="designerAccept">
+  <div class="designerAccept">
     
       <div
         class="biaoti"
@@ -480,11 +480,8 @@ export default {
   }
 };
 </script>
-<style>
-#designerAccept.el-dialog__header{
-
-}
-
+<style lang="scss">
+.designerAccept{
   .dialogCSS .el-input.is-disabled .el-input__inner {
     background-color: #ffffff;
     color: #303133;
@@ -529,4 +526,8 @@ export default {
   word-break: break-all;
 }
 
+
+}
+
+  
 </style>

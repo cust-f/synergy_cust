@@ -3,7 +3,7 @@
     <el-container>
       <el-main>
         <el-card shadow="never" class="selectCard company-select">
-          <div slot="header" class="clearfix">
+          <div slot="header" style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;" class="clearfix">
             <span>需求一览</span>
           </div>
           <el-row v-if="!dynamicTags.length==0">
@@ -120,18 +120,18 @@
         <br />
 
         <el-card shadow="never" class="selectCard company-detail">
-          <div slot="header">
+          <div  style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;" slot="header" >
             <span style="color:black">SaaS服务平台为您寻找需求任务</span>
           </div>
           <div v-if="companyList.length!==0">
             <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
               <div @click="companyDetail(companys.taskID)">
-                <el-col :span="2">
+                <el-col :span="3">
                   <el-tag v-if="companys.taskState==='完成'" type="danger">已完成</el-tag>
                   <el-tag v-else-if="companys.taskState==='申请或邀请中' ||companys.taskState==='任务计划进行中' " type="success">申请/邀请中</el-tag>
-                  <el-tag v-else type="info">进行中</el-tag>
+                  <el-tag v-else >进行中</el-tag>
                 </el-col>
-                <el-col :span="22">
+                <el-col :span="21">
                   <el-row>
                     <div style="float:left;">
                       <h2>{{companys.taskName}}</h2>
@@ -252,21 +252,29 @@ export default {
   },
   methods: {
     getParams() {
-      if (this.$route.query.redirects != null) {
-        var routerParams = this.$route.query.redirects;
+      console.log(this.$route.query.redirects)
+      if (this.$route.query.Predirects != null) {
+        var routerParams = this.$route.query.Predirects;
         console.log("fuck" + this.$route.query);
-        if (this.$route.query.redirects == 0) {
-          let delTag = { type: "zihangye" };
-          this.handleClose(delTag, 0);
-          console.log("nihao");
-        } else {
+        let tag = {
+          name: routerParams.name,
+          type: "category",
+          id: routerParams.id
+        };
+        console.log(tag);
+        this.checkTag(tag);
+        this.dynamicTags.push(tag);
+        this.getzihangye(routerParams.id);
+        this.zihangyeOption = true;
+        if(this.$route.query.CPredirects!=null) {
+
+          var routerParams1 = this.$route.query.CPredirects;
           let tag = {
-            name: routerParams.name,
+            name: routerParams1.name,
             type: "zihangye",
-            id: routerParams.id
+            id: routerParams1.id
           };
           console.log(tag);
-
           this.checkTag(tag);
           this.dynamicTags.push(tag);
         }
@@ -590,6 +598,9 @@ export default {
 </script>
 
 <style scoped>
+.el-card__header{
+  background-color: #dcdfe6;
+}
 .xuqiuyilan {
   width: 1150px;
   margin: 0 auto;
@@ -630,7 +641,6 @@ export default {
 .selectCard .span {
   border-right: 1px solid #black;
   text-align: right;
-  color: #666;
 }
 .fixed {
   position: absolute;

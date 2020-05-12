@@ -106,14 +106,14 @@
 <script>
 import Qs from "qs";
 import {formatDate} from "../design/dataChange";
-import barChart from "./components/barChart"
-import radarChart from "./components/radarChart"
+import barChartS from "./components/barChartS"
+import radarChartS from "./components/radarChartS"
 export default {
-  name:"evaluate",
+  name:"evaluateS",
     
   components:{
-    "bar-chart":barChart,
-    "radar-chart":radarChart,
+    "bar-chart":barChartS,
+    "radar-chart":radarChartS,
   },
   data() {
     return {
@@ -193,7 +193,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "/api/findRemarkTimes",
+            "/api/findRemarkTimesS",
           data: data
         })
         .then(response => {
@@ -244,7 +244,7 @@ export default {
         .axios({
           method: "post",
           url:
-            "/api/monthTaskCountData",
+            "/api/monthTaskCountDataS",
           data: data
         })
         .then(response => {
@@ -253,6 +253,7 @@ export default {
          this.barData.taskCount=response.data.allData.taskCount;
          this.barData.finishTaskCount=response.data.allData.finishTaskCount;          
          that.$refs.drawbarChart.getCharts1();
+         console.log(response.data.allData);
          //this.getCharts1();
         });
 

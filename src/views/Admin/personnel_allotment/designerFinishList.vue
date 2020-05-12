@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <div class="desinger">
+  <div class="designerFinish">
+  
       <div
         class="biaoti"
         style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
       >&nbsp;&nbsp;&nbsp;&nbsp;历史任务</div>
-    </div>
+   
 
     <!-- <el-divider></el-divider> -->
     <el-row>
@@ -341,11 +341,12 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="scss">
 /* .el-divider {
   margin: 25px 0px !important;
 } */
-.dialogCSS .el-input.is-disabled .el-input__inner {
+.designerFinish{
+  .dialogCSS .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
   color: #303133;
 }
@@ -384,4 +385,7 @@ export default {
   font-size: 14px;
   word-break: break-all;
 }
+
+}
+
 </style>

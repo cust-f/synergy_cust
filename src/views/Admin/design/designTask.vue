@@ -22,21 +22,31 @@
                   border
                   class="table"
                   ref="multipleTable"
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline,taskState', order: 'descending'}"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                  <el-table-column prop="taskName" sortable label="分解任务名称"></el-table-column>
+                  <el-table-column prop="mainTaskName" sortable label="需求任务名称"></el-table-column>
 
-                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
-                  <el-table-column prop="deadline" label="截止时间">
+                  <el-table-column prop="companyName" sortable label="企业名称"></el-table-column>
+                  <el-table-column prop="deadline" sortable label="截止时间">
                       <template slot-scope="scope">
                     {{scope.row.deadline | formatDate}}
                     
                   </template>
                   </el-table-column>
-                  <el-table-column prop="taskState" label="状态" align="center">
+                  <el-table-column prop="taskState" sortable label="状态" align="center">
+                    <template slot-scope="scope">
+                      <el-tag v-if="scope.row.taskState ==='申请或邀请中'" >待响应</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='计划提交'||scope.row.taskState ==='任务进行中'"  type="warning">进行中</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='审核'" class="shenhe" >审核</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='验收'" class="yanshou" >验收</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='完成'" type="success">已完成</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
+
+                    </template>
                   </el-table-column>
                    <el-table-column label="操作" align="center" class="box1">
                     <template slot-scope="scope">
@@ -56,7 +66,7 @@
                 <el-pagination
                   background
                   layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
+                  :current-page="pageIndex1"
                   :page-size="pageSize"
                   :total="tableData.length"
                   @current-change="handleCurrentChange"  
@@ -75,18 +85,19 @@
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                  <el-table
-                  :data="tableData1.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                  :data="tableData1.slice((pageIndex1-1)*pageSize,pageIndex1*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
+                 :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline', order: 'descending'}"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
-                  <el-table-column prop="deadline" label="截止时间">
+                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                  <el-table-column prop="deadline" label="截止时间" sortable>
                       <template slot-scope="scope">
                     {{scope.row.deadline | formatDate}}
                     
@@ -115,7 +126,7 @@
                 <el-pagination
                   background
                   layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
+                  :current-page="pageIndex1"
                   :page-size="pageSize"
                   :total="tableData1.length"
                   @current-change="handleCurrentChange"  
@@ -133,18 +144,19 @@
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData2.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                  :data="tableData2.slice((pageIndex1-1)*pageSize,pageIndex1*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,uploadFileTime', order: 'descending'}"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
-                  <el-table-column prop="uploadFileTime" label="上传时间">
+                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                  <el-table-column prop="uploadFileTime" label="上传时间" sortable>
                       <template slot-scope="scope">
                     {{scope.row.uploadFileTime | formatDate}}
                     
@@ -179,7 +191,7 @@
                 <el-pagination
                   background
                   layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
+                  :current-page="pageIndex1"
                   :page-size="pageSize"
                   :total="tableData2.length"
                   @current-change="handleCurrentChange"  
@@ -197,19 +209,20 @@
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData3.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                  :data="tableData3.slice((pageIndex1-1)*pageSize,pageIndex1*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline', order: 'descending'}"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                   <el-table-column prop="taskName" label="分解任务名称"></el-table-column>         
-                   <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
+                   <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>         
+                   <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
                  
-                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
-                <el-table-column prop="deadline" label="截止时间">
+                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                <el-table-column prop="deadline" label="截止时间" sortable>
                       <template slot-scope="scope">
                     {{scope.row.deadline | formatDate}}
                     
@@ -232,7 +245,7 @@
                 <el-pagination
                   background
                   layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
+                  :current-page="pageIndex1"
                   :page-size="pageSize"
                   :total="tableData3.length"
                   @current-change="handleCurrentChange"  
@@ -249,18 +262,19 @@
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData4.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                  :data="tableData4.slice((pageIndex1-1)*pageSize,pageIndex1*pageSize)"
                   border
                   class="table"
-                  ref="multipleTable"
+                  ref="multipleTable"                  
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,uploadFileTime', order: 'descending'}"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
-                   <el-table-column prop="uploadFileTime" label="上传时间">
+                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                   <el-table-column prop="uploadFileTime" label="上传时间" sortable>
                       <template slot-scope="scope">
                     {{scope.row.uploadFileTime | formatDate}}
                     
@@ -295,7 +309,7 @@
                 <el-pagination
                   background
                   layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
+                  :current-page="pageIndex1"
                   :page-size="pageSize"
                   :total="tableData4.length"
                   @current-change="handleCurrentChange"  
@@ -313,29 +327,30 @@
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                 :data="tableData5.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                 :data="tableData5.slice((pageIndex1-1)*pageSize,pageIndex1*pageSize)"
                   border
                   class="table"
-                  ref="multipleTable"
+                  ref="multipleTable"                  
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,finishTime', order: 'descending'}"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称"></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
-                  <el-table-column prop="finishTime" label="完成时间">
+                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                  <el-table-column prop="finishTime" label="完成时间" sortable>
                      <template slot-scope="scope">
                     {{scope.row.finishTime | formatDate}}
                     
                   </template>
                   </el-table-column>
-                    <el-table-column label="任务书" align="center" >
+                    <!-- <el-table-column label="任务书" align="center" >
                     <el-button type="text" size="small" class="box1">下载</el-button>
                   </el-table-column>
                   <el-table-column label="图纸" align="center" >
                    <el-button type="text" size="small" class="box1">查看</el-button>
-                  </el-table-column>
+                  </el-table-column> -->
 
                   <el-table-column label="操作" align="center" class="box1">
                     <template slot-scope="scope">
@@ -353,7 +368,7 @@
                 <el-pagination
                   background
                   layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
+                  :current-page="pageIndex1"
                   :page-size="pageSize"
                   :total="tableData5.length"
                   @current-change="handleCurrentChange"  
@@ -371,17 +386,18 @@
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
                 <el-table
-                  :data="tableData6.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                  :data="tableData6.slice((pageIndex1-1)*pageSize,pageIndex1*pageSize)"
                   border
                   class="table"
                   ref="multipleTable"
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName', order: 'descending'}"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称"> </el-table-column>
-                 <el-table-column prop="mainTaskName" label="需求任务名称"></el-table-column>
-                  <el-table-column prop="companyName" label="企业名称"></el-table-column>
+                  <el-table-column prop="taskName" label="分解任务名称" sortable> </el-table-column>
+                 <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
 
                   <el-table-column label="操作" align="center" >
                         <template slot-scope="scope">
@@ -401,7 +417,7 @@
                 <el-pagination
                   background
                   layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
+                  :current-page="pageIndex1"
                   :page-size="pageSize"
                   :total="tableData6.length"
                   @current-change="handleCurrentChange"  
@@ -517,6 +533,7 @@ export default {
       addVisible: false,
       pageTotal: 0,
       pageIndex: 1,
+            pageIndex1: 1,
       pageSize: 10,
       form: {},
       idx: -1,
@@ -530,7 +547,7 @@ export default {
   },  filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy.MM.dd");
+      return formatDate(date,"yyyy-MM-dd hh:mm");
     }
       },
   created() {
@@ -564,23 +581,24 @@ export default {
           this.taskState = 0,
           this.second(this.taskState);
         }else if(tab.name == 'third'){
-           this.taskState = 2,
+           this.taskState = 1,
           this.second(this.taskState);
         }else if(tab.name == 'forth'){
-          this.taskState = 4,
+          this.taskState = 2,
           this.second(this.taskState);
         }else if(tab.name == 'fifth'){
-          this.taskState = 5,
+          this.taskState = 3,
           this.second(this.taskState);
         }else if(tab.name == 'sixth'){
-           this.taskState = 6,
+           this.taskState = 5,
           this.second(this.taskState);
         }else if(tab.name == 'seventh'){
-          this.taskState = 7,
+          this.taskState = 6,
           this.second(this.taskState);
         }
       },
     second(taskState){
+      console.log(this.query.pageIndex);
       console.log(this.taskState);
       var that = this;
       var data = Qs.stringify({
@@ -599,23 +617,23 @@ export default {
             console.log(response);
           this.tableData1 = response.data.allData;
           }
-              else if(this.taskState == 2){
+              else if(this.taskState == 1){
             console.log(response);
           this.tableData2 = response.data.allData;
           }
-           else if(this.taskState == 4){
+           else if(this.taskState == 2){
             console.log(response);
           this.tableData3 = response.data.allData;
           } 
-          else if(this.taskState == 5){
+          else if(this.taskState == 3){
             console.log(response);
           this.tableData4 = response.data.allData;
           }
-           else if(this.taskState == 6){
+           else if(this.taskState == 5){
             console.log(response);
           this.tableData5 = response.data.allData;
           } 
-          else if(this.taskState == 7){
+          else if(this.taskState == 6){
             console.log(response);
           this.tableData6 = response.data.allData;
           }
@@ -924,6 +942,17 @@ export default {
 
 </script>
 <style>
+
+.shenhe{
+    color:#FF8040;
+  background-color:#FFE6D9;
+  border-color:#FFDCB9;
+}
+.yanshou{
+   color:#E066FF;
+  background-color:#EBD3E8;
+  border-color:#FFF0F5;
+}
 .con {
   width: 500px;
   height: 1000px;

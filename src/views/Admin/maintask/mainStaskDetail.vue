@@ -125,7 +125,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" width="250" label="供应商">
+          <el-table-column prop="companyName" width="200" label="供应商">
             <template slot-scope="scope">
               <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
             </template>
@@ -138,7 +138,7 @@
               <span v-else>其他</span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkApplyState" label="申请/邀请状态">
+          <el-table-column prop="checkApplyState" label="申请/邀请状态" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
               <el-tag  v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
@@ -193,7 +193,7 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="companyName" label="供应商" width="250"></el-table-column>
-          <el-table-column prop="checkPlanState" label="计划审核状态">
+          <el-table-column prop="checkPlanState" label="审核状态" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
               <el-tag  v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
@@ -202,13 +202,13 @@
               
             </template>
           </el-table-column>
-          <el-table-column prop="planUploadTime" label="计划上传时间">
+          <el-table-column prop="planUploadTime" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.planUploadTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkPlanTime" label="计划审核时间">
+          <el-table-column prop="checkPlanTime" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkPlanTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkPlanTime | formatDate}}</el-span>
@@ -261,7 +261,7 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
-          <el-table-column prop="contractState" label="合同审核状态">
+          <el-table-column prop="contractState" label="审核状态" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
               <el-tag  v-else-if="+scope.row.contractState === 1">待审核</el-tag>
@@ -270,13 +270,13 @@
               
             </template>
           </el-table-column>
-          <el-table-column prop="uploadContractTime" label="合同上传时间">
+          <el-table-column prop="uploadContractTime" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadContractTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.uploadContractTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkContractTime" label="合同审核时间">
+          <el-table-column prop="checkContractTime" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkContractTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkContractTime | formatDate}}</el-span>
@@ -330,15 +330,15 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-          <el-table-column prop="designerName" label="设计人员姓名">
+          <el-table-column prop="acceptCompanyName"  width="200" label="供应商"></el-table-column>
+          <!-- <el-table-column prop="designerName" label="设计人员" widht="70">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
               <el-span v-else>{{scope.row.designerName}}</el-span>
             </template>
-          </el-table-column>
-          <el-table-column prop="designCount" label="设计重做次数"></el-table-column>demandorCheckDesignState
-          <el-table-column prop="demandorCheckDesignState" label="设计验收状态">
+          </el-table-column> -->
+          <el-table-column prop="designCount" label="重做次数" width="80"></el-table-column>demandorCheckDesignState
+          <el-table-column prop="demandorCheckDesignState" width="80" label="验收状态" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
               <el-tag  v-else-if="+scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -346,13 +346,13 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="uploadDesignTime" label="设计上传时间">
+          <el-table-column prop="uploadDesignTime" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="demandorCheckDesignTime" label="设计审核时间">
+          <el-table-column prop="demandorCheckDesignTime" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.demandorCheckDesignTime | formatDate}}</el-span>
@@ -404,7 +404,12 @@
             ></el-step>
           </el-steps>
         </div>-->
-        <!-- 雷达图 -->
+        <!-- 雷达图 --> 
+                  <div
+            class="loading1"
+            v-loading="loading"
+            element-loading-text="评价生成中......"
+          >     
         <div class="LDT">
           <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
           <div class="input_span" align="center">
@@ -418,6 +423,9 @@
             <span id="three"></span>
           </div>
         </div>
+         </div>
+
+        
       </div>
 
       <!-- 申请拒绝原因弹出框 -->
@@ -664,8 +672,8 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情">
-                  <div class="XX" v-html="companyDetailContent"></div>
-                </el-form-item>
+                  
+                </el-form-item><div class="XX" v-html="companyDetailContent"></div>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -994,6 +1002,12 @@ export default {
 
   data() {
     return {
+      //显示评价的
+      reMarkId:"",
+      //
+      loading:true,
+      //图片赋值次数
+      TPDZCS:1,
       //企业详情路径
       companyDetailContent: "",
       //默认企业图片
@@ -1594,9 +1608,12 @@ export default {
 
           console.log(response.data.allData.f);
           this.radarData.radarData = response.data.allData.f;
+
           that.$refs.QradarChart.getCharts1();
           console.log(this.radarData.radarData);
-
+          //response.data.allData.d[0] =null
+          if(response.data.allData.d[0] ==null){
+          }
           if (response.data.allData.f == null) {
             console.log(this.milepostActive5);
             this.milepostActive5 = 0;
@@ -1605,6 +1622,8 @@ export default {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
+                        this.loading=false;
+
           }
 
           //判断el-step到第几步骤
@@ -1855,7 +1874,7 @@ export default {
       link.style.display = "none";
       link.href = url;
       if (leixing === "JHS") {
-        link.setAttribute("download", "设计文档.zip");
+        link.setAttribute("download", "计划书.zip");
       } else if (leixing === "HT") {
         link.setAttribute("download", "合同.zip");
       } else if (leixing === "ZRWFJ") {
@@ -1943,6 +1962,7 @@ export default {
           url: "/api/SubstaskInformation/SJSHTG",
           data: data
         });
+        this.GBXJ();
         this.showData();
 
         this.$message({
@@ -1972,6 +1992,24 @@ export default {
       this.addVisible3 = false;
       this.showData();
     },
+        //改变星级别
+    GBXJ() {
+        var that = this;
+        var data = Qs.stringify({
+          username: this.usernameX
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "/api/sumRemarkData",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+        });
+        this.showData();
+
+    },
     companyDetail(row) {
       var that = this;
       var data = Qs.stringify({
@@ -1985,17 +2023,21 @@ export default {
         })
         .then(response => {
           console.log(response);
-
-          this.form = response.data.allData.companyDetail[0];
+          if(this.TPDZCS ==1){
+            this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
-          this.qiyezhizhao =
-            response.data.allData.companyDetail[0].businessLicence;
-          this.shuiwudengjizheng =
-            response.data.allData.companyDetail[0].tRCertificate;
-          this.companyDetailContent =
+                    this.companyDetailContent =
             response.data.allData.companyDetailContent;
+          this.imgsrc = response.data.allData.companyPicture;
+          this.qiyezhizhao =
+            response.data.allData.BusinessLicence;
+          this.shuiwudengjizheng =
+            response.data.allData.tRCertificate;
+            this.TPDZCS = this.TPDZCS + 1;
+          }
+          
+
           console.log(this.imgsrc);
         });
       this.addVisibleCD = true;
@@ -2006,6 +2048,12 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+  .loading1 {
+    height: 400px;
+  }
+  .el-dialog__footer {
+  padding-right: 20px;
+}
   .el-dialog__body {
     padding-right: 20px;
   }

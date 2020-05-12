@@ -2,31 +2,135 @@
   <div class="companyDetail">
     <el-container>
       <el-main>
-        <el-page-header @back="goBack" content="详情页面"></el-page-header>
-&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <!-- <el-carousel :interval="5000" arrow="always">
  <el-carousel-item v-for="item in imagesbox" :key="item">
       <img v-bind:src="item.idView" class="image">
     </el-carousel-item>
         </el-carousel>-->
         <div width="500" align="center" height="200px">
-          <el-image class="qiyetupian" :src="imgsrc"></el-image>
+          <el-image class="qiyetupian" :src="imgsrc" :onerror="errorImg01"></el-image>
         </div>
-        <!-- <el-table :data="tableData123">
-<el-table-column prop="imgsrc" label="书籍海报" align="center">
-        <template slot-scope="scope">
-          <img :src="scope.row.imgsrc" min-width="70" height="70">
-        </template>
-      </el-table-column>
-        </el-table>-->
+
         <el-divider></el-divider>
+        <!-- <el-card shadow="never" style="margin-bottom:20px;">
+
+ <div class="np_top">
+          <div class="left">
+          
+          <el-form ref="form" :model="form" >
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label>
+                <el-image align="left" style="width:200px;height:200px" :src="logo" :onerror="errorImg00"></el-image>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+          
+          </div>
+        <div class="Right">
+          
+          <div>
+            <div style="float:left">
+              <span style="font-size:24px;font-weight:500;">{{form.companyName}}</span>
+            </div>
+           
+            <el-rate v-model="form.star" style="margin-left:135px;line-height:2;" disabled text-color="#ff9900"></el-rate>
+
+          </div>
+          <el-divider></el-divider>
+          <el-row class="Detail">
+            <el-col :span="9" :offset="2">
+              <li>
+                <a>
+                  企业所在省：
+                  <font>{{form.province}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  企业所在市：
+                  <font>{{form.city}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  成立时间：
+                  <font>{{form.foundingTime | dataFormat("yyyy-MM-dd")}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  注册资本：
+                  <font>{{form.registeredCapital}}万元</font>
+                </a>
+              </li>
+              <br />
+
+              <li>
+                <a>
+                  企业地址：
+                  <font>{{form.address}}</font>
+                </a>
+              </li>
+            </el-col>
+            <el-col :span="9" :offset="2">
+              <li>
+                <a>
+                  工商注册号：
+                  <font>{{form.brNumber}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  法人代表：
+                  <font>{{form.legalPerson}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  法人联系电话：
+                  <font>{{form.legalTel}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  办公电话：
+                  <font>{{form.officeNumber}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  经营范围：
+                  <font>{{form.product}}</font>
+                </a>
+              </li>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+        </el-card>-->
+
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
         <br />
         <el-form ref="form" :model="form" label-width="100px">
           <el-row>
             <el-col :span="12">
               <el-form-item label>
-                <el-image align="left" class="yingyezhizhao" :src="qiyezhizhao"></el-image>
+                <el-image
+                  align="left"
+                  class="yingyezhizhao"
+                  :src="qiyezhizhao"
+                  :onerror="errorImg02"
+                ></el-image>
               </el-form-item>
             </el-col>
           </el-row>
@@ -37,15 +141,49 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label align="left">
-                <el-image align="left" class="yingyezhizhao" :src="shuiwudengjizheng"></el-image>
+                <el-image
+                  align="left"
+                  class="yingyezhizhao"
+                  :src="shuiwudengjizheng"
+                  :onerror="errorImg03"
+                ></el-image>
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
+        <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业Logo</div>
+        <br />
+        <el-form ref="form" :model="form" label-width="100px">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label>
+                <el-image align="left" style="width:200px;height:200px" :src="logo" :onerror="errorImg00"></el-image>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>-->
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
+
         <div>
-          <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+          <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业Logo</div> -->
+          <div width="800">
+            <div>
+              <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+            </div>
+                    <br />
+
+            <div style="float: left" width="300">
+              <el-image
+                align="left"
+                style="width:200px;height:200px"
+                :src="logo"
+                :onerror="errorImg00"
+              ></el-image>
+            </div>
+
+           
+          </div>
         </div>
         <div align="right" class="formYS">
           <el-form ref="form" :model="form" label-width="100px">
@@ -56,7 +194,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="企业联络电话">
+                <el-form-item label="联络电话">
                   <el-input v-model="form.businessTel" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
@@ -181,9 +319,12 @@
 
             <el-row>
               <el-col :span="24">
-                <el-form-item label="详细">
-                  <el-input v-model="form.introduction" :disabled="yangshi"></el-input>
-                </el-form-item>
+                <el-form-item label="企业详情"></el-form-item>
+                <el-card class="box-card">
+                  <font font-size="14px">
+                    <div class="XX" v-html="companyDetailContent"></div>
+                  </font>
+                </el-card>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -196,189 +337,9 @@
             </el-row>
           </el-form>
         </div>
-        <div align="center">
+        <!-- <div align="center">
           <el-button type="primary" class="button1" @click="update" :disabled="xiugai">修改</el-button>
-        </div>
-
-        <!-- 新增弹出框 -->
-
-        <el-dialog :visible.sync="addVisible" width="50%">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">修改</div>
-          <el-row>
-            <el-col :span="8"></el-col>
-          </el-row>
-          <el-form ref="form" :model="form1" label-width="120px">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业名称">
-                  <el-input v-model="form1.companyName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="法人代表">
-                  <el-input v-model="form1.legalPerson" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业成立时间">
-                  <el-input v-bind:value="form.foundingTime | formatDate" :disabled="yangshi"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="工商注册号">
-                  <el-input v-model="form1.brNumber" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业所在省份">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.province"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="企业所在县市">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.city"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业地址">
-                  <el-input v-model="form1.address"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="邮政编码">
-                  <el-input @blur="youzhengbianma()" v-model="form1.postcode"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.postcode === null">您的邮政编码输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业业务范围">
-                  <el-input v-model="form1.product"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="电子邮箱">
-                  <el-input v-model="form1.email" @blur="youxiang()"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.email === null">您的电子邮箱输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业联系人">
-                  <el-input v-model="form1.businessName"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="办公室电话">
-                  <el-input @blur="animate()" v-model="form1.officeNumber"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.officeNumber === null">您的办公室电话输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="注册资产">
-                  <el-input
-                    οninput="value=value.replace(/[^\d]/g,'')"
-                    v-model="form1.registeredCapital"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="总资本">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.totalAssets"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="固定资产">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.fixedAssets"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="流动资产">
-                  <el-input
-                    οninput="value=value.replace(/[^\d]/g,'')"
-                    v-model="form1.currentAssets"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业联络电话">
-                  <el-input v-model="form1.businessTel" @blur="animate1()"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.businessTel === null">您的企业联络电话输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-
-              <el-col :span="12">
-                <el-form-item label="员工人数">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.workerNumber"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="开户银行">
-                  <el-input v-model="form1.deposit_Bank"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="银行账户">
-                  <el-input @blur="yinhangkahao()" v-model="form1.bankNumber"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.bankNumber === null">您的银行账户输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="24" class="xiangxi">
-                <el-form-item label="详细">
-                  <el-input
-                    type="textarea"
-                    :rows="3"
-                    style="width:100%;"
-                    placeholder="请输入内容"
-                    v-model="form1.introduction"
-                    class="gongsiDetail"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="addVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveAdd11">确 定</el-button>
-          </span>
-        </el-dialog>
+        </div>-->
       </el-main>
     </el-container>
   </div>
@@ -390,6 +351,17 @@ export default {
   name: "companyDetail",
   data() {
     return {
+      logo: "",
+      //默认企业图片
+      errorImg00: 'this.src="' + require("../company/2.jpg") + '"',
+      //默认企业图片
+      errorImg01: 'this.src="' + require("../company/1.png") + '"',
+      //默认营业执照
+      errorImg02: 'this.src="' + require("../company/营业执照.jpg") + '"',
+      //默认税务登记
+      errorImg03: 'this.src="' + require("../company/税务登记证.jpg") + '"',
+      //企业详情路径
+      companyDetailContent: "",
       companyId: "",
       usernameX: this.$store.state.user,
       yangshi: true,
@@ -559,6 +531,9 @@ export default {
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
           this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
+          this.companyDetailContent =
+            response.data.allData.companyDetailContent;
+          this.logo = response.data.allData.logo;
           console.log(this.imgsrc);
         });
     },
@@ -659,6 +634,13 @@ export default {
 
 <style lang="scss">
 .companyDetail {
+  .el-card {
+    font-size: 14px;
+  }
+  .box-card {
+    width: 860px;
+    /* border: 1px solid #00a2e6 ; */
+  }
   .formYS .el-input__inner {
     /* // 表格样式调整 */
 
@@ -713,6 +695,9 @@ export default {
   .yingyezhizhao {
     width: 600px;
     height: 300px;
+  }
+  .XX {
+    text-align: left;
   }
 }
 </style>

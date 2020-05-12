@@ -125,7 +125,7 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" width="250" label="供应商">
+          <el-table-column prop="companyName" width="200" label="供应商">
             <template slot-scope="scope">
               <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
             </template>
@@ -138,7 +138,7 @@
               <span v-else>其他</span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkApplyState" label="申请/邀请状态">
+          <el-table-column prop="checkApplyState" label="申请/邀请状态"  align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
               <el-tag  v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
@@ -193,7 +193,7 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="companyName" label="供应商"  width="250"></el-table-column>
-          <el-table-column prop="checkPlanState" label="计划审核状态">
+          <el-table-column prop="checkPlanState" label="审核状态"  align="center">
             <template slot-scope="scope">
                <el-tag  v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
               <el-tag  v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
@@ -201,13 +201,13 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="planUploadTime" label="计划上传时间">
+          <el-table-column prop="planUploadTime" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.planUploadTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkPlanTime" label="计划审核时间">
+          <el-table-column prop="checkPlanTime" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkPlanTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkPlanTime | formatDate}}</el-span>
@@ -260,7 +260,7 @@
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应商"  width="250"></el-table-column>
-          <el-table-column prop="contractState" label="合同审核状态">
+          <el-table-column prop="contractState" label="审核状态"  align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
               <el-tag  v-else-if="+scope.row.contractState === 1">待审核</el-tag>
@@ -268,13 +268,13 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="uploadContractTime" label="合同上传时间">
+          <el-table-column prop="uploadContractTime" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadContractTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.uploadContractTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="checkContractTime" label="合同审核时间">
+          <el-table-column prop="checkContractTime" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkContractTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkContractTime | formatDate}}</el-span>
@@ -327,8 +327,8 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商"></el-table-column>
-          <el-table-column prop="demandorCheckDesignState" label="清单验收状态">
+          <el-table-column prop="acceptCompanyName" label="供应商" width="200"></el-table-column>
+          <el-table-column prop="demandorCheckDesignState" label="验收状态"  widht="80" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
               <el-tag  v-else-if="+scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -336,13 +336,13 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="uploadCircuaterTime" label="清单上传时间">
+          <el-table-column prop="uploadCircuaterTime" widht="80" label="上传时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadCircuaterTime === 0">暂未上传</el-span>
               <el-span v-else>{{scope.row.uploadCircuaterTime | formatDate}}</el-span>
             </template>
           </el-table-column>
-          <el-table-column prop="demandorCheckDesignTime" label="清单审核时间">
+          <el-table-column prop="demandorCheckDesignTime" widht="80" label="审核时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.checkCircuaterTime === 0">暂未审核</el-span>
               <el-span v-else>{{scope.row.checkCircuaterTime | formatDate}}</el-span>
@@ -389,22 +389,15 @@
           </el-steps>
         </div>-->
 
+<div
+            class="loading1"
+            v-loading="loading"
+            element-loading-text="评价生成中......"
+          >     
         <div class="LDT">
-          <!-- 雷达图 -->
-
           <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-          <!-- <div class="input_span" align="center">
-            <el-form ref="form" :modelZL="formZL">
-              <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              <br />
-              <br />
-            </el-form>
-            <span id="one"></span>
-            <span id="two"></span>
-            <span id="three"></span>
-          </div>-->
           <div class="input_span" align="center">
-            <el-form ref="formZL" :modelZL="formZL">
+            <el-form ref="form" :modelZL="formZL">
               <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <br />
               <br />
@@ -414,6 +407,8 @@
             <span id="three"></span>
           </div>
         </div>
+         </div>
+
       </div>
 
       <!-- 申请拒绝原因弹出框 -->
@@ -658,8 +653,10 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="企业详情">
-                  <div class="XX" v-html="companyDetailContent">
-                  </div>                </el-form-item>
+                       </el-form-item>                
+                       <el-form-item label=""><div class="XX" v-html="companyDetailContent">
+                  </div>           
+                       </el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -988,6 +985,8 @@ export default {
 
   data() {
     return {
+            loading:true,
+
             //企业详情路径
       companyDetailContent:"",
       //默认企业图片
@@ -1636,6 +1635,7 @@ export default {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
+                                    this.loading=false;
           }
 
           //判断el-step到第几步骤
@@ -1876,7 +1876,7 @@ export default {
       link.style.display = "none";
       link.href = url;
       if (leixing === "JHS") {
-        link.setAttribute("download", "设计文档.zip");
+        link.setAttribute("download", "计划书.zip");
       } else if (leixing === "HT") {
         link.setAttribute("download", "合同.zip");
       } else if (leixing === "ZRWFJ") {
@@ -1964,6 +1964,7 @@ export default {
           url: "/api/SubstaskInformation/QDSHTG",
           data: data
         });
+        this.GBXJ();
         this.showData();
 
         this.$message({
@@ -1992,6 +1993,24 @@ export default {
       this.addList3 = {};
       this.addVisible3 = false;
       this.showData();
+    },
+            //改变星级别
+    GBXJ() {
+        var that = this;
+        var data = Qs.stringify({
+          username: this.usernameX
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "/api/sumRemarkData",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+        });
+        this.showData();
+
     },
     companyDetail(row) {
       var that = this;
@@ -2027,6 +2046,9 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+    .el-dialog__footer {
+  padding-right: 20px;
+}
   #demo {
     width: 20px; /*设置div宽度为500像素*/
     background: #000; /*设置div背景色为zhidao黑色*/
