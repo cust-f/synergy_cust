@@ -388,26 +388,49 @@
             ></el-step>
           </el-steps>
         </div>-->
-
-<div
+ <div v-if="reMarkId === 0">
+          <div
             class="loading1"
             v-loading="loading"
             element-loading-text="评价生成中......"
-          >     
-        <div class="LDT">
-          <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-          <div class="input_span" align="center">
-            <el-form ref="form" :modelZL="formZL">
-              <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-              <br />
-              <br />
-            </el-form>
-            <span id="one"></span>
-            <span id="two"></span>
-            <span id="three"></span>
+          >
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+
+            <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <br />
+                <br />
+              </el-form>
+               <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+            </div>
           </div>
         </div>
-         </div>
+        <br />
+        <br />
+        <div v-if="reMarkId === 1">
+          <!-- 雷达图 -->
+                      
+
+          <div class="LDT">
+            <!-- 雷达图 -->
+
+              <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+            <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <br />
+                <br />
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+            </div>
+          </div>
+        </div>
+        
 
       </div>
 
@@ -654,8 +677,7 @@
               <el-col :span="24">
                 <el-form-item label="企业详情">
                        </el-form-item>                
-                       <el-form-item label=""><div class="XX" v-html="companyDetailContent">
-                  </div>           
+                       <el-form-item label=""><div class="leftDet" v-html="companyDetailContent"></div>
                        </el-form-item>
                 <!-- <el-form-item label="详细" >
                             <el-input 
@@ -1635,7 +1657,7 @@ export default {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
-                                    this.loading=false;
+                                  this.reMarkId = 1;
           }
 
           //判断el-step到第几步骤
@@ -2046,6 +2068,13 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+    //企业详情
+  .leftDet {
+    float: left;
+    text-align: left;
+    width: 90%;
+    padding: 0px 30px 0px;
+  }
     .el-dialog__footer {
   padding-right: 20px;
 }

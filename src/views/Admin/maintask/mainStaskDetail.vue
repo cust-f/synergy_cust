@@ -130,7 +130,7 @@
               <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
             </template>
           </el-table-column>
-          <el-table-column prop="supplierTel" label="联络电话" width="100"></el-table-column>
+          <el-table-column prop="supplierTel" label="联络电话" width="120"></el-table-column>
           <el-table-column prop="applyWay" label="承接方式" width="80">
             <template slot-scope="scope">
               <span v-if="+scope.row.applyWay === 0">邀请</span>
@@ -420,9 +420,9 @@
                 <br />
                 <br />
               </el-form>
-              <span></span>
-              <span></span>
-              <span></span>
+               <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
             </div>
           </div>
         </div>
@@ -430,10 +430,12 @@
         <br />
         <div v-if="reMarkId === 1">
           <!-- 雷达图 -->
+                      
+
           <div class="LDT">
             <!-- 雷达图 -->
-            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
+              <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
                 <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -694,7 +696,7 @@
               <el-col :span="24">
                 <el-form-item label="企业详情">
                   
-                </el-form-item><div class="XX" v-html="companyDetailContent"></div>
+                </el-form-item><div class="leftDet" v-html="companyDetailContent"></div>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -1561,6 +1563,7 @@ export default {
     },
     //提交次数 背景颜色变化
     styleswith() {
+      console.log("测试")
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
       }
@@ -1639,8 +1642,9 @@ export default {
           if (response.data.allData.f != null) {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
-            this.styleswith();
-                        //this.loading=false;
+                                  this.reMarkId = 1;
+
+            this.styleswith();console.log("测试")
 
           }
 
@@ -1690,6 +1694,8 @@ export default {
               ](response.data.allData.e[0].designerAcceptTime);
             }
             if (this.milepostActive > 4) {
+                        console.log("测试1")
+
               this.milepost[5].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.e[0].finishTime);
@@ -1916,12 +1922,22 @@ export default {
           method: "post",
           url: "/api/SubstaskInformation/HTSHTG",
           data: data
-        });
-        this.$message({
-          message: "审核通过",
-          type: "success"
-        });
-        this.showData();
+        })
+          .then(response => {
+            if (response.data == "成功") {
+              this.$message({
+                message: "审核通过",
+                type: "success"
+              });
+              this.showData();
+            } else {
+              this.$message({
+                message: "审核失败",
+                type: "warning"
+              });
+            }
+          });
+    
       });
     },
     HTSHJJ(row) {
@@ -2065,6 +2081,13 @@ export default {
 </script>
 
 <style lang="scss">
+  //企业详情
+  .leftDet {
+    float: left;
+    text-align: left;
+    width: 90%;
+    padding: 0px 30px 0px;
+  }
 .mainStaskDetaul {
   .loading1 {
     height: 400px;
@@ -2180,7 +2203,7 @@ export default {
   }
   .input_span span {
     display: inline-block;
-    width: 100px;
+    width: 85px;
     height: 30px;
     background: #eee;
     line-height: 20px;
