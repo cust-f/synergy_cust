@@ -404,7 +404,12 @@
             ></el-step>
           </el-steps>
         </div>-->
-        <!-- 雷达图 -->
+        <!-- 雷达图 --> 
+                  <div
+            class="loading1"
+            v-loading="loading"
+            element-loading-text="评价生成中......"
+          >     
         <div class="LDT">
           <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
           <div class="input_span" align="center">
@@ -418,6 +423,9 @@
             <span id="three"></span>
           </div>
         </div>
+         </div>
+
+        
       </div>
 
       <!-- 申请拒绝原因弹出框 -->
@@ -994,6 +1002,10 @@ export default {
 
   data() {
     return {
+      //显示评价的
+      reMarkId:"",
+      //
+      loading:true,
       //图片赋值次数
       TPDZCS:1,
       //企业详情路径
@@ -1596,9 +1608,12 @@ export default {
 
           console.log(response.data.allData.f);
           this.radarData.radarData = response.data.allData.f;
+
           that.$refs.QradarChart.getCharts1();
           console.log(this.radarData.radarData);
-
+          //response.data.allData.d[0] =null
+          if(response.data.allData.d[0] ==null){
+          }
           if (response.data.allData.f == null) {
             console.log(this.milepostActive5);
             this.milepostActive5 = 0;
@@ -1607,6 +1622,8 @@ export default {
             console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
+                        this.loading=false;
+
           }
 
           //判断el-step到第几步骤
@@ -1945,6 +1962,7 @@ export default {
           url: "/api/SubstaskInformation/SJSHTG",
           data: data
         });
+        this.GBXJ();
         this.showData();
 
         this.$message({
@@ -1973,6 +1991,24 @@ export default {
       this.addList3 = {};
       this.addVisible3 = false;
       this.showData();
+    },
+        //改变星级别
+    GBXJ() {
+        var that = this;
+        var data = Qs.stringify({
+          username: this.usernameX
+        });
+        console.log(data);
+        that.axios({
+          method: "post",
+          url: "/api/sumRemarkData",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+        });
+        this.showData();
+
     },
     companyDetail(row) {
       var that = this;
@@ -2012,6 +2048,9 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+  .loading1 {
+    height: 400px;
+  }
   .el-dialog__footer {
   padding-right: 20px;
 }

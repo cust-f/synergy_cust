@@ -945,7 +945,7 @@ export default {
 }
 .yanshou{
    color:#E066FF;
-  background-color:#FFFAF0;
+  background-color:#EBD3E8;
   border-color:#FFF0F5;
 }
 .con {

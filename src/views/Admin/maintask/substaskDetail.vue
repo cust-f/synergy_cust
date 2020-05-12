@@ -130,35 +130,14 @@
 
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
                 <el-table-column prop="taskState" label="需求状态"  align="center">
-                  <template slot-scope="scope">
-                    <el-tag
-                      v-if="scope.row.taskState ==='申请或邀请中'"
-                      
-                    >{{scope.row.taskState}}</el-tag>
-                    <el-tag
-                      v-else-if="scope.row.taskState ==='计划提交'"
-                      type="success"
-                    >{{scope.row.taskState}}</el-tag>
-                    <el-tag
-                      v-else-if="scope.row.taskState ==='任务进行中'"
-                      type="danger"
-                    >{{scope.row.taskState}}</el-tag>
-                    <el-tag
-                      v-else-if="scope.row.taskState ==='审核'"
-                      type="danger"
-                    >{{scope.row.taskState}}</el-tag>
-                    <el-tag
-                      v-else-if="scope.row.taskState ==='验收'"
-                      type="danger"
-                    >{{scope.row.taskState}}</el-tag>
-                    <el-tag
-                      v-else-if="scope.row.taskState ==='完成'"
-                      type="danger"
-                    >{{scope.row.taskState}}</el-tag>
-                    <el-tag
-                      v-else-if="scope.row.taskState ==='失败'"
-                      type="danger"
-                    >{{scope.row.taskState}}</el-tag>
+                    <template slot-scope="scope">
+                      <el-tag v-if="scope.row.taskState ==='申请或邀请中'" >待响应</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='计划提交'||scope.row.taskState ==='任务进行中'"  type="warning">进行中</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='审核'" class="shenhe" >审核</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='验收'" class="yanshou" >验收</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='完成'" type="success">已完成</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
+
                   </template>
                 </el-table-column>
                 <el-table-column prop="taskType" label="需求类型">
@@ -1383,6 +1362,16 @@ export default {
 </script>
 
 <style >
+.shenhe{
+    color:#FF8040;
+  background-color:#FFE6D9;
+  border-color:#FFDCB9;
+}
+.yanshou{
+   color:#E066FF;
+  background-color:#FFE1FF;
+  border-color:#FFF0F5;
+}
 .el-upload-list__item{
   width: 90%;
 }

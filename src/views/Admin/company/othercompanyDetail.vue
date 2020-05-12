@@ -2,8 +2,7 @@
   <div class="companyDetail">
     <el-container>
       <el-main>
-        <el-page-header @back="goBack" content="详情页面"></el-page-header>
-&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <!-- <el-carousel :interval="5000" arrow="always">
  <el-carousel-item v-for="item in imagesbox" :key="item">
       <img v-bind:src="item.idView" class="image">
@@ -12,15 +11,113 @@
         <div width="500" align="center" height="200px">
           <el-image class="qiyetupian" :src="imgsrc" :onerror="errorImg01"></el-image>
         </div>
-        <!-- <el-table :data="tableData123">
-<el-table-column prop="imgsrc" label="书籍海报" align="center">
-        <template slot-scope="scope">
-          <img :src="scope.row.imgsrc" min-width="70" height="70">
-        </template>
-      </el-table-column>
-        </el-table>-->
-        <el-divider></el-divider>
 
+        <el-divider></el-divider>
+        <!-- <el-card shadow="never" style="margin-bottom:20px;">
+
+ <div class="np_top">
+          <div class="left">
+          
+          <el-form ref="form" :model="form" >
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label>
+                <el-image align="left" style="width:200px;height:200px" :src="logo" :onerror="errorImg00"></el-image>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+          
+          </div>
+        <div class="Right">
+          
+          <div>
+            <div style="float:left">
+              <span style="font-size:24px;font-weight:500;">{{form.companyName}}</span>
+            </div>
+           
+            <el-rate v-model="form.star" style="margin-left:135px;line-height:2;" disabled text-color="#ff9900"></el-rate>
+
+          </div>
+          <el-divider></el-divider>
+          <el-row class="Detail">
+            <el-col :span="9" :offset="2">
+              <li>
+                <a>
+                  企业所在省：
+                  <font>{{form.province}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  企业所在市：
+                  <font>{{form.city}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  成立时间：
+                  <font>{{form.foundingTime | dataFormat("yyyy-MM-dd")}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  注册资本：
+                  <font>{{form.registeredCapital}}万元</font>
+                </a>
+              </li>
+              <br />
+
+              <li>
+                <a>
+                  企业地址：
+                  <font>{{form.address}}</font>
+                </a>
+              </li>
+            </el-col>
+            <el-col :span="9" :offset="2">
+              <li>
+                <a>
+                  工商注册号：
+                  <font>{{form.brNumber}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  法人代表：
+                  <font>{{form.legalPerson}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  法人联系电话：
+                  <font>{{form.legalTel}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  办公电话：
+                  <font>{{form.officeNumber}}</font>
+                </a>
+              </li>
+              <br />
+              <li>
+                <a>
+                  经营范围：
+                  <font>{{form.product}}</font>
+                </a>
+              </li>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+        </el-card>-->
 
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
         <br />
@@ -28,7 +125,12 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label>
-                <el-image align="left" class="yingyezhizhao" :src="qiyezhizhao" :onerror="errorImg02"></el-image>
+                <el-image
+                  align="left"
+                  class="yingyezhizhao"
+                  :src="qiyezhizhao"
+                  :onerror="errorImg02"
+                ></el-image>
               </el-form-item>
             </el-col>
           </el-row>
@@ -39,12 +141,17 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label align="left">
-                <el-image align="left" class="yingyezhizhao" :src="shuiwudengjizheng" :onerror="errorImg03"></el-image>
+                <el-image
+                  align="left"
+                  class="yingyezhizhao"
+                  :src="shuiwudengjizheng"
+                  :onerror="errorImg03"
+                ></el-image>
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
-                <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业Logo</div>
+        <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业Logo</div>
         <br />
         <el-form ref="form" :model="form" label-width="100px">
           <el-row>
@@ -54,15 +161,32 @@
               </el-form-item>
             </el-col>
           </el-row>
-        </el-form>
+        </el-form>-->
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
+
         <div>
-          <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+          <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业Logo</div> -->
+          <div width="800">
+            <div>
+              <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+            </div>
+                    <br />
+
+            <div style="float: left" width="300">
+              <el-image
+                align="left"
+                style="width:200px;height:200px"
+                :src="logo"
+                :onerror="errorImg00"
+              ></el-image>
+            </div>
+
+           
+          </div>
         </div>
         <div align="right" class="formYS">
           <el-form ref="form" :model="form" label-width="100px">
-            
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业名称">
@@ -70,7 +194,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="企业联络电话">
+                <el-form-item label="联络电话">
                   <el-input v-model="form.businessTel" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
@@ -195,12 +319,11 @@
 
             <el-row>
               <el-col :span="24">
-                <el-form-item label="企业详情">
-           
-                </el-form-item>
+                <el-form-item label="企业详情"></el-form-item>
                 <el-card class="box-card">
-                                      <div class="XX" v-html="companyDetailContent">
-                  </div>
+                  <font font-size="14px">
+                    <div class="XX" v-html="companyDetailContent"></div>
+                  </font>
                 </el-card>
                 <!-- <el-form-item label="详细" >
                             <el-input 
@@ -216,8 +339,7 @@
         </div>
         <!-- <div align="center">
           <el-button type="primary" class="button1" @click="update" :disabled="xiugai">修改</el-button>
-        </div> -->
-
+        </div>-->
       </el-main>
     </el-container>
   </div>
@@ -229,17 +351,17 @@ export default {
   name: "companyDetail",
   data() {
     return {
-      logo:"",
-                  //默认企业图片
+      logo: "",
+      //默认企业图片
       errorImg00: 'this.src="' + require("../company/2.jpg") + '"',
-            //默认企业图片
+      //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
       //默认营业执照
       errorImg02: 'this.src="' + require("../company/营业执照.jpg") + '"',
       //默认税务登记
       errorImg03: 'this.src="' + require("../company/税务登记证.jpg") + '"',
-                  //企业详情路径
-      companyDetailContent:"",
+      //企业详情路径
+      companyDetailContent: "",
       companyId: "",
       usernameX: this.$store.state.user,
       yangshi: true,
@@ -409,7 +531,8 @@ export default {
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
           this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
-          this.companyDetailContent = response.data.allData.companyDetailContent;
+          this.companyDetailContent =
+            response.data.allData.companyDetailContent;
           this.logo = response.data.allData.logo;
           console.log(this.imgsrc);
         });
@@ -511,8 +634,11 @@ export default {
 
 <style lang="scss">
 .companyDetail {
-    .box-card {
-    width: 960px;
+  .el-card {
+    font-size: 14px;
+  }
+  .box-card {
+    width: 860px;
     /* border: 1px solid #00a2e6 ; */
   }
   .formYS .el-input__inner {
@@ -570,7 +696,7 @@ export default {
     width: 600px;
     height: 300px;
   }
-    .XX {
+  .XX {
     text-align: left;
   }
 }

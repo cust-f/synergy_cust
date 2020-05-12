@@ -944,13 +944,13 @@ export default {
 <style>
 
 .shenhe{
-    color:#FFB90F;
-  background-color:#FFFAF0;
+    color:#FF8040;
+  background-color:#FFE6D9;
   border-color:#FFDCB9;
 }
 .yanshou{
    color:#E066FF;
-  background-color:#FFFAF0;
+  background-color:#EBD3E8;
   border-color:#FFF0F5;
 }
 .con {
