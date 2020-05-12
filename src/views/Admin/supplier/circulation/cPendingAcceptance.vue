@@ -22,7 +22,7 @@
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
       <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
-      <el-table-column prop="companyName" sortable label="发布需求企业"></el-table-column>
+      <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
 
       <el-table-column prop="demandorCheckDesignState" sortable label="验收状态" align="center">
         <template slot-scope="scope">

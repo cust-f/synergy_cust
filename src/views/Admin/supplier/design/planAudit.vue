@@ -27,7 +27,7 @@
 
       <el-table-column prop="publishingCompanyName" sortable label="需求方"></el-table-column>
 
-       <el-table-column prop="checkPlanState" sortable width="120" label="审核状态" align="center">
+       <el-table-column prop="checkPlanState" sortable width="130" label="审核状态" align="center">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
           <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>

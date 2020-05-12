@@ -23,13 +23,18 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable label="行业类别"></el-table-column>
-
       <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
 
       <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="designCount" sortable label="退回次数" align="center"></el-table-column>
+      <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+          <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="deadline" sortable label="截止日期">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
