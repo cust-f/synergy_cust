@@ -25,8 +25,9 @@
           label="邮箱"
           prop="email"
           :rules="[
-//      { required: false, message: '请输入邮箱地址', trigger: 'blur' },待议
-      { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+      { required:true, validator: validDataEmail, message:'邮箱不能为空', trigger: 'blur' },
+      { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },
+    
     ]"
         >
           <el-input v-model="account.email" autocomplete="off"></el-input>
@@ -57,6 +58,7 @@ export default {
         callback();
       }
     };
+       
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
@@ -78,7 +80,7 @@ export default {
     };
     var validDataPhone = (rule, value, callback) => {
       if (value === "") {
-        callback();
+        callback("手机号码不能为空");
       } else if (!/^1[3456789]\d{9}$/.test(value)) {
         // this.$error("手机号码有误，请重填");
         callback(new Error("手机号码有误，请重填"));
@@ -86,11 +88,18 @@ export default {
         callback();
       }
     };
+    var validDataRealName = (rule, value, callback) => {
+      if (value === "") {
+        callback("真实姓名不能为空");
+      } 
+    };
+    
     return {
       rules: {
         password: [
           { required: true, validator: validatePass, trigger: "blur" }
         ],
+        
         checkPass: [
           { required: true, validator: validatePass2, trigger: "blur" }
         ],
@@ -98,7 +107,9 @@ export default {
           { required: true, validator: checkuserName, trigger: "blur" },
           { min: 3, max: 7, message: "长度在 3 到 7 个字符", trigger: "blur" }
         ],
-        phone: [{ required: false, validator: validDataPhone, trigger: "blur" }]
+        
+        phone: [{ required: true, validator: validDataPhone, trigger: "blur" }],
+        realName: [{ required: true, validator: validDataRealName, trigger: "blur" }]
       },
       existName: null,
       account: {
