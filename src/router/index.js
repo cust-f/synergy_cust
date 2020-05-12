@@ -162,11 +162,6 @@ export default new Router({
           component: excellentCompanyDetail
         },
         {
-<<<<<<< HEAD
-          path: '/search',
-          name: search,
-          component: search
-=======
           path:'/search',
           name:search,
           component:search
@@ -175,7 +170,6 @@ export default new Router({
           path:'/Data',
           name:'Data',
           component:Data
->>>>>>> f8986f7e23d107d38949cb7a2086ecea08ef5413
         }
 
         // {
