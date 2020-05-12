@@ -68,7 +68,7 @@
                     :style="{backgroundImage: 'url(' + orangePicture + ')'}"
                     style=" background-size: cover; "
                   >
-                    <font @click="demandPRedirects('交通运输设备',2)"> 交通运输设备</font>
+                    <font @click="demandPRedirects('交通运输设备',2)">交通运输设备</font>
                     <p></p>
                   </div>
                   <i class="cate_list">
@@ -133,7 +133,7 @@
                     :style="{backgroundImage: 'url(' + geometryPicture + ')' }"
                     style="background-size: cover;"
                   >
-                    <font @click="demandPRedirects('电气机械及器材',5)"> 电气机械及器材</font>
+                    <font @click="demandPRedirects('电气机械及器材',5)">电气机械及器材</font>
                   </div>
                   <i class="cate_list">
                     <a @click="demandRedirects('电机',29,'电气机械及器材',5)">电机</a>
@@ -307,7 +307,7 @@
       <el-row :gutter="gutterCount">
         <!--需求任务-->
         <el-col :span="8">
-                    <div class="grid-content2 one">
+          <div class="grid-content2 one">
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
                 <span>需求一览</span>
@@ -320,21 +320,18 @@
                 :gutter="10"
               >
                 <el-col :span="6">
-                  <el-tooltip
-                    :content="item.types"
-                    placement="left-start"
-                    effect="light"
-                  >
-                    <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
-                  </el-tooltip>
+                  
+                    <span class="fontStyle1" >{{"【"+item.types+"】"}}</span>
+                 
                 </el-col>
                 <el-col :span="11">
-                  <el-tooltip :content="item.taskName" placement="top" effect="light">
+                  <el-popover :content="item.taskName" placement="top-start" trigger="hover">
                     <a
+                    slot="reference"
                       @click="needsDetail(item.taskId)"
                       style="float:left;line-height: 24px;"
                     >{{item.taskName}}</a>
-                  </el-tooltip>
+                  </el-popover>
                 </el-col>
                 <el-col :span="5">
                   <span
@@ -388,7 +385,7 @@
               </el-row>
               </el-tooltip>
             </el-card>
-          </div> -->
+          </div>-->
         </el-col>
 
         <el-col :span="8">
@@ -410,24 +407,26 @@
                 :gutter="10"
               >
                 <el-col :span="6">
-                  <el-tooltip
-                    :content="supplierlist.companyProduct[i]"
-                    placement="left-start"
-                    effect="light"
-                  >
+               
                     <span
                       class="fontStyle1"
                       style="line-height: 24px;"
+                      
                     >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
-                  </el-tooltip>
+                  
                 </el-col>
                 <el-col :span="17">
-                  <el-tooltip :content="supplierlist.companyName[i]" placement="top" effect="light">
+                  <el-popover
+                    :content="supplierlist.companyName[i]"
+                    placement="top-start"
+                    trigger="hover"
+                  >
                     <a
+                    slot="reference"
                       @click="excellentCompanyDetail(item)"
                       style="float:left;line-height: 24px;"
                     >{{supplierlist.companyName[i]}}</a>
-                  </el-tooltip>
+                  </el-popover>
                 </el-col>
               </el-row>
             </el-card>
@@ -448,21 +447,18 @@
                 :gutter="10"
               >
                 <el-col :span="6">
-                  <el-tooltip
-                    :content="item.types"
-                    placement="left-start"
-                    effect="light"
-                  >
-                    <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
-                  </el-tooltip>
+                  
+                    <span class="fontStyle1" >{{"【"+item.types+"】"}}</span>
+                 
                 </el-col>
                 <el-col :span="11">
-                  <el-tooltip :content="item.taskName" placement="top" effect="light">
+                  <el-popover :content="item.taskName" placement="top-start" trigger="hover">
                     <a
+                    slot="reference"
                       @click="needsDetail(item.taskId)"
                       style="float:left;line-height: 24px;"
                     >{{item.taskName}}</a>
-                  </el-tooltip>
+                  </el-popover>
                 </el-col>
                 <el-col :span="5">
                   <span
@@ -641,7 +637,7 @@ export default {
         this.demandTaskList = response.data.allData.demandTask;
         this.completeddemandTaskList = response.data.allData.serviceTask;
         this.supplierlist = response.data.allData.company;
-                console.log(this.demandTaskList)
+        console.log(this.demandTaskList);
       });
     },
     //数据统计
@@ -760,12 +756,12 @@ export default {
       console.log(tab, event);
     },
 
-    demandRedirects(cName,cId,name, id) {
+    demandRedirects(cName, cId, name, id) {
       let Predirects = {
         name: name,
         id: id
       };
-    let CPredirects = {
+      let CPredirects = {
         name: cName,
         id: cId
       };
@@ -773,12 +769,12 @@ export default {
         path: "/xuqiuyilan",
         query: {
           Predirects: Predirects,
-          CPredirects:CPredirects
+          CPredirects: CPredirects
         }
       });
     },
-    demandPRedirects(name, id){
-     let Predirects = {
+    demandPRedirects(name, id) {
+      let Predirects = {
         name: name,
         id: id
       };

@@ -15,10 +15,13 @@ import register from '@/views/Front/register/register'
 import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
 import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
 import search from '@/views/Front/Search/search'//搜索界面
+import dashbordFront from '@/views/Front/Home/dashbordFront'
+
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
+import copy from '@/views/admin/Home/Dashboard-copy' //后台系统首页
 
 //设计人员界面
 import designerNewList from '@/views/admin/personnel_allotment/designerNewList'//设计人员新增界面
@@ -160,7 +163,30 @@ export default new Router({
           path:'/search',
           name:search,
           component:search
-        }
+        },
+        // {
+        //   path: '/admin/dashboard',
+        //   name: 'Dashboard',
+        //   component: Dashboard,
+        //   meta: {
+        //     title: '系统首页'
+        //   }
+        // },
+        // {
+        //   path:'/dashbordFront',
+        //      name:dashbordFront,
+        //    component:dashbordFront
+        //   }
+        // {
+        //   path: '/admin/copy',
+        //   name: 'copy',
+        //   component: copy,
+        //   meta: {
+        //     title: '系统首页'
+        //   }
+        // },
+
+      
       ]
     },
     {
@@ -169,6 +195,7 @@ export default new Router({
       component: adminPage,
       children: [
         //系统首页
+        
         {
           path: '/admin/dashboard',
           name: 'Dashboard',

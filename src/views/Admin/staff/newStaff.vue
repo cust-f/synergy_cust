@@ -40,7 +40,7 @@
                   <el-table-column prop="userId" label="序号" width="55" align="center" type="index"></el-table-column>
 
                   <el-table-column prop="userName" label="用户名" sortable width="120"></el-table-column>
-                  <el-table-column prop="realName" label="真实姓名"  sortable width="100"></el-table-column>
+                  <el-table-column prop="realName" label="真实姓名"  sortable width="120"></el-table-column>
                   <el-table-column prop="roleId" label="部门" sortable width="100">
                     <template slot-scope="scope">
                       <span v-if="scope.row.roleId === 4">设计人员</span>
