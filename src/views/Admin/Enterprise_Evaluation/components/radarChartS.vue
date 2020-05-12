@@ -57,7 +57,7 @@ export default{
             },
             data: [
               {
-                name: "数据统计",
+                name: "数据统计(单位：天)",
                 value:this.radarData.radarData,
                
               },

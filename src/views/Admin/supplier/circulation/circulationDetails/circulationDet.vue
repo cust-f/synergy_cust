@@ -53,7 +53,21 @@
         <br />
         <!-- 评价模块 -->
         <div v-if="reMarkId === 0">
-          <h3 align-center>核心企业暂未评价</h3>
+          <div class="loading1" v-loading="loading" element-loading-text="评价生成中......">
+            <!-- 雷达图 -->
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+
+            <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <br />
+                <br />
+              </el-form>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
         </div>
         <br />
         <br />
@@ -116,6 +130,7 @@ export default {
       //状态显示控制
       state: "",
       state2: 0,
+      loading: true,
       state3: 0,
       reMarkId: 1,
       //重做次数
@@ -327,7 +342,9 @@ export default {
   .item {
     padding: 18px 0;
   }
-
+  .loading1 {
+    height: 400px;
+  }
   .box-card {
     width: 960px;
     /* border: 1px solid #00a2e6 ; */

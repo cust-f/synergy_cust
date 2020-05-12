@@ -228,14 +228,14 @@ export default {
   background-color: #d6d6ad;
   border-color: #d6d6ad;
 }
-.shenhe {
-  color: #842b00;
-  background-color: #ffdcb9;
-  border-color: #ffdcb9;
+.shenhe{
+    color:#FF8040;
+  background-color:#FFE6D9;
+  border-color:#FFDCB9;
 }
-.yanshou {
-  color: #336666;
-  background-color: #c4e1e1;
-  border-color: #c4e1e1;
+.yanshou{
+   color:#E066FF;
+  background-color:#EBD3E8;
+  border-color:#FFF0F5;
 }
 </style>

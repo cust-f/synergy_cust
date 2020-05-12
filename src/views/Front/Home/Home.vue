@@ -331,7 +331,7 @@
                 <el-col :span="11">
                   <el-tooltip :content="item.taskName" placement="top" effect="light">
                     <a
-                      @click="needsDetail(item.taskId)"
+                      @click="serviceDetail(item.taskId)"
                       style="float:left;line-height: 24px;"
                     >{{item.taskName}}</a>
                   </el-tooltip>

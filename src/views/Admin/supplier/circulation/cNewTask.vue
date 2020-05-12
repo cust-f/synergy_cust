@@ -104,7 +104,7 @@
             <el-table-column prop="bidTime" label="开始时间"></el-table-column>
                         <el-table-column prop="count" label="数量"></el-table-column>
             <el-table-column prop="supplyCompany" label="供应商"></el-table-column>
-            <el-table-column label="操作" align="center" width="180">
+            <el-table-column label="操作" align="center" width="120">
               <template slot-scope>
                 <el-button type="danger" class="handle-del mr10" >删除</el-button>
               </template>
@@ -143,7 +143,7 @@
                     @change="invitate"
                   >
                     <el-option
-                      width="180"
+                      width="120"
                       v-for="coo in shifou"
                       :key="coo"
                       :label="coo"
@@ -162,7 +162,7 @@
                   >
                     <el-option label="全部" value></el-option>
                     <el-option
-                      width="180"
+                      width="120"
                       v-for="company in supplyCompanies"
                       :key="company"
                       :label="company"

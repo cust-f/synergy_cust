@@ -41,7 +41,7 @@ export default{
             }
           },
           indicator: [
-            { name: "任务时长", max: 50 },
+             { name: "任务时长", max: 50 },            
             { name: "计划时长", max: 50 },
             { name: "审核时长", max: 50 },
             { name: "验收时长", max: 50 },
@@ -57,7 +57,7 @@ export default{
             },
             data: [
               {
-                name: "数据统计",
+                name: "数据统计(单位：天)",
                 value:this.radarData.radarData,
                
               },

@@ -29,7 +29,7 @@
 
       <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
 
-      <el-table-column label="操作" width="180" align="center">
+      <el-table-column label="操作" width="120" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>

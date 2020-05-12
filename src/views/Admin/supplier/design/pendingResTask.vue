@@ -23,7 +23,7 @@
 
       <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
 
-      <el-table-column prop="applyWay" sortable width="100" label="获取方式">
+      <el-table-column prop="applyWay" sortable width="150" label="承接方式">
         <template slot-scope="scope">
           <span v-if="scope.row.applyWay === 0">邀请</span>
           <span v-else-if="scope.row.applyWay === 1">申请</span>
@@ -47,7 +47,7 @@
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
-      <el-table-column label="操作" width="180" align="center">
+      <el-table-column label="操作" width="120" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
