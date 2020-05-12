@@ -164,7 +164,6 @@
                       size="small"
                       type="text"
                       icon="el-icon-delete"
-                      class="red"
                       @click="handleDelete1(scope.row)"
                     >废除</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
