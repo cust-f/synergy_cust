@@ -340,8 +340,8 @@ export default {
       qiyezhizhao: require("../../company/2.jpg"),
       //企业弹窗所需图片默认
       errorImg01: 'this.src="' + require("../../company/2.jpg") + '"',
-      errorImg02: 'this.src="' + require("../../company/2.jpg") + '"',
-      errorImg03: 'this.src="' + require("../../company/2.jpg") + '"'
+      errorImg02: 'this.src="' + require("../../company/税务登记证.jpg") + '"',
+      errorImg03: 'this.src="' + require("../../company/营业执照.jpg") + '"'
     };
   },
   filters: {
