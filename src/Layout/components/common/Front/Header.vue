@@ -159,62 +159,6 @@
           </el-container>
         </el-row>
       </el-container>
-      <!-- <div class="user-detail">
-        <div style="margin:0 auto;">
-        <el-row>
-          <el-col :span="5" :offset="1">
-            <span class="titles">所属公司</span>
-          </el-col>
-          <el-col :span="14" :offset="1">
-            <span>{{userInfo.companyName}}</span>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="5" :offset="2">
-            <span class="titles">用户名</span>
-          </el-col>
-          <el-col :span="14" >
-            <span>{{userInfo.userName}}</span>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="3" :offset="3">
-            <span class="titles">姓名</span>
-          </el-col>
-          <el-col :span="14" :offset="1">
-            <span>{{userInfo.realName}}</span>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="3" :offset="3">
-            <span class="titles">角色</span>
-          </el-col>
-          <el-col :span="14" :offset="1">
-            <span>{{userInfo.roleName}}</span>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="3" :offset="3">
-            <span class="titles">邮箱</span>
-          </el-col>
-          <el-col :span="14" :offset="1">
-            <span>{{userInfo.email}}</span>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="3" :offset="3">
-            <span class="titles">电话</span>
-          </el-col>
-          <el-col :span="14" :offset="1">
-            <span>{{userInfo.phone}}</span>
-          </el-col>
-        </el-row>
-        </div>
-      </div>-->
-      <!-- <div slot="footer" class="dialog-footer">
-        <el-button @click="updataUserDetail=true">修改账户信息</el-button>
-        <el-button @click="updataPassword=true" type="primary">修改密码</el-button>
-      </div>-->
     </el-dialog>
 
     <el-dialog

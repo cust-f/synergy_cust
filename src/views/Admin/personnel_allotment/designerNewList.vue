@@ -293,7 +293,7 @@ export default {
   },
   methods: {
     getData() {
-      console.log(this.userName);
+      //console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         designerName: this.username1
@@ -308,19 +308,19 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           this.Not_Accepted_Task_Data = response.data.allData;
           this.form = response.data.allData[0];
         });
     },
     beginTask(row) {
-      console.log(this.taskId);
+      //console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
         designerName: this.username1
       });
-      console.log(data);
+     // console.log(data);
       that
         .axios({
           method: "post",
@@ -337,7 +337,7 @@ export default {
       this.getData();
       this.$router.go(0);
 
-      this.$router.push("/admin/designerAcceptList");
+      //this.$router.push("/admin/designerAcceptList");
     },
     goBack() {
       this.$router.push("/#");
@@ -361,7 +361,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           this.form = response.data.allData;
         });
     },
@@ -371,7 +371,7 @@ export default {
       this.dialogVisible = true;
     },
     xiazaiZRWFJ(row) {
-      console.log("shenme");
+      //console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: row.taskId,
@@ -385,8 +385,8 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
+          //console.log("cap");
+          //console.log(response);
           this.download(response.data, "ZRWFJ");
         });
     },

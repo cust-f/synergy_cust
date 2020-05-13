@@ -130,7 +130,7 @@
 // import Schart from "vue-schart";
 import bus from "../../../Layout/components/common/Admin/bus";
 export default {
-  name: "dashboard",
+  name: "copy",
   data() {
     return {
       name: localStorage.getItem("ms_username"),

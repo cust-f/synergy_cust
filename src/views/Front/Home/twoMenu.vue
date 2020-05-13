@@ -241,7 +241,7 @@ export default {
     
     recordTabletender() {},
     handleChange(val) {
-      console.log(val);
+      //console.log(val);
     },
     getData() {
       var that = this;
@@ -253,17 +253,17 @@ export default {
           //data: data
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           this.tableData = response.data.allData;
         });
     },
     handleSearch() {
-      console.log(this.search);
+      //console.log(this.search);
       var that = this;
       var data = Qs.stringify({
         companyName: this.search
       });
-      console.log(data);
+     // console.log(data);
       that
         .axios({
           method: "post",
@@ -272,7 +272,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           this.tableData = response.data.allData;
         });
 
@@ -280,12 +280,12 @@ export default {
     },
     clickitem4(e) {
       e === this.radio0 ? (this.radio0 = "") : (this.radio0 = e);
-      console.log(this.radio0);
+      //console.log(this.radio0);
       var that = this;
       var data = Qs.stringify({
         taskCategoryMainId: this.radio0
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -294,7 +294,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           this.tableData = response.data.allData;
         });
     },
@@ -308,7 +308,7 @@ export default {
           //data: data
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           this.tableData = response.data.allData;
         });
     },
@@ -322,7 +322,7 @@ export default {
           //data: data
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           this.tableData = response.data.allData;
         });
     },
@@ -336,12 +336,12 @@ export default {
           //data: data
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           this.tableData = response.data.allData;
         });
     },
     remarkDetail(row) {
-      console.log(row.mainTaskID);
+      //console.log(row.mainTaskID);
       this.$router.push({
         path: "/service1",
         query: {

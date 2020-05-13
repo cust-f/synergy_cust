@@ -73,6 +73,11 @@ export default {
                      icon: 'el-icon-s-custom',
                     index: '/twoMenu',
                     title: '服务成果',
+                },
+                {
+                     icon: 'el-icon-s-custom',
+                    index: '/Data',
+                    title: '网站数据',
                 }
             ]
     };
