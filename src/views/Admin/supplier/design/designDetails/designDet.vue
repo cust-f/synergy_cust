@@ -181,7 +181,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/remarkDetils",
+          url: "/api/remarkDetilsL",
           data: data
         })
         .then(response => {

@@ -101,10 +101,10 @@ import applicationInformation from "../../assembly/applicationInformation";
 import missionPlan from "../../assembly/missionPlan";
 import contractManagement from "../../assembly/contractManagement";
 import deliveryList from "../../assembly/deliveryList";
-import radarChart from "../../../Enterprise_Evaluation/components/radarChartSCir";
+import radarChart from "../circulationDetails/radarChart";
 export default {
   data() {
-    return {
+    return {  
       //步骤条数据
       milepost: [
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },
@@ -187,7 +187,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/remarkDetils",
+          url: "/api/remarkDetilsL",
           data: data
         })
         .then(response => {
