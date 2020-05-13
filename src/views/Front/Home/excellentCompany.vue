@@ -10,7 +10,7 @@
     <el-container>
       <el-main>
         <el-card shadow="never" class="selectCard company-select">
-          <div slot="header" class="clearfix">
+           <div slot="header" style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;" class="clearfix">
             <span>优质企业</span>
           </div>
           <el-row v-if="!dynamicTags.length==0">
@@ -77,20 +77,27 @@
           </el-row>
         </el-card>
 
-        <div style="width:500px; margin:20px 0px;">
+        <div style="width:600px; margin:20px 0px;">
           <el-input
+            class="neirong"
             size="small"
             placeholder="请输入搜索内容"
             prefix-icon="el-icon-search"
             @change="searchCom"
             v-model="search"
-          >
-            <el-button type="warning" slot="append" @click="searchCom">搜索</el-button>
-          </el-input>
+          ></el-input>
+            <el-button
+            class="sousuo"
+            style="display:inline-block;float: right;"
+            slot="append"
+            @click="searchCom"
+          >搜索</el-button>
+          
         </div>
+        <br>
 
         <el-card shadow="never" class="selectCard company-detail">
-          <div slot="header">
+         <div  style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;" slot="header" >
             <span>SaaS服务平台为您寻找企业</span>
           </div>
 
@@ -162,7 +169,7 @@
       </el-main>
       <el-aside style="width:300px;">
         <el-card shadow="never" style="width:300px;" class="selectCard recommend">
-          <div slot="header">
+          <div  style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;" slot="header" >
             <span>推荐企业</span>
           </div>
           <ul>
@@ -523,6 +530,26 @@ export default {
 /* 推荐企业列表 */
 .recommend a:hover {
   color: #0084ff;
+}
+.sousuo {
+  color: white;
+  padding-top: 7px;
+  padding-bottom: 8px;
+  padding-right: 25px;
+  padding-left: 25px;
+  background-color: #ff7720;
+}
+.neirong {
+  border-color: #ff7720;
+  float: left;
+  width: 520px;
+  min-width: 85%;
+}
+.neirong .el-input__inner {
+  border-right-color: #ff7720;
+  border-top-color: #ff7720;
+  border-left-color: #ff7720;
+  border-bottom-color: #ff7720;
 }
 
 </style>
