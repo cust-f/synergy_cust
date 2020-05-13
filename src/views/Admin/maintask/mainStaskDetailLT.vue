@@ -1007,6 +1007,8 @@ export default {
 
   data() {
     return {
+            //显示评价的
+      reMarkId:0,
             loading:true,
 
             //企业详情路径
@@ -1236,7 +1238,7 @@ export default {
   created() {
     this.getParams();
     this.showData();
-    this.getCirculationCount();
+    
   },
   methods: {
     //清单历史上传
@@ -1658,6 +1660,7 @@ export default {
             this.formZL = response.data.allData.d[0];
             this.styleswith();
                                   this.reMarkId = 1;
+                                  this.getCirculationCount();
           }
 
           //判断el-step到第几步骤
@@ -2118,7 +2121,7 @@ export default {
     color: #303133;
   }
 
-  .table {
+.el-table{
     font-size: 13px;
   }
   .text {
