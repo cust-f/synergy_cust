@@ -165,21 +165,18 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
-      console.log(routerParams);
     },
     //设计通过
     designSuccess(row) {
       this.$confirm("确定将设计审核通过么？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           taskID: this.taskId,
           designCount: row.designCount,
           userName: this.userName
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/supplier/designSuccess",
@@ -203,7 +200,6 @@ export default {
       var data = Qs.stringify({
         userName: this.userName
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -211,22 +207,17 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.designTask = response.data.allData.a;
           // this.designTask.id = response.data.allData.b;
-          console.log(response);
         });
     },
     //分配设计人员上传
     tijiao() {
-      console.log(this.design1);
-      console.log("哈哈哈");
       var that = this;
       var data = Qs.stringify({
         userName: this.design1,
         taskId: this.taskId
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -244,13 +235,12 @@ export default {
       if (this.addList4.SJrefuseReason == "") {
         this.$message.error("请输入拒绝原因");
       } else {
-        console.log("this.addList4.SJrefuseReason:"+this.addList4.SJrefuseReason)
         var that = this;
         var data = Qs.stringify({
           taskId: this.taskId,
           HTrefuseReason: this.addList4.SJrefuseReason
         });
-        console.log(data),
+        
           that.axios({
             method: "post",
             url: "/api/supplier/designRefuse",

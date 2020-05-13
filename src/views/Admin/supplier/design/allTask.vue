@@ -119,13 +119,12 @@ export default {
   },
   methods: {
     handleSearch() {
-      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
         username: userNameX,
         taskName: this.selectname
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -134,7 +133,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          
           this.tableData = response.data.allData;
         });
       //this.getData();
@@ -152,7 +151,7 @@ export default {
       var data = Qs.stringify({
         userName: this.usernameX
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -162,7 +161,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          
           this.tableData = response.data.allData;
         });
     },

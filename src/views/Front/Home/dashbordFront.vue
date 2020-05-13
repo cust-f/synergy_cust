@@ -326,7 +326,7 @@
          <div style="float:right">
         <template>
         <el-select 
-        style="width:100px;margin-right:35px;"
+        style="width:100px;margin-right:35px;margin-top:15px"
         v-model="value"
         
         @change="pieChart"
@@ -338,7 +338,7 @@
           :label="item.label"
           :value="item.value"
           :disabled="item.disabled"
-         
+          width="20px"
           >
             </el-option>
           </el-select> 
@@ -360,14 +360,21 @@ import Qs from "qs";
 import axios from 'axios';
 import columnChart1 from "./components/columnChart1";
 import columnChart2 from "./components/columnChart2";
-import pieChart from "./components/pieChart";
+import piechart1 from "./components/piechart1";
 import bus from "../../../Layout/components/common/Admin/bus";
+window.onresize = function() {
+  //迭代全部图表
+  for (var i = 0; i < charts.length; i++) {
+    //随着窗口改变重置大小
+    charts[i].resize();
+  }
+};
 export default {
-  name: "dashboard",
+  name: "Home",
    components: {
       "cloumn-chart1": columnChart1,
       "cloumn-chart2": columnChart2,
-      "pie-chart": pieChart
+      "pie-chart": piechart1
   },
   data() {
     return {
@@ -481,7 +488,7 @@ export default {
   //  },
 
   methods: {
-
+   
     handleClick(tab, event) {
         console.log(tab, event);
       },

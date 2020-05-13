@@ -108,16 +108,13 @@ export default {
     getMsg(msg) {
       this.PlantableData = msg;
       this.getParams();
-      console.log("我要看看这里的TaskId：" + this.taskId);
     },
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
-      console.log(routerParams);
     },
     //下载子任务附件
     xiazaiZRWFJ() {
-      console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
@@ -131,8 +128,6 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
           this.download(response.data, "ZRWFJ");
         });
     },
@@ -141,13 +136,11 @@ export default {
       this.$confirm("确定接受需求么？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           taskID: row.taskId,
           userName: this.userName
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/supplier/accept",
@@ -165,13 +158,11 @@ export default {
       this.$confirm("确定拒绝需求么？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           taskID: row.taskId,
           userName: this.userName
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/supplier/noAccept",
@@ -192,7 +183,6 @@ export default {
         taskId: this.taskId,
         userName: this.userName
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -200,7 +190,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.addList1 = response.data.allData.b[0];
         });
     }
