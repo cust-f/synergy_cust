@@ -326,7 +326,7 @@
          <div style="float:right">
         <template>
         <el-select 
-        style="width:100px;margin-right:35px;margin-top:15px"
+        style="width:100px;margin-right:35px;"
         v-model="value"
         
         @change="pieChart"
@@ -338,7 +338,7 @@
           :label="item.label"
           :value="item.value"
           :disabled="item.disabled"
-          width="20px"
+         
           >
             </el-option>
           </el-select> 
