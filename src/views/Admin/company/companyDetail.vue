@@ -18,6 +18,7 @@
               accept=".jpg, .png"
               :data="updateData('companyPicture')"
               :on-preview="handleCompanyPictureCardPreview"
+              :before-upload="beforeAvatarUpload"
               :on-change="onChange"
               :on-remove="onRemove"
             >
@@ -50,6 +51,7 @@
                 accept=".jpg, .png"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccessLogo"
+                :before-upload="beforeAvatarUpload"
                 class="avatar-uploader"
                 :data="updateData('Logo')"
               >
@@ -76,6 +78,7 @@
                 accept=".jpg, .png"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccessTR"
+                :before-upload="beforeAvatarUpload"
                 class="avatar-uploader"
                 :data="updateData('tRCertificate')"
               >
@@ -99,6 +102,7 @@
                 accept=".jpg, .png"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccessBusiness"
+                :before-upload="beforeAvatarUpload"
                 class="avatar-uploader"
                 :data="updateData('businessLicence')"
               >

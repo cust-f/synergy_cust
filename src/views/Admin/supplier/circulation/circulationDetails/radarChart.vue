@@ -1,28 +1,28 @@
 <template>
-   <div id="charts1" style="height:380px; width:450px; float:left"></div>
+  <div id="charts1" style="height:380px; width:450px; float:left"></div>
 </template>
 
 
 <script>
-export default{
-    props: {
-    radarData:{
-      type:Object
+export default {
+  props: {
+    radarData: {
+      type: Object
     }
   },
-    data() {
+  data() {
     return {};
   },
- methods: {
-//雷达图
+  methods: {
+    //雷达图
     getCharts1() {
       var that = this;
       var myChart = echarts.init(document.getElementById("charts1"));
-      
+
       var option = {
         tooltip: {},
         legend: {
-         orient: 'vertical',
+          orient: "vertical",
           x: "left",
           y: "top",
           data: ["完成统计"]
@@ -45,22 +45,21 @@ export default{
         },
         series: [
           {
-            //name:'完成统计',
             type: "radar",
-             data: [
+            textStyle: {
+              fontSize: 16
+            },
+            data: [
               {
-                name: "完成统计",
-                value:this.radarData.radarData,
-     
-              },
-             
+                name: "数据统计(单位：天)",
+                value: this.radarData.radarData
+              }
             ]
           }
         ]
       };
       myChart.setOption(option);
-    },
- 
+    }
   }
 };
 </script>

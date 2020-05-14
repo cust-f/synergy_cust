@@ -117,13 +117,10 @@ export default {
   },
   methods: {
     getData() {
-      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         userName: this.username
       });
-
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -131,14 +128,12 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
     },
 
     //详情跳转
     Det(row) {
-      console.log(row.taskId);
       this.$router.push({
         path: "/admin/circulationDet",
         query: {
@@ -147,13 +142,11 @@ export default {
       });
     },
     handleSearch() {
-      console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
         userName: this.username,
         taskName: this.selectname
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -162,17 +155,12 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
       //this.getData();
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
+    handleRemove(file, fileList) {},
+    handlePreview(file) {},
     handleExceed(files, fileList) {
       this.$message.warning(
         `当前限制选择 3 个文件，本次选择了 ${

@@ -555,12 +555,10 @@ export default {
   },
   methods: {
     getData() {
-      //console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         userName: this.usernameX
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -570,12 +568,10 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
     },
     handleClick(tab, event) {
-        console.log(tab, event);
         if(tab.name == 'second'){
           // 触发‘配置管理’事件
           this.taskState = 0,
@@ -598,14 +594,12 @@ export default {
         }
       },
     second(taskState){
-      console.log(this.query.pageIndex);
-      console.log(this.taskState);
+
       var that = this;
       var data = Qs.stringify({
         userName:this.usernameX,
         taskState:taskState,
       })
-      console.log(data);
       that
         .axios({
           method:"post",
@@ -614,27 +608,21 @@ export default {
         })
         .then(response =>{
           if(this.taskState == 0){
-            console.log(response);
           this.tableData1 = response.data.allData;
           }
               else if(this.taskState == 1){
-            console.log(response);
           this.tableData2 = response.data.allData;
           }
            else if(this.taskState == 2){
-            console.log(response);
           this.tableData3 = response.data.allData;
           } 
           else if(this.taskState == 3){
-            console.log(response);
           this.tableData4 = response.data.allData;
           }
            else if(this.taskState == 5){
-            console.log(response);
           this.tableData5 = response.data.allData;
           } 
           else if(this.taskState == 6){
-            console.log(response);
           this.tableData6 = response.data.allData;
           }
         })
@@ -644,13 +632,11 @@ export default {
 
     // 触发搜索按钮
      handleSearch() {
-      console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
         taskName: this.selectname
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -660,7 +646,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
 
@@ -668,15 +653,12 @@ export default {
     },
     // 触发搜索按钮
      handleSearchByCondition() {
-      console.log(this.selectname);
-      console.log(this.taskState);
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
         taskName: this.selectname,
         taskState: this.taskState
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -686,7 +668,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData1 = response.data.allData;
         });
 
@@ -697,12 +678,10 @@ export default {
       this.$confirm("确定要废除吗？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           substakeID: row.taskId
         });
-        console.log(data);
         that.axios({
           method: "post",
           url:
@@ -725,7 +704,6 @@ export default {
         taskId:this.taskId,
         FrefuseReason:this.addList.FrefuseReason,
       })
-      console.log(data),
       that
         .axios({
           method:"post",
@@ -746,7 +724,6 @@ export default {
         taskId:this.taskId,
         TrefuseReason:this.addList1.TrefuseReason,
       })
-      console.log(data),
       that
         .axios({
           method:"post",
@@ -780,7 +757,6 @@ export default {
     //保存新增
     saveAdd() {
       this.tableData.push(this.addList);
-      console.log(this.addList);
       this.addList = {};
       this.addVisible = false;
     },
@@ -802,7 +778,6 @@ export default {
      *转跳对应任务信息页面
      */
     Detail(row) {
-      console.log(row.taskId);
       if(row.taskType == 0){
         this.$router.push({
         path: "/admin/mainStaskDetail",
@@ -826,12 +801,10 @@ export default {
         this.$confirm("确定将任务计划书审核通过么？", "提示", {
         type: "warning"
       }).then(()=>{
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           substakeID:row.taskId
         });
-        console.log(data);
         that.axios({
           method:"post",
           url:
@@ -858,12 +831,10 @@ export default {
         this.$confirm("确定将设计图纸审核通过么？", "提示", {
         type: "warning"
       }).then(()=>{
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           substakeID:row.taskId
         });
-        console.log(data);
         that.axios({
           method:"post",
           url:
@@ -891,7 +862,6 @@ export default {
        if(row.assignmentState == "待审核"||row.assignmentState =="审核未通过"){
                  this.addVisible = true;
         this.taskId = row.taskId;
-        console.log(this.taskId);
        }
       else {
         this.$confirm("任务计划书已审和通过，无需再次审核", "提示", {
@@ -905,7 +875,6 @@ export default {
        if(this.taskCheck == "供应商审核通过"||this.taskCheck == "企业验收不通过"){
         this.addVisible1 = true;
         this.taskId = row.taskId;
-        console.log(this.taskId);
        }
 
       else if(this.taskCheck == "待审核"||this.taskCheck == "供应商验收不通过"){ 
@@ -933,7 +902,6 @@ export default {
 
                 handleSelectionChange(val) {
 
-                    console.log(val)
 
                 }
     }

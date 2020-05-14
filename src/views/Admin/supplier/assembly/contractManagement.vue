@@ -228,7 +228,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           const content = response.data;
           const blob = new Blob([content]);
           let url = window.URL.createObjectURL(blob); //表示一个指定的file对象或Blob对象
@@ -248,7 +247,6 @@ export default {
         taskId: this.taskId,
         fileType: this.fileType
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -256,7 +254,6 @@ export default {
           data: data
         })
         .then(response => {
-          // console.log(response);
           this.fileHistoryMessage = response.data.allData;
           this.fileHistoryDia = true;
         });
@@ -276,8 +273,6 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
           let url = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/zip" })
           );
@@ -297,7 +292,6 @@ export default {
         taskId: this.taskId,
         userName: this.userName
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -305,7 +299,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.addList3 = response.data.allData.a[0];
         });
     },
@@ -317,10 +310,8 @@ export default {
       this.$refs.upload.submit();
     },
     handlePreview(file) {
-      console.log(file);
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
       this.fileNumber = this.fileNumber - 1;
     },
     handleAvatarSuccess(response, file, fileList) {
@@ -334,13 +325,12 @@ export default {
         title: "成功",
         message: `文件上传成功`
       });
-      console.log(response);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
         Text_File: this.technicalFileWanzheng
       });
-      console.log(data);
+
       that
         .axios({
           method: "post",

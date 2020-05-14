@@ -36,13 +36,13 @@ export default{
               color: "#fff",
               backgroundColor: "#999",
               borderRadius: 3,
-              padding: [3, 5]
+              padding: [3, 5],
+              fontSize: 16
             }
           },
           indicator: [
-            { name: "任务时长", max: 150 },
+            { name: "任务时长", max: 50 },
             { name: "计划时长", max: 50 },
-            { name: "审核时长", max: 50 },
             { name: "验收时长", max: 50 },
             { name: "申请时长", max: 50 },
             

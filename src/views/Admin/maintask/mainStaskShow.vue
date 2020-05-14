@@ -141,7 +141,7 @@ export default {
       var data = Qs.stringify({
         userName: this.usernameX
       });
-      console.log(data);
+      //console.log(data);
       that
         .axios({
           method: "post",
@@ -151,20 +151,18 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           this.tableData = response.data.allData;
           this.$refs.configurationTable.$el.style.width = "99.99%";
         });
     },
 
     handleSearch() {
-      console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
         taskName: this.selectname
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -173,7 +171,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
 
@@ -187,18 +184,14 @@ export default {
       });
     },
     onSubmit() {
-      console.log(123);
     },
     handleDelete(index, row) {
-      console.log(index, row);
     },
 
     handleClick(tab, event) {
-      console.log(tab, event);
     },
 
     substaskDetail1(row) {
-      console.log(row.mainTaskID);
       this.$router.push({
         path: "/admin/substaskDetail",
         query: {
@@ -220,7 +213,6 @@ export default {
     },
 
     handleSelectionChange(val) {
-      console.log(val);
     }
   },
   // 获取 easy-mock 的模拟数据
@@ -263,7 +255,6 @@ export default {
   //保存新增
   saveAdd() {
     this.tableData.push(this.addList);
-    console.log(this.addList);
     this.addList = {};
     this.addVisible = false;
   },

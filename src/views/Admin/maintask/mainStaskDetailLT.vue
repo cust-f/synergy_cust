@@ -1007,6 +1007,8 @@ export default {
 
   data() {
     return {
+            //显示评价的
+      reMarkId:0,
             loading:true,
 
             //企业详情路径
@@ -1236,7 +1238,7 @@ export default {
   created() {
     this.getParams();
     this.showData();
-    this.getCirculationCount();
+    
   },
   methods: {
     //清单历史上传
@@ -1247,7 +1249,6 @@ export default {
         taskId: this.taskId,
         fileType: this.fileType
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -1255,7 +1256,6 @@ export default {
           data: data
         })
         .then(response => {
-          // console.log(response);
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
         });
@@ -1263,7 +1263,6 @@ export default {
     shanchuwenjian(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
       let qianzui, houzui;
-      console.log(row.wenjiancixu);
       if (row.wenjiancixu == this.WJSM - 1) {
         qianzui = this.WZLJ.substr(0, ks - 8);
         houzui = "";
@@ -1272,7 +1271,6 @@ export default {
         houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
       }
       this.WZLJ = qianzui + houzui;
-      console.log(this.WZLJ);
       this.fujian.splice(row.wenjiancixu, 1);
     },
     downloadFile(row) {
@@ -1316,21 +1314,18 @@ export default {
           data: data
         })
         .then(response => {
-          // console.log(response);
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
         });
     },
     XGZRW() {
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
-        console.log("nihao");
         this.technicalFileWanzheng =
           this.WZLJ + "linklink" + this.technicalFileWanzheng;
       }
       if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng = this.WZLJ;
       }
-      //console.log(this.TaskXiangXi)
       if (this.technicalFile == "null" ||this.mainStaskTypeID =="null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning"
@@ -1338,7 +1333,6 @@ export default {
       } else {
         if (this.cooList.shifousimi != 1) {
           this.cooList.shifousimi = 0;
-          console.log("是否私密" + this.cooList.shifousimi);
         }
         if (this.cool.taskType == "设计任务") {
           this.cool.taskType = 0;
@@ -1370,10 +1364,8 @@ export default {
           taskID: this.taskID,
           SupperListINt: this.SupplierListInt
         });
-        console.log(this.SupplierListInt);
-        console.log(data);
+
         if (this.cool.taskType == 0) {
-          console.log("nihao");
           this.cool.taskType = "设计任务";
         } else {
           this.cool.taskType = "流通任务";
@@ -1385,7 +1377,6 @@ export default {
             data: data
           })
           .then(response => {
-            console.log(response);
             if (response.data == "成功") {
               this.$message.success("修改成功");
               this.$refs.upload.clearFiles();
@@ -1395,7 +1386,6 @@ export default {
             } 
           })
         .catch(error => {
-            console.log(error);
             if (error != null) {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
                 type: "warning"
@@ -1432,9 +1422,7 @@ export default {
     //上传后文件路径赋值
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
-      //console.log(this.technicalFileWanzheng)
       if (this.technicalFileWanzheng.length > 0) {
-        //console.log("ok")
         this.technicalFileWanzheng =
           this.technicalFileWanzheng +
           "linklink" +
@@ -1444,33 +1432,26 @@ export default {
           this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
       }
       this.shangchuancishu = this.shangchuancishu + 1;
-      //console.log(this.technicalFileWanzheng);
     },
     //是否发布（私密）
     simizhiding(coo) {
-      console.log(coo);
 
       if (coo == 0) {
-        //console.log(coo);
         this.busm = "inline";
         this.sm = "none";
       } else {
-        //console.log(coo);
         this.sm = "inline";
         this.busm = "none";
       }
     },
     //申请与邀请的显示变化
     invitate(coo) {
-      console.log(coo);
 
       if (coo == 0) {
-        //console.log(coo);
         this.visiblehexin = "inline";
         this.shenqing = "none";
         this.sfsmkj = true;
       } else {
-        //console.log(coo);
         this.shenqing = "inline";
         this.visiblehexin = "none";
         this.sfsmkj = false;
@@ -1479,11 +1460,10 @@ export default {
 
     //级联选中框选中变化项会用到这个函数主
     handleChange() {
-      console.log(this.selectCateKeys);
+      
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
-      console.log(this.mainStaskTypeID);
-      console.log(this.subStaskTypeID);
+
     },
     // 查询任务列别及供应商列表
     addData() {
@@ -1501,9 +1481,7 @@ export default {
         .then(response => {
           this.xuanzelist = this.getTreeData(response.data.allData.a);
           this.supplierCompany = response.data.allData.b;
-          console.log(response);
-          console.log(response.data.allData.a);
-          console.log(this.xuanzelist);
+          
         });
     },
     //将级联选择器最后一行的数据去掉
@@ -1525,7 +1503,6 @@ export default {
       var data = Qs.stringify({
         taskID: this.taskID
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -1535,7 +1512,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.zirenwuXX = response.data.allData;
         });
     },
@@ -1545,7 +1521,6 @@ export default {
       var data = Qs.stringify({
         mainTaskID: this.mainTaskID
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -1556,7 +1531,6 @@ export default {
         })
         .then(response => {
           this.zirenwu = response.data.allData.b;
-          console.log(this.zirenwu);
         });
     },
     //提交次数 背景颜色变化
@@ -1593,17 +1567,14 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
-      console.log(routerParams);
     },
 
     showData() {
-      console.log("你好");
-      console.log(this.taskId);
+
       var that = this;
       var data = Qs.stringify({
         subStaskID: this.taskId
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -1613,7 +1584,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
@@ -1644,20 +1614,17 @@ export default {
             this.milepostActive4 = 0;
           }
 
-          console.log(response.data.allData.f);
           this.radarData.radarData = response.data.allData.f;
           that.$refs.QradarChart.getCharts1();
-          console.log(this.radarData.radarData);
 
           if (response.data.allData.f == null) {
-            console.log(this.milepostActive5);
             this.milepostActive5 = 0;
           }
           if (response.data.allData.f != null) {
-            console.log("cao");
             this.formZL = response.data.allData.d[0];
             this.styleswith();
                                   this.reMarkId = 1;
+                                  this.getCirculationCount();
           }
 
           //判断el-step到第几步骤
@@ -1705,13 +1672,10 @@ export default {
             }
           }
 
-          console.log(this.milepostActive);
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
           this.mainTaskName = response.data.allData.a[0].mainTaskName;
           this.taskID = response.data.allData.a[0].taskId;
-          console.log(this.mainTaskID);
-          console.log(response.data.allData.a[0].taskState);
-          console.log(response.data.allData);
+         
         });
     },
     goBack() {
@@ -1733,7 +1697,6 @@ export default {
       this.$confirm("确定将申请审核通过么？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           ID: row.id,
@@ -1741,7 +1704,6 @@ export default {
           companyID: row.companyId,
           companyName: row.companyName
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/shenheSQ",
@@ -1764,7 +1726,6 @@ export default {
         ID: this.applyID,
         SQrefuseReason: this.addList.SQrefuseReason
       });
-      console.log(data),
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/SQJJReason",
@@ -1780,7 +1741,6 @@ export default {
       this.$confirm("确定将任务计划书审核通过么？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           taskID: row.taskId,
@@ -1788,7 +1748,6 @@ export default {
           companyID: row.companyId,
           companyName: row.companyName
         });
-        console.log(data);
         that
           .axios({
             method: "post",
@@ -1824,7 +1783,6 @@ export default {
         ID: this.ID,
         JHSrefuseReason: this.addList1.JHSrefuseReason
       });
-      console.log(data),
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/JHSJJReason",
@@ -1837,7 +1795,6 @@ export default {
     },
     //任务计划下载
     RWJHXZ(row) {
-      console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: row.id,
@@ -1851,11 +1808,9 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
+
           this.download(response.data, "JHS");
         })           .catch(error => {
-            console.log(error);
             if (error != null) {
               this.$confirm("文件不存在或者文件路径有误", "提示", {
                 type: "warning"
@@ -1866,7 +1821,6 @@ export default {
     },
     //下载子任务附件
     xiazaiZRWFJ() {
-      console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskID,
@@ -1880,8 +1834,6 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
           this.download(response.data, "ZRWFJ");
         });
     },
@@ -1912,12 +1864,10 @@ export default {
       this.$confirm("确定将合同审核通过么？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           taskID: row.taskId
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/HTSHTG",
@@ -1940,7 +1890,6 @@ export default {
         taskId: this.taskId,
         HTrefuseReason: this.addList2.HTrefuseReason
       });
-      console.log(data),
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/HTJJReason",
@@ -1966,7 +1915,6 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log(response);
           this.download(response.data, "HT");
         });
     },
@@ -1975,12 +1923,10 @@ export default {
       this.$confirm("确定将发货清单审核通过么？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           taskID: row.taskId
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/QDSHTG",
@@ -2005,7 +1951,6 @@ export default {
         taskId: this.taskId,
         HTrefuseReason: this.addList3.SJrefuseReason
       });
-      console.log(data),
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/QDJJReason",
@@ -2022,14 +1967,12 @@ export default {
         var data = Qs.stringify({
           username: this.usernameX
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/sumRemarkData",
           data: data
         })
         .then(response => {
-          console.log(response);
         });
         this.showData();
 
@@ -2046,7 +1989,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
 
           this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
@@ -2058,7 +2000,6 @@ export default {
             response.data.allData.companyDetail[0].tRCertificate;
                       this.companyDetailContent = response.data.allData.companyDetailContent;
 
-          console.log(this.imgsrc);
         });
       this.addVisibleCD = true;
     }
@@ -2118,7 +2059,8 @@ export default {
     color: #303133;
   }
 
-  .table {
+
+.el-table{
     font-size: 13px;
   }
   .text {
