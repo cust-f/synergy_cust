@@ -18,6 +18,7 @@
               accept=".jpg, .png"
               :data="updateData('companyPicture')"
               :on-preview="handleCompanyPictureCardPreview"
+              :before-upload="beforeAvatarUpload"
               :on-change="onChange"
               :on-remove="onRemove"
             >
@@ -50,6 +51,7 @@
                 accept=".jpg, .png"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccessLogo"
+                :before-upload="beforeAvatarUpload"
                 class="avatar-uploader"
                 :data="updateData('Logo')"
               >
@@ -76,6 +78,7 @@
                 accept=".jpg, .png"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccessTR"
+                :before-upload="beforeAvatarUpload"
                 class="avatar-uploader"
                 :data="updateData('tRCertificate')"
               >
@@ -99,6 +102,7 @@
                 accept=".jpg, .png"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccessBusiness"
+                :before-upload="beforeAvatarUpload"
                 class="avatar-uploader"
                 :data="updateData('businessLicence')"
               >
@@ -955,10 +959,10 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error("上传图片只能是 JPG 格式!");
       }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error("上传图片大小不能超过 2MB!");
       }
       return isJPG && isLt2M;
     },
