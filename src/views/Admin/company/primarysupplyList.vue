@@ -224,7 +224,6 @@ export default {
     provicepid() {
       if (this.provicepid != 0 && this.provicepid != 99) {
         this.getCity();
-        console.log("ri");
       }
       if (this.provicepid == 99) {
         this.citypid = "10086";
@@ -245,7 +244,6 @@ export default {
       var data = Qs.stringify({
         username: this.usernameX
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -256,7 +254,6 @@ export default {
         })
         .then(response => {
           this.tableData = response.data.allData;
-          console.log(response);
         });
     },
     getProvice() {
@@ -268,13 +265,11 @@ export default {
         })
         .then(response => {
           this.Provice = response.data.allData.Province;
-          console.log(response);
-          console.log(this.Provice);
+         
         });
     },
     getCity() {
       var that = this;
-      console.log(this.provicepid);
       this.citypid = "";
       var data = Qs.stringify({
         pid: this.provicepid
@@ -287,8 +282,7 @@ export default {
         })
         .then(response => {
           this.City = response.data.allData.city;
-          console.log(response);
-          console.log(this.City);
+        
         });
     },
     TianJia(row) {
@@ -320,7 +314,6 @@ export default {
       location.reload(); //刷新当前页面
     },
     handleDelete(row) {
-      console.log(row.companyId);
       var that = this;
       var data = Qs.stringify({
         companyID: row.companyId,
@@ -335,7 +328,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           if (response.data == "成功") {
             this.$message({
               type: "success",
@@ -362,7 +354,6 @@ export default {
       var data = Qs.stringify({
         username: this.usernameX
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -372,7 +363,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData1 = response.data.allData;
         });
       this.addVisible = true;
@@ -386,15 +376,13 @@ export default {
     },
     handleSearch() {
       var that = this;
-      console.log(this.provicepid);
       var data = Qs.stringify({
         provicepid: this.provicepid,
         citypid: this.citypid,
         gyslb: "gyslbsc",
         username: this.usernameX
       });
-      console.log(this.provicepid);
-      console.log(this.citypid);
+
       that
         .axios({
           method: "post",
@@ -403,7 +391,6 @@ export default {
         })
         .then(response => {
           this.tableData = response.data.allData;
-          console.log(response);
           //this.citypid = ""
         });
     }
