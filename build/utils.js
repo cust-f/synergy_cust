@@ -47,7 +47,8 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
-        fallback: 'vue-style-loader'
+        fallback: 'vue-style-loader',
+        // publicPath: '../../'  //服务器上没有这个就会少静态样式
       })
     } else {
       return ['vue-style-loader'].concat(loaders)

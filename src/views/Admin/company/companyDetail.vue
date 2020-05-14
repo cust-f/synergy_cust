@@ -118,16 +118,16 @@
         </div>
         <br />
         <div align="right" class="formYS">
-          <el-form ref="form" :model="form" label-width="100px">
+          <el-form :model="form" label-width="100px">
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业名称">
-                  <el-input v-model="form.companyName" :disabled="true"></el-input>
+                  <el-input v-model="form.companyName" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="企业联络电话">
-                  <el-input v-model="form.businessTel" :disabled="true"></el-input>
+                  <el-input v-model="form.businessTel" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -135,12 +135,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业所在省份">
-                  <el-input v-model="form.province" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.province" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="企业所在县市">
-                  <el-input v-model="form.city" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.city" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -148,12 +148,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业地址">
-                  <el-input v-model="form.address" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.address" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="邮政编码">
-                  <el-input v-model="form.postcode" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.postcode" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -161,12 +161,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业成立时间">
-                  <el-input v-bind:value="form.foundingTime | formatDate" :disabled="yangshi"></el-input>
+                  <el-input v-model="foundingTime" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="工商注册号">
-                  <el-input v-model="form.brNumber" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.brNumber" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -174,12 +174,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业业务范围">
-                  <el-input v-model="form.product" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.product" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="电子邮箱">
-                  <el-input v-model="form.email" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.email" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -187,12 +187,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业联系人">
-                  <el-input v-model="form.businessName" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.businessName" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="办公室电话">
-                  <el-input v-model="form.officeNumber" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.officeNumber" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -200,12 +200,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="注册资产">
-                  <el-input v-model="form.registeredCapital" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.registeredCapital" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="总资本">
-                  <el-input v-model="form.totalAssets" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.totalAssets" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -213,12 +213,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="固定资产">
-                  <el-input v-model="form.fixedAssets" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.fixedAssets" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="流动资产">
-                  <el-input v-model="form.currentAssets" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.currentAssets" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -226,12 +226,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="法人代表">
-                  <el-input v-model="form.legalPerson" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.legalPerson" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="员工人数">
-                  <el-input v-model="form.workerNumber" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.workerNumber" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -239,12 +239,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="开户银行">
-                  <el-input v-model="form.deposit_Bank" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.deposit_Bank" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="银行账户">
-                  <el-input v-model="form.bankNumber" :disabled="yangshi"></el-input>
+                  <el-input v-model="form.bankNumber" disabled></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -254,66 +254,20 @@
                 <el-form-item label="企业详情">
                   <br />
                   <div class="leftDet" v-html="introductiont" style="margin-left:-70px"></div>
-                  <!-- <el-input v-model="form.introduction" :disabled="yangshi"></el-input> -->
+                  <!-- <el-input v-model="form.introduction" disabled></el-input> -->
                 </el-form-item>
               </el-col>
             </el-row>
           </el-form>
         </div>
         <div align="center">
-          <el-button type="primary" class="button1" @click="update" :disabled="xiugai">修改</el-button>
-          <el-button type="primary" class="button1" @click="update1" :disabled="xiugai">修改企业简介</el-button>
+          <el-button type="primary" class="button1" @click="update">修改</el-button>
+          <el-button type="primary" class="button1" @click="update1">修改企业简介</el-button>
         </div>
 
         <!-- 新增弹出框 -->
 
         <el-dialog :visible.sync="addVisible" width="50%">
-          <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片修改</div>
-          <div>
-            <el-upload
-              class="avatar-uploader"
-              action="/api/MainTaskInformation/importTP"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess3"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="imgsrc" :src="imgsrc" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </div>
-          <br />
-
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照修改</div>
-          <div>
-            <el-upload
-              class="avatar-uploader"
-              action="/api/MainTaskInformation/importTP"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess1"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="qiyezhizhao" :src="qiyezhizhao" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </div>
-
-          <br />
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证修改</div>
-
-          <div>
-            <el-upload
-              class="avatar-uploader"
-              action="/api/MainTaskInformation/importTP"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="shuiwudengjizheng" :src="shuiwudengjizheng" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </div>
-
-          <br />-->
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5;"
@@ -321,181 +275,203 @@
           >信息修改</div>
           <br />
           <br />
-          <el-row>
-            <el-col :span="8"></el-col>
-          </el-row>
-          <el-form ref="form" :model="form1" label-width="120px">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业名称">
-                  <el-input v-model="form1.companyName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="法人代表">
-                  <el-input v-model="form1.legalPerson" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+          <div>
+            <el-form ref="form" status-icon :model="formEditor" label-width="110px" :rules="rules">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="企业名称" prop="companyName">
+                    <el-input v-model="formEditor.companyName" disabled></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9">
+                  <el-form-item label="法人代表" prop="legalPerson">
+                    <el-input v-model="formEditor.legalPerson" disabled></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业成立时间">
-                  <el-input v-bind:value="form.foundingTime | formatDate" :disabled="yangshi"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="工商注册号">
-                  <el-input v-model="form1.brNumber" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+              <el-row>
+                <el-col :span="9">
+                  <el-form-item label="企业注册时间">
+                    <el-input v-model="registerTime" disabled></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9" :offset="3">
+                  <el-form-item label="工商注册号" prop="brNumber">
+                    <el-input v-model="formEditor.brNumber" disabled></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业所在省份">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.province"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="企业所在县市">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.city"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+              <el-row class="select" style="margin-bottom: 16px;">
+                <el-col :span="12">
+                  <el-form-item label="企业所在省份" prop="province">
+                    <!-- <el-input v-model="form.province"></el-input> -->
+                    <el-select
+                      v-model="formEditor.province"
+                      @change="getCity"
+                      placeholder="请选择省"
+                      style="width: 100%;"
+                    >
+                      <el-option
+                        v-for="pro in province"
+                        :key="pro.id"
+                        :label="pro.districtName"
+                        :value="pro.districtName"
+                      ></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="企业所在县市" prop="City">
+                    <el-select v-model="formEditor.city" placeholder="请选择城市" style="width: 100%;">
+                      <el-option
+                        v-for="c in city"
+                        :key="c.id"
+                        :label="c.districtName"
+                        :value="c.districtName"
+                      ></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业地址">
-                  <el-tooltip :content="form1.address" placement="top" effect="light">
-                    <el-input v-model="form1.address"></el-input>
-                  </el-tooltip>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="邮政编码">
-                  <el-input @blur="youzhengbianma()" v-model="form1.postcode"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.postcode === null">您的邮政编码输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-            </el-row>
+              <el-row>
+                <el-col :span="9">
+                  <el-form-item label="企业地址">
+                    <el-input v-model="formEditor.address"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9" :offset="3">
+                  <el-form-item label="邮政编码">
+                    <el-input v-model="formEditor.postcode"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业业务范围">
-                  <el-input v-model="form1.product"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="电子邮箱">
-                  <el-input v-model="form1.email" @blur="youxiang()"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.email === null">您的电子邮箱输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-            </el-row>
+              <el-row>
+                <el-col :span="9">
+                  <el-form-item label="企业成立时间" prop="foundingTime">
+                    <el-date-picker
+                      type="date"
+                      placeholder="选择日期"
+                      v-model="formEditor.foundingTime"
+                      format="yyyy-MM-dd"
+                      value-format="yyyy-MM-dd"
+                      style="width: 100%;"
+                    ></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9" :offset="3">
+                  <el-form-item label="员工人数">
+                    <el-input v-model="formEditor.workerNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业联系人">
-                  <el-input v-model="form1.businessName"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="办公室电话">
-                  <el-input @blur="animate()" v-model="form1.officeNumber"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.officeNumber === null">您的办公室电话输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-            </el-row>
+              <el-row>
+                <el-col :span="9" class="select">
+                  <el-form-item label="企业业务范围" prop="middleProduct">
+                    <el-cascader
+                      ref="producted"
+                      v-model="formEditor.middleProduct"
+                      @change="selectProducts"
+                      :options="options"
+                      :props="props"
+                    ></el-cascader>
+                  </el-form-item>
+                </el-col>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="注册资产">
-                  <el-input
-                    οninput="value=value.replace(/[^\d]/g,'')"
-                    v-model="form1.registeredCapital"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="总资本">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.totalAssets"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+                <el-col :span="9" :offset="3">
+                  <el-form-item
+                    label="电子邮箱"
+                    prop="email"
+                    :rules="[ { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]"
+                  >
+                    <el-input v-model="formEditor.email"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="固定资产">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.fixedAssets"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="流动资产">
-                  <el-input
-                    οninput="value=value.replace(/[^\d]/g,'')"
-                    v-model="form1.currentAssets"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="企业联系人">
+                    <el-input v-model="formEditor.businessName"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="办公电话">
+                    <el-input v-model="formEditor.officeNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业联络电话">
-                  <el-input v-model="form1.businessTel" @blur="animate1()"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.businessTel === null">您的企业联络电话输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
+              <el-row style="margin-bottom: 16px;">
+                <el-col :span="9">
+                  <el-form-item label="注册资产">
+                    <el-input v-model="formEditor.registeredCapital">
+                      <template slot="append">万元</template>
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9" :offset="3">
+                  <el-form-item label="总资本">
+                    <el-input v-model="formEditor.totalAssets">
+                      <template slot="append">万元</template>
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-              <el-col :span="12">
-                <el-form-item label="员工人数">
-                  <el-input οninput="value=value.replace(/[^\d]/g,'')" v-model="form1.workerNumber"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+              <el-row style="margin-bottom: 16px;">
+                <el-col :span="9">
+                  <el-form-item label="固定资产">
+                    <el-input v-model="formEditor.fixedAssets">
+                      <template slot="append">万元</template>
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9" :offset="3">
+                  <el-form-item label="流动资产">
+                    <el-input v-model="formEditor.currentAssets">
+                      <template slot="append">万元</template>
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="开户银行">
-                  <el-input v-model="form1.deposit_Bank"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="银行账户">
-                  <el-input @blur="yinhangkahao()" v-model="form1.bankNumber"></el-input>
-                  <font color="red">
-                    <el-span v-if="this.form1.bankNumber === null">您的银行账户输入不正确</el-span>
-                  </font>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <!-- <el-row>
-              <el-col :span="24" class="xiangxi">
-                <el-form-item label="企业简介">
-                  <el-input
-                    type="textarea"
-                    :rows="3"
-                    style="width:100%;"
-                    placeholder="请输入内容"
-                    v-model="form1.introduction"
-                    class="gongsiDetail"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>-->
-          </el-form>
+              <el-row>
+                <el-col :span="9">
+                  <el-form-item label="税务证书编号" prop="trNumber">
+                    <el-input v-model="formEditor.trNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9" :offset="3">
+                  <el-form-item label="法人联系电话" prop="legalTel">
+                    <el-input v-model="formEditor.legalTel"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+              <el-row>
+                <el-col :span="9">
+                  <el-form-item label="开户银行" prop="deposit_Bank">
+                    <el-input v-model="formEditor.deposit_Bank"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="9" :offset="3">
+                  <el-form-item label="银行账户" prop="bankNumber">
+                    <el-input v-model="formEditor.bankNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+          </div>
+
           <span slot="footer" class="dialog-footer">
-            <el-button @click="addVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveAdd11">确 定</el-button>
+            <el-button @click="close">取 消</el-button>
+            <el-button type="primary" @click="saveAdd11('form')">确 定</el-button>
           </span>
         </el-dialog>
       </el-main>
@@ -508,6 +484,55 @@ import { formatDate } from "./dataChange";
 export default {
   name: "companyDetail",
   data() {
+    var vaildDataEmpty = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请输入信息"));
+      } else {
+        callback();
+      }
+    };
+    //  var vaildProductEmpty = (rule, value, callback) => {
+    //     if (!value) {
+    //       callback(new Error("请选择业务范围"));
+    //     } else {
+    //       callback();
+    //     }
+    //   };
+    var validDataBR_Number = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请填写工商注册号"));
+      } else if (
+        !/[1-9A-GY]{1}[1239]{1}[1-5]{1}[0-9]{5}[0-9A-Z]{10}$|[1-9A-GY]{1}[1239]{1}[1-5]{1}[0-9]{5}[0-9A-Z]{10}-[0-9]{2}$/.test(
+          value
+        )
+      ) {
+        //callback(new Error("请输入正确的工商注册号"));
+        callback();
+      } else {
+        callback();
+      }
+    };
+    var validDataTR_Number = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请填写税务登记号"));
+      } else if (!/^[0-9a-zA-z_]{18}$/.test(value)) {
+        callback(new Error("请输入正确的税务登记号"));
+      } else {
+        callback();
+      }
+    };
+    var validDataLegal_Tel = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请填写法人联系电话"));
+      } else if (
+        !/^1[3456789]\d{9}$/.test(value) ||
+        !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(value)
+      ) {
+        callback();
+      } else {
+        callback();
+      }
+    };
     return {
       usernameX: this.$store.state.user,
       image: "",
@@ -516,70 +541,64 @@ export default {
       taxImage: "",
       businessImage: "",
       companyImage: [],
-      // [{url:"http://127.0.0.1:8081/companyPicture/长春一汽富维汽车股份有限公司/businessLicence_长春一汽富维汽车股份有限公司.jpg"},
-      // {url:"http://127.0.0.1:8081/companyPicture/长春一汽富维汽车股份有限公司/businessLicence_长春一汽富维汽车股份有限公司.jpg"}]
       companyImageDialog: false,
       hideUpload: false,
-
-      yangshi: true,
-      wancheng: true,
-      xiugai: false,
-      shenhe: true,
       formDate: "",
       dialogVisible: false,
-      form: {
-        businessName: "",
-        companyId: "20191006066",
-        companyName: "错误的！！！",
-        Address: "吉林省长春市卫星路8848号",
-        postcode: "104300",
-        foundingTime: "2015-9-10",
-        brNumber: "S100934",
-        officeNumber: "17866625034",
-        email: "34895611@163.com",
-        bussessName: "李林甫",
-        product: "微电子元器件制作",
-        introduction:
-          "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
-        cool: "17855555",
-        province: "吉林省",
-        city: "长春市绿园区",
-        registeredCapital: "8.5亿",
-        totalAssets: "10亿",
-        currentAssets: "2.2亿",
-        fixedAssets: "2亿元",
-        legalPerson: "杨言",
-        workerNumber: "500人",
-        deposit_Bank: "中国银行",
-        bankNumber: "25206589260388885222201",
-        //introductiont:"",
-        companyPicture: [], //企业图片
-        companyPicture1: [], //企业图片url
-
-        logoPicture: "", //企业logo
-        logoPicture1: "", //企业logo url
-
-        taxPicture: "", //企业税务图片
-        taxPicture1: "",
-
-        businessLicence: "", //营业执照图片
-        businessLicence1: ""
-        //  @input.native="changeCode"
+      rules: {
+        companyName: [
+          { required: true, message: "请输入企业名称", trigger: "blur" }
+        ],
+        province: [
+          { required: true, message: "请选择省份", trigger: "change" }
+        ],
+        city: [{ required: true, message: "请选择城市", trigger: "change" }],
+        middleProduct: [
+          {
+            required: true,
+            type: "array",
+            // validatorv: vaildProductEmpty,
+            message: "请选择业务范围",
+            trigger: "change"
+          }
+        ],
+        foundingTime: [
+          { required: true, message: "请选择企业成立时间", trigger: "change" }
+        ],
+        deposit_Bank: [
+          { required: true, message: "请输入开户银行名称", trigger: "blur" }
+        ],
+        bankNumber: [
+          { required: true, message: "请输入银行账号", trigger: "blur" }
+          //  {type: 'number',message: '银行账号为数字值', trigger: "blur" }
+        ],
+        brNumber: [
+          { required: true, validator: validDataBR_Number, trigger: "blur" }
+        ],
+        trNumber: [
+          { required: true, validator: validDataTR_Number, trigger: "blur" }
+        ],
+        legalPerson: [
+          { required: true, message: "请输入法人代表", trigger: "blur" }
+        ],
+        legalTel: [
+          { required: true, validator: validDataLegal_Tel, trigger: "blur" }
+        ]
       },
-      form1: {
-        businessName: "",
-        companyID: "",
+      formEditor: {
+        companyId: "",
+        companyCategory: "0",
         companyName: "",
-        address: "",
-        postcode: "",
+        address: new String(),
+        postcode: new Number(),
         foundingTime: "",
         brNumber: "",
+        trNumber: "",
         officeNumber: "",
         email: "",
-        bussessName: "",
+        businessName: "",
         product: "",
-        introduction: "",
-        cool: "",
+        middleProduct: [],
         province: "",
         city: "",
         registeredCapital: "",
@@ -587,30 +606,30 @@ export default {
         currentAssets: "",
         fixedAssets: "",
         legalPerson: "",
-        workerNumber: "",
+        legalTel: "",
+        workerNumber: new Number(),
         deposit_Bank: "",
-        bankNumber: ""
+        bankNumber: "",
+        companyPicture: "",
+        businessLicence: "",
+        tRCertificate: "",
+        companyCategory: "",
+        registerTime: ""
       },
-      companyId: "",
-      companyName: "",
-      foundingTime: "",
-      brNumber: "",
-      addVisible: false,
-      imagesbox: [{ id: 0, idView: require("../company/1.png") }],
+      foundingTime:"",
+      registerTime:"",
+      form: {},
       introductiont: "",
-
-      tableData123: [
-        {
-          taxPicture: require("../company/1.png")
-        }
-      ],
-
-      //默认企业图片
-      errorImg01: 'this.src="' + require("../company/1.png") + '"',
-      //默认营业执照
-      errorImg02: 'this.src="' + require("../company/营业执照.jpg") + '"',
-      //默认税务登记
-      errorImg03: 'this.src="' + require("../company/税务登记证.jpg") + '"'
+      addVisible: false,
+      //所有业务范围
+      options: [],
+      props: { multiple: true, value: "id", label: "name" },
+      //平台覆盖的省份
+      province: [],
+      city: [],
+      stair: "",
+      selectProduct: [],
+      oldSelectProduct: []
     };
   },
   //  computed: {
@@ -618,71 +637,33 @@ export default {
   //     return "/course/img/" + this.course.courseId + ".png";
   //   }
   // },
-  filters: {
-    formatDate(time) {
-      var index = time.lastIndexOf(".");
-      time = time.substring(0, index);
-      let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm");
-    }
-  },
+  // filters: {
+  //   formatDate(time) {
+  //     var index = time.lastIndexOf(".");
+  //     time = time.substring(0, index);
+  //     let date = new Date(time);
+  //     return formatDate(date, "yyyy-MM-dd hh:mm");
+  //   }
+  // },
   created() {
     this.getDate();
     this.getPicture();
-    this.getCompanyIntroduction();
   },
-
+  watch: {
+    selectProduct(newValue, oldValue) {
+      if (oldValue.length == 0) {
+        // console.log("00000000000000000");
+        this.stair = newValue[0][0];
+        // console.log(this.stair);
+        this.checkProduct();
+      } else if (oldValue.length > 0 && newValue.length > 0) {
+        this.checkProduct();
+      }
+    }
+  },
   methods: {
-    //手机号校验
-    animate() {
-      var re = /^1\d{10}$/;
-      let str = this.form1.officeNumber;
-      if (re.test(str)) {
-        //  alert('成功')
-      } else {
-        this.form1.officeNumber = null;
-      }
-    },
-    animate1() {
-      var re = /^1\d{10}$/;
-      let str = this.form1.businessTel;
-      if (re.test(str)) {
-        //  alert('成功')
-      } else {
-        this.form1.businessTel = null;
-      }
-    },
-    //银行卡号校验/^([1-9]{1})(\d{14}|\d{18})$/
-    yinhangkahao() {
-      var re = /\d{14}$/;
-      let str = this.form1.bankNumber;
-      if (re.test(str)) {
-        //  alert('成功')
-      } else {
-        this.form1.bankNumber = null;
-      }
-    },
-    //邮箱校验
-    youxiang() {
-      var re = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-      let str = this.form1.email;
-      if (re.test(str)) {
-        //  alert('成功')
-      } else {
-        this.form1.email = null;
-      }
-    },
-    //邮政编码校验
-    youzhengbianma() {
-      var re = /\d{6}$/;
-      let str = this.form1.postcode;
-      if (re.test(str)) {
-        //  alert('成功')
-      } else {
-        this.form1.postcode = null;
-        //alert('抱歉邮箱不合法')
-      }
-    },
+    //读取信息
+    // -----------------------------------------------------------------------------------------------------------------------------------
     update1() {
       this.$router.push({
         path: "/admin/companyEditor",
@@ -697,53 +678,15 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/companyDetail/findAllCompanyList",
+          url: "/api/company/getCompanyAllInfo",
           data: data
         })
         .then(response => {
-         
-          this.form = response.data.allData.companyDetail[0];
-          this.form.companyId =
-            response.data.allData.companyDetail[0].companyId;
-             console.log(this.form.companyId+"无语！！！！！！！！！！！！！！！");
-          this.companyName = response.data.allData.companyDetail[0].companyName;
-
-          // this.form.companyPicture =
-          //   response.data.allData.companyDetail[0].companyPicture;
-          // this.form.companyPicture1 = this.companyPicture.substring(22);
-
-          // this.form.logoPicture = response.data.allData.companyDetail[0].logo;
-          // this.form.logoPicture1 = this.form.logoPicture.substring(22);
-
-          // this.form.taxPicture =
-          //   response.data.allData.companyDetail[0].tRCertificate;
-          // this.form.taxPicture1 = this.form.taxPicture.substring(22);
-
-          // this.form.businessLicence =
-          //   response.data.allData.companyDetail[0].businessLicence;
-          // this.form.businessLicence1 = this.form.businessLicence.substring(22);
-        });
-    },
-    //企业详情的转换
-    getCompanyIntroduction() {
-      var that = this;
-            var timestamp = new Date().getTime();
-      var data = Qs.stringify({
-        userName: localStorage.getItem("ms_username"),
-        time:timestamp
-      });
-
-      that
-        .axios({
-          method: "post",
-          url: "/api/companyDetail/showCompanyIntroduction",
-          data: data,
-                    params: {
-            date: timestamp
-          }
-        })
-        .then(response => {
-          this.introductiont = response.data.allData.companyDetailContent;
+          this.form = response.data.allData.detail;
+          this.foundingTime = this.formatDate(this.form.foundingTime,0);
+          this.registerTime = this.formatDate(this.form.registerTime,0);
+          this.introductiont = response.data.allData.content;
+              this.getOldProduct();
         });
     },
     getPicture() {
@@ -751,7 +694,7 @@ export default {
       var timestamp = new Date().getTime();
       var data = Qs.stringify({
         userName: localStorage.getItem("ms_username"),
-        time:timestamp
+        time: timestamp
       });
       that
         .axios({
@@ -763,76 +706,136 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           this.companyImage = response.data.allData.companyPicture;
           this.logoImage = response.data.allData.logo;
           this.businessImage = response.data.allData.business;
           this.taxImage = response.data.allData.tax;
           this.hideUpload = this.companyImage.length >= 3;
-          // this.introductiont = response.data.allData.companyDetailContent;
         });
     },
-    update() {
-      this.form1 = this.form;
-      this.addVisible = true;
+    getProvince() {
+      let that = this;
+      that.axios.post("/api/district/HaChangProvince").then(response => {
+        this.province = response.data.allData.Province;
+      });
     },
+    getCity(name) {
+      let id;
+      let that = this;
+      this.province.forEach(pro => {
+        if (pro.districtName == name) {
+          id = pro.id;
+        }
+      });
+      let data = Qs.stringify({
+        pid: id
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/district/city",
+          data: data
+        })
+        .then(response => {
+          //  console.log(this.form.province)
+          this.city = response.data.allData.city;
+          this.formEditor.city = "";
+        });
+    },
+    getBusiness() {
+      var that = this;
+      that
+        .axios({
+          method: "post",
+          url: "/api/industry/getIndustry"
+        })
+        .then(response => {
+          this.options = response.data.allData.allProduct;
+        });
+    },
+    getOldProduct() {
+      var that = this;
+      let data = Qs.stringify({
+        companyId: this.form.companyId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/company/getCompanyProduct",
+          data: data
+        })
+        .then(response => {
+               this.form["middleProduct"]= [];
+        for (var i = 0, len = response.data.allData.selectProduct.length; i < len; i++) {
+          this.form["middleProduct"].push(response.data.allData.selectProduct[ i ]);
+        }
+               this.selectProduct = this.form.middleProduct;
+        });
+    },
+    //=====================================================================================================================================
+    update() {
+      this.formEditor = JSON.parse(JSON.stringify(this.form));
+      this.getProvince();
+      this.getBusiness();
+      this.getOldProduct();
+       this.addVisible = true;
+    },
+    //-----------------------------------------------------------------------
     updateData(name) {
       let data = { type: name, companyId: this.form.companyId };
       return data;
     },
-    handleLogoEdit() {
-      var e = document.createEvent("MouseEvents");
-      e.initEvent("click", true, true);
-      document.getElementById("logo").dispatchEvent(e);
-      this.$refs.uploadLogo.submit();
+    formatDate(time,type) {
+      var index = time.lastIndexOf(".");
+      time = time.substring(0, index);
+      let date = new Date(time);
+      if(type==0)
+         return formatDate(date, "yyyy-MM-dd");
+      else
+         return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     },
-    saveAdd11() {
-      var that = this;
-      var data = Qs.stringify({
-        companyId: this.form1.companyId,
-        companyName: this.form1.companyName,
-        address: this.form1.address,
-        postcode: this.form1.postcode,
-        foundingTimeold: this.form.foundingTime,
-        brNumber: this.form1.brNumber,
-        officeNumber: this.form1.officeNumber,
-        email: this.form1.email,
-        businessName: this.form1.businessName,
-        product: this.form1.product,
-        introduction: this.form1.introduction,
-        cool: this.form1.cool,
-        province: this.form1.province,
-        city: this.form1.city,
-        registeredCapital: this.form1.registeredCapital,
-        totalAssets: this.form1.totalAssets,
-        currentAssets: this.form1.currentAssets,
-        fixedAssets: this.form1.fixedAssets,
-        legalPerson: this.form1.legalPerson,
-        workerNumber: this.form1.workerNumber,
-        deposit_Bank: this.form1.deposit_Bank,
-        bankNumber: this.form1.bankNumber,
-        star: this.form.star,
-        businessTel: this.form.businessTel
-        // businessLicence: this.qiyezhizhao1,
-        // tRCertificate: this.shuiwudengjizheng1,
-        // companyPicture: this.imgsrc1
+    //-----------------------------------------------------------------------
+    saveAdd11(formName) {
+      this.$refs[formName].validate(valid => {
+        let a = [];
+        if (valid) {
+          var that = this;
+          a.push(this.stair);
+          for (let i = 0; i < this.formEditor.middleProduct.length; i++) {
+            a.push(this.formEditor.middleProduct[i][1]);
+          }
+          this.formEditor.product = a.toString();
+          this.formEditor.foundingTime = this.formatDate(this.formEditor.foundingTime,1);
+          this.formEditor.registerTime = this.formatDate(this.formEditor.registerTime,1);
+          var data = Qs.stringify(this.formEditor);
+          that.axios({
+            method: "post",
+            url: "/api/company/updateCompanyAllInfo",
+            data: data
+          }).then(response=>{
+          this.$message({
+            type: "success",
+            message: "修改企业详情成功"
+          });
+          this.selectProduct = [];
+          this.$refs['form'].resetFields();
+              this.getDate();
+          this.addVisible = false;
+          })
+        } else {
+          this.$message({
+            type: "warning",
+            message: "请正确修改信息"
+          });
+        }
       });
-
-      that.axios({
-        method: "post",
-        url: "/api/companyDetail/updateCompanyForm",
-        data: data
-      });
-
-      this.$message.success("提交成功");
-      this.addList = {};
+    },
+    close() {
+      this.selectProduct = [];
+      this.$refs['form'].resetFields();
       this.addVisible = false;
     },
-    //企业LOGO
-    handleAvatarSuccess2(res, file) {
-      this.shuiwudengjizheng = URL.createObjectURL(file.raw);
-      this.shuiwudengjizheng1 = res;
-    },
+    //================================================================
 
     //Log回调
     handleAvatarSuccessLogo(res, file) {
@@ -865,7 +868,6 @@ export default {
     //企业基本信息-税务证书图片回调
     taxPictureCardPreview(file) {
       this.form.taxPicture = file.url;
-      console.log(this.form.taxPicture);
     },
     //企业图片修改
     handlePictureCardPreview(type) {
@@ -892,13 +894,12 @@ export default {
       this.hideUpload = fileList.length >= 3;
     },
     onRemove(file, fileList) {
-      console.log(file.url);
+      // console.log(file.url);
       var that = this;
       var data = Qs.stringify({
         companyId: this.form.companyId,
         pictureUrl: file.url
       });
-
       that
         .axios({
           method: "post",
@@ -913,101 +914,29 @@ export default {
           this.hideUpload = fileList.length >= 3;
         });
     },
-    //企业logo图片上传
-    logoPictureCardPreview(file) {
-      this.logoImageUrl = file.url;
-      // this.logoImageUrl = URL.createObjectURL(file.raw);;
-      this.dialogVisible2 = true;
+    //=======================================================
+    selectProducts(value) {
+      // console.log("------------------------------");
+      // console.log(this.formEditor);
+      this.selectProduct = this.formEditor.middleProduct;
     },
-
-    //企业logo图片入fromDate
-    // taxPictureLoad(file) {
-    // this.formDate.append("taxPicture", file.file)
-    // },
-    saveTaxPicture() {
-      var that = this;
-
-      var data = Qs.stringify({
-        companyName: this.form.companyName,
-        companyID: this.form.companyId,
-        taxPicture: this.form.taxPicture1
-      });
-
-      that.axios({
-        method: "post",
-        url: "/api/companyDetail/updateTaxPicture",
-        data: data
-      });
-
-      this.$message.success("提交成功");
-    },
-
-    //企业营业执照
-    // handleAvatarSuccess4(res, file) {
-    //   console.log(res);
-
-    //   console.log(file);
-    //   this.qiyezhizhao = URL.createObjectURL(file.raw);
-    //   this.qiyezhizhao1 = res;
-    // },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+    //范围
+    checkProduct() {
+      let p = this.selectProduct;
+      let newProduct = [];
+      for (let i = 0; i < p.length; i++) {
+        if (p[i][0] == this.stair) {
+          newProduct.push(p[i]);
+        } else {
+          this.$message({
+            type: "warning",
+            message: "不能选择多个一级类别"
+          });
+        }
       }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-    },
-
-    changeCode() {
-      this.$nextTick(() => {
-        if (this.form1.province !== null) {
-          this.form1.province = this.form1.province.replace(/[^\d]/g, "");
-        }
-        if (this.form1.city !== null) {
-          this.form1.city = this.form1.city.replace(/[^\d]/g, "");
-        }
-        if (this.form1.postcode !== null) {
-          this.form1.postcode = this.form1.postcode.replace(/[^\d]/g, "");
-        }
-        if (this.form1.officeNumber !== null) {
-          this.form1.officeNumber = this.form1.officeNumber.replace(
-            /[^\d]/g,
-            ""
-          );
-        }
-        if (this.form1.registeredCapital !== null) {
-          this.form1.registeredCapital = this.form1.registeredCapital.replace(
-            /[^\d]/g,
-            ""
-          );
-        }
-        if (this.form1.totalAssets !== null) {
-          this.form1.totalAssets = this.form1.totalAssets.replace(/[^\d]/g, "");
-        }
-        if (this.form1.fixedAssets !== null) {
-          this.form1.fixedAssets = this.form1.fixedAssets.replace(/[^\d]/g, "");
-        }
-        if (this.form1.currentAssets !== null) {
-          this.form1.currentAssets = this.form1.currentAssets.replace(
-            /[^\d]/g,
-            ""
-          );
-        }
-        if (this.form1.workerNumber !== null) {
-          this.form1.workerNumber = this.form1.workerNumber.replace(
-            /[^\d]/g,
-            ""
-          );
-        }
-        if (this.form1.bankNumber !== null) {
-          this.form1.bankNumber = this.form1.bankNumber.replace(/[^\d]/g, "");
-        }
-      });
+      // this.$nextTick(() => {
+      this.formEditor.middleProduct = newProduct;
+      // });
     }
   }
 };
