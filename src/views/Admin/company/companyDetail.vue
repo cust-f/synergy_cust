@@ -177,14 +177,22 @@
 
             <el-row>
               <el-col :span="12">
+
                 <el-form-item label="企业业务范围">
+                   <el-tooltip :content="form.product" placement="top" effect="light">
                   <el-input v-model="form.product" disabled></el-input>
+                   </el-tooltip>
                 </el-form-item>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="12">        
+                
+                  
                 <el-form-item label="电子邮箱">
+                  
                   <el-input v-model="form.email" disabled></el-input>
+                
                 </el-form-item>
+                  
               </el-col>
             </el-row>
 
@@ -271,7 +279,7 @@
 
         <!-- 新增弹出框 -->
 
-        <el-dialog :visible.sync="addVisible" width="50%">
+        <el-dialog :visible.sync="addVisible" width="60%">
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5;"
@@ -343,7 +351,9 @@
               <el-row>
                 <el-col :span="9">
                   <el-form-item label="企业地址">
+                    <el-tooltip :content="formEditor.address" placement="top" effect="light">
                     <el-input v-model="formEditor.address"></el-input>
+                    </el-tooltip>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" :offset="3">
@@ -376,6 +386,7 @@
               <el-row>
                 <el-col :span="9" class="select">
                   <el-form-item label="企业业务范围" prop="middleProduct">
+                    
                     <el-cascader
                       ref="producted"
                       v-model="formEditor.middleProduct"
@@ -383,6 +394,7 @@
                       :options="options"
                       :props="props"
                     ></el-cascader>
+                    
                   </el-form-item>
                 </el-col>
 
@@ -393,7 +405,9 @@
                     :rules="[ { required: true, message: '请输入邮箱地址', trigger: 'blur' },
 { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]"
                   >
+                   <el-tooltip :content="formEditor.email" placement="top" effect="light">
                     <el-input v-model="formEditor.email"></el-input>
+                   </el-tooltip>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -947,7 +961,7 @@ export default {
 </script>
 
 
-<style lang="scss" >
+<style lang="scss">
 .companyDetail {
   //企业详情
   .leftDet {
