@@ -27,7 +27,7 @@
 
       <el-table-column prop="publishingCompanyName" sortable label="需求方"></el-table-column>
 
-       <el-table-column prop="checkPlanState" sortable width="130" label="审核状态" align="center">
+      <el-table-column prop="checkPlanState" sortable width="130" label="审核状态" align="center">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
           <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>
@@ -114,13 +114,11 @@ export default {
   },
   methods: {
     getData() {
-      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
         userName: this.usernameX
       });
 
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -128,18 +126,16 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
     },
     handleSearch() {
-      console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
         taskName: this.selectname
       });
-      console.log(data);
+
       that
         .axios({
           method: "post",
@@ -148,7 +144,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
       //this.getData();
@@ -156,7 +151,6 @@ export default {
 
     //详情跳转
     Det(row) {
-      console.log(row.taskId);
       this.$router.push({
         path: "/admin/designDet",
         query: {
@@ -165,12 +159,8 @@ export default {
       });
     },
 
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
+    handleRemove(file, fileList) {},
+    handlePreview(file) {},
     handleExceed(files, fileList) {
       this.$message.warning(
         `当前限制选择 3 个文件，本次选择了 ${

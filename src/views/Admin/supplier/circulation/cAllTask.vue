@@ -119,13 +119,11 @@ export default {
   },
   methods: {
     handleSearch() {
-      console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
         userName: this.username,
         taskName: this.selectname
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -134,7 +132,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
       //this.getData();
@@ -148,12 +145,10 @@ export default {
     },
     //读取数据的方法
     getData() {
-      console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         userName: this.username
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -163,7 +158,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
     },
@@ -228,14 +222,14 @@ export default {
   background-color: #d6d6ad;
   border-color: #d6d6ad;
 }
-.shenhe{
-    color:#FF8040;
-  background-color:#FFE6D9;
-  border-color:#FFDCB9;
+.shenhe {
+  color: #ff8040;
+  background-color: #ffe6d9;
+  border-color: #ffdcb9;
 }
-.yanshou{
-   color:#E066FF;
-  background-color:#EBD3E8;
-  border-color:#FFF0F5;
+.yanshou {
+  color: #e066ff;
+  background-color: #ebd3e8;
+  border-color: #fff0f5;
 }
 </style>

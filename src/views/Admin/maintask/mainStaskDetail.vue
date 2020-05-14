@@ -1701,7 +1701,6 @@ export default {
               ](response.data.allData.e[0].finishTime);
             }
           }
-
           console.log(this.milepostActive);
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
           this.mainTaskName = response.data.allData.a[0].mainTaskName;
