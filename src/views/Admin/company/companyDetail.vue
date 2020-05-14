@@ -113,13 +113,23 @@
           </el-col>
         </el-row>
         <br />
+         <el-row>
+          <el-col :span="12">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
 
         <br />
-
+       
         <div>
           <el-rate label="企业星级：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
         </div>
+          </el-col>
+           <el-col :span="12">
+        <div align="right">
+          <el-button type="primary" class="button1" @click="update">修改企业信息</el-button>
+          <el-button type="primary" class="button1" @click="update1">修改企业详情</el-button>
+        </div>
+           </el-col>
+        </el-row>
         <br />
         <div align="right" class="formYS">
           <el-form :model="form" label-width="100px">
@@ -272,14 +282,11 @@
             </el-row>
           </el-form>
         </div>
-        <div align="center">
-          <el-button type="primary" class="button1" @click="update">修改</el-button>
-          <el-button type="primary" class="button1" @click="update1">修改企业简介</el-button>
-        </div>
+        
 
         <!-- 新增弹出框 -->
 
-        <el-dialog :visible.sync="addVisible" width="60%">
+        <el-dialog :visible.sync="addVisible" width="50%">
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5;"
