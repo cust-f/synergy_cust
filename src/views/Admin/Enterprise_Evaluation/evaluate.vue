@@ -162,6 +162,7 @@ export default {
       that.axios.post("/api/findTimes").then(response => {
         this.form2.time1 = response.data.allData[0];//本年第一天
         this.form2.time2= response.data.allData[1];  //当天时间
+        this.getRemarData();
         console.log(response.data.allData);      
       });
     },
@@ -178,7 +179,7 @@ export default {
       });
     },
     //企业雷达图数据
-    getRemarData(radarData){
+    getRemarData(){
      var that = this;
       
       var data = Qs.stringify({
@@ -198,7 +199,9 @@ export default {
         })
         .then(response => {
          this.radarData.radarData=response.data.allData;
-         that.$refs.drawradarChart.getCharts2();      
+         that.$refs.drawradarChart.getCharts2();  
+           
+          
         // this.getCharts2();
           
         });

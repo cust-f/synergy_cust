@@ -252,16 +252,13 @@ export default {
   },
   methods: {
     getParams() {
-      console.log(this.$route.query.redirects)
       if (this.$route.query.Predirects != null) {
         var routerParams = this.$route.query.Predirects;
-        console.log("fuck" + this.$route.query);
         let tag = {
           name: routerParams.name,
           type: "category",
           id: routerParams.id
         };
-        console.log(tag);
         this.checkTag(tag);
         this.dynamicTags.push(tag);
         this.getzihangye(routerParams.id);
@@ -274,7 +271,6 @@ export default {
             type: "zihangye",
             id: routerParams1.id
           };
-          console.log(tag);
           this.checkTag(tag);
           this.dynamicTags.push(tag);
         }
@@ -304,7 +300,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.city = response.data.allData.city;
         });
     },
@@ -320,7 +315,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.zihangye = response.data.allData.zihangye;
         });
     },
@@ -336,7 +330,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.companyList = response.data.allData.companyList;
           this.totalCount = response.data.allData.totalCount;
         });
@@ -348,7 +341,6 @@ export default {
       });
     },
     searchCom() {
-      console.log("呵呵");
       this.getAnswer();
       // this.serach="";
     },
@@ -379,16 +371,11 @@ export default {
         },
         { arrayFormat: "brackets" }
       );
-      console.log(taskType);
-      console.log(categorys);
-      console.log("输入：" + this.search);
-      console.log("数组长度：" + this.dynamicTags.length);
+      
       if (this.dynamicTags.length != 0 || this.search != null) {
         url = "/api/MainTaskInformation/select";
-        console.log(url);
       } else {
         url = "/api/MainTaskInformation/getAllTaskList";
-        console.log(url);
       }
       that
         .axios({
@@ -397,7 +384,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           if (response.data.code == 400) {
             this.companyList = "";
             this.totalCount = 0;
@@ -497,14 +483,12 @@ export default {
       if (data == 0) {
         let delTag = { type: "category" };
         this.handleClose(delTag, 0);
-        console.log("nihao");
       } else {
         let tag = {
           name: data.name,
           type: "category",
           id: data.id
         };
-        console.log(tag);
 
         this.checkTag(tag);
         this.dynamicTags.push(tag);
@@ -516,14 +500,12 @@ export default {
       if (data == 0) {
         let delTag = { type: "zihangye" };
         this.handleClose(delTag, 0);
-        console.log("nihao");
       } else {
         let tag = {
           name: data.industryName,
           type: "zihangye",
           id: data.id
         };
-        console.log(tag);
 
         this.checkTag(tag);
         this.dynamicTags.push(tag);
@@ -587,7 +569,6 @@ export default {
     },
     //进入企业详情界面
     companyDetail(id) {
-      console.log("触发了呀");
       this.$router.push({
         path: "admin/xuqiuyilanDetail",
         query: { taskID: id }

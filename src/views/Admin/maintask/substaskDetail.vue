@@ -796,7 +796,6 @@ export default {
     shanchuwenjian(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
       let qianzui, houzui;
-      console.log(row.wenjiancixu);
       if (row.wenjiancixu == this.WJSM - 1) {
         qianzui = this.WZLJ.substr(0, ks - 8);
         houzui = "";
@@ -805,7 +804,6 @@ export default {
         houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
       }
       this.WZLJ = qianzui + houzui;
-      console.log(this.WZLJ);
       this.fujian.splice(row.wenjiancixu, 1);
     },
     downloadFile(row) {
@@ -851,8 +849,6 @@ export default {
           //this.shuju = response.data.allData.b;
           this.xuanzelist = this.getTreeData(response.data.allData.c);
           this.FZR = response.data.allData.d;
-          console.log(response);
-          console.log(this.FZR);
         });
     },
     //手机号校验
@@ -869,7 +865,6 @@ export default {
     dateFormat: function(time) {
       var index = time.lastIndexOf(".");
       time = time.substring(0, index);
-      console.log(time);
       var date = new Date(time);
       var year = date.getFullYear();
       /* 在日期格式中，月份是从0开始的，因此要加0
@@ -904,11 +899,8 @@ export default {
 
     //级联选中框选中变化项会用到这个函数
     handleChange() {
-      console.log(this.selectCateKeys);
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
-      console.log(this.mainStaskTypeID);
-      console.log(this.subStaskTypeID);
     },
     //保存新增
     saveAdd11() {
@@ -920,7 +912,6 @@ export default {
       } else {
         if (this.cooList.shifousimi != 1) {
           this.cooList.shifousimi = 0;
-          console.log("是否私密" + this.cooList.shifousimi);
         }
         var that = this;
         var data = Qs.stringify({
@@ -942,8 +933,6 @@ export default {
           taskID: "100086",
           SupperListINt: this.SupplierListInt
         });
-        console.log(this.SupplierListInt);
-        console.log(data);
 
         that
           .axios({
@@ -953,13 +942,11 @@ export default {
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
           })
           .then(response => {
-            console.log(response);
             if (response.data == "成功") {
               this.$message.success("提交成功");
             }
           })
           .catch(error => {
-            console.log(error);
             if (error != null) {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
                 type: "warning"
@@ -979,15 +966,12 @@ export default {
     },
 
     invitate(coo) {
-      console.log(coo);
 
       if (coo == 0) {
-        //console.log(coo);
         this.visiblehexin = "inline";
         this.shenqing = "none";
         this.sfsmkj = true;
       } else {
-        //console.log(coo);
         this.shenqing = "inline";
         this.visiblehexin = "none";
         this.sfsmkj = false;
@@ -995,14 +979,11 @@ export default {
     },
 
     simizhiding(coo) {
-      console.log(coo);
 
       if (coo == 0) {
-        //console.log(coo);
         this.busm = "inline";
         this.sm = "none";
       } else {
-        //console.log(coo);
         this.sm = "inline";
         this.busm = "none";
       }
@@ -1011,14 +992,13 @@ export default {
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng =
           this.WZLJ + "linklink" + this.technicalFileWanzheng;
-        console.log("nihao" + this.technicalFileWanzheng);
+        //console.log("nihao" + this.technicalFileWanzheng);
       }
       if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng = this.WZLJ;
       }
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
-      console.log(this.technicalFileWanzheng);
       var that = this;
       var data = Qs.stringify({
         mainTaskID: this.mainTaskID,
@@ -1032,7 +1012,6 @@ export default {
         mainTaskDetail: this.cool.mainTaskDetail,
         username: this.usernameX
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -1044,7 +1023,6 @@ export default {
           this.mainStaskID = response.data.allData;
           this.zzzz = response.data.allData;
           if (this.zzzz != "null") {
-            console.log(this.zzzz);
             this.$message.success("提交成功");
             this.xiugaiTC = false;
             this.$refs.upload.clearFiles();
@@ -1054,7 +1032,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           if (error != null) {
             this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
               type: "warning"
@@ -1072,16 +1049,14 @@ export default {
     getParams() {
       var routerParams = this.$route.query.mainTaskID;
       this.mainTaskID = routerParams;
-      console.log(routerParams);
     },
 
     getData() {
-      console.log(this.mainTaskID);
+      //console.log(this.mainTaskID);
       var that = this;
       var data = Qs.stringify({
         mainTaskID: this.mainTaskID
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -1091,7 +1066,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
 
           this.cool = response.data.allData.a[0];
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
@@ -1105,8 +1079,6 @@ export default {
             response.data.allData.a[0].taskCategoryMainId;
           this.selectCateKeys[1] =
             response.data.allData.a[0].taskCategoryPartId;
-          console.log(this.selectCateKeys);
-          console.log(this.fujian.length);
           if (this.cool.taskState === 0) {
             this.cool.taskState = "进行中";
           } else if (this.cool.taskState === 1) {
@@ -1119,8 +1091,6 @@ export default {
           } else {
             this.cool.finishTime = dateFormat(this.cool.finishTime);
           }
-          console.log(this.type);
-          console.log(this.name);
         });
     },
     // 触发搜索按钮
@@ -1134,12 +1104,10 @@ export default {
       this.$confirm("确定要废除吗？", "提示", {
         type: "warning"
       }).then(() => {
-        console.log(row.taskId);
         var that = this;
         var data = Qs.stringify({
           substakeID: row.taskId
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/MainTaskInformation/feicuBySubstaskstaskID",
@@ -1153,7 +1121,6 @@ export default {
       //   .then(response => {
       //     this.cool = response.data.allData.a[0];
       //     this.tableData = response.data.allData.b;
-      //      console.log(response.data.allData);
       //   });
       // 二次确认删除
 
@@ -1165,11 +1132,9 @@ export default {
         type: "warning"
       }).then(() => {
         var that = this;
-        console.log(this.mainTaskID);
         var data = Qs.stringify({
           mainStaskID: this.mainTaskID
         });
-        console.log(data);
         that.axios({
           method: "post",
           url: "/api/MainTaskInformation/feichuByMainstaskID",
@@ -1182,11 +1147,9 @@ export default {
     },
     downLoad() {
       var that = this;
-      console.log(this.technicalFile);
       var data = Qs.stringify({
         technicalFile: this.technicalFile
       });
-      console.log(data);
       that.axios({
         method: "post",
         url: "/api/MainTaskInformation/feichuByMainstaskID",
@@ -1216,15 +1179,12 @@ export default {
         .then(response => {
           this.xuanzelist = this.getTreeData(response.data.allData.a);
           this.supplierCompany = response.data.allData.b;
-          console.log(response);
-          console.log(this.xuanzelist);
-          console.log(response.data.allData.a);
+
         });
     },
     //保存新增
     saveAdd() {
       this.tableData.push(this.addList);
-      console.log(this.addList);
       this.addList = {};
       this.addVisible = false;
     },
@@ -1244,7 +1204,6 @@ export default {
     handlePageChange(val) {},
 
     mainStaskDetail(row) {
-      console.log(row.taskId);
       if (row.taskType == 0) {
         this.$router.push({
           path: "/admin/mainStaskDetail",
@@ -1269,16 +1228,12 @@ export default {
       this.$refs.upload.submit();
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
     },
     handlePreview(file) {
-      console.log(file);
     },
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
-      //console.log(this.technicalFileWanzheng)
       if (this.technicalFileWanzheng.length > 0) {
-        //console.log("ok")
         this.technicalFileWanzheng =
           this.technicalFileWanzheng +
           "linklink" +
@@ -1288,7 +1243,6 @@ export default {
           this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
       }
       this.shangchuancishu = this.shangchuancishu + 1;
-      console.log(this.technicalFileWanzheng);
     },
     //将级联选择器最后一行的数据去掉
     getTreeData(data) {
@@ -1305,15 +1259,11 @@ export default {
     },
     //级联选中框选中变化项会用到这个函数主
     handleChange1() {
-      console.log(this.selectCateKeys1);
       this.mainStaskTypeID = this.selectCateKeys1[0];
       this.subStaskTypeID = this.selectCateKeys1[1];
-      console.log(this.mainStaskTypeID);
-      console.log(this.subStaskTypeID);
     },
     //任务计划下载
     xiazaiMAINmoban() {
-      console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: this.mainTaskID,
@@ -1327,8 +1277,6 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
           response.data = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/octet-stream" })
           );
@@ -1338,7 +1286,6 @@ export default {
 
     // 下载文件
     download(data, leixing) {
-      console.log("调用");
       if (!data) {
         return;
       }

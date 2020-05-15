@@ -455,7 +455,6 @@ export default {
     getParams() {
       var routerParams = this.$route.query.companyId;
       this.companyId = routerParams;
-      console.log(routerParams);
     },
     //手机号校验
     animate() {
@@ -512,7 +511,6 @@ export default {
       var data = Qs.stringify({
         companyID: this.companyId
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -520,7 +518,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
 
           this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
@@ -529,7 +526,6 @@ export default {
           this.companyDetailContent =
             response.data.allData.companyDetailContent;
           this.logo = response.data.allData.logo;
-          console.log(this.imgsrc);
         });
     },
     update() {
@@ -538,7 +534,6 @@ export default {
     },
 
     saveAdd11() {
-      console.log(this.form1);
       var that = this;
       var data = Qs.stringify({
         companyId: this.form1.companyId,
