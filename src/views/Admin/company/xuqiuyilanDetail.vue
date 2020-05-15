@@ -565,7 +565,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .xuqiuyilanDet {
   .overallSituation {
     width: 1200px;
