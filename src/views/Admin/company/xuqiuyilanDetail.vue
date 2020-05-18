@@ -14,7 +14,7 @@
         </div>
       </el-row>
       <br />
-      <el-card shadow="never">
+      <el-card shadow="never" class="Mystyle" >
         <div class="np_top">
           <div class="preview">
             <div class="BigTime">
@@ -612,7 +612,7 @@ export default {
     width: 250px;
     margin-top: 22px;
   }
-  .np_top {
+  .Mystyle .np_top {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
       sans-serif;
 
@@ -774,35 +774,35 @@ export default {
     text-align: center;
     margin-bottom: 0px;
   }
-  .np_top1 {
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
+  // .np_top1 {
+  //   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+  //     sans-serif;
 
-    font-size: 55px;
+  //   font-size: 55px;
 
-    font-style: normal;
+  //   font-style: normal;
 
-    font-variant: normal;
+  //   font-variant: normal;
 
-    font-weight: 400;
+  //   font-weight: 400;
 
-    line-height: normal;
+  //   line-height: normal;
 
-    overflow: hidden;
+  //   overflow: hidden;
 
-    padding-bottom: 10px;
+  //   padding-bottom: 10px;
 
-    padding-left: 10px;
+  //   padding-left: 10px;
 
-    padding-right: 10px;
+  //   padding-right: 10px;
 
-    padding-top: 10px;
+  //   padding-top: 10px;
 
-    text-decoration: none;
+  //   text-decoration: none;
 
-    width: 80px;
-  }
-  .box-card {
+  //   width: 80px;
+  // }
+  .left1 .box-card {
     width: 400px;
   }
   .Right1 {
@@ -892,7 +892,7 @@ export default {
   .left1 {
     float: right;
   }
-  .el-dialog__header {
+  .xuqiuyilanDet.el-dialog__header {
     padding: 0px 0px 0px;
   }
   .button-style {
