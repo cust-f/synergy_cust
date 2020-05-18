@@ -162,6 +162,7 @@ export default {
       that.axios.post("/api/findTimes").then(response => {
         this.form2.time1 = response.data.allData[0];//本年第一天
         this.form2.time2= response.data.allData[1];  //当天时间
+        this.getRemarData();
         console.log(response.data.allData);      
       });
     },

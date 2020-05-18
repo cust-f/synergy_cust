@@ -332,8 +332,6 @@ export default {
         businessName: "",
         product: "",
         middleProduct: [],
-        // Introduction:
-        //   "少年的肩膀，就该这样才对嘛，什么家国仇恨，浩然正气的，都不要急，先挑起清风明月、杨柳依依和草长莺飞，少年郎的肩头，本就应当满是美好的事物啊。",
         Province: "",
         city: "",
         registeredCapital:"",
@@ -394,14 +392,6 @@ export default {
           this.form.city = "";
         });
     },
-    // setCity(data) {
-    //   var i;
-    //   for (i = 0; i < this.address.length; i++) {
-    //     if (this.address[i].provinces == data) {
-    //       this.province = i;
-    //     }
-    //   }
-    // },
     selectProducts(value) {
       this.selectProduct = this.form.middleProduct;
     },
@@ -420,7 +410,6 @@ export default {
         }
       }
       this.form.middleProduct = newProduct;
-      console.log(this.form.middleProduct);
     },
     upLoad(formName) {
       this.$refs[formName].validate(valid => {
@@ -449,7 +438,6 @@ export default {
           url: "/api/industry/getIndustry"
         })
         .then(response => {
-          console.log(response);
           this.options = response.data.allData.allProduct;
         });
     },

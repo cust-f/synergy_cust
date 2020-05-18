@@ -156,7 +156,6 @@ export default {
     },
     //任务计划下载
     RWJHXZ(row) {
-      console.log("shenme");
       var that = this;
       var data = Qs.stringify({
         taskID: row.id,
@@ -170,8 +169,6 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-          console.log("cap");
-          console.log(response);
           let url = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/zip" })
           );
@@ -214,7 +211,6 @@ export default {
         taskId: this.taskId,
         userName: this.userName
       });
-      console.log(data);
       that
         .axios({
           method: "post",
@@ -222,7 +218,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.addList2 = response.data.allData.b[0];
         });
     },
@@ -234,10 +229,8 @@ export default {
       this.$refs.upload.submit();
     },
     handlePreview(file) {
-      console.log(file);
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
       this.fileNumber = this.fileNumber - 1;
     },
 
@@ -252,14 +245,12 @@ export default {
         title: "成功",
         message: `文件上传成功`
       });
-      console.log(response);
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
         Text_File1: this.technicalFileWanzheng,
         userName: this.userName
       });
-      console.log(data);
       that
         .axios({
           method: "post",

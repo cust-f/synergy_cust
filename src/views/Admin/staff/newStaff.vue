@@ -40,7 +40,7 @@
                   <el-table-column prop="userId" label="序号" width="55" align="center" type="index"></el-table-column>
 
                   <el-table-column prop="userName" label="用户名" sortable width="120"></el-table-column>
-                  <el-table-column prop="realName" label="真实姓名"  sortable width="100"></el-table-column>
+                  <el-table-column prop="realName" label="真实姓名"  sortable width="120"></el-table-column>
                   <el-table-column prop="roleId" label="部门" sortable width="100">
                     <template slot-scope="scope">
                       <span v-if="scope.row.roleId === 4">设计人员</span>
@@ -302,7 +302,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           this.tableData = response.data.allData;
         });
     },
@@ -323,7 +323,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           this.tableData = response.data.allData;
         });
 
@@ -400,7 +400,7 @@ export default {
             Password1: this.addList.password
             //roleName:this.roleName
           });
-          console.log(data);
+         // console.log(data);
           //console.log(this.addList.email);
 
           that
@@ -415,7 +415,7 @@ export default {
                 message: "提交成功"
               });
               this.tableData.push(this.addList);
-              console.log(this.addList);
+              //console.log(this.addList);
               this.addList = {};
               this.addVisible = false;
               this.getData();
@@ -435,7 +435,7 @@ export default {
       this.form = row;
       this.editVisible = true;
       this.Id = row.userId;
-      console.log(Id);
+      //console.log(Id);
     },
     // 保存编辑
     saveEdit(formName) {
@@ -450,7 +450,7 @@ export default {
             Password: this.form.password
             //userId:row.userId
           });
-          console.log(data);
+          //console.log(data);
           //console.log(this.addList.email);
 
           that

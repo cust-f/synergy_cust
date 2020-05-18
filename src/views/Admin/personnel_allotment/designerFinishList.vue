@@ -306,7 +306,7 @@ export default {
     handlePageChange(val) {},
     //获取已完成的设计数据
     getHistoryData() {
-      console.log(this.userName);
+      //console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
         designerName: this.username1

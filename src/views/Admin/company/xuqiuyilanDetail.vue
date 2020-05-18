@@ -387,7 +387,7 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
+          
           this.FileName = row.fileName;
           const content = response.data;
           const blob = new Blob([content]);
@@ -405,7 +405,6 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskID;
       this.taskID = routerParams;
-      console.log(routerParams);
     },
     //申请弹窗
     applyTask() {
@@ -435,7 +434,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -443,7 +442,7 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
+          
           this.applyList = response.data.allData.a[0];
           this.getCompay();
           if (response.data.allData.a[0].taskType == 1) {
@@ -460,7 +459,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -468,7 +467,7 @@ export default {
           data: data
         })
         .then(response => {
-          // console.log(response);
+          // 
           this.tableData = response.data.allData;
         });
     },
@@ -485,7 +484,7 @@ export default {
         taskId: this.taskID,
         userName: this.userName
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -494,13 +493,11 @@ export default {
         })
         .then(response => {
           this.companyName1 = response.data.allData[0].Id;
-          console.log(this.companyName1);
           if (this.companyName1 == 0) {
             this.applyIf = 0;
           } else {
             this.applyIf = 1;
           }
-          console.log(this.applyIf);
         });
     },
     //返回首页
@@ -535,9 +532,8 @@ export default {
         this.$message.success("提交成功");
         this.$router.go(0);
       }
-    },
+    },  
     companyDetail(companyId) {
-      console.log("触发了呀");
       this.$router.push({
         path: "company/excellentCompanyDetail",
         query: { companyId: companyId }
@@ -549,7 +545,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -569,7 +565,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .xuqiuyilanDet {
   .overallSituation {
     width: 1200px;

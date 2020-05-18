@@ -102,13 +102,12 @@ export default {
   },
   methods: {
     handleSearch() {
-      console.log(this.selectname);
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
         taskName: this.selectname
       });
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -117,14 +116,12 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
       //this.getData();
     },
     // 全部需求详情页面跳转
     Det(row) {
-      console.log(row.taskId);
       this.$router.push({
         path: "/admin/designDet",
         query: {
@@ -135,13 +132,12 @@ export default {
 
     //获取数据
     getData() {
-      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
         userName: this.usernameX
       });
 
-      console.log(data);
+      
       that
         .axios({
           method: "post",
@@ -149,7 +145,6 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
           this.tableData = response.data.allData;
         });
     }

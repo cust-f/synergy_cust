@@ -15,10 +15,14 @@ import register from '@/views/Front/register/register'
 import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
 import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
 import search from '@/views/Front/Search/search'//搜索界面
+import dashbordFront from '@/views/Front/Home/dashbordFront'
+import Data from '@/views/Front/Home/Data'
+
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
+import copy from '@/views/admin/Home/Dashboard-copy' //后台系统首页
 
 //设计人员界面
 import designerNewList from '@/views/admin/personnel_allotment/designerNewList'//设计人员新增界面
@@ -44,6 +48,7 @@ import mainStaskDetailbei from '@/views/admin/maintask/mainStaskDetailbei'//主�
 import review from '@/views/admin/check/review'
 
 import companyDetail from '@/views/admin/company/companyDetail'//企业详情
+import companyEditor from '@/views/admin/company/updateCompanyInfo'//企业详情修改
 import othercompanyDetail from '@/views/admin/company/othercompanyDetail'//企业详情
 import othersCompanyDe from '@/views/admin/company/othersCompanyDe'//企业详情
 import supplyBussess from '@/views/admin/company/supplyBussess'//供应商名录
@@ -62,13 +67,13 @@ import virtualMachine from '@/Layout/template page/virtualMachine'
 import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'//核心企业
 import evaluateS from '@/views/admin/Enterprise_Evaluation/evaluateS'//供应商
 
- import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
- import userManagement from '@/views/admin/company/userManagement'  //用户管理
+import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
+import userManagement from '@/views/admin/company/userManagement'  //用户管理
 
 
 //供应商设计界面
 import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//设计任务列表
-import designDet from'@/views/admin/supplier/design/designDetails/designDet'//详情
+import designDet from '@/views/admin/supplier/design/designDetails/designDet'//详情
 //供应商流通界面
 import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'//流通任务列表
 import circulationDet from '@/views/admin/supplier/circulation/circulationDetails/circulationDet'//供应商流通分配
@@ -109,19 +114,19 @@ export default new Router({
           component: Home
         },
         {
-          path:'/register',
-          name:'register',
-          component:register
+          path: '/register',
+          name: 'register',
+          component: register
         },
         {
-          path:"/twoMenu",
-          name:"twoMenu",
-          component:twoMenu
+          path: "/twoMenu",
+          name: "twoMenu",
+          component: twoMenu
         },
         {
-          path:"/threeMenu",
-          name:"threeMenu",
-          component:threeMenu
+          path: "/threeMenu",
+          name: "threeMenu",
+          component: threeMenu
         },
         {
           path: "/xuqiuyilan",
@@ -129,9 +134,9 @@ export default new Router({
           component: xuqiuyilan,
         },
         {
-           path:"/service1",
-           name:"service1",
-           component:service1,
+          path: "/service1",
+          name: "service1",
+          component: service1,
         },
         //优秀企业
         {
@@ -160,7 +165,36 @@ export default new Router({
           path:'/search',
           name:search,
           component:search
+        },
+        {
+          path:'/Data',
+          name:'Data',
+          component:Data
         }
+
+        // {
+        //   path: '/admin/dashboard',
+        //   name: 'Dashboard',
+        //   component: Dashboard,
+        //   meta: {
+        //     title: '系统首页'
+        //   }
+        // },
+        // {
+        //   path:'/dashbordFront',
+        //      name:dashbordFront,
+        //    component:dashbordFront
+        //   }
+        // {
+        //   path: '/admin/copy',
+        //   name: 'copy',
+        //   component: copy,
+        //   meta: {
+        //     title: '系统首页'
+        //   }
+        // },
+
+      
       ]
     },
     {
@@ -169,6 +203,7 @@ export default new Router({
       component: adminPage,
       children: [
         //系统首页
+        
         {
           path: '/admin/dashboard',
           name: 'Dashboard',
@@ -229,7 +264,7 @@ export default new Router({
           path: '/admin/mainStaskDetailbei',
           name: 'mainStaskDetailbei',
           component: mainStaskDetailbei,
-  
+
         },
 
 
@@ -242,20 +277,26 @@ export default new Router({
             title: "企业信息详情"
           }
         },
-         //企业信息详情
-         {
+        //企业信息详情修改
+        {
+          path: '/admin/companyEditor',
+          name: 'companyEditor',
+          component: companyEditor,
+        },
+        //企业信息详情
+        {
           path: '/admin/othercompanyDetail',
           name: 'othercompanyDetail',
           component: othercompanyDetail,
-          
+
         },
-                 //企业信息详情
-                 {
-                  path: '/admin/othersCompanyDe',
-                  name: 'othersCompanyDe',
-                  component: othersCompanyDe,
-                  
-                },
+        //企业信息详情
+        {
+          path: '/admin/othersCompanyDe',
+          name: 'othersCompanyDe',
+          component: othersCompanyDe,
+
+        },
         //查看所有供应商的信息
         {
           path: '/admin/supplyBussess',
@@ -265,7 +306,7 @@ export default new Router({
             title: "所有供应商的信息"
           }
         },
-        
+
         //单个供应商的详细信息
         {
           path: '/admin/supplyDetail',
@@ -300,35 +341,35 @@ export default new Router({
           component: designTaskEvaluation
         },
         //任务计划
-       {
+        {
           path: '/admin/supplyContract',
           name: 'supplyContract',
           component: supplyContract,
-        
 
-        },  
+
+        },
         //用户管理
         {
           path: '/admin/userManagement',
           name: 'userManagement',
           component: userManagement,
-        
 
-        },  
+
+        },
         {
           path: '/admin/circulationTaskEvaluation',
           name: 'circulationTaskEvaluation',
           component: circulationTaskEvaluation,
-        
 
-        },  
+
+        },
         {
           path: '/admin/circulationTaskEvaluationDetils',
           name: 'circulationTaskEvaluationDetils',
           component: circulationTaskEvaluationDetils,
-        
 
-        },  
+
+        },
 
         {
           path: '/admin/designTaskEvaluationDetils',
@@ -387,48 +428,48 @@ export default new Router({
         },
         //设计人员接受任务列表
         {
-          path:'/admin/designerAcceptList',
+          path: '/admin/designerAcceptList',
           name: 'designerAcceptList',
           component: designerAcceptList
         },
         //设计人员新增列表
         {
-          path:'/admin/designerNewList',
-          name:'designerNewList',
-          component:designerNewList
+          path: '/admin/designerNewList',
+          name: 'designerNewList',
+          component: designerNewList
         },
         //新增人员已完成列表
         {
-          path:'/admin/designerFinishList',
-          name : 'designerFinishList',
-          component:designerFinishList
+          path: '/admin/designerFinishList',
+          name: 'designerFinishList',
+          component: designerFinishList
         },
         //核心企业评价
         {
-          path:'/admin/Enterprise_Evaluation/evaluate',
-          name:'evaluate',
-          component:evaluate,
+          path: '/admin/Enterprise_Evaluation/evaluate',
+          name: 'evaluate',
+          component: evaluate,
         },
         //供应商企业评价
         {
-          path:'/admin/Enterprise_Evaluation/evaluateS',
-          name:'evaluateS',
-          component:evaluateS,
+          path: '/admin/Enterprise_Evaluation/evaluateS',
+          name: 'evaluateS',
+          component: evaluateS,
         },
-         //供应商设计任务列表
+        //供应商设计任务列表
         {
           path: '/admin/designTaskq',
           name: 'designTaskq',
           component: designTaskq,
-          
+
         },
 
-         //供应商流通任务列表
-         {
+        //供应商流通任务列表
+        {
           path: '/admin/circulationTaskq',
           name: 'circulationTaskq',
           component: circulationTaskq,
-          
+
         },
 
         //供应商流通任务列表
@@ -440,7 +481,7 @@ export default new Router({
             title: "需求详情"
           }
         },
-        
+
         //供应商流通任务测试页面
         {
           path: '/admin/text',
@@ -457,7 +498,7 @@ export default new Router({
           name: 'managerBusiness',
           component: managerBusiness,
         },
-        
+
         //企业详情
         {
           path: '/admin/businessDetail',
@@ -484,7 +525,7 @@ export default new Router({
           meta: {
             title: "二级供应商的信息"
           }
-        },      
+        },
         //供应商的二级供应商名录
         {
           path: '/admin/supplyBussess2',
@@ -506,11 +547,11 @@ export default new Router({
 
         //详情界面
         {
-          path:'/admin/designDet',
-          name:'designDet',
+          path: '/admin/designDet',
+          name: 'designDet',
           component: designDet,
-          meta:{
-            title:"详情"
+          meta: {
+            title: "详情"
           }
         }
       ]
@@ -520,16 +561,16 @@ export default new Router({
       name: 'login',
       component: login
     },
-            //虚拟机
-            {
-              path: '/admin/personnel_allotment/virtualMachine',
-              name: 'virtualMachine',
-              component: virtualMachine,
-            },
+    //虚拟机
+    {
+      path: '/admin/personnel_allotment/virtualMachine',
+      name: 'virtualMachine',
+      component: virtualMachine,
+    },
     {
       path: '*',
       redirect: '/404'
     },
-   
+
   ]
 })
