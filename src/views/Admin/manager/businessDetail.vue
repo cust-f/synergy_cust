@@ -526,7 +526,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/companyDetail/getBusinessForm",
+          url: "/api/companyDetail/getBusinessForm",
           data: data
         })
         .then(response => {
@@ -591,7 +591,7 @@ export default {
 
       that.axios({
         method: "post",
-        url: "http://127.0.0.1:8081/companyDetail/updateCompanyForm",
+        url: "/api/companyDetail/updateCompanyForm",
         data: data
       });
 

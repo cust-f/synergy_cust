@@ -246,7 +246,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/companyDetail/getAllCompanies"
+          url: "/api/companyDetail/getAllCompanies"
         })
         .then(response => {
           that.pageTotal = response.data.allData.totalCount; //绑定总的条数
@@ -260,7 +260,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/district/HaChangProvince"
+          url: "/api/district/HaChangProvince"
         })
         .then(response => {
           this.Provice = response.data.allData.Province;
@@ -278,7 +278,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/district/city",
+          url: "/api/district/city",
           data:data
         })
         .then(response => {
@@ -306,7 +306,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/companyDetail/selectBySS",
+          url: "/api/companyDetail/selectBySS",
           data:data
         })
         .then(response => {
@@ -326,7 +326,7 @@ export default {
           this.axios({
             method: "get",
             url:
-              "http://127.0.0.1:8081/companyDetail/delectCompany?companyID=" +
+              "/api/companyDetail/delectCompany?companyID=" +
               index
             //data:{"companyID":index}
           }).then(response => {
