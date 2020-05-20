@@ -77,7 +77,7 @@
             </ul>
           </div>
           <div class="left">
-            <el-card class="box-card">
+            <el-card class="companybox-card">
               <div slot="header" class="clearfix">
                 <div
                   style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;"
@@ -146,7 +146,7 @@
               </ul>
             </div>
             <div class="left1">
-              <el-card class="box-card">
+              <el-card class="filebox-card ">
                 <div slot="header" class="clearfix">
                   <span>附件</span>
                 </div>
@@ -802,7 +802,10 @@ export default {
 
   //   width: 80px;
   // }
-  .left1 .box-card {
+  .companybox-card {
+    width: 400px;
+  }
+  .filebox-card {
     width: 400px;
   }
   .Right1 {
