@@ -315,7 +315,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/designer/historylist",
+          url: "api/designer/historylist",
           data: data
 
           //  data:this.$store.state.userName
