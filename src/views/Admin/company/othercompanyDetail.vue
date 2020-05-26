@@ -1,5 +1,5 @@
 <template>
-  <div class="companyDetail">
+  <div class="othercompanyDetail">
     <el-container>
       <el-main>
         <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -185,7 +185,7 @@
             </div>
             <br>
             <div align="">
-              <font size="4">{{ form.businessTel}}</font>
+              <font size="4">{{ form.officeNumber}}</font>
             </div>
           </div>
         </div>
@@ -313,23 +313,17 @@
 
             <el-row>
               <el-col :span="24">
-                <el-form-item label="企业详情"></el-form-item>
+                <el-form-item label="企业详情">
+                  <br />
+                  <div class="leftDet" v-html="companyDetailContent" style="margin-left:-70px"></div>
+                  <!-- <el-input v-model="form.introduction" disabled></el-input> -->
+                </el-form-item>
               </el-col>
-
-              <!-- <el-form-item label="详细" >
-                            <el-input 
-                            type="textarea"
-                            :rows="1"
-                            style="width:100%;"
-                            placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
-                    </el-form-item>
-              -->
             </el-row>
-            <el-card class="box-card">
-              <font font-size="14px">
-                <div class="XX" v-html="companyDetailContent"></div>
-              </font>
-            </el-card>
+
+
+
+           
           </el-form>
         </div>
         <!-- <div align="center">
@@ -623,7 +617,7 @@ export default {
 
 
 <style lang="scss">
-.companyDetail {
+.othercompanyDetail {
   .el-card {
     font-size: 14px;
   }
@@ -686,8 +680,10 @@ export default {
     width: 600px;
     height: 300px;
   }
-  .XX {
+  .leftDet {
+    float: left;
     text-align: left;
+    width: 95%;
   }
 }
 </style>

@@ -30,7 +30,7 @@ export default {
       let lastTime = new Date().getTime();
       // console.log(lastTime, "lastTime");
       let timeOut = 10 * 60 * 1000; //设置时间 10分钟
-      if (lastTime - currentTime > timeOut) {
+      if (lastTime - currentTime > timeOut&&this.$store.token==true) {
         // 未操作页面，跳转登录页面
         this.currentTime = new Date().getTime();
         // const fullPath = this.$route.fullPath;

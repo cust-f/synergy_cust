@@ -362,7 +362,7 @@
                 size="small"
                 v-if="scope.row.demandorCheckDesignState===1"
               >拒绝</el-button>
-              <el-button @click="FHQDFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
+              <el-button type="text" @click="FHQDFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
 
               <div v-show="scope.row.contractState===1">
                 <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
@@ -388,12 +388,9 @@
             ></el-step>
           </el-steps>
         </div>-->
- <div v-if="reMarkId === 0">
-          <div
-            class="loading1"
-            v-loading="loading"
-            element-loading-text="评价生成中......"
-          >
+        <div v-if="reMarkId === 0">
+          <div class="loading1" v-loading="loading" element-loading-text="评价生成中......">
+            <!-- 雷达图 -->
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
             <div class="input_span" align="center">
@@ -402,9 +399,9 @@
                 <br />
                 <br />
               </el-form>
-               <span id="one"></span>
-              <span id="two"></span>
-              <span id="three"></span>
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
           </div>
         </div>
@@ -412,12 +409,10 @@
         <br />
         <div v-if="reMarkId === 1">
           <!-- 雷达图 -->
-                      
-
           <div class="LDT">
             <!-- 雷达图 -->
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
-              <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
                 <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -538,8 +533,29 @@
 
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
-        <div>
-          <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+        <div style="width:800px;height:250px">
+        
+          <div style="float: left" >
+            <el-image
+              align="left"
+              style="width:200px;height:200px"
+              :src="logo"
+              :onerror="errorImg00"
+            ></el-image>
+          </div>
+
+          <div style="float: right;width:490px;height:250px">
+              <br>
+            <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+            <br>
+            <div align="">
+              <font size="5">{{ form.companyName}}</font>
+            </div>
+            <br>
+            <div align="">
+              <font size="4">{{ form.officeNumber}}</font>
+            </div>
+          </div>
         </div>
         <div align="right" class="formYS">
           <el-form ref="form" :model="form" label-width="100px">
@@ -1007,12 +1023,16 @@ export default {
 
   data() {
     return {
+                  logo: "",
+
             //显示评价的
       reMarkId:0,
             loading:true,
 
             //企业详情路径
       companyDetailContent:"",
+                  errorImg00: 'this.src="' + require("../company/2.jpg") + '"',
+
       //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
       //默认营业执照
@@ -1277,7 +1297,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         //taskID: this.taskId,
-        url: row.realPath
+        url: row.filePath
       });
       that
         .axios({
@@ -1295,7 +1315,7 @@ export default {
           link.href = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/octet-stream" })
           );
-          link.setAttribute("download", row.realName);
+          link.setAttribute("download", row.fileRealName);
           document.body.appendChild(link);
           link.click();
         });
@@ -1989,6 +2009,7 @@ export default {
           data: data
         })
         .then(response => {
+            this.logo = response.data.allData.logo;
 
           this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
@@ -2009,6 +2030,9 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+    .loading1 {
+    height: 400px;
+  }
     //企业详情
   .leftDet {
     float: left;
@@ -2050,7 +2074,7 @@ export default {
   }
   //雷达图
   .LDT {
-    height: 300px;
+    height: 400px;
   }
 
   //完成质量
@@ -2125,7 +2149,7 @@ export default {
   }
   .input_span span {
     display: inline-block;
-    width: 100px;
+    width: 85px;
     height: 30px;
     background: #eee;
     line-height: 20px;
