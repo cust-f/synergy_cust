@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="substaskDetail">
     <div>
       <el-container>
         <el-main style="overflow:hidden">
@@ -1307,7 +1307,10 @@ export default {
 };
 </script>
 
-<style >
+<style lang="scss" >
+.substaskDetail{
+
+
 .shenhe{
     color:#FF8040;
   background-color:#FFE6D9;
@@ -1429,5 +1432,6 @@ export default {
 .customer-table .el-table__fixed-right::before,
 .el-table__fixed::before {
   width: 0;
+}
 }
 </style>

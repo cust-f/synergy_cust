@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class= "primarysupplyList">
     <el-container>
         <el-main>
           <div font-size="24px">
@@ -397,7 +397,10 @@ export default {
   }
 };
 </script>
-<style>
+<style lang = "scss">
+.primarysupplyList{
+
+
 .con {
   width: 500px;
   height: 1000px;
@@ -409,5 +412,6 @@ export default {
 }
 .el-table{
     font-size: 14px;
-  }
+}
+}
 </style>

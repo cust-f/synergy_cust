@@ -1,5 +1,5 @@
 <template>
-  <div class="companyDetail">
+  <div class="othercompanyDetail">
     <el-container>
       <el-main>
         <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -623,7 +623,7 @@ export default {
 
 
 <style lang="scss">
-.companyDetail {
+.othercompanyDetail {
   .el-card {
     font-size: 14px;
   }

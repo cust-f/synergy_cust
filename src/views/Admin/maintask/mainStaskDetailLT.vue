@@ -362,7 +362,7 @@
                 size="small"
                 v-if="scope.row.demandorCheckDesignState===1"
               >拒绝</el-button>
-              <el-button @click="FHQDFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
+              <el-button type="text" @click="FHQDFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
 
               <div v-show="scope.row.contractState===1">
                 <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
@@ -388,12 +388,9 @@
             ></el-step>
           </el-steps>
         </div>-->
- <div v-if="reMarkId === 0">
-          <div
-            class="loading1"
-            v-loading="loading"
-            element-loading-text="评价生成中......"
-          >
+        <div v-if="reMarkId === 0">
+          <div class="loading1" v-loading="loading" element-loading-text="评价生成中......">
+            <!-- 雷达图 -->
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
             <div class="input_span" align="center">
@@ -402,9 +399,9 @@
                 <br />
                 <br />
               </el-form>
-               <span id="one"></span>
-              <span id="two"></span>
-              <span id="three"></span>
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
           </div>
         </div>
@@ -412,12 +409,10 @@
         <br />
         <div v-if="reMarkId === 1">
           <!-- 雷达图 -->
-                      
-
           <div class="LDT">
             <!-- 雷达图 -->
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
-              <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
                 <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -2009,6 +2004,9 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaul {
+    .loading1 {
+    height: 400px;
+  }
     //企业详情
   .leftDet {
     float: left;
@@ -2050,7 +2048,7 @@ export default {
   }
   //雷达图
   .LDT {
-    height: 300px;
+    height: 400px;
   }
 
   //完成质量
@@ -2125,7 +2123,7 @@ export default {
   }
   .input_span span {
     display: inline-block;
-    width: 100px;
+    width: 85px;
     height: 30px;
     background: #eee;
     line-height: 20px;
