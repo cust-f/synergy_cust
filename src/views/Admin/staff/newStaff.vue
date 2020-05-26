@@ -64,7 +64,7 @@
                       <el-button
                         type="text"
                         icon="el-icon-delete"
-                        class="red"
+                        class="red1"
                          size="small"
                         @click="handleDelete(scope.$index, scope.row)"
                       >删除</el-button>
@@ -296,7 +296,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/newStaff/list",
+          url: "api/newStaff/list",
           data: data
 
           //  data:this.$store.state.userName
@@ -317,7 +317,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/newStaff/selectStaff",
+          url: "api/newStaff/selectStaff",
           data: data
 
           //  data:this.$store.state.userName
@@ -357,7 +357,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081//newStaff/deletelist",
+          url: "api/newStaff/deletelist",
           data: data
           //  data:this.$store.state.userName
         })
@@ -406,7 +406,7 @@ export default {
           that
             .axios({
               method: "post",
-              url: "http://127.0.0.1:8081/newStaff/addlist",
+              url: "api/newStaff/addlist",
               data: data
             })
             .then(response => {
@@ -456,7 +456,7 @@ export default {
           that
             .axios({
               method: "post",
-              url: "http://127.0.0.1:8081/newStaff/editlist",
+              url: "api/newStaff/editlist",
               data: data
             })
             .then(response => {
@@ -508,8 +508,9 @@ export default {
 };
 </script>
 
-<style scoped>
-.con {
+<style lang="scss">
+.newStaff{
+  .con {
   width: 500px;
   height: 1000px;
   margin: 0 auto;
@@ -533,8 +534,9 @@ export default {
   font-size: 14px;
   
 }
-.red {
+.red1 {
   color: #ff0000;
+  size:small;
 }
 .mr10 {
   margin-right: 10px;
@@ -552,5 +554,8 @@ export default {
   font-size: 15px;
   color: #303133;
 }
+
+}
+
 </style>
 

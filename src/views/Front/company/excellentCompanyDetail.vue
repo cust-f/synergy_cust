@@ -1,5 +1,5 @@
 <template>
-  <div style="width:1200px;margin:0 auto;">
+  <div style="width:1200px;margin:0 auto;" class="company-detail-info">
     <!--第一行 -->
     <el-row >
       <el-col :span="20" >
@@ -18,9 +18,9 @@
         <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;">企业详情</div>
         
       </div>
-      <div class="np_top">
+      <div class="company_top">
         <div class="preview">
-          <div class="BigTime">
+          <div class="company-picture">
             <el-carousel height="400" width="400" direction="vertical" arrow="always">
               <el-carousel-item v-for="(item,index) in imagesbox" :key="index">
                 <img :src="item" class="images" />
@@ -29,7 +29,7 @@
           </div>
         </div>
 
-        <div class="Right">
+        <div class="Rights">
           <!-- <font style="color:#ff7720;font-size:20px;">[229857]</font> -->
           <!-- <el-row>
           <el-col :span="5">-->
@@ -179,15 +179,15 @@ export default {
 };
 </script>
 <style>
-.images {
+.company-detail-info .images {
   width: 300px;
   height: 300px;
 }
-.white {
+.company-detail-info .white {
   /* width: 67%; */
   margin-top: 20px;
 }
-.companyContent{
+.company-detail-info .companyContent{
   height: 600px;
 }
 .divtap {
@@ -205,13 +205,13 @@ export default {
   line-height: 40px;
   color: #00a2e6;
 }
-.title {
+.company-detail-info .title {
   font-size: 14px;
   font-style: normal;
   width: 250px;
   margin-top: 22px;
 }
-.np_top {
+.company_top {
   /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   border-bottom-color: rgb(225, 225, 225);
@@ -272,7 +272,7 @@ export default {
 
   width: 1280px;
 }
-.BigTime {
+.company-detail-info  .company-picture {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   float: left;
@@ -321,7 +321,7 @@ export default {
 .ulr {
   width: 200px;
 }
-.Right {
+.Rights {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   float: left;
@@ -360,7 +360,7 @@ export default {
 
   width: 920px;
 }
-.Right .el-divider--horizontal {
+.Rights .el-divider--horizontal {
   width: 87%;
 }
 .Detail li{

@@ -82,7 +82,6 @@ export default {
       if (value === "") {
         callback("手机号码不能为空");
       } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        // this.$error("手机号码有误，请重填");
         callback(new Error("手机号码有误，请重填"));
       } else {
         callback();
@@ -91,7 +90,9 @@ export default {
     var validDataRealName = (rule, value, callback) => {
       if (value === "") {
         callback("真实姓名不能为空");
-      } 
+      } else{
+                callback();
+      }
     };
     
     return {
@@ -153,9 +154,12 @@ export default {
         });
     },
     submitForm(formName) {
+      console.log("触发了")
       this.$refs[formName].validate(valid => {
+              console.log("有效or无效？"+valid)
         if (valid) {
           this.$emit("accountSave", true);
+          console.log("======================================================")
         } else {
           this.$message({
             type: "warning",
