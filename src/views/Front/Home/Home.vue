@@ -220,7 +220,7 @@
               </div>
             </el-card>
             <div class="grid-content-down">
-              <el-card class="home-box-card" :body-style="{ padding: '5px' }">
+              <el-card class="home-box-card" style="height:100%;" :body-style="{ padding: '5px' }">
                 <el-tabs
                   v-model="activeName"
                   @tab-click="handleClick"
@@ -980,7 +980,7 @@ export default {
 
 /** 登录模块核心企业与供应商用CSS*/
 .loginHeight {
-  height: 210px;
+  /* height: 210px; */
 }
 .loginHeight .el-tag.el-tag--warning:hover {
   background-color: white;
