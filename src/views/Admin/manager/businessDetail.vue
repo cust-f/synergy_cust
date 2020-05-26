@@ -188,19 +188,10 @@
 
             <el-row>
               <el-col :span="24">
-                <el-form-item label="企业详情"></el-form-item>
-                <!-- <el-form-item label="详细" >
-                            <el-input 
-                            type="textarea"
-                            :rows="1"
-                            style="width:100%;"
-                            placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
-                    </el-form-item>
-                --> <el-card class="box-card">
-                  <font font-size="12px">
-                    <div class="XX" v-html="companyDetailContent"></div>
-                  </font>
-                </el-card>
+                <el-form-item label="企业详情"> <br />
+                  <div class="leftDet" v-html="companyDetailContent" style="margin-left:-70px"></div>
+                  <!-- <el-input v-model="form.introduction" disabled></el-input> -->
+                </el-form-item>
               </el-col> 
             </el-row>
            
@@ -725,8 +716,8 @@ export default {
 };
 </script>
 
-
-<style >
+<style lang="scss">
+.businessDetail {
 .formYS .el-input__inner {
   /* // 表格样式调整 */
 
@@ -794,5 +785,6 @@ export default {
     width: 937px;
     /* height: 170px; */
     /* border: 1px solid #00a2e6 ; */
+  }
   }
 </style>
