@@ -1,6 +1,6 @@
 <template>
-   <div id="charts1" style="height:100%; width:400px; float:left"></div>
-</template>
+ <div id="charts1" style="height:380px; width:450px; float:left"></div>
+ </template>
 
 
 <script>
@@ -37,14 +37,10 @@ export default{
             }
           },
           indicator: [
-                { name: "申请时长", max: 100 },
-                { name: "计划时长", max: 100 },  
-                //{ name: "审核时长", max: 100 }, 
-                { name: "验收时长", max: 100 },
-                { name: "任务时长", max: 100 },
-            
-          
-           
+            { name: "任务时长", max: 60 },
+            { name: "计划时长", max: 60 },
+            { name: "申请时长", max: 20 },
+            { name: "验收时长", max: 20 }
           ]
         },
         series: [

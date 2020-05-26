@@ -230,14 +230,19 @@ export default {
         .then(response => {
           const content = response.data;
           const blob = new Blob([content]);
-          let url = window.URL.createObjectURL(blob); //表示一个指定的file对象或Blob对象
-          let link = document.createElement("a");
-          link.style.display = "none";
-          link.href = url;
-          link.setAttribute("download", row.fileName);
-          document.body.appendChild(link);
-          link.click();
-          URL.revokeObjectURL(link.href); //释放url
+          if ("download" in document.createElement("a")) {
+            let url = window.URL.createObjectURL(blob); //表示一个指定的file对象或Blob对象
+            let link = document.createElement("a");
+            link.style.display = "none";
+            link.href = url;
+            link.setAttribute("download", row.fileName);
+            document.body.appendChild(link);
+            link.click();
+            URL.revokeObjectURL(link.href); //释放url
+          } else {
+            //其他浏览器
+            navigator.msSaveBlob(blob, fileName);
+          }
         });
     },
     HTFileHistory() {
@@ -276,12 +281,17 @@ export default {
           let url = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/zip" })
           );
-          let link = document.createElement("a");
-          link.style.display = "none";
-          link.href = url;
-          link.setAttribute("download", "合同.zip");
-          document.body.appendChild(link);
-          link.click();
+          if ("download" in document.createElement("a")) {
+            let link = document.createElement("a");
+            link.style.display = "none";
+            link.href = url;
+            link.setAttribute("download", "合同.zip");
+            document.body.appendChild(link);
+            link.click();
+          } else {
+            //其他浏览器
+            navigator.msSaveBlob(blob, "合同.zip");
+          }
         });
     },
     //合同拒绝原因
@@ -309,8 +319,7 @@ export default {
     submitUpload() {
       this.$refs.upload.submit();
     },
-    handlePreview(file) {
-    },
+    handlePreview(file) {},
     handleRemove(file, fileList) {
       this.fileNumber = this.fileNumber - 1;
     },

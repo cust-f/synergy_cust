@@ -3,7 +3,7 @@
     <div class="overallSituation">
       <el-row>
         <div>
-          <div class="title">
+          <div class="XuQiutitle">
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item :to="{ path: '/xuqiuyilan' }">需求一览</el-breadcrumb-item>
@@ -14,8 +14,8 @@
         </div>
       </el-row>
       <br />
-      <el-card shadow="never">
-        <div class="np_top">
+      <el-card shadow="never" class="XuQiustyle" >
+        <div class="xq_top">
           <div class="preview">
             <div class="BigTime">
               <el-carousel height="250" width="250" direction="vertical" arrow="always">
@@ -77,7 +77,7 @@
             </ul>
           </div>
           <div class="left">
-            <el-card class="box-card">
+            <el-card class="companybox-card">
               <div slot="header" class="clearfix">
                 <div
                   style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;"
@@ -146,7 +146,7 @@
               </ul>
             </div>
             <div class="left1">
-              <el-card class="box-card">
+              <el-card class="filebox-card ">
                 <div slot="header" class="clearfix">
                   <span>附件</span>
                 </div>
@@ -565,7 +565,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .xuqiuyilanDet {
   .overallSituation {
     width: 1200px;
@@ -606,13 +606,13 @@ export default {
     line-height: 40px;
     color: #00a2e6;
   }
-  .title {
+  .XuQiutitle {
     font-size: 14px;
     font-style: normal;
     width: 250px;
     margin-top: 22px;
   }
-  .np_top {
+  .XuQiustyle .xq_top {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
       sans-serif;
 
@@ -774,35 +774,38 @@ export default {
     text-align: center;
     margin-bottom: 0px;
   }
-  .np_top1 {
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
+  // .np_top1 {
+  //   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+  //     sans-serif;
 
-    font-size: 55px;
+  //   font-size: 55px;
 
-    font-style: normal;
+  //   font-style: normal;
 
-    font-variant: normal;
+  //   font-variant: normal;
 
-    font-weight: 400;
+  //   font-weight: 400;
 
-    line-height: normal;
+  //   line-height: normal;
 
-    overflow: hidden;
+  //   overflow: hidden;
 
-    padding-bottom: 10px;
+  //   padding-bottom: 10px;
 
-    padding-left: 10px;
+  //   padding-left: 10px;
 
-    padding-right: 10px;
+  //   padding-right: 10px;
 
-    padding-top: 10px;
+  //   padding-top: 10px;
 
-    text-decoration: none;
+  //   text-decoration: none;
 
-    width: 80px;
+  //   width: 80px;
+  // }
+  .companybox-card {
+    width: 400px;
   }
-  .box-card {
+  .filebox-card {
     width: 400px;
   }
   .Right1 {
@@ -892,7 +895,7 @@ export default {
   .left1 {
     float: right;
   }
-  .el-dialog__header {
+  .xuqiuyilanDet.el-dialog__header {
     padding: 0px 0px 0px;
   }
   .button-style {
@@ -905,7 +908,7 @@ export default {
     border-radius: 0px;
     text-align: center;
   }
-  .Mystyle.el-input__inner {
+  .XuQiustyle .el-input__inner {
     border-left: none;
     border-right: none;
     border-top: none;

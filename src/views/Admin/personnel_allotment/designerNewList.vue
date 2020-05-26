@@ -302,7 +302,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/designer/newlist",
+          url: "api/designer/newlist",
           data: data
 
           //  data:this.$store.state.userName
@@ -324,7 +324,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/designer/updateDesignState",
+          url: "api/designer/updateDesignState",
           data: data
         })
         .then(response => {
@@ -355,7 +355,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/designer/newlist",
+          url: "api/designer/newlist",
           data: data
 
           //  data:this.$store.state.userName

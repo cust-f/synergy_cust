@@ -220,7 +220,7 @@
               </div>
             </el-card>
             <div class="grid-content-down">
-              <el-card class="box-card" :body-style="{ padding: '5px' }">
+              <el-card class="home-box-card" style="height:100%;" :body-style="{ padding: '5px' }">
                 <el-tabs
                   v-model="activeName"
                   @tab-click="handleClick"
@@ -799,7 +799,7 @@ export default {
 
 <style>
 /**轮播图的样式表 */
-.BG0 {
+.home .BG0 {
   box-sizing: border-box;
   background-color: white;
   margin-bottom: 15px;
@@ -808,13 +808,13 @@ export default {
 }
 
 /**首页轮播图用样式表用于确认轮播图高度及border*/
-.grid-content0 {
+.home .grid-content0 {
   height: 400px;
   padding: 0px;
 }
 
 /**轮播图下方的整块的样式表*/
-.BG {
+.home .BG {
   box-sizing: border-box;
   width: 1300px;
   margin-bottom: 5px;
@@ -823,7 +823,7 @@ export default {
 }
 
 /**网站访问统计数据的样式表*/
-.grid-content1 {
+.home .grid-content1 {
   border-radius: 4px;
   height: 50px;
   /**文字显示居中 */
@@ -849,15 +849,15 @@ export default {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
-.titleColor span {
+.home  .titleColor span {
   font-size: 18px;
   color: #ffffff;
 }
-.titleColor .el-button span {
+.home .titleColor .el-button span {
   font-size: 16px;
 }
 /**网站访问统计数据字体样式（用于访问统计数据标题） */
-.fontStyle0 {
+.home .fontStyle0 {
   font-size: 20px;
   color: rgb(167, 165, 165);
 }
@@ -876,32 +876,32 @@ export default {
   padding: 0 30px;
 }
 /**网站访问统计数据字体样式（用于访问统计数据内容） */
-.fontStyle {
+.home .fontStyle {
   font-size: 20px;
   padding: 0 5px;
   color: orangered;
 }
 /**登陆、注册模块用样式表，用于文本居中及背景色更改*/
-.grid-content {
+.home .grid-content {
   text-align: center;
   height: 434px;
 }
 
 /**登录、注册按钮模块标题模块所用样式表，用于确认整体高度及布局  */
-.grid-content-top {
+.home .grid-content-top {
   float: left;
   height: 30%;
   width: 100%;
   align-items: center;
   background-color: #ece9e9;
 }
-.grid-content-top-span {
+.home .grid-content-top-span {
   float: left;
   width: 100%;
   height: 20%;
   margin-top: 10%;
 }
-.grid-content-top-button {
+.home .grid-content-top-button {
   position: relative;
   width: 100%;
   float: left;
@@ -911,19 +911,15 @@ export default {
 }
 
 /**登录、注册按钮模块tag页模块所用样式表，用于确认整体高度及布局*/
-.grid-content-down {
+.home .grid-content-down {
   float: left;
   height: 70%;
   width: 99%;
   background-color: rgb(255, 255, 255);
 }
-.box-card {
-  width: 100%;
-  height: 100%;
-}
 /*我有需求标签页下的按钮展示样式表*/
 /**左侧按钮的样式表*/
-.xqelbuttonleft {
+.home .xqelbuttonleft {
   float: left;
   position: relative;
   left: 5%;
@@ -934,7 +930,7 @@ export default {
   padding-top: 7px;
 }
 /**下方大按钮用的样式表*/
-.xqelbuttonleft0 {
+.home .xqelbuttonleft0 {
   float: left;
   position: relative;
   left: 25%;
@@ -944,7 +940,7 @@ export default {
   font-size: 18px;
 }
 /**右侧按钮的样式表*/
-.xqelbuttonright {
+.home .xqelbuttonright {
   float: right;
   position: relative;
   right: 5%;
@@ -984,7 +980,7 @@ export default {
 
 /** 登录模块核心企业与供应商用CSS*/
 .loginHeight {
-  height: 210px;
+  /* height: 210px; */
 }
 .loginHeight .el-tag.el-tag--warning:hover {
   background-color: white;
@@ -1010,25 +1006,25 @@ export default {
   margin-top: 20px;
 }
 /**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，企业，服务的类别字体）*/
-.fontStyle1 {
+.home .fontStyle1 {
   color: rgb(230, 158, 24);
   float: left;
 }
 
 /**需求一览 优质企业 服务成果 卡片内的字体样式（用于需求，服务的时间字体）*/
-.fontStyle2 {
+.home .fontStyle2 {
   color: rgb(150, 144, 144);
   font-size: 15px;
 }
 
 /**平台数据分割线用的样式表*/
-.big_bt {
+.home .big_bt {
   width: 370px;
   margin: 0 auto;
   border-bottom: solid 3px #000;
   margin-bottom: 40px;
 }
-.big_bt a {
+.home .big_bt a {
   display: block;
   font-size: 26px;
   color: #000;
@@ -1055,8 +1051,9 @@ export default {
 .category .el-card__body {
   padding: 0px;
 }
-.home.box-card {
+.home.home-box-card {
   width: 100%;
+  height:100%;
 }
 
 .home .category .el-card.is-hover-shadow:hover {
@@ -1116,12 +1113,12 @@ export default {
   font-size: 16px;
   font-style: normal;
 }
-a {
+.home a {
   color: #333;
   text-decoration: none;
 }
 
-ul li {
+.home ul li {
   list-style: none;
   margin-bottom: 5px;
   overflow: hidden;
@@ -1147,7 +1144,7 @@ ul li {
   font-size: 15px;
   color: #a1a3a6;
 }
-.charts {
+.home .charts {
   text-align: "center";
   align-self: auto;
   align-content: center;

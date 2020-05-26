@@ -490,7 +490,7 @@ export default {
 .company-select a:hover {
   color: #0084ff;
 }
-.el-tag {
+.company .el-tag {
   margin-top: 10px;
 }
 .company-select .el-row {
@@ -511,18 +511,18 @@ export default {
   position: absolute;
   right: -58px;
 }
-.clearfix:before,
-.clearfix:after {
+.company .clearfix:before,
+.company .clearfix:after {
   display: table;
   content: "";
 }
-.clearfix:after {
+.company .clearfix:after {
   clear: both;
 }
-.el-card__header {
+.company .el-card__header {
   background-color: #fbfbfb;
 }
-.clearfix span {
+.company .clearfix span {
   font-size: 18px;
   font-weight: 500;
 }
