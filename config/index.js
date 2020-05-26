@@ -9,20 +9,21 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    proxyTable: {
-      '/api':{
-        target:'http://127.0.0.1:8081',//目标路接口域名
-        // secure:false,     //https接口要加这个
-        changeOrigin:true,//是否跨域
-        pathRewrite:{
-          '^/api':'' //重写接口的新路径
-        },
-        headers:{
-          referer:'http://127.0.0.1:8081'
-        }
-      }
-    },
+    // assetsPublicPath: './',//部署使用
+    assetsPublicPath: '/',//开发使用
+    // proxyTable: {
+    //   '/api':{
+    //     target:'http://10.31.8.48',//目标路接口域名
+    //     // secure:false,     //https接口要加这个
+    //     changeOrigin:true,//是否跨域
+    //     pathRewrite:{
+    //       '^/api':'' //重写接口的新路径
+    //     },
+    //     headers:{
+    //       referer:'http://127.0.0.1:8081'
+    //     }
+    //   }
+    // },
 
     // Various Dev Server settings
     host: '127.0.0.1', // can be overwritten by process.env.HOST
@@ -55,7 +56,8 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    // assetsPublicPath: './',//部署使用
+    assetsPublicPath: '/',//开发使用
 
     /**
      * Source Maps
