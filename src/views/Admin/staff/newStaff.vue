@@ -551,7 +551,7 @@ export default {
   font-size: 24px;
 }
 .biaoti {
-  font-size: 15px;
+  font-size: 18px;
   color: #303133;
 }
 

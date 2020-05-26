@@ -2,7 +2,7 @@
   <div style="width:1200px;margin:0 auto;" class="service">
     <el-row>
       <div>
-        <div class="title">
+        <div class="title1">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/twoMenu' }">服务成果</el-breadcrumb-item>
@@ -978,7 +978,7 @@ export default {
   line-height: 40px;
   color: #00a2e6;
 }
-.title {
+.title1 {
   font-size: 14px;
   font-style: normal;
   width: 250px;
