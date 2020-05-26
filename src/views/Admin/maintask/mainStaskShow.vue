@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="mainStaskShow">
     <el-container>
       <el-main>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求任务</div>
@@ -276,7 +276,8 @@ export default {
    */
 };
 </script>
-<style scoped>
+<style  lang="scss">
+.mainStaskShow{
 
 /* .table {
   font-size: 16px;
@@ -318,6 +319,6 @@ export default {
 .biaoti {
   font-size: 18px;
 }
-
+}
 
 </style>
