@@ -389,7 +389,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+.userManagement {
 .con {
   width: 500px;
   height: 1000px;
@@ -431,5 +432,6 @@ export default {
 }
 .el-pagination {
   text-align: center;
+}
 }
 </style>
