@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="managerBusiness">
     <el-container>
       <el-main>
         <div font-size="24px">
@@ -49,6 +49,7 @@
 
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
               </div>
+              
               <el-table
                 :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                 border
@@ -85,9 +86,9 @@
                 </el-table-column>
                 <el-table-column prop="province" label="所在省"  sortable width="100" align="center"></el-table-column>
                 <el-table-column prop="city" label="所在市"  sortable width="100" align="center"></el-table-column>
-                <el-table-column prop="officeNumber" label="办公电话" width="140" align="center"></el-table-column>
+                <el-table-column prop="officeNumber" label="办公电话" width="160" align="center"></el-table-column>
 
-                <el-table-column label="操作" width="160" align="center">
+                <el-table-column label="操作" width="170" align="center">
                   <template slot-scope="scope">
                     <!-- <el-button @click="handleEdit(scope.row)" type="text" size="small">修改</el-button> -->
                     <el-button

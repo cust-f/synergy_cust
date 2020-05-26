@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="businessDetail">
     <el-container>
       <el-main>
         <div width="500" align="center" height="200px">
@@ -66,21 +66,8 @@
         </div>
 
         <br />
-        <div align="right" class="formYS">
+        <div align="right" class="Forms">
           <el-form ref="form" :model="form" label-width="100px">
-            <!-- <el-row>
-           
-              <el-col :span="12">
-                <el-form-item label="企业名称">
-                  <el-input v-model="form.companyName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="工商注册号">
-                  <el-input v-model="form.brNumber" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row> -->
 
             <el-row>
               <el-col :span="12">
@@ -716,9 +703,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .businessDetail {
-.formYS .el-input__inner {
+.Forms .el-input__inner {
   /* // 表格样式调整 */
 
   border-left: none;
@@ -727,7 +714,7 @@ export default {
   border-radius: 0px;
   text-align: center;
 }
-.formYS .el-input.is-disabled .el-input__inner {
+.Forms .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
   color: #606266;
 }
@@ -786,5 +773,5 @@ export default {
     /* height: 170px; */
     /* border: 1px solid #00a2e6 ; */
   }
-  }
+}
 </style>
