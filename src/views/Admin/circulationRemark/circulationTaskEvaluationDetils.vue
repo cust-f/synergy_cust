@@ -26,13 +26,16 @@
           <div class="input_span">
             <el-form ref="form" :model="form">
               <label>完成质量:</label>
+              <label id="word" style="font-size:16px" ></label>
               <br />
               <br />
             </el-form>
             <span id="one"></span>
             <span id="two"></span>
             <span id="three"></span>
+            
           </div>
+           
         </el-main>
       </el-container>
     </div>
@@ -110,14 +113,20 @@ export default {
     styleswith() {
       if (this.form.circulationCount > -4 ) {
         document.getElementById("one").style.background = "#00D1B2";
+        document.getElementById("word").innerHTML="优";
+        document.getElementById("word").style.color = "#00D1B2";
       }
       if (this.form.circulationCount < -3 && this.form.circulationCount > -8) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+         document.getElementById("word").innerHTML="良";
+         document.getElementById("word").style.color = "orange";
       }
       if (this.form.circulationCount < -7 || this.form.circulationCount == -8) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+        document.getElementById("word").innerHTML="差";
+         document.getElementById("word").style.color = "red";
       }
      
     },
@@ -208,7 +217,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .is-horizontal {
   display: none;
 }

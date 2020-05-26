@@ -1,5 +1,5 @@
 <template >
-  <div class="mainStaskDetaul">
+  <div class="mainStaskDetaulLT">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <!-- <el-steps >
@@ -2029,7 +2029,7 @@ export default {
 </script>
 
 <style lang="scss">
-.mainStaskDetaul {
+.mainStaskDetaulLT {
     .loading1 {
     height: 400px;
   }

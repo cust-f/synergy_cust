@@ -2,22 +2,19 @@
   <div class= "primarysupplyList">
     <el-container>
         <el-main>
-          <div font-size="24px">
+          
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           供应商列表
-        </div></div>
+        </div>
         <br>
-              <div>
-
 
     <div class="container">
-      <div class="handle-box">
+      <div>
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
-      <div style="width:100%; height:20px">
+     <br>
 
-      </div>
-        <div class="handle-box">
+        <div>
                 <el-select
                   v-model="provicepid"
                   placeholder="请选择省份"
@@ -55,7 +52,7 @@
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 
               </div>
-              <br>
+     <br>
       <el-table
         :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
         border
@@ -138,7 +135,6 @@
               </el-table-column>
             </el-table>
           </el-dialog>
-        </div>
       </el-main>
     </el-container>
   </div>
