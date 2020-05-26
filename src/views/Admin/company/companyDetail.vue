@@ -131,6 +131,9 @@
            </el-col>
         </el-row>
         <br />
+        <!-- --------------------------------- ------------------------------>
+        <!-- ------------------------企业信息 ------------------------------>
+        <!-- --------------------------------- ------------------------------>
         <div align="right" class="formYS">
           <el-form :model="form" label-width="100px">
             <el-row>
@@ -284,8 +287,9 @@
         </div>
         
 
-        <!-- 新增弹出框 -->
-
+        <!-- --------------------------------- ------------------------------>
+        <!-- ------------------------新增弹出框 ------------------------------>
+        <!-- --------------------------------- ------------------------------>
         <el-dialog :visible.sync="addVisible" width="50%">
           <div
             class="biaoti"
@@ -294,28 +298,27 @@
           >信息修改</div>
           <br />
           <br />
-          <div>
+          <div align="right" class="formYS">
             <el-form ref="form" status-icon :model="formEditor" label-width="110px" :rules="rules">
-              <el-row>
-                <el-col :span="12">
+              <el-row  >
+                <el-col :span="12" >
                   <el-form-item label="企业名称" prop="companyName">
                     <el-input v-model="formEditor.companyName" disabled></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9">
+                <el-col :span="12">
                   <el-form-item label="法人代表" prop="legalPerson">
                     <el-input v-model="formEditor.legalPerson" disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
-
-              <el-row>
-                <el-col :span="9">
-                  <el-form-item label="企业注册时间">
+              <el-row  >
+                <el-col :span="12" >
+                  <el-form-item label="企业注册时间" prop="registerTime">
                     <el-input v-model="registerTime" disabled></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="3">
+                <el-col :span="12"  >
                   <el-form-item label="工商注册号" prop="brNumber">
                     <el-input v-model="formEditor.brNumber" disabled></el-input>
                   </el-form-item>
@@ -356,14 +359,14 @@
               </el-row>
 
               <el-row>
-                <el-col :span="9">
+                <el-col :span="12">
                   <el-form-item label="企业地址">
                     <el-tooltip :content="formEditor.address" placement="top" effect="light">
                     <el-input v-model="formEditor.address"></el-input>
                     </el-tooltip>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="3">
+                <el-col :span="12" >
                   <el-form-item label="邮政编码">
                     <el-input v-model="formEditor.postcode"></el-input>
                   </el-form-item>
@@ -371,7 +374,7 @@
               </el-row>
 
               <el-row>
-                <el-col :span="9">
+                <el-col :span="12">
                   <el-form-item label="企业成立时间" prop="foundingTime">
                     <el-date-picker
                       type="date"
@@ -383,7 +386,7 @@
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="3">
+                <el-col :span="12" >
                   <el-form-item label="员工人数">
                     <el-input v-model="formEditor.workerNumber"></el-input>
                   </el-form-item>
@@ -391,7 +394,7 @@
               </el-row>
 
               <el-row>
-                <el-col :span="9" class="select">
+                <el-col :span="12" class="select">
                   <el-form-item label="企业业务范围" prop="middleProduct">
                     
                     <el-cascader
@@ -405,7 +408,7 @@
                   </el-form-item>
                 </el-col>
 
-                <el-col :span="9" :offset="3">
+                <el-col :span="12">
                   <el-form-item
                     label="电子邮箱"
                     prop="email"
@@ -433,14 +436,14 @@
               </el-row>
 
               <el-row style="margin-bottom: 16px;">
-                <el-col :span="9">
+                <el-col :span="12">
                   <el-form-item label="注册资产">
                     <el-input v-model="formEditor.registeredCapital">
                       <template slot="append">万元</template>
                     </el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="3">
+                <el-col :span="12" >
                   <el-form-item label="总资本">
                     <el-input v-model="formEditor.totalAssets">
                       <template slot="append">万元</template>
@@ -450,14 +453,14 @@
               </el-row>
 
               <el-row style="margin-bottom: 16px;">
-                <el-col :span="9">
+                <el-col :span="12">
                   <el-form-item label="固定资产">
                     <el-input v-model="formEditor.fixedAssets">
                       <template slot="append">万元</template>
                     </el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="3">
+                <el-col :span="12" >
                   <el-form-item label="流动资产">
                     <el-input v-model="formEditor.currentAssets">
                       <template slot="append">万元</template>
@@ -467,12 +470,12 @@
               </el-row>
 
               <el-row>
-                <el-col :span="9">
+                <el-col :span="12">
                   <el-form-item label="税务证书编号" prop="trNumber">
                     <el-input v-model="formEditor.trNumber"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="3">
+                <el-col :span="12" >
                   <el-form-item label="法人联系电话" prop="legalTel">
                     <el-input v-model="formEditor.legalTel"></el-input>
                   </el-form-item>
@@ -480,12 +483,12 @@
               </el-row>
 
               <el-row>
-                <el-col :span="9">
+                <el-col :span="12">
                   <el-form-item label="开户银行" prop="deposit_Bank">
                     <el-input v-model="formEditor.deposit_Bank"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="3">
+                <el-col :span="12" >
                   <el-form-item label="银行账户" prop="bankNumber">
                     <el-input v-model="formEditor.bankNumber"></el-input>
                   </el-form-item>
@@ -968,7 +971,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" >
 .companyDetail {
   //企业详情
   .leftDet {
