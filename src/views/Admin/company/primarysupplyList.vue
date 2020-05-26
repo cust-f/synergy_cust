@@ -9,12 +9,12 @@
         <br>
 
     <div class="container">
-      <div class="handle-box">
+      <div>
         <el-button type="primary" icon="el-icon-circle-plus-outline" class="handle-del mr10" @click="addData">新增</el-button>
       </div>
      <br>
 
-        <div class="handle-box">
+        <div>
                 <el-select
                   v-model="provicepid"
                   placeholder="请选择省份"

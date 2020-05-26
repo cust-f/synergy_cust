@@ -315,7 +315,7 @@
               <el-col :span="24">
                 <el-form-item label="企业详情">
                   <br />
-                  <div class="leftDet" v-html="companyDetailContent" style="margin-left:-70px"></div>
+                  <div class="leftDet11" v-html="companyDetailContent" style="margin-left:-70px"></div>
                   <!-- <el-input v-model="form.introduction" disabled></el-input> -->
                 </el-form-item>
               </el-col>
@@ -680,7 +680,7 @@ export default {
     width: 600px;
     height: 300px;
   }
-  .leftDet {
+  .leftDet11 {
     float: left;
     text-align: left;
     width: 95%;
