@@ -3,7 +3,7 @@
     <div class="overallSituation">
       <el-row>
         <div>
-          <div class="title">
+          <div class="XuQiutitle">
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item :to="{ path: '/xuqiuyilan' }">需求一览</el-breadcrumb-item>
@@ -14,8 +14,8 @@
         </div>
       </el-row>
       <br />
-      <el-card shadow="never" class="Mystyle" >
-        <div class="np_top">
+      <el-card shadow="never" class="XuQiustyle" >
+        <div class="xq_top">
           <div class="preview">
             <div class="BigTime">
               <el-carousel height="250" width="250" direction="vertical" arrow="always">
@@ -606,13 +606,13 @@ export default {
     line-height: 40px;
     color: #00a2e6;
   }
-  .title {
+  .XuQiutitle {
     font-size: 14px;
     font-style: normal;
     width: 250px;
     margin-top: 22px;
   }
-  .Mystyle .np_top {
+  .XuQiustyle .xq_top {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
       sans-serif;
 
@@ -908,7 +908,7 @@ export default {
     border-radius: 0px;
     text-align: center;
   }
-  .Mystyle.el-input__inner {
+  .XuQiustyle .el-input__inner {
     border-left: none;
     border-right: none;
     border-top: none;
