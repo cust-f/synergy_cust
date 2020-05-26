@@ -2,7 +2,7 @@
   <div style="width:1200px;margin:0 auto;" class="service">
     <el-row>
       <div>
-        <div class="title">
+        <div class="title1">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/twoMenu' }">服务成果</el-breadcrumb-item>
@@ -540,7 +540,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/mainTaskDetail",
+          url: "api/serviceResult/mainTaskDetail",
           data: data
 
           //  data:this.$store.state.userName
@@ -564,7 +564,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/TaskDetail",
+          url: "api/serviceResult/TaskDetail",
           data: data
 
           //  data:this.$store.state.userName
@@ -602,7 +602,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/finisCompanyDetail",
+          url: "api/serviceResult/finisCompanyDetail",
           data: data
 
           //  data:this.$store.state.userName
@@ -624,7 +624,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/finishAcceptCompanyDetail",
+          url: "api/serviceResult/finishAcceptCompanyDetail",
           data: data
 
           //  data:this.$store.state.userName
@@ -672,7 +672,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/findTask",
+          url: "api/serviceResult/findTask",
           data: data
 
           //  data:this.$store.state.userName
@@ -700,7 +700,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/remarkDetils",
+          url: "api/remarkDetils",
           data: data
 
           //  data:this.$store.state.userName
@@ -728,7 +728,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/remarkDetils",
+          url: "api/remarkDetils",
           data: data
 
           //  data:this.$store.state.userName
@@ -758,7 +758,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/evaluateDetils",
+          url: "api/evaluateDetils",
           data: data
         })
         .then(response => {
@@ -942,8 +942,8 @@ export default {
   }
 };
 </script>
-<style>
-/* //雷达图 */
+<style lang="scss" >
+.service{
 .LDT {
   height: 300px;
   margin-left: 50px;
@@ -978,7 +978,7 @@ export default {
   line-height: 40px;
   color: #00a2e6;
 }
-.title {
+.title1 {
   font-size: 14px;
   font-style: normal;
   width: 250px;
@@ -1226,6 +1226,10 @@ export default {
   border-bottom: 0px solid #e4e7ed;
   margin-bottom: 0px;
 }
+
+}
+/* //雷达图 */
+
 </style>
 
 

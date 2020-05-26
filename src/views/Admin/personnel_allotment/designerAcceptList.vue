@@ -327,7 +327,7 @@ export default {
           //console.log(data);
           that.axios({
             method: "post",
-            url: "http://127.0.0.1:8081/designer/updateCheckState",
+            url: "api/designer/updateCheckState",
             data: data
           });
           this.$message({
@@ -410,7 +410,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/designer/acceptlist",
+          url: "api/designer/acceptlist",
           data: data
 
           //  data:this.$store.state.userName

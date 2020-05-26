@@ -208,7 +208,7 @@ export default {
       var that = this;
       this.axios({
         method: "get",
-        url: "http://127.0.0.1:8081/user/findCompanyName"
+        url: "/api/user/findCompanyName"
       }).then(response => {
         console.log(response);
         that.optionsCompany = response.data;
@@ -220,7 +220,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/user/getAllUser"
+          url: "/api/user/getAllUser"
         })
         .then(response => {
           that.pageTotal = response.data.allData.totalCount; //绑定总的条数
@@ -238,7 +238,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/user/selectUser",
+          url: "/api/user/selectUser",
           data: data
           // data:this.$store.state.userName
         })
@@ -274,7 +274,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/user/addUserInformation",
+          url: "/api/user/addUserInformation",
           data: data
         })
         .then(response => {
@@ -297,7 +297,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/user/updatePassword",
+          url: "/api/user/updatePassword",
           data: data
         })
         .then(response => {
@@ -320,7 +320,7 @@ export default {
         .then(() => {
           this.axios({
             method: "get",
-            url: "http://127.0.0.1:8081/user/delectUser?userID=" + index
+            url: "/api/user/delectUser?userID=" + index
           }).then(response => {
             this.$message.success("删除成功");
             this.tableData.splice(index, 1);
@@ -356,7 +356,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/user/addUserInformation",
+          url: "/api/user/addUserInformation",
           data: data
         })
         .then(response => {

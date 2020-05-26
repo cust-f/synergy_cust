@@ -5,7 +5,7 @@
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">基本信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
     <br />
     <!-- 进本信息框信息 -->
-    <el-card class="box-card">
+    <el-card class="Mystyle">
       <el-form ref="cool" :model="cool" label-width="110px" class="form">
         <el-row>
           <el-col :span="11">
@@ -82,7 +82,7 @@
     </el-card>
 
     <!-- 公司信息 -->
-    <el-dialog :visible.sync="companyDag" width="50%">
+    <el-dialog :visible.sync="companyDag" width="50%" class="Mystyle">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
       <br />
       <div width="500" align="center" height="200px">
@@ -510,6 +510,9 @@ export default {
 </script>
 <style lang="scss">
 .essentialInformation {
+  .Mystyle{
+    width: 100%;
+  }
   //企业详情
   .leftDet {
     float: left;
@@ -518,7 +521,7 @@ export default {
     padding: 0px 30px 0px;
   }
   //各个详情按钮弹窗
-  .anniu {
+  .Mystyle .anniu {
     width: 100%;
     border-left: cadetblue;
     background-color: white;
@@ -545,11 +548,11 @@ export default {
     font-size: 18px;
     color: #303133;
   }
-  .el-input.is-disabled .el-input__inner {
+  .Mystyle .el-input.is-disabled .el-input__inner {
     color: #606266;
   }
   // 表格样式调整
-  .el-input__inner {
+  .Mystyle .el-input__inner {
     border-left: none;
     border-right: none;
     border-top: none;

@@ -249,7 +249,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081//serviceResult/finishlist"
+          url: "api/serviceResult/finishlist"
           //data: data
         })
         .then(response => {
@@ -267,7 +267,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/searchCompanyName",
+          url: "api/serviceResult/searchCompanyName",
           data: data
           // data:this.$store.state.userName
         })
@@ -289,7 +289,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/searchtaskCategoryMainId",
+          url: "api/serviceResult/searchtaskCategoryMainId",
           data: data
           // data:this.$store.state.userName
         })
@@ -304,7 +304,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/finishlistinWeek"
+          url: "api/serviceResult/finishlistinWeek"
           //data: data
         })
         .then(response => {
@@ -318,7 +318,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/finishlistinMonth"
+          url: "api/serviceResult/finishlistinMonth"
           //data: data
         })
         .then(response => {
@@ -332,7 +332,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/serviceResult/finishlistinYear"
+          url: "api/serviceResult/finishlistinYear"
           //data: data
         })
         .then(response => {
