@@ -557,8 +557,30 @@
 
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
-        <div>
-          <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+                <br />
+        <div style="width:800px;height:250px">
+        
+          <div style="float: left" >
+            <el-image
+              align="left"
+              style="width:200px;height:200px"
+              :src="logo"
+              :onerror="errorImg00"
+            ></el-image>
+          </div>
+
+          <div style="float: right;width:490px;height:250px">
+              <br>
+            <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+            <br>
+            <div align="">
+              <font size="5">{{ form.companyName}}</font>
+            </div>
+            <br>
+            <div align="">
+              <font size="4">{{ form.officeNumber}}</font>
+            </div>
+          </div>
         </div>
         <div align="right" class="formYS">
           <el-form ref="form" :model="form" label-width="100px">
@@ -1025,6 +1047,7 @@ export default {
 
   data() {
     return {
+            logo: "",
       //显示评价的
       reMarkId:0,
       //
@@ -1033,6 +1056,7 @@ export default {
       TPDZCS:1,
       //企业详情路径
       companyDetailContent: "",
+            errorImg00: 'this.src="' + require("../company/2.jpg") + '"',
       //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
       //默认营业执照
@@ -1277,7 +1301,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         //taskID: this.taskId,
-        url: row.realPath
+        url: row.filePath
       });
       that
         .axios({
@@ -1295,7 +1319,7 @@ export default {
           link.href = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/octet-stream" })
           );
-          link.setAttribute("download", row.realName);
+          link.setAttribute("download", row.fileRealName);
           document.body.appendChild(link);
           link.click();
         });
@@ -1314,6 +1338,7 @@ export default {
           data: data
         })
         .then(response => {
+          console.log(response)
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
         });
@@ -1997,6 +2022,7 @@ export default {
         })
         .then(response => {
           if(this.TPDZCS ==1){
+            this.logo = response.data.allData.logo;
             this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
