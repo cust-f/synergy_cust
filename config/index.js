@@ -13,7 +13,7 @@ module.exports = {
     assetsPublicPath: '/',//开发使用
     proxyTable: {
       '/api':{
-        target:'http://10.31.8.48',//目标路接口域名
+        target:'http://127.0.0.1',//目标路接口域名
         // secure:false,     //https接口要加这个
         changeOrigin:true,//是否跨域
         pathRewrite:{
@@ -26,7 +26,7 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: '10.31.8.48', // can be overwritten by process.env.HOST
+    host: '127.0.0.1', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
