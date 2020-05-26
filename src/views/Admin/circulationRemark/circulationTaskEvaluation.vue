@@ -253,7 +253,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .con {
   width: 500px;
   height: 1000px;
