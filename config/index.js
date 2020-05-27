@@ -19,9 +19,9 @@ module.exports = {
         pathRewrite:{
           '^/api':'' //重写接口的新路径
         },
-        headers:{
-          referer:'http://127.0.0.1:8081'
-        }
+        // headers:{
+        //   referer:'http://127.0.0.1:8081'
+        // }
       }
     },
      // proxyTable: {
