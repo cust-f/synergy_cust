@@ -59,14 +59,10 @@
         <br />
         <!-- 评价模块 -->
         <div v-if="reMarkId === 0">
-          <div
-            class="loading1"
-            v-loading="loading"
-            element-loading-text="评价生成中......"
-          >
+          <div class="loading1" v-loading="loading" element-loading-text="评价生成中......">
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
-            <div class="input_span" align="center">
+            <div class="supplierinput_span" align="center">
               <el-form ref="form" :modelZL="formZL">
                 <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                 <br />
@@ -85,10 +81,10 @@
           <div class="LDT">
             <!-- 雷达图 -->
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-
-            <div class="input_span" align="center">
+            <div class="supplierinput_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <label>完成质量:</label>
+                <label id="word" style="font-size:16px" ></label>
                 <br />
                 <br />
               </el-form>
@@ -196,14 +192,20 @@ export default {
     styleswith() {
       if (this.designCount > 0 && this.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
+        document.getElementById("word").innerHTML = "优";
+        document.getElementById("word").style.color = "#00D1B2";
       }
       if (this.designCount > 2 && this.designCount < 4) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+        document.getElementById("word").innerHTML = "良";
+        document.getElementById("word").style.color = "orange";
       }
       if (this.designCount > 4 || this.designCount == 4) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+        document.getElementById("word").innerHTML = "差";
+        document.getElementById("word").style.color = "red";
       } else {
       }
     },
@@ -383,7 +385,7 @@ export default {
     border-radius: 3px;
   }
 
-  .input_span span {
+  .supplierinput_span span {
     display: inline-block;
     width: 85px;
     height: 30px;

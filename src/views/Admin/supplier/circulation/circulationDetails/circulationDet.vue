@@ -79,7 +79,8 @@
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <label>完成质量:</label>
+                <label id="word" style="font-size:16px"></label>
                 <br />
                 <br />
               </el-form>
@@ -104,7 +105,7 @@ import deliveryList from "../../assembly/deliveryList";
 import radarChart from "../circulationDetails/radarChart";
 export default {
   data() {
-    return {  
+    return {
       //步骤条数据
       milepost: [
         { title: "申请/邀请", icon: "el-icon-edit", description: "" },
@@ -202,14 +203,20 @@ export default {
     styleswith() {
       if (this.form.circulationCount > -4) {
         document.getElementById("one").style.background = "#00D1B2";
+        document.getElementById("word").innerHTML = "优";
+        document.getElementById("word").style.color = "#00D1B2";
       }
       if (this.form.circulationCount < -3 && this.form.circulationCount > -8) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+        document.getElementById("word").innerHTML = "良";
+        document.getElementById("word").style.color = "orange";
       }
       if (this.form.circulationCount < -7 || this.form.circulationCount == -8) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+        document.getElementById("word").innerHTML = "差";
+        document.getElementById("word").style.color = "red";
       }
     },
     //数据显示方法
