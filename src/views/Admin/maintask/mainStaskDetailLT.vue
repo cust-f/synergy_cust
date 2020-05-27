@@ -395,8 +395,8 @@
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                <br />
+                <label  style="font-size:13px">完成质量:</label>
+                <label id="word" style="font-size:13px"></label>                <br />
                 <br />
               </el-form>
               <span></span>
@@ -415,8 +415,8 @@
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                <br />
+                <label  style="font-size:13px">完成质量:</label>
+                <label id="word" style="font-size:13px"></label>                <br />
                 <br />
               </el-form>
               <span id="one"></span>
@@ -1557,14 +1557,20 @@ export default {
     styleswith() {
       if (this.formZL.circulationCount > -4) {
         document.getElementById("one").style.background = "#00D1B2";
+                document.getElementById("word").innerHTML="优"
+        document.getElementById("word").style.color = "#00D1B2"
       }
       if (this.formZL.circulationCount < -3 && this.formZL.circulationCount > -8) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+                        document.getElementById("word").innerHTML="良"
+        document.getElementById("word").style.color = "orange"
       }
       if (this.formZL.circulationCount < -7 || this.formZL.circulationCount == -8) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+                        document.getElementById("word").innerHTML="差"
+        document.getElementById("word").style.color = "red"
       }
     },
     getCirculationCount() {

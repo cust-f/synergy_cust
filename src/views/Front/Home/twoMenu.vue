@@ -1,9 +1,9 @@
 <template>
-  <div class="BG">
+  <div  style="width:1200px;margin:0 auto;" class="TWo">
     <!--第一行 -->
-    <el-row :gutter="gutterCount">
-      <el-col :span="20" :push="pushCount" :pull="pullCount">
-        <div class="grid-content0">
+    <el-row >
+      
+        <div class="title3">
           <el-breadcrumb separator=">" class="fontStyle">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/twoMenu' }">服务成果</el-breadcrumb-item>
@@ -11,22 +11,18 @@
           
           </el-breadcrumb>
         </div>
-      </el-col>
+     
     </el-row>
-
-    <div width="500" class="color1">
-      <!--第二行  本月需求信息统计-->
-      <el-row :gutter="gutterCount" class="color1">
-        <el-col :span="20" :push="pushCount" :pull="pullCount">
-          
-            <div  class = "biaoti" style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;">&nbsp;&nbsp;服务成果</div>
-          
-        </el-col>
-      </el-row>
-    </div>
+<el-card shadow="never" style="margin-bottom:20px;" class="tatolheader">
+      <div slot="header">
+        <div
+          style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;"
+        >服务成果</div>
+      </div>
+    
   <el-row>
    <div class="color1">
-      <el-col :span="4" :push="3" :pull="pullCount" >
+      <el-col :span="5" >
         <div class = "color1">
           <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item name="1">
@@ -104,7 +100,7 @@
       </el-col>
      </div>
      <div class = "color1">
-      <el-col :span="20" :push="pushCount" :pull="pullCount">
+      <el-col :span="19" >
         <div class="grid-content5">
           <el-table :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
           style="width: 100% font-size:13px"
@@ -163,6 +159,7 @@
 
     
     </el-row>
+</el-card>
   </div>
 </template>
 
@@ -369,58 +366,19 @@ export default {
 
 
 
-<style scoped>
+<style lang="scss">
 /**中间的div块   给gutter留padding*/
-.BG {
+.TWo {
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
   padding: 0 20px;
-  background-color: #fff;
-}
-
-/**第一行用css样式*/
-.grid-content0 {
+  /**第一行用css样式*/
+.Twocontent {
   border-radius: 4px;
   height: 20px;
   margin-top: 10px;
-   background-color: #fff;
-}
-/**第二行用css样式 网站访问统计数据块*/
-.grid-content1 {
-  border-radius: 4px;
-  height: 50px;
-  width: 100%;
-  line-height: 50px;
-  margin: 0 250px;
-  background-color: #fff;
-}
-.grid-content2 {
-  border-radius: 4px;
-  height: 400px;
-  background-color: #fff;
-}
-.grid-content3 {
-  border-radius: 4px;
-  height: 400px;
-  background-color: #fff;
-}
-.grid-content4 {
-  border-radius: 4px;
-  height: 400px;
-  background-color: #fff;
-}
-.grid-content5 {
-  border-radius: 4px;
-  /* //height: 400px; */
-  width: 850px;
-   background-color: #fff;
-}
-.block {
-  /*margin: 0 180px;*/
-  position: relative;
-  left: 20%;
-  background-color: #fff;
+  
 }
 
 /**网站统计数据字体样式 */
@@ -433,86 +391,58 @@ export default {
   color: orangered;
 }
 
-/**划分页面标识*/
-.big_bt {
-  width: 370px;
-  margin: 0 auto;
-  border-bottom: solid 3px #000;
-  margin-bottom: 40px;
-  background-color: #fff;
-}
-.big_bt a {
-  display: block;
-  font-size: 26px;
-  color: #000;
-  font-family: "微软雅黑";
-  width: 180px;
-  background: #fff;
-  text-align: center;
-  margin: 0 auto;
-  position: relative;
-  top: 18px;
-  background-color: #fff;
-}
 
 /**布局测试用css*/
-.el-row {
-  margin-bottom: 10px;
-  background-color: #fff;
-}
-.el-col {
-  border-radius: 4px;
-  background-color: #fff;
+// .el-row {
+//   margin-bottom: 10px;
+ 
+// }
+// .el-col {
+//   border-radius: 4px;
+ 
 
-}
-/* .bg-purple-dark {
-  background: #99a9bf;
-} */
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-  background-color: #fff;
-}
+// }
 
-ul li {
-  list-style: none;
-  margin-bottom: 5px;
-  overflow: hidden;
-  background-color: #fff;
-}
-.some-show {
-  white-space: nowrap; /* 规定段落中的文本不进行换行 */
-  text-overflow: ellipsis; /*文字段在容器内超宽时，截断该文字段并且续以省略号*/
-  overflow: hidden;
-  background-color: #fff;
-}
-.tender-notice {
-  border: 1px solid #d3d7d4;
-  background-color: #fff;
-}
-.tender-header {
-  padding: 15px;
-  border-bottom: 1px solid #d3d7d4;
-}
-.tender-header span {
-  font-size: 800;
-  font-size: 18px;
-  background-color: #fff;
-}
-/* .tender-header-some {
-  padding: 20px;
-  font-size: 15px;
-  color: #a1a3a6;
-} */
-/* .tender-header-some ul li{
-    margin-bottom: 15px;
-} */
-.handle-box {
-  margin-bottom: 20px;
-  background-color: #fff;
-  /* margin: auto;
-  text-align: center; */
-}
+
+// ul li {
+//   list-style: none;
+//   margin-bottom: 5px;
+//   overflow: hidden;
+//   background-color: #fff;
+// }
+// .some-show {
+//   white-space: nowrap; /* 规定段落中的文本不进行换行 */
+//   text-overflow: ellipsis; /*文字段在容器内超宽时，截断该文字段并且续以省略号*/
+//   overflow: hidden;
+//   background-color: #fff;
+// }
+// .tender-notice {
+//   border: 1px solid #d3d7d4;
+//   background-color: #fff;
+// }
+// .tender-header {
+//   padding: 15px;
+//   border-bottom: 1px solid #d3d7d4;
+// }
+// .tender-header span {
+//   font-size: 800;
+//   font-size: 18px;
+//   background-color: #fff;
+// }
+// /* .tender-header-some {
+//   padding: 20px;
+//   font-size: 15px;
+//   color: #a1a3a6;
+// } */
+// /* .tender-header-some ul li{
+//     margin-bottom: 15px;
+// } */
+// .handle-box {
+//   margin-bottom: 20px;
+//   background-color: #fff;
+//   /* margin: auto;
+//   text-align: center; */
+// }
 .color1 {
   background-color: #fff;
 }
@@ -528,4 +458,17 @@ element.style {
     font-size: 14px;
     
   }
+  .title3 {
+    font-size: 14px;
+    font-style: normal;
+    width: 350px;
+    margin-top: 22px;
+  }
+  .el-breadcrumb {
+    font-size: 14px;
+    
+}
+}
+
+
 </style>

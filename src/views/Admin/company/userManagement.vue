@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="userManagement">
     <el-container>
       <el-main>
         <div font-size="24px">
@@ -17,15 +17,10 @@
                   class="handle-del mr10"
                   @click="addData"
                 >新增</el-button>
-                <!-- <el-select v-model="Role_Name" placeholder="角色名称" class="handle-input mr10">
-              <el-option label="系统管理员" value="0"></el-option>
-              <el-option label="企业管理员" value="1"></el-option>
-              <el-option label="设计师" value="2"></el-option>
-              <el-option label="流通人员" value="3"></el-option>
-                </el-select>-->
                 <el-input v-model="User_Name" placeholder="账户名称" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
               </div>
+               
               <el-table
                 :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                 border
@@ -61,7 +56,7 @@
                 <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
                 <!-- <el-table-column prop="password" label="用户密码" align="center"></el-table-column> -->
 
-                <el-table-column label="操作" width="140" align="center">
+                <el-table-column label="操作" width="190" align="center">
                   <template slot-scope="scope">
                     <el-button type="text" size="small" @click="chushihuamima(scope.row)">初始化密码</el-button>
                     <el-button @click="handleDelete(scope.row.userId)" type="text" size="small">删除</el-button>
@@ -389,7 +384,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+.userManagement {
 .con {
   width: 500px;
   height: 1000px;
@@ -432,4 +428,7 @@ export default {
 .el-pagination {
   text-align: center;
 }
+
+}
+
 </style>

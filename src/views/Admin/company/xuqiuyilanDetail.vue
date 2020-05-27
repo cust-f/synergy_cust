@@ -14,15 +14,11 @@
         </div>
       </el-row>
       <br />
-      <el-card shadow="never" class="XuQiustyle" >
+      <el-card shadow="never" class="XuQiustyle">
         <div class="xq_top">
-          <div class="preview">
-            <div class="BigTime">
-              <el-carousel height="250" width="250" direction="vertical" arrow="always">
-                <el-carousel-item>
-                  <img :src="logo" class="images" :onerror="errorImg01" />
-                </el-carousel-item>
-              </el-carousel>
+          <div class="xuQiuBigTime">
+            <div>
+              <img :src="logo" class="xuQiuimages" :onerror="errorImg01" />
             </div>
           </div>
 
@@ -72,7 +68,12 @@
                   </a>
                 </li>
                 <br />
-                <el-button type="warning" class="button-style" @click="applyTask()">申请任务</el-button>
+                <el-button
+                  type="warning"
+                  v-show="applyYinCang === 0"
+                  class="button-style"
+                  @click="applyTask()"
+                >申请任务</el-button>
               </el-col>
             </ul>
           </div>
@@ -101,7 +102,7 @@
                         </a>
                       </li>
                       <br />
-                      <el-popover placement="top-start"  trigger="hover">
+                      <el-popover placement="top-start" trigger="hover">
                         <div>{{companyList.address}}</div>
                         <li class="det" slot="reference">
                           <a slot="reference">
@@ -146,7 +147,7 @@
               </ul>
             </div>
             <div class="left1">
-              <el-card class="filebox-card ">
+              <el-card class="filebox-card">
                 <div slot="header" class="clearfix">
                   <span>附件</span>
                 </div>
@@ -334,9 +335,13 @@ export default {
       taskID: 0,
       logo: require("../company/2.jpg"),
       userName: localStorage.getItem("ms_username"),
+      findUserId: "",
+      findUserIdVar: "",
       applyDiaLog: false,
       //判断企业是否申请过此任务
       applyIf: 0,
+      taskState: "",
+      applyYinCang: 0,
       //接受企业名称
       companyName1: 0,
       companyDetailContent: "",
@@ -387,7 +392,6 @@ export default {
           }
         })
         .then(response => {
-          
           this.FileName = row.fileName;
           const content = response.data;
           const blob = new Blob([content]);
@@ -405,6 +409,24 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskID;
       this.taskID = routerParams;
+    },
+    taskApply() {
+      // console.log("运行了么");
+      if (this.taskState == "任务进行中") {
+        this.applyYinCang = 1;
+      } else if (this.taskState == "审核") {
+        this.applyYinCang = 1;
+      } else if (this.taskState == "验收") {
+        this.applyYinCang = 1;
+      } else if (this.taskState == "完成") {
+        this.applyYinCang = 1;
+      } else if (this.taskState == "失败") {
+        this.applyYinCang = 1;
+      }
+      // else {
+      //   console.log("userName" + this.userName);
+      //   console.log("findUserId" + this.findUserId);
+      // }
     },
     //申请弹窗
     applyTask() {
@@ -428,13 +450,31 @@ export default {
           .catch(() => {});
       }
     },
+    userPost() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.userName
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/userIf",
+          data: data
+        })
+        .then(response => {
+          this.findUserIdVar = response.data;
+          if (this.findUserIdVar == this.findUserId) {
+            this.applyYinCang = 1;
+          }
+          // console.log("findUserIdVar:" + this.findUserIdVar);
+        });
+    },
     //数据显示
     showTaskData() {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskID
       });
-      
       that
         .axios({
           method: "post",
@@ -442,9 +482,12 @@ export default {
           data: data
         })
         .then(response => {
-          
           this.applyList = response.data.allData.a[0];
+          this.findUserId = response.data.allData.a[0].company_Id;
+          this.taskState = response.data.allData.a[0].taskState;
+          this.taskApply();
           this.getCompay();
+          this.userPost();
           if (response.data.allData.a[0].taskType == 1) {
             this.applyList.taskTypeName = "流通";
           } else {
@@ -459,7 +502,6 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID
       });
-      
       that
         .axios({
           method: "post",
@@ -467,7 +509,7 @@ export default {
           data: data
         })
         .then(response => {
-          // 
+          //
           this.tableData = response.data.allData;
         });
     },
@@ -484,7 +526,6 @@ export default {
         taskId: this.taskID,
         userName: this.userName
       });
-      
       that
         .axios({
           method: "post",
@@ -532,7 +573,7 @@ export default {
         this.$message.success("提交成功");
         this.$router.go(0);
       }
-    },  
+    },
     companyDetail(companyId) {
       this.$router.push({
         path: "company/excellentCompanyDetail",
@@ -545,7 +586,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID
       });
-      
+
       that
         .axios({
           method: "post",
@@ -553,13 +594,12 @@ export default {
           data: data
         })
         .then(response => {
-          this.companyList = response.data.allData.companyDetail[0];
-          this.companyId = response.data.allData.companyDetail[0].companyId;
-          this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.address = response.data.allData.companyDetail[0].address;
-          this.logo = response.data.allData.companyDetail[0].logo;
-          this.companyDetailContent =
-            response.data.allData.companyDetailContent;
+          this.companyList = response.data.allData.detail;
+          this.companyId = response.data.allData.detail.companyId;
+          this.companyName = response.data.allData.detail.companyName;
+          this.address = response.data.allData.detail.address;
+          this.logo = response.data.allData.logo;
+          this.companyDetailContent = response.data.allData.content;
         });
     }
   }
@@ -577,7 +617,7 @@ export default {
     margin-bottom: -20px;
   }
 
-  .images {
+  .xuQiuimages {
     width: 250px;
     height: 250px;
   }
@@ -646,7 +686,7 @@ export default {
 
     width: 1150px;
   }
-  .BigTime {
+  .xuQiuBigTime {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     float: left;
@@ -956,6 +996,10 @@ export default {
   .biaoti {
     font-size: 18px;
     color: #303133;
+  }
+  .xuQiuBigTime .taskimage {
+    height: "250px";
+    width: "250px";
   }
 }
 </style>

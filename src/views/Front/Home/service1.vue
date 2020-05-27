@@ -14,10 +14,10 @@
     </el-row>
     <br />
     <el-card shadow="never" style="margin-bottom:20px;" class="tatolheader">
-     
       <div slot="header">
-        <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;">成果详情</div>
-        
+        <div
+          style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;"
+        >成果详情</div>
       </div>
 
       <div class="service_top">
@@ -77,16 +77,24 @@
               </el-row>
             </div>
           </el-col>
+          <br>
 
           <el-col :span="10">
-            <div class="left">
+            <div class="left1">
               <el-card class="box-card" style="float:left ;margin-bottom: 10px;">
                 <div slot="header" class="clearfix">
                   <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107;">需求方</div>
                 </div>
                 <div class="text item">
                   <el-row>
-                    <el-col :span="18" :offset="2">
+                    <el-col :span="5">
+                      <div class="demo-image">
+                        <div class="block" :key="fill">
+                          <el-image style="width: 100px; height: 100px" :src="url" :fit="fit"></el-image>
+                        </div>
+                      </div>
+                    </el-col>
+                    <el-col :span="16" :offset="2">
                       <li>
                         <a>
                           企业名称：
@@ -206,16 +214,24 @@
                 </el-row>
               </div>
             </el-col>
+            <br>
 
             <el-col :span="10">
-              <div class="left">
+              <div class="left2">
                 <el-card class="box-card" style="float:left ;margin-bottom: 10px;">
                   <div slot="header" class="clearfix">
                     <div style="margin:-18px -20px; padding:10px 20px; background:#ffc107;">供应方</div>
                   </div>
                   <div class="text item">
                     <el-row>
-                      <el-col :span="18" :offset="2">
+                      <el-col :span="5">
+                        <div class="demo-image">
+                          <div class="block" :key="fill">
+                            <el-image style="width: 100px; height: 100px" :src="url1" :fit="fit"></el-image>
+                          </div>
+                        </div>
+                      </el-col>
+                      <el-col :span="16" :offset="2">
                         <li>
                           <a>
                             企业名称：
@@ -324,8 +340,9 @@
               <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">服务成果</div>
               <el-divider></el-divider>
 
-              <div v-show="!see">
+              <div v-show="!see" >
                 <!-- 步骤图 -->
+                <div class="SJstep">
                 <el-steps :active="milepostActive" align-center>
                   <el-step
                     v-for="(stpesdata, key) in milepost"
@@ -334,7 +351,7 @@
                     :description="stpesdata.description"
                     :key="key"
                   ></el-step>
-                </el-steps>
+                </el-steps></div>
                 <br />
                 <br />
 
@@ -346,7 +363,14 @@
 
                   <div class="input_span" align="center">
                     <el-form ref="formZL" :modelZL="formZL">
-                      <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                      
+                      <div class="WCZL">完成质量:
+                         <label
+                        id="word"
+                        style="font-size:16px"
+                      ></label>
+                        </div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                     
                       <br />
                       <br />
                     </el-form>
@@ -358,6 +382,7 @@
               </div>
               <div v-show="see">
                 <!-- 步骤图 -->
+                <div class="LTStep">
                 <el-steps :active="milepostActive1" align-center>
                   <el-step
                     v-for="(stpesdata, key) in milepost1"
@@ -366,7 +391,7 @@
                     :description="stpesdata.description"
                     :key="key"
                   ></el-step>
-                </el-steps>
+                </el-steps></div>
                 <br />
                 <br />
 
@@ -377,7 +402,12 @@
                   </div>
                   <div class="input_span" align="center">
                     <el-form ref="formZL" :modelZL="formZL">
-                      <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                      <div class="WCZL">完成质量:
+                         <label
+                        id="word1"
+                        style="font-size:16px"
+                      ></label>
+                        </div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                       <br />
                       <br />
                     </el-form>
@@ -422,7 +452,7 @@ export default {
       editableTabsValue: "1",
       companyDetail: "",
       companyDetailContent: "",
-       productCompany:"",
+      productCompany: "",
       // editableTabs: [{
       //     title: "1",
       //     name: "1",
@@ -433,11 +463,11 @@ export default {
       //     name: "2",
       //     taskId:"",
       //   }],
-      url:
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578498716057&di=2862e7c5e9dc83020a4698017c207fd8&imgtype=0&src=http%3A%2F%2Fstatic.yjcf360.com%2Fgegu%2Fimg%2F000800.jpg",
+      url: require("../company/2.jpg"),
+      //"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578498716057&di=2862e7c5e9dc83020a4698017c207fd8&imgtype=0&src=http%3A%2F%2Fstatic.yjcf360.com%2Fgegu%2Fimg%2F000800.jpg",
       //设定el-cow的值
-      url1:
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585666024421&di=1347c59f700657d0fe7b3089bb08a48a&imgtype=0&src=http%3A%2F%2Fcarlable.autov.com.cn%2Fimages%2Fb49.jpg",
+      url1: "",
+      //"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585666024421&di=1347c59f700657d0fe7b3089bb08a48a&imgtype=0&src=http%3A%2F%2Fcarlable.autov.com.cn%2Fimages%2Fb49.jpg",
 
       list: [
         {
@@ -474,12 +504,12 @@ export default {
           product: ""
         }
       ],
-      product:"",
+      product: "",
       supplier: [
         {
           companyName: "",
           address: "",
-          officeNumber: "",
+          officeNumber: ""
           // product: ""
         }
       ],
@@ -520,7 +550,7 @@ export default {
     this.getListData();
     this.getData();
     //this.getCharts1();
-     this.getproduct();
+    this.getproduct();
 
     this.activeName = this.list[0].taskId;
   },
@@ -528,10 +558,10 @@ export default {
     getParams() {
       var routerParams = this.$route.query.mainTaskID;
       this.maintaskId = routerParams;
-     // console.log(routerParams);
+      // console.log(routerParams);
     },
     getData() {
-     // console.log(this.maintaskId);
+      // console.log(this.maintaskId);
       var that = this;
       var data = Qs.stringify({
         maintaskId: this.maintaskId
@@ -546,7 +576,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-         // console.log(response);
+          // console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.maintask = response.data.allData.a[0];
           this.Province = response.data.allData.b;
@@ -608,10 +638,11 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-          //console.log(response);
+          console.log(response);
           //this.$set(this,'list',response.data.alldata)
           // console.log(response)
-          this.company = response.data.allData[0];
+          this.company = response.data.allData.a[0];
+          this.url = response.data.allData.b;
         });
     },
     getAcceptCompanyData() {
@@ -632,12 +663,13 @@ export default {
         .then(response => {
           //console.log(response);
           //this.$set(this,'list',response.data.alldata)
-          this.supplier = response.data.allData[0];
+          this.supplier = response.data.allData.a[0];
+          this.url1 = response.data.allData.b;
         });
     },
 
-    getproduct(){
-       ////console.log(this.taskId);
+    getproduct() {
+      ////console.log(this.taskId);
       var that = this;
       var data = Qs.stringify({
         taskId: this.activeName
@@ -652,14 +684,12 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-         // console.log(response);
+          // console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.product = response.data.allData.c;
           this.productCompany = response.data.allData.b;
-         //console.log("product"+this.product)
-          
+          //console.log("product"+this.product)
         });
-
     },
 
     getTaskData() {
@@ -678,7 +708,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-         //console.log(response);
+          //console.log(response);
           //this.$set(this,'list',response.data.alldata)
           this.taskData = response.data.allData[0];
           this.see = this.taskData.taskType;
@@ -706,7 +736,7 @@ export default {
           //  data:this.$store.state.userName
         })
         .then(response => {
-         // console.log(response);
+          // console.log(response);
           this.radarData.radarData = response.data.allData;
           //console.log(this.radarData.radarData);
 
@@ -749,7 +779,7 @@ export default {
     //步骤图数据查找
     getData2() {
       var that = this;
-     // console.log(this.taskId);
+      // console.log(this.taskId);
       var data = Qs.stringify({
         taskId: this.activeName
       });
@@ -884,28 +914,36 @@ export default {
         })
         .then(response => {
           (this.formLT.circulationCount = response.data.allData),
-           // console.log(this.formLT.circulationCount + "----------------");
-          this.styleswith1();
+            // console.log(this.formLT.circulationCount + "----------------");
+            this.styleswith1();
         });
     },
 
     styleswith() {
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
+        document.getElementById("word").innerHTML = "优";
+        document.getElementById("word").style.color = "#00D1B2";
       }
       if (this.formZL.designCount > 2 && this.formZL.designCount < 4) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+        document.getElementById("word").innerHTML = "良";
+        document.getElementById("word").style.color = "orange";
       }
       if (this.formZL.designCount > 4 || this.formZL.designCount == 4) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+        document.getElementById("word").innerHTML = "差";
+        document.getElementById("word").style.color = "red";
       }
     },
 
     styleswith1() {
       if (this.formLT.circulationCount > -4) {
         document.getElementById("one1").style.background = "#00D1B2";
+        document.getElementById("word1").innerHTML = "优";
+        document.getElementById("word1").style.color = "#00D1B2";
       }
       if (
         this.formLT.circulationCount < -3 &&
@@ -913,6 +951,8 @@ export default {
       ) {
         document.getElementById("one1").style.background = "#eee";
         document.getElementById("two2").style.background = "orange";
+        document.getElementById("word1").innerHTML = "良";
+        document.getElementById("word1").style.color = "orange";
       }
       if (
         this.formLT.circulationCount < -7 ||
@@ -920,14 +960,16 @@ export default {
       ) {
         document.getElementById("two2").style.background = "#eee";
         document.getElementById("three3").style.background = "red";
+        document.getElementById("word1").innerHTML = "差";
+        document.getElementById("word1").style.color = "red";
       }
     },
 
     handleClick(tab, event) {
-     // console.log(tab, event);
+      // console.log(tab, event);
     },
     updataDetail(data) {
-     // console.log(data);
+      // console.log(data);
       this.getAcceptCompanyData();
       this.getCompanyData();
       this.getData1();
@@ -943,49 +985,49 @@ export default {
 };
 </script>
 <style lang="scss" >
-.service{
-.LDT {
-  height: 300px;
-  margin-left: 50px;
-}
+.service {
+  .LDT {
+    height: 300px;
+    margin-left: 50px;
+  }
 
-/* //完成质量 */
-.WCZL {
-  font-size: 13px;
-  color: #303133;
-  margin-left: 20px;
-}
-.images {
-  width: 200px;
-  height: 200px;
-}
-.white {
-  /* width: 67%; */
-  margin-top: 20px;
-}
-.divtap {
-  border-right: 1px solid #000;
-  border-top: 1px solid #000;
-}
-.designcomment {
-  width: 80%;
-  text-align: center;
-}
-.yqk_nr_bt {
-  display: block;
-  width: 200px;
-  font-size: 16px;
-  line-height: 40px;
-  color: #00a2e6;
-}
-.title1 {
-  font-size: 14px;
-  font-style: normal;
-  width: 250px;
-  margin-top: 22px;
-}
-.service_top {
-  /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* //完成质量 */
+  .WCZL {
+    font-size: 13px;
+    color: #303133;
+    margin-left: 20px;
+  }
+  .images {
+    width: 200px;
+    height: 200px;
+  }
+  .white {
+    /* width: 67%; */
+    margin-top: 20px;
+  }
+  .divtap {
+    border-right: 1px solid #000;
+    border-top: 1px solid #000;
+  }
+  .designcomment {
+    width: 80%;
+    text-align: center;
+  }
+  .yqk_nr_bt {
+    display: block;
+    width: 200px;
+    font-size: 16px;
+    line-height: 40px;
+    color: #00a2e6;
+  }
+  .title1 {
+    font-size: 14px;
+    font-style: normal;
+    width: 250px;
+    margin-top: 22px;
+  }
+  .service_top {
+    /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   border-bottom-color: rgb(225, 225, 225);
 
@@ -1011,225 +1053,238 @@ export default {
 
   border-top-width: 1px; */
 
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
 
-  font-size: 14px;
+    font-size: 14px;
 
-  font-style: normal;
+    font-style: normal;
 
-  font-variant: normal;
+    font-variant: normal;
 
-  font-weight: 400;
+    font-weight: 400;
 
-  line-height: normal;
+    line-height: normal;
 
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 
-  /* margin-left: 305.6px; */
+    /* margin-left: 305.6px; */
 
-  margin-right: 65.61px;
+    margin-right: 65.61px;
 
-  margin-top: 0px;
+    margin-top: 0px;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  padding-bottom: 10px;
+    padding-bottom: 10px;
 
-  padding-left: 10px;
+    padding-left: 10px;
 
-  padding-right: 10px;
+    padding-right: 10px;
 
-  padding-top: 10px;
+    padding-top: 10px;
 
-  text-decoration: none;
+    text-decoration: none;
 
-  width: 1280px;
-}
-.BigTime {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 1280px;
+  }
+  .BigTime {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  float: left;
+    float: left;
 
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
 
-  font-size: 14px;
+    font-size: 14px;
 
-  font-style: normal;
+    font-style: normal;
 
-  font-variant: normal;
+    font-variant: normal;
 
-  font-weight: 400;
+    font-weight: 400;
 
-  height: 150px;
+    height: 150px;
 
-  line-height: normal;
+    line-height: normal;
 
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 
-  margin-left: 30px;
+    margin-left: 30px;
 
-  margin-right: 0px;
+    margin-right: 0px;
 
-  margin-top: 10px;
+    margin-top: 10px;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  padding-bottom: 0px;
+    padding-bottom: 0px;
 
-  padding-left: 0px;
+    padding-left: 0px;
 
-  padding-right: 0px;
+    padding-right: 0px;
 
-  padding-top: 0px;
+    padding-top: 0px;
 
-  position: relative;
+    position: relative;
 
-  text-decoration: none;
+    text-decoration: none;
 
-  width: 150px;
-}
-.ull {
-  width: 200px;
-}
-.ulr {
-  width: 200px;
-}
-.chart {
-  width: 150px;
-  height: 150px;
-}
+    width: 150px;
+  }
+  .ull {
+    width: 200px;
+  }
+  .ulr {
+    width: 200px;
+  }
+  .chart {
+    width: 150px;
+    height: 150px;
+  }
 
-.service_right {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  .service_right {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  float: left;
+    float: left;
 
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
 
-  font-size: 14px;
+    font-size: 14px;
 
-  font-style: normal;
+    font-style: normal;
 
-  font-variant: normal;
+    font-variant: normal;
 
-  font-weight: 400;
+    font-weight: 400;
 
-  line-height: normal;
+    line-height: normal;
 
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 
-  margin-left: 0px;
+    margin-left: 0px;
 
-  margin-right: 0px;
+    margin-right: 0px;
 
-  margin-top: 0px;
+    margin-top: 0px;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  padding-bottom: 0px;
+    padding-bottom: 0px;
 
-  padding-left: 0px;
+    padding-left: 0px;
 
-  padding-right: 0px;
+    padding-right: 0px;
 
-  padding-top: 0px;
+    padding-top: 0px;
 
-  text-decoration: none;
+    text-decoration: none;
 
-  width: 600px;
-}
-.service_right1 {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 600px;
+  }
+  .service_right1 {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  float: left;
+    float: left;
 
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
 
-  font-size: 14px;
+    font-size: 14px;
 
-  font-style: normal;
+    font-style: normal;
 
-  font-variant: normal;
+    font-variant: normal;
 
-  font-weight: 400;
+    font-weight: 400;
 
-  line-height: normal;
+    line-height: normal;
 
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 
-  margin-left: 120px;
+    margin-left: 120px;
 
-  margin-right: 0px;
+    margin-right: 0px;
 
-  margin-top: 50px;
+    margin-top: 50px;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  padding-bottom: 0px;
+    padding-bottom: 0px;
 
-  padding-left: 0px;
+    padding-left: 0px;
 
-  padding-right: 0px;
+    padding-right: 0px;
 
-  padding-top: 0px;
+    padding-top: 0px;
 
-  text-decoration: none;
+    text-decoration: none;
 
-  width: 800px;
-}
-.Right2 {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 800px;
+  }
+  .Right2 {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  float: left;
+    float: left;
 
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
 
-  font-size: 14px;
+    font-size: 14px;
 
-  font-style: normal;
+    font-style: normal;
 
-  font-variant: normal;
+    font-variant: normal;
 
-  font-weight: 400;
+    font-weight: 400;
 
-  line-height: normal;
+    line-height: normal;
 
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 
-  margin-left: 0px;
+    margin-left: 0px;
 
-  margin-right: 0px;
+    margin-right: 0px;
 
-  margin-top: 50px;
+    margin-top: 50px;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  padding-bottom: 0px;
+    padding-bottom: 0px;
 
-  padding-left: 0px;
+    padding-left: 0px;
 
-  padding-right: 0px;
+    padding-right: 0px;
 
-  padding-top: 0px;
+    padding-top: 0px;
 
-  text-decoration: none;
+    text-decoration: none;
 
-  width: 800px;
-}
-.Right .el-divider--horizontal {
-  width: 87%;
-}
-.ul02 {
-  width: 920px;
-}
-.el-tabs--card > .el-tabs__header {
-  border-bottom: 0px solid #e4e7ed;
-  margin-bottom: 0px;
-}
+    width: 800px;
+  }
+  .Right .el-divider--horizontal {
+    width: 87%;
+  }
+  .ul02 {
+    width: 920px;
+  }
+  .el-tabs--card > .el-tabs__header {
+    border-bottom: 0px solid #e4e7ed;
+    margin-bottom: 0px;
+  }
+   .el-step__head.is-process {
+    color: #f15e09;
+    border-color: #f15e09;
+  }
 
+  .el-step__title.is-process {
+    color: #f15e09;
+    border-color: #f15e09;
+  }
+  
 }
 /* //雷达图 */
-
 </style>
 
 
@@ -1269,7 +1324,7 @@ export default {
   border-left: 0px solid;
   margin-left: -5px;
 }
-#one1{
+#one1 {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 5px;
   border-right: 0px solid;
@@ -1308,6 +1363,15 @@ export default {
 .item {
   margin-bottom: 18px;
 }
+.LTstep{
+  width:100%;
+  height:70px;
+}
+.SJstep{
+    width:100%;
+  height:70px;
+
+}
 
 .clearfix:before,
 .clearfix:after {
@@ -1327,8 +1391,14 @@ export default {
   padding: 0;
 }
 
-.left {
+.left1 {
   margin-left: 30px;
+  margin-top:20px;
+  float: right;
+}
+.left2 {
+  margin-left: 30px;
+  margin-top:20px;
   float: right;
 }
 .el-tabs__header {
