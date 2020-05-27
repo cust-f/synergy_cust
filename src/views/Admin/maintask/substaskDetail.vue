@@ -108,7 +108,7 @@
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求分解</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <div>
             <div class="container">
-              <div class="handle-box">
+              <div>
                 <!-- <el-button
           type="primary"
           icon="el-icon-delete"
