@@ -1,9 +1,9 @@
 <template>
   <div class="Data">
-      <div class="title">
+      <div class="title2">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/twoMenu' }">平台数据</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/twoMenu' }">网站数据</el-breadcrumb-item>
 
           </el-breadcrumb>
         </div>
@@ -11,7 +11,7 @@
         <el-card shadow="never" style="margin-bottom:20px;" class="tatolheader">
      
       <div slot="header">
-        <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;">平台数据</div>
+        <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;">网站数据</div>
         
       </div>
     
@@ -1196,7 +1196,7 @@ export default {
   font-size: 1.2rem;
   font-weight: bold;
 }
-.title {
+.title2 {
   font-size: 14px;
   font-style: normal;
   width: 250px;
