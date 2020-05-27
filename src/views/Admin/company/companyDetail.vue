@@ -7,9 +7,11 @@
       <img v-bind:src="item.idView" class="image">
     </el-carousel-item>
         </el-carousel>-->
+         <div >
         <el-row>
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
           <el-col :span="20">
+           
             <el-upload 
               action="/api/company/updatePicture"
               list-type="picture-card"
@@ -21,10 +23,11 @@
               :before-upload="beforeAvatarUpload"
               :on-change="onChange"
               :on-remove="onRemove"
+              
             >
               <el-button size="small" type="primary">点击添加图片</el-button>
             </el-upload>
-            <el-dialog :visible.sync="companyImageDialog">
+            <el-dialog :visible.sync="companyImageDialog" >
               <img width="100%" :src="companyImage" alt />
             </el-dialog>
             <!-- <el-form-item label>
@@ -34,7 +37,8 @@
           </el-col>
           <!-- <el-image class="qiyetupian" :src="form.companyPicture" :onerror="errorImg01"> -->
         </el-row>
-        <br />
+         </div>
+       
         <el-divider></el-divider>
         <el-row>
           <el-col :span="8">
@@ -135,7 +139,7 @@
         <!-- ------------------------企业信息 ------------------------------>
         <!-- --------------------------------- ------------------------------>
         <div align="right" class="formYS">
-          <el-form :model="form" label-width="100px">
+          <el-form :model="form" label-width="110px">
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业名称">
@@ -298,8 +302,8 @@
           >信息修改</div>
           <br />
           <br />
-          <div align="right" class="formYS">
-            <el-form ref="form" status-icon :model="formEditor" label-width="110px" :rules="rules">
+          <div  class="formYS">
+            <el-form ref="form" status-icon :model="formEditor" label-width="120px" :rules="rules">
               <el-row  >
                 <el-col :span="12" >
                   <el-form-item label="企业名称" prop="companyName">
@@ -975,6 +979,14 @@ export default {
 
 <style lang="scss" >
 .companyDetail {
+  //企业图片
+  // .companyP{
+  //   .img{
+  //     display: inline-block;
+  //     width:200px;
+  //     height:200px
+  //   }
+  // }
   //企业详情
   .leftDet {
     float: left;
