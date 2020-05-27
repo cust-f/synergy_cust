@@ -416,7 +416,8 @@
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <label  style="font-size:13px">完成质量:</label>
+                <label id="word" style="font-size:13px"></label>
                 <br />
                 <br />
               </el-form>
@@ -438,7 +439,10 @@
               <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <label ></label>
+                <label  style="font-size:13px">完成质量:</label>
+                                <label id="word" style="font-size:13px"></label>
+
                 <br />
                 <br />
               </el-form>
@@ -1563,15 +1567,21 @@ export default {
     //提交次数 背景颜色变化
     styleswith() {
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
+        document.getElementById("word").innerHTML="优"
+        document.getElementById("word").style.color = "#00D1B2"
         document.getElementById("one").style.background = "#00D1B2";
       }
       if (this.formZL.designCount > 2 && this.formZL.designCount < 4) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+                document.getElementById("word").innerHTML="良"
+        document.getElementById("word").style.color = "orange"
       }
       if (this.formZL.designCount > 4 || this.formZL.designCount == 4) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+                document.getElementById("word").innerHTML="差"
+        document.getElementById("word").style.color = "red"
       }
     },
     getParams() {
