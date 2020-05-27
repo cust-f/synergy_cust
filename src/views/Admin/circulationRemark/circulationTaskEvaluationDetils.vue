@@ -6,7 +6,7 @@
           <h3>流通任务数据统计</h3>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <!-- 步骤图片 -->
 
-          <el-steps :active="milepostActive1" align-center>
+          <!-- <el-steps :active="milepostActive1" align-center>
             <el-step
               v-for="(stpesdata, key) in milepost"
               :title="stpesdata.title"
@@ -14,7 +14,7 @@
               :description="stpesdata.description"
               :key="key"
             ></el-step>
-          </el-steps>
+          </el-steps> -->
 
           <br />
           <br />
@@ -256,8 +256,7 @@ export default {
 .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
 }
-</style>
-<style scoped>
+
 #inputValue {
   width: 240px;
   margin-left: 0px;
