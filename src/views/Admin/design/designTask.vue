@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="designTask">
     <el-container>
       <el-main>
         <div class="box">
@@ -48,7 +48,7 @@
 
                     </template>
                   </el-table-column>
-                   <el-table-column label="操作" align="center" class="box1">
+                   <el-table-column label="操作" align="center" >
                     <template slot-scope="scope">
 
 
@@ -56,7 +56,6 @@
                     @click="Detail(scope.row)"
                     type="text"
                     size="small "
-                    class="box1"
                   >查看详情</el-button>
                     </template>
                     </el-table-column>
@@ -116,7 +115,6 @@
                     @click="Detail(scope.row)"
                     type="text"
                     size="small "
-                    class="box1"
                   >查看详情</el-button>
                      </template>
                     </el-table-column>
@@ -182,7 +180,6 @@
                     @click="Detail(scope.row)"
                     type="text"
                     size="small "
-                    class="box1"
                   >查看详情</el-button>
                 </template>
                     </el-table-column>
@@ -235,7 +232,7 @@
                     @click="Detail(scope.row)"
                     type="text"
                     size="small "
-                    class="box1"
+
                   >查看详情</el-button>
                   </template>
                     </el-table-column>
@@ -300,7 +297,6 @@
                     @click="Detail(scope.row)"
                     type="text"
                     size="small "
-                    class="box1"
                   >查看详情</el-button>
                   </template>
                     </el-table-column>
@@ -352,14 +348,13 @@
                    <el-button type="text" size="small" class="box1">查看</el-button>
                   </el-table-column> -->
 
-                  <el-table-column label="操作" align="center" class="box1">
+                  <el-table-column label="操作" align="center" >
                     <template slot-scope="scope">
 
                   <el-button
                     @click="Detail(scope.row)"
                     type="text"
                     size="small "
-                    class="box1"
                   >查看详情</el-button>
                         </template></el-table-column>
 
@@ -406,7 +401,7 @@
                     @click="Detail(scope.row)"
                     type="text"
                     size="small "
-                    class="box1"
+                    
                   >查看详情</el-button>
                         </template>
           
@@ -909,7 +904,9 @@ export default {
   
 
 </script>
-<style>
+<style lang = "scss">
+.designTask{
+
 
 .shenhe{
     color:#FF8040;
@@ -960,13 +957,11 @@ export default {
 .box {
   font-size: 24px;
 }
-.box1 {
-  font-size: 14px;
-}
+
 .biaoti {
   font-size: 18px;
 }
-
+}
 
 </style>
 

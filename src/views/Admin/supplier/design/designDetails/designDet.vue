@@ -2,15 +2,15 @@
   <div class="designDet">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <el-steps :active="milepostActive" align-center>
-        <el-step
-          v-for="(stpesdata, key) in milepost"
-          :title="stpesdata.title"
-          :icon="stpesdata.icon"
-          :description="stpesdata.description"
-          :key="key"
-        ></el-step>
-      </el-steps>
+        <el-steps :active="milepostActive" align-center>
+          <el-step
+            v-for="(stpesdata, key) in milepost"
+            :title="stpesdata.title"
+            :icon="stpesdata.icon"
+            :description="stpesdata.description"
+            :key="key"
+          ></el-step>
+        </el-steps>
       <br />
       <br />
       <!-- 基本信息模块 -->
@@ -63,7 +63,7 @@
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
             <div class="supplierinput_span" align="center">
-              <el-form ref="form" :modelZL="formZL">
+              <el-form ref="form">
                 <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                 <br />
                 <br />
@@ -82,9 +82,9 @@
             <!-- 雷达图 -->
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
             <div class="supplierinput_span" align="center">
-              <el-form ref="form" :modelZL="formZL">
+              <el-form ref="form">
                 <label>完成质量:</label>
-                <label id="word" style="font-size:16px" ></label>
+                <label id="word" style="font-size:16px"></label>
                 <br />
                 <br />
               </el-form>
@@ -322,121 +322,118 @@ export default {
 };
 </script>
 <style lang="scss">
-.designDet {
-  //雷达图
-  .LDT {
-    height: 300px;
-  }
+//雷达图
+.designDet.LDT {
+  height: 300px;
+}
 
-  //完成质量
-  .WCZL {
-    font-size: 11px;
-  }
+//完成质量
+.designDet.WCZL {
+  font-size: 11px;
+}
 
-  .table {
-    font-size: 13px;
-  }
-  .text {
-    font-size: 14px;
-  }
+.designDet .table {
+  font-size: 13px;
+}
+.designDet .text {
+  font-size: 14px;
+}
 
-  .item {
-    padding: 18px 0;
-  }
-  .loading1 {
-    height: 400px;
-  }
-  .box-card {
-    width: 960px;
-    /* border: 1px solid #00a2e6 ; */
-  }
-  //返回字体
-  .el-page-header__title {
-    font-size: 18px;
-  }
-  .biaoti {
-    font-size: 18px;
-    color: #303133;
-  }
-  .el-input.is-disabled .el-input__inner {
-    color: #606266;
-  }
+.designDet .item {
+  padding: 18px 0;
+}
+.designDet .loading1 {
+  height: 400px;
+}
+.designDet .box-card {
+  width: 960px;
+  /* border: 1px solid #00a2e6 ; */
+}
+//返回字体
+.designDet .el-page-header__title {
+  font-size: 18px;
+}
+.designDet .biaoti {
+  font-size: 18px;
+  color: #303133;
+}
+.designDet .el-input.is-disabled .el-input__inner {
+  color: #606266;
+}
+// 进度样式调整
+.el-step__head.is-process {
+  color: #f15e09;
+  border-color: #f15e09;
+}
 
-  // 进度样式调整
-  .el-step__head.is-process {
-    color: #f15e09;
-    border-color: #f15e09;
-  }
+.el-step__title.is-process {
+  color: #f15e09;
+  border-color: #f15e09;
+}
+.designDet .minheight {
+  min-height: 100px;
+  font-size: 16px;
+}
 
-  .el-step__title.is-process {
-    color: #f15e09;
-    border-color: #f15e09;
-  }
-  .minheight {
-    min-height: 100px;
-    font-size: 16px;
-  }
+//质量图样式调整
+#inputValue {
+  width: 240px;
+  margin-left: 0px;
+  padding-left: 10px;
+  border-radius: 3px;
+}
 
-  //质量图样式调整
-  #inputValue {
-    width: 240px;
-    margin-left: 0px;
-    padding-left: 10px;
-    border-radius: 3px;
-  }
+.designDet .supplierinput_span span {
+  display: inline-block;
+  width: 85px;
+  height: 30px;
+  background: #eee;
+  line-height: 20px;
+}
 
-  .supplierinput_span span {
-    display: inline-block;
-    width: 85px;
-    height: 30px;
-    background: #eee;
-    line-height: 20px;
-  }
+#one {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 0px;
+  margin-right: 3px;
+}
 
-  #one {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-right: 0px solid;
-    margin-left: 0px;
-    margin-right: 3px;
-  }
+#two {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
 
-  #two {
-    border-left: 0px solid;
-    border-right: 0px solid;
-    margin-left: -5px;
-    margin-right: 3px;
-  }
-
-  #three {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-left: 0px solid;
-    margin-left: -5px;
-  }
-  #font span:nth-child(1) {
-    color: #00d1b2;
-    margin-left: 80px;
-  }
-  #font span:nth-child(2) {
-    color: orange;
-    margin: 0 60px;
-  }
-  #font span:nth-child(3) {
-    color: red;
-  }
-  .el-dialog__header {
-    padding: 0px 0px 0px;
-  }
-  .task-detail {
-    font-size: 16px;
-    width: 400px;
-  }
-  .title-detail {
-    color: #000000;
-    font-size: 25px;
-    float: left;
-    width: 350px;
-  }
+#three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
+}
+#font span:nth-child(1) {
+  color: #00d1b2;
+  margin-left: 80px;
+}
+#font span:nth-child(2) {
+  color: orange;
+  margin: 0 60px;
+}
+#font span:nth-child(3) {
+  color: red;
+}
+.designDet .el-dialog__header {
+  padding: 0px 0px 0px;
+}
+.designDet .task-detail {
+  font-size: 16px;
+  width: 400px;
+}
+.designDet .title-detail {
+  color: #000000;
+  font-size: 25px;
+  float: left;
+  width: 350px;
 }
 </style>
