@@ -10,7 +10,7 @@
         <el-row>
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
           <el-col :span="20">
-            <el-upload
+            <el-upload 
               action="/api/company/updatePicture"
               list-type="picture-card"
               :class="{hide:hideUpload}"
@@ -303,7 +303,9 @@
               <el-row  >
                 <el-col :span="12" >
                   <el-form-item label="企业名称" prop="companyName">
+                     <el-tooltip :content="formEditor.companyName" placement="top" effect="light">
                     <el-input v-model="formEditor.companyName" disabled></el-input>
+                     </el-tooltip>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
@@ -1064,7 +1066,7 @@ export default {
     width: 900px;
     height: 400px;
   }
-  //营业制造
+  //营业执照
   .yingyezhizhao {
     width: 200px;
     height: 200px;
@@ -1076,5 +1078,6 @@ export default {
     width: 1200px;
     height: 200px;
   }
+ 
 }
 </style>
