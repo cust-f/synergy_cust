@@ -554,6 +554,9 @@ export default {
   font-size: 18px;
   color: #303133;
 }
+.el-dialog__header {
+    padding: 0px 0px 0px;
+  }
 
 }
 
