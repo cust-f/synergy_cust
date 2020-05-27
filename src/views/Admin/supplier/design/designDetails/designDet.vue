@@ -2,7 +2,6 @@
   <div class="designDet">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <div class="Noflex">
         <el-steps :active="milepostActive" align-center>
           <el-step
             v-for="(stpesdata, key) in milepost"
@@ -12,7 +11,6 @@
             :key="key"
           ></el-step>
         </el-steps>
-      </div>
       <br />
       <br />
       <!-- 基本信息模块 -->
@@ -362,24 +360,17 @@ export default {
 .designDet .el-input.is-disabled .el-input__inner {
   color: #606266;
 }
-.designDet .Noflex{
-  flex-basis: 0;
-}
 // 进度样式调整
-.designDet.el-step__head.is-process {
+.el-step__head.is-process {
   color: #f15e09;
   border-color: #f15e09;
 }
 
-.designDet.el-step__title.is-process {
+.el-step__title.is-process {
   color: #f15e09;
   border-color: #f15e09;
 }
-.designDet.el-step__main .el-step__title {
-    width: 200px; 
-    text-align: center;
-}
-.designDet.minheight {
+.designDet .minheight {
   min-height: 100px;
   font-size: 16px;
 }
