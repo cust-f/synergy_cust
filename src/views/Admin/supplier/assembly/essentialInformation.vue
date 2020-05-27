@@ -335,9 +335,9 @@ export default {
       //技术文档附件下载表
       fileTable: [],
       //企业弹窗所需图片
-      imgsrc: require("../../company/2.jpg"),
-      shuiwudengjizheng: require("../../company/2.jpg"),
-      qiyezhizhao: require("../../company/2.jpg"),
+      imgsrc:"",
+      shuiwudengjizheng: "",
+      qiyezhizhao: "",
       //企业弹窗所需图片默认
       errorImg01: 'this.src="' + require("../../company/2.jpg") + '"',
       errorImg02: 'this.src="' + require("../../company/税务登记证.jpg") + '"',
@@ -357,7 +357,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskId
       });
-      
+
       that
         .axios({
           method: "post",
@@ -466,7 +466,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskId
       });
-      
+
       that
         .axios({
           method: "post",
@@ -474,17 +474,11 @@ export default {
           data: data
         })
         .then(response => {
-          this.companyMessage = response.data.allData.companyDetail[0];
-          this.companyId = response.data.allData.companyDetail[0].companyId;
-          this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
-          this.qiyezhizhao =
-            response.data.allData.companyDetail[0].businessLicence;
-          this.shuiwudengjizheng =
-            response.data.allData.companyDetail[0].tRCertificate;
-          // this.jingyingfanwei = response.data.allData.b;
-          this.companyDetailContent =
-            response.data.allData.companyDetailContent;
+          this.companyMessage = response.data.allData.detail;
+          this.companyDetailContent = response.data.allData.content;
+          this.imgsrc = response.data.allData.companyPicture[0].url;
+          this.shuiwudengjizheng = response.data.allData.tax;
+          this.qiyezhizhao = response.data.allData.business;
         });
     },
     //子任务详情
@@ -494,7 +488,7 @@ export default {
       var data = Qs.stringify({
         mainTaskID: this.mainTaskId
       });
-      
+
       that
         .axios({
           method: "post",
@@ -510,7 +504,7 @@ export default {
 </script>
 <style lang="scss">
 .essentialInformation {
-  .Mystyle{
+  .Mystyle {
     width: 100%;
   }
   //企业详情
