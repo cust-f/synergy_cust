@@ -24,6 +24,9 @@
                     <el-col :span="6">
                       <span>成立日期: {{companys.foundTime | dataFormat("yyyy-MM-dd")}}</span>
                     </el-col>
+                    <el-col :span="6">
+                      <span>企业类别：{{companys.type}}</span>
+                    </el-col>
                   </el-row>
                   <el-row>
                     <span>企业所在地: {{companys.address}}</span>
