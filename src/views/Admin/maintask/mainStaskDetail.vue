@@ -367,6 +367,7 @@
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
               <el-button
+                @click="LJTZ(scope.row)"
                 type="text"
                 size="small"
                 v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
@@ -1604,6 +1605,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
+          console.log(response)
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
@@ -1959,6 +1961,12 @@ export default {
         .then(response => {
           this.download(response.data, "HT");
         });
+    },
+    //跳转虚拟机
+    LJTZ(row) {
+        console.log(row.gitadress)
+        window.location.href = row.gitadress; 
+
     },
     //设计通过
     SJTG(row) {
