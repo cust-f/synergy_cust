@@ -76,6 +76,15 @@ export default {
             name: "完成需求量",
             type: "line",
             stack: "总量",
+                        itemStyle: {
+              normal: {
+               color:'#19CAAD',
+                lineStyle: {
+                  color: "#19CAAD",
+                  width: 3
+                }
+              }
+            },
             data: this.lineData.finishTaskCount
             //    data: [1,1,6]
           },
@@ -85,9 +94,9 @@ export default {
             stack: "总量",
             itemStyle: {
               normal: {
-               color:'#ff461f',
+               color:'#F4606C',
                 lineStyle: {
-                  color: "#ff461f",
+                  color: "#F4606C",
                   width: 3
                 }
               }
