@@ -17,11 +17,9 @@
       <el-card shadow="never" class="XuQiustyle">
         <div class="xq_top">
           <div class="xuQiuBigTime">
-            <el-carousel height="250" width="250" direction="vertical" arrow="always">
-              <el-carousel-item>
-                <img :src="logo" class="xuQiuimages" :onerror="errorImg01" />
-              </el-carousel-item>
-            </el-carousel>
+            <div>
+              <img :src="logo" class="xuQiuimages" :onerror="errorImg01" />
+            </div>
           </div>
 
           <div class="Right">
@@ -998,6 +996,10 @@ export default {
   .biaoti {
     font-size: 18px;
     color: #303133;
+  }
+  .xuQiuBigTime .taskimage {
+    height: "250px";
+    width: "250px";
   }
 }
 </style>

@@ -1,8 +1,9 @@
 <template>
   <div class="designDet">
     <el-main style="overflow:hidden">
-      <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <el-steps :active="milepostActive" align-center>
+      <el-page-header @back="goBack" content="详情"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <div align="center">
+      <el-steps :active="milepostActive">
         <el-step
           v-for="(stpesdata, key) in milepost"
           :title="stpesdata.title"
@@ -11,6 +12,7 @@
           :key="key"
         ></el-step>
       </el-steps>
+      </div>
       <br />
       <br />
       <!-- 基本信息模块 -->
@@ -318,7 +320,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .designDet {
   //雷达图
   .LDT {
@@ -329,7 +331,7 @@ export default {
   .WCZL {
     font-size: 11px;
   }
-
+ 
   .table {
     font-size: 13px;
   }

@@ -7,7 +7,7 @@
       <img v-bind:src="item.idView" class="image">
     </el-carousel-item>
         </el-carousel>-->
-         <div >
+         <div class="picture">
         <el-row>
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
           <el-col :span="20">
@@ -37,7 +37,7 @@
           </el-col>
           <!-- <el-image class="qiyetupian" :src="form.companyPicture" :onerror="errorImg01"> -->
         </el-row>
-         </div>
+         
        
         <el-divider></el-divider>
         <el-row>
@@ -116,6 +116,7 @@
             </div>
           </el-col>
         </el-row>
+        </div>
         <br />
          <el-row>
           <el-col :span="12">
@@ -993,6 +994,7 @@ export default {
     text-align: left;
     width: 95%;
   }
+  .picture{  
   .el-upload--text {
     width: 200px;
     height: 200px;
@@ -1023,6 +1025,7 @@ export default {
     width: 200px;
     height: 200px;
     display: block;
+  }
   }
   .formYS .el-input__inner {
     /* // 表格样式调整 */

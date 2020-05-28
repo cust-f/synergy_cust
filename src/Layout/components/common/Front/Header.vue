@@ -643,7 +643,7 @@ export default {
 .el-dropdown-menu__item {
   text-align: center;
 }
-.header .avatar-uploader .el-upload {
+.admin-header .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 50%;
   width: 115px;
@@ -652,10 +652,10 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.header .avatar-uploader .el-upload:hover {
+.admin-header .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
-.header .avatar-uploader-icon {
+.admin-header .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
   width: 50px;
@@ -663,7 +663,7 @@ export default {
   line-height: 120px;
   text-align: center;
 }
-.header .avatar {
+.admin-header .avatar {
   width: 115px;
   height: 115px;
   display: block;
