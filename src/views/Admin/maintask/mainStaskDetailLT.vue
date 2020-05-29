@@ -362,7 +362,7 @@
                 size="small"
                 v-if="scope.row.demandorCheckDesignState===1"
               >拒绝</el-button>
-              <el-button type="text" @click="FHQDFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
+              <el-button type="text" size="small " @click="FHQDFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
 
               <div v-show="scope.row.contractState===1">
                 <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
@@ -2216,6 +2216,9 @@ export default {
   }
     .XX{
     text-align:left;
+  }
+   .el-dialog__header {
+    padding: 0px 0px 0px;
   }
 }
 </style>
