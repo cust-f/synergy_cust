@@ -2071,6 +2071,10 @@ export default {
     padding: 0px 30px 0px;
   }
 .mainStaskDetaul {
+  .el-dialog__header{
+    padding-top:0%;
+    padding-bottom: 0%;
+  }
   .loading1 {
     height: 400px;
   }
