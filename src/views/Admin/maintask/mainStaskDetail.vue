@@ -1966,7 +1966,6 @@ export default {
     LJTZ(row) {
         console.log(row.gitadress)
         window.location.href = row.gitadress; 
-
     },
     //设计通过
     SJTG(row) {
