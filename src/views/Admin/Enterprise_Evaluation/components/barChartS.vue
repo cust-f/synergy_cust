@@ -54,7 +54,7 @@ export default{
           name:'进行中数量',
           type: 'bar',
           
-          data:this.barData.taskCount
+          data:this.barData.taskCountS
          },
         {
           name:'完成数量',

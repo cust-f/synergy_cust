@@ -127,16 +127,19 @@ export default {
         } ,
     
       tableData:"",
+      
       radarData:{
       radarData:[],
+       indicatorData:[],
       },
+     
       barData:{
       taskCount:[],
       finishTaskCount:[],
       },
       star:'',
-     
-
+    
+       
     };
   },
   //初始化方法
@@ -198,9 +201,10 @@ export default {
           data: data
         })
         .then(response => {
-         this.radarData.radarData=response.data.allData;
+         this.radarData.radarData=response.data.allData.AllRemarkLength;
+         this.radarData.indicatorData=response.data.allData.indicator;
          that.$refs.drawradarChart.getCharts2();  
-           
+           console.log(response.data.allData)
           
         // this.getCharts2();
           
@@ -254,6 +258,7 @@ export default {
           //this.table = response.data.allData;
          
          this.barData.taskCount=response.data.allData.taskCount;
+         this.barData.taskCountS=response.data.allData.taskCountS;
          this.barData.finishTaskCount=response.data.allData.finishTaskCount;          
          that.$refs.drawbarChart.getCharts1();
          //this.getCharts1();
