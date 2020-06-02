@@ -25,13 +25,7 @@
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
                   <el-table-column prop="taskName" sortable label="分解任务名称"></el-table-column>
-                  <el-table-column prop="mainTaskName" sortable label="需求任务名称"></el-table-column>
-
-                  <el-table-column prop="companyName" sortable label="企业名称"></el-table-column>
-                  <el-table-column prop="deadline" sortable label="截止时间">
-                    <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
-                  </el-table-column>
-                  <el-table-column prop="taskState" sortable label="状态" align="center">
+                                    <el-table-column prop="taskState" sortable label="状态" align="center">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.taskState ==='申请或邀请中'">待响应</el-tag>
                       <el-tag
@@ -44,6 +38,13 @@
                       <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
                     </template>
                   </el-table-column>
+                  <el-table-column prop="mainTaskName" sortable label="需求任务名称"></el-table-column>
+
+                  <el-table-column prop="companyName" sortable label="企业名称"></el-table-column>
+                  <el-table-column prop="deadline" sortable label="截止时间">
+                    <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
+                  </el-table-column>
+
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                       <el-button @click="Detail(scope.row)" type="text" size="small ">查看详情</el-button>

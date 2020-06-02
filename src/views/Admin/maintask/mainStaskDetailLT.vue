@@ -2036,6 +2036,10 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaulLT {
+    .customer-table{
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
     .loading1 {
     height: 400px;
   }

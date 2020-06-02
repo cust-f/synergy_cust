@@ -2070,6 +2070,10 @@ export default {
     padding: 0px 30px 0px;
   }
 .mainStaskDetaul {
+  .customer-table{
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
   .el-dialog__header{
     padding-top:0%;
     padding-bottom: 0%;

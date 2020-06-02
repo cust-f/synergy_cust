@@ -27,16 +27,7 @@
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
-
-                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
-                  <el-table-column prop="deadline" label="截止时间" sortable>
-                      <template slot-scope="scope">
-                    {{scope.row.deadline | formatDate}}
-                    
-                  </template>
-                  </el-table-column>
-                  <el-table-column prop="taskState" label="状态" align="center" sortable>
+                                    <el-table-column prop="taskState" label="状态" align="center" sortable>
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.taskState ==='申请或邀请中'" >待响应</el-tag>
                       <el-tag v-else-if="scope.row.taskState ==='计划提交'||scope.row.taskState ==='任务进行中'"  type="warning">进行中</el-tag>
@@ -47,6 +38,16 @@
 
                     </template>
                   </el-table-column>
+                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+
+                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                  <el-table-column prop="deadline" label="截止时间" sortable>
+                      <template slot-scope="scope">
+                    {{scope.row.deadline | formatDate}}
+                    
+                  </template>
+                  </el-table-column>
+
                    <el-table-column label="操作" align="center" >
                     <template slot-scope="scope">
 
@@ -94,7 +95,6 @@
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
                    <el-table-column
                     prop="checkApplyState"
                     sortable
@@ -681,9 +681,9 @@ export default {
         });
     },
     handleClick(tab, event) {
-        if(tab.name == 'second'){
-          // 触发‘配置管理’事件
-         (this.taskState = 0), this.second(this.taskState);
+      if (tab.name == "second") {
+        // 触发‘配置管理’事件
+        (this.taskState = 0), this.second(this.taskState);
       } else if (tab.name == "third") {
         (this.taskState = 1), this.second(this.taskState);
       } else if (tab.name == "forth") {
