@@ -79,7 +79,7 @@
 
         <div style="width:600px; margin:20px 0px;">
           <el-input
-            class="neirong"
+            class="neirong1"
             size="small"
             placeholder="请输入搜索内容"
             prefix-icon="el-icon-search"
@@ -87,7 +87,7 @@
             v-model="search"
           ></el-input>
             <el-button
-            class="sousuo"
+            class="sousuo1"
             style="display:inline-block;float: right;"
             slot="append"
             @click="searchCom"
@@ -507,7 +507,9 @@ export default {
 .recommend a:hover {
   color: #0084ff;
 }
-.sousuo {
+</style>
+<style scoped>
+.sousuo1 {
   color: white;
   padding-top: 7px;
   padding-bottom: 8px;
@@ -515,13 +517,13 @@ export default {
   padding-left: 25px;
   background-color: #ff7720;
 }
-.neirong {
+.neirong1 {
   border-color: #ff7720;
   float: left;
   width: 520px;
   min-width: 85%;
 }
-.neirong .el-input__inner {
+.neirong1 .el-input__inner {
   border-right-color: #ff7720;
   border-top-color: #ff7720;
   border-left-color: #ff7720;

@@ -367,6 +367,7 @@
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
               <el-button
+                @click="LJTZ(scope.row)"
                 type="text"
                 size="small"
                 v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
@@ -1604,6 +1605,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
+          console.log(response)
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
@@ -1960,6 +1962,11 @@ export default {
           this.download(response.data, "HT");
         });
     },
+    //跳转虚拟机
+    LJTZ(row) {
+        console.log(row.gitadress)
+        window.location.href = row.gitadress; 
+    },
     //设计通过
     SJTG(row) {
       this.$confirm("确定将设计审核通过么？", "提示", {
@@ -2063,6 +2070,14 @@ export default {
     padding: 0px 30px 0px;
   }
 .mainStaskDetaul {
+  .customer-table{
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  .el-dialog__header{
+    padding-top:0%;
+    padding-bottom: 0%;
+  }
   .loading1 {
     height: 400px;
   }

@@ -46,7 +46,7 @@
             </div>
           </div>
           <div v-show="scope.row.supplierCheckDesignState > 0">
-            <el-button @click="SQJJ(scope.row)" type="text" size="small">查看成果</el-button>
+            <el-button @click="LJTZ(row)" type="text" size="small">查看成果</el-button>
           </div>
           <div v-show="scope.row.supplierCheckDesignState === 1">
             <el-button @click="designSuccess(scope.row)" type="text" size="small">通过</el-button>
@@ -165,6 +165,11 @@ export default {
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
+    },
+    //跳转虚拟机
+    LJTZ(row) {
+        console.log(row.gitadress)
+        window.location.href = row.gitadress; 
     },
     //设计通过
     designSuccess(row) {
