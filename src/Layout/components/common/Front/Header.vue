@@ -44,14 +44,14 @@
       </div>
     </el-row>
     <!-- 区域 拉开层次 -->
-    <el-row :gutter="20" class="header" style="height:50px;">
+    <el-row :gutter="20" class="header" style="height:90px;">
       <el-col :span="10" :offset="1">
         <div class="logo">
-          <img style="width:100%;" src="../../../../assets/images/home/logo3.png" />
+          <img style="width:100%;" src="../../../../assets/images/home/logo2.png" />
         </div>
       </el-col>
       <!-- 用户名下拉菜单 -->
-      <el-col :span="8" style="float:right;">
+      <el-col :span="8" style="position: absolute;right:-20px;top:14px;">
         <el-input
           placeholder="请输入内容"
           v-model="searchModel"
@@ -67,6 +67,7 @@
         </el-input>
       </el-col>
     </el-row>
+    
     <el-row>
       <el-col :span="24" style="height: 45px;">
         <div style="background-color:#00A2E6">
