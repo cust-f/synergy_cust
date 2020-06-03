@@ -457,7 +457,9 @@
       </div>
 
       <!-- 申请拒绝原因弹出框 -->
-      <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible" width="50%">
+      <el-dialog  :visible.sync="addVisible" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入申请拒绝原因</div>
+        <br>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -478,6 +480,8 @@
 
       <!-- 计划书拒绝原因弹出框 -->
       <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible1" width="50%">
+         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入计划书拒绝原因</div>
+        <br>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -498,6 +502,8 @@
 
       <!-- 合同拒绝原因弹出框 -->
       <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible2" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入合同拒绝原因</div>
+        <br>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -518,6 +524,8 @@
 
       <!-- 设计拒绝原因弹出框 -->
       <el-dialog title="请输入设计不通过的原因" :visible.sync="addVisible3" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入设计拒绝原因</div>
+        <br>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -1983,7 +1991,7 @@ export default {
         });
         this.GBXJ();
         this.showData();
-
+        this.$router.go(0);
         this.$message({
           message: "审核通过,并自动生成评价",
           type: "success"
@@ -2039,7 +2047,7 @@ export default {
         })
         .then(response => {
           console.log(response)
-          if(this.TPDZCS ==1){
+
             
             this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
@@ -2053,7 +2061,7 @@ export default {
           this.shuiwudengjizheng =
             response.data.allData.tRCertificate;
             this.TPDZCS = this.TPDZCS + 1;
-          }
+          
           
 
         });
