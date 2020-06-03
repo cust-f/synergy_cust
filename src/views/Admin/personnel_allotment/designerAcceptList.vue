@@ -100,13 +100,22 @@
 
       <el-table-column label="操作" min-width="110px" align="center">
         <template slot-scope="scope">
-          <el-button @click="handleDetail(scope.row)" type="text" size="small">进入工作台</el-button>
+          <el-button @click="handleDetail(scope.row)" type="text" size="small"
+           v-if="scope.row.supplierCheckDesignState===0  ||scope.row.supplierCheckDesignState===1"
+          >进入工作台</el-button>
           <el-button
             @click="submit(scope.row)"
             type="text"
             size="small"
-            v-if="scope.row.supplierCheckDesignState===0 || scope.row.supplierCheckDesignState===1 ||scope.row.supplierCheckDesignState===3"
+            v-if="scope.row.supplierCheckDesignState===0  ||scope.row.supplierCheckDesignState===3"
           >任务提交</el-button>
+          <el-button
+            @click="CCSJ(scope.row)"
+            type="text"
+            size="small"
+            v-if="scope.row.supplierCheckDesignState===1  ||scope.row.supplierCheckDesignState===2"
+          >查看设计</el-button>
+
           <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
           <el-button @click="xiazaiZRWFJ(scope.row)" type="text" size="small">下载附件</el-button>
         </template>
@@ -434,6 +443,11 @@ export default {
       }
       document.body.appendChild(link);
       link.click();
+    },
+     //跳转虚拟机
+    CCSJ(row) {
+        console.log(row.gitadress)
+        window.location.href = row.gitadress; 
     },
 
     //获取已接收任务列表数据

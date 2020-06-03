@@ -45,6 +45,16 @@
             :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
+            prop="publishTime"
+            label="开始时间"
+            sortable
+            min-width="90px"
+            align="center"
+            :show-overflow-tooltip="true"
+          >
+            <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+          </el-table-column>
+          <el-table-column
             prop="demandorCheckDesignTime"
             label="完成时间"
             sortable
@@ -53,16 +63,6 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
-          </el-table-column>
-          <el-table-column
-            prop="deadline"
-            label="截止时间"
-            sortable
-            min-width="90px"
-            align="center"
-            :show-overflow-tooltip="true"
-          >
-            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
           </el-table-column>
         </template>
 
