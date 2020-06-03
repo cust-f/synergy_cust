@@ -79,7 +79,7 @@
 
         <div style="width:600px; margin:20px 0px;">
           <el-input
-            class="neirong"
+            class="neirong1"
             size="small"
             placeholder="请输入搜索内容"
             prefix-icon="el-icon-search"
@@ -87,7 +87,7 @@
             v-model="search"
           ></el-input>
             <el-button
-            class="sousuo"
+            class="sousuo1"
             style="display:inline-block;float: right;"
             slot="append"
             @click="searchCom"
@@ -103,37 +103,6 @@
 
           <div v-if="companyLists.length!==0">
             <company-list  :companyList="companyLists"></company-list>
-            <!-- <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
-              <div @click="companyDetail(companys.companyId)">
-                <el-col :span="4">
-                  <el-avatar shape="square" :size="80" fit="fill" :src="companys.logo"></el-avatar>
-                </el-col>
-                <el-col :span="20">
-                  <el-row>
-                    <div style="float:left;">
-                      <h2>{{companys.companyName}}</h2>
-                    </div>
-                    <div style="float:right;">
-                      <el-rate v-model="companys.star" disabled text-color="#ff9900"></el-rate>
-                    </div>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="5">
-                      <span>所在省份: {{companys.province}}</span>
-                    </el-col>
-                    <el-col :span="5">
-                      <span>所在城市: {{companys.city}}</span>
-                    </el-col>
-                    <el-col :span="6">
-                      <span>成立日期: {{companys.foundTime | dataFormat("yyyy-MM-dd")}}</span>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <span>企业所在地: {{companys.address}}</span>
-                  </el-row>
-                </el-col>
-              </div>
-            </el-row> -->
           </div>
           <div v-else>
             <div class="noResult" style="height:400px;">
@@ -458,7 +427,14 @@ export default {
         return true;
       }
     },
-
+        //进入企业详情界面
+    companyDetail(id) {
+      this.$router.push({
+        path: "/company/excellentCompanyDetail",
+        name: "companyDetails",
+        query: { companyId: id }
+      });
+    },
   }
 };
 </script>
@@ -531,7 +507,9 @@ export default {
 .recommend a:hover {
   color: #0084ff;
 }
-.sousuo {
+</style>
+<style scoped>
+.sousuo1 {
   color: white;
   padding-top: 7px;
   padding-bottom: 8px;
@@ -539,13 +517,13 @@ export default {
   padding-left: 25px;
   background-color: #ff7720;
 }
-.neirong {
+.neirong1 {
   border-color: #ff7720;
   float: left;
   width: 520px;
   min-width: 85%;
 }
-.neirong .el-input__inner {
+.neirong1 .el-input__inner {
   border-right-color: #ff7720;
   border-top-color: #ff7720;
   border-left-color: #ff7720;

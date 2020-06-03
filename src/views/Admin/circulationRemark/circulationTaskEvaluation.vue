@@ -253,22 +253,5 @@ export default {
   }
 };
 </script>
-<style scoped>
-.con {
-  width: 500px;
-  height: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
-.table {
-  /* font-size: 16px; */
-}
-.el-tabs__item {
-  /* font-size: 16px; */
-}
-.red {
-  /* font-size: 16px; */
-}
-</style>
 
 

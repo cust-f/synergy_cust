@@ -362,7 +362,7 @@
                 size="small"
                 v-if="scope.row.demandorCheckDesignState===1"
               >拒绝</el-button>
-              <el-button type="text" @click="FHQDFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
+              <el-button type="text" size="small " @click="FHQDFileHistory()" v-show="scope.row.contractState > 0">历史上传</el-button>
 
               <div v-show="scope.row.contractState===1">
                 <el-button @click="HTXZ(scope.row)" type="text" size="small">下载</el-button>
@@ -395,8 +395,8 @@
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                <br />
+                <label  style="font-size:13px">完成质量:</label>
+                <label id="word" style="font-size:13px"></label>                <br />
                 <br />
               </el-form>
               <span></span>
@@ -415,8 +415,8 @@
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                <br />
+                <label  style="font-size:13px">完成质量:</label>
+                <label id="word" style="font-size:13px"></label>                <br />
                 <br />
               </el-form>
               <span id="one"></span>
@@ -1557,14 +1557,20 @@ export default {
     styleswith() {
       if (this.formZL.circulationCount > -4) {
         document.getElementById("one").style.background = "#00D1B2";
+                document.getElementById("word").innerHTML="优"
+        document.getElementById("word").style.color = "#00D1B2"
       }
       if (this.formZL.circulationCount < -3 && this.formZL.circulationCount > -8) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+                        document.getElementById("word").innerHTML="良"
+        document.getElementById("word").style.color = "orange"
       }
       if (this.formZL.circulationCount < -7 || this.formZL.circulationCount == -8) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+                        document.getElementById("word").innerHTML="差"
+        document.getElementById("word").style.color = "red"
       }
     },
     getCirculationCount() {
@@ -2009,16 +2015,16 @@ export default {
           data: data
         })
         .then(response => {
-            this.logo = response.data.allData.logo;
 
           this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
+this.logo = response.data.allData.logo;
+          this.imgsrc = response.data.allData.companyPicture;
           this.qiyezhizhao =
-            response.data.allData.companyDetail[0].businessLicence;
+            response.data.allData.BusinessLicence;
           this.shuiwudengjizheng =
-            response.data.allData.companyDetail[0].tRCertificate;
+            response.data.allData.tRCertificate;
                       this.companyDetailContent = response.data.allData.companyDetailContent;
 
         });
@@ -2030,6 +2036,10 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaulLT {
+    .customer-table{
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
     .loading1 {
     height: 400px;
   }
@@ -2210,6 +2220,9 @@ export default {
   }
     .XX{
     text-align:left;
+  }
+   .el-dialog__header {
+    padding: 0px 0px 0px;
   }
 }
 </style>

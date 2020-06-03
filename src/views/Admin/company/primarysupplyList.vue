@@ -107,7 +107,11 @@
           </el-dialog>-->
 
           <!-- 新增弹出框 -->
-          <el-dialog title="新增" :visible.sync="addVisible" width="60%">
+          <el-dialog  :visible.sync="addVisible" width="60%">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+          新增
+        </div>
+        <br>
             <el-table
               :data="tableData1"
               border
@@ -117,22 +121,22 @@
               @selection-change="handleSelectionChange"
             >
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-              <el-table-column prop="companyName" label="企业名称"></el-table-column>
+              <el-table-column prop="companyName" width="180" label="企业名称"></el-table-column>
               <el-table-column prop="businessName" label="企业联络人"></el-table-column>
               <el-table-column prop="email" label="企业邮箱"></el-table-column>
               <el-table-column prop="officeNumber" label="联系人电话"></el-table-column>
               <el-table-column prop="address" label="企业地址"></el-table-column>
-              <el-table-column label="操作" width="180" align="center">
+              <el-table-column label="操作" width="120" align="center">
                 <template slot-scope="scope">
                   <el-button
                     type="text"
-                    icon="el-icon-delete"
-                    class="red"
+                    size="small"
                     @click="TianJia(scope.row)"
                   >添加</el-button>
                   <el-button @click="supplyDetail" type="text" size="small">查看详情</el-button>
                 </template>
               </el-table-column>
+              
             </el-table>
           </el-dialog>
       </el-main>
@@ -162,14 +166,9 @@ export default {
         officeNumber: "",
         address: ""
       },
-      tableData1: {
-        companyId: "",
-        companyName: "",
-        businessName: "",
-        email: "",
-        officeNumber: "",
-        address: ""
-      },
+      tableData1: [
+        ],
+    
 
       addList: {
         id: null,
@@ -408,6 +407,10 @@ export default {
 }
 .el-table{
     font-size: 14px;
+}
+.el-dialog__header{
+  padding-bottom: 0%;
+  padding-top: 0%;
 }
 }
 </style>

@@ -523,8 +523,8 @@ export default {
 </script>
 
 
-<style>
-.el-carousel__item h3 {
+<style scoped>
+/* .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;
   opacity: 0.75;
@@ -550,5 +550,5 @@ export default {
 }
 .gongsiDetail {
   height: 80px;
-}
+} */
 </style>

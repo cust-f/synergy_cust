@@ -20,8 +20,7 @@ export default {
       var that = this;
       var charts = [];
       var myChart = echarts.init(
-        document.getElementById("monthSituation"),
-        "light"
+        document.getElementById("monthSituation")
       );
 
       var option = {
@@ -76,6 +75,15 @@ export default {
             name: "完成需求量",
             type: "line",
             stack: "总量",
+          //  itemStyle: {
+          //     normal: {
+          //     // color:'#19CAAD',
+          //       lineStyle: {
+          //       //  color: "#19CAAD",
+          //         width: 3
+          //       }
+          //     }
+          //   },
             data: this.lineData.finishTaskCount
             //    data: [1,1,6]
           },
@@ -83,15 +91,15 @@ export default {
             name: "发布需求量",
             type: "line",
             stack: "总量",
-            itemStyle: {
-              normal: {
-               color:'#ff461f',
-                lineStyle: {
-                  color: "#ff461f",
-                  width: 3
-                }
-              }
-            },
+            // itemStyle: {
+            //   normal: {
+            //   // color:'#F4606C',
+            //     lineStyle: {
+            //     //  color: "#F4606C",
+            //       width: 3
+            //     }
+            //   }
+            // },
             data: this.lineData.taskCount
             // data: [0,0,9]
           }

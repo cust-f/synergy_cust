@@ -1,220 +1,257 @@
 <template>
   <div class="designerAccept">
-    
-      <div
-        class="biaoti"
-        style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
-      >&nbsp;&nbsp;&nbsp;&nbsp;已接任务</div>
+    <div
+      class="biaoti"
+      style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
+    >&nbsp;&nbsp;&nbsp;&nbsp;已接任务</div>
 
-      <!-- <el-divider></el-divider> -->
+    <!-- <el-divider></el-divider> -->
 
-      <!-- <div style="font-size:20px">已接任务</div> -->
-      <el-table
-        :data="Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-        :height="tableHeight"
-        border
-        class="table"
-        ref="multipleTable"
-        header-cell-class-name="table-header"
-        style="margin-top:20px "
-        :default-sort="{prop: 'designerAcceptTime,taskName', order: 'descending'}"
-      >
-        <template>
-          <el-table-column
-            prop="taskId"
-            label="序号"
-            type="index"
-            width="60px"
-            align="center"
-            :show-overflow-tooltip="true"
-          ></el-table-column>
-          <el-table-column
-            prop="taskName"
-            label="需求名称"
-            sortable
-            min-width="90px"
-            align="center"
-            :show-overflow-tooltip="true"
-          ></el-table-column>
-          <el-table-column
-            prop="supplierCheckDesignState"
-            label="审核状态"
-            sortable
-            min-width="110px"
-            align="center"
-            :show-overflow-tooltip="true"
-          >
-            <template slot-scope="scope">
-              <span
-                v-if="scope.row.supplierCheckDesignState===1&&scope.row.demandorRefuseReason!=null"
-              >
-                <el-tag>待审核</el-tag>
-                <el-tag type="danger" @click="handleEdit1(scope.$index,scope.row)">拒绝原因</el-tag>
-              </span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 0">
-                <el-tag>待提交</el-tag>
-              </span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 1">
-                <el-tag>待审核</el-tag>
-              </span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 2">
-                <el-tag type="success">通过</el-tag>
-              </span>
-              <span v-else-if="scope.row.supplierCheckDesignState === 3">
-                <el-tag type="danger">未通过</el-tag>
-              </span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="taskCategoryPart"
-            label="需求类型"
-            sortable
-            min-width="90px"
-            align="center"
-            :show-overflow-tooltip="true"
-          ></el-table-column>
-
-          <el-table-column
-            prop="designerAcceptTime"
-            label="接收时间"
-            sortable
-            min-width="90px"
-            align="center"
-            :show-overflow-tooltip="true"
-          >
-            <template
-              slot-scope="scope"
-            >{{scope.row.designerAcceptTime | dataFormat("yyyy-MM-dd hh:mm")}}</template>
-          </el-table-column>
-
-          <el-table-column
-            prop="deadline"
-            sortable
-            label="截止时间"
-            min-width="90px"
-            align="center"
-            :show-overflow-tooltip="true"
-          >
-            <template slot-scope="scope">{{scope.row.deadline | dataFormat("yyyy-MM-dd hh:mm")}}</template>
-          </el-table-column>
-        </template>
-
-        <el-table-column label="操作" min-width="110px" align="center">
+    <!-- <div style="font-size:20px">已接任务</div> -->
+    <el-table
+      :data="Accepted_Task_Data.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+      :height="tableHeight"
+      border
+      class="table"
+      ref="multipleTable"
+      header-cell-class-name="table-header"
+      style="margin-top:20px "
+      :default-sort="{prop: 'designerAcceptTime,taskName', order: 'descending'}"
+    >
+      <template>
+        <el-table-column
+          prop="taskId"
+          label="序号"
+          type="index"
+          width="60px"
+          align="center"
+          :show-overflow-tooltip="true"
+        ></el-table-column>
+        <el-table-column
+          prop="taskName"
+          label="需求名称"
+          sortable
+          min-width="90px"
+          align="center"
+          :show-overflow-tooltip="true"
+        ></el-table-column>
+        <el-table-column
+          prop="supplierCheckDesignState"
+          label="审核状态"
+          sortable
+          min-width="110px"
+          align="center"
+          :show-overflow-tooltip="true"
+        >
           <template slot-scope="scope">
-            <el-button @click="handleDetail(scope.row)" type="text" size="small">进入工作台</el-button>
-            <el-button
-              @click="submitTask(scope.row)"
-              type="text"
-              size="small"
-              v-if="scope.row.supplierCheckDesignState===0 || scope.row.supplierCheckDesignState===1 ||scope.row.supplierCheckDesignState===3"
-            >任务提交</el-button>
-            <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
-            <el-button @click="xiazaiZRWFJ(scope.row)" type="text" size="small">下载附件</el-button>
+            <span
+              v-if="scope.row.supplierCheckDesignState===1&&scope.row.demandorRefuseReason!=null"
+            >
+              <el-tag>待审核</el-tag>
+              <el-tag type="danger" @click="handleEdit1(scope.$index,scope.row)">拒绝原因</el-tag>
+            </span>
+            <span v-else-if="scope.row.supplierCheckDesignState === 0">
+              <el-tag>待提交</el-tag>
+            </span>
+            <span v-else-if="scope.row.supplierCheckDesignState === 1">
+              <el-tag>待审核</el-tag>
+            </span>
+            <span v-else-if="scope.row.supplierCheckDesignState === 2">
+              <el-tag type="success">通过</el-tag>
+            </span>
+            <span v-else-if="scope.row.supplierCheckDesignState === 3">
+              <el-tag type="danger">未通过</el-tag>
+            </span>
           </template>
         </el-table-column>
-      </el-table>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="prev, pager, next,total, jumper"
-          :current-page="pageIndex"
-          :page-size="pageSize"
-          :total="Accepted_Task_Data.length"
-          @current-change="handleCurrentChange"
-          @size-change="handleSizeChange"
-        ></el-pagination>
-      </div>
-      <div id="wrapper">
-        <el-dialog :visible.sync="dialogVisible" width="55%" class="dialog">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-          <div class="dialogCSS">
-            <el-form ref="form1" :model="form" label-width="110px">
-              <el-row>
-                <el-col :span="11">
-                  <el-form-item label="需求名称">
-                    <el-input v-model="form1.taskName" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
+        <el-table-column
+          prop="taskCategoryPart"
+          label="需求类型"
+          sortable
+          min-width="90px"
+          align="center"
+          :show-overflow-tooltip="true"
+        ></el-table-column>
 
-                <el-col :span="11">
-                  <el-form-item label="企业名称">
-                    <el-input v-model="form1.companyName" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+        <el-table-column
+          prop="designerAcceptTime"
+          label="接收时间"
+          sortable
+          min-width="90px"
+          align="center"
+          :show-overflow-tooltip="true"
+        >
+          <template
+            slot-scope="scope"
+          >{{scope.row.designerAcceptTime | dataFormat("yyyy-MM-dd hh:mm")}}</template>
+        </el-table-column>
 
-              <el-row>
-                <el-col :span="11">
-                  <el-form-item label="一级行业类别">
-                    <el-input v-model="form1.taskCategoryMain" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
+        <el-table-column
+          prop="deadline"
+          sortable
+          label="截止时间"
+          min-width="90px"
+          align="center"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">{{scope.row.deadline | dataFormat("yyyy-MM-dd hh:mm")}}</template>
+        </el-table-column>
+      </template>
 
-                <el-col :span="11">
-                  <el-form-item label="二级行业类别">
-                    <el-input v-model="form1.taskCategoryPart" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="11">
-                  <el-form-item label="开始时间">
-                    <el-input
-                      v-bind:value="form1.beginTime|formatDate"
-                      :disabled="true"
-                      style="text-align:center"
-                    ></el-input>
-                  </el-form-item>
-                </el-col>
+      <el-table-column label="操作" min-width="110px" align="center">
+        <template slot-scope="scope">
+          <el-button @click="handleDetail(scope.row)" type="text" size="small"
+           v-if="scope.row.supplierCheckDesignState===0  ||scope.row.supplierCheckDesignState===1"
+          >进入工作台</el-button>
+          <el-button
+            @click="submit(scope.row)"
+            type="text"
+            size="small"
+            v-if="scope.row.supplierCheckDesignState===0  ||scope.row.supplierCheckDesignState===3"
+          >任务提交</el-button>
+          <el-button
+            @click="CCSJ(scope.row)"
+            type="text"
+            size="small"
+            v-if="scope.row.supplierCheckDesignState===1  ||scope.row.supplierCheckDesignState===2"
+          >查看设计</el-button>
 
-                <el-col :span="11">
-                  <el-form-item label="截止日期">
-                    <el-input
-                      v-bind:value="form1.deadline|formatDate"
-                      :disabled="true"
-                      style="text-align:center"
-                    ></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!-- <el-row>
+          <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
+          <el-button @click="xiazaiZRWFJ(scope.row)" type="text" size="small">下载附件</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="pagination">
+      <el-pagination
+        background
+        layout="prev, pager, next,total, jumper"
+        :current-page="pageIndex"
+        :page-size="pageSize"
+        :total="Accepted_Task_Data.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+      ></el-pagination>
+    </div>
+    <div id="wrapper">
+      <el-dialog :visible.sync="dialogVisible" width="55%" class="dialog">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <div class="dialogCSS">
+          <el-form ref="form1" :model="form" label-width="110px">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="需求名称">
+                  <el-input v-model="form1.taskName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="企业名称">
+                  <el-input v-model="form1.companyName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="一级行业类别">
+                  <el-input v-model="form1.taskCategoryMain" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="二级行业类别">
+                  <el-input v-model="form1.taskCategoryPart" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="开始时间">
+                  <el-input
+                    v-bind:value="form1.beginTime|formatDate"
+                    :disabled="true"
+                    style="text-align:center"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="11">
+                <el-form-item label="截止日期">
+                  <el-input
+                    v-bind:value="form1.deadline|formatDate"
+                    :disabled="true"
+                    style="text-align:center"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <!-- <el-row>
               <el-col :span="22">
                 <el-form-item label="拒绝原因">
                   <el-input v-model="form1.demandorRefuseReason" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
-              </el-row>-->
+            </el-row>-->
 
-              <el-row>
-                <el-col :span="22">
-                  <el-form-item label="任务详情">
-                    <el-input v-model="form1.taskDetail" type="textarea" :rows="7" :disabled="true"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
-          </div>
-          <span slot="footer" class="dialog-footer" style="padding-right: 50px;">
-            <el-button @click="dialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-          </span>
-        </el-dialog>
-      </div>
-
-      <!-- 拒绝原因弹出框 -->
-      <el-dialog :visible.sync="resonvisible">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-form :model="form1">
-          <el-form-item :label-width="formLabelWidth">
-            <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{form1.demandorRefuseReason}}</span>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="resonvisible = false">取 消</el-button>
-          <el-button type="primary" @click="resonvisible=false">确 定</el-button>
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="任务详情">
+                  <el-input v-model="form1.taskDetail" type="textarea" :rows="7" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
         </div>
+        <span slot="footer" class="dialog-footer" style="padding-right: 50px;">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
       </el-dialog>
+    </div>
+
+    <!-- 拒绝原因弹出框 -->
+    <el-dialog :visible.sync="resonvisible">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <el-form :model="form1">
+        <el-form-item :label-width="formLabelWidth">
+          <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{form1.demandorRefuseReason}}</span>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="resonvisible = false">取 消</el-button>
+        <el-button type="primary" @click="resonvisible=false">确 定</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- git地址弹出框 -->
+    <el-dialog :visible.sync="gitVisible">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">提示</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+  <br>
+  <br>
+   <el-row>
     
+        <el-col :span="4" offset="1">
+        
+          <span>
+            
+            请输入仓库地址:
+            </span>
+          </el-col>
+          <el-col :span="16">
+            <el-form :model="form2">
+        <el-form-item :label-width="formLabelWidth">
+          <el-input v-model="form2.gitAdress"></el-input>
+        </el-form-item>
+      </el-form>
+            </el-col>
+      </el-row>
+      
+      
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="resonvisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitTask">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -234,6 +271,7 @@ export default {
       pageTotal: 0,
       resonvisible: false,
       tableHeight: window.innerHeight,
+      
 
       Accepted_Task_Head: [
         {
@@ -297,8 +335,12 @@ export default {
         // }
       ],
       form1: {},
+      form2: {
+        gitAdress: "",
+      },
       dialogVisible: false,
-      submit: false
+      //submit: false,
+      gitVisible: false
     };
   },
   filters: {
@@ -311,35 +353,39 @@ export default {
     this.getTableData();
   },
   methods: {
-    submitTask(row) {
+    submit(row) {
       if (
         row.supplierCheckDesignState == 0 ||
         row.supplierCheckDesignState == 3
       ) {
-        this.$confirm("确定要提交任务吗？", "提示", {
-          type: "warning"
-        }).then(() => {
-          //console.log(row.taskId);
-          var that = this;
-          var data = Qs.stringify({
-            taskId: row.taskId
-          });
-          //console.log(data);
-          that.axios({
-            method: "post",
-            url: "api/designer/updateCheckState",
-            data: data
-          });
-          this.$message({
-            message: "提交成功",
-            type: "success"
-          });
-        });
+        this.gitVisible = true;
+        this.taskId = row.taskId;
       } else {
         this.$confirm("任务已提交无需再次提交", "提示", {
           type: "warning"
         });
       }
+    },
+    submitTask() {
+      //console.log(row.taskId);
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        gitAdress: this.form2.gitAdress
+      });
+      //console.log(data);
+      that.axios({
+        method: "post",
+        url: "api/designer/updateCheckState",
+        data: data
+      });
+      this.$message({
+        message: "提交成功",
+        type: "success"
+      });
+      this.form2 = {};
+      this.gitVisible = false;
+      this.getTableData();
     },
     handleDetail(row) {
       //console.log(row.taskId);
@@ -371,7 +417,7 @@ export default {
           responseType: "blob"
         })
         .then(response => {
-         // console.log("cap");
+          // console.log("cap");
           //console.log(response);
           this.download(response.data, "ZRWFJ");
         });
@@ -397,6 +443,11 @@ export default {
       }
       document.body.appendChild(link);
       link.click();
+    },
+     //跳转虚拟机
+    CCSJ(row) {
+        console.log(row.gitadress)
+        window.location.href = row.gitadress; 
     },
 
     //获取已接收任务列表数据
@@ -481,7 +532,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.designerAccept{
+.designerAccept {
   .dialogCSS .el-input.is-disabled .el-input__inner {
     background-color: #ffffff;
     color: #303133;
@@ -509,25 +560,20 @@ export default {
   }
   .el-dialog__header {
     padding: 0px 0px 0px;
-    
   }
   element.style {
     margin-top: 20px;
     height: 1001px;
   }
 
-.el-dialog__body {
-  padding-top: 30px;
-  padding-right: 0px !important;
-  padding-bottom: 30px;
-  padding-left: 20px;
-  /* color: #606266; */
-  font-size: 14px;
-  word-break: break-all;
+  .el-dialog__body {
+    padding-top: 30px;
+    padding-right: 0px !important;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    /* color: #606266; */
+    font-size: 14px;
+    word-break: break-all;
+  }
 }
-
-
-}
-
-  
 </style>

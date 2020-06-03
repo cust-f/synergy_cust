@@ -18,7 +18,8 @@
          <el-col :span="16" >
           <div class="input_span">
             <el-form ref="form" :model="form">
-              <label class="grid-cont-right" style="margin-left:285px;">平均完成质量</label>
+              <label class="grid-cont-right" style="margin-left:275px;">平均完成质量：</label>
+               <label id="word" style="font-size:14px" ></label>
               <br />
               <br />
             </el-form>
@@ -134,14 +135,20 @@ export default {
     styleswith() {
       if (this.form.designCount > 0 && this.form.designCount < 6) {
         document.getElementById("one").style.background = "#00D1B2";
+        document.getElementById("word").innerHTML="优";
+        document.getElementById("word").style.color = "#00D1B2";
       }
       if (this.form.designCount > 5 && this.form.designCount < 11) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+         document.getElementById("word").innerHTML="良";
+         document.getElementById("word").style.color = "orange";
       }
       if (this.form.designCount > 10 || this.form.designCount == 11) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+        document.getElementById("word").innerHTML="差";
+         document.getElementById("word").style.color = "red";
       }
     },
      //获取总时长，平均完成质量

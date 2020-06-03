@@ -367,6 +367,7 @@
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
               <el-button
+                @click="LJTZ(scope.row)"
                 type="text"
                 size="small"
                 v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
@@ -416,7 +417,8 @@
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <label  style="font-size:13px">完成质量:</label>
+                <label id="word" style="font-size:13px"></label>
                 <br />
                 <br />
               </el-form>
@@ -438,7 +440,10 @@
               <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <label ></label>
+                <label  style="font-size:13px">完成质量:</label>
+                                <label id="word" style="font-size:13px"></label>
+
                 <br />
                 <br />
               </el-form>
@@ -1563,15 +1568,21 @@ export default {
     //提交次数 背景颜色变化
     styleswith() {
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
+        document.getElementById("word").innerHTML="优"
+        document.getElementById("word").style.color = "#00D1B2"
         document.getElementById("one").style.background = "#00D1B2";
       }
       if (this.formZL.designCount > 2 && this.formZL.designCount < 4) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
+                document.getElementById("word").innerHTML="良"
+        document.getElementById("word").style.color = "orange"
       }
       if (this.formZL.designCount > 4 || this.formZL.designCount == 4) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
+                document.getElementById("word").innerHTML="差"
+        document.getElementById("word").style.color = "red"
       }
     },
     getParams() {
@@ -1594,6 +1605,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
+          console.log(response)
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
@@ -1950,6 +1962,11 @@ export default {
           this.download(response.data, "HT");
         });
     },
+    //跳转虚拟机
+    LJTZ(row) {
+        console.log(row.gitadress)
+        window.location.href = row.gitadress; 
+    },
     //设计通过
     SJTG(row) {
       this.$confirm("确定将设计审核通过么？", "提示", {
@@ -2021,13 +2038,15 @@ export default {
           data: data
         })
         .then(response => {
+          console.log(response)
           if(this.TPDZCS ==1){
-            this.logo = response.data.allData.logo;
+            
             this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
                     this.companyDetailContent =
             response.data.allData.companyDetailContent;
+            this.logo = response.data.allData.logo;
           this.imgsrc = response.data.allData.companyPicture;
           this.qiyezhizhao =
             response.data.allData.BusinessLicence;
@@ -2053,6 +2072,14 @@ export default {
     padding: 0px 30px 0px;
   }
 .mainStaskDetaul {
+  .customer-table{
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  .el-dialog__header{
+    padding-top:0%;
+    padding-bottom: 0%;
+  }
   .loading1 {
     height: 400px;
   }

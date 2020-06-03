@@ -43,7 +43,7 @@
                   <el-table-column prop="time" sortable label="截止时间" width="150" >
                     <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
                   </el-table-column>
-                  <el-table-column label="操作" >
+                  <el-table-column label="操作" align="center" >
                     <template slot-scope="scope">
                       <!-- <el-button
                       type="text"

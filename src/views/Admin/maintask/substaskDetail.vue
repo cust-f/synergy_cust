@@ -108,7 +108,7 @@
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求分解</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <div>
             <div class="container">
-              <div class="handle-box">
+              <div>
                 <!-- <el-button
           type="primary"
           icon="el-icon-delete"
@@ -579,7 +579,7 @@
                 <el-row>
                   <el-col>
                     <el-form-item label>
-                      <div>{{ cool.mainTaskDetail}}</div>
+                      <div class = "wenzi">{{ cool.mainTaskDetail}}</div>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1309,7 +1309,9 @@ export default {
 
 <style lang="scss" >
 .substaskDetail{
-
+.wenzi{
+  padding-right: 18px;
+}
 
 .shenhe{
     color:#FF8040;
@@ -1329,7 +1331,7 @@ export default {
 }
 
 .el-dialog__footer {
-  padding-right: 70px;
+  padding-right: 40px;
 }
 .anniu .el-dialog__footer {
   padding-right: 20px;
@@ -1374,6 +1376,7 @@ export default {
 .el-dialog__header {
   padding-right: 0%;
   padding-top: 0%;
+  padding-bottom: 0%;
 }
 .formYS .el-input.is-disabled .el-input__inner {
   background-color: #ffffff;
