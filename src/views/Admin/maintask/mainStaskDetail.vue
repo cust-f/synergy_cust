@@ -2038,13 +2038,15 @@ export default {
           data: data
         })
         .then(response => {
+          console.log(response)
           if(this.TPDZCS ==1){
-            this.logo = response.data.allData.logo;
+            
             this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
                     this.companyDetailContent =
             response.data.allData.companyDetailContent;
+            this.logo = response.data.allData.logo;
           this.imgsrc = response.data.allData.companyPicture;
           this.qiyezhizhao =
             response.data.allData.BusinessLicence;

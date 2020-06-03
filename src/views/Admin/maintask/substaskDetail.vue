@@ -1310,7 +1310,7 @@ export default {
 <style lang="scss" >
 .substaskDetail{
 .wenzi{
-  padding-right: 5px;
+  padding-right: 18px;
 }
 
 .shenhe{

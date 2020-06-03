@@ -516,7 +516,11 @@ export default {
           this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
+          this.imgsrc = response.data.allData.companyPicture;
+          this.qiyezhizhao =
+            response.data.allData.BusinessLicence;
+          this.shuiwudengjizheng =
+            response.data.allData.tRCertificate;
           this.companyDetailContent =
             response.data.allData.companyDetailContent;
           this.logo = response.data.allData.logo;

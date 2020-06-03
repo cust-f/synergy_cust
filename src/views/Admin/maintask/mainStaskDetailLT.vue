@@ -2015,16 +2015,16 @@ export default {
           data: data
         })
         .then(response => {
-            this.logo = response.data.allData.logo;
 
           this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
+this.logo = response.data.allData.logo;
+          this.imgsrc = response.data.allData.companyPicture;
           this.qiyezhizhao =
-            response.data.allData.companyDetail[0].businessLicence;
+            response.data.allData.BusinessLicence;
           this.shuiwudengjizheng =
-            response.data.allData.companyDetail[0].tRCertificate;
+            response.data.allData.tRCertificate;
                       this.companyDetailContent = response.data.allData.companyDetailContent;
 
         });
