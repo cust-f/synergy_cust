@@ -258,7 +258,7 @@ export default {
           //this.table = response.data.allData;
          
          this.barData.taskCount=response.data.allData.taskCount;
-         this.barData.taskCountS=response.data.allData.taskCountS;
+        
          this.barData.finishTaskCount=response.data.allData.finishTaskCount;          
          that.$refs.drawbarChart.getCharts1();
          //this.getCharts1();

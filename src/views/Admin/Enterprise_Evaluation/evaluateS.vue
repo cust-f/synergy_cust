@@ -129,6 +129,7 @@ export default {
       tableData:"",
       radarData:{
       radarData:[],
+      indicatorData:[],
       },
       barData:{
       taskCount:[],
@@ -198,7 +199,9 @@ export default {
           data: data
         })
         .then(response => {
-         this.radarData.radarData=response.data.allData;
+        // this.radarData.radarData=response.data.allData;
+          this.radarData.radarData=response.data.allData.AllRemarkLengthS;
+         this.radarData.indicatorData=response.data.allData.indicatorS;
          that.$refs.drawradarChart.getCharts2();      
         // this.getCharts2();
           
