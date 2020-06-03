@@ -11,7 +11,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
-      :default-sort="{prop: 'beginTime', order: 'ascending'}"
+      :default-sort="{prop: 'applyTime', order: 'ascending'}"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -40,8 +40,8 @@
 
       <el-table-column prop="publishingCompanyName" sortable label="需求方"></el-table-column>
 
-      <el-table-column prop="beginTime" sortable label="发布日期" align="center">
-        <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
+      <el-table-column prop="applyTime" sortable label="发布日期" align="center">
+        <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
       </el-table-column>
       <el-table-column prop="deadline" sortable label="截止日期">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
@@ -90,7 +90,7 @@ export default {
           taskName: "",
           taskType: "",
           companyName: "",
-          beginTime: "",
+          applyTime: "",
           deadline: "",
           taskCategoryPart: ""
         }
