@@ -13,8 +13,7 @@ export default {
     getCharts() {
       var charts = [];
       var myChart = echarts.init(
-        document.getElementById("quarterlySituation"),
-        "light"
+        document.getElementById("quarterlySituation")
       ); // 指定图表的配置项和数据
       var option = {
         title: {
@@ -65,27 +64,27 @@ export default {
             //   { value: 220, name: "第四季度" }
             //   // {value: 1548, name: '搜索引擎'}
             // ]
-            itemStyle: {
-              emphasis: {
-                shadowBlur: 5,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.2)"
-              },
-              normal: {
-                color: function(params) {
-                  //自定义颜色
-                  var colorList = [
-                    "#A0EEE1",
-                    "#E6CEAC",
-                    "#8CC7B5",
-                    "#D1BA74",
-                    "#ECAD9E",
-                    "#F4606C"
-                  ];
-                  return colorList[params.dataIndex];
-                }
-              }
-            }
+            // itemStyle: {
+            //   emphasis: {
+            //     shadowBlur: 5,
+            //     shadowOffsetX: 0,
+            //     shadowColor: "rgba(0, 0, 0, 0.2)"
+            //   },
+              // normal: {
+              //   color: function(params) {
+              //     // //自定义颜色
+              //     // var colorList = [
+              //     //   "#A0EEE1",
+              //     //   "#E6CEAC",
+              //     //   "#8CC7B5",
+              //     //   "#D1BA74",
+              //     //   "#ECAD9E",
+              //     //   "#F4606C"
+              //     // ];
+              //     return colorList[params.dataIndex];
+              //   }
+              // }
+           // }
           }
         ]
       };
