@@ -739,7 +739,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/selectMainType",
+          url: "/api/SubstaskInformation/selectMainType",
           data: data
         })
         .then(response => {
@@ -777,7 +777,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "http://127.0.0.1:8081/SubstaskInformation/selectSubType",
+          url: "/api/SubstaskInformation/selectSubType",
           data: data
         })
         .then(response => {
@@ -829,7 +829,7 @@ export default {
           .axios({
             method: "post",
             url:
-              "http://127.0.0.1:8081/SubstaskInformation/addSubstaskInformation",
+              "/api/SubstaskInformation/addSubstaskInformation",
             data: data,
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
           })
