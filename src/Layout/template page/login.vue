@@ -101,6 +101,10 @@ export default {
                 {
                   this.$router.push("/admin/designTaskq");
                 }
+                else if(this.roleID === 6)
+                {
+                  this.$router.push("/admin/mainStaskShow");
+                }
                 else
                 this.$router.push("/admin/dashboard");
                 
