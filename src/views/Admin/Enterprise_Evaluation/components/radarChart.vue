@@ -40,14 +40,15 @@ export default{
               fontSize: 16
             }
           },
-          indicator: [
-             { name: "任务时长", max: 150 },            
-            { name: "计划时长", max: 50 },
-            { name: "审核时长", max: 50 },
-            { name: "验收时长", max: 50 },
-            { name: "申请时长", max: 50 },
+          indicator:this.radarData.indicatorData
+          // [
+          //   { name: "任务时长", max: 150 },            
+          //   { name: "计划时长", max: 50 },
+          //   { name: "审核时长", max: 50 },
+          //   { name: "验收时长", max: 50 },
+          //   { name: "申请时长", max: 50 },
             
-          ]
+          // ]
         },
         series: [
           {
