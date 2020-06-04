@@ -195,7 +195,7 @@ export default {
           data: data
         })
         .then(response => {
-          this.radarData.radarData = response.data.allData.AllRemarkLength;
+          this.radarData.radarData = response.data.allData;
           this.radarData.indicatorData = response.data.allData.indicator;
           if (response.data.allData[0] == null) {
             this.reMarkId = 0;
