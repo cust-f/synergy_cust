@@ -1329,7 +1329,6 @@ export default {
         });
     },
     CKLSHT(row) {
-      this.fileHistoryDia = true;
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
