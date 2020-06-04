@@ -176,7 +176,7 @@
                   layout="total, prev, pager, next"
                   :current-page="query.pageIndex"
                   :page-size="query.pageSize"
-                  :total="pageTotal"
+                  :total="shuju.length"
                   @current-change="handlePageChange"
                 ></el-pagination>
               </div>
