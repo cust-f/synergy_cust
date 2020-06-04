@@ -414,7 +414,7 @@
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
             <div class="input_span" align="center">
-              <el-form ref="form" :modelZL="formZL">
+              <el-form ref="formZL" :modelZL="formZL">
                 <label  style="font-size:13px">完成质量:</label>
                 <label id="word" style="font-size:13px"></label>                <br />
                 <br />
@@ -1594,7 +1594,7 @@ export default {
           data: data
         })
         .then(response => {
-          (this.form.circulationCount = response.data.allData),
+          (this.formZL.circulationCount = response.data.allData),
             this.styleswith();
         });
     },
@@ -1618,6 +1618,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
+          console.log(response)
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
