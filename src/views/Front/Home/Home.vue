@@ -933,7 +933,7 @@ export default {
 .home .xqelbuttonleft0 {
   float: left;
   position: relative;
-  left: 25%;
+  left: 30%;
   width: 40%;
   height: 50px;
   margin-bottom: 7%;
