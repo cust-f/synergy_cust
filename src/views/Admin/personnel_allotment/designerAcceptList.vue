@@ -387,6 +387,8 @@ export default {
       this.gitVisible = false;
       this.getTableData();
       this.$router.go(0);
+
+      
     },
     handleDetail(row) {
       //console.log(row.taskId);

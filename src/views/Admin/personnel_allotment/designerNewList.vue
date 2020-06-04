@@ -43,7 +43,7 @@
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
-              prop="deadline"
+              prop="supplierDistributionTime"
               label="分配时间"
               sortable
               min-width="90px"
