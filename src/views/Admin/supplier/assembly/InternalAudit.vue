@@ -46,7 +46,7 @@
             </div>
           </div>
           <div v-show="scope.row.supplierCheckDesignState > 0">
-            <el-button @click="LJTZ(row)" type="text" size="small">查看成果</el-button>
+            <el-button @click="LJTZ(scope.row)" type="text" size="small">查看成果</el-button>
           </div>
           <div v-show="scope.row.supplierCheckDesignState === 1">
             <el-button @click="designSuccess(scope.row)" type="text" size="small">通过</el-button>
