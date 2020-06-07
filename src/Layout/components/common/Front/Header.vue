@@ -51,19 +51,19 @@
         </div>
       </el-col>
       <!-- 用户名下拉菜单 -->
-      <el-col :span="8" style="position: absolute;right:-20px;top:14px;">
+      <el-col :span="10" style="position: absolute;right:-20px;top:14px;">
         <el-input
           placeholder="请输入内容"
           v-model="searchModel"
           @keyup.enter.native="searchResult"
-          style="width:400px;"
+          style="width:500px;"
         >
           <el-select v-model="select" slot="prepend" placeholder="请选择">
             <el-option label="全部" value="0"></el-option>
             <el-option label="成果" value="1"></el-option>
             <el-option label="企业" value="2"></el-option>
           </el-select>
-          <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-button slot="append" icon="el-icon-search" ></el-button>
         </el-input>
       </el-col>
     </el-row>
@@ -669,4 +669,61 @@ export default {
   height: 115px;
   display: block;
 }
+</style>
+
+<style lang="scss">
+.admin-header{
+  .el-select .el-input .el-select__caret {
+    color: white;
+    font-size: 14px;
+    -webkit-transition: -webkit-transform .3s;
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+    transition: transform .3s,-webkit-transform .3s;
+    -webkit-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+    cursor: pointer;
+}
+.el-input-group__append button.el-button, .el-input-group__append div.el-select .el-input__inner, .el-input-group__append div.el-select:hover .el-input__inner, .el-input-group__prepend button.el-button, .el-input-group__prepend div.el-select .el-input__inner, .el-input-group__prepend div.el-select:hover .el-input__inner {
+    border-color: #ff7720;
+    background-color: #ff7720;
+    /* color: inherit; */
+    der-top: 0;
+    border-bottom: 0;
+}
+.el-input__inner {
+    -webkit-appearance: none;
+    background-color: #FFF;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #ff7720;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #f4f6f8;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    // padding: 0 15px;
+    -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+}
+.el-input-group__append, .el-input-group__prepend {
+    background-color: #F5F7FA;
+    color: white;
+    vertical-align: middle;
+    display: table-cell;
+    position: relative;
+    border: 1px solid #DCDFE6;
+    border-radius: 4px;
+    padding: 0 20px;
+    width: 1px;
+    white-space: nowrap;
+}
+
+}
+
 </style>

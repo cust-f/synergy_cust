@@ -68,7 +68,7 @@
 
         <el-table-column label="操作" min-width="90px" align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleDetail">查看图纸</el-button>
+            <el-button type="text" size="small" @click="CCSJ(scope.row)">查看图纸</el-button>
             <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
           </template>
         </el-table-column>
@@ -337,6 +337,10 @@ export default {
 
     handleSizeChange(psize) {
       this.pageSize = psize;
+    },
+    CCSJ(row) {
+      console.log(row.gitadress);
+      window.location.href = row.gitadress;
     }
   }
 };
