@@ -4,10 +4,11 @@
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           数据统计
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-button type="text" id="evaluate1" style="display:inline-block;margin-left:-50px;font-size:15px;color:rgb(45, 140, 240)" @click="evaluateB1">发布的任务</el-button>
-        <el-button type="text" id="evaluate2" style="display:inline-block;margin-left:5px;font-size:15px;color:black" @click="evaluateB2">承接的任务</el-button>
-              
-      <div v-show="evaluate1"> 
+       
+        <el-tabs v-model="activeName" @tab-click="handleClick" >
+          <el-tab-pane label="发布的任务" name="first">
+               <cloumn-chart1 style="width: 600px;height:400px;"  >
+        
      <div style="text-align:center" >
       <label  style="font-size:16px">企业星级</label>
       </div>
@@ -98,12 +99,17 @@
       
       
       </el-card>
-      </div> 
-      <!-- ----------------------------承接的任务---------------------------------- -->
-       <!-- ----------------------------承接的任务---------------------------------- -->
-        <!-- ----------------------------承接的任务---------------------------------- -->
-      <div v-show="evaluateS">
-         
+      
+
+               </cloumn-chart1>
+              </el-tab-pane>
+<!-- ---------------------------------- 承接的任务----------------------------------------- -->
+<!-- ---------------------------------- 承接的任务----------------------------------------- -->
+<!-- ---------------------------------- 承接的任务----------------------------------------- -->
+
+    <el-tab-pane label="承接的任务" name="second">
+      <cloumn-chart2  style="width: 600px;height:400px;" >
+              
      <div style="text-align:center" >
       <label  style="font-size:16px">企业星级</label>
       </div>
@@ -196,7 +202,12 @@
       
       
       </el-card>
-      </div>
+      
+                </cloumn-chart2>
+                
+              </el-tab-pane>
+        </el-tabs>
+ 
       <br/> <br/><br/> <br/>
    
      
@@ -223,8 +234,8 @@ export default {
   data() {
     return {
       userName: localStorage.getItem("ms_username"),
-      evaluate1: true,
-      evaluateS: false,
+      
+      activeName: 'first',
      //选择框
      options: [],        
          value:'',
@@ -277,28 +288,13 @@ export default {
  
    
   methods: {
-     //发布的任务切换
-     evaluateB1(){
-       this.evaluate1 =true;
-       this.evaluateS =false;
-      
-       document.getElementById("evaluate1").style.color = "rgb(45, 140, 240)";
-       document.getElementById("evaluate2").style.color = "black";
+     handleClick(tab, event) {
         this.getYearData(); //获取条件选择年份数据
-        this.getTimeData();///获取条件选择时间数据
-     },
-     //承接的任务切换
-     evaluateB2:function(){
-       this.evaluate1 =false;
-       this.evaluateS =true;
-       
-       document.getElementById("evaluate1").style.color = "black";
-       document.getElementById("evaluate2").style.color = "rgb(45, 140, 240)";
-
-       this.getYearData(); //获取条件选择年份数据
        this.getTimeData();///获取条件选择时间数据
-       
-     },
+        console.log(tab, event);
+      },
+    
+    
 
     //获取条件选择时间数据
     getTimeData() {
