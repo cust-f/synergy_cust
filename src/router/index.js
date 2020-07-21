@@ -94,6 +94,8 @@ import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail
 import taskDetail from '@/views/admin/design/taskDetail' //分解任务详细
 import taskDetail1 from '@/views/admin/circulation/taskDetail1' //分解任务详细
 
+//测试界面========================
+import cityTest from '@/views/Test/cityTest'
 
 Vue.use(Router)
 
@@ -571,6 +573,10 @@ export default new Router({
       path: '*',
       redirect: '/404'
     },
-
+    {
+      path: '/cityTest',
+      name: 'cityTest',
+      component: cityTest
+    },
   ]
 })

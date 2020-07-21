@@ -140,7 +140,7 @@
 
         <el-row class="Detail"  style="margin-top:20px;">
           <el-container >
-            <el-main>
+            <el-main style="overflow: hidden;">
               <h2 style="font-size:18px;">{{detail.parent}}
                 <i class="el-icon-postcard"></i>
               </h2>
