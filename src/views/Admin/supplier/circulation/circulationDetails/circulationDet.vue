@@ -3,15 +3,15 @@
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div align="center">
-      <el-steps :active="milepostActive">
-        <el-step
-          v-for="(stpesdata, key) in milepost"
-          :title="stpesdata.title"
-          :icon="stpesdata.icon"
-          :description="stpesdata.description"
-          :key="key"
-        ></el-step>
-      </el-steps>
+        <el-steps :active="milepostActive" align-center>
+          <el-step
+            v-for="(stpesdata, key) in milepost"
+            :title="stpesdata.title"
+            :icon="stpesdata.icon"
+            :description="stpesdata.description"
+            :key="key"
+          ></el-step>
+        </el-steps>
       </div>
       <br />
       <br />
@@ -142,7 +142,8 @@ export default {
       },
       //雷达图的数据定义
       radarData: {
-        radarData: []
+        radarData: [],
+        indicatorData: []
       }
     };
   },
@@ -195,6 +196,7 @@ export default {
         })
         .then(response => {
           this.radarData.radarData = response.data.allData;
+          this.radarData.indicatorData = response.data.allData.indicator;
           if (response.data.allData[0] == null) {
             this.reMarkId = 0;
           }
@@ -331,7 +333,7 @@ export default {
   .WCZL {
     font-size: 11px;
   }
- 
+
   .table {
     font-size: 13px;
   }

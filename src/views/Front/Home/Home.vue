@@ -311,7 +311,7 @@
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
                 <span>需求一览</span>
-                <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
+                <el-button style="float: right; padding: 5px 0" type="text" @click="serviceResults">>>更多</el-button>
               </div>
               <el-row
                 v-for="(item,index) in demandTaskList"
@@ -933,7 +933,7 @@ export default {
 .home .xqelbuttonleft0 {
   float: left;
   position: relative;
-  left: 25%;
+  left: 30%;
   width: 40%;
   height: 50px;
   margin-bottom: 7%;

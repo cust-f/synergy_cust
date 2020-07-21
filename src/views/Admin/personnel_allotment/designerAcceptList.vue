@@ -100,13 +100,25 @@
 
       <el-table-column label="操作" min-width="110px" align="center">
         <template slot-scope="scope">
-          <el-button @click="handleDetail(scope.row)" type="text" size="small">进入工作台</el-button>
+          <el-button
+            @click="handleDetail(scope.row)"
+            type="text"
+            size="small"
+            v-if="scope.row.supplierCheckDesignState===0  ||scope.row.supplierCheckDesignState===1"
+          >进入工作台</el-button>
           <el-button
             @click="submit(scope.row)"
             type="text"
             size="small"
-            v-if="scope.row.supplierCheckDesignState===0 || scope.row.supplierCheckDesignState===1 ||scope.row.supplierCheckDesignState===3"
+            v-if="scope.row.supplierCheckDesignState===0  ||scope.row.supplierCheckDesignState===3"
           >任务提交</el-button>
+          <el-button
+            @click="CCSJ(scope.row)"
+            type="text"
+            size="small"
+            v-if="scope.row.supplierCheckDesignState===1  ||scope.row.supplierCheckDesignState===2"
+          >查看设计</el-button>
+
           <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
           <el-button @click="xiazaiZRWFJ(scope.row)" type="text" size="small">下载附件</el-button>
         </template>
@@ -215,29 +227,26 @@
     </el-dialog>
 
     <!-- git地址弹出框 -->
-    <el-dialog :visible.sync="gitVisible">
+    <el-dialog :visible.sync="gitVisible"  width="30%" height="100px">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">提示</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-  <br>
-  <br>
-   <el-row>
-    
-        <el-col :span="4" offset="1">
-        
-          <span>
-            
-            请输入仓库地址:
-            </span>
-          </el-col>
-          <el-col :span="16">
-            <el-form :model="form2">
-        <el-form-item :label-width="formLabelWidth">
+      <br />
+      <br />
+
+      <!-- <el-form :model="form2" :label-width="60">
+        <el-form-item label="请输入仓库地址">
           <el-input v-model="form2.gitAdress"></el-input>
         </el-form-item>
-      </el-form>
-            </el-col>
-      </el-row>
+      </el-form>-->
+
       
-      
+          <el-form :label-position="right" :model="form2">
+            <el-form-item label="请输入仓库地址：">
+    <el-input v-model="form2.gitAdress" ></el-input>
+  </el-form-item>
+           
+          </el-form>
+        
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="resonvisible = false">取 消</el-button>
         <el-button type="primary" @click="submitTask">确 定</el-button>
@@ -262,7 +271,7 @@ export default {
       pageTotal: 0,
       resonvisible: false,
       tableHeight: window.innerHeight,
-      
+      formLabelWidth:100,
 
       Accepted_Task_Head: [
         {
@@ -327,7 +336,7 @@ export default {
       ],
       form1: {},
       form2: {
-        gitAdress: "",
+        gitAdress: ""
       },
       dialogVisible: false,
       //submit: false,
@@ -377,6 +386,9 @@ export default {
       this.form2 = {};
       this.gitVisible = false;
       this.getTableData();
+      this.$router.go(0);
+
+      
     },
     handleDetail(row) {
       //console.log(row.taskId);
@@ -434,6 +446,11 @@ export default {
       }
       document.body.appendChild(link);
       link.click();
+    },
+    //跳转虚拟机
+    CCSJ(row) {
+      console.log(row.gitadress);
+      window.location.href = row.gitadress;
     },
 
     //获取已接收任务列表数据
@@ -554,7 +571,7 @@ export default {
 
   .el-dialog__body {
     padding-top: 30px;
-    padding-right: 0px !important;
+  
     padding-bottom: 30px;
     padding-left: 20px;
     /* color: #606266; */

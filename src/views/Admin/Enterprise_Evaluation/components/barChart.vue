@@ -1,5 +1,5 @@
 <template>
-   <div id="charts1" style="height:100%; width:800px; float:left"></div>
+   <div id="charts1" style="height: 320px; width:800px; float:left"></div>
 </template>
 
 <script>
@@ -56,6 +56,7 @@ export default{
           
           data:this.barData.taskCount
          },
+         
         {
           name:'完成数量',
           type: 'bar',

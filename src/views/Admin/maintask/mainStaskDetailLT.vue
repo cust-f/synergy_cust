@@ -414,7 +414,7 @@
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
             <div class="input_span" align="center">
-              <el-form ref="form" :modelZL="formZL">
+              <el-form ref="formZL" :modelZL="formZL">
                 <label  style="font-size:13px">完成质量:</label>
                 <label id="word" style="font-size:13px"></label>                <br />
                 <br />
@@ -430,7 +430,9 @@
       </div>
 
       <!-- 申请拒绝原因弹出框 -->
-      <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible" width="50%">
+      <el-dialog  :visible.sync="addVisible" width="50%">
+                <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入申请拒绝原因</div>
+        <br>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -450,7 +452,9 @@
       </el-dialog>
 
       <!-- 计划书拒绝原因弹出框 -->
-      <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible1" width="50%">
+      <el-dialog  :visible.sync="addVisible1" width="50%">
+         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入计划书拒绝原因</div>
+        <br>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -470,7 +474,9 @@
       </el-dialog>
 
       <!-- 合同拒绝原因弹出框 -->
-      <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible2" width="50%">
+      <el-dialog  :visible.sync="addVisible2" width="50%">
+         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入合同拒绝原因</div>
+        <br>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -490,7 +496,9 @@
       </el-dialog>
 
       <!-- 设计拒绝原因弹出框 -->
-      <el-dialog title="请输入设计不通过的原因" :visible.sync="addVisible3" width="50%">
+      <el-dialog  :visible.sync="addVisible3" width="50%">
+         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入流通清单拒绝原因</div>
+        <br>
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -1321,7 +1329,6 @@ export default {
         });
     },
     CKLSHT(row) {
-      this.fileHistoryDia = true;
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
@@ -1586,7 +1593,7 @@ export default {
           data: data
         })
         .then(response => {
-          (this.form.circulationCount = response.data.allData),
+          (this.formZL.circulationCount = response.data.allData),
             this.styleswith();
         });
     },
@@ -1610,6 +1617,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
+          console.log(response)
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
@@ -1960,7 +1968,7 @@ export default {
         });
         this.GBXJ();
         this.showData();
-
+        this.$router.go(0);
         this.$message({
           message: "清单通过,并自动生成评价",
           type: "success"
@@ -2015,16 +2023,16 @@ export default {
           data: data
         })
         .then(response => {
-            this.logo = response.data.allData.logo;
 
           this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
-          this.imgsrc = response.data.allData.companyDetail[0].companyPicture;
+this.logo = response.data.allData.logo;
+          this.imgsrc = response.data.allData.companyPicture;
           this.qiyezhizhao =
-            response.data.allData.companyDetail[0].businessLicence;
+            response.data.allData.BusinessLicence;
           this.shuiwudengjizheng =
-            response.data.allData.companyDetail[0].tRCertificate;
+            response.data.allData.tRCertificate;
                       this.companyDetailContent = response.data.allData.companyDetailContent;
 
         });
@@ -2036,6 +2044,10 @@ export default {
 
 <style lang="scss">
 .mainStaskDetaulLT {
+    .customer-table{
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
     .loading1 {
     height: 400px;
   }

@@ -4,7 +4,7 @@
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
           数据统计
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        
+          
         
      <div style="text-align:center" >
       <label  style="font-size:16px">企业星级</label>
@@ -106,14 +106,14 @@
 <script>
 import Qs from "qs";
 import {formatDate} from "../design/dataChange";
-import barChartS from "./components/barChartS"
-import radarChartS from "./components/radarChartS"
+import barChart from "./components/barChart"
+import radarChart from "./components/radarChart"
 export default {
-  name:"evaluateS",
+  name:"evaluate",
     
   components:{
-    "bar-chart":barChartS,
-    "radar-chart":radarChartS,
+    "bar-chart":barChart,
+    "radar-chart":radarChart,
   },
   data() {
     return {
@@ -127,17 +127,19 @@ export default {
         } ,
     
       tableData:"",
+      
       radarData:{
       radarData:[],
-      indicatorData:[],
+       indicatorData:[],
       },
+     
       barData:{
       taskCount:[],
       finishTaskCount:[],
       },
       star:'',
-     
-
+    
+       
     };
   },
   //初始化方法
@@ -180,7 +182,7 @@ export default {
       });
     },
     //企业雷达图数据
-    getRemarData(radarData){
+    getRemarData(){
      var that = this;
       
       var data = Qs.stringify({
@@ -195,14 +197,15 @@ export default {
         .axios({
           method: "post",
           url:
-            "/api/findRemarkTimesS",
+            "/api/findRemarkTimes",
           data: data
         })
         .then(response => {
-        // this.radarData.radarData=response.data.allData;
-          this.radarData.radarData=response.data.allData.AllRemarkLengthS;
-         this.radarData.indicatorData=response.data.allData.indicatorS;
-         that.$refs.drawradarChart.getCharts2();      
+         this.radarData.radarData=response.data.allData.AllRemarkLength;
+         this.radarData.indicatorData=response.data.allData.indicator;
+         that.$refs.drawradarChart.getCharts2();  
+           console.log(response.data.allData)
+          
         // this.getCharts2();
           
         });
@@ -248,16 +251,16 @@ export default {
         .axios({
           method: "post",
           url:
-            "/api/monthTaskCountDataS",
+            "/api/monthTaskCountData",
           data: data
         })
         .then(response => {
           //this.table = response.data.allData;
          
-         this.barData.taskCountS=response.data.allData.taskCountS;
+         this.barData.taskCount=response.data.allData.taskCount;
+        
          this.barData.finishTaskCount=response.data.allData.finishTaskCount;          
          that.$refs.drawbarChart.getCharts1();
-         console.log(response.data.allData);
          //this.getCharts1();
         });
 

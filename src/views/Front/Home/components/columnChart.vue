@@ -17,8 +17,7 @@ export default {
       // 基于准备好的dom，初始化echarts实例
       var charts = [];
       var myChart = echarts.init(
-        document.getElementById("fulfillDemandTop5"),
-        "light"
+        document.getElementById("fulfillDemandTop5")
       );
       console.log(this.cloumnData.Vintage);
       var option = {
@@ -62,9 +61,9 @@ export default {
             type: "bar",
                         itemStyle: {
               normal: {
-                color: "#BEE7E9",
+              //  color: "#BEE7E9",
                 lineStyle: {
-                  color: "#BEE7E9",
+               //   color: "#BEE7E9",
                   width: 3
                 }
               }
@@ -77,9 +76,9 @@ export default {
             type: "bar",
             itemStyle: {
               normal: {
-                color: "#F4606C",
+             //   color: "#F4606C",
                 lineStyle: {
-                  color: "#F4606C",
+               //   color: "#F4606C",
                   width: 3
                 }
               }

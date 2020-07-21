@@ -45,6 +45,16 @@
             :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
+            prop="publishTime"
+            label="开始时间"
+            sortable
+            min-width="90px"
+            align="center"
+            :show-overflow-tooltip="true"
+          >
+            <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
+          </el-table-column>
+          <el-table-column
             prop="demandorCheckDesignTime"
             label="完成时间"
             sortable
@@ -54,21 +64,11 @@
           >
             <template slot-scope="scope">{{scope.row.demandorCheckDesignTime | formatDate}}</template>
           </el-table-column>
-          <el-table-column
-            prop="deadline"
-            label="截止时间"
-            sortable
-            min-width="90px"
-            align="center"
-            :show-overflow-tooltip="true"
-          >
-            <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
-          </el-table-column>
         </template>
 
         <el-table-column label="操作" min-width="90px" align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleDetail">查看图纸</el-button>
+            <el-button type="text" size="small" @click="CCSJ(scope.row)">查看图纸</el-button>
             <el-button @click="handleEdit(scope.$index,scope.row)" type="text" size="small">任务详情</el-button>
           </template>
         </el-table-column>
@@ -337,6 +337,10 @@ export default {
 
     handleSizeChange(psize) {
       this.pageSize = psize;
+    },
+    CCSJ(row) {
+      console.log(row.gitadress);
+      window.location.href = row.gitadress;
     }
   }
 };
