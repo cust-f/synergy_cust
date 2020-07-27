@@ -50,12 +50,12 @@
           <img style="width:100%;" src="../../../../assets/images/home/logo2.png" />
         </div>
       </el-col>
-      <!-- 用户名下拉菜单 -->
-      <el-col :span="10" style="position: absolute;right:-20px;top:14px;">
+      <!-- 搜索-->
+      <el-col :span="9" :offset="4" style="padding-top:15px;" class="search">
         <el-input
           placeholder="请输入内容"
           v-model="searchModel"
-          @keyup.enter.native="searchResult"
+          @keyup.enter.native="searchResult()"
           style="width:500px;"
         >
           <el-select v-model="select" slot="prepend" placeholder="请选择">
@@ -63,7 +63,7 @@
             <el-option label="成果" value="1"></el-option>
             <el-option label="企业" value="2"></el-option>
           </el-select>
-          <el-button slot="append" icon="el-icon-search" ></el-button>
+          <el-button slot="append" icon="el-icon-search" @click="searchResult()"></el-button>
         </el-input>
       </el-col>
     </el-row>
@@ -385,6 +385,8 @@ export default {
           type: this.select
         }
       });
+      this.searchModel=""
+      
     },
     //向后台检验原来输入的密码是否正确
     checkOldPassword() {
@@ -692,7 +694,7 @@ export default {
     der-top: 0;
     border-bottom: 0;
 }
-.el-input__inner {
+.search .el-input__inner {
     -webkit-appearance: none;
     background-color: #FFF;
     background-image: none;
@@ -700,7 +702,7 @@ export default {
     border: 1px solid #ff7720;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    color: #f4f6f8;
+    // color: #f4f6f8;
     display: inline-block;
     font-size: inherit;
     height: 40px;
