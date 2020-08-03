@@ -67,6 +67,7 @@ import Qs from "qs";
 export default {
   name: "searchPatent",
   components: {
+    // 专利列表
     "patent-list": patentList,
   },
   data() {
@@ -100,6 +101,7 @@ export default {
           "Content-Type": "application/json",
         },
       };
+      // 根据专利名匹配专利列表
       if (this.searchType == 0) {
         var data = {
           componentName: this.keyWords,
@@ -120,6 +122,7 @@ export default {
             this.patentList = result;
           });
       } else {
+        // 根据企业名匹配旗下企业列表
         var data = {
           orgName: this.org,
         };
@@ -131,17 +134,11 @@ export default {
             url: "/city/bizdesign/detection",
           })
           .then((response) => {
-            // this.totalNumber = response.data.data.totalSize;
-            // console.log(response)
             let result = response.data.data.patentData.result;
             this.patentList = result;
           });
       }
-    },
-    otherSearch(index, data) {
-      this.type = index;
-      this.navigationSearch = data;
-    },
+    }
   },
 };
 </script>
