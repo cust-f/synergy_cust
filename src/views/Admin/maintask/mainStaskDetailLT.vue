@@ -1692,7 +1692,7 @@ export default {
             if (this.milepostActive > 1) {
               this.milepost[2].description = this.$options.filters[
                 "formatDate"
-              ](response.data.allData.c[0].publishTime);
+              ](response.data.allData.d[0].publishTime);
             }
             if (this.milepostActive > 2) {
               this.milepost[3].description = this.$options.filters[
