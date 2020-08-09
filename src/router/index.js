@@ -5,16 +5,18 @@ import login from '@/Layout/template page/login'
 
 //前台界面
 import Front from '@/Layout/template page/Front'
-import Home from '@/views/Front/Home/Home'//前台首页
-import twoMenu from '@/views/Front/Home/twoMenu'//前台首页二级页面
-import threeMenu from '@/views/Front/Home/threeMenu'//前台首页三级页面
-import service1 from '@/views/Front/Home/service1'//成果详情
-import excellentCompany from '@/views/Front/Home/excellentCompany'//优秀企业
-import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin'//优秀企业
+import Home from '@/views/Front/Home/Home' //前台首页
+import twoMenu from '@/views/Front/Home/twoMenu' //前台首页二级页面
+import threeMenu from '@/views/Front/Home/threeMenu' //前台首页三级页面
+import service1 from '@/views/Front/Home/service1' //成果详情
+import excellentCompany from '@/views/Front/Home/excellentCompany' //优秀企业
+import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin' //优秀企业
 import register from '@/views/Front/register/register'
-import xuqiuyilan from '@/views/Front/Home/xuqiuyilan'//需求一览
-import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail'//需求一览
-import search from '@/views/Front/Search/search'//搜索界面
+import xuqiuyilan from '@/views/Front/Home/xuqiuyilan' //需求一览
+import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail' //需求一览
+import search from '@/views/Front/Search/search' //搜索界面
+import searchPatent from '@/views/Front/Search/searchPatent' //专利搜索
+import patentDetail from '@/views/Front/Search/patentDetail' //专利详情
 import dashbordFront from '@/views/Front/Home/dashbordFront'
 import Data from '@/views/Front/Home/Data'
 
@@ -25,81 +27,82 @@ import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
 import copy from '@/views/admin/Home/Dashboard-copy' //后台系统首页
 
 //设计人员界面
-import designerNewList from '@/views/admin/personnel_allotment/designerNewList'//设计人员新增界面
-import designerAcceptList from '@/views/admin/personnel_allotment/designerAcceptList'//设计人员进行界面
-import designerFinishList from '@/views/admin/personnel_allotment/designerFinishList'//设计人员已完成界面
+import designerNewList from '@/views/admin/personnel_allotment/designerNewList' //设计人员新增界面
+import designerAcceptList from '@/views/admin/personnel_allotment/designerAcceptList' //设计人员进行界面
+import designerFinishList from '@/views/admin/personnel_allotment/designerFinishList' //设计人员已完成界面
 
 //流通人员界面
-import circulationNewList from '@/views/admin/personnel_allotment/circulationNewList'//流通人员新增界面
-import circulationAcceptList from '@/views/admin/personnel_allotment/circulationAcceptList'//流通人员进行界面
-import circulationFinishList from '@/views/admin/personnel_allotment/circulationFinishList'//流通人员已完成界面
+import circulationNewList from '@/views/admin/personnel_allotment/circulationNewList' //流通人员新增界面
+import circulationAcceptList from '@/views/admin/personnel_allotment/circulationAcceptList' //流通人员进行界面
+import circulationFinishList from '@/views/admin/personnel_allotment/circulationFinishList' //流通人员已完成界面
 
 
 
 //核心企业
-import newStaff from '@/views/admin/staff/newStaff'//新增人员
-import newTask from '@/views/admin/Task/newTask'//新增任务
-import mainStaskShow from '@/views/admin/maintask/mainStaskShow'//主任务显示
-import substaskDetail from '@/views/admin/maintask/substaskDetail'//子任务详情
-import mainStaskDetail from '@/views/admin/maintask/mainStaskDetail'//主任务详情
-import mainStaskDetailLT from '@/views/admin/maintask/mainStaskDetailLT'//流通任务详情
-import mainStaskDetailbei from '@/views/admin/maintask/mainStaskDetailbei'//主任务详情
+import newStaff from '@/views/admin/staff/newStaff' //新增人员
+import newTask from '@/views/admin/Task/newTask' //新增任务
+import mainStaskShow from '@/views/admin/maintask/mainStaskShow' //主任务显示
+import substaskDetail from '@/views/admin/maintask/substaskDetail' //子任务详情
+import mainStaskDetail from '@/views/admin/maintask/mainStaskDetail' //主任务详情
+import mainStaskDetailLT from '@/views/admin/maintask/mainStaskDetailLT' //流通任务详情
+import mainStaskDetailbei from '@/views/admin/maintask/mainStaskDetailbei' //主任务详情
 
 import review from '@/views/admin/check/review'
 
-import companyDetail from '@/views/admin/company/companyDetail'//企业详情
-import companyEditor from '@/views/admin/company/updateCompanyInfo'//企业详情修改
-import othercompanyDetail from '@/views/admin/company/othercompanyDetail'//企业详情
-import othersCompanyDe from '@/views/admin/company/othersCompanyDe'//企业详情
-import supplyBussess from '@/views/admin/company/supplyBussess'//供应商名录
-import supplyDetail from '@/views/admin/company/supplyDetail'//供应商详情
+import companyDetail from '@/views/admin/company/companyDetail' //企业详情
+import companyEditor from '@/views/admin/company/updateCompanyInfo' //企业详情修改
+import othercompanyDetail from '@/views/admin/company/othercompanyDetail' //企业详情
+import othersCompanyDe from '@/views/admin/company/othersCompanyDe' //企业详情
+import supplyBussess from '@/views/admin/company/supplyBussess' //供应商名录
+import supplyDetail from '@/views/admin/company/supplyDetail' //供应商详情
 
-import designTask from '@/views/admin/design/designTask'//设计任务
-import circulationTask from '@/views/admin/circulation/circulationTask'//流通任务
+import designTask from '@/views/admin/design/designTask' //设计任务
+import circulationTask from '@/views/admin/circulation/circulationTask' //流通任务
 
-import designTaskEvaluation from '@/views/admin/projectManagement/designTaskEvaluation'//设计任务评价
-import designTaskEvaluationDetils from '@/views/admin/projectManagement/designTaskEvaluationDetils'//设计任务评价详情
+import designTaskEvaluation from '@/views/admin/projectManagement/designTaskEvaluation' //设计任务评价
+import designTaskEvaluationDetils from '@/views/admin/projectManagement/designTaskEvaluationDetils' //设计任务评价详情
 import circulationTaskEvaluation from '@/views/admin/circulationRemark/circulationTaskEvaluation' //流通任务评价
-import circulationTaskEvaluationDetils from '@/views/admin/circulationRemark/circulationTaskEvaluationDetils'//流通任务评价详情
+import circulationTaskEvaluationDetils from '@/views/admin/circulationRemark/circulationTaskEvaluationDetils' //流通任务评价详情
 import staffingTenderManagement from '@/views/admin/projectManagement/staffingTenderManagement'
 
 import virtualMachine from '@/Layout/template page/virtualMachine'
-import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate'//核心企业
-import evaluateS from '@/views/admin/Enterprise_Evaluation/evaluateS'//供应商
+import evaluate from '@/views/admin/Enterprise_Evaluation/evaluate' //核心企业
+import evaluateS from '@/views/admin/Enterprise_Evaluation/evaluateS' //供应商
 
-import supplyContract from '@/views/admin/company/supplyContract'  //合同详情
-import userManagement from '@/views/admin/company/userManagement'  //用户管理
+import supplyContract from '@/views/admin/company/supplyContract' //合同详情
+import userManagement from '@/views/admin/company/userManagement' //用户管理
 
 
 //供应商设计界面
-import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq'//设计任务列表
-import designDet from '@/views/admin/supplier/design/designDetails/designDet'//详情
+import designTaskq from '@/views/admin/supplier/supplierMarket/designTaskq' //设计任务列表
+import designDet from '@/views/admin/supplier/design/designDetails/designDet' //详情
 //供应商流通界面
-import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq'//流通任务列表
-import circulationDet from '@/views/admin/supplier/circulation/circulationDetails/circulationDet'//供应商流通分配
-import text from '@/views/admin/supplier/circulation/circulationDetails/text'//供应商流通分配
+import circulationTaskq from '@/views/admin/supplier/supplierMarket/circulationTaskq' //流通任务列表
+import circulationDet from '@/views/admin/supplier/circulation/circulationDetails/circulationDet' //供应商流通分配
+import text from '@/views/admin/supplier/circulation/circulationDetails/text' //供应商流通分配
 
 
 import managerBusiness from '@/views/admin/manager/managerBusiness'
 import businessDetail from '@/views/admin/manager/businessDetail'
 
 
-import primarysupplyList from '@/views/admin/company/primarysupplyList'//一级供应商列表
-import secondarysupplyList from '@/views/admin/company/secondarysupplyList'//二级供应商列表
+import primarysupplyList from '@/views/admin/company/primarysupplyList' //一级供应商列表
+import secondarysupplyList from '@/views/admin/company/secondarysupplyList' //二级供应商列表
 
 import supplyBussess2 from '@/views/admin/supplycompany/supplyBussess2'
 import supplyDetail2 from '@/views/admin/supplycompany/supplyDetail2'
 
-import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail'//一级供应商列表
+import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail' //一级供应商列表
 import taskDetail from '@/views/admin/design/taskDetail' //分解任务详细
 import taskDetail1 from '@/views/admin/circulation/taskDetail1' //分解任务详细
 
+//测试界面========================
+import cityTest from '@/views/Test/cityTest'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       redirect: '/Home'
     },
@@ -107,8 +110,7 @@ export default new Router({
       path: '/Front',
       name: 'Front',
       component: Front,
-      children: [
-        {
+      children: [{
           path: '/home',
           name: 'Home',
           component: Home
@@ -161,15 +163,27 @@ export default new Router({
           name: 'companyDetails',
           component: excellentCompanyDetail
         },
+        // 搜索界面
         {
-          path:'/search',
-          name:search,
-          component:search
+          path: '/search',
+          name: search,
+          component: search
+        },
+        // 专利搜索界面
+        {
+          path: '/searchPatent',
+          name: searchPatent,
+          component: searchPatent
         },
         {
-          path:'/Data',
-          name:'Data',
-          component:Data
+          path: '/patentDetail',
+          name: patentDetail,
+          component: patentDetail
+        },
+        {
+          path: '/Data',
+          name: 'Data',
+          component: Data
         }
 
         // {
@@ -194,7 +208,7 @@ export default new Router({
         //   }
         // },
 
-      
+
       ]
     },
     {
@@ -203,7 +217,7 @@ export default new Router({
       component: adminPage,
       children: [
         //系统首页
-        
+
         {
           path: '/admin/dashboard',
           name: 'Dashboard',
@@ -218,7 +232,7 @@ export default new Router({
           name: 'newTask',
           component: newTask,
           meta: {
-            requireAuth: true    // 添加该字段，表示进入这个路由是需要登录的
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
           }
         },
         //查看所有主任务
@@ -571,6 +585,10 @@ export default new Router({
       path: '*',
       redirect: '/404'
     },
-
+    {
+      path: '/cityTest',
+      name: 'cityTest',
+      component: cityTest
+    },
   ]
 })

@@ -150,7 +150,6 @@ export default {
       console.log(oIframe.length);
       for (var i = 0; i < oIframe.length; i++) {
         oIframe[i].style.height = Number(deviceHeight) - 40 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
-
       }
     },
     getVirtualTab() {
