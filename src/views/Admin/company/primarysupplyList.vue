@@ -154,7 +154,7 @@ export default {
     return {
       provicepid: "",
       citypid: "",
-      usernameX: localStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
       pageIndex: 1,
       pageSize: 10,
 

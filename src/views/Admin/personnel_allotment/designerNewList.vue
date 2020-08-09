@@ -43,7 +43,7 @@
               :show-overflow-tooltip="true"
             ></el-table-column>
             <el-table-column
-              prop="deadline"
+              prop="supplierDistributionTime"
               label="分配时间"
               sortable
               min-width="90px"
@@ -222,7 +222,7 @@ export default {
   name: "designerNewList",
   data() {
     return {
-      username1: localStorage.getItem("ms_username"),
+      username1: sessionStorage.getItem("ms_username"),
 
       pageIndex: 1,
       pageSize: 7,

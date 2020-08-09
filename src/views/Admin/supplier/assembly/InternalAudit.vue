@@ -46,7 +46,7 @@
             </div>
           </div>
           <div v-show="scope.row.supplierCheckDesignState > 0">
-            <el-button @click="LJTZ(row)" type="text" size="small">查看成果</el-button>
+            <el-button @click="LJTZ(scope.row)" type="text" size="small">查看成果</el-button>
           </div>
           <div v-show="scope.row.supplierCheckDesignState === 1">
             <el-button @click="designSuccess(scope.row)" type="text" size="small">通过</el-button>
@@ -138,7 +138,7 @@ export default {
       design1: "",
       designTask: [],
       // formLabelWidth: "100px",
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       InternalAudit: [],
       //拒绝设计原因
       addList4: {

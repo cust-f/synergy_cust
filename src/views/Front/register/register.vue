@@ -80,7 +80,7 @@ export default {
       } else if (this.active == 4) {
         this.$refs.picture.submitUpload();
         if (this.check) {
-          console.log("憨憨上线");
+
         }
       }
     },
@@ -120,7 +120,6 @@ export default {
     companyFrom(name, data) {
       this.companyName = name;
       this.goOnCompany = data;
-      console.log(this.goOnCompany);
     },
     checkPicture(data) {
       this.check = data;

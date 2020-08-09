@@ -263,7 +263,7 @@ export default {
   name: "designerAcceptList",
   data() {
     return {
-      username1: localStorage.getItem("ms_username"),
+      username1: sessionStorage.getItem("ms_username"),
 
       pageIndex: 1,
       pageSize: 7,
@@ -386,6 +386,9 @@ export default {
       this.form2 = {};
       this.gitVisible = false;
       this.getTableData();
+      this.$router.go(0);
+
+      
     },
     handleDetail(row) {
       //console.log(row.taskId);

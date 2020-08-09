@@ -98,7 +98,7 @@ export default {
       pageTotal: 0,
       form: {},
       idx: -1,
-      username: localStorage.getItem("ms_username"),
+      username: sessionStorage.getItem("ms_username"),
       id: -1
     };
   },

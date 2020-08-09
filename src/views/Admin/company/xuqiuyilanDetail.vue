@@ -334,7 +334,7 @@ export default {
       deadline1: "",
       taskID: 0,
       logo: require("../company/2.jpg"),
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       findUserId: "",
       findUserIdVar: "",
       applyDiaLog: false,

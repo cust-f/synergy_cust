@@ -1,11 +1,11 @@
 <template>
-   <div id="charts1" style="height:100%; width:800px; float:left"></div>
+   <div id="charts1S" style="height: 320px; width:800px; float:left"></div>
 </template>
 
 <script>
 export default{
     props: {
-    barData:{
+    barDataS:{
       type:Object
     }
   },
@@ -14,14 +14,15 @@ export default{
   },
  methods: {
 //柱形图标
-    getCharts1() {
+    getCharts1S() {
       var that =this;
-      var myChart = echarts.init(document.getElementById("charts1"));
+      var myChart = echarts.init(document.getElementById("charts1S"));
       var option = {
     legend: {
       //data: ['发布数量', '完成数量']
        textStyle: {
-            fontSize: 16
+            fontSize: 16,
+            
         }
     },
     tooltip: {},
@@ -51,16 +52,16 @@ export default{
     series: [
       
         {
-          name:'进行中数量',
+          name:'承接数量',
           type: 'bar',
           
-          data:this.barData.taskCountS
+          data:this.barDataS.taskCountS
          },
         {
           name:'完成数量',
           type: 'bar',
          
-         data:this.barData.finishTaskCount
+         data:this.barDataS.finishTaskCountS
         },
         
     ]

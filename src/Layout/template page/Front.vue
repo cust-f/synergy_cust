@@ -12,7 +12,7 @@
       <header-synergy ></header-synergy>
     </el-header>
     <el-main style="overflow:hidden;background-color: #f6f6f6;">
-        <router-view></router-view>
+        <router-view  :key="$route.fullPath"></router-view>
     </el-main>
     <el-footer>
       <footer-synergy></footer-synergy>

@@ -133,7 +133,7 @@ export default {
   name: "copy",
   data() {
     return {
-      name: localStorage.getItem("ms_username"),
+      name: sessionStorage.getItem("ms_username"),
       activeName: "first",
       total_number: 1000,
       todoList: [

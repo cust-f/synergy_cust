@@ -4,24 +4,19 @@
       <div class="ms-title">后台管理系统</div>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="username">
+          <el-input v-model="param.username" placeholder="用户名">
             <el-button slot="prepend" icon="el-icon-user"></el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input
-            type="password"
-            placeholder="password"
-            v-model="param.password"
-            @click="submitForm()"
-          >
+          <el-input type="password" placeholder="密码" v-model="param.password" @click="submitForm()">
             <el-button slot="prepend" icon="el-icon-unlock"></el-button>
           </el-input>
         </el-form-item>
         <div class="login-btn">
           <el-button type="primary" @click="submitForm()">登录</el-button>
         </div>
-        <p class="login-tips">Tips : 用户名和密码随便填。</p>
+        <!-- <p class="login-tips">Tips : 用户名和密码随便填。</p> -->
       </el-form>
     </div>
   </div>
@@ -32,86 +27,88 @@ import Qs from "qs";
 
 export default {
   name: "login",
-  data: function() {
+  data: function () {
     return {
       param: {
         username: "",
         password: "",
-        
       },
       rules: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
+          { required: true, message: "请输入用户名", trigger: "blur" },
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
-      roleID:"",
+      roleID: "",
     };
   },
-  created(){
+  created() {
     this.getRoleId();
   },
   methods: {
     submitForm() {
-      this.$refs.login.validate(valid => {
+      this.$refs.login.validate((valid) => {
         if (valid) {
           var menuList;
           var that = this;
           var data = Qs.stringify({
             userName: this.param.username,
-            password: this.param.password
+            password: this.param.password,
           });
+          let config = {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
           that
             .axios({
               method: "post",
               url: "/api/users/login",
-              data: data
+              data: data,
             })
-            .then(response => {
+            .then((response) => {
               if (response.data.code == 200) {
                 this.$message({
                   type: "success",
-                  message: "登陆成功"
+                  message: "登陆成功",
                 });
                 this.$store.commit("SET_TOKEN", true);
                 this.$store.commit("GET_USER", this.param.username);
-                 localStorage.setItem("ms_username", this.param.username);
-                 localStorage.setItem("designer_name", this.param.username);
-                this.$store.commit("SET_List", response.data.allData.data.menuList);
-                this.$store.commit("SET_OPENMENU", response.data.allData.openArray);
-                this.$store.commit("SET_USERLOGO", response.data.allData.userLogo);
+                sessionStorage.setItem("ms_username", this.param.username);
+                sessionStorage.setItem("designer_name", this.param.username);
+                this.$store.commit(
+                  "SET_List",
+                  response.data.allData.data.menuList
+                );
+                this.$store.commit(
+                  "SET_OPENMENU",
+                  response.data.allData.openArray
+                );
+                this.$store.commit(
+                  "SET_USERLOGO",
+                  response.data.allData.userLogo
+                );
                 // console.log(response)
                 this.roleID = response.data.allData.roleId;
-                
+
                 console.log(this.roleID);
                 //this.param.roleID = response.data.allData.roleId;
-                // console.log(localStorage.getItem("ms_username"));
+                // console.log(sessionStorage.getItem("ms_username"));
                 // console.log("有用户名的！！！")
-               
-              
-                 if(this.roleID === 4)
-                {
-                    this.$router.push("/admin/designerNewList");
-                }
-                else if(this.roleID === 2)
-                {
-                   this.$router.push("/admin/mainStaskShow");
-                }
-                else if(this.roleID === 3)
-                {
-                  this.$router.push("/admin/designTaskq");
-                }
-                else if(this.roleID === 6)
-                {
+
+                if (this.roleID === 4) {
+                  this.$router.push("/admin/designerNewList");
+                } else if (this.roleID === 2) {
                   this.$router.push("/admin/mainStaskShow");
-                }
-                else
-                this.$router.push("/admin/dashboard");
-                
+                } else if (this.roleID === 3) {
+                  this.$router.push("/admin/designTaskq");
+                } else if (this.roleID === 6) {
+                  this.$router.push("/admin/mainStaskShow");
+                } else this.$router.push("/admin/dashboard");
               } else {
                 this.$message({
                   type: "warning",
-                  message: "登陆失败"
+                  message: "登陆失败",
                 });
               }
             });
@@ -119,7 +116,7 @@ export default {
           //   this.$message.success("管理员登录成功");
           //   this.$store.commit("SET_TOKEN", true);
           //   this.$store.commit("GET_USER", this.username);
-          //   localStorage.setItem("ms_username", this.param.username);
+          //   sessionStorage.setItem("ms_username", this.param.username);
           //   menuList = [
           //     {
           //       icon: "el-icon-postcard",
@@ -211,7 +208,7 @@ export default {
     // getRoleId(){
     //   var that = this;
     //   var data = Qs.stringify({
-        
+
     //     userName: this.param.username
     //   });
     //   that
@@ -229,15 +226,10 @@ export default {
     //       //       }else{
     //       //          this.$router.push("/admin/dashboard");
     //       //       }
-        
-            
-          
+
     //     });
     // },
-
-
-    }
-  
+  },
 };
 </script>
 

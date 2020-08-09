@@ -27,6 +27,13 @@
           </template>
         </el-submenu>
       </template>
+      <template v-else-if="item.open">
+         <el-menu-item :index="item.index" :key="item.index">
+          
+          <span slot="title"><a href="http://www.hccstc.cn/home/index" target="_blank">系统首页</a></span>
+        </el-menu-item>
+      </template>
+        
       <template v-else>
         <el-menu-item :index="item.index" :key="item.index">
           <!-- <i :class="item.icon"></i> -->
@@ -46,18 +53,21 @@ export default {
                   items: [
                 {
                     icon: 'el-icon-office-building',
-                    index: '/admin/dashboard',
-                    title: '系统首页'
+                    index: '1',
+                    title: '系统首页',
+                    open:1
                 },
                 {
                     icon: 'el-icon-pie-chart',
                     index: '/Home',
-                    title: '首页'
+                    title: '首页',
+                    open:0
                 },
                 {
                     icon: 'el-icon-receiving',
                     index: '/xuqiuyilan',
-                    title: '需求一览'
+                    title: '需求一览',
+                    open:0
                 },
                 // {
                 //     icon: 'el-icon-edit-outline',
@@ -68,16 +78,19 @@ export default {
                      icon: 'el-icon-s-custom',
                     index: '/excellentCompany',
                     title: '优质企业',
+                    open:0
                 },
                 {
                      icon: 'el-icon-s-custom',
                     index: '/twoMenu',
                     title: '服务成果',
+                    open:0,
                 },
                 {
                      icon: 'el-icon-s-custom',
                     index: '/Data',
                     title: '网站数据',
+                    open:0
                 }
             ]
     };

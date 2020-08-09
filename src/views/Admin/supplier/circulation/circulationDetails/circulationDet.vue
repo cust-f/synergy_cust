@@ -121,7 +121,7 @@ export default {
       //任务Id
       taskId: 0,
       //获取用户名
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       //主要信息数据
       cool: {},
       taskApplyTableData: {},
@@ -195,7 +195,7 @@ export default {
           data: data
         })
         .then(response => {
-          this.radarData.radarData = response.data.allData.AllRemarkLength;
+          this.radarData.radarData = response.data.allData;
           this.radarData.indicatorData = response.data.allData.indicator;
           if (response.data.allData[0] == null) {
             this.reMarkId = 0;

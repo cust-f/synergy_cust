@@ -265,8 +265,7 @@ export default {
           categorys.push(this.dynamicTags[i].id);
         }
       }
-      console.log(provinces)
-      console.log(citys)
+
       let data = Qs.stringify(
         {
           province: provinces,
@@ -274,10 +273,8 @@ export default {
           category: categorys,
           searchStr: this.search,
           page: 0
-        },
-        { arrayFormat: "brackets" }
+        }
       );
-      console.log(this.search);
       if (this.dynamicTags.length != 0 || this.search != null) {
         url = "/api/company/select";
       } else {
@@ -394,7 +391,6 @@ export default {
           type: "category",
           id: data.id
         };
-                console.log(tag)
 
         if (this.checkTag(tag)) {
           this.dynamicTags.push(tag);

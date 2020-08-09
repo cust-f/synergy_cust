@@ -607,7 +607,7 @@ export default {
           TrefuseReason:''
         }
       ],
-                  usernameX: localStorage.getItem("ms_username"),
+                  usernameX: sessionStorage.getItem("ms_username"),
 
       tableData: [
 

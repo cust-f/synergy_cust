@@ -96,7 +96,7 @@ export default {
       idx: -1,
       id: -1,
       selectname: "",
-      username: localStorage.getItem("ms_username"),
+      username: sessionStorage.getItem("ms_username"),
       YinCang: 1
     };
   },

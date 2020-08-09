@@ -48,6 +48,8 @@
                       <span v-else-if="scope.row.roleId === 3">供应商</span>
                       <span v-else-if="scope.row.roleId === 2">核心企业</span>
                       <span v-else-if="scope.row.roleId === 1">管理员</span>
+                      <span v-else-if="scope.row.roleId === 6">企业</span>
+
                     </template>
                   </el-table-column>
                   <el-table-column prop="email" label="邮箱" sortable></el-table-column>
@@ -182,7 +184,7 @@ export default {
       }
     };
     return {
-      usernamex: localStorage.getItem("ms_username"),
+      usernamex: sessionStorage.getItem("ms_username"),
       //userId:row.userId,
 
       pageIndex: 1,

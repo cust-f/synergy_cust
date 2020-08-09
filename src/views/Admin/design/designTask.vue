@@ -568,7 +568,7 @@ export default {
       tableData5: [],
       tableData4yanshou: [],
       tableData6: [],
-      usernameX: localStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
       addList: {
         id: null,
         address: "",
