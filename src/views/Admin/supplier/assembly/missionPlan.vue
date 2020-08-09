@@ -117,7 +117,7 @@ export default {
     return {
       taskId: 0,
       addVisible2: false,
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       contractMessage: [],
       planbook: false,
       //文件列表

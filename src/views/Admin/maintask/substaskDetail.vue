@@ -37,8 +37,6 @@
               <el-col :span="11">
                 <el-form-item label="需求状态">
                   <el-input v-model="cool.taskState" :disabled="true"></el-input>
-
-                 
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -129,15 +127,17 @@
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
 
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
-                <el-table-column prop="taskState" label="需求状态"  align="center">
-                    <template slot-scope="scope">
-                      <el-tag v-if="scope.row.taskState ==='申请或邀请中'" >待响应</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='计划提交'||scope.row.taskState ==='任务进行中'"  type="warning">进行中</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='审核'" class="shenhe" >审核</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='验收'" class="yanshou" >验收</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='完成'" type="success">已完成</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
-
+                <el-table-column prop="taskState" label="需求状态" align="center">
+                  <template slot-scope="scope">
+                    <el-tag v-if="scope.row.taskState ==='申请或邀请中'">待响应</el-tag>
+                    <el-tag
+                      v-else-if="scope.row.taskState ==='计划提交'||scope.row.taskState ==='任务进行中'"
+                      type="warning"
+                    >进行中</el-tag>
+                    <el-tag v-else-if="scope.row.taskState ==='审核'" class="shenhe">审核</el-tag>
+                    <el-tag v-else-if="scope.row.taskState ==='验收'" class="yanshou">验收</el-tag>
+                    <el-tag v-else-if="scope.row.taskState ==='完成'" type="success">已完成</el-tag>
+                    <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
                   </template>
                 </el-table-column>
                 <el-table-column prop="taskType" label="需求类型">
@@ -468,24 +468,6 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <!-- <el-col :span="11">
-              <el-form-item label="任务类别">
-                <el-select
-                  v-model="type"
-                  placeholder="请选择需求任务类别"
-                  class="selectsupply"
-                  @change="mainStaskType"
-                  style="width:100%;"
-                >
-                  <el-option
-                    v-for="leibie in mainStaskType"
-                    :key="leibie.id"
-                    :label="leibie.industryName"
-                    :value="leibie.id"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-                  </el-col>-->
                   <el-col :span="11">
                     <el-form-item label="行业类别">
                       <el-cascader
@@ -579,7 +561,7 @@
                 <el-row>
                   <el-col>
                     <el-form-item label>
-                      <div class = "wenzi">{{ cool.mainTaskDetail}}</div>
+                      <div class="wenzi">{{ cool.mainTaskDetail}}</div>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -618,13 +600,13 @@ export default {
       //xiugaixuqiu
       zhurenwuxiangxi: "",
       sfsmkj: false, //是否私密指派
-      usernameX: localStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
       //级联选择框的配置对象
       cateProps: {
         value: "id",
         label: "industryName",
         children: "children",
-        checkStrictly: true
+        checkStrictly: true,
       },
       //级联选择框双向绑定到的数组 =--子
       selectCateKeys1: [],
@@ -646,7 +628,7 @@ export default {
       supplyCompanies: [
         "沈阳机床集团有限责任公司",
         "起重集团有限公司",
-        "长光电子"
+        "长光电子",
       ], //供应商列表
       Task: ["设计任务", "流通任务"],
       selVal: "",
@@ -664,11 +646,11 @@ export default {
         mainTaskDetail: "",
         leader: "",
         taskState: "",
-        taskCategoryPart: ""
+        taskCategoryPart: "",
       },
       query: {
         pageIndex: 1,
-        pageSize: 10
+        pageSize: 10,
       },
       subStaskTypeID: "",
       mainStaskTypeID: "",
@@ -681,33 +663,33 @@ export default {
           taskState: "",
           deadline: "",
           taskCategoryMain: "",
-          taskCategoryPart: ""
-        }
+          taskCategoryPart: "",
+        },
       ],
       subStaskType: [
         {
           id: "",
           industryName: "",
-          pId: ""
-        }
+          pId: "",
+        },
       ],
       //供应商列表
       supplierCompany: [
         {
           companyName: "",
           companyId: "",
-          pId: ""
-        }
+          pId: "",
+        },
       ],
       Task: [
         {
           id: "0",
-          label: "设计任务"
+          label: "设计任务",
         },
         {
           id: "1",
-          label: "流通任务"
-        }
+          label: "流通任务",
+        },
       ],
       addList: [
         {
@@ -718,32 +700,32 @@ export default {
           taskState: "",
           deadline: "",
           taskCategoryMain: "",
-          taskCategoryPart: ""
-        }
+          taskCategoryPart: "",
+        },
       ],
       //附件
       fujian: [
         {
           realName: "",
-          realPath: ""
-        }
+          realPath: "",
+        },
       ],
 
       //是否申请
       shifou: [
         {
           id: "0",
-          label: "是"
+          label: "是",
         },
-        { id: "1", label: "否" }
+        { id: "1", label: "否" },
       ],
       //是否私密
       shifousimi: [
         { id: "0", label: "是" },
         {
           id: "1",
-          label: "否"
-        }
+          label: "否",
+        },
       ],
       //fuzeren
       FZR: [{}],
@@ -765,7 +747,7 @@ export default {
       publishdate: "",
       deaddate: "",
       leader: "",
-      xiangxi: ""
+      xiangxi: "",
     };
   },
 
@@ -779,7 +761,7 @@ export default {
       time = time.substring(0, index);
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm");
-    }
+    },
   },
 
   created() {
@@ -810,7 +792,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         //taskID: this.taskId,
-        url: row.realPath
+        url: row.realPath,
       });
       that
         .axios({
@@ -819,10 +801,10 @@ export default {
           data: data,
           responseType: "blob", //服务器返回的数据类型
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         })
-        .then(response => {
+        .then((response) => {
           let link = document.createElement("a");
           link.style.display = "none";
           link.href = window.URL.createObjectURL(
@@ -836,15 +818,15 @@ export default {
     getDate() {
       var that = this;
       var data = Qs.stringify({
-        aaaa: this.usernameX
+        aaaa: this.usernameX,
       });
       that
         .axios({
           method: "post",
           url: "http://127.0.0.1:8081/SubstaskInformation/selectMainType",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           // this.mainStaskType = response.data.allData.a;
           //this.shuju = response.data.allData.b;
           this.xuanzelist = this.getTreeData(response.data.allData.c);
@@ -862,7 +844,7 @@ export default {
       }
     },
 
-    dateFormat: function(time) {
+    dateFormat: function (time) {
       var index = time.lastIndexOf(".");
       time = time.substring(0, index);
       var date = new Date(time);
@@ -907,7 +889,7 @@ export default {
       //console.log(this.TaskXiangXi)
       if (this.technicalFile == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-          type: "warning"
+          type: "warning",
         });
       } else {
         if (this.cooList.shifousimi != 1) {
@@ -931,7 +913,7 @@ export default {
           Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.addList.Telphone,
           taskID: "100086",
-          SupperListINt: this.SupplierListInt
+          SupperListINt: this.SupplierListInt,
         });
 
         that
@@ -939,17 +921,17 @@ export default {
             method: "post",
             url: "/api/SubstaskInformation/addSubstaskInformation",
             data: data,
-            headers: { "Content-Type": "application/x-www-form-urlencoded" }
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
-          .then(response => {
+          .then((response) => {
             if (response.data == "成功") {
               this.$message.success("提交成功");
             }
           })
-          .catch(error => {
+          .catch((error) => {
             if (error != null) {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-                type: "warning"
+                type: "warning",
               });
             } else {
               this.$message.success("提交成功");
@@ -966,7 +948,6 @@ export default {
     },
 
     invitate(coo) {
-
       if (coo == 0) {
         this.visiblehexin = "inline";
         this.shenqing = "none";
@@ -979,7 +960,6 @@ export default {
     },
 
     simizhiding(coo) {
-
       if (coo == 0) {
         this.busm = "inline";
         this.sm = "none";
@@ -1010,16 +990,16 @@ export default {
         taskCategoryPartId: this.subStaskTypeID,
         technicalFile: this.technicalFileWanzheng,
         mainTaskDetail: this.cool.mainTaskDetail,
-        username: this.usernameX
+        username: this.usernameX,
       });
       that
         .axios({
           method: "post",
           url: "/api/MainTaskInformation/updateMainXX",
-          data: data
+          data: data,
           // data:this.$store.state.userName
         })
-        .then(response => {
+        .then((response) => {
           this.mainStaskID = response.data.allData;
           this.zzzz = response.data.allData;
           if (this.zzzz != "null") {
@@ -1031,10 +1011,10 @@ export default {
             (this.shangchuancishu = ""), this.getData();
           }
         })
-        .catch(error => {
+        .catch((error) => {
           if (error != null) {
             this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-              type: "warning"
+              type: "warning",
             });
             this.$refs.upload.clearFiles();
             (this.technicalFileWanzheng = ""), (this.technicalFile = "");
@@ -1055,18 +1035,17 @@ export default {
       //console.log(this.mainTaskID);
       var that = this;
       var data = Qs.stringify({
-        mainTaskID: this.mainTaskID
+        mainTaskID: this.mainTaskID,
       });
       that
         .axios({
           method: "post",
           url: "/api/MainTaskInformation/combineMS",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         })
-        .then(response => {
-
+        .then((response) => {
           this.cool = response.data.allData.a[0];
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
@@ -1102,16 +1081,16 @@ export default {
     // 删除操作
     handleDelete1(row) {
       this.$confirm("确定要废除吗？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          substakeID: row.taskId
+          substakeID: row.taskId,
         });
         that.axios({
           method: "post",
           url: "/api/MainTaskInformation/feicuBySubstaskstaskID",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         });
@@ -1129,16 +1108,16 @@ export default {
 
     feichuAll() {
       this.$confirm("确定要删除吗？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          mainStaskID: this.mainTaskID
+          mainStaskID: this.mainTaskID,
         });
         that.axios({
           method: "post",
           url: "/api/MainTaskInformation/feichuByMainstaskID",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         });
@@ -1148,12 +1127,12 @@ export default {
     downLoad() {
       var that = this;
       var data = Qs.stringify({
-        technicalFile: this.technicalFile
+        technicalFile: this.technicalFile,
       });
       that.axios({
         method: "post",
         url: "/api/MainTaskInformation/feichuByMainstaskID",
-        data: data
+        data: data,
 
         // data:this.$store.state.userName
       });
@@ -1162,25 +1141,13 @@ export default {
       this.xiugaiTC = true;
     },
 
-    //新增操作 查询子任务列别及供应商列表
+    // //新增操作 查询子任务列别及供应商列表
     addData() {
-      this.addVisible = true;
-      var that = this;
-      var data = Qs.stringify({
-        PId: this.type,
-        username: this.usernameX
+      // 传递this.type
+      this.$router.push({
+        path: "/admin/addSubTask",
+        query: { type: this.type, mainTaskID: this.mainTaskID,name:this.name },
       });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/selectSubType",
-          data: data
-        })
-        .then(response => {
-          this.xuanzelist = this.getTreeData(response.data.allData.a);
-          this.supplierCompany = response.data.allData.b;
-
-        });
     },
     //保存新增
     saveAdd() {
@@ -1208,15 +1175,15 @@ export default {
         this.$router.push({
           path: "/admin/mainStaskDetail",
           query: {
-            taskId: row.taskId
-          }
+            taskId: row.taskId,
+          },
         });
       } else {
         this.$router.push({
           path: "/admin/mainStaskDetailLT",
           query: {
-            taskId: row.taskId
-          }
+            taskId: row.taskId,
+          },
         });
       }
     },
@@ -1227,10 +1194,8 @@ export default {
     submitUpload() {
       this.$refs.upload.submit();
     },
-    handleRemove(file, fileList) {
-    },
-    handlePreview(file) {
-    },
+    handleRemove(file, fileList) {},
+    handlePreview(file) {},
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
       if (this.technicalFileWanzheng.length > 0) {
@@ -1267,16 +1232,16 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskID: this.mainTaskID,
-        leixing: "ZRWFJ"
+        leixing: "ZRWFJ",
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/DownloadHTHT",
           data: data,
-          responseType: "blob"
+          responseType: "blob",
         })
-        .then(response => {
+        .then((response) => {
           response.data = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/octet-stream" })
           );
@@ -1302,139 +1267,139 @@ export default {
       }
       document.body.appendChild(link);
       link.click();
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" >
-.substaskDetail{
-.wenzi{
-  padding-right: 18px;
-}
+.substaskDetail {
+  .wenzi {
+    padding-right: 18px;
+  }
 
-.shenhe{
-    color:#FF8040;
-  background-color:#FFE6D9;
-  border-color:#FFDCB9;
-}
-.yanshou{
-   color:#E066FF;
-  background-color:#FFE1FF;
-  border-color:#FFF0F5;
-}
-.el-upload-list__item{
-  width: 90%;
-}
-.first-child.el-upload-list__item {
-  width: 90%;
-}
+  .shenhe {
+    color: #ff8040;
+    background-color: #ffe6d9;
+    border-color: #ffdcb9;
+  }
+  .yanshou {
+    color: #e066ff;
+    background-color: #ffe1ff;
+    border-color: #fff0f5;
+  }
+  .el-upload-list__item {
+    width: 90%;
+  }
+  .first-child.el-upload-list__item {
+    width: 90%;
+  }
 
-.el-dialog__footer {
-  padding-right: 40px;
-}
-.anniu .el-dialog__footer {
-  padding-right: 20px;
-}
-.anniu {
-  width: 100%;
-  border-left: cadetblue;
-  background-color: white;
-  color: #409eff;
-  border-left-width: 0px;
-  border-right-width: 0px;
-  border-top-width: 0px;
-  border-color: #dcdfe6;
-  border-radius: 0px;
-}
-.el-table__empty-block {
-  min-height: 40px;
-}
-.el-table td,
-.el-table th {
-  padding-top: 7px;
-  padding-bottom: 7px;
-}
-.simichakan {
-  line-height: 40px;
-}
-.formYS .el-input__inner {
-  /* // 表格样式调整 */
+  .el-dialog__footer {
+    padding-right: 40px;
+  }
+  .anniu .el-dialog__footer {
+    padding-right: 20px;
+  }
+  .anniu {
+    width: 100%;
+    border-left: cadetblue;
+    background-color: white;
+    color: #409eff;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-color: #dcdfe6;
+    border-radius: 0px;
+  }
+  .el-table__empty-block {
+    min-height: 40px;
+  }
+  .el-table td,
+  .el-table th {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+  .simichakan {
+    line-height: 40px;
+  }
+  .formYS .el-input__inner {
+    /* // 表格样式调整 */
 
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  border-radius: 0px;
-  text-align: center;
-}
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    text-align: center;
+  }
 
-.el-dialog__body {
-  padding-right: 0px;
-  padding-top: 20px;
-}
+  .el-dialog__body {
+    padding-right: 0px;
+    padding-top: 20px;
+  }
 
-.el-dialog__header {
-  padding-right: 0%;
-  padding-top: 0%;
-  padding-bottom: 0%;
-}
-.formYS .el-input.is-disabled .el-input__inner {
-  background-color: #ffffff;
-  color: #606266;
-}
+  .el-dialog__header {
+    padding-right: 0%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+  .formYS .el-input.is-disabled .el-input__inner {
+    background-color: #ffffff;
+    color: #606266;
+  }
 
-.table {
-  font-size: 14px;
-}
-.table {
-  width: 100%;
-  font-size: 14px;
-}
-.biaoti {
-  font-size: 18px;
-  color: #303133;
-}
-.el-upload--text {
-  width: 85px;
-  height: 40px;
-}
-/* //返回字体 */
-.el-page-header__title {
-  font-size: 18px;
-}
+  .table {
+    font-size: 14px;
+  }
+  .table {
+    width: 100%;
+    font-size: 14px;
+  }
+  .biaoti {
+    font-size: 18px;
+    color: #303133;
+  }
+  .el-upload--text {
+    width: 85px;
+    height: 40px;
+  }
+  /* //返回字体 */
+  .el-page-header__title {
+    font-size: 18px;
+  }
 
-/* // 去掉表格单元格边框 */
-.customer-table th {
-  border: none;
-}
-.customer-table td,
-.customer-table th.is-leaf {
-  border: none;
-}
-/* // 表格最外边框 */
-.customer-table .el-table--border,
-.customer-table .el-table--group {
-  border: none;
-}
-/* // 头部边框 */
-.customer-table thead tr th.is-leaf {
-  border: 1px solid #ebeef5;
-  border-right: none;
-}
-.customer-table thead tr th:nth-last-of-type(2) {
-  border-right: 1px solid #ebeef5;
-}
-/* // 表格最外层边框-底部边框 */
-.customer-table .el-table--border::after,
-.customer-table .el-table--group::after {
-  width: 0;
-}
-.customer-table::before {
-  width: 0;
-}
-.customer-table .el-table__fixed-right::before,
-.el-table__fixed::before {
-  width: 0;
-}
+  /* // 去掉表格单元格边框 */
+  .customer-table th {
+    border: none;
+  }
+  .customer-table td,
+  .customer-table th.is-leaf {
+    border: none;
+  }
+  /* // 表格最外边框 */
+  .customer-table .el-table--border,
+  .customer-table .el-table--group {
+    border: none;
+  }
+  /* // 头部边框 */
+  .customer-table thead tr th.is-leaf {
+    border: 1px solid #ebeef5;
+    border-right: none;
+  }
+  .customer-table thead tr th:nth-last-of-type(2) {
+    border-right: 1px solid #ebeef5;
+  }
+  /* // 表格最外层边框-底部边框 */
+  .customer-table .el-table--border::after,
+  .customer-table .el-table--group::after {
+    width: 0;
+  }
+  .customer-table::before {
+    width: 0;
+  }
+  .customer-table .el-table__fixed-right::before,
+  .el-table__fixed::before {
+    width: 0;
+  }
 }
 </style>

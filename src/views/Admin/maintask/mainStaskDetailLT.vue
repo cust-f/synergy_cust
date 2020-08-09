@@ -1047,7 +1047,7 @@ export default {
       errorImg02: 'this.src="' + require("../company/营业执照.jpg") + '"',
       //默认税务登记
       errorImg03: 'this.src="' + require("../company/税务登记证.jpg") + '"',
-      usernameX: localStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
       //
       zirenwuXX: "",
       //质量完成图数据源

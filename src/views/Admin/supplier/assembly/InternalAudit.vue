@@ -138,7 +138,7 @@ export default {
       design1: "",
       designTask: [],
       // formLabelWidth: "100px",
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       InternalAudit: [],
       //拒绝设计原因
       addList4: {

@@ -117,7 +117,7 @@ export default {
   },
   data() {
     return {
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
      //选择框
      options: [],        
          value:'',

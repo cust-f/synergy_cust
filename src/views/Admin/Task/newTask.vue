@@ -418,7 +418,7 @@ export default {
   data() {
     return {
       shangchuancishu: 0,
-      usernameX: localStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
       sfsmkj: false, //是否私密指派
       sm: "none", //私密
       busm: "none", //不私秘

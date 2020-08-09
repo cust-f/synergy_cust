@@ -89,7 +89,7 @@ export default {
       idx: -1,
       id: -1,
       taskId: 0,
-      usernameX: localStorage.getItem("ms_username")
+      usernameX: sessionStorage.getItem("ms_username")
     };
   },
   created() {

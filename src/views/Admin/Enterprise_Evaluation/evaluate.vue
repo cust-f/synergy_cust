@@ -233,7 +233,7 @@ export default {
   },
   data() {
     return {
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       
       activeName: 'first',
      //选择框

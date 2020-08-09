@@ -508,7 +508,7 @@ export default {
   },
   data() {
     return {
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       //首页轮播图的图片地址数组
       img_list: [
         require("../../../assets/images/home/轮播图1.png"),

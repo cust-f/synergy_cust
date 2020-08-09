@@ -13,9 +13,13 @@
               >{{patenttypeName}}</span>】
             </p>
           </div>
-          <!-- <div style="float:right;">
-                      <el-rate v-model="companys.star" disabled text-color="#ff9900"></el-rate>
-          </div>-->
+          <div style="float:right;">
+            <p>
+              资源来源：
+              <span>{{item.resourceFrom}}</span>
+              <el-avatar shape="square" :size="20" fit="fill" :src="item.resourceLogo"></el-avatar>
+            </p>
+          </div>
         </el-row>
         <el-row>
           <el-col :span="9">
@@ -27,12 +31,16 @@
             </el-popover>
           </el-col>
           <el-col :span="9">
-             <el-popover :content="changeString(item.requestPeople)" placement="top-start" trigger="hover">
+            <el-popover
+              :content="changeString(item.requestPeople)"
+              placement="top-start"
+              trigger="hover"
+            >
               <p slot="reference">
                 申请人:
                 <span>{{changeString(item.requestPeople)}}</span>
               </p>
-              </el-popover>
+            </el-popover>
           </el-col>
           <el-col :span="6">
             <span>公开日期: {{item.publicationDate | dataFormat("yyyy-MM-dd")}}</span>
@@ -41,12 +49,12 @@
         <!--  -->
         <el-row>
           <el-col :span="18">
-              <el-popover :content="changeString(item.keyword)" placement="top-start" trigger="hover">
+            <el-popover :content="changeString(item.keyword)" placement="top-start" trigger="hover">
               <p slot="reference">
                 关键词:
                 <span>{{changeString(item.keyword)}}</span>
               </p>
-              </el-popover>
+            </el-popover>
           </el-col>
           <el-col :span="6">
             <span>公开号: {{item.publicationNo}}</span>

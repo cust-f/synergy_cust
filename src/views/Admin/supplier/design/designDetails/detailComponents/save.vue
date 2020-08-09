@@ -1056,7 +1056,7 @@ export default {
       formLabelWidth: "100px",
       form: {},
       fileList: [],
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       design1: "",
       //上传的文件路径
       technicalFile: [],

@@ -100,7 +100,7 @@ export default {
       selectname: "",
       userName: "",
       YinCang: 1,
-      usernameX: localStorage.getItem("ms_username")
+      usernameX: sessionStorage.getItem("ms_username")
     };
   },
   created() {

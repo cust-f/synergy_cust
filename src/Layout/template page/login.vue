@@ -74,8 +74,8 @@ export default {
                 });
                 this.$store.commit("SET_TOKEN", true);
                 this.$store.commit("GET_USER", this.param.username);
-                localStorage.setItem("ms_username", this.param.username);
-                localStorage.setItem("designer_name", this.param.username);
+                sessionStorage.setItem("ms_username", this.param.username);
+                sessionStorage.setItem("designer_name", this.param.username);
                 this.$store.commit(
                   "SET_List",
                   response.data.allData.data.menuList
@@ -93,7 +93,7 @@ export default {
 
                 console.log(this.roleID);
                 //this.param.roleID = response.data.allData.roleId;
-                // console.log(localStorage.getItem("ms_username"));
+                // console.log(sessionStorage.getItem("ms_username"));
                 // console.log("有用户名的！！！")
 
                 if (this.roleID === 4) {
@@ -116,7 +116,7 @@ export default {
           //   this.$message.success("管理员登录成功");
           //   this.$store.commit("SET_TOKEN", true);
           //   this.$store.commit("GET_USER", this.username);
-          //   localStorage.setItem("ms_username", this.param.username);
+          //   sessionStorage.setItem("ms_username", this.param.username);
           //   menuList = [
           //     {
           //       icon: "el-icon-postcard",

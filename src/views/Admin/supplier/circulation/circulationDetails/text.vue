@@ -933,7 +933,7 @@ export default {
       formLabelWidth: "100px",
       form: {},
       fileList: [],
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       design1: "",
       //文件上传数
       shangchuancishu: 0,

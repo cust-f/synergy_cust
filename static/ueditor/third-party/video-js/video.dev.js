@@ -1208,20 +1208,20 @@ vjs.get = function(url, onSuccess, onError){
  * Add to local storage (may removeable)
  * @private
  */
-vjs.setLocalStorage = function(key, value){
+vjs.setsessionStorage = function(key, value){
   try {
     // IE was throwing errors referencing the var anywhere without this
-    var localStorage = window.localStorage || false;
-    if (!localStorage) { return; }
-    localStorage[key] = value;
+    var sessionStorage = window.sessionStorage || false;
+    if (!sessionStorage) { return; }
+    sessionStorage[key] = value;
   } catch(e) {
     if (e.code == 22 || e.code == 1014) { // Webkit == 22 / Firefox == 1014
-      vjs.log('LocalStorage Full (VideoJS)', e);
+      vjs.log('sessionStorage Full (VideoJS)', e);
     } else {
       if (e.code == 18) {
-        vjs.log('LocalStorage not allowed (VideoJS)', e);
+        vjs.log('sessionStorage not allowed (VideoJS)', e);
       } else {
-        vjs.log('LocalStorage Error (VideoJS)', e);
+        vjs.log('sessionStorage Error (VideoJS)', e);
       }
     }
   }
@@ -3442,7 +3442,7 @@ vjs.Player.prototype.volume = function(percentAsDecimal){
     vol = Math.max(0, Math.min(1, parseFloat(percentAsDecimal))); // Force value to between 0 and 1
     this.cache_.volume = vol;
     this.techCall('setVolume', vol);
-    vjs.setLocalStorage('volume', vol);
+    vjs.setsessionStorage('volume', vol);
     return this;
   }
 

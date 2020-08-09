@@ -90,7 +90,7 @@ export default {
       //拒绝原因弹窗
       addVisible1: false,
       taskId: 0,
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       PlantableData: {},
       addList1: {
         refuseApplyMessage: ""

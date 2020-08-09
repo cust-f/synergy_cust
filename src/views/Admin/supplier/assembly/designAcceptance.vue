@@ -74,7 +74,7 @@ export default {
     return {
       taskId: 0,
       yinCang: 1,
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       designAcceptance: [],
       addVisible4: false, //拒绝原因弹窗
       addList5: {

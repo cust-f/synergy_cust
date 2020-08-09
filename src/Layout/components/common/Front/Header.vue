@@ -290,7 +290,7 @@ export default {
       log: true,
       token: this.$store.state.token,
       collapse: false,
-      username: localStorage.getItem("ms_username"),
+      username: sessionStorage.getItem("ms_username"),
       serverUrl: "/api/users/updataPicture",
       searchModel: "",
       select: "0",
