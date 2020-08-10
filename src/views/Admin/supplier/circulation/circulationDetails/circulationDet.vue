@@ -278,7 +278,7 @@ export default {
           }
           if (this.milepostActive > 2) {
             this.milepost[2].description = this.$options.filters["formatDate"](
-              response.data.allData.a[0].publishTime
+              response.data.allData.a[0].uploadCircuaterTime
             );
           }
           if (this.milepostActive > 3) {
