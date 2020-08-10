@@ -1688,11 +1688,12 @@ export default {
               ](response.data.allData.c[0].checkPlanTime);
             }
             if (this.milepostActive > 1) {
-              this.milepost[2].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.d[0].publishTime);
+
             }
             if (this.milepostActive > 2) {
+              this.milepost[2].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.d[0].uploadDesignTime);
               this.milepost[3].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.d[0].supplierCheckDesignTime);

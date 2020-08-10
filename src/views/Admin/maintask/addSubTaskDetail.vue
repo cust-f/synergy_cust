@@ -333,7 +333,7 @@ export default {
       cooList: { shifouyaoqing: "", shifousimi: "" },
       SupplierListInt: [],
       form: {},
-      name: "",
+      name: this.$route.query.name,
       type: this.$route.query.type,
       publishdate: "",
       deaddate: "",
