@@ -167,7 +167,7 @@ export default {
   name: "circulationAcceptList",
   data() {
     return {
-      username1: localStorage.getItem("ms_username"),
+      username1: sessionStorage.getItem("ms_username"),
       
         pageIndex: 1,
         pageSize: 5,

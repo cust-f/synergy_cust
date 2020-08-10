@@ -85,7 +85,7 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      usernameX: localStorage.getItem("ms_username")
+      usernameX: sessionStorage.getItem("ms_username")
     };
   },
   filters: {

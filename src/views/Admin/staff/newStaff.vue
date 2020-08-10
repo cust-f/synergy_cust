@@ -184,7 +184,7 @@ export default {
       }
     };
     return {
-      usernamex: localStorage.getItem("ms_username"),
+      usernamex: sessionStorage.getItem("ms_username"),
       //userId:row.userId,
 
       pageIndex: 1,

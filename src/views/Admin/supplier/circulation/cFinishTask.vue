@@ -86,7 +86,7 @@ export default {
       YinCang: 1,
       idx: -1,
       id: -1,
-      username: localStorage.getItem("ms_username"),
+      username: sessionStorage.getItem("ms_username"),
       taskId: 0
     };
   },

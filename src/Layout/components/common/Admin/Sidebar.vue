@@ -8,7 +8,6 @@
       active-text-color="#20a0ff"
       router
       :default-openeds="openMenu"
-      :mode="vertical"
       >
       <template v-for="item in items">
         <!-- 判断是否有二级 -->

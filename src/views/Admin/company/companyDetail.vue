@@ -708,7 +708,7 @@ export default {
     getDate() {
       var that = this;
       var data = Qs.stringify({
-        userName: localStorage.getItem("ms_username")
+        userName: sessionStorage.getItem("ms_username")
       });
       that
         .axios({
@@ -728,7 +728,7 @@ export default {
       var that = this;
       var timestamp = new Date().getTime();
       var data = Qs.stringify({
-        userName: localStorage.getItem("ms_username"),
+        userName: sessionStorage.getItem("ms_username"),
         time: timestamp
       });
       that

@@ -103,7 +103,7 @@ export default {
       id: -1,
       selectname: "",
       YinCang: 1,
-      usernameX: localStorage.getItem("ms_username")
+      usernameX: sessionStorage.getItem("ms_username")
     };
   },
   filters: {

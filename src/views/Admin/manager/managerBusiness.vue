@@ -117,38 +117,6 @@
                 ></el-pagination>
               </div>
 
-            <!-- 新增弹出框
-            <el-dialog title="用户信息" :visible.sync="addVisible" width="50%">
-              <el-form ref="form" :model="addList" label-width="70px">
-                <el-form-item label="账号名称">
-                  <el-input v-model="addList.User_Name"></el-input>
-                </el-form-item>
-                <el-form-item label="企业名称">
-                  <el-input v-model="addList.Company_Name"></el-input>
-                </el-form-item>
-                <el-form-item label="角色名称">
-                  <el-select v-model="addList.Role_Name" style="width:100%" placeholder="请选择">
-                    <el-option  v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="邮箱">
-                  <el-input v-model="addList.Email"></el-input>
-                </el-form-item>
-                <el-form-item label="联系方式">
-                  <el-input v-model="addList.Phone"></el-input>
-                </el-form-item>
-                 <el-form-item label="用户密码">
-                  <el-input v-model="addList.Password"></el-input>
-                </el-form-item>
-              </el-form>
-              <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="saveAdd">确 定</el-button>
-                <el-button @click="addVisible = false">取 消</el-button>               
-              </span>
-            </el-dialog>-->
           </div>
         </template>
       </el-main>

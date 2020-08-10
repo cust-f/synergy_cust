@@ -175,7 +175,7 @@ export default {
       fileType: 0,
       taskId: 0,
       yinCang: 1,
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       contractMessage: [],
       fileHistoryMessage: [],
       conbook: false,
