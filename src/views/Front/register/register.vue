@@ -10,20 +10,20 @@
     <el-button style="margin-top: 12px;float:right;" @click="next">{{active==4?'提交':'下一步'}}</el-button>
     <div style="margin-top:15px;">
       <register-user
-        v-show="active==1"
+        v-show="active==0"
         ref="user"
         @accountSave="accountSave"
         :enterpriseName="this.companyName"
       ></register-user>
       <register-company
-        v-show="active==2"
+        v-show="active==1"
         ref="company"
         @companyFrom="companyFrom"
         @registerUserDe="registerUserDe"
       ></register-company>
-      <register-editor ref="detail" @registerDetail="registerDetail" v-show="active==3"></register-editor>
+      <register-editor ref="detail" @registerDetail="registerDetail" v-show="active==2"></register-editor>
       <register-picture
-        v-show="active==4"
+        v-show="active==3"
         ref="picture"
         @checkPicture="checkPicture"
         @register="register"
@@ -45,7 +45,7 @@ export default {
   name: "register",
   data() {
     return {
-      active: 1, //索引
+      active: 0, //索引
       first: true, //上一步
       goOn: true, //判断是否符合标准下一步
       goOnCompany: false,
@@ -62,22 +62,22 @@ export default {
   methods: {
     next() {
       console.log(this.active);
-      if (this.active == 1) {
+      if (this.active == 0) {
         this.$refs.user.submitForm("account");
         if (this.goOn) {
           this.active++;
           this.first = false;
         }
-      } else if (this.active == 2) {
+      } else if (this.active == 1) {
         this.$refs.company.upLoad("form");
         if (this.goOnCompany) {
           this.active++;
           this.first = false;
         }
-      } else if (this.active == 3) {
+      } else if (this.active == 2) {
         this.active++;
         this.first = false;
-      } else if (this.active == 4) {
+      } else if (this.active == 3) {
         this.$refs.picture.submitUpload();
         if (this.check) {
 
@@ -85,10 +85,10 @@ export default {
       }
     },
     back() {
-      if (this.active == 2) {
+      if (this.active == 1) {
         this.active--;
         this.first = true;
-      } else if (this.active == 4) {
+      } else if (this.active == 3) {
         this.active--;
         this.first = false;
       }else{

@@ -12,8 +12,8 @@
                 <el-col :span="12">
                   <el-form-item label="企业类别">
                     <div style="float:left;">
-                      <el-radio v-model="form.companyCategory" label="0">核心企业</el-radio>
-                      <el-radio v-model="form.companyCategory" label="1">供应商</el-radio>
+                      <el-radio v-model="form.companyCategory" label="3">企业</el-radio>
+                      <!-- <el-radio v-model="form.companyCategory" label="1">供应商</el-radio> -->
                     </div>
                   </el-form-item>
                 </el-col>
@@ -320,7 +320,7 @@ export default {
       stair: "",
       selectProduct: [],
       form: {
-        companyCategory: "0",
+        companyCategory: "3",
         companyName: "",
         address: new String(),
         postcode: new Number(),
