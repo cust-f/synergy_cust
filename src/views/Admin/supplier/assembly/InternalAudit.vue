@@ -1,7 +1,7 @@
 <!--内部审核组件-->
 <template>
   <div class="InternalAudit">
-    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">内部审核</div>
+    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">人员分配与审核</div>
     <br />
     <el-table
       :data="InternalAudit"

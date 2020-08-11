@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <div class="ms-login">
-      <div class="ms-title">后台管理系统</div>
+      <div class="ms-title">后台中心</div>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="用户名">
@@ -76,6 +76,7 @@ export default {
                 this.$store.commit("GET_USER", this.param.username);
                 sessionStorage.setItem("ms_username", this.param.username);
                 sessionStorage.setItem("designer_name", this.param.username);
+
                 this.$store.commit(
                   "SET_List",
                   response.data.allData.data.menuList
@@ -90,7 +91,7 @@ export default {
                 );
                 // console.log(response)
                 this.roleID = response.data.allData.roleId;
-
+                sessionStorage.setItem("roleId",this.roleID);
                 console.log(this.roleID);
                 //this.param.roleID = response.data.allData.roleId;
                 // console.log(sessionStorage.getItem("ms_username"));

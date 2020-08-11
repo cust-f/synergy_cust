@@ -13,7 +13,7 @@
                   <div class="user-option">
                     <a @click="logout(0)">退出登陆</a>
                     <el-divider></el-divider>
-                    <a @click="logout(1)">返回首页</a>
+                    <a @click="logout(1)">后台中心</a>
                     <el-divider></el-divider>
                     <a @click="getUserDetail">账号管理</a>
                   </div>
@@ -47,7 +47,9 @@
     <el-row :gutter="20" class="header" style="height:90px;">
       <el-col :span="10" :offset="1">
         <div class="logo">
-          <img style="width:100%;" src="../../../../assets/images/home/logo2.png" />
+          <a href="http://www.hccstc.cn/home/index" target="_blank">
+            <img style="width:100%;" src="../../../../assets/images/home/logo2.png" />
+          </a>
         </div>
       </el-col>
       <!-- 搜索-->
@@ -67,7 +69,7 @@
         </el-input>
       </el-col>
     </el-row>
-    
+
     <el-row>
       <el-col :span="24" style="height: 45px;">
         <div style="background-color:#00A2E6">
@@ -102,34 +104,38 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
 
-          <h3 style="margin:10px 0px;font-size:20px;">{{userInfo.userName}}
-          </h3>
+          <h3 style="margin:10px 0px;font-size:20px;">{{userInfo.userName}}</h3>
           <span>{{userInfo.email}}</span>
         </el-aside>
         <el-row style="text-align:center;margin-top:34px;">
-          <el-col :span="8" :offset="4"><el-button icon="el-icon-edit-outline" @click="updataUserDetail=true">修改信息</el-button></el-col>
-           <el-col :span="8"><el-button icon="el-icon-edit" @click="updataPassword=true" >修改密码</el-button></el-col>
+          <el-col :span="8" :offset="4">
+            <el-button icon="el-icon-edit-outline" @click="updataUserDetail=true">修改信息</el-button>
+          </el-col>
+          <el-col :span="8">
+            <el-button icon="el-icon-edit" @click="updataPassword=true">修改密码</el-button>
+          </el-col>
         </el-row>
       </el-container>
       <el-container style="width:50%;padding-left: 10px;padding-right: 10px;">
-               <el-header>
-          <div
-            style="margin:5px 5px;"
-          >
-          </div>
+        <el-header>
+          <div style="margin:5px 5px;"></div>
         </el-header>
         <el-row class="Detail">
           <el-container>
             <el-main>
-              <h2 style="font-size:18px;">{{personalDetail.parent}}
-                 <i  class="el-icon-user"></i>
+              <h2 style="font-size:18px;">
+                {{personalDetail.parent}}
+                <i class="el-icon-user"></i>
               </h2>
               <el-divider></el-divider>
               <div>
                 <ul>
                   <li v-for="(item,index) in personalDetail.children" :key="index">
                     <el-row>
-                      <el-col :span="8"><i class="el-icon-notebook-2" style="margin-right:10px;"></i>{{item.name}}</el-col>
+                      <el-col :span="8">
+                        <i class="el-icon-notebook-2" style="margin-right:10px;"></i>
+                        {{item.name}}
+                      </el-col>
                       <el-col :span="14">{{item.value}}</el-col>
                     </el-row>
                   </li>
@@ -139,10 +145,11 @@
           </el-container>
         </el-row>
 
-        <el-row class="Detail"  style="margin-top:20px;">
-          <el-container >
+        <el-row class="Detail" style="margin-top:20px;">
+          <el-container>
             <el-main style="overflow: hidden;">
-              <h2 style="font-size:18px;">{{detail.parent}}
+              <h2 style="font-size:18px;">
+                {{detail.parent}}
                 <i class="el-icon-postcard"></i>
               </h2>
               <el-divider></el-divider>
@@ -150,7 +157,10 @@
                 <ul>
                   <li v-for="(item,index) in detail.children" :key="index">
                     <el-row :gutter="10">
-                      <el-col :span="8"><i :class="item.icon" style="margin-right:10px;"></i>{{item.name}}</el-col>
+                      <el-col :span="8">
+                        <i :class="item.icon" style="margin-right:10px;"></i>
+                        {{item.name}}
+                      </el-col>
                       <el-col :span="14">{{item.value}}</el-col>
                     </el-row>
                   </li>
@@ -171,34 +181,34 @@
       @close="closeDialog"
       width="450px"
     >
-
       <div style="text-align:center;">
-      <el-form
-        :model="account"
-        status-icon
-        :rules="rules"
-        ref="account"
-        label-width="70px"
-        class="demo-ruleForm"
-      >        <el-form-item label="用户名" prop="userName">
-          <el-input disabled v-model="username"></el-input>
-        </el-form-item>
-        <el-form-item label="旧密码" prop="password">
-          <el-input
-            @blur="checkOldPassword"
-            type="password"
-            v-model="account.oldPassword"
-            autocomplete="off"
-            :suffix-icon="icon"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="新密码" prop="newPassword">
-          <el-input type="password" v-model="account.newPassword" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="account.checkPass" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
+        <el-form
+          :model="account"
+          status-icon
+          :rules="rules"
+          ref="account"
+          label-width="70px"
+          class="demo-ruleForm"
+        >
+          <el-form-item label="用户名" prop="userName">
+            <el-input disabled v-model="username"></el-input>
+          </el-form-item>
+          <el-form-item label="旧密码" prop="password">
+            <el-input
+              @blur="checkOldPassword"
+              type="password"
+              v-model="account.oldPassword"
+              autocomplete="off"
+              :suffix-icon="icon"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" prop="newPassword">
+            <el-input type="password" v-model="account.newPassword" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="checkPass">
+            <el-input type="password" v-model="account.checkPass" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
       </div>
 
       <div slot="footer" class="dialog-footer">
@@ -306,26 +316,26 @@ export default {
         oldPassword: "",
         newPassword: "",
         checkPass: "",
-        userId: this.$store.state.userId
+        userId: this.$store.state.userId,
       },
       user: {
         email: "",
         phone: "",
         realName: "",
-        userLogo: ""
+        userLogo: "",
       },
       userRules: {
-        phone: [{ required: true, validator: validDataPhone, trigger: "blur" }]
+        phone: [{ required: true, validator: validDataPhone, trigger: "blur" }],
       },
       rules: {
         //oldPassword: [{ validator: validatePass, trigger: "blur" }],
         newPassword: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
-      }
+        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+      },
     };
   },
   components: {
-    navigation
+    navigation,
   },
   methods: {
     /*
@@ -340,11 +350,23 @@ export default {
         this.token = false;
         this.$message({
           type: "success",
-          message: "登出成功"
+          message: "登出成功",
         });
         this.$router.push("/home");
       } else {
-        this.$router.push("/home");
+        let roleId = sessionStorage.getItem("roleId");
+        console.log(roleId);
+        if (roleId == 4) {
+          this.$router.push("/admin/designerNewList");
+        } else if (roleId == 2) {
+          this.$router.push("/admin/mainStaskShow");
+        } else if (roleId == 3) {
+          this.$router.push("/admin/designTaskq");
+        } else if (roleId == 6) {
+          this.$router.push("/admin/mainStaskShow");
+        } else {
+          this.$router.push("/admin/dashboard");
+        }
       }
     },
     login(opinion) {
@@ -357,15 +379,15 @@ export default {
     getUserDetail() {
       let that = this;
       let data = Qs.stringify({
-        userName: this.username
+        userName: this.username,
       });
       that
         .axios({
           method: "post",
           url: "/api/users/getUserDetail",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           console.log(response);
           this.userInfo = response.data.allData.userDetail;
           this.personalDetail = response.data.allData.personalDetail;
@@ -382,26 +404,25 @@ export default {
         path: "/search",
         query: {
           keyWords: this.searchModel,
-          type: this.select
-        }
+          type: this.select,
+        },
       });
-      this.searchModel=""
-      
+      this.searchModel = "";
     },
     //向后台检验原来输入的密码是否正确
     checkOldPassword() {
       let that = this;
       var data = Qs.stringify({
         userName: this.username,
-        password: this.account.oldPassword
+        password: this.account.oldPassword,
       });
       that
         .axios({
           method: "post",
           url: "/api/users/login",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           console.log(response);
           if (response.data.code == 200) {
             this.icon = "el-icon-check";
@@ -410,7 +431,7 @@ export default {
             this.icon = "el-icon-close";
             this.$message({
               type: "warning",
-              message: "原密码输入错误!"
+              message: "原密码输入错误!",
             });
             this.checkMessage = true;
           }
@@ -423,27 +444,27 @@ export default {
     handleAvatarSuccess(res, file) {
       this.userInfo.userLogo = URL.createObjectURL(file.raw);
       this.$message("修改成功");
-      this.$store.commit("SET_USERLOGO",this.userInfo.userLogo );
+      this.$store.commit("SET_USERLOGO", this.userInfo.userLogo);
     },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           //修改密码
           let that = this;
           var data = Qs.stringify({
             userName: this.username,
-            password: this.account.newPassword
+            password: this.account.newPassword,
           });
           that
             .axios({
               method: "post",
               url: "/api/users/updatePassword",
-              data: data
+              data: data,
             })
-            .then(response => {
+            .then((response) => {
               this.$message({
                 type: "success",
-                message: "修改密码成功"
+                message: "修改密码成功",
               });
               this.resetForm("account");
               this.updataPassword = false;
@@ -451,13 +472,13 @@ export default {
         } else {
           this.$message({
             type: "warning",
-            message: "请输入正确有效的信息"
+            message: "请输入正确有效的信息",
           });
         }
       });
     },
     submitUser(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           //账户信息
           let that = this;
@@ -465,18 +486,18 @@ export default {
             userName: this.username,
             email: this.user.email,
             phone: this.user.phone,
-            realName: this.user.realName
+            realName: this.user.realName,
           });
           that
             .axios({
               method: "post",
               url: "/api/users/updataUserDetail",
-              data: data
+              data: data,
             })
-            .then(response => {
+            .then((response) => {
               this.$message({
                 type: "success",
-                message: "修改账户信息成功"
+                message: "修改账户信息成功",
               });
               this.getUserDetail();
               this.updataUserDetail = false;
@@ -484,7 +505,7 @@ export default {
         } else {
           this.$message({
             type: "warning",
-            message: "请输入正确有效的信息"
+            message: "请输入正确有效的信息",
           });
         }
       });
@@ -497,8 +518,8 @@ export default {
     closeDialog() {
       this.resetForm("account");
       this.updataPassword = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -530,13 +551,13 @@ export default {
   float: left;
   margin-left: 15px;
 }
-.admin-header .Detail ul li{
-   float: none;
-   margin-top:10px;
+.admin-header .Detail ul li {
+  float: none;
+  margin-top: 10px;
 }
-.admin-header .Detail .el-divider--horizontal{
-  margin-top:10px;
-  margin-bottom:24px;
+.admin-header .Detail .el-divider--horizontal {
+  margin-top: 10px;
+  margin-bottom: 24px;
 }
 .header-message {
   width: 100%;
@@ -569,7 +590,7 @@ export default {
   font-size: 16px;
   /* float: left; */
 }
-.updata .el-dialog{
+.updata .el-dialog {
   height: 450px;
 }
 .user-detail .el-row {
@@ -674,29 +695,34 @@ export default {
 </style>
 
 <style lang="scss">
-.admin-header{
+.admin-header {
   .el-select .el-input .el-select__caret {
     color: white;
     font-size: 14px;
-    -webkit-transition: -webkit-transform .3s;
-    transition: -webkit-transform .3s;
-    transition: transform .3s;
-    transition: transform .3s, -webkit-transform .3s;
-    transition: transform .3s,-webkit-transform .3s;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
     -webkit-transform: rotateZ(180deg);
     transform: rotateZ(180deg);
     cursor: pointer;
-}
-.el-input-group__append button.el-button, .el-input-group__append div.el-select .el-input__inner, .el-input-group__append div.el-select:hover .el-input__inner, .el-input-group__prepend button.el-button, .el-input-group__prepend div.el-select .el-input__inner, .el-input-group__prepend div.el-select:hover .el-input__inner {
+  }
+  .el-input-group__append button.el-button,
+  .el-input-group__append div.el-select .el-input__inner,
+  .el-input-group__append div.el-select:hover .el-input__inner,
+  .el-input-group__prepend button.el-button,
+  .el-input-group__prepend div.el-select .el-input__inner,
+  .el-input-group__prepend div.el-select:hover .el-input__inner {
     border-color: #ff7720;
     background-color: #ff7720;
     /* color: inherit; */
     der-top: 0;
     border-bottom: 0;
-}
-.search .el-input__inner {
+  }
+  .search .el-input__inner {
     -webkit-appearance: none;
-    background-color: #FFF;
+    background-color: #fff;
     background-image: none;
     border-radius: 4px;
     border: 1px solid #ff7720;
@@ -709,23 +735,22 @@ export default {
     line-height: 40px;
     outline: 0;
     // padding: 0 15px;
-    -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 100%;
-}
-.el-input-group__append, .el-input-group__prepend {
-    background-color: #F5F7FA;
+  }
+  .el-input-group__append,
+  .el-input-group__prepend {
+    background-color: #f5f7fa;
     color: white;
     vertical-align: middle;
     display: table-cell;
     position: relative;
-    border: 1px solid #DCDFE6;
+    border: 1px solid #dcdfe6;
     border-radius: 4px;
     padding: 0 20px;
     width: 1px;
     white-space: nowrap;
+  }
 }
-
-}
-
 </style>

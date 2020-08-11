@@ -577,8 +577,9 @@ export default {
           data: data,
         })
         .then((response) => {
+          console.log(response)
           if (response.data.allData.token == 1) {
-            //表明在咱们平台
+            //表明在企业名录
             //判断是不是已经添加过了
             for (let i = 0; i < this.SupplierListInt.length; i++) {
               if (companyId == this.SupplierListInt[i]) token = true;
@@ -591,11 +592,11 @@ export default {
             } else {
               this.SupplierListInt.push(companyId);
             }
-          } else if (response.data.allData.token == 2) {
-            //如果不是本平台
+          } else if (response.data.allData.token == 0) {
+            //如果不是企业名录里面的企业
             this.supplierCompany.push({
               companyName: companyName,
-              companyId: companyId,
+              companyId: companyId
             });
             this.SupplierListInt.push(companyId);
           } else if (response.data.allData.token == 3) {

@@ -9,7 +9,7 @@ import Home from '@/views/Front/Home/Home'
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
-import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
+import Dashboard from '@/views/admin/Home/Dashboard' //后台平台首页
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff'//新增人员
 import newTask from '@/views/admin/Task/newTask'//新增任务
@@ -78,13 +78,13 @@ export default new Router({
       name: 'Admin',
       component: adminPage,
       children: [
-        //系统首页
+        //平台首页
         {
           path: '/admin/dashboard',
           name: 'Dashboard',
           component: Dashboard,
           meta: {
-            title: '系统首页'
+            title: '平台首页'
           }
         },
         //新增任务

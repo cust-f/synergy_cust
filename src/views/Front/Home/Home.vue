@@ -212,7 +212,7 @@
               </div>
               <div v-else>
                 <div class="user-avator" style="padding-bottom:6%;padding-left:10px;">
-                  <img :src="this.$store.state.userLogo" />
+                  <img @click="goAdmin" :src="this.$store.state.userLogo" />
                 </div>
                 <div>
                   <span style="line-height: 80px;font-size: 18px;">欢迎{{userName}}登陆平台</span>
@@ -782,7 +782,7 @@ export default {
         query: {
           keyWords: this.patentName,
           technicalIndex: this.technicalIndex,
-          type: 0
+          type: 0,
         },
       });
     },
@@ -791,9 +791,22 @@ export default {
         path: "/searchPatent",
         query: {
           companyName: this.org,
-          type: 1
+          type: 1,
         },
       });
+    },
+    // 转跳到后台管理界面
+    goAdmin() {
+      let roleId = sessionStorage.getItem("roleId");
+      if (roleID === 4) {
+        this.$router.push("/admin/designerNewList");
+      } else if (roleID === 2) {
+        this.$router.push("/admin/mainStaskShow");
+      } else if (roleID === 3) {
+        this.$router.push("/admin/designTaskq");
+      } else if (roleID === 6) {
+        this.$router.push("/admin/mainStaskShow");
+      } else this.$router.push("/admin/dashboard");
     },
   },
 };
