@@ -59,7 +59,7 @@ export default {
                 {
                     icon: 'el-icon-office-building',
                     index: '/admin/dashboard',
-                    title: '系统首页'
+                    title: '平台首页'
                 },
 
                 {

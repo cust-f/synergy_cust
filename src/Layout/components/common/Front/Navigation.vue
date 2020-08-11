@@ -30,7 +30,7 @@
       <template v-else-if="item.open">
          <el-menu-item :index="item.index" :key="item.index">
           
-          <span slot="title"><a href="http://www.hccstc.cn/home/index" target="_blank">系统首页</a></span>
+          <span slot="title"><a href="http://www.hccstc.cn/home/index" target="_blank">平台首页</a></span>
         </el-menu-item>
       </template>
         
@@ -54,7 +54,7 @@ export default {
                 {
                     icon: 'el-icon-office-building',
                     index: '1',
-                    title: '系统首页',
+                    title: '平台首页',
                     open:1
                 },
                 {

@@ -23,8 +23,8 @@ import Data from '@/views/Front/Home/Data'
 
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
-import Dashboard from '@/views/admin/Home/Dashboard' //后台系统首页
-import copy from '@/views/admin/Home/Dashboard-copy' //后台系统首页
+import Dashboard from '@/views/admin/Home/Dashboard' //后台平台首页
+import copy from '@/views/admin/Home/Dashboard-copy' //后台平台首页
 
 //设计人员界面
 import designerNewList from '@/views/admin/personnel_allotment/designerNewList' //设计人员新增界面
@@ -192,7 +192,7 @@ export default new Router({
         //   name: 'Dashboard',
         //   component: Dashboard,
         //   meta: {
-        //     title: '系统首页'
+        //     title: '平台首页'
         //   }
         // },
         // {
@@ -205,7 +205,7 @@ export default new Router({
         //   name: 'copy',
         //   component: copy,
         //   meta: {
-        //     title: '系统首页'
+        //     title: '平台首页'
         //   }
         // },
 
@@ -217,14 +217,14 @@ export default new Router({
       name: 'Admin',
       component: adminPage,
       children: [
-        //系统首页
+        //平台首页
 
         {
           path: '/admin/dashboard',
           name: 'Dashboard',
           component: Dashboard,
           meta: {
-            title: '系统首页'
+            title: '平台首页'
           }
         },
         //新增任务

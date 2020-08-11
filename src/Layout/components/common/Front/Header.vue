@@ -47,7 +47,9 @@
     <el-row :gutter="20" class="header" style="height:90px;">
       <el-col :span="10" :offset="1">
         <div class="logo">
-          <img style="width:100%;" src="../../../../assets/images/home/logo2.png" />
+          <a href="http://www.hccstc.cn/home/index" target="_blank">
+            <img style="width:100%;" src="../../../../assets/images/home/logo2.png" />
+          </a>
         </div>
       </el-col>
       <!-- 搜索-->
@@ -352,23 +354,26 @@ export default {
         });
         this.$router.push("/home");
       } else {
-        this.$router.push("/home");
+        let roleId = sessionStorage.getItem("roleId");
+        console.log(roleId);
+        if (roleId == 4) {
+          this.$router.push("/admin/designerNewList");
+        } else if (roleId == 2) {
+          this.$router.push("/admin/mainStaskShow");
+        } else if (roleId == 3) {
+          this.$router.push("/admin/designTaskq");
+        } else if (roleId == 6) {
+          this.$router.push("/admin/mainStaskShow");
+        } else {
+          this.$router.push("/admin/dashboard");
+        }
       }
     },
     login(opinion) {
       if (opinion == 0) {
         this.$router.push("/login");
       } else {
-        let roleId = sessionStorage.getItem("roleId");
-        if (roleID === 4) {
-          this.$router.push("/admin/designerNewList");
-        } else if (roleID === 2) {
-          this.$router.push("/admin/mainStaskShow");
-        } else if (roleID === 3) {
-          this.$router.push("/admin/designTaskq");
-        } else if (roleID === 6) {
-          this.$router.push("/admin/mainStaskShow");
-        } else this.$router.push("/admin/dashboard");
+        this.$router.push("/register");
       }
     },
     getUserDetail() {

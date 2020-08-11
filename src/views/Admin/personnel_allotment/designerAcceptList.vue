@@ -450,7 +450,9 @@ export default {
     //跳转虚拟机
     CCSJ(row) {
       console.log(row.gitadress);
-      window.location.href = row.gitadress;
+      window.open(row.gitadress,'_blank')
+
+      //window.location.href = row.gitadress;
     },
 
     //获取已接收任务列表数据
