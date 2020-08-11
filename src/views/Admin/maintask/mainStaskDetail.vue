@@ -1973,7 +1973,7 @@ export default {
     //跳转虚拟机
     LJTZ(row) {
         console.log(row.gitadress)
-        window.location.href = row.gitadress; 
+        window.open(row.gitadress) 
     },
     //设计通过
     SJTG(row) {
