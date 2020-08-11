@@ -11,7 +11,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
-      :default-sort="{prop: 'applyTime', order: 'ascending'}"
+      :default-sort="{prop: 'applyTime', order: 'descending'}"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
