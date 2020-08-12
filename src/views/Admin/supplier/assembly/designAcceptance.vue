@@ -54,7 +54,7 @@
             <el-input
               type="textarea"
               :autosize="{ minRows: 5, maxRows: 7}"
-              v-model="addList5.demandorRefuseReason"
+              v-model="addList5.checkRefuseReason"
               :readonly="true"
             ></el-input>
           </el-col>
