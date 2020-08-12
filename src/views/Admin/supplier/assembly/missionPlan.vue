@@ -47,7 +47,7 @@
             v-show="scope.row.checkPlanState > 0 && scope.row.pathPath "
           >下载</el-button>
           <el-button
-            v-show="scope.row.checkPlanState === 3 && scope.row.judgePlanBook === 0"
+            v-show="scope.row.checkPlanState === 3"
             @click="refusePlanReason(scope.row)"
             type="text"
             size="small"
@@ -142,7 +142,7 @@ export default {
     }
   },
   created() {
-    this.judgePlanBoo();
+    // this.judgePlanBoo();
   },
   methods: {
     //获得信息
