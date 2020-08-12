@@ -1,7 +1,7 @@
 <!--设计提交组件-->
 <template>
   <div class="designAcceptance">
-    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
+    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计验收</div>
     <br />
     <el-table
       :data="designAcceptance"
