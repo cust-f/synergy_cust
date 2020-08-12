@@ -1,26 +1,55 @@
 <template>
-  <div class="login-wrap">
-    <div class="ms-login">
-      <div class="ms-title">后台中心</div>
-      <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
-        <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="用户名">
-            <el-button slot="prepend" icon="el-icon-user"></el-button>
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input type="password" placeholder="密码" v-model="param.password" @click="submitForm()">
-            <el-button slot="prepend" icon="el-icon-unlock"></el-button>
-          </el-input>
-        </el-form-item>
-        <div class="login-btn">
-          <el-button type="primary" @click="submitForm()">登录</el-button>
+  <div class="login">
+    <div class="login-box">
+      <div class="top">
+        <div class="logo">
+          <a @click="goHome">
+            <img style="width:410px;" src="~@/assets/img/login-logo.png" alt />
+          </a>
         </div>
-        <!-- <p class="login-tips">Tips : 用户名和密码随便填。</p> -->
-      </el-form>
+      </div>
+      <div class="mid">
+        <el-form
+          :model="param"
+          :rules="rules"
+          ref="login"
+          @keyup.enter.native="submitForm()"
+          status-icon
+        >
+          <el-form-item prop="userName">
+            <el-input class="info" v-model="param.userName" placeholder="帐号"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input class="info" v-model="param.password" type="password" placeholder="密码"></el-input>
+          </el-form-item>
+          <!-- <el-form-item prop="captcha">
+            <el-row :gutter="20">
+              <el-col :span="14">
+                <el-input v-model="dataForm.captcha"
+                          placeholder="验证码">
+                </el-input>
+              </el-col>
+              <el-col :span="10"
+                      class="login-captcha">
+                <img :src="captchaPath"
+                     @click="getCaptcha()"
+                     alt="">
+              </el-col>
+            </el-row>
+          </el-form-item>-->
+          <el-form-item>
+            <div class="item-btn">
+              <input type="button" value="登录" @click="submitForm()" />
+            </div>
+          </el-form-item>
+        </el-form>
+      </div>
+
+      <div class="bottom">Copyright @ 2008 长春理工大学日立项目组 | 地址：中国吉林省长春市卫星路7186号(南)</div>
     </div>
   </div>
 </template>
+
 
 <script>
 import Qs from "qs";
@@ -30,20 +59,17 @@ export default {
   data: function () {
     return {
       param: {
-        username: "",
+        userName: "",
         password: "",
       },
       rules: {
-        username: [
+        userName: [
           { required: true, message: "请输入用户名", trigger: "blur" },
         ],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
       roleID: "",
     };
-  },
-  created() {
-    this.getRoleId();
   },
   methods: {
     submitForm() {
@@ -52,14 +78,9 @@ export default {
           var menuList;
           var that = this;
           var data = Qs.stringify({
-            userName: this.param.username,
+            userName: this.param.userName,
             password: this.param.password,
           });
-          let config = {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          };
           that
             .axios({
               method: "post",
@@ -73,9 +94,9 @@ export default {
                   message: "登陆成功",
                 });
                 this.$store.commit("SET_TOKEN", true);
-                this.$store.commit("GET_USER", this.param.username);
-                sessionStorage.setItem("ms_username", this.param.username);
-                sessionStorage.setItem("designer_name", this.param.username);
+                this.$store.commit("GET_USER", this.param.userName);
+                sessionStorage.setItem("ms_username", this.param.userName);
+                sessionStorage.setItem("designer_name", this.param.userName);
 
                 this.$store.commit(
                   "SET_List",
@@ -89,13 +110,8 @@ export default {
                   "SET_USERLOGO",
                   response.data.allData.userLogo
                 );
-                // console.log(response)
                 this.roleID = response.data.allData.roleId;
-                sessionStorage.setItem("roleId",this.roleID);
-                console.log(this.roleID);
-                //this.param.roleID = response.data.allData.roleId;
-                // console.log(sessionStorage.getItem("ms_username"));
-                // console.log("有用户名的！！！")
+                sessionStorage.setItem("roleId", this.roleID);
 
                 if (this.roleID === 4) {
                   this.$router.push("/admin/designerNewList");
@@ -113,167 +129,76 @@ export default {
                 });
               }
             });
-          // if (this.param.username == "admin") {
-          //   this.$message.success("管理员登录成功");
-          //   this.$store.commit("SET_TOKEN", true);
-          //   this.$store.commit("GET_USER", this.username);
-          //   sessionStorage.setItem("ms_username", this.param.username);
-          //   menuList = [
-          //     {
-          //       icon: "el-icon-postcard",
-          //       index: "2",
-          //       title: "企业信息管理",
-          //       subs: [
-          //         {
-          //           index: "/admin/companyDetail",
-          //           title: "企业信息详情"
-          //         },
-          //         {
-          //           index: "/admin/supplyBussess",
-          //           title: "企业名录"
-          //         }
-          //       ]
-          //     },
-          //     {
-          //       icon: "el-icon-edit-outline",
-          //       index: "3",
-          //       title: "协同管理",
-          //       subs: [
-          //         {
-          //           index: "/admin/newTask",
-          //           title: "新增任务",
-          //           meta: {
-          //             title: "新增任务"
-          //           }
-          //         },
-          //         {
-          //           index: "/admin/mainStaskShow",
-          //           title: "查看详情"
-          //         }
-          //       ]
-          //     },
-          //     {
-          //       icon: "el-icon-tickets",
-          //       index: "4",
-          //       title: "任务管理",
-          //       subs: [
-          //         {
-          //           index: "/admin/designTask",
-          //           title: "设计任务"
-          //         },
-          //         {
-          //           index: "/admin/circulationTask",
-          //           title: "流通任务"
-          //         }
-          //       ]
-          //     }
-          //   ];
-          //   this.$store.commit("SET_List", menuList);
-          //   this.$router.push("/admin/dashboard");
-          // } else if (this.param.username == "supplier") {
-          //   this.$message.success("管理员登录成功");
-          //   this.$store.commit("SET_TOKEN", true);
-          //   this.$store.commit("GET_USER", this.username);
-          //   menuList = [];
-          //   this.$store.commit("SET_List", menuList);
-          //   this.$router.push("/admin/dashboard");
-          // } else if (this.param.username == "desinger") {
-          //   this.$message.success("管理员登录成功");
-          //   this.$store.commit("SET_TOKEN", true);
-          //   this.$store.commsit("GET_USER", this.username);
-          //   menuList = [];
-          //   this.$store.commit("SET_List", menuList);
-          //   this.$router.push("/admin/dashboard");
-          // } else if (this.param.username == "company") {
-          //   this.$message.success("管理员登录成功");
-          //   this.$store.commit("SET_TOKEN", true);
-          //   this.$store.commit("GET_USER", this.username);
-          //   menuList = [];
-          //   this.$store.commit("SET_List", menuList);
-          //   this.$router.push("/admin/dashboard");
-          // } else if (this.param.username == "circulation") {
-          //   this.$message.success("管理员登录成功");
-          //   this.$store.commit("SET_TOKEN", true);
-          //   this.$store.commit("GET_USER", this.username);
-          //   menuList = [];
-          //   this.$store.commit("SET_List", menuList);
-          //   this.$router.push("/admin/dashboard");
-          // }
         } else {
           this.$message.error("请输入账号和密码");
-          console.log("error submit!!");
           return false;
         }
       });
     },
-    // getRoleId(){
-    //   var that = this;
-    //   var data = Qs.stringify({
-
-    //     userName: this.param.username
-    //   });
-    //   that
-    //     .axios({
-    //       method: "post",
-    //       url: "/api/users//findroleId",
-    //       data: data
-    //     })
-    //     .then(response => {
-    //       this.roleID = response.data.allData;
-    //       console.log(roleID)
-    //       //  if(this.roleID==4)
-    //       //       {
-    //       //           this.$router.push("/admin/designerNewList");
-    //       //       }else{
-    //       //          this.$router.push("/admin/dashboard");
-    //       //       }
-
-    //     });
-    // },
+    goHome() {
+      this.$router.push({
+        path: "/home",
+      });
+    },
   },
 };
 </script>
 
-<style scoped>
-.login-wrap {
-  position: fixed;
+
+<style lang="scss">
+.login {
   width: 100%;
   height: 100%;
-  background-image: url(../../assets/images/login/login-bg.jpg);
-  background-size: 100%;
+  background: url(~@/assets/img/login-bg.png) no-repeat;
+  background-size: cover;
+  position: fixed;
 }
-.ms-title {
-  width: 100%;
-  line-height: 50px;
-  text-align: center;
-  font-size: 20px;
-  color: #fff;
-  border-bottom: 1px solid #ddd;
-}
-.ms-login {
+.login .login-box {
   position: absolute;
   left: 50%;
-  top: 50%;
-  width: 350px;
-  margin: -190px 0 0 -175px;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.3);
-  overflow: hidden;
+  transform: translateX(-50%);
+  height: 100%;
+  padding-top: 10%;
+  width: 410px;
 }
-.ms-content {
-  padding: 30px 30px;
-}
-.login-btn {
+.login .login-box .top {
+  margin-bottom: 30px;
   text-align: center;
 }
-.login-btn button {
-  width: 100%;
-  height: 36px;
-  margin-bottom: 10px;
+.login .login-box .top .logo {
+  font-size: 0;
 }
-.login-tips {
-  font-size: 12px;
-  line-height: 30px;
+.login .login-box .top .company {
+  font-size: 16px;
+  margin-top: 10px;
+}
+.login .login-box .mid {
+  font-size: 14px;
+}
+.login .login-box .mid .item-btn {
+  margin-top: 20px;
+}
+.login .login-box .mid .item-btn input {
+  border: 0;
+  width: 100%;
+  height: 40px;
+  box-shadow: 0;
+  background: #1f87e8;
   color: #fff;
+  border-radius: 3px;
+}
+.info {
+  // width: 410px;
+}
+.login-captcha {
+  height: 40px;
+}
+.login .login-box .bottom {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  color: #999;
+  font-size: 12px;
+  text-align: center;
 }
 </style>
