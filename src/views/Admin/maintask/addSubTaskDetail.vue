@@ -194,7 +194,7 @@
 
         <!-- <el-button @click="addVisible = false">取 消</el-button> -->
         <div align="right">
-          <el-button type="primary"  @click="saveAdd11">确 定</el-button>
+          <el-button type="primary" @click="saveAdd11">确 定</el-button>
         </div>
       </div>
       <el-divider></el-divider>
@@ -577,7 +577,7 @@ export default {
           data: data,
         })
         .then((response) => {
-          console.log(response)
+          console.log(response);
           if (response.data.allData.token == 1) {
             //表明在企业名录
             //判断是不是已经添加过了
@@ -590,15 +590,23 @@ export default {
                 message: "已经邀请，请勿重复邀请！",
               });
             } else {
+              this.$message({
+                type: "success",
+                message: "邀请成功！",
+              });
               this.SupplierListInt.push(companyId);
             }
           } else if (response.data.allData.token == 0) {
             //如果不是企业名录里面的企业
             this.supplierCompany.push({
               companyName: companyName,
-              companyId: companyId
+              companyId: companyId,
             });
             this.SupplierListInt.push(companyId);
+            this.$message({
+              type: "success",
+              message: "邀请成功！",
+            });
           } else if (response.data.allData.token == 3) {
             //自己的任务
             this.$message({

@@ -425,14 +425,14 @@ export default {
       busm: "none", //不私秘
       query: {
         pageIndex: 1,
-        pageSize: 10
+        pageSize: 10,
       },
       //级联选择框的配置对象
       cateProps: {
         value: "id",
         label: "industryName",
         children: "children",
-        checkStrictly: true
+        checkStrictly: true,
       },
       //级联选择框双向绑定到的数组
       selectCateKeys: [],
@@ -468,21 +468,21 @@ export default {
       supplyCompanies: [
         "沈阳机床集团有限责任公司",
         "起重集团有限公司",
-        "长光电子"
+        "长光电子",
       ], //供应商列表
       shifou: [
         {
           id: "0",
-          label: "是"
+          label: "是",
         },
-        { id: "1", label: "否" }
+        { id: "1", label: "否" },
       ],
       shifousimi: [
         { id: "0", label: "是" },
         {
           id: "1",
-          label: "否"
-        }
+          label: "否",
+        },
       ],
       FZR: [{}],
       //供应商列表
@@ -490,18 +490,18 @@ export default {
         {
           companyName: "",
           companyId: "",
-          pId: ""
-        }
+          pId: "",
+        },
       ],
       Task: [
         {
           id: "0",
-          label: "设计任务"
+          label: "设计任务",
         },
         {
           id: "1",
-          label: "流通任务"
-        }
+          label: "流通任务",
+        },
       ],
 
       selVal: "",
@@ -517,8 +517,8 @@ export default {
         {
           id: "",
           industryName: "",
-          pId: ""
-        }
+          pId: "",
+        },
       ],
       id: 0, //记录任务数
       //招标信息
@@ -528,7 +528,7 @@ export default {
         date1: "",
         date2: "",
         head: "",
-        detail: ""
+        detail: "",
       },
       //子任务表格
       shuju: [
@@ -536,8 +536,8 @@ export default {
           taskName: "",
           Telphone: "",
           beginTime: "",
-          deadline: ""
-        }
+          deadline: "",
+        },
       ],
 
       addList: [
@@ -545,8 +545,8 @@ export default {
           taskName: "",
           Telphone: "",
           beginTime: "",
-          deadline: ""
-        }
+          deadline: "",
+        },
       ],
       addList1: [
         {
@@ -555,8 +555,8 @@ export default {
           taskName: "",
           taskType: "",
           bidTime: "",
-          supplyDesigner: ""
-        }
+          supplyDesigner: "",
+        },
       ],
       cooList: { supplyCompany: "", shifousimi: "" },
       liebieList: { supplyCompany: "" },
@@ -574,7 +574,7 @@ export default {
       endLine: "",
       TaskState: "",
       TaskState1: "",
-      TaskXiangXi: ""
+      TaskXiangXi: "",
     };
   },
   created() {
@@ -615,7 +615,7 @@ export default {
       console.log(this.technicalFile);
       if (this.technicalFile == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-          type: "warning"
+          type: "warning",
         });
       } else {
         var that = this;
@@ -628,16 +628,16 @@ export default {
           publishdate: this.publishdate,
           deaddate: this.deaddate,
           principalName: this.leader,
-          xiangxi: this.xiangxi
+          xiangxi: this.xiangxi,
         });
         console.log(data);
         that
           .axios({
             method: "post",
             url: "/api/MainTaskInformation/addMainTaskInformation",
-            data: data
+            data: data,
           })
-          .then(response => {
+          .then((response) => {
             this.mainStaskID = response.data.allData;
             this.zzzz = response.data.allData;
             if (this.zzzz != "null") {
@@ -654,11 +654,11 @@ export default {
               //this.technicalFileWanzheng = "";
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
             if (error != null) {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-                type: "warning"
+                type: "warning",
               });
             }
           });
@@ -742,21 +742,19 @@ export default {
     getDate() {
       var that = this;
       var data = Qs.stringify({
-        aaaa: this.usernameX
+        aaaa: this.usernameX,
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/selectMainType",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           // this.mainStaskType = response.data.allData.a;
           this.shuju = response.data.allData.b;
           this.xuanzelist = this.getTreeData(response.data.allData.c);
           this.FZR = response.data.allData.d;
-          console.log(response);
-          console.log(this.FZR);
         });
     },
 
@@ -776,23 +774,32 @@ export default {
     },
     //新增操作
     addData() {
-      this.addVisible = true;
-      var that = this;
-      var data = Qs.stringify({
-        PId: this.type,
-        username: this.usernameX
+      // 传递this.type
+      this.$router.push({
+        path: "/admin/addSubTask",
+        query: {
+          type: this.type,
+          mainTaskID: this.mainStaskID,
+          name: this.name,
+        },
       });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/selectSubType",
-          data: data
-        })
-        .then(response => {
-          this.subStaskType = response.data.allData.a;
-          this.supplierCompany = response.data.allData.b;
-          console.log(response);
-        });
+      // this.addVisible = true;
+      // var that = this;
+      // var data = Qs.stringify({
+      //   PId: this.type,
+      //   username: this.usernameX
+      // });
+      // that
+      //   .axios({
+      //     method: "post",
+      //     url: "/api/SubstaskInformation/selectSubType",
+      //     data: data
+      //   })
+      //   .then(response => {
+      //     this.subStaskType = response.data.allData.a;
+      //     this.supplierCompany = response.data.allData.b;
+      //     console.log(response);
+      //   });
     },
 
     addDesignerButton() {
@@ -803,7 +810,7 @@ export default {
       //console.log(this.TaskXiangXi)
       if (this.technicalFile == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-          type: "warning"
+          type: "warning",
         });
       } else {
         if (this.cooList.shifousimi != 1) {
@@ -828,7 +835,7 @@ export default {
           Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.addList.Telphone,
           taskID: "100086",
-          SupperListINt: this.SupplierListInt
+          SupperListINt: this.SupplierListInt,
         });
         console.log(this.SupplierListInt);
         console.log(data);
@@ -836,16 +843,15 @@ export default {
         that
           .axios({
             method: "post",
-            url:
-              "/api/SubstaskInformation/addSubstaskInformation",
+            url: "/api/SubstaskInformation/addSubstaskInformation",
             data: data,
-            headers: { "Content-Type": "application/x-www-form-urlencoded" }
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
             if (error != null) {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-                type: "warning"
+                type: "warning",
               });
             }
           });
@@ -866,12 +872,12 @@ export default {
     //控制上传
     handleExceed(files, fileList) {
       this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${
-          files.length
-        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
