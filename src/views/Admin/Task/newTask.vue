@@ -17,7 +17,7 @@
           <el-form ref="form" label-width="110px" class="box">
             <el-row>
               <el-col :span="11">
-                <el-form-item label="需求任务名称">
+                <el-form-item label="任务名称">
                   <el-input v-model="name"></el-input>
                 </el-form-item>
               </el-col>
@@ -107,7 +107,7 @@
 
             <el-row>
               <el-col :span="22" class="xiangxi">
-                <el-form-item label="需求任务详细">
+                <el-form-item label="任务详情">
                   <el-input
                     type="textarea"
                     :rows="3"
@@ -143,7 +143,8 @@
         </div>
         <el-divider></el-divider>
 
-        <el-card shadow="always">
+      <!-- 原始需求分解 -->
+        <!-- <el-card shadow="always">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求分解</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <br />
           <div class="container">
@@ -169,7 +170,7 @@
               <el-table-column prop="beginTime" label="开始时间"></el-table-column>
               <el-table-column prop="deadline" label="结束时间"></el-table-column>
             </el-table>
-          </div>
+          </div> -->
 
           <!-- 新增弹出框 -->
           <el-dialog title :visible.sync="addVisible" width="50%">
@@ -642,8 +643,15 @@ export default {
             if (this.zzzz != "null") {
               console.log(this.zzzz);
               this.$message.success("提交成功");
-              this.kongzhi = false;
-              this.technicalFileWanzheng = "";
+                    this.$router.push({
+        path: "/admin/substaskDetail",
+        query: {
+          mainTaskID:this.zzzz
+        }
+      });
+              //老页面的弹窗
+              //this.kongzhi = false;
+              //this.technicalFileWanzheng = "";
             }
           })
           .catch((error) => {

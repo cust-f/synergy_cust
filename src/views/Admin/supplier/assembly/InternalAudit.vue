@@ -169,7 +169,7 @@ export default {
     //跳转虚拟机
     LJTZ(row) {
       console.log(row.gitadress);
-      window.location.href = row.gitadress;
+      window.open(row.gitadress,'_blank')
     },
     //设计通过
     designSuccess(row) {

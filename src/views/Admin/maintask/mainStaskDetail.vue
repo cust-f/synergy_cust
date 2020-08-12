@@ -226,7 +226,7 @@
                 @click="RWJHXZ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState !==0"
+                v-if="scope.row.checkPlanState !==0 &&scope.row.checkPlanState !==3"
               >下载</el-button>
               <el-button
                 @click="JHSTG(scope.row)"
@@ -337,7 +337,7 @@
               <el-span v-else>{{scope.row.designerName}}</el-span>
             </template>
           </el-table-column> -->
-          <el-table-column prop="designCount" label="重做次数" width="80"></el-table-column>demandorCheckDesignState
+          <el-table-column prop="designCount" label="上传次数" width="80"></el-table-column>demandorCheckDesignState
           <el-table-column prop="demandorCheckDesignState" width="80" label="验收状态" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
