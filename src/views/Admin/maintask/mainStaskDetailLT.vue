@@ -225,7 +225,7 @@
                 @click="RWJHXZ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState !==0"
+                v-if="scope.row.checkPlanState !==0 &&scope.row.checkPlanState !==3"
               >下载</el-button>
               <el-button
                 @click="JHSTG(scope.row)"

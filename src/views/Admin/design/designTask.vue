@@ -11,7 +11,7 @@
               <el-tab-pane label="全部任务" name="first">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 </div>
                 <el-table
@@ -24,7 +24,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" sortable label="分解任务名称"></el-table-column>
+                  <el-table-column prop="taskName" sortable label="子需求"></el-table-column>
                                     <el-table-column prop="taskState" sortable label="状态" align="center">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.taskState ==='申请或邀请中'">待响应</el-tag>
@@ -38,7 +38,7 @@
                       <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="mainTaskName" sortable label="需求任务名称"></el-table-column>
+                  <el-table-column prop="mainTaskName" sortable label="总需求"></el-table-column>
 
                   <el-table-column prop="companyName" sortable label="企业名称"></el-table-column>
                   <el-table-column prop="deadline" sortable label="截止时间">
@@ -68,7 +68,7 @@
               <el-tab-pane label="待响应" name="second">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
@@ -85,7 +85,7 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
                   <el-table-column
                     prop="checkApplyState"
                     sortable
@@ -132,7 +132,7 @@
               <el-tab-pane label="任务计划" name="third">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
@@ -149,8 +149,8 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
                   <el-table-column
                     prop="checkPlanState"
                     sortable
@@ -205,7 +205,7 @@
               <el-tab-pane label="进行中" name="forth">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
@@ -222,8 +222,8 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
                   <el-table-column
                     prop="demandorCheckDesignState"
                     width="100"
@@ -266,7 +266,7 @@
               <el-tab-pane label="待审核" name="fifth">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
@@ -283,8 +283,8 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
                   <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
                   <el-table-column prop="uploadFileTime" label="上传时间" sortable>
                     <template slot-scope="scope">{{scope.row.uploadFileTime | formatDate}}</template>
@@ -324,7 +324,7 @@
               <el-tab-pane label="待验收" name="fifyanshouth">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
@@ -341,8 +341,8 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
                   <el-table-column
                     prop="demandorCheckDesignState"
                     sortable
@@ -398,7 +398,7 @@
               <el-tab-pane label="已完成" name="sixth">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
@@ -415,8 +415,8 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
                   <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
                   <el-table-column prop="finishTime" label="完成时间" sortable>
                     <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
@@ -450,7 +450,7 @@
               <el-tab-pane label="已废除" name="seventh">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="分解任务名称" class="handle-input mr10"></el-input>
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
@@ -467,8 +467,8 @@
                   @selection-change="handleSelectionChange"
                 >
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="分解任务名称" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求任务名称" sortable></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
                   <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
 
                   <el-table-column label="操作" align="center">

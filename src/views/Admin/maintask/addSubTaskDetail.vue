@@ -12,13 +12,13 @@
         <el-form ref="form" :model="addList" label-width="120px">
           <el-row>
             <el-col :span="11">
-              <el-form-item label="分解任务名称">
+              <el-form-item label="任务名称">
                 <el-input @blur="getParent" v-model="addList.taskName"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="11">
-              <el-form-item label="需求方联络电话">
+              <el-form-item label="联络电话">
                 <el-input v-model="addList.Telphone" @blur="animate"></el-input>
                 <font color="red">
                   <span v-if="this.addList.Telphone === null">您的联络电话格式输入不正确</span>
@@ -109,7 +109,7 @@
             </el-col>
 
             <el-col :span="11">
-              <el-form-item label="核心供应商" :style="{display: visiblehexin}">
+              <el-form-item label="供应商" :style="{display: visiblehexin}">
                 <el-select
                   v-model="SupplierListInt"
                   multiple
@@ -168,7 +168,7 @@
 
           <el-row>
             <el-col :span="22">
-              <el-form-item label="分解任务详情">
+              <el-form-item label="任务详情">
                 <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
               </el-form-item>
             </el-col>

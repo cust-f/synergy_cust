@@ -17,7 +17,7 @@
           <el-form ref="form" label-width="110px" class="box">
             <el-row>
               <el-col :span="11">
-                <el-form-item label="需求任务名称">
+                <el-form-item label="任务名称">
                   <el-input v-model="name"></el-input>
                 </el-form-item>
               </el-col>
@@ -107,7 +107,7 @@
 
             <el-row>
               <el-col :span="22" class="xiangxi">
-                <el-form-item label="需求任务详细">
+                <el-form-item label="任务详情">
                   <el-input
                     type="textarea"
                     :rows="3"
