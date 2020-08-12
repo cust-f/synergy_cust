@@ -78,7 +78,7 @@ export default {
       designAcceptance: [],
       addVisible4: false, //拒绝原因弹窗
       addList5: {
-        demandorRefuseReason: ""
+        checkRefuseReason: ""
       }
     };
   },
