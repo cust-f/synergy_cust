@@ -5,7 +5,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
@@ -52,11 +52,12 @@
     <div class="pagination">
       <el-pagination
         background
-        layout="total, prev, pager, next"
-        :current-page="query.pageIndex"
-        :page-size="query.pageSize"
-        :total="pageTotal"
-        @current-change="handlePageChange"
+        layout="prev, pager, next, sizes, total, jumper"
+        :current-page="pageIndex1"
+        :page-size="pageSize"
+        :total="tableData.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
       ></el-pagination>
     </div>
   </div>
@@ -75,10 +76,9 @@ export default {
 
   data() {
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
+      pageIndex: 1,
+      pageIndex1: 1,
+      pageSize: 10,
 
       tableData: [
         {
@@ -88,8 +88,8 @@ export default {
           publishingCompanyName: "",
           applyTime: "",
           deadline: "",
-          taskCategoryPart: ""
-        }
+          taskCategoryPart: "",
+        },
       ],
       //接受表单数据
       formLabelWidth: "120px",
@@ -100,7 +100,7 @@ export default {
       selectname: "",
       userName: "",
       YinCang: 1,
-      usernameX: sessionStorage.getItem("ms_username")
+      usernameX: sessionStorage.getItem("ms_username"),
     };
   },
   created() {
@@ -110,22 +110,22 @@ export default {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy.MM.dd");
-    }
+    },
   },
   methods: {
     getData() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.usernameX
+        userName: this.usernameX,
       });
 
       that
         .axios({
           method: "post",
           url: "/api/supplier/supplierPlanResTaskList",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.tableData = response.data.allData;
         });
     },
@@ -133,17 +133,17 @@ export default {
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
-        taskName: this.selectname
+        taskName: this.selectname,
       });
 
       that
         .axios({
           method: "post",
           url: "/api/supplier/searchByTaskIdInTaskApply",
-          data: data
+          data: data,
           // data:this.$store.state.userName
         })
-        .then(response => {
+        .then((response) => {
           this.tableData = response.data.allData;
         });
       //this.getData();
@@ -154,8 +154,8 @@ export default {
       this.$router.push({
         path: "/admin/designDet",
         query: {
-          taskId: row.taskId
-        }
+          taskId: row.taskId,
+        },
       });
     },
 
@@ -163,9 +163,9 @@ export default {
     handlePreview(file) {},
     handleExceed(files, fileList) {
       this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${
-          files.length
-        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
       );
     },
     success() {
@@ -174,8 +174,15 @@ export default {
     },
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`);
-    }
-  }
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+  },
   /*
    *转跳对应需求信息页面
    */

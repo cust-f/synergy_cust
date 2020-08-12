@@ -5,7 +5,7 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
@@ -51,11 +51,12 @@
     <div class="pagination">
       <el-pagination
         background
-        layout="total, prev, pager, next"
-        :current-page="query.pageIndex"
-        :page-size="query.pageSize"
-        :total="pageTotal"
-        @current-change="handlePageChange"
+        layout="prev, pager, next, sizes, total, jumper"
+        :current-page="pageIndex1"
+        :page-size="pageSize"
+        :total="tableData.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
       ></el-pagination>
     </div>
   </div>
@@ -70,10 +71,9 @@ export default {
   name: "allTask",
   data() {
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
+      pageIndex: 1,
+      pageIndex1: 1,
+      pageSize: 10,
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
@@ -87,8 +87,8 @@ export default {
           taskType: "",
           deadline: "",
           applyTime: "",
-          taskCategoryPart: ""
-        }
+          taskCategoryPart: "",
+        },
       ],
       multipleSelection: [],
       editVisible: false,
@@ -99,14 +99,14 @@ export default {
       form: {},
       usernameX: sessionStorage.getItem("ms_username"),
       idx: -1,
-      id: -1
+      id: -1,
     };
   },
   filters: {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy.MM.dd");
-    }
+    },
   },
   //获取表格序号
   getIndex($index) {
@@ -122,18 +122,17 @@ export default {
       var that = this;
       var data = Qs.stringify({
         username: userNameX,
-        taskName: this.selectname
+        taskName: this.selectname,
       });
-      
+
       that
         .axios({
           method: "post",
           url: "/api/supplier/searchByTaskIdInTaskApply",
-          data: data
+          data: data,
           // data:this.$store.state.userName
         })
-        .then(response => {
-          
+        .then((response) => {
           this.tableData = response.data.allData;
         });
       //this.getData();
@@ -149,21 +148,27 @@ export default {
     getData() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.usernameX
+        userName: this.usernameX,
       });
-      
+
       that
         .axios({
           method: "post",
           url: "/api/supplier/supplierDesignTaskList",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         })
-        .then(response => {
-          
+        .then((response) => {
           this.tableData = response.data.allData;
         });
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
     },
 
     //详情页面跳转方法
@@ -171,11 +176,11 @@ export default {
       this.$router.push({
         path: "/admin/designDet",
         query: {
-          taskId: row.taskId
-        }
+          taskId: row.taskId,
+        },
       });
-    }
-  }
+    },
+  },
   /*
    *转跳对应需求信息页面
    */
@@ -226,14 +231,14 @@ export default {
   background-color: #d6d6ad;
   border-color: #d6d6ad;
 }
-.designshenhe{
-    color:#FF8040;
-  background-color:#FFE6D9;
-  border-color:#FFDCB9;
+.designshenhe {
+  color: #ff8040;
+  background-color: #ffe6d9;
+  border-color: #ffdcb9;
 }
-.designyanshou{
-   color:#E066FF;
-  background-color:#EBD3E8;
-  border-color:#FFF0F5;
+.designyanshou {
+  color: #e066ff;
+  background-color: #ebd3e8;
+  border-color: #fff0f5;
 }
 </style>
