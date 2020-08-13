@@ -215,7 +215,8 @@
                   <img @click="goAdmin" :src="this.$store.state.userLogo" />
                 </div>
                 <div>
-                  <span style="line-height: 80px;font-size: 18px;">欢迎{{userName}}登陆平台</span>
+                  <p style="line-height: 80px;font-size: 18px;">欢迎
+                    <span style="font-size: 22px;font-weight: 600;margin: 0 5px;font-family: KaiTi_GB2312;">{{userName}}</span>登陆平台</p>
                 </div>
               </div>
             </el-card>
