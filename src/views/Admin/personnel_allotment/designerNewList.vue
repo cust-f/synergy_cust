@@ -331,13 +331,15 @@ export default {
           this.$message({
             type: "success",
             message: "任务开始成功"
+
           });
           this.getData();
+           this.$router.push("/admin/designerAcceptList");
         });
       this.getData();
-      this.$router.go(0);
+      //this.$router.go(0);
 
-      //this.$router.push("/admin/designerAcceptList");
+      this.$router.push("/admin/designerAcceptList");
     },
     goBack() {
       this.$router.push("/#");
