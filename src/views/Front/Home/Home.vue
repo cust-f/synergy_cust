@@ -60,7 +60,7 @@
       <el-row :gutter="6" class="category" style="margin-bottom:20px;">
         <el-col :span="17">
           <el-row :gutter="20">
-            <el-col :span="8" style="padding-left: 0px;">
+            <el-col :span="8" style="padding-left: 7px;padding-right: 10px;">
               <el-card shadow="hover" pa>
                 <div class="category_item">
                   <div
@@ -83,7 +83,8 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
+             
               <el-card shadow="hover" style="float:left">
                 <div class="category_item">
                   <div
@@ -103,7 +104,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px;padding-right: 15px;">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div class="cate_ietm_title">
@@ -125,7 +126,7 @@
           </el-row>
           <!----这里分类----->
           <el-row :gutter="20" style="margin-top:25px;">
-            <el-col :span="8" style="padding-left: 0px;">
+            <el-col :span="8" style="padding-left: 7px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div
@@ -147,7 +148,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div
@@ -166,7 +167,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px;padding-right: 15px;">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div
@@ -337,7 +338,7 @@
       <!--第四行  需求一览，优质企业，服务成果-->
       <el-row :gutter="gutterCount">
         <!--需求任务-->
-        <el-col :span="8">
+        <el-col :span="8" >
           <div class="grid-content2 one">
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
@@ -857,6 +858,8 @@ export default {
   background: url(../../../assets/images/home/banner/banner1.jpg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  padding-left:0px;
+  padding-right: 15px;
 }
 .home .tow .el-card__header {
   /* backdrop-filter: ; */
