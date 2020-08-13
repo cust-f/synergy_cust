@@ -59,7 +59,7 @@
       <!--第三行  分类门户-->
       <el-row :gutter="6" class="category" style="margin-bottom:20px;">
         <el-col :span="17">
-          <el-row :gutter="20">
+          <el-row :gutter="20" style="margin-left:0px;">
             <el-col :span="8" style="padding-left: 0px;">
               <el-card shadow="hover" pa>
                 <div class="category_item">
@@ -124,7 +124,7 @@
             </el-col>
           </el-row>
           <!----这里分类----->
-          <el-row :gutter="20" style="margin-top:25px;">
+          <el-row :gutter="20" style="margin-top:25px;margin-left:0px;">
             <el-col :span="8" style="padding-left: 0px;">
               <el-card shadow="hover">
                 <div class="category_item">
