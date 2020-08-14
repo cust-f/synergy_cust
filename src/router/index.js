@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import login from '@/Layout/template page/login'
+import login from '@/Layout/template page/newLogin'
 
 //前台界面
 import Front from '@/Layout/template page/Front'
