@@ -122,7 +122,16 @@
             <el-dialog :visible.sync="addVisible" width="50%">
               <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">人员新增</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
               <el-form ref="form" :model="addList" label-width="70px" :rules="userRules">
-                <el-form-item label="用户名">
+                <!-- <el-upload
+  class="avatar-uploader"
+  action="https://jsonplaceholder.typicode.com/posts/"
+  :show-file-list="false"
+  :on-success="handleAvatarSuccess"
+  :before-upload="beforeAvatarUpload">
+  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+</el-upload>-->
+                <el-form-item label="用户名"> 
                   <el-input v-model="addList.userName"></el-input>
                 </el-form-item>
                 <el-form-item label="真实姓名">
@@ -151,6 +160,9 @@
                 <el-form-item label="登录密码" prop="password">
                   <el-input v-model="addList.password"></el-input>
                 </el-form-item>
+                  <!-- <el-form-item label="用户头像" prop="password">
+                  <el-input v-model="addList.password"></el-input>
+                </el-form-item> -->
               </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button @click="addVisible = false">取 消</el-button>
