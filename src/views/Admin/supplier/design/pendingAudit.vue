@@ -10,8 +10,8 @@
       class="table"
       ref="multipleTable"
       header-cell-class-name="table-header"
-      @selection-change="handleSelectionChange"
       :default-sort="{prop: 'deadline', order: 'ascending'}"
+      @sort-change="sortChange"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -21,13 +21,13 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable label="需求类型"></el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable="custom" label="需求类型"></el-table-column>
 
-      <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
+      <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
 
-      <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
+      <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column>
 
       <el-table-column label="操作" width="120" align="center">
         <template slot-scope="scope">
@@ -141,7 +141,132 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-
+    sortByDesignerName(sortType) {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: sortType,
+        taskState: 3,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortByDesignerName",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+        });
+    },
+    sortByTaskName(sortType) {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: sortType,
+        taskState: 3,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortByTaskName",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+        });
+    },
+    sortByCompanyName(sortType) {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: sortType,
+        taskState: 3,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortByCompanyName",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+        });
+    },
+    sortByTaskCategoryPart(sortType) {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: sortType,
+        taskState: 3,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortByTaskCategoryPart",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+        });
+    },
+    sortList(property) {
+      return function (a, b) {
+        var value1 = a[property];
+        var value2 = b[property];
+        return value1 - value2;
+      };
+    },
+    //通过数组对象的某个属性进行倒序排列
+    sortListDesc(property) {
+      return function (a, b) {
+        var value1 = a[property];
+        var value2 = b[property];
+        return value2 - value1;
+      };
+    },
+    sortChange(v) {
+      //正序
+      if (v.column.order == "ascending") {
+        if (v.column.property == "demandorCheckDesignState") {
+          this.tableData.sort(this.sortList("demandorCheckDesignState"));
+        }
+        //通过属性showWeights进行排序
+        if (v.column.property == "companyName") {
+          this.sortByCompanyName(1);
+        }
+        if (v.column.property == "taskCategoryPart") {
+          this.sortByTaskCategoryPart(1);
+        }
+        if (v.column.property == "designerName") {
+          this.sortByDesignerName(1);
+        }
+        if (v.column.property == "taskName") {
+          this.sortByTaskName(1);
+        }
+      }
+      //倒序
+      else if (v.column.order == "descending") {
+        if (v.column.property == "demandorCheckDesignState") {
+          this.tableData.sort(this.sortListDesc("demandorCheckDesignState"));
+        }
+        if (v.column.property == "companyName") {
+          this.sortByCompanyName(2);
+        }
+        if (v.column.property == "taskCategoryPart") {
+          this.sortByTaskCategoryPart(2);
+        }
+        if (v.column.property == "designerName") {
+          this.sortByDesignerName(2);
+        }
+        if (v.column.property == "taskName") {
+          this.sortByTaskName(2);
+        }
+      }
+    },
     //获取数据
     getData() {
       var that = this;
