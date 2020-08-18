@@ -10,7 +10,7 @@
       class="table"
       ref="multipleTable"
       header-cell-class-name="table-header"
-      :default-sort="{prop: 'deadline', order: 'ascending'}"
+      :default-sort="{prop: 'deadline', order: 'descending'}"
       @sort-change="sortChange"
     >
       <el-table-column label="序号" type="index" width="55" align="center">

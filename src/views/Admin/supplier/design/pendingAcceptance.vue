@@ -206,12 +206,12 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-    sortByDeadline() {
+    sortByDeadline(sortType) {
       var that = this;
       var data = Qs.stringify({
         userName: this.usernameX,
         taskType: 1,
-        sortType: this.sortType,
+        sortType: sortType,
         taskState: 4,
       });
       that

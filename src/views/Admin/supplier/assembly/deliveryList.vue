@@ -303,6 +303,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userName:this.userName,
         Text_File: this.technicalFileWanzheng
       });
       that
