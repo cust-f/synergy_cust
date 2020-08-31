@@ -47,7 +47,7 @@
             v-show="scope.row.checkPlanState > 0 && scope.row.pathPath "
           >下载</el-button>
           <el-button
-            v-show="scope.row.checkPlanState === 3 && scope.row.judgePlanBook === 0"
+            v-show="scope.row.checkPlanState === 3"
             @click="refusePlanReason(scope.row)"
             type="text"
             size="small"
@@ -74,7 +74,6 @@
         <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
         <br />
         <el-button
-          style="margin-left: 10px;"
           size="small"
           type="success"
           @click="submitUpload"
@@ -117,7 +116,7 @@ export default {
     return {
       taskId: 0,
       addVisible2: false,
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       contractMessage: [],
       planbook: false,
       //文件列表
@@ -142,7 +141,7 @@ export default {
     }
   },
   created() {
-    this.judgePlanBoo();
+    // this.judgePlanBoo();
   },
   methods: {
     //获得信息

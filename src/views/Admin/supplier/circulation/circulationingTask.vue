@@ -5,13 +5,13 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
       header-cell-class-name="table-header"
-      @selection-change="handleSelectionChange"
       :default-sort="{prop: 'deadline', order: 'ascending'}"
+      @sort-change="sortChange"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -21,9 +21,9 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable="custom"  label="需求名称"></el-table-column>
 
-      <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
+      <el-table-column prop="companyName" sortable="custom"  label="需求方"></el-table-column>
 
       <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
         <template slot-scope="scope">
@@ -34,7 +34,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="deadline" sortable label="截止时间">
+      <el-table-column prop="deadline" sortable="custom"  label="截止时间">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
@@ -47,11 +47,12 @@
     <div class="pagination">
       <el-pagination
         background
-        layout="total, prev, pager, next"
-        :current-page="query.pageIndex"
-        :page-size="query.pageSize"
-        :total="pageTotal"
-        @current-change="handlePageChange"
+        layout="prev, pager, next, sizes, total, jumper"
+        :current-page="pageIndex1"
+        :page-size="pageSize"
+        :total="tableData.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
       ></el-pagination>
     </div>
   </div>
@@ -66,10 +67,9 @@ export default {
   name: "designingTask",
   data() {
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
+      pageIndex: 1,
+      pageIndex1: 1,
+      pageSize: 10,
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
@@ -93,7 +93,7 @@ export default {
       selectname: "",
       form: {},
       idx: -1,
-      username: localStorage.getItem("ms_username"),
+      username: sessionStorage.getItem("ms_username"),
       id: -1
     };
   },
@@ -129,12 +129,21 @@ export default {
         });
       //this.getData();
     },
+     handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+
+    //详情页面跳转方法
     Det(row) {
       this.$router.push({
         path: "/admin/circulationDet",
         query: {
-          taskId: row.taskId
-        }
+          taskId: row.taskId,
+        },
       });
     },
     //获取表格序号
@@ -156,7 +165,91 @@ export default {
         .then(response => {
           this.tableData = response.data.allData;
         });
-    }
+    },
+     sortByDeadline() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 1,
+        sortType: this.sortType,
+        taskState: 2
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortByDeadline",
+          data: data
+        })
+        .then(response => {
+          this.tableData = response.data.allData;
+        });
+    },
+
+    sortByTaskName() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 1,
+        sortType: this.sortType,
+        taskState: 2
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortByTaskName",
+          data: data
+        })
+        .then(response => {
+          this.tableData = response.data.allData;
+        });
+    },
+
+    sortChange(v) {
+      //正序
+      if (v.column.order == "ascending") {
+        if (v.column.property == "demandorCheckDesignState") {
+          this.tableData.sort(this.sortList("demandorCheckDesignState"));
+        }
+        //通过属性showWeights进行排序
+        if (v.column.property == "deadline") {
+          this.sortType == 1;
+          this.sortByDeadline();
+        }
+        if (v.column.property == "taskName") {
+          this.sortType == 1;
+          this.sortByTaskName();
+        }
+      }
+      //倒序
+      else if (v.column.order == "descending") {
+        if (v.column.property == "demandorCheckDesignState") {
+          this.tableData.sort(this.sortListDesc("demandorCheckDesignState"));
+        }
+        if (v.column.property == "deadline") {
+          this.sortType == 2;
+          this.sortByDeadline();
+        }
+        if (v.column.property == "taskName") {
+          this.sortType == 2;
+          this.sortByTaskName();
+        }
+      }
+    },
+    sortList(property) {
+      return function (a, b) {
+        var value1 = a[property];
+        var value2 = b[property];
+        return value1 - value2;
+      };
+    },
+    //通过数组对象的某个属性进行倒序排列
+    sortListDesc(property) {
+      return function (a, b) {
+        var value1 = a[property];
+        var value2 = b[property];
+        return value2 - value1;
+      };
+    },
   }
   /*
    *转跳对应需求信息页面

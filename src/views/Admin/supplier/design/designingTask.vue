@@ -5,13 +5,13 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
       header-cell-class-name="table-header"
-      @selection-change="handleSelectionChange"
       :default-sort="{prop: 'deadline', order: 'ascending'}"
+      @sort-change="sortChange"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -21,13 +21,13 @@
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
 
-      <el-table-column prop="companyName" sortable label="需求方"></el-table-column>
+      <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
 
-      <el-table-column prop="designerName" sortable label="设计师" align="center"></el-table-column>
+      <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column>
 
-      <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
+      <el-table-column prop="demandorCheckDesignState" sortable="custom" width="100" align="center" label="验收状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
           <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -36,7 +36,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="deadline" sortable label="截止日期">
+      <el-table-column prop="deadline" sortable="custom" label="截止日期">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
@@ -49,11 +49,12 @@
     <div class="pagination">
       <el-pagination
         background
-        layout="total, prev, pager, next"
-        :current-page="query.pageIndex"
-        :page-size="query.pageSize"
-        :total="pageTotal"
-        @current-change="handlePageChange"
+        layout="prev, pager, next, sizes, total, jumper"
+        :current-page="pageIndex1"
+        :page-size="pageSize"
+        :total="tableData.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
       ></el-pagination>
     </div>
   </div>
@@ -68,6 +69,9 @@ export default {
   name: "designingTask",
   data() {
     return {
+       pageIndex: 1,
+      pageIndex1: 1,
+      pageSize: 10,
       query: {
         pageIndex: 1,
         pageSize: 10
@@ -85,7 +89,8 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      usernameX: localStorage.getItem("ms_username")
+      sortType:0,
+      usernameX: sessionStorage.getItem("ms_username")
     };
   },
   filters: {
@@ -130,11 +135,71 @@ export default {
         }
       });
     },
-    //获取表格序号
-    getIndex($index) {
-      //表格序号
-      return (this.page.currentPage - 1) * this.page.pageSize + $index + 1;
+
+    sortByDeadline() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 1,
+        sortType: this.sortType,
+        taskState: 2
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortByDeadline",
+          data: data
+        })
+        .then(response => {
+          this.tableData = response.data.allData;
+        });
     },
+
+    sortByTaskName() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: this.sortType,
+        taskState: 2
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortByTaskName",
+          data: data
+        })
+        .then(response => {
+          this.tableData = response.data.allData;
+        });
+    },
+
+    sortChange(v) {
+      //正序
+      if (v.column.order == "ascending") {
+        //通过属性showWeights进行排序
+        if (v.column.property == "deadline") {
+          this.sortType == 1;
+          this.sortByDeadline();
+        }
+        if (v.column.property == "taskName") {
+          this.sortType == 1;
+          this.sortByTaskName();
+        }
+      }
+      //倒序
+      else if (v.column.order == "descending") {
+        if (v.column.property == "deadline") {
+          this.sortType == 2;
+          this.sortByDeadline();
+        }
+        if (v.column.property == "taskName") {
+          this.sortType == 2;
+          this.sortByTaskName();
+        }
+      }
+    },
+
     getData() {
       var that = this;
       var data = Qs.stringify({

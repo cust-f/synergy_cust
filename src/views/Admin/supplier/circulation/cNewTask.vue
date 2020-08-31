@@ -212,10 +212,9 @@ export default {
   data() {
     return {
       accept:false,
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
+      pageIndex: 1,
+      pageIndex1: 1,
+      pageSize: 10,
       visiblehexin: "none",
       shenqing: "none",
       multipleSelection: [], //批量删除数组

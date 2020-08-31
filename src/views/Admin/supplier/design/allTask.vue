@@ -5,13 +5,13 @@
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
     <el-table
-      :data="tableData"
+      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
       border
       class="table"
       ref="multipleTable"
       header-cell-class-name="table-header"
-      @selection-change="handleSelectionChange"
-      :default-sort="{prop: 'applyTime', order: 'ascending'}"
+      :default-sort="{prop: 'applyTime', order: 'descending'}"
+      @sort-change="sortChange"
     >
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
@@ -21,9 +21,9 @@
 
       <el-table-column prop="taskId" label="需求ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
 
-      <el-table-column prop="taskName" sortable label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskState" align="center" sortable label="状态">
+      <el-table-column prop="taskState" align="center" sortable="custom" label="状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
           <el-tag type="warning" v-else-if="scope.row.taskState === 1">计划审核</el-tag>
@@ -35,12 +35,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="publishingCompanyName" sortable label="需求方"></el-table-column>
-      <el-table-column prop="applyTime" sortable label="开始时间">
+      <el-table-column prop="publishingCompanyName" sortable="custom" label="需求方"></el-table-column>
+      <el-table-column prop="applyTime" sortable="custom" label="开始时间">
         <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
       </el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable label="行业类别"></el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable="custom" label="行业类别"></el-table-column>
 
       <el-table-column label="操作" width="100" align="center">
         <template slot-scope="scope">
@@ -51,11 +51,12 @@
     <div class="pagination">
       <el-pagination
         background
-        layout="total, prev, pager, next"
-        :current-page="query.pageIndex"
-        :page-size="query.pageSize"
-        :total="pageTotal"
-        @current-change="handlePageChange"
+        layout="prev, pager, next, sizes, total, jumper"
+        :current-page="pageIndex1"
+        :page-size="pageSize"
+        :total="tableData.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
       ></el-pagination>
     </div>
   </div>
@@ -70,10 +71,9 @@ export default {
   name: "allTask",
   data() {
     return {
-      query: {
-        pageIndex: 1,
-        pageSize: 10
-      },
+      pageIndex: 1,
+      pageIndex1: 1,
+      pageSize: 10,
       //接受表单数据
       formLabelWidth: "120px",
       activeName: "first",
@@ -87,8 +87,8 @@ export default {
           taskType: "",
           deadline: "",
           applyTime: "",
-          taskCategoryPart: ""
-        }
+          taskCategoryPart: "",
+        },
       ],
       multipleSelection: [],
       editVisible: false,
@@ -97,21 +97,16 @@ export default {
       selectname: "",
       pageTotal: 0,
       form: {},
-      usernameX: localStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
       idx: -1,
-      id: -1
+      id: -1,
     };
   },
   filters: {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy.MM.dd");
-    }
-  },
-  //获取表格序号
-  getIndex($index) {
-    //表格序号
-    return (this.page.currentPage - 1) * this.page.pageSize + $index + 1;
+    },
   },
   created() {
     this.getData();
@@ -122,18 +117,17 @@ export default {
       var that = this;
       var data = Qs.stringify({
         username: userNameX,
-        taskName: this.selectname
+        taskName: this.selectname,
       });
-      
+
       that
         .axios({
           method: "post",
           url: "/api/supplier/searchByTaskIdInTaskApply",
-          data: data
+          data: data,
           // data:this.$store.state.userName
         })
-        .then(response => {
-          
+        .then((response) => {
           this.tableData = response.data.allData;
         });
       //this.getData();
@@ -149,21 +143,159 @@ export default {
     getData() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.usernameX
+        userName: this.usernameX,
       });
-      
+
       that
         .axios({
           method: "post",
           url: "/api/supplier/supplierDesignTaskList",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         })
-        .then(response => {
-          
+        .then((response) => {
           this.tableData = response.data.allData;
         });
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+    //查询
+    selectByType(type) {
+      this.type = type;
+      this.selectList();
+    },
+    sortByTaskName(sortType) {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: sortType,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortAllTaskByTaskName",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+        });
+    },
+
+    sortByApplyTime(sortType) {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: sortType,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortAllTaskByApplyTime",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+        });
+    },
+
+    sortByPublishingCompanyName(sortType) {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: sortType,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortAllTaskByPublishingCompanyName",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+        });
+    },
+
+    sortByTaskCategoryPart(sortType) {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+        taskType: 0,
+        sortType: sortType,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/sortAllTaskByTaskCategoryPart",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+        });
+    },
+
+    sortChange(v) {
+      //正序
+      if (v.column.order == "ascending") {
+        //通过属性showWeights进行排序
+        if (v.column.property == "taskState") {
+          this.tableData.sort(this.sortList("taskState"));
+        }
+        if (v.column.property == "applyTime") {
+          this.sortByApplyTime(1);
+        }
+        if (v.column.property == "taskName") {
+          this.sortByTaskName(1);
+        }
+        if (v.column.property == "publishingCompanyName") {
+          this.sortByPublishingCompanyName(1);
+        }
+        if (v.column.property == "taskCategoryPart") {
+          this.sortByTaskCategoryPart(1);
+        }
+      }
+      //倒序
+      else if (v.column.order == "descending") {
+        if (v.column.property == "taskState") {
+          this.tableData.sort(this.sortListDesc("taskState"));
+        }
+        if (v.column.property == "applyTime") {
+          this.sortByApplyTime(2);
+        }
+        if (v.column.property == "taskName") {
+          this.sortByTaskName(2);
+        }
+        if (v.column.property == "publishingCompanyName") {
+          this.sortByPublishingCompanyName(2);
+        }
+        if (v.column.property == "taskCategoryPart") {
+          this.sortByTaskCategoryPart(2);
+        }
+      }
+    },
+    //通过数组对象的某个属性进行正序排序
+    sortList(property) {
+      return function (a, b) {
+        var value1 = a[property];
+        var value2 = b[property];
+        return value1 - value2;
+      };
+    },
+    //通过数组对象的某个属性进行倒序排列
+    sortListDesc(property) {
+      return function (a, b) {
+        var value1 = a[property];
+        var value2 = b[property];
+        return value2 - value1;
+      };
     },
 
     //详情页面跳转方法
@@ -171,11 +303,11 @@ export default {
       this.$router.push({
         path: "/admin/designDet",
         query: {
-          taskId: row.taskId
-        }
+          taskId: row.taskId,
+        },
       });
-    }
-  }
+    },
+  },
   /*
    *转跳对应需求信息页面
    */
@@ -226,14 +358,14 @@ export default {
   background-color: #d6d6ad;
   border-color: #d6d6ad;
 }
-.designshenhe{
-    color:#FF8040;
-  background-color:#FFE6D9;
-  border-color:#FFDCB9;
+.designshenhe {
+  color: #ff8040;
+  background-color: #ffe6d9;
+  border-color: #ffdcb9;
 }
-.designyanshou{
-   color:#E066FF;
-  background-color:#EBD3E8;
-  border-color:#FFF0F5;
+.designyanshou {
+  color: #e066ff;
+  background-color: #ebd3e8;
+  border-color: #fff0f5;
 }
 </style>

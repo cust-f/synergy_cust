@@ -162,14 +162,14 @@
                     <li>
                       <a>
                         企业所在省：
-                        <font>{{company.province}}</font>
+                        <font>{{supplier.province}}</font>
                       </a>
                     </li>
                     <br />
                     <li>
                       <a>
                         企业所在市：
-                        <font>{{company.city}}</font>
+                        <font>{{supplier.city}}</font>
                       </a>
                     </li>
                     <br />

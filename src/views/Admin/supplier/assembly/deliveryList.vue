@@ -137,7 +137,7 @@ export default {
       fileType: 0,
       taskId: 0,
       yinCang: 1,
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       deliveryList: [],
       fileHistoryMessage: [
         {
@@ -303,6 +303,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userName:this.userName,
         Text_File: this.technicalFileWanzheng
       });
       that

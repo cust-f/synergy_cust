@@ -9817,12 +9817,12 @@ var keymap = UE.keymap  = {
     'n' : 78
 };
 
-// core/localstorage.js
+// core/sessionStorage.js
 //存储媒介封装
-var LocalStorage = UE.LocalStorage = (function () {
+var sessionStorage = UE.sessionStorage = (function () {
 
-    var storage = window.localStorage || getUserData() || null,
-        LOCAL_FILE = 'localStorage';
+    var storage = window.sessionStorage || getUserData() || null,
+        LOCAL_FILE = 'sessionStorage';
 
     return {
 
@@ -9931,17 +9931,17 @@ var LocalStorage = UE.LocalStorage = (function () {
         } else {
             obj = key;
         }
-        var data = LocalStorage.getLocalData(ROOTKEY);
+        var data = sessionStorage.getLocalData(ROOTKEY);
         if (data && (data = utils.str2json(data))) {
             utils.extend(data, obj);
         } else {
             data = obj;
         }
-        data && LocalStorage.saveLocalData(ROOTKEY, utils.json2str(data));
+        data && sessionStorage.saveLocalData(ROOTKEY, utils.json2str(data));
     };
 
     UE.Editor.prototype.getPreferences = function(key){
-        var data = LocalStorage.getLocalData(ROOTKEY);
+        var data = sessionStorage.getLocalData(ROOTKEY);
         if (data && (data = utils.str2json(data))) {
             return key ? data[key] : data
         }
@@ -9949,12 +9949,12 @@ var LocalStorage = UE.LocalStorage = (function () {
     };
 
     UE.Editor.prototype.removePreferences = function (key) {
-        var data = LocalStorage.getLocalData(ROOTKEY);
+        var data = sessionStorage.getLocalData(ROOTKEY);
         if (data && (data = utils.str2json(data))) {
             data[key] = undefined;
             delete data[key]
         }
-        data && LocalStorage.saveLocalData(ROOTKEY, utils.json2str(data));
+        data && sessionStorage.saveLocalData(ROOTKEY, utils.json2str(data));
     };
 
 })();

@@ -126,7 +126,7 @@ export default {
       taskId: 0,
       state4: 0,
       //获取用户名
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       //主要信息数据
       cool: {},
       loading: true,
@@ -272,7 +272,7 @@ export default {
           }
           if (this.milepostActive > 2) {
             this.milepost[2].description = this.$options.filters["formatDate"](
-              response.data.allData.a[0].publishTime
+              response.data.allData.a[0].uploadDesignTime
             );
           }
           if (this.milepostActive > 3) {

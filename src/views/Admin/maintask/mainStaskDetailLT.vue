@@ -225,7 +225,7 @@
                 @click="RWJHXZ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState !==0"
+                v-if="scope.row.checkPlanState !==0 &&scope.row.checkPlanState !==3"
               >下载</el-button>
               <el-button
                 @click="JHSTG(scope.row)"
@@ -1047,7 +1047,7 @@ export default {
       errorImg02: 'this.src="' + require("../company/营业执照.jpg") + '"',
       //默认税务登记
       errorImg03: 'this.src="' + require("../company/税务登记证.jpg") + '"',
-      usernameX: localStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
       //
       zirenwuXX: "",
       //质量完成图数据源
@@ -1259,7 +1259,7 @@ export default {
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
-        return formatDate(date, "yyyy-MM-dd hh:mm");
+        return formatDate(date, "yyyy-MM-dd hh:mm:ss");
       } else {
         return "暂未开始";
       }
@@ -1690,17 +1690,18 @@ export default {
             if (this.milepostActive > 0) {
               this.milepost[1].description = this.$options.filters[
                 "formatDate"
-              ](response.data.allData.c[0].planUploadTime);
-            }
-            if (this.milepostActive > 1) {
-              this.milepost[2].description = this.$options.filters[
-                "formatDate"
               ](response.data.allData.c[0].checkPlanTime);
             }
+            if (this.milepostActive > 1) {
+
+            }
             if (this.milepostActive > 2) {
+              this.milepost[2].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.d[0].uploadDesignTime);
               this.milepost[3].description = this.$options.filters[
                 "formatDate"
-              ](response.data.allData.d[0].checkContractTime);
+              ](response.data.allData.d[0].demandorCheckDesignTime);
             }
             if (this.milepostActive > 3) {
               this.milepost[4].description = this.$options.filters[

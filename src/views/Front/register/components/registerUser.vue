@@ -159,7 +159,6 @@ export default {
               console.log("有效or无效？"+valid)
         if (valid) {
           this.$emit("accountSave", true);
-          console.log("======================================================")
         } else {
           this.$message({
             type: "warning",

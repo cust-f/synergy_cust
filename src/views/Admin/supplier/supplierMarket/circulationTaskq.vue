@@ -3,7 +3,7 @@
     <el-container>
       <el-main>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通任务</div>
-        <el-divider></el-divider>
+        <br>
         <div>
           <div class="container">
             <el-tabs v-model="activeName" @tab-click="handleClick">

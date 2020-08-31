@@ -1,7 +1,7 @@
 <!--设计提交组件-->
 <template>
   <div class="designAcceptance">
-    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计提交</div>
+    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计验收</div>
     <br />
     <el-table
       :data="designAcceptance"
@@ -54,7 +54,7 @@
             <el-input
               type="textarea"
               :autosize="{ minRows: 5, maxRows: 7}"
-              v-model="addList5.demandorRefuseReason"
+              v-model="addList5.checkRefuseReason"
               :readonly="true"
             ></el-input>
           </el-col>
@@ -74,11 +74,11 @@ export default {
     return {
       taskId: 0,
       yinCang: 1,
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       designAcceptance: [],
       addVisible4: false, //拒绝原因弹窗
       addList5: {
-        demandorRefuseReason: ""
+        checkRefuseReason: ""
       }
     };
   },

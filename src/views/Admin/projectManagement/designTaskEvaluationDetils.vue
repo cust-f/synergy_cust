@@ -90,7 +90,7 @@ export default {
   },
   data() {
     return {
-      designername:localStorage.getItem("designer_name"),
+      designername:sessionStorage.getItem("designer_name"),
      //选择框
      options: [],        
         value:'',

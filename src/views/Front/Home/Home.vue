@@ -59,7 +59,7 @@
       <!--第三行  分类门户-->
       <el-row :gutter="6" class="category" style="margin-bottom:20px;">
         <el-col :span="17">
-          <el-row :gutter="20">
+          <el-row :gutter="20" style="margin-left:0px;">
             <el-col :span="8" style="padding-left: 0px;">
               <el-card shadow="hover" pa>
                 <div class="category_item">
@@ -83,7 +83,8 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
+             
               <el-card shadow="hover" style="float:left">
                 <div class="category_item">
                   <div
@@ -103,7 +104,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px;padding-right: 15px;">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div class="cate_ietm_title">
@@ -124,7 +125,7 @@
             </el-col>
           </el-row>
           <!----这里分类----->
-          <el-row :gutter="20" style="margin-top:25px;">
+          <el-row :gutter="20" style="margin-top:25px;margin-left:0px;">
             <el-col :span="8" style="padding-left: 0px;">
               <el-card shadow="hover">
                 <div class="category_item">
@@ -147,7 +148,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div
@@ -166,7 +167,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px;padding-right: 15px;">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div
@@ -212,10 +213,15 @@
               </div>
               <div v-else>
                 <div class="user-avator" style="padding-bottom:6%;padding-left:10px;">
-                  <img :src="this.$store.state.userLogo" />
+                  <img @click="goAdmin" :src="this.$store.state.userLogo" />
                 </div>
                 <div>
-                  <span style="line-height: 80px;font-size: 18px;">欢迎{{userName}}登陆平台</span>
+                  <p style="line-height: 80px;font-size: 18px;">
+                    欢迎
+                    <span
+                      style="font-size: 22px;font-weight: 600;margin: 0 5px;font-family: KaiTi_GB2312;"
+                    >{{userName}}</span>登陆平台
+                  </p>
                 </div>
               </div>
             </el-card>
@@ -296,6 +302,37 @@
                       round
                     >寻找需求</el-button>
                   </el-tab-pane>
+                  <el-tab-pane label="专利查询" name="three">
+                    <!-- 专利列表搜索 -->
+                    <div class="search-patentName">
+                      <h4>专利查询</h4>
+                      <el-row class="search-patentName-inputs">
+                        <el-col :span="10">
+                          <el-input v-model="patentName" placeholder="零部件名称(必)"></el-input>
+                        </el-col>
+                        <el-col :span="10">
+                          <el-input v-model="technicalIndex" placeholder="技术指标(选)"></el-input>
+                        </el-col>
+                        <el-col :span="4">
+                          <el-button icon="el-icon-search" circle @click="searchPatent()"></el-button>
+                        </el-col>
+                      </el-row>
+                    </div>
+
+                    <el-divider></el-divider>
+                    <!-- 搜索企业对应专利信息 -->
+                    <div class="search-org">
+                      <h4>企业专利查询</h4>
+                      <el-row class="search-org-inputs">
+                        <el-col :span="20">
+                          <el-input placeholder="输入企业名称" v-model="org"></el-input>
+                        </el-col>
+                        <el-col :span="4">
+                          <el-button icon="el-icon-search" circle @click="searchOrgPatent()"></el-button>
+                        </el-col>
+                      </el-row>
+                    </div>
+                  </el-tab-pane>
                 </el-tabs>
               </el-card>
             </div>
@@ -306,12 +343,16 @@
       <!--第四行  需求一览，优质企业，服务成果-->
       <el-row :gutter="gutterCount">
         <!--需求任务-->
-        <el-col :span="8">
+        <el-col :span="8" >
           <div class="grid-content2 one">
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
                 <span>需求一览</span>
-                <el-button style="float: right; padding: 5px 0" type="text" @click="serviceResults">>>更多</el-button>
+                <el-button
+                  style="float: right; padding: 5px 0"
+                  type="text"
+                  @click="serviceResults"
+                >>>更多</el-button>
               </div>
               <el-row
                 v-for="(item,index) in demandTaskList"
@@ -320,14 +361,12 @@
                 :gutter="10"
               >
                 <el-col :span="6">
-                  
-                    <span class="fontStyle1" >{{"【"+item.types+"】"}}</span>
-                 
+                  <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
                 </el-col>
                 <el-col :span="11">
                   <el-popover :content="item.taskName" placement="top-start" trigger="hover">
                     <a
-                    slot="reference"
+                      slot="reference"
                       @click="serviceDetail(item.taskId)"
                       style="float:left;line-height: 24px;"
                     >{{item.taskName}}</a>
@@ -342,50 +381,6 @@
               </el-row>
             </el-card>
           </div>
-          <!-- <div class="grid-content2 one">
-            <el-card class="grid-content3">
-              <div slot="header" class="titleColor">
-                <span>需求一览</span>
-                <el-button
-                  style="float: right; padding: 5px 0"
-                  type="text"
-                  @click="serviceResults"
-                >>>更多</el-button>
-              </div>
-              <el-tooltip content="Bottom center" placement="top-start" effect="light">
-              <el-row
-                v-for="(item,index) in completeddemandTaskList"
-                :key="index"
-                style="margin-bottom:20px;"
-                :gutter="10"
-              >
-                <el-col :span="8">
-                  <el-tooltip
-                    :content="item.types"
-                    placement="left-start"
-                    effect="light"
-                  >
-                    <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
-                  </el-tooltip>
-                </el-col>
-                <el-col :span="9">
-                  <el-tooltip :content="item.taskName" placement="top" effect="light">
-                    <a
-                      @click="needsDetail(item.taskId)"
-                      style="float:left;line-height: 24px;"
-                    >{{item.taskName}}</a>
-                  </el-tooltip>
-                </el-col>
-                <el-col :span="6">
-                  <span
-                    class="fontStyle2"
-                    style="line-height: 24px;"
-                  >{{item.finishTime | dataFormat("yyyy-MM-dd")}}</span>
-                </el-col>
-              </el-row>
-              </el-tooltip>
-            </el-card>
-          </div>-->
         </el-col>
 
         <el-col :span="8">
@@ -407,13 +402,10 @@
                 :gutter="10"
               >
                 <el-col :span="6">
-               
-                    <span
-                      class="fontStyle1"
-                      style="line-height: 24px;"
-                      
-                    >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
-                  
+                  <span
+                    class="fontStyle1"
+                    style="line-height: 24px;"
+                  >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
                 </el-col>
                 <el-col :span="17">
                   <el-popover
@@ -422,7 +414,7 @@
                     trigger="hover"
                   >
                     <a
-                    slot="reference"
+                      slot="reference"
                       @click="excellentCompanyDetail(item)"
                       style="float:left;line-height: 24px;"
                     >{{supplierlist.companyName[i]}}</a>
@@ -447,14 +439,12 @@
                 :gutter="10"
               >
                 <el-col :span="6">
-                  
-                    <span class="fontStyle1" >{{"【"+item.types+"】"}}</span>
-                 
+                  <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
                 </el-col>
                 <el-col :span="11">
                   <el-popover :content="item.taskName" placement="top-start" trigger="hover">
                     <a
-                    slot="reference"
+                      slot="reference"
                       @click="needsDetail(item.taskId)"
                       style="float:left;line-height: 24px;"
                     >{{item.taskName}}</a>
@@ -480,7 +470,7 @@
           </div>
         </el-col>
       </el-row>
-      <el-row :gutter="gutterCount" d>
+      <el-row :gutter="gutterCount">
         <el-col :span="24">
           <el-card shadow="hover">
             <div class="demandTop5"></div>
@@ -520,16 +510,16 @@ export default {
   components: {
     "line-chart": lineChart,
     "cloumn-chart": columnChart,
-    "pie-chart": pieChart
+    "pie-chart": pieChart,
   },
   data() {
     return {
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       //首页轮播图的图片地址数组
       img_list: [
         require("../../../assets/images/home/轮播图1.png"),
         require("../../../assets/images/home/轮播图2.jpg"),
-        require("../../../assets/images/home/轮播图31.png")
+        require("../../../assets/images/home/轮播图31.png"),
       ],
       //引入集合头部
       geometryPicture: require("../../../assets/images/home/banner/img22.png"),
@@ -560,7 +550,7 @@ export default {
         //附件
 
         //联系电话
-        number: ""
+        number: "",
       },
       /**
        * 数据统计
@@ -572,7 +562,7 @@ export default {
         //完成任务总量
         taskCount: [],
         //月份数量
-        months: []
+        months: [],
       },
 
       //柱状图
@@ -584,12 +574,12 @@ export default {
         //今年任务完成量
         nowTaskNumber: [],
         //去年任务完成量
-        lastTaskNumber: []
+        lastTaskNumber: [],
       },
       pieData: {
         searsonCount: [],
         seasonsFinishTaskCount: [],
-        nowYear: ""
+        nowYear: "",
       },
       //设定本页面中el-cow与el-col的gutter\push\pull值
       gutterCount: 5,
@@ -614,7 +604,11 @@ export default {
       supplierlist: "",
 
       //服务成果数据表（category为服务成果类别，name为服务成果名称，sTime为服务成果完成时间）
-      completeddemandTaskList: []
+      completeddemandTaskList: [],
+      // 专利查询
+      patentName: "",
+      technicalIndex: "",
+      org: "",
     };
   },
   //网站下方数据统计图表用（丁宅荣负责添加）
@@ -628,7 +622,7 @@ export default {
   methods: {
     getInfo() {
       var that = this;
-      that.axios.post("/api/home/detail").then(response => {
+      that.axios.post("/api/home/detail").then((response) => {
         this.taskCountMonth = response.data.allData.mainTaskCount;
         this.demandTaskCount = response.data.allData.designTaskCount;
         this.circulationTaskCount = response.data.allData.circulateTaskCount;
@@ -654,7 +648,7 @@ export default {
       var finishTask;
       that.axios
         .post("/api/dataStatistics/allMonthTaskCount")
-        .then(response => {
+        .then((response) => {
           this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
           this.lineData.taskCount = response.data.allData.taskCount;
           this.lineData.months = response.data.allData.monthCount;
@@ -663,7 +657,7 @@ export default {
     },
     columnChart() {
       let that = this;
-      that.axios.post("/api/dataStatistics/supplierRank").then(response => {
+      that.axios.post("/api/dataStatistics/supplierRank").then((response) => {
         this.cloumnData.Vintage = response.data.allData.Vintage;
         this.cloumnData.topCompanyName = response.data.allData.supplierName;
         this.cloumnData.nowTaskNumber = response.data.allData.countYear;
@@ -674,13 +668,15 @@ export default {
     },
     pipChart() {
       let that = this;
-      that.axios.post("/api/dataStatistics/seasonsTaskCount").then(response => {
-        this.pieData.searsonCount = response.data.allData.searsonCount;
-        this.pieData.seasonsFinishTaskCount =
-          response.data.allData.seasonsFinishTaskCount;
-        this.pieData.nowYear = response.data.allData.nowYear;
-        this.$refs.drawPieChart.getCharts();
-      });
+      that.axios
+        .post("/api/dataStatistics/seasonsTaskCount")
+        .then((response) => {
+          this.pieData.searsonCount = response.data.allData.searsonCount;
+          this.pieData.seasonsFinishTaskCount =
+            response.data.allData.seasonsFinishTaskCount;
+          this.pieData.nowYear = response.data.allData.nowYear;
+          this.$refs.drawPieChart.getCharts();
+        });
     },
     /*
      *转跳对应任务信息二级页面
@@ -700,25 +696,25 @@ export default {
     serviceDetail(id) {
       this.$router.push({
         path: "admin/xuqiuyilanDetail",
-        query: { taskID: id }
+        query: { taskID: id },
       });
     },
     excellentCompanyDetail(id) {
       this.$router.push({
         path: "/company/excellentCompanyDetail",
         name: "companyDetails",
-        query: { companyId: id }
+        query: { companyId: id },
       });
     },
     needsDetail(id) {
       this.$router.push({
         path: "/service1",
-        query: { mainTaskID: id }
+        query: { mainTaskID: id },
       });
     },
     //发布需求的表单验证
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
         } else {
@@ -759,35 +755,66 @@ export default {
     demandRedirects(cName, cId, name, id) {
       let Predirects = {
         name: name,
-        id: id
+        id: id,
       };
       let CPredirects = {
         name: cName,
-        id: cId
+        id: cId,
       };
       this.$router.push({
         path: "/xuqiuyilan",
         query: {
           Predirects: Predirects,
-          CPredirects: CPredirects
-        }
+          CPredirects: CPredirects,
+        },
       });
     },
     demandPRedirects(name, id) {
       let Predirects = {
         name: name,
-        id: id
+        id: id,
       };
       this.$router.push({
         path: "/xuqiuyilan",
         query: {
-          Predirects: Predirects
-        }
+          Predirects: Predirects,
+        },
       });
-    }
-    //发布需求界面所用
-    //以下为平台数据统计所用图表函数
-  }
+    },
+    // 专利查询
+    searchPatent() {
+      this.$router.push({
+        path: "/searchPatent",
+        query: {
+          keyWords: this.patentName,
+          technicalIndex: this.technicalIndex,
+          type: 0,
+        },
+      });
+    },
+    searchOrgPatent() {
+      this.$router.push({
+        path: "/searchPatent",
+        query: {
+          companyName: this.org,
+          type: 1,
+        },
+      });
+    },
+    // 转跳到后台管理界面
+    goAdmin() {
+      let roleId = sessionStorage.getItem("roleId");
+      if (roleID === 4) {
+        this.$router.push("/admin/designerNewList");
+      } else if (roleID === 2) {
+        this.$router.push("/admin/mainStaskShow");
+      } else if (roleID === 3) {
+        this.$router.push("/admin/designTaskq");
+      } else if (roleID === 6) {
+        this.$router.push("/admin/mainStaskShow");
+      } else this.$router.push("/admin/dashboard");
+    },
+  },
 };
 </script>
 
@@ -836,6 +863,8 @@ export default {
   background: url(../../../assets/images/home/banner/banner1.jpg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  padding-left:0px;
+  padding-right: 15px;
 }
 .home .tow .el-card__header {
   /* backdrop-filter: ; */
@@ -849,7 +878,7 @@ export default {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
-.home  .titleColor span {
+.home .titleColor span {
   font-size: 18px;
   color: #ffffff;
 }
@@ -1053,7 +1082,7 @@ export default {
 }
 .home.home-box-card {
   width: 100%;
-  height:100%;
+  height: 100%;
 }
 
 .home .category .el-card.is-hover-shadow:hover {
@@ -1156,4 +1185,19 @@ export default {
 /* .tender-header-some ul li{
     margin-bottom: 15px;
 } */
-</styles>
+/* 专利查询 */
+.search-patentName {
+}
+.search-patentName .el-input {
+  width: 90%;
+}
+.search-patentName .search-patentName-inputs {
+  margin-top: 15px;
+}
+.search-org .el-input {
+  width: 95%;
+}
+.search-org .search-org-inputs {
+  margin-top: 15px;
+}
+</style>

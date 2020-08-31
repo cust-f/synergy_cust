@@ -16,7 +16,6 @@
     <el-card shadow="never" style="margin-bottom:20px;">
        <div slot="header">
         <div style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;">企业详情</div>
-        
       </div>
       <div class="company_top">
         <div class="preview">
@@ -168,7 +167,7 @@ export default {
           data: data
         })
         .then(response => {
-          console.log(response);
+          // console.log(response);
           this.companyDetailContent =
             response.data.allData.companyDetailContent;
           this.companyDetail = response.data.allData.companyDetail;

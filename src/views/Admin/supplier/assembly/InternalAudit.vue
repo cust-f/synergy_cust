@@ -1,7 +1,7 @@
 <!--内部审核组件-->
 <template>
   <div class="InternalAudit">
-    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">内部审核</div>
+    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">人员分配与审核</div>
     <br />
     <el-table
       :data="InternalAudit"
@@ -138,15 +138,15 @@ export default {
       design1: "",
       designTask: [],
       // formLabelWidth: "100px",
-      userName: localStorage.getItem("ms_username"),
+      userName: sessionStorage.getItem("ms_username"),
       InternalAudit: [],
       //拒绝设计原因
       addList4: {
-        SJrefuseReason: ""
+        SJrefuseReason: "",
       },
       //设计人员分配
       dialogTableVisible: false,
-      designRefuseReason: false
+      designRefuseReason: false,
     };
   },
 
@@ -154,7 +154,7 @@ export default {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    }
+    },
   },
   methods: {
     //获得信息
@@ -168,28 +168,28 @@ export default {
     },
     //跳转虚拟机
     LJTZ(row) {
-        console.log(row.gitadress)
-        window.location.href = row.gitadress; 
+      console.log(row.gitadress);
+      window.open(row.gitadress,'_blank')
     },
     //设计通过
     designSuccess(row) {
       this.$confirm("确定将设计审核通过么？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
           taskID: this.taskId,
           designCount: row.designCount,
-          userName: this.userName
+          userName: this.userName,
         });
         that.axios({
           method: "post",
           url: "/api/supplier/designSuccess",
-          data: data
+          data: data,
         });
         this.$message({
           message: "审核通过",
-          type: "success"
+          type: "success",
         });
         this.$router.go(0);
       });
@@ -203,15 +203,15 @@ export default {
       this.dialogTableVisible = true;
       var that = this;
       var data = Qs.stringify({
-        userName: this.userName
+        userName: this.userName,
       });
       that
         .axios({
           method: "post",
           url: "/api/supplier/findDesigner",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.designTask = response.data.allData.a;
           // this.designTask.id = response.data.allData.b;
         });
@@ -221,15 +221,15 @@ export default {
       var that = this;
       var data = Qs.stringify({
         userName: this.design1,
-        taskId: this.taskId
+        taskId: this.taskId,
       });
       that
         .axios({
           method: "post",
           url: "/api/supplier/assignDesigners",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.$message.success("提交成功");
           this.dialogTableVisible = false;
         });
@@ -243,21 +243,22 @@ export default {
         var that = this;
         var data = Qs.stringify({
           taskId: this.taskId,
-          HTrefuseReason: this.addList4.SJrefuseReason
+          HTrefuseReason: this.addList4.SJrefuseReason,
+          userName: this.userName,
         });
-        
-          that.axios({
-            method: "post",
-            url: "/api/supplier/designRefuse",
-            data: data
-          });
+
+        that.axios({
+          method: "post",
+          url: "/api/supplier/designRefuse",
+          data: data,
+        });
         this.$message.success("提交成功");
         this.addList4 = {};
         this.designRefuseReason = false;
         this.$router.go(0);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

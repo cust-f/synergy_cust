@@ -226,7 +226,7 @@
                 @click="RWJHXZ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.checkPlanState !==0"
+                v-if="scope.row.checkPlanState !==0 &&scope.row.checkPlanState !==3"
               >下载</el-button>
               <el-button
                 @click="JHSTG(scope.row)"
@@ -337,7 +337,7 @@
               <el-span v-else>{{scope.row.designerName}}</el-span>
             </template>
           </el-table-column> -->
-          <el-table-column prop="designCount" label="重做次数" width="80"></el-table-column>demandorCheckDesignState
+          <el-table-column prop="designCount" label="上传次数" width="80"></el-table-column>demandorCheckDesignState
           <el-table-column prop="demandorCheckDesignState" width="80" label="验收状态" align="center">
             <template slot-scope="scope">
               <el-tag  v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
@@ -479,7 +479,7 @@
       </el-dialog>
 
       <!-- 计划书拒绝原因弹出框 -->
-      <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible1" width="50%">
+      <el-dialog :visible.sync="addVisible1" width="50%">
          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入计划书拒绝原因</div>
         <br>
         <el-row>
@@ -501,7 +501,7 @@
       </el-dialog>
 
       <!-- 合同拒绝原因弹出框 -->
-      <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible2" width="50%">
+      <el-dialog  :visible.sync="addVisible2" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入合同拒绝原因</div>
         <br>
         <el-row>
@@ -523,7 +523,7 @@
       </el-dialog>
 
       <!-- 设计拒绝原因弹出框 -->
-      <el-dialog title="请输入设计不通过的原因" :visible.sync="addVisible3" width="50%">
+      <el-dialog  :visible.sync="addVisible3" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入设计拒绝原因</div>
         <br>
         <el-row>
@@ -1076,7 +1076,7 @@ export default {
       errorImg02: 'this.src="' + require("../company/营业执照.jpg") + '"',
       //默认税务登记
       errorImg03: 'this.src="' + require("../company/税务登记证.jpg") + '"',
-      usernameX: localStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
       //
       zirenwuXX: "",
       //质量完成图数据源
@@ -1287,7 +1287,7 @@ export default {
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
-        return formatDate(date, "yyyy-MM-dd hh:mm");
+        return formatDate(date, "yyyy-MM-dd hh:mm:ss");
       } else {
         return "暂未开始";
       }
@@ -1687,22 +1687,23 @@ export default {
             if (this.milepostActive > 0) {
               this.milepost[1].description = this.$options.filters[
                 "formatDate"
-              ](response.data.allData.c[0].planUploadTime);
-            }
-            if (this.milepostActive > 1) {
-              this.milepost[2].description = this.$options.filters[
-                "formatDate"
               ](response.data.allData.c[0].checkPlanTime);
             }
+            if (this.milepostActive > 1) {
+
+            }
             if (this.milepostActive > 2) {
+              this.milepost[2].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.d[0].uploadDesignTime);
               this.milepost[3].description = this.$options.filters[
                 "formatDate"
-              ](response.data.allData.d[0].checkContractTime);
+              ](response.data.allData.d[0].supplierCheckDesignTime);
             }
             if (this.milepostActive > 3) {
               this.milepost[4].description = this.$options.filters[
                 "formatDate"
-              ](response.data.allData.e[0].designerAcceptTime);
+              ](response.data.allData.e[0].demandorCheckDesignTime);
             }
             if (this.milepostActive > 4) {
 
@@ -1974,7 +1975,7 @@ export default {
     //跳转虚拟机
     LJTZ(row) {
         console.log(row.gitadress)
-        window.location.href = row.gitadress; 
+        window.open(row.gitadress) 
     },
     //设计通过
     SJTG(row) {

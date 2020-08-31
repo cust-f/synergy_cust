@@ -7,8 +7,7 @@
     <div>
       <el-container style="padding:0px;overflow:hidden;">
         <el-header style="height:50px;">
-          <el-page-header style="padding-top:15px;margin-left:15px;" @back="goBack" content="任务工作台">
-</el-page-header>
+          <el-page-header style="padding-top:15px;margin-left:15px;" @back="goBack" content="任务工作台"></el-page-header>
         </el-header>
         <el-main style="overflow:hidden;">
           <el-container>
@@ -33,19 +32,21 @@
                 </el-tabs>
               </el-main>
 
-              <div
-                id="movebar"
-                style="width:2px; z-index:2; background:#cccccc;"
-              ></div>
+              <div id="movebar" style="width:2px; z-index:2; background:#cccccc;"></div>
 
-              <el-aside width="27%" id="kvm-right" >
-                <el-tabs v-model="activeTab" type="border-card"  >
-                  <el-tab-pane class="cur" :style="{height:(screenHeight-80)+'px'}" label="任务详情" name="first">
+              <el-aside width="27%" id="kvm-right">
+                <el-tabs v-model="activeTab" type="border-card">
+                  <el-tab-pane
+                    class="cur"
+                    :style="{height:(screenHeight-80)+'px'}"
+                    label="任务详情"
+                    name="first"
+                  >
                     <br />
                     <el-row>
                       <el-col :span="6" align="right">公司名称:</el-col>
                       <el-col :span="15" style="margin-left:40px">{{taskDetail.taskCode}}</el-col>
-                    </el-row> 
+                    </el-row>
                     <br />
                     <el-row>
                       <el-col :span="6" align="right">任务名称:</el-col>
@@ -59,7 +60,10 @@
                     <br />
                     <el-row>
                       <el-col :span="6" align="right">截止日期:</el-col>
-                      <el-col :span="15" style="margin-left:40px">{{taskDetail.taskDeadline |dataFormat("yyyy-MM-dd")}}</el-col>
+                      <el-col
+                        :span="15"
+                        style="margin-left:40px"
+                      >{{taskDetail.taskDeadline |dataFormat("yyyy-MM-dd")}}</el-col>
                     </el-row>
                     <br />
                     <el-row>
@@ -69,7 +73,7 @@
                       </el-col>
                     </el-row>
                     <br />
-                     <el-row>
+                    <el-row>
                       <el-col :span="6" align="right">联系电话:</el-col>
                       <el-col :span="15" style="margin-left:40px">
                         <span>{{taskDetail.phone}}</span>
@@ -81,7 +85,7 @@
                     假装这里有个富文本编辑器
                     <br />
                   </el-tab-pane>
-                  <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane> -->
+                  <el-tab-pane class="cur" label="预留标签1" name="third">预留标签1</el-tab-pane>-->
                 </el-tabs>
               </el-aside>
             </el-container>
@@ -106,32 +110,35 @@ export default {
       activeTab: "first",
       activeName: "",
       VisualMachineList: "",
-      screenHeight: document.documentElement.clientHeight
+      taskId:this.$route.query.taskId,
+      screenHeight: document.documentElement.clientHeight,
     };
   },
   components: {
-    "header-synergy": headerSynergy
+    "header-synergy": headerSynergy,
   },
-  watch:{
-        'screenHeight': function (val) { // 监听屏幕高度变化
-      var oIframe = document.getElementById('maindiv')
+  watch: {
+    screenHeight: function (val) {
+      // 监听屏幕高度变化
+      var oIframe = document.getElementById("maindiv");
       // alert(this.$store.getters.screenHeight)
-      oIframe.style.height = (Number(val) - 40) + 'px'
-    }
+      oIframe.style.height = Number(val) - 40 + "px";
+    },
   },
   created() {
     this.getVirtualTab();
+    this.getTaskDetail(this.taskId);
   },
   mounted() {
     this.changeMobsfIframe();
-        var _this = this
-    window.onresize = function() {
+    var _this = this;
+    window.onresize = function () {
       // this.changeMobsfIframe();
       // var kvm_left = document.getElementById("kvm-left");
       // var kvm_right = document.getElementById("kvm-right");
       // kvm_left.style.width = "67%";
       // kvm_right.style.width = "33%";
-     _this.screenHeight = document.documentElement.clientHeight // 窗口高度
+      _this.screenHeight = document.documentElement.clientHeight; // 窗口高度
     };
     /**
      * 鼠标拖动改变窗口大小
@@ -140,52 +147,50 @@ export default {
     this.dragControllerDiv(move);
   },
   methods: {
-        /**
+    /**
      * iframe-宽高自适应显示
      */
-     changeMobsfIframe() {
+    changeMobsfIframe() {
       const oIframe = document.getElementsByClassName("show-iframe");
       const deviceWidth = document.documentElement.clientWidth;
       const deviceHeight = document.documentElement.clientHeight;
       console.log(oIframe.length);
       for (var i = 0; i < oIframe.length; i++) {
         oIframe[i].style.height = Number(deviceHeight) - 40 + "px"; //数字是页面布局高度差，其中的100可以根据自己的界面进行调整
-
       }
     },
     getVirtualTab() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.$route.query.taskId 
+        taskId: this.$route.query.taskId,
       });
       that
         .axios({
           method: "post",
           url: "/api/VisualMachine/getDesignVisualMachine",
-          data: data
+          data: data,
         })
-        .then(response => {
-          console.log(response)
+        .then((response) => {
+          console.log(response);
           this.VisualMachineList = response.data.allData.VisualMachineList;
           this.activeName = this.VisualMachineList[0].taskId;
-          this.getTaskDetail(this.activeName);
         });
     },
-    goBack(){
-       window.history.go(-1);
+    goBack() {
+      window.history.go(-1);
     },
     getTaskDetail(id) {
       var that = this;
       var data = Qs.stringify({
-        taskId: id
+        taskId: id,
       });
       that
         .axios({
           method: "post",
           url: "/api/VisualMachine/getTaskDetail",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.taskDetail = response.data.allData.taskDetail;
         });
     },
@@ -195,9 +200,9 @@ export default {
     backtolist() {
       this.$router.push("/admin/personnel_allotment/desinger");
     },
-    dragControllerDiv: function(move) {
+    dragControllerDiv: function (move) {
       var movebar = document.getElementById("movebar");
-      movebar.onmousedown = function(e) {
+      movebar.onmousedown = function (e) {
         //获取左右距离
         var leftw = document.getElementById("kvm-left").offsetWidth;
         var rightw = document.getElementById("kvm-right").offsetWidth;
@@ -218,7 +223,7 @@ export default {
         );
         document.body.appendChild(mf);
 
-        window.onmousemove = function(event) {
+        window.onmousemove = function (event) {
           if (move && event.button == 0) {
             //当左键按下
             mouse_end = event.pageX;
@@ -264,7 +269,7 @@ export default {
         };
       };
       //释放把手
-      window.onmouseup = function() {
+      window.onmouseup = function () {
         var mf = document.getElementById("mf");
         if (mf != null) {
           mf.remove();
@@ -272,10 +277,10 @@ export default {
         }
       };
     },
-    returnAcceptMession()  {
-      this.$router.push({path:"/admin/designerAcceptList"});
-    }  
-  }
+    returnAcceptMession() {
+      this.$router.push({ path: "/admin/designerAcceptList" });
+    },
+  },
 };
 </script>
 <style >
@@ -284,14 +289,14 @@ export default {
   margin-top: 15px;
   width: 150px;
 }
-.visual .el-main{
-  padding:0px 0px;
-      /* background-color: #F5F7FA; */
+.visual .el-main {
+  padding: 0px 0px;
+  /* background-color: #F5F7FA; */
 }
 .visual .el-tabs__header {
-  margin:0px 0px;
+  margin: 0px 0px;
 }
-.visual .el-tabs__content{
+.visual .el-tabs__content {
   padding: 0;
 }
 /* .visual .el-tabs__nav-scroll{
@@ -300,5 +305,6 @@ export default {
 .visual .el-tabs--card>.el-tabs__header .el-tabs__nav{
   background-color: #FFF;
 } */
-.work{} 
+.work {
+}
 </style>

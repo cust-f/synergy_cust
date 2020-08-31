@@ -50,6 +50,12 @@
               <el-tag>待审核</el-tag>
               <el-tag type="danger" @click="handleEdit1(scope.$index,scope.row)">拒绝原因</el-tag>
             </span>
+             <span
+              v-else-if="scope.row.supplierCheckDesignState===0&&scope.row.demandorRefuseReason!=null"
+            >
+              <el-tag>待提交</el-tag>
+              <el-tag type="danger" @click="handleEdit1(scope.$index,scope.row)">拒绝原因</el-tag>
+            </span>
             <span v-else-if="scope.row.supplierCheckDesignState === 0">
               <el-tag>待提交</el-tag>
             </span>
@@ -263,7 +269,7 @@ export default {
   name: "designerAcceptList",
   data() {
     return {
-      username1: localStorage.getItem("ms_username"),
+      username1: sessionStorage.getItem("ms_username"),
 
       pageIndex: 1,
       pageSize: 7,
@@ -448,9 +454,11 @@ export default {
       link.click();
     },
     //跳转虚拟机
-    CCSJ(row) {
+    CCSJ(row) {                                                                                                                
       console.log(row.gitadress);
-      window.location.href = row.gitadress;
+      window.open(row.gitadress,'_blank')
+
+      //window.location.href = row.gitadress;
     },
 
     //获取已接收任务列表数据
