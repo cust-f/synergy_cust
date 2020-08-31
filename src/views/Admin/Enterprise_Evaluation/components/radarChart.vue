@@ -60,6 +60,9 @@ export default{
               {
                 name: "数据统计(单位：天)",
                 value:this.radarData.radarData,
+              //  label: {
+              //           show: true,                       
+              //           }
                
               },
              

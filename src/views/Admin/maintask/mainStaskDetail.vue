@@ -1086,7 +1086,8 @@ export default {
 
       //雷达图的数据定义
       radarData: {
-        radarData: []
+        radarData: [],
+        indicator:[],
       },
       //申请拒绝原因       的模态框开始是否存在
       addVisible: false,
@@ -1643,7 +1644,8 @@ export default {
             this.milepostActive4 = 0;
           }
 
-          this.radarData.radarData = response.data.allData.f;
+          this.radarData.radarData = response.data.allData.f.AllRemarkLength;
+          this.radarData.indicator = response.data.allData.f.indicator;
 
           that.$refs.QradarChart.getCharts1();
           if (response.data.allData.f === null) {
