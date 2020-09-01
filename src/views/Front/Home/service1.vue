@@ -514,10 +514,12 @@ export default {
         }
       ],
       radarData: {
-        radarData: []
+        radarData: [],
+        indicator:[],
       },
       radarData1: {
-        radarData: []
+        radarData: [],
+        indicator:[],
       },
       stepsdata: [],
 
@@ -549,6 +551,7 @@ export default {
     this.getParams();
     this.getListData();
     this.getData();
+    this.getData1();
     //this.getCharts1();
     this.getproduct();
 
@@ -737,14 +740,15 @@ export default {
         })
         .then(response => {
           // console.log(response);
-          this.radarData.radarData = response.data.allData;
+          this.radarData.radarData = response.data.allData.AllRemarkLength;
+          this.radarData.indicator = response.data.allData.indicator;
           //console.log(this.radarData.radarData);
-
-          //that.$refs.QradarChart.getCharts1();
+         
+         // that.$refs.QradarChart.getCharts1();
           //that.$refs.QradarChart1.getCharts2();
           this.getCharts1();
 
-          this.getCharts2();
+         // this.getCharts2();
           //that.getCharts1();
         });
     },
@@ -758,18 +762,20 @@ export default {
       that
         .axios({
           method: "post",
-          url: "api/remarkDetils",
+          url: "api/remarkDetilsL",
           data: data
 
           //  data:this.$store.state.userName
         })
         .then(response => {
           //console.log(response);
-          this.radarData1.radarData = response.data.allData;
+          
+          this.radarData1.radarData = response.data.allData.AllRemarkLength;
+          this.radarData1.indicator = response.data.allData.indicator;
           //console.log(this.radarData.radarData);
 
           //that.$refs.QradarChart.getCharts1();
-          //that.$refs.QradarChart1.getCharts2();
+         // that.$refs.QradarChart1.getCharts2();
           //this.getCharts1();
 
           this.getCharts2();
@@ -833,13 +839,14 @@ export default {
               padding: [3, 5]
             }
           },
-          indicator: [
-            { name: "任务时长", max: 60 },
-            { name: "计划时长", max: 60 },
-            { name: "审核时长", max: 60 },
-            { name: "申请时长", max: 20 },
-            { name: "验收时长", max: 20 }
-          ]
+          indicator:this.radarData.indicator,
+          //  [
+          //   { name: "任务时长", max: 60 },
+          //   { name: "计划时长", max: 60 },
+          //   { name: "审核时长", max: 60 },
+          //   { name: "申请时长", max: 20 },
+          //   { name: "验收时长", max: 20 }
+          // ]
         },
         series: [
           {
@@ -878,12 +885,13 @@ export default {
               padding: [3, 5]
             }
           },
-          indicator: [
-            { name: "任务时长", max: 60 },
-            { name: "计划时长", max: 60 },
-            { name: "审核时长", max: 60 },
-            { name: "申请时长", max: 20 }
-          ]
+          indicator:this.radarData1.indicator
+          //  [
+          //   { name: "任务时长", max: 60 },
+          //   { name: "计划时长", max: 60 },
+          //   { name: "审核时长", max: 60 },
+          //   { name: "申请时长", max: 20 }
+          // ]
         },
         series: [
           {
@@ -892,7 +900,7 @@ export default {
             data: [
               {
                 name: "完成统计",
-                value: this.radarData.radarData
+                value: this.radarData1.radarData
               }
             ]
           }
