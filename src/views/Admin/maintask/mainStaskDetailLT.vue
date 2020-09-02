@@ -1650,9 +1650,6 @@ export default {
             this.milepostActive4 = 0;
           }
 
-          this.radarData.radarData = response.data.allData.f.AllRemarkLength;
-          this.radarData.indicator = response.data.allData.f.indicator;
-          that.$refs.QradarChart.getCharts1();
 
           if (response.data.allData.f == null) {
             this.milepostActive5 = 0;
@@ -1661,6 +1658,9 @@ export default {
             this.formZL = response.data.allData.d[0];
             this.styleswith();
                                   this.reMarkId = 1;
+          this.radarData.radarData = response.data.allData.f.AllRemarkLength;
+          this.radarData.indicator = response.data.allData.f.indicator;
+          that.$refs.QradarChart.getCharts1();
                                   this.getCirculationCount();
           }
 
