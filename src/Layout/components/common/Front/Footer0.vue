@@ -1,7 +1,7 @@
 <template>
     
 <div class="footer_bottom">
-        <div class="footer_copy">Copyright @ 2008 长春理工大学日立项目组 | 地址：中国吉林省长春市卫星路7186号(南)</div>
+        <div class="footer_copy">Copyright @ 2008 长春理工大学 | 地址：中国吉林省长春市卫星路7186号(南)</div>
         
     </div>
 </template>
