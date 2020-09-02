@@ -243,7 +243,7 @@ export default {
         var that = this;
         var data = Qs.stringify({
           taskId: this.taskId,
-          HTrefuseReason: this.addList4.SJrefuseReason,
+          hTrefuseReason: this.addList4.SJrefuseReason,
           userName: this.userName,
         });
 
