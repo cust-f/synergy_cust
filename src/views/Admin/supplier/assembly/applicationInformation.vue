@@ -138,7 +138,7 @@ export default {
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          taskID: row.taskId,
+          taskId: row.taskId,
           userName: this.userName
         });
         that.axios({
@@ -160,7 +160,7 @@ export default {
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          taskID: row.taskId,
+          taskId: row.taskId,
           userName: this.userName
         });
         that.axios({

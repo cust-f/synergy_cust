@@ -182,11 +182,12 @@ export default {
           data: data
         })
         .then(response => {
-          this.radarData.radarData = response.data.allData;
+          this.radarData.radarData = response.data.allData.AllRemarkLength;
           this.radarData.indicatorData = response.data.allData.indicator;
-          if (response.data.allData[0] == null) {
-            this.reMarkId = 0;
-          }
+         // console.log(response.data.allData);
+          // if (response.data.allData[0] == null) {
+          //   this.reMarkId = 0;
+          // }
           that.$refs.QradarChart.getCharts1();
         });
     },
