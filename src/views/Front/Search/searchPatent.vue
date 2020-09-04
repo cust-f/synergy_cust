@@ -120,6 +120,7 @@ export default {
             this.totalNumber = response.data.data.totalSize;
             let result = response.data.data.result;
             this.patentList = result;
+            // console.log(response)
           });
       } else {
         // 根据企业名匹配旗下企业列表
