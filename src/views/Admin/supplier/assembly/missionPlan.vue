@@ -74,7 +74,6 @@
         <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
         <br />
         <el-button
-          style="margin-left: 10px;"
           size="small"
           type="success"
           @click="submitUpload"

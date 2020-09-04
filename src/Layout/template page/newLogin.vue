@@ -15,7 +15,7 @@
     <div class="user_middle">
       <div class="user_dl">
         <a class="user_dl_left">
-          <img src="../../assets/images/login/user_img04.png" />
+          <img src="../../assets/images/login/user_img06.png" />
         </a>
 
         <div class="user_dl_right">

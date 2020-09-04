@@ -1,5 +1,5 @@
 <template>
-  <div class="designDet">
+  <div class="circulationDet">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div align="center">
@@ -114,7 +114,7 @@ export default {
         { title: "计划提交", icon: "el-icon-upload", description: "" },
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
-        { title: "完成", icon: "el-icon-s-claim", description: "" }
+        { title: "完成", icon: "el-icon-s-claim", description: "" },
       ],
       //步骤图默认步骤数
       milepostActive: 0,
@@ -138,13 +138,13 @@ export default {
       reMarkId: 1,
       //重做次数
       form: {
-        circulationCount: "" //流通完成质量
+        circulationCount: "", //流通完成质量
       },
       //雷达图的数据定义
       radarData: {
         radarData: [],
-        indicatorData: []
-      }
+        indicatorData: [],
+      },
     };
   },
   created() {
@@ -157,7 +157,7 @@ export default {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    }
+    },
   },
   methods: {
     //taskId传递方法，获取通过主界面传过来的taskId
@@ -169,15 +169,15 @@ export default {
       var that = this;
       var data = Qs.stringify({
         // taskId: this.taskId
-        taskId: this.taskId
+        taskId: this.taskId,
       });
       that
         .axios({
           method: "post",
           url: "/api/findCirculationCount",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           (this.form.circulationCount = response.data.allData),
             this.styleswith();
         });
@@ -186,20 +186,20 @@ export default {
     getLDData() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskId,
       });
       that
         .axios({
           method: "post",
           url: "/api/remarkDetilsL",
-          data: data
+          data: data,
         })
-        .then(response => {
-          this.radarData.radarData = response.data.allData;
+        .then((response) => {
+          this.radarData.radarData = response.data.allData.AllRemarkLength;
           this.radarData.indicatorData = response.data.allData.indicator;
-          if (response.data.allData[0] == null) {
-            this.reMarkId = 0;
-          }
+          // if (response.data.allData[0] == null) {
+          //   this.reMarkId = 0;
+          // }
           that.$refs.QradarChart.getCharts1();
         });
     },
@@ -228,15 +228,15 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        userName: this.userName
+        userName: this.userName,
       });
       that
         .axios({
           method: "post",
           url: "/api/supplier/getList",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.cool = response.data.allData.a[0];
           this.taskApplyTableData = response.data.allData.b;
           this.taskTableData = response.data.allData.a;
@@ -307,10 +307,10 @@ export default {
       this.$router.push({
         path: "/admin/designTaskq",
         query: {
-          taskId: this.taskId
-        }
+          taskId: this.taskId,
+        },
       });
-    }
+    },
   },
   components: {
     "essential-Information": essentialInformation, //基本信息
@@ -318,12 +318,12 @@ export default {
     "mission-Plan": missionPlan,
     "contract-Management": contractManagement,
     "delivery-List": deliveryList,
-    "radar-chart": radarChart
-  }
+    "radar-chart": radarChart,
+  },
 };
 </script>
 <style lang="scss" scoped>
-.designDet {
+.circulationDet {
   //雷达图
   .LDT {
     height: 300px;

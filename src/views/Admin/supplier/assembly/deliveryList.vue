@@ -52,7 +52,7 @@
             v-show="scope.row.demandorCheckDesignState > 0"
           >历史上传</el-button>
           <el-button
-            v-show="scope.row.demandorCheckDesignState > 1"
+            v-show="scope.row.demandorCheckDesignState > 0"
             @click="FFQDXZ(scope.row)"
             type="text"
             size="small"
@@ -207,7 +207,7 @@ export default {
           URL.revokeObjectURL(link.href); //释放url
         });
     },
-    //合同下载
+    //发货清单下载
     FFQDXZ(row) {
       var that = this;
       var data = Qs.stringify({
@@ -294,15 +294,16 @@ export default {
         this.technicalFileWanzheng +
         this.technicalFile[this.shangchuancishu] +
         "linklink";
+      console.log(this.technicalFileWanzheng)
       this.shangchuancishu = this.shangchuancishu + 1;
       this.$notify.success({
         title: "成功",
         message: `文件上传成功`
       });
-      
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userName:this.userName,
         Text_File: this.technicalFileWanzheng
       });
       that

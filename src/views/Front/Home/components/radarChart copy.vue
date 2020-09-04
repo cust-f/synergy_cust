@@ -36,12 +36,13 @@ export default{
               padding: [3, 5]
             }
           },
-          indicator: [
-            { name: "申请时长", max: 60 },
-            { name: "计划时长", max: 60 },
-            { name: "验收时长", max: 20},
-            { name: "任务时长", max: 20 }
-          ]
+          indicator:this.radarData1.indicator,
+          //  [
+          //   { name: "申请时长", max: 60 },
+          //   { name: "计划时长", max: 60 },
+          //   { name: "验收时长", max: 20},
+          //   { name: "任务时长", max: 20 }
+          // ]
         },
         series: [
           {
@@ -50,7 +51,7 @@ export default{
              data: [
               {
                 name: "完成统计",
-                value:this.radarData.radarData,
+                value:this.radarData1.radarData,
      
               },
              

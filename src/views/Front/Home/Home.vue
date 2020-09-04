@@ -83,7 +83,8 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
+             
               <el-card shadow="hover" style="float:left">
                 <div class="category_item">
                   <div
@@ -103,7 +104,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px;padding-right: 15px;">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div class="cate_ietm_title">
@@ -147,7 +148,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div
@@ -166,7 +167,7 @@
                 </div>
               </el-card>
             </el-col>
-            <el-col :span="8" style="padding-left:0px;padding-right: 15px;">
+            <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
                   <div
@@ -194,7 +195,7 @@
           <div class="grid-content">
             <el-card style="margin-bottom:5px;padding-top: 10px;">
               <div v-if="!this.$store.state.token">
-                <span>欢迎来到Saas应用</span>
+                <span>欢迎来到面向高端装备制造领域的科技服务SaaS应用</span>
                 <div class="grid-content-top-button">
                   <el-button
                     style=" left:5px; background-color:#27b0f0;; border-color:#27b0f0;; "
@@ -342,7 +343,7 @@
       <!--第四行  需求一览，优质企业，服务成果-->
       <el-row :gutter="gutterCount">
         <!--需求任务-->
-        <el-col :span="8">
+        <el-col :span="8" >
           <div class="grid-content2 one">
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
@@ -862,6 +863,8 @@ export default {
   background: url(../../../assets/images/home/banner/banner1.jpg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  padding-left:0px;
+  padding-right: 15px;
 }
 .home .tow .el-card__header {
   /* backdrop-filter: ; */
