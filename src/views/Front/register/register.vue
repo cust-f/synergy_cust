@@ -7,7 +7,7 @@
       <el-step title="相关图片上传"></el-step>
     </el-steps>
     <el-button style="margin-top: 12px;" @click="back" :disabled="first">上一步</el-button>
-    <el-button style="margin-top: 12px;float:right;" @click="next">{{active==4?'提交':'下一步'}}</el-button>
+    <el-button style="margin-top: 12px;float:right;" @click="next">{{active==3?'提交':'下一步'}}</el-button>
     <div style="margin-top:15px;">
       <register-user
         v-show="active==0"

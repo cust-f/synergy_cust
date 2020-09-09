@@ -132,15 +132,15 @@ export default {
       hideUpload: false,
       hideLogoUpload: false,
       value1: "",
-      value2: ""
+      value2: "",
     };
   },
 
   props: {
     enterpriseName: {
       type: String,
-      default: "cust"
-    }
+      default: "cust",
+    },
   },
 
   created() {
@@ -158,7 +158,7 @@ export default {
   //     return params;
   //   }
   // },
-  mounted: function() {},
+  mounted: function () {},
   methods: {
     //请求展示的图片
     carouselShow() {
@@ -181,57 +181,58 @@ export default {
     },
     //企业logo图片入fromDate
     logoUpload(file) {
-    this.formDate.append("logoFile", file.file)
+      this.formDate.append("logoFile", file.file);
     },
     submitUpload() {
-      // console.log(this.companyProfileImageUrl.length < 3);
-      // if (this.taxImageUrl.length < 1) {
-      //   this.$message({
-      //     type: "warning",
-      //     message: "请添加税务证书"
-      //   });
-      //   return false;
-      // } else {
-      //   if (this.businessLicenseImageUrl.length < 1) {
-      //     this.$message({
-      //       type: "warning",
-      //       message: "请添加企业营业执照"
-      //     });
-      //     return false;
-      //   } else {
-      this.$emit("checkPicture", true);
-      var that = this;
-      that.formDate = new FormData();
-      this.$refs.uploadCompany.submit();
-      this.$refs.uploadBusinessLicense.submit();
-      this.$refs.uploadTax.submit();
-      this.$refs.uploadLogo.submit();
-      that.formDate.append("enterpriseName", this.enterpriseName);
-      console.log(that.formDate);
-      let config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
+      try {
+        var that = this;
+        that.formDate = new FormData();
+        this.$refs.uploadCompany.submit();
+        this.$refs.uploadBusinessLicense.submit();
+        this.$refs.uploadTax.submit();
+        this.$refs.uploadLogo.submit();
+        if (
+          that.formDate.has("logoFile") &&
+          that.formDate.has("companyProfileFile") &&
+          that.formDate.has("taxFile") &&
+          that.formDate.has("businessLicenseFile")
+        ) {
+          this.$emit("checkPicture", true);
+          that.formDate.append("enterpriseName", this.enterpriseName);
+          console.log(that.formDate);
+          let config = {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          };
+          that.axios
+            .post("/api/register/setPicture", this.formDate, config)
+            .then((response) => {
+              this.$emit("register");
+              if (response.data.success) {
+                // this.$message({
+                //   message: response.data.file,
+                //   type: "success"
+                // });
+              } else {
+                this.$message({
+                  message: response.data.file,
+                  type: "alert",
+                });
+              }
+            })
+            .catch((response) => {
+              this.$message.error("请稍后再尝试注册");
+              console.log(response);
+            });
+        } else {
+          this.$message.error("请添加完整的图片数量");
         }
-      };
-      that.axios
-        .post("/api/register/setPicture", this.formDate, config)
-        .then(response => {
-          this.$emit("register");
-          if (response.data.success) {
-            this.$message({
-              message: response.data.file,
-              type: "success"
-            });
-          } else {
-            this.$message({
-              message: response.data.file,
-              type: "alert"
-            });
-          }
-        })
-        .catch(response => {
-          console.log(response);
-        });
+      } catch (error) {
+        console.log(error);
+        this.$message.error("请稍后再尝试注册");
+      }
+
       // }
       // }
     },
@@ -267,8 +268,8 @@ export default {
     },
     logoRemove(file, fileList) {
       this.hideLogoUpload = fileList.length >= 1;
-    }
-  }
+    },
+  },
 };
 </script>
 
