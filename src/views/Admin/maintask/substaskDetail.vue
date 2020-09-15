@@ -97,6 +97,7 @@
           </el-form>
           <br />
           <div id="div2" align="right">
+            <el-button type="primary" class="button1" @click="achieveMain">完成任务</el-button>
             <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
             <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
             <el-button type="primary" class="button1" @click="xiazaiMAINmoban">打包下载</el-button>
@@ -1122,6 +1123,33 @@ export default {
           // data:this.$store.state.userName
         });
         this.$message.success("废除成功");
+      });
+    },
+    achieveMain(){
+            this.$confirm("确定要完成任务吗？", "提示", {
+        type: "warning",
+      }).then(() => {
+        var that = this;
+        var data = Qs.stringify({
+          mainStaskID: this.mainTaskID,
+        });
+        that.axios({
+          method: "post",
+          url: "/api/MainTaskInformation/achieveMainTask",
+          data: data,
+
+          // data:this.$store.state.userName
+        })
+                .then(response => {
+          if(response.data =="成功"){
+              this.$message.success("主任务完成");
+          }
+          else{
+                          this.$message.error("主任务完成失败");
+
+          }
+        });
+      
       });
     },
     downLoad() {
