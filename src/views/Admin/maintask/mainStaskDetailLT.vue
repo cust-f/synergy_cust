@@ -1678,6 +1678,7 @@ export default {
           } else if (this.milepostActive == "完成") {
             this.milepostActive = 4;
           }
+          console.log('this.milepostActive'+this.milepostActive);
           if (this.cool.taskType === 0) {
             this.cool.taskType = "设计任务";
           } else {
@@ -1698,10 +1699,10 @@ export default {
             if (this.milepostActive > 2) {
               this.milepost[2].description = this.$options.filters[
                 "formatDate"
-              ](response.data.allData.d[0].uploadDesignTime);
+              ](response.data.allData.d[0].uploadCircuaterTime);
               this.milepost[3].description = this.$options.filters[
                 "formatDate"
-              ](response.data.allData.d[0].demandorCheckDesignTime);
+              ](response.data.allData.d[0].finishTime);
             }
             if (this.milepostActive > 3) {
               this.milepost[4].description = this.$options.filters[
