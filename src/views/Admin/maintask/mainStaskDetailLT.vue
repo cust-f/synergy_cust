@@ -1228,7 +1228,7 @@ export default {
       activeBZT: "",
       //主任务ID
       mainTaskID: 0,
-      tableData6:[],
+      tableData6: [],
       //主任务名称
       mainTaskName: "",
       //SQRWButton:none,
@@ -1371,7 +1371,7 @@ export default {
         demandorCheckDesignTimeJudge: false,
         finishTimeJudge: false,
       },
-      firstList:[],
+      firstList: [],
       timeList: {
         beginTime: "",
         publishTime: "",
@@ -1888,32 +1888,32 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
-          //读取所有需求的时间
-          this.timeList.publishTime = response.data.allData.a[0].publishTime;
-          this.timeList.applyTime = response.data.allData.b[0].applyTime;
-          this.timeList.checkApplyTime =
-            response.data.allData.b[0].checkApplyTime;
-          this.timeList.planUploadTime =
-            response.data.allData.b[0].planUploadTime;
-          this.timeList.checkPlanTime =
-            response.data.allData.b[0].checkPlanTime;
-          this.timeList.beginTime = response.data.allData.a[0].beginTime;
-          this.timeList.uploadContractTime =
-            response.data.allData.a[0].uploadContractTime;
-          this.timeList.checkContractTime =
-            response.data.allData.a[0].checkContractTime;
-          this.timeList.checkCircuaterTime =
-            response.data.allData.a[0].checkCircuaterTime;
-          this.timeList.uploadCircuaterTime =
-            response.data.allData.a[0].uploadCircuaterTime;
-          this.timeList.finishTime = response.data.allData.a[0].finishTime;
-          //读取时间结束
-
-          console.log(response);
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
+          if (this.tableData1.length != 0) {
+            //读取所有需求的时间
+            this.timeList.publishTime = response.data.allData.a[0].publishTime;
+            this.timeList.applyTime = response.data.allData.b[0].applyTime;
+            this.timeList.checkApplyTime =
+              response.data.allData.b[0].checkApplyTime;
+            this.timeList.planUploadTime =
+              response.data.allData.b[0].planUploadTime;
+            this.timeList.checkPlanTime =
+              response.data.allData.b[0].checkPlanTime;
+            this.timeList.beginTime = response.data.allData.a[0].beginTime;
+            this.timeList.uploadContractTime =
+              response.data.allData.a[0].uploadContractTime;
+            this.timeList.checkContractTime =
+              response.data.allData.a[0].checkContractTime;
+            this.timeList.checkCircuaterTime =
+              response.data.allData.a[0].checkCircuaterTime;
+            this.timeList.uploadCircuaterTime =
+              response.data.allData.a[0].uploadCircuaterTime;
+            this.timeList.finishTime = response.data.allData.a[0].finishTime;
+            //读取时间结束
+          }
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
           this.selectCateKeys[0] =
             response.data.allData.a[0].taskCategoryMainId;
