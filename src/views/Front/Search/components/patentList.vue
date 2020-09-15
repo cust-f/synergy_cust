@@ -60,6 +60,19 @@
             <span>公开号: {{item.publicationNo}}</span>
           </el-col>
         </el-row>
+        <!-- 版权 -->
+        <el-row :gutter="5">
+          <el-col :span="1">
+            <img
+              style="width: 30px; height: 30px"
+              src="../../../../assets/images/home/patent/copyright_logo.png"
+            />
+            <!-- <el-avatar shape="square" :size="30" fit="fill" src=""></el-avatar> -->
+          </el-col>
+          <el-col :span="12">
+            <span style=" color: #7b7575;line-height: 30px;">版权所有：西南交通大学、国家重点研发计划项目支持</span>
+          </el-col>
+        </el-row>
       </div>
     </el-row>
   </div>
@@ -81,13 +94,15 @@ export default {
       return JSON.parse(data);
     },
     changeString(data) {
-      let result = new String();
-      let newData = JSON.parse(data);
-      for (let i = 0; i < newData.length; i++) {
-        result += newData[i];
-        if (i != newData.length - 1) result += ",";
-      }
-      return result;
+      if (data) {
+        let result = new String();
+        let newData = JSON.parse(data);
+        for (let i = 0; i < newData.length; i++) {
+          result += newData[i];
+          if (i != newData.length - 1) result += ",";
+        }
+        return result;
+      } else return "";
     },
     // 转跳详情界面
     patentDetail(id) {
