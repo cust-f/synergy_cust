@@ -434,12 +434,14 @@
           </div>
         </div>
       </div>
+
       <!-- 修改时间弹出框 -->
-      <!-- <el-dialog :visible.sync="changeTimeDialog" width="60%">
+      <el-dialog :visible.sync="changeTimeDialog" width="40%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入修改的时间</div>
         <br />
         <br />
-        <el-form ref="form" :model="timeList" label-width="120px">
+
+        <el-form ref="form" class="changeTimeFrom" :model="timeList" label-width="120px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务开始时间">
@@ -538,24 +540,25 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="清单上传时间">
+              <div v-if="timeList.supplierDistributionTime === 0"></div>
+              <el-form-item v-else label="分配人员时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.uploadCircuaterTimeJudge"
-                  v-model="timeList.uploadCircuaterTime"
+                  :disabled="timeListJudge.supplierDistributionTimeJudge"
+                  v-model="timeList.supplierDistributionTime"
                   style="width: 80%;"
                   value-format
                 ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="清单审核时间">
+              <el-form-item label="接受任务时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.checkCircuaterTimeJudge"
-                  v-model="timeList.checkCircuaterTime"
+                  :disabled="timeListJudge.designerAcceptTimeJudge"
+                  v-model="timeList.designerAcceptTime"
                   style="width: 80%;"
                   value-format
                 ></el-date-picker>
@@ -564,6 +567,45 @@
           </el-row>
 
           <el-row>
+            <el-col :span="11">
+              <el-form-item label="上传设计时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.uploadDesignTimeJudge"
+                  v-model="timeList.uploadDesignTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="内部审核时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.supplierCheckDesignTime"
+                  :disabled="timeListJudge.supplierCheckDesignTimeJudge"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="设计验收时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.demandorCheckDesignTimeJudge"
+                  v-model="timeList.demandorCheckDesignTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
             <el-col :span="11">
               <el-form-item label="任务完成时间">
                 <el-date-picker
@@ -577,10 +619,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-
-          <el-row></el-row>
-
-          <el-row>
+          <el-row class="changeTimeFrom">
             <el-col :span="11">
               <el-button @click="changeTimeMethod()">确认</el-button>
             </el-col>
@@ -589,7 +628,7 @@
             </el-col>
           </el-row>
         </el-form>
-      </el-dialog> -->
+      </el-dialog>
 
       <!-- 申请拒绝原因弹出框 -->
       <el-dialog :visible.sync="addVisible" width="50%">
@@ -1327,7 +1366,6 @@ export default {
           realPath: "",
         },
       ],
-      companyId: 0,
       cool: {
         mainTaskName: "nihao",
         taskName: "nihao",
@@ -1365,6 +1403,41 @@ export default {
       stepActive: "stepActive",
       addList: {
         SQrefuseReason: "", //申请拒绝原因
+      },
+      //设置是否可更改
+      timeListJudge: {
+        beginTimeJudge: false,
+        publishTimeJudge: false,
+        applyTimeJudge: false,
+        checkApplyTimeJudge: false,
+        planUploadTimeJudge: false,
+        checkPlanTimeJudge: false,
+        uploadContractTimeJudge: false,
+        checkContractTimeJudge: false,
+        supplierDistributionTimeJudge: false,
+        designerAcceptTimeJudge: false,
+        uploadDesignTimeJudge: false,
+        supplierCheckDesignTimeJudge: false,
+        demandorCheckDesignTimeJudge: false,
+        finishTimeJudge: false,
+      },
+      timeList: {
+        beginTime: "",
+        publishTime: "",
+        applyTime: "",
+        checkApplyTime: "",
+        planUploadTime: "",
+        checkPlanTime: "",
+        uploadContractTime: "",
+        checkContractTime: "",
+        supplierDistributionTime: "",
+        designerAcceptTime: "",
+        uploadDesignTime: "",
+        supplierCheckDesignTime: "",
+        demandorCheckDesignTime: "",
+        finishTime: "",
+        checkCircuaterTime: "",
+        uploadCircuaterTime: "",
       },
       addList1: {
         JHSrefuseReason: "", //计划书拒绝原因
@@ -1476,11 +1549,6 @@ export default {
         checkPlanTime: this.timeList.checkPlanTime,
         uploadContractTime: this.timeList.uploadContractTime,
         checkContractTime: this.timeList.checkContractTime,
-        supplierDistributionTime: this.timeList.supplierDistributionTime,
-        designerAcceptTime: this.timeList.designerAcceptTime,
-        uploadDesignTime: this.timeList.uploadDesignTime,
-        supplierCheckDesignTime: this.timeList.supplierCheckDesignTime,
-        demandorCheckDesignTime: this.timeList.demandorCheckDesignTime,
         finishTime: this.timeList.finishTime,
         checkCircuaterTime: this.timeList.checkCircuaterTime,
         uploadCircuaterTime: this.timeList.uploadCircuaterTime,
@@ -1842,34 +1910,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
-          //读取所有需求的时间
-          this.timeList.publishTime = response.data.allData.a[0].publishTime;
-          this.timeList.applyTime = response.data.allData.b[0].applyTime;
-          this.timeList.checkApplyTime =
-            response.data.allData.b[0].checkApplyTime;
-          this.timeList.planUploadTime =
-            response.data.allData.b[0].planUploadTime;
-          this.timeList.checkPlanTime =
-            response.data.allData.b[0].checkPlanTime;
-          this.timeList.beginTime = response.data.allData.a[0].beginTime;
-          this.timeList.deadLine = response.data.allData.a[0].deadLine;
-          this.timeList.uploadContractTime =
-            response.data.allData.a[0].uploadContractTime;
-          this.timeList.checkContractTime =
-            response.data.allData.a[0].checkContractTime;
-          this.timeList.supplierDistributionTime =
-            response.data.allData.a[0].supplierDistributionTime;
-          this.timeList.designerAcceptTime =
-            response.data.allData.a[0].designerAcceptTime;
-          this.timeList.uploadDesignTime =
-            response.data.allData.a[0].uploadDesignTime;
-          this.timeList.supplierCheckDesignTime =
-            response.data.allData.a[0].supplierCheckDesignTime;
-          this.timeList.uploadCircuaterTime =
-            response.data.allData.a[0].uploadCircuaterTime;
-          this.timeList.checkCircuaterTime =
-            response.data.allData.a[0].checkCircuaterTime;
-          //读取时间结束
           console.log(response);
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
