@@ -1248,6 +1248,8 @@ export default {
 
   data() {
     return {
+      applyRefuse: 0,
+      planRefusse: 0,
       logo: "",
       //显示评价的
       reMarkId: 0,
@@ -1536,43 +1538,66 @@ export default {
       if (this.timeList.checkApplyTime == null) {
         this.timeListJudge.checkApplyTimeJudge = true;
       }
-      if (this.timeList.planUploadTime == null) {
-        this.timeListJudge.planUploadTimeJudge = true;
-      }
-      if (this.timeList.checkPlanTime == null) {
+      if (this.planRefusse == 2) {
         this.timeListJudge.checkPlanTimeJudge = true;
-      }
-      if (this.timeList.uploadContractTime == null) {
+        this.timeListJudge.planUploadTimeJudge = true;
         this.timeListJudge.uploadContractTimeJudge = true;
-      }
-      if (this.timeList.checkContractTime == null) {
         this.timeListJudge.checkContractTimeJudge = true;
-      }
-      if (this.timeList.supplierDistributionTime == null) {
         this.timeListJudge.supplierDistributionTimeJudge = true;
-      }
-      if (this.timeList.designerAcceptTime == null) {
         this.timeListJudge.designerAcceptTimeJudge = true;
-      }
-      if (this.timeList.uploadDesignTime == null) {
         this.timeListJudge.uploadDesignTimeJudge = true;
-      }
-      if (this.timeList.supplierCheckDesignTime == null) {
         this.timeListJudge.supplierCheckDesignTimeJudge = true;
-      }
-      if (this.timeList.demandorCheckDesignTime == null) {
         this.timeListJudge.demandorCheckDesignTimeJudge = true;
-      }
-      if (this.timeList.publishTime == null) {
-        this.timeListJudge.publishTimeJudge = true;
-      }
-      if (this.timeList.finishTime == null) {
         this.timeListJudge.finishTimeJudge = true;
+      } else {
+        if (this.timeList.planUploadTime == null) {
+          this.timeListJudge.planUploadTimeJudge = true;
+        }
+        if (this.timeList.checkPlanTime == null) {
+          this.timeListJudge.checkPlanTimeJudge = true;
+        }
+        if (this.planRefusse == 3) {
+          this.timeListJudge.uploadContractTimeJudge = true;
+          this.timeListJudge.checkContractTimeJudge = true;
+          this.timeListJudge.supplierDistributionTimeJudge = true;
+          this.timeListJudge.designerAcceptTimeJudge = true;
+          this.timeListJudge.uploadDesignTimeJudge = true;
+          this.timeListJudge.supplierCheckDesignTimeJudge = true;
+          this.timeListJudge.demandorCheckDesignTimeJudge = true;
+          this.timeListJudge.finishTimeJudge = true;
+        } else {
+          if (this.timeList.uploadContractTime == null) {
+            this.timeListJudge.uploadContractTimeJudge = true;
+          }
+          if (this.timeList.checkContractTime == null) {
+            this.timeListJudge.checkContractTimeJudge = true;
+          }
+          if (this.timeList.supplierDistributionTime == null) {
+            this.timeListJudge.supplierDistributionTimeJudge = true;
+          }
+          if (this.timeList.designerAcceptTime == null) {
+            this.timeListJudge.designerAcceptTimeJudge = true;
+          }
+          if (this.timeList.uploadDesignTime == null) {
+            this.timeListJudge.uploadDesignTimeJudge = true;
+          }
+          if (this.timeList.supplierCheckDesignTime == null) {
+            this.timeListJudge.supplierCheckDesignTimeJudge = true;
+          }
+          if (this.timeList.demandorCheckDesignTime == null) {
+            this.timeListJudge.demandorCheckDesignTimeJudge = true;
+          }
+          if (this.timeList.finishTime == null) {
+            this.timeListJudge.finishTimeJudge = true;
+          }
+        }
       }
     },
     changeTime(row) {
       this.changeTimeDialog = true;
       this.companyId = row.companyId;
+      this.applyRefuse = row.checkApplyState;
+      this.planRefusse = row.checkPlanState;
       this.changeTimeJudge();
     },
     changeTimeMethod() {
@@ -2468,10 +2493,10 @@ export default {
   .item {
     padding: 18px 0;
   }
-  .changeTimeButton{
+  .changeTimeButton {
     margin: 0 0 0 400px;
   }
-  .changeTimeFrom{
+  .changeTimeFrom {
     margin: 0 0 0 100px;
   }
   .box-card {
