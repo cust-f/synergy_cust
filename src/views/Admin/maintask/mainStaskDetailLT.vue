@@ -121,7 +121,6 @@
           class="table1"
           ref="multipleTable"
           header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
@@ -189,7 +188,6 @@
           class="table1"
           ref="multipleTable"
           header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
@@ -256,7 +254,6 @@
           class="table1"
           ref="multipleTable"
           header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
@@ -324,7 +321,6 @@
           class="table4"
           ref="multipleTable"
           header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
@@ -889,7 +885,6 @@
           class="table"
           ref="multipleTable"
           header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
         >
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="taskName" label="子任务名称"></el-table-column>
@@ -1007,7 +1002,6 @@
                   v-model="cool.taskType"
                   placeholder="请选择"
                   class="selectsupply"
-                  @change="liebieShu"
                   style="width:100%;"
                 >
                   <el-option
@@ -1110,14 +1104,10 @@
             <el-upload
               class="upload-demo"
               action="/api/MainTaskInformation/import"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :before-remove="beforeRemove"
               :on-success="handleAvatarSuccess"
               multiple
               :limit="10"
               ref="upload"
-              :on-exceed="handleExceed"
               :file-list="fileList"
             >
               <el-button size="small" type="primary">点击上传</el-button>
@@ -1142,7 +1132,6 @@
             class="table"
             ref="multipleTable"
             header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
           >
             <el-table-column label="序号" type="index" width="55" align="center">
               <template slot-scope="scope">
@@ -1161,7 +1150,7 @@
                 <span v-else-if="scope.row.fileType === 1">发货清单</span>
               </template>
             </el-table-column>
-            <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
+            <el-table-column prop="filePath" width="100" label="文件地址"></el-table-column>
             <el-table-column prop="uploadTime" label="上传时间">
               <template slot-scope="scope">
                 <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
@@ -1239,6 +1228,7 @@ export default {
       activeBZT: "",
       //主任务ID
       mainTaskID: 0,
+      tableData6:[],
       //主任务名称
       mainTaskName: "",
       //SQRWButton:none,
@@ -1381,6 +1371,7 @@ export default {
         demandorCheckDesignTimeJudge: false,
         finishTimeJudge: false,
       },
+      firstList:[],
       timeList: {
         beginTime: "",
         publishTime: "",
@@ -1471,7 +1462,7 @@ export default {
       if (this.timeList.checkApplyTime == null) {
         this.timeListJudge.checkApplyTimeJudge = true;
       }
-      if (this.planRefusse == 2) {
+      if (this.applyRefuse == 2) {
         this.timeListJudge.checkPlanTimeJudge = true;
         this.timeListJudge.planUploadTimeJudge = true;
         this.timeListJudge.uploadContractTimeJudge = true;
@@ -1493,8 +1484,6 @@ export default {
           this.timeListJudge.checkCircuaterTimeJudge = true;
           this.timeListJudge.finishTimeJudge = true;
         } else {
-          console.log("这里有没有");
-          console.log(this.timeList.uploadContractTime);
           if (this.timeList.uploadContractTime == null) {
             this.timeListJudge.uploadContractTimeJudge = true;
           }

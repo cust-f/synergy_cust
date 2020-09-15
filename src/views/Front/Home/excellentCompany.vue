@@ -1,7 +1,7 @@
 <template>
   <div class="excellent">
     <div class="company">
-      <el-row :gutter="20" style="font:size:14px;margin-top:10px;margin-left:15px;">
+      <el-row :gutter="20" style="font: size:14px;margin-top:10px;margin-left:15px;">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>优质企业</el-breadcrumb-item>
