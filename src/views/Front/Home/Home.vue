@@ -195,7 +195,7 @@
           <div class="grid-content">
             <el-card style="margin-bottom:5px;padding-top: 10px;">
               <div v-if="!this.$store.state.token">
-                <span>欢迎来到面向高端装备制造领域的科技服务SaaS应用</span>
+                <span>欢迎来到高端装备制造领域科技服务SaaS应用</span>
                 <div class="grid-content-top-button">
                   <el-button
                     style=" left:5px; background-color:#27b0f0;; border-color:#27b0f0;; "
