@@ -1530,7 +1530,7 @@ export default {
         finishTime: this.timeList.finishTime,
         checkCircuaterTime: this.timeList.checkCircuaterTime,
         uploadCircuaterTime: this.timeList.uploadCircuaterTime,
-        State: this.milepostActive,
+        State: this.milepostActive+1,
       });
       that
         .axios({
