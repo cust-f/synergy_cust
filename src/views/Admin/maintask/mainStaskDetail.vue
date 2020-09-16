@@ -162,7 +162,7 @@
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
 
-              <el-button @click="changeTime(scope.row)" size="small" type="text">修改时间</el-button>
+              <el-button @click="changeTime(scope.row)" size="small" type="text">修改</el-button>
 
               <el-button
                 @click="SQTG(scope.row)"
