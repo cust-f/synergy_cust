@@ -1952,9 +1952,9 @@ export default {
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
-          console.log(this.tableData1)
+          console.log(this.tableData1);
           if (this.tableData1.length != 0) {
-            console.log("this.tableData1")
+            console.log("this.tableData1");
             //读取所有需求的时间
             this.timeList.publishTime = response.data.allData.a[0].publishTime;
             this.timeList.applyTime = response.data.allData.b[0].applyTime;
