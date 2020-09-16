@@ -583,7 +583,6 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.maintask = response.data.allData.a[0];
           this.Province = response.data.allData.b;
-          console.log(this.Province)
           this.City = response.data.allData.c;
           //this.list = response.data.allData.b[0];
         });

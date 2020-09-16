@@ -20,20 +20,14 @@
         >专利详情</div>
       </div>
       <el-row>
-        <div>
-          <h3 style="float:left;">{{detail.title1}}</h3>
-          <p style=" line-height: 36px;font-size: 18px; color: #ff7720;float:left;">
-            【
-            <span>{{changeString(detail.patenttypeName)}}</span>】
-          </p>
-        </div>
-        <div style="float:right;">
-          <p>
-            资源来源：
-            <span>{{detail.resourceFrom}}</span>
-            <el-avatar shape="square" :size="20" fit="fill" :src="detail.resourceLogo"></el-avatar>
-          </p>
-        </div>
+        <h3 style="float:left;">{{detail.title1}}</h3>
+        <p style=" line-height: 36px;font-size: 18px; color: #ff7720;float:left;">
+          【
+          <span
+            v-for="(patenttypeName,index) in changeJson(detail.patenttypeName)"
+            :key="index"
+          >{{patenttypeName}}</span>】
+        </p>
       </el-row>
       <el-divider></el-divider>
       <!-- 信息展示 -->
@@ -98,30 +92,18 @@
           <el-tab-pane label="主权项">
             <div>
               <div v-html="detail.indCla"></div>
+              <br />
+              <el-divider></el-divider>
             </div>
           </el-tab-pane>
           <el-tab-pane label="摘要">
             <div>
               <div v-html="detail.abstract"></div>
-              <!-- <br />
-              <el-divider></el-divider>-->
+              <br />
+              <el-divider></el-divider>
             </div>
           </el-tab-pane>
         </el-tabs>
-        <br />
-        <el-divider></el-divider>
-        <el-row :gutter="5">
-          <el-col :span="1">
-            <img
-              style="width: 30px; height: 30px"
-              src="../../../assets/images/home/patent/copyright_logo.png"
-            />
-            <!-- <el-avatar shape="square" :size="30" fit="fill" src=""></el-avatar> -->
-          </el-col>
-          <el-col :span="12">
-            <span style=" color: #7b7575;line-height: 30px;">版权所有：西南交通大学、国家重点研发计划项目支持</span>
-          </el-col>
-        </el-row>
       </div>
     </el-card>
   </div>
@@ -160,7 +142,6 @@ export default {
           url: "/city/bizdesign/synergicResourceDetail",
         })
         .then((response) => {
-          console.log(response);
           this.detail = response.data.data.patantDetailData[0];
           this.orgClass = response.data.orgClass;
         });
@@ -169,15 +150,13 @@ export default {
       return JSON.parse(data);
     },
     changeString(data) {
-      if (data) {
-        let result = new String();
-        let newData = JSON.parse(data);
-        for (let i = 0; i < newData.length; i++) {
-          result += newData[i];
-          if (i != newData.length - 1) result += ",";
-        }
-        return result;
-      } else return "";
+      let result = new String();
+      let newData = JSON.parse(data);
+      for (let i = 0; i < newData.length; i++) {
+        result += newData[i];
+        if (i != newData.length - 1) result += ",";
+      }
+      return result;
     },
     goBack: function () {
       window.history.go(-1);
@@ -188,8 +167,7 @@ export default {
 
 <style>
 .company-detail-info .company-detail-info-show {
-  margin-bottom: 50px;
-  padding-bottom: 0px;
+  margin-bottom: 20px;
 }
 .company-detail-info-show .el-row {
   margin-bottom: 15px;
