@@ -1724,37 +1724,8 @@ export default {
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
-          console.log(this.tableData1)
-          if (this.tableData1.length != 0) {
-            console.log("this.tableData1")
-            //读取所有需求的时间
-            this.timeList.publishTime = response.data.allData.a[0].publishTime;
-            this.timeList.applyTime = response.data.allData.b[0].applyTime;
-            this.timeList.checkApplyTime =
-              response.data.allData.b[0].checkApplyTime;
-            this.timeList.planUploadTime =
-              response.data.allData.b[0].planUploadTime;
-            this.timeList.checkPlanTime =
-              response.data.allData.b[0].checkPlanTime;
-            this.timeList.beginTime = response.data.allData.a[0].beginTime;
-            this.timeList.deadLine = response.data.allData.a[0].deadLine;
-            this.timeList.uploadContractTime =
-              response.data.allData.a[0].uploadContractTime;
-            this.timeList.checkContractTime =
-              response.data.allData.a[0].checkContractTime;
-            this.timeList.supplierDistributionTime =
-              response.data.allData.a[0].supplierDistributionTime;
-            this.timeList.designerAcceptTime =
-              response.data.allData.a[0].designerAcceptTime;
-            this.timeList.uploadDesignTime =
-              response.data.allData.a[0].uploadDesignTime;
-            this.timeList.supplierCheckDesignTime =
-              response.data.allData.a[0].supplierCheckDesignTime;
-            this.timeList.demandorCheckDesignTime =
-              response.data.allData.a[0].demandorCheckDesignTime;
-            this.timeList.finishTime = response.data.allData.a[0].finishTime;
-            //读取时间结束
-          }
+          console.log(response)
+          
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
           this.selectCateKeys[0] =
             response.data.allData.a[0].taskCategoryMainId;
@@ -1854,6 +1825,36 @@ export default {
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
           this.mainTaskName = response.data.allData.a[0].mainTaskName;
           this.taskID = response.data.allData.a[0].taskId;
+          if (this.tableData1.length != 0) {
+            console.log("this.tableData1")
+            //读取所有需求的时间
+            this.timeList.publishTime = response.data.allData.a[0].publishTime;
+            this.timeList.applyTime = response.data.allData.b[0].applyTime;
+            this.timeList.checkApplyTime =
+              response.data.allData.b[0].checkApplyTime;
+            this.timeList.planUploadTime =
+              response.data.allData.b[0].planUploadTime;
+            this.timeList.checkPlanTime =
+              response.data.allData.b[0].checkPlanTime;
+            this.timeList.beginTime = response.data.allData.a[0].beginTime;
+            this.timeList.deadLine = response.data.allData.a[0].deadLine;
+            this.timeList.uploadContractTime =
+              response.data.allData.a[0].uploadContractTime;
+            this.timeList.checkContractTime =
+              response.data.allData.a[0].checkContractTime;
+            this.timeList.supplierDistributionTime =
+              response.data.allData.a[0].supplierDistributionTime;
+            this.timeList.designerAcceptTime =
+              response.data.allData.a[0].designerAcceptTime;
+            this.timeList.uploadDesignTime =
+              response.data.allData.a[0].uploadDesignTime;
+            this.timeList.supplierCheckDesignTime =
+              response.data.allData.a[0].supplierCheckDesignTime;
+            this.timeList.demandorCheckDesignTime =
+              response.data.allData.a[0].demandorCheckDesignTime;
+            this.timeList.finishTime = response.data.allData.a[0].finishTime;
+            //读取时间结束
+          }
 
         });
     },
