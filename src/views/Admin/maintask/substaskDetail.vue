@@ -125,7 +125,7 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                <el-table-column prop="id" label="序号" type="index" width="50" align="center"></el-table-column>
 
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
                 <el-table-column prop="taskState" label="需求状态" align="center">
@@ -166,7 +166,7 @@
                       type="text"
                       icon="el-icon-delete"
                       @click="handleDelete1(scope.row)"
-                    >废除</el-button>
+                    >删除需求任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
                   </template>
                 </el-table-column>
@@ -1081,12 +1081,12 @@ export default {
 
     // 删除操作
     handleDelete1(row) {
-      this.$confirm("确定要废除吗？", "提示", {
+      this.$confirm("确定要删除吗？", "提示", {
         type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          substakeID: row.taskId,
+          substakeId: row.taskId,
         });
         that.axios({
           method: "post",
@@ -1094,9 +1094,18 @@ export default {
           data: data,
 
           // data:this.$store.state.userName
+        })
+        .then(response => {
+          console.log(response)
+            if(response.data ==="成功")
+            {
+
+                        this.shuju.splice(row, 1)
+               this.$message.success("删除成功");
+                    }
+            
         });
-        this.$message.success("废除成功");
-        this.shuju.splice(index, 1);
+       
       });
       //   .then(response => {
       //     this.cool = response.data.allData.a[0];
