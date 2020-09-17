@@ -166,7 +166,7 @@
                       type="text"
                       icon="el-icon-delete"
                       @click="handleDelete1(scope.row)"
-                    >删除需求任务</el-button>
+                    >删除任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
                   </template>
                 </el-table-column>
