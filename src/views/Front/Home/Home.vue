@@ -25,31 +25,25 @@
             <li>
               <span class="dataCSS">
                 本月成交任务:
-                <font class="fontStyle">{{taskCountMonth}}</font>项
+                <font class="fontStyle">{{formMonth.monthCount}}</font>项
               </span>
             </li>
             <li>
               <span class="dataCSS">
                 设计任务:
-                <font class="fontStyle">{{demandTaskCount}}</font>项
+                <font class="fontStyle">{{formMonth.desingMonthCount}}</font>项
               </span>
             </li>
             <li>
               <span class="dataCSS">
                 流通任务:
-                <font class="fontStyle">{{circulationTaskCount}}</font>项
+                <font class="fontStyle">{{formMonth.circulaterMonthCount}}</font>项
               </span>
             </li>
             <li>
               <span class="dataCSS">
                 认证企业:
-                <font class="fontStyle">{{certifiedEnterpriseCount}}</font>家
-              </span>
-            </li>
-            <li>
-              <span class="dataCSS">
-                认证供应商:
-                <font class="fontStyle">{{certifiedSupplierCount}}</font>家
+                <font class="fontStyle">{{formMonth.companyCount}}</font>家
               </span>
             </li>
           </ul>
@@ -84,7 +78,6 @@
               </el-card>
             </el-col>
             <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
-             
               <el-card shadow="hover" style="float:left">
                 <div class="category_item">
                   <div
@@ -343,7 +336,7 @@
       <!--第四行  需求一览，优质企业，服务成果-->
       <el-row :gutter="gutterCount">
         <!--需求任务-->
-        <el-col :span="8" >
+        <el-col :span="8">
           <div class="grid-content2 one">
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
@@ -504,7 +497,7 @@
 import lineChart from "./components/lineChart";
 import columnChart from "./components/columnChart";
 import pieChart from "./components/pieChart";
-
+import Qs from "qs"
 export default {
   name: "Home",
   components: {
@@ -609,6 +602,18 @@ export default {
       patentName: "",
       technicalIndex: "",
       org: "",
+
+      //本月数据统计
+      formMonth: {
+        monthCount: "",
+        desingMonthCount: [],
+        circulaterMonthCount: [],
+        companyCount: [],
+        monthCountRing: "",
+        desingMonthCountRing: [],
+        circulaterMonthCountRing: [],
+        companyCountRing: [],
+      },
     };
   },
   //网站下方数据统计图表用（丁宅荣负责添加）
@@ -616,10 +621,33 @@ export default {
   //   this.getCharts();
   // },
   created() {
+    this.monthDataB();
     this.getInfo();
     this.getStatistics();
   },
   methods: {
+    //月任务统计
+    monthDataB() {
+      var that = this;
+      var data = Qs.stringify({});
+      that
+        .axios({
+          method: "post",
+          url: "/api/findTaskMonthCount",
+          data: data,
+        })
+        .then((response) => {
+          this.formMonth.monthCount = response.data.allData[0];
+          this.formMonth.desingMonthCount = response.data.allData[1];
+          this.formMonth.circulaterMonthCount = response.data.allData[2];
+          this.formMonth.companyCount = response.data.allData[3];
+          this.formMonth.monthCountRing = response.data.allData[4];
+          this.formMonth.desingMonthCountRing = response.data.allData[5];
+          this.formMonth.circulaterMonthCountRing = response.data.allData[6];
+          this.formMonth.companyCountRing = response.data.allData[7];
+        });
+    },
+
     getInfo() {
       var that = this;
       that.axios.post("/api/home/detail").then((response) => {
@@ -863,7 +891,7 @@ export default {
   background: url(../../../assets/images/home/banner/banner1.jpg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  padding-left:0px;
+  padding-left: 0px;
   padding-right: 15px;
 }
 .home .tow .el-card__header {
