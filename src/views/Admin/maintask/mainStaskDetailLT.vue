@@ -1530,7 +1530,7 @@ export default {
         finishTime: this.timeList.finishTime,
         checkCircuaterTime: this.timeList.checkCircuaterTime,
         uploadCircuaterTime: this.timeList.uploadCircuaterTime,
-        State: this.milepostActive+1,
+        State: this.milepostActive + 1,
       });
       that
         .axios({
@@ -2398,10 +2398,10 @@ export default {
     padding: 18px 0;
   }
   .changeTimeButton {
-    margin: 0 0 0 400px;
+    margin: 0 0 0 300px;
   }
   .changeTimeFrom {
-    margin: 0 0 0 100px;
+    margin: 0 0 0 80px;
   }
   .box-card {
     width: 960px;

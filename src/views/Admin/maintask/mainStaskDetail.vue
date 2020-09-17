@@ -125,7 +125,6 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyId" width="0" label="企业ID"></el-table-column>
           <el-table-column prop="companyName" width="250" label="供应商">
             <template slot-scope="scope">
               <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
@@ -372,19 +371,19 @@
                 @click="LJTZ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
+                v-if="scope.row.demandorCheckDesignState === 1 || scope.row.demandorCheckDesignState === 2 ||scope.row.demandorCheckDesignState === 3"
               >查看设计</el-button>
               <el-button
                 @click="SJTG(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
+                v-if="scope.row.demandorCheckDesignState === 1"
               >通过</el-button>
               <el-button
                 @click="SJJJ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
+                v-if="scope.row.demandorCheckDesignState === 1"
               >拒绝</el-button>
             </template>
           </el-table-column>
@@ -453,7 +452,7 @@
       </div>
 
       <!-- 修改时间弹出框 -->
-      <el-dialog :visible.sync="changeTimeDialog" width="40%">
+      <el-dialog :visible.sync="changeTimeDialog" width="70%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入修改的时间</div>
         <br />
         <br />
@@ -2500,10 +2499,10 @@ export default {
     padding: 18px 0;
   }
   .changeTimeButton {
-    margin: 0 0 0 400px;
+    margin: 0 0 0 300px;
   }
   .changeTimeFrom {
-    margin: 0 0 0 100px;
+    margin: 0 0 0 80px;
   }
   .box-card {
     width: 960px;
