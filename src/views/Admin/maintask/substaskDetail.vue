@@ -488,6 +488,7 @@
                       <el-date-picker
                         type="datetime"
                         placeholder="选择日期"
+                        :disabled = "finishTimeState"
                         v-model="finishTime1"
                         style="width: 100%;"
                         value-format="yyyy-MM-dd hh:mm:ss"
