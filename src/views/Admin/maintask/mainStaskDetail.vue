@@ -1516,6 +1516,8 @@ export default {
   filters: {
     formatDate(time) {
       if (time != 0) {
+        console.log("time")
+        console.log(time)
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
