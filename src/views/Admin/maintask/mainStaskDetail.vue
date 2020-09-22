@@ -1201,7 +1201,6 @@
             class="table"
             ref="multipleTable"
             header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
           >
             <el-table-column label="序号" type="index" width="55" align="center">
               <template slot-scope="scope">
@@ -1631,7 +1630,7 @@ export default {
           url: "/api/SubstaskInformation/updateAllTime",
           data: data,
         })
-        .then((response) => {
+        .then((response ) => {
           console.log("finish");
           this.changeTimeDialog = false;
         });
