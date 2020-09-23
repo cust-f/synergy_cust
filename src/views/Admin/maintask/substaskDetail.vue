@@ -1002,6 +1002,7 @@ export default {
       }
     },
     xiugaixuqiuxinxi() {
+      var mainTaskState;
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng =
           this.WZLJ + "linklink" + this.technicalFileWanzheng;
@@ -1009,6 +1010,11 @@ export default {
       }
       if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng = this.WZLJ;
+      }
+      if(this.cool.taskState === "进行中"){
+        mainTaskState = 0
+      }else   if(this.cool.taskState === "已完成"){
+        mainTaskState = 1
       }
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
@@ -1025,6 +1031,7 @@ export default {
         mainTaskDetail: this.cool.mainTaskDetail,
         username: this.usernameX,
         finishTime1: this.finishTime1,
+        taskState:mainTaskState,
       });
       that
         .axios({
