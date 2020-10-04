@@ -1027,7 +1027,7 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  v-model="cool.publishTime"
+                  v-model="publishTime1"
                   value-format="yyyy-MM-dd HH:mm:ss"
                   style="width: 100%;"
                 ></el-date-picker>
@@ -1039,7 +1039,7 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  v-model="cool.deadline"
+                  v-model="deadline1"
                   value-format="yyyy-MM-dd HH:mm:ss"
                   style="width: 100%;"
                 ></el-date-picker>
@@ -1067,6 +1067,7 @@
                 <el-select
                   v-model="cool.taskType"
                   placeholder="请选择"
+                  :disabled="true"
                   class="selectsupply"
                   @change="liebieShu"
                   style="width:100%;"
@@ -1246,6 +1247,8 @@ export default {
 
   data() {
     return {
+      publishTime1:"",
+      deadline1:"",
       applyRefuse: 0,
       planRefusse: 0,
       logo: "",
@@ -1515,6 +1518,8 @@ export default {
   filters: {
     formatDate(time) {
       if (time != 0) {
+        console.log("time")
+        console.log(time)
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
@@ -1728,8 +1733,8 @@ export default {
         var data = Qs.stringify({
           userName: this.usernameX,
           taskName: this.cool.taskName,
-          publishTime: this.cool.publishTime,
-          endLine: this.cool.deadline,
+          publishTime: this.publishTime1,
+          endLine: this.deadline1,
           mainStaskTypeID: this.mainStaskTypeID,
           subStaskTypeID: this.subStaskTypeID,
           yaoqing: 0,
@@ -2023,6 +2028,10 @@ export default {
 
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
+          this.publishTime1 = response.data.allData.a[0].publishTime;
+          this.publishTime1 = new Date( this.publishTime1);
+          this.deadline1 = response.data.allData.a[0].deadline;
+          this.deadline1 = new Date( this.deadline1);
           this.milepostActive = response.data.allData.a[0].taskState;
           if (this.milepostActive == "计划提交") {
             this.milepostActive = 1;
