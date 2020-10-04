@@ -960,7 +960,7 @@ html #layuicss-layer {
   animation-duration: .2s
 }
 
-@media screen and (max-width:1100px) {
+@media screen and (max-width: 1100px) {
   .layui-layer-iframe {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch
@@ -1121,7 +1121,8 @@ html #layuicss-layer {
 }
 
 /*改*/
-.user_middle .user_dl .user_dl_right #user_dl_qh div ul {}
+.user_middle .user_dl .user_dl_right #user_dl_qh div ul {
+}
 
 .user_middle .user_dl .user_dl_right #user_dl_qh div ul li {
   border: solid 1px #dedede;

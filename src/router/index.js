@@ -37,7 +37,6 @@ import circulationAcceptList from '@/views/admin/personnel_allotment/circulation
 import circulationFinishList from '@/views/admin/personnel_allotment/circulationFinishList' //流通人员已完成界面
 
 
-
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff' //新增人员
 import newTask from '@/views/admin/Task/newTask' //新增任务
@@ -100,22 +99,27 @@ import taskDetail1 from '@/views/admin/circulation/taskDetail1' //分解任务�
 //测试界面========================
 import cityTest from '@/views/Test/cityTest'
 
-Vue.use(Router)
+//供应商提交任务清单界面
+import SubmitChecklist from   '@/views/Admin/supplier/assembly/SubmitChecklist'
+
+//供应方自己修改需求方的各项申请
+import deliveryListUpdate  from '@/views/Admin/supplier/assembly/deliveryListUpdate'
+Vue.use(Router)  
 
 export default new Router({
   routes: [{
-      path: '/',
-      redirect: '/Home'
-    },
+    path: '/',
+    redirect: '/Home'
+  },
     {
       path: '/Front',
       name: 'Front',
       component: Front,
       children: [{
-          path: '/home',
-          name: 'Home',
-          component: Home
-        },
+        path: '/home',
+        name: 'Home',
+        component: Home
+      },
         {
           path: '/register',
           name: 'register',
@@ -595,6 +599,17 @@ export default new Router({
       path: '/cityTest',
       name: 'cityTest',
       component: cityTest
+    },
+    {
+      path:'/admin/SubmitChecklist',
+      name:'SubmitChecklist',
+      component:SubmitChecklist
+    },
+    //供应方自己修改需求方的各项申请
+    {
+      path:'/deliveryListUpdate',
+      name:'deliveryListUpdate',
+      component:deliveryListUpdate
     },
   ]
 })
