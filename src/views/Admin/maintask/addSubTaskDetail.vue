@@ -75,6 +75,7 @@
                   placeholder="请选择"
                   class="selectsupply"
                   style="width:100%;"
+                  @change="leibieChanged"
                 >
                   <el-option
                     v-for="leibie in Task"
@@ -194,9 +195,11 @@
 
         <!-- <el-button @click="addVisible = false">取 消</el-button> -->
         <div align="right">
+          <el-button type="primary" @click="bianjitanchu" :style="{display:fahuo}">编辑发货清单</el-button>
           <el-button type="primary" @click="saveAdd11">确 定</el-button>
         </div>
       </div>
+
       <el-divider></el-divider>
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">专利转移</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <!-- 专利表格 -->
@@ -237,7 +240,92 @@
           </el-table-column>
         </el-table>
       </div>
+
+      <!-- 编辑发货清单弹出框 -->
+      <div class="consignment">
+        <el-dialog title :visible.sync="bianjiTC" width="50%">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>
+          <br />
+          <el-form ref="form" label-width="110px" class="box">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="发货截止时间">
+                  <el-date-picker
+                    type="datetime"
+                    placeholder="选择日期"
+                    v-model="consignmentTimeLatest"
+                    style="width: 100%;"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="联系方式">
+                  <el-input v-model="contactNumber"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品名称">
+                  <el-input v-model="productName"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="产品规格">
+                  <el-input v-model="productModel"></el-input>
+                </el-form-item>
+                
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品数量">
+                  <el-input v-model="productNum"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="产品单价">
+                  <el-input v-model="productPrice"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+             <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品总金额">
+                  <el-input readonly="readonly" v-model="productTotal"></el-input>
+                </el-form-item>
+              </el-col>
+              
+            </el-row>
+
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="备注">
+                  <el-input
+                    type="textarea"
+                    :rows="3"
+                    style="width:100%;"
+                    placeholder="请输入内容"
+                    v-model="productNotes"
+                    class="gongsiDetail"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="bianjiTC = false">取 消</el-button>
+            <el-button type="primary" @click="deliverySave">确 定</el-button>
+          </span>
+        </el-dialog>
+      </div>
     </el-main>
+   
   </el-container>
 </template>
 
@@ -246,6 +334,7 @@ import Qs from "qs";
 export default {
   name: "addSubTaskDetail",
   data() {
+    
     return {
       // =====================================================================
       // 新增子任务
@@ -313,15 +402,29 @@ export default {
       //文件数目
       WJSM: "",
       FZR: [{}],
-      xiugaiTC: false,
+      bianjiTC: false,
       //xiugaixuqiu
       zhurenwuxiangxi: "",
       sfsmkj: false, //是否私密指派
       liebieList: { supplyCompany: "" },
       fileList: [],
       usernameX: sessionStorage.getItem("ms_username"),
+
       visiblehexin: "none",
       shenqing: "none",
+
+      fahuo:"none",
+      shifoufahuo:"",
+      consignmentTimeLatest: "",
+      productName:"",
+      productModel:"",
+      productNum:"",
+      productPrice:"", 
+      productTotal:"", 
+      productNotes:"",
+      contactNumber:"",
+      taskID:"",
+
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -416,6 +519,7 @@ export default {
       }
     },
     invitate(coo) {
+
       if (coo == 0) {
         this.visiblehexin = "inline";
         this.shenqing = "none";
@@ -438,6 +542,9 @@ export default {
         if (this.cooList.shifousimi != 1) {
           this.cooList.shifousimi = 0;
         }
+        //记录提交前的任务类别
+        var bianjifahuo=this.addList.taskType;
+
         var that = this;
         var data = Qs.stringify({
           userName: this.usernameX,
@@ -467,18 +574,74 @@ export default {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
           .then((response) => {
-            if (response.data == "成功") {
+            if (response.data !==null) {
+              //存储发货清单
+              console.log(response.data)
               this.$message.success("提交成功");
               this.technicalFileWanzheng = "";
               this.addList = {};
-              // 此处返回到详情界面
-              this.goBack();
+
+              //根据任务类别 显示编辑按钮
+              if (bianjifahuo == 1) {
+                this.fahuo = "inline";
+              }
+              //保存taskId
+              that.taskID = response.data;
+
+              //此处返回到详情界面
+              //this.goBack();
             }
           })
           .catch((error) => {
             console.log(error);
           });
       }
+    },
+    deliverySave(){
+      var that = this;
+      //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空
+      //====发货清单数据====
+      var data = Qs.stringify({
+        taskId: this.taskID,
+        consignmentTimeLatest: this.consignmentTimeLatest,
+        productName:this.productName,
+        productModel:this.productModel,
+        productNumber:this.productNum,
+        productPrice:this.productPrice, 
+        totalPrice:this.productTotal, 
+        consignmentNotes:this.productNotes,
+        contactNumber:this.contactNumber,
+
+        deliveryTime:this.consignmentTimeLatest,
+        //deliveryTime:"0000-00-00 00:00:00",
+        consignmentState:"0",//未发货
+        shippingAddress:"暂无地址",
+        
+      });
+      that
+          .axios({
+            method: "post",
+            url: "/api/addConsignment/add",
+            data: data,
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          })
+          .then((response) => {
+            if (response.data == "成功") {
+              this.$message.success("添加发货信息成功");
+              this.consignmentTimeLatest="";
+              this.productName="";
+              this.productModel="";
+              this.productNum="";
+              this.productPrice=""; 
+              this.productTotal=""; 
+              this.productNotes="";
+              this.contactNumber="";
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
     },
     // =================================================================
     //上传文件
@@ -624,11 +787,32 @@ export default {
         });
       //如果不在核心供应商列表里面则自动添加
     },
+   
+
+    bianjitanchu() {
+      this.bianjiTC = true;
+    },
+  },
+  watch:{
+    //监听productNum的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
+    productNum:function(val){
+      this.productTotal = parseInt(this.productPrice) * parseInt(val);
+      if(isNaN(this.productTotal)){
+        this.productTotal = "";
+			}
+    },
+    //监听productPrice的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
+    productPrice:function(val){
+      this.productTotal = parseInt(val) * parseInt(this.productNum);
+      if(isNaN(this.productTotal)){
+        this.productTotal = "";
+			}
+    },
   },
 };
 </script>
 
-<style >
+<style lang="scss">
 .biaoti {
   font-size: 18px;
   color: #303133;
@@ -640,5 +824,21 @@ export default {
 /* //返回字体 */
 .el-page-header__title {
   font-size: 18px;
+}
+
+.consignment{
+  .el-dialog__body {
+    padding-right: 0px;
+    padding-top: 20px;
+  }
+  .el-dialog__header {
+    padding-right: 0%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+   .el-dialog__footer {
+    padding-right: 40px;
+  }
+
 }
 </style>
