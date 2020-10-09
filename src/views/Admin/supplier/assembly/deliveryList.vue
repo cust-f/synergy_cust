@@ -4,6 +4,7 @@
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
       发货清单
     </div>
+ 
     <br />
     <el-table
       :data="deliveryList"
@@ -70,170 +71,164 @@
       </el-table-column>
 
       <el-table-column label="操作" width="180" align="center">
-        <template slot-scope="scope">
-          <el-button
-            @click="upLoadCirculationPlan(scope.row)"
-            type="text"
-            size="small"
-            v-show="scope.row.demandorCheckDesignState === 0"
+        <template>
+          <el-button @click="showData()" type="text" size="small"
             >查看</el-button
-          >
-          <el-button
-            type="text"
-            size="small"
-            @click="FHQDFileHistory()"
-            v-show="scope.row.demandorCheckDesignState > 0"
-            >历史上传</el-button
           >
         </template>
       </el-table-column>
     </el-table>
 
-    <!-- 上传流通规格书 -->
+    <!-- 查看弹窗的内容 -->
     <el-dialog
       :visible.sync="upCirculation"
       width="1000px"
       :before-close="handleClose"
     >
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5">
-      
-      </div>
-      <br />
-      <el-form ref="form" label-width="110px" class="box">
-        <el-table
-          ref="multipleTable"
-          :data="tableData"
-          tooltip-effect="dark"
-          style="width: 100%"
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column type="selection" width="55"> </el-table-column>
-          <el-table-column
-          label="序号"
-          type="index"
-          width="50"
-          align="center"
-          >
-            <template slot-scope="scope">
-                    <span>{{scope.$index+1}}</span>
-                    </template>             
-          </el-table-column>
-          <el-table-column
-            prop="Product_Name"
-            label="产品名称"
-            width="100"
-          ></el-table-column>
-          <el-table-column
-            prop="Delivery_Time"
-            label="发货时间"
-            width="100"
-          ></el-table-column>
-          <el-table-column
-            prop="Consignment_Time_Latest"
-            label="发货截至时间"
-            width="120"
-          ></el-table-column>
-          <el-table-column prop="Consignment_State" label="发货状态" width="100">
-            <template slot-scope="scope">
-              <el-tag v-if="+scope.row.Consignment_State === 0" type="info">待发货</el-tag>
-              <el-tag v-else-if="+scope.row.Consignment_State === 1">已发货</el-tag>
-              <el-tag v-else-if="+scope.row.Consignment_State === 2" type="success">已完成</el-tag>
-              <el-tag v-else type="danger">拒绝</el-tag>
-            </template>
-          </el-table-column>
-           <el-table-column
-            prop="Product_Number"
-            label="产品数量"
-            width="100"
-          ></el-table-column>
-          <el-table-column prop="Product_Model" label="产品规格" width="100"></el-table-column>
-          <el-table-column
-            prop="Consignment_Notes"
-            label="发货清单备注"
-            width="120"
-          ></el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
-              <el-button @click="success()" type="text" size="small"
-                >提交</el-button
-              >
-          </el-table-column>
-        </el-table>
-        <div style="margin-top: 20px">
-          <el-button @click="success()">全部提交</el-button>
-          <el-button @click="toggleSelection()">取消选择</el-button>
-          <el-button @click="toggleSelection()">导出Excel文件</el-button>
-        </div>
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :page-size="pageSize"
-          :total="total"
-          @current-change="page"
-        >
-        </el-pagination>
-      </el-form>
-    </el-dialog>
-
-    <!-- 文件历史 -->
-    <el-dialog title :visible.sync="fileHistoryDia" width="55%">
       <div
         class="biaoti"
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
-        文件历史
+        发货清单
       </div>
+            <div style="margin-top: 10px;">
+          <el-button
+            style="float: left;margin-bottom: 10px"
+            type="primary"
+            @click="submit2()"
+            size="small"
+            >全部提交</el-button
+          > 
+      </div> 
+      <br/>
+      
+      <div style="padding: 0 10px; border-left: 3px solid #4e58c5"></div>
       <br />
-      <br />
-      <div>
+      <el-form ref="form" label-width="100px" class="box">
         <el-table
-          :data="fileHistoryMessage"
-          border
-          class="table"
           ref="multipleTable"
-          header-cell-class-name="table-header"
+          :data="
+            tableData.slice((pageIndex - 1) * pageSize, pageIndex * pageSize)
+          "
+          tooltip-effect="dark"
+          style="width: 100%"
+          @selection-change="handleSelectionChange"
         >
-          <el-table-column label="序号" type="index" width="55" align="center">
+          <el-table-column type="selection" width="55" prop="checkox">
+          </el-table-column>
+          <el-table-column
+            label="序号"
+            type="index"
+            width="50"
+            align="center"
+            prop="consignmentId"
+          >
             <template slot-scope="scope">
               <span>{{ scope.$index + 1 }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="fileName" label="文件名" align="center">
+          <el-table-column
+            prop="productName"
+            label="产品名称"
+            width="100"
+          ></el-table-column>
+          <!-- <el-col :span="11">
+                <el-form-item label="截止日期">
+                  <el-input
+                    v-bind:value="cool.deadline|formatDate"
+                    :disabled="true"
+                    style="text-align:center"
+                  ></el-input>
+                </el-form-item>
+              </el-col> -->
+          <el-table-column prop="deliveryTime" label="发货时间" width="160"
+            ><template slot-scope="scope">
+              <el-span>{{ scope.row.deliveryTime | formatDate }}</el-span>
+            </template></el-table-column
+          >
+          <el-table-column
+            prop="consignmentTimeLatest"
+            label="发货截至时间"
+            width="160"
+            ><template slot-scope="scope">
+              <el-span>{{
+                scope.row.consignmentTimeLatest | formatDate
+              }}</el-span>
+            </template></el-table-column
+          >
+          <el-table-column prop="consignmentState" label="发货状态" width="100">
             <template slot-scope="scope">
-              <el-link @click.native="downloadFile(scope.row)">{{
-                scope.row.fileName
-              }}</el-link>
+              <el-tag v-if="+scope.row.consignmentState === 0" type="info"
+                >待发货</el-tag
+              >
+              <el-tag v-else-if="+scope.row.consignmentState === 1"
+                >已发货</el-tag
+              >
+              <el-tag
+                v-else-if="+scope.row.consignmentState === 2"
+                type="success"
+                >已完成</el-tag
+              >
+              <el-tag
+                v-else-if="+scope.row.consignmentState === 3"
+                type="danger"
+                @click="open(scope.row, scope.$index)"
+                >拒绝
+              </el-tag>
             </template>
           </el-table-column>
           <el-table-column
-            prop="publishingCompanyName"
-            label="发布企业"
-            width="180"
-            align="center"
+            prop="productNumber"
+            label="产品数量"
+            width="100"
           ></el-table-column>
           <el-table-column
-            prop="fileType"
+            prop="productModel"
+            label="产品规格"
             width="100"
-            label="文件类型"
+          ></el-table-column>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            width="120"
             align="center"
           >
-            <template slot-scope="scope" align="center">
-              <span v-if="scope.row.fileType === 0">合同文件</span>
-              <span v-else-if="scope.row.fileType === 1">发货清单</span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="filePath"
-            width="100"
-            label="文件地址"
-            v-if="yinCang === 0"
-          ></el-table-column>
-          <el-table-column prop="uploadTime" label="上传时间">
             <template slot-scope="scope">
-              <el-span>{{ scope.row.uploadTime | formatDate }}</el-span>
+              <el-button
+                v-show="
+                  +scope.row.consignmentState == 0 ||
+                  scope.row.consignmentState == 3
+                "
+                @click="submit(scope.row)"
+                type="text"
+                size="small"
+                >提交</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
-      </div>
+        <!-- <div style="margin-top: 20px">
+          <el-button
+            style="float: right"
+            type="primary"
+            @click="submit2()"
+            size="small"
+            >全部提交</el-button
+          > -->
+          <!-- <el-button type="primary" @click="toggleSelection()">取消选择</el-button> -->
+       <!--  </div> -->
+        <div class="pagination">
+          <el-pagination
+            background
+            layout="prev, pager, next, sizes, total, jumper"
+            :current-page="pageIndex1"
+            :page-size="pageSize"
+            :total="tableData.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+          ></el-pagination>
+        </div>
+      </el-form>
     </el-dialog>
   </div>
 </template>
@@ -243,6 +238,9 @@ import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+      pageIndex: 1,
+      pageIndex1: 1,
+      pageSize: 10,
       fileType: 0,
       taskId: 0,
       yinCang: 1,
@@ -267,24 +265,28 @@ export default {
       technicalFileWanzheng: "",
       filePath: "",
       uploadTime: "",
+      multipleSelection: [],
       tableData: [
         {
-          Consignment_ID: "1000015",
-          Task_Id: "1-1",
-          Product_Name:"华子",
-          Delivery_Time:'',
-          Consignment_Time_Latest: "2020.10.5",
-          Consignment_State: "",
-          Product_Number: "5",
-          Product_Model:"很大很大",
-          Product_Price: "500",
-          Contact_number:"18904402315",
-          Shipping_address:"",
-          Total_Price: "2500",
-          Consignment_Notes: "麻烦快点谢谢",
+          consignmentId: "1000015",
+          taskId: "1-1",
+          productName: "华子",
+          deliveryTime: "",
+          consignmentTimeLatest: "2020.10.5",
+          consignmentState: "",
+          productNumber: "5",
+          productModel: "很大很大",
+          productPrice: "500",
+          contactnumber: "18904402315",
+          shippingaddress: "",
+          totalPrice: "2500",
+          consignmentNotes: "麻烦快点谢谢",
+          checkox: "",
+          refuseReason: "",
         },
-        
       ],
+
+      Data_checkox: [],
     };
   },
 
@@ -295,6 +297,15 @@ export default {
     },
   },
   methods: {
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+     },
+    add() {
+      var _this = this;
+      _this.data.push({
+        checkox: _this.checkox,
+      });
+    },
     //获得信息
     getMsg(msg) {
       this.deliveryList = msg;
@@ -306,7 +317,7 @@ export default {
     },
 
     //取消选择的方法
-    toggleSelection(rows) {
+    /* toggleSelection(rows) {
       if (rows) {
         rows.forEach((row) => {
           this.$refs.multipleTable.toggleRowSelection(row);
@@ -314,8 +325,8 @@ export default {
       } else {
         this.$refs.multipleTable.clearSelection();
       }
-    },
-    //分页功能的实现
+    }, */
+   /*  //分页功能的实现
     page(currentPage) {
       const _this = this;
       axios.get("" + (currentPage - 1) + "/6").then(function (resp) {
@@ -324,7 +335,7 @@ export default {
         _this.pageSize = resp.data.size;
         _this.total = resp.data.totalElements;
       });
-    },
+    }, */
     /* //发货清单下载
     FFQDXZ(row) {
       var that = this;
@@ -394,10 +405,140 @@ export default {
       document.body.appendChild(link);
       link.click();
     }, */
-    //上传流通计划书
-    upLoadCirculationPlan() {
+
+    //把数据库表格中的内容显示到上面
+    showData() {
       this.upCirculation = true;
+      var that = this;
+      //alert(this.$refs.refProductName.innerHTML);
+      var data = Qs.stringify({
+        taskId: this.taskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/consignment/findConsignmentByTaskId",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+          console.log(this.tableData);
+        });
     },
+
+    submit(row) {
+      this.$confirm("确定提交吗？", "提示", {
+        type: "warning",
+      }).then(() => {
+        var that = this;
+        var data = Qs.stringify({
+          consignmentId: row.consignmentId,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/consignment/submit",
+            data: data,
+          })
+          .then((response) => {
+            this.tableData = response.data.allData;
+          });
+        this.$message({
+          message: "审核通过",
+          type: "success",
+        });
+        this.showData();
+      });
+    },
+    //全部提交的实现
+    submit2() {
+      // alert(this.multipleSelection.length)
+      // alert(this.multipleSelection[0].productName )
+      for (var i = 0; i < this.multipleSelection.length; i++) {
+        var that = this;
+        var data = Qs.stringify({
+          consignmentId: this.multipleSelection[i].consignmentId,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/consignment/submit",
+            data: data,
+          })
+          .then((response) => {
+            this.tableData = response.data.allData;
+          });
+        this.$message({
+          message: "审核通过",
+          type: "success",
+        });
+      }
+      this.showData();
+    },
+
+    //拒绝原因弹出框
+    open(row, index) {
+      console.log(this.tableData[index].refuseReason);
+      this.$alert(this.tableData[index].refuseReason, "拒绝原因", {
+        confirmButtonText: "确定",
+      });
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+    //列表日期时间格式化
+
+    /*    Data_checkox =this.tableData.checkox;
+        for(var i=0;i<this.Data_checkox.length;i++){
+          var isChecked=Data_checkox[i].checkox;
+          if(isChecked==true){
+            this.submit(row);
+          }
+        } */
+
+    /* submit2(row) {
+      Data_checkox = this.tableData.checkox;
+      for (var i = 0; i < this.Data_checkox.length; i++) {
+        var isChecked = Data_checkox[i].checkox;
+        if (isChecked == true) {
+          this.$confirm("确定提交吗？", "提示", {
+            type: "warning",
+          }).then(() => {
+            var that = this;
+            var data = Qs.stringify({
+              consignmentId: row.consignmentId,
+            });
+            that
+              .axios({
+                method: "post",
+                url: "/api/consignment/submit",
+                data: data,
+              })
+              .then((response) => {
+                this.tableData = response.data.allData;
+                console.log(this.tableData);
+              });
+            this.$message({
+              message: "审核通过",
+              type: "success",
+            });
+            this.showData();
+          });
+        }
+      }
+    },
+ */
+    // array = scope.row
+    //     for(var i = 0; i < array.length; i++) {
+    //       var isChecked = array[i].checkbox
+
+    //     if(isChecked == true) {
+    //          submit2("")
+    //       }
+    //     }
     /*
     submitUpload() {
       this.$refs.upload.submit();
@@ -410,7 +551,7 @@ export default {
     addRoutes1() {
       this.$router.push('/admin/SubmitChecklist')
     },
-    handleAvatarSuccess(response, file, fileList) {
+    handleAvatarsubmit(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
       this.technicalFileWanzheng =
         this.technicalFileWanzheng +
@@ -418,7 +559,7 @@ export default {
         "linklink";
       console.log(this.technicalFileWanzheng)
       this.shangchuancishu = this.shangchuancishu + 1;
-      this.$notify.success({
+      this.$notify.submit({
         title: "成功",
         message: `文件上传成功`
       });
