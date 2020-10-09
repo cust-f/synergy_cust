@@ -2,318 +2,30 @@
   <div class="mainStaskDetaul">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <!-- <el-steps >
-        <el-step title="申请/邀请" icon="el-icon-edit"></el-step>
-        <el-step title="计划提交" icon="el-icon-upload"></el-step>
-        <el-step title="任务进行中" icon="el-icon-picture"></el-step>
-        <el-step title="审核" icon="el-icon-message-solid"></el-step>
-        <el-step title="验收" icon="el-icon-s-promotion"></el-step>
-        <el-step title="完成" icon="el-icon-s-claim"></el-step>
-      </el-steps>-->
-      <el-steps :active="milepostActive" align-center>
-        <el-step
-          v-for="(value, key) in milepost"
-          :class="milepostActive== key+1 ? stepActive: '' "
-          :title="value.title"
-          :icon="value.icon"
-          :description="value.description"
-          :key="key"
-        ></el-step>
-      </el-steps>
+      <!-- 步骤条组件 -->
+      <design-Steps ref="designSteps"></design-Steps>
       <br />
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-        基本信息
-        <el-button
-          v-if="this.milepostActive === 0"
-          type="text"
-          class="XG"
-          style="float:right"
-          @click="XG"
-        >修改</el-button>
-      </div>
 
       <br />
-      <el-card class="box-card">
-        <div class="formYS">
-          <el-form ref="cool" :model="cool" label-width="110px" class="form">
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="需求名称">
-                  <template slot-scope="scope">
-                    <el-button
-                      class="anniu"
-                      type="primary"
-                      text-decoration="underline"
-                      @click="ziTaskDetail(scope.row)"
-                    >{{cool.mainTaskName}}</el-button>
-                  </template>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="子任务名称">
-                  <el-button
-                    class="anniu"
-                    type="primary"
-                    text-decoration="underline"
-                    @click="xiazaiTaskDetail()"
-                  >{{cool.taskName}}</el-button>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="需求类型">
-                  <el-input v-model="cool.taskType" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="供应方">
-                  <el-input v-model="cool.acceptCompanyName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="一级行业类别">
-                  <el-input
-                    v-model="cool.taskCategoryMain"
-                    :disabled="true"
-                    style="text-align:center"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="二级行业类别">
-                  <el-input v-model="cool.taskCategoryPart" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="截止日期">
-                  <el-input
-                    v-bind:value="cool.deadline|formatDate"
-                    :disabled="true"
-                    style="text-align:center"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="需求方电话">
-                  <el-input v-model="cool.demanderTel" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-      </el-card>
+      <!-- 基本信息组件 -->
+      <x-EssentialInformation ref="xEssentialInformation"></x-EssentialInformation>
       <br />
       <br />
 
       <div v-show="milepostActive1">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请列表</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-table
-          :data="tableData1"
-          border
-          class="table1"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
-        >
-          <!-- mainTaskID冲-->
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" width="250" label="供应商">
-            <template slot-scope="scope">
-              <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
-            </template>
-          </el-table-column>
-          <el-table-column prop="supplierTel" label="联络电话" width="120"></el-table-column>
-          <el-table-column prop="applyWay" label="承接方式" width="80">
-            <template slot-scope="scope">
-              <span v-if="+scope.row.applyWay === 0">邀请</span>
-              <span v-else-if="+scope.row.applyWay === 1">申请</span>
-              <span v-else>其他</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="checkApplyState" label="申请/邀请状态" align="center">
-            <template slot-scope="scope">
-              <el-tag v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
-              <el-tag v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
-              <el-tag v-else type="danger">拒绝</el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column prop="applyTime" label="申请/邀请时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.applyTime === 0">暂未申请</el-span>
-              <el-span v-if-else>{{scope.row.applyTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-
-          <el-table-column label="操作" align="center">
-            <template slot-scope="scope">
-              <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-              >废除</el-button>-->
-
-              <el-button @click="changeTime(scope.row)" size="small" type="text">修改</el-button>
-
-              <el-button
-                @click="SQTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.checkApplyState===0&&scope.row.applyWay===1"
-              >通过</el-button>
-              <el-button
-                @click="SQJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.checkApplyState===0&&scope.row.applyWay===1"
-              >拒绝</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <apply-Table ref="applyTable"></apply-Table>
         <br />
         <br />
       </div>
 
       <div v-show="milepostActive2">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务计划</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <br />
-        <el-table
-          :data="tableData2"
-          border
-          class="table1"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
-        >
-          <!-- mainTaskID冲-->
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="companyName" label="供应商" width="250"></el-table-column>
-          <el-table-column prop="checkPlanState" label="审核状态" align="center">
-            <template slot-scope="scope">
-              <el-tag v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
-              <el-tag v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
-              <el-tag v-else-if="+scope.row.checkPlanState === 2" type="success">通过</el-tag>
-              <el-tag v-else type="danger">拒绝</el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column prop="planUploadTime" label="上传时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
-              <el-span v-else>{{scope.row.planUploadTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="checkPlanTime" label="审核时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.checkPlanTime === 0">暂未审核</el-span>
-              <el-span v-else>{{scope.row.checkPlanTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" align="center">
-            <template slot-scope="scope">
-              <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-              >废除</el-button>-->
-              <el-button
-                @click="RWJHXZ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.checkPlanState !==0 &&scope.row.checkPlanState !==3"
-              >下载</el-button>
-              <el-button
-                @click="JHSTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.checkPlanState===1"
-              >通过</el-button>
-              <el-button
-                @click="JHSJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.checkPlanState===1"
-              >拒绝</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <mission-Plan ref="missionPlan"></mission-Plan>
         <br />
         <br />
       </div>
 
       <div v-show="milepostActive3">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同管理</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <br />
-        <el-table
-          :data="tableData3"
-          border
-          class="table1"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
-        >
-          <!-- mainTaskID冲-->
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
-          <el-table-column prop="contractState" label="审核状态" align="center">
-            <template slot-scope="scope">
-              <el-tag v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
-              <el-tag v-else-if="+scope.row.contractState === 1">待审核</el-tag>
-              <el-tag v-else-if="+scope.row.contractState === 2" type="success">通过</el-tag>
-              <el-tag v-else type="danger">拒绝</el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column prop="uploadContractTime" label="上传时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.uploadContractTime === 0">暂未上传</el-span>
-              <el-span v-else>{{scope.row.uploadContractTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="checkContractTime" label="审核时间">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.checkContractTime === 0">暂未审核</el-span>
-              <el-span v-else>{{scope.row.checkContractTime | formatDate}}</el-span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" align="center">
-            <template slot-scope="scope">
-              <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-              >废除</el-button>-->
-              <el-button
-                type="text"
-                size="small"
-                v-if="scope.row.contractState!==0"
-                @click="HTXZ(scope.row)"
-              >下载</el-button>
-
-              <el-button
-                @click="HTSHTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.contractState===1 "
-              >通过</el-button>
-              <el-button
-                @click="HTSHJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.contractState===1"
-              >拒绝</el-button>
-              <el-button type="text" size="small" @click="CKLSHT(scope.row)">历史上传</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <contract-Management ref="contractManagement"></contract-Management>
         <br />
         <br />
       </div>
@@ -734,462 +446,6 @@
         </span>
       </el-dialog>
 
-      <!-- qiyedetail -->
-
-      <el-dialog title :visible.sync="addVisibleCD" width="50%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
-        <br />
-        <div width="500" align="center" height="200px">
-          <el-image :src="imgsrc" :onerror="errorImg01"></el-image>
-        </div>
-        <br />
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
-        <br />
-
-        <div width="500" align="center" height="200px">
-          <el-image :src="qiyezhizhao" :onerror="errorImg02"></el-image>
-        </div>
-        <br />
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
-        <br />
-
-        <div width="500" align="center" height="200px">
-          <el-image :src="shuiwudengjizheng" :onerror="errorImg03"></el-image>
-        </div>
-        <br />
-
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
-        <br />
-        <br />
-        <div style="width:800px;height:250px">
-          <div style="float: left">
-            <el-image
-              align="left"
-              style="width:200px;height:200px"
-              :src="logo"
-              :onerror="errorImg00"
-            ></el-image>
-          </div>
-
-          <div style="float: right;width:490px;height:250px">
-            <br />
-            <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
-            <br />
-            <div align>
-              <font size="5">{{ form.companyName}}</font>
-            </div>
-            <br />
-            <div align>
-              <font size="4">{{ form.officeNumber}}</font>
-            </div>
-          </div>
-        </div>
-        <div align="right" class="formYS">
-          <el-form ref="form" :model="form" label-width="100px">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业名称">
-                  <el-input v-model="form.companyName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="企业联络电话">
-                  <el-input v-model="form.businessTel" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业所在省份">
-                  <el-input v-model="form.province" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="企业所在县市">
-                  <el-input v-model="form.city" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业地址">
-                  <el-input v-model="form.address" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="邮政编码">
-                  <el-input v-model="form.postcode" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业成立时间">
-                  <el-input v-bind:value="form.foundingTime | formatDate" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="工商注册号">
-                  <el-input v-model="form.brNumber" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业业务范围">
-                  <el-input v-model="form.product" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="电子邮箱">
-                  <el-input v-model="form.email" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="企业联系人">
-                  <el-input v-model="form.businessName" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="办公室电话">
-                  <el-input v-model="form.officeNumber" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="注册资产">
-                  <el-input v-model="form.registeredCapital" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="总资本">
-                  <el-input v-model="form.totalAssets" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="固定资产">
-                  <el-input v-model="form.fixedAssets" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="流动资产">
-                  <el-input v-model="form.currentAssets" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="法人代表">
-                  <el-input v-model="form.legalPerson" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="员工人数">
-                  <el-input v-model="form.workerNumber" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="开户银行">
-                  <el-input v-model="form.deposit_Bank" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="银行账户">
-                  <el-input v-model="form.bankNumber" :disabled="true"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="24">
-                <el-form-item label="企业详情"></el-form-item>
-                <div class="leftDet" v-html="companyDetailContent"></div>
-                <!-- <el-form-item label="详细" >
-                            <el-input 
-                            type="textarea"
-                            :rows="1"
-                            style="width:100%;"
-                            placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
-                    </el-form-item>
-                -->
-              </el-col>
-            </el-row>
-          </el-form>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="addVisibleCD = false">关 闭</el-button>
-        </span>
-      </el-dialog>
-      <!-- 全部子任务 -->
-      <el-dialog :visible.sync="quanbuzirenwu" width="40%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">全部子任务</div>
-        <br />
-        <el-table
-          :data="zirenwu"
-          border
-          class="table"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="taskName" label="子任务名称"></el-table-column>
-          <el-table-column prop="taskState" label="子任务状态"></el-table-column>
-          <el-table-column prop="acceptCompanyName" label="供应方">
-            <template slot-scope="scope">
-              <el-span v-if="+scope.row.acceptCompanyName === 0"></el-span>
-              <el-span v-else>{{scope.row.acceptCompanyName}}</el-span>
-            </template>
-          </el-table-column>
-        </el-table>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="quanbuzirenwu = false">关 闭</el-button>
-        </span>
-      </el-dialog>
-      <!-- 子任务详情 + 下载 -->
-      <el-dialog :visible.sync="XZJXQ" width="50%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">子任务详情</div>
-        <br />
-        <el-form ref="form" :model="addList3" label-width="10px">
-          <el-row>
-            <el-col>
-              <el-form-item label>
-                <div>{{ zirenwuXX}}</div>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <br />
-          <!-- <el-card class="box-card"> -->
-          <div slot="header" class="clearfix"></div>
-          <div>
-            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">附件下载</div>
-            <el-table :data="fujian" class="customer-table" :show-header="false">
-              <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
-              <el-table-column>
-                <template slot-scope="scope">
-                  <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
-                </template>
-              </el-table-column>
-              <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
-            </el-table>
-          </div>
-          <!-- </el-card> -->
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="xiazaiZRWFJ">打包下载</el-button>
-          <el-button type="primary" @click="XZJXQ = false">关 闭</el-button>
-        </span>
-      </el-dialog>
-      <!--子任务修改 -->
-      <el-dialog :visible.sync="ZRWXG" width="50%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
-        <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="cool" label-width="120px">
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="任务名称">
-                <el-input v-model="cool.taskName"></el-input>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="11">
-              <el-form-item label="联络电话">
-                <el-input v-model="cool.demanderTel" @blur="animate()"></el-input>
-                <font color="red">
-                  <el-span v-if="this.cool.demanderTel === null">您的联络电话格式输入不正确</el-span>
-                </font>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="发布时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="cool.publishTime"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  style="width: 100%;"
-                ></el-date-picker>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="11">
-              <el-form-item label="截止时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="cool.deadline"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  style="width: 100%;"
-                ></el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="行业类别">
-                <el-cascader
-                  style="width:100%;"
-                  expand-trigger="hover"
-                  v-model="selectCateKeys"
-                  :options="xuanzelist"
-                  :props="cateProps"
-                  @change="handleChange"
-                  props.checkStrictly="true"
-                ></el-cascader>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="11">
-              <el-form-item label="任务类型">
-                <el-select
-                  v-model="cool.taskType"
-                  placeholder="请选择"
-                  class="selectsupply"
-                  @change="liebieShu"
-                  style="width:100%;"
-                >
-                  <el-option
-                    v-for="leibie in Task"
-                    :key="leibie.id"
-                    :label="leibie.label"
-                    :value="leibie.id"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="11">
-              <el-form-item label="新增供应商" :style="{display: true}">
-                <el-select
-                  v-model="SupplierListInt"
-                  multiple
-                  placeholder="请选择供应商"
-                  class="selectsupply"
-                  style="width:100%;"
-                >
-                  <el-option
-                    width="180"
-                    v-for="supplier in supplierCompany"
-                    :key="supplier"
-                    :label="supplier.companyName"
-                    :value="supplier.companyId"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="是否发布">
-                <el-select
-                  v-model="cooList.shifousimi"
-                  placeholder="请选择是或者否"
-                  class="selectsupply"
-                  @change="simizhiding"
-                  style="width:100%;"
-                >
-                  <el-option
-                    width="180"
-                    v-for="coo in shifousimi"
-                    :key="coo.id"
-                    :label="coo.label"
-                    :value="coo.id"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <font color="red">
-              <el-span class="simichakan" :style="{display:sm}">自身可见</el-span>
-              <el-span class="simichakan" :style="{display:busm}">全部可见</el-span>
-            </font>
-          </el-row>
-
-          <el-row>
-            <el-col :span="22">
-              <el-form-item label="分解任务详情">
-                <el-input v-model="cool.taskDetail" type="textarea" :rows="2"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="22">
-              <el-form-item label="附件下载">
-                <div>
-                  <el-table :data="fujian" class="customer-table" :show-header="false">
-                    <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
-                    <el-table-column>
-                      <template slot-scope="scope">
-                        <el-link
-                          style="color:#409EFF"
-                          @click.native="downloadFile(scope.row)"
-                        >{{scope.row.realName}}</el-link>
-                      </template>
-                    </el-table-column>
-                    <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
-                    <el-table-column label="操作" align="center" width="120">
-                      <template slot-scope="scope">
-                        <el-button
-                          size="small"
-                          type="text"
-                          icon="el-icon-delete"
-                          class="red"
-                          @click="shanchuwenjian(scope.row)"
-                        >删除文件</el-button>
-                      </template>
-                    </el-table-column>
-                  </el-table>
-                </div>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-form-item label="添加附件">
-            <el-upload
-              class="upload-demo"
-              action="/api/MainTaskInformation/import"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :on-success="handleAvatarSuccess"
-              multiple
-              :limit="10"
-              ref="upload"
-              :on-exceed="handleExceed"
-              :file-list="fileList"
-            >
-              <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
-            </el-upload>
-          </el-form-item>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="ZRWXG = false">取 消</el-button>
-          <el-button type="primary" @click="XGZRW">确 定</el-button>
-        </span>
-      </el-dialog>
       <!-- 文件历史 -->
       <el-dialog title :visible.sync="fileHistoryDia" width="55%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
@@ -1220,7 +476,7 @@
                 <span v-else-if="scope.row.fileType === 1">发货清单</span>
               </template>
             </el-table-column>
-            <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
+            <el-table-column prop="filePath" width="100" label="文件地址"></el-table-column>
             <el-table-column prop="uploadTime" label="上传时间">
               <template slot-scope="scope">
                 <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
@@ -1238,11 +494,22 @@ import Qs from "qs";
 import { formatDate } from "./dataChange";
 import radarChart from "./radarChart";
 
+import designSteps from "./assembly/designSteps";
+import xEssentialInformation from "./assembly/xEssentialInformation";
+import applyTable from "./assembly/applyTable";
+import missionPlan from "./assembly/missionPlan";
+import contractManagement from "./assembly/contractManagement";
+
 export default {
   inject: ["reload"],
   name: "mainStaskDetail",
   components: {
+    "design-Steps": designSteps,
     "radar-chart": radarChart,
+    "x-EssentialInformation": xEssentialInformation,
+    "apply-Table": applyTable,
+    "mission-Plan": missionPlan,
+    "contract-Management": contractManagement,
   },
 
   data() {
@@ -1459,6 +726,10 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" },
       ],
+      xEssentialInformation: [],
+      stepsMessage: [],
+      applyTable: [],
+      planTable: [],
       // 默认步骤数
       milepostActive: 1,
       // 动态添加类名
@@ -1932,7 +1203,12 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
     },
-
+    sendMsg() {
+      this.$refs.designSteps.getMsg(this.stepsMessage);
+      this.$refs.xEssentialInformation.getMsg(this.xEssentialInformation);
+      this.$refs.applyTable.getMsg(this.applyTable);
+      this.$refs.missionPlan.getMsg(this.planTable);
+    },
     showData() {
       var that = this;
       var data = Qs.stringify({
@@ -1947,41 +1223,24 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          this.stepsMessage[0] = response.data.allData.a;
+          this.stepsMessage[1] = response.data.allData.c;
+          this.stepsMessage[2] = response.data.allData.d;
+          this.stepsMessage[3] = response.data.allData.e;
+          this.xEssentialInformation[0] = response.data.allData.a[0];
+          this.xEssentialInformation[1] = response.data.allData.WZLJ;
+          this.xEssentialInformation[2] = response.data.allData.QBWJ;
+          this.xEssentialInformation[3] = response.data.allData.SM;
+          this.applyTable[0] = response.data.allData.a;
+          this.applyTable[1] = response.data.allData.b;
+          this.planTable = response.data.allData.b;
+
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
           console.log(this.tableData1);
-          if (this.tableData1.length != 0) {
-            console.log("this.tableData1");
-            //读取所有需求的时间
-            this.timeList.publishTime = response.data.allData.a[0].publishTime;
-            this.timeList.applyTime = response.data.allData.b[0].applyTime;
-            this.timeList.checkApplyTime =
-              response.data.allData.b[0].checkApplyTime;
-            this.timeList.planUploadTime =
-              response.data.allData.b[0].planUploadTime;
-            this.timeList.checkPlanTime =
-              response.data.allData.b[0].checkPlanTime;
-            this.timeList.beginTime = response.data.allData.a[0].beginTime;
-            this.timeList.deadLine = response.data.allData.a[0].deadLine;
-            this.timeList.uploadContractTime =
-              response.data.allData.a[0].uploadContractTime;
-            this.timeList.checkContractTime =
-              response.data.allData.a[0].checkContractTime;
-            this.timeList.supplierDistributionTime =
-              response.data.allData.a[0].supplierDistributionTime;
-            this.timeList.designerAcceptTime =
-              response.data.allData.a[0].designerAcceptTime;
-            this.timeList.uploadDesignTime =
-              response.data.allData.a[0].uploadDesignTime;
-            this.timeList.supplierCheckDesignTime =
-              response.data.allData.a[0].supplierCheckDesignTime;
-            this.timeList.demandorCheckDesignTime =
-              response.data.allData.a[0].demandorCheckDesignTime;
-            this.timeList.finishTime = response.data.allData.a[0].finishTime;
-            //读取时间结束
-          }
+
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
           this.selectCateKeys[0] =
             response.data.allData.a[0].taskCategoryMainId;
@@ -2008,7 +1267,6 @@ export default {
             this.milepostActive4 = 0;
           }
 
-          console.log("cehsi" + response.data.allData.f);
           if (response.data.allData.f === null) {
             this.milepostActive5 = 0;
           }
@@ -2043,39 +1301,10 @@ export default {
           } else {
             this.cool.taskType = "流通任务";
           }
-          if (this.milepostActive >= 0) {
-            this.milepost[0].description = this.$options.filters["formatDate"](
-              response.data.allData.a[0].applyTime
-            );
-            if (this.milepostActive > 0) {
-              this.milepost[1].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.c[0].checkPlanTime);
-            }
-            if (this.milepostActive > 1) {
-            }
-            if (this.milepostActive > 2) {
-              this.milepost[2].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.d[0].uploadDesignTime);
-              this.milepost[3].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.d[0].supplierCheckDesignTime);
-            }
-            if (this.milepostActive > 3) {
-              this.milepost[4].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.e[0].demandorCheckDesignTime);
-            }
-            if (this.milepostActive > 4) {
-              this.milepost[5].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.e[0].finishTime);
-            }
-          }
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
           this.mainTaskName = response.data.allData.a[0].mainTaskName;
           this.taskID = response.data.allData.a[0].taskId;
+          this.sendMsg();
         });
     },
     goBack() {

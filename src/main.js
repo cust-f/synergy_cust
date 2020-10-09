@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 
+import 'babel-polyfill'
 import './assets/icon/iconfont.css'
 import './assets/icon/iconfont'
 import './assets/css/icon.css'
@@ -53,37 +54,38 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 Vue.filter('dataFormat', function (value, fmt) {
-    let getDate = new Date(value);
-    let o = {
-      'M+': getDate.getMonth() + 1,
-      'd+': getDate.getDate(),
-      'h+': getDate.getHours(),
-      'm+': getDate.getMinutes(),
-      's+': getDate.getSeconds(),
-      'q+': Math.floor((getDate.getMonth() + 3) / 3),
-      'S': getDate.getMilliseconds()
-    };
-    if (/(y+)/.test(fmt)) {
-      fmt = fmt.replace(RegExp.$1, (getDate.getFullYear() + '').substr(4 - RegExp.$1.length))
+  let getDate = new Date(value);
+  let o = {
+    'M+': getDate.getMonth() + 1,
+    'd+': getDate.getDate(),
+    'h+': getDate.getHours(),
+    'm+': getDate.getMinutes(),
+    's+': getDate.getSeconds(),
+    'q+': Math.floor((getDate.getMonth() + 3) / 3),
+    'S': getDate.getMilliseconds()
+  };
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (getDate.getFullYear() + '').substr(4 - RegExp.$1.length))
+  }
+  for (let k in o) {
+    if (new RegExp('(' + k + ')').test(fmt)) {
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
     }
-    for (let k in o) {
-      if (new RegExp('(' + k + ')').test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
-      }
-    }
-    return fmt;
-  });
+  }
+  return fmt;
+});
 
-  // 跳转后返回顶部
-router.afterEach((to,from,next) => {
-  window.scrollTo(0,0);
+// 跳转后返回顶部
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0);
 })
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router,
-    store,
-    components: { App },
-    template: '<App/>'
+  el: '#app',
+  router,
+  store,
+  components: {
+    App
+  },
+  template: '<App/>'
 })
-

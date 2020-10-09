@@ -101,19 +101,12 @@
             <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
             <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
             <el-button type="primary" class="button1" @click="xiazaiMAINmoban">打包下载</el-button>
-            <!-- <el-button type="primary" class="button1">下载装配文档</el-button> -->
           </div>
           <el-divider></el-divider>
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求分解</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <div>
             <div class="container">
               <div>
-                <!-- <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-                >批量删除</el-button>-->
                 <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
               </div>
               <br />
@@ -156,11 +149,6 @@
 
                 <el-table-column label="操作" align="center">
                   <template slot-scope="scope">
-                    <!-- <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-                    >编辑</el-button>-->
                     <el-button
                       size="small"
                       type="text"
@@ -214,7 +202,7 @@
                         type="datetime"
                         placeholder="选择日期"
                         v-model="addList.beginTime"
-                        value-format="yyyy-MM-dd HH:mm:ss"
+                        value-format
                         style="width: 100%;"
                       ></el-date-picker>
                     </el-form-item>
@@ -226,7 +214,7 @@
                         type="datetime"
                         placeholder="选择日期"
                         v-model="addList.deadline"
-                        value-format="yyyy-MM-dd HH:mm:ss"
+                        value-format
                         style="width: 100%;"
                       ></el-date-picker>
                     </el-form-item>
@@ -345,37 +333,6 @@
                     <el-span class="simichakan" :style="{display:sm}">仅该供应方可见</el-span>
                     <el-span class="simichakan" :style="{display:busm}">全部可见</el-span>
                   </font>
-                  <!-- <el-col :span="11">
-                  <el-form-item label="仅该供应方可见" :style="{display:sm}">
-                  </el-form-item>
-                 <el-form-item label="全部可见" :style="{display:busm}">
-                  </el-form-item>
-                      
-                  </el-col>-->
-                  <!-- <font color="black">
-                        <el-span :style="{display:busm}">全部可见</el-span>
-                  </font>-->
-                  <!-- <el-col :span="11">
-                    <el-form-item label="私密指派" :style="{display:sm}">
-                      <el-input
-                        placeholder="仅有该供应方可见"
-                        v-model="input"
-                        :disabled="true"
-                        :style="{display:sm}"
-                      ></el-input>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="11">
-                    <el-form-item label="非私密指派" :style="{display:busm}">
-                      <el-input
-                        placeholder="全部可见"
-                        v-model="input"
-                        :disabled="true"
-                        :style="{display:busm}"
-                      ></el-input>
-                    </el-form-item>
-                  </el-col>-->
                 </el-row>
 
                 <el-row>
@@ -429,9 +386,9 @@
                       <el-date-picker
                         type="datetime"
                         placeholder="选择日期"
-                        v-model="cool.publishTime"
-                        style="width: 100%;"
+                        v-model="Time"
                         value-format="yyyy-MM-dd HH:mm:ss"
+                        style="width: 100%;"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -749,6 +706,7 @@ export default {
       deaddate: "",
       leader: "",
       xiangxi: "",
+      Time: "",
     };
   },
 
@@ -845,40 +803,40 @@ export default {
       }
     },
 
-    dateFormat: function (time) {
-      var index = time.lastIndexOf(".");
-      time = time.substring(0, index);
-      var date = new Date(time);
-      var year = date.getFullYear();
-      /* 在日期格式中，月份是从0开始的，因此要加0
-       * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
-       * */
-      var month =
-        date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1;
-      var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var hours =
-        date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      var minutes =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-      var seconds =
-        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      // 拼接
-      return (
-        year +
-        "-" +
-        month +
-        "-" +
-        day +
-        " " +
-        hours +
-        ":" +
-        minutes +
-        ":" +
-        seconds
-      );
-    },
+    // dateFormat: function (time) {
+    //   var index = time.lastIndexOf(".");
+    //   time = time.substring(0, index);
+    //   var date = new Date(time);
+    //   var year = date.getFullYear();
+    //   /* 在日期格式中，月份是从0开始的，因此要加0
+    //    * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+    //    * */
+    //   var month =
+    //     date.getMonth() + 1 < 10
+    //       ? "0" + (date.getMonth() + 1)
+    //       : date.getMonth() + 1;
+    //   var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    //   var hours =
+    //     date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+    //   var minutes =
+    //     date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+    //   var seconds =
+    //     date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    //   // 拼接
+    //   return (
+    //     year +
+    //     "-" +
+    //     month +
+    //     "-" +
+    //     day +
+    //     " " +
+    //     hours +
+    //     ":" +
+    //     minutes +
+    //     ":" +
+    //     seconds
+    //   );
+    // },
 
     //级联选中框选中变化项会用到这个函数
     handleChange() {
@@ -1048,6 +1006,8 @@ export default {
         })
         .then((response) => {
           this.cool = response.data.allData.a[0];
+          this.Time = response.data.allData.a[0].publishTime;
+          this.Time = new Date(this.Time)
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
           this.shuju = response.data.allData.b;
@@ -1125,31 +1085,29 @@ export default {
         this.$message.success("废除成功");
       });
     },
-    achieveMain(){
-            this.$confirm("确定要完成任务吗？", "提示", {
+    achieveMain() {
+      this.$confirm("确定要完成任务吗？", "提示", {
         type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
           mainStaskID: this.mainTaskID,
         });
-        that.axios({
-          method: "post",
-          url: "/api/MainTaskInformation/achieveMainTask",
-          data: data,
+        that
+          .axios({
+            method: "post",
+            url: "/api/MainTaskInformation/achieveMainTask",
+            data: data,
 
-          // data:this.$store.state.userName
-        })
-                .then(response => {
-          if(response.data =="成功"){
+            // data:this.$store.state.userName
+          })
+          .then((response) => {
+            if (response.data == "成功") {
               this.$message.success("主任务完成");
-          }
-          else{
-                          this.$message.error("主任务完成失败");
-
-          }
-        });
-      
+            } else {
+              this.$message.error("主任务完成失败");
+            }
+          });
       });
     },
     downLoad() {
@@ -1174,7 +1132,11 @@ export default {
       // 传递this.type
       this.$router.push({
         path: "/admin/addSubTask",
-        query: { type: this.type, mainTaskID: this.mainTaskID,name:this.name },
+        query: {
+          type: this.type,
+          mainTaskID: this.mainTaskID,
+          name: this.name,
+        },
       });
     },
     //保存新增

@@ -17,7 +17,7 @@ import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail' //需求�
 import search from '@/views/Front/Search/search' //搜索界面
 import searchPatent from '@/views/Front/Search/searchPatent' //专利搜索
 import patentDetail from '@/views/Front/Search/patentDetail' //专利详情
-import dashbordFront from '@/views/Front/Home/dashbordFront'
+
 import Data from '@/views/Front/Home/Data'
 
 
@@ -573,7 +573,16 @@ export default new Router({
           meta: {
             title: "详情"
           }
-        }
+        },
+
+        // {
+        //   path: '/admin/text1',
+        //   name: 'steos',
+        //   component: text1,
+        //   meta: {
+        //     title: "标头"
+        //   }
+        // }
       ]
     },
     {
