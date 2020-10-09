@@ -446,6 +446,463 @@
         </span>
       </el-dialog>
 
+      <!-- qiyedetail -->
+
+      <el-dialog title :visible.sync="addVisibleCD" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业图片</div>
+        <br />
+        <div width="500" align="center" height="200px">
+          <el-image :src="imgsrc" :onerror="errorImg01"></el-image>
+        </div>
+        <br />
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业营业执照</div>
+        <br />
+
+        <div width="500" align="center" height="200px">
+          <el-image :src="qiyezhizhao" :onerror="errorImg02"></el-image>
+        </div>
+        <br />
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业税务登记证</div>
+        <br />
+
+        <div width="500" align="center" height="200px">
+          <el-image :src="shuiwudengjizheng" :onerror="errorImg03"></el-image>
+        </div>
+        <br />
+
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
+        <br />
+        <br />
+        <div style="width:800px;height:250px">
+          <div style="float: left">
+            <el-image
+              align="left"
+              style="width:200px;height:200px"
+              :src="logo"
+              :onerror="errorImg00"
+            ></el-image>
+          </div>
+
+          <div style="float: right;width:490px;height:250px">
+            <br />
+            <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
+            <br />
+            <div align>
+              <font size="5">{{ form.companyName}}</font>
+            </div>
+            <br />
+            <div align>
+              <font size="4">{{ form.officeNumber}}</font>
+            </div>
+          </div>
+        </div>
+        <div align="right" class="formYS">
+          <el-form ref="form" :model="form" label-width="100px">
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业名称">
+                  <el-input v-model="form.companyName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="企业联络电话">
+                  <el-input v-model="form.businessTel" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业所在省份">
+                  <el-input v-model="form.province" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="企业所在县市">
+                  <el-input v-model="form.city" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业地址">
+                  <el-input v-model="form.address" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="邮政编码">
+                  <el-input v-model="form.postcode" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业成立时间">
+                  <el-input v-bind:value="form.foundingTime | formatDate" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="工商注册号">
+                  <el-input v-model="form.brNumber" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业业务范围">
+                  <el-input v-model="form.product" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="电子邮箱">
+                  <el-input v-model="form.email" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="企业联系人">
+                  <el-input v-model="form.businessName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="办公室电话">
+                  <el-input v-model="form.officeNumber" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="注册资产">
+                  <el-input v-model="form.registeredCapital" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="总资本">
+                  <el-input v-model="form.totalAssets" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="固定资产">
+                  <el-input v-model="form.fixedAssets" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="流动资产">
+                  <el-input v-model="form.currentAssets" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="法人代表">
+                  <el-input v-model="form.legalPerson" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="员工人数">
+                  <el-input v-model="form.workerNumber" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="开户银行">
+                  <el-input v-model="form.deposit_Bank" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="银行账户">
+                  <el-input v-model="form.bankNumber" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="24">
+                <el-form-item label="企业详情"></el-form-item>
+                <div class="leftDet" v-html="companyDetailContent"></div>
+                <!-- <el-form-item label="详细" >
+                            <el-input 
+                            type="textarea"
+                            :rows="1"
+                            style="width:100%;"
+                            placeholder="请输入内容" v-model="form.introduction" :disabled=yangshi ></el-input>
+                    </el-form-item>
+                -->
+              </el-col>
+            </el-row>
+          </el-form>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="addVisibleCD = false">关 闭</el-button>
+        </span>
+      </el-dialog>
+      <!-- 全部子任务 -->
+      <el-dialog :visible.sync="quanbuzirenwu" width="40%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">全部子任务</div>
+        <br />
+        <el-table
+          :data="zirenwu"
+          border
+          class="table"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="taskName" label="子任务名称"></el-table-column>
+          <el-table-column prop="taskState" label="子任务状态"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应方">
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.acceptCompanyName === 0"></el-span>
+              <el-span v-else>{{scope.row.acceptCompanyName}}</el-span>
+            </template>
+          </el-table-column>
+        </el-table>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="quanbuzirenwu = false">关 闭</el-button>
+        </span>
+      </el-dialog>
+      <!-- 子任务详情 + 下载 -->
+      <el-dialog :visible.sync="XZJXQ" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">子任务详情</div>
+        <br />
+        <el-form ref="form" :model="addList3" label-width="10px">
+          <el-row>
+            <el-col>
+              <el-form-item label>
+                <div>{{ zirenwuXX}}</div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <br />
+          <!-- <el-card class="box-card"> -->
+          <div slot="header" class="clearfix"></div>
+          <div>
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">附件下载</div>
+            <el-table :data="fujian" class="customer-table" :show-header="false">
+              <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
+              <el-table-column>
+                <template slot-scope="scope">
+                  <el-link @click.native="downloadFile(scope.row)">{{scope.row.realName}}</el-link>
+                </template>
+              </el-table-column>
+              <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
+            </el-table>
+          </div>
+          <!-- </el-card> -->
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="xiazaiZRWFJ">打包下载</el-button>
+          <el-button type="primary" @click="XZJXQ = false">关 闭</el-button>
+        </span>
+      </el-dialog>
+      <!--子任务修改 -->
+      <el-dialog :visible.sync="ZRWXG" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
+        <br />
+        <el-row>
+          <el-col :span="8"></el-col>
+        </el-row>
+        <el-form ref="form" :model="cool" label-width="120px">
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="任务名称">
+                <el-input v-model="cool.taskName"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="联络电话">
+                <el-input v-model="cool.demanderTel" @blur="animate()"></el-input>
+                <font color="red">
+                  <el-span v-if="this.cool.demanderTel === null">您的联络电话格式输入不正确</el-span>
+                </font>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="发布时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="publishTime1"
+                  value-format="yyyy-MM-dd HH:mm:ss"
+                  style="width: 100%;"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="截止时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="deadline1"
+                  value-format="yyyy-MM-dd HH:mm:ss"
+                  style="width: 100%;"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="行业类别">
+                <el-cascader
+                  style="width:100%;"
+                  expand-trigger="hover"
+                  v-model="selectCateKeys"
+                  :options="xuanzelist"
+                  :props="cateProps"
+                  @change="handleChange"
+                  props.checkStrictly="true"
+                ></el-cascader>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="任务类型">
+                <el-select
+                  v-model="cool.taskType"
+                  placeholder="请选择"
+                  :disabled="true"
+                  class="selectsupply"
+                  @change="liebieShu"
+                  style="width:100%;"
+                >
+                  <el-option
+                    v-for="leibie in Task"
+                    :key="leibie.id"
+                    :label="leibie.label"
+                    :value="leibie.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="新增供应商" :style="{display: true}">
+                <el-select
+                  v-model="SupplierListInt"
+                  multiple
+                  placeholder="请选择供应商"
+                  class="selectsupply"
+                  style="width:100%;"
+                >
+                  <el-option
+                    width="180"
+                    v-for="supplier in supplierCompany"
+                    :key="supplier"
+                    :label="supplier.companyName"
+                    :value="supplier.companyId"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="是否发布">
+                <el-select
+                  v-model="cooList.shifousimi"
+                  placeholder="请选择是或者否"
+                  class="selectsupply"
+                  @change="simizhiding"
+                  style="width:100%;"
+                >
+                  <el-option
+                    width="180"
+                    v-for="coo in shifousimi"
+                    :key="coo.id"
+                    :label="coo.label"
+                    :value="coo.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <font color="red">
+              <el-span class="simichakan" :style="{display:sm}">自身可见</el-span>
+              <el-span class="simichakan" :style="{display:busm}">全部可见</el-span>
+            </font>
+          </el-row>
+
+          <el-row>
+            <el-col :span="22">
+              <el-form-item label="分解任务详情">
+                <el-input v-model="cool.taskDetail" type="textarea" :rows="2"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="22">
+              <el-form-item label="附件下载">
+                <div>
+                  <el-table :data="fujian" class="customer-table" :show-header="false">
+                    <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
+                    <el-table-column>
+                      <template slot-scope="scope">
+                        <el-link
+                          style="color:#409EFF"
+                          @click.native="downloadFile(scope.row)"
+                        >{{scope.row.realName}}</el-link>
+                      </template>
+                    </el-table-column>
+                    <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
+                    <el-table-column label="操作" align="center" width="120">
+                      <template slot-scope="scope">
+                        <el-button
+                          size="small"
+                          type="text"
+                          icon="el-icon-delete"
+                          class="red"
+                          @click="shanchuwenjian(scope.row)"
+                        >删除文件</el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-form-item label="添加附件">
+            <el-upload
+              class="upload-demo"
+              action="/api/MainTaskInformation/import"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :on-success="handleAvatarSuccess"
+              multiple
+              :limit="10"
+              ref="upload"
+              :on-exceed="handleExceed"
+              :file-list="fileList"
+            >
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
+            </el-upload>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="ZRWXG = false">取 消</el-button>
+          <el-button type="primary" @click="XGZRW">确 定</el-button>
+        </span>
+      </el-dialog>
       <!-- 文件历史 -->
       <el-dialog title :visible.sync="fileHistoryDia" width="55%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
@@ -457,7 +914,6 @@
             class="table"
             ref="multipleTable"
             header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
           >
             <el-table-column label="序号" type="index" width="55" align="center">
               <template slot-scope="scope">
@@ -514,6 +970,8 @@ export default {
 
   data() {
     return {
+      publishTime1:"",
+      deadline1:"",
       applyRefuse: 0,
       planRefusse: 0,
       logo: "",
@@ -787,6 +1245,8 @@ export default {
   filters: {
     formatDate(time) {
       if (time != 0) {
+        console.log("time")
+        console.log(time)
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
@@ -902,7 +1362,7 @@ export default {
           url: "/api/SubstaskInformation/updateAllTime",
           data: data,
         })
-        .then((response) => {
+        .then((response ) => {
           console.log("finish");
           this.changeTimeDialog = false;
         });
@@ -1000,8 +1460,8 @@ export default {
         var data = Qs.stringify({
           userName: this.usernameX,
           taskName: this.cool.taskName,
-          publishTime: this.cool.publishTime,
-          endLine: this.cool.deadline,
+          publishTime: this.publishTime1,
+          endLine: this.deadline1,
           mainStaskTypeID: this.mainStaskTypeID,
           subStaskTypeID: this.subStaskTypeID,
           yaoqing: 0,
@@ -1282,6 +1742,10 @@ export default {
 
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
+          this.publishTime1 = response.data.allData.a[0].publishTime;
+          this.publishTime1 = new Date( this.publishTime1);
+          this.deadline1 = response.data.allData.a[0].deadline;
+          this.deadline1 = new Date( this.deadline1);
           this.milepostActive = response.data.allData.a[0].taskState;
           if (this.milepostActive == "计划提交") {
             this.milepostActive = 1;

@@ -98,7 +98,7 @@
           <br />
           <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="achieveMain">完成任务</el-button>
-            <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
+            <!-- <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button> -->
             <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
             <el-button type="primary" class="button1" @click="xiazaiMAINmoban">打包下载</el-button>
           </div>
@@ -118,7 +118,7 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                <el-table-column prop="id" label="序号" type="index" width="50" align="center"></el-table-column>
 
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
                 <el-table-column prop="taskState" label="需求状态" align="center">
@@ -154,7 +154,7 @@
                       type="text"
                       icon="el-icon-delete"
                       @click="handleDelete1(scope.row)"
-                    >废除</el-button>
+                    >删除任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
                   </template>
                 </el-table-column>
@@ -386,12 +386,13 @@
                       <el-date-picker
                         type="datetime"
                         placeholder="选择日期"
-                        v-model="Time"
-                        value-format="yyyy-MM-dd HH:mm:ss"
+                        v-model="publishTime1"
                         style="width: 100%;"
+                        value-format="yyyy-MM-dd HH:mm:ss"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
+                  
                 </el-row>
 
                 <el-row>
@@ -418,9 +419,9 @@
                       <el-date-picker
                         type="datetime"
                         placeholder="选择日期"
-                        v-model="cool.deadline"
+                        v-model="deadline1"
                         style="width: 100%;"
-                        value-format="yyyy-MM-dd HH:mm:ss"
+                         value-format="yyyy-MM-dd HH:mm:ss"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -439,6 +440,31 @@
                       ></el-cascader>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="11">
+                    <el-form-item label="完成时间">
+                      <el-date-picker
+                        type="datetime"
+                        placeholder="选择日期"
+                        :disabled = "finishTimeState"
+                        v-model="finishTime1"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd hh:mm:ss"
+                      ></el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <!-- <el-col :span="11">
+                    <el-form-item label="完成时间">
+                      <el-date-picker
+                        type="datetime"
+                        format="yyyy-MM-dd hh:mm:ss"
+                        value-format="yyyy-MM-dd hh:mm:ss"
+                        placeholder="选择日期"
+                        :disable="finishTimeState"
+                        v-model="cool.finishTime"
+                        style="width: 100%;"
+                      ></el-date-picker>
+                    </el-form-item>
+                  </el-col> -->
                 </el-row>
 
                 <el-row>
@@ -549,6 +575,8 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      //完成时间
+      finishTimeState: true,
       //任务详情
       RWXQ: false,
       //初始完整路径
@@ -605,7 +633,11 @@ export default {
         leader: "",
         taskState: "",
         taskCategoryPart: "",
-      },
+        finishTime: "",
+      }, 
+      publishTime1: "",
+      deadline1: "",
+      finishTime1: "",
       query: {
         pageIndex: 1,
         pageSize: 10,
@@ -719,7 +751,7 @@ export default {
       var index = time.lastIndexOf(".");
       time = time.substring(0, index);
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm");
+      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     },
   },
 
@@ -928,6 +960,7 @@ export default {
       }
     },
     xiugaixuqiuxinxi() {
+      var mainTaskState;
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng =
           this.WZLJ + "linklink" + this.technicalFileWanzheng;
@@ -935,6 +968,11 @@ export default {
       }
       if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng = this.WZLJ;
+      }
+      if(this.cool.taskState === "进行中"){
+        mainTaskState = 0
+      }else   if(this.cool.taskState === "已完成"){
+        mainTaskState = 1
       }
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
@@ -950,6 +988,8 @@ export default {
         technicalFile: this.technicalFileWanzheng,
         mainTaskDetail: this.cool.mainTaskDetail,
         username: this.usernameX,
+        finishTime1: this.finishTime1,
+        taskState:mainTaskState,
       });
       that
         .axios({
@@ -1006,8 +1046,15 @@ export default {
         })
         .then((response) => {
           this.cool = response.data.allData.a[0];
-          this.Time = response.data.allData.a[0].publishTime;
-          this.Time = new Date(this.Time)
+          this.updateTime = response.data.allData.a[0];
+          this.publishTime1 = response.data.allData.a[0].publishTime
+          this.publishTime1 = new Date(this.publishTime1);
+                    this.deadline1 = response.data.allData.a[0].deadline
+          this.deadline1 = new Date(this.deadline1);
+                    this.finishTime1 = response.data.allData.a[0].finishTime
+          this.finishTime1 = new Date(this.finishTime1);
+
+
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
           this.shuju = response.data.allData.b;
@@ -1023,14 +1070,16 @@ export default {
             this.cool.taskState = "进行中";
           } else if (this.cool.taskState === 1) {
             this.cool.taskState = "已完成";
+            this.finishTimeState = false;
           } else if (this.cool.taskState === 2) {
             this.cool.taskState = "废除";
           }
           if (this.cool.finishTime === null) {
             this.cool.finishTime = "尚未完成";
-          } else {
-            this.cool.finishTime = dateFormat(this.cool.finishTime);
-          }
+          } 
+          // else {
+          //   this.cool.finishTime =this.cool.finishTime;
+          // }
         });
     },
     // 触发搜索按钮
@@ -1041,22 +1090,28 @@ export default {
 
     // 删除操作
     handleDelete1(row) {
-      this.$confirm("确定要废除吗？", "提示", {
+      this.$confirm("确定要删除吗？", "提示", {
         type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          substakeID: row.taskId,
+          substakeId: row.taskId,
         });
-        that.axios({
-          method: "post",
-          url: "/api/MainTaskInformation/feicuBySubstaskstaskID",
-          data: data,
+        that
+          .axios({
+            method: "post",
+            url: "/api/MainTaskInformation/feicuBySubstaskstaskID",
+            data: data,
 
-          // data:this.$store.state.userName
-        });
-        this.$message.success("废除成功");
-        this.shuju.splice(index, 1);
+            // data:this.$store.state.userName
+          })
+          .then((response) => {
+            console.log(response);
+            if (response.data === "成功") {
+              this.shuju.splice(row, 1);
+              this.$message.success("删除成功");
+            }
+          });
       });
       //   .then(response => {
       //     this.cool = response.data.allData.a[0];
