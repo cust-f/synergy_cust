@@ -196,7 +196,7 @@
         <!-- <el-button @click="addVisible = false">取 消</el-button> -->
         <div align="right">
           <el-button type="primary" @click="bianjitanchu" :style="{display:fahuo}">新增发货清单</el-button>
-          <el-button type="primary" @click="saveAdd11">确 定</el-button>
+          <el-button type="primary" @click="saveAdd11" :disabled="taskSaveBtn">确 定</el-button>
         </div>
       </div>
 
@@ -206,7 +206,6 @@
       <div>
         <el-table :data="parentTable" style="width: 100%" border highlight-current-row>
           <el-table-column type="index" width="50"></el-table-column>
-
           <el-table-column label="企业名称" width="320">
             <template slot-scope="scope">
               <div slot="reference" class="name-wrapper">
@@ -289,7 +288,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量">
@@ -302,7 +300,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止时间">
@@ -317,11 +314,14 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式">
+                  <!-- <el-input v-model="contactNumber" @blur="animate"></el-input>
+                  <font color="red">
+                    <span v-if="this.contactNumber === null">您的联络方式格式输入不正确</span>
+                  </font> -->
                   <el-input v-model="contactNumber"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
-
             <el-row>
               <el-col :span="22">
                 <el-form-item label="备注">
@@ -336,7 +336,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button @click="bianjiTC = false">取 消</el-button>
@@ -363,7 +362,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量">
@@ -376,22 +374,16 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
             <el-row>
               <el-col :span="11">
-                <el-form-item label="截止时间">
-                  
-                    <!-- <template slot-scope="scope">
-                      {{scope.row.consignmentTimeLatest1 | formatDate}}
-                    </template> -->
+                <el-form-item label="截止时间">                
                     <el-date-picker
                       type="datetime"
                       v-model="consignmentTimeLatest1"
                       style="width: 100%;"
                       value-format="yyyy-MM-dd HH:mm:ss"
                       readonly="readonly"
-                  ></el-date-picker>
-                  
+                  ></el-date-picker>                  
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -400,7 +392,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
             <el-row>
               <el-col :span="22">
                 <el-form-item label="备注">
@@ -416,14 +407,12 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="fhqdxiangqingTC = false">确 定</el-button>
           </span>
         </el-dialog>
       </div>
-
     </el-main>
   </el-container>
 </template>
@@ -534,6 +523,7 @@ export default {
       productTotal1:"", 
       productNotes1:"",
       contactNumber1:"",
+      taskSaveBtn:false,
 
       multipleSelection: [],
       editVisible: false,
@@ -703,7 +693,9 @@ export default {
               }
               //保存taskId
               that.taskID = response.data;
-
+              //禁用新增子任务按钮
+              this.taskSaveBtn=true;
+              
               //此处返回到详情界面
               //this.goBack();
             }
@@ -755,6 +747,7 @@ export default {
           this.productTotal=""; 
           this.productNotes="";
           this.contactNumber="";
+          
           //弹出框消失
           this.bianjiTC = false;
           that.consignmentTableShuaxin();
