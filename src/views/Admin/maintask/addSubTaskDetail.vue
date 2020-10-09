@@ -195,7 +195,7 @@
 
         <!-- <el-button @click="addVisible = false">取 消</el-button> -->
         <div align="right">
-          <el-button type="primary" @click="bianjitanchu" :style="{display:fahuo}">编辑发货清单</el-button>
+          <el-button type="primary" @click="bianjitanchu" :style="{display:fahuo}">新增发货清单</el-button>
           <el-button type="primary" @click="saveAdd11">确 定</el-button>
         </div>
       </div>
@@ -241,31 +241,42 @@
         </el-table>
       </div>
 
+      <el-divider></el-divider>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <!-- 发货清单表格 -->
+      <div>
+        <el-table :data="consignmentTable" style="width: 100%" border highlight-current-row>
+          <el-table-column type="index" label="序号" width="50">
+            <template slot-scope="scope">
+              <span>{{ scope.$index + 1 }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="产品名称" width="199" prop="productName"></el-table-column>
+          <el-table-column label="产品数量" width="160" prop="productNumber"></el-table-column>
+          <el-table-column prop="consignmentTimeLatest" label="截止时间" sortable>
+            <template slot-scope="scope">
+              {{scope.row.consignmentTimeLatest | formatDate}}
+            </template>
+          </el-table-column>
+          <el-table-column label="联系电话" width="160" prop="contactNumber"></el-table-column>
+          <el-table-column label="操作" width="160">
+            <template slot-scope="scope">
+              <el-button
+                @click="consignmentDetail(scope.row)"
+                type="text"
+                size="small "
+              >查看详情</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      
       <!-- 编辑发货清单弹出框 -->
       <div class="consignment">
         <el-dialog title :visible.sync="bianjiTC" width="50%">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>
           <br />
           <el-form ref="form" label-width="110px" class="box">
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="发货截止时间">
-                  <el-date-picker
-                    type="datetime"
-                    placeholder="选择日期"
-                    v-model="consignmentTimeLatest"
-                    style="width: 100%;"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="联系方式">
-                  <el-input v-model="contactNumber"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品名称">
@@ -276,7 +287,6 @@
                 <el-form-item label="产品规格">
                   <el-input v-model="productModel"></el-input>
                 </el-form-item>
-                
               </el-col>
             </el-row>
 
@@ -293,13 +303,23 @@
               </el-col>
             </el-row>
 
-             <el-row>
+            <el-row>
               <el-col :span="11">
-                <el-form-item label="产品总金额">
-                  <el-input readonly="readonly" v-model="productTotal"></el-input>
+                <el-form-item label="截止时间">
+                  <el-date-picker
+                    type="datetime"
+                    placeholder="选择日期"
+                    v-model="consignmentTimeLatest"
+                    style="width: 100%;"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                  ></el-date-picker>
                 </el-form-item>
               </el-col>
-              
+              <el-col :span="11">
+                <el-form-item label="联系方式">
+                  <el-input v-model="contactNumber"></el-input>
+                </el-form-item>
+              </el-col>
             </el-row>
 
             <el-row>
@@ -324,13 +344,93 @@
           </span>
         </el-dialog>
       </div>
+
+      <!-- 发货清单详情弹出框 -->
+      <div class="consignment">
+        <el-dialog title :visible.sync="fhqdxiangqingTC" width="50%">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单详情</div>
+          <br />
+          <el-form ref="form" label-width="110px" class="box">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品名称">
+                  <el-input v-model="productName1" readonly="readonly"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="产品规格">
+                  <el-input v-model="productModel1" readonly="readonly"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品数量">
+                  <el-input v-model="productNum1" readonly="readonly"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="产品单价">
+                  <el-input v-model="productPrice1" readonly="readonly"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="截止时间">
+                  
+                    <!-- <template slot-scope="scope">
+                      {{scope.row.consignmentTimeLatest1 | formatDate}}
+                    </template> -->
+                    <el-date-picker
+                      type="datetime"
+                      v-model="consignmentTimeLatest1"
+                      style="width: 100%;"
+                      value-format="yyyy-MM-dd HH:mm:ss"
+                      readonly="readonly"
+                  ></el-date-picker>
+                  
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="联系方式">
+                  <el-input v-model="contactNumber1" readonly="readonly"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="备注">
+                  <el-input
+                    type="textarea"
+                    :rows="3"
+                    style="width:100%;"
+                    placeholder="请输入内容"
+                    v-model="productNotes1"
+                    class="gongsiDetail"
+                    readonly="readonly"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="fhqdxiangqingTC = false">确 定</el-button>
+          </span>
+        </el-dialog>
+      </div>
+
     </el-main>
-   
   </el-container>
 </template>
 
 <script>
 import Qs from "qs";
+import { formatDate } from "./dataChange";
 export default {
   name: "addSubTaskDetail",
   data() {
@@ -402,7 +502,6 @@ export default {
       //文件数目
       WJSM: "",
       FZR: [{}],
-      bianjiTC: false,
       //xiugaixuqiu
       zhurenwuxiangxi: "",
       sfsmkj: false, //是否私密指派
@@ -413,6 +512,8 @@ export default {
       visiblehexin: "none",
       shenqing: "none",
 
+      taskID:"",
+      bianjiTC: false,
       fahuo:"none",
       shifoufahuo:"",
       consignmentTimeLatest: "",
@@ -423,7 +524,16 @@ export default {
       productTotal:"", 
       productNotes:"",
       contactNumber:"",
-      taskID:"",
+      consignmentTable:[],
+      fhqdxiangqingTC:false,
+      consignmentTimeLatest1: "",
+      productName1:"",
+      productModel1:"",
+      productNum1:"",
+      productPrice1:"", 
+      productTotal1:"", 
+      productNotes1:"",
+      contactNumber1:"",
 
       multipleSelection: [],
       editVisible: false,
@@ -458,6 +568,12 @@ export default {
       //专利列表
       parentTable: "",
     };
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date,"yyyy-MM-dd hh:mm");
+    }
   },
   created() {
     this.getData();
@@ -597,9 +713,14 @@ export default {
           });
       }
     },
+    //======新增发货清单弹出
+    bianjitanchu() {
+      this.bianjiTC = true;
+    },
+    //======保存新增发货清单========
     deliverySave(){
       var that = this;
-      //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空
+      //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
       //====发货清单数据====
       var data = Qs.stringify({
         taskId: this.taskID,
@@ -608,41 +729,92 @@ export default {
         productModel:this.productModel,
         productNumber:this.productNum,
         productPrice:this.productPrice, 
-        totalPrice:this.productTotal, 
+        totalPrice:"0",//让鸿哲在后台算
         consignmentNotes:this.productNotes,
         contactNumber:this.contactNumber,
-
         deliveryTime:this.consignmentTimeLatest,
         //deliveryTime:"0000-00-00 00:00:00",
         consignmentState:"0",//未发货
         shippingAddress:"暂无地址",
-        
       });
       that
-          .axios({
-            method: "post",
-            url: "/api/addConsignment/add",
-            data: data,
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          })
-          .then((response) => {
-            if (response.data == "成功") {
-              this.$message.success("添加发货信息成功");
-              this.consignmentTimeLatest="";
-              this.productName="";
-              this.productModel="";
-              this.productNum="";
-              this.productPrice=""; 
-              this.productTotal=""; 
-              this.productNotes="";
-              this.contactNumber="";
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
+        .axios({
+        method: "post",
+        url: "/api/addConsignment/add",
+        data: data,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((response) => {
+        if (response.data == "成功") {
+          this.$message.success("添加发货信息成功");
+          this.consignmentTimeLatest="";
+          this.productName="";
+          this.productModel="";
+          this.productNum="";
+          this.productPrice=""; 
+          this.productTotal=""; 
+          this.productNotes="";
+          this.contactNumber="";
+          //弹出框消失
+          this.bianjiTC = false;
+          that.consignmentTableShuaxin();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
+    //======刷新发货清单表格========
+    consignmentTableShuaxin() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/select",
+          data: data,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((response) => {
+          this.consignmentTable = response.data.allData;
+        })
+        .catch((error) => {
+          console.log(error);
+      });
+    },
+    //======发货清单 查看详情========
+    consignmentDetail(row){
+      //alert(row.consignmentId);
+      this.fhqdxiangqingTC = true;
+      var that = this;
+      var data = Qs.stringify({
+        consignmentId: row.consignmentId,
+      });
+       that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/selectById",
+          data: data,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((response) => {
+          //this.consignmentTable = response.data.allData;
+          console.log( response.data.allData);
+          this.productName1 = response.data.allData[0].productName;
+          this.productModel1 = response.data.allData[0].productModel;
+          this.productNum1 = response.data.allData[0].productNumber;
+          this.productPrice1 = response.data.allData[0].productPrice;
+          this.consignmentTimeLatest1 = response.data.allData[0].consignmentTimeLatest;
+          this.contactNumber1 = response.data.allData[0].contactNumber;
+          this.productNotes1 = response.data.allData[0].consignmentNotes;
+        })
+        .catch((error) => {
+          console.log(error);
+      });
+    },
+
     // =================================================================
     //上传文件
     submitUpload() {
@@ -787,28 +959,23 @@ export default {
         });
       //如果不在核心供应商列表里面则自动添加
     },
-   
-
-    bianjitanchu() {
-      this.bianjiTC = true;
-    },
   },
-  watch:{
-    //监听productNum的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
-    productNum:function(val){
-      this.productTotal = parseInt(this.productPrice) * parseInt(val);
-      if(isNaN(this.productTotal)){
-        this.productTotal = "";
-			}
-    },
-    //监听productPrice的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
-    productPrice:function(val){
-      this.productTotal = parseInt(val) * parseInt(this.productNum);
-      if(isNaN(this.productTotal)){
-        this.productTotal = "";
-			}
-    },
-  },
+  // watch:{
+  //   //监听productNum的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
+  //   productNum:function(val){
+  //     this.productTotal = parseInt(this.productPrice) * parseInt(val);
+  //     if(isNaN(this.productTotal)){
+  //       this.productTotal = "";
+	// 		}
+  //   },
+  //   //监听productPrice的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
+  //   productPrice:function(val){
+  //     this.productTotal = parseInt(val) * parseInt(this.productNum);
+  //     if(isNaN(this.productTotal)){
+  //       this.productTotal = "";
+	// 		}
+  //   },
+  // },
 };
 </script>
 
