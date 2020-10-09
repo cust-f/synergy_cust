@@ -189,14 +189,14 @@
           <!-- <el-divider></el-divider> -->
           <div style="margin-top:20px;">
             <el-pagination
-              :hide-on-single-page="true"
-              @size-change="getCompanyList"
-              @current-change="getCompanyList"
+                :total="totalCount"
               :current-page="currentPage"
               :page-size="pageSize"
-              layout="prev, pager, next, jumper"
-              :total="totalCount"
-            ></el-pagination>
+                @current-change="getCompanyList"
+                @size-change="getCompanyList"
+                background
+                >
+            </el-pagination>
           </div>
         </el-card>
       </el-main>
@@ -330,8 +330,9 @@ export default {
           data: data
         })
         .then(response => {
+          console.log(response)
           this.companyList = response.data.allData.companyList;
-          this.totalCount = response.data.allData.totalCount;
+          this.totalCount = response.data.allData.totalcount;
         });
     },
     getRecommendedCompanyList() {
