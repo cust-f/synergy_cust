@@ -24,13 +24,13 @@
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
         基本信息
         <el-button
-          v-if="this.milepostActive === 0"
           type="text"
           class="XG"
           style="float:right"
           @click="XG"
         >修改</el-button>
       </div>
+          <!-- v-if="this.milepostActive === 0" -->
 
       <br />
       <el-card class="box-card">
@@ -1951,6 +1951,8 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+                    this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
+          this.subStaskTypeID=response.data.allData.a[0].taskCategory
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
