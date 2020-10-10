@@ -2095,6 +2095,7 @@ export default {
         });
     },
     success(row) {
+
       console.log(row.consignmentState)
       var that = this;
       var data = Qs.stringify({
