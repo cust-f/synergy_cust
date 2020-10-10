@@ -5,7 +5,6 @@
       <!-- 步骤条组件 -->
       <design-Steps ref="designSteps"></design-Steps>
       <br />
-<<<<<<< HEAD
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
         基本信息
         <el-button
@@ -16,8 +15,6 @@
         >修改</el-button>
       </div>
           <!-- v-if="this.milepostActive === 0" -->
-=======
->>>>>>> 765f6de07c19c075dd9c11ec9d9513f91779c610
 
       <br />
       <!-- 基本信息组件 -->
