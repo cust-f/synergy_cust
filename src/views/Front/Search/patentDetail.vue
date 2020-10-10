@@ -1,9 +1,9 @@
 <template>
-  <div style="width:1200px;margin:0 auto;" class="company-detail-info">
+  <div style="width: 1200px; margin: 0 auto" class="company-detail-info">
     <!--第一行 -->
     <el-row>
       <el-col :span="20">
-        <div style="margin-top:15px;">
+        <div style="margin-top: 15px">
           <el-breadcrumb separator=">">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item @click="goBack()">专利搜索</el-breadcrumb-item>
@@ -16,27 +16,43 @@
     <el-card shadow="never" class="company-detail-info-show">
       <div slot="header">
         <div
-          style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;"
-        >专利详情</div>
+          style="
+            margin: -18px -20px;
+            padding: 10px 20px;
+            background: #dcdfe6;
+            border-bottom: 1px solid #606266;
+          "
+        >
+          专利详情
+        </div>
       </div>
       <el-row>
-        <h3 style="float:left;">{{detail.title1}}</h3>
-        <p style=" line-height: 36px;font-size: 18px; color: #ff7720;float:left;">
+        <h3 style="float: left">{{ detail.title1 }}</h3>
+        <p
+          style="
+            line-height: 36px;
+            font-size: 18px;
+            color: #ff7720;
+            float: left;
+          "
+        >
           【
-          <span
-            v-for="(patenttypeName,index) in changeJson(detail.patenttypeName)"
-            :key="index"
-          >{{patenttypeName}}</span>】
+          <span>{{ changeString(detail.patenttypeName) }}</span
+          >】
         </p>
       </el-row>
       <el-divider></el-divider>
       <!-- 信息展示 -->
       <el-row>
         <el-col :span="9">
-          <el-popover :content="changeString(detail.author)" placement="top-start" trigger="hover">
+          <el-popover
+            :content="changeString(detail.author)"
+            placement="top-start"
+            trigger="hover"
+          >
             <p slot="reference">
               发明人:
-              <span>{{changeString(detail.author)}}</span>
+              <span>{{ changeString(detail.author) }}</span>
             </p>
           </el-popover>
         </el-col>
@@ -48,41 +64,52 @@
           >
             <p slot="reference">
               申请人:
-              <span>{{changeString(detail.requestPeople)}}</span>
+              <span>{{ changeString(detail.requestPeople) }}</span>
             </p>
           </el-popover>
         </el-col>
         <el-col :span="6">
-          <span>公开日期: {{detail.publicationDate | dataFormat("yyyy-MM-dd")}}</span>
+          <span
+            >公开日期:
+            {{ detail.publicationDate | dataFormat("yyyy-MM-dd") }}</span
+          >
         </el-col>
       </el-row>
       <!--  -->
       <el-row>
         <el-col :span="9">
-          <el-popover :content="changeString(detail.agent)" placement="top-start" trigger="hover">
+          <el-popover
+            :content="changeString(detail.agent)"
+            placement="top-start"
+            trigger="hover"
+          >
             <p slot="reference">
               专利代理人:
-              <span>{{changeString(detail.agent)}}</span>
+              <span>{{ changeString(detail.agent) }}</span>
             </p>
           </el-popover>
         </el-col>
         <el-col :span="9">
           <p>
             专利代理机构:
-            <span>{{changeString(detail.orgAgency)}}</span>
+            <span>{{ changeString(detail.orgAgency) }}</span>
           </p>
         </el-col>
         <el-col :span="6">
-          <span>公开号: {{detail.publicationNo}}</span>
+          <span>公开号: {{ detail.publicationNo }}</span>
         </el-col>
       </el-row>
       <!--  -->
       <el-row>
         <el-col :span="18">
-          <el-popover :content="changeString(detail.keyword)" placement="top-start" trigger="hover">
+          <el-popover
+            :content="changeString(detail.keyword)"
+            placement="top-start"
+            trigger="hover"
+          >
             <p slot="reference">
               关键词:
-              <span>{{changeString(detail.keyword)}}</span>
+              <span>{{ changeString(detail.keyword) }}</span>
             </p>
           </el-popover>
         </el-col>
@@ -150,13 +177,15 @@ export default {
       return JSON.parse(data);
     },
     changeString(data) {
-      let result = new String();
-      let newData = JSON.parse(data);
-      for (let i = 0; i < newData.length; i++) {
-        result += newData[i];
-        if (i != newData.length - 1) result += ",";
-      }
-      return result;
+      if (data) {
+        let result = new String();
+        let newData = JSON.parse(data);
+        for (let i = 0; i < newData.length; i++) {
+          result += newData[i];
+          if (i != newData.length - 1) result += ",";
+        }
+        return result;
+      } else return;
     },
     goBack: function () {
       window.history.go(-1);

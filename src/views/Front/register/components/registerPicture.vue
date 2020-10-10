@@ -184,6 +184,51 @@ export default {
     this.formDate.append("logoFile", file.file)
     },
     submitUpload() {
+<<<<<<< HEAD
+      try {
+        var that = this;
+        that.formDate = new FormData();
+        this.$refs.uploadCompany.submit();
+        this.$refs.uploadBusinessLicense.submit();
+        this.$refs.uploadTax.submit();
+        this.$refs.uploadLogo.submit();
+        if (
+          that.formDate.has("logoFile") &&
+          that.formDate.has("companyProfileFile[]") &&
+          that.formDate.has("taxFile[]") &&
+          that.formDate.has("businessLicenseFile[]")
+        ) {
+          this.$emit("checkPicture", true);
+          that.formDate.append("enterpriseName", this.enterpriseName);
+          console.log(that.formDate);
+          let config = {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          };
+          that.axios
+            .post("/api/register/setPicture", this.formDate, config)
+            .then((response) => {
+              this.$emit("register");
+              if (response.data.success) {
+                // this.$message({
+                //   message: response.data.file,
+                //   type: "success"
+                // });
+              } else {
+                this.$message({
+                  message: response.data.file,
+                  type: "alert",
+                });
+              }
+            })
+            .catch((response) => {
+              this.$message.error("请稍后再尝试注册");
+              console.log(response);
+            });
+        } else {
+          this.$message.error("请添加完整的图片数量");
+=======
       // console.log(this.companyProfileImageUrl.length < 3);
       // if (this.taxImageUrl.length < 1) {
       //   this.$message({
@@ -211,6 +256,7 @@ export default {
       let config = {
         headers: {
           "Content-Type": "multipart/form-data"
+>>>>>>> 3e7c825875fd32114543ec4ca51128fd0a0fd099
         }
       };
       that.axios
