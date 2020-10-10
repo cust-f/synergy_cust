@@ -58,7 +58,7 @@ export default {
         callback();
       }
     };
-
+       
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
@@ -90,34 +90,27 @@ export default {
     var validDataRealName = (rule, value, callback) => {
       if (value === "") {
         callback("真实姓名不能为空");
-      } else {
-        callback();
+      } else{
+                callback();
       }
     };
-
+    
     return {
       rules: {
         password: [
-          { required: true, validator: validatePass, trigger: "blur" },
+          { required: true, validator: validatePass, trigger: "blur" }
         ],
-
+        
         checkPass: [
-          { required: true, validator: validatePass2, trigger: "blur" },
+          { required: true, validator: validatePass2, trigger: "blur" }
         ],
         userName: [
           { required: true, validator: checkuserName, trigger: "blur" },
-          {
-            min: 3,
-            max: 10,
-            message: "长度在 3 到 10 个字符",
-            trigger: "blur",
-          },
+          { min: 3, max: 7, message: "长度在 3 到 7 个字符", trigger: "blur" }
         ],
-
+        
         phone: [{ required: true, validator: validDataPhone, trigger: "blur" }],
-        realName: [
-          { required: true, validator: validDataRealName, trigger: "blur" },
-        ],
+        realName: [{ required: true, validator: validDataRealName, trigger: "blur" }]
       },
       existName: null,
       account: {
@@ -126,51 +119,50 @@ export default {
         userName: "",
         email: "",
         phone: "",
-        realName: "",
-      },
+        realName: ""
+      }
     };
   },
   props: {
     enterpriseName: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
-  watch: {
-    "account.userName": function (val) {
+  0: {
+    "account.userName": function(val) {
       this.getexistName();
-    },
+    }
   },
   methods: {
     getexistName() {
       let that = this;
       let data = Qs.stringify({
-        checkName: this.account.userName,
+        checkName: this.account.userName
       });
       that
         .axios({
           method: "post",
           url: "/api/register/checkName",
-          data: data,
+          data: data
         })
-        .then((response) => {
+        .then(response => {
           console.log(response);
           if (response.data.allData.check) {
             this.existName = this.account.userName;
-          } else {
-            this.existName = null;
           }
         });
     },
     submitForm(formName) {
-      console.log("触发了");
-      this.$refs[formName].validate((valid) => {
+      console.log("触发了")
+      this.$refs[formName].validate(valid => {
+              console.log("有效or无效？"+valid)
         if (valid) {
           this.$emit("accountSave", true);
         } else {
           this.$message({
             type: "warning",
-            message: "下一步失败",
+            message: "下一步失败"
           });
           this.$emit("accountSave", false);
         }
@@ -189,19 +181,19 @@ export default {
         .axios({
           method: "post",
           url: "/api/register/user",
-          data: data,
+          data: data
         })
-        .then((response) => {
+        .then(response => {
           if (response.data.code == 200) {
             this.$message({
               type: "success",
-              message: "注册成功，请等待审核",
+              message: "注册成功，请等待审核"
             });
             this.$router.push("/home");
           }
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

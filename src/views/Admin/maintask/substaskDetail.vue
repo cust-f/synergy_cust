@@ -97,22 +97,16 @@
           </el-form>
           <br />
           <div id="div2" align="right">
-            <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button>
+            <el-button type="primary" class="button1" @click="achieveMain">完成任务</el-button>
+            <!-- <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button> -->
             <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
             <el-button type="primary" class="button1" @click="xiazaiMAINmoban">打包下载</el-button>
-            <!-- <el-button type="primary" class="button1">下载装配文档</el-button> -->
           </div>
           <el-divider></el-divider>
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求分解</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <div>
             <div class="container">
               <div>
-                <!-- <el-button
-          type="primary"
-          icon="el-icon-delete"
-          class="handle-del mr10"
-          @click="delAllSelection"
-                >批量删除</el-button>-->
                 <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
               </div>
               <br />
@@ -124,7 +118,7 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                <el-table-column prop="id" label="序号" type="index" width="50" align="center"></el-table-column>
 
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
                 <el-table-column prop="taskState" label="需求状态" align="center">
@@ -155,17 +149,12 @@
 
                 <el-table-column label="操作" align="center">
                   <template slot-scope="scope">
-                    <!-- <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-                    >编辑</el-button>-->
                     <el-button
                       size="small"
                       type="text"
                       icon="el-icon-delete"
                       @click="handleDelete1(scope.row)"
-                    >废除</el-button>
+                    >删除任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
                   </template>
                 </el-table-column>
@@ -213,7 +202,7 @@
                         type="datetime"
                         placeholder="选择日期"
                         v-model="addList.beginTime"
-                        value-format="yyyy-MM-dd HH:mm:ss"
+                        value-format
                         style="width: 100%;"
                       ></el-date-picker>
                     </el-form-item>
@@ -225,7 +214,7 @@
                         type="datetime"
                         placeholder="选择日期"
                         v-model="addList.deadline"
-                        value-format="yyyy-MM-dd HH:mm:ss"
+                        value-format
                         style="width: 100%;"
                       ></el-date-picker>
                     </el-form-item>
@@ -344,37 +333,6 @@
                     <el-span class="simichakan" :style="{display:sm}">仅该供应方可见</el-span>
                     <el-span class="simichakan" :style="{display:busm}">全部可见</el-span>
                   </font>
-                  <!-- <el-col :span="11">
-                  <el-form-item label="仅该供应方可见" :style="{display:sm}">
-                  </el-form-item>
-                 <el-form-item label="全部可见" :style="{display:busm}">
-                  </el-form-item>
-                      
-                  </el-col>-->
-                  <!-- <font color="black">
-                        <el-span :style="{display:busm}">全部可见</el-span>
-                  </font>-->
-                  <!-- <el-col :span="11">
-                    <el-form-item label="私密指派" :style="{display:sm}">
-                      <el-input
-                        placeholder="仅有该供应方可见"
-                        v-model="input"
-                        :disabled="true"
-                        :style="{display:sm}"
-                      ></el-input>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="11">
-                    <el-form-item label="非私密指派" :style="{display:busm}">
-                      <el-input
-                        placeholder="全部可见"
-                        v-model="input"
-                        :disabled="true"
-                        :style="{display:busm}"
-                      ></el-input>
-                    </el-form-item>
-                  </el-col>-->
                 </el-row>
 
                 <el-row>
@@ -428,12 +386,13 @@
                       <el-date-picker
                         type="datetime"
                         placeholder="选择日期"
-                        v-model="cool.publishTime"
+                        v-model="publishTime1"
                         style="width: 100%;"
                         value-format="yyyy-MM-dd HH:mm:ss"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
+                  
                 </el-row>
 
                 <el-row>
@@ -460,9 +419,9 @@
                       <el-date-picker
                         type="datetime"
                         placeholder="选择日期"
-                        v-model="cool.deadline"
+                        v-model="deadline1"
                         style="width: 100%;"
-                        value-format="yyyy-MM-dd HH:mm:ss"
+                         value-format="yyyy-MM-dd HH:mm:ss"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -481,6 +440,31 @@
                       ></el-cascader>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="11">
+                    <el-form-item label="完成时间">
+                      <el-date-picker
+                        type="datetime"
+                        placeholder="选择日期"
+                        :disabled = "finishTimeState"
+                        v-model="finishTime1"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd hh:mm:ss"
+                      ></el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <!-- <el-col :span="11">
+                    <el-form-item label="完成时间">
+                      <el-date-picker
+                        type="datetime"
+                        format="yyyy-MM-dd hh:mm:ss"
+                        value-format="yyyy-MM-dd hh:mm:ss"
+                        placeholder="选择日期"
+                        :disable="finishTimeState"
+                        v-model="cool.finishTime"
+                        style="width: 100%;"
+                      ></el-date-picker>
+                    </el-form-item>
+                  </el-col> -->
                 </el-row>
 
                 <el-row>
@@ -591,6 +575,8 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      //完成时间
+      finishTimeState: true,
       //任务详情
       RWXQ: false,
       //初始完整路径
@@ -647,7 +633,11 @@ export default {
         leader: "",
         taskState: "",
         taskCategoryPart: "",
-      },
+        finishTime: "",
+      }, 
+      publishTime1: "",
+      deadline1: "",
+      finishTime1: "",
       query: {
         pageIndex: 1,
         pageSize: 10,
@@ -748,6 +738,7 @@ export default {
       deaddate: "",
       leader: "",
       xiangxi: "",
+      Time: "",
     };
   },
 
@@ -760,7 +751,7 @@ export default {
       var index = time.lastIndexOf(".");
       time = time.substring(0, index);
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm");
+      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     },
   },
 
@@ -805,6 +796,7 @@ export default {
           },
         })
         .then((response) => {
+          console.log(response)
           let link = document.createElement("a");
           link.style.display = "none";
           link.href = window.URL.createObjectURL(
@@ -844,40 +836,40 @@ export default {
       }
     },
 
-    dateFormat: function (time) {
-      var index = time.lastIndexOf(".");
-      time = time.substring(0, index);
-      var date = new Date(time);
-      var year = date.getFullYear();
-      /* 在日期格式中，月份是从0开始的，因此要加0
-       * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
-       * */
-      var month =
-        date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1;
-      var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var hours =
-        date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      var minutes =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-      var seconds =
-        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      // 拼接
-      return (
-        year +
-        "-" +
-        month +
-        "-" +
-        day +
-        " " +
-        hours +
-        ":" +
-        minutes +
-        ":" +
-        seconds
-      );
-    },
+    // dateFormat: function (time) {
+    //   var index = time.lastIndexOf(".");
+    //   time = time.substring(0, index);
+    //   var date = new Date(time);
+    //   var year = date.getFullYear();
+    //   /* 在日期格式中，月份是从0开始的，因此要加0
+    //    * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+    //    * */
+    //   var month =
+    //     date.getMonth() + 1 < 10
+    //       ? "0" + (date.getMonth() + 1)
+    //       : date.getMonth() + 1;
+    //   var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    //   var hours =
+    //     date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+    //   var minutes =
+    //     date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+    //   var seconds =
+    //     date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    //   // 拼接
+    //   return (
+    //     year +
+    //     "-" +
+    //     month +
+    //     "-" +
+    //     day +
+    //     " " +
+    //     hours +
+    //     ":" +
+    //     minutes +
+    //     ":" +
+    //     seconds
+    //   );
+    // },
 
     //级联选中框选中变化项会用到这个函数
     handleChange() {
@@ -969,6 +961,7 @@ export default {
       }
     },
     xiugaixuqiuxinxi() {
+      var mainTaskState;
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng =
           this.WZLJ + "linklink" + this.technicalFileWanzheng;
@@ -976,6 +969,11 @@ export default {
       }
       if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng = this.WZLJ;
+      }
+      if(this.cool.taskState === "进行中"){
+        mainTaskState = 0
+      }else   if(this.cool.taskState === "已完成"){
+        mainTaskState = 1
       }
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
@@ -991,6 +989,8 @@ export default {
         technicalFile: this.technicalFileWanzheng,
         mainTaskDetail: this.cool.mainTaskDetail,
         username: this.usernameX,
+        finishTime1: this.finishTime1,
+        taskState:mainTaskState,
       });
       that
         .axios({
@@ -1047,6 +1047,15 @@ export default {
         })
         .then((response) => {
           this.cool = response.data.allData.a[0];
+          this.updateTime = response.data.allData.a[0];
+          this.publishTime1 = response.data.allData.a[0].publishTime
+          this.publishTime1 = new Date(this.publishTime1);
+                    this.deadline1 = response.data.allData.a[0].deadline
+          this.deadline1 = new Date(this.deadline1);
+                    this.finishTime1 = response.data.allData.a[0].finishTime
+          this.finishTime1 = new Date(this.finishTime1);
+
+
           this.mainStaskID = response.data.allData.a[0].mainTaskID;
           this.name = response.data.allData.a[0].mainTaskName;
           this.shuju = response.data.allData.b;
@@ -1062,14 +1071,16 @@ export default {
             this.cool.taskState = "进行中";
           } else if (this.cool.taskState === 1) {
             this.cool.taskState = "已完成";
+            this.finishTimeState = false;
           } else if (this.cool.taskState === 2) {
             this.cool.taskState = "废除";
           }
           if (this.cool.finishTime === null) {
             this.cool.finishTime = "尚未完成";
-          } else {
-            this.cool.finishTime = dateFormat(this.cool.finishTime);
-          }
+          } 
+          // else {
+          //   this.cool.finishTime =this.cool.finishTime;
+          // }
         });
     },
     // 触发搜索按钮
@@ -1080,22 +1091,28 @@ export default {
 
     // 删除操作
     handleDelete1(row) {
-      this.$confirm("确定要废除吗？", "提示", {
+      this.$confirm("确定要删除吗？", "提示", {
         type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          substakeID: row.taskId,
+          substakeId: row.taskId,
         });
-        that.axios({
-          method: "post",
-          url: "/api/MainTaskInformation/feicuBySubstaskstaskID",
-          data: data,
+        that
+          .axios({
+            method: "post",
+            url: "/api/MainTaskInformation/feicuBySubstaskstaskID",
+            data: data,
 
-          // data:this.$store.state.userName
-        });
-        this.$message.success("废除成功");
-        this.shuju.splice(index, 1);
+            // data:this.$store.state.userName
+          })
+          .then((response) => {
+            console.log(response);
+            if (response.data === "成功") {
+              this.shuju.splice(row, 1);
+              this.$message.success("删除成功");
+            }
+          });
       });
       //   .then(response => {
       //     this.cool = response.data.allData.a[0];
@@ -1124,6 +1141,31 @@ export default {
         this.$message.success("废除成功");
       });
     },
+    achieveMain() {
+      this.$confirm("确定要完成任务吗？", "提示", {
+        type: "warning",
+      }).then(() => {
+        var that = this;
+        var data = Qs.stringify({
+          mainStaskID: this.mainTaskID,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/MainTaskInformation/achieveMainTask",
+            data: data,
+
+            // data:this.$store.state.userName
+          })
+          .then((response) => {
+            if (response.data == "成功") {
+              this.$message.success("主任务完成");
+            } else {
+              this.$message.error("主任务完成失败");
+            }
+          });
+      });
+    },
     downLoad() {
       var that = this;
       var data = Qs.stringify({
@@ -1146,7 +1188,11 @@ export default {
       // 传递this.type
       this.$router.push({
         path: "/admin/addSubTask",
-        query: { type: this.type, mainTaskID: this.mainTaskID,name:this.name },
+        query: {
+          type: this.type,
+          mainTaskID: this.mainTaskID,
+          name: this.name,
+        },
       });
     },
     //保存新增

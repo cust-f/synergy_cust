@@ -44,7 +44,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                  <el-form-item label="企业所在县市" prop="city">
+                  <el-form-item label="企业所在县市" prop="City">
                     <el-select v-model="form.city" placeholder="请选择城市" style="width: 100%;">
                       <el-option
                         v-for="c in city"
@@ -131,14 +131,14 @@
                 </el-col>
               </el-row>
 
-              <el-row >
-                <el-col :span="9">
-                  <el-form-item label="企业联系人" prop="businessName">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="企业联系人">
                     <el-input v-model="form.businessName"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" :offset="3">
-                  <el-form-item label="办公电话" prop="officeNumber">
+                <el-col :span="12">
+                  <el-form-item label="办公电话">
                     <el-input v-model="form.officeNumber"></el-input>
                   </el-form-item>
                 </el-col>
@@ -193,7 +193,7 @@
 
               <el-row>
                 <el-col :span="9">
-                  <el-form-item label="税务证书编号" prop="trNumber">
+                  <el-form-item label="税务证书编号"  prop="trNumber">
                     <el-input v-model="form.trNumber"></el-input>
                   </el-form-item>
                 </el-col>
@@ -274,10 +274,10 @@ export default {
     return {
       rules: {
         companyName: [
-          { required: true, message: "请输入企业名称", trigger: "blur" },
+          { required: true, message: "请输入企业名称", trigger: "blur" }
         ],
         province: [
-          { required: true, message: "请选择省份", trigger: "change" },
+          { required: true, message: "请选择省份", trigger: "change" }
         ],
         city: [{ required: true, message: "请选择城市", trigger: "change" }],
         middleProduct: [
@@ -285,33 +285,31 @@ export default {
             required: true,
             type: "array",
             message: "请选择业务范围",
-            trigger: "change",
-          },
+            trigger: "change"
+          }
         ],
         foundingTime: [
-          { required: true, message: "请选择企业成立时间", trigger: "change" },
+          { required: true, message: "请选择企业成立时间", trigger: "change" }
         ],
         deposit_Bank: [
-          { required: true, message: "请输入开户银行名称", trigger: "blur" },
+          { required: true, message: "请输入开户银行名称", trigger: "blur" }
         ],
         bankNumber: [
-          { required: true, message: "请输入银行账号", trigger: "blur" },
+          { required: true, message: "请输入银行账号", trigger: "blur" }
           //  {type: 'number',message: '银行账号为数字值', trigger: "blur" }
         ],
         brNumber: [
-          { required: true, validator: validDataBR_Number, trigger: "blur" },
+          { required: true, validator: validDataBR_Number, trigger: "blur" }
         ],
         trNumber: [
-          { required: true, validator: validDataTR_Number, trigger: "blur" },
+          { required: true, validator: validDataTR_Number, trigger: "blur" }
         ],
         legalPerson: [
-          { required: true, message: "请输入法人代表", trigger: "blur" },
+          { required: true, message: "请输入法人代表", trigger: "blur" }
         ],
         legalTel: [
-          { required: true, validator: validDataLegal_Tel, trigger: "blur" },
-        ],
-        businessName: [{ required: true, message: "请输入企业联系人", trigger: "blur" }],
-        officeNumber: [{ required: true, message: "请输入联系电话", trigger: "blur" }],
+          { required: true, validator: validDataLegal_Tel, trigger: "blur" }
+        ]
       },
       //所有业务范围
       options: [],
@@ -336,16 +334,16 @@ export default {
         middleProduct: [],
         Province: "",
         city: "",
-        registeredCapital: new Number(),
-        totalAssets: new Number(),
-        currentAssets: new Number(),
-        fixedAssets: new Number(),
-        legalPerson: new String(),
+        registeredCapital:"",
+        totalAssets: "",
+        currentAssets:"",
+        fixedAssets: "",
+        legalPerson: "",
         legalTel: "",
         workerNumber: new Number(),
         deposit_Bank: "",
-        bankNumber: "",
-      },
+        bankNumber: ""
+      }
     };
   },
   created() {
@@ -361,34 +359,34 @@ export default {
       } else if (oldValue.length > 0 && newValue.length > 0) {
         this.checkProduct();
       }
-    },
+    }
   },
   methods: {
     getProvince() {
       let that = this;
 
-      that.axios.post("/api/district/HaChangProvince").then((response) => {
+      that.axios.post("/api/district/HaChangProvince").then(response => {
         this.province = response.data.allData.Province;
       });
     },
     getCity(name) {
       let id;
       let that = this;
-      this.province.forEach((pro) => {
+      this.province.forEach(pro => {
         if (pro.districtName == name) {
           id = pro.id;
         }
       });
       let data = Qs.stringify({
-        pid: id,
+        pid: id
       });
       that
         .axios({
           method: "post",
           url: "/api/district/city",
-          data: data,
+          data: data
         })
-        .then((response) => {
+        .then(response => {
           console.log(response);
           this.city = response.data.allData.city;
           this.form.city = "";
@@ -407,14 +405,14 @@ export default {
         } else {
           this.$message({
             type: "warning",
-            message: "不能选择多个一级类别",
+            message: "不能选择多个一级类别"
           });
         }
       }
       this.form.middleProduct = newProduct;
     },
     upLoad(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         let a = [];
         if (valid) {
           a.push(this.stair);
@@ -426,7 +424,7 @@ export default {
         } else {
           this.$message({
             type: "warning",
-            message: "下一步失败",
+            message: "下一步失败"
           });
           this.$emit("companyFrom", this.form.companyName, false);
         }
@@ -437,9 +435,9 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/industry/getIndustry",
+          url: "/api/industry/getIndustry"
         })
-        .then((response) => {
+        .then(response => {
           this.options = response.data.allData.allProduct;
         });
     },
@@ -451,15 +449,15 @@ export default {
         .axios({
           method: "post",
           url: "/api/register/company",
-          data: data,
+          data: data
         })
-        .then((response) => {
+        .then(response => {
           if (response.data.code == 200) {
             this.$emit("registerUserDe");
           }
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
