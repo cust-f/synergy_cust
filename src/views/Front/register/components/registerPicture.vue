@@ -193,9 +193,9 @@ export default {
         this.$refs.uploadLogo.submit();
         if (
           that.formDate.has("logoFile") &&
-          that.formDate.has("companyProfileFile") &&
-          that.formDate.has("taxFile") &&
-          that.formDate.has("businessLicenseFile")
+          that.formDate.has("companyProfileFile[]") &&
+          that.formDate.has("taxFile[]") &&
+          that.formDate.has("businessLicenseFile[]")
         ) {
           this.$emit("checkPicture", true);
           that.formDate.append("enterpriseName", this.enterpriseName);
