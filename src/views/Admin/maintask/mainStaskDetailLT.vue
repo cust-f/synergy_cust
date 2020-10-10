@@ -2503,6 +2503,9 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+                              this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
+          this.subStaskTypeID=response.data.allData.a[0].taskCategory
+                    this.mainTaskID = response.data.allData.a[0].mainTaskId;
           console.log(response)
           this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
           this.subStaskTypeID=response.data.allData.a[0].taskCategory
@@ -2616,9 +2619,7 @@ export default {
             }
           }
 
-          this.mainTaskID = response.data.allData.a[0].mainTaskId;
-          this.mainTaskName = response.data.allData.a[0].mainTaskName;
-          this.taskID = response.data.allData.a[0].taskId;
+       
         });
     },
     goBack() {
