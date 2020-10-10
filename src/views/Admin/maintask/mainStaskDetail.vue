@@ -1696,7 +1696,9 @@ export default {
           this.applyTable[0] = response.data.allData.a;
           this.applyTable[1] = response.data.allData.b;
           this.planTable = response.data.allData.b;
-
+          console.log(response)
+          this.mainStaskTypeID = response.data.allData.a[0].taskCategoryMainId
+          this.subStaskTypeID = response.data.allData.a[0].taskCategory
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
