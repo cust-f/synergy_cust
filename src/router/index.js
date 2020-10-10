@@ -105,6 +105,7 @@ import SubmitChecklist from   '@/views/Admin/supplier/assembly/SubmitChecklist'
 //供应方自己修改需求方的各项申请
 import deliveryListUpdate  from '@/views/Admin/supplier/assembly/deliveryListUpdate'
 Vue.use(Router)  
+import * as fecha from "element-ui/lib/utils/date";
 
 export default new Router({
   routes: [{
