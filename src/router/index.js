@@ -17,7 +17,7 @@ import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail' //需求�
 import search from '@/views/Front/Search/search' //搜索界面
 import searchPatent from '@/views/Front/Search/searchPatent' //专利搜索
 import patentDetail from '@/views/Front/Search/patentDetail' //专利详情
-import dashbordFront from '@/views/Front/Home/dashbordFront'
+
 import Data from '@/views/Front/Home/Data'
 
 
@@ -105,6 +105,7 @@ import SubmitChecklist from   '@/views/Admin/supplier/assembly/SubmitChecklist'
 //供应方自己修改需求方的各项申请
 import deliveryListUpdate  from '@/views/Admin/supplier/assembly/deliveryListUpdate'
 Vue.use(Router)  
+import * as fecha from "element-ui/lib/utils/date";
 
 export default new Router({
   routes: [{
@@ -577,7 +578,16 @@ export default new Router({
           meta: {
             title: "详情"
           }
-        }
+        },
+
+        // {
+        //   path: '/admin/text1',
+        //   name: 'steos',
+        //   component: text1,
+        //   meta: {
+        //     title: "标头"
+        //   }
+        // }
       ]
     },
     {

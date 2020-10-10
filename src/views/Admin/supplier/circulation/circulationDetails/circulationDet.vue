@@ -1,7 +1,8 @@
 <template>
   <div class="circulationDet">
-    <el-main style="overflow:hidden">
-      <el-page-header @back="goBack" content="详情"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+    <el-main style="overflow: hidden">
+      <el-page-header @back="goBack" content="详情"></el-page-header>&nbsp;
+      &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <div align="center">
         <el-steps :active="milepostActive" align-center>
           <el-step
@@ -17,13 +18,17 @@
       <br />
       <!-- 基本信息模块 -->
       <div>
-        <essential-Information ref="essentialInformation"></essential-Information>
+        <essential-Information
+          ref="essentialInformation"
+        ></essential-Information>
       </div>
       <br />
       <br />
       <!-- 申请信息模块 -->
       <div>
-        <application-Information ref="applicationInformation"></application-Information>
+        <application-Information
+          ref="applicationInformation"
+        ></application-Information>
       </div>
       <br />
       <br />
@@ -41,7 +46,7 @@
       </div>
       <br />
       <!-- 发货清单模块 -->
-      <div v-show="show>1">
+      <div v-show="show > 1">
         <div v-show="state3 === 2">
           <delivery-List ref="deliveryList"></delivery-List>
         </div>
@@ -50,18 +55,28 @@
       <div v-show="show > 3" class="designDet">
         <br />
         <br />
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>
+        <div
+          class="biaoti"
+          style="padding: 0 10px; border-left: 3px solid #4e58c5"
+        >
+          任务评价
+        </div>
         <br />
         <br />
         <!-- 评价模块 -->
         <div v-if="reMarkId === 0">
-          <div class="loading1" v-loading="loading" element-loading-text="评价生成中......">
+          <div
+            class="loading1"
+            v-loading="loading"
+            element-loading-text="评价生成中......"
+          >
             <!-- 雷达图 -->
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <div class="WCZL">完成质量</div>
+                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                 <br />
                 <br />
               </el-form>
@@ -82,7 +97,7 @@
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
                 <label>完成质量:</label>
-                <label id="word" style="font-size:16px"></label>
+                <label id="word" style="font-size: 16px"></label>
                 <br />
                 <br />
               </el-form>
@@ -93,6 +108,7 @@
           </div>
         </div>
       </div>
+      <el-button @click="passArray()">传数组</el-button>
     </el-main>
   </div>
 </template>
@@ -145,6 +161,7 @@ export default {
         radarData: [],
         indicatorData: [],
       },
+      arrayList: [1, 2, 2, 3],
     };
   },
   created() {
@@ -310,6 +327,22 @@ export default {
           taskId: this.taskId,
         },
       });
+    },
+    passArray() {
+      var that = this;
+      var strify = JSON.stringify(this.arrayList)
+      var data = Qs.stringify({
+        array: strify,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplierCon/passArray",
+          data: data,
+        })
+        .then((response) => {
+          console.log(response.data.allData);
+        });
     },
   },
   components: {
