@@ -2,32 +2,318 @@
   <div class="mainStaskDetaul">
     <el-main style="overflow:hidden">
       <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <!-- 步骤条组件 -->
-      <design-Steps ref="designSteps"></design-Steps>
+      <!-- <el-steps >
+        <el-step title="申请/邀请" icon="el-icon-edit"></el-step>
+        <el-step title="计划提交" icon="el-icon-upload"></el-step>
+        <el-step title="任务进行中" icon="el-icon-picture"></el-step>
+        <el-step title="审核" icon="el-icon-message-solid"></el-step>
+        <el-step title="验收" icon="el-icon-s-promotion"></el-step>
+        <el-step title="完成" icon="el-icon-s-claim"></el-step>
+      </el-steps>-->
+      <el-steps :active="milepostActive" align-center>
+        <el-step
+          v-for="(value, key) in milepost"
+          :class="milepostActive== key+1 ? stepActive: '' "
+          :title="value.title"
+          :icon="value.icon"
+          :description="value.description"
+          :key="key"
+        ></el-step>
+      </el-steps>
       <br />
-
-          <!-- v-if="this.milepostActive === 0" -->
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+        基本信息
+        <el-button
+          v-if="this.milepostActive === 0"
+          type="text"
+          class="XG"
+          style="float:right"
+          @click="XG"
+        >修改</el-button>
+      </div>
 
       <br />
-      <!-- 基本信息组件 -->
-      <x-EssentialInformation ref="xEssentialInformation"></x-EssentialInformation>
+      <el-card class="box-card">
+        <div class="formYS">
+          <el-form ref="cool" :model="cool" label-width="110px" class="form">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="需求名称">
+                  <template slot-scope="scope">
+                    <el-button
+                      class="anniu"
+                      type="primary"
+                      text-decoration="underline"
+                      @click="ziTaskDetail(scope.row)"
+                    >{{cool.mainTaskName}}</el-button>
+                  </template>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="子任务名称">
+                  <el-button
+                    class="anniu"
+                    type="primary"
+                    text-decoration="underline"
+                    @click="xiazaiTaskDetail()"
+                  >{{cool.taskName}}</el-button>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="需求类型">
+                  <el-input v-model="cool.taskType" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="供应方">
+                  <el-input v-model="cool.acceptCompanyName" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="一级行业类别">
+                  <el-input
+                    v-model="cool.taskCategoryMain"
+                    :disabled="true"
+                    style="text-align:center"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="二级行业类别">
+                  <el-input v-model="cool.taskCategoryPart" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="截止日期">
+                  <el-input
+                    v-bind:value="cool.deadline|formatDate"
+                    :disabled="true"
+                    style="text-align:center"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="需求方电话">
+                  <el-input v-model="cool.demanderTel" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+        </div>
+      </el-card>
       <br />
       <br />
 
       <div v-show="milepostActive1">
-        <apply-Table ref="applyTable"></apply-Table>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请列表</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <el-table
+          :data="tableData1"
+          border
+          class="table1"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <!-- mainTaskID冲-->
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="companyName" width="250" label="供应商">
+            <template slot-scope="scope">
+              <el-button type="text" @click="companyDetail(scope.row)">{{scope.row.companyName}}</el-button>
+            </template>
+          </el-table-column>
+          <el-table-column prop="supplierTel" label="联络电话" width="120"></el-table-column>
+          <el-table-column prop="applyWay" label="承接方式" width="80">
+            <template slot-scope="scope">
+              <span v-if="+scope.row.applyWay === 0">邀请</span>
+              <span v-else-if="+scope.row.applyWay === 1">申请</span>
+              <span v-else>其他</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="checkApplyState" label="申请/邀请状态" align="center">
+            <template slot-scope="scope">
+              <el-tag v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
+              <el-tag v-else type="danger">拒绝</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="applyTime" label="申请/邀请时间">
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.applyTime === 0">暂未申请</el-span>
+              <el-span v-if-else>{{scope.row.applyTime | formatDate}}</el-span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+              <!-- <el-button
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="handleDelete(scope.$index, scope.row)"
+              >废除</el-button>-->
+
+              <el-button @click="changeTime(scope.row)" size="small" type="text">修改</el-button>
+
+              <el-button
+                @click="SQTG(scope.row)"
+                type="text"
+                size="small"
+                v-if="scope.row.checkApplyState===0&&scope.row.applyWay===1"
+              >通过</el-button>
+              <el-button
+                @click="SQJJ(scope.row)"
+                type="text"
+                size="small"
+                v-if="scope.row.checkApplyState===0&&scope.row.applyWay===1"
+              >拒绝</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
         <br />
         <br />
       </div>
 
       <div v-show="milepostActive2">
-        <mission-Plan ref="missionPlan"></mission-Plan>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务计划</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <br />
+        <el-table
+          :data="tableData2"
+          border
+          class="table1"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <!-- mainTaskID冲-->
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="companyName" label="供应商" width="250"></el-table-column>
+          <el-table-column prop="checkPlanState" label="审核状态" align="center">
+            <template slot-scope="scope">
+              <el-tag v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
+              <el-tag v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.checkPlanState === 2" type="success">通过</el-tag>
+              <el-tag v-else type="danger">拒绝</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="planUploadTime" label="上传时间">
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
+              <el-span v-else>{{scope.row.planUploadTime | formatDate}}</el-span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="checkPlanTime" label="审核时间">
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.checkPlanTime === 0">暂未审核</el-span>
+              <el-span v-else>{{scope.row.checkPlanTime | formatDate}}</el-span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+              <!-- <el-button
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="handleDelete(scope.$index, scope.row)"
+              >废除</el-button>-->
+              <el-button
+                @click="RWJHXZ(scope.row)"
+                type="text"
+                size="small"
+                v-if="scope.row.checkPlanState !==0 &&scope.row.checkPlanState !==3"
+              >下载</el-button>
+              <el-button
+                @click="JHSTG(scope.row)"
+                type="text"
+                size="small"
+                v-if="scope.row.checkPlanState===1"
+              >通过</el-button>
+              <el-button
+                @click="JHSJJ(scope.row)"
+                type="text"
+                size="small"
+                v-if="scope.row.checkPlanState===1"
+              >拒绝</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
         <br />
         <br />
       </div>
 
       <div v-show="milepostActive3">
-        <contract-Management ref="contractManagement"></contract-Management>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同管理</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <br />
+        <el-table
+          :data="tableData3"
+          border
+          class="table1"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+          @selection-change="handleSelectionChange"
+        >
+          <!-- mainTaskID冲-->
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
+          <el-table-column prop="contractState" label="审核状态" align="center">
+            <template slot-scope="scope">
+              <el-tag v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
+              <el-tag v-else-if="+scope.row.contractState === 1">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.contractState === 2" type="success">通过</el-tag>
+              <el-tag v-else type="danger">拒绝</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="uploadContractTime" label="上传时间">
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.uploadContractTime === 0">暂未上传</el-span>
+              <el-span v-else>{{scope.row.uploadContractTime | formatDate}}</el-span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="checkContractTime" label="审核时间">
+            <template slot-scope="scope">
+              <el-span v-if="+scope.row.checkContractTime === 0">暂未审核</el-span>
+              <el-span v-else>{{scope.row.checkContractTime | formatDate}}</el-span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+              <!-- <el-button
+                      type="text"
+                      icon="el-icon-delete"
+                      class="red"
+                      @click="handleDelete(scope.$index, scope.row)"
+              >废除</el-button>-->
+              <el-button
+                type="text"
+                size="small"
+                v-if="scope.row.contractState!==0"
+                @click="HTXZ(scope.row)"
+              >下载</el-button>
+
+              <el-button
+                @click="HTSHTG(scope.row)"
+                type="text"
+                size="small"
+                v-if="scope.row.contractState===1 "
+              >通过</el-button>
+              <el-button
+                @click="HTSHJJ(scope.row)"
+                type="text"
+                size="small"
+                v-if="scope.row.contractState===1"
+              >拒绝</el-button>
+              <el-button type="text" size="small" @click="CKLSHT(scope.row)">历史上传</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
         <br />
         <br />
       </div>
@@ -934,7 +1220,7 @@
                 <span v-else-if="scope.row.fileType === 1">发货清单</span>
               </template>
             </el-table-column>
-            <el-table-column prop="filePath" width="100" label="文件地址"></el-table-column>
+            <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
             <el-table-column prop="uploadTime" label="上传时间">
               <template slot-scope="scope">
                 <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
@@ -952,22 +1238,11 @@ import Qs from "qs";
 import { formatDate } from "./dataChange";
 import radarChart from "./radarChart";
 
-import designSteps from "./assembly/designSteps";
-import xEssentialInformation from "./assembly/xEssentialInformation";
-import applyTable from "./assembly/applyTable";
-import missionPlan from "./assembly/missionPlan";
-import contractManagement from "./assembly/contractManagement";
-
 export default {
   inject: ["reload"],
   name: "mainStaskDetail",
   components: {
-    "design-Steps": designSteps,
     "radar-chart": radarChart,
-    "x-EssentialInformation": xEssentialInformation,
-    "apply-Table": applyTable,
-    "mission-Plan": missionPlan,
-    "contract-Management": contractManagement,
   },
 
   data() {
@@ -1186,10 +1461,6 @@ export default {
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
         { title: "完成", icon: "el-icon-s-claim", description: "" },
       ],
-      xEssentialInformation: [],
-      stepsMessage: [],
-      applyTable: [],
-      planTable: [],
       // 默认步骤数
       milepostActive: 1,
       // 动态添加类名
@@ -1665,12 +1936,7 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
     },
-    sendMsg() {
-      this.$refs.designSteps.getMsg(this.stepsMessage);
-      this.$refs.xEssentialInformation.getMsg(this.xEssentialInformation);
-      this.$refs.applyTable.getMsg(this.applyTable);
-      this.$refs.missionPlan.getMsg(this.planTable);
-    },
+
     showData() {
       var that = this;
       var data = Qs.stringify({
@@ -1685,26 +1951,41 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
-          this.stepsMessage[0] = response.data.allData.a;
-          this.stepsMessage[1] = response.data.allData.c;
-          this.stepsMessage[2] = response.data.allData.d;
-          this.stepsMessage[3] = response.data.allData.e;
-          this.xEssentialInformation[0] = response.data.allData.a[0];
-          this.xEssentialInformation[1] = response.data.allData.WZLJ;
-          this.xEssentialInformation[2] = response.data.allData.QBWJ;
-          this.xEssentialInformation[3] = response.data.allData.SM;
-          this.applyTable[0] = response.data.allData.a;
-          this.applyTable[1] = response.data.allData.b;
-          this.planTable = response.data.allData.b;
-          console.log(response)
-          this.mainStaskTypeID = response.data.allData.a[0].taskCategoryMainId
-          this.subStaskTypeID = response.data.allData.a[0].taskCategory
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
           console.log(this.tableData1);
-
+          if (this.tableData1.length != 0) {
+            console.log("this.tableData1");
+            //读取所有需求的时间
+            this.timeList.publishTime = response.data.allData.a[0].publishTime;
+            this.timeList.applyTime = response.data.allData.b[0].applyTime;
+            this.timeList.checkApplyTime =
+              response.data.allData.b[0].checkApplyTime;
+            this.timeList.planUploadTime =
+              response.data.allData.b[0].planUploadTime;
+            this.timeList.checkPlanTime =
+              response.data.allData.b[0].checkPlanTime;
+            this.timeList.beginTime = response.data.allData.a[0].beginTime;
+            this.timeList.deadLine = response.data.allData.a[0].deadLine;
+            this.timeList.uploadContractTime =
+              response.data.allData.a[0].uploadContractTime;
+            this.timeList.checkContractTime =
+              response.data.allData.a[0].checkContractTime;
+            this.timeList.supplierDistributionTime =
+              response.data.allData.a[0].supplierDistributionTime;
+            this.timeList.designerAcceptTime =
+              response.data.allData.a[0].designerAcceptTime;
+            this.timeList.uploadDesignTime =
+              response.data.allData.a[0].uploadDesignTime;
+            this.timeList.supplierCheckDesignTime =
+              response.data.allData.a[0].supplierCheckDesignTime;
+            this.timeList.demandorCheckDesignTime =
+              response.data.allData.a[0].demandorCheckDesignTime;
+            this.timeList.finishTime = response.data.allData.a[0].finishTime;
+            //读取时间结束
+          }
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
           this.selectCateKeys[0] =
             response.data.allData.a[0].taskCategoryMainId;
@@ -1731,6 +2012,7 @@ export default {
             this.milepostActive4 = 0;
           }
 
+          console.log("cehsi" + response.data.allData.f);
           if (response.data.allData.f === null) {
             this.milepostActive5 = 0;
           }
@@ -1769,10 +2051,39 @@ export default {
           } else {
             this.cool.taskType = "流通任务";
           }
+          if (this.milepostActive >= 0) {
+            this.milepost[0].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].applyTime
+            );
+            if (this.milepostActive > 0) {
+              this.milepost[1].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.c[0].checkPlanTime);
+            }
+            if (this.milepostActive > 1) {
+            }
+            if (this.milepostActive > 2) {
+              this.milepost[2].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.d[0].uploadDesignTime);
+              this.milepost[3].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.d[0].supplierCheckDesignTime);
+            }
+            if (this.milepostActive > 3) {
+              this.milepost[4].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.e[0].demandorCheckDesignTime);
+            }
+            if (this.milepostActive > 4) {
+              this.milepost[5].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.e[0].finishTime);
+            }
+          }
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
           this.mainTaskName = response.data.allData.a[0].mainTaskName;
           this.taskID = response.data.allData.a[0].taskId;
-          this.sendMsg();
         });
     },
     goBack() {
