@@ -199,12 +199,6 @@
               <el-button @click="changeTime(scope.row)" size="small" type="text"
                 >修改</el-button
               >
-              <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-              >废除</el-button>-->
               <el-button
                 @click="SQTG(scope.row)"
                 type="text"

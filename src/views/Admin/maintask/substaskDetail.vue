@@ -796,6 +796,7 @@ export default {
           },
         })
         .then((response) => {
+          console.log(response)
           let link = document.createElement("a");
           link.style.display = "none";
           link.href = window.URL.createObjectURL(
