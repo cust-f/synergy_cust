@@ -5,15 +5,7 @@
       <!-- 步骤条组件 -->
       <design-Steps ref="designSteps"></design-Steps>
       <br />
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-        基本信息
-        <el-button
-          type="text"
-          class="XG"
-          style="float:right"
-          @click="XG"
-        >修改</el-button>
-      </div>
+
           <!-- v-if="this.milepostActive === 0" -->
 
       <br />
