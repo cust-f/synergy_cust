@@ -25,11 +25,7 @@ module.exports = {
         // }
       },
       '/city':{
-<<<<<<< HEAD
-        target:'http://127.0.0.1:9000',//目标路接口域名
-=======
         target:'http://124.235.216.250:9000',//目标路接口域名
->>>>>>> 5654c023899e0e2a3e30898d1709816b3f449325
         // secure:false,     //https接口要加这个
         changeOrigin:true,//是否跨域
         pathRewrite:{
