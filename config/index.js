@@ -23,13 +23,8 @@ module.exports = {
         //   referer:'http://127.0.0.1:8081'
         // }
       },
-<<<<<<< HEAD
       '/city':{
         target:'http://127.0.0.1:9000',//目标路接口域名
-=======
-      '/city': {
-        target: 'http://10.31.8.48:9000',//目标路接口域名
->>>>>>> 3e7c825875fd32114543ec4ca51128fd0a0fd099
         // secure:false,     //https接口要加这个
         changeOrigin: true,//是否跨域
         pathRewrite: {
