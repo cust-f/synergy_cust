@@ -445,7 +445,7 @@ export default {
       });
     },
     //全部提交的实现
-    submit2() {debugger
+    submit2() {
       // alert(this.multipleSelection.length)
       // alert(this.multipleSelection[0].productName )
       for (var i = 0; i < this.multipleSelection.length; i++) {
@@ -460,7 +460,7 @@ export default {
             url: "/api/addConsignment/submit",
             data: data,
           })
-          .then((response) => {debugger
+          .then((response) => {
           console.log(response)
             //that.tableData = response.data.allData;
           });
@@ -485,7 +485,7 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-    handleClose(){debugger
+    handleClose(){
     console.log('1')
       if(this.upCirculation==false){
         this.upCirculation=true;

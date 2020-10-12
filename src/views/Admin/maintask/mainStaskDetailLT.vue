@@ -2090,7 +2090,7 @@ export default {
     },
     success(row) {
 
-      console.log(row.consignmentState)
+      console.log(row)
       var that = this;
       var data = Qs.stringify({
         ConsignmentId: row.consignmentId,
@@ -2104,9 +2104,12 @@ export default {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
         .then((response) => {
-          if (response.data == "success") {
-            this.$message.success("通过成功");
-          }
+          this.chakanTC = false;
+          this.showData();
+          this.$message({
+        message: "提交成功",
+        type: "success"
+      });
         });
     },
     //查看弹窗按钮的实现
