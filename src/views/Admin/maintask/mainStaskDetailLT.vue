@@ -429,8 +429,8 @@
         <br />
         <br />
       </div>
-
-      <div v-show="milepostActive4">
+      
+      <div v-show="true">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
