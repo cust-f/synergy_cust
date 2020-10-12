@@ -108,7 +108,7 @@
           </div>
         </div>
       </div>
-      <el-button @click="passArray()">传数组</el-button>
+      <!-- <el-button @click="passArray()">传数组</el-button> -->
     </el-main>
   </div>
 </template>
