@@ -40,6 +40,18 @@
           <span>{{ changeString(detail.patenttypeName) }}</span
           >】
         </p>
+           <div style="float: right">
+            <p>
+              资源来源：
+              <span>{{ detail.resourceFrom }}</span>
+              <el-avatar
+                shape="square"
+                :size="20"
+                fit="fill"
+                :src="detail.resourceLogo"
+              ></el-avatar>
+            </p>
+          </div>
       </el-row>
       <el-divider></el-divider>
       <!-- 信息展示 -->
@@ -132,6 +144,25 @@
           </el-tab-pane>
         </el-tabs>
       </div>
+      <!-- <el-divider></el-divider> -->
+      <el-row>
+        <img
+          style="width: 30px; height: 30px; float: left"
+          src="../../../assets/img/copyright_logo.png"
+        />
+
+        <p
+          style="
+            font-size: 16px;
+            color: #7d7974;
+            float: left;
+            line-height: 30px;
+            margin-left: 10px;
+          "
+        >
+          版权所有：西南交通大学、国家重点研发计划项目支持
+        </p>
+      </el-row>
     </el-card>
   </div>
 </template>
