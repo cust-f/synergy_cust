@@ -13,7 +13,8 @@ module.exports = {
     assetsPublicPath: '/',//开发使用
     proxyTable: {
       '/api':{
-        target:'http://124.235.216.250:8081',//目标路接口域名
+        // target:'http://124.235.216.250:8081',//服务器目标路接口域名
+        target:'http://127.0.0.1:8081',//本地目标路接口域名
         // secure:false,     //https接口要加这个
         changeOrigin:true,//是否跨域
         pathRewrite:{
