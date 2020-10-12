@@ -423,8 +423,8 @@
         <br />
         <br />
       </div>
-
-      <div v-show="milepostActive4">
+      
+      <div v-show="true">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -2089,7 +2089,8 @@ export default {
         });
     },
     success(row) {
-      console.log(row.consignmentState)
+
+      console.log(row)
       var that = this;
       var data = Qs.stringify({
         ConsignmentId: row.consignmentId,
@@ -2103,9 +2104,12 @@ export default {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
         .then((response) => {
-          if (response.data == "success") {
-            this.$message.success("通过成功");
-          }
+          this.chakanTC = false;
+          this.showData();
+          this.$message({
+        message: "提交成功",
+        type: "success"
+      });
         });
     },
     //查看弹窗按钮的实现

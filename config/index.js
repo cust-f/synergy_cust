@@ -12,23 +12,28 @@ module.exports = {
     // assetsPublicPath: './',//部署使用
     assetsPublicPath: '/',//开发使用
     proxyTable: {
-      '/api': {
-        target: 'http://127.0.0.1:8081',//目标路接口域名
+      '/api':{
+        // target:'http://124.235.216.250:8081',//服务器目标路接口域名
+        target:'http://127.0.0.1:8081',//本地目标路接口域名
         // secure:false,     //https接口要加这个
-        changeOrigin: true,//是否跨域
-        pathRewrite: {
-          '^/api': '' //重写接口的新路径
+        changeOrigin:true,//是否跨域
+        pathRewrite:{
+          '^/api':'' //重写接口的新路径
         },
         // headers:{
         //   referer:'http://127.0.0.1:8081'
         // }
       },
       '/city':{
+<<<<<<< HEAD
         target:'http://127.0.0.1:9000',//目标路接口域名
+=======
+        target:'http://124.235.216.250:9000',//目标路接口域名
+>>>>>>> 5654c023899e0e2a3e30898d1709816b3f449325
         // secure:false,     //https接口要加这个
-        changeOrigin: true,//是否跨域
-        pathRewrite: {
-          '^/city': '' //重写接口的新路径
+        changeOrigin:true,//是否跨域
+        pathRewrite:{
+          '^/city':'' //重写接口的新路径
         },
         // headers:{
         //   referer:'http://127.0.0.1:8081'
@@ -44,7 +49,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-
+    
     /**
      * Source Maps
      */
