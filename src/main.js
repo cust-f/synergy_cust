@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 
+import 'babel-polyfill'
 import './assets/icon/iconfont.css'
 import './assets/icon/iconfont'
 import './assets/css/icon.css'
@@ -88,4 +89,3 @@ new Vue({
   components: {App},
   template: '<App/>'
 })
-

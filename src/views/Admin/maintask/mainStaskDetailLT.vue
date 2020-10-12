@@ -28,7 +28,7 @@
       >
         基本信息
         <el-button
-          v-if="this.milepostActive === 0"
+          
           type="text"
           class="XG"
           style="float: right"
@@ -36,7 +36,7 @@
           >修改</el-button
         >
       </div>
-
+<!-- v-if="this.milepostActive === 0" -->
       <br />
       <el-card class="box-card">
         <div class="formYS">
@@ -199,12 +199,6 @@
               <el-button @click="changeTime(scope.row)" size="small" type="text"
                 >修改</el-button
               >
-              <!-- <el-button
-                      type="text"
-                      icon="el-icon-delete"
-                      class="red"
-                      @click="handleDelete(scope.$index, scope.row)"
-              >废除</el-button>-->
               <el-button
                 @click="SQTG(scope.row)"
                 type="text"
@@ -429,8 +423,8 @@
         <br />
         <br />
       </div>
-
-      <div v-show="milepostActive4">
+      
+      <div v-show="true">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -2276,7 +2270,7 @@ export default {
           subStaskTypeID: this.subStaskTypeID,
           yaoqing: 0,
           sssm: this.cooList.shifousimi,
-          taskType: 0,
+          taskType: 1,
           mainTaskName: this.mainTaskName,
           taskXiangxi: this.cool.taskDetail,
           mainTaskID: this.mainTaskID,
@@ -2285,7 +2279,7 @@ export default {
           taskID: this.taskID,
           SupperListINt: this.SupplierListInt,
         });
-
+        console.log("this.mainStaskTypeID"+this.mainStaskTypeID)
         if (this.cool.taskType == 0) {
           this.cool.taskType = "设计任务";
         } else {
@@ -2298,6 +2292,7 @@ export default {
             data: data,
           })
           .then((response) => {
+            console.log(response)
             if (response.data == "成功") {
               this.$message.success("修改成功");
               this.$refs.upload.clearFiles();
@@ -2509,6 +2504,12 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+                              this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
+          this.subStaskTypeID=response.data.allData.a[0].taskCategory
+                    this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          console.log(response)
+          this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
+          this.subStaskTypeID=response.data.allData.a[0].taskCategory
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
@@ -2619,9 +2620,7 @@ export default {
             }
           }
 
-          this.mainTaskID = response.data.allData.a[0].mainTaskId;
-          this.mainTaskName = response.data.allData.a[0].mainTaskName;
-          this.taskID = response.data.allData.a[0].taskId;
+       
         });
     },
     goBack() {

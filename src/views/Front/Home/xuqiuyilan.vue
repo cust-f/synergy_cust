@@ -194,7 +194,7 @@
               :page-size="pageSize"
                 @current-change="getCompanyList"
                 @size-change="getCompanyList"
-                background
+                background 
                 >
             </el-pagination>
           </div>

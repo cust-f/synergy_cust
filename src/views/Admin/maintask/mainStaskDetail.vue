@@ -24,13 +24,13 @@
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
         基本信息
         <el-button
-          v-if="this.milepostActive === 0"
           type="text"
           class="XG"
           style="float:right"
           @click="XG"
         >修改</el-button>
       </div>
+          <!-- v-if="this.milepostActive === 0" -->
 
       <br />
       <el-card class="box-card">
@@ -1644,6 +1644,7 @@ export default {
     shanchuwenjian(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
       let qianzui, houzui;
+      console.log("KS的大小是"+ks)
       if (row.wenjiancixu == this.WJSM - 1) {
         qianzui = this.WZLJ.substr(0, ks - 8);
         houzui = "";
@@ -1652,14 +1653,19 @@ export default {
         houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
       }
       this.WZLJ = qianzui + houzui;
+      console.log("文件前缀"+qianzui)
+      console.log("文件后缀"+houzui)
+      console.log("完整路径"+this.WZLJ)
       this.fujian.splice(row.wenjiancixu, 1);
     },
     downloadFile(row) {
       var that = this;
+      console.log("row"+row)
       var data = Qs.stringify({
         //taskID: this.taskId,
-        url: row.filePath,
+        url: row.realPath,
       });
+      console.log(row)
       that
         .axios({
           method: "post",
@@ -1676,7 +1682,7 @@ export default {
           link.href = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/octet-stream" })
           );
-          link.setAttribute("download", row.fileRealName);
+          link.setAttribute("download", row.realName);
           document.body.appendChild(link);
           link.click();
         });
@@ -1704,10 +1710,13 @@ export default {
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng =
           this.WZLJ + "linklink" + this.technicalFileWanzheng;
+          console.log("第一版"+this.technicalFileWanzheng)
       }
       if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng = this.WZLJ;
+        console.log("第二版"+this.technicalFileWanzheng)
       }
+      console.log("第三版"+this.technicalFileWanzheng)
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
       //先对要修改的文件进行判断
@@ -1748,7 +1757,8 @@ export default {
           taskID: this.taskID,
           SupperListINt: this.SupplierListInt,
         });
-
+        console.log("this.mainTaskID"+this.mainTaskID)
+                console.log("this.taskID"+this.taskID)
         if (this.cool.taskType == 0) {
           this.cool.taskType = "设计任务";
         } else {
@@ -1767,6 +1777,7 @@ export default {
               this.technicalFileWanzheng = "";
               this.technicalFile = "";
               this.shangchuancishu = "";
+              this.showData();
               //this.getData();
             }
           })
@@ -1806,6 +1817,8 @@ export default {
     //上传后文件路径赋值
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
+      console.log(this.technicalFile)
+      console.log("this.technicalFileWanzheng"+this.technicalFileWanzheng.length)
       if (this.technicalFileWanzheng.length > 0) {
         this.technicalFileWanzheng =
           this.technicalFileWanzheng +
@@ -1815,6 +1828,7 @@ export default {
         this.technicalFileWanzheng =
           this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
       }
+      console.log(this.technicalFileWanzheng)
       this.shangchuancishu = this.shangchuancishu + 1;
     },
     //是否发布（私密）
@@ -1880,7 +1894,7 @@ export default {
       this.XZJXQ = true;
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskID,
+        taskId: this.taskID,
       });
       that
         .axios({
@@ -1891,6 +1905,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          console.log(response)
           this.zirenwuXX = response.data.allData;
         });
     },
@@ -1951,11 +1966,16 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+                    this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
+          this.subStaskTypeID=response.data.allData.a[0].taskCategory
+                    this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          this.mainTaskName = response.data.allData.a[0].mainTaskName;
+          this.taskID = response.data.allData.a[0].taskId;
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
-          console.log(this.tableData1);
+          console.log(response);
           if (this.tableData1.length != 0) {
             console.log("this.tableData1");
             //读取所有需求的时间
@@ -2081,9 +2101,7 @@ export default {
               ](response.data.allData.e[0].finishTime);
             }
           }
-          this.mainTaskID = response.data.allData.a[0].mainTaskId;
-          this.mainTaskName = response.data.allData.a[0].mainTaskName;
-          this.taskID = response.data.allData.a[0].taskId;
+
         });
     },
     goBack() {
