@@ -83,7 +83,7 @@
     <el-dialog
       :visible.sync="upCirculation"
       width="1000px"
-      :before-close="handleClose"
+      @click="handleClose"
     >
       <div
         class="biaoti"
@@ -93,7 +93,7 @@
       </div>
             <div style="margin-top: 10px;">
           <el-button
-            style="float: left;margin-bottom: 10px"
+            style="float: left;margin-bottom: 10px;"
             type="primary"
             @click="submit2()"
             size="small"
@@ -207,16 +207,9 @@
             </template>
           </el-table-column>
         </el-table>
-        <!-- <div style="margin-top: 20px">
-          <el-button
-            style="float: right"
-            type="primary"
-            @click="submit2()"
-            size="small"
-            >全部提交</el-button
-          > -->
+
           <!-- <el-button type="primary" @click="toggleSelection()">取消选择</el-button> -->
-       <!--  </div> -->
+      
         <div class="pagination">
           <el-pagination
             background
@@ -417,7 +410,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/consignment/findConsignmentByTaskId",
+          url: "/api/addConsignment/findConsignmentByTaskId",
           data: data,
         })
         .then((response) => {
@@ -433,15 +426,16 @@ export default {
         var that = this;
         var data = Qs.stringify({
           consignmentId: row.consignmentId,
+          taskId:row.taskId,
         });
         that
           .axios({
             method: "post",
-            url: "/api/consignment/submit",
+            url: "/api/addConsignment/submit",
             data: data,
           })
           .then((response) => {
-            this.tableData = response.data.allData;
+           
           });
         this.$message({
           message: "审核通过",
@@ -451,28 +445,30 @@ export default {
       });
     },
     //全部提交的实现
-    submit2() {
+    submit2() {debugger
       // alert(this.multipleSelection.length)
       // alert(this.multipleSelection[0].productName )
       for (var i = 0; i < this.multipleSelection.length; i++) {
-        var that = this;
-        var data = Qs.stringify({
-          consignmentId: this.multipleSelection[i].consignmentId,
+        let that = this;
+        let data = Qs.stringify({
+          consignmentId: that.multipleSelection[i].consignmentId,
         });
+        console.log(data)
         that
           .axios({
             method: "post",
-            url: "/api/consignment/submit",
+            url: "/api/addConsignment/submit",
             data: data,
           })
-          .then((response) => {
-            this.tableData = response.data.allData;
+          .then((response) => {debugger
+          console.log(response)
+            //that.tableData = response.data.allData;
           });
-        this.$message({
+      }
+      this.$message({
           message: "审核通过",
           type: "success",
-        });
-      }
+      });
       this.showData();
     },
 
@@ -489,6 +485,14 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
+    handleClose(){debugger
+    console.log('1')
+      if(this.upCirculation==false){
+        this.upCirculation=true;
+      }else{
+        this.upCirculation=false;
+      }
+    }
     //列表日期时间格式化
 
     /*    Data_checkox =this.tableData.checkox;
