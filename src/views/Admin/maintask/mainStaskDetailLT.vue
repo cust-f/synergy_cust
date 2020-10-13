@@ -2095,7 +2095,7 @@ export default {
       var data = Qs.stringify({
         ConsignmentId: row.consignmentId,
         taskID:row.taskId
-      });
+      }); 
       that
         .axios({
           method: "post",
