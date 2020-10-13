@@ -371,9 +371,11 @@ export default {
       tableData:"",
       lineData1:{
         lineData1:[],
+        lineDataU1:[],
       },
       lineData2:{
         lineData2:[],
+         lineDataU2:[],
       },
       radarData:{
       radarData:[],
@@ -412,6 +414,7 @@ export default {
     this.lineChartData2();//流通任务-接收数量
     this.getLineChart1();
     this.getLineChart2();
+
     
   },
   //初始化俩图标
@@ -452,6 +455,7 @@ export default {
         this.barChartData(); 
         this.lineChartData1();
         this.lineChartData2();
+
       
        
       });
@@ -619,19 +623,21 @@ export default {
         .axios({
           method: "post",
           url:
-            "/api/addConsignment/selectMonthConsignmentCount1",
+            "/api/addConsignment/circulaterConsignment",
           data: data
         })
         .then(response => {
          
-         this.lineData1.lineData1=response.data.allData.consignmentCount1;    
-          
+         this.lineData1.lineData1=response.data.allData.Data1; 
+         this.lineData1.lineDataU1=response.data.allData.Data2;   
+          // console.log(this.lineData1.lineData1);
          that.getLineChart1();
         
         });
 
     },
-    //折线图数据获取-接收
+    
+    //折线图数据获取-需求方
     lineChartData2(){
  
       var that = this;
@@ -647,13 +653,14 @@ export default {
         .axios({
           method: "post",
           url:
-            "/api/addConsignment/selectMonthConsignmentCount",
+            "/api/addConsignment/circulaterConsignmentS",
           data: data
         })
         .then(response => {
           //this.table = response.data.allData;
          
-         this.lineData2.lineData2=response.data.allData.consignmentCount;     
+         this.lineData2.lineData2=response.data.allData.Data1;
+         this.lineData2.lineDataU2=response.data.allData.Data2;     
         
          that.getLineChart2();
         
@@ -661,13 +668,14 @@ export default {
         });
 
     },
-    //柱形图标
+    
+    //折线图
     getLineChart1(){
       var that =this;
       var myChart = echarts.init(document.getElementById("linecharts1"));
       var option = {
     legend: {
-      //data: ['发布数量', '完成数量']
+     // data: ["已完成", "未完成"],
        textStyle: {
             fontSize: 16
         }
@@ -694,17 +702,26 @@ export default {
             "十二月"
       ]
       },
-    yAxis: {},
+    yAxis: {
+       type: 'value'
+    },
     // Declare several bar series, each will be mapped to a column of dataset.source by default.
     series: [
       
                  
         {
-          name:'制造数量',
+           name:'完成数量',
           type: 'line',
          
          data:this.lineData1.lineData1
         },
+        {
+          name:'未完成数量',
+          type: 'line',
+         
+         data:this.lineData1.lineDataU1,
+        },
+        
         
         
     ]
@@ -750,10 +767,15 @@ export default {
     series: [
       
         {
-          name:'接收数量',
+          name:'完成数量',
           type: 'line',          
           data:this.lineData2.lineData2
-         },    
+         },   
+         {
+          name:'未完成数量',
+          type: 'line',          
+          data:this.lineData2.lineDataU2
+         },  
        
         
     ]
