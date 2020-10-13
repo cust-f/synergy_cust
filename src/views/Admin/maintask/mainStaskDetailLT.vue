@@ -27,11 +27,16 @@
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
         基本信息
-        <el-button type="text" class="XG" style="float: right" @click="XG"
+        <el-button
+          v-if="this.milepostActive === 0"
+
+          type="text"
+          class="XG"
+          style="float: right"
+          @click="XG"
           >修改</el-button
         >
       </div>
-      <!-- v-if="this.milepostActive === 0" -->
       <br />
       <el-card class="box-card">
         <div class="formYS">
@@ -418,7 +423,11 @@
         <br />
         <br />
       </div>
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> c491bd34a8a08a9bb582c0dfa1797a1e3da9bcfe
       <div v-show="milepostActive4">
         <div
           class="biaoti"
@@ -2466,7 +2475,7 @@ export default {
       this.XZJXQ = true;
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskID,
+        taskId: this.taskID,
       });
       that
         .axios({
@@ -2477,6 +2486,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          console.log(response)
           this.zirenwuXX = response.data.allData;
         });
     },
@@ -2868,7 +2878,7 @@ export default {
         });
         that.axios({
           method: "post",
-          url: "/api/SubstaskInformation/HTSHTG",
+          url: "/api/SubstaskInformation/LTHTSHTG",
           data: data,
         });
         this.$message({

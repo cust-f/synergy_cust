@@ -445,7 +445,7 @@ export default {
       });
     },
     //全部提交的实现
-    submit2() {debugger
+    submit2() {
       // alert(this.multipleSelection.length)
       // alert(this.multipleSelection[0].productName )
       for (var i = 0; i < this.multipleSelection.length; i++) {
@@ -460,8 +460,8 @@ export default {
             url: "/api/addConsignment/submit",
             data: data,
           })
-          .then((response) => {debugger
-          console.log(response)
+          .then((response) => {
+        
             //that.tableData = response.data.allData;
           });
       }
@@ -469,6 +469,7 @@ export default {
           message: "审核通过",
           type: "success",
       });
+      this.upCirculation=true; 
       this.showData();
     },
 
