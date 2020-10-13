@@ -206,6 +206,126 @@
                 </cloumn-chart2>
                 
               </el-tab-pane>
+<!-- ---------------------------------- 制造数量----------------------------------------- -->
+<!-- ---------------------------------- 制造数量----------------------------------------- -->
+<!-- ---------------------------------- 制造数量----------------------------------------- -->
+      
+  
+          <el-tab-pane label="制造数量" name="third">
+               <cloumn-chart3 style="width: 600px;height:400px;"  >
+        <div style="text-align:center" >
+      <label  style="font-size:16px">企业星级</label>
+      </div>
+      <br/>
+      <el-rate  
+          v-model="star"
+          disabled          
+          max:5
+          text-color="#ff9900"  
+          score-template="{value}"  
+          style="text-align:center"
+          >
+      </el-rate>
+        
+     <br/>
+     
+     <el-card  shadow="hover" :body-style="{padding: '0px'}"> 
+     <!-- 折线图部分 -->
+    
+      <div style="float:right">
+        <template>
+        <el-select 
+        style="width:100px;margin-right:35px;margin-top:15px"
+        v-model="value"
+        
+        @change="lineChartData1"
+        >
+            <el-option
+          v-for="item in options"
+          placeholder="请选择"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+          :disabled="item.disabled"
+         
+          width="20px"
+          >
+            </el-option>
+          </el-select> 
+        </template>
+        </div>
+        <div class="top">
+          
+        <template>
+   <div id="linecharts1" style="height: 320px; width:800px; float:left"></div>
+</template>
+        </div>
+     
+     </el-card>
+     <br/>
+          
+
+               </cloumn-chart3>
+              </el-tab-pane>
+<!-- ---------------------------------- 接收数量----------------------------------------- -->
+<!-- ---------------------------------- 接收数量----------------------------------------- -->
+<!-- ---------------------------------- 接收数量----------------------------------------- -->
+ 
+    <el-tab-pane label="接收数量" name="fourth">
+      <cloumn-chart4  style="width: 600px;height:400px;" >
+        <div style="text-align:center" >
+      <label  style="font-size:16px">企业星级</label>
+      </div>
+      <br/>
+      <el-rate  
+          v-model="star"
+          disabled          
+          max:5
+          text-color="#ff9900"  
+          score-template="{value}"  
+          style="text-align:center"
+          >
+      </el-rate>
+        
+     <br/>      
+   
+     <el-card  shadow="hover" :body-style="{padding: '0px'}"> 
+     <!-- 折线图部分 -->
+    
+      <div style="float:right" >
+        <template>
+        <el-select 
+        style="width:100px;margin-right:35px;margin-top:15px"
+        v-model="value"
+        
+        @change="lineChartData2"
+        >
+            <el-option
+          v-for="item in options"
+          placeholder="请选择"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+          :disabled="item.disabled"
+         
+          width="20px"
+          >
+            </el-option>
+          </el-select> 
+        </template>
+        </div>
+        <div class="top">
+        <template>
+   <div id="linecharts2" style="height: 320px; width:800px; float:left"></div>
+</template>
+        </div>
+     
+     </el-card>
+     
+      
+                </cloumn-chart4>
+                
+              </el-tab-pane>
         </el-tabs>
  
       <br/> <br/><br/> <br/>
@@ -222,6 +342,8 @@ import barChart from "./components/barChart"
 import radarChart from "./components/radarChart"
 import barChartS from "./components/barChartS"
 import radarChartS from "./components/radarChartS"
+//import lineChart1 from "./components/lineChart1"
+//import lineChart2 from "./components/lineChart2"
 export default {
   name:"evaluate",
     
@@ -230,6 +352,8 @@ export default {
     "radar-chart":radarChart,
     "bar-chartS":barChartS,
     "radar-chartS":radarChartS,
+   // "line-chart1":lineChart1,
+    //"line-chart2":lineChart2,
   },
   data() {
     return {
@@ -245,7 +369,12 @@ export default {
         } ,
     
       tableData:"",
-      
+      lineData1:{
+        lineData1:[],
+      },
+      lineData2:{
+        lineData2:[],
+      },
       radarData:{
       radarData:[],
        indicatorData:[],
@@ -279,6 +408,10 @@ export default {
 
      this.getRemarDataSS();//承接雷达图数据
     this.barChartDataSS();//承接柱形图数据获取
+    this.lineChartData1();//流通任务-制造数量
+    this.lineChartData2();//流通任务-接收数量
+    this.getLineChart1();
+    this.getLineChart2();
     
   },
   //初始化俩图标
@@ -289,9 +422,9 @@ export default {
    
   methods: {
      handleClick(tab, event) {
-        this.getYearData(); //获取条件选择年份数据
+       this.getYearData(); //获取条件选择年份数据
        this.getTimeData();///获取条件选择时间数据
-        console.log(tab, event);
+       
       },
     
     
@@ -317,10 +450,10 @@ export default {
         this.options= response.data.allData.years; 
         this.barChartDataSS(); 
         this.barChartData(); 
+        this.lineChartData1();
+        this.lineChartData2();
       
-        // that.$refs.drawradarChart.getCharts2();
-        // that.$refs.drawradarChartS.getCharts2S();
-       // console.log(response.data.allData);      
+       
       });
     },
     //企业雷达图数据
@@ -376,7 +509,7 @@ export default {
           this.radarDataS.radarDataS=response.data.allData.AllRemarkLengthS;
          this.radarDataS.indicatorDataS=response.data.allData.indicatorS;
          that.$refs.drawradarChartS.getCharts2S();   
-          console.log(response.data.allData)   
+         // console.log(response.data.allData)   
         // this.getCharts2();
           
         });
@@ -436,6 +569,7 @@ export default {
         });
 
     },
+
     //承接柱形图数据获取
     barChartDataSS(){
  
@@ -448,7 +582,7 @@ export default {
         
       });
      
-     console.log(data);
+     //console.log(data);
       that
         .axios({
           method: "post",
@@ -464,15 +598,173 @@ export default {
          this.barDataS.finishTaskCountS=response.data.allData.finishTaskCount;  
 
          that.$refs.drawbarChartS.getCharts1S();
-         console.log(response.data.allData);
+         
          //this.getCharts1();
         });
 
     },
+     //折线图数据获取-制造
+    lineChartData1(){
+ 
+      var that = this;
+      var data = Qs.stringify({
+        
+       userName:this.userName,
+        year:this.value,
+        
+      });
+       console.log(data);
      
+      that
+        .axios({
+          method: "post",
+          url:
+            "/api/addConsignment/selectMonthConsignmentCount1",
+          data: data
+        })
+        .then(response => {
+         
+         this.lineData1.lineData1=response.data.allData.consignmentCount1;    
+          
+         that.getLineChart1();
+        
+        });
+
+    },
+    //折线图数据获取-接收
+    lineChartData2(){
+ 
+      var that = this;
+      var data = Qs.stringify({
+        
+       userName:this.userName,
+        year:this.value,
+        
+      });
+     //  console.log(data);
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "/api/addConsignment/selectMonthConsignmentCount",
+          data: data
+        })
+        .then(response => {
+          //this.table = response.data.allData;
+         
+         this.lineData2.lineData2=response.data.allData.consignmentCount;     
+        
+         that.getLineChart2();
+        
+        
+        });
+
+    },
+    //柱形图标
+    getLineChart1(){
+      var that =this;
+      var myChart = echarts.init(document.getElementById("linecharts1"));
+      var option = {
+    legend: {
+      //data: ['发布数量', '完成数量']
+       textStyle: {
+            fontSize: 16
+        }
+    },
+    tooltip: {},
+    
+    xAxis: {
+      type: 'category',
+      textStyle: {
+            fontSize: 16
+        },
+      data:[
+            "一月",
+            "二月",
+            "三月",
+            "四月",
+            "五月",
+            "六月",
+            "七月",
+            "八月",
+            "九月",
+            "十月",
+            "十一月",
+            "十二月"
+      ]
+      },
+    yAxis: {},
+    // Declare several bar series, each will be mapped to a column of dataset.source by default.
+    series: [
+      
+                 
+        {
+          name:'制造数量',
+          type: 'line',
+         
+         data:this.lineData1.lineData1
+        },
+        
+        
+    ]
+};
+
+      myChart.setOption(option);
+    },
+    //折线图
+    getLineChart2(){
+      var that =this;
+      var myChart = echarts.init(document.getElementById("linecharts2"));
+      var option = {
+    legend: {
+     
+       textStyle: {
+            fontSize: 16
+        }
+    },
+    tooltip: {},
+    
+    xAxis: {
+      type: 'category',
+      textStyle: {
+            fontSize: 16
+        },
+      data:[
+            "一月",
+            "二月",
+            "三月",
+            "四月",
+            "五月",
+            "六月",
+            "七月",
+            "八月",
+            "九月",
+            "十月",
+            "十一月",
+            "十二月",
+      ]
+      },
+    yAxis: {},
+    // Declare several bar series, each will be mapped to a column of dataset.source by default.
+    series: [
+      
+        {
+          name:'接收数量',
+          type: 'line',          
+          data:this.lineData2.lineData2
+         },    
+       
+        
+    ]
+};
+
+      myChart.setOption(option);
+    },
+ }
  
   }
-}
+
 
 </script>
 <style scoped>
