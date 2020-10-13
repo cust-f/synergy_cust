@@ -40,6 +40,13 @@
             size="small"
             v-show="scope.row.contractState===0"
           >上传</el-button>
+
+          <el-button
+            @click="upLoadConT(scope.row)"
+            type="text"
+            size="small"
+          >重新上传</el-button>
+
           <el-button
             @click="HTFileHistory()"
             v-show="scope.row.contractState > 0"
