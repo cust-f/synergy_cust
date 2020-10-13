@@ -461,7 +461,7 @@ export default {
             data: data,
           })
           .then((response) => {
-          console.log(response)
+        
             //that.tableData = response.data.allData;
           });
       }
@@ -469,6 +469,7 @@ export default {
           message: "审核通过",
           type: "success",
       });
+      this.upCirculation=true; 
       this.showData();
     },
 
@@ -485,7 +486,7 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-    handleClose(){
+    handleClose(){debugger
     console.log('1')
       if(this.upCirculation==false){
         this.upCirculation=true;
