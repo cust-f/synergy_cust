@@ -424,7 +424,7 @@
         <br />
       </div>
       
-      <div v-show="true">
+      <div v-show="milepostActive4">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -2817,7 +2817,7 @@ export default {
         });
         that.axios({
           method: "post",
-          url: "/api/SubstaskInformation/HTSHTG",
+          url: "/api/SubstaskInformation/LTHTSHTG",
           data: data,
         });
         this.$message({
