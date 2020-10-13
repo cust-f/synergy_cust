@@ -2413,7 +2413,7 @@ export default {
       this.XZJXQ = true;
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskID,
+        taskId: this.taskID,
       });
       that
         .axios({
@@ -2424,6 +2424,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          console.log(response)
           this.zirenwuXX = response.data.allData;
         });
     },
