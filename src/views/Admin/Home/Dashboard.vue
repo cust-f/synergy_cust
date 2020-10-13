@@ -1,103 +1,242 @@
 <template>
   <div>
-    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-          网站数据统计
-        </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-       
-           <el-button type="text" id="week" style="display:inline-block;margin-left:-48px;font-size:15px;color:black" @click="weekDataB">本周统计</el-button>
-           <el-button type="text" id="month" style="display:inline-block;margin-left:5px;font-size:15px;color:black" @click="monthDataB">本月统计</el-button>
-           <div class="block" style="display:inline-block;margin-left:10px">
-                    
-        <el-date-picker
-          v-model="value1"
-          type="daterange"
-          unlink-panels="false"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期">
-        </el-date-picker>
-           
-         </div>
-         <el-button type="primary" style="margin-left:15px" @click="paragraphData">搜索</el-button>
-     
-        <el-col :span="24" style="margin-top:10px;">
-          <div v-show="isWeekData">
+    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
+      网站数据统计
+    </div>
+    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+
+    <el-button
+      type="text"
+      id="week"
+      style="
+        display: inline-block;
+        margin-left: -48px;
+        font-size: 15px;
+        color: black;
+      "
+      @click="weekDataB"
+      >本周统计</el-button
+    >
+    <el-button
+      type="text"
+      id="month"
+      style="
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 15px;
+        color: black;
+      "
+      @click="monthDataB"
+      >本月统计</el-button
+    >
+    <div class="block" style="display: inline-block; margin-left: 10px">
+      <el-date-picker
+        v-model="value1"
+        type="daterange"
+        unlink-panels="false"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+      >
+      </el-date-picker>
+    </div>
+    <el-button type="primary" style="margin-left: 15px" @click="paragraphData"
+      >搜索</el-button
+    >
+
+    <el-col :span="24" style="margin-top: 10px">
+      <div v-show="isWeekData">
         <el-row :gutter="20" class="mgb20">
           <el-form ref="formWeek" :html="formWeek">
-            
-           <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class="el-icon-bell grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="formWeek.weekCount"></div>
-                  <div>本周成交任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="formWeek.weekCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(formWeek.weekCountRing)}}%</div>
-                  <div v-show="formWeek.weekCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(formWeek.weekCountRing)}}%</div>
-                  <div v-show="formWeek.weekCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(formWeek.weekCountRing)}}%</div>
-                  <i v-show="formWeek.weekCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="formWeek.weekCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="formWeek.weekCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-1">
+                  <i class="el-icon-bell grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num" v-html="formWeek.weekCount"></div>
+                    <div>本周成交任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="formWeek.weekCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(formWeek.weekCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formWeek.weekCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(formWeek.weekCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formWeek.weekCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(formWeek.weekCountRing) }}%
+                    </div>
+                    <i
+                      v-show="formWeek.weekCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="formWeek.weekCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="formWeek.weekCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-2">
-                <i class="el-icon-s-data grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="formWeek.desingWeekCount"></div>                  
-                  <div>设计任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="formWeek.desingWeekCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(formWeek.desingWeekCountRing)}}%</div>
-                  <div v-show="formWeek.desingWeekCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(formWeek.desingWeekCountRing)}}%</div>
-                  <div v-show="formWeek.desingWeekCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(formWeek.desingWeekCountRing)}}%</div>
-                  <i v-show="formWeek.desingWeekCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="formWeek.desingWeekCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="formWeek.desingWeekCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-2">
+                  <i class="el-icon-s-data grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div
+                      class="grid-num"
+                      v-html="formWeek.desingWeekCount"
+                    ></div>
+                    <div>设计任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="formWeek.desingWeekCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(formWeek.desingWeekCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formWeek.desingWeekCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(formWeek.desingWeekCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formWeek.desingWeekCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(formWeek.desingWeekCountRing) }}%
+                    </div>
+                    <i
+                      v-show="formWeek.desingWeekCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="formWeek.desingWeekCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="formWeek.desingWeekCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-           <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-3">
-                <i class="el-icon-s-data grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="formWeek.circulaterWeekCount"></div>
-                  <div>流通任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="formWeek.circulaterWeekCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(formWeek.circulaterWeekCountRing)}}%</div>
-                  <div v-show="formWeek.circulaterWeekCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(formWeek.circulaterWeekCountRing)}}%</div>
-                  <div v-show="formWeek.circulaterWeekCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(formWeek.circulaterWeekCountRing)}}%</div>
-                  <i v-show="formWeek.circulaterWeekCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="formWeek.circulaterWeekCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="formWeek.circulaterWeekCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-3">
+                  <i class="el-icon-s-data grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div
+                      class="grid-num"
+                      v-html="formWeek.circulaterWeekCount"
+                    ></div>
+                    <div>流通任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="formWeek.circulaterWeekCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(formWeek.circulaterWeekCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formWeek.circulaterWeekCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(formWeek.circulaterWeekCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formWeek.circulaterWeekCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(formWeek.circulaterWeekCountRing) }}%
+                    </div>
+                    <i
+                      v-show="formWeek.circulaterWeekCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="formWeek.circulaterWeekCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="formWeek.circulaterWeekCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class="el-icon-user grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="formWeek.companyCount">32</div>
-                  <div>认证企业</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="formWeek.companyCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(formWeek.companyCountRing)}}%</div>
-                  <div v-show="formWeek.companyCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(formWeek.companyCountRing)}}%</div>
-                  <div v-show="formWeek.companyCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(formWeek.companyCountRing)}}%</div>
-                  <i v-show="formWeek.companyCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="formWeek.companyCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="formWeek.companyCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-1">
+                  <i class="el-icon-user grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num" v-html="formWeek.companyCount">
+                      32
+                    </div>
+                    <div>认证企业</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="formWeek.companyCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(formWeek.companyCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formWeek.companyCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(formWeek.companyCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formWeek.companyCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(formWeek.companyCountRing) }}%
+                    </div>
+                    <i
+                      v-show="formWeek.companyCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="formWeek.companyCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="formWeek.companyCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-          <!-- <el-col :span="5" >
+              </el-card>
+            </el-col>
+            <!-- <el-col :span="5" >
             <el-card shadow="hover" :body-style="{padding: '0px'}">
               <div class="grid-content grid-con-1">
                 <i class="el-icon-user grid-con-icon"></i>
@@ -112,183 +251,411 @@
             </el-card>
           </el-col> -->
           </el-form>
-           </el-row>
-           </div>
-          <div v-show="isMonthData">
+        </el-row>
+      </div>
+      <div v-show="isMonthData">
         <el-row :gutter="20" class="mgb20">
           <el-form ref="form" :html="form">
-            
-           <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class="el-icon-bell grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="form.monthCount"></div>
-                  <div>本月成交任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="form.monthCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(form.monthCountRing)}}%</div>
-                  <div v-show="form.monthCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(form.monthCountRing)}}%</div>
-                  <div v-show="form.monthCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(form.monthCountRing)}}%</div>
-                  <i v-show="form.monthCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="form.monthCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="form.monthCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-1">
+                  <i class="el-icon-bell grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num" v-html="form.monthCount"></div>
+                    <div>本月成交任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="form.monthCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(form.monthCountRing) }}%
+                    </div>
+                    <div
+                      v-show="form.monthCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(form.monthCountRing) }}%
+                    </div>
+                    <div
+                      v-show="form.monthCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(form.monthCountRing) }}%
+                    </div>
+                    <i
+                      v-show="form.monthCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="form.monthCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="form.monthCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-2">
-                <i class="el-icon-s-data grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="form.desingMonthCount"></div>                  
-                  <div>设计任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="form.desingMonthCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(form.desingMonthCountRing)}}%</div>
-                  <div v-show="form.desingMonthCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(form.desingMonthCountRing)}}%</div>
-                  <div v-show="form.desingMonthCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(form.desingMonthCountRing)}}%</div>
-                  <i v-show="form.desingMonthCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="form.desingMonthCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="form.desingMonthCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-2">
+                  <i class="el-icon-s-data grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num" v-html="form.desingMonthCount"></div>
+                    <div>设计任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="form.desingMonthCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(form.desingMonthCountRing) }}%
+                    </div>
+                    <div
+                      v-show="form.desingMonthCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(form.desingMonthCountRing) }}%
+                    </div>
+                    <div
+                      v-show="form.desingMonthCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(form.desingMonthCountRing) }}%
+                    </div>
+                    <i
+                      v-show="form.desingMonthCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="form.desingMonthCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="form.desingMonthCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-           <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-3">
-                <i class="el-icon-s-data grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="form.circulaterMonthCount"></div>
-                  <div>流通任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="form.circulaterMonthCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(form.circulaterMonthCountRing)}}%</div>
-                  <div v-show="form.circulaterMonthCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(form.circulaterMonthCountRing)}}%</div>
-                  <div v-show="form.circulaterMonthCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(form.circulaterMonthCountRing)}}%</div>
-                  <i v-show="form.circulaterMonthCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="form.circulaterMonthCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="form.circulaterMonthCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-3">
+                  <i class="el-icon-s-data grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div
+                      class="grid-num"
+                      v-html="form.circulaterMonthCount"
+                    ></div>
+                    <div>流通任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="form.circulaterMonthCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(form.circulaterMonthCountRing) }}%
+                    </div>
+                    <div
+                      v-show="form.circulaterMonthCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(form.circulaterMonthCountRing) }}%
+                    </div>
+                    <div
+                      v-show="form.circulaterMonthCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(form.circulaterMonthCountRing) }}%
+                    </div>
+                    <i
+                      v-show="form.circulaterMonthCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="form.circulaterMonthCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="form.circulaterMonthCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class="el-icon-user grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="form.companyCount">32</div>
-                  <div>认证企业</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="form.companyCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(form.companyCountRing)}}%</div>
-                  <div v-show="form.companyCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(form.companyCountRing)}}%</div>
-                  <div v-show="form.companyCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(form.companyCountRing)}}%</div>
-                  <i v-show="form.companyCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="form.companyCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="form.companyCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-1">
+                  <i class="el-icon-user grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num" v-html="form.companyCount">32</div>
+                    <div>认证企业</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="form.companyCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(form.companyCountRing) }}%
+                    </div>
+                    <div
+                      v-show="form.companyCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(form.companyCountRing) }}%
+                    </div>
+                    <div
+                      v-show="form.companyCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(form.companyCountRing) }}%
+                    </div>
+                    <i
+                      v-show="form.companyCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="form.companyCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="form.companyCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
+              </el-card>
+            </el-col>
           </el-form>
-           </el-row>
-     
-          </div>
-           <div v-show="isParagraphData">
+        </el-row>
+      </div>
+      <div v-show="isParagraphData">
         <el-row :gutter="20" class="mgb20">
           <el-form ref="form" :html="form">
-            
-           <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class="el-icon-bell grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="formParagraph.taskCount"></div>
-                  <div>本段时间成交任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="formParagraph.taskCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(formParagraph.taskCountRing)}}%</div>
-                  <div v-show="formParagraph.taskCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(formParagraph.taskCountRing)}}%</div>
-                  <div v-show="formParagraph.taskCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(formParagraph.taskCountRing)}}%</div>
-                  <i v-show="formParagraph.taskCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="formParagraph.taskCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="formParagraph.taskCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-1">
+                  <i class="el-icon-bell grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div
+                      class="grid-num"
+                      v-html="formParagraph.taskCount"
+                    ></div>
+                    <div>本段时间成交任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="formParagraph.taskCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(formParagraph.taskCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formParagraph.taskCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(formParagraph.taskCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formParagraph.taskCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(formParagraph.taskCountRing) }}%
+                    </div>
+                    <i
+                      v-show="formParagraph.taskCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="formParagraph.taskCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="formParagraph.taskCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-2">
-                <i class="el-icon-s-data grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="formParagraph.desingCount"></div>                  
-                  <div>设计任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="formParagraph.desingCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(formParagraph.desingCountRing)}}%</div>
-                  <div v-show="formParagraph.desingCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(formParagraph.desingCountRing)}}%</div>
-                  <div v-show="formParagraph.desingCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(formParagraph.desingCountRing)}}%</div>
-                  <i v-show="formParagraph.desingCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="formParagraph.desingCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="formParagraph.desingCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-2">
+                  <i class="el-icon-s-data grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div
+                      class="grid-num"
+                      v-html="formParagraph.desingCount"
+                    ></div>
+                    <div>设计任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="formParagraph.desingCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(formParagraph.desingCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formParagraph.desingCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(formParagraph.desingCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formParagraph.desingCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(formParagraph.desingCountRing) }}%
+                    </div>
+                    <i
+                      v-show="formParagraph.desingCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="formParagraph.desingCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="formParagraph.desingCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-           <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-3">
-                <i class="el-icon-s-data grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="formParagraph.circulaterCount"></div>
-                  <div>流通任务</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="formParagraph.circulaterCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(formParagraph.circulaterCountRing)}}%</div>
-                  <div v-show="formParagraph.circulaterCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(formParagraph.circulaterCountRing)}}%</div>
-                  <div v-show="formParagraph.circulaterCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(formParagraph.circulaterCountRing)}}%</div>
-                  <i v-show="formParagraph.circulaterCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="formParagraph.circulaterCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="formParagraph.circulaterCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-3">
+                  <i class="el-icon-s-data grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div
+                      class="grid-num"
+                      v-html="formParagraph.circulaterCount"
+                    ></div>
+                    <div>流通任务</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="formParagraph.circulaterCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(formParagraph.circulaterCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formParagraph.circulaterCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(formParagraph.circulaterCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formParagraph.circulaterCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(formParagraph.circulaterCountRing) }}%
+                    </div>
+                    <i
+                      v-show="formParagraph.circulaterCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="formParagraph.circulaterCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="formParagraph.circulaterCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6" >
-            <el-card shadow="hover" :body-style="{padding: '0px'}">
-              <div class="grid-content grid-con-1">
-                <i class="el-icon-user grid-con-icon"></i>
-                <div class="grid-cont-right">
-                  <div class="grid-num" v-html="formParagraph.companyCount">32</div>
-                  <div>认证企业</div>
-                  <div style="display:inline;font-size:5px">环比：</div>
-                  <div v-show="formParagraph.companyCountRing>0" style="display:inline;font-size:5px;color:red" >{{Math.abs(formParagraph.companyCountRing)}}%</div>
-                  <div v-show="formParagraph.companyCountRing<0" style="display:inline;font-size:5px;color:green" >{{Math.abs(formParagraph.companyCountRing)}}%</div>
-                  <div v-show="formParagraph.companyCountRing==0" style="display:inline;font-size:5px" >{{Math.abs(formParagraph.companyCountRing)}}%</div>
-                  <i v-show="formParagraph.companyCountRing>0" class="el-icon-caret-top" style="display:inline;color:red"></i>
-                  <i v-show="formParagraph.companyCountRing<0" class="el-icon-caret-bottom" style="display:inline;color:green"></i>
-                  <i v-show="formParagraph.companyCountRing==0" class="el-icon-caret-top" style="display:inline;"></i>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{ padding: '0px' }">
+                <div class="grid-content grid-con-1">
+                  <i class="el-icon-user grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num" v-html="formParagraph.companyCount">
+                      32
+                    </div>
+                    <div>认证企业</div>
+                    <div style="display: inline; font-size: 5px">环比：</div>
+                    <div
+                      v-show="formParagraph.companyCountRing > 0"
+                      style="display: inline; font-size: 5px; color: red"
+                    >
+                      {{ Math.abs(formParagraph.companyCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formParagraph.companyCountRing < 0"
+                      style="display: inline; font-size: 5px; color: green"
+                    >
+                      {{ Math.abs(formParagraph.companyCountRing) }}%
+                    </div>
+                    <div
+                      v-show="formParagraph.companyCountRing == 0"
+                      style="display: inline; font-size: 5px"
+                    >
+                      {{ Math.abs(formParagraph.companyCountRing) }}%
+                    </div>
+                    <i
+                      v-show="formParagraph.companyCountRing > 0"
+                      class="el-icon-caret-top"
+                      style="display: inline; color: red"
+                    ></i>
+                    <i
+                      v-show="formParagraph.companyCountRing < 0"
+                      class="el-icon-caret-bottom"
+                      style="display: inline; color: green"
+                    ></i>
+                    <i
+                      v-show="formParagraph.companyCountRing == 0"
+                      class="el-icon-caret-top"
+                      style="display: inline"
+                    ></i>
+                  </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
+              </el-card>
+            </el-col>
           </el-form>
-           </el-row>
-     
+        </el-row>
+      </div>
+    </el-col>
+
+    <el-row :gutter="20">
+      <el-col :span="8" style="margin-top: -5px">
+        <el-card shadow="hover" style="height: 482px; margin-top: 10px">
+          <pie-chart ref="drawPieChart" :pieData="pieData"></pie-chart>
+          <div
+            v-show="noDataPie"
+            style="margin-top: 200px; margin-left: 105px; color: #ccc"
+          >
+            无数据
           </div>
-        </el-col>
-        
-           <el-row :gutter="20">
-          <el-col :span="8" style="margin-top:-5px;">
-       
-        <el-card shadow="hover" style="height:482px;margin-top: 10px;">
-         
-            <pie-chart ref="drawPieChart" :pieData="pieData" ></pie-chart>
-          <div v-show="noDataPie" style="margin-top: 200px;margin-left:105px;color:#ccc">无数据</div>
-        
         </el-card>
       </el-col>
-        
-        <el-col :span="16" style="margin-top:-5px;">
-        <el-card shadow="hover" style="height:482px;margin-top:10px;">
+
+      <el-col :span="16" style="margin-top: -5px">
+        <el-card shadow="hover" style="height: 482px; margin-top: 10px">
           <div slot="header" class="clearfix">
             <span>需求详情</span>
             <el-tabs v-model="activeName">
@@ -297,11 +664,18 @@
               </el-tab-pane> -->
 
               <el-tab-pane label="核心企业发布需求量Top5" name="first">
-               <cloumn-chart1 ref="drawCloumnChart1" :cloumnData1="cloumnData1" style="width: 600px;height:400px;"></cloumn-chart1>
+                <cloumn-chart1
+                  ref="drawCloumnChart1"
+                  :cloumnData1="cloumnData1"
+                  style="width: 600px; height: 400px"
+                ></cloumn-chart1>
               </el-tab-pane>
               <el-tab-pane label="供应商完成需求量Top5" name="second">
-                <cloumn-chart2 ref="drawCloumnChart2" :cloumnData2="cloumnData2" style="width: 600px;height:400px;"></cloumn-chart2>
-                
+                <cloumn-chart2
+                  ref="drawCloumnChart2"
+                  :cloumnData2="cloumnData2"
+                  style="width: 600px; height: 400px"
+                ></cloumn-chart2>
               </el-tab-pane>
               <!-- <el-tab-pane label="企业评分雷达" name="forth">
                 <div id="comprehensiveScore" style="width: 600px;height:400px;"></div>
@@ -314,40 +688,79 @@
             </el-tabs>
           </div>
         </el-card>
-        </el-col>
-       
-      </el-row>
-   
+      </el-col>
+    </el-row>
+
     <el-row :gutter="20">
-     
       <el-col :span="24">
         <el-card shadow="hover">
-          <div class="type-situation">分类别需求量统计</div>
-         <div style="float:right">
-        <template>
-        <el-select 
-        style="width:100px;margin-right:35px;"
-        v-model="value"
-        
-        @change="pieChart"
-        >
-            <el-option
-          v-for="item in options"
-          placeholder="请选择"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-          :disabled="item.disabled"
-         
-          >
-            </el-option>
-          </el-select> 
-        </template>
-        </div>
+          <div class="type-situation">任务类别需求量统计</div>
+          <div style="float: right">
+            <template>
+              <el-select
+                style="width: 100px; margin-right: 35px"
+                v-model="value"
+                @change="pieChart"
+              >
+                <el-option
+                  v-for="item in options"
+                  placeholder="请选择"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                >
+                </el-option>
+              </el-select>
+            </template>
+          </div>
           <br />
-          <div id="typeSituation" :piedata="piedata"  style="width: 100%;height:430%"></div>
-           <div v-show="noData" style="margin-top: 50px;margin-left:405px;color:#ccc">无数据</div>
-        
+          <div
+            id="typeSituation"
+            :piedata="piedata"
+            style="width: 100%; height: 430%"
+          ></div>
+          <div
+            v-show="noData"
+            style="margin-top: 50px; margin-left: 405px; color: #ccc"
+          >
+            无数据
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <el-card shadow="hover">
+          <div class="type-situation">流通清单类别量统计</div>
+          <div style="float: right">
+            <template>
+              <el-select
+                style="width: 100px; margin-right: 35px"
+                v-model="value"
+                @change="lineChartDataCategory"
+              >
+                <el-option
+                  v-for="item in options"
+                  placeholder="请选择"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                >
+                </el-option>
+              </el-select>
+            </template>
+          </div>
+          <br />
+          <!-- <div id="categoryLine" :lineData="lineData"  style="width: 100%;height:430%"></div> -->
+          <template>
+            <div
+              id="categoryLine"
+              :lineData="lineData"
+              style="width: 100%; height: 430%"
+            ></div>
+          </template>
         </el-card>
       </el-col>
     </el-row>
@@ -357,69 +770,68 @@
 <script>
 // import Schart from "vue-schart";
 import Qs from "qs";
-import axios from 'axios';
+import axios from "axios";
 import columnChart1 from "./components/columnChart1";
 import columnChart2 from "./components/columnChart2";
 import pieChart from "./components/pieChart";
 import bus from "../../../Layout/components/common/Admin/bus";
 export default {
   name: "dashboard",
-   components: {
-      "cloumn-chart1": columnChart1,
-      "cloumn-chart2": columnChart2,
-      "pie-chart": pieChart
+  components: {
+    "cloumn-chart1": columnChart1,
+    "cloumn-chart2": columnChart2,
+    "pie-chart": pieChart,
   },
   data() {
     return {
-       
       name: sessionStorage.getItem("ms_username"),
       isWeekData: false,
       isMonthData: false,
-      isParagraphData:true,
-      noDataPie:true,
-      noData:true,
-      activeName: 'first',
-      options: [],        
-       value: '',
-       value1: ['2020-01-01','2020-05-01'],//时间段选择数据定义
-       dateValue0:'',
-       dateValue1:'',
-       //本中数据统计
-       formWeek:{
-        weekCount:[],
-        desingWeekCount:[],
-        circulaterWeekCount:[],
-        companyCount:[],
-        weekCountRing:[],
-        desingWeekCountRing:[],
-        circulaterWeekCountRing:[],
-        companyCountRing:[],
-       },
-       //本月数据统计
-      form:{
-        monthCount:'',        
-        desingMonthCount:[],
-        circulaterMonthCount:[],
-        companyCount:[],
-       
-        monthCountRing:'',
-        desingMonthCountRing:[],
-        circulaterMonthCountRing:[],
-        companyCountRing:[],
+      isParagraphData: true,
+      noDataPie: true,
+      noData: true,
+      activeName: "first",
+      options: [],
+      value: "",
+      value1: ["2020-01-01", "2020-05-01"], //时间段选择数据定义
+      dateValue0: "",
+      dateValue1: "",
+      //本中数据统计
+      formWeek: {
+        weekCount: [],
+        desingWeekCount: [],
+        circulaterWeekCount: [],
+        companyCount: [],
+        weekCountRing: [],
+        desingWeekCountRing: [],
+        circulaterWeekCountRing: [],
+        companyCountRing: [],
+      },
+      //本月数据统计
+      form: {
+        monthCount: "",
+        desingMonthCount: [],
+        circulaterMonthCount: [],
+        companyCount: [],
+
+        monthCountRing: "",
+        desingMonthCountRing: [],
+        circulaterMonthCountRing: [],
+        companyCountRing: [],
       },
       //本段数据统计
-      formParagraph:{
-        taskCount:'',        
-        desingCount:[],
-        circulaterCount:[],
-        companyCount:[],
-       
-        taskCountRing:'',
-        desingCountRing:[],
-        circulaterCountRing:[],
-        companyCountRing:[],
+      formParagraph: {
+        taskCount: "",
+        desingCount: [],
+        circulaterCount: [],
+        companyCount: [],
+
+        taskCountRing: "",
+        desingCountRing: [],
+        circulaterCountRing: [],
+        companyCountRing: [],
       },
-     //柱状图1
+      //柱状图1
       cloumnData1: {
         //年份
         Vintage1: [],
@@ -428,9 +840,9 @@ export default {
         //今年任务完成量
         nowTaskNumber1: [],
         //去年任务完成量
-        lastTaskNumber1: []
+        lastTaskNumber1: [],
       },
-       //柱状图2
+      //柱状图2
       cloumnData2: {
         //年份
         Vintage2: [],
@@ -439,268 +851,236 @@ export default {
         //今年任务完成量
         nowTaskNumber2: [],
         //去年任务完成量
-        lastTaskNumber2: []
+        lastTaskNumber2: [],
       },
       pieData: {
         searsonCount: [],
         seasonsFinishTaskCount: [],
-        nowYear:""
+        nowYear: "",
       },
-      piedata:{
-        Count:[],
-        categoryFinishTaskList:[],
+      //折线的数据定义
+      lineData: {
+        categoryFinishTaskList: [],
+        categoryName: [],
+        nowYear: "",
       },
-      
-
-      
+      piedata: {
+        Count: [],
+        categoryFinishTaskList: [],
+      },
     };
   },
   computed: {
     role() {
       return this.name === "admin" ? "超级管理员" : "普通用户";
-    }
+    },
   },
   deactivated() {
     window.removeEventListener("resize", this.renderChart);
     bus.$off("collapse", this.handleBus);
   },
- 
+
   //初始化方法
-   created() {
+  created() {
     this.getYearData(); //获取条件选择时间数据
-    this.getTimeData();//获取今年元旦和现在时间数据
+    this.getTimeData(); //获取今年元旦和现在时间数据
     this.getStatistics();
-   
-    
-    
+    this.lineChartDataCategory();
+    this.getLineChart1();
   },
-  // mounted() {
-   
-  //    this.getCharts5()
-  // //   this.getCharts6();
-  //  },
 
   methods: {
-
     handleClick(tab, event) {
-        console.log(tab, event);
-      },
-       //获取今年元旦和现在时间数据
+      console.log(tab, event);
+    },
+    //获取今年元旦和现在时间数据
     getTimeData() {
       let that = this;
-      that.axios.post("/api/findTimes").then(response => {
-        
-        this.value1=response.data.allData;
+      that.axios.post("/api/findTimes").then((response) => {
+        this.value1 = response.data.allData;
         this.paragraphData();
-            
       });
     },
-         
-      //获取条件选择时间数据
+
+    //获取条件选择时间数据
     getYearData() {
       let that = this;
-      that.axios.post("/api/findYearsList").then(response => {
+      that.axios.post("/api/findYearsList").then((response) => {
         this.value = response.data.allData.nowYear;
-        this.options= response.data.allData.years;  
-        this.pieChart() ;
-            
+        this.options = response.data.allData.years;
+        this.pieChart();
+        this.lineChartDataCategory();
       });
     },
-      //本周数据切换和查询
-    weekDataB:function(){
-        this.isMonthData =false;
-         this.isWeekData =true;
-         this.isParagraphData=false;
-        document.getElementById("week").style.color = "rgb(45, 140, 240)";
-        document.getElementById("month").style.color = "black";
-         var that = this;
-      
-      var data = Qs.stringify({
-      
-      });
-       // console.log(data);
-     
-      that
-        .axios({
-          method: "post",
-          url:
-            "/api/findTaskWeekCount",
-          data: data
-        })
-        .then(response => {
-          this.formWeek.weekCount=response.data.allData[0];
-          this.formWeek.desingWeekCount=response.data.allData[1];
-          this.formWeek.circulaterWeekCount=response.data.allData[2];
-          this.formWeek.companyCount=response.data.allData[3];         
-          this.formWeek.weekCountRing=response.data.allData[4];
-          this.formWeek.desingWeekCountRing=response.data.allData[5];
-          this.formWeek.circulaterWeekCountRing=response.data.allData[6];
-          this.formWeek.companyCountRing=response.data.allData[7];
-           // console.log(response.data.allData);
-          
-        });
+    //本周数据切换和查询
+    weekDataB: function () {
+      this.isMonthData = false;
+      this.isWeekData = true;
+      this.isParagraphData = false;
+      document.getElementById("week").style.color = "rgb(45, 140, 240)";
+      document.getElementById("month").style.color = "black";
+      var that = this;
 
-     },
-   
-     //每月数据切换和查询
-     monthDataB:function(){
-       this.isMonthData =true;
-       this.isWeekData =false;
-       this.isParagraphData=false;
-       document.getElementById("month").style.color = "rgb(45, 140, 240)";
-       document.getElementById("week").style.color = "black";
-    
-       var that = this;
-      
-      var data = Qs.stringify({
-      
-      });
-       // console.log(data);
-     
+      var data = Qs.stringify({});
+
       that
         .axios({
           method: "post",
-          url:
-            "/api/findTaskMonthCount",
-          data: data
+          url: "/api/findTaskWeekCount",
+          data: data,
         })
-        .then(response => {
-          this.form.monthCount=response.data.allData[0];
-          this.form.desingMonthCount=response.data.allData[1];
-          this.form.circulaterMonthCount=response.data.allData[2];
-          this.form.companyCount=response.data.allData[3];         
-          this.form.monthCountRing=response.data.allData[4];
-          this.form.desingMonthCountRing=response.data.allData[5];
-          this.form.circulaterMonthCountRing=response.data.allData[6];
-          this.form.companyCountRing=response.data.allData[7];
-           // console.log(response.data.allData);
-          
+        .then((response) => {
+          this.formWeek.weekCount = response.data.allData[0];
+          this.formWeek.desingWeekCount = response.data.allData[1];
+          this.formWeek.circulaterWeekCount = response.data.allData[2];
+          this.formWeek.companyCount = response.data.allData[3];
+          this.formWeek.weekCountRing = response.data.allData[4];
+          this.formWeek.desingWeekCountRing = response.data.allData[5];
+          this.formWeek.circulaterWeekCountRing = response.data.allData[6];
+          this.formWeek.companyCountRing = response.data.allData[7];
+        });
+    },
+
+    //每月数据切换和查询
+    monthDataB: function () {
+      this.isMonthData = true;
+      this.isWeekData = false;
+      this.isParagraphData = false;
+      document.getElementById("month").style.color = "rgb(45, 140, 240)";
+      document.getElementById("week").style.color = "black";
+
+      var that = this;
+
+      var data = Qs.stringify({});
+
+      that
+        .axios({
+          method: "post",
+          url: "/api/findTaskMonthCount",
+          data: data,
+        })
+        .then((response) => {
+          this.form.monthCount = response.data.allData[0];
+          this.form.desingMonthCount = response.data.allData[1];
+          this.form.circulaterMonthCount = response.data.allData[2];
+          this.form.companyCount = response.data.allData[3];
+          this.form.monthCountRing = response.data.allData[4];
+          this.form.desingMonthCountRing = response.data.allData[5];
+          this.form.circulaterMonthCountRing = response.data.allData[6];
+          this.form.companyCountRing = response.data.allData[7];
         });
     },
     //通过时间段数据切换与查询
-    paragraphData(){
-      this.isMonthData =false;
-       this.isWeekData =false;
-       this.isParagraphData=true;
-        document.getElementById("week").style.color = "black";
-         document.getElementById("month").style.color = "black";
+    paragraphData() {
+      this.isMonthData = false;
+      this.isWeekData = false;
+      this.isParagraphData = true;
+      document.getElementById("week").style.color = "black";
+      document.getElementById("month").style.color = "black";
       var that = this;
-     
+
       var data = Qs.stringify({
-        dateValue0:this.value1[0],
-        dateValue1:this.value1[1],
+        dateValue0: this.value1[0],
+        dateValue1: this.value1[1],
       });
-        console.log(data);
-            
+      console.log(data);
+
       that
         .axios({
           method: "post",
-          url:
-            "/api/findTaskCount",
-          data: data
+          url: "/api/findTaskCount",
+          data: data,
         })
-        .then(response => {
-          this.formParagraph.taskCount=response.data.allData[0];
-          this.formParagraph.desingCount=response.data.allData[1];
-          this.formParagraph.circulaterCount=response.data.allData[2];
-          this.formParagraph.companyCount=response.data.allData[3];         
-          this.formParagraph.taskCountRing=response.data.allData[4];
-          this.formParagraph.desingCountRing=response.data.allData[5];
-          this.formParagraph.circulaterCountRing=response.data.allData[6];
-          this.formParagraph.companyCountRing=response.data.allData[7];
-          
-           //console.log(response.data.allData);
-          
+        .then((response) => {
+          this.formParagraph.taskCount = response.data.allData[0];
+          this.formParagraph.desingCount = response.data.allData[1];
+          this.formParagraph.circulaterCount = response.data.allData[2];
+          this.formParagraph.companyCount = response.data.allData[3];
+          this.formParagraph.taskCountRing = response.data.allData[4];
+          this.formParagraph.desingCountRing = response.data.allData[5];
+          this.formParagraph.circulaterCountRing = response.data.allData[6];
+          this.formParagraph.companyCountRing = response.data.allData[7];
         });
     },
     //数据统计
     getStatistics() {
       // var myDate = new Date();
       // var nowMonth = myDate.getMonth() + 1;
-    
+
       this.columnChart();
       this.columnChart2();
       this.pipChart();
       this.pieChart();
+      this.lineChartDataCategory();
     },
     //柱形图数据1
     columnChart() {
       let that = this;
-      that.axios.post("/api/companyRank").then(response => {
+      that.axios.post("/api/companyRank").then((response) => {
         this.cloumnData1.Vintage1 = response.data.allData.Vintage;
         this.cloumnData1.topCompanyName1 = response.data.allData.companyName;
         this.cloumnData1.nowTaskNumber1 = response.data.allData.countYear;
         this.cloumnData1.lastTaskNumber1 = response.data.allData.countLastYear;
         that.$refs.drawCloumnChart1.getCharts();
-      
       });
     },
     //柱形图数据2
     columnChart2() {
       let that = this;
-      that.axios.post("/api/dataStatistics/supplierRank").then(response => {
+      that.axios.post("/api/dataStatistics/supplierRank").then((response) => {
         this.cloumnData2.Vintage2 = response.data.allData.Vintage;
         this.cloumnData2.topSupplierName2 = response.data.allData.supplierName;
         this.cloumnData2.nowTaskNumber2 = response.data.allData.countYear;
         this.cloumnData2.lastTaskNumber2 = response.data.allData.countLastYear;
         this.$refs.drawCloumnChart2.getCharts2();
-       //   console.log(response.data.allData);
       });
     },
     //饼图数据
     pipChart() {
       let that = this;
-      that.axios.post("/api/seasonsTaskCount").then(response => {
+      that.axios.post("/api/seasonsTaskCount").then((response) => {
         this.pieData.searsonCount = response.data.allData.searsonCount;
-        this.pieData.seasonsFinishTaskCount = response.data.allData.seasonsFinishTaskCount;
+        this.pieData.seasonsFinishTaskCount =
+          response.data.allData.seasonsFinishTaskCount;
         this.pieData.nowYear = response.data.allData.nowYear;
-         this.$refs.drawPieChart.getCharts();           
-        this.noDataPie=false;
-       
-       
-             
-        
+        this.$refs.drawPieChart.getCharts();
+        this.noDataPie = false;
       });
     },
     //行业类别饼图数据
     pieChart() {
-       let that = this;
-      
+      let that = this;
+
       var data = Qs.stringify({
-           year:this.value,
+        year: this.value,
       });
-      // console.log(data);
-     
+
       that
         .axios({
           method: "post",
-          url:
-            "/api/findTaskCategoryList",
-          data: data
+          url: "/api/findTaskCategoryList",
+          data: data,
         })
-        .then(response => {
-        this.piedata.Count=response.data.allData.Count;
-        this.piedata.categoryFinishTaskList=response.data.allData.categoryFinishTaskList;    
-           this.getCharts5();  
-           this.noData=false;
-        
-        
-        //console.log(response.data.allData);
-       
-      
-        
-      });
+        .then((response) => {
+          this.piedata.Count = response.data.allData.Count;
+          this.piedata.categoryFinishTaskList =
+            response.data.allData.categoryFinishTaskList;
+          this.getCharts5();
+
+          this.noData = false;
+
+          //console.log(response.data.allData);
+        });
     },
     changeDate() {
       const now = new Date().getTime();
       this.data.forEach((item, index) => {
         const date = new Date(now - (6 - index) * 86400000);
-        item.name = `${date.getFullYear()}/${date.getMonth() +
-          1}/${date.getDate()}`;
+        item.name = `${date.getFullYear()}/${
+          date.getMonth() + 1
+        }/${date.getDate()}`;
       });
     },
-    
-
 
     getCharts5() {
       // 基于准备好的dom，初始化echarts实例
@@ -709,25 +1089,17 @@ export default {
       var option = {
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c} ({d}%)",
         },
         legend: {
-          orient: "vertical",
-          left: 10,
+         orient: "vertical",
+           left: 'left',
           data: this.piedata.Count,
-          // [
-          //   "交通运输设备",
-          //   "仪器仪表及文化、办公用机械",           
-          //   "通信设备、计算机及其他电子设备",
-          //   "电器机械及器材",
-          //   "专用设备",
-          //   "通用设备",        
-            
-           
-          // ]
+         textStyle: {
+            fontSize: 14,
+          },
         },
         series: [
-          
           {
             name: "占比来源",
             type: "pie",
@@ -747,7 +1119,7 @@ export default {
                 a: {
                   color: "#999",
                   lineHeight: 22,
-                  align: "center"
+                  align: "center",
                 },
                 // abg: {
                 //     backgroundColor: '#333',
@@ -760,33 +1132,33 @@ export default {
                   borderColor: "#aaa",
                   width: "100%",
                   borderWidth: 0.5,
-                  height: 0
+                  height: 0,
                 },
                 b: {
                   fontSize: 14,
-                  lineHeight: 33
+                  lineHeight: 33,
                 },
                 per: {
                   color: "#eee",
                   backgroundColor: "#334455",
                   padding: [2, 4],
-                  borderRadius: 2
-                }
-              }
+                  borderRadius: 2,
+                },
+              },
             },
             data: this.piedata.categoryFinishTaskList,
-            // [            
-             
+            // [
+
             //   { value:"", name: "交通运输设备" },
             //   { value:"", name: "仪器仪表及文化、办公用机械",},
             //   { value:"", name:  "通信设备、计算机及其他电子设备", },
             //   { value:"", name: "电器机械及器材", },
             //   { value:"", name: "专用设备", },
             //   { value:"", name: "通用设备",  },
-             
+
             // ]
-          }
-        ]
+          },
+        ],
       };
 
       // 使用刚指定的配置项和数据显示图表。
@@ -794,12 +1166,118 @@ export default {
       charts.push(myChart);
     },
 
-    
-  }
+    //折线图数据获取-流通清单类别
+    lineChartDataCategory() {
+      var that = this;
+      var data = Qs.stringify({
+        year: this.value,
+      });
+
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/selectAllConsignmentCategory",
+          data: data,
+        })
+        .then((response) => {
+          (this.lineData.categoryFinishTaskList =
+            response.data.allData.categoryFinishTaskList),
+            (this.lineData.categoryName = response.data.allData.categoryName),
+            //  console.log(response.data.allData),
+            that.getLineChart1();
+        });
+    },
+    //折线图  折线图  折线图
+    getLineChart1() {
+      var that = this;
+      var myChart = echarts.init(document.getElementById("categoryLine"));
+      var option = {
+        
+        tooltip: {
+          
+        },
+        legend: {
+          orient: "vertical",
+           left: 'left',
+          data: this.lineData.categoryName,
+          textStyle: {
+            fontSize: 14,
+          },
+        },
+        toolbox: {
+           feature: {
+            
+            magicType: {
+                show: true,
+                type: ['pie', 'funnel']
+            },
+            
+        }
+        },
+       
+
+       
+        // Declare several bar series, each will be mapped to a column of dataset.source by default.
+        series: [
+          {
+            name: "占比来源",
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            label: {
+              formatter: "{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ",
+              backgroundColor: "#eee",
+              borderColor: "#aaa",
+              borderWidth: 1,
+              borderRadius: 4,
+              // shadowBlur:3,
+              // shadowOffsetX: 2,
+              // shadowOffsetY: 2,
+              // shadowColor: '#999',
+              // padding: [0, 7],
+              rich: {
+                a: {
+                  color: "#999",
+                  lineHeight: 22,
+                  align: "center",
+                },
+                // abg: {
+                //     backgroundColor: '#333',
+                //     width: '100%',
+                //     align: 'right',
+                //     height: 22,
+                //     borderRadius: [4, 4, 0, 0]
+                // },
+                hr: {
+                  borderColor: "#aaa",
+                  width: "100%",
+                  borderWidth: 0.5,
+                  height: 0,
+                },
+                b: {
+                  fontSize: 14,
+                  lineHeight: 33,
+                },
+                per: {
+                  color: "#eee",
+                  backgroundColor: "#334455",
+                  padding: [2, 4],
+                  borderRadius: 2,
+                },
+              },
+            },
+            data: this.lineData.categoryFinishTaskList,
+          },
+        ],
+      };
+
+      myChart.setOption(option);
+    },
+  },
 };
 
 //监听窗口的改变大小
-window.onresize = function() {
+window.onresize = function () {
   //迭代全部图表
   for (var i = 0; i < charts.length; i++) {
     //随着窗口改变重置大小
