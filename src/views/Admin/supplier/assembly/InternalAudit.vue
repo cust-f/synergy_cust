@@ -112,26 +112,8 @@ import Qs from "qs";
 import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
-    // var validDataPhone = (rule, value, callback) => {
-    //   if (value == null) {
-    //     this.mustHaveSomeThing = 0;
-    //     callback(new Error("拒绝信息不能为空"));
-    //   } else {
-    //     this.mustHaveSomeThing = 1;
-    //     callback();
-    //   }
-    // };
+
     return {
-      // rules: {
-      //   SJrefuseReason: [
-      //     {
-      //       required: true,
-      //       message: "请输入拒绝原因",
-      //       trigger: "blur",
-      //       validator: validDataPhone
-      //     }
-      //   ]
-      // },
       mustHaveSomeThing: 0,
       taskId: 0,
       //设计人员

@@ -44,12 +44,18 @@
           <contract-Management ref="contractManagement"></contract-Management>
         </div>
       </div>
+      
       <br />
       <!-- 发货清单模块 -->
       <div v-show="show > 1">
         <div v-show="state3 === 2">
           <delivery-List ref="deliveryList"></delivery-List>
         </div>
+      </div>
+      <br />
+      <!-- 重传文件模块 -->
+      <div>
+        <return-File ref="returnFile"></return-File>
       </div>
       <br />
       <div v-show="show > 3" class="designDet">
@@ -108,7 +114,7 @@
           </div>
         </div>
       </div>
-      <!-- <el-button @click="passArray()">传数组</el-button> -->
+      
     </el-main>
   </div>
 </template>
@@ -121,6 +127,7 @@ import missionPlan from "../../assembly/missionPlan";
 import contractManagement from "../../assembly/contractManagement";
 import deliveryList from "../../assembly/deliveryList";
 import radarChart from "../circulationDetails/radarChart";
+import returnFile from "../../assembly/returnFile";
 export default {
   data() {
     return {
@@ -261,6 +268,7 @@ export default {
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
           this.sendMsg();
+          this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
@@ -330,7 +338,7 @@ export default {
     },
     passArray() {
       var that = this;
-      var strify = JSON.stringify(this.arrayList)
+      var strify = JSON.stringify(this.arrayList);
       var data = Qs.stringify({
         array: strify,
       });
@@ -352,6 +360,7 @@ export default {
     "contract-Management": contractManagement,
     "delivery-List": deliveryList,
     "radar-chart": radarChart,
+    "return-File": returnFile,
   },
 };
 </script>
