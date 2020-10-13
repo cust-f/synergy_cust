@@ -17,7 +17,7 @@ import xuqiuyilanDetail from '@/views/admin/company/xuqiuyilanDetail' //需求�
 import search from '@/views/Front/Search/search' //搜索界面
 import searchPatent from '@/views/Front/Search/searchPatent' //专利搜索
 import patentDetail from '@/views/Front/Search/patentDetail' //专利详情
-import dashbordFront from '@/views/Front/Home/dashbordFront'
+
 import Data from '@/views/Front/Home/Data'
 
 
@@ -35,7 +35,6 @@ import designerFinishList from '@/views/admin/personnel_allotment/designerFinish
 import circulationNewList from '@/views/admin/personnel_allotment/circulationNewList' //流通人员新增界面
 import circulationAcceptList from '@/views/admin/personnel_allotment/circulationAcceptList' //流通人员进行界面
 import circulationFinishList from '@/views/admin/personnel_allotment/circulationFinishList' //流通人员已完成界面
-
 
 
 //核心企业
@@ -100,22 +99,28 @@ import taskDetail1 from '@/views/admin/circulation/taskDetail1' //分解任务�
 //测试界面========================
 import cityTest from '@/views/Test/cityTest'
 
-Vue.use(Router)
+//供应商提交任务清单界面
+import SubmitChecklist from   '@/views/Admin/supplier/assembly/SubmitChecklist'
+
+//供应方自己修改需求方的各项申请
+import deliveryListUpdate  from '@/views/Admin/supplier/assembly/deliveryListUpdate'
+Vue.use(Router)  
+import * as fecha from "element-ui/lib/utils/date";
 
 export default new Router({
   routes: [{
-      path: '/',
-      redirect: '/Home'
-    },
+    path: '/',
+    redirect: '/Home'
+  },
     {
       path: '/Front',
       name: 'Front',
       component: Front,
       children: [{
-          path: '/home',
-          name: 'Home',
-          component: Home
-        },
+        path: '/home',
+        name: 'Home',
+        component: Home
+      },
         {
           path: '/register',
           name: 'register',
@@ -573,7 +578,16 @@ export default new Router({
           meta: {
             title: "详情"
           }
-        }
+        },
+
+        // {
+        //   path: '/admin/text1',
+        //   name: 'steos',
+        //   component: text1,
+        //   meta: {
+        //     title: "标头"
+        //   }
+        // }
       ]
     },
     {
@@ -595,6 +609,17 @@ export default new Router({
       path: '/cityTest',
       name: 'cityTest',
       component: cityTest
+    },
+    {
+      path:'/admin/SubmitChecklist',
+      name:'SubmitChecklist',
+      component:SubmitChecklist
+    },
+    //供应方自己修改需求方的各项申请
+    {
+      path:'/deliveryListUpdate',
+      name:'deliveryListUpdate',
+      component:deliveryListUpdate
     },
   ]
 })

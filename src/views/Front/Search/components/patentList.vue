@@ -1,32 +1,50 @@
 <template>
   <div class="patent-list">
-    <el-row v-for="(item,index) in patentList" :key="index" class="patent-info">
+    <el-row
+      v-for="(item, index) in patentList"
+      :key="index"
+      class="patent-info"
+    >
       <div @click="patentDetail(item.wfId)">
         <el-row>
-          <div style="float:left;">
-            <h2 style="float:left;">{{item.title1}}</h2>
-            <p style=" line-height: 36px;font-size: 18px; color: #ff7720;float:left;">
+          <div style="float: left">
+            <h2 style="float: left">{{ item.title1 }}</h2>
+            <p
+              style="
+                line-height: 36px;
+                font-size: 18px;
+                color: #ff7720;
+                float: left;
+              "
+            >
               【
-              <span
-                v-for="(patenttypeName,index) in changeJson(item.patenttypeName)"
-                :key="index"
-              >{{patenttypeName}}</span>】
+              <span>{{ changeString(item.patenttypeName) }}</span
+              >】
             </p>
           </div>
-          <div style="float:right;">
+          <div style="float: right">
             <p>
               资源来源：
-              <span>{{item.resourceFrom}}</span>
-              <el-avatar shape="square" :size="20" fit="fill" :src="item.resourceLogo"></el-avatar>
+              <span>{{ item.resourceFrom }}</span>
+              <el-avatar
+                shape="square"
+                :size="20"
+                fit="fill"
+                :src="item.resourceLogo"
+              ></el-avatar>
             </p>
           </div>
         </el-row>
         <el-row>
           <el-col :span="9">
-            <el-popover :content="changeString(item.author)" placement="top-start" trigger="hover">
+            <el-popover
+              :content="changeString(item.author)"
+              placement="top-start"
+              trigger="hover"
+            >
               <p slot="reference">
                 发明人:
-                <span>{{changeString(item.author)}}</span>
+                <span>{{ changeString(item.author) }}</span>
               </p>
             </el-popover>
           </el-col>
@@ -38,42 +56,55 @@
             >
               <p slot="reference">
                 申请人:
-                <span>{{changeString(item.requestPeople)}}</span>
+                <span>{{ changeString(item.requestPeople) }}</span>
               </p>
             </el-popover>
           </el-col>
           <el-col :span="6">
-            <span>公开日期: {{item.publicationDate | dataFormat("yyyy-MM-dd")}}</span>
+            <span
+              >公开日期:
+              {{ item.publicationDate | dataFormat("yyyy-MM-dd") }}</span
+            >
           </el-col>
         </el-row>
         <!--  -->
         <el-row>
           <el-col :span="18">
-            <el-popover :content="changeString(item.keyword)" placement="top-start" trigger="hover">
+            <el-popover
+              :content="changeString(item.keyword)"
+              placement="top-start"
+              trigger="hover"
+            >
               <p slot="reference">
                 关键词:
-                <span>{{changeString(item.keyword)}}</span>
+                <span>{{ changeString(item.keyword) }}</span>
               </p>
             </el-popover>
           </el-col>
           <el-col :span="6">
-            <span>公开号: {{item.publicationNo}}</span>
-          </el-col>
-        </el-row>
-        <!-- 版权 -->
-        <el-row :gutter="5">
-          <el-col :span="1">
-            <img
-              style="width: 30px; height: 30px"
-              src="../../../../assets/images/home/patent/copyright_logo.png"
-            />
-            <!-- <el-avatar shape="square" :size="30" fit="fill" src=""></el-avatar> -->
-          </el-col>
-          <el-col :span="12">
-            <span style=" color: #7b7575;line-height: 30px;">版权所有：西南交通大学、国家重点研发计划项目支持</span>
+            <span>公开号: {{ item.publicationNo }}</span>
           </el-col>
         </el-row>
       </div>
+      <el-row>
+        <img
+          style="width: 30px; height: 30px;float:left;"
+          src="../../../../assets/img/copyright_logo.png"
+        />
+
+        <p
+          style="
+            font-size: 16px;
+            color: #7d7974;
+            float: left;
+            line-height: 30px;
+            margin-left: 10px;
+          "
+        >
+          版权所有：西南交通大学、国家重点研发计划项目支持
+        </p>
+      </el-row>
+      <!-- <el-divider></el-divider> -->
     </el-row>
   </div>
 </template>
@@ -102,7 +133,7 @@ export default {
           if (i != newData.length - 1) result += ",";
         }
         return result;
-      } else return "";
+      } else return;
     },
     // 转跳详情界面
     patentDetail(id) {

@@ -24,13 +24,13 @@
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
         基本信息
         <el-button
-          v-if="this.milepostActive === 0"
           type="text"
           class="XG"
           style="float:right"
           @click="XG"
         >修改</el-button>
       </div>
+          <!-- v-if="this.milepostActive === 0" -->
 
       <br />
       <el-card class="box-card">
@@ -140,8 +140,8 @@
           </el-table-column>
           <el-table-column prop="checkApplyState" label="申请/邀请状态" align="center">
             <template slot-scope="scope">
-              <el-tag  v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
-              <el-tag  v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
+              <el-tag v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
@@ -160,6 +160,9 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
+
+              <el-button @click="changeTime(scope.row)" size="small" type="text">修改</el-button>
+
               <el-button
                 @click="SQTG(scope.row)"
                 type="text"
@@ -195,11 +198,10 @@
           <el-table-column prop="companyName" label="供应商" width="250"></el-table-column>
           <el-table-column prop="checkPlanState" label="审核状态" align="center">
             <template slot-scope="scope">
-              <el-tag  v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
-              <el-tag  v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
-              <el-tag  v-else-if="+scope.row.checkPlanState === 2" type="success">通过</el-tag>
+              <el-tag v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
+              <el-tag v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.checkPlanState === 2" type="success">通过</el-tag>
               <el-tag v-else type="danger">拒绝</el-tag>
-              
             </template>
           </el-table-column>
           <el-table-column prop="planUploadTime" label="上传时间">
@@ -263,11 +265,10 @@
           <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
           <el-table-column prop="contractState" label="审核状态" align="center">
             <template slot-scope="scope">
-              <el-tag  v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
-              <el-tag  v-else-if="+scope.row.contractState === 1">待审核</el-tag>
-              <el-tag  v-else-if="+scope.row.contractState === 2" type="success">通过</el-tag>
+              <el-tag v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
+              <el-tag v-else-if="+scope.row.contractState === 1">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.contractState === 2" type="success">通过</el-tag>
               <el-tag v-else type="danger">拒绝</el-tag>
-              
             </template>
           </el-table-column>
           <el-table-column prop="uploadContractTime" label="上传时间">
@@ -330,19 +331,19 @@
         >
           <!-- mainTaskID冲-->
           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="acceptCompanyName"  width="200" label="供应商"></el-table-column>
+          <el-table-column prop="acceptCompanyName" width="200" label="供应商"></el-table-column>
           <!-- <el-table-column prop="designerName" label="设计人员" widht="70">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
               <el-span v-else>{{scope.row.designerName}}</el-span>
             </template>
-          </el-table-column> -->
+          </el-table-column>-->
           <el-table-column prop="designCount" label="上传次数" width="80"></el-table-column>demandorCheckDesignState
           <el-table-column prop="demandorCheckDesignState" width="80" label="验收状态" align="center">
             <template slot-scope="scope">
-              <el-tag  v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
-              <el-tag  v-else-if="+scope.row.demandorCheckDesignState === 1">待审核</el-tag>
-              <el-tag  v-else-if="+scope.row.demandorCheckDesignState === 2" type="success">通过</el-tag>
+              <el-tag v-if="+scope.row.demandorCheckDesignState === 0" type="info">待供应商审核</el-tag>
+              <el-tag v-else-if="+scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.demandorCheckDesignState === 2" type="success">通过</el-tag>
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
@@ -370,19 +371,19 @@
                 @click="LJTZ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.demandorCheckDesignState===1 || scope.row.demandorCheckDesignState===2 ||scope.row.demandorCheckDesignState===3"
+                v-if="scope.row.demandorCheckDesignState === 1 || scope.row.demandorCheckDesignState === 2 ||scope.row.demandorCheckDesignState === 3"
               >查看设计</el-button>
               <el-button
                 @click="SJTG(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
+                v-if="scope.row.demandorCheckDesignState === 1"
               >通过</el-button>
               <el-button
                 @click="SJJJ(scope.row)"
                 type="text"
                 size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
+                v-if="scope.row.demandorCheckDesignState === 1"
               >拒绝</el-button>
             </template>
           </el-table-column>
@@ -405,24 +406,20 @@
             ></el-step>
           </el-steps>
         </div>-->
-        <!-- 雷达图 --> 
-                 <!-- 评价模块 -->
+        <!-- 雷达图 -->
+        <!-- 评价模块 -->
         <div v-if="reMarkId === 0">
-          <div
-            class="loading1"
-            v-loading="loading"
-            element-loading-text="评价生成中......"
-          >
+          <div class="loading1" v-loading="loading" element-loading-text="评价生成中......">
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <label  style="font-size:13px">完成质量:</label>
+                <label style="font-size:13px">完成质量:</label>
                 <label id="word" style="font-size:13px"></label>
                 <br />
                 <br />
               </el-form>
-               <span id="one"></span>
+              <span id="one"></span>
               <span id="two"></span>
               <span id="three"></span>
             </div>
@@ -432,17 +429,16 @@
         <br />
         <div v-if="reMarkId === 1">
           <!-- 雷达图 -->
-                      
 
           <div class="LDT">
             <!-- 雷达图 -->
 
-              <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
-                <label ></label>
-                <label  style="font-size:13px">完成质量:</label>
-                                <label id="word" style="font-size:13px"></label>
+                <label></label>
+                <label style="font-size:13px">完成质量:</label>
+                <label id="word" style="font-size:13px"></label>
 
                 <br />
                 <br />
@@ -453,13 +449,207 @@
             </div>
           </div>
         </div>
-        
       </div>
 
+      <!-- 修改时间弹出框 -->
+      <el-dialog :visible.sync="changeTimeDialog" width="70%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入修改的时间</div>
+        <br />
+        <br />
+
+        <el-form ref="form" class="changeTimeFrom" :model="timeList" label-width="120px">
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="任务开始时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.beginTimeJudge"
+                  v-model="timeList.beginTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="申请时间">
+                <el-date-picker
+                  :disabled="timeListJudge.applyTimeJudge"
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.applyTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="申请审核时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.checkApplyTimeJudge"
+                  v-model="timeList.checkApplyTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="计划书上传时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.planUploadTimeJudge"
+                  v-model="timeList.planUploadTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="计划书审核时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.checkPlanTimeJudge"
+                  v-model="timeList.checkPlanTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="合同上传时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.uploadContractTimeJudge"
+                  v-model="timeList.uploadContractTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="合同审核时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.checkContractTimeJudge"
+                  v-model="timeList.checkContractTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <div v-if="timeList.supplierDistributionTime === 0"></div>
+              <el-form-item v-else label="分配人员时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.supplierDistributionTimeJudge"
+                  v-model="timeList.supplierDistributionTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="接受任务时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.designerAcceptTimeJudge"
+                  v-model="timeList.designerAcceptTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="上传设计时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.uploadDesignTimeJudge"
+                  v-model="timeList.uploadDesignTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="内部审核时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.supplierCheckDesignTime"
+                  :disabled="timeListJudge.supplierCheckDesignTimeJudge"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="设计验收时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.demandorCheckDesignTimeJudge"
+                  v-model="timeList.demandorCheckDesignTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="任务完成时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.finishTimeJudge"
+                  v-model="timeList.finishTime"
+                  style="width: 80%;"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="changeTimeFrom">
+            <el-col :span="11">
+              <el-button @click="changeTimeMethod()">确认</el-button>
+            </el-col>
+            <el-col :span="11">
+              <el-button @click="changeTimeDialog=false ">取消</el-button>
+            </el-col>
+          </el-row>
+        </el-form>
+      </el-dialog>
+
       <!-- 申请拒绝原因弹出框 -->
-      <el-dialog  :visible.sync="addVisible" width="50%">
+      <el-dialog :visible.sync="addVisible" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入申请拒绝原因</div>
-        <br>
+        <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -480,8 +670,8 @@
 
       <!-- 计划书拒绝原因弹出框 -->
       <el-dialog :visible.sync="addVisible1" width="50%">
-         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入计划书拒绝原因</div>
-        <br>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入计划书拒绝原因</div>
+        <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -501,9 +691,9 @@
       </el-dialog>
 
       <!-- 合同拒绝原因弹出框 -->
-      <el-dialog  :visible.sync="addVisible2" width="50%">
+      <el-dialog :visible.sync="addVisible2" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入合同拒绝原因</div>
-        <br>
+        <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -523,9 +713,9 @@
       </el-dialog>
 
       <!-- 设计拒绝原因弹出框 -->
-      <el-dialog  :visible.sync="addVisible3" width="50%">
+      <el-dialog :visible.sync="addVisible3" width="50%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">请输入设计拒绝原因</div>
-        <br>
+        <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
@@ -570,10 +760,9 @@
 
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div>
         <br />
-                <br />
+        <br />
         <div style="width:800px;height:250px">
-        
-          <div style="float: left" >
+          <div style="float: left">
             <el-image
               align="left"
               style="width:200px;height:200px"
@@ -583,14 +772,14 @@
           </div>
 
           <div style="float: right;width:490px;height:250px">
-              <br>
+            <br />
             <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
-            <br>
-            <div align="">
+            <br />
+            <div align>
               <font size="5">{{ form.companyName}}</font>
             </div>
-            <br>
-            <div align="">
+            <br />
+            <div align>
               <font size="4">{{ form.officeNumber}}</font>
             </div>
           </div>
@@ -729,9 +918,8 @@
 
             <el-row>
               <el-col :span="24">
-                <el-form-item label="企业详情">
-                  
-                </el-form-item><div class="leftDet" v-html="companyDetailContent"></div>
+                <el-form-item label="企业详情"></el-form-item>
+                <div class="leftDet" v-html="companyDetailContent"></div>
                 <!-- <el-form-item label="详细" >
                             <el-input 
                             type="textarea"
@@ -839,7 +1027,7 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  v-model="cool.publishTime"
+                  v-model="publishTime1"
                   value-format="yyyy-MM-dd HH:mm:ss"
                   style="width: 100%;"
                 ></el-date-picker>
@@ -851,7 +1039,7 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  v-model="cool.deadline"
+                  v-model="deadline1"
                   value-format="yyyy-MM-dd HH:mm:ss"
                   style="width: 100%;"
                 ></el-date-picker>
@@ -879,6 +1067,7 @@
                 <el-select
                   v-model="cool.taskType"
                   placeholder="请选择"
+                  :disabled="true"
                   class="selectsupply"
                   @change="liebieShu"
                   style="width:100%;"
@@ -985,7 +1174,6 @@
               action="/api/MainTaskInformation/import"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              :before-remove="beforeRemove"
               :on-success="handleAvatarSuccess"
               multiple
               :limit="10"
@@ -1014,7 +1202,6 @@
             class="table"
             ref="multipleTable"
             header-cell-class-name="table-header"
-            @selection-change="handleSelectionChange"
           >
             <el-table-column label="序号" type="index" width="55" align="center">
               <template slot-scope="scope">
@@ -1055,21 +1242,25 @@ export default {
   inject: ["reload"],
   name: "mainStaskDetail",
   components: {
-    "radar-chart": radarChart
+    "radar-chart": radarChart,
   },
 
   data() {
     return {
-            logo: "",
+      publishTime1:"",
+      deadline1:"",
+      applyRefuse: 0,
+      planRefusse: 0,
+      logo: "",
       //显示评价的
-      reMarkId:0,
+      reMarkId: 0,
       //
-      loading:true,
+      loading: true,
       //图片赋值次数
-      TPDZCS:1,
+      TPDZCS: 1,
       //企业详情路径
       companyDetailContent: "",
-            errorImg00: 'this.src="' + require("../company/2.jpg") + '"',
+      errorImg00: 'this.src="' + require("../company/2.jpg") + '"',
       //默认企业图片
       errorImg01: 'this.src="' + require("../company/1.png") + '"',
       //默认营业执照
@@ -1081,14 +1272,16 @@ export default {
       zirenwuXX: "",
       //质量完成图数据源
       formZL: {
-        designCount: ""
+        designCount: "",
       },
 
       //雷达图的数据定义
       radarData: {
         radarData: [],
-        indicator:[],
+        indicator: [],
       },
+      //修改时间弹出框       的模态框开始是否存在
+      changeTimeDialog: false,
       //申请拒绝原因       的模态框开始是否存在
       addVisible: false,
       //计划书拒绝原因    的模态框开始是否存在
@@ -1127,46 +1320,50 @@ export default {
       milepostActive5: -1,
       //行业分类列表
       xuanzelist: [],
+      applyTime: "",
+      checkApplyTime: "",
+      planUploadTime: "",
+      checkPlanTime: "",
       cateProps: {
         value: "id",
         label: "industryName",
         children: "children",
-        checkStrictly: true
+        checkStrictly: true,
       },
       //选择是设计任务还是流通任务
       Task: [
         {
           id: "0",
-          label: "设计任务"
+          label: "设计任务",
         },
         {
           id: "1",
-          label: "流通任务"
-        }
+          label: "流通任务",
+        },
       ],
       //是否申请
       shifou: [
         {
           id: "0",
-          label: "是"
+          label: "是",
         },
-        { id: "1", label: "否" }
+        { id: "1", label: "否" },
       ],
       //是否私密
       shifousimi: [
         { id: "0", label: "是" },
         {
           id: "1",
-          label: "否"
-        }
+          label: "否",
+        },
       ],
       //供应商列表
       supplierCompany: [
         {
           companyName: "",
           companyId: "",
-          pId: ""
-        }
+          pId: "",
+        },
       ],
       //申请显示
       shenqing: "none",
@@ -1194,9 +1391,44 @@ export default {
       fujian: [
         {
           realName: "",
-          realPath: ""
-        }
+          realPath: "",
+        },
       ],
+      //设置是否可更改
+      timeListJudge: {
+        beginTimeJudge: false,
+        publishTimeJudge: false,
+        applyTimeJudge: false,
+        checkApplyTimeJudge: false,
+        planUploadTimeJudge: false,
+        checkPlanTimeJudge: false,
+        uploadContractTimeJudge: false,
+        checkContractTimeJudge: false,
+        supplierDistributionTimeJudge: false,
+        designerAcceptTimeJudge: false,
+        uploadDesignTimeJudge: false,
+        supplierCheckDesignTimeJudge: false,
+        demandorCheckDesignTimeJudge: false,
+        finishTimeJudge: false,
+      },
+      timeList: {
+        beginTime: "",
+        publishTime: "",
+        applyTime: "",
+        checkApplyTime: "",
+        planUploadTime: "",
+        checkPlanTime: "",
+        uploadContractTime: "",
+        checkContractTime: "",
+        supplierDistributionTime: "",
+        designerAcceptTime: "",
+        uploadDesignTime: "",
+        supplierCheckDesignTime: "",
+        demandorCheckDesignTime: "",
+        finishTime: "",
+        checkCircuaterTime: "",
+        uploadCircuaterTime: "",
+      },
       cool: {
         mainTaskName: "nihao",
         taskName: "nihao",
@@ -1205,7 +1437,7 @@ export default {
         deadline: "",
         demanderTel: "",
         taskCategoryPart: "",
-        taskCategoryMain: ""
+        taskCategoryMain: "",
       },
       tableData1: [],
       tableData2: [],
@@ -1218,7 +1450,7 @@ export default {
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
         { title: "审核", icon: "el-icon-message-solid", description: "" },
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
-        { title: "完成", icon: "el-icon-s-claim", description: "" }
+        { title: "完成", icon: "el-icon-s-claim", description: "" },
       ],
       //下图的
       milepost1: [
@@ -1227,27 +1459,29 @@ export default {
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
         { title: "审核", icon: "el-icon-message-solid", description: "" },
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
-        { title: "完成", icon: "el-icon-s-claim", description: "" }
+        { title: "完成", icon: "el-icon-s-claim", description: "" },
       ],
       // 默认步骤数
       milepostActive: 1,
       // 动态添加类名
       stepActive: "stepActive",
       addList: {
-        SQrefuseReason: "" //申请拒绝原因
+        SQrefuseReason: "", //申请拒绝原因
       },
+      hide: 1,
       addList1: {
-        JHSrefuseReason: "" //计划书拒绝原因
+        JHSrefuseReason: "", //计划书拒绝原因
       },
       addList2: {
-        HTrefuseReason: "" //计划书拒绝原因
+        HTrefuseReason: "", //计划书拒绝原因
       },
       addList3: {
-        SJrefuseReason: "" //设计拒绝原因
+        SJrefuseReason: "", //设计拒绝原因
       },
       //图片信息
       imgsrc: "",
       taskID: "",
+      companyId: "",
       //企业信息
       form: {
         businessName: "",
@@ -1273,17 +1507,19 @@ export default {
         legalPerson: "杨言",
         workerNumber: "500人",
         deposit_Bank: "中国银行",
-        bankNumber: "25206589260388885222201"
+        bankNumber: "25206589260388885222201",
         //  @input.native="changeCode"
       },
       shuiwudengjizheng: require("../company/税务登记证.jpg"),
-      qiyezhizhao: require("../company/营业执照.jpg")
+      qiyezhizhao: require("../company/营业执照.jpg"),
     };
   },
 
   filters: {
     formatDate(time) {
       if (time != 0) {
+        console.log("time")
+        console.log(time)
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
@@ -1291,16 +1527,124 @@ export default {
       } else {
         return "暂未开始";
       }
-    }
+    },
   },
   created() {
     this.getParams();
     this.showData();
   },
   methods: {
+    changeTimeJudge() {
+      console.log(this.planRefusse);
+      console.log(this.planRefusse);
+      if (this.timeList.applyTime == null) {
+        this.timeListJudge.applyTimeJudge = true;
+      }
+      if (this.timeList.checkApplyTime == null) {
+        this.timeListJudge.checkApplyTimeJudge = true;
+      }
+
+      if (this.applyRefuse == 2) {
+        this.timeListJudge.checkPlanTimeJudge = true;
+        this.timeListJudge.planUploadTimeJudge = true;
+        this.timeListJudge.uploadContractTimeJudge = true;
+        this.timeListJudge.checkContractTimeJudge = true;
+        this.timeListJudge.supplierDistributionTimeJudge = true;
+        this.timeListJudge.designerAcceptTimeJudge = true;
+        this.timeListJudge.uploadDesignTimeJudge = true;
+        this.timeListJudge.supplierCheckDesignTimeJudge = true;
+        this.timeListJudge.demandorCheckDesignTimeJudge = true;
+        this.timeListJudge.finishTimeJudge = true;
+      } else {
+        if (this.timeList.planUploadTime == null) {
+          this.timeListJudge.planUploadTimeJudge = true;
+        }
+        if (this.timeList.checkPlanTime == null) {
+          this.timeListJudge.checkPlanTimeJudge = true;
+        }
+        if (this.planRefusse == 3) {
+          this.timeListJudge.uploadContractTimeJudge = true;
+          this.timeListJudge.checkContractTimeJudge = true;
+          this.timeListJudge.supplierDistributionTimeJudge = true;
+          this.timeListJudge.designerAcceptTimeJudge = true;
+          this.timeListJudge.uploadDesignTimeJudge = true;
+          this.timeListJudge.supplierCheckDesignTimeJudge = true;
+          this.timeListJudge.demandorCheckDesignTimeJudge = true;
+          this.timeListJudge.finishTimeJudge = true;
+        } else {
+          if (this.timeList.uploadContractTime == null) {
+            this.timeListJudge.uploadContractTimeJudge = true;
+          }
+          if (this.timeList.checkContractTime == null) {
+            this.timeListJudge.checkContractTimeJudge = true;
+          }
+          if (this.timeList.supplierDistributionTime == null) {
+            this.timeListJudge.supplierDistributionTimeJudge = true;
+          }
+          if (this.timeList.designerAcceptTime == null) {
+            this.timeListJudge.designerAcceptTimeJudge = true;
+          }
+          if (this.timeList.uploadDesignTime == null) {
+            this.timeListJudge.uploadDesignTimeJudge = true;
+          }
+          if (this.timeList.supplierCheckDesignTime == null) {
+            this.timeListJudge.supplierCheckDesignTimeJudge = true;
+          }
+          if (this.timeList.demandorCheckDesignTime == null) {
+            this.timeListJudge.demandorCheckDesignTimeJudge = true;
+          }
+          if (this.timeList.finishTime == null) {
+            this.timeListJudge.finishTimeJudge = true;
+          }
+        }
+      }
+    },
+    changeTime(row) {
+      this.changeTimeDialog = true;
+      this.companyId = row.companyId;
+      this.applyRefuse = row.checkApplyState;
+      this.planRefusse = row.checkPlanState;
+      this.changeTimeJudge();
+    },
+    changeTimeMethod() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        companyId: this.companyId,
+        beginTime: this.timeList.beginTime,
+        publishTime: this.timeList.publishTime,
+        applyTime: this.timeList.applyTime,
+        checkApplyTime: this.timeList.checkApplyTime,
+        planUploadTime: this.timeList.planUploadTime,
+        checkPlanTime: this.timeList.checkPlanTime,
+        uploadContractTime: this.timeList.uploadContractTime,
+        checkContractTime: this.timeList.checkContractTime,
+        supplierDistributionTime: this.timeList.supplierDistributionTime,
+        designerAcceptTime: this.timeList.designerAcceptTime,
+        uploadDesignTime: this.timeList.uploadDesignTime,
+        supplierCheckDesignTime: this.timeList.supplierCheckDesignTime,
+        demandorCheckDesignTime: this.timeList.demandorCheckDesignTime,
+        finishTime: this.timeList.finishTime,
+        checkCircuaterTime: this.timeList.checkCircuaterTime,
+        uploadCircuaterTime: this.timeList.uploadCircuaterTime,
+        State: this.milepostActive,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/updateAllTime",
+          data: data,
+        })
+        .then((response ) => {
+          console.log("finish");
+          this.changeTimeDialog = false;
+        });
+    },
+
     shanchuwenjian(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
       let qianzui, houzui;
+      console.log("KS的大小是"+ks)
       if (row.wenjiancixu == this.WJSM - 1) {
         qianzui = this.WZLJ.substr(0, ks - 8);
         houzui = "";
@@ -1309,14 +1653,19 @@ export default {
         houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
       }
       this.WZLJ = qianzui + houzui;
+      console.log("文件前缀"+qianzui)
+      console.log("文件后缀"+houzui)
+      console.log("完整路径"+this.WZLJ)
       this.fujian.splice(row.wenjiancixu, 1);
-    }, 
+    },
     downloadFile(row) {
       var that = this;
+      console.log("row"+row)
       var data = Qs.stringify({
         //taskID: this.taskId,
-        url: row.filePath
+        url: row.realPath,
       });
+      console.log(row)
       that
         .axios({
           method: "post",
@@ -1324,16 +1673,16 @@ export default {
           data: data,
           responseType: "blob", //服务器返回的数据类型
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         })
-        .then(response => {
+        .then((response) => {
           let link = document.createElement("a");
           link.style.display = "none";
           link.href = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/octet-stream" })
           );
-          link.setAttribute("download", row.fileRealName);
+          link.setAttribute("download", row.realName);
           document.body.appendChild(link);
           link.click();
         });
@@ -1342,16 +1691,16 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
-        fileType: "0"
+        fileType: "0",
       });
       that
         .axios({
           method: "post",
           url: "/api/supplier/getFileHistory",
-          data: data
+          data: data,
         })
-        .then(response => {
-          console.log(response)
+        .then((response) => {
+          console.log(response);
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
         });
@@ -1361,16 +1710,19 @@ export default {
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng =
           this.WZLJ + "linklink" + this.technicalFileWanzheng;
+          console.log("第一版"+this.technicalFileWanzheng)
       }
       if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng = this.WZLJ;
+        console.log("第二版"+this.technicalFileWanzheng)
       }
+      console.log("第三版"+this.technicalFileWanzheng)
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
       //先对要修改的文件进行判断
       if (this.technicalFile == "null" || this.mainStaskTypeID == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-          type: "warning"
+          type: "warning",
         });
       } else {
         if (this.cooList.shifousimi != 1) {
@@ -1390,8 +1742,8 @@ export default {
         var data = Qs.stringify({
           userName: this.usernameX,
           taskName: this.cool.taskName,
-          publishTime: this.cool.publishTime,
-          endLine: this.cool.deadline,
+          publishTime: this.publishTime1,
+          endLine: this.deadline1,
           mainStaskTypeID: this.mainStaskTypeID,
           subStaskTypeID: this.subStaskTypeID,
           yaoqing: 0,
@@ -1403,9 +1755,10 @@ export default {
           Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.cool.demanderTel,
           taskID: this.taskID,
-          SupperListINt: this.SupplierListInt
+          SupperListINt: this.SupplierListInt,
         });
-
+        console.log("this.mainTaskID"+this.mainTaskID)
+                console.log("this.taskID"+this.taskID)
         if (this.cool.taskType == 0) {
           this.cool.taskType = "设计任务";
         } else {
@@ -1415,22 +1768,23 @@ export default {
           .axios({
             method: "post",
             url: "/api/SubstaskInformation/addSubstaskInformation",
-            data: data
+            data: data,
           })
-          .then(response => {
+          .then((response) => {
             if (response.data != null) {
               this.$message.success("修改成功");
               this.$refs.upload.clearFiles();
               this.technicalFileWanzheng = "";
               this.technicalFile = "";
               this.shangchuancishu = "";
+              this.showData();
               //this.getData();
             }
           })
-          .catch(error => {
+          .catch((error) => {
             if (error != null) {
               this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
-                type: "warning"
+                type: "warning",
               });
               this.$refs.upload.clearFiles();
               this.technicalFileWanzheng = "";
@@ -1463,6 +1817,8 @@ export default {
     //上传后文件路径赋值
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
+      console.log(this.technicalFile)
+      console.log("this.technicalFileWanzheng"+this.technicalFileWanzheng.length)
       if (this.technicalFileWanzheng.length > 0) {
         this.technicalFileWanzheng =
           this.technicalFileWanzheng +
@@ -1472,11 +1828,11 @@ export default {
         this.technicalFileWanzheng =
           this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
       }
+      console.log(this.technicalFileWanzheng)
       this.shangchuancishu = this.shangchuancishu + 1;
     },
     //是否发布（私密）
     simizhiding(coo) {
-
       if (coo == 0) {
         this.busm = "inline";
         this.sm = "none";
@@ -1487,7 +1843,6 @@ export default {
     },
     //申请与邀请的显示变化
     invitate(coo) {
-
       if (coo == 0) {
         this.visiblehexin = "inline";
         this.shenqing = "none";
@@ -1503,25 +1858,23 @@ export default {
     handleChange() {
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
-
     },
     // 查询任务列别及供应商列表
     addData() {
       var that = this;
       var data = Qs.stringify({
         PId: "0",
-        username: this.usernameX
+        username: this.usernameX,
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/selectSubType",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.xuanzelist = this.getTreeData(response.data.allData.a);
           this.supplierCompany = response.data.allData.b;
-
         });
     },
     //将级联选择器最后一行的数据去掉
@@ -1541,17 +1894,18 @@ export default {
       this.XZJXQ = true;
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskID
+        taskId: this.taskID,
       });
       that
         .axios({
           method: "post",
           url: "/api/MainTaskInformation/selectZXX",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         })
-        .then(response => {
+        .then((response) => {
+          console.log(response)
           this.zirenwuXX = response.data.allData;
         });
     },
@@ -1559,38 +1913,38 @@ export default {
       this.quanbuzirenwu = true;
       var that = this;
       var data = Qs.stringify({
-        mainTaskID: this.mainTaskID
+        mainTaskID: this.mainTaskID,
       });
       that
         .axios({
           method: "post",
           url: "/api/MainTaskInformation/combineMS",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         })
-        .then(response => {
+        .then((response) => {
           this.zirenwu = response.data.allData.b;
         });
     },
     //提交次数 背景颜色变化
     styleswith() {
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
-        document.getElementById("word").innerHTML="优"
-        document.getElementById("word").style.color = "#00D1B2"
+        document.getElementById("word").innerHTML = "优";
+        document.getElementById("word").style.color = "#00D1B2";
         document.getElementById("one").style.background = "#00D1B2";
       }
       if (this.formZL.designCount > 2 && this.formZL.designCount < 4) {
         document.getElementById("one").style.background = "#eee";
         document.getElementById("two").style.background = "orange";
-                document.getElementById("word").innerHTML="良"
-        document.getElementById("word").style.color = "orange"
+        document.getElementById("word").innerHTML = "良";
+        document.getElementById("word").style.color = "orange";
       }
       if (this.formZL.designCount > 4 || this.formZL.designCount == 4) {
         document.getElementById("two").style.background = "#eee";
         document.getElementById("three").style.background = "red";
-                document.getElementById("word").innerHTML="差"
-        document.getElementById("word").style.color = "red"
+        document.getElementById("word").innerHTML = "差";
+        document.getElementById("word").style.color = "red";
       }
     },
     getParams() {
@@ -1599,25 +1953,59 @@ export default {
     },
 
     showData() {
-
       var that = this;
       var data = Qs.stringify({
-        subStaskID: this.taskId
+        subStaskID: this.taskId,
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/list",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         })
-        .then(response => {
-          console.log(response)
+        .then((response) => {
+                    this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
+          this.subStaskTypeID=response.data.allData.a[0].taskCategory
+                    this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          this.mainTaskName = response.data.allData.a[0].mainTaskName;
+          this.taskID = response.data.allData.a[0].taskId;
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
+          console.log(response);
+          if (this.tableData1.length != 0) {
+            console.log("this.tableData1");
+            //读取所有需求的时间
+            this.timeList.publishTime = response.data.allData.a[0].publishTime;
+            this.timeList.applyTime = response.data.allData.b[0].applyTime;
+            this.timeList.checkApplyTime =
+              response.data.allData.b[0].checkApplyTime;
+            this.timeList.planUploadTime =
+              response.data.allData.b[0].planUploadTime;
+            this.timeList.checkPlanTime =
+              response.data.allData.b[0].checkPlanTime;
+            this.timeList.beginTime = response.data.allData.a[0].beginTime;
+            this.timeList.deadLine = response.data.allData.a[0].deadLine;
+            this.timeList.uploadContractTime =
+              response.data.allData.a[0].uploadContractTime;
+            this.timeList.checkContractTime =
+              response.data.allData.a[0].checkContractTime;
+            this.timeList.supplierDistributionTime =
+              response.data.allData.a[0].supplierDistributionTime;
+            this.timeList.designerAcceptTime =
+              response.data.allData.a[0].designerAcceptTime;
+            this.timeList.uploadDesignTime =
+              response.data.allData.a[0].uploadDesignTime;
+            this.timeList.supplierCheckDesignTime =
+              response.data.allData.a[0].supplierCheckDesignTime;
+            this.timeList.demandorCheckDesignTime =
+              response.data.allData.a[0].demandorCheckDesignTime;
+            this.timeList.finishTime = response.data.allData.a[0].finishTime;
+            //读取时间结束
+          }
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
           this.selectCateKeys[0] =
             response.data.allData.a[0].taskCategoryMainId;
@@ -1644,25 +2032,26 @@ export default {
             this.milepostActive4 = 0;
           }
 
-
-
-          
-          console.log("cehsi"+response.data.allData.f)
+          console.log("cehsi" + response.data.allData.f);
           if (response.data.allData.f === null) {
             this.milepostActive5 = 0;
           }
           if (response.data.allData.f != null) {
             this.formZL = response.data.allData.d[0];
-                                  this.reMarkId = 1;
+            this.reMarkId = 1;
 
             this.styleswith();
-          this.radarData.radarData = response.data.allData.f.AllRemarkLength;
-          this.radarData.indicator = response.data.allData.f.indicator;
-          that.$refs.QradarChart.getCharts1();
+            this.radarData.radarData = response.data.allData.f.AllRemarkLength;
+            this.radarData.indicator = response.data.allData.f.indicator;
+            that.$refs.QradarChart.getCharts1();
           }
 
           //判断el-step到第几步骤
           this.cool = response.data.allData.a[0];
+          this.publishTime1 = response.data.allData.a[0].publishTime;
+          this.publishTime1 = new Date( this.publishTime1);
+          this.deadline1 = response.data.allData.a[0].deadline;
+          this.deadline1 = new Date( this.deadline1);
           this.milepostActive = response.data.allData.a[0].taskState;
           if (this.milepostActive == "计划提交") {
             this.milepostActive = 1;
@@ -1692,7 +2081,6 @@ export default {
               ](response.data.allData.c[0].checkPlanTime);
             }
             if (this.milepostActive > 1) {
-
             }
             if (this.milepostActive > 2) {
               this.milepost[2].description = this.$options.filters[
@@ -1708,52 +2096,48 @@ export default {
               ](response.data.allData.e[0].demandorCheckDesignTime);
             }
             if (this.milepostActive > 4) {
-
               this.milepost[5].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.e[0].finishTime);
             }
           }
-          this.mainTaskID = response.data.allData.a[0].mainTaskId;
-          this.mainTaskName = response.data.allData.a[0].mainTaskName;
-          this.taskID = response.data.allData.a[0].taskId;
 
         });
     },
     goBack() {
       if (this.mainTaskID == 0) {
         this.$router.push({
-          path: "/admin/designTask"
+          path: "/admin/designTask",
         });
       } else {
         this.$router.push({
           path: "/admin/substaskDetail",
           query: {
-            mainTaskID: this.mainTaskID
-          }
+            mainTaskID: this.mainTaskID,
+          },
         });
       }
     },
     //申请通过与拒绝
     SQTG(row) {
       this.$confirm("确定将申请审核通过么？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
           ID: row.id,
           taskID: row.taskId,
           companyID: row.companyId,
-          companyName: row.companyName
+          companyName: row.companyName,
         });
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/shenheSQ",
-          data: data
+          data: data,
         });
         this.$message({
           message: "审核通过",
-          type: "success"
+          type: "success",
         });
         this.showData();
       });
@@ -1766,13 +2150,13 @@ export default {
       var that = this;
       var data = Qs.stringify({
         ID: this.applyID,
-        SQrefuseReason: this.addList.SQrefuseReason
+        SQrefuseReason: this.addList.SQrefuseReason,
       });
-        that.axios({
-          method: "post",
-          url: "/api/SubstaskInformation/SQJJReason",
-          data: data
-        });
+      that.axios({
+        method: "post",
+        url: "/api/SubstaskInformation/SQJJReason",
+        data: data,
+      });
       this.$message.success("提交成功");
       this.addList = {};
       this.addVisible = false;
@@ -1781,26 +2165,26 @@ export default {
     //计划书通过与拒绝
     JHSTG(row) {
       this.$confirm("确定将任务计划书审核通过么？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
           taskID: row.taskId,
           ID: row.id,
           companyID: row.companyId,
-          companyName: row.companyName
+          companyName: row.companyName,
         });
         that
           .axios({
             method: "post",
             url: "/api/SubstaskInformation/RWJHSH",
-            data: data
+            data: data,
           })
-          .then(response => {
+          .then((response) => {
             if (response.data == "成功") {
               this.$message({
                 message: "审核通过",
-                type: "success"
+                type: "success",
               });
               this.showData();
             } else {
@@ -1808,7 +2192,7 @@ export default {
                 "您已经通过了一个任务计划，无法再通过另一个任务计划",
                 "提示",
                 {
-                  type: "warning"
+                  type: "warning",
                 }
               );
             }
@@ -1823,13 +2207,13 @@ export default {
       var that = this;
       var data = Qs.stringify({
         ID: this.ID,
-        JHSrefuseReason: this.addList1.JHSrefuseReason
+        JHSrefuseReason: this.addList1.JHSrefuseReason,
       });
-        that.axios({
-          method: "post",
-          url: "/api/SubstaskInformation/JHSJJReason",
-          data: data
-        });
+      that.axios({
+        method: "post",
+        url: "/api/SubstaskInformation/JHSJJReason",
+        data: data,
+      });
       this.$message.success("提交成功");
       this.addList1 = {};
       this.addVisible1 = false;
@@ -1837,49 +2221,45 @@ export default {
     },
     //任务计划下载
     RWJHXZ(row) {
-        var that = this;
-        var data = Qs.stringify({
-          taskID: row.id,
-          companyId: row.companyId,
-          leixing: "jihuashu"
-        });
-        that
-          .axios({
-            method: "post",
-            url: "/api/SubstaskInformation/DownloadHTHT",
-            data: data,
-            responseType: "blob"
-          })
-          .then(response => {
-
-            this.download(response.data, "JHS");
-          })
-           .catch(error => {
-            if (error != null) {
-              this.$confirm("文件不存在或者文件路径有误", "提示", {
-                type: "warning"
-              });
-              
-            }
-         });
-      
-    },
-    //下载子任务附件
-    xiazaiZRWFJ() {
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskID,
-        leixing: "ZIRWHJ"
+        taskID: row.id,
+        companyId: row.companyId,
+        leixing: "jihuashu",
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/DownloadHTHT",
           data: data,
-          responseType: "blob"
+          responseType: "blob",
         })
-        .then(response => {
-
+        .then((response) => {
+          this.download(response.data, "JHS");
+        })
+        .catch((error) => {
+          if (error != null) {
+            this.$confirm("文件不存在或者文件路径有误", "提示", {
+              type: "warning",
+            });
+          }
+        });
+    },
+    //下载子任务附件
+    xiazaiZRWFJ() {
+      var that = this;
+      var data = Qs.stringify({
+        taskID: this.taskID,
+        leixing: "ZIRWHJ",
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/DownloadHTHT",
+          data: data,
+          responseType: "blob",
+        })
+        .then((response) => {
           this.download(response.data, "ZRWFJ");
         });
     },
@@ -1908,32 +2288,32 @@ export default {
     //合同审核
     HTSHTG(row) {
       this.$confirm("确定将合同审核通过么？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          taskID: row.taskId
+          taskID: row.taskId,
         });
-        that.axios({
-          method: "post",
-          url: "/api/SubstaskInformation/HTSHTG",
-          data: data
-        })
-          .then(response => {
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/HTSHTG",
+            data: data,
+          })
+          .then((response) => {
             if (response.data == "成功") {
               this.$message({
                 message: "审核通过",
-                type: "success"
+                type: "success",
               });
               this.showData();
             } else {
               this.$message({
                 message: "审核失败",
-                type: "warning"
+                type: "warning",
               });
             }
           });
-    
       });
     },
     HTSHJJ(row) {
@@ -1944,13 +2324,13 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        HTrefuseReason: this.addList2.HTrefuseReason
+        HTrefuseReason: this.addList2.HTrefuseReason,
       });
-        that.axios({
-          method: "post",
-          url: "/api/SubstaskInformation/HTJJReason",
-          data: data
-        });
+      that.axios({
+        method: "post",
+        url: "/api/SubstaskInformation/HTJJReason",
+        data: data,
+      });
       this.$message.success("提交成功");
       this.addList2 = {};
       this.addVisible2 = false;
@@ -1961,44 +2341,44 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskID: row.taskId,
-        leixing: "hetong"
+        leixing: "hetong",
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/DownloadHTHT",
           data: data,
-          responseType: "blob"
+          responseType: "blob",
         })
-        .then(response => {
+        .then((response) => {
           this.download(response.data, "HT");
         });
     },
     //跳转虚拟机
     LJTZ(row) {
-        console.log(row.gitadress)
-        window.open(row.gitadress) 
+      console.log(row.gitadress);
+      window.open(row.gitadress);
     },
     //设计通过
     SJTG(row) {
       this.$confirm("确定将设计审核通过么？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          taskID: row.taskId
+          taskID: row.taskId,
         });
         that.axios({
           method: "post",
           url: "/api/SubstaskInformation/SJSHTG",
-          data: data
+          data: data,
         });
         this.GBXJ();
         this.showData();
         this.$router.go(0);
         this.$message({
           message: "审核通过,并自动生成评价",
-          type: "success"
+          type: "success",
         });
       });
     },
@@ -2010,94 +2390,87 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        HTrefuseReason: this.addList3.SJrefuseReason
+        HTrefuseReason: this.addList3.SJrefuseReason,
       });
-        that.axios({
-          method: "post",
-          url: "/api/SubstaskInformation/SJJJReason",
-          data: data
-        });
+      that.axios({
+        method: "post",
+        url: "/api/SubstaskInformation/SJJJReason",
+        data: data,
+      });
       this.$message.success("提交成功");
       this.addList3 = {};
       this.addVisible3 = false;
       this.showData();
     },
-        //改变星级别
+    //改变星级别
     GBXJ() {
-        var that = this;
-        var data = Qs.stringify({
-          username: this.usernameX
-        });
-        that.axios({
+      var that = this;
+      var data = Qs.stringify({
+        username: this.usernameX,
+      });
+      that
+        .axios({
           method: "post",
           url: "/api/sumRemarkData",
-          data: data
+          data: data,
         })
-        .then(response => {
-        });
-        this.showData();
-
+        .then((response) => {});
+      this.showData();
     },
     companyDetail(row) {
       var that = this;
       var data = Qs.stringify({
-        CompanyID: row.companyId
+        CompanyID: row.companyId,
       });
       that
         .axios({
           method: "post",
           url: "/api/companyDetail/showCompanyDetal",
-          data: data
+          data: data,
         })
-        .then(response => {
-          console.log(response)
+        .then((response) => {
+          console.log(response);
 
-            
-            this.form = response.data.allData.companyDetail[0];
+          this.form = response.data.allData.companyDetail[0];
           this.companyId = response.data.allData.companyDetail[0].companyId;
           this.companyName = response.data.allData.companyDetail[0].companyName;
-                    this.companyDetailContent =
+          this.companyDetailContent =
             response.data.allData.companyDetailContent;
-            this.logo = response.data.allData.logo;
+          this.logo = response.data.allData.logo;
           this.imgsrc = response.data.allData.companyPicture;
-          this.qiyezhizhao =
-            response.data.allData.BusinessLicence;
-          this.shuiwudengjizheng =
-            response.data.allData.tRCertificate;
-            this.TPDZCS = this.TPDZCS + 1;
-          
-          
-
+          this.qiyezhizhao = response.data.allData.BusinessLicence;
+          this.shuiwudengjizheng = response.data.allData.tRCertificate;
+          this.TPDZCS = this.TPDZCS + 1;
         });
       this.addVisibleCD = true;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-  //企业详情
-  .leftDet {
-    float: left;
-    text-align: left;
-    width: 90%;
-    padding: 0px 30px 0px;
-  }
+//企业详情
+.leftDet {
+  float: left;
+  text-align: left;
+  width: 90%;
+  padding: 0px 30px 0px;
+}
 .mainStaskDetaul {
-  .customer-table{
+  .customer-table {
     padding-top: 3px;
     padding-bottom: 3px;
   }
-  .el-dialog__header{
-    padding-top:0%;
+  .el-dialog__header {
+    padding-top: 0%;
     padding-bottom: 0%;
   }
   .loading1 {
     height: 400px;
   }
   .el-dialog__footer {
-  padding-right: 20px;
-}
+    padding-right: 20px;
+  }
   .el-dialog__body {
     padding-right: 20px;
   }
@@ -2141,7 +2514,7 @@ export default {
     color: #303133;
   }
 
-.el-table{
+  .el-table {
     font-size: 13px;
   }
   .text {
@@ -2151,7 +2524,12 @@ export default {
   .item {
     padding: 18px 0;
   }
-
+  .changeTimeButton {
+    margin: 0 0 0 300px;
+  }
+  .changeTimeFrom {
+    margin: 0 0 0 80px;
+  }
   .box-card {
     width: 960px;
     /* border: 1px solid #00a2e6 ; */

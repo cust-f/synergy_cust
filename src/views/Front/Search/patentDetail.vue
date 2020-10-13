@@ -1,9 +1,9 @@
 <template>
-  <div style="width:1200px;margin:0 auto;" class="company-detail-info">
+  <div style="width: 1200px; margin: 0 auto" class="company-detail-info">
     <!--第一行 -->
     <el-row>
       <el-col :span="20">
-        <div style="margin-top:15px;">
+        <div style="margin-top: 15px">
           <el-breadcrumb separator=">">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item @click="goBack()">专利搜索</el-breadcrumb-item>
@@ -16,33 +16,55 @@
     <el-card shadow="never" class="company-detail-info-show">
       <div slot="header">
         <div
-          style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;border-bottom: 1px solid #606266;"
-        >专利详情</div>
+          style="
+            margin: -18px -20px;
+            padding: 10px 20px;
+            background: #dcdfe6;
+            border-bottom: 1px solid #606266;
+          "
+        >
+          专利详情
+        </div>
       </div>
       <el-row>
-        <div>
-          <h3 style="float:left;">{{detail.title1}}</h3>
-          <p style=" line-height: 36px;font-size: 18px; color: #ff7720;float:left;">
-            【
-            <span>{{changeString(detail.patenttypeName)}}</span>】
-          </p>
-        </div>
-        <div style="float:right;">
-          <p>
-            资源来源：
-            <span>{{detail.resourceFrom}}</span>
-            <el-avatar shape="square" :size="20" fit="fill" :src="detail.resourceLogo"></el-avatar>
-          </p>
-        </div>
+        <h3 style="float: left">{{ detail.title1 }}</h3>
+        <p
+          style="
+            line-height: 36px;
+            font-size: 18px;
+            color: #ff7720;
+            float: left;
+          "
+        >
+          【
+          <span>{{ changeString(detail.patenttypeName) }}</span
+          >】
+        </p>
+           <div style="float: right">
+            <p>
+              资源来源：
+              <span>{{ detail.resourceFrom }}</span>
+              <el-avatar
+                shape="square"
+                :size="20"
+                fit="fill"
+                :src="detail.resourceLogo"
+              ></el-avatar>
+            </p>
+          </div>
       </el-row>
       <el-divider></el-divider>
       <!-- 信息展示 -->
       <el-row>
         <el-col :span="9">
-          <el-popover :content="changeString(detail.author)" placement="top-start" trigger="hover">
+          <el-popover
+            :content="changeString(detail.author)"
+            placement="top-start"
+            trigger="hover"
+          >
             <p slot="reference">
               发明人:
-              <span>{{changeString(detail.author)}}</span>
+              <span>{{ changeString(detail.author) }}</span>
             </p>
           </el-popover>
         </el-col>
@@ -54,41 +76,52 @@
           >
             <p slot="reference">
               申请人:
-              <span>{{changeString(detail.requestPeople)}}</span>
+              <span>{{ changeString(detail.requestPeople) }}</span>
             </p>
           </el-popover>
         </el-col>
         <el-col :span="6">
-          <span>公开日期: {{detail.publicationDate | dataFormat("yyyy-MM-dd")}}</span>
+          <span
+            >公开日期:
+            {{ detail.publicationDate | dataFormat("yyyy-MM-dd") }}</span
+          >
         </el-col>
       </el-row>
       <!--  -->
       <el-row>
         <el-col :span="9">
-          <el-popover :content="changeString(detail.agent)" placement="top-start" trigger="hover">
+          <el-popover
+            :content="changeString(detail.agent)"
+            placement="top-start"
+            trigger="hover"
+          >
             <p slot="reference">
               专利代理人:
-              <span>{{changeString(detail.agent)}}</span>
+              <span>{{ changeString(detail.agent) }}</span>
             </p>
           </el-popover>
         </el-col>
         <el-col :span="9">
           <p>
             专利代理机构:
-            <span>{{changeString(detail.orgAgency)}}</span>
+            <span>{{ changeString(detail.orgAgency) }}</span>
           </p>
         </el-col>
         <el-col :span="6">
-          <span>公开号: {{detail.publicationNo}}</span>
+          <span>公开号: {{ detail.publicationNo }}</span>
         </el-col>
       </el-row>
       <!--  -->
       <el-row>
         <el-col :span="18">
-          <el-popover :content="changeString(detail.keyword)" placement="top-start" trigger="hover">
+          <el-popover
+            :content="changeString(detail.keyword)"
+            placement="top-start"
+            trigger="hover"
+          >
             <p slot="reference">
               关键词:
-              <span>{{changeString(detail.keyword)}}</span>
+              <span>{{ changeString(detail.keyword) }}</span>
             </p>
           </el-popover>
         </el-col>
@@ -98,31 +131,38 @@
           <el-tab-pane label="主权项">
             <div>
               <div v-html="detail.indCla"></div>
+              <br />
+              <el-divider></el-divider>
             </div>
           </el-tab-pane>
           <el-tab-pane label="摘要">
             <div>
               <div v-html="detail.abstract"></div>
-              <!-- <br />
-              <el-divider></el-divider>-->
+              <br />
+              <el-divider></el-divider>
             </div>
           </el-tab-pane>
         </el-tabs>
-        <br />
-        <el-divider></el-divider>
-        <el-row :gutter="5">
-          <el-col :span="1">
-            <img
-              style="width: 30px; height: 30px"
-              src="../../../assets/images/home/patent/copyright_logo.png"
-            />
-            <!-- <el-avatar shape="square" :size="30" fit="fill" src=""></el-avatar> -->
-          </el-col>
-          <el-col :span="12">
-            <span style=" color: #7b7575;line-height: 30px;">版权所有：西南交通大学、国家重点研发计划项目支持</span>
-          </el-col>
-        </el-row>
       </div>
+      <!-- <el-divider></el-divider> -->
+      <el-row>
+        <img
+          style="width: 30px; height: 30px; float: left"
+          src="../../../assets/img/copyright_logo.png"
+        />
+
+        <p
+          style="
+            font-size: 16px;
+            color: #7d7974;
+            float: left;
+            line-height: 30px;
+            margin-left: 10px;
+          "
+        >
+          版权所有：西南交通大学、国家重点研发计划项目支持
+        </p>
+      </el-row>
     </el-card>
   </div>
 </template>
@@ -160,7 +200,6 @@ export default {
           url: "/city/bizdesign/synergicResourceDetail",
         })
         .then((response) => {
-          console.log(response);
           this.detail = response.data.data.patantDetailData[0];
           this.orgClass = response.data.orgClass;
         });
@@ -177,7 +216,7 @@ export default {
           if (i != newData.length - 1) result += ",";
         }
         return result;
-      } else return "";
+      } else return;
     },
     goBack: function () {
       window.history.go(-1);
@@ -188,8 +227,7 @@ export default {
 
 <style>
 .company-detail-info .company-detail-info-show {
-  margin-bottom: 50px;
-  padding-bottom: 0px;
+  margin-bottom: 20px;
 }
 .company-detail-info-show .el-row {
   margin-bottom: 15px;
