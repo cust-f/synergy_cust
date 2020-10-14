@@ -40,6 +40,7 @@
             size="small"
             v-show="scope.row.contractState===0"
           >上传</el-button>
+
           <el-button
             @click="HTFileHistory()"
             v-show="scope.row.contractState > 0"
