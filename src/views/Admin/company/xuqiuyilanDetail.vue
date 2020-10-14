@@ -6,8 +6,12 @@
           <div class="XuQiutitle">
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item :to="{ path: '/xuqiuyilan' }">需求一览</el-breadcrumb-item>
-              <el-breadcrumb-item :to="{ path: 'admin/xuqiuyilanDetail' }">需求详情</el-breadcrumb-item>
+              <el-breadcrumb-item :to="{ path: '/xuqiuyilan' }"
+                >需求一览</el-breadcrumb-item
+              >
+              <el-breadcrumb-item :to="{ path: 'admin/xuqiuyilanDetail' }"
+                >需求详情</el-breadcrumb-item
+              >
             </el-breadcrumb>
           </div>
           <br />
@@ -25,7 +29,7 @@
           <div class="Right">
             <div>
               <div class="title-detail">
-                <font>{{applyList.taskName}}</font>
+                <font>{{ applyList.taskName }}</font>
               </div>
             </div>
             <br />
@@ -35,14 +39,14 @@
                 <li>
                   <a>
                     一级行业类别：
-                    <font>{{applyList.taskCategoryMain}}</font>
+                    <font>{{ applyList.taskCategoryMain }}</font>
                   </a>
                 </li>
                 <br />
                 <li>
                   <a>
                     二级行业类别：
-                    <font>{{applyList.taskCategoryPart}}</font>
+                    <font>{{ applyList.taskCategoryPart }}</font>
                   </a>
                 </li>
                 <br />
@@ -57,14 +61,14 @@
                 <li>
                   <a>
                     开始时间：
-                    <font>{{applyList.beginTime|formatDate}}</font>
+                    <font>{{ applyList.beginTime | formatDate }}</font>
                   </a>
                 </li>
                 <br />
                 <li>
                   <a>
                     截止时间：
-                    <font>{{applyList.deadline|formatDate}}</font>
+                    <font>{{ applyList.deadline | formatDate }}</font>
                   </a>
                 </li>
                 <br />
@@ -73,7 +77,8 @@
                   v-show="applyYinCang === 0"
                   class="button-style"
                   @click="applyTask()"
-                >申请任务</el-button>
+                  >申请任务</el-button
+                >
               </el-col>
             </ul>
           </div>
@@ -81,8 +86,15 @@
             <el-card class="companybox-card">
               <div slot="header" class="clearfix">
                 <div
-                  style="margin:-18px -20px; padding:10px 20px; background:#ffc107; font-size:18px;"
-                >{{companyList.companyName}}</div>
+                  style="
+                    margin: -18px -20px;
+                    padding: 10px 20px;
+                    background: #ffc107;
+                    font-size: 18px;
+                  "
+                >
+                  {{ companyList.companyName }}
+                </div>
               </div>
               <div>
                 <ul class="ul02">
@@ -91,23 +103,23 @@
                       <li>
                         <a>
                           所在省：
-                          <font>{{companyList.province}}省</font>
+                          <font>{{ companyList.province }}省</font>
                         </a>
                       </li>
                       <br />
                       <li>
                         <a>
                           所在市：
-                          <font>{{companyList.city}}市</font>
+                          <font>{{ companyList.city }}市</font>
                         </a>
                       </li>
                       <br />
                       <el-popover placement="top-start" trigger="hover">
-                        <div>{{companyList.address}}</div>
+                        <div>{{ companyList.address }}</div>
                         <li class="det" slot="reference">
                           <a slot="reference">
                             企业地址：
-                            <font>{{companyList.address}}</font>
+                            <font>{{ companyList.address }}</font>
                           </a>
                         </li>
                       </el-popover>
@@ -115,14 +127,14 @@
                       <li>
                         <a>
                           联系电话：
-                          <font>{{applyList.demanderTel}}</font>
+                          <font>{{ applyList.demanderTel }}</font>
                         </a>
                       </li>
                       <br />
                       <li>
                         <a>
                           email：
-                          <font>{{companyList.email}}</font>
+                          <font>{{ companyList.email }}</font>
                         </a>
                       </li>
                       <br />
@@ -138,10 +150,86 @@
         <el-tabs type="border-card" class="overallSituation12">
           <el-tab-pane label="需求详情">
             <div class="Right2">
-              <ul class="ul03">
+              <el-table
+                v-if="applyList.taskType === 1"
+                :data="tableData2"
+                style="width: 100%"
+              >
+                <el-table-column
+                  label="序号"
+                  type="index"
+                  width="50%"
+                  align="center"
+                  prop="consignmentId"
+                >
+                  <template slot-scope="scope">
+                    <span>{{ scope.$index + 1 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="productName"
+                  label="产品名称"
+                ></el-table-column>
+                <el-table-column
+                  prop="deliveryTime"
+                  label="发货时间"
+                  width="160"
+                  ><template slot-scope="scope">
+                    <el-span>{{ scope.row.deliveryTime | formatDate }}</el-span>
+                  </template></el-table-column
+                >
+                <el-table-column
+                  prop="consignmentTimeLatest"
+                  label="发货截至时间"
+                  width="160%"
+                  ><template slot-scope="scope">
+                    <el-span>{{
+                      scope.row.consignmentTimeLatest | formatDate
+                    }}</el-span>
+                  </template></el-table-column
+                >
+                <el-table-column
+                  prop="consignmentState"
+                  label="发货状态"
+                  width="100"
+                >
+                  <template slot-scope="scope">
+                    <el-tag v-if="+scope.row.consignmentState === 0" type="info"
+                      >待发货</el-tag
+                    >
+                    <el-tag v-else-if="+scope.row.consignmentState === 1"
+                      >已发货</el-tag
+                    >
+                    <el-tag
+                      v-else-if="+scope.row.consignmentState === 2"
+                      type="success"
+                      >已完成</el-tag
+                    >
+                    <el-tag
+                      v-else-if="+scope.row.consignmentState === 3"
+                      type="danger"
+                      @click="open(scope.row, scope.$index)"
+                      >拒绝
+                    </el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="productNumber"
+                  label="产品数量"
+                  width="80"
+                ></el-table-column>
+                <el-table-column
+                  prop="productModel"
+                  label="产品规格"
+                  width="80"
+                ></el-table-column>
+              </el-table>
+            </div>
+            <div class="Right2">
+            <ul v-if="applyList.taskType === 0" class="ul03">
                 <el-row>
                   <el-col :span="8" class="title-task-detail">
-                    <div>{{applyList.taskDetail}}</div>
+                    <div>{{ applyList.taskDetail }}</div>
                   </el-col>
                 </el-row>
               </ul>
@@ -152,28 +240,237 @@
                   <span>附件</span>
                 </div>
                 <div>
-                  <el-table :data="tableData" class="customer-table" :show-header="false">
+                  <el-table
+                    :data="tableData"
+                    class="customer-table"
+                    :show-header="false"
+                  >
                     <el-table-column>
                       <template slot-scope="scope">
-                        <el-link @click.native="downloadFile(scope.row)">{{scope.row.fileName}}</el-link>
+                        <el-link @click.native="downloadFile(scope.row)">{{
+                          scope.row.fileName
+                        }}</el-link>
                       </template>
                     </el-table-column>
-                    <el-table-column prop="filePath" label="真实地址" v-if="YinCang===0"></el-table-column>
+                    <el-table-column
+                      prop="filePath"
+                      label="真实地址"
+                      v-if="YinCang === 0"
+                    ></el-table-column>
                   </el-table>
                 </div>
               </el-card>
+              
             </div>
+            <!--   显示公司信息的小卡片 -->
+            <!-- <div class="left2">
+              <el-card class="companybox-card2">
+                <div slot="header" class="clearfix">
+                  <div
+                    style="
+                      margin: -18px -20px;
+                      padding: 10px 20px;
+                      background: #ffc107;
+                      font-size: 18px;
+                    "
+                  >
+                    {{ companyList2[0].companyName }}
+                  </div>
+                </div>
+                <div>
+                  <ul class="ul02">
+                    <el-row>
+                      <el-col :span="8" class="company-detail">
+                        <li>
+                          <a>
+                            所在省：
+                            <font>{{ companyList2[0].province }}省</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            所在市：
+                            <font>{{ companyList2[0].city }}市</font>
+                          </a>
+                        </li>
+                        <br />
+                        <el-popover placement="top-start" trigger="hover">
+                          <div>{{ companyList2[0].address }}</div>
+                          <li class="det" slot="reference">
+                            <a slot="reference">
+                              企业地址：
+                              <font>{{ companyList2[0].address }}</font>
+                            </a>
+                          </li>
+                        </el-popover>
+                        <br />
+                        <li>
+                          <a>
+                            联系电话：
+                            <font>{{ companyList2[0].businessTel }}</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            email：
+                            <font>{{ companyList2[0].email }}</font>
+                          </a>
+                        </li>
+                        <br />
+                      </el-col>
+                    </el-row>
+                  </ul>
+                </div>
+              </el-card>
+            </div> -->
           </el-tab-pane>
           <el-tab-pane label="需求方详情">
             <div>
               <div class="title-company-detail">
-                <font>{{companyList.companyName}}</font>
+                <font>{{ companyList.companyName }}</font>
               </div>
               <br />
               <el-divider></el-divider>
               <div v-html="companyDetailContent"></div>
             </div>
           </el-tab-pane>
+
+          <!--  <el-tab-pane v-if="applyList.taskType === 1" label="发货清单">
+            <div class="listDetil">
+            <el-table :data="tableData2" style="width: 65%">
+              <el-table-column
+                label="序号"
+                type="index"
+                width="50%"
+                align="center"
+                prop="consignmentId"
+              >
+                <template slot-scope="scope">
+                  <span>{{ scope.$index + 1 }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="productName"
+                label="产品名称"
+              ></el-table-column>
+              <el-table-column prop="deliveryTime" label="发货时间" width="160"
+                ><template slot-scope="scope">
+                  <el-span>{{ scope.row.deliveryTime | formatDate }}</el-span>
+                </template></el-table-column
+              >
+              <el-table-column
+                prop="consignmentTimeLatest"
+                label="发货截至时间"
+                width="160%"
+                ><template slot-scope="scope">
+                  <el-span>{{
+                    scope.row.consignmentTimeLatest | formatDate
+                  }}</el-span>
+                </template></el-table-column
+              >
+              <el-table-column
+                prop="consignmentState"
+                label="发货状态"
+                width="100"
+              >
+                <template slot-scope="scope">
+                  <el-tag v-if="+scope.row.consignmentState === 0" type="info"
+                    >待发货</el-tag
+                  >
+                  <el-tag v-else-if="+scope.row.consignmentState === 1"
+                    >已发货</el-tag
+                  >
+                  <el-tag
+                    v-else-if="+scope.row.consignmentState === 2"
+                    type="success"
+                    >已完成</el-tag
+                  >
+                  <el-tag
+                    v-else-if="+scope.row.consignmentState === 3"
+                    type="danger"
+                    @click="open(scope.row, scope.$index)"
+                    >拒绝
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="productNumber"
+                label="产品数量"
+                width="80"
+              ></el-table-column>
+              <el-table-column
+                prop="productModel"
+                label="产品规格"
+                width="80"
+              ></el-table-column>
+            </el-table> -->
+          <!--   显示公司信息的小卡片 -->
+          <!--             <div class="left2">
+              <el-card class="companybox-card2">
+                <div slot="header" class="clearfix">
+                  <div
+                    style="
+                      margin: -18px -20px;
+                      padding: 10px 20px;
+                      background: #ffc107;
+                      font-size: 18px;
+                    "
+                  >
+                    {{ companyList2[0].companyName }}
+                  </div>
+                </div>
+                <div>
+                  <ul class="ul02">
+                    <el-row>
+                      <el-col :span="8" class="company-detail">
+                        <li>
+                          <a>
+                            所在省：
+                            <font>{{ companyList2[0].province }}省</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            所在市：
+                            <font>{{ companyList2[0].city }}市</font>
+                          </a>
+                        </li>
+                        <br />
+                        <el-popover placement="top-start" trigger="hover">
+                          <div>{{ companyList2[0].address }}</div>
+                          <li class="det" slot="reference">
+                            <a slot="reference">
+                              企业地址：
+                              <font>{{ companyList2[0].address }}</font>
+                            </a>
+                          </li>
+                        </el-popover>
+                        <br />
+                        <li>
+                          <a>
+                            联系电话：
+                            <font>{{ companyList2[0].businessTel }}</font>
+                          </a>
+                        </li>
+                        <br />
+                        <li>
+                          <a>
+                            email：
+                            <font>{{ companyList2[0].email }}</font>
+                          </a>
+                        </li>
+                        <br />
+                      </el-col>
+                    </el-row>
+                  </ul>
+                </div>
+              </el-card>
+            </div>
+            </div> 
+          </el-tab-pane>-->
         </el-tabs>
         <br />
         <br />
@@ -181,7 +478,13 @@
     </div>
     <!-- 申请任务弹出框 -->
     <el-dialog :visible.sync="applyDiaLog" width="50%">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请信息</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <div
+        class="biaoti"
+        style="padding: 0 10px; border-left: 3px solid #4e58c5"
+      >
+        申请信息
+      </div>
+      &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-row>
         <el-col :span="8"></el-col>
       </el-row>
@@ -195,39 +498,58 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方：">
-              <el-input class=".no-el-input" v-model="companyList.companyName" :readonly="true"></el-input>
+              <el-input
+                class=".no-el-input"
+                v-model="companyList.companyName"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
             <el-form-item label="需求名">
-              <el-input v-model="applyList.taskName" :readonly="true"></el-input>
+              <el-input
+                v-model="applyList.taskName"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
             <el-form-item label="一级行业类别">
-              <el-input v-model="applyList.taskCategoryMain" :readonly="true"></el-input>
+              <el-input
+                v-model="applyList.taskCategoryMain"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
             <el-form-item label="二级行业类别">
-              <el-input v-model="applyList.taskCategoryPart" :readonly="true"></el-input>
+              <el-input
+                v-model="applyList.taskCategoryPart"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求开始时间">
-              <el-input v-bind:value="applyList.beginTime|formatDate" :readonly="true"></el-input>
+              <el-input
+                v-bind:value="applyList.beginTime | formatDate"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
             <el-form-item label="需求截止时间">
-              <el-input v-bind:value="applyList.deadline|formatDate" :readonly="true"></el-input>
+              <el-input
+                v-bind:value="applyList.deadline | formatDate"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -235,7 +557,10 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方电话">
-              <el-input v-model="applyList.demanderTel" :readonly="true"></el-input>
+              <el-input
+                v-model="applyList.demanderTel"
+                :readonly="true"
+              ></el-input>
             </el-form-item>
           </el-col>
 
@@ -285,9 +610,9 @@ export default {
             required: false,
             message: "请输入手机号码",
             trigger: "blur",
-            validator: validDataPhone
-          }
-        ]
+            validator: validDataPhone,
+          },
+        ],
       },
       //申请框
       applyList: [
@@ -304,8 +629,8 @@ export default {
           taskCategory: "",
           taskCategoryPart: 0,
           companyName: "",
-          taskDetail: ""
-        }
+          taskDetail: "",
+        },
       ],
       companyList: {
         companyId: 0,
@@ -319,13 +644,46 @@ export default {
         product: "",
         address: "",
         businessTel: "",
-        email: ""
+        email: "",
+      },
+      companyList2: {
+        companyId: 0,
+        province: "",
+        city: "",
+        companyName: "",
+        companyCategory: "",
+        address: "",
+        businessName: "",
+        introduction: "",
+        product: "",
+        address: "",
+        businessTel: "",
+        email: "",
       },
       tableData: [
         {
           fileName: "",
-          filePath: ""
-        }
+          filePath: "",
+        },
+      ],
+      tableData2: [
+        {
+          consignmentId: "1000015",
+          taskId: "1-1",
+          productName: "华子",
+          deliveryTime: "",
+          consignmentTimeLatest: "2020.10.5",
+          consignmentState: "",
+          productNumber: "5",
+          productModel: "很大很大",
+          productPrice: "500",
+          contactnumber: "18904402315",
+          shippingaddress: "",
+          totalPrice: "2500",
+          consignmentNotes: "麻烦快点谢谢",
+          checkox: "",
+          refuseReason: "",
+        },
       ],
       address: "",
       TaskDetail: "",
@@ -354,10 +712,10 @@ export default {
       //联系电话
       applyList1: [
         {
-          supplierTel: ""
-        }
+          supplierTel: "",
+        },
       ],
-      formLabelWidth: "80px"
+      formLabelWidth: "80px",
     };
   },
   created() {
@@ -365,13 +723,15 @@ export default {
     this.showTaskData();
     this.showApply();
     this.getFilePath();
+    this.showData();
+    this.showCompanyData();
   },
 
   filters: {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    }
+    },
   },
   methods: {
     //下载
@@ -379,7 +739,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
-        url: row.filePath
+        url: row.filePath,
       });
       that
         .axios({
@@ -388,10 +748,10 @@ export default {
           data: data,
           responseType: "blob", //服务器返回的数据类型
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.FileName = row.fileName;
           const content = response.data;
           const blob = new Blob([content]);
@@ -440,11 +800,11 @@ export default {
         this.$confirm("登陆后才能进行申请，是否登陆？", "提示", {
           confirmButtonText: "登陆",
           cancelButtonText: "取消",
-          type: "warning"
+          type: "warning",
         })
           .then(() => {
             this.$router.push({
-              path: "/Login"
+              path: "/Login",
             });
           })
           .catch(() => {});
@@ -453,15 +813,15 @@ export default {
     userPost() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.userName
+        userName: this.userName,
       });
       that
         .axios({
           method: "post",
           url: "/api/xuqiuyilan/userIf",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.findUserIdVar = response.data;
           if (this.findUserIdVar == this.findUserId) {
             this.applyYinCang = 1;
@@ -473,15 +833,15 @@ export default {
     showTaskData() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskID
+        taskId: this.taskID,
       });
       that
         .axios({
           method: "post",
           url: "/api/xuqiuyilan/getAllDet",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.applyList = response.data.allData.a[0];
           this.findUserId = response.data.allData.a[0].company_Id;
           this.taskState = response.data.allData.a[0].taskState;
@@ -500,15 +860,15 @@ export default {
     getFilePath() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskID
+        taskId: this.taskID,
       });
       that
         .axios({
           method: "post",
           url: "/api/xuqiuyilan/getFilePath",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           //
           this.tableData = response.data.allData;
         });
@@ -516,7 +876,7 @@ export default {
     //返回首页
     goHome() {
       this.$router.push({
-        path: "/Home"
+        path: "/Home",
       });
     },
     //判断企业是否申请过此任务
@@ -524,15 +884,15 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskID,
-        userName: this.userName
+        userName: this.userName,
       });
       that
         .axios({
           method: "post",
           url: "/api/xuqiuyilan/applyIf",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.companyName1 = response.data.allData[0].Id;
           if (this.companyName1 == 0) {
             this.applyIf = 0;
@@ -544,7 +904,7 @@ export default {
     //返回首页
     goBack() {
       this.$router.push({
-        path: "/xuqiuyilan"
+        path: "/xuqiuyilan",
       });
     },
     //申请数据上传
@@ -563,12 +923,12 @@ export default {
           taskCategoryMainId: this.applyList.taskCategoryMainId,
           taskCategory: this.applyList.taskCategory,
           taskCategoryPart: this.applyList.taskCategoryPart,
-          supplierTel: this.applyList1.supplierTel
+          supplierTel: this.applyList1.supplierTel,
         });
         that.axios({
           method: "post",
           url: "/api/xuqiuyilan/addApplyInformational",
-          data: data
+          data: data,
         });
         this.$message.success("提交成功");
         this.$router.go(0);
@@ -577,32 +937,68 @@ export default {
     companyDetail(companyId) {
       this.$router.push({
         path: "company/excellentCompanyDetail",
-        query: { companyId: companyId }
+        query: { companyId: companyId },
       });
+    },
+    //显示发货清单数据的方法
+    showData() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findConsignmentByTaskId",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData2 = response.data.allData;
+          console.log(this.tableData2);
+        });
+    },
+    //显示承接企业的所有相关信息
+    showCompanyData() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskID,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/findCompanyDataByTaskId",
+          data: data,
+        })
+        .then((response) => {
+          this.companyList2 = response.data.allData;
+          console.log(this.companyList2);
+        });
     },
 
     getCompay() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskID
+        taskId: this.taskID,
       });
 
       that
         .axios({
           method: "post",
           url: "/api/companyDetail/getCompanyFormBytaskId",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.companyList = response.data.allData.detail;
+          console.log(typeof this.companyList);
           this.companyId = response.data.allData.detail.companyId;
           this.companyName = response.data.allData.detail.companyName;
           this.address = response.data.allData.detail.address;
           this.logo = response.data.allData.logo;
           this.companyDetailContent = response.data.allData.content;
+          console.log(this.companyList.province);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -814,37 +1210,11 @@ export default {
     text-align: center;
     margin-bottom: 0px;
   }
-  // .np_top1 {
-  //   font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-  //     sans-serif;
 
-  //   font-size: 55px;
-
-  //   font-style: normal;
-
-  //   font-variant: normal;
-
-  //   font-weight: 400;
-
-  //   line-height: normal;
-
-  //   overflow: hidden;
-
-  //   padding-bottom: 10px;
-
-  //   padding-left: 10px;
-
-  //   padding-right: 10px;
-
-  //   padding-top: 10px;
-
-  //   text-decoration: none;
-
-  //   width: 80px;
-  // }
   .companybox-card {
     width: 400px;
   }
+
   .filebox-card {
     width: 400px;
   }
@@ -934,6 +1304,11 @@ export default {
   }
   .left1 {
     float: right;
+  }
+  .left2 {
+    color: #ff7720;
+    font-size: 25%;
+    float: left;
   }
   .xuqiuyilanDet.el-dialog__header {
     padding: 0px 0px 0px;

@@ -90,13 +90,16 @@
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
         发货清单
+
       </div>
+      <br>
             <div style="margin-top: 10px;">
-          <el-button
+          <el-button 
             style="float: left;margin-bottom: 10px;"
             type="primary"
             @click="submit2()"
             size="small"
+            disabled="this.taskState==5"
             >全部提交</el-button
           > 
       </div> 
@@ -132,15 +135,7 @@
             label="产品名称"
             width="100"
           ></el-table-column>
-          <!-- <el-col :span="11">
-                <el-form-item label="截止日期">
-                  <el-input
-                    v-bind:value="cool.deadline|formatDate"
-                    :disabled="true"
-                    style="text-align:center"
-                  ></el-input>
-                </el-form-item>
-              </el-col> -->
+
           <el-table-column prop="deliveryTime" label="发货时间" width="160"
             ><template slot-scope="scope">
               <el-span>{{ scope.row.deliveryTime | formatDate }}</el-span>
@@ -442,12 +437,20 @@ export default {
           type: "success",
         });
         this.showData();
+        this.upCirculation=false;
       });
     },
     //全部提交的实现
     submit2() {
       // alert(this.multipleSelection.length)
       // alert(this.multipleSelection[0].productName )
+      if(this.multipleSelection.length==0){
+           this.$message({
+          message: '请至少选择一个！',
+          type: 'warning'
+        });
+      }
+      else{
       for (var i = 0; i < this.multipleSelection.length; i++) {
         let that = this;
         let data = Qs.stringify({
@@ -468,8 +471,11 @@ export default {
       this.$message({
           message: "审核通过",
           type: "success",
+        
       });
       this.showData();
+      this.upCirculation=false;
+    }
     },
 
     //拒绝原因弹出框
