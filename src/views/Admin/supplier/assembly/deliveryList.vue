@@ -172,7 +172,7 @@
               <el-tag
                 v-else-if="+scope.row.consignmentState === 3"
                 type="danger"
-                @click="open(scope.row, scope.$index)"
+                @click="open(scope.row)"
                 >拒绝
               </el-tag>
             </template>
@@ -324,7 +324,6 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
-          console.log("taskState" + this.taskState);
           if (this.taskState == "完成") {
             this.submitDisable = true;
           }
@@ -392,14 +391,14 @@ export default {
     },
 
     //拒绝原因弹出框
-    open(row, index) {
-      console.log(this.tableData[index].refuseReason);
-      this.$alert(this.tableData[index].refuseReason, "拒绝原因", {
+    open(row) {
+      console.log(row.refuseReason);
+      this.$alert(row.refuseReason, "拒绝原因", {
         confirmButtonText: "确定",
       });
     },
     checkboxT(row,index){
-      if(row.consignmentState == 0){
+      if(row.consignmentState == 0 || row.consignmentState == 3){
         return true
       }
       else{
