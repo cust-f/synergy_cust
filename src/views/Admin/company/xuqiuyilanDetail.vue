@@ -149,11 +149,47 @@
         <br />
         <el-tabs type="border-card" class="overallSituation12">
           <el-tab-pane label="需求详情">
+            <div class="Right2">
+              <ul class="ul03">
+                <el-row>
+                  <el-col :span="8" class="title-task-detail">
+                    <div>{{ applyList.taskDetail }}</div>
+                  </el-col>
+                </el-row>
+              </ul>
+            </div>
+            <div class="left1">
+              <el-card class="filebox-card">
+                <div slot="header" class="clearfix">
+                  <span>附件</span>
+                </div>
+                <div>
+                  <el-table
+                    :data="tableData"
+                    class="customer-table"
+                    :show-header="false"
+                  >
+                    <el-table-column>
+                      <template slot-scope="scope">
+                        <el-link @click.native="downloadFile(scope.row)">{{
+                          scope.row.fileName
+                        }}</el-link>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      prop="filePath"
+                      label="真实地址"
+                      v-if="YinCang === 0"
+                    ></el-table-column>
+                  </el-table>
+                </div>
+              </el-card>
+            </div>
             <div class="Right3">
               <el-table
                 v-if="applyList.taskType === 1"
                 :data="tableData2"
-                style="width: 100%"
+                style="width: 97%"
               >
                 <el-table-column
                   label="序号"
@@ -191,7 +227,6 @@
                 <el-table-column
                   prop="consignmentState"
                   label="发货状态"
-                  width="100"
                 >
                   <template slot-scope="scope">
                     <el-tag v-if="+scope.row.consignmentState === 0" type="info"
@@ -224,43 +259,6 @@
                   width="80"
                 ></el-table-column>
               </el-table>
-            </div>
-            <div class="Right2">
-            <ul v-if="applyList.taskType === 0" class="ul03">
-                <el-row>
-                  <el-col :span="8" class="title-task-detail">
-                    <div>{{ applyList.taskDetail }}</div>
-                  </el-col>
-                </el-row>
-              </ul>
-            </div>
-            <div class="left1">
-              <el-card class="filebox-card">
-                <div slot="header" class="clearfix">
-                  <span>附件</span>
-                </div>
-                <div>
-                  <el-table
-                    :data="tableData"
-                    class="customer-table"
-                    :show-header="false"
-                  >
-                    <el-table-column>
-                      <template slot-scope="scope">
-                        <el-link @click.native="downloadFile(scope.row)">{{
-                          scope.row.fileName
-                        }}</el-link>
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      prop="filePath"
-                      label="真实地址"
-                      v-if="YinCang === 0"
-                    ></el-table-column>
-                  </el-table>
-                </div>
-              </el-card>
-              
             </div>
             <!--   显示公司信息的小卡片 -->
             <!-- <div class="left2">
@@ -1298,7 +1296,7 @@ export default {
 
     width: 720px;
   }
-   .Right3 {
+  .Right3 {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     float: left;
