@@ -202,8 +202,6 @@
             </template>
           </el-table-column>
         </el-table>
-
-          <!-- <el-button type="primary" @click="toggleSelection()">取消选择</el-button> -->
       
         <div class="pagination">
           <el-pagination
@@ -304,101 +302,10 @@ export default {
       this.taskId = routerParams;
     },
 
-    //取消选择的方法
-    /* toggleSelection(rows) {
-      if (rows) {
-        rows.forEach((row) => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    }, */
-   /*  //分页功能的实现
-    page(currentPage) {
-      const _this = this;
-      axios.get("" + (currentPage - 1) + "/6").then(function (resp) {
-        console.log(resp);
-        _this.tableData = resp.data.content;
-        _this.pageSize = resp.data.size;
-        _this.total = resp.data.totalElements;
-      });
-    }, */
-    /* //发货清单下载
-    FFQDXZ(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskId,
-        leixing: "FHQD"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/DownloadHTHT",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          
-          let url = window.URL.createObjectURL(
-            new Blob([response.data], { type: "application/zip" })
-          );
-          let link = document.createElement("a");
-          link.style.display = "none";
-          link.href = url;
-          link.setAttribute("download", "发货清单.zip");
-          document.body.appendChild(link);
-          link.click();
-        });
-    },
-    FHQDFileHistory() {
-      this.fileType = 1;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        fileType: this.fileType
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getFileHistory",
-          data: data
-        })
-        .then(response => {
-          // 
-          this.fileHistoryMessage = response.data.allData;
-          this.fileHistoryDia = true;
-        });
-    }, */
-    // 下载文件
-    /* download(data, leixing) {
-      if (!data) {
-        return;
-      }
-      let url = window.URL.createObjectURL(
-        new Blob([data], { type: "application/zip" })
-      );
-      let link = document.createElement("a");
-      link.style.display = "none";
-      link.href = url;
-      if (leixing === "JHS") {
-        link.setAttribute("download", "设计文档.zip");
-      } else if (leixing === "HT") {
-        link.setAttribute("download", "合同.zip");
-      } else if (leixing === "FFQD") {
-        link.setAttribute("download", "发货清单.zip");
-      } else if (leixing === "ZRWFJ") {
-        link.setAttribute("download", "子任务附件.zip");
-      }
-      document.body.appendChild(link);
-      link.click();
-    }, */
-
     //把数据库表格中的内容显示到上面
     showData() {
       this.upCirculation = true;
       var that = this;
-      //alert(this.$refs.refProductName.innerHTML);
       var data = Qs.stringify({
         taskId: this.taskId,
       });
@@ -464,7 +371,7 @@ export default {
             data: data,
           })
           .then((response) => {
-          console.log(response)
+        
             //that.tableData = response.data.allData;
           });
       }
@@ -473,6 +380,7 @@ export default {
           type: "success",
         
       });
+      this.upCirculation=true; 
       this.showData();
       this.upCirculation=false;
     }
@@ -491,7 +399,7 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-    handleClose(){
+    handleClose(){debugger
     console.log('1')
       if(this.upCirculation==false){
         this.upCirculation=true;
@@ -499,98 +407,6 @@ export default {
         this.upCirculation=false;
       }
     }
-    //列表日期时间格式化
-
-    /*    Data_checkox =this.tableData.checkox;
-        for(var i=0;i<this.Data_checkox.length;i++){
-          var isChecked=Data_checkox[i].checkox;
-          if(isChecked==true){
-            this.submit(row);
-          }
-        } */
-
-    /* submit2(row) {
-      Data_checkox = this.tableData.checkox;
-      for (var i = 0; i < this.Data_checkox.length; i++) {
-        var isChecked = Data_checkox[i].checkox;
-        if (isChecked == true) {
-          this.$confirm("确定提交吗？", "提示", {
-            type: "warning",
-          }).then(() => {
-            var that = this;
-            var data = Qs.stringify({
-              consignmentId: row.consignmentId,
-            });
-            that
-              .axios({
-                method: "post",
-                url: "/api/consignment/submit",
-                data: data,
-              })
-              .then((response) => {
-                this.tableData = response.data.allData;
-                console.log(this.tableData);
-              });
-            this.$message({
-              message: "审核通过",
-              type: "success",
-            });
-            this.showData();
-          });
-        }
-      }
-    },
- */
-    // array = scope.row
-    //     for(var i = 0; i < array.length; i++) {
-    //       var isChecked = array[i].checkbox
-
-    //     if(isChecked == true) {
-    //          submit2("")
-    //       }
-    //     }
-    /*
-    submitUpload() {
-      this.$refs.upload.submit();
-    },
-    handlePreview(file) {
-    },
-    handleRemove(file, fileList) {
-      this.fileNumber = this.fileNumber - 1;
-    },
-    addRoutes1() {
-      this.$router.push('/admin/SubmitChecklist')
-    },
-    handleAvatarsubmit(response, file, fileList) {
-      this.technicalFile[this.shangchuancishu] = response;
-      this.technicalFileWanzheng =
-        this.technicalFileWanzheng +
-        this.technicalFile[this.shangchuancishu] +
-        "linklink";
-      console.log(this.technicalFileWanzheng)
-      this.shangchuancishu = this.shangchuancishu + 1;
-      this.$notify.submit({
-        title: "成功",
-        message: `文件上传成功`
-      });
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        userName:this.userName,
-        Text_File: this.technicalFileWanzheng
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplierCon/textImportCir",
-          data: data
-        })
-        .then(response => {
-          this.technicalFileWanzheng = "";
-        });
-      this.$router.go(0);
-    }
- */
   },
 };
 </script>
