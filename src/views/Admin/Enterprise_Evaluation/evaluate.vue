@@ -6,7 +6,7 @@
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
        
         <el-tabs v-model="activeName" @tab-click="handleClick" >
-          <el-tab-pane label="发布的任务" name="first">
+          <el-tab-pane label="设计发布" name="first">
                <cloumn-chart1 style="width: 600px;height:400px;"  >
         
      <div style="text-align:center" >
@@ -107,7 +107,7 @@
 <!-- ---------------------------------- 承接的任务----------------------------------------- -->
 <!-- ---------------------------------- 承接的任务----------------------------------------- -->
 
-    <el-tab-pane label="承接的任务" name="second">
+    <el-tab-pane label="设计接收" name="second">
       <cloumn-chart2  style="width: 600px;height:400px;" >
               
      <div style="text-align:center" >
@@ -211,7 +211,7 @@
 <!-- ---------------------------------- 制造数量----------------------------------------- -->
       
   
-          <el-tab-pane label="制造数量" name="third">
+          <el-tab-pane label="流通接收" name="third">
                <cloumn-chart3 style="width: 600px;height:400px;"  >
         <div style="text-align:center" >
       <label  style="font-size:16px">企业星级</label>
@@ -308,7 +308,7 @@
 <!-- ---------------------------------- 接收数量----------------------------------------- -->
 <!-- ---------------------------------- 接收数量----------------------------------------- -->
  
-    <el-tab-pane label="接收数量" name="fourth">
+    <el-tab-pane label="流通发布" name="fourth">
       <cloumn-chart4  style="width: 600px;height:400px;" >
         <div style="text-align:center" >
       <label  style="font-size:16px">企业星级</label>

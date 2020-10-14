@@ -24,7 +24,7 @@
           <ul>
             <li>
               <span class="dataCSS">
-                本月成交任务:
+                成交任务:
                 <font class="fontStyle">{{formMonth.monthCount}}</font>项
               </span>
             </li>
@@ -633,7 +633,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/findTaskMonthCount",
+          url: "/api/findData",
           data: data,
         })
         .then((response) => {
