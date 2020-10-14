@@ -616,6 +616,44 @@
         </el-card>
       </el-col>
     </el-row>
+    <br />
+
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <el-card shadow="hover">
+          <div class="type-situation">流通清单类别量统计</div>
+          <div style="float: right">
+            <template>
+              <el-select
+                style="width: 100px; margin-right: 35px"
+                v-model="valueL"
+                @change="lineChartDataCategory"
+              >
+                <el-option
+                  v-for="item in optionsL"
+                  placeholder="请选择"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                >
+                </el-option>
+              </el-select>
+            </template>
+          </div>
+          <br />
+          <!-- <div id="categoryLine" :lineData="lineData"  style="width: 100%;height:430%"></div> -->
+          <template>
+            <div
+              id="categoryLine"
+              :lineData="lineData"
+              style="width: 100%; height: 430%"
+            ></div>
+          </template>
+        </el-card>
+      </el-col>
+    </el-row>
+
     </el-card>
   </div>
 </template>
@@ -645,10 +683,12 @@ export default {
       activeName: 'first',
       options: [],        
        value: '',
+      optionsL:[],
+      valueL:"",
        value1: ['2020-01-01','2020-05-01'],//时间段选择数据定义
        dateValue0:'',
        dateValue1:'',
-       //本中数据统计
+       //本周数据统计
        formWeek:{
         weekCount:[],
         desingWeekCount:[],
@@ -714,6 +754,13 @@ export default {
         Count:[],
         categoryFinishTaskList:[],
       },
+            //饼图的数据定义
+      lineData: {
+        categoryFinishTaskList: [],
+        categoryName: [],
+        nowYear: "",
+        
+      },
       
 
       
@@ -731,9 +778,11 @@ export default {
   //初始化方法
    created() {
     this.getYearData(); //获取条件选择时间数据
+    this.getYearData1();
     this.getTimeData();//获取今年元旦和现在时间数据
     this.getStatistics();
-   
+    this.lineChartDataCategory();
+    this.getLineChart1();
     
     
   },
@@ -767,6 +816,15 @@ export default {
         this.options= response.data.allData.years;  
         this.pieChart() ;
             
+      });
+    },
+    getYearData1() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then((response) => {
+        this.valueL = response.data.allData.nowYear;
+        this.optionsL = response.data.allData.years;
+        // this.pieChart();
+        this.lineChartDataCategory();
       });
     },
       //本周数据切换和查询
@@ -885,6 +943,7 @@ export default {
       this.columnChart2();
       this.pipChart();
       this.pieChart();
+      this.lineChartDataCategory();
     },
     //柱形图数据1
     columnChart() {
@@ -1057,6 +1116,112 @@ export default {
       charts.push(myChart);
     },
 
+  //饼图数据获取-流通清单类别
+    lineChartDataCategory() {
+      var that = this;
+      var data = Qs.stringify({
+        year: this.valueL,
+      });
+
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/selectAllConsignmentCategory",
+          data: data,
+        })
+        .then((response) => {
+          this.lineData.categoryFinishTaskList =response.data.allData.categoryFinishTaskList,
+          this.lineData.categoryName = response.data.allData.categoryName,
+              console.log(response.data.allData),
+            that.getLineChart1();
+        });
+    },
+    //饼图  饼图  饼图
+    getLineChart1() {
+      var that = this;
+      var myChart = echarts.init(document.getElementById("categoryLine"));
+      var option = {
+        
+        tooltip: {
+          
+        },
+        legend: {
+          orient: "vertical",
+           left: 'left',
+          data: this.lineData.categoryName,
+          textStyle: {
+            fontSize: 14,
+          },
+        },
+        toolbox: {
+           feature: {
+            
+            magicType: {
+                show: true,
+                type: ['pie', 'funnel']
+            },
+            
+        }
+        },
+
+        // Declare several bar series, each will be mapped to a column of dataset.source by default.
+        series: [
+          {
+            name: "占比来源",
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            label: {
+              formatter: "{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ",
+              backgroundColor: "#eee",
+              borderColor: "#aaa",
+              borderWidth: 1,
+              borderRadius: 4,
+              // shadowBlur:3,
+              // shadowOffsetX: 2,
+              // shadowOffsetY: 2,
+              // shadowColor: '#999',
+              // padding: [0, 7],
+              rich: {
+                a: {
+                  color: "#999",
+                  lineHeight: 22,
+                  align: "center",
+                },
+                // abg: {
+                //     backgroundColor: '#333',
+                //     width: '100%',
+                //     align: 'right',
+                //     height: 22,
+                //     borderRadius: [4, 4, 0, 0]
+                // },
+                hr: {
+                  borderColor: "#aaa",
+                  width: "100%",
+                  borderWidth: 0.5,
+                  height: 0,
+                },
+                b: {
+                  fontSize: 14,
+                  lineHeight: 33,
+                },
+                per: {
+                  color: "#eee",
+                  backgroundColor: "#334455",
+                  padding: [2, 4],
+                  borderRadius: 2,
+                },
+              },
+            },
+            data: this.lineData.categoryFinishTaskList,
+          },
+        ],
+      };
+
+      myChart.setOption(option);
+    },
+
+
     
   }
 
@@ -1205,6 +1370,3 @@ export default {
 }
 
 </style>
-
-
-
