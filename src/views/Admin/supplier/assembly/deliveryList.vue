@@ -4,7 +4,7 @@
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
       发货清单
     </div>
- 
+
     <br />
     <el-table
       :data="deliveryList"
@@ -90,21 +90,20 @@
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
         发货清单
-
       </div>
-      <br>
-            <div style="margin-top: 10px;">
-          <el-button 
-            style="float: left;margin-bottom: 10px;"
-            type="primary"
-            @click="submit2()"
-            size="small"
-            disabled="this.taskState==5"
-            >全部提交</el-button
-          > 
-      </div> 
-      <br/>
-      
+      <br />
+      <div style="margin-top: 10px">
+        <el-button
+          style="float: left; margin-bottom: 10px"
+          type="primary"
+          @click="submit2()"
+          size="small"
+          v-bind:disabled="submitDisable"
+          >全部提交</el-button
+        >
+      </div>
+      <br />
+
       <div style="padding: 0 10px; border-left: 3px solid #4e58c5"></div>
       <br />
       <el-form ref="form" label-width="100px" class="box">
@@ -117,7 +116,13 @@
           style="width: 100%"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55" prop="checkox">
+          <el-table-column
+            type="selection"
+            :selectable="checkboxT"
+            disabled="true"
+            width="55"
+            prop="checkox"
+          >
           </el-table-column>
           <el-table-column
             label="序号"
@@ -183,9 +188,7 @@
             width="100"
           ></el-table-column>
           <el-table-column
-            fixed="right"
             label="操作"
-            width="120"
             align="center"
           >
             <template slot-scope="scope">
@@ -202,7 +205,7 @@
             </template>
           </el-table-column>
         </el-table>
-      
+
         <div class="pagination">
           <el-pagination
             background
@@ -224,6 +227,8 @@ import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+      submitDisable: false,
+      text: true,
       pageIndex: 1,
       pageIndex1: 1,
       pageSize: 10,
@@ -232,6 +237,7 @@ export default {
       yinCang: 1,
       userName: sessionStorage.getItem("ms_username"),
       deliveryList: [],
+      taskState: 0,
       fileHistoryMessage: [
         {
           publishingCompanyName: "123",
@@ -285,7 +291,7 @@ export default {
   methods: {
     handleSelectionChange(val) {
       this.multipleSelection = val;
-     },
+    },
     add() {
       var _this = this;
       _this.data.push({
@@ -295,6 +301,7 @@ export default {
     //获得信息
     getMsg(msg) {
       this.deliveryList = msg;
+      this.taskState = msg[0].taskState;
       this.getParams();
     },
     getParams() {
@@ -317,7 +324,10 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
-          console.log(this.tableData);
+          console.log("taskState" + this.taskState);
+          if (this.taskState == "完成") {
+            this.submitDisable = true;
+          }
         });
     },
 
@@ -328,7 +338,7 @@ export default {
         var that = this;
         var data = Qs.stringify({
           consignmentId: row.consignmentId,
-          taskId:row.taskId,
+          taskId: row.taskId,
         });
         that
           .axios({
@@ -336,54 +346,49 @@ export default {
             url: "/api/addConsignment/submit",
             data: data,
           })
-          .then((response) => {
-           
-          });
+          .then((response) => {});
         this.$message({
           message: "审核通过",
           type: "success",
         });
         this.showData();
-        this.upCirculation=false;
+        this.upCirculation = false;
       });
     },
     //全部提交的实现
     submit2() {
       // alert(this.multipleSelection.length)
       // alert(this.multipleSelection[0].productName )
-      if(this.multipleSelection.length==0){
-           this.$message({
-          message: '请至少选择一个！',
-          type: 'warning'
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          message: "请至少选择一个！",
+          type: "warning",
         });
-      }
-      else{
-      for (var i = 0; i < this.multipleSelection.length; i++) {
-        let that = this;
-        let data = Qs.stringify({
-          consignmentId: that.multipleSelection[i].consignmentId,
-        });
-        console.log(data)
-        that
-          .axios({
-            method: "post",
-            url: "/api/addConsignment/submit",
-            data: data,
-          })
-          .then((response) => {
-        
-            //that.tableData = response.data.allData;
+      } else {
+        for (var i = 0; i < this.multipleSelection.length; i++) {
+          let that = this;
+          let data = Qs.stringify({
+            consignmentId: that.multipleSelection[i].consignmentId,
           });
-      }
-      this.$message({
+          console.log(data);
+          that
+            .axios({
+              method: "post",
+              url: "/api/addConsignment/submit",
+              data: data,
+            })
+            .then((response) => {
+              //that.tableData = response.data.allData;
+            });
+        }
+        this.$message({
           message: "审核通过",
           type: "success",
-        
-      });
-      this.upCirculation=true; 
-      this.showData();
-      this.upCirculation=false;
-    }
+        });
+        this.upCirculation = true;
+        this.showData();
+        this.upCirculation = false;
+      }
     },
 
     //拒绝原因弹出框
@@ -393,20 +398,29 @@ export default {
         confirmButtonText: "确定",
       });
     },
+    checkboxT(row,index){
+      if(row.consignmentState == 0){
+        return true
+      }
+      else{
+        return false
+      }
+    },
     handleCurrentChange(cpage) {
       this.pageIndex = cpage;
     },
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-    handleClose(){debugger
-    console.log('1')
-      if(this.upCirculation==false){
-        this.upCirculation=true;
-      }else{
-        this.upCirculation=false;
+    handleClose() {
+      debugger;
+      console.log("1");
+      if (this.upCirculation == false) {
+        this.upCirculation = true;
+      } else {
+        this.upCirculation = false;
       }
-    }
+    },
   },
 };
 </script>
