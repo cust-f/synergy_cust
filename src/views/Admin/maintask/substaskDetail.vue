@@ -1780,7 +1780,7 @@ export default {
             .then((response) => {
               if (response.data == "成功") {
                 this.$message.success("修改发货信息成功");
-                this.consignmentForm = {};        
+                //this.consignmentForm = {};        
                 //弹出框消失
                 this.fhqdxiugaiTC = false;
                 that.bianjifhqdtanchu();
