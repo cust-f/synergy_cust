@@ -2130,9 +2130,10 @@ export default {
            this.$message.success("提交成功");
           });
         this.chakanTC = false;
-          if(this.taskState == 5)
+         console.log(this.milepostActive)
+        if(this.milepostActive == 4)
         {
-          this.disabled = true;
+          this.liu = true;
         }
       });
     },
