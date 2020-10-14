@@ -158,6 +158,7 @@
                       @click="handleDelete1(scope.row)"
                     >删除任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
+                    <el-button @click="updateSubXqAndFile(scope.row)" type="text" size="small">修改</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -587,6 +588,82 @@
                 </el-table>
               </el-form>
             </el-dialog>
+                  <!--子任务修改 -->
+      <el-dialog :visible.sync="ZRWXG" width="50%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
+        <br />
+        <el-form>
+
+                          <el-row>
+                  <el-col :span="22" >
+                    <el-form-item label="分解任务详情">
+                      <el-input
+                        type="textarea"
+                        :rows="3"
+                        style="width:100%;"
+                        placeholder="请输入内容"
+                        v-model="SubDetail"
+                        class="gongsiDetail"
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+
+          <el-row>
+            <el-col :span="22">
+              <el-form-item label="附件下载">
+                <div>
+                  <el-table :data="Subfujian" class="customer-table" :show-header="false">
+                    <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
+                    <el-table-column>
+                      <template slot-scope="scope">
+                        <el-link
+                          style="color:#409EFF"
+                          @click.native="downloadFile(scope.row)"
+                        >{{scope.row.realName}}</el-link>
+                      </template>
+                    </el-table-column>
+                    <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
+                    <el-table-column label="操作" align="center" width="120">
+                      <template slot-scope="scope">
+                        <el-button
+                          size="small"
+                          type="text"
+                          icon="el-icon-delete"
+                          class="red"
+                          @click="Subshanchuwenjian(scope.row)"
+                        >删除文件</el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-form-item label="添加附件">
+            <el-upload
+              class="upload-demo"
+              action="/api/MainTaskInformation/import"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :on-success="SubhandleAvatarSuccess"
+              multiple
+              :limit="10"
+              ref="upload"
+              :on-exceed="handleExceed"
+              :file-list="fileList"
+            >
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
+            </el-upload>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="ZRWXG = false">取 消</el-button>
+          <el-button type="primary" @click="XGZRW">确 定</el-button>
+        </span>
+      </el-dialog>
           </div>
 
           <div class="consignment">
@@ -676,6 +753,14 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      //子任务详细
+      SubDetail:"",
+      //子任务完整文件路径
+      SubtechnicalFileWanzheng:"",
+      //要修改的子任务ID
+      SubtaskId:"",
+            //子任务修改
+      ZRWXG: false,
       //完成时间
       finishTimeState: true,
       //任务详情
@@ -706,8 +791,11 @@ export default {
       supperlier: "",
       //上传的文件路径
       technicalFile: [],
+      //上传子文件路径
+      SubtechnicalFile: [],
       technicalFileWanzheng: "",
       shangchuancishu: 0,
+      Subshangchuancishu:0,
       dialogVisible: false,
       type: "", //主任务类型
       personnel: ["许知远", "王添", "白泽"], //总负责人
@@ -801,7 +889,14 @@ export default {
           realPath: "",
         },
       ],
-
+            //子附件
+      Subfujian: [
+        {
+          realName: "",
+          realPath: "",
+        },
+      ],
+      SubFile:"",
       //是否申请
       shifou: [
         {
@@ -1277,7 +1372,98 @@ export default {
 
       //   .catch(() => {});
     },
+    //子任务修改
+    updateSubXqAndFile(row){
+            //子任务修改
+      this.ZRWXG=true;
+      this.SubtaskId = row.taskId
+      this.selectFile(row.taskId)
+    },
+    selectFile(taskId){
+      var that = this;
+      var data = Qs.stringify({
+        subTaskID:taskId
+      });
+      that.axios({
+        method:"post",
+        url:"/api/SubstaskInformation/selectFile",
+        data:data
+      })
+      .then((response)=>{
+        console.log(response)
+          this.Subfujian = response.data.allData.QBWJ;
+          this.SubWZLJ = response.data.allData.WZLJ;
+          this.SubWJSM = response.data.allData.SM;
+          this.SubDetail = response.data.allData.SubFile;
+      })
+    },
+      Subshanchuwenjian(row) {
+      let ks = this.SubWZLJ.indexOf(row.realPath);
+      let qianzui, houzui;
+      console.log("KS的大小是"+ks)
+      if (row.wenjiancixu == this.WJSM - 1) {
+        qianzui = this.SubWZLJ.substr(0, ks - 8);
+        houzui = "";
+      } else {
+        qianzui = this.SubWZLJ.substr(0, ks);
+        houzui = this.SubWZLJ.substr(ks + row.realPath.length + 8);
+      }
+      this.SubWZLJ = qianzui + houzui;
+      console.log(this.SubWZLJ)
+      console.log("文件前缀"+qianzui)
+      console.log("文件后缀"+houzui)
+      console.log("完整路径"+this.SubWZLJ)
+      this.Subfujian.splice(row.wenjiancixu, 1);
+    },
+      XGZRW() {
+      //设置文件路径
+      if (this.SubtechnicalFileWanzheng != 0 && this.SubWZLJ != 0) {
+        this.SubtechnicalFileWanzheng =
+          this.SubWZLJ + "linklink" + this.SubtechnicalFileWanzheng;
+          console.log("第一版"+this.SubtechnicalFileWanzheng)
+      }
+      if (this.SubtechnicalFileWanzheng == 0 && this.WZLJ != 0) {
+        this.SubtechnicalFileWanzheng = this.SubWZLJ;
+        console.log("第二版"+this.SubtechnicalFileWanzheng)
+      }
+      console.log("第三版"+this.SubtechnicalFileWanzheng)
+      //先对要修改的文件进行判断
+        var that = this;
+        var data = Qs.stringify({
+          TechnicalFile: this.SubtechnicalFileWanzheng,
+          taskDtail:this.SubDetail,
+          taskId: this.SubtaskId,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/updateTaskDetail",
+            data: data,
+          })
+          .then((response) => {
+            if (response.data != null) {
+              this.$message.success("修改成功");
+              this.$refs.upload.clearFiles();
+              this.technicalFileWanzheng = "";
+              this.technicalFile = "";
+              this.shangchuancishu = "";
+              this.showData();
+              //this.getData();
+            }
+          })
+          .catch((error) => {
+            if (error != null) {
+             
+              this.$refs.upload.clearFiles();
+              this.technicalFileWanzheng = "";
+              this.technicalFile = "";
+              this.shangchuancishu = "";
+            }
+          });
 
+        this.ZRWXG = false;
+      },
+    
     feichuAll() {
       this.$confirm("确定要删除吗？", "提示", {
         type: "warning",
@@ -1409,6 +1595,22 @@ export default {
           this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
       }
       this.shangchuancishu = this.shangchuancishu + 1;
+
+    },
+        SubhandleAvatarSuccess(response, file, fileList) {
+      this.SubtechnicalFile[this.Subshangchuancishu] = response;
+      if (this.SubtechnicalFileWanzheng.length > 0) {
+        this.SubtechnicalFileWanzheng =
+          this.SubtechnicalFileWanzheng +
+          "linklink" +
+          this.SubtechnicalFile[this.Subshangchuancishu];
+      } else {
+        this.SubtechnicalFileWanzheng =
+          this.SubtechnicalFileWanzheng + this.SubtechnicalFile[this.Subshangchuancishu];
+      }
+      console.log(this.SubtechnicalFileWanzheng)
+      this.Subshangchuancishu = this.Subshangchuancishu + 1;
+
     },
     //将级联选择器最后一行的数据去掉
     getTreeData(data) {

@@ -28,7 +28,8 @@
       >
         基本信息
         <el-button
-          
+          v-if="this.milepostActive === 0"
+
           type="text"
           class="XG"
           style="float: right"
@@ -36,7 +37,6 @@
           >修改</el-button
         >
       </div>
-<!-- v-if="this.milepostActive === 0" -->
       <br />
       <el-card class="box-card">
         <div class="formYS">
@@ -423,14 +423,14 @@
         <br />
         <br />
       </div>
-      
-      <div v-show="true">
+      <div v-show="milepostActive4">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
           发货清单
         </div>
+
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <br />
         <el-table
@@ -478,7 +478,7 @@
           <el-table-column
             prop="uploadCircuaterTime"
             widht="80"
-            label="上传时间"
+            label="发货时间"
           >
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadCircuaterTime === 0"
@@ -530,12 +530,12 @@
                 v-show="scope.row.contractState > 0"
                 >查看</el-button
               >
-
-              <div v-show="scope.row.contractState === 1">
+              <!-- 
+              <div v-show="scope.row.contractState ===2">
                 <el-button @click="HTXZ(scope.row)" type="text" size="small"
                   >下载</el-button
                 >
-              </div>
+              </div> -->
             </template>
           </el-table-column>
         </el-table>
@@ -1513,7 +1513,7 @@
         </div>
       </el-dialog>
 
-            <el-dialog :visible.sync="addVisible4" width="50%">
+      <el-dialog :visible.sync="addVisible4" width="50%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1533,10 +1533,10 @@
             </el-col>
           </el-row>
         </el-form>
-          <!-- <template slot-scope="scope"> -->
+        <!-- <template slot-scope="scope"> -->
         <span slot="footer" class="dialog-footer">
-            <el-button @click="addVisible4 = false">取 消</el-button>
-            <el-button type="primary" @click="refuse()">确 定</el-button>
+          <el-button @click="addVisible4 = false">取 消</el-button>
+          <el-button type="primary" @click="refuse()">确 定</el-button>
         </span>
         <!-- </template> -->
       </el-dialog>
@@ -1550,8 +1550,23 @@
           发货清单
         </div>
         <br />
+        <div style="margin-top: 10px">
+          <!-- <template slot-scope="scope"> -->
+            <el-button
+              style="float: left; margin-bottom: 10px"
+              type="primary"
+              @click="submit2()"
+              size="small"
+              disabled="this.taskState === 5"
+              >全部通过</el-button
+            >
+          <!-- </template> -->
+        </div>
+        <br />
+
+        <br />
         <el-form>
-          <el-table :data="tableData">
+          <el-table :data="tableData" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55"> </el-table-column>
             <el-table-column
               label="序号"
@@ -1568,22 +1583,18 @@
               label="产品名称"
               width="100"
             ></el-table-column>
-            <el-table-column
-              prop="deliveryTime"
-              label="发货时间"
-              width="140"
-            >
-            <template
-            slot-scope="scope"
-          >{{scope.row.deliveryTime | dataFormat("yyyy-MM-dd hh:mm")}}</template>
+            <el-table-column prop="deliveryTime" label="发货时间" width="160">
+              <template slot-scope="scope">{{
+                scope.row.deliveryTime | dataFormat("yyyy-MM-dd hh:mm")
+              }}</template>
             </el-table-column>
             <el-table-column
               prop="consignmentTimeLatest"
               label="发货截至时间"
-              width="142"
-            ><template
-            slot-scope="scope"
-          >{{scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")}}</template>
+              width="160"
+              ><template slot-scope="scope">{{
+                scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
+              }}</template>
             </el-table-column>
             <el-table-column
               prop="consignmentState"
@@ -1620,34 +1631,43 @@
               label="发货清单备注"
               width="120"
             ></el-table-column> -->
-            <el-table-column label="操作" width="100">
+            <el-table-column label="操作" width="120">
               <template slot-scope="scope">
-                <el-button @click="success(scope.row)" type="text" size="small"
+                <el-button
+                  @click="success(scope.row)"
+                  type="text"
+                  size="small"
+                  v-if="scope.row.consignmentState === 1"
                   >通过</el-button
                 >
-                <el-button @click="refusebutton(scope.row)" type="text" size="small"
-                  >拒绝</el-button>
-                </template>
+                <el-button
+                  @click="refusebutton(scope.row)"
+                  type="text"
+                  size="small"
+                  v-if="scope.row.consignmentState === 1"
+                  >拒绝</el-button
+                >
+              </template>
             </el-table-column>
           </el-table>
           <div style="margin-top: 20px">
             <!-- <el-button @click="toggleSelection()">导出Excel文件</el-button> -->
           </div>
           <div class="pagination">
-      <el-pagination
-        background
-        layout="prev, pager, next,total, jumper"
-        :current-page="pageIndex"
-        :page-size="pageSize"
-        :total="tableData.length"
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"
-      ></el-pagination>
-    </div>
+            <el-pagination
+              background
+              layout="prev, pager, next,total, jumper"
+              :current-page="pageIndex"
+              :page-size="pageSize"
+              :total="tableData.length"
+              @current-change="handleCurrentChange"
+              @size-change="handleSizeChange"
+            ></el-pagination>
+          </div>
         </el-form>
       </el-dialog>
 
-       <el-dialog :visible.sync="addVisible3" width="50%">
+      <el-dialog :visible.sync="addVisible3" width="50%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1690,7 +1710,8 @@ export default {
 
   data() {
     return {
-       pageIndex: 1,
+      multipleSelection: [],
+      pageIndex: 1,
       pageSize: 10,
 
       pageTotal: 0,
@@ -1926,7 +1947,7 @@ export default {
       //图片信息
       imgsrc: "",
       taskID: "",
-      consignmentId:0,
+      consignmentId: 0,
       //企业信息
       form: {
         businessName: "",
@@ -2028,6 +2049,10 @@ export default {
         }
       }
     },
+    //捕捉清单选择框
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     changeTime(row) {
       this.changeTimeDialog = true;
       this.companyId = row.companyId;
@@ -2089,28 +2114,64 @@ export default {
         });
     },
     success(row) {
-
-      console.log(row)
-      var that = this;
-      var data = Qs.stringify({
-        ConsignmentId: row.consignmentId,
-        taskID:row.taskId
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/QDSHTG",
-          data: data,
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        })
-        .then((response) => {
-          this.chakanTC = false;
-          this.showData();
-          this.$message({
-        message: "提交成功",
-        type: "success"
-      });
+      this.$confirm("确定提交吗？", "提示", {
+        type: "warnning",
+      }).then(() => {
+        console.log(row.consignmentState);
+        var that = this;
+        var data = Qs.stringify({
+          ConsignmentId: row.consignmentId,
+          taskID: row.taskId,
         });
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/QDSHTG",
+            data: data,
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          })
+          .then((response) => {
+            if (response.data == "success") {
+              this.$message.success("通过成功");
+            }
+          });
+        this.chakanTC = false;
+      });
+    },
+    //批量提交方法
+    submit2() {
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          message: "请至少选择一个！",
+          type: "warning",
+        });
+      } else {
+        for (var i = 0; i < this.multipleSelection.length; i++) {
+          let that = this;
+          console.log(this.taskId)
+          let data = Qs.stringify({
+            ConsignmentId: that.multipleSelection[i].consignmentId,
+            taskID:this.taskId,
+          });
+          console.log(data);
+          that
+            .axios({
+              method: "post",
+              url: "/api/SubstaskInformation/QDSHTG",
+              data: data,
+            })
+            .then((response) => {
+              console.log(response);
+              //that.tableData = response.data.allData;
+            });
+        }
+        this.$message({
+          message: "审核通过",
+          type: "success",
+        });
+        //this.chakantanchu();
+        this.chakanTC = false;
+      }
     },
     //查看弹窗按钮的实现
     chakantanchu(row) {
@@ -2130,7 +2191,6 @@ export default {
         .then((response) => {
           console.log(response);
           this.tableData = response.data.allData;
-          
         });
     },
 
@@ -2138,47 +2198,44 @@ export default {
     refuse() {
       var that = this;
       var data = Qs.stringify({
-        ConsignmentId: this.consignmentId, 
-        Refusereason: this.addList4.QDrefuseReason
-      }); 
-      that
-        .axios({
-          method: "post",
-          url: "api/addConsignment/refuse",
-          data: data,
-          //headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        });
-        this.$message({
+        ConsignmentId: this.consignmentId,
+        Refusereason: this.addList4.QDrefuseReason,
+      });
+      that.axios({
+        method: "post",
+        url: "api/addConsignment/refuse",
+        data: data,
+        //headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      });
+      this.$message({
         message: "提交成功",
-        type: "success"
+        type: "success",
       });
       this.addList4 = {};
       this.addVisible4 = false;
-      
-      //this.$router.go(0);
-         
 
-      
+      //this.$router.go(0);
+      this.chakanTC = false;
     },
-    refusebutton(row){
-      this.addVisible4=true;
+    refusebutton(row) {
+      this.addVisible4 = true;
       this.consignmentId = row.consignmentId;
     },
     // refuseReason(){
-      //  var that = this;
-      // var data = Qs.stringify({
-      //   taskId: row.taskId,
-      // });
-      // that
-      //   .axios({
-      //     method: "post",
-      //     url: "api/addConsignment/refuse",
-      //     data: data,
-      //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      //   })
-      //   .then((response) => {
-      //     // this.tableData = response.data.allData;
-      //   });
+    //  var that = this;
+    // var data = Qs.stringify({
+    //   taskId: row.taskId,
+    // });
+    // that
+    //   .axios({
+    //     method: "post",
+    //     url: "api/addConsignment/refuse",
+    //     data: data,
+    //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //   })
+    //   .then((response) => {
+    //     // this.tableData = response.data.allData;
+    //   });
     // },
     shanchuwenjian(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
@@ -2282,7 +2339,7 @@ export default {
           taskID: this.taskID,
           SupperListINt: this.SupplierListInt,
         });
-        console.log("this.mainStaskTypeID"+this.mainStaskTypeID)
+        console.log("this.mainStaskTypeID" + this.mainStaskTypeID);
         if (this.cool.taskType == 0) {
           this.cool.taskType = "设计任务";
         } else {
@@ -2295,7 +2352,7 @@ export default {
             data: data,
           })
           .then((response) => {
-            console.log(response)
+            console.log(response);
             if (response.data == "成功") {
               this.$message.success("修改成功");
               this.$refs.upload.clearFiles();
@@ -2413,7 +2470,7 @@ export default {
       this.XZJXQ = true;
       var that = this;
       var data = Qs.stringify({
-        taskID: this.taskID,
+        taskId: this.taskID,
       });
       that
         .axios({
@@ -2424,6 +2481,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          console.log(response)
           this.zirenwuXX = response.data.allData;
         });
     },
@@ -2507,12 +2565,12 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
-                              this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
-          this.subStaskTypeID=response.data.allData.a[0].taskCategory
-                    this.mainTaskID = response.data.allData.a[0].mainTaskId;
-          console.log(response)
-          this.mainStaskTypeID=response.data.allData.a[0].taskCategoryMainId
-          this.subStaskTypeID=response.data.allData.a[0].taskCategory
+          this.mainStaskTypeID = response.data.allData.a[0].taskCategoryMainId;
+          this.subStaskTypeID = response.data.allData.a[0].taskCategory;
+          this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          console.log(response);
+          this.mainStaskTypeID = response.data.allData.a[0].taskCategoryMainId;
+          this.subStaskTypeID = response.data.allData.a[0].taskCategory;
           this.fujian = response.data.allData.QBWJ;
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
@@ -2622,8 +2680,6 @@ export default {
               ](response.data.allData.e[0].finishTime);
             }
           }
-
-       
         });
     },
     goBack() {
@@ -2817,7 +2873,7 @@ export default {
         });
         that.axios({
           method: "post",
-          url: "/api/SubstaskInformation/HTSHTG",
+          url: "/api/SubstaskInformation/LTHTSHTG",
           data: data,
         });
         this.$message({

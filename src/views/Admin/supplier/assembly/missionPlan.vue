@@ -40,6 +40,7 @@
             size="small"
             v-show="scope.row.checkPlanState === 0"
           >上传</el-button>
+          
           <el-button
             @click="RWJHXZ(scope.row)"
             type="text"
