@@ -149,7 +149,7 @@
         <br />
         <el-tabs type="border-card" class="overallSituation12">
           <el-tab-pane label="需求详情">
-            <div class="Right2">
+            <div class="Right3">
               <el-table
                 v-if="applyList.taskType === 1"
                 :data="tableData2"
@@ -1259,6 +1259,46 @@ export default {
     width: 600px;
   }
   .Right2 {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    float: left;
+
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
+      sans-serif;
+
+    font-size: 14px;
+
+    font-style: normal;
+
+    font-variant: normal;
+
+    font-weight: 400;
+
+    line-height: normal;
+
+    margin-bottom: 10px;
+
+    margin-left: 0px;
+
+    margin-right: 0px;
+
+    margin-top: 0px;
+
+    overflow: hidden;
+
+    padding-bottom: 0px;
+
+    padding-left: 0px;
+
+    padding-right: 0px;
+
+    padding-top: 0px;
+
+    text-decoration: none;
+
+    width: 720px;
+  }
+   .Right3 {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     float: left;
