@@ -1542,14 +1542,14 @@
       </el-dialog>
 
       <!--查看弹出框-->
-      <el-dialog title :visible.sync="chakanTC" width="65%">
+      <el-dialog title :visible.sync="chakanTC" width="70%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
           发货清单
         </div>
-        <br />
+     
         <div style="margin-top: 10px">
           <!-- <template slot-scope="scope"> -->
             <el-button
@@ -1557,21 +1557,18 @@
               type="primary"
               @click="submit2()"
               size="small"
-              disabled="this.taskState === 5"
+              v-bind:disabled="liu"
               >全部通过</el-button
             >
           <!-- </template> -->
         </div>
-        <br />
-
-        <br />
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="55"> </el-table-column>
+            <el-table-column type="selection" width="50px"> </el-table-column>
             <el-table-column
               label="序号"
               type="index"
-              width="50"
+              width="50px"
               align="center"
             >
               <template slot-scope="scope">
@@ -1581,9 +1578,8 @@
             <el-table-column
               prop="productName"
               label="产品名称"
-              width="100"
             ></el-table-column>
-            <el-table-column prop="deliveryTime" label="发货时间" width="160">
+            <el-table-column prop="deliveryTime" label="发货时间">
               <template slot-scope="scope">{{
                 scope.row.deliveryTime | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
@@ -1591,7 +1587,7 @@
             <el-table-column
               prop="consignmentTimeLatest"
               label="发货截至时间"
-              width="160"
+           
               ><template slot-scope="scope">{{
                 scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
@@ -1599,7 +1595,7 @@
             <el-table-column
               prop="consignmentState"
               label="发货状态"
-              width="100"
+            
             >
               <template slot-scope="scope">
                 <el-tag v-if="+scope.row.consignmentState === 0" type="info"
@@ -1619,19 +1615,17 @@
             <el-table-column
               prop="productNumber"
               label="产品数量"
-              width="100"
             ></el-table-column>
             <el-table-column
               prop="productModel"
               label="产品规格"
-              width="100"
             ></el-table-column>
             <!-- <el-table-column
               prop="consignmentNotes"
               label="发货清单备注"
               width="120"
             ></el-table-column> -->
-            <el-table-column label="操作" width="120">
+            <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button
                   @click="success(scope.row)"
@@ -1758,6 +1752,8 @@ export default {
       addVisibleCD: false,
       //全部子任务
       quanbuzirenwu: false,
+//发货清单全部提交按钮可见
+      liu:false,
       //子任务详情和下载
       XZJXQ: false,
       //子任务修改
@@ -2120,22 +2116,24 @@ export default {
         console.log(row.consignmentState);
         var that = this;
         var data = Qs.stringify({
-          ConsignmentId: row.consignmentId,
-          taskID: row.taskId,
+          consignmentId: row.consignmentId,
+          taskId: row.taskId,
         });
         that
           .axios({
             method: "post",
-            url: "/api/SubstaskInformation/QDSHTG",
+            url: "/api/SubstaskInformation/allPass",
             data: data,
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
           .then((response) => {
-            if (response.data == "success") {
-              this.$message.success("通过成功");
-            }
+           this.$message.success("提交成功");
           });
         this.chakanTC = false;
+          if(this.taskState == 5)
+        {
+          this.disabled = true;
+        }
       });
     },
     //批量提交方法
@@ -2150,14 +2148,14 @@ export default {
           let that = this;
           console.log(this.taskId)
           let data = Qs.stringify({
-            ConsignmentId: that.multipleSelection[i].consignmentId,
-            taskID:this.taskId,
+            consignmentId: that.multipleSelection[i].consignmentId,
+            taskId:this.taskId,
           });
           console.log(data);
           that
             .axios({
               method: "post",
-              url: "/api/SubstaskInformation/QDSHTG",
+              url: "/api/SubstaskInformation/allPass",
               data: data,
             })
             .then((response) => {
@@ -2165,12 +2163,19 @@ export default {
               //that.tableData = response.data.allData;
             });
         }
+        console.log(this.milepostActive)
+        if(this.milepostActive == 4)
+        {
+          this.liu = true;
+        }
         this.$message({
           message: "审核通过",
           type: "success",
         });
         //this.chakantanchu();
         this.chakanTC = false;
+        this.showData();
+        
       }
     },
     //查看弹窗按钮的实现
