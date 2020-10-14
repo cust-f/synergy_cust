@@ -737,11 +737,11 @@
             <template>
               <el-select
                 style="width: 100px; margin-right: 35px"
-                v-model="value"
+                v-model="valueL"
                 @change="lineChartDataCategory"
               >
                 <el-option
-                  v-for="item in options"
+                  v-for="item in optionsL"
                   placeholder="请选择"
                   :key="item.value"
                   :label="item.label"
@@ -792,7 +792,9 @@ export default {
       noData: true,
       activeName: "first",
       options: [],
+      optionsL:[],
       value: "",
+      valueL:"",
       value1: ["2020-01-01", "2020-05-01"], //时间段选择数据定义
       dateValue0: "",
       dateValue1: "",
@@ -858,11 +860,12 @@ export default {
         seasonsFinishTaskCount: [],
         nowYear: "",
       },
-      //折线的数据定义
+      //饼图的数据定义
       lineData: {
         categoryFinishTaskList: [],
         categoryName: [],
         nowYear: "",
+        
       },
       piedata: {
         Count: [],
@@ -883,10 +886,12 @@ export default {
   //初始化方法
   created() {
     this.getYearData(); //获取条件选择时间数据
+    this.getYearData1();    
     this.getTimeData(); //获取今年元旦和现在时间数据
     this.getStatistics();
     this.lineChartDataCategory();
     this.getLineChart1();
+
   },
 
   methods: {
@@ -909,6 +914,15 @@ export default {
         this.value = response.data.allData.nowYear;
         this.options = response.data.allData.years;
         this.pieChart();
+        // this.lineChartDataCategory();
+      });
+    },
+    getYearData1() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then((response) => {
+        this.valueL = response.data.allData.nowYear;
+        this.optionsL = response.data.allData.years;
+        // this.pieChart();
         this.lineChartDataCategory();
       });
     },
@@ -983,7 +997,7 @@ export default {
         dateValue0: this.value1[0],
         dateValue1: this.value1[1],
       });
-      console.log(data);
+     // console.log(data);
 
       that
         .axios({
@@ -1166,11 +1180,11 @@ export default {
       charts.push(myChart);
     },
 
-    //折线图数据获取-流通清单类别
+    //饼图数据获取-流通清单类别
     lineChartDataCategory() {
       var that = this;
       var data = Qs.stringify({
-        year: this.value,
+        year: this.valueL,
       });
 
       that
@@ -1180,14 +1194,13 @@ export default {
           data: data,
         })
         .then((response) => {
-          (this.lineData.categoryFinishTaskList =
-            response.data.allData.categoryFinishTaskList),
-            (this.lineData.categoryName = response.data.allData.categoryName),
-            //  console.log(response.data.allData),
+          this.lineData.categoryFinishTaskList =response.data.allData.categoryFinishTaskList,
+          this.lineData.categoryName = response.data.allData.categoryName,
+              console.log(response.data.allData),
             that.getLineChart1();
         });
     },
-    //折线图  折线图  折线图
+    //饼图  饼图  饼图
     getLineChart1() {
       var that = this;
       var myChart = echarts.init(document.getElementById("categoryLine"));
