@@ -559,11 +559,13 @@
               </span>
             </el-dialog>
 
-            <!-- 查看发货清单 弹出框 -->
+            <!-- 查看所有发货清单 弹出框 -->
             <el-dialog :visible.sync="fhqdTC" width="1000px">
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>
               <div style="padding: 0 10px; border-left: 3px solid #4e58c5"></div>
               <br />
+              <el-button @click="consignmentInsert" type="primary" size="small">新增</el-button>
+              <br /><br />
               <el-form ref="form" label-width="100px" class="box">
                 <el-table ref="multipleTable1" :data="consignmentTable" tooltip-effect="dark" style="width: 100%">
                   <el-table-column type="index" label="序号" width="50">
@@ -588,13 +590,13 @@
                 </el-table>
               </el-form>
             </el-dialog>
-                  <!--子任务修改 -->
-      <el-dialog :visible.sync="ZRWXG" width="50%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
-        <br />
-        <el-form>
-
-                          <el-row>
+            
+            <!--子任务修改 -->
+           <el-dialog :visible.sync="ZRWXG" width="50%">
+           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
+           <br />
+           <el-form>
+                <el-row>
                   <el-col :span="22" >
                     <el-form-item label="分解任务详情">
                       <el-input
@@ -666,32 +668,103 @@
       </el-dialog>
           </div>
 
-          <div class="consignment">
-        <el-dialog title :visible.sync="fhqdxiugaiTC" width="50%">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单详情</div>
+      <!-- 新增 发货清单 弹出框 -->
+      <div class="consignment">
+        <el-dialog title :visible.sync="fhqdxinzengTC" width="50%">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">新增发货清单</div>
           <br />
-          <el-form ref="consignmentForm" label-width="110px" class="box" :rules="consignmentRules" :model="consignmentForm">
+          <el-form ref="consignmentForm2" label-width="110px" class="box" :rules="consignmentRules2" :model="consignmentForm2">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品名称" prop="productName2">
+                  <el-input v-model="consignmentForm2.productName2"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="产品规格" prop="productModel2">
+                  <el-input v-model="consignmentForm2.productModel2"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品数量" prop="productNum2">
+                  <el-input v-model="consignmentForm2.productNum2"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="产品单价" prop="productPrice2">
+                  <el-input v-model="consignmentForm2.productPrice2"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="截止时间" prop="consignmentTimeLatest2">
+                  <el-date-picker
+                    type="datetime"
+                    placeholder="选择日期"
+                    v-model="consignmentForm2.consignmentTimeLatest2"
+                    style="width: 100%;"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="联系方式" prop="contactNumber2">
+                  <el-input v-model="consignmentForm2.contactNumber2"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="备注" prop="productNotes2">
+                  <el-input
+                    type="textarea"
+                    :rows="3"
+                    style="width:100%;"
+                    placeholder="请输入内容"
+                    v-model="consignmentForm2.productNotes2"
+                    class="gongsiDetail"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="bianjiTC = false">取 消</el-button>
+            <el-button type="primary" @click="consignmentSaveNew('consignmentForm2')">确 定</el-button>
+          </span>
+        </el-dialog>
+      </div>
+
+      <!--修改 发货清单 弹出框-->
+      <div class="consignment">
+        <el-dialog title :visible.sync="fhqdxiugaiTC" width="50%">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">修改发货清单</div>
+          <br />
+          <el-form ref="consignmentForm1" label-width="110px" class="box" :rules="consignmentRules1" :model="consignmentForm1">
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品名称" prop="productName1">
-                  <el-input v-model="consignmentForm.productName1"></el-input>
+                  <el-input v-model="consignmentForm1.productName1"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品规格" prop="productModel1">
-                  <el-input v-model="consignmentForm.productModel1"></el-input>
+                  <el-input v-model="consignmentForm1.productModel1"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum1">
-                  <el-input v-model="consignmentForm.productNum1"></el-input>
+                  <el-input v-model="consignmentForm1.productNum1"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice1">
-                  <el-input v-model="consignmentForm.productPrice1"></el-input>
+                  <el-input v-model="consignmentForm1.productPrice1"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -700,7 +773,7 @@
                 <el-form-item label="截止时间" prop="consignmentTimeLatest1">                
                     <el-date-picker
                       type="datetime"
-                      v-model="consignmentForm.consignmentTimeLatest1"
+                      v-model="consignmentForm1.consignmentTimeLatest1"
                       style="width: 100%;"
                       value-format="yyyy-MM-dd HH:mm:ss"
                   ></el-date-picker>                  
@@ -708,7 +781,7 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式" prop="contactNumber1">
-                  <el-input v-model="consignmentForm.contactNumber1"></el-input>
+                  <el-input v-model="consignmentForm1.contactNumber1"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -720,7 +793,7 @@
                     :rows="3"
                     style="width:100%;"
                     placeholder="请输入内容"
-                    v-model="consignmentForm.productNotes1"
+                    v-model="consignmentForm1.productNotes1"
                     class="gongsiDetail"
                   ></el-input>
                 </el-form-item>
@@ -729,7 +802,7 @@
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button @click="fhqdxiugaiTC = false">取 消</el-button>
-            <el-button type="primary" @click="consignmentSave('consignmentForm')">修 改</el-button>
+            <el-button type="primary" @click="consignmentSaveUpdate('consignmentForm1')">修 改</el-button>
           </span>
         </el-dialog>
       </div>
@@ -942,7 +1015,7 @@ export default {
       selectTaskId:"",
       selectConsignmentId:"",
       fhqdxiugaiTC:false,
-      consignmentForm:{
+      consignmentForm1:{
         consignmentTimeLatest1: "",
         productName1:"",
         productModel1:"",
@@ -953,7 +1026,7 @@ export default {
         contactNumber1:"",
       },
       //编辑发货清单 数据验证
-      consignmentRules:{
+      consignmentRules1:{
         consignmentTimeLatest1:[
           {required: true, message: '请选择截止时间', trigger: 'blur'},
         ],
@@ -987,6 +1060,46 @@ export default {
           //   }
           //   }, trigger: 'blur'
           // },
+        ],
+      },
+      fhqdxinzengTC:false,
+      consignmentForm2:{
+        consignmentTimeLatest2: "",
+        productName2:"",
+        productModel2:"",
+        productNum2:"",
+        productPrice2:"", 
+        productTotal2:"", 
+        productNotes2:"",
+        contactNumber2:"",
+      },
+      //新增发货清单 数据验证
+      consignmentRules2:{
+        consignmentTimeLatest2:[
+          {required: true, message: '请选择截止时间', trigger: 'blur'},
+        ],
+        productName2:[
+          {required: true, message: '请输入产品名称', trigger: 'blur'},
+          { min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的名称", trigger: "blur" },
+        ],
+        productModel2:[
+          {required: true, message: '请输入产品规格', trigger: 'blur'},
+           { min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的规格", trigger: "blur" },
+        ],
+        productNum2:[
+          {required: true, message: '请输入产品数量', trigger: 'blur'},
+          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+        ],
+        productPrice2:[
+          {required: true, message: '请输入产品单价', trigger: 'blur'},
+          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+        ],
+        productNotes2:[
+          {required: true, message: '请输入备注或填写无', trigger: 'blur'},
+        ],
+        contactNumber2:[
+          {required: true, message: '请输入联系方式', trigger: 'blur'},
+          {pattern:/^1\d{10}$/, message: "请输入正确的联系方式", trigger: "blur"},
         ],
       },
     };
@@ -1734,39 +1847,37 @@ export default {
         })
         .then((response) => {
           this.fhqdxiugaiTC = true;
-          this.consignmentForm.productName1 = response.data.allData[0].productName;
-          this.consignmentForm.productModel1 = response.data.allData[0].productModel;
-          this.consignmentForm.productNum1 = response.data.allData[0].productNumber;
-          this.consignmentForm.productPrice1 = response.data.allData[0].productPrice;
-          this.consignmentForm.consignmentTimeLatest1 = response.data.allData[0].consignmentTimeLatest;
-          console.log(this.consignmentForm.consignmentTimeLatest1)
-          this.consignmentForm.contactNumber1 = response.data.allData[0].contactNumber;
-          this.consignmentForm.productNotes1 = response.data.allData[0].consignmentNotes;
+          this.consignmentForm1.productName1 = response.data.allData[0].productName;
+          this.consignmentForm1.productModel1 = response.data.allData[0].productModel;
+          this.consignmentForm1.productNum1 = response.data.allData[0].productNumber;
+          this.consignmentForm1.productPrice1 = response.data.allData[0].productPrice;
+          this.consignmentForm1.consignmentTimeLatest1 = response.data.allData[0].consignmentTimeLatest;
+          this.consignmentForm1.contactNumber1 = response.data.allData[0].contactNumber;
+          this.consignmentForm1.productNotes1 = response.data.allData[0].consignmentNotes;
         })
         .catch((error) => {
           console.log(error);
       });
     },
     //发货清单 单行 修改
-    consignmentSave(){
-       this.$refs.consignmentForm.validate((valid) => {
+    consignmentSaveUpdate(){
+       this.$refs.consignmentForm1.validate((valid) => {
         if(valid){
-          console.log(this.consignmentForm.consignmentTimeLatest1)
           var that = this;
           //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
           //====发货清单数据====
           var data = Qs.stringify({
             taskId: this.selectTaskId,
             consignmentId:this.selectConsignmentId,
-            consignmentTimeLatest: this.consignmentForm.consignmentTimeLatest1,
-            productName:this.consignmentForm.productName1,
-            productModel:this.consignmentForm.productModel1,
-            productNumber:this.consignmentForm.productNum1,
-            productPrice:this.consignmentForm.productPrice1, 
+            consignmentTimeLatest: this.consignmentForm1.consignmentTimeLatest1,
+            productName:this.consignmentForm1.productName1,
+            productModel:this.consignmentForm1.productModel1,
+            productNumber:this.consignmentForm1.productNum1,
+            productPrice:this.consignmentForm1.productPrice1, 
             totalPrice:"0",//在后台算
-            consignmentNotes:this.consignmentForm.productNotes1,
-            contactNumber:this.consignmentForm.contactNumber1,
-            deliveryTime:this.consignmentForm.consignmentTimeLatest1,
+            consignmentNotes:this.consignmentForm1.productNotes1,
+            contactNumber:this.consignmentForm1.contactNumber1,
+            deliveryTime:this.consignmentForm1.consignmentTimeLatest1,
             consignmentState:"0",//未发货
             shippingAddress:"暂无地址",
           });
@@ -1780,7 +1891,7 @@ export default {
             .then((response) => {
               if (response.data == "成功") {
                 this.$message.success("修改发货信息成功");
-                //this.consignmentForm = {};        
+                //this.consignmentForm1 = {};
                 //弹出框消失
                 this.fhqdxiugaiTC = false;
                 that.bianjifhqdtanchu();
@@ -1820,6 +1931,59 @@ export default {
         .catch((error) => {
           console.log(error);
       });
+    },
+    //======发货清单 新增 弹出========
+    consignmentInsert(){
+      this.fhqdxinzengTC = true;
+    },
+    //======发货清单 新增========
+    consignmentSaveNew(){
+      this.$refs.consignmentForm2.validate((valid) => {
+        if(valid){
+          var that = this;
+          //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
+          //====发货清单数据====
+          var data = Qs.stringify({
+            taskId: this.selectTaskId,
+            consignmentTimeLatest: this.consignmentForm2.consignmentTimeLatest2,
+            productName:this.consignmentForm2.productName2,
+            productModel:this.consignmentForm2.productModel2,
+            productNumber:this.consignmentForm2.productNum2,
+            productPrice:this.consignmentForm2.productPrice2, 
+            totalPrice:"0",//在后台算
+            consignmentNotes:this.consignmentForm2.productNotes2,
+            contactNumber:this.consignmentForm2.contactNumber2,
+            deliveryTime:this.consignmentForm2.consignmentTimeLatest2,
+            consignmentState:"0",//未发货
+            shippingAddress:"暂无地址",
+          });
+          that
+            .axios({
+              method: "post",
+              url: "/api/addConsignment/add",
+              data: data,
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            })
+            .then((response) => {
+              if (response.data == "成功") {
+                this.$message.success("新增发货信息成功");
+                this.consignmentForm2 = {};
+                //弹出框消失
+                this.fhqdxinzengTC = false;
+                that.bianjifhqdtanchu();
+              }
+            })
+            .catch((error) => {
+              console.log(error.response);
+            })
+        }
+        else{
+          this.$message({
+            type: "warning",
+            message: "你还有重要信息未填写，填写后再提交",
+          });
+        }
+      })
     },
 },
 };
