@@ -1564,7 +1564,8 @@
         </div>
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="50px"> </el-table-column>
+            <el-table-column type="selection" width="50px" :selectable="checkboxT"
+            disabled="true"> </el-table-column>
             <el-table-column
               label="序号"
               type="index"
@@ -2176,6 +2177,7 @@ export default {
         //this.chakantanchu();
         this.chakanTC = false;
         this.showData();
+        this.$router.go(0);
         
       }
     },
@@ -2187,6 +2189,8 @@ export default {
         taskId: row.taskId,
       });
       console.log(this.data);
+      console.log(row.consignmentState);
+    
       that
         .axios({
           method: "post",
@@ -2197,7 +2201,9 @@ export default {
         .then((response) => {
           console.log(response);
           this.tableData = response.data.allData;
+          
         });
+        
     },
 
     //发货清单拒绝按钮实现的方法
@@ -2655,6 +2661,7 @@ export default {
             this.milepostActive = 3;
           } else if (this.milepostActive == "完成") {
             this.milepostActive = 4;
+            this.liu = true;
           }
           if (this.cool.taskType === 0) {
             this.cool.taskType = "设计任务";
@@ -2926,6 +2933,15 @@ export default {
         .then((response) => {
           this.download(response.data, "HT");
         });
+    },
+//复选框判断是否可选
+        checkboxT(row,index){
+      if(row.consignmentState == 1){
+        return true
+      }
+      else{
+        return false
+      }
     },
     //设计通过
     QDTG(row) {
