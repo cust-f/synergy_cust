@@ -109,7 +109,7 @@
             <div class="container">
               <div>
                 <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
-                <el-button type="primary" class="handle-del mr10" @click="bianjifhqdtanchu" :style="{display:fahuo}">编辑发货清单</el-button>
+                <el-button type="primary" class="handle-del mr10" @click="bianjifhqdtanchu" :style="{display:fahuo}" :disabled="consignmentUpdateBtn">编辑发货清单</el-button>
               </div>
               <br />
               <el-table
@@ -732,7 +732,7 @@
             </el-row>
           </el-form>
           <span slot="footer" class="dialog-footer">
-            <el-button @click="bianjiTC = false">取 消</el-button>
+            <el-button @click="fhqdxinzengTC = false">取 消</el-button>
             <el-button type="primary" @click="consignmentSaveNew('consignmentForm2')">确 定</el-button>
           </span>
         </el-dialog>
@@ -1102,6 +1102,7 @@ export default {
           {pattern:/^1\d{10}$/, message: "请输入正确的联系方式", trigger: "blur"},
         ],
       },
+      consignmentUpdateBtn:false,
     };
   },
 
@@ -1793,12 +1794,25 @@ export default {
         arrays.forEach(row => {
           this.$refs.multipleTable.toggleRowSelection(row); //除了当前点击的，其他的全部取消选中
           this.fahuo="inline";//显示编辑发货清单按钮
-         })
+          //根据选中行任务状态 判断 是否禁用"编辑发货清单"按钮
+          if(val[0].taskState == "完成"){
+            this.consignmentUpdateBtn = true;
+          }
+          else{
+            this.consignmentUpdateBtn = false;
+          }
+        })
          this.selectTaskId=val[0].taskId;
-         console.log(this.selectTaskId+'&'+val[0].taskId);
       }
       if(val.length == 1){
-        this.fahuo="inline";//隐藏编辑发货清单按钮
+        this.fahuo = "inline";//显示编辑发货清单按钮
+        //根据选中行任务状态 判断 是否禁用"编辑发货清单"按钮
+        if(val[0].taskState == "完成"){
+          this.consignmentUpdateBtn = true;
+        }
+        else{
+          this.consignmentUpdateBtn = false;
+        }
         this.selectTaskId=val[0].taskId;
       }
       if(val.length == 0){
