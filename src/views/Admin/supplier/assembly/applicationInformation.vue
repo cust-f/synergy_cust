@@ -50,9 +50,102 @@
             type="text"
             size="small"
           >拒绝原因</el-button>
+          <el-button @click="showData()" type="text" size="small"
+            >查看</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
+     <!-- 查看弹窗的内容 -->
+    <el-dialog
+      :visible.sync="upCirculation"
+      width="50%"
+      @click="handleClose"
+    >
+      <div
+        class="biaoti"
+        style="padding: 0 10px; border-left: 3px solid #4e58c5"
+      >
+        发货清单
+      </div>
+     <!--  <br />
+      <div style="margin-top: 10px">
+        <el-button
+          style="float: left; margin-bottom: 10px"
+          type="primary"
+          @click="submit2()"
+          size="small"
+          v-bind:disabled="submitDisable"
+          >全部提交</el-button
+        >
+      </div>
+      <br /> -->
+
+      <div style="padding: 0 10px; border-left: 3px solid #4e58c5"></div>
+      <br />
+      <el-form ref="form" label-width="100%" class="box">
+        <el-table
+          ref="multipleTable"
+          :data="
+            tableData.slice((pageIndex - 1) * pageSize, pageIndex * pageSize)
+          "
+          tooltip-effect="dark"
+          style="width: 100%"
+          @selection-change="handleSelectionChange"
+        >
+
+          <el-table-column
+            label="序号"
+            type="index"
+            width="50px"
+            align="center"
+            prop="consignmentId"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.$index + 1 }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="productName"
+            label="产品名称"
+         
+          ></el-table-column>
+
+          <el-table-column
+            prop="productNumber"
+            label="产品数量"
+           
+          ></el-table-column>
+          <el-table-column
+            prop="productModel"
+            label="产品规格"
+           
+          ></el-table-column>
+            <el-table-column
+            prop="productPrice"
+            label="产品单价"
+          
+          ></el-table-column>
+          <el-table-column
+            prop="contactNumber"
+            label="联系方式"
+            
+          ></el-table-column>
+        </el-table>
+
+        <div class="pagination">
+          <el-pagination
+            background
+            layout="prev, pager, next, sizes, total, jumper"
+            :current-page="pageIndex1"
+            :page-size="pageSize"
+            :total="tableData.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+          ></el-pagination>
+        </div>
+      </el-form>
+    </el-dialog>
 
     <!-- 申请拒绝原因 -->
     <el-dialog :visible.sync="addVisible1" width="50%">
@@ -92,6 +185,30 @@ export default {
       taskId: 0,
       userName: sessionStorage.getItem("ms_username"),
       PlantableData: {},
+      upCirculation: false,
+      pageIndex: 1,
+      pageIndex1: 1,
+      pageSize: 10,
+      fileType: 0,
+      tableData: [
+        {
+          consignmentId: "1000015",
+          taskId: "1-1",
+          productName: "华子",
+          deliveryTime: "",
+          consignmentTimeLatest: "2020.10.5",
+          consignmentState: "",
+          productNumber: "5",
+          productModel: "很大很大",
+          productPrice: "500",
+          contactnumber: "18904402315",
+          shippingaddress: "",
+          totalPrice: "2500",
+          consignmentNotes: "麻烦快点谢谢",
+          checkox: "",
+          refuseReason: "",
+        },
+      ],
       addList1: {
         refuseApplyMessage: ""
       }
@@ -130,6 +247,32 @@ export default {
         .then(response => {
           this.download(response.data, "ZRWFJ");
         });
+    },
+     showData() {
+      this.upCirculation = true;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findConsignmentByTaskId",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+          console.log(this.tableData);
+          if (this.taskState == "完成") {
+            this.submitDisable = true;
+          }
+        });
+    },
+       handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+    handleSizeChange(psize) {
+      this.pageSize = psize;
     },
     //接受通过
     accept(row) {

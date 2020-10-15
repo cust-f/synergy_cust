@@ -6,7 +6,7 @@
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
        
         <el-tabs v-model="activeName" @tab-click="handleClick" >
-          <el-tab-pane label="发布的任务" name="first">
+          <el-tab-pane label="设计发布" name="first">
                <cloumn-chart1 style="width: 600px;height:400px;"  >
         
      <div style="text-align:center" >
@@ -107,7 +107,7 @@
 <!-- ---------------------------------- 承接的任务----------------------------------------- -->
 <!-- ---------------------------------- 承接的任务----------------------------------------- -->
 
-    <el-tab-pane label="承接的任务" name="second">
+    <el-tab-pane label="设计接收" name="second">
       <cloumn-chart2  style="width: 600px;height:400px;" >
               
      <div style="text-align:center" >
@@ -211,7 +211,7 @@
 <!-- ---------------------------------- 制造数量----------------------------------------- -->
       
   
-          <el-tab-pane label="制造数量" name="third">
+          <el-tab-pane label="流通接收" name="third">
                <cloumn-chart3 style="width: 600px;height:400px;"  >
         <div style="text-align:center" >
       <label  style="font-size:16px">企业星级</label>
@@ -228,18 +228,17 @@
       </el-rate>
         
      <br/>
-     
+
+
      <el-card  shadow="hover" :body-style="{padding: '0px'}"> 
      <!-- 折线图部分 -->
-    
       <div style="float:right">
         <template>
         <el-select 
         style="width:100px;margin-right:35px;margin-top:15px"
         v-model="value"
         
-        @change="lineChartData1"
-        >
+        @change="lineChartData1">
             <el-option
           v-for="item in options"
           placeholder="请选择"
@@ -248,8 +247,7 @@
           :value="item.value"
           :disabled="item.disabled"
          
-          width="20px"
-          >
+          width="20px">
             </el-option>
           </el-select> 
         </template>
@@ -257,13 +255,52 @@
         <div class="top">
           
         <template>
-   <div id="linecharts1" style="height: 320px; width:800px; float:left"></div>
-</template>
+         <div id="linecharts1" style="height: 320px; width:800px; float:left"></div>
+        </template>
         </div>
      
      </el-card>
      <br/>
-          
+
+    <el-card  shadow="hover"  :body-style="{padding: '0px'}">
+        <!-- 雷达图部分 -->
+     <el-form ref="form2" :model="form2" label-width="110px" class="box" style="margin-top:15px">
+       <el-row>
+            <el-col :span="9">
+              <el-form-item label="起始时间">
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="form2.time1"
+                  style="width: 100%;"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="9">
+              <el-form-item label="截止时间">
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="form2.time2"
+                  style="width: 100%;"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>              
+            </el-col>
+             <el-col :span="5">
+              <el-button type="primary" style="margin-left:55px" @click="getRadarData1">搜索</el-button>
+               </el-col>
+          </el-row>
+     </el-form>
+        <br/>
+       <radar-chart1
+        :radarData1="radarData1"
+        ref="refradarChart1"
+        ></radar-chart1>
+        <br/>
+
+             </el-card>
 
                </cloumn-chart3>
               </el-tab-pane>
@@ -271,7 +308,7 @@
 <!-- ---------------------------------- 接收数量----------------------------------------- -->
 <!-- ---------------------------------- 接收数量----------------------------------------- -->
  
-    <el-tab-pane label="接收数量" name="fourth">
+    <el-tab-pane label="流通发布" name="fourth">
       <cloumn-chart4  style="width: 600px;height:400px;" >
         <div style="text-align:center" >
       <label  style="font-size:16px">企业星级</label>
@@ -298,9 +335,8 @@
         style="width:100px;margin-right:35px;margin-top:15px"
         v-model="value"
         
-        @change="lineChartData2"
-        >
-            <el-option
+        @change="lineChartData2">
+         <el-option
           v-for="item in options"
           placeholder="请选择"
           :key="item.value"
@@ -308,21 +344,58 @@
           :value="item.value"
           :disabled="item.disabled"
          
-          width="20px"
-          >
-            </el-option>
-          </el-select> 
+          width="20px">
+       </el-option>
+        </el-select> 
         </template>
         </div>
         <div class="top">
         <template>
-   <div id="linecharts2" style="height: 320px; width:800px; float:left"></div>
-</template>
+          <div id="linecharts2" style="height: 320px; width:800px; float:left"></div>
+        </template>
         </div>
      
-     </el-card>
-     
-      
+       </el-card>
+            <br />
+
+   <el-card  shadow="hover"  :body-style="{padding: '0px'}">
+        <!-- 雷达图部分 -->
+     <el-form ref="form2" :model="form2" label-width="110px" class="box" style="margin-top:15px">
+       <el-row>
+            <el-col :span="9">
+              <el-form-item label="起始时间">
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="form2.time1"
+                  style="width: 100%;"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="9">
+              <el-form-item label="截止时间">
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  v-model="form2.time2"
+                  style="width: 100%;"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-form-item>              
+            </el-col>
+             <el-col :span="5">
+              <el-button type="primary" style="margin-left:55px" @click="getRadarData2">搜索</el-button>
+               </el-col>
+          </el-row>
+     </el-form>
+        <br/>
+       <radar-chart2
+        :radarData2="radarData2"
+        ref="refradarChart2"
+        ></radar-chart2>
+        
+         </el-card>
                 </cloumn-chart4>
                 
               </el-tab-pane>
@@ -342,8 +415,9 @@ import barChart from "./components/barChart"
 import radarChart from "./components/radarChart"
 import barChartS from "./components/barChartS"
 import radarChartS from "./components/radarChartS"
-//import lineChart1 from "./components/lineChart1"
-//import lineChart2 from "./components/lineChart2"
+import radarChart1 from "./components/radarChart1"
+import radarChart2 from "./components/radarChart2"
+
 export default {
   name:"evaluate",
     
@@ -352,8 +426,9 @@ export default {
     "radar-chart":radarChart,
     "bar-chartS":barChartS,
     "radar-chartS":radarChartS,
-   // "line-chart1":lineChart1,
-    //"line-chart2":lineChart2,
+    "radar-chart1":radarChart1,
+    "radar-chart2":radarChart2,
+
   },
   data() {
     return {
@@ -369,11 +444,22 @@ export default {
         } ,
     
       tableData:"",
+
       lineData1:{
         lineData1:[],
+        lineDataU1:[],
       },
       lineData2:{
         lineData2:[],
+         lineDataU2:[],
+      },
+      radarData1:{
+        radarData1:[],
+        indicatorData1:[],
+      },
+      radarData2:{
+        radarData2:[],
+        indicatorData2:[],
       },
       radarData:{
       radarData:[],
@@ -388,7 +474,7 @@ export default {
       taskCount:[],
       finishTaskCount:[],
       },
-       barDataS:{
+      barDataS:{
       taskCountS:[],
       finishTaskCountS:[],
       },
@@ -412,6 +498,8 @@ export default {
     this.lineChartData2();//流通任务-接收数量
     this.getLineChart1();
     this.getLineChart2();
+    this.getRadarData1();//流通任务-雷达图-制造
+    this.getRadarData2();//流通任务-雷达图-接收
     
   },
   //初始化俩图标
@@ -437,6 +525,8 @@ export default {
         this.form2.time2= response.data.allData[1];  //当天时间
         this.getRemarData();
         this.getRemarDataSS();
+        this.getRadarData1();
+        this.getRadarData2();
 
            
       });
@@ -452,6 +542,7 @@ export default {
         this.barChartData(); 
         this.lineChartData1();
         this.lineChartData2();
+
       
        
       });
@@ -619,19 +710,50 @@ export default {
         .axios({
           method: "post",
           url:
-            "/api/addConsignment/selectMonthConsignmentCount1",
+            "/api/addConsignment/circulaterConsignment",
           data: data
         })
         .then(response => {
          
-         this.lineData1.lineData1=response.data.allData.consignmentCount1;    
-          
+         this.lineData1.lineData1=response.data.allData.Data1; 
+         this.lineData1.lineDataU1=response.data.allData.Data2;   
+          // console.log(this.lineData1.lineData1);
          that.getLineChart1();
         
         });
 
     },
-    //折线图数据获取-接收
+    //雷达图-制造
+    getRadarData1(){
+     var that = this;
+      
+      var data = Qs.stringify({
+
+        userName:this.userName,
+        startTime:this.form2.time1,
+        finishTime:this.form2.time2,
+      });
+
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "/api/findCirculaterRemarkTimes1",
+          data: data
+        })
+        .then(response => {
+
+        this.radarData1.radarData1=response.data.allData.AllRemarkLength;
+         this.radarData1.indicatorData1=response.data.allData.indicator;
+         console.log(this.radarData1.radarData1);
+         that.$refs.refradarChart1.getradarCharts1();   
+
+          
+        });
+    },
+    
+    //折线图数据获取-需求方
     lineChartData2(){
  
       var that = this;
@@ -647,13 +769,14 @@ export default {
         .axios({
           method: "post",
           url:
-            "/api/addConsignment/selectMonthConsignmentCount",
+            "/api/addConsignment/circulaterConsignmentS",
           data: data
         })
         .then(response => {
           //this.table = response.data.allData;
          
-         this.lineData2.lineData2=response.data.allData.consignmentCount;     
+         this.lineData2.lineData2=response.data.allData.Data1;
+         this.lineData2.lineDataU2=response.data.allData.Data2;     
         
          that.getLineChart2();
         
@@ -661,13 +784,43 @@ export default {
         });
 
     },
-    //柱形图标
+    //雷达图-接收
+    getRadarData2(){
+     var that = this;
+      
+      var data = Qs.stringify({
+
+        userName:this.userName,
+        startTime:this.form2.time1,
+        finishTime:this.form2.time2,
+      });
+
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "/api/findCirculaterRemarkTimes",
+          data: data
+        })
+        .then(response => {
+
+        this.radarData2.radarData2=response.data.allData.AllRemarkLength;
+         this.radarData2.indicatorData2=response.data.allData.indicator;
+         console.log(this.radarData2.radarData2);
+         that.$refs.refradarChart2.getradarCharts2();   
+
+          
+        });
+    },
+    
+    //折线图
     getLineChart1(){
       var that =this;
       var myChart = echarts.init(document.getElementById("linecharts1"));
       var option = {
     legend: {
-      //data: ['发布数量', '完成数量']
+     // data: ["已完成", "未完成"],
        textStyle: {
             fontSize: 16
         }
@@ -694,17 +847,26 @@ export default {
             "十二月"
       ]
       },
-    yAxis: {},
+    yAxis: {
+       type: 'value'
+    },
     // Declare several bar series, each will be mapped to a column of dataset.source by default.
     series: [
       
                  
         {
-          name:'制造数量',
+           name:'完成数量',
           type: 'line',
          
          data:this.lineData1.lineData1
         },
+        {
+          name:'未完成数量',
+          type: 'line',
+         
+         data:this.lineData1.lineDataU1,
+        },
+        
         
         
     ]
@@ -750,10 +912,15 @@ export default {
     series: [
       
         {
-          name:'接收数量',
+          name:'完成数量',
           type: 'line',          
           data:this.lineData2.lineData2
-         },    
+         },   
+         {
+          name:'未完成数量',
+          type: 'line',          
+          data:this.lineData2.lineDataU2
+         },  
        
         
     ]

@@ -4,7 +4,7 @@
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
       发货清单
     </div>
- 
+
     <br />
     <el-table
       :data="deliveryList"
@@ -91,17 +91,19 @@
       >
         发货清单
       </div>
-            <div style="margin-top: 10px;">
-          <el-button
-            style="float: left;margin-bottom: 10px;"
-            type="primary"
-            @click="submit2()"
-            size="small"
-            >全部提交</el-button
-          > 
-      </div> 
-      <br/>
-      
+      <br />
+      <div style="margin-top: 10px">
+        <el-button
+          style="float: left; margin-bottom: 10px"
+          type="primary"
+          @click="submit2()"
+          size="small"
+          v-bind:disabled="submitDisable"
+          >全部提交</el-button
+        >
+      </div>
+      <br />
+
       <div style="padding: 0 10px; border-left: 3px solid #4e58c5"></div>
       <br />
       <el-form ref="form" label-width="100px" class="box">
@@ -114,7 +116,13 @@
           style="width: 100%"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55" prop="checkox">
+          <el-table-column
+            type="selection"
+            :selectable="checkboxT"
+            disabled="true"
+            width="55"
+            prop="checkox"
+          >
           </el-table-column>
           <el-table-column
             label="序号"
@@ -132,15 +140,7 @@
             label="产品名称"
             width="100"
           ></el-table-column>
-          <!-- <el-col :span="11">
-                <el-form-item label="截止日期">
-                  <el-input
-                    v-bind:value="cool.deadline|formatDate"
-                    :disabled="true"
-                    style="text-align:center"
-                  ></el-input>
-                </el-form-item>
-              </el-col> -->
+
           <el-table-column prop="deliveryTime" label="发货时间" width="160"
             ><template slot-scope="scope">
               <el-span>{{ scope.row.deliveryTime | formatDate }}</el-span>
@@ -172,7 +172,7 @@
               <el-tag
                 v-else-if="+scope.row.consignmentState === 3"
                 type="danger"
-                @click="open(scope.row, scope.$index)"
+                @click="open(scope.row)"
                 >拒绝
               </el-tag>
             </template>
@@ -188,9 +188,7 @@
             width="100"
           ></el-table-column>
           <el-table-column
-            fixed="right"
             label="操作"
-            width="120"
             align="center"
           >
             <template slot-scope="scope">
@@ -208,8 +206,6 @@
           </el-table-column>
         </el-table>
 
-          <!-- <el-button type="primary" @click="toggleSelection()">取消选择</el-button> -->
-      
         <div class="pagination">
           <el-pagination
             background
@@ -231,6 +227,8 @@ import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+      submitDisable: false,
+      text: true,
       pageIndex: 1,
       pageIndex1: 1,
       pageSize: 10,
@@ -239,6 +237,7 @@ export default {
       yinCang: 1,
       userName: sessionStorage.getItem("ms_username"),
       deliveryList: [],
+      taskState: 0,
       fileHistoryMessage: [
         {
           publishingCompanyName: "123",
@@ -292,7 +291,7 @@ export default {
   methods: {
     handleSelectionChange(val) {
       this.multipleSelection = val;
-     },
+    },
     add() {
       var _this = this;
       _this.data.push({
@@ -302,6 +301,7 @@ export default {
     //获得信息
     getMsg(msg) {
       this.deliveryList = msg;
+      this.taskState = msg[0].taskState;
       this.getParams();
     },
     getParams() {
@@ -309,101 +309,10 @@ export default {
       this.taskId = routerParams;
     },
 
-    //取消选择的方法
-    /* toggleSelection(rows) {
-      if (rows) {
-        rows.forEach((row) => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    }, */
-   /*  //分页功能的实现
-    page(currentPage) {
-      const _this = this;
-      axios.get("" + (currentPage - 1) + "/6").then(function (resp) {
-        console.log(resp);
-        _this.tableData = resp.data.content;
-        _this.pageSize = resp.data.size;
-        _this.total = resp.data.totalElements;
-      });
-    }, */
-    /* //发货清单下载
-    FFQDXZ(row) {
-      var that = this;
-      var data = Qs.stringify({
-        taskID: this.taskId,
-        leixing: "FHQD"
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/DownloadHTHT",
-          data: data,
-          responseType: "blob"
-        })
-        .then(response => {
-          
-          let url = window.URL.createObjectURL(
-            new Blob([response.data], { type: "application/zip" })
-          );
-          let link = document.createElement("a");
-          link.style.display = "none";
-          link.href = url;
-          link.setAttribute("download", "发货清单.zip");
-          document.body.appendChild(link);
-          link.click();
-        });
-    },
-    FHQDFileHistory() {
-      this.fileType = 1;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        fileType: this.fileType
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/getFileHistory",
-          data: data
-        })
-        .then(response => {
-          // 
-          this.fileHistoryMessage = response.data.allData;
-          this.fileHistoryDia = true;
-        });
-    }, */
-    // 下载文件
-    /* download(data, leixing) {
-      if (!data) {
-        return;
-      }
-      let url = window.URL.createObjectURL(
-        new Blob([data], { type: "application/zip" })
-      );
-      let link = document.createElement("a");
-      link.style.display = "none";
-      link.href = url;
-      if (leixing === "JHS") {
-        link.setAttribute("download", "设计文档.zip");
-      } else if (leixing === "HT") {
-        link.setAttribute("download", "合同.zip");
-      } else if (leixing === "FFQD") {
-        link.setAttribute("download", "发货清单.zip");
-      } else if (leixing === "ZRWFJ") {
-        link.setAttribute("download", "子任务附件.zip");
-      }
-      document.body.appendChild(link);
-      link.click();
-    }, */
-
     //把数据库表格中的内容显示到上面
     showData() {
       this.upCirculation = true;
       var that = this;
-      //alert(this.$refs.refProductName.innerHTML);
       var data = Qs.stringify({
         taskId: this.taskId,
       });
@@ -415,7 +324,9 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
-          console.log(this.tableData);
+          if (this.taskState == "完成") {
+            this.submitDisable = true;
+          }
         });
     },
 
@@ -426,7 +337,7 @@ export default {
         var that = this;
         var data = Qs.stringify({
           consignmentId: row.consignmentId,
-          taskId:row.taskId,
+          taskId: row.taskId,
         });
         that
           .axios({
@@ -434,50 +345,65 @@ export default {
             url: "/api/addConsignment/submit",
             data: data,
           })
-          .then((response) => {
-           
-          });
+          .then((response) => {});
         this.$message({
           message: "审核通过",
           type: "success",
         });
         this.showData();
+        this.upCirculation = false;
       });
     },
     //全部提交的实现
     submit2() {
       // alert(this.multipleSelection.length)
       // alert(this.multipleSelection[0].productName )
-      for (var i = 0; i < this.multipleSelection.length; i++) {
-        let that = this;
-        let data = Qs.stringify({
-          consignmentId: that.multipleSelection[i].consignmentId,
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          message: "请至少选择一个！",
+          type: "warning",
         });
-        console.log(data)
-        that
-          .axios({
-            method: "post",
-            url: "/api/addConsignment/submit",
-            data: data,
-          })
-          .then((response) => {
-          console.log(response)
-            //that.tableData = response.data.allData;
+      } else {
+        for (var i = 0; i < this.multipleSelection.length; i++) {
+          let that = this;
+          let data = Qs.stringify({
+            consignmentId: that.multipleSelection[i].consignmentId,
           });
-      }
-      this.$message({
+          console.log(data);
+          that
+            .axios({
+              method: "post",
+              url: "/api/addConsignment/submit",
+              data: data,
+            })
+            .then((response) => {
+              //that.tableData = response.data.allData;
+            });
+        }
+        this.$message({
           message: "审核通过",
           type: "success",
-      });
-      this.showData();
+        });
+        this.upCirculation = true;
+        this.showData();
+        this.upCirculation = false;
+      }
     },
 
     //拒绝原因弹出框
-    open(row, index) {
-      console.log(this.tableData[index].refuseReason);
-      this.$alert(this.tableData[index].refuseReason, "拒绝原因", {
+    open(row) {
+      console.log(row.refuseReason);
+      this.$alert(row.refuseReason, "拒绝原因", {
         confirmButtonText: "确定",
       });
+    },
+    checkboxT(row,index){
+      if(row.consignmentState == 0 || row.consignmentState == 3){
+        return true
+      }
+      else{
+        return false
+      }
     },
     handleCurrentChange(cpage) {
       this.pageIndex = cpage;
@@ -485,106 +411,15 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-    handleClose(){
-    console.log('1')
-      if(this.upCirculation==false){
-        this.upCirculation=true;
-      }else{
-        this.upCirculation=false;
-      }
-    }
-    //列表日期时间格式化
-
-    /*    Data_checkox =this.tableData.checkox;
-        for(var i=0;i<this.Data_checkox.length;i++){
-          var isChecked=Data_checkox[i].checkox;
-          if(isChecked==true){
-            this.submit(row);
-          }
-        } */
-
-    /* submit2(row) {
-      Data_checkox = this.tableData.checkox;
-      for (var i = 0; i < this.Data_checkox.length; i++) {
-        var isChecked = Data_checkox[i].checkox;
-        if (isChecked == true) {
-          this.$confirm("确定提交吗？", "提示", {
-            type: "warning",
-          }).then(() => {
-            var that = this;
-            var data = Qs.stringify({
-              consignmentId: row.consignmentId,
-            });
-            that
-              .axios({
-                method: "post",
-                url: "/api/consignment/submit",
-                data: data,
-              })
-              .then((response) => {
-                this.tableData = response.data.allData;
-                console.log(this.tableData);
-              });
-            this.$message({
-              message: "审核通过",
-              type: "success",
-            });
-            this.showData();
-          });
-        }
+    handleClose() {
+      debugger;
+      console.log("1");
+      if (this.upCirculation == false) {
+        this.upCirculation = true;
+      } else {
+        this.upCirculation = false;
       }
     },
- */
-    // array = scope.row
-    //     for(var i = 0; i < array.length; i++) {
-    //       var isChecked = array[i].checkbox
-
-    //     if(isChecked == true) {
-    //          submit2("")
-    //       }
-    //     }
-    /*
-    submitUpload() {
-      this.$refs.upload.submit();
-    },
-    handlePreview(file) {
-    },
-    handleRemove(file, fileList) {
-      this.fileNumber = this.fileNumber - 1;
-    },
-    addRoutes1() {
-      this.$router.push('/admin/SubmitChecklist')
-    },
-    handleAvatarsubmit(response, file, fileList) {
-      this.technicalFile[this.shangchuancishu] = response;
-      this.technicalFileWanzheng =
-        this.technicalFileWanzheng +
-        this.technicalFile[this.shangchuancishu] +
-        "linklink";
-      console.log(this.technicalFileWanzheng)
-      this.shangchuancishu = this.shangchuancishu + 1;
-      this.$notify.submit({
-        title: "成功",
-        message: `文件上传成功`
-      });
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        userName:this.userName,
-        Text_File: this.technicalFileWanzheng
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplierCon/textImportCir",
-          data: data
-        })
-        .then(response => {
-          this.technicalFileWanzheng = "";
-        });
-      this.$router.go(0);
-    }
- */
   },
 };
 </script>
