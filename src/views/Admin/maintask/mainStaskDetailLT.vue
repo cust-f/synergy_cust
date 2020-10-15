@@ -1528,7 +1528,10 @@
           <el-row>
             <el-col>
               <el-form-item label="拒绝原因">
-                <el-input v-model="addList4.QDrefuseReason"></el-input>
+                <el-input v-model="addList4.QDrefuseReason"  @blur="refuseReasonUnnull"></el-input>
+                 <font color="red">
+                  <span v-if="this.addList4.QDrefuseReason === null">请输入拒绝原因</span>
+                </font>
               </el-form-item>
             </el-col>
           </el-row>
@@ -2228,6 +2231,16 @@ export default {
 
       //this.$router.go(0);
       this.chakanTC = false;
+    },
+    //拒绝原因非空校验
+    refuseReasonUnnull() {
+      var re = /^[\s\S]*.*[^\s][\s\S]*$/;
+      let str = this.addList4.QDrefuseReason;
+      if (re.test(str)) {
+        //  alert('成功')
+      } else {
+        this.addList4.QDrefuseReason = null;
+      }
     },
     refusebutton(row) {
       this.addVisible4 = true;
