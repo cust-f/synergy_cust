@@ -29,7 +29,6 @@
         基本信息
         <el-button
           v-if="this.milepostActive === 0"
-
           type="text"
           class="XG"
           style="float: right"
@@ -1512,7 +1511,7 @@
           </el-table>
         </div>
       </el-dialog>
-
+<!--流通清单拒绝原因-新改-->
       <el-dialog :visible.sync="addVisible4" width="50%">
         <div
           class="biaoti"
@@ -1528,7 +1527,12 @@
           <el-row>
             <el-col>
               <el-form-item label="拒绝原因">
-                <el-input v-model="addList4.QDrefuseReason"></el-input>
+                <el-input
+                  type="textarea"
+                  :rows="4"
+                  placeholder="请输入内容"
+                  v-model="addList4.QDrefuseReason"
+                ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -1549,23 +1553,29 @@
         >
           发货清单
         </div>
-     
+
         <div style="margin-top: 10px">
           <!-- <template slot-scope="scope"> -->
-            <el-button
-              style="float: left; margin-bottom: 10px"
-              type="primary"
-              @click="submit2()"
-              size="small"
-              v-bind:disabled="liu"
-              >全部通过</el-button
-            >
+          <el-button
+            style="float: left; margin-bottom: 10px"
+            type="primary"
+            @click="submit2()"
+            size="small"
+            v-bind:disabled="liu"
+            >全部通过</el-button
+          >
           <!-- </template> -->
         </div>
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="50px" :selectable="checkboxT"
-            disabled="true"> </el-table-column>
+            <el-table-column
+              type="selection"
+              width="50px"
+              :selectable="checkboxT"
+              disabled="true"
+            >
+            </el-table-column>
+
             <el-table-column
               label="序号"
               type="index"
@@ -1585,19 +1595,12 @@
                 scope.row.deliveryTime | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column
-              prop="consignmentTimeLatest"
-              label="发货截至时间"
-           
+            <el-table-column prop="consignmentTimeLatest" label="发货截至时间"
               ><template slot-scope="scope">{{
                 scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column
-              prop="consignmentState"
-              label="发货状态"
-            
-            >
+            <el-table-column prop="consignmentState" label="发货状态">
               <template slot-scope="scope">
                 <el-tag v-if="+scope.row.consignmentState === 0" type="info"
                   >待发货</el-tag
@@ -1753,8 +1756,8 @@ export default {
       addVisibleCD: false,
       //全部子任务
       quanbuzirenwu: false,
-//发货清单全部提交按钮可见
-      liu:false,
+      //发货清单全部提交按钮可见
+      liu: false,
       //子任务详情和下载
       XZJXQ: false,
       //子任务修改
@@ -2128,12 +2131,11 @@ export default {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
           .then((response) => {
-           this.$message.success("提交成功");
+            this.$message.success("提交成功");
           });
         this.chakanTC = false;
-         console.log(this.milepostActive)
-        if(this.milepostActive == 4)
-        {
+        console.log(this.milepostActive);
+        if (this.milepostActive == 4) {
           this.liu = true;
         }
       });
@@ -2148,10 +2150,10 @@ export default {
       } else {
         for (var i = 0; i < this.multipleSelection.length; i++) {
           let that = this;
-          console.log(this.taskId)
+          console.log(this.taskId);
           let data = Qs.stringify({
             consignmentId: that.multipleSelection[i].consignmentId,
-            taskId:this.taskId,
+            taskId: this.taskId,
           });
           console.log(data);
           that
@@ -2165,9 +2167,8 @@ export default {
               //that.tableData = response.data.allData;
             });
         }
-        console.log(this.milepostActive)
-        if(this.milepostActive == 4)
-        {
+        console.log(this.milepostActive);
+        if (this.milepostActive == 4) {
           this.liu = true;
         }
         this.$message({
@@ -2178,7 +2179,6 @@ export default {
         this.chakanTC = false;
         this.showData();
         this.$router.go(0);
-        
       }
     },
     //查看弹窗按钮的实现
@@ -2190,7 +2190,7 @@ export default {
       });
       console.log(this.data);
       console.log(row.consignmentState);
-    
+
       that
         .axios({
           method: "post",
@@ -2201,9 +2201,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.tableData = response.data.allData;
-          
         });
-        
     },
 
     //发货清单拒绝按钮实现的方法
@@ -2493,7 +2491,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
-          console.log(response)
+          console.log(response);
           this.zirenwuXX = response.data.allData;
         });
     },
@@ -2934,13 +2932,12 @@ export default {
           this.download(response.data, "HT");
         });
     },
-//复选框判断是否可选
-        checkboxT(row,index){
-      if(row.consignmentState == 1){
-        return true
-      }
-      else{
-        return false
+    //复选框判断是否可选
+    checkboxT(row, index) {
+      if (row.consignmentState == 1) {
+        return true;
+      } else {
+        return false;
       }
     },
     //设计通过
