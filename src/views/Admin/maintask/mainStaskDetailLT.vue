@@ -1718,6 +1718,7 @@ export default {
       pageTotal: 0,
       logo: "",
 
+
       //显示评价的
       reMarkId: 0,
       loading: true,
