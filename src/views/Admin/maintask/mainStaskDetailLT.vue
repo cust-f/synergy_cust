@@ -199,6 +199,12 @@
                 >修改</el-button
               >
               <el-button
+                type="text"
+                size="small "
+                @click="shenqingtanchu(scope.row)"
+                >发货清单</el-button
+              >
+              <el-button
                 @click="SQTG(scope.row)"
                 type="text"
                 size="small"
@@ -222,6 +228,71 @@
         <br />
         <br />
       </div>
+      <!-- 申请查看弹窗 -->
+       <el-dialog title :visible.sync="shenqingTC" width="50%">
+        <div
+          class="biaoti"
+          style="padding: 0 10px; border-left: 3px solid #4e58c5"
+        >
+          发货清单
+        </div>
+        <br/>
+        <el-form>
+          <el-table :data="tableData" @selection-change="handleSelectionChange">
+            
+            <el-table-column
+              label="序号"
+              type="index"
+              width="50px"
+              align="center"
+            >
+              <template slot-scope="scope">
+                <span>{{ scope.$index + 1 }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="productName"
+              label="产品名称"
+            ></el-table-column>
+            <el-table-column
+              prop="productNumber"
+              label="产品数量"
+            ></el-table-column>
+            <el-table-column
+              prop="productModel"
+              label="产品规格"
+            ></el-table-column>
+            <el-table-column
+              prop="productPrice"
+              label="产品单价"
+            ></el-table-column>
+            <el-table-column
+              prop="contactNumber"
+              label="联系方式"
+            ></el-table-column>
+            
+            <!-- <el-table-column
+              prop="consignmentNotes"
+              label="发货清单备注"
+              width="120"
+            ></el-table-column> -->
+          </el-table>
+          <div style="margin-top: 20px">
+            <!-- <el-button @click="toggleSelection()">导出Excel文件</el-button> -->
+          </div>
+          <div class="pagination">
+            <el-pagination
+              background
+              layout="prev, pager, next,total, jumper"
+              :current-page="pageIndex"
+              :page-size="pageSize"
+              :total="tableData.length"
+              @current-change="handleCurrentChange"
+              @size-change="handleSizeChange"
+            ></el-pagination>
+          </div>
+        </el-form>
+      </el-dialog>
 
       <div v-show="milepostActive2">
         <div
@@ -1567,7 +1638,7 @@
             v-bind:disabled="liu"
             >全部通过</el-button
           >
-          <!-- </template> -->
+
         </div>
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
@@ -1832,6 +1903,8 @@ export default {
       ],
       //查看弹出框显示
       chakanTC: false,
+      //申请查看弹出显示，
+      shenqingTC:false,
       //申请显示
       shenqing: "none",
       //供应商列表显示
@@ -2207,7 +2280,28 @@ export default {
           this.tableData = response.data.allData;
         });
     },
+     shenqingtanchu(row) {
+      this.shenqingTC = true;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: row.taskId,
+      });
+      console.log(this.data);
+      console.log(row.consignmentState);
 
+      that
+        .axios({
+          method: "post",
+          url: "api/addConsignment/select",
+          data: data,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((response) => {
+          console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
+    
     //发货清单拒绝按钮实现的方法
     refuse() {
       var that = this;
