@@ -636,6 +636,7 @@
                   :label="item.label"
                   :value="item.value"
                   :disabled="item.disabled"
+                  width="20px"
                 >
                 </el-option>
               </el-select>
@@ -649,6 +650,7 @@
               :lineData="lineData"
               style="width: 100%; height: 430%"
             ></div>
+            <div v-show="noData" style="margin-top: 50px;margin-left:405px;color:#ccc">无数据</div>
           </template>
         </el-card>
       </el-col>
@@ -1150,7 +1152,7 @@ export default {
            left: 'left',
           data: this.lineData.categoryName,
           textStyle: {
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         toolbox: {
