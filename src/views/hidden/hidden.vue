@@ -6,7 +6,7 @@
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          需求任务
+          内部修改
         </div>
         <!-- <el-divider></el-divider> -->
         <br />
@@ -18,11 +18,11 @@
               class="handle-input mr10"
             ></el-input>
             <el-button type="primary" @click="handleSearch">搜索</el-button>
+            <el-button type="primary" @click="updateRegisterTime">修改企业register时间</el-button>
           </div>
           <el-table
             :data="
-              tableData.slice((pageIndex - 1) * pageSize, pageIndex * pageSize)
-            "
+              tableData"
             border
             class="table"
             ref="multipleTable"
@@ -70,17 +70,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <div class="pagination">
-            <el-pagination
-              background
-              layout="prev, pager, next, sizes, total, jumper"
-              :current-page="pageIndex"
-              :page-size="pageSize"
-              :total="tableData.length"
-              @current-change="handleCurrentChange"
-              @size-change="handleSizeChange"
-            ></el-pagination>
-          </div>
+
 
           <div class="consignment">
             <el-dialog title :visible.sync="bianjiTC" width="50%">
@@ -88,7 +78,7 @@
                 class="biaoti"
                 style="padding: 0 10px; border-left: 3px solid #4e58c5"
               >
-                发货清单
+                修改联络信息
               </div>
               <br />
               <el-form ref="form" label-width="110px" class="box">
@@ -123,6 +113,43 @@
               </span>
             </el-dialog>
           </div>
+
+          <div class="consignment">
+            <el-dialog title :visible.sync="updateTime" width="50%">
+              <div
+                class="biaoti"
+                style="padding: 0 10px; border-left: 3px solid #4e58c5"
+              >
+                修改时间（时间格式例子2020-01-01）
+              </div>
+              <br />
+              <el-form ref="form" label-width="110px" class="box">
+                <el-row>
+                  <el-col :span="11">
+                    <el-form-item label="开始时间">
+                      <el-input v-model="startTime"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="11">
+                    <el-form-item label="结束时间">
+                      <el-input v-model="endTime"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="11">
+                    <el-form-item label="开始企业id">
+                      <el-input v-model="startcompanyId"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="updateTime = false">取 消</el-button>
+                <el-button type="primary" @click="saveall">确 定</el-button>
+              </span>
+            </el-dialog>
+          </div>
         </div>
       </el-main>
     </el-container>
@@ -137,6 +164,9 @@ export default {
   name: "hidden",
   data() {
     return {
+      startTime:"",
+      endTime:"",
+      startcompanyId:"",
       companyId:"",
       companyName:"",
       businessName:"",
@@ -144,7 +174,8 @@ export default {
       email:"",
       //修改弹窗
             bianjiTC: false,
-
+      //修改时间
+      updateTime:false,
       usernameX: sessionStorage.getItem("ms_username"),
       pageIndex: 1,
       pageSize: 10,
@@ -230,6 +261,9 @@ export default {
 
       //this.getData();
     },
+    updateRegisterTime(){
+      this.updateTime=true
+    },
     //审核不通过的原因
     open() {
       this.$prompt("请输入审核不通过原因", "提示", {
@@ -287,6 +321,29 @@ export default {
         .then(response => {
           console.log(response);
           this.bianjiTC = false;
+          this.$message({
+          message: "修改成功",
+          type: "success",
+        });
+        });
+    },
+    saveall(){
+      var that = this;
+      var data = Qs.stringify({
+        startTime:this.startTime,
+        endTime:this.endTime,
+        companyID:this.startcompanyId,
+      });
+      console.log("测试"+data)
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/randomTime",
+          data: data
+        })
+        .then(response => {
+          console.log(response);
+          this.updateTime = false;
           this.$message({
           message: "修改成功",
           type: "success",
@@ -370,6 +427,13 @@ export default {
 };
 </script>
 <style  lang="scss">
+.el-dialog__header {
+    padding: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
 .mainStaskShow {
   /* .table {
   font-size: 16px;
