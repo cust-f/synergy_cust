@@ -59,6 +59,9 @@
       <div v-show="show > 4" class="designDet">
         <br />
         <br />
+        <div>
+          <return-File ref="returnFile"></return-File>
+        </div>
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -67,9 +70,6 @@
         </div>
         <br />
         <!-- 重传文件模块 -->
-        <div>
-          <return-File ref="returnFile"></return-File>
-        </div>
         <br />
         <!-- 评价模块 -->
         <div v-if="reMarkId === 0">
