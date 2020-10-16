@@ -188,8 +188,11 @@
             <div class="Right3">
               <el-table
                 v-if="applyList.taskType === 1"
+                style="width: 44%"
                 :data="tableData2"
-                style="width: 97%"
+                :align="center"
+                :cell-style="cellStyle"
+                :header-cell-style="rowClass"
               >
                 <el-table-column
                   label="序号"
@@ -205,8 +208,9 @@
                 <el-table-column
                   prop="productName"
                   label="产品名称"
+                  width="100%"
                 ></el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                   prop="deliveryTime"
                   label="发货时间"
                   width="160"
@@ -247,7 +251,7 @@
                       >拒绝
                     </el-tag>
                   </template>
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column
                   prop="productNumber"
                   label="产品数量"
@@ -854,6 +858,13 @@ export default {
           this.login = response.data.allData.b[0].companyPicture;
         });
     },
+    //居中的方法
+    cellStyle({row,column,rowIndex,columIndex}){
+      return "text-align:center";
+    },
+    rowClass({row,rowIndex}){
+        return "text-align:center;";
+    },
     //技术文件
     getFilePath() {
       var that = this;
@@ -1297,9 +1308,10 @@ export default {
     width: 720px;
   }
   .Right3 {
+    
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-    float: left;
+    float: right;
 
     font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
       sans-serif;
