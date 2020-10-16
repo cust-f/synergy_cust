@@ -142,6 +142,11 @@
                       <el-input v-model="startcompanyId"></el-input>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="11">
+                    <el-form-item label="改变企业个数">
+                      <el-input v-model="companyNum"></el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
               </el-form>
               <span slot="footer" class="dialog-footer">
@@ -165,6 +170,7 @@ export default {
   data() {
     return {
       startTime:"",
+      companyNum:"",
       endTime:"",
       startcompanyId:"",
       companyId:"",
@@ -333,6 +339,7 @@ export default {
         startTime:this.startTime,
         endTime:this.endTime,
         companyID:this.startcompanyId,
+        companyNum:this.companyNum
       });
       console.log("测试"+data)
       that
