@@ -401,7 +401,7 @@
                     <br />
                   </div>
                   <div class="input_span" align="center">
-                    <el-form ref="formZL" :modelZL="formZL">
+                    <el-form ref="formLT" :modelZL="formLT">
                       <div class="WCZL">完成质量:
                          <label
                         id="word1"
