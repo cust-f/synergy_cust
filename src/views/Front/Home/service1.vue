@@ -274,55 +274,7 @@
               </div>
             </el-col>
           </el-row>
-          <!-- <el-row>
 
-            <div class="white">
-              <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" >供应方详情</div>
-                <el-divider></el-divider>
-
-                  <div class="BigTime">
-                    <div class="block">
-                      <el-image style="width: 150px; height: 150px" :src="url1"></el-image>
-                    </div>
-                  </div>
-
-                  <div class="Right1">
-                    <el-row>
-                      <el-col :span="13" :offset="2">
-                        <li>
-                          <a>
-                            企业名称：
-                            <font>{{supplier.companyName}}</font>
-                          </a>
-                        </li>
-                        <br />
-                        <li>
-                          <a>
-                            经营范围：
-                            <font>{{supplier.product}}</font>
-                          </a>
-                        </li>
-                        <br />
-                        <li>
-                          <a>
-                            联系电话：
-                            <font>{{supplier.officeNumber}}</font>
-                          </a>
-                        </li>
-                        <br />
-                        <li>
-                          <a>
-                            企业地址：
-                            <font>{{supplier.address}}</font>
-                          </a>
-                        </li>
-                        <br />
-                      </el-col>
-                    </el-row>
-                  </div>
-               
-            </div>
-          </el-row>-->
           <el-row>
             <div class="white">
               <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">需求详情</div>
@@ -380,8 +332,7 @@
                   </div>
                 </div>
               </div>
-              <div v-show="see">
-                <!-- 步骤图 -->
+              <!-- <div v-show="see">
                 <div class="LTStep">
                 <el-steps :active="milepostActive1" align-center>
                   <el-step
@@ -400,7 +351,7 @@
                     <radar-chart :radarData="radarData1" ref="QradarChart1"></radar-chart>
                     <br />
                   </div>
-                  <div class="input_span" align="center">
+                  <div class="input_span1" align="center">
                     <el-form ref="formLT" :modelZL="formLT">
                       <div class="WCZL">完成质量:
                          <label
@@ -416,7 +367,7 @@
                     <span id="three3"></span>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </el-row>
         </el-card>
@@ -445,7 +396,7 @@ export default {
       formLT: {
         circulationCount: ""
       },
-      see: "",
+      see: false,
       activeName: "",
       Province: "",
       City: "",
@@ -828,7 +779,7 @@ export default {
           orient: "vertical",
           x: "left",
           y: "top",
-          data: ["完成统计"]
+          data: ["数据统计(单位：天)"]
         },
         radar: {
           name: {
@@ -854,7 +805,7 @@ export default {
             type: "radar",
             data: [
               {
-                name: "完成统计",
+                name: "数据统计(单位：天)",
                 value: this.radarData.radarData
               }
             ]
@@ -874,7 +825,7 @@ export default {
           orient: "vertical",
           x: "left",
           y: "top",
-          data: ["完成统计"]
+          data: ["数据统计(单位：天)"]
         },
         radar: {
           name: {
@@ -899,7 +850,7 @@ export default {
             type: "radar",
             data: [
               {
-                name: "完成统计",
+                name: "数据统计(单位：天)",
                 value: this.radarData1.radarData
               }
             ]
@@ -922,12 +873,14 @@ export default {
         })
         .then(response => {
           (this.formLT.circulationCount = response.data.allData),
-            // console.log(this.formLT.circulationCount + "----------------");
-            this.styleswith1();
+            this.styleswith();
         });
     },
 
     styleswith() {
+       document.getElementById("one").style.background = "rgb(238, 238, 238)";
+       document.getElementById("two").style.background = "rgb(238, 238, 238)";
+       document.getElementById("three").style.background = "rgb(238, 238, 238)";
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
         document.getElementById("word").innerHTML = "优";
@@ -949,11 +902,12 @@ export default {
 
     styleswith1() {
       if (this.formLT.circulationCount > -4) {
+        console.log(this.formLT.circulationCount + "----------------");
         document.getElementById("one1").style.background = "#00D1B2";
         document.getElementById("word1").innerHTML = "优";
         document.getElementById("word1").style.color = "#00D1B2";
       }
-      if (
+      else if (
         this.formLT.circulationCount < -3 &&
         this.formLT.circulationCount > -8
       ) {
@@ -962,7 +916,7 @@ export default {
         document.getElementById("word1").innerHTML = "良";
         document.getElementById("word1").style.color = "orange";
       }
-      if (
+      else if (
         this.formLT.circulationCount < -7 ||
         this.formLT.circulationCount == -8
       ) {
@@ -992,7 +946,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" >
+<style lang="scss" scoped>
 .service {
   .LDT {
     height: 300px;
@@ -1297,12 +1251,12 @@ export default {
 
 
 <style scoped>
-#inputValue {
+/* #inputValue {
   width: 240px;
   margin-left: 0px;
   padding-left: 10px;
   border-radius: 3px;
-}
+} */
 .input_span span {
   display: inline-block;
   width: 85px;
@@ -1310,6 +1264,7 @@ export default {
   background: #eee;
   line-height: 20px;
 }
+
 
 #one {
   border-top-left-radius: 10px;
@@ -1332,6 +1287,13 @@ export default {
   border-left: 0px solid;
   margin-left: -5px;
 }
+.input_span1 .span1 {
+  display: inline-block;
+  width: 85px;
+  height: 30px;
+  background: #eee;
+  line-height: 20px;
+}
 #one1 {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 5px;
@@ -1353,7 +1315,7 @@ export default {
   border-left: 0px solid;
   margin-left: -5px;
 }
-#font span:nth-child(1) {
+/* #font span:nth-child(1) {
   color: #00d1b2;
   margin-left: 80px;
 }
@@ -1363,7 +1325,7 @@ export default {
 }
 #font span:nth-child(3) {
   color: red;
-}
+} */
 .text {
   font-size: 14px;
 }
