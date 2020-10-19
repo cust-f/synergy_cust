@@ -59,6 +59,7 @@
       <div v-show="show > 4" class="designDet">
         <br />
         <br />
+        <!-- 重传文件模块 -->
         <div>
           <return-File ref="returnFile"></return-File>
         </div>
@@ -69,7 +70,7 @@
           任务评价
         </div>
         <br />
-        <!-- 重传文件模块 -->
+
         <br />
         <!-- 评价模块 -->
         <div v-if="reMarkId === 0">
