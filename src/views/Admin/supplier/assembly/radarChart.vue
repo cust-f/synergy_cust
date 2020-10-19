@@ -22,11 +22,11 @@ export default {
 
       var option = {
         tooltip: {},
-        legend: {
-          orient: "vertical",
+         legend: {
+         orient: 'vertical',
           x: "left",
           y: "top",
-          data: ["完成统计"]
+          data: ["数据统计(单位：天)"]
         },
         radar: {
           name: {
@@ -49,9 +49,7 @@ export default {
         series: [
           {
             type: "radar",
-            textStyle: {
-              fontSize: 16
-            },
+           
             data: [
               {
                 name: "数据统计(单位：天)",
