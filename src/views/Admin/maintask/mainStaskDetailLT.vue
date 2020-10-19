@@ -2186,6 +2186,7 @@ export default {
           data: data,
         })
         .then((response) => {
+          console.log("文件历史"+this.tableData6)
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
         });
@@ -2374,6 +2375,7 @@ export default {
         //taskID: this.taskId,
         url: row.filePath,
       });
+      console.log("文件的地址为"+row.filePath)
       that
         .axios({
           method: "post",
