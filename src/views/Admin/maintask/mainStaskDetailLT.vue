@@ -2588,8 +2588,9 @@ export default {
       this.XZJXQ = true;
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskID,
+        taskId: this.taskId,
       });
+      console.log("子任务Id"+this.taskID)
       that
         .axios({
           method: "post",
