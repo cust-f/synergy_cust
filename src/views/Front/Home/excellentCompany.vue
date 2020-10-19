@@ -312,7 +312,7 @@ export default {
         city: citys,
         category: categorys,
         searchStr: this.search,
-        page: this.currentPage,
+        page: this.currentPage-1,
       });
       console.log(this.currentPage + "==========");
       if (this.dynamicTags.length != 0 || this.search != null) {
