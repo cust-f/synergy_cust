@@ -1,7 +1,8 @@
 <template>
   <div class="designDet">
-    <el-main style="overflow:hidden">
-      <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+    <el-main style="overflow: hidden">
+      <el-page-header @back="goBack" content="详情页面"></el-page-header>&nbsp;
+      &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-steps :active="milepostActive" align-center>
         <el-step
           v-for="(stpesdata, key) in milepost"
@@ -15,18 +16,22 @@
       <br />
       <!-- 基本信息模块 -->
       <div>
-        <essential-Information ref="essentialInformation"></essential-Information>
+        <essential-Information
+          ref="essentialInformation"
+        ></essential-Information>
       </div>
       <br />
       <br />
       <!-- 申请信息模块 -->
       <div>
-        <application-Information ref="applicationInformation"></application-Information>
+        <application-Information
+          ref="applicationInformation"
+        ></application-Information>
       </div>
       <br />
       <br />
       <!-- 任务计划模块 -->
-      <div v-show="show>0 && state4 === 1">
+      <div v-show="show > 0 && state4 === 1">
         <mission-Plan ref="missionPlan"></mission-Plan>
       </div>
       <br />
@@ -39,32 +44,47 @@
       </div>
       <br />
       <!-- 内部审核模块 -->
-      <div v-show="show>1">
+      <div v-show="show > 1">
         <div v-show="state3 === 2">
           <Internal-Audit ref="InternalAudit"></Internal-Audit>
         </div>
       </div>
       <br />
       <!-- 设计模块 -->
-      <div v-show="show>1">
-        <div v-show="designCount>0 ">
+      <div v-show="show > 1">
+        <div v-show="designCount > 0">
           <design-Acceptance ref="designAcceptance"></design-Acceptance>
         </div>
       </div>
       <div v-show="show > 4" class="designDet">
         <br />
         <br />
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务评价</div>
+        <!-- 重传文件模块 -->
+        <div>
+          <return-File ref="returnFile"></return-File>
+        </div>
+        <div
+          class="biaoti"
+          style="padding: 0 10px; border-left: 3px solid #4e58c5"
+        >
+          任务评价
+        </div>
         <br />
+
         <br />
         <!-- 评价模块 -->
         <div v-if="reMarkId === 0">
-          <div class="loading1" v-loading="loading" element-loading-text="评价生成中......">
+          <div
+            class="loading1"
+            v-loading="loading"
+            element-loading-text="评价生成中......"
+          >
             <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
 
             <div class="supplierinput_span" align="center">
               <el-form ref="form">
-                <div class="WCZL">完成质量</div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                <div class="WCZL">完成质量</div>
+                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                 <br />
                 <br />
               </el-form>
@@ -84,7 +104,7 @@
             <div class="supplierinput_span" align="center">
               <el-form ref="form">
                 <label>完成质量:</label>
-                <label id="word" style="font-size:16px"></label>
+                <label id="word" style="font-size: 16px"></label>
                 <br />
                 <br />
               </el-form>
@@ -107,6 +127,7 @@ import missionPlan from "../../assembly/missionPlan";
 import contractManagement from "../../assembly/contractManagement";
 import InternalAudit from "../../assembly/InternalAudit";
 import designAcceptance from "../../assembly/designAcceptance";
+import returnFile from "../../assembly/returnFile";
 import radarChart from "../../assembly/radarChart";
 export default {
   data() {
@@ -118,7 +139,7 @@ export default {
         { title: "任务进行中", icon: "el-icon-picture", description: "" },
         { title: "审核", icon: "el-icon-message-solid", description: "" },
         { title: "验收", icon: "el-icon-s-promotion", description: "" },
-        { title: "完成", icon: "el-icon-s-claim", description: "" }
+        { title: "完成", icon: "el-icon-s-claim", description: "" },
       ],
       //步骤图默认步骤数
       milepostActive: 0,
@@ -147,8 +168,8 @@ export default {
       //雷达图的数据定义
       radarData: {
         radarData: [],
-        indicatorData: []
-      }
+        indicatorData: [],
+      },
     };
   },
   created() {
@@ -160,7 +181,7 @@ export default {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    }
+    },
   },
 
   methods: {
@@ -173,18 +194,18 @@ export default {
     getLDData() {
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId
+        taskId: this.taskId,
       });
       that
         .axios({
           method: "post",
           url: "/api/remarkDetilsL",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.radarData.radarData = response.data.allData.AllRemarkLength;
           this.radarData.indicatorData = response.data.allData.indicator;
-         // console.log(response.data.allData);
+          // console.log(response.data.allData);
           // if (response.data.allData[0] == null) {
           //   this.reMarkId = 0;
           // }
@@ -217,15 +238,15 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        userName: this.userName
+        userName: this.userName,
       });
       that
         .axios({
           method: "post",
           url: "/api/supplier/getList",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.cool = response.data.allData.a[0];
           this.taskApplyTableData = response.data.allData.b;
           this.taskTableData = response.data.allData.a;
@@ -308,10 +329,10 @@ export default {
       this.$router.push({
         path: "/admin/designTaskq",
         query: {
-          taskId: this.taskId
-        }
+          taskId: this.taskId,
+        },
       });
-    }
+    },
   },
   components: {
     "essential-Information": essentialInformation, //基本信息
@@ -320,8 +341,9 @@ export default {
     "contract-Management": contractManagement,
     "Internal-Audit": InternalAudit,
     "design-Acceptance": designAcceptance,
-    "radar-chart": radarChart
-  }
+    "return-File": returnFile,
+    "radar-chart": radarChart,
+  },
 };
 </script>
 <style lang="scss">

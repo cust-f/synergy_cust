@@ -26,11 +26,12 @@
         <el-button
           type="text"
           class="XG"
+          v-if="this.milepostActive === 0"
           style="float:right"
           @click="XG"
         >修改</el-button>
       </div>
-          <!-- v-if="this.milepostActive === 0" -->
+         
 
       <br />
       <el-card class="box-card">
@@ -1663,7 +1664,7 @@ export default {
       console.log("row"+row)
       var data = Qs.stringify({
         //taskID: this.taskId,
-        url: row.realPath,
+        url: row.filePath,
       });
       console.log(row)
       that

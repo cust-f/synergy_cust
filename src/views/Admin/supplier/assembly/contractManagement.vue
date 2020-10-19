@@ -40,6 +40,7 @@
             size="small"
             v-show="scope.row.contractState===0"
           >上传</el-button>
+
           <el-button
             @click="HTFileHistory()"
             v-show="scope.row.contractState > 0"
@@ -155,7 +156,6 @@
               <span v-else-if="scope.row.fileType === 1">发货清单</span>
             </template>
           </el-table-column>
-          <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
           <el-table-column prop="uploadTime" label="上传时间">
             <template slot-scope="scope">
               <el-span>{{scope.row.uploadTime | formatDate}}</el-span>
