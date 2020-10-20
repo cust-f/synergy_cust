@@ -292,7 +292,7 @@
               <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">服务成果</div>
               <el-divider></el-divider>
 
-              <div v-show="!see" >
+              <div v-show="see==0" >
                 <!-- 步骤图 -->
                 <div class="SJstep">
                 <el-steps :active="milepostActive" align-center>
@@ -332,7 +332,7 @@
                   </div>
                 </div>
               </div>
-              <!-- <div v-show="see">
+              <div v-show="see==1">
                 <div class="LTStep">
                 <el-steps :active="milepostActive1" align-center>
                   <el-step
@@ -367,7 +367,7 @@
                     <span id="three3"></span>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </el-row>
         </el-card>
@@ -396,7 +396,7 @@ export default {
       formLT: {
         circulationCount: ""
       },
-      see: false,
+      see: "",
       activeName: "",
       Province: "",
       City: "",
@@ -666,11 +666,16 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.taskData = response.data.allData[0];
           this.see = this.taskData.taskType;
-          //console.log("see:" + this.see);
+          console.log("see:" + this.see);
           if (this.taskData.taskType === 0) {
             this.taskData.taskType = "设计任务";
+            this.see=0;
+           
           } else {
             this.taskData.taskType = "流通任务";
+            this.see=1;
+            
+            
           }
         });
     },
@@ -766,7 +771,7 @@ export default {
           // this.milepost1[4].description = response.data.allData[4];
           this.milepost1[4].description = response.data.allData[5];
           this.styleswith();
-          //console.log(this.form.designCount + "-------");
+         
         });
     },
     getCharts1() {
@@ -873,14 +878,14 @@ export default {
         })
         .then(response => {
           (this.formLT.circulationCount = response.data.allData),
-            this.styleswith();
+            this.styleswith1();
         });
     },
 
     styleswith() {
-       document.getElementById("one").style.background = "rgb(238, 238, 238)";
-       document.getElementById("two").style.background = "rgb(238, 238, 238)";
-       document.getElementById("three").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("one").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("two").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("three").style.background = "rgb(238, 238, 238)";
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
         document.getElementById("word").innerHTML = "优";
@@ -901,8 +906,12 @@ export default {
     },
 
     styleswith1() {
+       //document.getElementById("one").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("two").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("three").style.background = "rgb(238, 238, 238)";
       if (this.formLT.circulationCount > -4) {
-        console.log(this.formLT.circulationCount + "----------------");
+         document.getElementById("two2").style.background = "#eee";
+         document.getElementById("three3").style.background = "#eee";
         document.getElementById("one1").style.background = "#00D1B2";
         document.getElementById("word1").innerHTML = "优";
         document.getElementById("word1").style.color = "#00D1B2";
@@ -911,8 +920,10 @@ export default {
         this.formLT.circulationCount < -3 &&
         this.formLT.circulationCount > -8
       ) {
+        
         document.getElementById("one1").style.background = "#eee";
-        document.getElementById("two2").style.background = "orange";
+        document.getElementById("two2").style.background = "#eee";
+         document.getElementById("three3").style.background = "red";
         document.getElementById("word1").innerHTML = "良";
         document.getElementById("word1").style.color = "orange";
       }
@@ -920,6 +931,7 @@ export default {
         this.formLT.circulationCount < -7 ||
         this.formLT.circulationCount == -8
       ) {
+        document.getElementById("one1").style.background = "#eee";        
         document.getElementById("two2").style.background = "#eee";
         document.getElementById("three3").style.background = "red";
         document.getElementById("word1").innerHTML = "差";
@@ -1287,7 +1299,7 @@ export default {
   border-left: 0px solid;
   margin-left: -5px;
 }
-.input_span1 .span1 {
+.input_span1 span {
   display: inline-block;
   width: 85px;
   height: 30px;
