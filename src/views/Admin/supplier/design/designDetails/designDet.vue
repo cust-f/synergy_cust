@@ -56,13 +56,13 @@
           <design-Acceptance ref="designAcceptance"></design-Acceptance>
         </div>
       </div>
-      <div v-show="show > 4" class="designDet">
-        <br />
-        <br />
-        <!-- 重传文件模块 -->
+      <!-- 重传文件模块 -->
         <div>
           <return-File ref="returnFile"></return-File>
         </div>
+      <div v-show="show > 4" class="designDet">
+        <br />
+        <br />
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -255,8 +255,8 @@ export default {
           this.state3 = response.data.allData.a[0].contractState;
           this.state4 = response.data.allData.b[0].checkApplyState;
           this.designCount = response.data.allData.a[0].designCount;
-
           this.sendMsg();
+          this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
