@@ -1347,7 +1347,7 @@ export default {
         mainTaskName: this.name,
         principalName: this.cool.principalName,
         publishTime1: this.cool.publishTime,
-        deadline1: this.cool.deadline,
+        deadline1: this.deadline1,
         taskCategoryMainId: this.mainStaskTypeID,
         taskCategoryPartId: this.subStaskTypeID,
         technicalFile: this.technicalFileWanzheng,
