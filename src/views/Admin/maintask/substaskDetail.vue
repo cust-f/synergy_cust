@@ -41,7 +41,8 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="完成日期">
-                  <el-input v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
+                  <el-input v-if="cool.finishTime === 0" :disabled="true">暂未完成</el-input>
+                  <el-input v-else v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>

@@ -229,17 +229,16 @@
         <br />
       </div>
       <!-- 申请查看弹窗 -->
-       <el-dialog title :visible.sync="shenqingTC" width="50%">
+      <el-dialog title :visible.sync="shenqingTC" width="50%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
           发货清单
         </div>
-        <br/>
+        <br />
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
-            
             <el-table-column
               label="序号"
               type="index"
@@ -270,7 +269,7 @@
               prop="contactNumber"
               label="联系方式"
             ></el-table-column>
-            
+
             <!-- <el-table-column
               prop="consignmentNotes"
               label="发货清单备注"
@@ -575,24 +574,6 @@
           </el-table-column>
           <el-table-column label="操作" width="150" align="center">
             <template slot-scope="scope">
-              <!-- <el-button
-                @click="QDTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
-              >通过</el-button>
-              <el-button
-                @click="QDJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
-              >拒绝</el-button> -->
-              <!-- <el-button
-                type="text"
-                size="small "
-                @click="FHQDFileHistory()"
-                v-show="scope.row.contractState > 0"
-              >历史上传</el-button> -->
               <el-button
                 type="text"
                 size="small "
@@ -1582,7 +1563,7 @@
           </el-table>
         </div>
       </el-dialog>
-<!--流通清单拒绝原因-新改-->
+      <!--流通清单拒绝原因-新改-->
       <el-dialog :visible.sync="addVisible4" width="50%">
         <div
           class="biaoti"
@@ -1598,15 +1579,18 @@
           <el-row>
             <el-col>
               <el-form-item label="拒绝原因">
-                <el-input v-model="addList4.QDrefuseReason"  @blur="refuseReasonUnnull"
-                 type="textarea"
+                <el-input
+                  v-model="addList4.QDrefuseReason"
+                  @blur="refuseReasonUnnull"
+                  type="textarea"
                   :rows="4"
                   placeholder="请输入内容"
-                  ></el-input>
-                 <font color="red">
-                  <span v-if="this.addList4.QDrefuseReason === null">请输入拒绝原因</span>
+                ></el-input>
+                <font color="red">
+                  <span v-if="this.addList4.QDrefuseReason === null"
+                    >请输入拒绝原因</span
+                  >
                 </font>
-               
               </el-form-item>
             </el-col>
           </el-row>
@@ -1638,7 +1622,6 @@
             v-bind:disabled="liu"
             >全部通过</el-button
           >
-
         </div>
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
@@ -1713,6 +1696,13 @@
                   >通过</el-button
                 >
                 <el-button
+                  @click="changeDeliveryTime(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  修改时间
+                </el-button>
+                <el-button
                   @click="refusebutton(scope.row)"
                   type="text"
                   size="small"
@@ -1736,6 +1726,62 @@
               @size-change="handleSizeChange"
             ></el-pagination>
           </div>
+        </el-form>
+      </el-dialog>
+
+      <!-- fa修改时间弹出框 -->
+      <el-dialog :visible.sync="changeTimeDialog" width="80%">
+        <div
+          class="biaoti"
+          style="padding: 0 10px; border-left: 3px solid #4e58c5"
+        >
+          请输入修改的时间
+        </div>
+        <br />
+        <br />
+
+        <el-form
+          ref="form"
+          class="changeTimeFrom"
+          :model="timeList"
+          label-width="120px"
+        >
+
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="发货时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="deliveryListTimeJudge.deliveryTimeJudge"
+                  v-model="deliveryListTime.deliveryTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="发货截至时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="deliveryListTimeJudge.consignmentTimeLatestJudge"
+                  v-model="deliveryListTime.consignmentTimeLatest"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row class="changeTimeFrom">
+            <el-col :span="11">
+              <el-button @click="changeTimeMethod()">确认</el-button>
+            </el-col>
+            <el-col :span="11">
+              <el-button @click="changeTimeDialog = false">取消</el-button>
+            </el-col>
+          </el-row>
         </el-form>
       </el-dialog>
 
@@ -1788,7 +1834,6 @@ export default {
 
       pageTotal: 0,
       logo: "",
-
 
       //显示评价的
       reMarkId: 0,
@@ -1904,7 +1949,7 @@ export default {
       //查看弹出框显示
       chakanTC: false,
       //申请查看弹出显示，
-      shenqingTC:false,
+      shenqingTC: false,
       //申请显示
       shenqing: "none",
       //供应商列表显示
@@ -1990,6 +2035,15 @@ export default {
         finishTimeJudge: false,
       },
       firstList: [],
+      //发货清单时间修改
+      deliveryListTime: {
+        deliveryTime: "",
+        consignmentTimeLatest: "",
+      },
+      deliveryListTimeJudge: {
+        deliveryTimeJudge: "",
+        consignmentTimeLatestJudge: "",
+      },
       timeList: {
         beginTime: "",
         publishTime: "",
@@ -2186,7 +2240,7 @@ export default {
           data: data,
         })
         .then((response) => {
-          console.log("文件历史"+this.tableData6)
+          console.log("文件历史" + this.tableData6);
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
         });
@@ -2281,7 +2335,7 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-     shenqingtanchu(row) {
+    shenqingtanchu(row) {
       this.shenqingTC = true;
       var that = this;
       var data = Qs.stringify({
@@ -2302,7 +2356,7 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-    
+
     //发货清单拒绝按钮实现的方法
     refuse() {
       var that = this;
@@ -2375,7 +2429,7 @@ export default {
         //taskID: this.taskId,
         url: row.filePath,
       });
-      console.log("文件的地址为"+row.filePath)
+      console.log("文件的地址为" + row.filePath);
       that
         .axios({
           method: "post",
@@ -2592,7 +2646,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskId,
       });
-      console.log("子任务Id"+this.taskID)
+      console.log("子任务Id" + this.taskID);
       that
         .axios({
           method: "post",
