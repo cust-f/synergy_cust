@@ -158,6 +158,7 @@
                 </el-row>
               </ul>
             </div>
+            <br>
             <div class="left1">
               <el-card class="filebox-card">
                 <div slot="header" class="clearfix">
@@ -185,20 +186,32 @@
                 </div>
               </el-card>
             </div>
-            <div class="Right3" style="text-align:center">
+
+              <div class="Right3" style="text-align: center">
+                <br>
+              <div
+                v-if="applyList.taskType === 1"
+                class="biaoti"
+                style="
+                  padding: 0 10px;
+                  border-left: 3px solid #4e58c5;
+                  float: left;
+                "
+              >
+                发货清单
+              </div>
+              <br>
+              <br>
+              <div  v-if="applyList.taskType === 1" class="link-top"></div> 
+              <br>
               <el-table
                 v-if="applyList.taskType === 1"
-                style="width: 44%;margin:auto"
+                style="width: 95%"
                 :data="tableData2"
-                :align="center"
-                :cell-style="cellStyle"
-                :header-cell-style="rowClass"
-
               >
                 <el-table-column
                   label="序号"
                   type="index"
-                  width="50%"
                   align="center"
                   prop="consignmentId"
                 >
@@ -209,7 +222,6 @@
                 <el-table-column
                   prop="productName"
                   label="产品名称"
-                  width="100%"
                 ></el-table-column>
                 <!-- <el-table-column
                   prop="deliveryTime"
@@ -256,15 +268,14 @@
                 <el-table-column
                   prop="productNumber"
                   label="产品数量"
-                  width="80"
                 ></el-table-column>
                 <el-table-column
                   prop="productModel"
                   label="产品规格"
-                  width="80"
                 ></el-table-column>
               </el-table>
-            </div>
+             
+              </div>
             <!--   显示公司信息的小卡片 -->
             <!-- <div class="left2">
               <el-card class="companybox-card2">
@@ -860,11 +871,11 @@ export default {
         });
     },
     //居中的方法
-    cellStyle({row,column,rowIndex,columIndex}){
+    cellStyle({ row, column, rowIndex, columIndex }) {
       return "text-align:center";
     },
-    rowClass({row,rowIndex}){
-        return "text-align:center;";
+    rowClass({ row, rowIndex }) {
+      return "text-align:center;";
     },
     //技术文件
     getFilePath() {
@@ -1309,7 +1320,6 @@ export default {
     width: 720px;
   }
   .Right3 {
-    
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     float: right;
@@ -1427,5 +1437,11 @@ export default {
     height: "250px";
     width: "250px";
   }
+  .link-top {
+            width: 95%;
+            height: 5%;
+            border-top: solid #ACC0D8 1px;
+  }
+
 }
 </style>
