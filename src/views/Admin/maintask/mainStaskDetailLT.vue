@@ -1681,11 +1681,7 @@
               prop="productModel"
               label="产品规格"
             ></el-table-column>
-            <!-- <el-table-column
-              prop="consignmentNotes"
-              label="发货清单备注"
-              width="120"
-            ></el-table-column> -->
+
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button
@@ -1699,6 +1695,7 @@
                   @click="changeDeliveryTime(scope.row)"
                   type="text"
                   size="small"
+                  v-if="scope.row.consignmentState === 1 || scope.row.consignmentState === 2"
                 >
                   修改时间
                 </el-button>
@@ -1730,7 +1727,7 @@
       </el-dialog>
 
       <!-- fa修改时间弹出框 -->
-      <el-dialog :visible.sync="changeTimeDialog" width="80%">
+      <el-dialog :visible.sync="changeTimeDialog1" width="80%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1746,7 +1743,6 @@
           :model="timeList"
           label-width="120px"
         >
-
           <el-row>
             <el-col :span="11">
               <el-form-item label="发货时间">
@@ -1776,10 +1772,10 @@
 
           <el-row class="changeTimeFrom">
             <el-col :span="11">
-              <el-button @click="changeTimeMethod()">确认</el-button>
+              <el-button @click="changeDeliverListTime()">确认</el-button>
             </el-col>
             <el-col :span="11">
-              <el-button @click="changeTimeDialog = false">取消</el-button>
+              <el-button @click="changeTimeDialog1 = false">取消</el-button>
             </el-col>
           </el-row>
         </el-form>
@@ -2041,8 +2037,8 @@ export default {
         consignmentTimeLatest: "",
       },
       deliveryListTimeJudge: {
-        deliveryTimeJudge: "",
-        consignmentTimeLatestJudge: "",
+        deliveryTimeJudge: false,
+        consignmentTimeLatestJudge: false,
       },
       timeList: {
         beginTime: "",
@@ -2075,10 +2071,12 @@ export default {
         QDrefuseReason: "", //设计拒绝原因
       },
       changeTimeDialog: false,
+      changeTimeDialog1: false,
       //图片信息
       imgsrc: "",
       taskID: "",
       consignmentId: 0,
+      consignmentIdTime: 0,
       //企业信息
       form: {
         businessName: "",
@@ -2133,6 +2131,32 @@ export default {
     this.showData();
   },
   methods: {
+    changeDeliveryTime(row) {
+      this.deliveryListTime.deliveryTime = row.deliveryTime;
+      this.deliveryListTime.consignmentTimeLatest = row.consignmentTimeLatest;
+      this.consignmentIdTime = row.consignmentId;
+      this.changeTimeDialog1 = true;
+    },
+    changeDeliverListTime() {
+      var that = this;
+      console.log(this.consignmentIdTime);
+      var data = Qs.stringify({
+        consignmentId: this.consignmentIdTime,
+        deliveryTime: this.deliveryListTime.deliveryTime,
+        consignmentTimeLatest: this.deliveryListTime.consignmentTimeLatest,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/updateDeliveryTime",
+          data: data,
+        })
+        .then((response) => {
+          console.log("finish");
+          this.chakantanchu(this.taskId);
+          this.changeTimeDialog1 = false;
+        });
+    },
     changeTimeJudge() {
       if (this.timeList.applyTime == null) {
         this.timeListJudge.applyTimeJudge = true;
@@ -2318,7 +2342,7 @@ export default {
       this.chakanTC = true;
       var that = this;
       var data = Qs.stringify({
-        taskId: row.taskId,
+        taskId: this.taskId ,
       });
       console.log(this.data);
       console.log(row.consignmentState);
