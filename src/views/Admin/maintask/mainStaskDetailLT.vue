@@ -660,7 +660,7 @@
       </div>
 
       <!-- 修改时间弹出框 -->
-      <el-dialog :visible.sync="changeTimeDialog" width="40%">
+      <el-dialog :visible.sync="changeTimeDialog" width="80%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -684,6 +684,19 @@
                   placeholder="选择日期"
                   :disabled="timeListJudge.beginTimeJudge"
                   v-model="timeList.beginTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="任务发布时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.publishTimeJudge"
+                  v-model="timeList.publishTime"
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
@@ -807,6 +820,19 @@
                   placeholder="选择日期"
                   :disabled="timeListJudge.finishTimeJudge"
                   v-model="timeList.finishTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+
+             <el-col :span="11">
+              <el-form-item label="需求截止时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.deadlineJudge"
+                  v-model="timeList.deadLine"
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
@@ -2029,6 +2055,7 @@ export default {
         supplierCheckDesignTimeJudge: false,
         demandorCheckDesignTimeJudge: false,
         finishTimeJudge: false,
+        deadlineJudge:false,
       },
       firstList: [],
       //发货清单时间修改
@@ -2057,6 +2084,7 @@ export default {
         finishTime: "",
         checkCircuaterTime: "",
         uploadCircuaterTime: "",
+        deadline:"",
       },
       addList1: {
         JHSrefuseReason: "", //计划书拒绝原因
@@ -2222,6 +2250,7 @@ export default {
         companyId: this.companyId,
         beginTime: this.timeList.beginTime,
         publishTime: this.timeList.publishTime,
+        deadline:this.timeList.deadline,
         applyTime: this.timeList.applyTime,
         checkApplyTime: this.timeList.checkApplyTime,
         planUploadTime: this.timeList.planUploadTime,
