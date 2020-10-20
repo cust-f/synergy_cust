@@ -105,7 +105,7 @@
                       <li>
                         <a>
                           经营范围：
-                          <font>{{product}}</font>
+                          <font>{{productCompany}}</font>
                         </a>
                       </li>
                       <br />
@@ -242,7 +242,7 @@
                         <li>
                           <a>
                             经营范围：
-                            <font>{{ productCompany}}</font>
+                            <font>{{product}}</font>
                           </a>
                         </li>
                         <br />
