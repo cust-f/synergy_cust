@@ -185,14 +185,15 @@
                 </div>
               </el-card>
             </div>
-            <div class="Right3">
+            <div class="Right3" style="text-align:center">
               <el-table
                 v-if="applyList.taskType === 1"
-                style="width: 44%"
+                style="width: 44%;margin:auto"
                 :data="tableData2"
                 :align="center"
                 :cell-style="cellStyle"
                 :header-cell-style="rowClass"
+
               >
                 <el-table-column
                   label="序号"
