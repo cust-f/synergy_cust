@@ -41,7 +41,8 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="完成日期">
-                  <el-input v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
+                  <el-input v-if="cool.finishTime === 1" :disabled="true">暂未完成</el-input>
+                  <el-input v-else v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -1347,7 +1348,7 @@ export default {
         mainTaskName: this.name,
         principalName: this.cool.principalName,
         publishTime1: this.cool.publishTime,
-        deadline1: this.cool.deadline,
+        deadline1: this.deadline1,
         taskCategoryMainId: this.mainStaskTypeID,
         taskCategoryPartId: this.subStaskTypeID,
         technicalFile: this.technicalFileWanzheng,
@@ -1410,7 +1411,15 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          console.log(response)
           this.cool = response.data.allData.a[0];
+          if(this.cool.finishTime!=null){
+             if(this.cool.finishTime.slice(0,4)<2020){
+                this.cool.finishTime ="尚未完成";
+                console.log("完成时间"+this.cool.finishTime)
+          }
+          }
+
           this.updateTime = response.data.allData.a[0];
           this.publishTime1 = response.data.allData.a[0].publishTime
           this.publishTime1 = new Date(this.publishTime1);

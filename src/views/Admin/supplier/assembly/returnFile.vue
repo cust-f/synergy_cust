@@ -6,7 +6,7 @@
     <br />
     <el-form ref="form" :model="sizeForm" label-width="100px" size="mini">
       <el-form-item label="任务书重传：">
-        <el-button v-if="planState === 1" type="primary" @click="upLoad(1)"> 上传任务书 </el-button>
+        <el-button v-if="planState === 2" type="primary" @click="upLoad(1)"> 上传任务书 </el-button>
         <span v-else>任务书未上传或审核未通过</span>
       </el-form-item>
 
