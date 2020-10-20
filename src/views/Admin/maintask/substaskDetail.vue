@@ -41,7 +41,7 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="完成日期">
-                  <el-input v-if="cool.finishTime === 0" :disabled="true">暂未完成</el-input>
+                  <el-input v-if="cool.finishTime === 1" :disabled="true">暂未完成</el-input>
                   <el-input v-else v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
@@ -1411,7 +1411,15 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          console.log(response)
           this.cool = response.data.allData.a[0];
+          if(this.cool.finishTime!=null){
+             if(this.cool.finishTime.slice(0,4)<2020){
+                this.cool.finishTime ="尚未完成";
+                console.log("完成时间"+this.cool.finishTime)
+          }
+          }
+
           this.updateTime = response.data.allData.a[0];
           this.publishTime1 = response.data.allData.a[0].publishTime
           this.publishTime1 = new Date(this.publishTime1);
