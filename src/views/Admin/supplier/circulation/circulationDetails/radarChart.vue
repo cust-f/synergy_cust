@@ -25,7 +25,7 @@ export default {
           orient: "vertical",
           x: "left",
           y: "top",
-          data: ["完成统计"]
+          data: ["数据统计(单位：天)"]
         },
         radar: {
           name: {

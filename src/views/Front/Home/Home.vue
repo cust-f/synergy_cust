@@ -603,16 +603,16 @@ export default {
       technicalIndex: "",
       org: "",
 
-      //本月数据统计
+      //数据统计-本年1月1日 到 现在时间
       formMonth: {
         monthCount: "",
         desingMonthCount: [],
         circulaterMonthCount: [],
         companyCount: [],
-        monthCountRing: "",
-        desingMonthCountRing: [],
-        circulaterMonthCountRing: [],
-        companyCountRing: [],
+        // monthCountRing: "",
+        // desingMonthCountRing: [],
+        // circulaterMonthCountRing: [],
+        // companyCountRing: [],
       },
     };
   },
@@ -626,7 +626,7 @@ export default {
     this.getStatistics();
   },
   methods: {
-    //月任务统计
+    //数据统计-本年1月1日 到 现在时间
     monthDataB() {
       var that = this;
       var data = Qs.stringify({});
@@ -641,10 +641,10 @@ export default {
           this.formMonth.desingMonthCount = response.data.allData[1];
           this.formMonth.circulaterMonthCount = response.data.allData[2];
           this.formMonth.companyCount = response.data.allData[3];
-          this.formMonth.monthCountRing = response.data.allData[4];
-          this.formMonth.desingMonthCountRing = response.data.allData[5];
-          this.formMonth.circulaterMonthCountRing = response.data.allData[6];
-          this.formMonth.companyCountRing = response.data.allData[7];
+          // this.formMonth.monthCountRing = response.data.allData[4];
+          // this.formMonth.desingMonthCountRing = response.data.allData[5];
+          // this.formMonth.circulaterMonthCountRing = response.data.allData[6];
+          // this.formMonth.companyCountRing = response.data.allData[7];
         });
     },
 

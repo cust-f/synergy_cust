@@ -2,10 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import login from '@/Layout/template page/newLogin'
-
+import hidden from '@/views/hidden/hidden'
 //前台界面
 import Front from '@/Layout/template page/Front'
 import Home from '@/views/Front/Home/Home' //前台首页
+
 import twoMenu from '@/views/Front/Home/twoMenu' //前台首页二级页面
 import threeMenu from '@/views/Front/Home/threeMenu' //前台首页三级页面
 import service1 from '@/views/Front/Home/service1' //成果详情
@@ -104,6 +105,7 @@ import SubmitChecklist from   '@/views/Admin/supplier/assembly/SubmitChecklist'
 
 //供应方自己修改需求方的各项申请
 import deliveryListUpdate  from '@/views/Admin/supplier/assembly/deliveryListUpdate'
+
 Vue.use(Router)  
 import * as fecha from "element-ui/lib/utils/date";
 
@@ -594,6 +596,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/hidden',
+      name: 'hidden',
+      component: hidden
     },
     //虚拟机
     {
