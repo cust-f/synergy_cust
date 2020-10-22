@@ -826,13 +826,13 @@
               </el-form-item>
             </el-col>
 
-             <el-col :span="11">
+            <el-col :span="11">
               <el-form-item label="需求截止时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
                   :disabled="timeListJudge.deadlineJudge"
-                  v-model="timeList.deadLine"
+                  v-model="timeList.deadline"
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
@@ -1721,7 +1721,10 @@
                   @click="changeDeliveryTime(scope.row)"
                   type="text"
                   size="small"
-                  v-if="scope.row.consignmentState === 1 || scope.row.consignmentState === 2"
+                  v-if="
+                    scope.row.consignmentState === 1 ||
+                    scope.row.consignmentState === 2
+                  "
                 >
                   修改时间
                 </el-button>
@@ -2055,7 +2058,7 @@ export default {
         supplierCheckDesignTimeJudge: false,
         demandorCheckDesignTimeJudge: false,
         finishTimeJudge: false,
-        deadlineJudge:false,
+        deadlineJudge: false,
       },
       firstList: [],
       //发货清单时间修改
@@ -2084,7 +2087,7 @@ export default {
         finishTime: "",
         checkCircuaterTime: "",
         uploadCircuaterTime: "",
-        deadline:"",
+        deadline: "",
       },
       addList1: {
         JHSrefuseReason: "", //计划书拒绝原因
@@ -2242,6 +2245,19 @@ export default {
       this.applyRefuse = row.checkApplyState;
       this.planRefusse = row.checkPlanState;
       this.changeTimeJudge();
+      var that = this;
+      var data = stringify({
+        taskId: this.taskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/list",
+          data: data,
+        })
+        .then((response) => {
+          console.log();
+        });
     },
     changeTimeMethod() {
       var that = this;
@@ -2250,7 +2266,7 @@ export default {
         companyId: this.companyId,
         beginTime: this.timeList.beginTime,
         publishTime: this.timeList.publishTime,
-        deadline:this.timeList.deadline,
+        deadline: this.timeList.deadline,
         applyTime: this.timeList.applyTime,
         checkApplyTime: this.timeList.checkApplyTime,
         planUploadTime: this.timeList.planUploadTime,
@@ -2371,7 +2387,7 @@ export default {
       this.chakanTC = true;
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId ,
+        taskId: this.taskId,
       });
       console.log(this.data);
       console.log(row.consignmentState);
@@ -2778,7 +2794,6 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
     },
-
     showData() {
       var that = this;
       var data = Qs.stringify({
@@ -2823,6 +2838,7 @@ export default {
             this.timeList.uploadCircuaterTime =
               response.data.allData.a[0].uploadCircuaterTime;
             this.timeList.finishTime = response.data.allData.a[0].finishTime;
+            this.timeList.deadline = response.data.allData.a[0].deadline;
             //读取时间结束
           }
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
