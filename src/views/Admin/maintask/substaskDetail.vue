@@ -1413,12 +1413,7 @@ export default {
         .then((response) => {
           console.log(response)
           this.cool = response.data.allData.a[0];
-          if(this.cool.finishTime!=null){
-             if(this.cool.finishTime.slice(0,4)<2020){
-                this.cool.finishTime ="尚未完成";
-                console.log("完成时间"+this.cool.finishTime)
-          }
-          }
+
 
           this.updateTime = response.data.allData.a[0];
           this.publishTime1 = response.data.allData.a[0].publishTime
@@ -1426,6 +1421,7 @@ export default {
                     this.deadline1 = response.data.allData.a[0].deadline
           this.deadline1 = new Date(this.deadline1);
                     this.finishTime1 = response.data.allData.a[0].finishTime
+                    console.log(this.finishTime1)
           this.finishTime1 = new Date(this.finishTime1);
 
 
@@ -1447,6 +1443,12 @@ export default {
             this.finishTimeState = false;
           } else if (this.cool.taskState === 2) {
             this.cool.taskState = "废除";
+          }
+                    if(this.cool.finishTime!=null){
+             if(this.cool.finishTime.slice(0,4)<2020){
+                this.cool.finishTime ="尚未完成";
+                console.log("完成时间"+this.cool.finishTime)
+          }
           }
           if (this.cool.finishTime === null) {
             this.cool.finishTime = "尚未完成";
