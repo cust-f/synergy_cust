@@ -1926,15 +1926,19 @@ export default {
     this.showData();
   },
   methods: {
-    changeTimeJudge() {
+    changeTimeJudge(applyRefuse, planRefusse) {
       if (this.timeList.applyTime == null) {
         this.timeListJudge.applyTimeJudge = true;
+      } else {
+        this.timeListJudge.applyTimeJudge = false;
       }
       if (this.timeList.checkApplyTime == null) {
         this.timeListJudge.checkApplyTimeJudge = true;
+      } else {
+        this.timeListJudge.checkApplyTimeJudge = false;
       }
 
-      if (this.applyRefuse == 2) {
+      if (applyRefuse == 2) {
         this.timeListJudge.checkPlanTimeJudge = true;
         this.timeListJudge.planUploadTimeJudge = true;
         this.timeListJudge.uploadContractTimeJudge = true;
@@ -1946,13 +1950,29 @@ export default {
         this.timeListJudge.demandorCheckDesignTimeJudge = true;
         this.timeListJudge.finishTimeJudge = true;
       } else {
+        this.timeListJudge.checkPlanTimeJudge = false;
+        this.timeListJudge.planUploadTimeJudge = false;
+        this.timeListJudge.uploadContractTimeJudge = false;
+        this.timeListJudge.checkContractTimeJudge = false;
+        this.timeListJudge.supplierDistributionTimeJudge = false;
+        this.timeListJudge.designerAcceptTimeJudge = false;
+        this.timeListJudge.uploadDesignTimeJudge = false;
+        this.timeListJudge.supplierCheckDesignTimeJudge = false;
+        this.timeListJudge.demandorCheckDesignTimeJudge = false;
+        this.timeListJudge.finishTimeJudge = false;
         if (this.timeList.planUploadTime == null) {
           this.timeListJudge.planUploadTimeJudge = true;
+        } else {
+          this.timeListJudge.planUploadTimeJudge = false;
         }
         if (this.timeList.checkPlanTime == null) {
           this.timeListJudge.checkPlanTimeJudge = true;
+        } else {
+          this.timeListJudge.checkPlanTimeJudge = false;
         }
-        if (this.planRefusse == 3) {
+        if (planRefusse == 3) {
+          console.log(planRefusse + "就是会被拒绝");
+          this.timeListJudge.checkPlanTimeJudge = true;
           this.timeListJudge.uploadContractTimeJudge = true;
           this.timeListJudge.checkContractTimeJudge = true;
           this.timeListJudge.supplierDistributionTimeJudge = true;
@@ -1962,29 +1982,59 @@ export default {
           this.timeListJudge.demandorCheckDesignTimeJudge = true;
           this.timeListJudge.finishTimeJudge = true;
         } else {
+          this.timeListJudge.checkPlanTimeJudge = false;
+          this.timeListJudge.uploadContractTimeJudge = false;
+          this.timeListJudge.checkContractTimeJudge = false;
+          this.timeListJudge.supplierDistributionTimeJudge = false;
+          this.timeListJudge.designerAcceptTimeJudge = false;
+          this.timeListJudge.uploadDesignTimeJudge = false;
+          this.timeListJudge.supplierCheckDesignTimeJudge = false;
+          this.timeListJudge.demandorCheckDesignTimeJudge = false;
+          this.timeListJudge.finishTimeJudge = false;
+          if (this.timeList.checkPlanTime == null) {
+            this.timeListJudge.checkPlanTimeJudge = true;
+          } else {
+            this.timeListJudge.checkPlanTimeJudge = false;
+          }
           if (this.timeList.uploadContractTime == null) {
             this.timeListJudge.uploadContractTimeJudge = true;
+          } else {
+            this.timeListJudge.uploadContractTimeJudge = false;
           }
           if (this.timeList.checkContractTime == null) {
             this.timeListJudge.checkContractTimeJudge = true;
+          } else {
+            this.timeListJudge.checkContractTimeJudge = false;
           }
           if (this.timeList.supplierDistributionTime == null) {
             this.timeListJudge.supplierDistributionTimeJudge = true;
+          } else {
+            this.timeListJudge.supplierDistributionTimeJudge = false;
           }
           if (this.timeList.designerAcceptTime == null) {
             this.timeListJudge.designerAcceptTimeJudge = true;
+          } else {
+            this.timeListJudge.designerAcceptTimeJudge = false;
           }
           if (this.timeList.uploadDesignTime == null) {
             this.timeListJudge.uploadDesignTimeJudge = true;
+          } else {
+            this.timeListJudge.uploadDesignTimeJudge = false;
           }
           if (this.timeList.supplierCheckDesignTime == null) {
             this.timeListJudge.supplierCheckDesignTimeJudge = true;
+          } else {
+            this.timeListJudge.supplierCheckDesignTimeJudge = false;
           }
           if (this.timeList.demandorCheckDesignTime == null) {
             this.timeListJudge.demandorCheckDesignTimeJudge = true;
+          } else {
+            this.timeListJudge.demandorCheckDesignTimeJudge = false;
           }
           if (this.timeList.finishTime == null) {
             this.timeListJudge.finishTimeJudge = true;
+          } else {
+            this.timeListJudge.finishTimeJudge = false;
           }
         }
       }
@@ -1992,8 +2042,6 @@ export default {
     changeTime(row) {
       this.changeTimeDialog = true;
       this.companyId = row.companyId;
-      this.applyRefuse = row.checkApplyState;
-      this.planRefusse = row.checkPlanState;
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
@@ -2007,13 +2055,14 @@ export default {
         })
         .then((response) => {
           this.timeList.publishTime = response.data.allData.task[0].publishTime;
-          this.timeList.applyTime = response.data.allData.taskapply[0].applyTime;
+          this.timeList.applyTime =
+            response.data.allData.taskApply[0].applyTime;
           this.timeList.checkApplyTime =
-            response.data.allData.taskapply[0].checkApplyTime;
+            response.data.allData.taskApply[0].checkApplyTime;
           this.timeList.planUploadTime =
-            response.data.allData.taskapply[0].planUploadTime;
+            response.data.allData.taskApply[0].planUploadTime;
           this.timeList.checkPlanTime =
-            response.data.allData.taskapply[0].checkPlanTime;
+            response.data.allData.taskApply[0].checkPlanTime;
           this.timeList.beginTime = response.data.allData.task[0].beginTime;
           this.timeList.deadLine = response.data.allData.task[0].deadline;
           this.timeList.uploadContractTime =
@@ -2030,9 +2079,9 @@ export default {
             response.data.allData.task[0].supplierCheckDesignTime;
           this.timeList.demandorCheckDesignTime =
             response.data.allData.task[0].demandorCheckDesignTime;
-          this.timeList.finishTime = response.data.allData.a[0].finishTime;
+          this.timeList.finishTime = response.data.allData.task[0].finishTime;
           //读取时间结束
-          this.changeTimeJudge();
+          this.changeTimeJudge(row.checkApplyState, row.checkPlanState);
         });
     },
     changeTimeMethod() {
