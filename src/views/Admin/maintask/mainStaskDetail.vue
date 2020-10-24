@@ -1994,7 +1994,46 @@ export default {
       this.companyId = row.companyId;
       this.applyRefuse = row.checkApplyState;
       this.planRefusse = row.checkPlanState;
-      this.changeTimeJudge();
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        companyId: row.companyId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/readTime",
+          data: data,
+        })
+        .then((response) => {
+          this.timeList.publishTime = response.data.allData.task[0].publishTime;
+          this.timeList.applyTime = response.data.allData.taskapply[0].applyTime;
+          this.timeList.checkApplyTime =
+            response.data.allData.taskapply[0].checkApplyTime;
+          this.timeList.planUploadTime =
+            response.data.allData.taskapply[0].planUploadTime;
+          this.timeList.checkPlanTime =
+            response.data.allData.taskapply[0].checkPlanTime;
+          this.timeList.beginTime = response.data.allData.task[0].beginTime;
+          this.timeList.deadLine = response.data.allData.task[0].deadline;
+          this.timeList.uploadContractTime =
+            response.data.allData.task[0].uploadContractTime;
+          this.timeList.checkContractTime =
+            response.data.allData.task[0].checkContractTime;
+          this.timeList.supplierDistributionTime =
+            response.data.allData.task[0].supplierDistributionTime;
+          this.timeList.designerAcceptTime =
+            response.data.allData.task[0].designerAcceptTime;
+          this.timeList.uploadDesignTime =
+            response.data.allData.task[0].uploadDesignTime;
+          this.timeList.supplierCheckDesignTime =
+            response.data.allData.task[0].supplierCheckDesignTime;
+          this.timeList.demandorCheckDesignTime =
+            response.data.allData.task[0].demandorCheckDesignTime;
+          this.timeList.finishTime = response.data.allData.a[0].finishTime;
+          //读取时间结束
+          this.changeTimeJudge();
+        });
     },
     changeTimeMethod() {
       var that = this;

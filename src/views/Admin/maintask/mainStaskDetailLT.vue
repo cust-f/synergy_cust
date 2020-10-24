@@ -2244,19 +2244,40 @@ export default {
       this.companyId = row.companyId;
       this.applyRefuse = row.checkApplyState;
       this.planRefusse = row.checkPlanState;
-      this.changeTimeJudge();
       var that = this;
-      var data = stringify({
+      var data = Qs.stringify({
         taskId: this.taskId,
+        companyId: row.companyId,
       });
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/list",
+          url: "/api/SubstaskInformation/readTime",
           data: data,
         })
         .then((response) => {
-          console.log();
+          this.timeList.publishTime = response.data.allData.task[0].publishTime;
+          this.timeList.applyTime =
+            response.data.allData.taskApply[0].applyTime;
+          this.timeList.checkApplyTime =
+            response.data.allData.taskApply[0].checkApplyTime;
+          this.timeList.planUploadTime =
+            response.data.allData.taskApply[0].planUploadTime;
+          this.timeList.checkPlanTime =
+            response.data.allData.taskApply[0].checkPlanTime;
+          this.timeList.beginTime = response.data.allData.taskApply[0].beginTime;
+          this.timeList.uploadContractTime =
+            response.data.allData.task[0].uploadContractTime;
+          this.timeList.checkContractTime =
+            response.data.allData.task[0].checkContractTime;
+          this.timeList.checkCircuaterTime =
+            response.data.allData.task[0].checkCircuaterTime;
+          this.timeList.uploadCircuaterTime =
+            response.data.allData.task[0].uploadCircuaterTime;
+          this.timeList.finishTime = response.data.allData.task[0].finishTime;
+          this.timeList.deadline = response.data.allData.task[0].deadline;
+          //读取时间结束
+          this.changeTimeJudge();
         });
     },
     changeTimeMethod() {
@@ -2463,22 +2484,6 @@ export default {
       this.addVisible4 = true;
       this.consignmentId = row.consignmentId;
     },
-    // refuseReason(){
-    //  var that = this;
-    // var data = Qs.stringify({
-    //   taskId: row.taskId,
-    // });
-    // that
-    //   .axios({
-    //     method: "post",
-    //     url: "api/addConsignment/refuse",
-    //     data: data,
-    //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   })
-    //   .then((response) => {
-    //     // this.tableData = response.data.allData;
-    //   });
-    // },
     shanchuwenjian(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
       let qianzui, houzui;
@@ -2818,29 +2823,29 @@ export default {
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
-          if (this.tableData1.length != 0) {
-            //读取所有需求的时间
-            this.timeList.publishTime = response.data.allData.a[0].publishTime;
-            this.timeList.applyTime = response.data.allData.b[0].applyTime;
-            this.timeList.checkApplyTime =
-              response.data.allData.b[0].checkApplyTime;
-            this.timeList.planUploadTime =
-              response.data.allData.b[0].planUploadTime;
-            this.timeList.checkPlanTime =
-              response.data.allData.b[0].checkPlanTime;
-            this.timeList.beginTime = response.data.allData.a[0].beginTime;
-            this.timeList.uploadContractTime =
-              response.data.allData.a[0].uploadContractTime;
-            this.timeList.checkContractTime =
-              response.data.allData.a[0].checkContractTime;
-            this.timeList.checkCircuaterTime =
-              response.data.allData.a[0].checkCircuaterTime;
-            this.timeList.uploadCircuaterTime =
-              response.data.allData.a[0].uploadCircuaterTime;
-            this.timeList.finishTime = response.data.allData.a[0].finishTime;
-            this.timeList.deadline = response.data.allData.a[0].deadline;
-            //读取时间结束
-          }
+          // if (this.tableData1.length != 0) {
+          //   //读取所有需求的时间
+          //   this.timeList.publishTime = response.data.allData.a[0].publishTime;
+          //   this.timeList.applyTime = response.data.allData.b[0].applyTime;
+          //   this.timeList.checkApplyTime =
+          //     response.data.allData.b[0].checkApplyTime;
+          //   this.timeList.planUploadTime =
+          //     response.data.allData.b[0].planUploadTime;
+          //   this.timeList.checkPlanTime =
+          //     response.data.allData.b[0].checkPlanTime;
+          //   this.timeList.beginTime = response.data.allData.b[0].beginTime;
+          //   this.timeList.uploadContractTime =
+          //     response.data.allData.a[0].uploadContractTime;
+          //   this.timeList.checkContractTime =
+          //     response.data.allData.a[0].checkContractTime;
+          //   this.timeList.checkCircuaterTime =
+          //     response.data.allData.a[0].checkCircuaterTime;
+          //   this.timeList.uploadCircuaterTime =
+          //     response.data.allData.a[0].uploadCircuaterTime;
+          //   this.timeList.finishTime = response.data.allData.a[0].finishTime;
+          //   this.timeList.deadline = response.data.allData.a[0].deadline;
+          //   //读取时间结束
+          // }
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
           this.selectCateKeys[0] =
             response.data.allData.a[0].taskCategoryMainId;
