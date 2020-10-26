@@ -971,7 +971,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .service {
   .LDT {
     height: 300px;
@@ -1269,6 +1269,12 @@ export default {
     color: #f15e09;
     border-color: #f15e09;
   }
+.el-tabs__header {
+  border-bottom: 0px solid #e4e7ed;
+  padding: 0;
+  position: relative;
+  margin: 0 0 0px;
+}
   
 }
 /* //雷达图 */
