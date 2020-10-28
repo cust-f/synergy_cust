@@ -108,6 +108,16 @@
             >
           </div>
           <br />
+                      <div style="margin-top: 20px">
+              <el-pagination
+                :hide-on-single-page="true"
+                @current-change="getAnswer(1)"
+                :current-page.sync="currentPage"
+                :page-size="pageSize"
+                layout="prev, pager, next,total, jumper"
+                :total="totalCount"
+              ></el-pagination>
+            </div>
 
           <el-card shadow="never" class="selectCard company-detail">
             <div
