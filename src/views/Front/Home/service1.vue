@@ -380,6 +380,7 @@
 import Qs from "qs";
 import radarChart from "./components/radarChart";
 import radarChart1 from "./components/radarChart copy";
+import { formatDate } from "./dataChange";
 
 export default {
   name: "Home",
@@ -497,6 +498,18 @@ export default {
       // 动态添加类名
       stepActive: "stepActive"
     };
+  },
+    filters: {
+    formatDate(time) {
+      if (time != 0) {
+        var index = time.lastIndexOf(".");
+        time = time.substring(0, index);
+        let date = new Date(time);
+        return formatDate(date, "yyyy-MM-dd hh:mm:ss");
+      } else {
+        return "暂未开始";
+      }
+    },
   },
   created() {
     this.getParams();
@@ -666,8 +679,7 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.taskData = response.data.allData[0];
           this.see = this.taskData.taskType;
-          console.log("see:" + this.see);
-          if (this.taskData.taskType === 0) {
+            if (this.taskData.taskType === 0) {
             this.taskData.taskType = "设计任务";
             this.see=0;
            
@@ -677,6 +689,22 @@ export default {
             
             
           }
+          this.milepost1[0].description = this.$options.filters["formatDate"](response.data.allData[0].applyTime);
+          this.milepost1[1].description = this.$options.filters["formatDate"](response.data.allData[0].checkPlanTime);
+          this.milepost1[2].description = this.$options.filters["formatDate"](response.data.allData[0].uploadCircuaterTime);
+          this.milepost1[3].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
+          this.milepost1[4].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
+          console.log("see:" + this.see);
+          // if (this.taskData.taskType === 0) {
+          //   this.taskData.taskType = "设计任务";
+          //   this.see=0;
+           
+          // } else {
+          //   this.taskData.taskType = "流通任务";
+          //   this.see=1;
+            
+            
+          // }
         });
     },
 
@@ -764,12 +792,7 @@ export default {
           this.milepost[4].description = response.data.allData[4];
           this.milepost[5].description = response.data.allData[5];
 
-          this.milepost1[0].description = response.data.allData[0];
-          this.milepost1[1].description = response.data.allData[1];
-          this.milepost1[2].description = response.data.allData[2];
-          this.milepost1[3].description = response.data.allData[3];
-          // this.milepost1[4].description = response.data.allData[4];
-          this.milepost1[4].description = response.data.allData[5];
+        
           this.styleswith();
          
         });
@@ -958,7 +981,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .service {
   .LDT {
     height: 300px;
@@ -1256,6 +1279,12 @@ export default {
     color: #f15e09;
     border-color: #f15e09;
   }
+.el-tabs__header {
+  border-bottom: 0px solid #e4e7ed;
+  padding: 0;
+  position: relative;
+  margin: 0 0 0px;
+}
   
 }
 /* //雷达图 */
