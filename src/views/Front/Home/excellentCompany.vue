@@ -153,7 +153,7 @@
                 @current-change="getAnswer(1)"
                 :current-page.sync="currentPage"
                 :page-size="pageSize"
-                layout="prev, pager, next, jumper"
+                layout="prev, pager, next,total, jumper"
                 :total="totalCount"
               ></el-pagination>
             </div>
