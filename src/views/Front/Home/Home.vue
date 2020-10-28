@@ -24,7 +24,7 @@
           <ul>
             <li>
               <span class="dataCSS">
-                成交任务:
+                服务成果:
                 <font class="fontStyle">{{formMonth.monthCount}}</font>项
               </span>
             </li>
@@ -626,25 +626,22 @@ export default {
     this.getStatistics();
   },
   methods: {
-    //数据统计-本年1月1日 到 现在时间
+    //数据统计-四个数据
     monthDataB() {
       var that = this;
       var data = Qs.stringify({});
       that
         .axios({
           method: "post",
-          url: "/api/findData",
+          url: "/api/findHomeData",
           data: data,
         })
         .then((response) => {
-          this.formMonth.monthCount = response.data.allData[0];
-          this.formMonth.desingMonthCount = response.data.allData[1];
-          this.formMonth.circulaterMonthCount = response.data.allData[2];
-          this.formMonth.companyCount = response.data.allData[3];
-          // this.formMonth.monthCountRing = response.data.allData[4];
-          // this.formMonth.desingMonthCountRing = response.data.allData[5];
-          // this.formMonth.circulaterMonthCountRing = response.data.allData[6];
-          // this.formMonth.companyCountRing = response.data.allData[7];
+          this.formMonth.monthCount = response.data.allData[0];//服务成果数量-主任务完成数量
+          this.formMonth.desingMonthCount = response.data.allData[1];//设计任务数量
+          this.formMonth.circulaterMonthCount = response.data.allData[2];//流通任务数量
+          this.formMonth.companyCount = response.data.allData[3];//注册的企业数量
+          
         });
     },
 
