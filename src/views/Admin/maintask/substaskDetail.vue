@@ -1583,8 +1583,8 @@ export default {
               this.technicalFileWanzheng = "";
               this.technicalFile = "";
               this.shangchuancishu = "";
-              this.showData();
-              //this.getData();
+              this.getData();
+              this.router.go(0)
             }
           })
           .catch((error) => {
