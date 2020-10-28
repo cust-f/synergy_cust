@@ -110,6 +110,7 @@
           <br />
                       <div style="margin-top: 20px">
               <el-pagination
+              background
                 :hide-on-single-page="true"
                 @current-change="getAnswer(1)"
                 :current-page.sync="currentPage"
@@ -157,7 +158,7 @@
             </div>
 
             <!-- <el-divider></el-divider> -->
-            <div style="margin-top: 20px">
+            <!-- <div style="margin-top: 20px">
               <el-pagination
                 :hide-on-single-page="true"
                 @current-change="getAnswer(1)"
@@ -166,7 +167,7 @@
                 layout="prev, pager, next,total, jumper"
                 :total="totalCount"
               ></el-pagination>
-            </div>
+            </div> -->
           </el-card>
         </el-main>
         <el-aside style="width: 300px">
@@ -497,6 +498,9 @@ export default {
 .company-detail .el-card__body {
   padding: 0px;
 }
+.company-detail .el-pagination{
+  padding-left: 550px;
+}
 /* 企业筛选栏 */
 /* 选择标题 */
 .major {
@@ -517,8 +521,12 @@ export default {
 .company-select .el-row {
   margin-bottom: 15px;
 }
+.el-pagination{
+  padding-left: 220px;
+}
+
 .selectCard {
-  margin-top: 35px;
+  margin-top: 20px;
   /* padding-right: 55px; */
   width: 800px;
   font-size: 14px;

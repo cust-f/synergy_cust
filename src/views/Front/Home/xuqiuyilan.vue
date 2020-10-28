@@ -123,8 +123,11 @@
             >搜索</el-button
           >
         </div>
+        <br>
           <div style="margin-top: 20px">
             <el-pagination
+                          background
+
               :hide-on-single-page="true"
               @size-change="getCompanyListTest"
               @current-change="getCompanyListTest"
@@ -699,7 +702,7 @@ export default {
   padding-bottom: 0px;
 }
 .xuqiuyilan .el-pagination{
-  padding-left: 750px;
+  padding-left: 520px;
 }
 .company-detail .el-card__body {
   padding: 0px;
