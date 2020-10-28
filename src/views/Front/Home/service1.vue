@@ -679,13 +679,7 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.taskData = response.data.allData[0];
           this.see = this.taskData.taskType;
-          this.milepost1[0].description = this.$options.filters["formatDate"](response.data.allData[0].applyTime);
-          this.milepost1[1].description = this.$options.filters["formatDate"](response.data.allData[0].checkPlanTime);
-          this.milepost1[2].description = this.$options.filters["formatDate"](response.data.allData[0].uploadCircuaterTime);
-          this.milepost1[3].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
-          this.milepost1[4].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
-          console.log("see:" + this.see);
-          if (this.taskData.taskType === 0) {
+            if (this.taskData.taskType === 0) {
             this.taskData.taskType = "设计任务";
             this.see=0;
            
@@ -695,6 +689,22 @@ export default {
             
             
           }
+          this.milepost1[0].description = this.$options.filters["formatDate"](response.data.allData[0].applyTime);
+          this.milepost1[1].description = this.$options.filters["formatDate"](response.data.allData[0].checkPlanTime);
+          this.milepost1[2].description = this.$options.filters["formatDate"](response.data.allData[0].uploadCircuaterTime);
+          this.milepost1[3].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
+          this.milepost1[4].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
+          console.log("see:" + this.see);
+          // if (this.taskData.taskType === 0) {
+          //   this.taskData.taskType = "设计任务";
+          //   this.see=0;
+           
+          // } else {
+          //   this.taskData.taskType = "流通任务";
+          //   this.see=1;
+            
+            
+          // }
         });
     },
 
