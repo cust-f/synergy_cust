@@ -30,12 +30,12 @@
         <el-button
           type="text"
           class="XG"
+          v-if="this.milepostActive === 0"
           style="float: right"
           @click="XG"
           >修改</el-button
         >
       </div>
-          <!-- v-if="this.milepostActive === 0" -->
 
       <br />
       <el-card class="box-card">
@@ -1926,19 +1926,15 @@ export default {
     this.showData();
   },
   methods: {
-    changeTimeJudge(applyRefuse, planRefusse) {
+    changeTimeJudge() {
       if (this.timeList.applyTime == null) {
         this.timeListJudge.applyTimeJudge = true;
-      } else {
-        this.timeListJudge.applyTimeJudge = false;
       }
       if (this.timeList.checkApplyTime == null) {
         this.timeListJudge.checkApplyTimeJudge = true;
-      } else {
-        this.timeListJudge.checkApplyTimeJudge = false;
       }
 
-      if (applyRefuse == 2) {
+      if (this.applyRefuse == 2) {
         this.timeListJudge.checkPlanTimeJudge = true;
         this.timeListJudge.planUploadTimeJudge = true;
         this.timeListJudge.uploadContractTimeJudge = true;
@@ -1950,29 +1946,13 @@ export default {
         this.timeListJudge.demandorCheckDesignTimeJudge = true;
         this.timeListJudge.finishTimeJudge = true;
       } else {
-        this.timeListJudge.checkPlanTimeJudge = false;
-        this.timeListJudge.planUploadTimeJudge = false;
-        this.timeListJudge.uploadContractTimeJudge = false;
-        this.timeListJudge.checkContractTimeJudge = false;
-        this.timeListJudge.supplierDistributionTimeJudge = false;
-        this.timeListJudge.designerAcceptTimeJudge = false;
-        this.timeListJudge.uploadDesignTimeJudge = false;
-        this.timeListJudge.supplierCheckDesignTimeJudge = false;
-        this.timeListJudge.demandorCheckDesignTimeJudge = false;
-        this.timeListJudge.finishTimeJudge = false;
         if (this.timeList.planUploadTime == null) {
           this.timeListJudge.planUploadTimeJudge = true;
-        } else {
-          this.timeListJudge.planUploadTimeJudge = false;
         }
         if (this.timeList.checkPlanTime == null) {
           this.timeListJudge.checkPlanTimeJudge = true;
-        } else {
-          this.timeListJudge.checkPlanTimeJudge = false;
         }
-        if (planRefusse == 3) {
-          console.log(planRefusse + "就是会被拒绝");
-          this.timeListJudge.checkPlanTimeJudge = true;
+        if (this.planRefusse == 3) {
           this.timeListJudge.uploadContractTimeJudge = true;
           this.timeListJudge.checkContractTimeJudge = true;
           this.timeListJudge.supplierDistributionTimeJudge = true;
@@ -1982,59 +1962,29 @@ export default {
           this.timeListJudge.demandorCheckDesignTimeJudge = true;
           this.timeListJudge.finishTimeJudge = true;
         } else {
-          this.timeListJudge.checkPlanTimeJudge = false;
-          this.timeListJudge.uploadContractTimeJudge = false;
-          this.timeListJudge.checkContractTimeJudge = false;
-          this.timeListJudge.supplierDistributionTimeJudge = false;
-          this.timeListJudge.designerAcceptTimeJudge = false;
-          this.timeListJudge.uploadDesignTimeJudge = false;
-          this.timeListJudge.supplierCheckDesignTimeJudge = false;
-          this.timeListJudge.demandorCheckDesignTimeJudge = false;
-          this.timeListJudge.finishTimeJudge = false;
-          if (this.timeList.checkPlanTime == null) {
-            this.timeListJudge.checkPlanTimeJudge = true;
-          } else {
-            this.timeListJudge.checkPlanTimeJudge = false;
-          }
           if (this.timeList.uploadContractTime == null) {
             this.timeListJudge.uploadContractTimeJudge = true;
-          } else {
-            this.timeListJudge.uploadContractTimeJudge = false;
           }
           if (this.timeList.checkContractTime == null) {
             this.timeListJudge.checkContractTimeJudge = true;
-          } else {
-            this.timeListJudge.checkContractTimeJudge = false;
           }
           if (this.timeList.supplierDistributionTime == null) {
             this.timeListJudge.supplierDistributionTimeJudge = true;
-          } else {
-            this.timeListJudge.supplierDistributionTimeJudge = false;
           }
           if (this.timeList.designerAcceptTime == null) {
             this.timeListJudge.designerAcceptTimeJudge = true;
-          } else {
-            this.timeListJudge.designerAcceptTimeJudge = false;
           }
           if (this.timeList.uploadDesignTime == null) {
             this.timeListJudge.uploadDesignTimeJudge = true;
-          } else {
-            this.timeListJudge.uploadDesignTimeJudge = false;
           }
           if (this.timeList.supplierCheckDesignTime == null) {
             this.timeListJudge.supplierCheckDesignTimeJudge = true;
-          } else {
-            this.timeListJudge.supplierCheckDesignTimeJudge = false;
           }
           if (this.timeList.demandorCheckDesignTime == null) {
             this.timeListJudge.demandorCheckDesignTimeJudge = true;
-          } else {
-            this.timeListJudge.demandorCheckDesignTimeJudge = false;
           }
           if (this.timeList.finishTime == null) {
             this.timeListJudge.finishTimeJudge = true;
-          } else {
-            this.timeListJudge.finishTimeJudge = false;
           }
         }
       }
@@ -2042,47 +1992,9 @@ export default {
     changeTime(row) {
       this.changeTimeDialog = true;
       this.companyId = row.companyId;
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        companyId: row.companyId,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/readTime",
-          data: data,
-        })
-        .then((response) => {
-          this.timeList.publishTime = response.data.allData.task[0].publishTime;
-          this.timeList.applyTime =
-            response.data.allData.taskApply[0].applyTime;
-          this.timeList.checkApplyTime =
-            response.data.allData.taskApply[0].checkApplyTime;
-          this.timeList.planUploadTime =
-            response.data.allData.taskApply[0].planUploadTime;
-          this.timeList.checkPlanTime =
-            response.data.allData.taskApply[0].checkPlanTime;
-          this.timeList.beginTime = response.data.allData.task[0].beginTime;
-          this.timeList.deadLine = response.data.allData.task[0].deadline;
-          this.timeList.uploadContractTime =
-            response.data.allData.task[0].uploadContractTime;
-          this.timeList.checkContractTime =
-            response.data.allData.task[0].checkContractTime;
-          this.timeList.supplierDistributionTime =
-            response.data.allData.task[0].supplierDistributionTime;
-          this.timeList.designerAcceptTime =
-            response.data.allData.task[0].designerAcceptTime;
-          this.timeList.uploadDesignTime =
-            response.data.allData.task[0].uploadDesignTime;
-          this.timeList.supplierCheckDesignTime =
-            response.data.allData.task[0].supplierCheckDesignTime;
-          this.timeList.demandorCheckDesignTime =
-            response.data.allData.task[0].demandorCheckDesignTime;
-          this.timeList.finishTime = response.data.allData.task[0].finishTime;
-          //读取时间结束
-          this.changeTimeJudge(row.checkApplyState, row.checkPlanState);
-        });
+      this.applyRefuse = row.checkApplyState;
+      this.planRefusse = row.checkPlanState;
+      this.changeTimeJudge();
     },
     changeTimeMethod() {
       var that = this;
@@ -2458,6 +2370,36 @@ export default {
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
           console.log(response);
+          if (this.tableData1.length != 0) {
+            console.log("this.tableData1");
+            //读取所有需求的时间
+            this.timeList.publishTime = response.data.allData.a[0].publishTime;
+            this.timeList.applyTime = response.data.allData.b[0].applyTime;
+            this.timeList.checkApplyTime =
+              response.data.allData.b[0].checkApplyTime;
+            this.timeList.planUploadTime =
+              response.data.allData.b[0].planUploadTime;
+            this.timeList.checkPlanTime =
+              response.data.allData.b[0].checkPlanTime;
+            this.timeList.beginTime = response.data.allData.a[0].beginTime;
+            this.timeList.deadLine = response.data.allData.a[0].deadline;
+            this.timeList.uploadContractTime =
+              response.data.allData.a[0].uploadContractTime;
+            this.timeList.checkContractTime =
+              response.data.allData.a[0].checkContractTime;
+            this.timeList.supplierDistributionTime =
+              response.data.allData.a[0].supplierDistributionTime;
+            this.timeList.designerAcceptTime =
+              response.data.allData.a[0].designerAcceptTime;
+            this.timeList.uploadDesignTime =
+              response.data.allData.a[0].uploadDesignTime;
+            this.timeList.supplierCheckDesignTime =
+              response.data.allData.a[0].supplierCheckDesignTime;
+            this.timeList.demandorCheckDesignTime =
+              response.data.allData.a[0].demandorCheckDesignTime;
+            this.timeList.finishTime = response.data.allData.a[0].finishTime;
+            //读取时间结束
+          }
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
           this.selectCateKeys[0] =
             response.data.allData.a[0].taskCategoryMainId;

@@ -597,6 +597,13 @@
            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
            <br />
            <el-form>
+              <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="子任务名称">
+                      <el-input v-model="SubStaskname"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
                   <el-col :span="22" >
                     <el-form-item label="分解任务详情">
@@ -827,6 +834,8 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      //分解任务详细
+      SubStaskname:"",
       //子任务详细
       SubDetail:"",
       //子任务完整文件路径
@@ -1503,6 +1512,7 @@ export default {
       this.ZRWXG=true;
       this.SubtaskId = row.taskId
       this.selectFile(row.taskId)
+      this.SubStaskname = row.taskName
     },
     selectFile(taskId){
       var that = this;
@@ -1558,6 +1568,7 @@ export default {
           TechnicalFile: this.SubtechnicalFileWanzheng,
           taskDtail:this.SubDetail,
           taskId: this.SubtaskId,
+          SubStaskname:this.SubStaskname
         });
         that
           .axios({
