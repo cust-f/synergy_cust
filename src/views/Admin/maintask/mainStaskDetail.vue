@@ -30,12 +30,12 @@
         <el-button
           type="text"
           class="XG"
-          v-if="this.milepostActive === 0"
           style="float: right"
           @click="XG"
           >修改</el-button
         >
       </div>
+          <!-- v-if="this.milepostActive === 0" -->
 
       <br />
       <el-card class="box-card">

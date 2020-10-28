@@ -28,7 +28,6 @@
       >
         基本信息
         <el-button
-          v-if="this.milepostActive === 0"
           type="text"
           class="XG"
           style="float: right"
@@ -36,6 +35,8 @@
           >修改</el-button
         >
       </div>
+                <!-- v-if="this.milepostActive === 0" -->
+
       <br />
       <el-card class="box-card">
         <div class="formYS">
