@@ -510,7 +510,7 @@ export default {
       userName: sessionStorage.getItem("ms_username"),
       //首页轮播图的图片地址数组
       img_list: [
-        require("../../../assets/images/home/113.png"),
+        require("../../../assets/images/home/125.png"),
         // require("../../../assets/images/home/轮播图1.png"),
         // require("../../../assets/images/home/轮播图2.jpg"),
       ],
