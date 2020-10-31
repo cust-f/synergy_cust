@@ -2222,10 +2222,8 @@ export default {
         }
         if (this.timeList.checkPlanTime == null) {
           this.timeListJudge.checkPlanTimeJudge = true;
-          console.log("这里不该访问1" + this.timeListJudge.checkPlanTimeJudge);
         } else {
           this.timeListJudge.checkPlanTimeJudge = false;
-          console.log("这里不该访问2" + this.timeListJudge.checkPlanTimeJudge);
         }
         if (this.checkPlanState == 3) {
           this.timeListJudge.checkPlanTimeJudge = true;
