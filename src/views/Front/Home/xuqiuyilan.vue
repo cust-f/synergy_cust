@@ -123,8 +123,22 @@
             >搜索</el-button
           >
         </div>
-        <br />
+        <br>
+          <div style="margin-top: 20px">
+            <el-pagination
+                          background
 
+              :hide-on-single-page="true"
+              @size-change="getCompanyListTest"
+              @current-change="getCompanyListTest"
+              :current-page="currentPage"
+              :page-size="pageSize"
+            layout="prev, pager, next,total, jumper"
+              :total="totalCount"
+            ></el-pagination>
+          </div>
+          <!-- <el-divider></el-divider> -->
+        
         <el-card shadow="never" class="selectCard company-detail">
           <div
             style="margin: -18px -20px; padding: 10px 20px; background: #dcdfe6"
@@ -217,17 +231,17 @@
           </div>
 
           <!-- <el-divider></el-divider> -->
-          <div style="margin-top: 20px">
+          <!-- <div style="margin-top: 20px">
             <el-pagination
               :hide-on-single-page="true"
               @size-change="getCompanyListTest"
               @current-change="getCompanyListTest"
               :current-page="currentPage"
               :page-size="pageSize"
-              layout="prev, pager, next, jumper"
+            layout="prev, pager, next,total, jumper"
               :total="totalCount"
             ></el-pagination>
-          </div>
+          </div> -->
         </el-card>
       </el-main>
     </el-container>
@@ -687,6 +701,9 @@ export default {
 .xiqiuyilan .el-card__body {
   padding-bottom: 0px;
 }
+.xuqiuyilan .el-pagination{
+  padding-left: 520px;
+}
 .company-detail .el-card__body {
   padding: 0px;
 }
@@ -711,7 +728,7 @@ export default {
   margin-bottom: 15px;
 }
 .selectCard {
-  margin-top: 35px;
+  margin-top: 20px;
   /* padding-right: 55px; */
   width: 1100px;
   font-size: 14px;

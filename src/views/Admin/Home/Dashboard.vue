@@ -639,6 +639,67 @@
           </el-form>
         </el-row>
       </div>
+      <!--  ------------------------------------- 首页相关数据 ------------------------------------- -->
+      <div v-show="isHomeData">
+        <el-row :gutter="20" class="mgb20">
+          <el-form ref="form" :html="form">
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{padding: '0px'}">
+                <div class="grid-content grid-con-1">
+                  <i class="el-icon-bell grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num" >{{homeData.mainTask}}</div>
+                    <div>服务成果数量</div>
+                     <div style="display:inline;font-size:5px">环比：</div>
+                   <div style="display:inline;font-size:5px;" >--%</div>
+                  </div> 
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{padding: '0px'}">
+                <div class="grid-content grid-con-2">
+                  <i class="el-icon-s-data grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num">{{homeData.task1}}</div>
+                    <div>全部设计任务</div>
+                     <div style="display:inline;font-size:5px">环比：</div>
+                   <div style="display:inline;font-size:5px;" >--%</div>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{padding: '0px'}">
+                <div class="grid-content grid-con-3">
+                  <i class="el-icon-s-data grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num" >{{homeData.task2}}</div>
+                    <div>全部流通任务</div>
+                     <div style="display:inline;font-size:5px">环比：</div>
+                   <div style="display:inline;font-size:5px;" >--%</div>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="6">
+              <el-card shadow="hover" :body-style="{padding: '0px'}">
+                <div class="grid-content grid-con-1">
+                  <i class="el-icon-user grid-con-icon"></i>
+                  <div class="grid-cont-right">
+                    <div class="grid-num">{{homeData.companyData}}</div>
+                    <div>认证企业</div>
+                    <div style="display:inline;font-size:5px">环比：</div>
+                   <div style="display:inline;font-size:5px;" >--%</div>
+                   
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-form>
+        </el-row>
+      </div>
+
     </el-col>
 
     <el-row :gutter="20">
@@ -787,7 +848,8 @@ export default {
       name: sessionStorage.getItem("ms_username"),
       isWeekData: false,
       isMonthData: false,
-      isParagraphData: true,
+      isParagraphData:false,
+      isHomeData:true,
       noDataPie: true,
       noData: true,
       activeName: "first",
@@ -832,6 +894,12 @@ export default {
         desingCountRing: [],
         circulaterCountRing: [],
         companyCountRing: [],
+      },
+       homeData:{
+        mainTask:[],
+        task1:[],
+        task2:[],
+        companyData:[],
       },
       //柱状图1
       cloumnData1: {
@@ -885,6 +953,7 @@ export default {
 
   //初始化方法
   created() {
+    this.homeDataB();
     this.getYearData(); //获取条件选择时间数据
     this.getYearData1();    
     this.getTimeData(); //获取今年元旦和现在时间数据
@@ -903,7 +972,7 @@ export default {
       let that = this;
       that.axios.post("/api/findTimes").then((response) => {
         this.value1 = response.data.allData;
-        this.paragraphData();
+       // this.paragraphData();
       });
     },
 
@@ -926,11 +995,31 @@ export default {
         this.lineChartDataCategory();
       });
     },
+    //数据统计-四个数据
+    homeDataB() {
+      var that = this;
+      var data = Qs.stringify({});
+      that
+        .axios({
+          method: "post",
+          url: "/api/findHomeData"
+        })
+        .then((response) => {
+          this.homeData.mainTask = response.data.allData[0];//服务成果数量-主任务完成数量
+          this.homeData.task1 = response.data.allData[1];//设计任务数量
+          this.homeData.task2 = response.data.allData[2];//流通任务数量
+          this.homeData.companyData = response.data.allData[3];//注册的企业数量
+
+         //console.log(response.data.allData);
+          
+        });
+    },
     //本周数据切换和查询
     weekDataB: function () {
       this.isMonthData = false;
       this.isWeekData = true;
       this.isParagraphData = false;
+      this.isHomeData=false;
       document.getElementById("week").style.color = "rgb(45, 140, 240)";
       document.getElementById("month").style.color = "black";
       var that = this;
@@ -960,6 +1049,7 @@ export default {
       this.isMonthData = true;
       this.isWeekData = false;
       this.isParagraphData = false;
+      this.isHomeData=false;
       document.getElementById("month").style.color = "rgb(45, 140, 240)";
       document.getElementById("week").style.color = "black";
 
@@ -989,6 +1079,7 @@ export default {
       this.isMonthData = false;
       this.isWeekData = false;
       this.isParagraphData = true;
+      this.isHomeData=false;
       document.getElementById("week").style.color = "black";
       document.getElementById("month").style.color = "black";
       var that = this;

@@ -679,13 +679,7 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.taskData = response.data.allData[0];
           this.see = this.taskData.taskType;
-          this.milepost1[0].description = this.$options.filters["formatDate"](response.data.allData[0].applyTime);
-          this.milepost1[1].description = this.$options.filters["formatDate"](response.data.allData[0].checkPlanTime);
-          this.milepost1[2].description = this.$options.filters["formatDate"](response.data.allData[0].uploadCircuaterTime);
-          this.milepost1[3].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
-          this.milepost1[4].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
-          console.log("see:" + this.see);
-          if (this.taskData.taskType === 0) {
+            if (this.taskData.taskType === 0) {
             this.taskData.taskType = "设计任务";
             this.see=0;
            
@@ -695,6 +689,22 @@ export default {
             
             
           }
+          this.milepost1[0].description = this.$options.filters["formatDate"](response.data.allData[0].applyTime);
+          this.milepost1[1].description = this.$options.filters["formatDate"](response.data.allData[0].checkPlanTime);
+          this.milepost1[2].description = this.$options.filters["formatDate"](response.data.allData[0].uploadCircuaterTime);
+          this.milepost1[3].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
+          this.milepost1[4].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
+          console.log("see:" + this.see);
+          // if (this.taskData.taskType === 0) {
+          //   this.taskData.taskType = "设计任务";
+          //   this.see=0;
+           
+          // } else {
+          //   this.taskData.taskType = "流通任务";
+          //   this.see=1;
+            
+            
+          // }
         });
     },
 
@@ -971,7 +981,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .service {
   .LDT {
     height: 300px;
@@ -1269,6 +1279,12 @@ export default {
     color: #f15e09;
     border-color: #f15e09;
   }
+.el-tabs__header {
+  border-bottom: 0px solid #e4e7ed;
+  padding: 0;
+  position: relative;
+  margin: 0 0 0px;
+}
   
 }
 /* //雷达图 */
