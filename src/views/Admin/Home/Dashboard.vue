@@ -967,7 +967,7 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    //获取今年元旦和现在时间数据
+    //获取现在时间数据
     getTimeData() {
       let that = this;
       that.axios.post("/api/findTimeNow").then((response) => {
