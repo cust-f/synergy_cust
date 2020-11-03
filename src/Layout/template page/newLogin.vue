@@ -7,7 +7,9 @@
         </router-link>
         <div class="user_div">
           <router-link tag="a" to="/home">返回首页</router-link>
-          <router-link tag="a" to="/home" class="user_top_a1">&nbsp;</router-link>
+          <router-link tag="a" to="/home" class="user_top_a1"
+            >&nbsp;</router-link
+          >
         </div>
       </div>
     </div>
@@ -24,15 +26,27 @@
           <div id="user_dl_qh">
             <h3 class="active">登录</h3>
 
-            <div id="phone_login" style="display: block;">
+            <div id="phone_login" style="display: block">
               <ul>
                 <li>
                   <a>帐号</a>
-                  <input type="text" name="phone" v-model="param.userName" id="phone" placeholder="账号" />
+                  <input
+                    type="text"
+                    name="phone"
+                    v-model="param.userName"
+                    id="phone"
+                    placeholder="账号"
+                  />
                 </li>
                 <li>
                   <a>密码</a>
-                  <input type="password" name="password1" v-model="param.password" id="password1" placeholder="请输入密码" />
+                  <input
+                    type="password"
+                    name="password1"
+                    v-model="param.password"
+                    id="password1"
+                    placeholder="请输入密码"
+                  />
                 </li>
               </ul>
             </div>
@@ -48,7 +62,9 @@
             </li>
           </ul> -->
 
-          <a href="javascript:void(0)" class="user_a3" @click="submitForm">登录</a>
+          <a href="javascript:void(0)" class="user_a3" @click="submitForm"
+            >登录</a
+          >
 
           <div class="user_dl_div">
             <!-- <a class="user_a4">
@@ -115,74 +131,78 @@ export default {
     };
   },
   methods: {
-    valid(){
-      if(this.param.userName==""||this.param.password==""){
+    valid() {
+      if (this.param.userName == "" || this.param.password == "") {
         return false;
-      }else{
+      } else {
         return true;
       }
     },
     submitForm() {
       // this.$refs.login.validate((valid) => {
-        if (this.valid()) {
-          var menuList;
-          var that = this;
-          var data = Qs.stringify({
-            userName: this.param.userName,
-            password: this.param.password,
+      if (this.valid()) {
+        var menuList;
+        var that = this;
+        var data = Qs.stringify({
+          userName: this.param.userName,
+          password: this.param.password,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/users/login",
+            data: data,
+          })
+          .then((response) => {
+            console.log(response);
+
+            if (response.data.code == 200) {
+              this.$message({
+                type: "success",
+                message: "登陆成功",
+              });
+              this.$store.commit("SET_TOKEN", true);
+              this.$store.commit("GET_USER", this.param.userName);
+              sessionStorage.setItem("ms_username", this.param.userName);
+              sessionStorage.setItem("designer_name", this.param.userName);
+              console.log(response.data.allData.userId.userId)
+              sessionStorage.setItem("userId", response.data.allData.userId.userId);
+
+              this.$store.commit(
+                "SET_List",
+                response.data.allData.data.menuList
+              );
+              this.$store.commit(
+                "SET_OPENMENU",
+                response.data.allData.openArray
+              );
+              this.$store.commit(
+                "SET_USERLOGO",
+                response.data.allData.userLogo
+              );
+              this.roleID = response.data.allData.roleId;
+              sessionStorage.setItem("roleId", this.roleID);
+
+              if (this.roleID === 4) {
+                this.$router.push("/admin/designerNewList");
+              } else if (this.roleID === 2) {
+                this.$router.push("/admin/mainStaskShow");
+              } else if (this.roleID === 3) {
+                this.$router.push("/admin/designTaskq");
+              } else if (this.roleID === 6) {
+                this.$router.push("/admin/mainStaskShow");
+              } else this.$router.push("/admin/dashboard");
+            } else {
+              this.$message({
+                type: "warning",
+                message: "登陆失败",
+              });
+            }
           });
-          that
-            .axios({
-              method: "post",
-              url: "/api/users/login",
-              data: data,
-            })
-            .then((response) => {
-              if (response.data.code == 200) {
-                this.$message({
-                  type: "success",
-                  message: "登陆成功",
-                });
-                this.$store.commit("SET_TOKEN", true);
-                this.$store.commit("GET_USER", this.param.userName);
-                sessionStorage.setItem("ms_username", this.param.userName);
-                sessionStorage.setItem("designer_name", this.param.userName);
-
-                this.$store.commit(
-                  "SET_List",
-                  response.data.allData.data.menuList
-                );
-                this.$store.commit(
-                  "SET_OPENMENU",
-                  response.data.allData.openArray
-                );
-                this.$store.commit(
-                  "SET_USERLOGO",
-                  response.data.allData.userLogo
-                );
-                this.roleID = response.data.allData.roleId;
-                sessionStorage.setItem("roleId", this.roleID);
-
-                if (this.roleID === 4) {
-                  this.$router.push("/admin/designerNewList");
-                } else if (this.roleID === 2) {
-                  this.$router.push("/admin/mainStaskShow");
-                } else if (this.roleID === 3) {
-                  this.$router.push("/admin/designTaskq");
-                } else if (this.roleID === 6) {
-                  this.$router.push("/admin/mainStaskShow");
-                } else this.$router.push("/admin/dashboard");
-              } else {
-                this.$message({
-                  type: "warning",
-                  message: "登陆失败",
-                });
-              }
-            });
-        } else {
-          this.$message.error("请输入账号和密码");
-          return false;
-        }
+      } else {
+        this.$message.error("请输入账号和密码");
+        return false;
+      }
       // });
     },
     goHome() {
