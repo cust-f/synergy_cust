@@ -3,22 +3,27 @@
     <el-container>
       <el-main>
         <el-card shadow="never" class="selectCard company-select">
-          <div slot="header" style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;" class="clearfix">
+          <div
+            slot="header"
+            style="margin: -18px -20px; padding: 10px 20px; background: #dcdfe6"
+            class="clearfix"
+          >
             <span>需求一览</span>
           </div>
-          <el-row v-if="!dynamicTags.length==0">
-            <el-col :span="3" style="line-height:53px;">
+          <el-row v-if="!dynamicTags.length == 0">
+            <el-col :span="3" style="line-height: 53px">
               <span>已选择条件</span>
             </el-col>
-            <el-col :span="20" style="text-align:left;">
+            <el-col :span="20" style="text-align: left">
               <el-row>
                 <ul class="company-navigation">
-                  <li v-for="(tag,index) in dynamicTags" :key="index">
+                  <li v-for="(tag, index) in dynamicTags" :key="index">
                     <el-tag
                       closable
                       :disable-transitions="false"
-                      @close="handleClose(tag,1)"
-                    >{{tag.name}}</el-tag>
+                      @close="handleClose(tag, 1)"
+                      >{{ tag.name }}</el-tag
+                    >
                   </li>
                 </ul>
               </el-row>
@@ -60,8 +65,8 @@
                   <li>
                     <a @click="taskTypeSelect(0)">不限</a>
                   </li>
-                  <li v-for="(ca,index) in taskType " :key="index">
-                    <a @click="taskTypeSelect(ca)">{{ca.name}}</a>
+                  <li v-for="(ca, index) in taskType" :key="index">
+                    <a @click="taskTypeSelect(ca)">{{ ca.name }}</a>
                   </li>
                 </ul>
               </el-row>
@@ -78,8 +83,8 @@
                   <li>
                     <a @click="categorySelect(0)">不限</a>
                   </li>
-                  <li v-for="(hangye,index) in category " :key="index">
-                    <a @click="categorySelect(hangye)">{{hangye.name}}</a>
+                  <li v-for="(hangye, index) in category" :key="index">
+                    <a @click="categorySelect(hangye)">{{ hangye.name }}</a>
                   </li>
                 </ul>
               </el-row>
@@ -94,14 +99,14 @@
               <li>
                 <a @click="zicategorySelect(0)">不限</a>
               </li>
-              <li v-for="(zi,index) in zihangye" :key="index">
-                <a @click="zicategorySelect(zi)">{{zi.industryName}}</a>
+              <li v-for="(zi, index) in zihangye" :key="index">
+                <a @click="zicategorySelect(zi)">{{ zi.industryName }}</a>
               </li>
             </ul>
           </el-row>
         </el-card>
 
-        <div style="width:600px; margin:20px 0px;">
+        <div style="width: 600px; margin: 20px 0px">
           <el-input
             class="neirong"
             size="small"
@@ -112,29 +117,60 @@
           ></el-input>
           <el-button
             class="sousuo"
-            style="display:inline-block;float: right;"
+            style="display: inline-block; float: right"
             slot="append"
             @click="searchCom"
-          >搜索</el-button>
+            >搜索</el-button
+          >
         </div>
-        <br />
+        <br>
+          <div style="margin-top: 20px">
+            <el-pagination
+                          background
 
-        <el-card shadow="never" class="selectCard company-detail">
-          <div  style=" margin:-18px -20px; padding:10px 20px; background: #dcdfe6;" slot="header" >
-            <span style="color:black">SaaS服务平台为您寻找需求任务</span>
+              :hide-on-single-page="true"
+              @size-change="getCompanyListTest"
+              @current-change="getCompanyListTest"
+              :current-page="currentPage"
+              :page-size="pageSize"
+            layout="prev, pager, next,total, jumper"
+              :total="totalCount"
+            ></el-pagination>
           </div>
-          <div v-if="companyList.length!==0">
-            <el-row v-for="(companys,index) in companyList" :key="index" class="company-info">
+          <!-- <el-divider></el-divider> -->
+        
+        <el-card shadow="never" class="selectCard company-detail">
+          <div
+            style="margin: -18px -20px; padding: 10px 20px; background: #dcdfe6"
+            slot="header"
+          >
+            <span style="color: black">SaaS服务平台为您寻找需求任务</span>
+          </div>
+          <div v-if="companyList.length !== 0">
+            <el-row
+              v-for="(companys, index) in companyList"
+              :key="index"
+              class="company-info"
+            >
               <div @click="companyDetail(companys.taskID)">
                 <el-col :span="3">
-                  <el-tag v-if="companys.taskState==='完成'" type="danger">已完成</el-tag>
-                  <el-tag v-else-if="companys.taskState==='申请或邀请中' ||companys.taskState==='任务计划进行中' " type="success">申请/邀请中</el-tag>
-                  <el-tag v-else >进行中</el-tag>
+                  <el-tag v-if="companys.taskState === '完成'" type="danger"
+                    >已完成</el-tag
+                  >
+                  <el-tag
+                    v-else-if="
+                      companys.taskState === '申请或邀请中' ||
+                      companys.taskState === '任务计划进行中'
+                    "
+                    type="success"
+                    >申请/邀请中</el-tag
+                  >
+                  <el-tag v-else>进行中</el-tag>
                 </el-col>
                 <el-col :span="21">
                   <el-row>
-                    <div style="float:left;">
-                      <h2>{{companys.taskName}}</h2>
+                    <div style="float: left">
+                      <h2>{{ companys.taskName }}</h2>
                     </div>
                     <!-- <div style="float:right;">
                       <el-rate v-model="companys.star" disabled text-color="#ff9900"></el-rate>
@@ -142,26 +178,31 @@
                   </el-row>
                   <el-row>
                     <el-col :span="9">
-                      <span>一级行业类别: {{companys.taskCategotyMain}}</span>
+                      <span>一级行业类别: {{ companys.taskCategotyMain }}</span>
                     </el-col>
 
                     <el-col :span="9">
-                      <span>主任务名称: {{companys.maintaskName}}</span>
+                      <span>主任务名称: {{ companys.maintaskName }}</span>
                     </el-col>
 
                     <el-col :span="6">
-                      <span>任务类型: {{companys.taskType}}</span>
+                      <span>任务类型: {{ companys.taskType }}</span>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="9">
-                      <span>二级行业类别: {{companys.taskCategoryPart}}</span>
+                      <span>二级行业类别: {{ companys.taskCategoryPart }}</span>
                     </el-col>
                     <el-col :span="9">
-                      <span>企业名称: {{companys.companyName}}</span>
+                      <span>企业名称: {{ companys.companyName }}</span>
                     </el-col>
                     <el-col :span="6">
-                      <span>发布日期: {{companys.publishTime | dataFormat("yyyy-MM-dd")}}</span>
+                      <span
+                        >发布日期:
+                        {{
+                          companys.publishTime | dataFormat("yyyy-MM-dd")
+                        }}</span
+                      >
                     </el-col>
                   </el-row>
                 </el-col>
@@ -169,14 +210,17 @@
             </el-row>
           </div>
           <div v-else>
-            <div class="noResult" style="height:400px;">
-              <el-row :gutter="2" style="margin-top:25%;">
+            <div class="noResult" style="height: 400px">
+              <el-row :gutter="2" style="margin-top: 25%">
                 <el-col :span="6" :offset="5">
-                  <img src="../../../assets/images/company/noResult.jpg" alt="No Result" />
+                  <img
+                    src="../../../assets/images/company/noResult.jpg"
+                    alt="No Result"
+                  />
                 </el-col>
                 <el-col :span="6" :push="1">
-                  <h1 style="font-size:24px;">抱歉，没有找到相关结果！</h1>
-                  <ul style="margin-top:30px;">
+                  <h1 style="font-size: 24px">抱歉，没有找到相关结果！</h1>
+                  <ul style="margin-top: 30px">
                     <li>1.输入准确的关键词，重新搜索</li>
                     <li>2.更换筛选条件，重新搜索</li>
                     <li>3.输入的关键词过于宽泛</li>
@@ -187,17 +231,17 @@
           </div>
 
           <!-- <el-divider></el-divider> -->
-          <div style="margin-top:20px;">
+          <!-- <div style="margin-top: 20px">
             <el-pagination
-                :total="totalCount"
+              :hide-on-single-page="true"
+              @size-change="getCompanyListTest"
+              @current-change="getCompanyListTest"
               :current-page="currentPage"
               :page-size="pageSize"
-                @current-change="getCompanyList"
-                @size-change="getCompanyList"
-                background 
-                >
-            </el-pagination>
-          </div>
+            layout="prev, pager, next,total, jumper"
+              :total="totalCount"
+            ></el-pagination>
+          </div> -->
         </el-card>
       </el-main>
     </el-container>
@@ -220,12 +264,12 @@ export default {
       taskType: [
         {
           id: 0,
-          name: "设计任务"
+          name: "设计任务",
         },
         {
           id: 1,
-          name: "流通任务"
-        }
+          name: "流通任务",
+        },
       ],
       companyList: [],
       recommendedCompanyList: [], //推荐企业列表
@@ -235,20 +279,20 @@ export default {
       totalCount: 0,
       search: "",
       url:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
     };
   },
   created() {
     this.getParams();
     this.getProvince();
     this.getCategry();
-    this.getCompanyList(this.val);
+    this.getCompanyListTest(this.val);
     this.getRecommendedCompanyList();
   },
   watch: {
-    dynamicTags: function(val) {
-      this.getAnswer();
-    }
+    dynamicTags: function (val) {
+      this.getCompanyListTest(0);
+    },
   },
   methods: {
     getParams() {
@@ -257,19 +301,18 @@ export default {
         let tag = {
           name: routerParams.name,
           type: "category",
-          id: routerParams.id
+          id: routerParams.id,
         };
         this.checkTag(tag);
         this.dynamicTags.push(tag);
         this.getzihangye(routerParams.id);
         this.zihangyeOption = true;
-        if(this.$route.query.CPredirects!=null) {
-
+        if (this.$route.query.CPredirects != null) {
           var routerParams1 = this.$route.query.CPredirects;
           let tag = {
             name: routerParams1.name,
             type: "zihangye",
-            id: routerParams1.id
+            id: routerParams1.id,
           };
           this.checkTag(tag);
           this.dynamicTags.push(tag);
@@ -278,66 +321,124 @@ export default {
     },
     getProvince() {
       let that = this;
-      that.axios.post("/api/district/HaChangProvince").then(response => {
+      that.axios.post("/api/district/HaChangProvince").then((response) => {
         this.province = response.data.allData.Province;
       });
     },
     getCategry() {
       let that = this;
-      that.axios.post("/api/industry/allIndustryType").then(response => {
+      that.axios.post("/api/industry/allIndustryType").then((response) => {
         this.category = response.data.allData;
       });
     },
     getCity(id) {
       let that = this;
       let data = Qs.stringify({
-        pid: id
+        pid: id,
       });
       that
         .axios({
           method: "post",
           url: "/api/district/city",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.city = response.data.allData.city;
         });
     },
     getzihangye(id) {
       let that = this;
       let data = Qs.stringify({
-        pid: id
+        pid: id,
       });
       that
         .axios({
           method: "post",
           url: "/api/MainTaskInformation/zihangye",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.zihangye = response.data.allData.zihangye;
         });
     },
     getCompanyList(page) {
+      let url;
       let that = this;
       let data = Qs.stringify({
-        page: page - 1
+        page: page - 1,
       });
+
       that
         .axios({
           method: "post",
           url: "/api/MainTaskInformation/getAllTaskList",
-          data: data
+          data: data,
         })
-        .then(response => {
-          console.log(response)
+        .then((response) => {
+          console.log(response);
           this.companyList = response.data.allData.companyList;
           this.totalCount = response.data.allData.totalcount;
         });
     },
+    getCompanyListTest(page) {
+       let that = this;
+      let url;
+      let taskType;
+      let categorys;
+      let zihangye;
+      var j;
+      console.log("数组长度"+this.dynamicTags.length)
+      
+      for (let i = 0; i < this.dynamicTags.length; i++) {
+        if (this.dynamicTags[i].type == "taskType") {
+          taskType = this.dynamicTags[i].id;
+        } else if (this.dynamicTags[i].type == "category") {
+          categorys = this.dynamicTags[i].id;
+        } else if (this.dynamicTags[i].type == "zihangye") {
+          zihangye = this.dynamicTags[i].id;
+        }
+      }
+     let data = Qs.stringify({
+        page: page - 1,
+      });
+      if (this.dynamicTags.length != 0 || this.search != null) {
+        url = "/api/MainTaskInformation/select";
+        data = Qs.stringify(
+        {
+          taskType: taskType,
+          category: categorys,
+          searchStr: this.search,
+          zihangye: zihangye,
+          page: page - 1,
+        },
+        { arrayFormat: "brackets" }
+      );
+      } else {
+        url = "/api/MainTaskInformation/getAllTaskList";
+        data = Qs.stringify(
+        {
+          page: page - 1,
+        },
+        { arrayFormat: "brackets" }
+      );
+      }
+      that
+        .axios({
+          method: "post",
+          url: url,
+          data: data,
+        })
+        .then((response) => {
+         
+          this.companyList = response.data.allData.companyList;
+          this.totalCount = response.data.allData.totalcount; 
+          console.log("response的totalcount  "+response.data.allData.totalcount);
+        });
+    },
+
     getRecommendedCompanyList() {
       let that = this;
-      that.axios.post("/api/company/recommended").then(response => {
+      that.axios.post("/api/company/recommended").then((response) => {
         this.recommendedCompanyList = response.data.allData;
       });
     },
@@ -362,39 +463,48 @@ export default {
           zihangye = this.dynamicTags[i].id;
         }
       }
-      let data = Qs.stringify(
+
+      let data;
+      if (this.dynamicTags.length != 0 || this.search != null) {
+        url = "/api/MainTaskInformation/select";
+        data = Qs.stringify(
         {
           taskType: taskType,
           category: categorys,
           searchStr: this.search,
           zihangye: zihangye,
-          page: 0
+          page: 0,
         },
         { arrayFormat: "brackets" }
       );
-      
-      if (this.dynamicTags.length != 0 || this.search != null) {
-        url = "/api/MainTaskInformation/select";
       } else {
         url = "/api/MainTaskInformation/getAllTaskList";
+        data = Qs.stringify(
+        {
+          page: 0,
+        },
+        { arrayFormat: "brackets" }
+      );
       }
       that
         .axios({
           method: "post",
           url: url,
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           if (response.data.code == 400) {
             this.companyList = "";
             this.totalCount = 0;
             this.$message({
               type: "warning",
-              message: "无符合条件的企业"
+              message: "无符合条件的企业",
             });
           } else if ((response.data.code = 200)) {
+            console.log("repsonse的结果"+response)
             this.companyList = response.data.allData.companyList;
             this.totalCount = response.data.allData.totalCount;
+            this.getCompanyListTest(0)
           }
         });
     },
@@ -457,7 +567,7 @@ export default {
         let tag = {
           name: data.districtName,
           type: "province",
-          id: data.id
+          id: data.id,
         };
         this.checkTag(tag);
         this.dynamicTags.push(tag);
@@ -473,7 +583,7 @@ export default {
         let tag = {
           name: data.districtName,
           type: "city",
-          id: data.id
+          id: data.id,
         };
         if (this.checkTag(tag)) {
           this.dynamicTags.push(tag);
@@ -488,7 +598,7 @@ export default {
         let tag = {
           name: data.name,
           type: "category",
-          id: data.id
+          id: data.id,
         };
 
         this.checkTag(tag);
@@ -505,7 +615,7 @@ export default {
         let tag = {
           name: data.industryName,
           type: "zihangye",
-          id: data.id
+          id: data.id,
         };
 
         this.checkTag(tag);
@@ -520,7 +630,7 @@ export default {
         let tag = {
           name: data.name,
           type: "taskType",
-          id: data.id
+          id: data.id,
         };
         this.checkTag(tag);
         this.dynamicTags.push(tag);
@@ -560,7 +670,7 @@ export default {
           ) {
             this.$message({
               type: "warning",
-              message: "已经选择过该条件"
+              message: "已经选择过该条件",
             });
             return false;
           }
@@ -572,15 +682,15 @@ export default {
     companyDetail(id) {
       this.$router.push({
         path: "admin/xuqiuyilanDetail",
-        query: { taskID: id }
+        query: { taskID: id },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.el-card__header{
+.el-card__header {
   background-color: #dcdfe6;
 }
 .xuqiuyilan {
@@ -590,6 +700,9 @@ export default {
 }
 .xiqiuyilan .el-card__body {
   padding-bottom: 0px;
+}
+.xuqiuyilan .el-pagination{
+  padding-left: 520px;
 }
 .company-detail .el-card__body {
   padding: 0px;
@@ -615,7 +728,7 @@ export default {
   margin-bottom: 15px;
 }
 .selectCard {
-  margin-top: 35px;
+  margin-top: 20px;
   /* padding-right: 55px; */
   width: 1100px;
   font-size: 14px;

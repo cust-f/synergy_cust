@@ -41,7 +41,8 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="完成日期">
-                  <el-input v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
+                  <el-input v-if="cool.finishTime === 1" :disabled="true">暂未完成</el-input>
+                  <el-input v-else v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -596,6 +597,13 @@
            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
            <br />
            <el-form>
+              <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="子任务名称">
+                      <el-input v-model="SubStaskname"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
                   <el-col :span="22" >
                     <el-form-item label="分解任务详情">
@@ -826,6 +834,8 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      //分解任务详细
+      SubStaskname:"",
       //子任务详细
       SubDetail:"",
       //子任务完整文件路径
@@ -1347,7 +1357,7 @@ export default {
         mainTaskName: this.name,
         principalName: this.cool.principalName,
         publishTime1: this.cool.publishTime,
-        deadline1: this.cool.deadline,
+        deadline1: this.deadline1,
         taskCategoryMainId: this.mainStaskTypeID,
         taskCategoryPartId: this.subStaskTypeID,
         technicalFile: this.technicalFileWanzheng,
@@ -1410,13 +1420,17 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          console.log(response)
           this.cool = response.data.allData.a[0];
+
+
           this.updateTime = response.data.allData.a[0];
           this.publishTime1 = response.data.allData.a[0].publishTime
           this.publishTime1 = new Date(this.publishTime1);
                     this.deadline1 = response.data.allData.a[0].deadline
           this.deadline1 = new Date(this.deadline1);
                     this.finishTime1 = response.data.allData.a[0].finishTime
+                    console.log(this.finishTime1)
           this.finishTime1 = new Date(this.finishTime1);
 
 
@@ -1438,6 +1452,12 @@ export default {
             this.finishTimeState = false;
           } else if (this.cool.taskState === 2) {
             this.cool.taskState = "废除";
+          }
+                    if(this.cool.finishTime!=null){
+             if(this.cool.finishTime.slice(0,4)<2020){
+                this.cool.finishTime ="尚未完成";
+                console.log("完成时间"+this.cool.finishTime)
+          }
           }
           if (this.cool.finishTime === null) {
             this.cool.finishTime = "尚未完成";
@@ -1492,6 +1512,7 @@ export default {
       this.ZRWXG=true;
       this.SubtaskId = row.taskId
       this.selectFile(row.taskId)
+      this.SubStaskname = row.taskName
     },
     selectFile(taskId){
       var that = this;
@@ -1547,6 +1568,7 @@ export default {
           TechnicalFile: this.SubtechnicalFileWanzheng,
           taskDtail:this.SubDetail,
           taskId: this.SubtaskId,
+          SubStaskname:this.SubStaskname
         });
         that
           .axios({
@@ -1561,8 +1583,8 @@ export default {
               this.technicalFileWanzheng = "";
               this.technicalFile = "";
               this.shangchuancishu = "";
-              this.showData();
-              //this.getData();
+              this.getData();
+              this.router.go(0)
             }
           })
           .catch((error) => {

@@ -22,11 +22,11 @@ export default {
 
       var option = {
         tooltip: {},
-        legend: {
-          orient: "vertical",
+         legend: {
+         orient: 'vertical',
           x: "left",
           y: "top",
-          data: ["完成统计"]
+          data: ["数据统计(单位：天)"]
         },
         radar: {
           name: {
@@ -38,20 +38,11 @@ export default {
             }
           },
           indicator:this.radarData.indicatorData,
-          //  [
-          //   { name: "任务时长", max: 60 },
-          //   { name: "计划时长", max: 60 },
-          //   { name: "审核时长", max: 60 },
-          //   { name: "验收时长", max: 20 },
-          //   { name: "申请时长", max: 20 }
-          // ]
         },
         series: [
           {
             type: "radar",
-            textStyle: {
-              fontSize: 16
-            },
+           
             data: [
               {
                 name: "数据统计(单位：天)",

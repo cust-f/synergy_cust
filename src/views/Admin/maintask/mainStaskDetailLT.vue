@@ -229,17 +229,16 @@
         <br />
       </div>
       <!-- 申请查看弹窗 -->
-       <el-dialog title :visible.sync="shenqingTC" width="50%">
+      <el-dialog title :visible.sync="shenqingTC" width="50%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
           发货清单
         </div>
-        <br/>
+        <br />
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
-            
             <el-table-column
               label="序号"
               type="index"
@@ -574,24 +573,6 @@
           </el-table-column>
           <el-table-column label="操作" width="150" align="center">
             <template slot-scope="scope">
-              <!-- <el-button
-                @click="QDTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
-              >通过</el-button>
-              <el-button
-                @click="QDJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.demandorCheckDesignState===1"
-              >拒绝</el-button> -->
-              <!-- <el-button
-                type="text"
-                size="small "
-                @click="FHQDFileHistory()"
-                v-show="scope.row.contractState > 0"
-              >历史上传</el-button> -->
               <el-button
                 type="text"
                 size="small "
@@ -678,7 +659,7 @@
       </div>
 
       <!-- 修改时间弹出框 -->
-      <el-dialog :visible.sync="changeTimeDialog" width="40%">
+      <el-dialog :visible.sync="changeTimeDialog" width="80%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -702,6 +683,19 @@
                   placeholder="选择日期"
                   :disabled="timeListJudge.beginTimeJudge"
                   v-model="timeList.beginTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="任务发布时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.publishTimeJudge"
+                  v-model="timeList.publishTime"
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
@@ -825,6 +819,19 @@
                   placeholder="选择日期"
                   :disabled="timeListJudge.finishTimeJudge"
                   v-model="timeList.finishTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="11">
+              <el-form-item label="需求截止时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.deadlineJudge"
+                  v-model="timeList.deadline"
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
@@ -1581,7 +1588,7 @@
           </el-table>
         </div>
       </el-dialog>
-<!--流通清单拒绝原因-新改-->
+      <!--流通清单拒绝原因-新改-->
       <el-dialog :visible.sync="addVisible4" width="50%">
         <div
           class="biaoti"
@@ -1597,15 +1604,18 @@
           <el-row>
             <el-col>
               <el-form-item label="拒绝原因">
-                <el-input v-model="addList4.QDrefuseReason"  @blur="refuseReasonUnnull"
-                 type="textarea"
+                <el-input
+                  v-model="addList4.QDrefuseReason"
+                  @blur="refuseReasonUnnull"
+                  type="textarea"
                   :rows="4"
                   placeholder="请输入内容"
-                  ></el-input>
-                 <font color="red">
-                  <span v-if="this.addList4.QDrefuseReason === null">请输入拒绝原因</span>
+                ></el-input>
+                <font color="red">
+                  <span v-if="this.addList4.QDrefuseReason === null"
+                    >请输入拒绝原因</span
+                  >
                 </font>
-               
               </el-form-item>
             </el-col>
           </el-row>
@@ -1637,7 +1647,6 @@
             v-bind:disabled="liu"
             >全部通过</el-button
           >
-
         </div>
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
@@ -1697,11 +1706,7 @@
               prop="productModel"
               label="产品规格"
             ></el-table-column>
-            <!-- <el-table-column
-              prop="consignmentNotes"
-              label="发货清单备注"
-              width="120"
-            ></el-table-column> -->
+
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button
@@ -1711,6 +1716,17 @@
                   v-if="scope.row.consignmentState === 1"
                   >通过</el-button
                 >
+                <el-button
+                  @click="changeDeliveryTime(scope.row)"
+                  type="text"
+                  size="small"
+                  v-if="
+                    scope.row.consignmentState === 1 ||
+                    scope.row.consignmentState === 2
+                  "
+                >
+                  修改时间
+                </el-button>
                 <el-button
                   @click="refusebutton(scope.row)"
                   type="text"
@@ -1735,6 +1751,61 @@
               @size-change="handleSizeChange"
             ></el-pagination>
           </div>
+        </el-form>
+      </el-dialog>
+
+      <!-- fa修改时间弹出框 -->
+      <el-dialog :visible.sync="changeTimeDialog1" width="80%">
+        <div
+          class="biaoti"
+          style="padding: 0 10px; border-left: 3px solid #4e58c5"
+        >
+          请输入修改的时间
+        </div>
+        <br />
+        <br />
+
+        <el-form
+          ref="form"
+          class="changeTimeFrom"
+          :model="timeList"
+          label-width="120px"
+        >
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="发货时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="deliveryListTimeJudge.deliveryTimeJudge"
+                  v-model="deliveryListTime.deliveryTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="发货截至时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="deliveryListTimeJudge.consignmentTimeLatestJudge"
+                  v-model="deliveryListTime.consignmentTimeLatest"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row class="changeTimeFrom">
+            <el-col :span="11">
+              <el-button @click="changeDeliverListTime()">确认</el-button>
+            </el-col>
+            <el-col :span="11">
+              <el-button @click="changeTimeDialog1 = false">取消</el-button>
+            </el-col>
+          </el-row>
         </el-form>
       </el-dialog>
 
@@ -1787,7 +1858,6 @@ export default {
 
       pageTotal: 0,
       logo: "",
-
 
       //显示评价的
       reMarkId: 0,
@@ -1903,7 +1973,7 @@ export default {
       //查看弹出框显����
       chakanTC: false,
       //申请查看弹出显示，
-      shenqingTC:false,
+      shenqingTC: false,
       //申请显示
       shenqing: "none",
       //供应商列表显示
@@ -1987,8 +2057,18 @@ export default {
         supplierCheckDesignTimeJudge: false,
         demandorCheckDesignTimeJudge: false,
         finishTimeJudge: false,
+        deadlineJudge: false,
       },
       firstList: [],
+      //发货清单时间修改
+      deliveryListTime: {
+        deliveryTime: "",
+        consignmentTimeLatest: "",
+      },
+      deliveryListTimeJudge: {
+        deliveryTimeJudge: false,
+        consignmentTimeLatestJudge: false,
+      },
       timeList: {
         beginTime: "",
         publishTime: "",
@@ -2006,6 +2086,7 @@ export default {
         finishTime: "",
         checkCircuaterTime: "",
         uploadCircuaterTime: "",
+        deadline: "",
       },
       addList1: {
         JHSrefuseReason: "", //计划书拒绝原因
@@ -2020,10 +2101,12 @@ export default {
         QDrefuseReason: "", //设计拒绝原因
       },
       changeTimeDialog: false,
+      changeTimeDialog1: false,
       //图片信息
       imgsrc: "",
       taskID: "",
       consignmentId: 0,
+      consignmentIdTime: 0,
       //企业信息
       form: {
         businessName: "",
@@ -2078,14 +2161,44 @@ export default {
     this.showData();
   },
   methods: {
-    changeTimeJudge() {
+    changeDeliveryTime(row) {
+      this.deliveryListTime.deliveryTime = row.deliveryTime;
+      this.deliveryListTime.consignmentTimeLatest = row.consignmentTimeLatest;
+      this.consignmentIdTime = row.consignmentId;
+      this.changeTimeDialog1 = true;
+    },
+    changeDeliverListTime() {
+      var that = this;
+      console.log(this.consignmentIdTime);
+      var data = Qs.stringify({
+        consignmentId: this.consignmentIdTime,
+        deliveryTime: this.deliveryListTime.deliveryTime,
+        consignmentTimeLatest: this.deliveryListTime.consignmentTimeLatest,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/updateDeliveryTime",
+          data: data,
+        })
+        .then((response) => {
+          console.log("finish");
+          this.chakantanchu(this.taskId);
+          this.changeTimeDialog1 = false;
+        });
+    },
+    changeTimeJudge(checkApplyState, checkPlanState) {
       if (this.timeList.applyTime == null) {
         this.timeListJudge.applyTimeJudge = true;
+      } else {
+        this.timeListJudge.applyTimeJudge = false;
       }
       if (this.timeList.checkApplyTime == null) {
         this.timeListJudge.checkApplyTimeJudge = true;
+      } else {
+        this.timeListJudge.checkApplyTimeJudge = false;
       }
-      if (this.applyRefuse == 2) {
+      if (checkApplyState == 2) {
         this.timeListJudge.checkPlanTimeJudge = true;
         this.timeListJudge.planUploadTimeJudge = true;
         this.timeListJudge.uploadContractTimeJudge = true;
@@ -2094,33 +2207,68 @@ export default {
         this.timeListJudge.checkCircuaterTimeJudge = true;
         this.timeListJudge.finishTimeJudge = true;
       } else {
+        this.timeListJudge.checkPlanTimeJudge = false;
+        this.timeListJudge.planUploadTimeJudge = false;
+        this.timeListJudge.uploadContractTimeJudge = false;
+        this.timeListJudge.checkContractTimeJudge = false;
+        this.timeListJudge.uploadCircuaterTimeJudge = false;
+        this.timeListJudge.checkCircuaterTimeJudge = false;
+        this.timeListJudge.finishTimeJudge = false;
         if (this.timeList.planUploadTime == null) {
           this.timeListJudge.planUploadTimeJudge = true;
+        } else {
+          this.timeListJudge.planUploadTimeJudge = false;
         }
         if (this.timeList.checkPlanTime == null) {
           this.timeListJudge.checkPlanTimeJudge = true;
+          console.log("这里不该访问1" + this.timeListJudge.checkPlanTimeJudge);
+        } else {
+          this.timeListJudge.checkPlanTimeJudge = false;
+          console.log("这里不该访问2" + this.timeListJudge.checkPlanTimeJudge);
         }
-        if (this.planRefusse == 3) {
+        if (this.checkPlanState == 3) {
+          this.timeListJudge.checkPlanTimeJudge = true;
           this.timeListJudge.uploadContractTimeJudge = true;
           this.timeListJudge.checkContractTimeJudge = true;
           this.timeListJudge.uploadCircuaterTimeJudge = true;
           this.timeListJudge.checkCircuaterTimeJudge = true;
           this.timeListJudge.finishTimeJudge = true;
         } else {
+          this.timeListJudge.checkPlanTimeJudge = false;
+          this.timeListJudge.uploadContractTimeJudge = false;
+          this.timeListJudge.checkContractTimeJudge = false;
+          this.timeListJudge.uploadCircuaterTimeJudge = false;
+          this.timeListJudge.checkCircuaterTimeJudge = false;
+          this.timeListJudge.finishTimeJudge = false;
+          if (this.timeList.checkPlanTime == null) {
+            this.timeListJudge.checkPlanTimeJudge = true;
+          } else {
+            this.timeListJudge.checkPlanTimeJudge = false;
+          }
           if (this.timeList.uploadContractTime == null) {
             this.timeListJudge.uploadContractTimeJudge = true;
+          } else {
+            this.timeListJudge.uploadContractTimeJudge = false;
           }
           if (this.timeList.checkContractTime == null) {
             this.timeListJudge.checkContractTimeJudge = true;
+          } else {
+            this.timeListJudge.checkContractTimeJudge = false;
           }
           if (this.timeList.uploadCircuaterTime == null) {
             this.timeListJudge.uploadCircuaterTimeJudge = true;
+          } else {
+            this.timeListJudge.uploadCircuaterTimeJudge = false;
           }
           if (this.timeList.checkCircuaterTime == null) {
             this.timeListJudge.checkCircuaterTimeJudge = true;
+          } else {
+            this.timeListJudge.checkCircuaterTimeJudge = false;
           }
           if (this.timeList.finishTime == null) {
             this.timeListJudge.finishTimeJudge = true;
+          } else {
+            this.timeListJudge.finishTimeJudge = false;
           }
         }
       }
@@ -2134,7 +2282,42 @@ export default {
       this.companyId = row.companyId;
       this.applyRefuse = row.checkApplyState;
       this.planRefusse = row.checkPlanState;
-      this.changeTimeJudge();
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        companyId: row.companyId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/readTime",
+          data: data,
+        })
+        .then((response) => {
+          this.timeList.publishTime = response.data.allData.task[0].publishTime;
+          this.timeList.applyTime =
+            response.data.allData.taskApply[0].applyTime;
+          this.timeList.checkApplyTime =
+            response.data.allData.taskApply[0].checkApplyTime;
+          this.timeList.planUploadTime =
+            response.data.allData.taskApply[0].planUploadTime;
+          this.timeList.checkPlanTime =
+            response.data.allData.taskApply[0].checkPlanTime;
+          this.timeList.beginTime =
+            response.data.allData.taskApply[0].beginTime;
+          this.timeList.uploadContractTime =
+            response.data.allData.task[0].uploadContractTime;
+          this.timeList.checkContractTime =
+            response.data.allData.task[0].checkContractTime;
+          this.timeList.checkCircuaterTime =
+            response.data.allData.task[0].checkCircuaterTime;
+          this.timeList.uploadCircuaterTime =
+            response.data.allData.task[0].uploadCircuaterTime;
+          this.timeList.finishTime = response.data.allData.task[0].finishTime;
+          this.timeList.deadline = response.data.allData.task[0].deadline;
+          //读取时间结束
+          this.changeTimeJudge(row.checkApplyState, row.checkPlanState);
+        });
     },
     changeTimeMethod() {
       var that = this;
@@ -2143,6 +2326,7 @@ export default {
         companyId: this.companyId,
         beginTime: this.timeList.beginTime,
         publishTime: this.timeList.publishTime,
+        deadline: this.timeList.deadline,
         applyTime: this.timeList.applyTime,
         checkApplyTime: this.timeList.checkApplyTime,
         planUploadTime: this.timeList.planUploadTime,
@@ -2185,6 +2369,7 @@ export default {
           data: data,
         })
         .then((response) => {
+          console.log("文件历史" + this.tableData6);
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
         });
@@ -2262,7 +2447,7 @@ export default {
       this.chakanTC = true;
       var that = this;
       var data = Qs.stringify({
-        taskId: row.taskId,
+        taskId: this.taskId,
       });
       console.log(this.data);
       console.log(row.consignmentState);
@@ -2279,7 +2464,7 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-     shenqingtanchu(row) {
+    shenqingtanchu(row) {
       this.shenqingTC = true;
       var that = this;
       var data = Qs.stringify({
@@ -2300,7 +2485,7 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-    
+
     //发货清单拒绝按钮实现的方法
     refuse() {
       var that = this;
@@ -2338,22 +2523,6 @@ export default {
       this.addVisible4 = true;
       this.consignmentId = row.consignmentId;
     },
-    // refuseReason(){
-    //  var that = this;
-    // var data = Qs.stringify({
-    //   taskId: row.taskId,
-    // });
-    // that
-    //   .axios({
-    //     method: "post",
-    //     url: "api/addConsignment/refuse",
-    //     data: data,
-    //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   })
-    //   .then((response) => {
-    //     // this.tableData = response.data.allData;
-    //   });
-    // },
     shanchuwenjian(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
       let qianzui, houzui;
@@ -2373,6 +2542,7 @@ export default {
         //taskID: this.taskId,
         url: row.filePath,
       });
+      console.log("文件的地址为" + row.filePath);
       that
         .axios({
           method: "post",
@@ -2587,8 +2757,9 @@ export default {
       this.XZJXQ = true;
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskID,
+        taskId: this.taskId,
       });
+      console.log("子任务Id" + this.taskID);
       that
         .axios({
           method: "post",
@@ -2667,7 +2838,6 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
     },
-
     showData() {
       var that = this;
       var data = Qs.stringify({
@@ -2692,28 +2862,29 @@ export default {
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
-          if (this.tableData1.length != 0) {
-            //读取所有需求的时间
-            this.timeList.publishTime = response.data.allData.a[0].publishTime;
-            this.timeList.applyTime = response.data.allData.b[0].applyTime;
-            this.timeList.checkApplyTime =
-              response.data.allData.b[0].checkApplyTime;
-            this.timeList.planUploadTime =
-              response.data.allData.b[0].planUploadTime;
-            this.timeList.checkPlanTime =
-              response.data.allData.b[0].checkPlanTime;
-            this.timeList.beginTime = response.data.allData.a[0].beginTime;
-            this.timeList.uploadContractTime =
-              response.data.allData.a[0].uploadContractTime;
-            this.timeList.checkContractTime =
-              response.data.allData.a[0].checkContractTime;
-            this.timeList.checkCircuaterTime =
-              response.data.allData.a[0].checkCircuaterTime;
-            this.timeList.uploadCircuaterTime =
-              response.data.allData.a[0].uploadCircuaterTime;
-            this.timeList.finishTime = response.data.allData.a[0].finishTime;
-            //读取时间结束
-          }
+          // if (this.tableData1.length != 0) {
+          //   //读取所有需求的时间
+          //   this.timeList.publishTime = response.data.allData.a[0].publishTime;
+          //   this.timeList.applyTime = response.data.allData.b[0].applyTime;
+          //   this.timeList.checkApplyTime =
+          //     response.data.allData.b[0].checkApplyTime;
+          //   this.timeList.planUploadTime =
+          //     response.data.allData.b[0].planUploadTime;
+          //   this.timeList.checkPlanTime =
+          //     response.data.allData.b[0].checkPlanTime;
+          //   this.timeList.beginTime = response.data.allData.b[0].beginTime;
+          //   this.timeList.uploadContractTime =
+          //     response.data.allData.a[0].uploadContractTime;
+          //   this.timeList.checkContractTime =
+          //     response.data.allData.a[0].checkContractTime;
+          //   this.timeList.checkCircuaterTime =
+          //     response.data.allData.a[0].checkCircuaterTime;
+          //   this.timeList.uploadCircuaterTime =
+          //     response.data.allData.a[0].uploadCircuaterTime;
+          //   this.timeList.finishTime = response.data.allData.a[0].finishTime;
+          //   this.timeList.deadline = response.data.allData.a[0].deadline;
+          //   //读取时间结束
+          // }
           this.cooList.shifousimi = response.data.allData.a[0].sssm;
           this.selectCateKeys[0] =
             response.data.allData.a[0].taskCategoryMainId;

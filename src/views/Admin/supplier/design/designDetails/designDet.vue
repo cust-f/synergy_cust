@@ -43,7 +43,7 @@
         </div>
       </div>
       <br />
-      <!-- 内部审核模块 -->
+      <!-- 内部审核模块  人员分配-->
       <div v-show="show > 1">
         <div v-show="state3 === 2">
           <Internal-Audit ref="InternalAudit"></Internal-Audit>
@@ -56,7 +56,11 @@
           <design-Acceptance ref="designAcceptance"></design-Acceptance>
         </div>
       </div>
-      <div v-show="show > 4" class="designDet">
+      <!-- 重传文件模块 -->
+        <div>
+          <return-File ref="returnFile"></return-File>
+        </div>
+      <div v-show="show > 4&&state3 === 2" class="designDet">
         <br />
         <br />
         <div
@@ -66,13 +70,10 @@
           任务评价
         </div>
         <br />
-        <!-- 重传文件模块 -->
-        <div>
-          <return-File ref="returnFile"></return-File>
-        </div>
+
         <br />
         <!-- 评价模块 -->
-        <div v-if="reMarkId === 0">
+        <div v-if="reMarkId === 0&&state3 === 2">
           <div
             class="loading1"
             v-loading="loading"
@@ -251,11 +252,19 @@ export default {
           this.taskTableData = response.data.allData.a;
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
+         if(this.state2==2){
           this.state3 = response.data.allData.a[0].contractState;
+         }else{
+           this.state3 =0;
+         }
           this.state4 = response.data.allData.b[0].checkApplyState;
+        if(this.state2==2){
           this.designCount = response.data.allData.a[0].designCount;
-
+        }else{
+          this.designCount=0;
+        }
           this.sendMsg();
+          this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {

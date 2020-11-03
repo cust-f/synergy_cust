@@ -24,7 +24,7 @@
           <ul>
             <li>
               <span class="dataCSS">
-                成交任务:
+                服务成果:
                 <font class="fontStyle">{{formMonth.monthCount}}</font>项
               </span>
             </li>
@@ -510,9 +510,9 @@ export default {
       userName: sessionStorage.getItem("ms_username"),
       //首页轮播图的图片地址数组
       img_list: [
-        require("../../../assets/images/home/轮播图1.png"),
-        require("../../../assets/images/home/轮播图2.jpg"),
-        require("../../../assets/images/home/轮播图31.png"),
+        require("../../../assets/images/home/113.png"),
+        // require("../../../assets/images/home/轮播图1.png"),
+        // require("../../../assets/images/home/轮播图2.jpg"),
       ],
       //引入集合头部
       geometryPicture: require("../../../assets/images/home/banner/img22.png"),
@@ -603,16 +603,16 @@ export default {
       technicalIndex: "",
       org: "",
 
-      //本月数据统计
+      //数据统计-本年1月1日 到 现在时间
       formMonth: {
         monthCount: "",
         desingMonthCount: [],
         circulaterMonthCount: [],
         companyCount: [],
-        monthCountRing: "",
-        desingMonthCountRing: [],
-        circulaterMonthCountRing: [],
-        companyCountRing: [],
+        // monthCountRing: "",
+        // desingMonthCountRing: [],
+        // circulaterMonthCountRing: [],
+        // companyCountRing: [],
       },
     };
   },
@@ -626,25 +626,22 @@ export default {
     this.getStatistics();
   },
   methods: {
-    //月任务统计
+    //数据统计-四个数据
     monthDataB() {
       var that = this;
       var data = Qs.stringify({});
       that
         .axios({
           method: "post",
-          url: "/api/findData",
+          url: "/api/findHomeData",
           data: data,
         })
         .then((response) => {
-          this.formMonth.monthCount = response.data.allData[0];
-          this.formMonth.desingMonthCount = response.data.allData[1];
-          this.formMonth.circulaterMonthCount = response.data.allData[2];
-          this.formMonth.companyCount = response.data.allData[3];
-          this.formMonth.monthCountRing = response.data.allData[4];
-          this.formMonth.desingMonthCountRing = response.data.allData[5];
-          this.formMonth.circulaterMonthCountRing = response.data.allData[6];
-          this.formMonth.companyCountRing = response.data.allData[7];
+          this.formMonth.monthCount = response.data.allData[0];//服务成果数量-主任务完成数量
+          this.formMonth.desingMonthCount = response.data.allData[1];//设计任务数量
+          this.formMonth.circulaterMonthCount = response.data.allData[2];//流通任务数量
+          this.formMonth.companyCount = response.data.allData[3];//注册的企业数量
+          
         });
     },
 
