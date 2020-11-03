@@ -268,8 +268,7 @@
             <el-table-column
               prop="contactNumber"
               label="联系方式"
-            ></el-table-column>
-
+            ></el-table-column>           
             <!-- <el-table-column
               prop="consignmentNotes"
               label="发货清单备注"
@@ -1971,7 +1970,7 @@ export default {
           pId: "",
         },
       ],
-      //查看弹出框显示
+      //查看弹出框显����
       chakanTC: false,
       //申请查看弹出显示，
       shenqingTC: false,

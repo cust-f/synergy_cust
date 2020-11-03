@@ -24,7 +24,7 @@
       <el-table-column prop="taskCategoryPart" sortable="custom" label="需求类型"></el-table-column>
       <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
 
-      <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column>
+      <!-- <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column> -->
 
       <el-table-column prop="demandorCheckDesignState" sortable="custom" label="验收状态" align="center">
         <template slot-scope="scope">
