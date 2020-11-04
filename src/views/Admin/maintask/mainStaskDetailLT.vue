@@ -196,8 +196,8 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- 暂时注释 -->
-              <!-- <el-button @click="changeTime(scope.row)" size="small" type="text"
-                >修改</el-button> -->
+              <el-button @click="changeTime(scope.row)" size="small" type="text"
+                >修改</el-button>
               <el-button
                 type="text"
                 size="small "
