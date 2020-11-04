@@ -90,7 +90,7 @@ export default {
   },
   data() {
     return {
-      designername:sessionStorage.getItem("designer_name"),
+      designerId:sessionStorage.getItem("userId"),
      //选择框
      options: [],        
         value:'',
@@ -157,7 +157,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         
-        designer:this.designername,      
+        designerId:this.designerId,      
         
       });
       // console.log(data);
@@ -186,7 +186,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         
-        designer:this.designername,  
+        designerId:this.designerId,  
         year:this.value,
         
       });
