@@ -2978,7 +2978,6 @@ export default {
             this.milepostActive4 = 0;
             this.milepostActive3 = 0;
             this.milepostActive2 = 0;
-            console.log("去你妈的")
 
 }
     },
