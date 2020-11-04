@@ -27,7 +27,7 @@ const mutations = {
     window.sessionStorage.setItem('user', data)
   },
   //获取用户Id
-  GET_USER: (state, data) => {
+  GET_USER_ID: (state, data) => {
     //把用户名存起来
     state.userId = data
     window.sessionStorage.setItem('userId', data)
