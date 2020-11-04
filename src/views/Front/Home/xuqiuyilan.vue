@@ -160,7 +160,7 @@
                   <el-tag
                     v-else-if="
                       companys.taskState === '申请或邀请中' ||
-                      companys.taskState === '任务计划进行中'
+                      companys.taskState === '任务计划进行中' ||companys.taskState === '计划提交'
                     "
                     type="success"
                     >申请/邀请中</el-tag
@@ -429,7 +429,7 @@ export default {
           data: data,
         })
         .then((response) => {
-         
+          console.log( response.data.allData.companyList);
           this.companyList = response.data.allData.companyList;
           this.totalCount = response.data.allData.totalcount; 
           console.log("response的totalcount  "+response.data.allData.totalcount);

@@ -57,9 +57,9 @@
         </div>
       </div>
       <!-- 重传文件模块 -->
-        <div>
+        <!-- <div>
           <return-File ref="returnFile"></return-File>
-        </div>
+        </div> -->
       <div v-show="show > 4&&state3 === 2" class="designDet">
         <br />
         <br />
