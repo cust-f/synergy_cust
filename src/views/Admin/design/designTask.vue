@@ -38,7 +38,6 @@
                       <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="mainTaskName" sortable label="总需求"></el-table-column>
 
                   <el-table-column prop="companyName" sortable label="企业名称"></el-table-column>
                   <el-table-column prop="deadline" sortable label="截止时间">
@@ -112,7 +111,7 @@
                         @click="handleDelete1(scope.row)"
                       >废除</el-button>
 
-                      <el-button @click="Detail(scope.row)" type="text" size="small ">查看详情</el-button>
+                      <el-button @click="DetailXY(scope.row)" type="text" size="small ">查看详情</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -604,7 +603,9 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
+          console.log("dasignTask"+response)
           this.tableData = response.data.allData;
+          
         });
     },
     handleClick(tab, event) {
@@ -805,6 +806,26 @@ export default {
           path: "/admin/mainStaskDetailLT",
           query: {
             taskId: row.taskId
+          }
+        });
+      }
+    },
+
+  DetailXY(row) {
+      if (row.taskType == 0) {
+        this.$router.push({
+          path: "/admin/mainStaskDetail",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState 
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/mainStaskDetailLT",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState 
           }
         });
       }
