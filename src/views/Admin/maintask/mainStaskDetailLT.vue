@@ -196,8 +196,8 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- 暂时注释 -->
-              <el-button @click="changeTime(scope.row)" size="small" type="text"
-                >修改</el-button>
+              <!-- <el-button @click="changeTime(scope.row)" size="small" type="text"
+                >修改</el-button> -->
               <el-button
                 type="text"
                 size="small "
@@ -2835,8 +2835,11 @@ export default {
         });
     },
     getParams() {
-      var routerParams = this.$route.query.taskId;
+  var routerParams = this.$route.query.taskId;
+      var checkApplyState = this.$route.query.checkApplyState;
       this.taskId = routerParams;
+      this.CDcheckApplyState = this.$route.query.checkApplyState;
+      console.log("CDcheckApplyState"+this.CDcheckApplyState)
     },
     showData() {
       var that = this;
@@ -2970,6 +2973,13 @@ export default {
             }
           }
         });
+                if(this.CDcheckApplyState ==2){
+            this.milepostActive5 = 0;
+            this.milepostActive4 = 0;
+            this.milepostActive3 = 0;
+            this.milepostActive2 = 0;
+
+}
     },
     goBack() {
       // if (this.mainTaskID == 0) {
