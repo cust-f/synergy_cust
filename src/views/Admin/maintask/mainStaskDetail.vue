@@ -2515,7 +2515,6 @@ export default {
             this.milepostActive5 = 0;
             this.milepostActive4 = 0;
             this.milepostActive3 = 0;
-            this.milepostActive2 = 0;
         } 
     },
     goBack() {
