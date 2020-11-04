@@ -58,7 +58,7 @@
         <return-File ref="returnFile"></return-File>
       </div>
       <br /> -->
-      <div v-show="show > 3" class="designDet">
+      <div v-show="show > 3 && state3 === 2" class="designDet">
         <br />
         <br />
         <div
@@ -267,6 +267,11 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
+          if (this.state2 == 2) {
+            this.state3 = response.data.allData.a[0].contractState;
+          } else {
+            this.state3 = 0;
+          }
           this.sendMsg();
           // this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
