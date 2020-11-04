@@ -38,7 +38,6 @@
                       <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="mainTaskName" sortable label="总需求"></el-table-column>
 
                   <el-table-column prop="companyName" sortable label="企业名称"></el-table-column>
                   <el-table-column prop="deadline" sortable label="截止时间">
@@ -112,7 +111,7 @@
                         @click="handleDelete1(scope.row)"
                       >废除</el-button>
 
-                      <el-button @click="Detail(scope.row)" type="text" size="small ">查看详情</el-button>
+                      <el-button @click="DetailXY(scope.row)" type="text" size="small ">查看详情</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -263,9 +262,8 @@
                 </div>
               </el-tab-pane>
 
-              <el-tab-pane label="待审核" name="fifth">
+              <!-- <el-tab-pane label="待审核" name="fifth">
                 <div class="handle-box">
-                  <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button
                     type="primary"
@@ -290,18 +288,6 @@
                     <template slot-scope="scope">{{scope.row.uploadFileTime | formatDate}}</template>
                   </el-table-column>
 
-                  <!-- <el-table-column prop="taskCheck" label="状态" align="center" >
-                  </el-table-column>
-                  <el-table-column label="图纸" align="center" width="55">
-                    <el-button type="text" size="small" class="box1">查看</el-button>
-                  </el-table-column>
-                  <el-table-column label="审核" align="center">
-                    <template slot-scope="scope">
-                      <el-button type="text" size="small"  class="box1" @click="tuzhishenhe(scope.row)">通过</el-button>
-                      <el-button type="text" size="small"  class="box1" @click="tuzhiNo(scope.row)">不通过</el-button>
-                    </template>
-                    
-                  </el-table-column>-->
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                       <el-button @click="Detail(scope.row)" type="text" size="small ">查看详情</el-button>
@@ -319,7 +305,7 @@
                     @size-change="handleSizeChange"
                   ></el-pagination>
                 </div>
-              </el-tab-pane>
+              </el-tab-pane> -->
 
               <el-tab-pane label="待验收" name="fifyanshouth">
                 <div class="handle-box">
@@ -617,7 +603,9 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
+          console.log("dasignTask"+response)
           this.tableData = response.data.allData;
+          
         });
     },
     handleClick(tab, event) {
@@ -818,6 +806,26 @@ export default {
           path: "/admin/mainStaskDetailLT",
           query: {
             taskId: row.taskId
+          }
+        });
+      }
+    },
+
+  DetailXY(row) {
+      if (row.taskType == 0) {
+        this.$router.push({
+          path: "/admin/mainStaskDetail",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState 
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/mainStaskDetailLT",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState 
           }
         });
       }

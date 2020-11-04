@@ -334,12 +334,13 @@ export default {
     },
     //返回列表
     goBack() {
-      this.$router.push({
-        path: "/admin/designTaskq",
-        query: {
-          taskId: this.taskId,
-        },
-      });
+      // this.$router.push({
+      //   path: "/admin/designTaskq",
+      //   query: {
+      //     taskId: this.taskId,
+      //   },
+      // });
+      window.history.back(-1);
     },
   },
   components: {

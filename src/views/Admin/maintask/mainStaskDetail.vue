@@ -1636,6 +1636,7 @@ export default {
 
   data() {
     return {
+      CDcheckApplyState:"",
       publishTime1: "",
       deadline1: "",
       applyRefuse: 0,
@@ -2342,7 +2343,11 @@ export default {
     },
     getParams() {
       var routerParams = this.$route.query.taskId;
+      var checkApplyState = this.$route.query.checkApplyState;
       this.taskId = routerParams;
+      this.CDcheckApplyState = this.$route.query.checkApplyState;
+      console.log("CDcheckApplyState"+this.CDcheckApplyState)
+
     },
 
     showData() {
@@ -2424,6 +2429,7 @@ export default {
           if (this.tableData4 == null) {
             this.milepostActive4 = 0;
           }
+          
 
           console.log("cehsi" + response.data.allData.f);
           if (response.data.allData.f === null) {
@@ -2494,21 +2500,31 @@ export default {
               ](response.data.allData.e[0].finishTime);
             }
           }
+
         });
+        if(this.CDcheckApplyState ==2){
+            this.milepostActive5 = -1;
+            this.milepostActive4 = -1;
+            this.milepostActive3 = -1;
+            this.milepostActive2 = -1;
+            console.log("去你妈的")
+
+}
     },
     goBack() {
-      if (this.mainTaskID == 0) {
-        this.$router.push({
-          path: "/admin/designTask",
-        });
-      } else {
-        this.$router.push({
-          path: "/admin/substaskDetail",
-          query: {
-            mainTaskID: this.mainTaskID,
-          },
-        });
-      }
+      // if (this.mainTaskID == 0) {
+      //   this.$router.push({
+      //     path: "/admin/designTask",
+      //   });
+      // } else {
+      //   this.$router.push({
+      //     path: "/admin/substaskDetail",
+      //     query: {
+      //       mainTaskID: this.mainTaskID,
+      //     },
+      //   });
+      // }
+      window.history.back(-1);
     },
     //申请通过与拒绝
     SQTG(row) {
