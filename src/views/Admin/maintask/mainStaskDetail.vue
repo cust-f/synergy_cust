@@ -203,10 +203,9 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-
-              <el-button @click="changeTime(scope.row)" size="small" type="text"
-                >修改</el-button
-              >
+              <!-- 暂时注释 -->
+              <!-- <el-button @click="changeTime(scope.row)" size="small" type="text"
+                >修改</el-button> -->
 
               <el-button
                 @click="SQTG(scope.row)"
@@ -2498,18 +2497,19 @@ export default {
         });
     },
     goBack() {
-      if (this.mainTaskID == 0) {
-        this.$router.push({
-          path: "/admin/designTask",
-        });
-      } else {
-        this.$router.push({
-          path: "/admin/substaskDetail",
-          query: {
-            mainTaskID: this.mainTaskID,
-          },
-        });
-      }
+      // if (this.mainTaskID == 0) {
+      //   this.$router.push({
+      //     path: "/admin/designTask",
+      //   });
+      // } else {
+      //   this.$router.push({
+      //     path: "/admin/substaskDetail",
+      //     query: {
+      //       mainTaskID: this.mainTaskID,
+      //     },
+      //   });
+      // }
+      window.history.back(-1);
     },
     //申请通过与拒绝
     SQTG(row) {
