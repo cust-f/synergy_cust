@@ -1637,6 +1637,7 @@ export default {
   data() {
     return {
       CDcheckApplyState:"",
+      CDgetPlanState:"",
       publishTime1: "",
       deadline1: "",
       applyRefuse: 0,
@@ -2346,7 +2347,8 @@ export default {
       var checkApplyState = this.$route.query.checkApplyState;
       this.taskId = routerParams;
       this.CDcheckApplyState = this.$route.query.checkApplyState;
-      console.log("CDcheckApplyState"+this.CDcheckApplyState)
+      this.CDgetPlanState = this.$route.query.checkPlanState;
+      console.log("nihao"+this.$route.query)
 
     },
 
@@ -2509,6 +2511,12 @@ export default {
             this.milepostActive2 = 0;
 
 }
+        if(this.CDgetPlanState == 3 ){
+            this.milepostActive5 = 0;
+            this.milepostActive4 = 0;
+            this.milepostActive3 = 0;
+            this.milepostActive2 = 0;
+        } 
     },
     goBack() {
       // if (this.mainTaskID == 0) {

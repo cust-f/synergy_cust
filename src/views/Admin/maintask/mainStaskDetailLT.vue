@@ -1852,6 +1852,8 @@ export default {
 
   data() {
     return {
+            CDgetPlanState:"",
+      CDcheckApplyState:"",
       multipleSelection: [],
       pageIndex: 1,
       pageSize: 10,
@@ -2835,11 +2837,13 @@ export default {
         });
     },
     getParams() {
-  var routerParams = this.$route.query.taskId;
+      var routerParams = this.$route.query.taskId;
       var checkApplyState = this.$route.query.checkApplyState;
       this.taskId = routerParams;
       this.CDcheckApplyState = this.$route.query.checkApplyState;
-      console.log("CDcheckApplyState"+this.CDcheckApplyState)
+      this.CDgetPlanState = this.$route.query.checkPlanState;
+      console.log("CDgetPlanState"+this.CDgetPlanState)
+
     },
     showData() {
       var that = this;
@@ -2980,6 +2984,12 @@ export default {
             this.milepostActive2 = 0;
 
 }
+        if(this.CDgetPlanState == 3 ){
+            this.milepostActive5 = 0;
+            this.milepostActive4 = 0;
+            this.milepostActive3 = 0;
+            this.milepostActive2 = 0;
+        } 
     },
     goBack() {
       // if (this.mainTaskID == 0) {

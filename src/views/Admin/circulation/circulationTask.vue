@@ -52,7 +52,7 @@
 
 
                   <el-button
-                    @click="Detail(scope.row)"
+                    @click="DetailQB(scope.row)"
                     type="text"
                     size="small "
                     
@@ -124,7 +124,7 @@
                   >废除</el-button>
 
                   <el-button
-                    @click="Detail(scope.row)"
+                    @click="DetailXY(scope.row)"
                     type="text"
                     size="small "
                     
@@ -975,6 +975,28 @@ export default {
           query: {
             taskId: row.taskId,
             checkApplyState:row.checkApplyState 
+          }
+        });
+      }
+    },
+     DetailQB(row) {
+      if (row.taskType == 0) {
+        this.$router.push({
+          path: "/admin/mainStaskDetail",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState ,
+            checkPlanState:row.checkPlanState
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/mainStaskDetailLT",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState ,
+            checkPlanState:row.checkPlanState
+
           }
         });
       }

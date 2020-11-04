@@ -110,7 +110,7 @@
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                       <el-button
-                        @click="Detail(scope.row)"
+                        @click="DetailQB(scope.row)"
                         type="text"
                         size="small "
                         >查看详情</el-button
@@ -1178,7 +1178,29 @@ export default {
         });
       }
     },
+     DetailQB(row) {
+      if (row.taskType == 0) {
+        this.$router.push({
+          path: "/admin/mainStaskDetail",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState ,
+            checkPlanState:row.checkPlanState
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/mainStaskDetailLT",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState ,
+            checkPlanState:row.checkPlanState
 
+          }
+        });
+      }
+    },
+   
     open2(row) {
       if (
         row.assignmentState == "待审核" ||
