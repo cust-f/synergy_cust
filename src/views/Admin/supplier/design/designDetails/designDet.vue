@@ -264,7 +264,7 @@ export default {
           this.designCount=0;
         }
           this.sendMsg();
-          this.$refs.returnFile.getMsg(response.data.allData);
+          //this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
