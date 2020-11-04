@@ -870,7 +870,7 @@ export default {
        //获取今年元旦和现在时间数据
     getTimeData() {
       let that = this;
-      that.axios.post("/api/findTimes").then(response => {
+      that.axios.post("/api/findTimeNow").then(response => {
         
         this.value1=response.data.allData;
         //this.homeData();

@@ -222,7 +222,7 @@ export default {
   name: "designerNewList",
   data() {
     return {
-      username1: sessionStorage.getItem("ms_username"),
+      userId: sessionStorage.getItem("userId"),
 
       pageIndex: 1,
       pageSize: 7,
@@ -293,10 +293,11 @@ export default {
   },
   methods: {
     getData() {
+       console.log("kkkkk"+this.userId);
       //console.log(this.userName);
       var that = this;
       var data = Qs.stringify({
-        designerName: this.username1
+        designerId: this.userId
       });
       //console.log(data);
       that
@@ -318,7 +319,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
-        designerName: this.username1
+        designerId: this.userId
       });
      // console.log(data);
       that
