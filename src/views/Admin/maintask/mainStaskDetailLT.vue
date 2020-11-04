@@ -2835,8 +2835,11 @@ export default {
         });
     },
     getParams() {
-      var routerParams = this.$route.query.taskId;
+  var routerParams = this.$route.query.taskId;
+      var checkApplyState = this.$route.query.checkApplyState;
       this.taskId = routerParams;
+      this.CDcheckApplyState = this.$route.query.checkApplyState;
+      console.log("CDcheckApplyState"+this.CDcheckApplyState)
     },
     showData() {
       var that = this;
@@ -2970,6 +2973,14 @@ export default {
             }
           }
         });
+                if(this.CDcheckApplyState ==2){
+            this.milepostActive5 = 0;
+            this.milepostActive4 = 0;
+            this.milepostActive3 = 0;
+            this.milepostActive2 = 0;
+            console.log("去你妈的")
+
+}
     },
     goBack() {
       // if (this.mainTaskID == 0) {

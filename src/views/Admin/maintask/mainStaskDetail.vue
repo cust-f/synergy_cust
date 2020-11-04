@@ -2503,11 +2503,10 @@ export default {
 
         });
         if(this.CDcheckApplyState ==2){
-            this.milepostActive5 = -1;
-            this.milepostActive4 = -1;
-            this.milepostActive3 = -1;
-            this.milepostActive2 = -1;
-            console.log("去你妈的")
+            this.milepostActive5 = 0;
+            this.milepostActive4 = 0;
+            this.milepostActive3 = 0;
+            this.milepostActive2 = 0;
 
 }
     },
