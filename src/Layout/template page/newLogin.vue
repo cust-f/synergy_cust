@@ -45,6 +45,7 @@
                     name="password1"
                     v-model="param.password"
                     id="password1"
+                    @keyup.enter="submitForm"
                     placeholder="请输入密码"
                   />
                 </li>
