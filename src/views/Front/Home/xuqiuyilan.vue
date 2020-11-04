@@ -124,7 +124,7 @@
           >
         </div>
         <br>
-          <div style="margin-top: 20px">
+          <div style="margin-top: 20px;float:right;margin-right:50px;margin-bottom: 20px;">
             <el-pagination
                           background
 
