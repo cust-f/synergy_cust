@@ -165,7 +165,6 @@
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
                   <el-table-column
                     prop="checkPlanState"
                     sortable
@@ -355,25 +354,51 @@
 <el-tab-pane label="待验收" name="fifyanshouth">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
+                  <el-input
+                    v-model="selectname"
+                    placeholder="子需求"
+                    class="handle-input mr10"
+                  ></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
                     @click="handleSearchByCondition"
-                  >搜索</el-button>
+                    >搜索</el-button
+                  >
                 </div>
                 <el-table
-                  :data="tableData4yanshou.slice((pageIndex1-1)*pageSize,pageIndex1*pageSize)"
+                  :data="
+                    tableData4yanshou.slice(
+                      (pageIndex1 - 1) * pageSize,
+                      pageIndex1 * pageSize
+                    )
+                  "
                   border
                   class="table"
                   ref="multipleTable"
-                  :default-sort="{prop: 'taskName,mainTaskName,companyName,uploadFileTime', order: 'descending'}"
+                  :default-sort="{
+                    prop: 'taskName,mainTaskName,companyName,uploadFileTime',
+                    order: 'descending',
+                  }"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
+                  <el-table-column
+                    label="序号"
+                    type="index"
+                    width="50"
+                    align="center"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="taskName"
+                    label="子需求"
+                    sortable
+                  ></el-table-column>
+                  <el-table-column
+                    prop="mainTaskName"
+                    label="总需求"
+                    sortable
+                  ></el-table-column>
                   <el-table-column
                     prop="demandorCheckDesignState"
                     sortable
@@ -381,20 +406,45 @@
                     align="center"
                   >
                     <template slot-scope="scope">
-                      <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+                      <el-tag v-if="scope.row.demandorCheckDesignState === 0"
+                        >待提交</el-tag
+                      >
                       <el-tag
                         type="warning"
                         v-else-if="scope.row.demandorCheckDesignState === 1"
-                      >待审核</el-tag>
-                      <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
-                      <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
+                        >待审核</el-tag
+                      >
+                      <el-tag
+                        type="success"
+                        v-else-if="scope.row.demandorCheckDesignState === 2"
+                        >通过</el-tag
+                      >
+                      <el-tag
+                        type="danger"
+                        v-else-if="scope.row.demandorCheckDesignState === 3"
+                        >未通过</el-tag
+                      >
                     </template>
                   </el-table-column>
-                  <el-table-column prop="acceptCompanyName" label="供应企业" sortable></el-table-column>
-                  <el-table-column prop="uploadFileTime" label="上传时间" sortable>
-                    <template slot-scope="scope">{{scope.row.uploadFileTime | formatDate}}</template>
+                  <el-table-column
+                    prop="acceptCompanyName"
+                    label="供应企业"
+                    sortable
+                  ></el-table-column>
+                  <el-table-column
+                    prop="uploadDesignTime"
+                    label="验收时间"
+                    sortable
+                  >
+                    <template slot-scope="scope">
+                      <el-span v-if="+scope.row.uploadDesignTime === 0"
+                        >暂未上传</el-span
+                      >
+                      <el-span v-else>{{
+                        scope.row.uploadDesignTime | formatDate
+                      }}</el-span></template
+                    >
                   </el-table-column>
-
                   <!-- <el-table-column prop="taskCheck" label="状态" align="center" >
                   </el-table-column>
                   <el-table-column label="图纸" align="center" width="55">
@@ -409,7 +459,12 @@
                   </el-table-column>-->
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-                      <el-button @click="Detail(scope.row)" type="text" size="small ">查看详情</el-button>
+                      <el-button
+                        @click="Detail(scope.row)"
+                        type="text"
+                        size="small "
+                        >查看详情</el-button
+                      >
                     </template>
                   </el-table-column>
                 </el-table>
@@ -425,7 +480,6 @@
                   ></el-pagination>
                 </div>
               </el-tab-pane>
-
               <el-tab-pane label="已完成" name="sixth">
                 <div class="handle-box">
 
@@ -622,11 +676,19 @@ export default {
       ],
       tableData5: [
 
+      ],      
+      tableData4yanshou: [{
+        taskName:"",
+        mainTaskName:"",
+        demandorCheckDesignState:"",
+        acceptCompanyName:"",
+        uploadDesignTime:"",
+      }
       ],
       tableData6: [
   
       ],
-      tableData4yanshou: [],
+
       addList: {
         id: null,
         address: "",
@@ -640,6 +702,8 @@ export default {
       addVisible: false,
       pageTotal: 0,
       pageIndex: 1,
+            pageIndex1: 1,
+
       pageSize: 10,
       form: {},
       idx: -1,
@@ -707,6 +771,7 @@ export default {
           data:data
         })
 .then(response => {
+  
           if (this.taskState == 0) {
             this.tableData1 = response.data.allData;
           } else if (this.taskState == 1) {
@@ -723,6 +788,8 @@ export default {
             this.tableData6 = response.data.allData;
           }
         });
+        console.log(this.taskState)
+        console.log(this.tableData4yanshou)
     },
 
     
