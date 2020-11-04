@@ -762,7 +762,7 @@ export default {
     },
     //寻找需求
     selectDemand() {
-      this.$message("功能维护中！");
+        this.$router.push("/xuqiuyilan");
     },
     //登陆或者注册界面转跳
     login(option) {

@@ -170,7 +170,7 @@
             </div> -->
           </el-card>
         </el-main>
-        <el-aside style="width: 300px">
+        <el-aside style="width: 300px;overflow: hidden;">
           <el-card
             shadow="never"
             style="width: 300px"
