@@ -53,11 +53,11 @@
         </div>
       </div>
       <br />
-      <!-- 重传文件模块
+      <!-- 重传文件模块 -->
       <div>
         <return-File ref="returnFile"></return-File>
       </div>
-      <br /> -->
+      <br />
       <div v-show="show > 3" class="designDet">
         <br />
         <br />
