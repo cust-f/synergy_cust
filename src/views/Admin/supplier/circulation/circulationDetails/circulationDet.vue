@@ -268,7 +268,7 @@ export default {
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
           this.sendMsg();
-          this.$refs.returnFile.getMsg(response.data.allData);
+          // this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
