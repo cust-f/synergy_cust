@@ -158,7 +158,7 @@
                 </el-row>
               </ul>
             </div>
-            <br>
+            <br />
             <div class="left1">
               <el-card class="filebox-card">
                 <div slot="header" class="clearfix">
@@ -187,8 +187,8 @@
               </el-card>
             </div>
 
-              <div class="Right3" style="text-align: center">
-                <br>
+            <div class="Right3" style="text-align: center">
+              <br />
               <div
                 v-if="applyList.taskType === 1"
                 class="biaoti"
@@ -200,10 +200,10 @@
               >
                 需求清单
               </div>
-              <br>
-              <br>
-              <div  v-if="applyList.taskType === 1" class="link-top"></div> 
-              <br>
+              <br />
+              <br />
+              <div v-if="applyList.taskType === 1" class="link-top"></div>
+              <br />
               <el-table
                 v-if="applyList.taskType === 1"
                 style="width: 95%"
@@ -223,48 +223,6 @@
                   prop="productName"
                   label="产品名称"
                 ></el-table-column>
-                <!-- <el-table-column
-                  prop="deliveryTime"
-                  label="发货时间"
-                  width="160"
-                  ><template slot-scope="scope">
-                    <el-span>{{ scope.row.deliveryTime | formatDate }}</el-span>
-                  </template></el-table-column
-                >
-                <el-table-column
-                  prop="consignmentTimeLatest"
-                  label="发货截至时间"
-                  width="160%"
-                  ><template slot-scope="scope">
-                    <el-span>{{
-                      scope.row.consignmentTimeLatest | formatDate
-                    }}</el-span>
-                  </template></el-table-column
-                >
-                <el-table-column
-                  prop="consignmentState"
-                  label="发货状态"
-                >
-                  <template slot-scope="scope">
-                    <el-tag v-if="+scope.row.consignmentState === 0" type="info"
-                      >待发货</el-tag
-                    >
-                    <el-tag v-else-if="+scope.row.consignmentState === 1"
-                      >已发货</el-tag
-                    >
-                    <el-tag
-                      v-else-if="+scope.row.consignmentState === 2"
-                      type="success"
-                      >已完成</el-tag
-                    >
-                    <el-tag
-                      v-else-if="+scope.row.consignmentState === 3"
-                      type="danger"
-                      @click="open(scope.row, scope.$index)"
-                      >拒绝
-                    </el-tag>
-                  </template>
-                </el-table-column> -->
                 <el-table-column
                   prop="productNumber"
                   label="产品数量"
@@ -274,71 +232,7 @@
                   label="产品规格"
                 ></el-table-column>
               </el-table>
-             
-              </div>
-            <!--   显示公司信息的小卡片 -->
-            <!-- <div class="left2">
-              <el-card class="companybox-card2">
-                <div slot="header" class="clearfix">
-                  <div
-                    style="
-                      margin: -18px -20px;
-                      padding: 10px 20px;
-                      background: #ffc107;
-                      font-size: 18px;
-                    "
-                  >
-                    {{ companyList2[0].companyName }}
-                  </div>
-                </div>
-                <div>
-                  <ul class="ul02">
-                    <el-row>
-                      <el-col :span="8" class="company-detail">
-                        <li>
-                          <a>
-                            所在省：
-                            <font>{{ companyList2[0].province }}省</font>
-                          </a>
-                        </li>
-                        <br />
-                        <li>
-                          <a>
-                            所在市：
-                            <font>{{ companyList2[0].city }}市</font>
-                          </a>
-                        </li>
-                        <br />
-                        <el-popover placement="top-start" trigger="hover">
-                          <div>{{ companyList2[0].address }}</div>
-                          <li class="det" slot="reference">
-                            <a slot="reference">
-                              企业地址：
-                              <font>{{ companyList2[0].address }}</font>
-                            </a>
-                          </li>
-                        </el-popover>
-                        <br />
-                        <li>
-                          <a>
-                            联系电话：
-                            <font>{{ companyList2[0].businessTel }}</font>
-                          </a>
-                        </li>
-                        <br />
-                        <li>
-                          <a>
-                            email：
-                            <font>{{ companyList2[0].email }}</font>
-                          </a>
-                        </li>
-                        <br />
-                      </el-col>
-                    </el-row>
-                  </ul>
-                </div>
-              </el-card>
-            </div> -->
+            </div>
           </el-tab-pane>
           <el-tab-pane label="需求方详情">
             <div>
@@ -1438,10 +1332,9 @@ export default {
     width: "250px";
   }
   .link-top {
-            width: 95%;
-            height: 5%;
-            border-top: solid #ACC0D8 1px;
+    width: 95%;
+    height: 5%;
+    border-top: solid #acc0d8 1px;
   }
-
 }
 </style>
