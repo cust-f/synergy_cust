@@ -379,7 +379,8 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        gitAdress: this.form2.gitAdress
+        gitAdress: this.form2.gitAdress,
+        username:this.usernameX
       });
       //console.log(data);
       that.axios({
