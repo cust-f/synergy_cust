@@ -67,7 +67,8 @@
               v-for="designName in designTask"
               :key="designName.realName"
               :label="designName.realName"
-              :value="designName.realName"
+              :value="designName.userName"
+              @change = see(design1)
             ></el-option>
           </el-select>
         </el-form-item>
@@ -139,6 +140,9 @@ export default {
     },
   },
   methods: {
+    see(msg){
+      console.log("msg")
+    },
     //获得信息
     getMsg(msg) {
       this.InternalAudit = msg;
@@ -202,7 +206,7 @@ export default {
     tijiao() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.designTask.userName,
+        userName: this.design1,
         taskId: this.taskId,
       });
       that
