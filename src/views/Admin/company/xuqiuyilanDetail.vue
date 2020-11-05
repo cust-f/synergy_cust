@@ -198,7 +198,7 @@
                   float: left;
                 "
               >
-                需求清单
+                流通清单
               </div>
               <br />
               <br />
@@ -245,7 +245,7 @@
             </div>
           </el-tab-pane>
 
-          <!--  <el-tab-pane v-if="applyList.taskType === 1" label="发货清单">
+          <!--  <el-tab-pane v-if="applyList.taskType === 1" label="流通清单">
             <div class="listDetil">
             <el-table :data="tableData2" style="width: 65%">
               <el-table-column
@@ -855,7 +855,7 @@ export default {
         query: { companyId: companyId },
       });
     },
-    //显示发货清单数据的方法
+    //显示流通清单数据的方法
     showData() {
       var that = this;
       var data = Qs.stringify({
