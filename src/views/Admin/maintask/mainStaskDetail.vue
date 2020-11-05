@@ -1601,7 +1601,7 @@
             <el-table-column prop="fileType" width="100" label="文件类型">
               <template slot-scope="scope">
                 <span v-if="scope.row.fileType === 0">合同文件</span>
-                <span v-else-if="scope.row.fileType === 1">发货清单</span>
+                <span v-else-if="scope.row.fileType === 1">流通清单</span>
               </template>
             </el-table-column>
             <el-table-column
