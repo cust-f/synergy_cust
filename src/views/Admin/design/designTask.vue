@@ -68,10 +68,17 @@
                       <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
                       <el-tag
                         v-else-if="
-                          scope.row.taskState === 1 || scope.row.taskState === 2
+                          scope.row.taskState === 1
                         "
                         type="warning"
                         >进行中</el-tag
+                      >
+                      <el-tag
+                        v-else-if="
+                          scope.row.taskState === 2
+                        "
+                        type="info"
+                        >任务中</el-tag
                       >
                       <el-tag
                         v-else-if="scope.row.taskState === 3"
