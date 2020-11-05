@@ -717,7 +717,7 @@ export default {
               console.log(response.data)
               this.$message.success("提交成功");
               this.technicalFileWanzheng = "";
-              this.addList = {};
+              //this.addList = {};
 
               //根据任务类别 显示编辑按钮
               if (bianjifahuo == 1) {
