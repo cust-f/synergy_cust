@@ -297,7 +297,7 @@
 
       <div v-show="show>1">
         <div v-show="state3===2">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通清单</div>
           <br />
           <el-table
             :data="tableData5"
@@ -510,7 +510,7 @@
 
       <!-- 上传流通规格书 -->
       <el-dialog :visible.sync="upCirculation" width="400px" :before-close="handleClose">
-        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传发货清单</div>
+        <div style="padding: 0 10px; border-left: 3px solid #4e58c5;">上传流通清单</div>
         <br />
         <br />
         <el-upload
@@ -562,7 +562,7 @@
             <el-table-column prop="fileType" width="100" label="文件类型">
               <template slot-scope="scope">
                 <span v-if="scope.row.fileType === 0">合同文件</span>
-                <span v-else-if="scope.row.fileType === 1">发货清单</span>
+                <span v-else-if="scope.row.fileType === 1">流通清单</span>
               </template>
             </el-table-column>
             <el-table-column prop="filePath" width="100" label="文件地址" v-if="yinCang === 0"></el-table-column>
@@ -1136,7 +1136,7 @@ export default {
           this.download(response.data, "HT");
         });
     },
-    //发货清单下载
+    //流通清单下载
     FFQDXZ(row) {
       var that = this;
       var data = Qs.stringify({
