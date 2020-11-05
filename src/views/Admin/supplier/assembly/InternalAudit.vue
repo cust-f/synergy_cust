@@ -65,9 +65,9 @@
           <el-select v-model="design1" placeholder="请选择分配人员">
             <el-option
               v-for="designName in designTask"
-              :key="designName.userName"
-              :label="designName.userName"
-              :value="designName.userName"
+              :key="designName.realName"
+              :label="designName.realName"
+              :value="designName.realName"
             ></el-option>
           </el-select>
         </el-form-item>
