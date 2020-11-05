@@ -37,7 +37,7 @@
         <template v-else-if="item.open1">
          <el-menu-item :index="item.index" :key="item.index">
           
-          <span slot="title"><a href="https://jxzk.cnki.net/" target="_blank">知识服务</a></span>
+          <span slot="title"><a href="https://jxzk.cnki.net/" >知识服务</a></span>
           
         </el-menu-item>
       </template>

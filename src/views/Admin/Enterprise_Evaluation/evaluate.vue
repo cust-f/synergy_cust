@@ -856,13 +856,13 @@ export default {
                  
         {
            name:'完成数量',
-          type: 'line',
+          type: 'bar',
          
          data:this.lineData1.lineData1
         },
         {
           name:'未完成数量',
-          type: 'line',
+          type: 'bar',
          
          data:this.lineData1.lineDataU1,
         },
@@ -913,12 +913,12 @@ export default {
       
         {
           name:'完成数量',
-          type: 'line',          
+          type: 'bar',          
           data:this.lineData2.lineData2
          },   
          {
           name:'未完成数量',
-          type: 'line',          
+          type: 'bar',          
           data:this.lineData2.lineDataU2
          },  
        
