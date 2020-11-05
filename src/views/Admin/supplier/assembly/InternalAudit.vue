@@ -56,7 +56,7 @@
       </el-table-column>
     </el-table>
     <!-- 分配设计人员 -->
-    <el-dialog :visible.sync="dialogTableVisible" width="30%">
+    <el-dialog :visible.sync="dialogTableVisible" width="400">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">分配设计师</div>
       <br />
       <br />
