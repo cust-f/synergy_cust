@@ -1,8 +1,8 @@
-<!--发货清单组件-->
+<!--流通清单组件-->
 <template>
   <div class="deliveryList">
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
-      发货清单
+      流通清单
     </div>
 
     <br />
@@ -89,7 +89,7 @@
         class="biaoti"
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
-        发货清单
+        流通清单
       </div>
       <br />
       <div style="margin-top: 10px">

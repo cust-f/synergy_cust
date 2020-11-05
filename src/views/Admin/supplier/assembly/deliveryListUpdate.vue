@@ -7,7 +7,7 @@
     label-width="100px"
     class="demo-ruleForm"
   >
-    <el-form-item label="发货清单ID" prop="Consignment_ID">
+    <el-form-item label="流通清单ID" prop="Consignment_ID">
       <el-input v-model="ruleForm.Consignment_ID" readOnly></el-input>
     </el-form-item>
 
@@ -46,7 +46,7 @@
     <el-form-item label="总金额" prop="Total_Price">
       <el-input v-model="ruleForm.Total_Price"></el-input>
     </el-form-item>
-    <el-form-item label="发货清单备注" prop="Consignment_Notes">
+    <el-form-item label="流通清单备注" prop="Consignment_Notes">
       <el-input v-model="ruleForm.Consignment_Notes"></el-input>
     </el-form-item>
     <el-form-item>
@@ -80,7 +80,7 @@ export default {
           { required: true, message: "发货时间不能为空", trigger: "blur" },
         ],
         Consignment_ID: [
-          { required: true, message: "发货清单ID禁止修改", trigger: "blur" },
+          { required: true, message: "流通清单ID禁止修改", trigger: "blur" },
         ],
         Consignment_State: [
           { required: true, message: "发货状态禁止修改", trigger: "blur" },
