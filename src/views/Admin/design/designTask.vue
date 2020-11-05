@@ -208,13 +208,13 @@
                   </el-table-column>
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-                      <el-button
+                      <!-- <el-button
                         type="text"
                         icon="el-icon-delete"
                         class="red"
                         @click="handleDelete1(scope.row)"
                         >废除</el-button
-                      >
+                      > -->
 
                       <el-button
                         @click="DetailXY(scope.row)"
@@ -739,9 +739,9 @@
                 </div>
               </el-tab-pane>
 
-              <el-tab-pane label="已废除" name="seventh">
+              <!-- 暂时注释掉 -->
+              <!-- <el-tab-pane label="已废除" name="seventh">
                 <div class="handle-box">
-                  <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input
                     v-model="selectname"
                     placeholder="子需求"
@@ -815,7 +815,7 @@
                     @size-change="handleSizeChange"
                   ></el-pagination>
                 </div>
-              </el-tab-pane>
+              </el-tab-pane> -->
             </el-tabs>
           </div>
         </div>

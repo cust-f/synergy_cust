@@ -202,7 +202,7 @@
                 type="text"
                 size="small "
                 @click="shenqingtanchu(scope.row)"
-                >发货清单</el-button
+                >流通清单</el-button
               >
               <el-button
                 @click="SQTG(scope.row)"
@@ -234,7 +234,7 @@
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          发货清单
+          流通清单
         </div>
         <br />
         <el-form>
@@ -271,7 +271,7 @@
             ></el-table-column>           
             <!-- <el-table-column
               prop="consignmentNotes"
-              label="发货清单备注"
+              label="流通清单备注"
               width="120"
             ></el-table-column> -->
           </el-table>
@@ -496,7 +496,7 @@
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          发货清单
+          流通清单
         </div>
 
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -1572,7 +1572,7 @@
             <el-table-column prop="fileType" width="100" label="文件类型">
               <template slot-scope="scope">
                 <span v-if="scope.row.fileType === 0">合同文件</span>
-                <span v-else-if="scope.row.fileType === 1">发货清单</span>
+                <span v-else-if="scope.row.fileType === 1">流通清单</span>
               </template>
             </el-table-column>
             <el-table-column prop="uploadTime" label="上传时间">
@@ -1629,7 +1629,7 @@
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          发货清单
+          流通清单
         </div>
 
         <div style="margin-top: 10px">
@@ -1897,7 +1897,7 @@ export default {
       addVisibleCD: false,
       //全部子任务
       quanbuzirenwu: false,
-      //发货清单全部提交按钮可见
+      //流通清单全部提交按钮可见
       liu: false,
       //子任务详情和下载
       XZJXQ: false,
@@ -2057,7 +2057,7 @@ export default {
         deadlineJudge: false,
       },
       firstList: [],
-      //发货清单时间修改
+      //流通清单时间修改
       deliveryListTime: {
         deliveryTime: "",
         consignmentTimeLatest: "",
@@ -2132,7 +2132,7 @@ export default {
         bankNumber: "25206589260388885222201",
         //  @input.native="changeCode"
       },
-      //发货清单字段
+      //流通清单字段
       tableData: [],
       applyRefuse: 0,
       planRefusse: 0,
@@ -2483,7 +2483,7 @@ export default {
         });
     },
 
-    //发货清单拒绝按钮实现的方法
+    //流通清单拒绝按钮实现的方法
     refuse() {
       var that = this;
       var data = Qs.stringify({
@@ -2983,7 +2983,6 @@ export default {
             this.milepostActive5 = 0;
             this.milepostActive4 = 0;
             this.milepostActive3 = 0;
-            this.milepostActive2 = 0;
         } 
     },
     goBack() {
@@ -3236,7 +3235,7 @@ export default {
     },
     //设计通过
     QDTG(row) {
-      this.$confirm("确定将发货清单审核通过么？", "提示", {
+      this.$confirm("确定将流通清单审核通过么？", "提示", {
         type: "warning",
       }).then(() => {
         var that = this;

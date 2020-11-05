@@ -46,7 +46,7 @@
       </div>
       
       <br />
-      <!-- 发货清单模块 -->
+      <!-- 流通清单模块 -->
       <div v-show="show > 1">
         <div v-show="state3 === 2">
           <delivery-List ref="deliveryList"></delivery-List>

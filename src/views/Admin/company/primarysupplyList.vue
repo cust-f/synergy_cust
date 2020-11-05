@@ -113,7 +113,7 @@
         </div>
         <br>
             <el-table
-              :data="tableData1"
+              :data="tableData1.slice((pageIndex1-1)*pageSize1,pageIndex1*pageSize1)"
               border
               class="table"
               ref="multipleTable"
@@ -138,6 +138,17 @@
               </el-table-column>
               
             </el-table>
+                          <div class="pagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex1"
+                  :page-size="pageSize1"
+                  :total="tableData1.length"
+                  @current-change="handleCurrentChange"
+                  @size-change="handleSizeChange"
+                ></el-pagination>
+              </div>
           </el-dialog>
       </el-main>
     </el-container>
@@ -157,6 +168,8 @@ export default {
       usernameX: sessionStorage.getItem("ms_username"),
       pageIndex: 1,
       pageSize: 10,
+            pageIndex1: 1,
+      pageSize1: 10,
 
       tableData: {
         companyId: "",
@@ -352,13 +365,14 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/primarysupplyList/newAdd",
+          url: "/api/primarysupplyList/newAddCompanyList",
           data: data
 
           // data:this.$store.state.userName
         })
         .then(response => {
           this.tableData1 = response.data.allData;
+          response.send()
         });
       this.addVisible = true;
     },
