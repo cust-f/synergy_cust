@@ -112,6 +112,11 @@
           新增
         </div>
         <br>
+              <div class="handle-box">
+                <el-input  v-model="selectname" placeholder="企业名称" class="selectname"></el-input>
+                <el-button type="primary" @click="handleSearchCompany">搜索</el-button>
+              </div>
+              <br>
             <el-table
               :data="tableData1.slice((pageIndex1-1)*pageSize1,pageIndex1*pageSize1)"
               border
@@ -145,10 +150,11 @@
                   :current-page="pageIndex1"
                   :page-size="pageSize1"
                   :total="tableData1.length"
-                  @current-change="handleCurrentChange"
-                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange1"
+                  @size-change="handleSizeChange1"
                 ></el-pagination>
               </div>
+                           
           </el-dialog>
       </el-main>
     </el-container>
@@ -163,6 +169,7 @@ export default {
   name: "primarysupplyList",
   data() {
     return {
+      selectname:"",
       provicepid: "",
       citypid: "",
       usernameX: sessionStorage.getItem("ms_username"),
@@ -383,15 +390,20 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
+       
+    handleCurrentChange1(cpage) {
+      this.pageIndex1 = cpage;
+    },
+
+    handleSizeChange1(psize) {
+      this.pageSize1 = psize;
+    },
     handleSearch() {
       var that = this;
       var data = Qs.stringify({
-        provicepid: this.provicepid,
-        citypid: this.citypid,
-        gyslb: "gyslbsc",
         username: this.usernameX
       });
-
+      console.log(data)
       that
         .axios({
           method: "post",
@@ -400,7 +412,24 @@ export default {
         })
         .then(response => {
           this.tableData = response.data.allData;
-          //this.citypid = ""
+          console.log(response)
+        });
+    },
+    handleSearchCompany(){
+        var that = this;
+      var data = Qs.stringify({
+        username: this.usernameX,
+        companyName: this.selectname
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/primarysupplyList/selectByCompanyName",
+          data: data
+        })
+        .then(response => {
+          this.tableData1 = response.data.allData;
+          console.log(response)
         });
     }
   }
@@ -408,7 +437,9 @@ export default {
 </script>
 <style lang = "scss">
 .primarysupplyList{
-
+.selectname{
+  width: 300px
+}
 
 .con {
   width: 500px;
