@@ -30,8 +30,8 @@
                                     <el-table-column prop="taskState" label="状态" align="center" sortable>
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.taskState ===0" >待响应</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ===1"  type="warning">进行中</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ===2"  type="info">任务中</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===1"  type="warning">计划中</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===2"  type="info">进行中</el-tag>
                       <el-tag v-else-if="scope.row.taskState ===3" class="shenhe" >审核</el-tag>
                       <el-tag v-else-if="scope.row.taskState ===4" class="yanshou" >验收</el-tag>
                       <el-tag v-else-if="scope.row.taskState ===5" type="success">已完成</el-tag>

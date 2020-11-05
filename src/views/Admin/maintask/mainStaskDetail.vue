@@ -2466,6 +2466,21 @@ export default {
           } else {
             this.cool.taskType = "流通任务";
           }
+          //设计发布页面
+                  if(this.CDcheckApplyState ==2){
+            this.milepostActive5 = 0;
+            this.milepostActive4 = 0;
+            this.milepostActive3 = 0;
+            this.milepostActive2 = 0;
+             this.milepostActive = 0;
+
+}
+        if(this.CDgetPlanState == 3 ){
+            this.milepostActive5 = 0;
+            this.milepostActive4 = 0;
+            this.milepostActive3 = 0;
+             this.milepostActive = 1;
+        } 
           if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].applyTime
@@ -2498,18 +2513,7 @@ export default {
           }
 
         });
-        if(this.CDcheckApplyState ==2){
-            this.milepostActive5 = 0;
-            this.milepostActive4 = 0;
-            this.milepostActive3 = 0;
-            this.milepostActive2 = 0;
 
-}
-        if(this.CDgetPlanState == 3 ){
-            this.milepostActive5 = 0;
-            this.milepostActive4 = 0;
-            this.milepostActive3 = 0;
-        } 
     },
     goBack() {
       // if (this.mainTaskID == 0) {
