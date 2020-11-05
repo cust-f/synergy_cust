@@ -1604,12 +1604,6 @@
                 <span v-else-if="scope.row.fileType === 1">流通清单</span>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="filePath"
-              width="100"
-              label="文件地址"
-              v-if="yinCang === 0"
-            ></el-table-column>
             <el-table-column prop="uploadTime" label="上传时间">
               <template slot-scope="scope">
                 <el-span>{{ scope.row.uploadTime | formatDate }}</el-span>
