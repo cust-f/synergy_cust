@@ -619,14 +619,14 @@
                 <div id="quarterlySituation" style="width: 600px;height:400px;"></div>
               </el-tab-pane>-->
 
-              <el-tab-pane label="核心企业发布需求量Top5" name="first">
+              <el-tab-pane label="企业发布需求量Top5" name="first">
                 <cloumn-chart1
                   ref="drawCloumnChart1"
                   :cloumnData1="cloumnData1"
                   style="width: 600px;height:400px;"
                 ></cloumn-chart1>
               </el-tab-pane>
-              <el-tab-pane label="供应商完成需求量Top5" name="second">
+              <el-tab-pane label="企业完成需求量Top5" name="second">
                 <cloumn-chart2
                   ref="drawCloumnChart2"
                   :cloumnData2="cloumnData2"
