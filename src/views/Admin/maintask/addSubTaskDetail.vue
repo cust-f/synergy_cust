@@ -240,6 +240,7 @@
         </el-table>
       </div>
 
+            <div v-show="LTQD">
       <el-divider></el-divider>
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通清单</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <!-- 流通清单表格 -->
@@ -269,6 +270,7 @@
           </el-table-column>
         </el-table>
       </div>
+            </div>
       
       <!-- 编辑流通清单弹出框 -->
       <div class="consignment">
@@ -421,6 +423,7 @@ export default {
   data() {
     
     return {
+      LTQD:0,
       // =====================================================================
       // 新增子任务
       addList: [
@@ -774,6 +777,7 @@ export default {
                 //弹出框消失
                 this.bianjiTC = false;
                 that.consignmentTableShuaxin();
+                this.LTQD = 1;
               }
             })
             .catch((error) => {
