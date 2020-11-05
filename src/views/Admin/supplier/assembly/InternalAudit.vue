@@ -202,7 +202,7 @@ export default {
     tijiao() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.design1,
+        userName: this.designTask.userName,
         taskId: this.taskId,
       });
       that
