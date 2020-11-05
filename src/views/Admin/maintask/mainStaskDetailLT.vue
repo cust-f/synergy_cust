@@ -196,8 +196,8 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- 暂时注释 -->
-              <el-button @click="changeTime(scope.row)" size="small" type="text"
-                >修改</el-button>
+              <!-- <el-button @click="changeTime(scope.row)" size="small" type="text"
+                >修改</el-button> -->
               <el-button
                 type="text"
                 size="small "
@@ -1711,7 +1711,7 @@
                   v-if="scope.row.consignmentState === 1"
                   >通过</el-button
                 >
-                <el-button
+                <!-- <el-button
                   @click="changeDeliveryTime(scope.row)"
                   type="text"
                   size="small"
@@ -1721,7 +1721,7 @@
                   "
                 >
                   修改时间
-                </el-button>
+                </el-button> -->
                 <el-button
                   @click="refusebutton(scope.row)"
                   type="text"
