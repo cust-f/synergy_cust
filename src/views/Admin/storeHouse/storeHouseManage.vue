@@ -29,7 +29,7 @@
                 <el-table-column label="操作" align="center" >
                     <template slot-scope="scope">
                         <el-button @click="storeAdd(scope.row)" type="text" size="small">修改</el-button>
-                        <el-button @click="storeDelete(scope.row)" type="text" size="small">删除</el-button>
+                        <el-button @click="storeDelete(scope.$index,scope.row)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -267,12 +267,14 @@ export default {
     },
 
     //仓库数据 单行删除
-    storeDelete(row){
-        var that = this;
-        var data = Qs.stringify({
-            storeId: row.storeId,
-        });
-        that
+    storeDelete(index,row){
+         var that = this;
+        this.$confirm("确定要删除吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }) .then(() => {   
+         that
         .axios({
            method: "post",
            url: "/api/StoreHouse/deleteStorehouseById",
@@ -288,6 +290,19 @@ export default {
         .catch((error) => {
           console.log(error);
       });
+         
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+     
+        var data = Qs.stringify({
+            storeId: row.storeId,
+        });
+    
     },
 
     //分页相关
