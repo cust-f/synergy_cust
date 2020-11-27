@@ -9,7 +9,7 @@
                 <el-input v-model="selectStoreName" placeholder="仓库名称" class="handle-input mr10"></el-input>
                 <el-button type="primary" @click="handleSearchByStoreName">搜索</el-button>
             </div>
-            <el-button @click="storeAdd" type="primary" size="small">新增</el-button>
+            <el-button @click="storeAdd(1)" type="primary" size="primary">新增</el-button>
             <br><br>
             <!---->
             <el-table
@@ -17,18 +17,18 @@
                 border
                 class="table"
                 ref="multipleTable"
-                :default-sort="{prop: 'storeName,storeAddress,storeContacter,storeTelephone', order: 'descending'}"
+                :default-sort="{prop: 'storeName,storeAddress,contacter,telephone,totalStock', order: 'descending'}"
                 header-cell-class-name="table-header"
             >
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
                 <el-table-column prop="storeName" label="仓库名称" width="150" sortable></el-table-column>
                 <el-table-column prop="storeAddress" label="仓库地址" width="250" sortable></el-table-column>
-                <el-table-column prop="storeAddress" label="总库存" width="100" sortable></el-table-column>
-                <el-table-column prop="storeContacter" label="联系人" align="center" width="100" sortable></el-table-column>
-                <el-table-column prop="storeTelephone" label="联系电话" width="150" sortable></el-table-column>
+                <el-table-column prop="contacter" label="联系人" width="100" sortable></el-table-column>
+                <el-table-column prop="telephone" label="联系电话" width="150" sortable></el-table-column>
+                <el-table-column prop="totalStock" label="总库存" width="100" sortable></el-table-column>
                 <el-table-column label="操作" align="center" >
                     <template slot-scope="scope">
-                        <el-button @click="storeEdit(scope.row)" type="text" size="small">修改</el-button>
+                        <el-button @click="storeAdd(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="storeDelete(scope.row)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
@@ -51,37 +51,37 @@
         <!-- 新增仓库 弹出框 -->
         <div class="consignment">
             <el-dialog title :visible.sync="storeAddTC" width="50%">
-                <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">新增仓库</div>
+                <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" id="storeTCK" v-html ="storeTCKTitle"></div>
                 <br>
                 <el-form ref="storeFormAdd" label-width="110px" class="box" :rules="storeRulesAdd" :model="storeFormAdd">
                     <el-row>
                         <el-col :span="11">
-                            <el-form-item label="仓库名称" prop="storeName">
-                                <el-input v-model="storeFormAdd.storeName"></el-input>
+                            <el-form-item label="仓库名称" prop="storeNameAdd">
+                                <el-input v-model="storeFormAdd.storeNameAdd"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="11">
-                            <el-form-item label="仓库地址" prop="storeAddress">
-                                <el-input v-model="storeFormAdd.storeAddress"></el-input>
+                            <el-form-item label="仓库地址" prop="storeAddressAdd">
+                                <el-input v-model="storeFormAdd.storeAddressAdd"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="11">
-                            <el-form-item label="联系人" prop="storeContacter">
-                                <el-input v-model="storeFormAdd.storeContacter"></el-input>
+                            <el-form-item label="联系人" prop="contacterAdd">
+                                <el-input v-model="storeFormAdd.contacterAdd"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="11">
-                            <el-form-item label="联系电话" prop="storeTelephone">
-                                <el-input v-model="storeFormAdd.storeTelephone"></el-input>
+                            <el-form-item label="联系电话" prop="telephoneAdd">
+                                <el-input v-model="storeFormAdd.telephoneAdd"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="StoreAddTC = false">取 消</el-button>
-                    <el-button type="primary" @click="consignmentSaveNew('consignmentForm2')">确 定</el-button>
+                    <el-button @click="storeAddTC = false">取 消</el-button>
+                    <el-button type="primary" @click="storeEdit('storeFormAdd')">确 定</el-button>
                 </span>
             </el-dialog>
         </div>
@@ -103,16 +103,7 @@ export default {
       pageIndex: 1,
       pageSize: 10,
       activeName: "first",
-      tableData: [
-      ],
-      addList: {
-        id: null,
-        address: "",
-        name: "",
-        money: null,
-        state: null,
-        date: null
-      },
+      tableData: [], 
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
@@ -124,29 +115,38 @@ export default {
       mainTaskID: "",
       selectStoreName: "",
 
-      storeID:"",
-
+      storeID:'',
       storeAddTC:false,
-      storeFormAdd:[],
-            //新增流通清单 数据验证
+      storeFormAdd:{
+        storeIdAdd : '',
+        storeNameAdd : '',
+        storeAddressAdd : '',
+        contacterAdd : '',
+        telephoneAdd : '',
+        totalStockAdd : '',
+      },
+      //新增仓库 数据验证
       storeRulesAdd:{
-        storeName:[
+        storeNameAdd:[
           {required: true, message: '请输入仓库名称', trigger: 'blur'},
-          { min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的名称", trigger: "blur" },
+          { min: 1, max: 20, message: "请输入长度在 1 到 20 个字符的名称", trigger: "blur" },
         ],
-        storeAddress:[
+        storeAddressAdd:[
           {required: true, message: '请输入仓库地址', trigger: 'blur'},
-           { min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的规格", trigger: "blur" },
+           { min: 1, max: 50, message: "请输入长度在 1 到 50 个字符的地址", trigger: "blur" },
         ],
-        storeContacter:[
+        contacterAdd:[
           {required: true, message: '请输入联系人', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的联系人", trigger: "blur"},
         ],
-        storeTelephone:[
+        telephoneAdd:[
           {required: true, message: '请输入联系电话', trigger: 'blur'},
           {pattern:/^1\d{10}$/, message: "请输入正确的联系电话", trigger: "blur"},
         ],
       },
+      storeTCKTitle:"新增还是弹出呢",
+      storeEditUrl:'',
+
     };
   },
 
@@ -165,14 +165,14 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/StoreHouse/selectStorehouseByName",
+          url: "/api/StoreHouse/selectStorehouseAll",
           data: data
           // data:this.$store.state.userName
         })
         .then(response => {
-          //console.log(response);
+        //   console.log(response);
           this.tableData = response.data.allData;
-          this.$refs.configurationTable.$el.style.width = "100%";
+        //   this.$refs.configurationTable.$el.style.width = "100%";
         });
     },
 
@@ -186,7 +186,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/storeHouse/selectStorehouseByName",
+          url: "/api/StoreHouse/selectStorehouseByStoreName",
           data: data
           // data:this.$store.state.userName
         })
@@ -196,30 +196,93 @@ export default {
     },
 
     //新增弹出
-    storeAdd(){
-        this.storeAddTC=true;
+    storeAdd(row){
+        this.storeFormAdd.storeIdAdd = row.storeId;
+        this.storeFormAdd.storeNameAdd = row.storeName;
+        this.storeFormAdd.storeAddressAdd = row.storeAddress;
+        this.storeFormAdd.contacterAdd = row.contacter;
+        this.storeFormAdd.telephoneAdd = row.telephone;
+        this.storeFormAdd.totalStockAdd = row.totalStock;
+        //1是新增，否则是修改
+        if(row == 1){
+            this.storeTCKTitle = "新增仓库信息";
+            this.storeEditUrl = "/api/StoreHouse/addStorehouse";
+            // this.storeFormAdd = {};
+        }
+        else{
+            this.storeTCKTitle = "修改仓库信息";
+            this.storeEditUrl = "/api/StoreHouse/updateStorehouseById";
+            // this.storeFormAdd = row;
+        }
+        this.storeAddTC = true;
     },
 
-    //仓库数据 编辑弹出
+    //仓库数据 新增或修改
     storeEdit(row){
-
+        this.$refs.storeFormAdd.validate((valid) => {
+        if(valid){
+            var that = this;
+            var data = Qs.stringify({
+                username : this.usernameX,
+                storeId: this.storeFormAdd.storeIdAdd,
+                storeName : this.storeFormAdd.storeNameAdd,
+                storeAddress : this.storeFormAdd.storeAddressAdd,
+                contacter : this.storeFormAdd.contacterAdd,
+                telephone : this.storeFormAdd.telephoneAdd,
+                totalStock : this.storeFormAdd.totalStockAdd,
+            });
+            that
+            .axios({
+                method: "post",
+                url: this.storeEditUrl,
+                data: data,
+            })
+            .then((response) => {
+                if (response.data == "成功") {
+                    if(this.storeTCKTitle == "新增仓库信息"){
+                        this.$message.success("新增仓库信息成功");
+                    }
+                    else{
+                        this.$message.success("修改仓库信息成功");
+                    }
+                    this.storeAddTC = false;//弹出框消失
+                    that.getData();//重新加载数据
+                    let arr = this.storeFormAdd;
+                    array.forEach(element => {
+                        element = '';
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
+        }
+        else{
+          this.$message({
+            type: "warning",
+            message: "你还有重要信息未填写，填写后再提交",
+          });
+        }
+        })
     },
+
     //仓库数据 单行删除
     storeDelete(row){
         var that = this;
         var data = Qs.stringify({
-            storeID: row.storeID,
+            storeId: row.storeId,
         });
         that
         .axios({
            method: "post",
-           url: "/api/storeHouse/deleteStorehouseById",
+           url: "/api/StoreHouse/deleteStorehouseById",
            data: data,
            headers: { "Content-Type": "application/x-www-form-urlencoded" },
          })
         .then((response) => {
             if (response.data == "成功") {
                 this.$message.success("删除仓库信息成功");
+                this.getData();
               }
         })
         .catch((error) => {
@@ -238,56 +301,10 @@ export default {
       this.pageSize = psize;
     },
   },
-  
 
-  // 获取 easy-mock 的模拟数据
-  getData() {
-    //   this.tableData = res.list;
-    //   this.pageTotal = tableData.length;
-  },
-  // 触发搜索按钮
-
-  // 删除操作
-  handleDelete(index, row) {
-    // 二次确认删除
-    this.$confirm("确定要删除吗？", "提示", {
-      type: "warning"
-    })
-      .then(() => {
-        this.$message.success("删除成功");
-        this.tableData.splice(index, 1);
-      })
-      .catch(() => {});
-  },
-  
-  //新增操作
-  addData() {
-    this.addVisible = true;
-  },
-  //保存新增
-  saveAdd() {
-    this.tableData.push(this.addList);
-    this.addList = {};
-    this.addVisible = false;
-  },
-  // 编辑操作
-  handleEdit(index, row) {
-    this.idx = index;
-    this.form = row;
-    this.editVisible = true;
-  },
-  // 保存编辑
-  saveEdit() {
-    this.editVisible = false;
-    this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-    this.$set(this.tableData, this.idx, this.form);
-  }
-
-  /*
-   *转跳对应任务信息页面
-   */
 };
 </script>
+
 <style  lang="scss">
 .storeHouseManage{
 /* .table {
@@ -347,6 +364,4 @@ export default {
     padding-top: 0px;
   }
 }
-</style>
-
 </style>
