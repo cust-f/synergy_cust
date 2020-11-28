@@ -628,13 +628,14 @@ export default {
   },
   methods: {
     SSO() {
+
       try {
-        if (this.$route.query.username) {
+        if (this.$route.query.query) {
           //判断是否传参
-          let name = window.atob(this.$route.query.username).toString();
+          let name = window.atob(this.$route.query.query).toString();
           console.log(name)
           this.$store.commit("SET_TOKEN", true);
-          this.$store.commit("GET_USER", name);
+          this.$store.commit("SET_USER", name);
           sessionStorage.setItem("ms_username", name);
           //判断是否属于课题三的企业
           var menuList;

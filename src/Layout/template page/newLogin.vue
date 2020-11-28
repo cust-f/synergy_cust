@@ -163,7 +163,7 @@ export default {
                 message: "登陆成功",
               });
               this.$store.commit("SET_TOKEN", true);
-              this.$store.commit("GET_USER", this.param.userName);
+              this.$store.commit("SET_USER", this.param.userName);
               sessionStorage.setItem("ms_username", this.param.userName);
               sessionStorage.setItem("designer_name", this.param.userName);
               console.log(response.data.allData.userId.userId)

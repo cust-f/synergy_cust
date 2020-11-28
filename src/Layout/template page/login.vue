@@ -111,9 +111,9 @@ export default {
                   "========================================================================"
                 );
                 this.$store.commit("SET_TOKEN", true);
-                this.$store.commit("GET_USER", this.param.userName);
+                this.$store.commit("SET_USER", this.param.userName);
                 this.$store.commit(
-                  "GET_USER_ID",
+                  "SET_USER_ID",
                   response.data.allData.userId.userId
                 );
                 sessionStorage.setItem("ms_username", this.param.userName);

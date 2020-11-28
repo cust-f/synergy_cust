@@ -300,7 +300,6 @@ export default {
     return {
       log: true,
       collapse: false,
-      username: sessionStorage.getItem("ms_username"),
       serverUrl: "/api/users/updataPicture",
       searchModel: "",
       select: "0",
@@ -340,6 +339,9 @@ export default {
   computed:{
     token(){
       return this.$store.state.token;
+    },
+    username(){
+      return this.$store.state.user;
     }
   },
   methods: {
@@ -386,6 +388,7 @@ export default {
       let data = Qs.stringify({
         userName: this.username,
       });
+      console.log(this.username)
       that
         .axios({
           method: "post",

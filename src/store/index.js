@@ -26,13 +26,13 @@ const mutations = {
     window.sessionStorage.setItem('token', data)
   },
   //获取用户名
-  GET_USER: (state, data) => {
+  SET_USER: (state, data) => {
     //把用户名存起来
     state.user = data
     window.sessionStorage.setItem('user', data)
   },
   //获取用户Id
-  GET_USER: (state, data) => {
+  SET_USER_ID: (state, data) => {
     //把用户名存起来
     state.userId = data
     window.sessionStorage.setItem('userId', data)
