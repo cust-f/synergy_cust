@@ -31,8 +31,17 @@
          <el-menu-item :index="item.index" :key="item.index">
           
           <span slot="title"><a href="http://www.hccstc.cn/home/index" target="_blank">平台首页</a></span>
+          
         </el-menu-item>
       </template>
+        <template v-else-if="item.open1">
+         <el-menu-item :index="item.index" :key="item.index">
+          
+          <span slot="title"><a href="https://jxzk.cnki.net/" >知识服务</a></span>
+          
+        </el-menu-item>
+      </template>
+     
         
       <template v-else>
         <el-menu-item :index="item.index" :key="item.index">
@@ -55,7 +64,8 @@ export default {
                     icon: 'el-icon-office-building',
                     index: '1',
                     title: '平台首页',
-                    open:1
+                    open:1,
+                    open1:0
                 },
                 {
                     icon: 'el-icon-pie-chart',
@@ -67,7 +77,8 @@ export default {
                     icon: 'el-icon-receiving',
                     index: '/xuqiuyilan',
                     title: '需求一览',
-                    open:0
+                    open:0,
+                    open1:0
                 },
                 // {
                 //     icon: 'el-icon-edit-outline',
@@ -78,19 +89,28 @@ export default {
                      icon: 'el-icon-s-custom',
                     index: '/excellentCompany',
                     title: '优质企业',
-                    open:0
+                    open:0,
+                    open1:0
                 },
                 {
                      icon: 'el-icon-s-custom',
                     index: '/twoMenu',
                     title: '服务成果',
                     open:0,
+                    open1:0
                 },
                 {
                      icon: 'el-icon-s-custom',
                     index: '/Data',
                     title: '网站数据',
-                    open:0
+                    open:0,
+                },
+                 {
+                     icon: 'el-icon-s-custom',
+                    index: '2',
+                    title: '知识服务',
+                    open:0,
+                    open1:1
                 }
             ]
     };

@@ -269,7 +269,9 @@ export default {
   name: "designerAcceptList",
   data() {
     return {
-      username1: sessionStorage.getItem("ms_username"),
+      userId: sessionStorage.getItem("userId"),
+            usernameX: sessionStorage.getItem("user"),
+
 
       pageIndex: 1,
       pageSize: 7,
@@ -377,7 +379,8 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        gitAdress: this.form2.gitAdress
+        gitAdress: this.form2.gitAdress,
+        username:this.usernameX
       });
       //console.log(data);
       that.axios({
@@ -463,10 +466,12 @@ export default {
 
     //获取已接收任务列表数据
     getTableData() {
-      //console.log(this.userName);
+      console.log("kkkkk"+this.userId);
+            console.log("username"+this.user);
+
       var that = this;
       var data = Qs.stringify({
-        designerName: this.username1
+        designerId: this.userId
       });
       //console.log(data);
       that

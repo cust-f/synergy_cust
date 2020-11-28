@@ -853,19 +853,19 @@ export default {
     // Declare several bar series, each will be mapped to a column of dataset.source by default.
     series: [
       
-                 
+         {
+          name:'未完成数量',
+          type: 'bar',
+         
+         data:this.lineData1.lineDataU1,
+        },        
         {
            name:'完成数量',
-          type: 'line',
+          type: 'bar',
          
          data:this.lineData1.lineData1
         },
-        {
-          name:'未完成数量',
-          type: 'line',
-         
-         data:this.lineData1.lineDataU1,
-        },
+        
         
         
         
@@ -910,17 +910,18 @@ export default {
     yAxis: {},
     // Declare several bar series, each will be mapped to a column of dataset.source by default.
     series: [
+      {
+          name:'未完成数量',
+          type: 'bar',          
+          data:this.lineData2.lineDataU2
+         }, 
       
         {
           name:'完成数量',
-          type: 'line',          
+          type: 'bar',          
           data:this.lineData2.lineData2
          },   
-         {
-          name:'未完成数量',
-          type: 'line',          
-          data:this.lineData2.lineDataU2
-         },  
+          
        
         
     ]

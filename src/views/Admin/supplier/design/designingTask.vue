@@ -25,7 +25,7 @@
 
       <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
 
-      <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column>
+      <!-- <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column> -->
 
       <el-table-column prop="demandorCheckDesignState" sortable="custom" width="100" align="center" label="验收状态">
         <template slot-scope="scope">

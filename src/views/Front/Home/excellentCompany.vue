@@ -108,6 +108,17 @@
             >
           </div>
           <br />
+          <div style="margin-top: 20px; float: right; margin-right: 50px;margin-bottom: 20px;">
+            <el-pagination
+              background
+              :hide-on-single-page="true"
+              @current-change="getAnswer(1)"
+              :current-page.sync="currentPage"
+              :page-size="pageSize"
+              layout="prev, pager, next,total, jumper"
+              :total="totalCount"
+            ></el-pagination>
+          </div>
 
           <el-card shadow="never" class="selectCard company-detail">
             <div
@@ -147,19 +158,19 @@
             </div>
 
             <!-- <el-divider></el-divider> -->
-            <div style="margin-top: 20px">
+            <!-- <div style="margin-top: 20px">
               <el-pagination
                 :hide-on-single-page="true"
                 @current-change="getAnswer(1)"
                 :current-page.sync="currentPage"
                 :page-size="pageSize"
-                layout="prev, pager, next, jumper"
+                layout="prev, pager, next,total, jumper"
                 :total="totalCount"
               ></el-pagination>
-            </div>
+            </div> -->
           </el-card>
         </el-main>
-        <el-aside style="width: 300px">
+        <el-aside style="width: 300px; overflow: hidden">
           <el-card
             shadow="never"
             style="width: 300px"
@@ -312,7 +323,7 @@ export default {
         city: citys,
         category: categorys,
         searchStr: this.search,
-        page: this.currentPage-1,
+        page: this.currentPage - 1,
       });
       console.log(this.currentPage + "==========");
       if (this.dynamicTags.length != 0 || this.search != null) {
@@ -487,6 +498,9 @@ export default {
 .company-detail .el-card__body {
   padding: 0px;
 }
+.company-detail .el-pagination {
+  padding-left: 550px;
+}
 /* 企业筛选栏 */
 /* 选择标题 */
 .major {
@@ -507,8 +521,12 @@ export default {
 .company-select .el-row {
   margin-bottom: 15px;
 }
+.el-pagination {
+  padding-left: 220px;
+}
+
 .selectCard {
-  margin-top: 35px;
+  margin-top: 20px;
   /* padding-right: 55px; */
   width: 800px;
   font-size: 14px;

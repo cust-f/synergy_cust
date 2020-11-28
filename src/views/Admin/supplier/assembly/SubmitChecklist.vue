@@ -11,7 +11,7 @@
       label-width="80px"
       :model="formLabelAlign"
     >
-      <el-form-item label="发货清单ID">
+      <el-form-item label="流通清单ID">
         <el-input v-model="formLabelAlign.Consignment_ID"></el-input>
       </el-form-item>
       <el-form-item label="子任务ID">
@@ -32,7 +32,7 @@
       <el-form-item label="总金额">
         <el-input v-model="formLabelAlign.Total_Price"></el-input>
       </el-form-item>
-      <el-form-item label="发货清单备注">
+      <el-form-item label="流通清单备注">
         <el-input v-model="formLabelAlign.Consignment_Notes"></el-input>
       </el-form-item>
       <el-form-item label="发货时间">

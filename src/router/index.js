@@ -97,6 +97,9 @@ import excellentCompanyDetail from '@/views/Front/company/excellentCompanyDetail
 import taskDetail from '@/views/admin/design/taskDetail' //分解任务详细
 import taskDetail1 from '@/views/admin/circulation/taskDetail1' //分解任务详细
 
+import stockManage from '@/views/admin/stock/stockManage'//库存管理
+import storeHouseManage from '@/views/admin/storeHouse/storeHouseManage'//仓库管理
+
 //测试界面========================
 import cityTest from '@/views/Test/cityTest'
 
@@ -590,6 +593,27 @@ export default new Router({
         //     title: "标头"
         //   }
         // }
+        
+         //库存管理
+         {
+          path: '/admin/stockManage',
+          name: 'stockManage',
+          component: stockManage,
+          meta: {
+            title: "库存管理"
+          }
+        },
+
+        //仓库管理
+        {
+          path: '/admin/storeHouseManage',
+          name: 'storeHouseManage',
+          component: storeHouseManage,
+          meta: {
+            title: "仓库管理"
+          }
+        },
+        
       ]
     },
     {

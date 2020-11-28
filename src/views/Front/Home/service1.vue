@@ -105,7 +105,7 @@
                       <li>
                         <a>
                           经营范围：
-                          <font>{{product}}</font>
+                          <font>{{productCompany}}</font>
                         </a>
                       </li>
                       <br />
@@ -242,7 +242,7 @@
                         <li>
                           <a>
                             经营范围：
-                            <font>{{ productCompany}}</font>
+                            <font>{{product}}</font>
                           </a>
                         </li>
                         <br />
@@ -292,7 +292,7 @@
               <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">服务成果</div>
               <el-divider></el-divider>
 
-              <div v-show="!see" >
+              <div v-show="see==0" >
                 <!-- 步骤图 -->
                 <div class="SJstep">
                 <el-steps :active="milepostActive" align-center>
@@ -332,7 +332,7 @@
                   </div>
                 </div>
               </div>
-              <!-- <div v-show="see">
+              <div v-show="see==1">
                 <div class="LTStep">
                 <el-steps :active="milepostActive1" align-center>
                   <el-step
@@ -367,7 +367,7 @@
                     <span id="three3"></span>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </el-row>
         </el-card>
@@ -380,6 +380,7 @@
 import Qs from "qs";
 import radarChart from "./components/radarChart";
 import radarChart1 from "./components/radarChart copy";
+import { formatDate } from "./dataChange";
 
 export default {
   name: "Home",
@@ -396,7 +397,7 @@ export default {
       formLT: {
         circulationCount: ""
       },
-      see: false,
+      see: "",
       activeName: "",
       Province: "",
       City: "",
@@ -497,6 +498,18 @@ export default {
       // 动态添加类名
       stepActive: "stepActive"
     };
+  },
+    filters: {
+    formatDate(time) {
+      if (time != 0) {
+        var index = time.lastIndexOf(".");
+        time = time.substring(0, index);
+        let date = new Date(time);
+        return formatDate(date, "yyyy-MM-dd hh:mm:ss");
+      } else {
+        return "暂未开始";
+      }
+    },
   },
   created() {
     this.getParams();
@@ -666,12 +679,32 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.taskData = response.data.allData[0];
           this.see = this.taskData.taskType;
-          //console.log("see:" + this.see);
-          if (this.taskData.taskType === 0) {
+            if (this.taskData.taskType === 0) {
             this.taskData.taskType = "设计任务";
+            this.see=0;
+           
           } else {
             this.taskData.taskType = "流通任务";
+            this.see=1;
+            
+            
           }
+          this.milepost1[0].description = this.$options.filters["formatDate"](response.data.allData[0].applyTime);
+          this.milepost1[1].description = this.$options.filters["formatDate"](response.data.allData[0].checkPlanTime);
+          this.milepost1[2].description = this.$options.filters["formatDate"](response.data.allData[0].uploadCircuaterTime);
+          this.milepost1[3].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
+          this.milepost1[4].description = this.$options.filters["formatDate"](response.data.allData[0].finishTime);
+          console.log("see:" + this.see);
+          // if (this.taskData.taskType === 0) {
+          //   this.taskData.taskType = "设计任务";
+          //   this.see=0;
+           
+          // } else {
+          //   this.taskData.taskType = "流通任务";
+          //   this.see=1;
+            
+            
+          // }
         });
     },
 
@@ -759,14 +792,9 @@ export default {
           this.milepost[4].description = response.data.allData[4];
           this.milepost[5].description = response.data.allData[5];
 
-          this.milepost1[0].description = response.data.allData[0];
-          this.milepost1[1].description = response.data.allData[1];
-          this.milepost1[2].description = response.data.allData[2];
-          this.milepost1[3].description = response.data.allData[3];
-          // this.milepost1[4].description = response.data.allData[4];
-          this.milepost1[4].description = response.data.allData[5];
+        
           this.styleswith();
-          //console.log(this.form.designCount + "-------");
+         
         });
     },
     getCharts1() {
@@ -873,14 +901,14 @@ export default {
         })
         .then(response => {
           (this.formLT.circulationCount = response.data.allData),
-            this.styleswith();
+            this.styleswith1();
         });
     },
 
     styleswith() {
-       document.getElementById("one").style.background = "rgb(238, 238, 238)";
-       document.getElementById("two").style.background = "rgb(238, 238, 238)";
-       document.getElementById("three").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("one").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("two").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("three").style.background = "rgb(238, 238, 238)";
       if (this.formZL.designCount >= 0 && this.formZL.designCount < 3) {
         document.getElementById("one").style.background = "#00D1B2";
         document.getElementById("word").innerHTML = "优";
@@ -901,8 +929,12 @@ export default {
     },
 
     styleswith1() {
+       //document.getElementById("one").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("two").style.background = "rgb(238, 238, 238)";
+      //  document.getElementById("three").style.background = "rgb(238, 238, 238)";
       if (this.formLT.circulationCount > -4) {
-        console.log(this.formLT.circulationCount + "----------------");
+         document.getElementById("two2").style.background = "#eee";
+         document.getElementById("three3").style.background = "#eee";
         document.getElementById("one1").style.background = "#00D1B2";
         document.getElementById("word1").innerHTML = "优";
         document.getElementById("word1").style.color = "#00D1B2";
@@ -911,8 +943,10 @@ export default {
         this.formLT.circulationCount < -3 &&
         this.formLT.circulationCount > -8
       ) {
+        
         document.getElementById("one1").style.background = "#eee";
-        document.getElementById("two2").style.background = "orange";
+        document.getElementById("two2").style.background = "#eee";
+         document.getElementById("three3").style.background = "red";
         document.getElementById("word1").innerHTML = "良";
         document.getElementById("word1").style.color = "orange";
       }
@@ -920,6 +954,7 @@ export default {
         this.formLT.circulationCount < -7 ||
         this.formLT.circulationCount == -8
       ) {
+        document.getElementById("one1").style.background = "#eee";        
         document.getElementById("two2").style.background = "#eee";
         document.getElementById("three3").style.background = "red";
         document.getElementById("word1").innerHTML = "差";
@@ -946,7 +981,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .service {
   .LDT {
     height: 300px;
@@ -1244,6 +1279,12 @@ export default {
     color: #f15e09;
     border-color: #f15e09;
   }
+.el-tabs__header {
+  border-bottom: 0px solid #e4e7ed;
+  padding: 0;
+  position: relative;
+  margin: 0 0 0px;
+}
   
 }
 /* //雷达图 */
@@ -1287,7 +1328,7 @@ export default {
   border-left: 0px solid;
   margin-left: -5px;
 }
-.input_span1 .span1 {
+.input_span1 span {
   display: inline-block;
   width: 85px;
   height: 30px;

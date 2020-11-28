@@ -1,7 +1,10 @@
 <!--申请信息组件-->
 <template>
   <div class="missionPlan">
-    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">申请列表</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+    <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
+      申请列表
+    </div>
+    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
     <el-table
       :data="PlantableData"
       border
@@ -9,7 +12,12 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
     >
-      <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+      <el-table-column
+        label="序号"
+        type="index"
+        width="50"
+        align="center"
+      ></el-table-column>
       <el-table-column prop="taskName" label="需求名称"></el-table-column>
       <el-table-column prop="applyWay" width="100" label="承接方式">
         <template slot-scope="scope">
@@ -17,31 +25,44 @@
           <span v-else-if="scope.row.applyWay === 1">申请</span>
         </template>
       </el-table-column>
-      <el-table-column prop="checkApplyState" width="120" align="center" label="申请/邀请状态">
+      <el-table-column
+        prop="checkApplyState"
+        width="120"
+        align="center"
+        label="申请/邀请状态"
+      >
         <template slot-scope="scope">
-          <el-tag type="warning" v-if="scope.row.checkApplyState === 0">待审核</el-tag>
-          <el-tag type="success" v-else-if="scope.row.checkApplyState === 1">通过</el-tag>
+          <el-tag type="warning" v-if="scope.row.checkApplyState === 0"
+            >待审核</el-tag
+          >
+          <el-tag type="success" v-else-if="scope.row.checkApplyState === 1"
+            >通过</el-tag
+          >
           <el-tag type="danger" v-else>拒绝</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="applyTime" label="申请/邀请时间">
         <template slot-scope="scope">
           <el-span v-if="+scope.row.applyTime === 0">暂未开始</el-span>
-          <el-span v-else>{{scope.row.applyTime | formatDate}}</el-span>
+          <el-span v-else>{{ scope.row.applyTime | formatDate }}</el-span>
         </template>
       </el-table-column>
       <el-table-column prop="checkApplyTime" label="审核时间">
         <template slot-scope="scope">
           <el-span v-if="+scope.row.checkApplyTime === 0">暂未审核</el-span>
-          <el-span v-else>{{scope.row.checkApplyTime | formatDate}}</el-span>
+          <el-span v-else>{{ scope.row.checkApplyTime | formatDate }}</el-span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
           <div v-if="scope.row.applyWay === 0">
             <div v-if="scope.row.checkApplyState < 1">
-              <el-button @click="accept(scope.row)" type="text" size="small">通过</el-button>
-              <el-button @click="noAccept(scope.row)" type="text" size="small">拒绝</el-button>
+              <el-button @click="accept(scope.row)" type="text" size="small"
+                >通过</el-button
+              >
+              <el-button @click="noAccept(scope.row)" type="text" size="small"
+                >拒绝</el-button
+              >
             </div>
           </div>
           <el-button
@@ -49,26 +70,23 @@
             @click="refuseReason(scope.row)"
             type="text"
             size="small"
-          >拒绝原因</el-button>
-          <el-button @click="showData()" type="text" size="small"
+            >拒绝原因</el-button
+          >
+          <el-button v-show="taskType === 1" @click="showData()" type="text" size="small"
             >查看</el-button
           >
         </template>
       </el-table-column>
     </el-table>
-     <!-- 查看弹窗的内容 -->
-    <el-dialog
-      :visible.sync="upCirculation"
-      width="50%"
-      @click="handleClose"
-    >
+    <!-- 查看弹窗的内容 -->
+    <el-dialog :visible.sync="upCirculation" width="50%" @click="handleClose">
       <div
         class="biaoti"
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
-        发货清单
+        流通清单
       </div>
-     <!--  <br />
+      <!--  <br />
       <div style="margin-top: 10px">
         <el-button
           style="float: left; margin-bottom: 10px"
@@ -93,7 +111,6 @@
           style="width: 100%"
           @selection-change="handleSelectionChange"
         >
-
           <el-table-column
             label="序号"
             type="index"
@@ -108,28 +125,23 @@
           <el-table-column
             prop="productName"
             label="产品名称"
-         
           ></el-table-column>
 
           <el-table-column
             prop="productNumber"
             label="产品数量"
-           
           ></el-table-column>
           <el-table-column
             prop="productModel"
             label="产品规格"
-           
           ></el-table-column>
-            <el-table-column
+          <el-table-column
             prop="productPrice"
             label="产品单价"
-          
           ></el-table-column>
           <el-table-column
             prop="contactNumber"
             label="联系方式"
-            
           ></el-table-column>
         </el-table>
 
@@ -149,7 +161,12 @@
 
     <!-- 申请拒绝原因 -->
     <el-dialog :visible.sync="addVisible1" width="50%">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
+      <div
+        class="biaoti"
+        style="padding: 0 10px; border-left: 3px solid #4e58c5"
+      >
+        拒绝原因
+      </div>
       <br />
       <br />
       <el-row>
@@ -160,7 +177,7 @@
           <el-col>
             <el-input
               type="textarea"
-              :autosize="{ minRows: 5, maxRows: 7}"
+              :autosize="{ minRows: 5, maxRows: 7 }"
               v-model="addList1.refuseApplyMessage"
               :readonly="true"
             ></el-input>
@@ -190,6 +207,7 @@ export default {
       pageIndex1: 1,
       pageSize: 10,
       fileType: 0,
+      taskType:1,
       tableData: [
         {
           consignmentId: "1000015",
@@ -210,8 +228,8 @@ export default {
         },
       ],
       addList1: {
-        refuseApplyMessage: ""
-      }
+        refuseApplyMessage: "",
+      },
     };
   },
 
@@ -219,12 +237,13 @@ export default {
     formatDate(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    }
+    },
   },
   methods: {
     getMsg(msg) {
       this.PlantableData = msg;
       this.getParams();
+      this.taskType = msg[0].taskType
     },
     getParams() {
       var routerParams = this.$route.query.taskId;
@@ -235,20 +254,20 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
-        leixing: "ZIRWHJ"
+        leixing: "ZIRWHJ",
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/DownloadHTHT",
           data: data,
-          responseType: "blob"
+          responseType: "blob",
         })
-        .then(response => {
+        .then((response) => {
           this.download(response.data, "ZRWFJ");
         });
     },
-     showData() {
+    showData() {
       this.upCirculation = true;
       var that = this;
       var data = Qs.stringify({
@@ -268,7 +287,7 @@ export default {
           }
         });
     },
-       handleCurrentChange(cpage) {
+    handleCurrentChange(cpage) {
       this.pageIndex = cpage;
     },
     handleSizeChange(psize) {
@@ -277,21 +296,21 @@ export default {
     //接受通过
     accept(row) {
       this.$confirm("确定接受需求么？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
           taskId: row.taskId,
-          userName: this.userName
+          userName: this.userName,
         });
         that.axios({
           method: "post",
           url: "/api/supplier/accept",
-          data: data
+          data: data,
         });
         this.$message({
           message: "接受成功",
-          type: "success"
+          type: "success",
         });
         this.$router.go(0);
       });
@@ -299,21 +318,21 @@ export default {
     //接受不通过
     noAccept(row) {
       this.$confirm("确定拒绝需求么？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
           taskId: row.taskId,
-          userName: this.userName
+          userName: this.userName,
         });
         that.axios({
           method: "post",
           url: "/api/supplier/noAccept",
-          data: data
+          data: data,
         });
         this.$message({
           message: "拒绝通过",
-          type: "success"
+          type: "success",
         });
         this.$router.go(0);
       });
@@ -324,19 +343,19 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        userName: this.userName
+        userName: this.userName,
       });
       that
         .axios({
           method: "post",
           url: "/api/supplier/getList",
-          data: data
+          data: data,
         })
-        .then(response => {
+        .then((response) => {
           this.addList1 = response.data.allData.b[0];
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

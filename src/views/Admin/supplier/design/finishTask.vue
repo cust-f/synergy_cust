@@ -27,7 +27,7 @@
 
       <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
 
-      <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column>
+      <!-- <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column> -->
 
       <el-table-column prop="finishTime" sortable="custom" label="完成日期">
         <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>

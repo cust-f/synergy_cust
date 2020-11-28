@@ -41,7 +41,8 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="完成日期">
-                  <el-input v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
+                  <el-input v-if="cool.finishTime === 1" :disabled="true">暂未完成</el-input>
+                  <el-input v-else v-bind:value="cool.finishTime |formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -109,7 +110,7 @@
             <div class="container">
               <div>
                 <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
-                <el-button type="primary" class="handle-del mr10" @click="bianjifhqdtanchu" :style="{display:fahuo}" :disabled="consignmentUpdateBtn">编辑发货清单</el-button>
+                <el-button type="primary" class="handle-del mr10" @click="bianjifhqdtanchu" :style="{display:fahuo}" :disabled="consignmentUpdateBtn">编辑流通清单</el-button>
               </div>
               <br />
               <el-table
@@ -151,14 +152,15 @@
 
                 <el-table-column label="操作" align="center">
                   <template slot-scope="scope">
-                    <el-button
+                    <!-- <暂时注释> -->
+                    <!-- <el-button
                       size="small"
                       type="text"
                       icon="el-icon-delete"
                       @click="handleDelete1(scope.row)"
-                    >删除任务</el-button>
+                    >删除任务</el-button> -->
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
-                    <el-button @click="updateSubXqAndFile(scope.row)" type="text" size="small">修改</el-button>
+                    <!-- <el-button @click="updateSubXqAndFile(scope.row)" type="text" size="small">修改</el-button> -->
                   </template>
                 </el-table-column>
               </el-table>
@@ -559,9 +561,9 @@
               </span>
             </el-dialog>
 
-            <!-- 查看所有发货清单 弹出框 -->
+            <!-- 查看所有流通清单 弹出框 -->
             <el-dialog :visible.sync="fhqdTC" width="1000px">
-            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通清单</div>
               <div style="padding: 0 10px; border-left: 3px solid #4e58c5"></div>
               <br />
               <el-button @click="consignmentInsert" type="primary" size="small">新增</el-button>
@@ -596,6 +598,13 @@
            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
            <br />
            <el-form>
+              <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="子任务名称">
+                      <el-input v-model="SubStaskname"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
                   <el-col :span="22" >
                     <el-form-item label="分解任务详情">
@@ -668,10 +677,10 @@
       </el-dialog>
           </div>
 
-      <!-- 新增 发货清单 弹出框 -->
+      <!-- 新增 流通清单 弹出框 -->
       <div class="consignment">
         <el-dialog title :visible.sync="fhqdxinzengTC" width="50%">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">新增发货清单</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">新增流通清单</div>
           <br />
           <el-form ref="consignmentForm2" label-width="110px" class="box" :rules="consignmentRules2" :model="consignmentForm2">
             <el-row>
@@ -738,10 +747,10 @@
         </el-dialog>
       </div>
 
-      <!--修改 发货清单 弹出框-->
+      <!--修改 流通清单 弹出框-->
       <div class="consignment">
         <el-dialog title :visible.sync="fhqdxiugaiTC" width="50%">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">修改发货清单</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">修改流通清单</div>
           <br />
           <el-form ref="consignmentForm1" label-width="110px" class="box" :rules="consignmentRules1" :model="consignmentForm1">
             <el-row>
@@ -826,6 +835,8 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      //分解任务详细
+      SubStaskname:"",
       //子任务详细
       SubDetail:"",
       //子任务完整文件路径
@@ -1025,7 +1036,7 @@ export default {
         productNotes1:"",
         contactNumber1:"",
       },
-      //编辑发货清单 数据验证
+      //编辑流通清单 数据验证
       consignmentRules1:{
         consignmentTimeLatest1:[
           {required: true, message: '请选择截止时间', trigger: 'blur'},
@@ -1073,7 +1084,7 @@ export default {
         productNotes2:"",
         contactNumber2:"",
       },
-      //新增发货清单 数据验证
+      //新增流通清单 数据验证
       consignmentRules2:{
         consignmentTimeLatest2:[
           {required: true, message: '请选择截止时间', trigger: 'blur'},
@@ -1347,7 +1358,7 @@ export default {
         mainTaskName: this.name,
         principalName: this.cool.principalName,
         publishTime1: this.cool.publishTime,
-        deadline1: this.cool.deadline,
+        deadline1: this.deadline1,
         taskCategoryMainId: this.mainStaskTypeID,
         taskCategoryPartId: this.subStaskTypeID,
         technicalFile: this.technicalFileWanzheng,
@@ -1410,13 +1421,17 @@ export default {
           // data:this.$store.state.userName
         })
         .then((response) => {
+          console.log(response)
           this.cool = response.data.allData.a[0];
+
+
           this.updateTime = response.data.allData.a[0];
           this.publishTime1 = response.data.allData.a[0].publishTime
           this.publishTime1 = new Date(this.publishTime1);
                     this.deadline1 = response.data.allData.a[0].deadline
           this.deadline1 = new Date(this.deadline1);
                     this.finishTime1 = response.data.allData.a[0].finishTime
+                    console.log(this.finishTime1)
           this.finishTime1 = new Date(this.finishTime1);
 
 
@@ -1438,6 +1453,12 @@ export default {
             this.finishTimeState = false;
           } else if (this.cool.taskState === 2) {
             this.cool.taskState = "废除";
+          }
+                    if(this.cool.finishTime!=null){
+             if(this.cool.finishTime.slice(0,4)<2020){
+                this.cool.finishTime ="尚未完成";
+                console.log("完成时间"+this.cool.finishTime)
+          }
           }
           if (this.cool.finishTime === null) {
             this.cool.finishTime = "尚未完成";
@@ -1492,6 +1513,7 @@ export default {
       this.ZRWXG=true;
       this.SubtaskId = row.taskId
       this.selectFile(row.taskId)
+      this.SubStaskname = row.taskName
     },
     selectFile(taskId){
       var that = this;
@@ -1547,6 +1569,7 @@ export default {
           TechnicalFile: this.SubtechnicalFileWanzheng,
           taskDtail:this.SubDetail,
           taskId: this.SubtaskId,
+          SubStaskname:this.SubStaskname
         });
         that
           .axios({
@@ -1561,8 +1584,8 @@ export default {
               this.technicalFileWanzheng = "";
               this.technicalFile = "";
               this.shangchuancishu = "";
-              this.showData();
-              //this.getData();
+              this.getData();
+              this.router.go(0)
             }
           })
           .catch((error) => {
@@ -1793,8 +1816,8 @@ export default {
         let arrays = val.splice(0,val.length-1)
         arrays.forEach(row => {
           this.$refs.multipleTable.toggleRowSelection(row); //除了当前点击的，其他的全部取消选中
-          this.fahuo="inline";//显示编辑发货清单按钮
-          //根据选中行任务状态 判断 是否禁用"编辑发货清单"按钮
+          this.fahuo="inline";//显示编辑流通清单按钮
+          //根据选中行任务状态 判断 是否禁用"编辑流通清单"按钮
           if(val[0].taskState == "完成"){
             this.consignmentUpdateBtn = true;
           }
@@ -1805,8 +1828,8 @@ export default {
          this.selectTaskId=val[0].taskId;
       }
       if(val.length == 1){
-        this.fahuo = "inline";//显示编辑发货清单按钮
-        //根据选中行任务状态 判断 是否禁用"编辑发货清单"按钮
+        this.fahuo = "inline";//显示编辑流通清单按钮
+        //根据选中行任务状态 判断 是否禁用"编辑流通清单"按钮
         if(val[0].taskState == "完成"){
           this.consignmentUpdateBtn = true;
         }
@@ -1816,7 +1839,7 @@ export default {
         this.selectTaskId=val[0].taskId;
       }
       if(val.length == 0){
-        this.fahuo="none";//隐藏编辑发货清单按钮
+        this.fahuo="none";//隐藏编辑流通清单按钮
         this.selectTaskId="";
       }
     },
@@ -1824,7 +1847,7 @@ export default {
     multipleTableSelectable:function(row, index) {
         return row.taskType == 1 ? true : false;
     },
-    //弹出发货清单表格弹出框
+    //弹出流通清单表格弹出框
     bianjifhqdtanchu(){
       var that = this;
       var data = Qs.stringify({
@@ -1845,7 +1868,7 @@ export default {
           console.log(error);
       });
     },
-    //======发货清单 修改 弹出========
+    //======流通清单 修改 弹出========
     consignmentUpdate(row){
       this.selectConsignmentId = row.consignmentId;
       var that = this;
@@ -1873,13 +1896,13 @@ export default {
           console.log(error);
       });
     },
-    //发货清单 单行 修改
+    //流通清单 单行 修改
     consignmentSaveUpdate(){
        this.$refs.consignmentForm1.validate((valid) => {
         if(valid){
           var that = this;
           //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
-          //====发货清单数据====
+          //====流通清单数据====
           var data = Qs.stringify({
             taskId: this.selectTaskId,
             consignmentId:this.selectConsignmentId,
@@ -1904,7 +1927,7 @@ export default {
             })
             .then((response) => {
               if (response.data == "成功") {
-                this.$message.success("修改发货信息成功");
+                this.$message.success("修改流通清单信息成功");
                 //this.consignmentForm1 = {};
                 //弹出框消失
                 this.fhqdxiugaiTC = false;
@@ -1923,7 +1946,7 @@ export default {
         }
       })
     },
-    //发货清单 单行 删除
+    //流通清单 单行 删除
     consignmentDelete(row){
       var that = this;
       var data = Qs.stringify({
@@ -1938,7 +1961,7 @@ export default {
         })
         .then((response) => {
           if (response.data == "成功") {
-                this.$message.success("删除发货信息成功");
+                this.$message.success("删除流通清单信息成功");
                 that.bianjifhqdtanchu();
               }
         })
@@ -1946,17 +1969,17 @@ export default {
           console.log(error);
       });
     },
-    //======发货清单 新增 弹出========
+    //======流通清单 新增 弹出========
     consignmentInsert(){
       this.fhqdxinzengTC = true;
     },
-    //======发货清单 新增========
+    //======流通清单 新增========
     consignmentSaveNew(){
       this.$refs.consignmentForm2.validate((valid) => {
         if(valid){
           var that = this;
           //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
-          //====发货清单数据====
+          //====流通清单数据====
           var data = Qs.stringify({
             taskId: this.selectTaskId,
             consignmentTimeLatest: this.consignmentForm2.consignmentTimeLatest2,
@@ -1980,7 +2003,7 @@ export default {
             })
             .then((response) => {
               if (response.data == "成功") {
-                this.$message.success("新增发货信息成功");
+                this.$message.success("新增流通清单信息成功");
                 this.consignmentForm2 = {};
                 //弹出框消失
                 this.fhqdxinzengTC = false;

@@ -46,7 +46,7 @@
       </div>
       
       <br />
-      <!-- 发货清单模块 -->
+      <!-- 流通清单模块 -->
       <div v-show="show > 1">
         <div v-show="state3 === 2">
           <delivery-List ref="deliveryList"></delivery-List>
@@ -54,11 +54,11 @@
       </div>
       <br />
       <!-- 重传文件模块 -->
-      <div>
+      <!-- <div>
         <return-File ref="returnFile"></return-File>
       </div>
-      <br />
-      <div v-show="show > 3" class="designDet">
+      <br /> -->
+      <div v-show="show > 3 && state3 === 2" class="designDet">
         <br />
         <br />
         <div
@@ -86,7 +86,7 @@
                 <br />
                 <br />
               </el-form>
-              <span></span>
+              <span></span> 
               <span></span>
               <span></span>
             </div>
@@ -267,8 +267,13 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
+          if (this.state2 == 2) {
+            this.state3 = response.data.allData.a[0].contractState;
+          } else {
+            this.state3 = 0;
+          }
           this.sendMsg();
-          this.$refs.returnFile.getMsg(response.data.allData);
+          // this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
           } else if (this.state == "计划提交") {
@@ -329,12 +334,13 @@ export default {
     },
     //返回列表
     goBack() {
-      this.$router.push({
-        path: "/admin/designTaskq",
-        query: {
-          taskId: this.taskId,
-        },
-      });
+      // this.$router.push({
+      //   path: "/admin/designTaskq",
+      //   query: {
+      //     taskId: this.taskId,
+      //   },
+      // });
+      window.history.back(-1);
     },
     passArray() {
       var that = this;

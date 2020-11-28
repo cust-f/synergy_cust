@@ -137,7 +137,7 @@
               </el-upload>
             </el-form-item>
           </el-form>
-          <div id="div2" align="center">
+          <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="tijiao">提交</el-button>
           </div>
         </div>

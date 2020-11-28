@@ -24,7 +24,7 @@
           <ul>
             <li>
               <span class="dataCSS">
-                成交任务:
+                服务成果:
                 <font class="fontStyle">{{formMonth.monthCount}}</font>项
               </span>
             </li>
@@ -209,11 +209,11 @@
                   <img @click="goAdmin" :src="this.$store.state.userLogo" />
                 </div>
                 <div>
-                  <p style="line-height: 80px;font-size: 18px;">
-                    欢迎
-                    <span
+                  <p style="line-height: 80px;margin-top:5px;font-size: 20px;color:#2762A0;">
+                    欢迎登录高端装备SaaS平台
+                    <!-- <span
                       style="font-size: 22px;font-weight: 600;margin: 0 5px;font-family: KaiTi_GB2312;"
-                    >{{userName}}</span>登陆平台
+                    >{{userName}}</span>登陆平台 -->
                   </p>
                 </div>
               </div>
@@ -510,9 +510,9 @@ export default {
       userName: sessionStorage.getItem("ms_username"),
       //首页轮播图的图片地址数组
       img_list: [
-        require("../../../assets/images/home/轮播图1.png"),
-        require("../../../assets/images/home/轮播图2.jpg"),
-        require("../../../assets/images/home/轮播图31.png"),
+        require("../../../assets/images/home/banner2.png"),
+        // require("../../../assets/images/home/轮播图1.png"),
+        // require("../../../assets/images/home/轮播图2.jpg"),
       ],
       //引入集合头部
       geometryPicture: require("../../../assets/images/home/banner/img22.png"),
@@ -679,18 +679,15 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/findData",
+          url: "/api/findHomeData",
           data: data,
         })
         .then((response) => {
-          this.formMonth.monthCount = response.data.allData[0];
-          this.formMonth.desingMonthCount = response.data.allData[1];
-          this.formMonth.circulaterMonthCount = response.data.allData[2];
-          this.formMonth.companyCount = response.data.allData[3];
-          // this.formMonth.monthCountRing = response.data.allData[4];
-          // this.formMonth.desingMonthCountRing = response.data.allData[5];
-          // this.formMonth.circulaterMonthCountRing = response.data.allData[6];
-          // this.formMonth.companyCountRing = response.data.allData[7];
+          this.formMonth.monthCount = response.data.allData[0];//服务成果数量-主任务完成数量
+          this.formMonth.desingMonthCount = response.data.allData[1];//设计任务数量
+          this.formMonth.circulaterMonthCount = response.data.allData[2];//流通任务数量
+          this.formMonth.companyCount = response.data.allData[3];//注册的企业数量
+          
         });
     },
 
@@ -810,7 +807,7 @@ export default {
     },
     //寻找需求
     selectDemand() {
-      this.$message("功能维护中！");
+        this.$router.push("/xuqiuyilan");
     },
     //登陆或者注册界面转跳
     login(option) {

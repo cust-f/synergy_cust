@@ -62,7 +62,8 @@ export default {
   },
   created() {
     console.log(this.openMenu);
-    console.log("==========")
+    console.log("==========");
+    console.log(this.items);
   },
   methods:{
     // redirects(path){

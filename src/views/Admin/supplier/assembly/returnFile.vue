@@ -6,12 +6,12 @@
     <br />
     <el-form ref="form" :model="sizeForm" label-width="100px" size="mini">
       <el-form-item label="任务书重传：">
-        <el-button v-if="planState === 1" type="primary" @click="upLoad(1)"> 上传任务书 </el-button>
+        <el-button v-if="planState === 2" type="primary" @click="upLoad(0)"> 上传任务书 </el-button>
         <span v-else>任务书未上传或审核未通过</span>
       </el-form-item>
 
       <el-form-item label="合同重传：">
-        <el-button v-if="conState === 2" type="primary" @click="upLoad(2)"> 上传合同 </el-button>
+        <el-button v-if="conState === 2" type="primary" @click="upLoad(1)"> 上传合同 </el-button>
         <span v-else>合同未上传或审核未通过</span>
       </el-form-item>
     </el-form>
@@ -114,7 +114,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/supplier/returnFile",
+          url: "/api/supplierCon/returnFile",
           data: data,
         })
         .then((response) => {

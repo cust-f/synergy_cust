@@ -19,7 +19,8 @@
                   </div>
                 </el-col>
               </el-row>
-              <span slot="reference">欢迎{{username}}!</span>
+              <!-- <span slot="reference">欢迎{{username}}!</span> -->
+              <span slot="reference">账号管理</span>
             </el-popover>
           </li>
         </ul>

@@ -374,9 +374,9 @@ export default {
       this.mainTaskId = this.cool.mainTaskId;
       this.taskId = this.cool.taskId;
       if (this.cool.taskType == 0) {
-        this.taskTpyeName = "设计需求";
+        this.taskTpyeName = "设计任务";
       } else if (this.cool.taskType == 1) {
-        this.taskTpyeName = "流通需求";
+        this.taskTpyeName = "流通任务";
       }
     },
     getParams() {

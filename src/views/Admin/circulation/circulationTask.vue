@@ -29,18 +29,18 @@
                   <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
                                     <el-table-column prop="taskState" label="状态" align="center" sortable>
                     <template slot-scope="scope">
-                      <el-tag v-if="scope.row.taskState ==='申请或邀请中'" >待响应</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='计划提交'||scope.row.taskState ==='任务进行中'"  type="warning">进行中</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='审核'" class="shenhe" >审核</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='验收'" class="yanshou" >验收</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='完成'" type="success">已完成</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
+                      <el-tag v-if="scope.row.taskState ===0" >待响应</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===1"  type="warning">计划中</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===2"  type="info">进行中</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===3" class="shenhe" >审核</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===4" class="yanshou" >验收</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===5" type="success">已完成</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===6" type="danger">失败</el-tag>
 
                     </template>
                   </el-table-column>
-                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
 
-                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                  <el-table-column prop="companyName" label="供应企业" sortable></el-table-column>
                   <el-table-column prop="deadline" label="截止时间" sortable>
                       <template slot-scope="scope">
                     {{scope.row.deadline | formatDate}}
@@ -53,7 +53,7 @@
 
 
                   <el-button
-                    @click="Detail(scope.row)"
+                    @click="DetailQB(scope.row)"
                     type="text"
                     size="small "
                     
@@ -108,7 +108,7 @@
                       <el-tag type="danger" v-else>拒绝</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                  <el-table-column prop="companyName" label="供应企业" sortable></el-table-column>
                   <el-table-column prop="deadline" label="截止时间" sortable>
                       <template slot-scope="scope">
                     {{scope.row.deadline | formatDate}}
@@ -117,15 +117,15 @@
                   </el-table-column>
                   <el-table-column label="操作" align="center" >
                      <template slot-scope="scope">
-                    <el-button
+                    <!-- <el-button
                     type="text"
                     icon="el-icon-delete"
                     class="red"
                     @click="handleDelete1(scope.row)"
-                  >废除</el-button>
+                  >废除</el-button> -->
 
                   <el-button
-                    @click="Detail(scope.row)"
+                    @click="DetailXY(scope.row)"
                     type="text"
                     size="small "
                     
@@ -166,7 +166,6 @@
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
                   <el-table-column
                     prop="checkPlanState"
                     sortable
@@ -181,12 +180,20 @@
                       <el-tag type="danger" v-else-if="scope.row.checkPlanState === 3">拒绝</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
-                  <el-table-column prop="uploadFileTime" label="上传时间" sortable>
-                      <template slot-scope="scope">
-                    {{scope.row.uploadFileTime | formatDate}}
-                    
-                  </template>
+                  <el-table-column prop="companyName" label="供应企业" sortable></el-table-column>
+                  <el-table-column
+                    prop="planUploadTime"
+                    label="上传时间"
+                    sortable
+                  >
+                    <template slot-scope="scope">
+                      <el-span v-if="+scope.row.planUploadTime === 0"
+                        >暂未上传</el-span
+                      >
+                      <el-span v-else>{{
+                        scope.row.planUploadTime | formatDate
+                      }}</el-span></template
+                    >
                   </el-table-column>
                   <!-- <el-table-column prop="taskState" label="状态" align="center" width="80">
                   </el-table-column>
@@ -262,7 +269,7 @@
                       <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                  <el-table-column prop="acceptCompanyName" label="供应企业" sortable></el-table-column>
                 <el-table-column prop="deadline" label="截止时间" sortable>
                       <template slot-scope="scope">
                     {{scope.row.deadline | formatDate}}
@@ -294,10 +301,9 @@
                 ></el-pagination>
               </div>
               </el-tab-pane>
-
+<!-- 
               <el-tab-pane label="待审核" name="fifth">
                 <div class="handle-box">
-                  <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
@@ -320,18 +326,7 @@
                     
                   </template>
                   </el-table-column>
-                  <!-- <el-table-column prop="assignmentState" label="状态" align="center" width="55">
-                  </el-table-column>
-                  <el-table-column label="图纸" align="center" width="55">
-                    <el-button type="text" size="small" class="box1">查看</el-button>
-                  </el-table-column>
-                  <el-table-column label="审核" align="center">
-                    <template slot-scope="scope">
-                      <el-button type="text" size="small"  class="box1" @click="tuzhishenhe(scope.row)">通过</el-button>
-                      <el-button type="text" size="small"  class="box1" @click="tuzhiNo(scope.row)">不通过</el-button>
-                    </template>
-                    
-                  </el-table-column> -->
+                
                   <el-table-column label="操作" align="center" >
 
                   <template slot-scope="scope">
@@ -355,29 +350,56 @@
                   
                 ></el-pagination>
               </div>
-              </el-tab-pane>
+              </el-tab-pane> -->
+
 <el-tab-pane label="待验收" name="fifyanshouth">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
+                  <el-input
+                    v-model="selectname"
+                    placeholder="子需求"
+                    class="handle-input mr10"
+                  ></el-input>
                   <el-button
                     type="primary"
                     icon="el-icon-search"
                     @click="handleSearchByCondition"
-                  >搜索</el-button>
+                    >搜索</el-button
+                  >
                 </div>
                 <el-table
-                  :data="tableData4yanshou.slice((pageIndex1-1)*pageSize,pageIndex1*pageSize)"
+                  :data="
+                    tableData4yanshou.slice(
+                      (pageIndex1 - 1) * pageSize,
+                      pageIndex1 * pageSize
+                    )
+                  "
                   border
                   class="table"
                   ref="multipleTable"
-                  :default-sort="{prop: 'taskName,mainTaskName,companyName,uploadFileTime', order: 'descending'}"
+                  :default-sort="{
+                    prop: 'taskName,mainTaskName,companyName,uploadFileTime',
+                    order: 'descending',
+                  }"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
                 >
-                  <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
+                  <el-table-column
+                    label="序号"
+                    type="index"
+                    width="50"
+                    align="center"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="taskName"
+                    label="子需求"
+                    sortable
+                  ></el-table-column>
+                  <el-table-column
+                    prop="mainTaskName"
+                    label="总需求"
+                    sortable
+                  ></el-table-column>
                   <el-table-column
                     prop="demandorCheckDesignState"
                     sortable
@@ -385,20 +407,45 @@
                     align="center"
                   >
                     <template slot-scope="scope">
-                      <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+                      <el-tag v-if="scope.row.demandorCheckDesignState === 0"
+                        >待提交</el-tag
+                      >
                       <el-tag
                         type="warning"
                         v-else-if="scope.row.demandorCheckDesignState === 1"
-                      >待审核</el-tag>
-                      <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
-                      <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
+                        >待审核</el-tag
+                      >
+                      <el-tag
+                        type="success"
+                        v-else-if="scope.row.demandorCheckDesignState === 2"
+                        >通过</el-tag
+                      >
+                      <el-tag
+                        type="danger"
+                        v-else-if="scope.row.demandorCheckDesignState === 3"
+                        >未通过</el-tag
+                      >
                     </template>
                   </el-table-column>
-                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
-                  <el-table-column prop="uploadFileTime" label="上传时间" sortable>
-                    <template slot-scope="scope">{{scope.row.uploadFileTime | formatDate}}</template>
+                  <el-table-column
+                    prop="acceptCompanyName"
+                    label="供应企业"
+                    sortable
+                  ></el-table-column>
+                  <el-table-column
+                    prop="uploadDesignTime"
+                    label="验收时间"
+                    sortable
+                  >
+                    <template slot-scope="scope">
+                      <el-span v-if="+scope.row.uploadDesignTime === 0"
+                        >暂未上传</el-span
+                      >
+                      <el-span v-else>{{
+                        scope.row.uploadDesignTime | formatDate
+                      }}</el-span></template
+                    >
                   </el-table-column>
-
                   <!-- <el-table-column prop="taskCheck" label="状态" align="center" >
                   </el-table-column>
                   <el-table-column label="图纸" align="center" width="55">
@@ -413,7 +460,12 @@
                   </el-table-column>-->
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-                      <el-button @click="Detail(scope.row)" type="text" size="small ">查看详情</el-button>
+                      <el-button
+                        @click="Detail(scope.row)"
+                        type="text"
+                        size="small "
+                        >查看详情</el-button
+                      >
                     </template>
                   </el-table-column>
                 </el-table>
@@ -429,7 +481,6 @@
                   ></el-pagination>
                 </div>
               </el-tab-pane>
-
               <el-tab-pane label="已完成" name="sixth">
                 <div class="handle-box">
 
@@ -449,7 +500,7 @@
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" sortable label="子需求"></el-table-column>
                   <el-table-column prop="mainTaskName" sortable label="总需求"></el-table-column>
-                  <el-table-column prop="companyName" sortable label="企业名称"></el-table-column>
+                  <el-table-column prop="acceptCompanyName" sortable label="供应企业"></el-table-column>
                   <el-table-column prop="finishTime" label="完成时间" sortable>
                      <template slot-scope="scope">
                     {{scope.row.finishTime | formatDate}}
@@ -488,10 +539,9 @@
               </div>
               </el-tab-pane>
 
-              <el-tab-pane label="已废除" name="seventh">
+              <!-- <el-tab-pane label="已废除" name="seventh">
                 <div class="handle-box">
                  
-                  <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
@@ -507,7 +557,7 @@
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
                   <el-table-column prop="taskName" label="子需求" sortable> </el-table-column>
                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
-                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
+                  <el-table-column prop="acceptCompanyName" label="供应企业" sortable></el-table-column>
 
                   <el-table-column label="操作" align="center" >
                         <template slot-scope="scope">
@@ -534,7 +584,7 @@
                   
                 ></el-pagination>
               </div>
-              </el-tab-pane>
+              </el-tab-pane> -->
             </el-tabs>
           </div>
         </div>
@@ -626,11 +676,19 @@ export default {
       ],
       tableData5: [
 
+      ],      
+      tableData4yanshou: [{
+        taskName:"",
+        mainTaskName:"",
+        demandorCheckDesignState:"",
+        acceptCompanyName:"",
+        uploadDesignTime:"",
+      }
       ],
       tableData6: [
   
       ],
-      tableData4yanshou: [],
+
       addList: {
         id: null,
         address: "",
@@ -644,6 +702,8 @@ export default {
       addVisible: false,
       pageTotal: 0,
       pageIndex: 1,
+            pageIndex1: 1,
+
       pageSize: 10,
       form: {},
       idx: -1,
@@ -671,7 +731,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api//SubstaskInformation/selecLTByCompanyID",
+          url: "/api/SubstaskInformation/selecLTByCompanyID",
           data: data
 
           // data:this.$store.state.userName
@@ -711,6 +771,7 @@ export default {
           data:data
         })
 .then(response => {
+  
           if (this.taskState == 0) {
             this.tableData1 = response.data.allData;
           } else if (this.taskState == 1) {
@@ -727,6 +788,8 @@ export default {
             this.tableData6 = response.data.allData;
           }
         });
+        console.log(this.taskState)
+        console.log(this.tableData4yanshou)
     },
 
     
@@ -895,6 +958,47 @@ export default {
           taskId: row.taskId
         }
       });
+      }
+    },
+      DetailXY(row) {
+      if (row.taskType == 0) {
+        this.$router.push({
+          path: "/admin/mainStaskDetail",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState 
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/mainStaskDetailLT",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState 
+          }
+        });
+      }
+    },
+     DetailQB(row) {
+      if (row.taskType == 0) {
+        this.$router.push({
+          path: "/admin/mainStaskDetail",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState ,
+            checkPlanState:row.checkPlanState
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/mainStaskDetailLT",
+          query: {
+            taskId: row.taskId,
+            checkApplyState:row.checkApplyState ,
+            checkPlanState:row.checkPlanState
+
+          }
+        });
       }
     },
    

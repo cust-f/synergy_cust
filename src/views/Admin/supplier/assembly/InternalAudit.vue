@@ -56,7 +56,7 @@
       </el-table-column>
     </el-table>
     <!-- 分配设计人员 -->
-    <el-dialog :visible.sync="dialogTableVisible" width="30%">
+    <el-dialog :visible.sync="dialogTableVisible" width="350px">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">分配设计师</div>
       <br />
       <br />
@@ -65,9 +65,10 @@
           <el-select v-model="design1" placeholder="请选择分配人员">
             <el-option
               v-for="designName in designTask"
-              :key="designName.userName"
-              :label="designName.userName"
+              :key="designName.realName"
+              :label="designName.realName"
               :value="designName.userName"
+              @change = see(design1)
             ></el-option>
           </el-select>
         </el-form-item>
@@ -139,6 +140,9 @@ export default {
     },
   },
   methods: {
+    see(msg){
+      console.log("msg")
+    },
     //获得信息
     getMsg(msg) {
       this.InternalAudit = msg;

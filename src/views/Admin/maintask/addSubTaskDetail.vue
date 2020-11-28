@@ -195,7 +195,7 @@
 
         <!-- <el-button @click="addVisible = false">取 消</el-button> -->
         <div align="right">
-          <el-button type="primary" @click="bianjitanchu" :style="{display:fahuo}">新增发货清单</el-button>
+          <el-button type="primary" @click="bianjitanchu" :style="{display:fahuo}">新增流通清单</el-button>
           <el-button type="primary" @click="saveAdd11" :disabled="taskSaveBtn">确 定</el-button>
         </div>
       </div>
@@ -240,9 +240,10 @@
         </el-table>
       </div>
 
+            <div v-show="LTQD">
       <el-divider></el-divider>
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <!-- 发货清单表格 -->
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通清单</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+      <!-- 流通清单表格 -->
       <div>
         <el-table :data="consignmentTable" style="width: 100%" border highlight-current-row>
           <el-table-column type="index" label="序号" width="50">
@@ -269,11 +270,12 @@
           </el-table-column>
         </el-table>
       </div>
+            </div>
       
-      <!-- 编辑发货清单弹出框 -->
+      <!-- 编辑流通清单弹出框 -->
       <div class="consignment">
         <el-dialog title :visible.sync="bianjiTC" width="50%">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通清单</div>
           <br />
           <el-form ref="consignmentForm" label-width="110px" class="box" :rules="consignmentRules" :model="consignmentForm">
             <el-row>
@@ -340,10 +342,10 @@
         </el-dialog>
       </div>
 
-      <!-- 发货清单详情弹出框 -->
+      <!-- 流通清单详情弹出框 -->
       <div class="consignment">
         <el-dialog title :visible.sync="fhqdxiangqingTC" width="50%">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">发货清单详情</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通清单详情</div>
           <br />
           <el-form ref="form" label-width="110px" class="box">
             <el-row>
@@ -421,6 +423,7 @@ export default {
   data() {
     
     return {
+      LTQD:0,
       // =====================================================================
       // 新增子任务
       addList: [
@@ -555,7 +558,7 @@ export default {
       // ==============================================================================
       //专利列表
       parentTable: "",
-      //编辑发货清单 数据验证
+      //编辑流通清单 数据验证
       consignmentRules:{
         consignmentTimeLatest:[
           {required: true, message: '请选择截止时间', trigger: 'blur'},
@@ -710,11 +713,11 @@ export default {
           })
           .then((response) => {
             if (response.data !==null) {
-              //存储发货清单
+              //存储流通清单
               console.log(response.data)
               this.$message.success("提交成功");
               this.technicalFileWanzheng = "";
-              this.addList = {};
+              //this.addList = {};
 
               //根据任务类别 显示编辑按钮
               if (bianjifahuo == 1) {
@@ -734,17 +737,17 @@ export default {
           });
       }
     },
-    //======新增发货清单弹出
+    //======新增流通清单弹出
     bianjitanchu() {
       this.bianjiTC = true;
     },
-    //======保存新增发货清单========
+    //======保存新增流通清单========
     deliverySave(){
        this.$refs.consignmentForm.validate((valid) => {
         if(valid){
           var that = this;
           //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
-          //====发货清单数据====
+          //====流通清单数据====
           var data = Qs.stringify({
             taskId: this.taskID,
             consignmentTimeLatest: this.consignmentForm.consignmentTimeLatest,
@@ -769,11 +772,12 @@ export default {
             })
             .then((response) => {
               if (response.data == "成功") {
-                this.$message.success("添加发货信息成功");
+                this.$message.success("添加流通清单信息成功");
                 this.consignmentForm = {};        
                 //弹出框消失
                 this.bianjiTC = false;
                 that.consignmentTableShuaxin();
+                this.LTQD = 1;
               }
             })
             .catch((error) => {
@@ -788,7 +792,7 @@ export default {
         }
       })
     },
-    //======刷新发货清单表格========
+    //======刷新流通清单表格========
     consignmentTableShuaxin() {
       var that = this;
       var data = Qs.stringify({
@@ -808,7 +812,7 @@ export default {
           console.log(error);
       });
     },
-    //======发货清单 查看详情========
+    //======流通清单 查看详情========
     consignmentDetail(row){
       //alert(row.consignmentId);
       this.fhqdxiangqingTC = true;

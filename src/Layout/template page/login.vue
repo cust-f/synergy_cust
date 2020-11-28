@@ -4,7 +4,7 @@
       <div class="top">
         <div class="logo">
           <a @click="goHome">
-            <img style="width:410px;" src="~@/assets/img/login-logo.png" alt />
+            <img style="width: 410px" src="~@/assets/img/login-logo.png" alt />
           </a>
         </div>
       </div>
@@ -17,10 +17,19 @@
           status-icon
         >
           <el-form-item prop="userName">
-            <el-input class="info" v-model="param.userName" placeholder="帐号"></el-input>
+            <el-input
+              class="info"
+              v-model="param.userName"
+              placeholder="帐号"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input class="info" v-model="param.password" type="password" placeholder="密码"></el-input>
+            <el-input
+              class="info"
+              v-model="param.password"
+              type="password"
+              placeholder="密码"
+            ></el-input>
           </el-form-item>
           <!-- <el-form-item prop="captcha">
             <el-row :gutter="20">
@@ -45,7 +54,10 @@
         </el-form>
       </div>
 
-      <div class="bottom">Copyright @ 2008 长春理工大学日立项目组 | 地址：中国吉林省长春市卫星路7186号(南)</div>
+      <div class="bottom">
+        Copyright @ 2008 长春理工大学日立项目组 |
+        地址：中国吉林省长春市卫星路7186号(南)
+      </div>
     </div>
   </div>
 </template>
@@ -88,15 +100,28 @@ export default {
               data: data,
             })
             .then((response) => {
+              console.log(response);
               if (response.data.code == 200) {
                 this.$message({
                   type: "success",
                   message: "登陆成功",
                 });
+                
+                console.log(
+                  "========================================================================"
+                );
                 this.$store.commit("SET_TOKEN", true);
                 this.$store.commit("GET_USER", this.param.userName);
+                this.$store.commit(
+                  "GET_USER_ID",
+                  response.data.allData.userId.userId
+                );
                 sessionStorage.setItem("ms_username", this.param.userName);
                 sessionStorage.setItem("designer_name", this.param.userName);
+                sessionStorage.setItem(
+                  "userId",
+                  response.allData.userId.userId
+                );
 
                 this.$store.commit(
                   "SET_List",
