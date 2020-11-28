@@ -298,7 +298,6 @@ export default {
     };
     return {
       log: true,
-      token: this.$store.state.token,
       collapse: false,
       username: sessionStorage.getItem("ms_username"),
       serverUrl: "/api/users/updataPicture",
@@ -336,6 +335,11 @@ export default {
   },
   components: {
     navigation,
+  },
+  computed:{
+    token(){
+      return this.$store.state.token;
+    }
   },
   methods: {
     /*

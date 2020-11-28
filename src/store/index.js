@@ -13,6 +13,11 @@ const state = {
   openMenu: [],
   userLogo: ""
 }
+const actions ={
+  updataToken:(context,payload)=>{
+    context.comments("SET_TOKEN",payload)
+  }
+}
 
 const mutations = {
   //将token保存到sessionStorage里，token表示登陆状态
@@ -58,7 +63,6 @@ const mutations = {
     state.taskId1 = data
   },
 }
-const actions = {}
 export default new Vuex.Store({
   state,
   mutations,
