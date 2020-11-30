@@ -331,6 +331,8 @@ export default {
     },
 
     submit(row) {
+      console.log(row.taskId+"++++"+row);
+
       this.$confirm("确定提交吗？", "提示", {
         type: "warning",
       }).then(() => {
