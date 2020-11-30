@@ -8,8 +8,9 @@
             <div class="handle-box">
                 <el-input v-model="selectStoreName" placeholder="仓库名称" class="handle-input mr10"></el-input>
                 <el-button type="primary" @click="handleSearchByStoreName">搜索</el-button>
+                 <el-button @click="storeAdd(1)" type="primary" size="primary">新增</el-button>
             </div>
-            <el-button @click="storeAdd(1)" type="primary" size="primary">新增</el-button>
+           
             <br><br>
             <!---->
             <el-table
