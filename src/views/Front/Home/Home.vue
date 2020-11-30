@@ -497,7 +497,7 @@
 import lineChart from "./components/lineChart";
 import columnChart from "./components/columnChart";
 import pieChart from "./components/pieChart";
-import Qs from "qs"
+import Qs from "qs";
 export default {
   name: "Home",
   components: {
@@ -624,9 +624,55 @@ export default {
     this.monthDataB();
     this.getInfo();
     this.getStatistics();
+    this.SSO();
   },
   methods: {
-    //数据统计-四个数据
+    SSO() {
+      try {
+        if (this.$route.query.username) {
+          //判断是否传参
+          let name = window.atob(this.$route.query.username).toString();
+          console.log(name)
+          this.$store.commit("SET_TOKEN", true);
+          this.$store.commit("GET_USER", name);
+          sessionStorage.setItem("ms_username", name);
+          //判断是否属于课题三的企业
+          var menuList;
+          var that = this;
+          var data = Qs.stringify({
+            username: name,
+          });
+          that
+            .axios({
+              method: "post",
+              url: "/api/users/SSOLogin",
+              data: data,
+            })
+            .then((response) => {
+              console.log(response)
+              if (response.data.code == 200) {
+                this.$store.commit(
+                  "SET_List",
+                  response.data.allData.data.menuList
+                );
+                this.$store.commit(
+                  "SET_OPENMENU",
+                  response.data.allData.openArray
+                );
+                this.$store.commit(
+                  "SET_USERLOGO",
+                  response.data.allData.userLogo
+                );
+                this.roleID = response.data.allData.roleId;
+                sessionStorage.setItem("roleId", this.roleID);
+              }
+            });
+        }
+      } catch (error) {
+        console.log("未登录");
+      }
+    },
+    //数据统计-本年1月1日 到 现在时间
     monthDataB() {
       var that = this;
       var data = Qs.stringify({});
@@ -656,7 +702,6 @@ export default {
         this.demandTaskList = response.data.allData.demandTask;
         this.completeddemandTaskList = response.data.allData.serviceTask;
         this.supplierlist = response.data.allData.company;
-        console.log(this.demandTaskList);
       });
     },
     //数据统计
