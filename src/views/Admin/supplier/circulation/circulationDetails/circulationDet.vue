@@ -40,7 +40,9 @@
       <br />
       <!-- 仓库管理模块 -->
       <div v-show="show > 0">
+        <div v-show="state2 === 2">
         <storehorse-Management ref="storehorseManagement"></storehorse-Management>
+      </div>
       </div>
       <br />
       <br />

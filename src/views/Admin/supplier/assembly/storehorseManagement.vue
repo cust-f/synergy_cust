@@ -2,7 +2,7 @@
 <template>
   <div class="storehorseManagement">
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
-      仓库管理
+      清单备货 
     </div>
 
     <br />
@@ -13,6 +13,7 @@
       ref="multipleTable"
       header-cell-class-name="table-header"
       @selection-change="handleSelectionChange"
+     
     >
       <el-table-column
         label="序号"
@@ -104,34 +105,19 @@
           </el-table-column>
           <el-table-column
             prop="productName"
-            label="产品名称"
+            label="物品名称"
             width="130"
           ></el-table-column>
 
 
-          <el-table-column
-            prop="consignmentTimeLatest"
-            label="发货截至时间"
-            width="160"
-            ><template slot-scope="scope">
-              <el-span>{{
-                scope.row.consignmentTimeLatest | formatDate
-              }}</el-span>
-            </template></el-table-column
-          >
-
-          <el-table-column prop="leadTime" label="备货时间" width="160"
-            ><template slot-scope="scope">
-              <el-span>{{ scope.row.leadTime | formatDate }}</el-span>
-            </template></el-table-column
-          >
+         
           <el-table-column prop="leadState" label="备货状态" width="100">
             <template slot-scope="scope">
               <el-tag v-if="+scope.row.shortageQuantity >0 || scope.row.leadState===0" type="info"
-                >待发货</el-tag
+                >待备货</el-tag
               >
               <el-tag v-else-if="+scope.row.shortageQuantity === 0 || scope.row.leadStata === 0"
-                >已发货</el-tag
+                >已备货</el-tag
               >
             </template>
           </el-table-column>
@@ -155,6 +141,23 @@
             label="产品规格"
             width="85"
           ></el-table-column>
+
+           <el-table-column
+            prop="consignmentTimeLatest"
+            label="发货截至时间"
+            width="160"
+            ><template slot-scope="scope">
+              <el-span>{{
+                scope.row.consignmentTimeLatest | formatDate
+              }}</el-span>
+            </template></el-table-column
+          >
+
+          <el-table-column prop="leadTime" label="备货时间" width="160"
+            ><template slot-scope="scope">
+              <el-span>{{ scope.row.leadTime | formatDate }}</el-span>
+            </template></el-table-column
+          >
           
         </el-table>
 
@@ -172,57 +175,45 @@
       </el-form>
 
       <!-- 分割 -->
-      <el-form ref="form" label-width="100px" class="box">
+       <div
+        class="biaoti"
+        style="padding: 0 10px; border-left: 3px solid #4e58c5"
+      >
+        库存列表
+      </div>
+      <br />
+      <br/>
+      <el-form ref="form" label-width="100px" class="box" >
         
         <el-table
           ref="multipleTable"
           :data="
-            tableData2.slice((pageIndex - 1) * pageSize, pageIndex * pageSize)
-          "
-        >
-          <!-- <el-table-column
-            type="selection"
-            :selectable="checkboxT"
-            disabled="true"
-            width="55"
-            prop="checkox"
-          > 
-          </el-table-column> -->
-          
+            tableData2.slice((pageIndex - 1) * pageSize, pageIndex * pageSize)"
+        
+        >          
           <el-table-column
             label="序号"
-            type="index"
             width="80"
             align="center"
             prop="xuhao"
+            type="index"
           >
-            <template slot-scope="scope3">
-              <span>{{ scope3.$index + 1 }}</span>
-            </template>
           </el-table-column>
+          <el-table-column
+            prop="productName"
+            label="物品名称"  
+          >
+         </el-table-column>
           <el-table-column
             prop="storeName"
             label="仓库名称"
-            width="130"
           ></el-table-column>
-          
-           <el-table-column
-            prop="productName"
-            label="物品名称"
-            width="130"
-          ></el-table-column>
-          <el-table-column prop="beginTime" label="创建时间" width="160"
-            ><template slot-scope="scope">
-              <el-span>{{ scope.row.beginTime | formatDate }}</el-span>
-            </template></el-table-column
-          >
-
-          <el-table-column prop="productState" label="物品状态" width="120">
+          <el-table-column prop="productState" label="物品状态" >
             <template slot-scope="scope">
-              <el-tag v-if="+scope.row.productState === 1" type="info"
+              <el-tag v-if="+scope.row.productState === 1" type="danger"
                 >库存紧缺</el-tag
               >
-              <el-tag v-else-if="+scope.row.productState === 2"
+              <el-tag v-else-if="+scope.row.productState === 2" type="success"
                 >库存充足</el-tag
               >
             </template>
@@ -230,32 +221,23 @@
           <el-table-column
             prop="reserve"
             label="库存"
-            width="80"
           ></el-table-column>
-          <el-table-column
-            prop="price"
-            label="单价"
-            width="80"
-          ></el-table-column>
-          <el-table-column label="发货数量" header-align="center" align="left"  style="width:100px">
-            
-            <el-input   placeholder="请输入发货数量" style="width:80px" slot-scope="scope" 
-            v-show="tableData2[scope.$index].isproductName" 
-             v-model="tableData2[scope.$index].deliveringAmount" type="number" 
-             @blur="BlurText($event)"   min="1" >
-            </el-input>
-        
+          <el-table-column label="发货数量">
+          <el-input-number size="small"
+          slot-scope="scope" 
+          v-model="tableData2[scope.$index].deliveringAmount" 
+          :min="1"  
+          label="描述文字">
+          </el-input-number>
           </el-table-column>
           <el-table-column label="操作"  align="center" >
             <template slot-scope="scope">
             <el-button 
-                v-show="tableData2[scope.$index].isproductName" 
                 @click="deliver(scope.row,scope.$index)"
                 type="text"
                 size="small"
-                >提交</el-button
+                >发货</el-button
               > 
-              
                </template>
               </el-table-column>
         </el-table>
@@ -347,6 +329,20 @@ export default {
           productName: "111",
           storeName: "太行仓库",
           xuhao:'',
+          deliveringAmount:1,  //输入框的值
+          stockId:'',
+          isproductName:'匹配失败',
+        },
+      ],
+      tableData3:[
+        {
+          beginTime: "2020.11.5",
+          productState: "1",
+          reserve: "100",
+          price: "50",
+          productName: "111",
+          storeName: "太行仓库",
+          xuhao:'',
           deliveringAmount:"",  //输入框的值
           stockId:'',
           isproductName:'匹配失败',
@@ -416,22 +412,29 @@ export default {
           data: data,
         })
         .then((response) => {
-          this.tableData2 = response.data.allData;
+          this.tableData3 = response.data.allData;
           if (this.taskState == "完成") {
             this.submitDisable = true;
           }
           this.showData();
           console.log(this.tableData2[0].productName+"...."+this.tableData[0].productName);
-          for(var i=0;i<this.tableData2.length;i++){
-            this.tableData2[i].isproductName=false;
+          for(var i=0;i<this.tableData3.length;i++){
+            this.tableData3[i].isproductName=false;
           for(var j=0;j<this.tableData.length;j++){
-              if(this.tableData2[i].productName==this.tableData[j].productName)
+              if(this.tableData3[i].productName==this.tableData[j].productName)
               {                     
-                this.tableData2[i].isproductName=true;
+                this.tableData3[i].isproductName=true;
                 break;
               }
           }
         }
+        var k=0;
+        for(var i=0;i<this.tableData3.length;i++){
+          if(this.tableData3[i].isproductName==true){
+            this.tableData2[k]=this.tableData3[i];
+            k=k+1;
+          }
+        }  
         });
 
     },
@@ -466,9 +469,13 @@ export default {
           }
       }
     },
+    //
+    handleChange(value) {
+        console.log(value);
+      },
     //提交发货数量
     deliver(row,index){
-     console.log(row.taskId);
+     console.log(row.deliveringAmount+"....."+row.reserve+"...."+this.taskId);
       this.isitGreater='0';
       for(var i=0;i<this.tableData.length;i++){
          
@@ -484,18 +491,15 @@ export default {
             }
           }
       }
-      
-      if(this.positiveInteger==='0'){
-  
-      }
-      else if(this.isitGreater==='0'||row.deliveringAmount==0){
+      console.log(row.deliveringAmount+"....."+row.reserve+"...."+this.taskId);
+    if(this.isitGreater==='0'||row.deliveringAmount==0){
           this.$notify.error({
           title: '错误',
           message: '您提交的发货数量有误'
         });
       }
       else if(row.deliveringAmount!=0){
-         this.$confirm("确定提交吗？", "提示", {
+         this.$confirm("确定发货吗？", "提示", {
          type: "warning",
          
       }
