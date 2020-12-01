@@ -235,13 +235,13 @@
             <el-button 
                 @click="deliver(scope.row,scope.$index)"
                 type="text"
-                size="small"
-                >发货</el-button
+                size="small">发货</el-button
               > 
                </template>
               </el-table-column>
         </el-table>
-  
+      
+
         <div class="pagination">
           <el-pagination
             background
