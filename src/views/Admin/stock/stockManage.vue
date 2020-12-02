@@ -49,7 +49,7 @@
                       
                      <el-button @click="modify(scope.row)" type="text" size="small">修改</el-button>
 
-                     <el-button @click="consignmentDelete(scope.row)" type="text" size="small">删除</el-button>
+                     <el-button @click="consignmentDelete(scope.$index,scope.row)" type="text" size="small">删除</el-button>
                     </template>
                   </el-table-column>
               </el-table>
@@ -450,11 +450,14 @@ export default {
             })
     },   
     
-    consignmentDelete(row){
+    consignmentDelete(index,row){
           var that = this;
-          var data = Qs.stringify({
-          stockID: row.stockId,
-      });
+          
+      this.$confirm("确定要删除吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {   
        that
         .axios({
           method: "post",
@@ -471,6 +474,16 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        });
+      })
+      .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+        var data = Qs.stringify({
+          stockID: row.stockId,
       });
     },
 
