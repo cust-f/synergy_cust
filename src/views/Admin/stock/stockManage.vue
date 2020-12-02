@@ -6,9 +6,12 @@
         <br>
         <div class="container">
           <div class="handle-box">
+            <!-- <template slot-scope="scope"> -->
                 <el-input v-model="selectname" placeholder="产品名称" class="handle-input mr10"></el-input>
                 <el-button type="primary" @click="handleSearch">搜索</el-button>
-                <el-button type="primary" class="handle-del mr10" @click="XZTC = true">新增</el-button>
+                
+                <el-button type="primary" class="handle-del mr10" @click="xinzengTC">新增</el-button>
+                <!-- </template> -->
           </div>
           
       
@@ -20,9 +23,9 @@
                   :default-sort="{prop: 'productState,beginTime,sale,productName,price,reserve', order: 'descending'}"
                   header-cell-class-name="table-header"
            >
-           <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="productName" label="产品名称" sortable ></el-table-column>
-                  <el-table-column prop="productState" label="物品状态" align="center" sortable  width="80" >
+                  <el-table-column label="序号" type="index" width="70" align="center"></el-table-column>
+                  <el-table-column prop="productName" label="产品名称" sortable width="150"></el-table-column>
+                  <el-table-column prop="productState" label="物品状态" align="center" sortable  width="150" >
                     <template slot-scope="scope">
                       <el-tag v-if="+scope.row.productState ===2"  type="success">库存充足</el-tag>
                       <el-tag v-else-if="+scope.row.productState ===1" type="danger">库存紧缺</el-tag>
@@ -36,8 +39,8 @@
                     width="100"
                     align="center"
                   ></el-table-column>
-                  <el-table-column prop="reserve" label="库存" width="150" sortable></el-table-column>
-                  <el-table-column prop="sale" label="销量" width="150" sortable></el-table-column>
+                  <el-table-column prop="reserve" label="库存" width="100" sortable></el-table-column>
+                  <el-table-column prop="sale" label="销量" width="100" sortable></el-table-column>
                   <el-table-column prop="beginTime" sortable label="创建时间" width="150">
                     <template slot-scope="scope">{{scope.row.beginTime | formatDate}}</template>
                   </el-table-column>
@@ -207,10 +210,37 @@
                       <el-input v-model="addTC.reserve1"></el-input>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="11">
+                      <el-form-item label="仓库">
+                      <el-select
+                        v-model="store"
+                        placeholder="请选择仓库"
+                        class="selectsupply"
+                        style="width:100%;"
+                      >
+                      <el-option
+                        width="180"
+                        v-for="item in STR"
+                        :label="item.storeName"
+                        :key="item.storeId"
+                        :value="item.storeId"
+                      ></el-option>
+                      
+                    <!--lable\key\value绑定的为后台的变量
+                        1、首先：调用方法，将所有的仓库信息按条返回到STR大数组里
+                        2、对于STR中的每个小数组循环绑定并输出每条仓库信息
+                        3、lable绑定选择框中能看到的文字
+                           value可以绑定想要的例如id
+                           key要和value绑定为一样的
+                           item是将STR数组中的循环的每条数据（[0]、[1]、[2]）的代称
+                     -->
+                      </el-select>
+                      </el-form-item>
+                  </el-col>
             </el-row>
           </el-form>
           <span slot="footer" class="dialog-footer">
-            <el-button @click="XGTC = false">取 消</el-button>
+            <el-button @click="XZTC = false">取 消</el-button>
             <el-button type="primary" @click="addStock()">确 定</el-button>
           </span>
         </el-dialog> 
@@ -247,11 +277,16 @@ export default {
       productState:"",
       storeID:"1",
       stockID:"",
+      // oldName:"",
       usernameX: sessionStorage.getItem("ms_username"),
       pageIndex: 1,
       pageSize: 10,
       activeName: "first",
-      tableData: [],
+      tableData: [
+        {
+          
+        }
+      ],
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
@@ -266,6 +301,43 @@ export default {
 
       XZTC:false,
       XGTC:false,
+      store:"",
+      STR: [{}],
+      // stockFormAdd:{
+      //   stockIdAdd : '',
+      //   productNameAdd : '',
+      //   beginTimeAdd : '',
+      //   priceAdd : '',
+      //   reserveAdd:'',
+      //   saleAdd:'',
+        
+      // },
+      // stockRulesAdd:{
+      //   productNameAdd:[
+      //     {required: true, message: '请输入产品名称', trigger: 'blur'},
+      //     { min: 1, max: 20, message: "请输入长度在 1 到 20 个字符的名称", trigger: "blur" },
+      //   ],
+      //   beginTimeAdd:[
+      //     {required: true, message: '请输入建立时间', trigger: 'blur'},
+      //      { min: 1, max: 50, message: "请输入符合格式的时间", trigger: "blur" },
+      //   ],
+      //   priceAdd:[
+      //     {required: true, message: '请输入单价', trigger: 'blur'},
+      //     {min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的单价", trigger: "blur"},
+      //   ],
+      //   // reserveAdd:[
+      //   //   {required: true, message: '请输入库存数量', trigger: 'blur'},
+      //   //   {pattern:/^1\d{10}$/, message: "请输入正确的联系电话", trigger: "blur"},
+      //   // ],
+      //   reserveAdd:[
+      //     {required: true, message: '请输入库存数目', trigger: 'blur'},
+      //     {min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的库存数目", trigger: "blur"},
+      //   ],
+      //   saleAdd:[
+      //     {required: true, message: '请输入销量', trigger: 'blur'},
+      //     {min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的库存销量", trigger: "blur"},
+      //   ],
+      // },
     };
   },
 
@@ -286,32 +358,66 @@ export default {
     this.GetTime(date);
   },
   methods: {
+
     xinzengTC(){
-      this.XZTC=true;
+       
+      var that = this;
+      var data = Qs.stringify({
+        username:this.usernameX,       
+      });
+      that
+            .axios({
+              method: "post",
+              // url: "/api/StoreHouse/usernamechastorename",
+              url: "/api/StoreHouse/selectStorehouseAll",
+              data: data,
+              
+            })
+      .then((response) => {
+        if(response.data.code == "200"){
+            this.STR = response.data.allData;
+            this.XZTC=true;
+        }
+        
+          })
+      .catch((error) => {
+            console.log(error);
+            
+          });
+
     },
     modify(row){
       this.XGTC=true;
       this.productName=row.productName;
+      // this.oldName=row.productName;
       this.price=row.price;
       this.reserve=row.reserve;
       this.beginTime=row.beginTime;
       this.sale=row.sale;
-      this.stockID=row.stockID;
+      this.stockID=row.stockId;
       this.storeID=row.storeID;
       this.productState=row.productState;
+      console.log(this.stockID);
     },
     
-    //新增弹窗
+    
+
+    //新增弹窗窗口的确定
     addStock(){
       var that = this;
-
+          // this.stockFormAdd.stockIdAdd = row.storeId;
+          // this.stockFormAdd.productNameAdd = row.productName;
+          // this.stockFormAdd.beginTimeAdd = row.beginTime;
+          // this.stockFormAdd.priceAdd = row.price;
+          // this.stockFormAdd.reserveAdd = row.reserve;
+          // this.stockFormAdd.saleAdd = row.sale;
           //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
           //====流通清单数据====
-          if(this.addTC.reserve1>200){
-            this.addTC.productState1='2';
+          if(this.addTC.reserve1>10){
+            this.addTC.productState1='2';//库存大于10，库存充足
           }
           else{
-            this.addTC.productState1='1';
+            this.addTC.productState1='1';//库存小于10，库存紧缺
           };
           var data = Qs.stringify({
             username: this.usernameX,//让后台查询companyID
@@ -336,7 +442,7 @@ export default {
                 this.addTC = {};
                 //弹出框消失
                 this.XZTC = false;
-                that.getdata();
+                that.getData();
               }
             })
             .catch((error) => {
@@ -347,7 +453,7 @@ export default {
     consignmentDelete(row){
           var that = this;
           var data = Qs.stringify({
-          stockID: row.stockID,
+          stockID: row.stockId,
       });
        that
         .axios({
@@ -357,6 +463,7 @@ export default {
           // headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
         .then((response) => {
+          console.log("lllll"+row.stockID);
           if (response.data.code == "200") {
                 this.$message.success("删除流通清单信息成功");
                 that.getData();
@@ -368,19 +475,21 @@ export default {
     },
 
     change(){
-      var stockManageState;       
+
+      var stockManageState;     
+    
       var that = this;
       var data = Qs.stringify({
-            username: this.usernameX,//让后台查询companyID
+            // username: this.usernameX,//让后台查询companyID
             productName: this.productName,
-            storeID:this.storeID,
+            // storeID:this.storeID,
             price:this.price,
             reserve:this.reserve,
             sale:this.sale,
-            beginTime:this.beginTime,
-            productState:this.productState,
-            stockID:this.stockID,
-            companyID:'5556',
+            beginTime:'2020-11-30 14:27:33',
+            // productState:this.productState,
+            stockId:this.stockID,
+            // companyID:'5556',
       });
       console.log(data);
       that
@@ -392,11 +501,12 @@ export default {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
         .then((response) => {
-          if (response.data == "成功") {
+          if (response.data.code == "200") {
                 this.$message.success("修改库存信息成功");
-                
+                console.log(response.data);
+                // this.productName = response.data.allData.productName;
                 this.XGTC = false;
-                that.getdata();
+                that.getData();
               }
           
         })
@@ -432,6 +542,9 @@ export default {
           console.log(response);
           this.tableData = response.data.allData;
           // this.$refs.configurationTable.$el.style.width = "99.99%";
+          //this.store= response.data.allData[0].store;
+           //this.STR = response.data.allData[0].store;
+           console.log(response.data);
           })
         .catch((error) => {
           console.log(error);
@@ -441,13 +554,13 @@ export default {
     handleSearch() {
       var that = this;
       var data = Qs.stringify({
-        username: this.usernameX,
-        taskName: this.selectname
+        productName:this.selectname,
+        
       });
       that
         .axios({
           method: "post",
-          url: "/api/Inventory/selectStockAll",
+          url: "/api/Inventory/selectProductByLittle",
           data: data
           // data:this.$store.state.userName
         })
