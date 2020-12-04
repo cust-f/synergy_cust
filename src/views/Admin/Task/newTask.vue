@@ -56,6 +56,7 @@
                       :label="coo1"
                       :value="coo1"
                     ></el-option>
+                    
                   </el-select>
                 </el-form-item>
               </el-col>
@@ -404,7 +405,7 @@
               <el-button type="primary" @click="saveAdd">确 定</el-button>
             </span>
           </el-dialog>
-        </el-card>
+        <!-- </el-card> -->
       </el-main>
     </el-container>
   </div>
