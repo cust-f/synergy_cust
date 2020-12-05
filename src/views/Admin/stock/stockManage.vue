@@ -195,10 +195,11 @@
           </div>
           <br />
           <el-form
-            ref="addTC"
+            ref="newform"
             label-width="110px"
             :rules="storeRulesAdd"
             class="box"
+            :model="addTC"
           >
             <el-row>
               <el-col :span="11">
@@ -241,13 +242,12 @@
               <el-col :span="11">
                 <el-form-item label="仓库">
                   <el-select
-                    v-model="store"
+                    v-model="storeID"
                     placeholder="请选择仓库"
                     class="selectsupply"
                     style="width: 100%"
                   >
                     <el-option
-                      width="180"
                       v-for="item in STR"
                       :label="item.storeName"
                       :key="item.storeId"
@@ -293,6 +293,7 @@ export default {
         sale1: "",
         beginTime1: "",
         productState1: "",
+        store: "",
       },
       productName: "",
       price: "",
@@ -318,11 +319,10 @@ export default {
       userName: "123",
       mainTaskID: "",
       selectname: "",
-
       XZTC: false,
       XGTC: false,
       store: "",
-      STR: [{}],
+      STR: [],
 
       storeRulesAdd: {
         productName1: [
@@ -380,7 +380,7 @@ export default {
 
   created() {
     this.getData();
-    this.GetTime(date);
+    this.GetTime();
   },
   methods: {
     xinzengTC() {
@@ -398,6 +398,7 @@ export default {
         .then((response) => {
           if (response.data.code == "200") {
             this.STR = response.data.allData;
+            console.log(this.STR);
             this.XZTC = true;
           }
         })
@@ -414,64 +415,60 @@ export default {
       this.beginTime = row.beginTime;
       this.sale = row.sale;
       this.stockID = row.stockID;
-      console.log("row.stockId:" + row.stockID);
+      console.log("row.stockId:" + row.storeID);
       this.storeID = row.storeID;
       this.productState = row.productState;
     },
 
     //新增弹窗窗口的确定
     addStock() {
-      console.log(this.storeID)
-      if (this.storeID == "") {
-        this.$message.success("请输入仓库地址");
-      }
-      else {
-        var that = this;
-        // this.stockFormAdd.stockIdAdd = row.storeId;
-        // this.stockFormAdd.productNameAdd = row.productName;
-        // this.stockFormAdd.beginTimeAdd = row.beginTime;
-        // this.stockFormAdd.priceAdd = row.price;
-        // this.stockFormAdd.reserveAdd = row.reserve;
-        // this.stockFormAdd.saleAdd = row.sale;
-        //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
-        //====流通清单数据====
-        if (this.addTC.reserve1 > 10) {
-          this.addTC.productState1 = "2"; //库存大于10，库存充足
-        } else {
-          this.addTC.productState1 = "1"; //库存小于10，库存紧缺
-        }
-        var data = Qs.stringify({
-          username: this.usernameX, //让后台查询companyID
-          productName: this.addTC.productName1,
-          price: this.addTC.price1,
-          reserve: this.addTC.reserve1,
-          sale: this.addTC.sale1,
-          beginTime: this.addTC.beginTime1,
-          productState: this.addTC.productState1,
-          storeID: "1",
-        });
-        that
-          .axios({
-            method: "post",
-            url: "/api/Inventory/addInventory",
-            data: data,
-            // headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          })
-          .then((response) => {
-            if (response.data == "成功") {
-              this.$message.success("新增库存信息成功");
-              this.addTC = {};
-              //弹出框消失
-              this.XZTC = false;
-              that.getData();
-            }
-          })
-          .catch((error) => {
-            console.log(error.response);
+      this.$refs.newform.validate((valid) => {
+        if (valid && this.storeID != "") {
+          var that = this;
+          //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
+          //====流通清单数据====
+          if (this.addTC.reserve1 > 10) {
+            this.addTC.productState1 = "2"; //库存大于10，库存充足
+          } else {
+            this.addTC.productState1 = "1"; //库存小于10，库存紧缺
+          }
+          var data = Qs.stringify({
+            username: this.usernameX, //让后台查询companyID
+            productName: this.addTC.productName1,
+            price: this.addTC.price1,
+            reserve: this.addTC.reserve1,
+            sale: this.addTC.sale1,
+            beginTime: this.addTC.beginTime1,
+            productState: this.addTC.productState1,
+            storeID: this.storeID,
           });
-      }
+          that
+            .axios({
+              method: "post",
+              url: "/api/Inventory/addInventory",
+              data: data,
+              // headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            })
+            .then((response) => {
+              if (response.data == "成功") {
+                this.$message.success("新增库存信息成功");
+                this.addTC = {};
+                //弹出框消失
+                this.XZTC = false;
+                that.getData();
+              }
+            })
+            .catch((error) => {
+              console.log(error.response);
+            });
+        } else {
+          this.$message({
+            type: "warning",
+            message: "你还有重要信息未填写，填写后再提交",
+          });
+        }
+      });
     },
-
     consignmentDelete(index, row) {
       var that = this;
       this.$confirm("确定要删除吗？", "提示", {
@@ -640,6 +637,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-input__inner {
+  width: 310px;
+  padding-right: 30px;
+}
 .stockManage {
   .handle-box {
     margin-bottom: 20px;
