@@ -11,7 +11,7 @@
                  <el-button @click="storeAdd(1)" type="primary" size="primary">新增</el-button>
             </div>
            
-            <br><br>
+            
             <!---->
             <el-table
                 :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
@@ -211,7 +211,7 @@ export default {
             // this.storeFormAdd = {};
         }
         else{
-            this.storeTCKTitle = "修改仓库信息";
+            this.storeTCKTitle = "修改";
             this.storeEditUrl = "/api/StoreHouse/updateStorehouseById";
             // this.storeFormAdd = row;
         }
