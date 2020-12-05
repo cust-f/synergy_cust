@@ -194,8 +194,8 @@
             <template slot-scope="scope">
               <el-button
                 v-show="
-                  +scope.row.consignmentState == 0 ||
-                  scope.row.consignmentState == 3
+                  +(scope.row.consignmentState == 0 ||
+                  scope.row.consignmentState == 3)&&scope.row.leadState === 1
                 "
                 @click="submit(scope.row)"
                 type="text"
