@@ -126,7 +126,7 @@
           </div>
         </div>
         <!-- 修改功能弹窗 -->
-        <el-dialog :visible.sync="XGTC" width="50%">
+        <el-dialog :visible.sync="XGTC" width="800px">
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -137,18 +137,18 @@
           <el-form
             ref="addTC"
             label-width="110px"
-            :rules="storeRulesAdd"
+            :rules="stockmodifyRulesAdd"
             class="box"
           >
             <el-row>
               <el-col :span="11">
-                <el-form-item label="产品名称">
+                <el-form-item label="产品名称" prop="productName">
                   <el-input v-model="productName"></el-input>
                 </el-form-item>
               </el-col>
 
               <el-col :span="11">
-                <el-form-item label="创建时间">
+                <el-form-item label="创建时间" prop="beginTime">
                   <el-date-picker
                     type="datetime"
                     placeholder="选择日期"
@@ -161,20 +161,20 @@
             </el-row>
             <el-row>
               <el-col :span="11">
-                <el-form-item label="单价">
+                <el-form-item label="单价" prop="price">
                   <el-input v-model="price"></el-input>
                 </el-form-item>
               </el-col>
 
               <el-col :span="11">
-                <el-form-item label="销量">
+                <el-form-item label="销量" prop="sale">
                   <el-input v-model="sale"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="11">
-                <el-form-item label="库存">
+                <el-form-item label="库存" prop="reserve">
                   <el-input v-model="reserve"></el-input>
                 </el-form-item>
               </el-col>
@@ -186,7 +186,7 @@
           </span>
         </el-dialog>
 
-        <el-dialog :visible.sync="XZTC" width="50%">
+        <el-dialog :visible.sync="XZTC" width="800px">
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -197,7 +197,7 @@
           <el-form
             ref="newform"
             label-width="110px"
-            :rules="storeRulesAdd"
+            :rules="stockRulesAdd"
             class="box"
             :model="addTC"
           >
@@ -324,7 +324,7 @@ export default {
       store: "",
       STR: [],
 
-      storeRulesAdd: {
+      stockRulesAdd: {
         productName1: [
           { required: true, message: "请输入产品名称", trigger: "blur" },
           {
@@ -357,6 +357,48 @@ export default {
           },
         ],
         sale1: [
+          { required: true, message: "请输入销量", trigger: "blur" },
+          {
+            min: 1,
+            max: 10,
+            message: "请输入长度在 1 到 10 个字符的库存销量",
+            trigger: "blur",
+          },
+        ],
+      },
+      stockmodifyRulesAdd: {
+        productName: [
+          { required: true, message: "请输入产品名称", trigger: "blur" },
+          {
+            min: 1,
+            max: 20,
+            message: "请输入长度在 1 到 20 个字符的名称",
+            trigger: "blur",
+          },
+        ],
+        beginTime: [
+          { required: true, message: "请输入建立时间", trigger: "blur" },
+        ],
+        price: [
+          { required: true, message: "请输入单价", trigger: "blur" },
+          {
+            min: 1,
+            max: 10,
+            message: "请输入长度在 1 到 10 个字符的单价",
+            trigger: "blur",
+          },
+        ],
+
+        reserve: [
+          { required: true, message: "请输入库存数目", trigger: "blur" },
+          {
+            min: 1,
+            max: 10,
+            message: "请输入长度在 1 到 10 个字符的库存数目",
+            trigger: "blur",
+          },
+        ],
+        sale: [
           { required: true, message: "请输入销量", trigger: "blur" },
           {
             min: 1,
