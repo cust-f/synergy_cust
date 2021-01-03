@@ -16,6 +16,7 @@
               v-model="selectname"
               placeholder="产品名称"
               class="handle-input mr10"
+              
             ></el-input>
             <el-button type="primary" @click="handleSearch">搜索</el-button>
 
@@ -51,14 +52,14 @@
               prop="productName"
               label="产品名称"
               sortable
-              width="150"
+              width="80"
             ></el-table-column>
             <el-table-column
               prop="productState"
               label="物品状态"
               align="center"
               sortable
-              width="150"
+              width="130"
             >
               <template slot-scope="scope">
                 <el-tag v-if="+scope.row.productState === 2" type="success"
@@ -69,7 +70,6 @@
                 >
               </template>
             </el-table-column>
-
             <el-table-column
               prop="price"
               label="单价"
@@ -126,6 +126,7 @@
           </div>
         </div>
         <!-- 修改功能弹窗 -->
+        <div class="dialogcss">
         <el-dialog :visible.sync="XGTC" width="800px">
           <div
             class="biaoti"
@@ -135,15 +136,16 @@
           </div>
           <br />
           <el-form
-            ref="addTC"
+            ref="changeForm"
             label-width="110px"
-            :rules="stockmodifyRulesAdd"
+            :rules="stockRulesChange"
             class="box"
+            :model="changeTC"
           >
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品名称" prop="productName">
-                  <el-input v-model="productName"></el-input>
+                  <el-input v-model="changeTC.productName"></el-input>
                 </el-form-item>
               </el-col>
 
@@ -152,7 +154,7 @@
                   <el-date-picker
                     type="datetime"
                     placeholder="选择日期"
-                    v-model="beginTime"
+                    v-model="changeTC.beginTime"
                     style="width: 100%"
                     value-format="yyyy-MM-dd HH:mm:ss"
                   ></el-date-picker>
@@ -162,20 +164,20 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="单价" prop="price">
-                  <el-input v-model="price"></el-input>
+                  <el-input v-model="changeTC.price"></el-input>
                 </el-form-item>
               </el-col>
 
               <el-col :span="11">
                 <el-form-item label="销量" prop="sale">
-                  <el-input v-model="sale"></el-input>
+                  <el-input v-model="changeTC.sale"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="11">
                 <el-form-item label="库存" prop="reserve">
-                  <el-input v-model="reserve"></el-input>
+                  <el-input v-model="changeTC.reserve" ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -185,7 +187,10 @@
             <el-button type="primary" @click="change()">确 定</el-button>
           </span>
         </el-dialog>
+        </div>
 
+        <!-- 新增功能弹窗 -->
+        <div class="dialogcss">
         <el-dialog :visible.sync="XZTC" width="800px">
           <div
             class="biaoti"
@@ -195,7 +200,7 @@
           </div>
           <br />
           <el-form
-            ref="newform"
+            ref="addform"
             label-width="110px"
             :rules="stockRulesAdd"
             class="box"
@@ -272,6 +277,8 @@
             <el-button type="primary" @click="addStock()">确 定</el-button>
           </span>
         </el-dialog>
+        </div>
+
       </el-main>
     </el-container>
   </div>
@@ -295,11 +302,13 @@ export default {
         productState1: "",
         store: "",
       },
-      productName: "",
-      price: "",
-      reserve: "",
-      beginTime: "",
-      sale: "",
+      changeTC: {
+        productName: "",
+        price: "",
+        reserve: "",
+        beginTime: "",
+        sale: "",
+      },
       productState: "",
       storeID: "",
       stockID: "",
@@ -340,9 +349,8 @@ export default {
         price1: [
           { required: true, message: "请输入单价", trigger: "blur" },
           {
-            min: 1,
-            max: 10,
-            message: "请输入长度在 1 到 10 个字符的单价",
+            pattern:/^\d{1,10}$/,
+            message: "请输入长度在 1 到 10 位的单价",
             trigger: "blur",
           },
         ],
@@ -350,23 +358,21 @@ export default {
         reserve1: [
           { required: true, message: "请输入库存数目", trigger: "blur" },
           {
-            min: 1,
-            max: 10,
-            message: "请输入长度在 1 到 10 个字符的库存数目",
+            pattern:/^\d{1,10}$/,
+            message: "请输入长度在 1 到 10 位的库存数目",
             trigger: "blur",
           },
         ],
         sale1: [
           { required: true, message: "请输入销量", trigger: "blur" },
           {
-            min: 1,
-            max: 10,
-            message: "请输入长度在 1 到 10 个字符的库存销量",
+            pattern:/^\d{1,10}$/,
+            message: "请输入长度在 1 到 10 位的库存销量",
             trigger: "blur",
           },
         ],
       },
-      stockmodifyRulesAdd: {
+      stockRulesChange: {
         productName: [
           { required: true, message: "请输入产品名称", trigger: "blur" },
           {
@@ -380,30 +386,27 @@ export default {
           { required: true, message: "请输入建立时间", trigger: "blur" },
         ],
         price: [
-          { required: true, message: "请输入单价", trigger: "blur" },
+          { required: true, message: "请输入单价",},
           {
-            min: 1,
-            max: 10,
-            message: "请输入长度在 1 到 10 个字符的单价",
+            pattern:/^\d{1,10}$/,
+            message: "请输入长度在 1 到 10 位的单价",
             trigger: "blur",
           },
         ],
 
         reserve: [
-          { required: true, message: "请输入库存数目", trigger: "blur" },
+          { required: true, message: "请输入库存数目", },
           {
-            min: 1,
-            max: 10,
-            message: "请输入长度在 1 到 10 个字符的库存数目",
+            pattern:/^\d{1,10}$/,
+            message: "请输入长度在 1 到 10 位的库存数目",
             trigger: "blur",
           },
         ],
         sale: [
           { required: true, message: "请输入销量", trigger: "blur" },
           {
-            min: 1,
-            max: 10,
-            message: "请输入长度在 1 到 10 个字符的库存销量",
+            pattern:/^\d{1,10}$/,
+            message: "请输入长度在 1 到 10 位的库存销量",
             trigger: "blur",
           },
         ],
@@ -425,6 +428,7 @@ export default {
     this.GetTime();
   },
   methods: {
+    //新增弹出框 导入仓库下拉框信息 弹出
     xinzengTC() {
       var that = this;
       var data = Qs.stringify({
@@ -440,31 +444,31 @@ export default {
         .then((response) => {
           if (response.data.code == "200") {
             this.STR = response.data.allData;
-            console.log(this.STR);
+            //console.log(this.STR);
             this.XZTC = true;
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response);
         });
     },
+    //修改某一行 修改弹出框 填入某行数据并弹出
     modify(row) {
       this.XGTC = true;
-      this.productName = row.productName;
+      this.changeTC.productName = row.productName;
       // this.oldName=row.productName;
-      this.price = row.price;
-      this.reserve = row.reserve;
-      this.beginTime = row.beginTime;
-      this.sale = row.sale;
-      this.stockID = row.stockID;
-      console.log("row.stockId:" + row.storeID);
-      this.storeID = row.storeID;
-      this.productState = row.productState;
+      this.changeTC.price = row.price;
+      this.changeTC.reserve = row.reserve;
+      this.changeTC.beginTime = this.GetTime(row.beginTime);
+      this.changeTC.sale = row.sale;
+      this.changeTC.stockID = row.stockID;
+      this.changeTC.storeID = row.storeID;
+      this.changeTC.productState = row.productState;
     },
 
-    //新增弹窗窗口的确定
+    //新增弹出框的确定
     addStock() {
-      this.$refs.newform.validate((valid) => {
+      this.$refs.addform.validate((valid) => {
         if (valid && this.storeID != "") {
           var that = this;
           //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
@@ -511,6 +515,7 @@ export default {
         }
       });
     },
+    //删除某一行
     consignmentDelete(index, row) {
       var that = this;
       this.$confirm("确定要删除吗？", "提示", {
@@ -527,14 +532,13 @@ export default {
               // headers: { "Content-Type": "application/x-www-form-urlencoded" },
             })
             .then((response) => {
-              console.log("lllll" + row.stockID);
               if (response.data.code == "200") {
                 this.$message.success("删除流通清单信息成功");
                 that.getData();
               }
             })
             .catch((error) => {
-              console.log(error);
+              console.log(error.response);
             });
         })
         .catch(() => {
@@ -547,46 +551,52 @@ export default {
         stockID: row.stockID,
       });
     },
-
+    //修改弹出框 的确定
     change() {
-      var stockManageState;
-      var that = this;
-      var data = Qs.stringify({
-        // username: this.usernameX,//让后台查询companyID
-        productName: this.productName,
-        // storeID:this.storeID,
-        price: this.price,
-        stockId: this.stockID,
-        reserve: this.reserve,
-        sale: this.sale,
-        beginTime: this.beginTime,
-        // productState:this.productState,
-
-        // companyID:'5556',
-      });
-      console.log(this.stockID);
-      that
-        .axios({
-          method: "post",
-          url: "/api/Inventory/updateStockByID",
-          data: data,
-          // data:this.$store.state.userName
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      this.$refs.changeForm.validate((valid) => {
+        if(valid){
+          var stockManageState;
+          var that = this;
+          var data = Qs.stringify({
+            // username: this.usernameX,//让后台查询companyID
+            productName: this.changeTC.productName,
+            // storeID:this.storeID,
+            price: this.changeTC.price,
+            stockId: this.changeTC.stockID,
+            reserve: this.changeTC.reserve,
+            sale: this.changeTC.sale,
+            beginTime:this.changeTC.beginTime,
+            productState:  parseInt(this.changeTC.reserve) > 10 ? 2 : 1,
+            // companyID:'5556',
+            });
+            that
+            .axios({
+              method: "post",
+              url: "/api/Inventory/updateStockByID",
+              data: data,
+              // data:this.$store.state.userName
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            })
+            .then((response) => {
+              if (response.data.code == "200") {
+                this.$message.success("修改库存信息成功");
+                this.XGTC = false;
+                that.getData();
+              }
+            })
+            .catch((error) => {
+              console.log(error.response);
+            });
+        }
+        else{
+          this.$message({
+            type: "warning",
+            message: "你还有重要信息未填写，填写后再提交",
+          });
+        }
         })
-        .then((response) => {
-          if (response.data.code == "200") {
-            this.$message.success("修改库存信息成功");
-            console.log(response.data);
-            // this.productName = response.data.allData.productName;
-            this.XGTC = false;
-            that.getData();
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
-
+    //转换时间格式
     GetTime(date) {
       var datee = new Date(date).toJSON();
       return new Date(+new Date(datee) + 8 * 3600 * 1000)
@@ -594,11 +604,11 @@ export default {
         .replace(/T/g, " ")
         .replace(/\.[\d]{3}Z/, "");
     },
-
+    //获取所有库存信息
     getData() {
       var that = this;
       var data = Qs.stringify({
-        username: this.usernameX,
+        userName: this.usernameX,
       });
       console.log(data);
       that
@@ -612,20 +622,17 @@ export default {
         .then((response) => {
           console.log(response);
           this.tableData = response.data.allData;
-          // this.$refs.configurationTable.$el.style.width = "99.99%";
-          //this.store= response.data.allData[0].store;
-          //this.STR = response.data.allData[0].store;
-          console.log(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response);
         });
     },
-
+    //搜索
     handleSearch() {
       var that = this;
       var data = Qs.stringify({
         productName: this.selectname,
+        userName: this.usernameX,
       });
       that
         .axios({
@@ -637,43 +644,7 @@ export default {
         .then((response) => {
           this.tableData = response.data.allData;
         });
-
-      //this.getData();
     },
-    //审核不通过的原因
-    open() {
-      this.$prompt("请输入审核不通过原因", "提示", {
-        confirmButtonText: "修改提交",
-        cancelButtonText: "任务废除",
-      });
-    },
-    onSubmit() {},
-    handleDelete(index, row) {},
-
-    handleClick(tab, event) {},
-
-    substaskDetail1(row) {
-      this.$router.push({
-        path: "/admin/substaskDetail",
-        query: {
-          mainTaskID: row.mainTaskID,
-        },
-      });
-    },
-
-    chick() {
-      this.$router.push("/admin/check/review");
-    },
-
-    handleCurrentChange(cpage) {
-      this.pageIndex = cpage;
-    },
-
-    handleSizeChange(psize) {
-      this.pageSize = psize;
-    },
-
-    handleSelectionChange(val) {},
   },
 };
 </script>
@@ -716,13 +687,17 @@ export default {
     font-size: 18px;
   }
 }
-.consignment {
+</style>
+<style  lang="scss">
+.dialogcss {
   .el-dialog__body {
     padding-right: 0px;
     padding-top: 20px;
     padding-bottom: 0px;
   }
   .el-dialog__header {
+    padding: 0px;
+    margin: 0px;
     padding-right: 0%;
     padding-top: 0%;
     padding-bottom: 0%;
