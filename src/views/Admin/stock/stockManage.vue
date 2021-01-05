@@ -499,7 +499,7 @@ export default {
               // headers: { "Content-Type": "application/x-www-form-urlencoded" },
             })
             .then((response) => {
-              if (response.data == "成功") {
+              if (response.data.message == "成功") {
                 this.$message.success("新增库存信息成功");
                 this.addTC = {};
                 //弹出框消失
@@ -599,6 +599,7 @@ export default {
         }
         })
     },
+   
     //转换时间格式
     GetTime(date) {
       var datee = new Date(date).toJSON();
