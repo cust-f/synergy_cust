@@ -184,7 +184,7 @@
           ></el-table-column>
            <el-table-column
             prop="shortageQuantity"
-            label="仍需数量"
+            label="仍需数量"   
             width="85"
           ></el-table-column>
           <el-table-column
