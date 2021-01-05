@@ -530,7 +530,7 @@
               <el-tag
                 v-if="+scope.row.demandorCheckDesignState === 0"
                 type="info"
-                >待供应商审核</el-tag
+                >待审核</el-tag
               >
               <el-tag v-else-if="+scope.row.demandorCheckDesignState === 1"
                 >待审核</el-tag
@@ -1693,14 +1693,14 @@
                 <el-tag v-else type="danger">拒绝</el-tag>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="productNumber"
-              label="产品数量"
-            ></el-table-column>
-            <el-table-column
-              prop="productModel"
-              label="产品规格"
-            ></el-table-column>
+           <el-table-column
+            prop="issuedQuantity"
+            label="已发数量"
+          ></el-table-column>
+           <el-table-column
+            prop="shortageQuantity"
+            label="仍需数量"
+          ></el-table-column>
 
             <el-table-column label="操作">
               <template slot-scope="scope">
