@@ -337,7 +337,7 @@ export default {
 .handle-select {
   width: 120px;
 }
-.table123 {
+.table {
   display: table-cell !important;
   /* width: 100%; */
   font-size: 14px;
@@ -365,6 +365,7 @@ export default {
 }
 }
 .consignment{
+  font-size: 14px;
   .el-dialog__body {
     padding-right: 0px;
     padding-top: 20px;

@@ -114,6 +114,7 @@
               </template>
             </el-table-column>
           </el-table>
+        
           <div class="pagination">
             <el-pagination
               background
@@ -125,6 +126,8 @@
             ></el-pagination>
           </div>
         </div>
+
+
         <!-- 修改功能弹窗 -->
         <el-dialog :visible.sync="XGTC" width="50%">
           <div
@@ -185,6 +188,7 @@
             <el-button type="primary" @click="change()">确 定</el-button>
           </span>
         </el-dialog>
+
 
         <el-dialog :visible.sync="XZTC" width="50%">
           <div
@@ -298,7 +302,7 @@ export default {
       productName: "",
       price: "",
       reserve: "",
-      beginTime: "",
+      beginTime: null,
       sale: "",
       productState: "",
       storeID: "",
@@ -380,7 +384,7 @@ export default {
 
   created() {
     this.getData();
-    this.GetTime();
+//    this.GetTime();
   },
   methods: {
     xinzengTC() {
@@ -412,10 +416,10 @@ export default {
       // this.oldName=row.productName;
       this.price = row.price;
       this.reserve = row.reserve;
-      this.beginTime = row.beginTime;
+      this.beginTime = this.GetTime(row.beginTime);
       this.sale = row.sale;
       this.stockID = row.stockID;
-      console.log("row.stockId:" + row.storeID);
+      console.log("row.beginTime  :" + row.beginTime);
       this.storeID = row.storeID;
       this.productState = row.productState;
     },
@@ -648,7 +652,7 @@ export default {
   .handle-select {
     width: 120px;
   }
-  .table123 {
+  .table {
     display: table-cell !important;
     font-size: 14px;
   }
