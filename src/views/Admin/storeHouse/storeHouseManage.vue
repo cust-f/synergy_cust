@@ -51,7 +51,7 @@
 
         <!-- 新增仓库 弹出框 -->
         <div class="consignment">
-            <el-dialog title :visible.sync="storeAddTC" width="50%">
+            <el-dialog title :visible.sync="storeAddTC" width="700px">
                 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" id="storeTCK" v-html ="storeTCKTitle"></div>
                 <br>
                 <el-form ref="storeFormAdd" label-width="110px" class="box" :rules="storeRulesAdd" :model="storeFormAdd">
