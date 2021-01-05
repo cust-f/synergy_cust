@@ -178,14 +178,14 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="productNumber"
-            label="产品数量"
-            width="100"
+            prop="issuedQuantity"
+            label="已发数量"
+            width="80"
           ></el-table-column>
-          <el-table-column
-            prop="productModel"
-            label="产品规格"
-            width="100"
+           <el-table-column
+            prop="shortageQuantity"
+            label="仍需数量"
+            width="85"
           ></el-table-column>
           <el-table-column
             label="操作"
@@ -194,8 +194,8 @@
             <template slot-scope="scope">
               <el-button
                 v-show="
-                  +scope.row.consignmentState == 0 ||
-                  scope.row.consignmentState == 3
+                  +(scope.row.consignmentState == 0 ||
+                  scope.row.consignmentState == 3)&&scope.row.shortageQuantity==0
                 "
                 @click="submit(scope.row)"
                 type="text"
@@ -275,6 +275,8 @@ export default {
           consignmentNotes: "麻烦快点谢谢",
           checkox: "",
           refuseReason: "",
+          issuedQuantity:'',
+          shortageQuantity:'',
         },
       ],
 
