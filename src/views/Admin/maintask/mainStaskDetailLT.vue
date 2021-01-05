@@ -1624,14 +1624,14 @@
       </el-dialog>
 
       <!--查看弹出框-->
-      <el-dialog title :visible.sync="chakanTC" width="70%">
+      <el-dialog title :visible.sync="chakanTC"  width="1000px">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
           流通清单
         </div>
-
+        <br />
         <div style="margin-top: 10px">
           <!-- <template slot-scope="scope"> -->
           <el-button
@@ -1647,7 +1647,7 @@
           <el-table :data="tableData" @selection-change="handleSelectionChange">
             <el-table-column
               type="selection"
-              width="50px"
+              width="55"
               :selectable="checkboxT"
               disabled="true"
             >
@@ -1666,18 +1666,19 @@
             <el-table-column
               prop="productName"
               label="产品名称"
+               width="100"
             ></el-table-column>
-            <el-table-column prop="deliveryTime" label="发货时间">
+            <el-table-column prop="deliveryTime" label="发货时间" width="160">
               <template slot-scope="scope">{{
                 scope.row.deliveryTime | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column prop="consignmentTimeLatest" label="发货截至时间"
+            <el-table-column prop="consignmentTimeLatest" label="发货截至时间" width="160"
               ><template slot-scope="scope">{{
                 scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column prop="consignmentState" label="发货状态">
+            <el-table-column prop="consignmentState" label="发货状态" width="100">
               <template slot-scope="scope">
                 <el-tag v-if="+scope.row.consignmentState === 0" type="info"
                   >待发货</el-tag
@@ -1696,13 +1697,15 @@
            <el-table-column
             prop="issuedQuantity"
             label="已发数量"
+             width="80"
           ></el-table-column>
            <el-table-column
             prop="shortageQuantity"
             label="仍需数量"
+             width="85"
           ></el-table-column>
 
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button
                   @click="success(scope.row)"

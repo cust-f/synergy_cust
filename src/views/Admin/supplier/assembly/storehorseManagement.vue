@@ -155,7 +155,8 @@
 
           <el-table-column prop="leadTime" label="备货时间" width="160"
             ><template slot-scope="scope">
-              <el-span>{{ scope.row.leadTime | formatDate }}</el-span>
+          <el-span v-if="+scope.row.leadTime === 0">暂未备货</el-span>
+          <el-span v-else>{{ scope.row.leadTime | formatDate }}</el-span>
             </template></el-table-column
           >
           
@@ -222,9 +223,10 @@
             prop="reserve"
             label="库存"
           ></el-table-column>
-          <el-table-column label="发货数量">
+          <el-table-column label="发货数量" style="margin-right: 100px">
           <el-input-number size="small"
           slot-scope="scope" 
+          placeholder="输入数量"
           v-model="tableData2[scope.$index].deliveringAmount" 
           :min="1"  
           label="描述文字">
@@ -296,19 +298,19 @@ export default {
       multipleSelection: [],
       tableData: [
         {
-          consignmentId: "1000015",
-          taskId: "1-1",
-          productName: "华子",
+          consignmentId: "",
+          taskId: "",
+          productName: "",
           deliveryTime: "",
-          consignmentTimeLatest: "2020.10.5",
+          consignmentTimeLatest: "",
           consignmentState: "",
-          productNumber: "20",
-          productModel: "很大很大",
-          productPrice: "500",
-          contactnumber: "18904402315",
+          productNumber: "",
+          productModel: "",
+          productPrice: "",
+          contactnumber: "",
           shippingaddress: "",
-          totalPrice: "2500",
-          consignmentNotes: "麻烦快点谢谢",
+          totalPrice: "",
+          consignmentNotes: "",
           checkox: "",
           refuseReason: "",
           leadTime: "",
@@ -320,30 +322,30 @@ export default {
        dis: '1',
       tableData2: [
         {
-          beginTime: "2020.11.5",
-          productState: "1",
-          reserve: "100",
-          price: "50",
-          productName: "111",
-          storeName: "太行仓库",
+          beginTime: "",
+          productState: "",
+          reserve: "",
+          price: "",
+          productName: "",
+          storeName: "",
           xuhao:'',
           deliveringAmount:1,  //输入框的值
           stockId:'',
-          isproductName:'匹配失败',
+          isproductName:'',
         },
       ],
       tableData3:[
         {
-          beginTime: "2020.11.5",
-          productState: "1",
-          reserve: "100",
-          price: "50",
-          productName: "111",
-          storeName: "太行仓库",
+          beginTime: "",
+          productState: "",
+          reserve: "",
+          price: "",
+          productName: "",
+          storeName: "",
           xuhao:'',
           deliveringAmount:"",  //输入框的值
           stockId:'',
-          isproductName:'匹配失败',
+          isproductName:'',
         },
       ],
       positiveInteger:'0', //输入框是否是正整数
