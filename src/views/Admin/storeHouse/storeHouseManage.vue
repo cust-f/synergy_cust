@@ -24,7 +24,7 @@
                 <el-table-column prop="storeAddress" label="仓库地址" width="250" sortable></el-table-column>
                 <el-table-column prop="contacter" label="联系人" width="100" sortable></el-table-column>
                 <el-table-column prop="telephone" label="联系电话" width="150" sortable></el-table-column>
-                <el-table-column prop="totalStock" label="总库存" width="100" sortable></el-table-column>
+                <el-table-column prop="totalStock" label="总库存" width="80" sortable></el-table-column>
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button @click="storeAdd(scope.row)" type="text" size="small">修改</el-button>
@@ -339,8 +339,9 @@ export default {
 }
 .table {
   display: table-cell !important;
-  /* width: 100%; */
+  width: 970px; 
   font-size: 14px;
+  
 }
 .handle-input {
   width: 260px;
