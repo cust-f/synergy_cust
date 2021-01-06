@@ -68,6 +68,7 @@
                     v-model="deaddate"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    :picker-options="pickerOptions"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -215,6 +216,7 @@
                       v-model="addList.deadline"
                       style="width: 100%;"
                       value-format="yyyy-MM-dd HH:mm:ss"
+                      :picker-options="pickerOptions"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -419,6 +421,12 @@ export default {
 
   data() {
     return {
+      //禁用今天以前的时间
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 3600 * 1000 * 24;
+        },
+      },
       shangchuancishu: 0,
       usernameX: sessionStorage.getItem("ms_username"),
       sfsmkj: false, //是否私密指派
@@ -576,6 +584,7 @@ export default {
       TaskState: "",
       TaskState1: "",
       TaskXiangXi: "",
+      
     };
   },
   created() {

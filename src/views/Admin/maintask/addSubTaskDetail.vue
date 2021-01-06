@@ -48,6 +48,7 @@
                   v-model="addList.deadline"
                   value-format="yyyy-MM-dd HH:mm:ss"
                   style="width: 100%;"
+                  :picker-options="pickerOptions"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
@@ -311,6 +312,7 @@
                     v-model="consignmentForm.consignmentTimeLatest"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    :picker-options="pickerOptions"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -423,6 +425,12 @@ export default {
   data() {
     
     return {
+      //禁用今天以前的时间
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 3600 * 1000 * 24;
+        },
+      },
       LTQD:0,
       // =====================================================================
       // 新增子任务

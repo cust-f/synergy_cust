@@ -221,6 +221,7 @@
                         v-model="addList.deadline"
                         value-format
                         style="width: 100%;"
+                        :picker-options="pickerOptions"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -427,6 +428,7 @@
                         v-model="deadline1"
                         style="width: 100%;"
                          value-format="yyyy-MM-dd HH:mm:ss"
+                         :picker-options="pickerOptions"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -716,6 +718,7 @@
                     v-model="consignmentForm2.consignmentTimeLatest2"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    :picker-options="pickerOptions"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -785,6 +788,7 @@
                       v-model="consignmentForm1.consignmentTimeLatest1"
                       style="width: 100%;"
                       value-format="yyyy-MM-dd HH:mm:ss"
+                      :picker-options="pickerOptions"
                   ></el-date-picker>                  
                 </el-form-item>
               </el-col>
@@ -835,6 +839,12 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      //禁用今天以前的时间
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 3600 * 1000 * 24;
+        },
+      },
       //分解任务详细
       SubStaskname:"",
       //子任务详细
