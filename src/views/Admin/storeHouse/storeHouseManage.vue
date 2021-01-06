@@ -9,9 +9,7 @@
                 <el-input v-model="selectStoreName" placeholder="仓库名称" class="handle-input mr10"></el-input>
                 <el-button type="primary" @click="handleSearchByStoreName">搜索</el-button>
                  <el-button @click="storeAdd(1)" type="primary" size="primary">新增</el-button>
-            </div>
-           
-            
+            </div>           
             <!---->
             <el-table
                 :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
@@ -27,7 +25,7 @@
                 <el-table-column prop="contacter" label="联系人" width="100" sortable></el-table-column>
                 <el-table-column prop="telephone" label="联系电话" width="150" sortable></el-table-column>
                 <el-table-column prop="totalStock" label="总库存" width="100" sortable></el-table-column>
-                <el-table-column label="操作" align="center" >
+                <el-table-column label="操作" align="center"  width="150">
                     <template slot-scope="scope">
                         <el-button @click="storeAdd(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="storeDelete(scope.$index,scope.row)" type="text" size="small">删除</el-button>
@@ -173,6 +171,7 @@ export default {
         .then(response => {
         //   console.log(response);
           this.tableData = response.data.allData;
+         
         //   this.$refs.configurationTable.$el.style.width = "100%";
         });
     },
@@ -216,8 +215,9 @@ export default {
             // this.storeFormAdd = row;
         }
         this.storeAddTC = true;
+        
     },
-
+    
     //仓库数据 新增或修改
     storeEdit(row){
         this.$refs.storeFormAdd.validate((valid) => {
