@@ -99,7 +99,7 @@
                 scope.row.beginTime | formatDate
               }}</template>
             </el-table-column>
-            <el-table-column label="操作" align="center" width="130">
+            <el-table-column label="操作" align="center" width="120">
               <template slot-scope="scope">
                 <el-button @click="modify(scope.row)" type="text" size="small"
                   >修改</el-button
