@@ -150,15 +150,15 @@
                   <template slot-scope="scope">{{scope.row.deadline |formatDate}}</template>
                 </el-table-column>
 
-                <el-table-column label="操作" align="center">
+                <el-table-column label="操作" align="center" width="160">
                   <template slot-scope="scope">
                     <!-- <暂时注释> -->
-                    <!-- <el-button
+                    <el-button
                       size="small"
                       type="text"
                       icon="el-icon-delete"
                       @click="handleDelete1(scope.row)"
-                    >删除任务</el-button> -->
+                    >删除任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
                     <!-- <el-button @click="updateSubXqAndFile(scope.row)" type="text" size="small">修改</el-button> -->
                   </template>
