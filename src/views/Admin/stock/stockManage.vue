@@ -311,6 +311,7 @@ export default {
         reserve: "",
         beginTime: "",
         sale: "",
+        storeID:"",
       },
       productState: "",
       storeID: "",
@@ -498,7 +499,14 @@ export default {
               // headers: { "Content-Type": "application/x-www-form-urlencoded" },
             })
             .then((response) => {
-              if (response.data.message == "成功") {
+              if (response.data.allData == "false") {
+                this.$message.warning("该库存信息已存在");
+                this.addTC = {};
+                //弹出框消失
+                this.XZTC = false;
+                that.getData();
+              }
+              else{
                 this.$message.success("新增库存信息成功");
                 this.addTC = {};
                 //弹出框消失
@@ -535,7 +543,7 @@ export default {
             })
             .then((response) => {
               if (response.data.code == "200") {
-                this.$message.success("删除流通清单信息成功");
+                this.$message.success("删除库存信息成功");
                 that.getData();
               }
             })
@@ -560,9 +568,9 @@ export default {
           var stockManageState;
           var that = this;
           var data = Qs.stringify({
-            // username: this.usernameX,//让后台查询companyID
+            username: this.usernameX,//让后台查询companyID
             productName: this.changeTC.productName,
-            // storeId:this.storeID,
+            storeID:this.changeTC.storeID,
             price: this.changeTC.price,
             stockId: this.changeTC.stockID,
             reserve: this.changeTC.reserve,
@@ -580,6 +588,7 @@ export default {
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
             })
             .then((response) => {
+              console.log(response);
               if (response.data.code == "200") {
                 this.$message.success("修改库存信息成功");
                 this.XGTC = false;

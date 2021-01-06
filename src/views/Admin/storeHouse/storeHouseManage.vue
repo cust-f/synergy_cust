@@ -171,8 +171,10 @@ export default {
         .then(response => {
         //   console.log(response);
           this.tableData = response.data.allData;
-         
         //   this.$refs.configurationTable.$el.style.width = "100%";
+        })
+        .catch((error) => {
+          console.log(error.response);
         });
     },
 
