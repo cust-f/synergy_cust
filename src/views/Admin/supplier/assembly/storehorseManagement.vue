@@ -116,7 +116,7 @@
               <el-tag v-if="+scope.row.shortageQuantity >0 || scope.row.leadState===0" type="info"
                 >待备货</el-tag
               >
-              <el-tag v-else-if="+scope.row.shortageQuantity === 0 || scope.row.leadStata === 0"
+              <el-tag v-else-if="+scope.row.shortageQuantity === 0 || scope.row.leadState === 1"
                 >已备货</el-tag
               >
             </template>
@@ -235,6 +235,7 @@
           <el-table-column label="操作"  align="center" >
             <template slot-scope="scope">
             <el-button 
+
                 @click="deliver(scope.row,scope.$index)"
                 type="text"
                 size="small">发货</el-button
@@ -332,6 +333,7 @@ export default {
           deliveringAmount:1,  //输入框的值
           stockId:'',
           isproductName:'',
+          isleadState:"",
         },
       ],
       tableData3:[
@@ -394,6 +396,8 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
+          this.tableData2.isleadState=response.data.allData[0].leadState;
+          console.log(this.tableData2.isleadState);
           if (this.taskState == "完成") {
             this.submitDisable = true;
           }
@@ -503,9 +507,7 @@ export default {
          type: "warning",
          
       }
-      
       )
-      
       .then(() => {
         var that = this;
         var data = Qs.stringify({
