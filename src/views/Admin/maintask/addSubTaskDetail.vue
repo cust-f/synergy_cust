@@ -118,6 +118,7 @@
                   placeholder="请选择供应商"
                   class="selectsupply"
                   style="width:100%;"
+                  @change="selectSupplyChanged"
                 >
                   <el-option
                     width="180"
@@ -127,6 +128,9 @@
                     :value="supplier.companyId"
                   ></el-option>
                 </el-select>
+                <font color="red">
+                  <span :style="{display:chooseSupply}">请选择供应商</span>
+                </font>
               </el-form-item>
             </el-col>
 
@@ -431,6 +435,8 @@ export default {
           return time.getTime() < Date.now() - 3600 * 1000 * 24;
         },
       },
+      chooseSupplySelected:false,//是否选择供应商 true未选 false选择
+      chooseSupply:"none",//是否提示选择供应商
       LTQD:0,
       // =====================================================================
       // 新增子任务
@@ -657,10 +663,10 @@ export default {
     },
     simizhiding(coo) {
       if (coo == 0) {
-        this.busm = "inline";
+        this.busm = "inline";//不私密-发布-全部可见
         this.sm = "none";
       } else {
-        this.sm = "inline";
+        this.sm = "inline";//私密-不发布-仅该供应方可见
         this.busm = "none";
       }
     },
@@ -676,10 +682,23 @@ export default {
         this.sfsmkj = false;
       }
     },
+    //供应商选择改变
+    selectSupplyChanged(event){
+      if(event.length != 0){
+        this.chooseSupplySelected = true;
+        this.chooseSupply="none";
+      }
+      else
+      {
+        this.chooseSupplySelected = false;
+        //this.chooseSupply="inline";//显示提示
+      }
+    },
     //======保存新增========
     saveAdd11() {
       //console.log(this.TaskXiangXi)
-      if (this.technicalFile == "null") {
+      if ((this.technicalFile == "null") || (this.sm == "inline"&&this.chooseSupplySelected==false)) {
+        this.chooseSupply="inline";
         this.$message({
           type: "warning",
           message: "你还有重要信息未填写，填写后再提交",
