@@ -440,7 +440,6 @@ export default {
       that
         .axios({
           method: "post",
-          // url: "/api/StoreHouse/usernamechastorename",
           url: "/api/StoreHouse/selectStorehouseAll",
           data: data,
         })
@@ -489,7 +488,7 @@ export default {
             sale: this.addTC.sale1,
             beginTime: this.addTC.beginTime1,
             productState: this.addTC.productState1,
-            // storeId: this.storeID,
+            storeID: this.storeID,
           });
           that
             .axios({
