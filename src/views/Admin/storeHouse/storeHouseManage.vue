@@ -25,7 +25,7 @@
                 <el-table-column prop="contacter" label="联系人" width="100" sortable></el-table-column>
                 <el-table-column prop="telephone" label="联系电话" width="150" sortable></el-table-column>
                 <el-table-column prop="totalStock" label="总库存" width="100" sortable></el-table-column>
-                <el-table-column label="操作" align="center"  width="150">
+                <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button @click="storeAdd(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="storeDelete(scope.$index,scope.row)" type="text" size="small">删除</el-button>
@@ -171,7 +171,7 @@ export default {
         .then(response => {
         //   console.log(response);
           this.tableData = response.data.allData;
-         
+         this.handleSearchByStoreName();
         //   this.$refs.configurationTable.$el.style.width = "100%";
         });
     },
