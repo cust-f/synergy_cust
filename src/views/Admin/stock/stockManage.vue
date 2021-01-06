@@ -52,7 +52,7 @@
               prop="productName"
               label="产品名称"
               sortable
-              width="80"
+              width="150"
             ></el-table-column>
             <el-table-column
               prop="productState"
@@ -99,7 +99,7 @@
                 scope.row.beginTime | formatDate
               }}</template>
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" width="130">
               <template slot-scope="scope">
                 <el-button @click="modify(scope.row)" type="text" size="small"
                   >修改</el-button
@@ -489,7 +489,7 @@ export default {
             sale: this.addTC.sale1,
             beginTime: this.addTC.beginTime1,
             productState: this.addTC.productState1,
-            storeID: this.storeID,
+            // storeId: this.storeID,
           });
           that
             .axios({
@@ -563,7 +563,7 @@ export default {
           var data = Qs.stringify({
             // username: this.usernameX,//让后台查询companyID
             productName: this.changeTC.productName,
-            // storeID:this.storeID,
+            // storeId:this.storeID,
             price: this.changeTC.price,
             stockId: this.changeTC.stockID,
             reserve: this.changeTC.reserve,
