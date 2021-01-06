@@ -700,12 +700,15 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum2">
-                  <el-input v-model="consignmentForm2.productNum2"></el-input>
+                  <el-input v-model="consignmentForm2.productNum2" 
+                   maxlength="9"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice2">
-                  <el-input v-model="consignmentForm2.productPrice2"></el-input>
+                  <el-input v-model="consignmentForm2.productPrice2" 
+                  maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -724,7 +727,7 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式" prop="contactNumber2">
-                  <el-input v-model="consignmentForm2.contactNumber2"></el-input>
+                  <el-input v-model="consignmentForm2.contactNumber2" maxlength="11"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -771,12 +774,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum1">
-                  <el-input v-model="consignmentForm1.productNum1"></el-input>
+                  <el-input v-model="consignmentForm1.productNum1" maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice1">
-                  <el-input v-model="consignmentForm1.productPrice1"></el-input>
+                  <el-input v-model="consignmentForm1.productPrice1"  maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -794,7 +797,7 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式" prop="contactNumber1">
-                  <el-input v-model="consignmentForm1.contactNumber1"></el-input>
+                  <el-input v-model="consignmentForm1.contactNumber1" maxlength="11"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
