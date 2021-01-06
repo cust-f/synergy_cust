@@ -47,9 +47,9 @@
       
       <br />
       <br />
-      <!-- 仓库管理模块 -->
-      <div v-show="show > 0">
-        <div v-show="state2 === 2">
+      <!-- 清单备货模块 -->
+      <div v-show="show > 1">
+        <div v-show="state3 === 2">
         <storehorse-Management ref="storehorseManagement"></storehorse-Management>
       </div>
       </div>
@@ -57,7 +57,7 @@
       <br />
       <!-- 流通清单模块 -->
       <div v-show="show > 1">
-        <div v-show="state3 === 2">
+        <div v-show="state4 === 1">
           <delivery-List ref="deliveryList"></delivery-List>
         </div>
       </div>
@@ -179,6 +179,7 @@ export default {
       state2: 0,
       loading: true,
       state3: 0,
+      state4:'',
       reMarkId: 1,
       //重做次数
       form: {
@@ -195,6 +196,7 @@ export default {
   created() {
     this.getParams();
     this.showData();
+    this.showData2();
     this.getLDData();
     this.getCirculationCount();
     this.showallData();
@@ -347,6 +349,24 @@ export default {
             );
           }
           this.styleswith();
+        });
+    },
+    //
+    showData2() {
+       var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        userName: this.userName,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findConsignmentByTaskId",
+          data: data,
+        })
+        .then((response) => {
+            this.state4=response.data.allData[0].leadState;
+           console.log(state4);
         });
     },
     //进入网页时刻显示原始数据的内容
