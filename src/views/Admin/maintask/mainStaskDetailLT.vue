@@ -2104,7 +2104,7 @@ export default {
       changeTimeDialog1: false,
       //图片信息
       imgsrc: "",
-      taskID: "",
+      taskID: '',
       consignmentId: 0,
       consignmentIdTime: 0,
       //企业信息
@@ -2590,6 +2590,8 @@ export default {
         this.technicalFileWanzheng = this.WZLJ;
       }
       if (this.technicalFile == "null" || this.mainStaskTypeID == "null") {
+        console.log(this.technicalFile);
+        console.log(this.mainStaskTypeID);
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning",
         });
@@ -2623,10 +2625,12 @@ export default {
           mainTaskID: this.mainTaskID,
           Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.cool.demanderTel,
-          taskID: this.taskID,
+          taskID: this.taskId,
           SupperListINt: this.SupplierListInt,
         });
-        console.log("this.mainStaskTypeID" + this.mainStaskTypeID);
+        // console.log("this.mainStaskTypeID" + this.mainStaskTypeID);
+        // console.log(this.taskID);
+        // console.log(this.taskId);
         if (this.cool.taskType == 0) {
           this.cool.taskType = "设计任务";
         } else {
@@ -2639,8 +2643,7 @@ export default {
             data: data,
           })
           .then((response) => {
-            console.log(response);
-            if (response.data == "成功") {
+            if (response.status == 200) {
               this.$message.success("修改成功");
               this.$refs.upload.clearFiles();
               this.technicalFileWanzheng = "";
@@ -2658,6 +2661,7 @@ export default {
               this.technicalFile = "";
               this.shangchuancishu = "";
             }
+            // console.log(error.response);
           });
 
         this.ZRWXG = false;
