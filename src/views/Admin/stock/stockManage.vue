@@ -175,19 +175,16 @@
                     <el-input v-model="changeTC.price"></el-input>
                   </el-form-item>
                 </el-col>
-
-                <el-col :span="11">
-                  <el-form-item label="销量" prop="sale">
-                    <el-input v-model="changeTC.sale"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="11">
                   <el-form-item label="库存" prop="reserve">
                     <el-input v-model="changeTC.reserve"></el-input>
                   </el-form-item>
                 </el-col>
+<!--                 <el-col :span="11">
+                  <el-form-item label="销量" prop="sale">
+                    <el-input v-model="changeTC.sale"></el-input>
+                  </el-form-item>
+                </el-col> -->
               </el-row>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -239,19 +236,18 @@
                     <el-input v-model="addTC.price1"></el-input>
                   </el-form-item>
                 </el-col>
-
-                <el-col :span="11">
-                  <el-form-item label="销量" prop="sale1">
-                    <el-input v-model="addTC.sale1"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="11">
+                  <el-col :span="11">
                   <el-form-item label="库存" prop="reserve1">
                     <el-input v-model="addTC.reserve1"></el-input>
                   </el-form-item>
                 </el-col>
+<!--                 <el-col :span="11">
+                  <el-form-item label="销量" prop="sale1">
+                    <el-input v-model="addTC.sale1"></el-input>
+                  </el-form-item>
+                </el-col> -->
+              </el-row>
+              <el-row>
                 <el-col :span="11">
                   <el-form-item label="仓库">
                     <el-select
@@ -304,7 +300,7 @@ export default {
         productName1: "",
         price1: "",
         reserve1: "",
-        sale1: "",
+        sale1: "0",
         beginTime1: "",
         productState1: "",
         store: "",
@@ -314,7 +310,7 @@ export default {
         price: "",
         reserve: "",
         beginTime: "",
-        sale: "",
+        sale: "0",
         storeID: "",
       },
       productState: "",
