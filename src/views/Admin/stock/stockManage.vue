@@ -100,7 +100,7 @@
             >
               <template slot-scope="scope">
                 <p
-                  v-if="scope.row.storeID == item.storeId"
+                  v-if="+scope.row.storeID == item.storeId"
                   v-for="item in STR"
                   :key="item.value"
                 >

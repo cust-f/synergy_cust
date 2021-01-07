@@ -277,6 +277,7 @@ export default {
           refuseReason: "",
           issuedQuantity:'',
           shortageQuantity:'',
+          leadState:'',
         },
       ],
 
@@ -402,7 +403,7 @@ export default {
       });
     },
     checkboxT(row,index){
-      if(row.consignmentState == 0 || row.consignmentState == 3){
+      if((row.consignmentState == 0 || row.consignmentState == 3)&&(row.leadState==1)){
         return true
       }
       else{

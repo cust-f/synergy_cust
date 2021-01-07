@@ -1064,11 +1064,11 @@ export default {
         ],
         productNum1:[
           {required: true, message: '请输入产品数量', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productPrice1:[
           {required: true, message: '请输入产品单价', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productNotes1:[
           {required: true, message: '请输入备注或填写无', trigger: 'blur'},
@@ -1112,11 +1112,11 @@ export default {
         ],
         productNum2:[
           {required: true, message: '请输入产品数量', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productPrice2:[
           {required: true, message: '请输入产品单价', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productNotes2:[
           {required: true, message: '请输入备注或填写无', trigger: 'blur'},

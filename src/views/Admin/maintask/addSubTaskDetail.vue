@@ -298,12 +298,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum">
-                  <el-input v-model="consignmentForm.productNum"></el-input>
+                  <el-input v-model="consignmentForm.productNum" maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice">
-                  <el-input v-model="consignmentForm.productPrice"></el-input>
+                  <el-input v-model="consignmentForm.productPrice" maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -322,7 +322,7 @@
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式" prop="contactNumber">
-                  <el-input v-model="consignmentForm.contactNumber"></el-input>
+                  <el-input v-model="consignmentForm.contactNumber" maxlength="11"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -587,11 +587,11 @@ export default {
         ],
         productNum:[
           {required: true, message: '请输入产品数量', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productPrice:[
           {required: true, message: '请输入产品单价', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入为1到9位的整数", trigger: "blur"},
         ],
         productNotes:[
           {required: true, message: '请输入备注或填写无', trigger: 'blur'},

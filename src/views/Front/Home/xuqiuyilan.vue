@@ -735,7 +735,7 @@ export default {
   font-size: 14px;
 }
 .selectCard .span {
-  border-right: 1px solid #black;
+  border-right: 1px solid black;
   text-align: right;
 }
 .fixed {
