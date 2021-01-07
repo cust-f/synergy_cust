@@ -327,7 +327,6 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
-          console.log(response.data.allData[0].leadState);
           if (this.taskState == "完成") {
             this.submitDisable = true;
           }
@@ -404,7 +403,7 @@ export default {
       });
     },
     checkboxT(row,index){
-      if(row.consignmentState == 0 || row.consignmentState == 3|| row.leadState==1){
+      if((row.consignmentState == 0 || row.consignmentState == 3)&&(row.leadState==1)){
         return true
       }
       else{
