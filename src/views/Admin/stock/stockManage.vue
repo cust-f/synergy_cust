@@ -16,7 +16,6 @@
               v-model="selectname"
               placeholder="产品名称"
               class="handle-input mr10"
-              
             ></el-input>
             <el-button type="primary" @click="handleSearch">搜索</el-button>
 
@@ -45,21 +44,21 @@
             <el-table-column
               label="序号"
               type="index"
-              width="70"
+              width="50"
               align="center"
             ></el-table-column>
             <el-table-column
               prop="productName"
               label="产品名称"
               sortable
-              width="150"
+              width="120"
             ></el-table-column>
             <el-table-column
               prop="productState"
               label="物品状态"
               align="center"
               sortable
-              width="130"
+              width="120"
             >
               <template slot-scope="scope">
                 <el-tag v-if="+scope.row.productState === 2" type="success"
@@ -73,9 +72,8 @@
             <el-table-column
               prop="price"
               label="单价"
-              sortable
               width="100"
-              align="center"
+              sortable
             ></el-table-column>
             <el-table-column
               prop="reserve"
@@ -86,35 +84,43 @@
             <el-table-column
               prop="sale"
               label="销量"
-              width="80"
+              width="100"
               sortable
             ></el-table-column>
-            <el-table-column
+            <!-- <el-table-column
               prop="beginTime"
-              sortable
               label="创建时间"
-              width="150"
+              width="140"
+              sortable
             >
-              <template slot-scope="scope">{{
-                scope.row.beginTime | formatDate
-              }}</template>
+              <template slot-scope="scope"> {{scope.row.beginTime | formatDate}}</template>
+            </el-table-column> -->
+            <el-table-column
+              label="所在仓库名称"
+            >
+              <template slot-scope="scope">
+                <p
+                  v-if="scope.row.storeID == item.storeId"
+                  v-for="item in STR"
+                  :key="item.value"
+                >
+                  {{ item.storeName }}
+                </p>
+              </template>
             </el-table-column>
             <el-table-column label="操作" align="center" width="120">
               <template slot-scope="scope">
                 <el-button @click="modify(scope.row)" type="text" size="small"
                   >修改</el-button
                 >
-
                 <el-button
-                  @click="consignmentDelete(scope.$index, scope.row)"
-                  type="text"
-                  size="small"
+                  @click="consignmentDelete(scope.$index, scope.row)" type="text" size="small"
                   >删除</el-button
                 >
               </template>
             </el-table-column>
           </el-table>
-        
+
           <div class="pagination">
             <el-pagination
               background
@@ -127,142 +133,141 @@
           </div>
         </div>
 
-
         <!-- 修改功能弹窗 -->
         <div class="dialogcss">
-        <el-dialog :visible.sync="XGTC" width="800px">
-          <div
-            class="biaoti"
-            style="padding: 0 10px; border-left: 3px solid #4e58c5"
-          >
-            库存修改
-          </div>
-          <br />
-          <el-form
-            ref="changeForm"
-            label-width="110px"
-            :rules="stockRulesChange"
-            class="box"
-            :model="changeTC"
-          >
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="产品名称" prop="productName">
-                  <el-input v-model="changeTC.productName"></el-input>
-                </el-form-item>
-              </el-col>
+          <el-dialog :visible.sync="XGTC" width="800px">
+            <div
+              class="biaoti"
+              style="padding: 0 10px; border-left: 3px solid #4e58c5"
+            >
+              库存修改
+            </div>
+            <br />
+            <el-form
+              ref="changeForm"
+              label-width="110px"
+              :rules="stockRulesChange"
+              class="box"
+              :model="changeTC"
+            >
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="产品名称" prop="productName">
+                    <el-input v-model="changeTC.productName"></el-input>
+                  </el-form-item>
+                </el-col>
 
-              <el-col :span="11">
-                <el-form-item label="创建时间" prop="beginTime">
-                  <el-date-picker
-                    type="datetime"
-                    placeholder="选择日期"
-                    v-model="changeTC.beginTime"
-                    style="width: 100%"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="单价" prop="price">
-                  <el-input v-model="changeTC.price"></el-input>
-                </el-form-item>
-              </el-col>
+                <el-col :span="11">
+                  <el-form-item label="创建时间" prop="beginTime">
+                    <el-date-picker
+                      type="datetime"
+                      placeholder="选择日期"
+                      v-model="changeTC.beginTime"
+                      style="width: 100%"
+                      value-format="yyyy-MM-dd HH:mm:ss"
+                    ></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="单价" prop="price">
+                    <el-input v-model="changeTC.price"></el-input>
+                  </el-form-item>
+                </el-col>
 
-              <el-col :span="11">
-                <el-form-item label="销量" prop="sale">
-                  <el-input v-model="changeTC.sale"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="库存" prop="reserve">
-                  <el-input v-model="changeTC.reserve" ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="XGTC = false">取 消</el-button>
-            <el-button type="primary" @click="change()">确 定</el-button>
-          </span>
-        </el-dialog>
+                <el-col :span="11">
+                  <el-form-item label="销量" prop="sale">
+                    <el-input v-model="changeTC.sale"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="库存" prop="reserve">
+                    <el-input v-model="changeTC.reserve"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="XGTC = false">取 消</el-button>
+              <el-button type="primary" @click="change()">确 定</el-button>
+            </span>
+          </el-dialog>
         </div>
 
         <!-- 新增功能弹窗 -->
         <div class="dialogcss">
-        <el-dialog :visible.sync="XZTC" width="800px">
-          <div
-            class="biaoti"
-            style="padding: 0 10px; border-left: 3px solid #4e58c5"
-          >
-            库存新增
-          </div>
-          <br />
-          <el-form
-            ref="addform"
-            label-width="110px"
-            :rules="stockRulesAdd"
-            class="box"
-            :model="addTC"
-          >
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="产品名称" prop="productName1">
-                  <el-input v-model="addTC.productName1"></el-input>
-                </el-form-item>
-              </el-col>
+          <el-dialog :visible.sync="XZTC" width="800px">
+            <div
+              class="biaoti"
+              style="padding: 0 10px; border-left: 3px solid #4e58c5"
+            >
+              库存新增
+            </div>
+            <br />
+            <el-form
+              ref="addform"
+              label-width="110px"
+              :rules="stockRulesAdd"
+              class="box"
+              :model="addTC"
+            >
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="产品名称" prop="productName1">
+                    <el-input v-model="addTC.productName1"></el-input>
+                  </el-form-item>
+                </el-col>
 
-              <el-col :span="11">
-                <el-form-item label="创建时间" prop="beginTime1">
-                  <el-date-picker
-                    type="datetime"
-                    placeholder="选择日期"
-                    v-model="addTC.beginTime1"
-                    style="width: 100%"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="单价" prop="price1">
-                  <el-input v-model="addTC.price1"></el-input>
-                </el-form-item>
-              </el-col>
+                <el-col :span="11">
+                  <el-form-item label="创建时间" prop="beginTime1">
+                    <el-date-picker
+                      type="datetime"
+                      placeholder="选择日期"
+                      v-model="addTC.beginTime1"
+                      style="width: 100%"
+                      value-format="yyyy-MM-dd HH:mm:ss"
+                    ></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="单价" prop="price1">
+                    <el-input v-model="addTC.price1"></el-input>
+                  </el-form-item>
+                </el-col>
 
-              <el-col :span="11">
-                <el-form-item label="销量" prop="sale1">
-                  <el-input v-model="addTC.sale1"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="库存" prop="reserve1">
-                  <el-input v-model="addTC.reserve1"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="仓库">
-                  <el-select
-                    v-model="storeID"
-                    placeholder="请选择仓库"
-                    class="selectsupply"
-                    style="width: 100%"
-                  >
-                    <el-option
-                      v-for="item in STR"
-                      :label="item.storeName"
-                      :key="item.storeId"
-                      :value="item.storeId"
-                    ></el-option>
+                <el-col :span="11">
+                  <el-form-item label="销量" prop="sale1">
+                    <el-input v-model="addTC.sale1"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="库存" prop="reserve1">
+                    <el-input v-model="addTC.reserve1"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item label="仓库">
+                    <el-select
+                      v-model="storeID"
+                      placeholder="请选择仓库"
+                      class="selectsupply"
+                      style="width: 100%"
+                    >
+                      <el-option
+                        v-for="item in STR"
+                        :label="item.storeName"
+                        :key="item.storeId"
+                        :value="item.storeId"
+                      ></el-option>
 
-                    <!--lable\key\value绑定的为后台的变量
+                      <!--lable\key\value绑定的为后台的变量
                         1、首先：调用方法，将所有的仓库信息按条返回到STR大数组里
                         2、对于STR中的每个小数组循环绑定并输出每条仓库信息
                         3、lable绑定选择框中能看到的文字
@@ -270,18 +275,17 @@
                            key要和value绑定为一样的
                            item是将STR数组中的循环的每条数据（[0]、[1]、[2]）的代称
                      -->
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="XZTC = false">取 消</el-button>
-            <el-button type="primary" @click="addStock()">确 定</el-button>
-          </span>
-        </el-dialog>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="XZTC = false">取 消</el-button>
+              <el-button type="primary" @click="addStock()">确 定</el-button>
+            </span>
+          </el-dialog>
         </div>
-
       </el-main>
     </el-container>
   </div>
@@ -311,7 +315,7 @@ export default {
         reserve: "",
         beginTime: "",
         sale: "",
-        storeID:"",
+        storeID: "",
       },
       productState: "",
       storeID: "",
@@ -353,7 +357,7 @@ export default {
         price1: [
           { required: true, message: "请输入单价", trigger: "blur" },
           {
-            pattern:/^\d{1,10}$/,
+            pattern: /^\d{1,10}$/,
             message: "请输入长度在 1 到 10 位的单价",
             trigger: "blur",
           },
@@ -362,7 +366,7 @@ export default {
         reserve1: [
           { required: true, message: "请输入库存数目", trigger: "blur" },
           {
-            pattern:/^\d{1,10}$/,
+            pattern: /^\d{1,10}$/,
             message: "请输入长度在 1 到 10 位的库存数目",
             trigger: "blur",
           },
@@ -370,7 +374,7 @@ export default {
         sale1: [
           { required: true, message: "请输入销量", trigger: "blur" },
           {
-            pattern:/^\d{1,10}$/,
+            pattern: /^\d{1,10}$/,
             message: "请输入长度在 1 到 10 位的库存销量",
             trigger: "blur",
           },
@@ -390,18 +394,18 @@ export default {
           { required: true, message: "请输入建立时间", trigger: "blur" },
         ],
         price: [
-          { required: true, message: "请输入单价",},
+          { required: true, message: "请输入单价" },
           {
-            pattern:/^\d{1,10}$/,
+            pattern: /^\d{1,10}$/,
             message: "请输入长度在 1 到 10 位的单价",
             trigger: "blur",
           },
         ],
 
         reserve: [
-          { required: true, message: "请输入库存数目", },
+          { required: true, message: "请输入库存数目" },
           {
-            pattern:/^\d{1,10}$/,
+            pattern: /^\d{1,10}$/,
             message: "请输入长度在 1 到 10 位的库存数目",
             trigger: "blur",
           },
@@ -409,7 +413,7 @@ export default {
         sale: [
           { required: true, message: "请输入销量", trigger: "blur" },
           {
-            pattern:/^\d{1,10}$/,
+            pattern: /^\d{1,10}$/,
             message: "请输入长度在 1 到 10 位的库存销量",
             trigger: "blur",
           },
@@ -429,11 +433,12 @@ export default {
 
   created() {
     this.getData();
-//    this.GetTime();
+    this.getStore();
+    //this.GetTime();
   },
   methods: {
-    //新增弹出框 导入仓库下拉框信息 弹出
-    xinzengTC() {
+    //查询公司所有仓库
+    getStore() {
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
@@ -448,12 +453,15 @@ export default {
           if (response.data.code == "200") {
             this.STR = response.data.allData;
             //console.log(this.STR);
-            this.XZTC = true;
           }
         })
         .catch((error) => {
           console.log(error.response);
         });
+    },
+    //新增弹出框 弹出
+    xinzengTC() {
+      this.XZTC = true;
     },
     //修改某一行 修改弹出框 填入某行数据并弹出
     modify(row) {
@@ -476,7 +484,7 @@ export default {
           var that = this;
           //1.保存数据到本地  2.调用方法存入数据库 3.弹出成功提示消息 4.清空关闭 5.刷新table
           //====流通清单数据====
-          if (this.addTC.reserve1 > 10) {
+          if (this.addTC.reserve1 > 100) {
             this.addTC.productState1 = "2"; //库存大于10，库存充足
           } else {
             this.addTC.productState1 = "1"; //库存小于10，库存紧缺
@@ -505,8 +513,7 @@ export default {
                 //弹出框消失
                 this.XZTC = false;
                 that.getData();
-              }
-              else{
+              } else {
                 this.$message.success("新增库存信息成功");
                 this.addTC = {};
                 //弹出框消失
@@ -564,22 +571,22 @@ export default {
     //修改弹出框 的确定
     change() {
       this.$refs.changeForm.validate((valid) => {
-        if(valid){
+        if (valid) {
           var stockManageState;
           var that = this;
           var data = Qs.stringify({
-            username: this.usernameX,//让后台查询companyID
+            username: this.usernameX, //让后台查询companyID
             productName: this.changeTC.productName,
-            storeID:this.changeTC.storeID,
+            storeID: this.changeTC.storeID,
             price: this.changeTC.price,
             stockId: this.changeTC.stockID,
             reserve: this.changeTC.reserve,
             sale: this.changeTC.sale,
-            beginTime:this.changeTC.beginTime,
-            productState:  parseInt(this.changeTC.reserve) > 10 ? 2 : 1,
+            beginTime: this.changeTC.beginTime,
+            productState: parseInt(this.changeTC.reserve) > 100 ? 2 : 1,
             // companyID:'5556',
-            });
-            that
+          });
+          that
             .axios({
               method: "post",
               url: "/api/Inventory/updateStockByID",
@@ -598,16 +605,15 @@ export default {
             .catch((error) => {
               console.log(error.response);
             });
-        }
-        else{
+        } else {
           this.$message({
             type: "warning",
             message: "你还有重要信息未填写，填写后再提交",
           });
         }
-        })
+      });
     },
-   
+
     //转换时间格式
     GetTime(date) {
       var datee = new Date(date).toJSON();
@@ -676,6 +682,7 @@ export default {
   .table {
     display: table-cell !important;
     font-size: 14px;
+    width: 970px;
   }
   .handle-input {
     width: 260px;
