@@ -255,6 +255,9 @@ export default {
                         element = '';
                     });
                 }
+                else if(response.data == "失败"){
+                  this.$message.warning("该仓库信息已存在");
+                }
             })
             .catch((error) => {
                 console.log(error.response);
