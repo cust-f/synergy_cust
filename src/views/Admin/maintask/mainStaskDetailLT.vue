@@ -530,7 +530,7 @@
               <el-tag
                 v-if="+scope.row.demandorCheckDesignState === 0"
                 type="info"
-                >待供应商审核</el-tag
+                >待审核</el-tag
               >
               <el-tag v-else-if="+scope.row.demandorCheckDesignState === 1"
                 >待审核</el-tag
@@ -1624,14 +1624,14 @@
       </el-dialog>
 
       <!--查看弹出框-->
-      <el-dialog title :visible.sync="chakanTC" width="70%">
+      <el-dialog title :visible.sync="chakanTC"  width="1000px">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
           流通清单
         </div>
-
+        <br />
         <div style="margin-top: 10px">
           <!-- <template slot-scope="scope"> -->
           <el-button
@@ -1647,7 +1647,7 @@
           <el-table :data="tableData" @selection-change="handleSelectionChange">
             <el-table-column
               type="selection"
-              width="50px"
+              width="55"
               :selectable="checkboxT"
               disabled="true"
             >
@@ -1666,18 +1666,19 @@
             <el-table-column
               prop="productName"
               label="产品名称"
+               width="100"
             ></el-table-column>
-            <el-table-column prop="deliveryTime" label="发货时间">
+            <el-table-column prop="deliveryTime" label="发货时间" width="160">
               <template slot-scope="scope">{{
                 scope.row.deliveryTime | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column prop="consignmentTimeLatest" label="发货截至时间"
+            <el-table-column prop="consignmentTimeLatest" label="发货截至时间" width="160"
               ><template slot-scope="scope">{{
                 scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column prop="consignmentState" label="发货状态">
+            <el-table-column prop="consignmentState" label="发货状态" width="100">
               <template slot-scope="scope">
                 <el-tag v-if="+scope.row.consignmentState === 0" type="info"
                   >待发货</el-tag
@@ -1693,16 +1694,18 @@
                 <el-tag v-else type="danger">拒绝</el-tag>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="productNumber"
-              label="产品数量"
-            ></el-table-column>
-            <el-table-column
-              prop="productModel"
-              label="产品规格"
-            ></el-table-column>
+           <el-table-column
+            prop="issuedQuantity"
+            label="已发数量"
+             width="80"
+          ></el-table-column>
+           <el-table-column
+            prop="shortageQuantity"
+            label="仍需数量"
+             width="85"
+          ></el-table-column>
 
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button
                   @click="success(scope.row)"
@@ -2101,7 +2104,7 @@ export default {
       changeTimeDialog1: false,
       //图片信息
       imgsrc: "",
-      taskID: "",
+      taskID: '',
       consignmentId: 0,
       consignmentIdTime: 0,
       //企业信息
@@ -2587,6 +2590,8 @@ export default {
         this.technicalFileWanzheng = this.WZLJ;
       }
       if (this.technicalFile == "null" || this.mainStaskTypeID == "null") {
+        console.log(this.technicalFile);
+        console.log(this.mainStaskTypeID);
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning",
         });
@@ -2620,10 +2625,12 @@ export default {
           mainTaskID: this.mainTaskID,
           Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.cool.demanderTel,
-          taskID: this.taskID,
+          taskID: this.taskId,
           SupperListINt: this.SupplierListInt,
         });
-        console.log("this.mainStaskTypeID" + this.mainStaskTypeID);
+        // console.log("this.mainStaskTypeID" + this.mainStaskTypeID);
+        // console.log(this.taskID);
+        // console.log(this.taskId);
         if (this.cool.taskType == 0) {
           this.cool.taskType = "设计任务";
         } else {
@@ -2636,8 +2643,7 @@ export default {
             data: data,
           })
           .then((response) => {
-            console.log(response);
-            if (response.data == "成功") {
+            if (response.status == 200) {
               this.$message.success("修改成功");
               this.$refs.upload.clearFiles();
               this.technicalFileWanzheng = "";
@@ -2655,6 +2661,7 @@ export default {
               this.technicalFile = "";
               this.shangchuancishu = "";
             }
+            // console.log(error.response);
           });
 
         this.ZRWXG = false;

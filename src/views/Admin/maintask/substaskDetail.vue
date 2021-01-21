@@ -150,15 +150,15 @@
                   <template slot-scope="scope">{{scope.row.deadline |formatDate}}</template>
                 </el-table-column>
 
-                <el-table-column label="操作" align="center">
+                <el-table-column label="操作" align="center" width="160">
                   <template slot-scope="scope">
                     <!-- <暂时注释> -->
-                    <!-- <el-button
+                    <el-button
                       size="small"
                       type="text"
                       icon="el-icon-delete"
                       @click="handleDelete1(scope.row)"
-                    >删除任务</el-button> -->
+                    >删除任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
                     <!-- <el-button @click="updateSubXqAndFile(scope.row)" type="text" size="small">修改</el-button> -->
                   </template>
@@ -221,6 +221,7 @@
                         v-model="addList.deadline"
                         value-format
                         style="width: 100%;"
+                        :picker-options="pickerOptions"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -427,6 +428,7 @@
                         v-model="deadline1"
                         style="width: 100%;"
                          value-format="yyyy-MM-dd HH:mm:ss"
+                         :picker-options="pickerOptions"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -698,12 +700,15 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum2">
-                  <el-input v-model="consignmentForm2.productNum2"></el-input>
+                  <el-input v-model="consignmentForm2.productNum2" 
+                   maxlength="9"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice2">
-                  <el-input v-model="consignmentForm2.productPrice2"></el-input>
+                  <el-input v-model="consignmentForm2.productPrice2" 
+                  maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -716,12 +721,13 @@
                     v-model="consignmentForm2.consignmentTimeLatest2"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    :picker-options="pickerOptions"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式" prop="contactNumber2">
-                  <el-input v-model="consignmentForm2.contactNumber2"></el-input>
+                  <el-input v-model="consignmentForm2.contactNumber2" maxlength="11"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -768,12 +774,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum1">
-                  <el-input v-model="consignmentForm1.productNum1"></el-input>
+                  <el-input v-model="consignmentForm1.productNum1" maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice1">
-                  <el-input v-model="consignmentForm1.productPrice1"></el-input>
+                  <el-input v-model="consignmentForm1.productPrice1"  maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -785,12 +791,13 @@
                       v-model="consignmentForm1.consignmentTimeLatest1"
                       style="width: 100%;"
                       value-format="yyyy-MM-dd HH:mm:ss"
+                      :picker-options="pickerOptions"
                   ></el-date-picker>                  
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式" prop="contactNumber1">
-                  <el-input v-model="consignmentForm1.contactNumber1"></el-input>
+                  <el-input v-model="consignmentForm1.contactNumber1" maxlength="11"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -835,6 +842,12 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      //禁用今天以前的时间
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 3600 * 1000 * 24;
+        },
+      },
       //分解任务详细
       SubStaskname:"",
       //子任务详细
@@ -1051,11 +1064,11 @@ export default {
         ],
         productNum1:[
           {required: true, message: '请输入产品数量', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productPrice1:[
           {required: true, message: '请输入产品单价', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productNotes1:[
           {required: true, message: '请输入备注或填写无', trigger: 'blur'},
@@ -1099,11 +1112,11 @@ export default {
         ],
         productNum2:[
           {required: true, message: '请输入产品数量', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productPrice2:[
           {required: true, message: '请输入产品单价', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productNotes2:[
           {required: true, message: '请输入备注或填写无', trigger: 'blur'},

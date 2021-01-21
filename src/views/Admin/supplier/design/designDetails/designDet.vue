@@ -63,58 +63,72 @@
       <div v-show="show > 4 && state3 === 2" class="designDet">
         <br />
         <br />
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
-          任务评价
-        </div>
-        <br />
-
-        <br />
-        <!-- 评价模块 -->
-        <div v-if="reMarkId === 0 && state3 === 2">
+        
+        <div v-show="evaluationHiding === 1" class="remark">
           <div
-            class="loading1"
-            v-loading="loading"
-            element-loading-text="评价生成中......"
+            class="biaoti"
+            style="padding: 0 10px; border-left: 3px solid #4e58c5"
           >
-            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+            任务评价
+          </div>
+          <br />
 
-            <div class="supplierinput_span" align="center">
-              <el-form ref="form">
-                <div class="WCZL">完成质量</div>
-                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                <br />
-                <br />
-              </el-form>
-              <span></span>
-              <span></span>
-              <span></span>
+          <br />
+          <!-- 评价模块 -->
+          <div v-if="reMarkId === 0 && state3 === 2">
+            <div
+              class="loading1"
+              v-loading="loading"
+              element-loading-text="评价生成中......"
+            >
+              <radar-chart
+                :radarData="radarData"
+                ref="QradarChart"
+              ></radar-chart>
+
+              <div class="supplierinput_span" align="center">
+                <el-form ref="form">
+                  <div class="WCZL">完成质量</div>
+                  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+                  <br />
+                  <br />
+                </el-form>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
           </div>
-        </div>
-        <br />
-        <br />
-        <div v-if="reMarkId === 1">
-          <!-- 雷达图 -->
-          <div class="LDT">
+          <br />
+          <br />
+          <div v-if="reMarkId === 1">
             <!-- 雷达图 -->
-            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-            <div class="supplierinput_span" align="center">
-              <el-form ref="form">
-                <label>完成质量:</label>
-                <label id="word" style="font-size: 16px"></label>
-                <br />
-                <br />
-              </el-form>
-              <span id="one"></span>
-              <span id="two"></span>
-              <span id="three"></span>
+            <div class="LDT">
+              <!-- 雷达图 -->
+              <radar-chart
+                :radarData="radarData"
+                ref="QradarChart"
+              ></radar-chart>
+              <div class="supplierinput_span" align="center">
+                <el-form ref="form">
+                  <label>完成质量:</label>
+                  <label id="word" style="font-size: 16px"></label>
+                  <br />
+                  <br />
+                </el-form>
+                <span id="one"></span>
+                <span id="two"></span>
+                <span id="three"></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <el-divider content-position="center"
+        ><el-link type="primary" :underline="false" @click="remarkControl()">{{
+          tips
+        }}</el-link></el-divider
+      >
     </el-main>
   </div>
 </template>
@@ -157,6 +171,9 @@ export default {
       show: 0,
       show1: 0,
       show3: 0,
+      tips: "显示任務内容",
+      evaluationHiding: 0,
+
       //状态显示控制
 
       state: "",
@@ -185,6 +202,14 @@ export default {
   },
 
   methods: {
+    remarkControl() {
+      if (this.evaluationHiding == 1) {
+        this.evaluationHiding = 0;
+        this.tips = "顯示任務評價";
+      } else if (this.evaluationHiding == 0) {
+        (this.evaluationHiding = 1), (this.tips = "隱藏任務評價");
+      }
+    },
     //taskId传递方法，获取通过主界面传过来的taskId
     getParams() {
       var routerParams = this.$route.query.taskId;
@@ -469,5 +494,8 @@ export default {
   font-size: 25px;
   float: left;
   width: 350px;
+}
+.remark{
+  height: 450px;
 }
 </style>

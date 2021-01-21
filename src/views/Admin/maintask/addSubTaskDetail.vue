@@ -48,6 +48,7 @@
                   v-model="addList.deadline"
                   value-format="yyyy-MM-dd HH:mm:ss"
                   style="width: 100%;"
+                  :picker-options="pickerOptions"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
@@ -117,6 +118,7 @@
                   placeholder="请选择供应商"
                   class="selectsupply"
                   style="width:100%;"
+                  @change="selectSupplyChanged"
                 >
                   <el-option
                     width="180"
@@ -126,6 +128,9 @@
                     :value="supplier.companyId"
                   ></el-option>
                 </el-select>
+                <font color="red">
+                  <span :style="{display:chooseSupply}">请选择供应商</span>
+                </font>
               </el-form-item>
             </el-col>
 
@@ -293,12 +298,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum">
-                  <el-input v-model="consignmentForm.productNum"></el-input>
+                  <el-input v-model="consignmentForm.productNum" maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice">
-                  <el-input v-model="consignmentForm.productPrice"></el-input>
+                  <el-input v-model="consignmentForm.productPrice" maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -311,12 +316,13 @@
                     v-model="consignmentForm.consignmentTimeLatest"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    :picker-options="pickerOptions"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式" prop="contactNumber">
-                  <el-input v-model="consignmentForm.contactNumber"></el-input>
+                  <el-input v-model="consignmentForm.contactNumber" maxlength="11"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -423,6 +429,14 @@ export default {
   data() {
     
     return {
+      //禁用今天以前的时间
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 3600 * 1000 * 24;
+        },
+      },
+      chooseSupplySelected:false,//是否选择供应商 true未选 false选择
+      chooseSupply:"none",//是否提示选择供应商
       LTQD:0,
       // =====================================================================
       // 新增子任务
@@ -573,11 +587,11 @@ export default {
         ],
         productNum:[
           {required: true, message: '请输入产品数量', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
         ],
         productPrice:[
           {required: true, message: '请输入产品单价', trigger: 'blur'},
-          {pattern:/^\d{1,9}$/, message: "请输入长度为 1 到 9 个字符的整数", trigger: "blur"},
+          {pattern:/^\d{1,9}$/, message: "请输入为1到9位的整数", trigger: "blur"},
         ],
         productNotes:[
           {required: true, message: '请输入备注或填写无', trigger: 'blur'},
@@ -649,10 +663,10 @@ export default {
     },
     simizhiding(coo) {
       if (coo == 0) {
-        this.busm = "inline";
+        this.busm = "inline";//不私密-发布-全部可见
         this.sm = "none";
       } else {
-        this.sm = "inline";
+        this.sm = "inline";//私密-不发布-仅该供应方可见
         this.busm = "none";
       }
     },
@@ -668,10 +682,23 @@ export default {
         this.sfsmkj = false;
       }
     },
+    //供应商选择改变
+    selectSupplyChanged(event){
+      if(event.length != 0){
+        this.chooseSupplySelected = true;
+        this.chooseSupply="none";
+      }
+      else
+      {
+        this.chooseSupplySelected = false;
+        //this.chooseSupply="inline";//显示提示
+      }
+    },
     //======保存新增========
     saveAdd11() {
       //console.log(this.TaskXiangXi)
-      if (this.technicalFile == "null") {
+      if ((this.technicalFile == "null") || (this.sm == "inline"&&this.chooseSupplySelected==false)) {
+        this.chooseSupply="inline";
         this.$message({
           type: "warning",
           message: "你还有重要信息未填写，填写后再提交",

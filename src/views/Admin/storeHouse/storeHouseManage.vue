@@ -8,9 +8,8 @@
             <div class="handle-box">
                 <el-input v-model="selectStoreName" placeholder="仓库名称" class="handle-input mr10"></el-input>
                 <el-button type="primary" @click="handleSearchByStoreName">搜索</el-button>
-            </div>
-            <el-button @click="storeAdd(1)" type="primary" size="primary">新增</el-button>
-            <br><br>
+                 <el-button @click="storeAdd(1)" type="primary" size="primary">新增</el-button>
+            </div>           
             <!---->
             <el-table
                 :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
@@ -22,11 +21,11 @@
             >
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
                 <el-table-column prop="storeName" label="仓库名称" width="150" sortable></el-table-column>
-                <el-table-column prop="storeAddress" label="仓库地址" width="250" sortable></el-table-column>
+                <el-table-column prop="storeAddress" label="仓库地址" width="230" sortable></el-table-column>
                 <el-table-column prop="contacter" label="联系人" width="100" sortable></el-table-column>
                 <el-table-column prop="telephone" label="联系电话" width="150" sortable></el-table-column>
-                <el-table-column prop="totalStock" label="总库存" width="100" sortable></el-table-column>
-                <el-table-column label="操作" align="center" >
+                <el-table-column prop="totalStock" label="总库存" width="110" sortable></el-table-column>
+                <el-table-column label="操作" align="center" width="100" >
                     <template slot-scope="scope">
                         <el-button @click="storeAdd(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="storeDelete(scope.$index,scope.row)" type="text" size="small">删除</el-button>
@@ -50,7 +49,7 @@
 
         <!-- 新增仓库 弹出框 -->
         <div class="consignment">
-            <el-dialog title :visible.sync="storeAddTC" width="50%">
+            <el-dialog title :visible.sync="storeAddTC" width="700px">
                 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" id="storeTCK" v-html ="storeTCKTitle"></div>
                 <br>
                 <el-form ref="storeFormAdd" label-width="110px" class="box" :rules="storeRulesAdd" :model="storeFormAdd">
@@ -173,6 +172,9 @@ export default {
         //   console.log(response);
           this.tableData = response.data.allData;
         //   this.$refs.configurationTable.$el.style.width = "100%";
+        })
+        .catch((error) => {
+          console.log(error.response);
         });
     },
 
@@ -210,13 +212,14 @@ export default {
             // this.storeFormAdd = {};
         }
         else{
-            this.storeTCKTitle = "修改仓库信息";
+            this.storeTCKTitle = "修改";
             this.storeEditUrl = "/api/StoreHouse/updateStorehouseById";
             // this.storeFormAdd = row;
         }
         this.storeAddTC = true;
+        
     },
-
+    
     //仓库数据 新增或修改
     storeEdit(row){
         this.$refs.storeFormAdd.validate((valid) => {
@@ -251,6 +254,9 @@ export default {
                     array.forEach(element => {
                         element = '';
                     });
+                }
+                else if(response.data == "失败"){
+                  this.$message.warning("该仓库信息已存在");
                 }
             })
             .catch((error) => {
@@ -336,7 +342,7 @@ export default {
 .handle-select {
   width: 120px;
 }
-.table123 {
+.table {
   display: table-cell !important;
   /* width: 100%; */
   font-size: 14px;
@@ -364,6 +370,7 @@ export default {
 }
 }
 .consignment{
+  font-size: 14px;
   .el-dialog__body {
     padding-right: 0px;
     padding-top: 20px;

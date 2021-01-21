@@ -46,9 +46,18 @@
       </div>
       
       <br />
-      <!-- 流通清单模块 -->
+      <br />
+      <!-- 清单备货模块 -->
       <div v-show="show > 1">
         <div v-show="state3 === 2">
+        <storehorse-Management ref="storehorseManagement"></storehorse-Management>
+      </div>
+      </div>
+      <br />
+      <br />
+      <!-- 流通清单模块 -->
+      <div v-show="show > 1">
+        <div v-show="state4 === 1">
           <delivery-List ref="deliveryList"></delivery-List>
         </div>
       </div>
@@ -128,6 +137,7 @@ import contractManagement from "../../assembly/contractManagement";
 import deliveryList from "../../assembly/deliveryList";
 import radarChart from "../circulationDetails/radarChart";
 import returnFile from "../../assembly/returnFile";
+import storehorseManagement from "../../assembly/storehorseManagement"
 export default {
   data() {
     return {
@@ -149,6 +159,17 @@ export default {
       cool: {},
       taskApplyTableData: {},
       taskTableData: {},
+      tableData:{},
+      storehorseManagement: 
+        [
+        {
+        taskName:'',
+        leadState:'',
+        uploadCircuaterTime:'',
+        leadTime:'',
+        taskId:'',
+        },
+        ],
       //表格显示控制
       show: 0,
       show1: 0,
@@ -158,6 +179,7 @@ export default {
       state2: 0,
       loading: true,
       state3: 0,
+      state4:'',
       reMarkId: 1,
       //重做次数
       form: {
@@ -174,8 +196,10 @@ export default {
   created() {
     this.getParams();
     this.showData();
+    this.showData2();
     this.getLDData();
     this.getCirculationCount();
+    this.showallData();
   },
   filters: {
     formatDate(time) {
@@ -267,6 +291,9 @@ export default {
           this.state = response.data.allData.a[0].taskState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
+          this.storehorseManagement[0].taskName=response.data.allData.a[0].taskName;
+          this.storehorseManagement[0].uploadCircuaterTime=response.data.allData.a[0].uploadCircuaterTime;
+          this.storehorseManagement[0].taskId=response.data.allData.a[0].taskId;
           if (this.state2 == 2) {
             this.state3 = response.data.allData.a[0].contractState;
           } else {
@@ -324,6 +351,42 @@ export default {
           this.styleswith();
         });
     },
+    //
+    showData2() {
+       var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        userName: this.userName,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findConsignmentByTaskId",
+          data: data,
+        })
+        .then((response) => {
+            this.state4=response.data.allData[0].leadState;
+           console.log(state4);
+        });
+    },
+    //进入网页时刻显示原始数据的内容
+    showallData() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findConsignmentByTaskId",
+          data: data,
+        })
+        .then((response) => {
+          this.tableData = response.data.allData;
+          this.storehorseManagement[0].leadState= response.data.allData[0].leadState;
+          this.storehorseManagement[0].leadTime= response.data.allData[0].leadTime;
+        });
+    },
     //数据传递方法
     sendMsg() {
       this.$refs.essentialInformation.getMsg(this.cool);
@@ -331,6 +394,8 @@ export default {
       this.$refs.missionPlan.getMsg(this.taskApplyTableData);
       this.$refs.contractManagement.getMsg(this.taskTableData);
       this.$refs.deliveryList.getMsg(this.taskTableData);
+      this.$refs.storehorseManagement.getMsg(this.storehorseManagement);
+      console.log(this.storehorseManagement);
     },
     //返回列表
     goBack() {
@@ -363,6 +428,7 @@ export default {
     "essential-Information": essentialInformation, //基本信息
     "application-Information": applicationInformation,
     "mission-Plan": missionPlan,
+    "storehorse-Management":storehorseManagement,  
     "contract-Management": contractManagement,
     "delivery-List": deliveryList,
     "radar-chart": radarChart,
