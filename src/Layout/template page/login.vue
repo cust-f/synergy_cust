@@ -120,7 +120,7 @@ export default {
                 sessionStorage.setItem("designer_name", this.param.userName);
                 sessionStorage.setItem(
                   "userId",
-                  response.allData.userId.userId
+                  response.data.allData.userId.userId
                 );
 
                 this.$store.commit(

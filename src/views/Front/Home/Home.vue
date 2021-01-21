@@ -213,7 +213,7 @@
                     欢迎登录高端装备SaaS平台
                     <!-- <span
                       style="font-size: 22px;font-weight: 600;margin: 0 5px;font-family: KaiTi_GB2312;"
-                    >{{userName}}</span>登陆平台 -->
+                    >{{userName}}</span>登陆平台-->
                   </p>
                 </div>
               </div>
@@ -628,46 +628,48 @@ export default {
   },
   methods: {
     SSO() {
-
       try {
         if (this.$route.query.query) {
           //判断是否传参
-          let name = window.atob(this.$route.query.query).toString();
-          console.log(name)
-          this.$store.commit("SET_TOKEN", true);
-          this.$store.commit("SET_USER", name);
-          sessionStorage.setItem("ms_username", name);
-          //判断是否属于课题三的企业
-          var menuList;
-          var that = this;
-          var data = Qs.stringify({
-            username: name,
-          });
-          that
-            .axios({
-              method: "post",
-              url: "/api/users/SSOLogin",
-              data: data,
-            })
-            .then((response) => {
-              console.log(response)
-              if (response.data.code == 200) {
-                this.$store.commit(
-                  "SET_List",
-                  response.data.allData.data.menuList
-                );
-                this.$store.commit(
-                  "SET_OPENMENU",
-                  response.data.allData.openArray
-                );
-                this.$store.commit(
-                  "SET_USERLOGO",
-                  response.data.allData.userLogo
-                );
-                this.roleID = response.data.allData.roleId;
-                sessionStorage.setItem("roleId", this.roleID);
-              }
+          if (this.$route.query.s == 3) {
+            //判断是否属于课题三
+            let name = window.atob(this.$route.query.query).toString();
+            console.log(name);
+            this.$store.commit("SET_TOKEN", true);
+            this.$store.commit("SET_USER", name);
+            sessionStorage.setItem("ms_username", name);
+            //判断是否属于课题三的企业
+            var menuList;
+            var that = this;
+            var data = Qs.stringify({
+              username: name,
             });
+            that
+              .axios({
+                method: "post",
+                url: "/api/users/SSOLogin",
+                data: data,
+              })
+              .then((response) => {
+                console.log(response);
+                if (response.data.code == 200) {
+                  this.$store.commit(
+                    "SET_List",
+                    response.data.allData.data.menuList
+                  );
+                  this.$store.commit(
+                    "SET_OPENMENU",
+                    response.data.allData.openArray
+                  );
+                  this.$store.commit(
+                    "SET_USERLOGO",
+                    response.data.allData.userLogo
+                  );
+                  this.roleID = response.data.allData.roleId;
+                  sessionStorage.setItem("roleId", this.roleID);
+                }
+              });
+          }
         }
       } catch (error) {
         console.log("未登录");
@@ -684,11 +686,10 @@ export default {
           data: data,
         })
         .then((response) => {
-          this.formMonth.monthCount = response.data.allData[0];//服务成果数量-主任务完成数量
-          this.formMonth.desingMonthCount = response.data.allData[1];//设计任务数量
-          this.formMonth.circulaterMonthCount = response.data.allData[2];//流通任务数量
-          this.formMonth.companyCount = response.data.allData[3];//注册的企业数量
-          
+          this.formMonth.monthCount = response.data.allData[0]; //服务成果数量-主任务完成数量
+          this.formMonth.desingMonthCount = response.data.allData[1]; //设计任务数量
+          this.formMonth.circulaterMonthCount = response.data.allData[2]; //流通任务数量
+          this.formMonth.companyCount = response.data.allData[3]; //注册的企业数量
         });
     },
 
@@ -808,7 +809,7 @@ export default {
     },
     //寻找需求
     selectDemand() {
-        this.$router.push("/xuqiuyilan");
+      this.$router.push("/xuqiuyilan");
     },
     //登陆或者注册界面转跳
     login(option) {

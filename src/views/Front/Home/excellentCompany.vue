@@ -479,7 +479,7 @@ export default {
       this.$router.push({
         path: "/company/excellentCompanyDetail",
         name: "companyDetails",
-        query: { companyId: id },
+        query: { companyId: id},
       });
     },
   },
