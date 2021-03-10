@@ -705,8 +705,8 @@ export default {
           this.applyDiaLog = true;
         }
       } else {
-        this.$confirm("登陆后才能进行申请，是否登陆？", "提示", {
-          confirmButtonText: "登陆",
+        this.$confirm("登录后才能进行申请，是否登录？", "提示", {
+          confirmButtonText: "登录",
           cancelButtonText: "取消",
           type: "warning",
         })

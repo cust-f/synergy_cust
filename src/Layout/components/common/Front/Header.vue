@@ -11,7 +11,7 @@
                 </el-col>
                 <el-col :span="10" style="float:right;">
                   <div class="user-option">
-                    <a @click="logout(0)">退出登陆</a>
+                    <a @click="logout(0)">退出登录</a>
                     <el-divider></el-divider>
                     <a @click="logout(1)">后台中心</a>
                     <el-divider></el-divider>
@@ -26,7 +26,7 @@
         </ul>
         <ul v-else>
           <li>
-            <a @click="login(0)">登陆</a>
+            <a @click="login(0)">登录</a>
           </li>
           <li>
             <a>|</a>

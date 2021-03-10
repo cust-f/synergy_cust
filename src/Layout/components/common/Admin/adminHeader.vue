@@ -16,7 +16,7 @@
                 <img src="../../../../assets/img/img.jpg" />
               </div>
               <div>
-                <a>退出登陆</a>
+                <a>退出登录</a>
                 <a>返回首页</a>
                 <a>账号管理</a>
               </div>
@@ -29,7 +29,7 @@
         </ul>
         <ul v-else>
           <li>
-            <a>登陆</a>
+            <a>登录</a>
           </li>
           <li>
             <a>|</a>

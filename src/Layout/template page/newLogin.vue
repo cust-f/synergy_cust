@@ -160,7 +160,7 @@ export default {
             if (response.data.code == 200) {
               this.$message({
                 type: "success",
-                message: "登陆成功",
+                message: "登录成功",
               });
               this.$store.commit("SET_TOKEN", true);
               this.$store.commit("SET_USER", this.param.userName);
@@ -196,7 +196,7 @@ export default {
             } else {
               this.$message({
                 type: "warning",
-                message: "登陆失败",
+                message: "登录失败",
               });
             }
           });

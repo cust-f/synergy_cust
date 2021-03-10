@@ -47,7 +47,7 @@ app.post('/Login', function (req, res) {
           //200 账号密码错误
         } else if (data.user != result[0]._id && data.user != null) {
           res.send(JSON.stringify({"statusNum": 500, id: result[0]._id, url: 'http://127.0.0.1:3000/' + result[0]._id}))
-          //500 本地登陆的用户不是该用户,提示已有其他用户登录
+          //500 本地登录的用户不是该用户,提示已有其他用户登录
         } else if (result.length > 0 && result[0].login == 0) {
           us[result[0]._id] = new Date().getTime();
           var str = "/" + result[0]._id;
@@ -66,7 +66,7 @@ app.post('/Login', function (req, res) {
             id: result[0]._id,
             timestamp: us[result[0]._id + '']
           }));
-          //100 账号密码正确且未在他处登录同时没有其他用户在此登录,配置独有的地址，返回地址,以及登录状态判断时间戳,用于用户在别处登陆时在此处退出登录
+          //100 账号密码正确且未在他处登录同时没有其他用户在此登录,配置独有的地址，返回地址,以及登录状态判断时间戳,用于用户在别处登录时在此处退出登录
         } else if (result[0].login == 1) {
           res.send(JSON.stringify({
             "statusNum": 300,
@@ -480,7 +480,7 @@ app.post('/logout', function (req, res) { //登出账号
         db.close();
         res.send("Logout successfully.");
         delete us[data.id];
-        //更新users表中的登陆状态loginz字段为0，从登录状态判断对象us中移除该用户
+        //更新users表中的登录状态loginz字段为0，从登录状态判断对象us中移除该用户
       })
 
     });

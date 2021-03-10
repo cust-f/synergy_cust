@@ -213,7 +213,7 @@
                     欢迎登录高端装备SaaS平台
                     <!-- <span
                       style="font-size: 22px;font-weight: 600;margin: 0 5px;font-family: KaiTi_GB2312;"
-                    >{{userName}}</span>登陆平台-->
+                    >{{userName}}</span>登录平台-->
                   </p>
                 </div>
               </div>
@@ -802,7 +802,7 @@ export default {
     //发布需求界面
     addNewTask() {
       if (!this.$store.state.token) {
-        this.$message.error("抱歉你还未进行登陆");
+        this.$message.error("抱歉你还未进行登录");
       } else {
         this.$router.push("/admin/newTask");
       }
@@ -811,7 +811,7 @@ export default {
     selectDemand() {
       this.$router.push("/xuqiuyilan");
     },
-    //登陆或者注册界面转跳
+    //登录或者注册界面转跳
     login(option) {
       if (option == 0) {
         this.$router.push("/login");
@@ -819,7 +819,7 @@ export default {
         this.$router.push("/register");
       }
     },
-    //登陆注册模块tag页点击事件
+    //登录注册模块tag页点击事件
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -982,7 +982,7 @@ export default {
   padding: 0 5px;
   color: orangered;
 }
-/**登陆、注册模块用样式表，用于文本居中及背景色更改*/
+/**登录、注册模块用样式表，用于文本居中及背景色更改*/
 .home .grid-content {
   text-align: center;
   height: 434px;

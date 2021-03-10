@@ -20,7 +20,7 @@ const actions ={
 }
 
 const mutations = {
-  //将token保存到sessionStorage里，token表示登陆状态
+  //将token保存到sessionStorage里，token表示登录状态
   SET_TOKEN: (state, data) => {
     state.token = data
     window.sessionStorage.setItem('token', data)

@@ -104,7 +104,7 @@ export default {
               if (response.data.code == 200) {
                 this.$message({
                   type: "success",
-                  message: "登陆成功",
+                  message: "登录成功",
                 });
                 
                 console.log(
@@ -150,7 +150,7 @@ export default {
               } else {
                 this.$message({
                   type: "warning",
-                  message: "登陆失败",
+                  message: "登录失败",
                 });
               }
             });
