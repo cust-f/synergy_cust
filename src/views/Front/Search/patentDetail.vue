@@ -6,14 +6,14 @@
         <div style="margin-top: 15px">
           <el-breadcrumb separator=">">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item @click="goBack()">专利搜索</el-breadcrumb-item>
+            <el-breadcrumb-item><a @click="goBack()">专利查询</a></el-breadcrumb-item>
             <el-breadcrumb-item>专利详情</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </el-col>
     </el-row>
     <br />
-    <el-card shadow="never" class="company-detail-info-show">
+    <el-card shadow="never" class="company-detail-info-show" v-loading="loading">
       <div slot="header">
         <div
           style="
@@ -57,28 +57,28 @@
       <!-- 信息展示 -->
       <el-row>
         <el-col :span="9">
-          <el-popover
+          <!-- <el-popover
             :content="changeString(detail.author)"
             placement="top-start"
             trigger="hover"
-          >
+          > -->
             <p slot="reference">
               发明人:
               <span>{{ changeString(detail.author) }}</span>
             </p>
-          </el-popover>
+          <!-- </el-popover> -->
         </el-col>
         <el-col :span="9">
-          <el-popover
+          <!-- <el-popover
             :content="changeString(detail.requestPeople)"
             placement="top-start"
             trigger="hover"
-          >
+          > -->
             <p slot="reference">
               申请人:
               <span>{{ changeString(detail.requestPeople) }}</span>
             </p>
-          </el-popover>
+          <!-- </el-popover> -->
         </el-col>
         <el-col :span="6">
           <span
@@ -90,16 +90,16 @@
       <!--  -->
       <el-row>
         <el-col :span="9">
-          <el-popover
+          <!-- <el-popover
             :content="changeString(detail.agent)"
             placement="top-start"
             trigger="hover"
-          >
+          > -->
             <p slot="reference">
               专利代理人:
               <span>{{ changeString(detail.agent) }}</span>
             </p>
-          </el-popover>
+          <!-- </el-popover> -->
         </el-col>
         <el-col :span="9">
           <p>
@@ -114,16 +114,16 @@
       <!--  -->
       <el-row>
         <el-col :span="18">
-          <el-popover
+          <!-- <el-popover
             :content="changeString(detail.keyword)"
             placement="top-start"
             trigger="hover"
-          >
+          > -->
             <p slot="reference">
               关键词:
               <span>{{ changeString(detail.keyword) }}</span>
             </p>
-          </el-popover>
+          <!-- </el-popover> -->
         </el-col>
       </el-row>
       <div>
@@ -176,6 +176,8 @@ export default {
       detail: "",
       //   机构详情
       orgClass: "",
+      //加载动画
+      loading: true,
     };
   },
   created() {
@@ -202,6 +204,7 @@ export default {
         .then((response) => {
           this.detail = response.data.data.patantDetailData[0];
           this.orgClass = response.data.orgClass;
+          this.loading = false;//结束加载动画
         });
     },
     changeJson(data) {
