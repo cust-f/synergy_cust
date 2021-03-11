@@ -86,12 +86,18 @@
     >
       <el-container style="width:50%;height:100%;background-color:#f5f5f5;float:left;">
         <el-header>
-          <div
-            style="font-size:18px;margin:5px 5px;margin-left:5px;border-left: 3px solid rgb(78, 88, 197);"
-          >
-            <span style="margin-left:10px;font-size:20px;">账号管理</span>
-          </div>
+          <br>
+
+                  <div
+        class="biaoti"
+        style="padding: 0 15px;  font-size:18px"
+
+      >
+       账号管理
+      </div>
+
         </el-header>
+        
         <el-aside style="width:100%;text-align:center;margin-top: 150px;">
           <el-upload
             class="avatar-uploader"
@@ -174,7 +180,6 @@
     </el-dialog>
 
     <el-dialog
-      title="修改密码"
       :visible.sync="updataPassword"
       :close-on-click-modal="false"
       top="20vh"
@@ -182,6 +187,13 @@
       @close="closeDialog"
       width="450px"
     >
+      <div
+        class="biaoti"
+        style="padding: 0 10px; border-left: 3px solid #4e58c5;margin-top:-10px"
+      >
+       修改密码
+      </div>
+      <br>
       <div style="text-align:center;">
         <el-form
           :model="account"
@@ -213,12 +225,12 @@
       </div>
 
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm('account')" :disabled="checkMessage">提交</el-button>
+        <el-button type="primary" @click="submitForm('account')" :disabled="checkMessage" >提交</el-button>
         <el-button @click="resetForm('account')">重置</el-button>
       </div>
     </el-dialog>
     <el-dialog
-      title="修改账户信息"
+      
       :visible.sync="updataUserDetail"
       :close-on-click-modal="false"
       class="updata"
@@ -226,6 +238,12 @@
       @close="updataUserDetail=false"
       width="450px"
     >
+          <div
+        style="padding: 0px 10px;  border-left: 3px solid #4e58c5; margin-top:-10px"
+      >
+        修改信息
+      </div>
+      <br>
       <el-form
         :model="user"
         status-icon
@@ -535,6 +553,9 @@ export default {
 .admin-header .el-row {
   margin-left: 0px !important;
 }
+.admin-header .el-dialog__footer{
+     margin-top: -30px;
+}
 /* .admin-header{
   width:100%;
 } */
@@ -725,7 +746,7 @@ export default {
     border-color: #ff7720;
     background-color: #ff7720;
     /* color: inherit; */
-    der-top: 0;
+    // der-top: 0;
     border-bottom: 0;
   }
   .search .el-input__inner {
@@ -760,5 +781,6 @@ export default {
     width: 1px;
     white-space: nowrap;
   }
+  
 }
 </style>
