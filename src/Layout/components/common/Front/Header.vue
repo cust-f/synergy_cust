@@ -239,10 +239,12 @@
       width="450px"
     >
           <div
+          class="biaoti"
         style="padding: 0px 10px;  border-left: 3px solid #4e58c5; margin-top:-10px"
       >
         修改信息
       </div>
+      <br>
       <br>
       <el-form
         :model="user"
@@ -549,12 +551,15 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .admin-header .el-row {
   margin-left: 0px !important;
 }
 .admin-header .el-dialog__footer{
      margin-top: -30px;
+}
+.updata .el-dialog__body{
+      padding: 30px 20px;
 }
 /* .admin-header{
   width:100%;
@@ -620,7 +625,7 @@ export default {
   /* float: left; */
 }
 .updata .el-dialog {
-  height: 450px;
+  height: 395px;
 }
 .user-detail .el-row {
   margin-bottom: 20px;
