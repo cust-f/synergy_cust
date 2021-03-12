@@ -1,5 +1,6 @@
 <template>
   <div class="patent-list">
+    <!-- 专利列表 -->
     <el-row
       v-for="(item, index) in patentList"
       :key="index"
@@ -37,28 +38,32 @@
         </el-row>
         <el-row>
           <el-col :span="9">
-            <el-popover
+            <!-- <el-popover
               :content="changeString(item.author)"
               placement="top-start"
               trigger="hover"
-            >
-              <p slot="reference">
+            > -->
+              <!-- <p slot="reference">
+                发明人:
+                <span>{{ changeString(item.author) }}</span>
+              </p> -->
+              <p>
                 发明人:
                 <span>{{ changeString(item.author) }}</span>
               </p>
-            </el-popover>
+            <!-- </el-popover> -->
           </el-col>
           <el-col :span="9">
-            <el-popover
+            <!-- <el-popover
               :content="changeString(item.requestPeople)"
               placement="top-start"
               trigger="hover"
-            >
-              <p slot="reference">
+            > -->
+              <p>
                 申请人:
                 <span>{{ changeString(item.requestPeople) }}</span>
               </p>
-            </el-popover>
+            <!-- </el-popover> -->
           </el-col>
           <el-col :span="6">
             <span
@@ -70,16 +75,16 @@
         <!--  -->
         <el-row>
           <el-col :span="18">
-            <el-popover
+            <!-- <el-popover
               :content="changeString(item.keyword)"
               placement="top-start"
               trigger="hover"
-            >
-              <p slot="reference">
+            > -->
+              <p>
                 关键词:
                 <span>{{ changeString(item.keyword) }}</span>
               </p>
-            </el-popover>
+            <!-- </el-popover> -->
           </el-col>
           <el-col :span="6">
             <span>公开号: {{ item.publicationNo }}</span>
@@ -106,6 +111,7 @@
       </el-row>
       <!-- <el-divider></el-divider> -->
     </el-row>
+    <!-- 企业列表 -->
   </div>
 </template>
 
