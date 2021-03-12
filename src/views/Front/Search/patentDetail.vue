@@ -62,7 +62,7 @@
             placement="top-start"
             trigger="hover"
           > -->
-            <p slot="reference">
+            <p>
               发明人:
               <span>{{ changeString(detail.author) }}</span>
             </p>
@@ -74,7 +74,7 @@
             placement="top-start"
             trigger="hover"
           > -->
-            <p slot="reference">
+            <p>
               申请人:
               <span>{{ changeString(detail.requestPeople) }}</span>
             </p>
@@ -95,7 +95,7 @@
             placement="top-start"
             trigger="hover"
           > -->
-            <p slot="reference">
+            <p>
               专利代理人:
               <span>{{ changeString(detail.agent) }}</span>
             </p>
@@ -119,7 +119,7 @@
             placement="top-start"
             trigger="hover"
           > -->
-            <p slot="reference">
+            <p>
               关键词:
               <span>{{ changeString(detail.keyword) }}</span>
             </p>
@@ -204,7 +204,7 @@ export default {
         .then((response) => {
           this.detail = response.data.data.patantDetailData[0];
           this.orgClass = response.data.orgClass;
-          this.loading = false;//结束加载动画
+          this.loading = false;
         });
     },
     changeJson(data) {

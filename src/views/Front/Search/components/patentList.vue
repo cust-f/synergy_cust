@@ -1,5 +1,6 @@
 <template>
   <div class="patent-list">
+    <!-- 专利列表 -->
     <el-row
       v-for="(item, index) in patentList"
       :key="index"
@@ -42,7 +43,11 @@
               placement="top-start"
               trigger="hover"
             > -->
-              <p slot="reference">
+              <!-- <p slot="reference">
+                发明人:
+                <span>{{ changeString(item.author) }}</span>
+              </p> -->
+              <p>
                 发明人:
                 <span>{{ changeString(item.author) }}</span>
               </p>
@@ -54,7 +59,7 @@
               placement="top-start"
               trigger="hover"
             > -->
-              <p slot="reference">
+              <p>
                 申请人:
                 <span>{{ changeString(item.requestPeople) }}</span>
               </p>
@@ -75,7 +80,7 @@
               placement="top-start"
               trigger="hover"
             > -->
-              <p slot="reference">
+              <p>
                 关键词:
                 <span>{{ changeString(item.keyword) }}</span>
               </p>
@@ -106,6 +111,7 @@
       </el-row>
       <!-- <el-divider></el-divider> -->
     </el-row>
+    <!-- 企业列表 -->
   </div>
 </template>
 
