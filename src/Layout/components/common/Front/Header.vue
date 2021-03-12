@@ -246,6 +246,7 @@
       </div>
       <br>
       <br>
+      <br>
       <el-form
         :model="user"
         status-icon
