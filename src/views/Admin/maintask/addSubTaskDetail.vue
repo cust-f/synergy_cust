@@ -28,20 +28,8 @@
                         "
                         @click="goPatent()"
                       >123</el-button>
-                  
                   </div>  
                 </el-input>
-                
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="联络电话">
-                <el-input v-model="addList.Telphone" @blur="animate"></el-input>
-                <font color="red">
-                  <span v-if="this.addList.Telphone === null"
-                    >您的联络电话格式输入不正确</span
-                  >
-                </font>
               </el-form-item>
             </el-col>
             <el-tooltip
@@ -65,6 +53,17 @@
                     "
                     @click="goPatent()"
                   ></el-button>  </el-tooltip>
+                  
+            <el-col :span="11">
+              <el-form-item label="联络电话">
+                <el-input v-model="addList.Telphone" @blur="animate"></el-input>
+                <font color="red">
+                  <span v-if="this.addList.Telphone === null"
+                    >您的联络电话格式输入不正确</span
+                  >
+                </font>
+              </el-form-item>
+            </el-col>
           </el-row>
  
           <el-row>
