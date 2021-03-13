@@ -13,7 +13,7 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务名称">
-                <el-input @blur="getParent" v-model="addList.taskName">
+                <el-input >
                   <div class="box">
                   
                       <el-button
@@ -47,7 +47,7 @@
                       border: 0px;
                       font-size: 14px;
                       padding: 0px 0px;
-                      margin-left: -400px;
+                      margin-left: -435px;
                       margin-top:60px;
                       margin-top: 13px;
                     "
@@ -391,10 +391,10 @@
           <template>
           <el-col :span="7" style="float: right">
             <el-input
-              v-model="search"
+              v-model="addList.taskName"
               size="mini"
               placeholder="输入关键字搜索"
-              @change="filterMessage"
+              @blur="getParent"
             />
           </el-col></template>
           &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
@@ -402,7 +402,7 @@
           <!-- 专利表格 -->
           <div>
             <el-table
-              :data="search == '' ? parentTable : parentTable2"
+              :data= parentTable 
               style="width: 100%; margin-top: 30px"
               border
               highlight-current-row
@@ -749,7 +749,7 @@ export default {
 
       visiblehexin: "none",
       shenqing: "none",
-      search: "",
+      // search: "",
       taskID: "",
       bianjiTC: false,
       fahuo: "none",
@@ -876,22 +876,22 @@ export default {
   },
   methods: {  
 
-    handleSearch(val) {
-      let search = val;
-      if (search == "") {
-        //如果search不等于空
-        this.parentTable2 = this.parentTable;
-        // this.parentTable = this.parentTable2.length;
-      }
-      if (search != "") {
-        //如果search等于空
-        this.parentTable2 = this.parentTable.filter(
-          (data) =>
-            !search || data.petentName.toLowerCase().includes(search.toLowerCase())
-        );
-        // this.tableData_length = this.parentTable2.length;
-      }
-    },
+    // handleSearch(val) {
+    //   let search = val;
+    //   if (search == "") {
+    //     //如果search不等于空
+    //     this.parentTable2 = this.parentTable;
+    //     // this.parentTable = this.parentTable2.length;
+    //   }
+    //   if (search != "") {
+    //     //如果search等于空
+    //     this.parentTable2 = this.parentTable.filter(
+    //       (data) =>
+    //         !search || data.petentName.toLowerCase().includes(search.toLowerCase())
+    //     );
+    //     // this.tableData_length = this.parentTable2.length;
+    //   }
+    // },
     goPatent() {
       this.isPatent = true;
     },
@@ -1299,10 +1299,10 @@ export default {
         });
       //如果不在核心供应商列表里面则自动添加
     },
-    changeTable()
-    {
-      this.handleSearch();
-    },
+    // changeTable()
+    // {
+    //   this.handleSearch();
+    // },
     inviteEmail()
     {
       this.$confirm('此操作将对此公司发送邀请邮件，请确认操作', '', {
@@ -1326,23 +1326,23 @@ export default {
           });
     }
   },
-   watch: {
-    //watch监视input输入值的变化,只要是watch变化了 search()就会被调用
-    search(newVal) {
-      this.handleSearch(newVal);
+  //  watch: {
+  //   //watch监视input输入值的变化,只要是watch变化了 search()就会被调用
+  //   search(newVal) {
+  //     this.handleSearch(newVal);
 
 
-    },
+  //   },
 
     // isPatent(newVal)
     // {
     //   this.changeTable();
     // }
-  },
-   mounted() {
-    this.parentTable2 = this.parentTable;
-    // this.tableData_length = this.tableData.length;
-  },
+  // },
+  //  mounted() {
+  //   this.parentTable2 = this.parentTable;
+  //   // this.tableData_length = this.tableData.length;
+  // },
   // watch:{
   //   //监听productNum的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
   //   productNum:function(val){
