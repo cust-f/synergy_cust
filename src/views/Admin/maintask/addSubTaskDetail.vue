@@ -47,7 +47,7 @@
                       border: 0px;
                       font-size: 14px;
                       padding: 0px 0px;
-                      margin-left: -435px;
+                      margin-left: -400px;
                       margin-top:60px;
                       margin-top: 13px;
                     "
