@@ -1185,6 +1185,7 @@ html #layuicss-layer {
 
 .user_middle .user_dl .user_dl_right .big_yzm .yzm .yzm_img {
   width: 120px;
+  height: 40px;
   float: right;
   border-right: none;
   border-left: solid 1px #ccc;
