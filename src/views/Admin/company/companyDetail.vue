@@ -410,6 +410,7 @@
                       @change="selectProducts"
                       :options="options"
                       :props="props"
+                      style="width:100%"
                     ></el-cascader>
                     
                   </el-form-item>
@@ -1095,4 +1096,7 @@ export default {
   }
  
 }
+// .el-cascader{
+//     width: 100%;
+// }
 </style>
