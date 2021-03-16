@@ -47,7 +47,7 @@
                       border: 0px;
                       font-size: 14px;
                       padding: 0px 0px;
-                      margin-left: -400px;
+                      margin-left: -430px;
                       margin-top:60px;
                       margin-top: 13px;
                     "
@@ -406,7 +406,7 @@
             style="
               padding: 0 10px;
               border-left: 3px solid #4e58c5;
-              margin-top: -30px;
+              
             "
           >
             专利转移
