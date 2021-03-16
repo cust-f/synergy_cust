@@ -401,6 +401,8 @@ export default {
     handleSearch() {
       var that = this;
       var data = Qs.stringify({
+        provicepid:this.provicepid,
+        citypid:this.citypid,
         username: this.usernameX
       });
       console.log(data)

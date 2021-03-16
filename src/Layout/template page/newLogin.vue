@@ -53,15 +53,24 @@
             </div>
           </div>
 
-          <!-- <ul class="big_yzm">
+          <ul class="big_yzm">
             <li class="yzm">
               <a>验证码</a>
-              <input type="text" name="checkCode" id="checkCode" placeholder="请输入验证码" maxlength="4" />
+              <input 
+                type="text" 
+                v-model="param.code"
+                id="checkCode" 
+                placeholder="请输入验证码" 
+                maxlength="4" 
+              />
               <a class="yzm_img">
-                <img src="./哈长城市群科技云-登录_files/checkCode" onclick="changeCode()" id="code" />
+                <!-- <img src="" onclick="changeCode()" id="code" /> -->
+                <div @click="changeCode()">
+                  <vIdentify :identifyCode="identifyCode"></vIdentify>
+                </div>
               </a>
             </li>
-          </ul> -->
+          </ul>
 
           <a href="javascript:void(0)" class="user_a3" @click="submitForm"
             >登录</a
@@ -113,32 +122,70 @@
 
 <script>
 import Qs from "qs";
+import vIdentify from "./identify.vue"
 
 export default {
+  components:{
+    vIdentify, //注册组件
+  },
   name: "login",
   data: function () {
     return {
       param: {
         userName: "",
         password: "",
+        code:"",
       },
-      rules: {
-        userName: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-        ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-      },
+      identifyCode:"",
+      identifyCodes:"1234567890",
+      // rules: {
+      //   userName: [
+      //     { required: true, message: "请输入用户名", trigger: "blur" },
+      //   ],
+      //   password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+      // },
       roleID: "",
     };
   },
+  mounted(){
+    this.identifyCode="";
+    this.makeCode(this.identifyCodes,4);
+  },
+  created() {
+    this.changeCode();
+  },
   methods: {
+    //验证码
+    randomNum(min,max){
+      return Math.floor(Math.random()*(max-min)+min);
+    },
+    changeCode(){
+      this.identifyCode="";
+      this.makeCode(this.identifyCodes,4);
+    },
+    makeCode(o,l){
+      for(let i=0;i<l;i++){
+        this.identifyCode += this.identifyCodes[
+          this.randomNum(0,this.identifyCodes.length)
+        ];
+      }
+    },
+    //数据格式验证
     valid() {
-      if (this.param.userName == "" || this.param.password == "") {
+      if (this.param.userName == "" || this.param.password == "" ||this.param.code=="") {
+        this.$message.error("请输入账号、密码和验证码");
         return false;
-      } else {
+      }else if(this.identifyCode!=this.param.code){
+        this.param.code='';
+        this.changeCode();
+        this.$message.error("请输入正确的验证码");
+        return false;
+      } 
+      else {
         return true;
       }
     },
+    //登录
     submitForm() {
       // this.$refs.login.validate((valid) => {
       if (this.valid()) {
@@ -198,12 +245,14 @@ export default {
                 type: "warning",
                 message: "登录失败",
               });
+              // this.changeCode();
             }
           });
-      } else {
-        this.$message.error("请输入账号和密码");
-        return false;
-      }
+      } 
+      // else {
+      //   this.$message.error("请输入账号和密码");
+      //   return false;
+      // }
       // });
     },
     goHome() {
