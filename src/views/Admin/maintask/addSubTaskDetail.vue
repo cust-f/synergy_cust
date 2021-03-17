@@ -402,6 +402,7 @@
           <!-- 专利表格 -->
           <div>
             <el-table
+            v-loading="loading"
               :data= parentTable 
               style="width: 100%; margin-top: 30px"
               border
@@ -665,6 +666,7 @@ export default {
   name: "addSubTaskDetail",
   data() {
     return {
+       loading: true,
       //禁用今天以前的时间
       pickerOptions: {
         disabledDate(time) {
@@ -1194,6 +1196,7 @@ export default {
           .then((response) => {
             if (response.data.code == 200) {
               this.parentTable = response.data.allData.parentList;
+              this.loading=false;
             } else {
               this.$message({
                 type: "warning",
