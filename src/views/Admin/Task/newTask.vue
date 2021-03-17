@@ -14,7 +14,7 @@
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">新增需求</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <!-- <el-divider></el-divider> -->
           <!-- <el-button type="small" @click="getdata()"></el-button> -->
-          <el-form ref="form" label-width="110px" class="box">
+          <el-form ref="form" label-width="110px">
             <el-row>
               <el-col :span="11">
                 <el-form-item label="任务名称">

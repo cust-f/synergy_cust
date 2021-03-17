@@ -25,6 +25,7 @@ import Data from '@/views/Front/Home/Data'
 //后台界面
 import adminPage from '@/Layout/template page/adminPage'
 import Dashboard from '@/views/admin/Home/Dashboard' //后台平台首页
+import WorkflowManage from '@/views/admin/Home/WorkflowManage'//工作流管理
 import copy from '@/views/admin/Home/Dashboard-copy' //后台平台首页
 
 //设计人员界面
@@ -235,6 +236,15 @@ export default new Router({
           component: Dashboard,
           meta: {
             title: '平台首页'
+          }
+        },
+        //工作流管理
+        {
+          path: '/admin/workflowManage',
+          name: 'WorkflowManage',
+          component: WorkflowManage,
+          meta: {
+            title:'工作流管理'
           }
         },
         //新增任务
