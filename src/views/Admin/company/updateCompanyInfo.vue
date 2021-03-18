@@ -40,9 +40,9 @@ export default {
         // 工具栏是否可以浮动
         autoFloatEnabled: false,
         // 初始容器高度
-        initialFrameHeight: 1500,
+        initialFrameHeight: 600,
         // 初始容器宽度
-        initialFrameWidth: "100%",
+        initialFrameWidth: "99.8%",
         // 关闭自动保存
         enableAutoSave: true
       },

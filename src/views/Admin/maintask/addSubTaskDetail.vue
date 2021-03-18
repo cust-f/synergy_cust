@@ -13,7 +13,7 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务名称">
-                <el-input >
+                <el-input v-model="addList.taskName">
                   <div class="box">
                   
                       <el-button
@@ -47,7 +47,7 @@
                       border: 0px;
                       font-size: 14px;
                       padding: 0px 0px;
-                      margin-left: -400px;
+                      margin-left: -430px;
                       margin-top:60px;
                       margin-top: 13px;
                     "
@@ -257,6 +257,29 @@
             >确 定</el-button
           >
         </div>
+        <!-- <div v-if="addList.taskType=='0'||addList.taskType=='1'">
+          <el-row>
+            <el-col span="4">
+               <span class="el-form-item__label" style="width: 120px;">任务工作流</span>
+            </el-col>
+          <!-- </el-row>
+          <el-row>
+           <el-col span="16"> -->
+            <el-image
+              v-if="addList.taskType=='1'"
+              :src="require('../../../assets/images/subTask/circulationWorkflow.png')" 
+              width="100%"
+              :preview-src-list="[require('../../../assets/images/subTask/circulationWorkflow.png')]"
+            ></el-image>
+            <el-image
+              v-if="addList.taskType=='0'"
+              :src="require('../../../assets/images/subTask/designWorkflow.png')" 
+              width="100%"
+              :preview-src-list="[require('../../../assets/images/subTask/designWorkflow.png')]"
+            ></el-image>
+            <!-- </el-col>
+          </el-row>
+        </div> -->
       </div>
 
       <!-- <el-divider></el-divider> -->
@@ -383,7 +406,7 @@
             style="
               padding: 0 10px;
               border-left: 3px solid #4e58c5;
-              margin-top: -30px;
+              
             "
           >
             专利转移
@@ -481,7 +504,6 @@
           <el-form
             ref="consignmentForm"
             label-width="110px"
-            class="box"
             :rules="consignmentRules"
             :model="consignmentForm"
           >
@@ -571,7 +593,7 @@
             流通清单详情
           </div>
           <br />
-          <el-form ref="form" label-width="110px" class="box">
+          <el-form ref="form" label-width="110px">
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品名称">

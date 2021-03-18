@@ -11,7 +11,7 @@
   <div class="newStaff">
     <el-container>
       <el-main>
-        <div class="box">
+        <div >
           <div
             class="biaoti"
             style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
@@ -43,7 +43,7 @@
                   >新增</el-button
                 >
               </div>
-              <div class="box">
+              <div >
                 <el-table
                   :data="
                     tableData.slice(
@@ -105,7 +105,7 @@
                     sortable
                   ></el-table-column>
 
-                  <el-table-column label="操作" width="180" align="center">
+                  <el-table-column label="操作" width="160" align="center">
                     <template slot-scope="scope">
                       <el-button
                         type="text"
