@@ -205,9 +205,9 @@ export default {
     remarkControl() {
       if (this.evaluationHiding == 1) {
         this.evaluationHiding = 0;
-        this.tips = "顯示任務評價";
+        this.tips = "显示任务评价";
       } else if (this.evaluationHiding == 0) {
-        (this.evaluationHiding = 1), (this.tips = "隱藏任務評價");
+        (this.evaluationHiding = 1), (this.tips = "隐藏任务评价");
       }
     },
     //taskId传递方法，获取通过主界面传过来的taskId
