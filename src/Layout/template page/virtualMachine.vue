@@ -325,32 +325,32 @@
                       <el-row style="margin-bottom: 5px">
                         <el-col :span="5" align="right">设计人:</el-col>
                         <el-col :span="15" style="margin-left: 30px">
-                          {{ item._source.author }}
+                          {{ changeString(item._source.author) }}
                         </el-col>
                       </el-row>
                       <el-row style="margin-bottom: 5px">
                         <el-col :span="5" align="right">专利权人:</el-col>
                         <el-col :span="15" style="margin-left: 30px">
-                          {{ item._source.forgc }}
+                          {{ changeString(item._source.forgc) }}
                         </el-col>
                       </el-row>
                       <el-row style="margin-bottom: 5px">
                         <el-col :span="5" align="right">专利号:</el-col>
                         <el-col :span="15" style="margin-left: 30px">
-                          {{ item._source.reqno }}
+                          {{ changeString(item._source.reqno) }}
                         </el-col>
                       </el-row>
                       <el-row style="margin-bottom: 5px">
                         <el-col :span="5" align="right">申请日期:</el-col>
                         <el-col :span="16" style="margin-left: 30px">
-                          {{ item._source.date }}
+                          {{ changeString(item._source.date) }}
                         </el-col>
                       </el-row>
 
                       <el-row style="margin-bottom: 5px">
                         <el-col :span="5" align="right">专利类型:</el-col>
                         <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ item._source.patt }}</span>
+                          <span>{{ changeString(item._source.patt) }}</span>
                         </el-col>
                       </el-row>
 
@@ -630,7 +630,7 @@
                         </el-col>
                         <el-col :span="3"  align="right">资源交易方式：</el-col>
                         <el-col :span="9">
-                          {{ changeString(qikanForm.charge_type) }}
+                          {{ qikanForm.charge_type }}
                         </el-col>
                       </el-row>
 
@@ -711,7 +711,7 @@
                         </el-col>
                         <el-col :span="3"  align="right">资源交易方式：</el-col>
                         <el-col :span="9">
-                          {{ changeString(chengguoForm.charge_type) }}
+                          {{ chengguoForm.charge_type }}
                         </el-col>
                       </el-row>
 
@@ -793,7 +793,7 @@
                         </el-col>
                         <el-col :span="3"  align="right">资源交易方式：</el-col>
                         <el-col :span="9">
-                          {{ changeString(zhuanliForm.charge_type) }}
+                          {{ zhuanliForm.charge_type }}
                         </el-col>
                       </el-row>
 
@@ -874,7 +874,7 @@
                         </el-col>
                         <el-col :span="3"  align="right">资源交易方式：</el-col>
                         <el-col :span="9">
-                          {{ changeString(biaozhunForm.charge_type) }}
+                          {{ biaozhunForm.charge_type }}
                         </el-col>
                       </el-row>
 
@@ -955,7 +955,7 @@
                         </el-col>
                         <el-col :span="3"  align="right">资源交易方式：</el-col>
                         <el-col :span="9">
-                          {{ changeString(faguiForm.charge_type) }}
+                          {{ faguiForm.charge_type }}
                         </el-col>
                       </el-row>
 
