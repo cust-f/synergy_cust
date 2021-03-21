@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="addSubTask">
     <el-header height="20px">
       <el-page-header @back="goBack" content="新增子任务"></el-page-header>
       <!-- &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; -->
@@ -1385,7 +1385,7 @@ export default {
 </script>
 
 <style lang="scss">
-.box {
+.addSubTask .box {
   width: 400px;
 }
 .item {
