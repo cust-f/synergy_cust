@@ -21,11 +21,11 @@
             >
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
                 <el-table-column prop="storeName" label="仓库名称" width="150" sortable></el-table-column>
-                <el-table-column prop="storeAddress" label="仓库地址" width="230" sortable></el-table-column>
+                <el-table-column prop="storeAddress" label="仓库地址"></el-table-column>
                 <el-table-column prop="contacter" label="联系人" width="100" sortable></el-table-column>
-                <el-table-column prop="telephone" label="联系电话" width="150" sortable></el-table-column>
-                <el-table-column prop="totalStock" label="总库存" width="110" sortable></el-table-column>
-                <el-table-column label="操作" align="center" width="100" >
+                <el-table-column prop="telephone" label="联系电话" width="120" sortable></el-table-column>
+                <el-table-column prop="totalStock" label="总库存" width="100" sortable></el-table-column>
+                <el-table-column label="操作" align="center" width="120" >
                     <template slot-scope="scope">
                         <el-button @click="storeAdd(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="storeDelete(scope.$index,scope.row)" type="text" size="small">删除</el-button>
@@ -52,7 +52,7 @@
             <el-dialog title :visible.sync="storeAddTC" width="700px">
                 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;" id="storeTCK" v-html ="storeTCKTitle"></div>
                 <br>
-                <el-form ref="storeFormAdd" label-width="110px" class="box" :rules="storeRulesAdd" :model="storeFormAdd">
+                <el-form ref="storeFormAdd" label-width="110px" class="storeHouseBox" :rules="storeRulesAdd" :model="storeFormAdd">
                     <el-row>
                         <el-col :span="11">
                             <el-form-item label="仓库名称" prop="storeNameAdd">
@@ -207,12 +207,12 @@ export default {
         this.storeFormAdd.totalStockAdd = row.totalStock;
         //1是新增，否则是修改
         if(row == 1){
-            this.storeTCKTitle = "新增仓库信息";
+            this.storeTCKTitle = "仓库新增";
             this.storeEditUrl = "/api/StoreHouse/addStorehouse";
             // this.storeFormAdd = {};
         }
         else{
-            this.storeTCKTitle = "修改";
+            this.storeTCKTitle = "仓库修改";
             this.storeEditUrl = "/api/StoreHouse/updateStorehouseById";
             // this.storeFormAdd = row;
         }
@@ -344,8 +344,9 @@ export default {
 }
 .table {
   display: table-cell !important;
-  /* width: 100%; */
+  /*width: 100%;*/
   font-size: 14px;
+  width: 970px;
 }
 .handle-input {
   width: 260px;
@@ -359,7 +360,7 @@ export default {
   margin-right: 10px;
 }
 
-.box {
+.storeHouseBox {
   font-size: 24px;
 }
 .container {

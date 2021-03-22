@@ -171,7 +171,7 @@ export default {
       show: 0,
       show1: 0,
       show3: 0,
-      tips: "显示任務内容",
+      tips: "显示任务评价",
       evaluationHiding: 0,
 
       //状态显示控制
@@ -404,10 +404,10 @@ export default {
 .designDet .loading1 {
   height: 400px;
 }
-.designDet .box-card {
+/*.designDet .box-card {
   width: 960px;
-  /* border: 1px solid #00a2e6 ; */
-}
+  border: 1px solid #00a2e6 ; 
+}*/
 //返回字体
 .designDet .el-page-header__title {
   font-size: 18px;

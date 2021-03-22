@@ -1783,10 +1783,10 @@ export default {
     padding: 18px 0;
   }
 
-  .box-card {
+  /*.box-card {
     width: 960px;
-    /* border: 1px solid #00a2e6 ; */
-  }
+    border: 1px solid #00a2e6 ; 
+  }*/
   //返回字体
   .el-page-header__title {
     font-size: 18px;

@@ -147,7 +147,7 @@
               ref="changeForm"
               label-width="110px"
               :rules="stockRulesChange"
-              class="box"
+              class="stockBox"
               :model="changeTC"
             >
               <el-row>
@@ -208,7 +208,7 @@
               ref="addform"
               label-width="110px"
               :rules="stockRulesAdd"
-              class="box"
+              class="stockBox"
               :model="addTC"
             >
               <el-row>
@@ -692,7 +692,7 @@ export default {
     margin-right: 10px;
   }
 
-  .box {
+  .stockBox {
     font-size: 24px;
   }
   .container {
