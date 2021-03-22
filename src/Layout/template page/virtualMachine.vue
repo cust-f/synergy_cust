@@ -50,7 +50,7 @@
                 <el-tabs v-model="activeTab" type="border-card">
                   <el-tab-pane
                     class="cur"
-                    :style="{ height: screenHeight - 600 + 'px' }"
+                    :style="{ height: (screenHeight-105)*0.4 + 'px' }"
                     label="任务详情"
                     name="first"
                   >
@@ -108,6 +108,8 @@
                 <el-tab-pane
                     label="资源推荐"
                     name="first2"
+                    :style="{ height: (screenHeight-105)*0.6 + 'px'}"
+                    style="overflow-y:auto;overflow-x:hidden;"
                 >
                 <el-tabs
                   v-model="activeRecommend"
@@ -118,80 +120,83 @@
                     label="期刊"
                     name="wf_mds_chn_qikan"
                     v-loading="loading"
-                    style="min-height:500px;"
                     :disabled="qikanDisabled"
+                    style="min-height:499px;"
                   >
                     <br />
                     <div v-for="(item, index) in qikanCurrentList" :key="index" @click="qikanDetail(item)">
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">标题:</el-col>
-                        <el-col :span="10" style="margin-left: 30px">
-                          <span style="font-weight: bold">
-                            {{ changeString(item._source.title).substring(0,14)+"..." }}
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">标题：</el-col>
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="item.title" placement="bottom" v-if="item._source.title.length>=25">
+                            <span style="font-weight: bold" >
+                              {{ changeString(item._source.title).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span style="font-weight: bold" v-else>
+                            {{ changeString(item._source.title) }}
                           </span>
-                        </el-col>
-                        <el-col :span="4" align="right">资料来源:</el-col>
-                        <el-col :span="3" align="right">
-                          <p>{{ "万方" }}<img style="width: 20px; height: 20px; float: right" src="../../assets/img/wanfang.png"/></p>
                         </el-col>
                       </el-row>
                       
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">作者:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">作者：</el-col>
+                        <el-col :span="7">
                           {{ changeString(item._source.author) }}
                         </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">分类号:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.mcid) }}
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">期刊名(中文):</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.joucn) }}
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">在线出版日期:</el-col>
-                        <el-col :span="16" style="margin-left: 30px">
+                        <el-col :span="6" align="right">在线出版日期：</el-col>
+                        <el-col :span="6">
                           {{ changeString(item._source.date) }}
                         </el-col>
                       </el-row>
 
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">关键词:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ changeString(item._source.keyword) }}</span>
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">分类号：</el-col>
+                        <el-col :span="7">
+                          {{ changeString(item._source.mcid) }}
                         </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源交易方式:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+                        <el-col :span="6" align="right">资源交易方式：</el-col>
+                        <el-col :span="6">
                           <span>{{ item.charge_type }}</span>
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评价数:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">资源评价数：</el-col>
+                        <el-col :span="7">
                           <span>{{ item.comment_num }}</span>
                         </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评分:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+                        <el-col :span="6" align="right">资源评分：</el-col>
+                        <el-col :span="6">
                           <span>{{ item.comment_score }}</span>
                         </el-col>
                       </el-row>
 
+                      <el-row class="tab-row">
+                        <el-col :span="5
+                        " align="right">关键词：</el-col>
+
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="changeString(item._source.keyword)" placement="bottom" v-if="item._source.keyword.length>=25">
+                            <span>
+                              {{ changeString(item._source.keyword).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span v-else>
+                            {{ changeString(item._source.keyword) }}
+                          </span>
+                        </el-col>
+                      </el-row>
+
                       <el-row>
-                        <img style="width: 25px; height: 25px; float: left" src="../../assets/img/zheda.png" />
-                        <p style=" font-size: 16px; color: #7d7974; float: left; line-height: 30px; margin-left: 10px;">
+                        <el-col :span="17">
+                        <img style="width: 25px; height: 25px; float: left;margin-right:5px" src="../../assets/img/zheda.png" />
                           版权所有：浙江大学、国家重点研发计划项目支持
-                        </p>
+                        </el-col>
+                          <el-col :span="4" align="right">资料来源：</el-col>
+                        <el-col :span="3" align="left">
+                          <p>{{ "万方" }}<img style="width: 17px; height: 17px;" src="../../assets/img/wanfang.png"/></p>
+                        </el-col>
                         <br /><br />
                         <el-divider></el-divider>
                       </el-row>
@@ -212,82 +217,82 @@
                     label="成果"
                     name="wf_mds_chn_cstad"
                     v-loading="loading"
-                    style="min-height:500px"
                      :disabled="chengguoDisabled"
+                    style="min-height:499px;"
                   >
                     <br />
                     <div v-for="(item, index) in chengguoCurrentList" :key="index" @click="chengguoDetail(item)">
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">标题:</el-col>
-                        <el-col :span="10" style="margin-left: 30px"
-                          ><span style="font-weight: bold">
-                            {{  changeString(item._source.title).substring(0,14)+"..." }}
-                          </span></el-col>
-                        <el-col :span="4" align="right">资料来源:</el-col>
-                        <el-col :span="3" align="right" >
-                          <p>{{ "万方" }}<img style="width: 20px; height: 20px; float: right" src="../../assets/img/wanfang.png"/></p>
-                        </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">完成单位:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.conname) }}
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">限制使用:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.restri) }}
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">成果类别:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.fitclass) }}
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">公布年份:</el-col>
-                        <el-col :span="16" style="margin-left: 30px">
-                          {{ changeString(item._source.year) }}
-                        </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">关键字:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ changeString(item._source.keyword) }}</span>
-                        </el-col>
-                      </el-row>
-                       <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源交易方式:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ item.charge_type }}</span>
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评价数:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ item.comment_num }}</span>
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评分:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ item.comment_score }}</span>
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">标题：</el-col>
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="item.title" placement="bottom" v-if="item._source.title.length>=25">
+                            <span style="font-weight: bold" >
+                              {{ changeString(item._source.title).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span style="font-weight: bold" v-else>
+                            {{ changeString(item._source.title) }}
+                          </span>
                         </el-col>
                       </el-row>
                       
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">完成单位：</el-col>
+                        <el-col :span="19">
+                          {{ changeString(item._source.conname) }}
+                        </el-col>
+                      </el-row>
+
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">公布年份：</el-col>
+                        <el-col :span="7">
+                          {{ changeString(item._source.year) }}
+                        </el-col>
+                        <el-col :span="6" align="right">资源交易方式：</el-col>
+                        <el-col :span="6">
+                          <span>{{ item.charge_type }}</span>
+                        </el-col>
+                      </el-row>
+                        
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">资源评分：</el-col>
+                        <el-col :span="7">
+                          <span>{{ item.comment_score }}</span>
+                        </el-col>
+                        <el-col :span="6" align="right">资源评价数：</el-col>
+                        <el-col :span="6">
+                          <span>{{ item.comment_num}}</span>
+                        </el-col>
+                      </el-row>
+
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">关键词：</el-col>
+
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="changeString(item._source.keyword)" placement="bottom" v-if="item._source.keyword.length>=25">
+                            <span>
+                              {{ changeString(item._source.keyword).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span v-else>
+                            {{ changeString(item._source.keyword) }}
+                          </span>
+                        </el-col>
+                      </el-row>
+
                       <el-row>
-                        <img style="width: 25px; height: 25px; float: left" src="../../assets/img/zheda.png" />
-                        <p style=" font-size: 16px; color: #7d7974; float: left; line-height: 30px; margin-left: 10px; " >
-                          版权所有： 浙江大学、国家重点研发计划项目支持
-                        </p>
+                        <el-col :span="17">
+                        <img style="width: 25px; height: 25px; float: left;margin-right:5px" src="../../assets/img/zheda.png" />
+                          版权所有：浙江大学、国家重点研发计划项目支持
+                        </el-col>
+                          <el-col :span="4" align="right">资料来源：</el-col>
+                        <el-col :span="3" align="left">
+                          <p>{{ "万方" }}<img style="width: 17px; height: 17px;" src="../../assets/img/wanfang.png"/></p>
+                        </el-col>
                         <br /><br />
                         <el-divider></el-divider>
                       </el-row>
-                      <br />
+
                     </div>
                     <div>
                       <el-pagination
@@ -305,83 +310,81 @@
                     label="专利"
                     name="wf_mds_chn_zhuanli"
                     v-loading="loading"
-                    style="min-height:500px"
+                    style="min-height:499px"
                      :disabled="zhuanliDisabled"
                   >
                     <br />
                     <div v-for="(item, index) in zhuanliCurrentList" :key="index" @click="zhuanliDetail(item)">
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">标题:</el-col>
-                        <el-col :span="10" style="margin-left: 30px">
-                          <span style="font-weight: bold">
-                            {{ changeString(item._source.title).substring(0,14)+"..." }}
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">标题：</el-col>
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="item.title" placement="bottom" v-if="item._source.title.length>=25">
+                            <span style="font-weight: bold" >
+                              {{ changeString(item._source.title).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span style="font-weight: bold" v-else>
+                            {{ changeString(item._source.title) }}
                           </span>
                         </el-col>
-                        <el-col :span="4" align="right">资料来源:</el-col>
-                        <el-col :span="3" align="right">
-                          <p> {{ "万方" }}<img style="width: 20px; height: 20px; float: right" src="../../assets/img/wanfang.png"/></p>
-                        </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">设计人:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
+                      
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">设计人：</el-col>
+                        <el-col :span="19">
                           {{ changeString(item._source.author) }}
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">专利权人:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.forgc) }}
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">专利号:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.reqno) }}
-                        </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">申请日期:</el-col>
-                        <el-col :span="16" style="margin-left: 30px">
+
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">申请日期：</el-col>
+                        <el-col :span="7">
                           {{ changeString(item._source.date) }}
                         </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">专利类型:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ changeString(item._source.patt) }}</span>
-                        </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源交易方式:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+                        <el-col :span="6" align="right">资源交易方式：</el-col>
+                        <el-col :span="6">
                           <span>{{ item.charge_type }}</span>
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评价数:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ item.comment_num }}</span>
+                        
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">资源评分：</el-col>
+                        <el-col :span="7">
+                          <span>{{ item.comment_score }}</span>
+                        </el-col>
+                        <el-col :span="6" align="right">资源评价数：</el-col>
+                        <el-col :span="6">
+                          <span>{{ item.comment_num}}</span>
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评分:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ item.comment_score }}</span>
+
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">关键词：</el-col>
+
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="changeString(item._source.keyword)" placement="bottom" v-if="item._source.keyword.length>=25">
+                            <span>
+                              {{ changeString(item._source.keyword).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span v-else>
+                            {{ changeString(item._source.keyword) }}
+                          </span>
                         </el-col>
                       </el-row>
 
                       <el-row>
-                        <img style="width: 25px; height: 25px; float: left" src="../../assets/img/zheda.png" />
-                        <p style="  font-size: 16px; color: #7d7974; float: left; line-height: 30px; margin-left: 10px; ">
+                        <el-col :span="17">
+                        <img style="width: 25px; height: 25px; float: left;margin-right:5px" src="../../assets/img/zheda.png" />
                           版权所有：浙江大学、国家重点研发计划项目支持
-                        </p>
+                        </el-col>
+                          <el-col :span="4" align="right">资料来源：</el-col>
+                        <el-col :span="3" align="left">
+                          <p>{{ "万方" }}<img style="width: 17px; height: 17px;" src="../../assets/img/wanfang.png"/></p>
+                        </el-col>
                         <br /><br />
                         <el-divider></el-divider>
                       </el-row>
-                      <br />
                     </div>
                     <div>
                       <el-pagination
@@ -399,80 +402,75 @@
                     label="标准"
                     name="wf_mds_chn_biaozhun"
                     v-loading="loading"
-                    style="min-height:500px"
+                    style="min-height:499px"
                      :disabled="biaozhunDisabled"
                   >
                     <br />
                     <div v-for="(item, index) in biaozhunCurrentList" :key="index" @click="biaozhunDetail(item)">
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">标题:</el-col>
-                        <el-col :span="10" style="margin-left: 30px">
-                          <span style="font-weight: bold"> 
-                             {{ changeString(item._source.ti).substring(0,14)+"..." }}
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">标题：</el-col>
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="item.title" placement="bottom" v-if="item._source.title.length>=25">
+                            <span style="font-weight: bold" >
+                              {{ changeString(item._source.title).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span style="font-weight: bold" v-else>
+                            {{ changeString(item._source.title) }}
                           </span>
-                          </el-col>
-                        <el-col :span="4" align="right">资料来源:</el-col>
-                        <el-col :span="3" align="right" >
-                          <p> {{ "万方" }}<img style="width: 20px; height: 20px; float: right"  src="../../assets/img/wanfang.png" /></p>
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">发布单位:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
+                      
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">发布单位：</el-col>
+                        <el-col :span="19">
                           {{ changeString(item._source.releaseunit) }}
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">标准编号:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.sn) }}
+
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">标准类型：</el-col>
+                        <el-col :span="7">
+                          <span>{{ changeString(item._source.type) }}</span>
                         </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">标准类型:</el-col>
-                        <el-col :span="16" style="margin-left: 30px">
-                          {{ changeString(item._source.type) }}
+                         <el-col :span="6" align="right">标准编号：</el-col>
+                        <el-col :span="6">
+                          <span>{{ changeString(item._source.sn) }}</span>
                         </el-col>
                       </el-row>
 
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">实施日期:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ changeString(item._source.impdate) }}</span>
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">实施日期：</el-col>
+                        <el-col :span="7">
+                          <sapn>{{ changeString(item._source.impdate) }}</sapn>
                         </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">状态:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ changeString(item._source.status) }}</span>
-                        </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源交易方式:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+                        <el-col :span="6" align="right">资源交易方式：</el-col>
+                        <el-col :span="6">
                           <span>{{ item.charge_type }}</span>
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评价数:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+                        
+                      </el-row>
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">资源评价数：</el-col>
+                        <el-col :span="7">
                           <span>{{ item.comment_num }}</span>
                         </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评分:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+                        <el-col :span="6" align="right">资源评分：</el-col>
+                        <el-col :span="6">
                           <span>{{ item.comment_score }}</span>
                         </el-col>
                       </el-row>
 
                       <el-row>
-                        <img style="width: 25px; height: 25px; float: left" src="../../assets/img/zheda.png" />
-                        <p style=" font-size: 16px; color: #7d7974;  float: left; line-height: 30px; margin-left: 10px; " >
-                          版权所有： 浙江大学、国家重点研发计划项目支持
-                        </p>
+                        <el-col :span="17">
+                        <img style="width: 25px; height: 25px; float: left;margin-right:5px" src="../../assets/img/zheda.png" />
+                          版权所有：浙江大学、国家重点研发计划项目支持
+                        </el-col>
+                          <el-col :span="4" align="right">资料来源：</el-col>
+                        <el-col :span="3" align="left">
+                          <p>{{ "万方" }}<img style="width: 17px; height: 17px;" src="../../assets/img/wanfang.png"/></p>
+                        </el-col>
                         <br /><br />
                         <el-divider></el-divider>
                       </el-row>
@@ -493,80 +491,74 @@
                     label="法规"
                     name="wf_mds_chn_claw"
                     v-loading="loading"
-                    style="min-height:500px"
+                    style="min-height:499px"
                      :disabled="faguiDisabled"
                   >
                     <br />
                     <div v-for="(item, index) in faguiCurrentList" :key="index" @click="faguiDetail(item)">
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">标题:</el-col>
-                        <el-col :span="10" style="margin-left: 30px">
-                          <span style="font-weight: bold">
-                            {{ changeString(item._source.ti).substring(0,14)+"..." }}
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">标题：</el-col>
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="item.title" placement="bottom" v-if="item._source.title.length>=25">
+                            <span style="font-weight: bold" >
+                              {{ changeString(item._source.title).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span style="font-weight: bold" v-else>
+                            {{ changeString(item._source.title) }}
                           </span>
                         </el-col>
-                        <el-col :span="4" align="right">资料来源:</el-col>
-                        <el-col :span="3" align="right">
-                          <p> {{ "万方" }}<img style="width: 20px; height: 20px; float: right" src="../../assets/img/wanfang.png" /> </p>
-                        </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">颁发部门:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
+                      
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">颁发部门：</el-col>
+                        <el-col :span="19">
                           {{ changeString(item._source.org) }}
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">发文文号:</el-col>
-                        <el-col :span="15" style="margin-left: 30px">
-                          {{ changeString(item._source.pno) }}
+
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">内容分类：</el-col>
+                        <el-col :span="7">
+                          {{ changeString(item._source.concls) }}
                         </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">时效性:</el-col>
-                        <el-col :span="16" style="margin-left: 30px">
-                          {{ changeString(item._source.aging) }}
+                        <el-col :span="6" align="right">颁布日期：</el-col>
+                        <el-col :span="6">
+                          {{ changeString(item._source.proddate) }}
                         </el-col>
                       </el-row>
 
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">颁布日期:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ changeString(item._source.proddate) }}</span>
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">分类号：</el-col>
+                        <el-col :span="7">
+                          {{ changeString(item._source.mcid) }}
                         </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">关键词:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
-                          <span>{{ changeString(item._source.keyword) }}</span>
-                        </el-col>
-                      </el-row>
-
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源交易方式:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+                        <el-col :span="6" align="right">资源交易方式：</el-col>
+                        <el-col :span="6">
                           <span>{{ item.charge_type }}</span>
                         </el-col>
                       </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评价数:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+
+                      <el-row class="tab-row">
+                        <el-col :span="5" align="right">资源评价数：</el-col>
+                        <el-col :span="7">
                           <span>{{ item.comment_num }}</span>
                         </el-col>
-                      </el-row>
-                      <el-row style="margin-bottom: 5px">
-                        <el-col :span="5" align="right">资源评分:</el-col>
-                        <el-col :span="17" style="margin-left: 30px">
+                        <el-col :span="6" align="right">资源评分：</el-col>
+                        <el-col :span="6">
                           <span>{{ item.comment_score }}</span>
                         </el-col>
                       </el-row>
 
                       <el-row>
-                        <img style="width: 25px; height: 25px; float: left" src="../../assets/img/zheda.png" />
-                        <p style=" font-size: 16px; color: #7d7974; float: left; line-height: 30px; margin-left: 10px; " >
+                        <el-col :span="17">
+                        <img style="width: 25px; height: 25px; float: left;margin-right:5px" src="../../assets/img/zheda.png" />
                           版权所有：浙江大学、国家重点研发计划项目支持
-                        </p>
+                        </el-col>
+                          <el-col :span="4" align="right">资料来源：</el-col>
+                        <el-col :span="3" align="left">
+                          <p>{{ "万方" }}<img style="width: 17px; height: 17px;" src="../../assets/img/wanfang.png"/></p>
+                        </el-col>
                         <br /><br />
                         <el-divider></el-divider>
                       </el-row>
@@ -1463,5 +1455,10 @@ export default {
   line-height: 30px;
   float: right;
   color: #7d7974;
+}
+.visual .tab-row{
+  margin-bottom: 5px;
+  font-size:16px;
+  line-height:21px;
 }
 </style>
