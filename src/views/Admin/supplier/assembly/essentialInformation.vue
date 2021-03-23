@@ -504,9 +504,9 @@ export default {
 </script>
 <style lang="scss">
 .essentialInformation {
-  .Mystyle {
+  /*.Mystyle {
     width: 100%;
-  }
+  }*/
   //企业详情
   .leftDet {
     float: left;

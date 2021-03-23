@@ -12,10 +12,14 @@
 
           <el-row>
             <el-select v-model="webSearchType" placeholder="搜索类型" size="small" style="width:100px;">
-              <el-option label="专利名" value="0"></el-option>
-              <el-option label="企业名" value="1"></el-option>
+              <el-option
+                v-for="item in StatusOptions"
+                :key="item.key"
+                :value="item.key"
+                :label="item.name"
+              />
             </el-select>
-            <span v-if="+webSearchType===0">
+            <span v-if="webSearchType==='0'">
               <el-input style="width:260px" size="small" placeholder="零部件名称(必)" prefix-icon="el-icon-search" v-model="webKeyWords"></el-input>
               <el-input style="width:260px" size="small" placeholder="技术指标(选)" v-model="webTechnicalIndex"></el-input>
             </span>
@@ -53,7 +57,7 @@
               <div>
                 <patent-list :patentList="patentList"></patent-list>
               </div>
-              <div style="margin-top:20px;" v-if="searchType==0">
+              <div style="margin-top:20px;" v-if="searchType=='0'">
                 <el-pagination
                   :hide-on-single-page="true"
                   @size-change="getSearchResult"
@@ -118,18 +122,22 @@ export default {
       webTechnicalIndex: "",
       // 企业名称
       webOrg: "",
-      //类型0 专利名 1企业名
+      //类型0专利名 1企业名
       webSearchType: "",
 
       //加载动画
       loading:true,
       //处理页面
       hitPageShow:true,
+      StatusOptions : [
+        { key: '0', name: '专利名' },
+        { key: '1', name: '企业名' }
+      ],
     };
   },
   created() {
     this.getSearchResult(this.currentPage);
-    this.getWebParams();
+    // this.webSearchType = this.StatusOptions[0].key;
   },
   methods: {
     //给页面参数赋值
@@ -154,7 +162,7 @@ export default {
         },
       };
       //页面初始化-根据【专利名】匹配专利列表
-      if (this.searchType == 0) {
+      if (this.searchType == "0") {
         var data ={
           componentName: this.keyWords,
           technicalIndex: this.technicalIndex,
@@ -218,6 +226,7 @@ export default {
             this.hitPageShow = true;//显示异常页面 
           });
       }
+      this.getWebParams();
     },
     //页面的搜索方法
     getWebSearchResult(page) {
@@ -236,7 +245,7 @@ export default {
         },
       };
       //根据【专利名】匹配专利列表
-      if (this.webSearchType == 0) {
+      if (this.webSearchType == "0") {
         var data ={
           componentName: this.webKeyWords,
           technicalIndex: this.webTechnicalIndex,
@@ -304,7 +313,7 @@ export default {
     },
     //搜索条件改变时，不刷新页面更改地址栏
     urlChange(){
-      if(this.webSearchType == 0)
+      if(this.webSearchType == "0")
       {  
         const newUrl = this.$route.path + `?keyWords=${this.webKeyWords}&technicalIndex=${this.webTechnicalIndex}&type=0`
         window.history.pushState('', '', newUrl)

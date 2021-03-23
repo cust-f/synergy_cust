@@ -434,7 +434,7 @@ export default {
 };
 </script>
 <style  lang="scss">
-.el-dialog__header {
+.mainStaskShow .el-dialog__header {
     padding: 0px;
     padding-top: 0px;
     padding-right: 0px;

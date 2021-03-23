@@ -61,7 +61,7 @@
      <br/>
      <el-card  shadow="hover"  :body-style="{padding: '0px'}">
         <!-- 雷达图部分 -->
-     <el-form ref="form2" :model="form2" label-width="110px" class="box" style="margin-top:15px">
+     <el-form ref="form2" :model="form2" label-width="110px" style="margin-top:15px">
        <el-row>
             <el-col :span="9">
               <el-form-item label="起始时间">
@@ -163,7 +163,7 @@
      <br/>
      <el-card  shadow="hover"  :body-style="{padding: '0px'}">
         <!-- 雷达图部分 -->
-     <el-form ref="form2" :model="form2" label-width="110px" class="box" style="margin-top:15px">
+     <el-form ref="form2" :model="form2" label-width="110px" style="margin-top:15px">
        <el-row>
             <el-col :span="9">
               <el-form-item label="起始时间">
@@ -264,7 +264,7 @@
 
     <el-card  shadow="hover"  :body-style="{padding: '0px'}">
         <!-- 雷达图部分 -->
-     <el-form ref="form2" :model="form2" label-width="110px" class="box" style="margin-top:15px">
+     <el-form ref="form2" :model="form2" label-width="110px" style="margin-top:15px">
        <el-row>
             <el-col :span="9">
               <el-form-item label="起始时间">
@@ -360,7 +360,7 @@
 
    <el-card  shadow="hover"  :body-style="{padding: '0px'}">
         <!-- 雷达图部分 -->
-     <el-form ref="form2" :model="form2" label-width="110px" class="box" style="margin-top:15px">
+     <el-form ref="form2" :model="form2" label-width="110px" style="margin-top:15px">
        <el-row>
             <el-col :span="9">
               <el-form-item label="起始时间">
