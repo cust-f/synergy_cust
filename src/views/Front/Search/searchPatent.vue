@@ -12,8 +12,12 @@
 
           <el-row>
             <el-select v-model="webSearchType" placeholder="搜索类型" size="small" style="width:100px;">
-              <el-option label="专利名" value="0"></el-option>
-              <el-option label="企业名" value="1"></el-option>
+              <el-option
+                v-for="item in StatusOptions"
+                :key="item.key"
+                :value="item.key"
+                :label="item.name"
+              />
             </el-select>
             <span v-if="webSearchType==='0'">
               <el-input style="width:260px" size="small" placeholder="零部件名称(必)" prefix-icon="el-icon-search" v-model="webKeyWords"></el-input>
@@ -125,10 +129,15 @@ export default {
       loading:true,
       //处理页面
       hitPageShow:true,
+      StatusOptions : [
+        { key: '0', name: '专利名' },
+        { key: '1', name: '企业名' }
+      ],
     };
   },
   created() {
     this.getSearchResult(this.currentPage);
+    // this.webSearchType = this.StatusOptions[0].key;
   },
   methods: {
     //给页面参数赋值
@@ -140,7 +149,6 @@ export default {
     },
     //页面加载获得数据
     getSearchResult(page) {
-      this.getWebParams();
       //打开加载动画
       this.loading = true;
       this.hitPageShow = true;
@@ -218,6 +226,7 @@ export default {
             this.hitPageShow = true;//显示异常页面 
           });
       }
+      this.getWebParams();
     },
     //页面的搜索方法
     getWebSearchResult(page) {
