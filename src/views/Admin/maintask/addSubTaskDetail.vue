@@ -438,7 +438,7 @@
                     <el-link
                       type="primary"
                       @click="
-                        goCompanyDetail(scope.row.companyId, scope.row.token)
+                        goTaskDetail(scope.row.companyId, scope.row.token)
                       "
                       size="medium"
                       >{{ scope.row.petentName }}</el-link
@@ -451,9 +451,16 @@
                   <div slot="reference" class="name-wrapper">
                     <el-link
                       type="primary"
+                      v-if="scope.row.token"
                       @click="
                         goCompanyDetail(scope.row.companyId, scope.row.token)
                       "
+                      size="medium"
+                      >{{ scope.row.companyName }}</el-link
+                    >
+                    <el-link
+                     type="info"
+                      v-else
                       size="medium"
                       >{{ scope.row.companyName }}</el-link
                     >
@@ -1204,6 +1211,7 @@ export default {
       window.history.go(-1);
     },
     getParent() {
+     this.loading= true;
       var that = this;
       if (this.addList.taskName != null) {
         var data = Qs.stringify({
@@ -1237,6 +1245,7 @@ export default {
       });
       window.open(newpage.href, "_blank");
     },
+   
     goTaskDetail(taskId, platform) {
       let newpage;
       if (platform == "own") {
