@@ -84,11 +84,11 @@
                     </div>
                   </template>
                 </el-table-column>
-                <el-table-column prop="province" label="所在省"  sortable width="100" align="center"></el-table-column>
-                <el-table-column prop="city" label="所在市"  sortable width="100" align="center"></el-table-column>
-                <el-table-column prop="officeNumber" label="办公电话" width="160" align="center"></el-table-column>
+                <el-table-column prop="province" label="所在省"  sortable width="90" align="center"></el-table-column>
+                <el-table-column prop="city" label="所在市"  sortable width="90" align="center"></el-table-column>
+                <el-table-column prop="officeNumber" label="办公电话" width="150" align="center"></el-table-column>
 
-                <el-table-column label="操作" width="170" align="center">
+                <el-table-column label="操作" width="135" align="center">
                   <template slot-scope="scope">
                     <!-- <el-button @click="handleEdit(scope.row)" type="text" size="small">修改</el-button> -->
                     <el-button

@@ -56,7 +56,7 @@
                 <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
                 <!-- <el-table-column prop="password" label="用户密码" align="center"></el-table-column> -->
 
-                <el-table-column label="操作" width="190" align="center">
+                <el-table-column label="操作" width="140" align="center">
                   <template slot-scope="scope">
                     <el-button type="text" size="small" @click="chushihuamima(scope.row)">初始化密码</el-button>
                     <el-button @click="handleDelete(scope.row.userId)" type="text" size="small">删除</el-button>
@@ -385,6 +385,9 @@ export default {
 </script>
 
 <style lang="scss">
+.userManagement  .el-main{
+ padding: 0px;
+}
 .userManagement {
 .con {
   width: 500px;
