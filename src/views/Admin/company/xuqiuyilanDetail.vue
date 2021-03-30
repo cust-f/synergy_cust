@@ -77,6 +77,7 @@
                   v-show="applyYinCang === 0"
                   class="button-style"
                   @click="applyTask()"
+                  v-if="roleID!=4"
                   >申请任务</el-button
                 >
               </el-col>
@@ -509,6 +510,7 @@ export default {
       }
     };
     return {
+      roleID:sessionStorage.getItem("roleId"),
       //默认logo
       errorImg01: 'this.src="' + require("../company/2.jpg") + '"',
       telphone: 1,

@@ -259,6 +259,7 @@
                       style="margin-top:30px ; margin-left:0px ;"
                       round
                       type="primary"
+                      v-if="roleID!=4"
                     >发布需求</el-button>
                   </el-tab-pane>
                   <el-tab-pane label="我有服务" name="second">
@@ -507,6 +508,7 @@ export default {
   },
   data() {
     return {
+      roleID: sessionStorage.getItem("roleId"),
       userName: sessionStorage.getItem("ms_username"),
       //首页轮播图的图片地址数组
       img_list: [
@@ -801,7 +803,7 @@ export default {
 
     //发布需求界面
     addNewTask() {
-      if (!this.$store.state.token) {
+      if (this.$store.state.token==='4') {
         this.$message.error("抱歉你还未进行登录");
       } else {
         this.$router.push("/admin/newTask");
