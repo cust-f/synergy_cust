@@ -1080,9 +1080,9 @@ export default {
 }
 
 /** 登录模块核心企业与供应商用CSS*/
-.loginHeight {
+/* .loginHeight { */
   /* height: 210px; */
-}
+/* } */
 .loginHeight .el-tag.el-tag--warning:hover {
   background-color: white;
 }
@@ -1258,8 +1258,8 @@ export default {
     margin-bottom: 15px;
 } */
 /* 专利查询 */
-.search-patentName {
-}
+/* .search-patentName {
+} */
 .search-patentName .el-input {
   width: 90%;
 }
