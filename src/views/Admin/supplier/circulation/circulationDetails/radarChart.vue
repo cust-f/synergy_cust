@@ -38,10 +38,10 @@ export default {
           },
           indicator:this.radarData.indicatorData,
           //  [
-          //   { name: "任务时长", max: 60 },
-          //   { name: "计划时长", max: 60 },
-          //   { name: "申请时长", max: 20 },
-          //   { name: "验收时长", max: 20 }
+          //   { name: "协同交互效能", max: 60 },
+          //   { name: "技术方案匹配度", max: 60 },
+          //   { name: "任务响应时效", max: 20 },
+          //   { name: "过程管理效能", max: 20 }
           // ]
         },
         series: [
