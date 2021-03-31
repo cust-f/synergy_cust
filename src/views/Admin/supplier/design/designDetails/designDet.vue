@@ -64,7 +64,8 @@
         <br />
         <br />
         
-        <div v-show="evaluationHiding === 1" class="remark">
+        <!-- <div v-show="evaluationHiding === 1" class="remark">    此处为临时注释，大佬手下留情误删除-->
+          <div  class="remark">
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -124,11 +125,11 @@
           </div>
         </div>
       </div>
-      <el-divider content-position="center"
+      <!-- <el-divider content-position="center"
         ><el-link type="primary" :underline="false" @click="remarkControl()">{{
           tips
         }}</el-link></el-divider
-      >
+      > -->
     </el-main>
   </div>
 </template>
