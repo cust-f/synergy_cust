@@ -824,7 +824,7 @@ export default {
         Count:[],
         categoryFinishTaskList:[],
       },
-            //饼图的数据定义
+      //饼图的数据定义
       lineData: {
         categoryFinishTaskList: [],
         categoryName: [],
