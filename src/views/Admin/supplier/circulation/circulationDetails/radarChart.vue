@@ -1,5 +1,5 @@
 <template>
-  <div id="charts1" style="height:380px; width:450px; float:left"></div>
+  <div id="charts1" style="height:380px; width:530px; float:left"></div>
 </template>
 
 
@@ -33,7 +33,7 @@ export default {
               color: "#fff",
               backgroundColor: "#999",
               borderRadius: 3,
-              padding: [3, 5]
+              padding: [3, 8]
             }
           },
           indicator:this.radarData.indicatorData,

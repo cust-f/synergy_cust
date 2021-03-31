@@ -85,6 +85,7 @@
               <radar-chart
                 :radarData="radarData"
                 ref="QradarChart"
+                style="height:330px"
               ></radar-chart>
 
               <div class="supplierinput_span" align="center">
@@ -106,10 +107,12 @@
             <!-- 雷达图 -->
             <div class="LDT">
               <!-- 雷达图 -->
+               <div id="charts1" style="height:380px; width:530px; float:left">
               <radar-chart
                 :radarData="radarData"
                 ref="QradarChart"
               ></radar-chart>
+              </div>
               <div class="supplierinput_span" align="center">
                 <el-form ref="form">
                   <label>完成质量:</label>
@@ -384,7 +387,8 @@ export default {
 <style lang="scss">
 //雷达图
 .designDet.LDT {
-  height: 300px;
+  height:380px;
+   width:530px;
 }
 
 //完成质量
