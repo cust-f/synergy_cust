@@ -52,7 +52,12 @@
                     <span v-else-if="+roleName=== 5">流通人员</span>
                   </template> -->
                 </el-table-column>
-                <el-table-column prop="email" label="邮箱" width="160" align="center"></el-table-column>
+                <el-table-column prop="email" label="邮箱" width="160" align="center">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.email===''">无</span>
+                    <span v-else>{{ scope.row.email }}</span>
+                  </template>
+                </el-table-column>
                 <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
                 <!-- <el-table-column prop="password" label="用户密码" align="center"></el-table-column> -->
 
@@ -220,6 +225,7 @@ export default {
         .then(response => {
           that.pageTotal = response.data.allData.totalCount; //绑定总的条数
           that.tableData = response.data.allData.userList; //绑定对象数组
+          console.log(this.tableData);
         });
     },
 
