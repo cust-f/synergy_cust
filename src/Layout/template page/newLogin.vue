@@ -192,8 +192,8 @@ export default {
         var menuList;
         var that = this;
         var data = Qs.stringify({
-          userName: this.param.userName,
-          password: this.param.password,
+          userName: this.param.userName.replaceAll(" ",""),
+          password: this.param.password.replaceAll(" ",""),
         });
         that
           .axios({
