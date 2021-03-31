@@ -120,7 +120,7 @@ export default {
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
-        return formatDate(date, "yyyy-MM-dd hh:mm:ss");
+        return formatDate(date, "yyyy-MM-dd");
       } else {
         return "暂未开始";
       }

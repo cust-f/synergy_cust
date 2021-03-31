@@ -48,7 +48,7 @@
               align="center"
               :show-overflow-tooltip="true"
             >
-              <template slot-scope="scope">{{scope.row.deadline| dataFormat("yyyy-MM-dd hh:mm")}}</template>
+              <template slot-scope="scope">{{scope.row.deadline| dataFormat("yyyy-MM-dd")}}</template>
             </el-table-column>
           </template>
 
@@ -195,7 +195,7 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm");
+      return formatDate(date, "yyyy-MM-dd");
     }
   },
   created() {

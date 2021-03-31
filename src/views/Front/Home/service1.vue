@@ -63,14 +63,14 @@
                   <li>
                     <a>
                       开始时间：
-                      <font>{{maintask.publishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                      <font>{{maintask.publishTime| dataFormat("yyyy-MM-dd")}}</font>
                     </a>
                   </li>
                   <br />
                   <li>
                     <a>
                       完成时间：
-                      <font>{{maintask.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                      <font>{{maintask.finishTime| dataFormat("yyyy-MM-dd")}}</font>
                     </a>
                   </li>
                 </el-col>
@@ -200,14 +200,14 @@
                     <li>
                       <a>
                         开始时间：
-                        <font>{{taskData.publishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                        <font>{{taskData.publishTime| dataFormat("yyyy-MM-dd")}}</font>
                       </a>
                     </li>
                     <br />
                     <li>
                       <a>
                         完成时间：
-                        <font>{{taskData.finishTime| dataFormat("yyyy-MM-dd hh:mm")}}</font>
+                        <font>{{taskData.finishTime| dataFormat("yyyy-MM-dd")}}</font>
                       </a>
                     </li>
                   </el-col>
@@ -505,7 +505,7 @@ export default {
         var index = time.lastIndexOf(".");
         time = time.substring(0, index);
         let date = new Date(time);
-        return formatDate(date, "yyyy-MM-dd hh:mm:ss");
+        return formatDate(date, "yyyy-MM-dd");
       } else {
         return "暂未开始";
       }

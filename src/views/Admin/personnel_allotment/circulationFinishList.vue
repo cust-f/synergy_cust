@@ -211,7 +211,7 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm");
+      return formatDate(date, "yyyy-MM-dd");
     }
   },
   created() {

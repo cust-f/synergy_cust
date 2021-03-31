@@ -89,7 +89,7 @@
         >
           <template
             slot-scope="scope"
-          >{{scope.row.designerAcceptTime | dataFormat("yyyy-MM-dd hh:mm")}}</template>
+          >{{scope.row.designerAcceptTime | dataFormat("yyyy-MM-dd")}}</template>
         </el-table-column>
 
         <el-table-column
@@ -100,7 +100,7 @@
           align="center"
           :show-overflow-tooltip="true"
         >
-          <template slot-scope="scope">{{scope.row.deadline | dataFormat("yyyy-MM-dd hh:mm")}}</template>
+          <template slot-scope="scope">{{scope.row.deadline | dataFormat("yyyy-MM-dd")}}</template>
         </el-table-column>
       </template>
 

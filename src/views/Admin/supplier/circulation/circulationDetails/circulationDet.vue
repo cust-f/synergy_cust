@@ -57,7 +57,7 @@
       <br />
       <!-- 流通清单模块 -->
       <div v-show="show > 1">
-        <div v-show="state4 === 1">
+        <div v-show="state2 === 1">
           <delivery-List ref="deliveryList"></delivery-List>
         </div>
       </div>
@@ -179,7 +179,7 @@ export default {
       state2: 0,
       loading: true,
       state3: 0,
-      state4:'',
+      state4: 0,
       reMarkId: 1,
       //重做次数
       form: {
@@ -196,7 +196,7 @@ export default {
   created() {
     this.getParams();
     this.showData();
-    this.showData2();
+    // this.showData2();
     this.getLDData();
     this.getCirculationCount();
     this.showallData();
@@ -204,7 +204,7 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
+      return formatDate(date, "yyyy-MM-dd");
     },
   },
   methods: {
@@ -299,6 +299,7 @@ export default {
           } else {
             this.state3 = 0;
           }
+          console.log(response.data.allData);
           this.sendMsg();
           // this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
@@ -323,6 +324,7 @@ export default {
               this.show = 1;
             }
           }
+
           if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].applyTime
@@ -352,23 +354,27 @@ export default {
         });
     },
     //
-    showData2() {
-       var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        userName: this.userName,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/addConsignment/findConsignmentByTaskId",
-          data: data,
-        })
-        .then((response) => {
-            this.state4=response.data.allData[0].leadState;
-           console.log(state4);
-        });
-    },
+    // showData2() {
+    //    var that = this;
+    //   var data = Qs.stringify({
+    //     taskId: this.taskId,
+    //     userName: this.userName,
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "/api/addConsignment/****",
+    //       data: data,
+    //     })
+    //     .then((response) => {
+    //       console.log(response);
+    //       // this.state4=response.data.allData[0].leadState;
+    //       console.log(state4);
+    //     })
+    //     .catch((error) => {
+    //        console.log(error);
+    //     });
+    // },
     //进入网页时刻显示原始数据的内容
     showallData() {
       var that = this;

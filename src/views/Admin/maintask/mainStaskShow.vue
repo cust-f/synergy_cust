@@ -114,7 +114,7 @@ export default {
       var index = time.lastIndexOf(".");
       time = time.substring(0, index);
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm");
+      return formatDate(date, "yyyy-MM-dd");
     }
   },
 

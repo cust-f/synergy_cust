@@ -400,7 +400,7 @@
       </div>
 
       <div>
-        <el-dialog :visible.sync="isPatent">
+        <el-dialog :visible.sync="isPatent" class="patentDialog">
           <div
             class="biaoti"
             style="
@@ -898,7 +898,7 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-MM-dd hh:mm");
+      return formatDate(date, "yyyy-MM-dd");
     },
   },
   created() {
@@ -1400,24 +1400,26 @@ export default {
 .addSubTask .box {
   width: 400px;
 }
-.item {
+.addSubTask .item {
   margin: 4px;
 }
-.biaoti {
+.addSubTask .biaoti {
   font-size: 18px;
   color: #303133;
   padding: 0 10px;
   border-left: 3px solid #4e58c5;
 }
-.el-upload--text {
+.addSubTask .el-upload--text {
   width: 85px;
   height: 40px;
 }
 /* //返回字体 */
-.el-page-header__title {
+.addSubTask .el-page-header__title {
   font-size: 18px;
 }
-
+.addSubTask .patentDialog .el-dialog__header {
+padding: 0px;
+}
 .consignment {
   .el-dialog__body {
     padding-right: 0px;
