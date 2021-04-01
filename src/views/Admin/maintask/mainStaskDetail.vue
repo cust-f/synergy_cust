@@ -2071,7 +2071,7 @@ export default {
           link.href = window.URL.createObjectURL(
             new Blob([response.data], { type: "application/octet-stream" })
           );
-          link.setAttribute("download", row.realName);
+          link.setAttribute("download", row.fileName);
           document.body.appendChild(link);
           link.click();
         });
