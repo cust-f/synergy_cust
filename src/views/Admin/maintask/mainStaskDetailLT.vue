@@ -620,7 +620,8 @@
             element-loading-text="评价生成中......"
           >
             <!-- 雷达图 -->
-            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+
+            <radar-chart :radarData="radarData" ref="QradarChart" style="width:500px"></radar-chart>
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">

@@ -587,8 +587,9 @@
             v-loading="loading"
             element-loading-text="评价生成中......"
           >
-            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
-
+        
+            <radar-chart :radarData="radarData" ref="QradarChart" style="height:330px"></radar-chart>
+        
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
                 <label style="font-size: 13px">完成质量:</label>
@@ -610,7 +611,8 @@
           <div class="LDT">
             <!-- 雷达图 -->
 
-            <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
+            <radar-chart :radarData="radarData" ref="QradarChart" style="height:380px; width:380px; float:left"></radar-chart>
+
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
                 <label></label>

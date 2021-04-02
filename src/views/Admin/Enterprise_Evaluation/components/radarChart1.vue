@@ -42,11 +42,11 @@ export default{
           },
           indicator:this.radarData1.indicatorData1
           // [
-          //   { name: "任务时长", max: 150 },            
-          //   { name: "计划时长", max: 50 },
-          //   { name: "审核时长", max: 50 },
-          //   { name: "验收时长", max: 50 },
-          //   { name: "申请时长", max: 50 },
+          //   { name: "协同交互效能", max: 150 },            
+          //   { name: "技术方案匹配度", max: 50 },
+          //   { name: "变更控制效能", max: 50 },
+          //   { name: "过程管理效能", max: 50 },
+          //   { name: "任务响应时效", max: 50 },
             
           // ]
         },
