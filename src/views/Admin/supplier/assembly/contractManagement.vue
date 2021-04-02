@@ -125,6 +125,35 @@
         <el-button type="primary" @click="addVisible3 = false">确定</el-button>
       </span>
     </el-dialog>
+    <!-- 查看弹窗的内容 -->
+    <el-dialog
+      :visible.sync="upCirculation"
+      width="500px"
+      @click="handleClose"
+    >
+      <div
+        class="biaoti"
+        style="padding: 0 10px; border-left: 3px solid #4e58c5"
+      >
+        身份验证
+      </div>
+
+      <br />
+      
+       <el-row>
+              <el-col :span="6">
+                请输入密码：
+              </el-col>
+              <el-col :span="16">
+                
+                  <el-input placeholder="请输入密码" v-model="inputPassword" show-password>
+                  </el-input>  
+              </el-col>
+              
+            </el-row>
+    
+    </el-dialog>
+
     <!-- 文件历史 -->
     <el-dialog title :visible.sync="fileHistoryDia" width="55%">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">文件历史</div>
@@ -172,13 +201,19 @@ import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+       UserName:"",
+      inputPassword:"",
       fileType: 0,
       taskId: 0,
       yinCang: 1,
-      userName: sessionStorage.getItem("ms_username"),
+      //密码是否正确
+      ispassWord:false,
+       usernameX: sessionStorage.getItem("ms_username"),
       contractMessage: [],
       fileHistoryMessage: [],
       conbook: false,
+      //下载验证弹窗
+      upCirculation: false,
       //文件历史弹窗
       fileHistoryDia: false,
       addVisible3: false, //拒绝原因弹窗
@@ -263,9 +298,57 @@ export default {
           this.fileHistoryDia = true;
         });
     },
-    //合同下载
-    HTXZ(row) {
+    passwordRequest(value){
+      console.log("进来了")
+      console.log("名字："+this.usernameX+"密码："+value)
       var that = this;
+        var data = Qs.stringify({
+            username: this.usernameX,
+          });
+           that
+            .axios({
+              method: "post",
+              url: "api/users/isTrue",
+              data: data,
+            })
+            .then((response) => {
+            console.log(response.data.allData)
+            if (response.data.allData == value) {
+              this.ispassWord=true;
+                this.$message({
+                  type: "success",
+                  message: "验证成功",
+                });
+              }else {
+                this.$message({
+                  type: "warning",
+                  message: "验证失败",
+                });
+                 this.ispassWord=false;
+              }
+            console.log("能不能到这")
+        });
+            // .then((response) => {
+            //   console.log(response.data.allData);
+            //   if (response.data.allData == value) {
+            //     this.$message({
+            //       type: "success",
+            //       message: "验证成功",
+            //     });
+            //     this.ispassWord=true;
+            //   }else {
+            //     this.$message({
+            //       type: "warning",
+            //       message: "验证失败",
+            //     });
+            //      this.ispassWord=false;
+            //   }
+            // });
+            console.log("到这了嘛")
+            console.log(this.ispassWord)
+    },
+    hetongxiazai(row){
+       var that = this;
       var data = Qs.stringify({
         taskID: this.taskId,
         leixing: "hetong"
@@ -293,6 +376,42 @@ export default {
             navigator.msSaveBlob(blob, "合同.zip");
           }
         });
+    },
+    // 输入框为空时 返回false表示校验未通过
+      validator(val) {
+  if (val === null) {
+    return false
+  } else {
+    return true
+  }
+},
+    //合同下载
+    HTXZ(row) {
+      this.$prompt('请输入密码', '提示', {
+        showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          console.log("要执行"+this.ispassWord);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.hetongxiazai(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消下载'
+          });       
+        });
+     
     },
     //合同拒绝原因
     refuseConReason(row) {
