@@ -2051,7 +2051,7 @@ export default {
       var that = this;
       console.log("row" + row);
       var data = Qs.stringify({
-        //taskID: this.taskId,
+        // taskID: this.taskId,
         url: row.filePath,
       });
       console.log(row);

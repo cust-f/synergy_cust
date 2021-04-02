@@ -19,7 +19,7 @@
                   </div>
                 </el-col>
               </el-row>
-              <span slot="reference">{{username}}</span>
+              <span slot="reference">{{this.reallyName}}</span>
               <!-- <span slot="reference">账号管理</span> -->
             </el-popover>
           </li>
@@ -36,6 +36,7 @@
           </li>
         </ul>
         <ul>
+          
           <li>联系客服</li>
           <li>|</li>
           <li>关于我们</li>
@@ -319,6 +320,7 @@ export default {
       }
     };
     return {
+      reallyName:'账号',
       log: true,
       collapse: false,
       serverUrl: "/api/users/updataPicture",
@@ -365,7 +367,46 @@ export default {
       return this.$store.state.user;
     }
   },
+  created(){
+    //获得真实姓名
+    this.getrealName();
+  },
   methods: {
+    getrealName(){
+      let that = this;
+      let data = Qs.stringify({
+        userName: this.username,
+      });
+
+      that
+        .axios({
+          method: "post",
+          url: "/api/users/getUserDetail",
+          data: data,
+        })
+        .then((response) => {
+          console.log(response);
+          this.userInfo = response.data.allData.userDetail;
+          // this.personalDetail = response.data.allData.personalDetail;
+          // this.detail = response.data.allData.detail;
+          // this.user.email = this.userInfo.email;
+          // this.user.phone = this.userInfo.phone;
+          // this.user.realName = this.userInfo.realName;
+          // console.log(this.userInfo.realName)
+          console.log(this.userInfo.roleName)
+          console.log("无")
+          let r = JSON.stringify(this.userInfo.roleName);
+          if(this.userInfo.roleName!=""){
+            this.reallyName=this.userInfo.roleName;
+          }else if(this.userInfo.roleName ===""){
+             this.reallyName=this.username;
+          }
+          if(this.userInfo.roleName=="无"){
+              this.reallyName=this.username;
+          }
+          console.log(reallyName);
+        });
+    },
     /*
      *@description:登出功能函数
      *@modifyContent:
