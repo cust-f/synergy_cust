@@ -212,9 +212,9 @@ export default {
   color: #fff;
   border-radius: 3px;
 }
-.info {
-  // width: 410px;
-}
+// .info {
+//   // width: 410px;
+// }
 .login-captcha {
   height: 40px;
 }
