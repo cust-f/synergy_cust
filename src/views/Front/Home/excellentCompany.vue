@@ -90,7 +90,7 @@
             </el-row>
           </el-card>
 
-          <div style="width: 600px; margin: 20px 0px">
+          <div style="width: 610px; margin: 20px 0px">
             <el-input
               class="neirong1"
               size="small"
