@@ -61,6 +61,10 @@
           v-model="searchModel"
           @keyup.enter.native="searchResult()"
           style="width:500px;"
+          type="text"
+          name="username"
+          autocomplete="off" 
+          clearable
         >
           <el-select v-model="select" slot="prepend" placeholder="请选择">
             <el-option label="全部" value="0"></el-option>
@@ -68,6 +72,8 @@
             <el-option label="企业" value="2"></el-option>
           </el-select>
           <el-button slot="append" icon="el-icon-search" @click="searchResult()"></el-button>
+        </el-input>
+      <el-input type="password" autocomplete="new-password" style="display: none">
         </el-input>
       </el-col>
     </el-row>
@@ -771,6 +777,7 @@ export default {
 </style>
 
 <style lang="scss">
+
 .admin-header {
   .el-select .el-input .el-select__caret {
     color: white;

@@ -154,8 +154,39 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
     },
-    //任务计划下载
-    RWJHXZ(row) {
+    //验证密码是否正确
+    passwordRequest(value){
+      console.log("进来了")
+      console.log("名字："+this.usernameX+"密码："+value)
+      var that = this;
+        var data = Qs.stringify({
+            username: this.userName,
+          });
+           that
+            .axios({
+              method: "post",
+              url: "api/users/isTrue",
+              data: data,
+            })
+            .then((response) => {
+            console.log(response.data.allData)
+            if (response.data.allData == value) {
+              this.ispassWord=true;
+                this.$message({
+                  type: "success",
+                  message: "验证成功",
+                });
+              }else {
+                this.$message({
+                  type: "warning",
+                  message: "验证失败",
+                });
+                 this.ispassWord=false;
+              }
+        });
+    },
+    //下载的方法
+    download(row){
       var that = this;
       var data = Qs.stringify({
         taskID: row.id,
@@ -178,6 +209,33 @@ export default {
           link.setAttribute("download", "任务书.zip");
           document.body.appendChild(link);
           link.click();
+        });
+    },
+    //任务计划下载
+    RWJHXZ(row) {
+      this.$prompt('请输入密码', '提示', {
+        showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          console.log("要执行"+this.ispassWord);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.download(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消下载'
+          });       
         });
     },
 
