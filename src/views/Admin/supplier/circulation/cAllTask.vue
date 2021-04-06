@@ -121,8 +121,8 @@ export default {
     handleSearch() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.username,
-        taskName: this.selectname
+        username: this.username,
+        taskName: this.selectname,
       });
       that
         .axios({

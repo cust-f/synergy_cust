@@ -114,12 +114,12 @@ export default {
   },
   methods: {
     handleSearch() {
+      console.log(this.usernameX);
       var that = this;
       var data = Qs.stringify({
-        username: userNameX,
+        username: this.usernameX,
         taskName: this.selectname,
       });
-
       that
         .axios({
           method: "post",
@@ -130,7 +130,7 @@ export default {
         .then((response) => {
           this.tableData = response.data.allData;
         });
-      //this.getData();
+      // this.getData();
     },
     GetTime(date) {
       var datee = new Date(date).toJSON();
@@ -151,7 +151,6 @@ export default {
           method: "post",
           url: "/api/supplier/supplierDesignTaskList",
           data: data,
-
           // data:this.$store.state.userName
         })
         .then((response) => {
