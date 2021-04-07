@@ -262,7 +262,7 @@
             <el-col span="4">
                <span class="el-form-item__label" style="width: 120px;">任务工作流</span>
             </el-col>
-          <!-- </el-row>
+           </el-row>
           <el-row>
            <el-col span="16"> -->
             <el-image

@@ -2077,7 +2077,37 @@ export default {
         });
     },
     CKLSHT(row) {
-      var that = this;
+      this.$prompt('请输入密码', '提示', {
+        showInput:true,
+      inputType: 'password',
+      inputAutoComplete:"new-password",
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      clearable:false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // readonly,  
+      onfocus:"this.removeAttribute('readonly')",
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          console.log("要执行"+this.ispassWord);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.HistoricalUpload(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消查看'
+          });       
+        });
+    },
+    //历史上传弹窗
+    HistoricalUpload(row){
+        var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
         fileType: "0",
@@ -2633,9 +2663,9 @@ export default {
       this.addVisible1 = false;
       this.showData();
     },
-    //任务计划下载
-    RWJHXZ(row) {
-      var that = this;
+    //任务计划的下载方法
+    TaskplanDownload(row){
+         var that = this;
       var data = Qs.stringify({
         taskID: row.id,
         companyId: row.companyId,
@@ -2657,6 +2687,33 @@ export default {
               type: "warning",
             });
           }
+        });
+    },
+
+    //任务计划下载
+    RWJHXZ(row) {
+      this.$prompt('请输入密码', '提示', {
+      showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.TaskplanDownload(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消下载'
+          });       
         });
     },
     //下载子任务附件
@@ -2750,9 +2807,9 @@ export default {
       this.addVisible2 = false;
       this.showData();
     },
-    //合同下载
-    HTXZ(row) {
-      var that = this;
+    //合同的下载方法
+    ContractDownload(row){
+         var that = this;
       var data = Qs.stringify({
         taskID: row.taskId,
         leixing: "hetong",
@@ -2768,10 +2825,91 @@ export default {
           this.download(response.data, "HT");
         });
     },
+    //合同下载
+    HTXZ(row) {
+       this.$prompt('请输入密码', '提示', {
+        showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.ContractDownload(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消下载'
+          });       
+        });
+    },
+       passwordRequest(value){
+      console.log("进来了")
+      console.log("名字："+this.usernameX+"密码："+value)
+      var that = this;
+        var data = Qs.stringify({
+            username: this.usernameX,
+          });
+           that
+            .axios({
+              method: "post",
+              url: "api/users/isTrue",
+              data: data,
+            })
+            .then((response) => {
+            console.log(response.data.allData)
+            if (response.data.allData == value) {
+              this.ispassWord=true;
+                this.$message({
+                  type: "success",
+                  message: "验证成功",
+                });
+              }else {
+                this.$message({
+                  type: "warning",
+                  message: "验证失败",
+                });
+                 this.ispassWord=false;
+              }
+        });
+    },
     //跳转虚拟机
-    LJTZ(row) {
-      console.log(row.gitadress);
+    JumpToVirtualmachine(row){
+       console.log(row.gitadress);
       window.open(row.gitadress);
+    },
+    LJTZ(row) {
+       this.$prompt('请输入密码', '提示', {
+        showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.JumpToVirtualmachine(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消查看'
+          });       
+        });
     },
     //设计通过
     SJTG(row) {

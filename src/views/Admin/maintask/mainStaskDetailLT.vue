@@ -2565,8 +2565,9 @@ export default {
           link.click();
         });
     },
-    CKLSHT(row) {
-      var that = this;
+    //历史上传弹窗
+    HistoricalUpload(row){
+        var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
         fileType: "0",
@@ -2580,6 +2581,32 @@ export default {
         .then((response) => {
           this.tableData6 = response.data.allData;
           this.fileHistoryDia = true;
+        });
+    },
+    //历史上传
+    CKLSHT(row) {
+     this.$prompt('请输入密码', '提示', {
+        showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.HistoricalUpload(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消查看'
+          });       
         });
     },
     XGZRW() {
@@ -3114,8 +3141,8 @@ export default {
       this.showData();
     },
     //任务计划下载
-    RWJHXZ(row) {
-      var that = this;
+    TaskplanDownload(row){
+           var that = this;
       var data = Qs.stringify({
         taskID: row.id,
         leixing: "jihuashu",
@@ -3136,6 +3163,31 @@ export default {
               type: "warning",
             });
           }
+        });
+    },
+    RWJHXZ(row) {
+   this.$prompt('请输入密码', '提示', {
+        showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.TaskplanDownload(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消下载'
+          });       
         });
     },
     //下载子任务附件
@@ -3219,8 +3271,39 @@ export default {
       this.addVisible2 = false;
       this.showData();
     },
-    //合同下载
-    HTXZ(row) {
+
+    //密码验证
+    passwordRequest(value){
+      console.log("进来了")
+      console.log("名字："+this.usernameX+"密码："+value)
+      var that = this;
+        var data = Qs.stringify({
+            username: this.usernameX,
+          });
+           that
+            .axios({
+              method: "post",
+              url: "api/users/isTrue",
+              data: data,
+            })
+            .then((response) => {
+            console.log(response.data.allData)
+            if (response.data.allData == value) {
+              this.ispassWord=true;
+                this.$message({
+                  type: "success",
+                  message: "验证成功",
+                });
+              }else {
+                this.$message({
+                  type: "warning",
+                  message: "验证失败",
+                });
+                 this.ispassWord=false;
+              }
+        });
+    },
+    DownloadContract(row){
       var that = this;
       var data = Qs.stringify({
         taskID: row.taskId,
@@ -3235,6 +3318,32 @@ export default {
         })
         .then((response) => {
           this.download(response.data, "HT");
+        });
+    },
+    //合同下载
+    HTXZ(row) {
+          this.$prompt('请输入密码', '提示', {
+        showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.DownloadContract(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消下载'
+          });       
         });
     },
     //复选框判断是否可选
