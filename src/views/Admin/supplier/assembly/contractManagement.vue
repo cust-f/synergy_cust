@@ -42,7 +42,7 @@
           >上传</el-button>
 
           <el-button
-            @click="HTFileHistory()"
+            @click="PasswordValidation()"
             v-show="scope.row.contractState > 0"
             type="text"
             size="small"
@@ -280,6 +280,32 @@ export default {
           }
         });
     },
+    //历史上传的密码验证
+    PasswordValidation(){
+      this.$prompt('请输入密码', '提示', {
+      showInput:true,
+      inputType: 'password',
+      inputPattern:/^[A-Za-z0-9]+$/,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          console.log("要执行"+this.ispassWord);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.HTFileHistory();
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消查看'
+          });       
+        });
+    },
     HTFileHistory() {
       this.fileType = 0;
       var that = this;
@@ -326,26 +352,7 @@ export default {
                 });
                  this.ispassWord=false;
               }
-            console.log("能不能到这")
         });
-            // .then((response) => {
-            //   console.log(response.data.allData);
-            //   if (response.data.allData == value) {
-            //     this.$message({
-            //       type: "success",
-            //       message: "验证成功",
-            //     });
-            //     this.ispassWord=true;
-            //   }else {
-            //     this.$message({
-            //       type: "warning",
-            //       message: "验证失败",
-            //     });
-            //      this.ispassWord=false;
-            //   }
-            // });
-            console.log("到这了嘛")
-            console.log(this.ispassWord)
     },
     hetongxiazai(row){
        var that = this;
@@ -391,6 +398,7 @@ export default {
         showInput:true,
       inputType: 'password',
       // inputValidator: validator,
+      inputPattern:/^[A-Za-z0-9]+$/,
       inputErrorMessage: '请输入正确密码！',
       confirmButtonText: '确定',
       showClose: false,
@@ -411,7 +419,6 @@ export default {
             message: '取消下载'
           });       
         });
-     
     },
     //合同拒绝原因
     refuseConReason(row) {
