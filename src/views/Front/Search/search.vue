@@ -13,29 +13,33 @@
         </el-aside>
         <el-main style="width:900px;">
           <el-card>
+            <!-- 结果数量总计 -->
             <div slot="header">
               <div>
                 <p>
                   您的关键词为
                   <span>{{keyWords}}</span>
                   ;相关结果总数为
-                  <span>{{totalNumber}}</span>
+                  <span>{{ totalNumber }}</span>
                   条！
                 </p>
               </div>
             </div>
+            <!-- 企业列表 -->
             <div v-show="companyInfo.length>0">
               <company-list :companyList="companyInfo"></company-list>
             </div>
+            <!-- 成果列表 -->
             <div v-show="finishTaskInfo.length>0">
               <task-list :taskList="finishTaskInfo" :type="1">【成果】</task-list>
             </div>
+            <!-- 需求列表 -->
             <div v-show="unfinishedTaskInfo.length>0">
               <task-list :taskList="unfinishedTaskInfo" :type="0">【需求】</task-list>
             </div>
-            <div
-              v-show="finishTaskInfo.length<=0&&companyInfo.length<=0&&unfinishedTaskInfo.length<=0"
-            >
+            <!-- 错误提示 -->
+            <div v-show="finishTaskInfo.length<=0&&companyInfo.length<=0&&unfinishedTaskInfo.length<=0">
+            <!-- <div v-show="(noResultPageShow==true) || (finishTaskInfo.length<=0&&companyInfo.length<=0&&unfinishedTaskInfo.length<=0)"> -->
               <div class="noResult" style="height:400px;">
                 <el-row :gutter="2" style="margin-top:25%;">
                   <el-col :span="6" :offset="5">
@@ -52,6 +56,7 @@
                 </el-row>
               </div>
             </div>
+            <!-- 分页 -->
             <div style="margin-top:20px;">
               <el-pagination
                 :hide-on-single-page="true"
@@ -97,20 +102,28 @@ export default {
       totalNumber: 0,
       navigation: [],
       companyInfo: [], //搜索出的企业列表
+      companyNumber:0,
       finishTaskInfo: [], //搜索出的成果
+      finishNumber:0,
       unfinishedTaskInfo: [], //需求
+      unfinishedNumber:0,
       pageSize: 7, //数量
       currentPage: 1, //当前页数
       type: this.$route.query.type,
-      navigationSearch: 0
+      originalType:0,
+      navigationSearch: 0,
+      noResultPageShow:false,
     };
   },
   watch: {
-    type: function(val) {
+    type: function(newVal, oldVal) {
       this.getSearchResult(this.currentPage);
     }
   },
   created() {
+    //记录原始查询类型
+    this.originalType = this.type;
+    //获得查询结果
     this.getSearchResult(this.currentPage);
   },
   methods: {
@@ -122,6 +135,7 @@ export default {
         page: page,
         size: this.pageSize
       });
+      console.log(data);
       that
         .axios({
           method: "post",
@@ -130,28 +144,56 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this.totalNumber = response.data.allData.totalNumber; //总条数
-          this.companyInfo = response.data.allData.company.companyList; //企业列表
-          this.unfinishedTaskInfo =
-            response.data.allData.unfinished.unfinishedTaskList; //需求列表
-          this.finishTaskInfo = response.data.allData.finish.finishTaskList; //成果列表
+          if(this.originalType == 0){
+            this.companyInfo = response.data.allData.company.companyList; //企业列表
+            this.finishTaskInfo = response.data.allData.finish.finishTaskList; //成果列表
+            this.unfinishedTaskInfo = response.data.allData.unfinished.unfinishedTaskList; //需求列表
+          }else if(this.originalType == 1){
+            this.companyInfo = response.data.allData.company.companyList; //企业列表
+            this.finishTaskInfo = []; //成果列表
+            this.unfinishedTaskInfo = []; //需求列表 
+          }else if(this.originalType == 2){
+            this.companyInfo = []; //企业列表
+            this.finishTaskInfo = response.data.allData.finish.finishTaskList; //成果列表
+            this.unfinishedTaskInfo = []; //需求列表
+          }else if(this.originalType == 3){
+            this.companyInfo = []; //企业列表
+            this.finishTaskInfo = []; //成果列表
+            this.unfinishedTaskInfo = response.data.allData.unfinished.unfinishedTaskList; //需求列表
+          }
+            this.companyNumber = response.data.allData.company.companyNumber; 
+            console.log("企业"+this.companyNumber);
+            this.finishNumber = response.data.allData.finish.finishNumber; 
+            console.log("成果"+this.finishNumber);
+            this.unfinishedNumber = response.data.allData.unfinished.unfinishedNumber;  
+            console.log("需求"+this.unfinishedNumber);
+            // this.totalNumber=this.companyNumber+this.finishNumber+this.unfinishedNumber;  
+            console.log("总"+this.totalNumber);
+            this.totalNumber = response.data.allData.totalNumber;
           if (this.navigationSearch) {
             //this.navigationSearch=0;
           } else {
             this.navigation = [
-              { name: "全部", number: this.totalNumber, type: 0 },
+              { 
+                name: "全部", 
+                number: this.totalNumber, 
+                type: 0 
+              },
               {
                 name: "优质企业",
+                // number:this.companyNumber,
                 number: response.data.allData.company.companyNumber,
                 type: 1
               },
               {
                 name: "服务成果",
+                // number: this.finishNumber,
                 number: response.data.allData.finish.finishNumber,
                 type: 2
               },
               {
-                name: "需求一栏",
+                name: "需求一览",
+                // number: this.unfinishedNumber,
                 number: response.data.allData.unfinished.unfinishedNumber,
                 type: 3
               }

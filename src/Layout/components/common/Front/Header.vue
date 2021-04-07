@@ -64,8 +64,11 @@
         >
           <el-select v-model="select" slot="prepend" placeholder="请选择">
             <el-option label="全部" value="0"></el-option>
-            <el-option label="成果" value="1"></el-option>
-            <el-option label="企业" value="2"></el-option>
+            <el-option label="企业" value="1"></el-option>
+            <el-option label="成果" value="2"></el-option>
+            <el-option label="需求" value="3"></el-option>
+            <!-- <el-option label="成果" value="1"></el-option>
+            <el-option label="企业" value="2"></el-option> -->
           </el-select>
           <el-button slot="append" icon="el-icon-search" @click="searchResult()"></el-button>
         </el-input>
