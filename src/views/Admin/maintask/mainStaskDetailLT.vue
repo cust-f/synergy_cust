@@ -2586,8 +2586,9 @@ export default {
     //历史上传
     CKLSHT(row) {
      this.$prompt('请输入密码', '提示', {
-        showInput:true,
+      showInput:true,
       inputType: 'password',
+      inputPattern:/^[A-Za-z0-9]+$/,
       // inputValidator: validator,
       inputErrorMessage: '请输入正确密码！',
       confirmButtonText: '确定',
@@ -3170,6 +3171,7 @@ export default {
         showInput:true,
       inputType: 'password',
       // inputValidator: validator,
+      inputPattern:/^[A-Za-z0-9]+$/,
       inputErrorMessage: '请输入正确密码！',
       confirmButtonText: '确定',
       showClose: false,
@@ -3326,6 +3328,7 @@ export default {
         showInput:true,
       inputType: 'password',
       // inputValidator: validator,
+      inputPattern:/^[A-Za-z0-9]+$/,
       inputErrorMessage: '请输入正确密码！',
       confirmButtonText: '确定',
       showClose: false,
