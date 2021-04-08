@@ -236,8 +236,8 @@
            <template slot-scope="scope">
           <el-tooltip placement="top">
              <div slot="content" style="font-size:13px">
-    {{"单价："+scope.row.price+"元 / 件"}}<br/>
-    {{"销量："+scope.row.sale}}</div>
+    {{"单价："+scope.row.price+"元 / 件"}}
+</div>
           <p>
                 {{scope.row.productName}}
           </p>
@@ -272,7 +272,17 @@
             label="库存"
             align="center"
             width="80"
-          ></el-table-column>
+          >
+           <template slot-scope="scope">
+          <el-tooltip placement="top">
+             <div slot="content" style="font-size:13px">
+              {{"销量："+scope.row.sale}}</div>
+          <p>
+                {{scope.row.reserve}}
+          </p>
+          </el-tooltip>
+         </template>
+          </el-table-column>
           <el-table-column label="发货数量" align="center"  style="margin-right: 100px" width="140">
           <el-input-number size="small"
           slot-scope="scope" 
