@@ -106,11 +106,30 @@
           <el-table-column
             prop="productName"
             label="物品名称"
-            width="130"
-          ></el-table-column>
-
-
-         
+          >
+         <template slot-scope="scope">
+          <el-tooltip placement="top">
+            <div slot="content" style="font-size:13px">
+               {{
+                 "备注："+scope.row.consignmentNotes
+                }}<br/>
+                {{
+                    "分类："+scope.row.taskCategoryMain
+                }}<br/>
+                {{
+                   "产品规格："+scope.row.productModel
+                  }}<br/>
+                {{
+                  "联系电话："+scope.row.contactNumber
+                }}
+               
+          </div>
+          <p>
+                {{scope.row.productName}}
+          </p>
+          </el-tooltip>
+         </template>
+          </el-table-column>
           <el-table-column prop="leadState" label="备货状态" width="100">
             <template slot-scope="scope">
               <el-tag v-if="+scope.row.shortageQuantity >0 || scope.row.leadState===0" type="info"
@@ -124,28 +143,38 @@
           <el-table-column
             prop="productNumber"
             label="产品数量"
-            width="80"
+            align="center"
           ></el-table-column>
            <el-table-column
             prop="issuedQuantity"
             label="已发数量"
-            width="80"
-          ></el-table-column>
-           <el-table-column
+            align="center"
+          >
+             <template slot-scope="scope">
+          <el-tooltip placement="top">
+            <div slot="content" style="font-size:13px">
+                {{"仍需数量："+scope.row.shortageQuantity}}
+          </div>
+          <p>
+                {{scope.row.issuedQuantity}}
+          </p>
+          </el-tooltip>
+         </template>
+          </el-table-column>
+           <!-- <el-table-column
             prop="shortageQuantity"
             label="仍需数量"
-            width="85"
-          ></el-table-column>
-          <el-table-column
+            align="center"
+          ></el-table-column> -->
+          <!-- <el-table-column
             prop="productModel"
             label="产品规格"
             width="85"
-          ></el-table-column>
+          ></el-table-column> -->
 
            <el-table-column
             prop="consignmentTimeLatest"
             label="发货截至时间"
-            width="160"
             ><template slot-scope="scope">
               <el-span>{{
                 scope.row.consignmentTimeLatest | formatDate
@@ -204,12 +233,31 @@
             prop="productName"
             label="物品名称"  
           >
+           <template slot-scope="scope">
+          <el-tooltip placement="top">
+             <div slot="content" style="font-size:13px">
+    {{"单价："+scope.row.price+"元 / 件"}}
+</div>
+          <p>
+                {{scope.row.productName}}
+          </p>
+          </el-tooltip>
+         </template>
          </el-table-column>
           <el-table-column
             prop="storeName"
             label="仓库名称"
-          ></el-table-column>
-          <el-table-column prop="productState" label="物品状态" >
+          >
+          <template slot-scope="scope">
+          <el-tooltip placement="top">
+  <div slot="content" style="font-size:13px">
+    {{"地址："+scope.row.storeAddress}}<br/>
+    {{"联系方式："+scope.row.telePhone}}</div>
+  <p>{{scope.row.storeName}}</p>
+</el-tooltip>
+          </template>
+          </el-table-column>
+          <el-table-column prop="productState" label="物品状态"  align="center" width="80">
             <template slot-scope="scope">
               <el-tag v-if="+scope.row.productState === 1" type="danger"
                 >库存紧缺</el-tag
@@ -222,8 +270,20 @@
           <el-table-column
             prop="reserve"
             label="库存"
-          ></el-table-column>
-          <el-table-column label="发货数量" style="margin-right: 100px">
+            align="center"
+            width="80"
+          >
+           <template slot-scope="scope">
+          <el-tooltip placement="top">
+             <div slot="content" style="font-size:13px">
+              {{"销量："+scope.row.sale}}</div>
+          <p>
+                {{scope.row.reserve}}
+          </p>
+          </el-tooltip>
+         </template>
+          </el-table-column>
+          <el-table-column label="发货数量" align="center"  style="margin-right: 100px" width="140">
           <el-input-number size="small"
           slot-scope="scope" 
           placeholder="输入数量"
@@ -232,12 +292,25 @@
           label="描述文字">
           </el-input-number>
           </el-table-column>
-          <el-table-column label="操作"  align="center" >
+          <el-table-column label="操作"  align="center"  width="270">
             <template slot-scope="scope">
+               <el-button 
+
+                @click="Jump()"
+                type="primary" plain
+                size="small">库存管理</el-button
+              > 
+              <el-button 
+
+                @click="JumpWarehouse()"
+                type="primary" plain
+                size="small">仓库管理</el-button
+              > 
+            
             <el-button 
 
                 @click="deliver(scope.row,scope.$index)"
-                type="text"
+                type="primary" plain
                 size="small">发货</el-button
               > 
                </template>
@@ -396,6 +469,7 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
+          console.log(this.tableData)
           this.tableData2.isleadState=response.data.allData[0].leadState;
           console.log(this.tableData2.isleadState);
           if (this.taskState == "完成") {
@@ -421,7 +495,6 @@ export default {
             this.submitDisable = true;
           }
           this.showData();
-          console.log(this.tableData2[0].productName+"...."+this.tableData[0].productName);
           for(var i=0;i<this.tableData3.length;i++){
             this.tableData3[i].isproductName=false;
           for(var j=0;j<this.tableData.length;j++){
@@ -553,6 +626,18 @@ export default {
     },
     handleSizeChange(psize) {
       this.pageSize = psize;
+    },
+    Jump(){
+         this.$router.push({
+        path: "/admin/stockManage",
+        name: "stockManage",
+      });
+    },
+    JumpWarehouse(){
+         this.$router.push({
+        path: "/admin/storeHouseManage",
+        name: "storeHouseManage",
+      });
     },
     handleClose() {
       debugger;
