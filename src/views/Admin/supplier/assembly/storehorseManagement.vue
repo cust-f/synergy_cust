@@ -60,7 +60,7 @@
       <el-table-column label="操作" width="180" align="center">
         <template>
           <el-button
-            @click="showData(),showhorseData()"
+            @click="showData(),showhorseData(),ShowCompanyName()"
             type="text"
             size="small"
             >查看</el-button
@@ -182,7 +182,7 @@
             width="85"
           ></el-table-column> -->
             <el-table-column
-            prop="productNumber"
+            prop="shippingWarehouse"
             label="发货仓库"
             align="center"
           ></el-table-column>
@@ -217,49 +217,8 @@
           ></el-pagination>
         </div>
       </el-form>
-      </el-tab-pane>
-      <el-tab-pane name="second">
-        <span slot="label" class="biaoti"
-        style="padding: 0 10px; ">订单信息</span>
-        <div style="background-color: rgba(255, 153, 102, 0.1); border: 1px solid rgb(255, 153, 102);border-radius:25px;">
-          <span class="kaozuo">{{ "发货地址："+"南关区人民大街幸福一路长春豪园小区L10号楼" }}</span>
-            <el-button 
 
-                @click="UpdateCirculationAddress()"
-                type="text"
-                >修改</el-button
-              > 
-            <br>
-            <span class="kaozuo">{{ "手机电话："+"18904423566" }}</span>
-        </div>
-      <!-- <el-card shadow="none" class="Notestyle" :body-style="{ padding: '0px' }">
-        <br />
-        <el-form
-          ref="FormData"
-          :model="FormData"
-          size="medium"
-          label-width="100px"
-          class="form-list"
-        >
-
-            <span class="kaozuo">{{ "发货地址："+"南关区人民大街幸福一路长春豪园小区L10号楼" }}</span>
-            <el-button 
-
-                @click="UpdateCirculationAddress()"
-                type="text"
-                >修改</el-button
-              > 
-            <br>
-            <span class="kaozuo">{{ "手机电话："+"18904423566" }}</span>
-
-        
-        </el-form>
-      </el-card> -->
-        </el-tab-pane>
-
-
-  </el-tabs>
-      <!-- 分割 -->
+           <!-- 分割 -->
       <el-collapse v-model="activeNames" @change="handleChange" >
           <el-collapse-item  >
             <template slot="title">
@@ -381,6 +340,40 @@
       </el-form>
     </el-collapse-item>
 </el-collapse>
+
+      </el-tab-pane>
+      <el-tab-pane name="second">
+        <span slot="label" class="biaoti"
+        style="padding: 0 10px; ">订单信息</span>
+        <div>
+         <div
+        class="biaoti"
+        style="padding: 0 10px; border-left: 5px solid rgb(255, 153, 102);margin-left:10px"
+        
+      >
+        买家信息
+      </div>
+      <br>
+            <label style="white-space: nowrap; text-align: left; font-size: 16px; font-weight: 400; font-style: normal; text-decoration: none; color: rgb(153, 153, 153);margin-left:30px">需求方：{{this.companyName}}</label>
+             <label style="white-space: nowrap; text-align: left; font-size: 16px; font-weight: 400; font-style: normal; text-decoration: none; color: rgb(153, 153, 153);margin-left:30px">联系电话 :{{this.tableData[0].contactNumber}}</label>
+             <br>
+              <label style="white-space: nowrap; text-align: left; font-size: 16px; font-weight: 400; font-style: normal; text-decoration: none; color: rgb(153, 153, 153);margin-left:30px"> {{"发货地址："+this.circulationAddress}}</label>
+              <el-button 
+                @click="UpdateCirculationAddress()"
+                size="mini"
+                style="margin-left:30px"
+                ><p  style=" font-size: 16px; font-weight: 400;white-space: nowrap;color: rgb(153, 153, 153);"> {{"修改"}}</p></el-button
+              > 
+
+            <br>
+            
+      </div>
+      <el-divider></el-divider>
+        </el-tab-pane>
+
+
+  </el-tabs>
+ 
     </el-dialog> 
   </div>
 </template>
@@ -393,6 +386,8 @@ export default {
       FormData: {
     
       },
+      companyName:"",
+      circulationAddress:"",
       activeName: 'first',
       submitDisable: false,
       text: true,
@@ -531,7 +526,6 @@ export default {
           this.tableData = response.data.allData;
           console.log(this.tableData)
           this.tableData2.isleadState=response.data.allData[0].leadState;
-          console.log(this.tableData2.isleadState);
           if (this.taskState == "完成") {
             this.submitDisable = true;
           }
@@ -573,9 +567,62 @@ export default {
           }
         }  
         });
-
+    },
+    UpdateAddress(value){
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        circulationAddress:value,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/updateAddress",
+          data: data,
+        })
+        .then((response) => {
+             this.$message({
+                  type: "success",
+                  message: "修改成功",
+                });
+                this.ShowCompanyName();
+        });
     },
 
+    //修改发货地址
+    UpdateCirculationAddress(){
+         this.$prompt('请输入新地址', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          //只含有汉字、数字、字母、下划线，下划线位置不限：
+          inputPattern: /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/,
+          inputErrorMessage: '请输入正确格式的地址'
+        }).then(({ value }) => {
+          this.UpdateAddress(value);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });       
+        });
+    },
+    //显示公司信息
+    ShowCompanyName(){
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findcompanyNamebytaskId",
+          data: data,
+        })
+        .then((response) => {
+          this.companyName=response.data.allData[0];
+          this.circulationAddress=response.data.allData[1];
+        });
+    },
     //输入input框的限制问题
     BlurText(e){
       let boolen =new RegExp("^[1-9][0-9]*$").test(e.target.value)
@@ -623,6 +670,7 @@ export default {
             }else {
               this.isitGreater='0';
               row.deliveringAmount ='';
+
             }
           }
       }
@@ -652,7 +700,8 @@ export default {
             url: "/api/addConsignment/updateInventoryCount",
             data: data,
           })
-          .then((response) => {});
+          .then((response) => {
+          });
         this.$message({
           message: "审核通过",
           type: "success",
