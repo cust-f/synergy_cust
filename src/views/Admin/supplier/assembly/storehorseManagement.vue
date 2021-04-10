@@ -398,6 +398,7 @@ import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+      status: "等待发货",
       FormData: {
     
       },
@@ -607,7 +608,7 @@ export default {
 
     //修改发货地址
     UpdateCirculationAddress(){
-         this.$prompt('请输入新地址', '提示', {
+         this.$prompt('请输入发货地址', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           //只含有汉字、数字、字母、下划线，下划线位置不限：
@@ -697,11 +698,27 @@ export default {
 
             }
           }
-        }
-      if (this.isitGreater=== "0" || row.deliveringAmount == 0) {
-        this.$notify.error({
-          title: "错误",
-          message: "您提交的发货数量有误",
+      }
+    if(this.isitGreater==='0'||row.deliveringAmount==0){
+          this.$notify.error({
+          title: '错误',
+          message: '您提交的发货数量有误'
+        });
+      }
+      else if(row.deliveringAmount!=0){
+         this.$confirm("确定发货吗？", "提示", {
+         type: "warning",
+         
+      }
+      )
+      .then(() => {
+        var that = this;
+        var data = Qs.stringify({
+          taskId: this.taskId,
+          stockId: row.stockId,
+          reserveCount:row.deliveringAmount,
+          productName:row.productName,
+          storeName:row.storeName,
         });
         that
           .axios({
@@ -715,7 +732,11 @@ export default {
           message: "审核通过",
           type: "success",
         });
+        this.showData();
+        this.upCirculation = false;
+      });
       }
+     
     },
 
     //拒绝原因弹出框
