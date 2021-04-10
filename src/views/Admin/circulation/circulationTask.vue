@@ -789,7 +789,7 @@ export default {
           }
         });
         console.log(this.taskState)
-        console.log(this.tableData4yanshou)
+        console.log(this.tableData4yanshou);
     },
 
     
@@ -834,8 +834,13 @@ export default {
         })
         .then(response => {
           this.tableData1 = response.data.allData;
+          this.tableData2 = response.data.allData;
+          this.tableData3 = response.data.allData;
+          this.tableData4yanshou = response.data.allData;
+          this.tableData5 = response.data.allData;
+          this.tableData6 = response.data.allData;
         });
-
+        console.log(this.tableData4yanshou);
       //this.getData();
     },
     // 废除操作

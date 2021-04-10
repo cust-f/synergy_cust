@@ -1010,6 +1010,7 @@ export default {
           } else if (this.taskState == 6) {
             this.tableData6 = response.data.allData;
           }
+          console.log(this.tableData3);
         });
     },
 
@@ -1050,6 +1051,12 @@ export default {
         })
         .then((response) => {
           this.tableData1 = response.data.allData;
+          this.tableData2 = response.data.allData;
+          this.tableData3 = response.data.allData;
+          this.tableData4 = response.data.allData;
+          this.tableData5 = response.data.allData;
+          this.tableData6 = response.data.allData;
+          console.log(this.tableData4);
         });
 
       //this.getData();

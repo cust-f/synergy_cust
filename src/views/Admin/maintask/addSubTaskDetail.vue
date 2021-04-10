@@ -215,6 +215,18 @@
             </font>
           </el-row>
 
+           <el-row>
+            <el-col :span="11">
+              <el-form-item label="发货地址" :style="{ display: sfkjian }" >
+                <el-input
+                  v-model="addList.circulationAddress"
+                  type="textarea"
+                  :rows="2"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        <br v-if="addList.taskType=='1'">
           <el-row>
             <el-col :span="22">
               <el-form-item label="任务详情">
@@ -717,6 +729,7 @@ export default {
           deadline: "",
           taskCategoryMain: "",
           taskCategoryPart: "",
+          circulationAddress: "",
         },
       ],
       //是否申请
@@ -760,6 +773,7 @@ export default {
           label: "流通任务",
         },
       ],
+      sfkjian:"none",
       //私密
       sm: "none",
       //不私秘
@@ -982,6 +996,14 @@ export default {
         this.busm = "none";
       }
     },
+
+    leibieChanged(leibie){
+        if(leibie==1){
+            this.sfkjian = "inline";
+        }else{
+          this.sfkjian = "none";
+        }
+    },
     invitate(coo) {
       if (coo == 0) {
         this.visiblehexin = "inline";
@@ -1025,7 +1047,9 @@ export default {
         }
         //记录提交前的任务类别
         var bianjifahuo = this.addList.taskType;
-
+        if(this.addList.circulationAddress==''||this.addList.circulationAddress==null){
+          this.addList.circulationAddress="暂无地址";
+        }
         var that = this;
         var data = Qs.stringify({
           userName: this.usernameX,
@@ -1045,6 +1069,7 @@ export default {
           Telphone: this.addList.Telphone,
           taskID: "100086",
           SupperListINt: this.SupplierListInt,
+          circulationAddress:this.addList.circulationAddress,
         });
 
         that
