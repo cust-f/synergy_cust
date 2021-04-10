@@ -75,16 +75,25 @@
       width="1000px"
       @click="handleClose"
     >
-      <div
+    <br>
+      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+        <el-tab-pane  name="first">
+          <span slot="label" class="biaoti"
+        style="padding: 0 10px; ">流通清单</span>
+      <!-- <div
         class="biaoti"
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
         流通清单
-      </div>
-      <br />
-
-      <div style="padding: 0 10px; border-left: 3px solid #4e58c5"></div>
-      <br />
+      </div> -->
+      <el-button
+            style="float: left; margin-bottom: 10px"
+            type="primary"
+            @click="submit2()"
+            size="small"
+            v-bind:disabled="liu"
+            >全部发货</el-button
+          >
       <el-form ref="form" label-width="100px" class="box">
         <el-table
           ref="multipleTable"
@@ -140,6 +149,7 @@
               >
             </template>
           </el-table-column>
+
           <el-table-column
             prop="productNumber"
             label="产品数量"
@@ -171,7 +181,11 @@
             label="产品规格"
             width="85"
           ></el-table-column> -->
-
+            <el-table-column
+            prop="productNumber"
+            label="发货仓库"
+            align="center"
+          ></el-table-column>
            <el-table-column
             prop="consignmentTimeLatest"
             label="发货截至时间"
@@ -203,16 +217,66 @@
           ></el-pagination>
         </div>
       </el-form>
+      </el-tab-pane>
+      <el-tab-pane name="second">
+        <span slot="label" class="biaoti"
+        style="padding: 0 10px; ">订单信息</span>
+        <div style="background-color: rgba(255, 153, 102, 0.1); border: 1px solid rgb(255, 153, 102);border-radius:25px;">
+          <span class="kaozuo">{{ "发货地址："+"南关区人民大街幸福一路长春豪园小区L10号楼" }}</span>
+            <el-button 
 
+                @click="UpdateCirculationAddress()"
+                type="text"
+                >修改</el-button
+              > 
+            <br>
+            <span class="kaozuo">{{ "手机电话："+"18904423566" }}</span>
+        </div>
+      <!-- <el-card shadow="none" class="Notestyle" :body-style="{ padding: '0px' }">
+        <br />
+        <el-form
+          ref="FormData"
+          :model="FormData"
+          size="medium"
+          label-width="100px"
+          class="form-list"
+        >
+
+            <span class="kaozuo">{{ "发货地址："+"南关区人民大街幸福一路长春豪园小区L10号楼" }}</span>
+            <el-button 
+
+                @click="UpdateCirculationAddress()"
+                type="text"
+                >修改</el-button
+              > 
+            <br>
+            <span class="kaozuo">{{ "手机电话："+"18904423566" }}</span>
+
+        
+        </el-form>
+      </el-card> -->
+        </el-tab-pane>
+
+
+  </el-tabs>
       <!-- 分割 -->
+      <el-collapse v-model="activeNames" @change="handleChange" >
+          <el-collapse-item  >
+            <template slot="title">
        <div
+        class="biaoti"
+        style="padding: 0 10px; "
+      >
+        库存列表
+      </div>
+    </template>
+       <!-- <div
         class="biaoti"
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
         库存列表
-      </div>
-      <br />
-      <br/>
+      </div> -->
+      <br>
       <el-form ref="form" label-width="100px" class="box" >
         
         <el-table
@@ -271,7 +335,7 @@
             prop="reserve"
             label="库存"
             align="center"
-            width="80"
+            
           >
            <template slot-scope="scope">
           <el-tooltip placement="top">
@@ -283,7 +347,7 @@
           </el-tooltip>
          </template>
           </el-table-column>
-          <el-table-column label="发货数量" align="center"  style="margin-right: 100px" width="140">
+          <el-table-column label="发货数量" align="center"  style="margin-right: 100px" >
           <el-input-number size="small"
           slot-scope="scope" 
           placeholder="输入数量"
@@ -292,26 +356,13 @@
           label="描述文字">
           </el-input-number>
           </el-table-column>
-          <el-table-column label="操作"  align="center"  width="270">
+          <el-table-column label="操作"  align="center" >
             <template slot-scope="scope">
-               <el-button 
-
-                @click="Jump()"
-                type="primary" plain
-                size="small">库存管理</el-button
-              > 
-              <el-button 
-
-                @click="JumpWarehouse()"
-                type="primary" plain
-                size="small">仓库管理</el-button
-              > 
-            
-            <el-button 
+        <el-button 
 
                 @click="deliver(scope.row,scope.$index)"
-                type="primary" plain
-                size="small">发货</el-button
+                type="text"
+                size="small">备货</el-button
               > 
                </template>
               </el-table-column>
@@ -328,7 +379,9 @@
           ></el-pagination>
         </div>
       </el-form>
-    </el-dialog>
+    </el-collapse-item>
+</el-collapse>
+    </el-dialog> 
   </div>
 </template>
 <script>
@@ -337,6 +390,10 @@ import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+      FormData: {
+    
+      },
+      activeName: 'first',
       submitDisable: false,
       text: true,
       pageIndex: 1,
@@ -435,6 +492,9 @@ export default {
     },
   },
   methods: {
+    handleClick(tab, event) {
+        console.log(tab, event);
+    },
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
@@ -552,7 +612,6 @@ export default {
       },
     //提交发货数量
     deliver(row,index){
-     console.log(row.deliveringAmount+"....."+row.reserve+"...."+this.taskId);
       this.isitGreater='0';
       for(var i=0;i<this.tableData.length;i++){
          
@@ -564,11 +623,9 @@ export default {
             }else {
               this.isitGreater='0';
               row.deliveringAmount ='';
-               console.log("ssss")
             }
           }
       }
-      console.log(row.deliveringAmount+"....."+row.reserve+"...."+this.taskId);
     if(this.isitGreater==='0'||row.deliveringAmount==0){
           this.$notify.error({
           title: '错误',
@@ -675,5 +732,16 @@ export default {
   .el-dialog__header {
     padding: 0px 0px 0px;
   }
+  .Notestyle {
+  padding: 0;
+  margin-top: 10px;
+  background-color: white;
+  line-height: 20px;
+  font-size: 18px;
+}
+  .kaozuo {
+  font-size: 16px;
+  margin-left: 20px;
+}
 }
 </style>
