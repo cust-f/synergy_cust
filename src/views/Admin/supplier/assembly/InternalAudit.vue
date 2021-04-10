@@ -152,10 +152,66 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
     },
-    //跳转虚拟机
-    LJTZ(row) {
+     passwordRequest(value){
+      console.log("进来了")
+      console.log("名字："+this.usernameX+"密码："+value)
+      var that = this;
+        var data = Qs.stringify({
+            username: this.userName,
+          });
+           that
+            .axios({
+              method: "post",
+              url: "api/users/isTrue",
+              data: data,
+            })
+            .then((response) => {
+            console.log(response.data.allData)
+            if (response.data.allData == value) {
+              this.ispassWord=true;
+                this.$message({
+                  type: "success",
+                  message: "验证成功",
+                });
+              }else {
+                this.$message({
+                  type: "warning",
+                  message: "验证失败",
+                });
+                 this.ispassWord=false;
+              }
+        });
+    },
+     JumpToVirtualmachine(row){
       console.log(row.gitadress);
       window.open(row.gitadress,'_blank')
+    },
+    //跳转虚拟机
+    LJTZ(row) {
+      this.$prompt('请输入密码', '提示', {
+      showInput:true,
+      inputType: 'password',
+      // inputValidator: validator,
+      inputPattern:/^[A-Za-z0-9]+$/,
+      inputErrorMessage: '请输入正确密码！',
+      confirmButtonText: '确定',
+      showClose: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      // center: true
+        }).then(({ value }) => {
+          this.passwordRequest(value);
+          setTimeout(() => {
+          if(this.ispassWord==true){
+              this.JumpToVirtualmachine(row);
+          }
+          },100);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消查看'
+          });       
+        });
     },
     //设计通过
     designSuccess(row) {
