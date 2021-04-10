@@ -110,7 +110,7 @@ export default {
     handleSearch() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.username,
+        username: this.usernameX,
         taskName: this.selectname
       });
       
@@ -122,7 +122,6 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
-          
           this.tableData = response.data.allData;
         });
       //this.getData();
