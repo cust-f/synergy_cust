@@ -133,6 +133,7 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
+          console.log(this.tableData);
         });
       //this.getData();
     },
