@@ -1626,6 +1626,24 @@
 
       <!--查看弹出框-->
       <el-dialog title :visible.sync="chakanTC"  width="1000px">
+        <div class="top">
+        <div class="inside">
+          <div style="width: 90%;margin-bottom:10px">
+            <span style="color: black">当前订单状态: </span>
+            <span style="color: #409eff">
+              &nbsp&nbsp&nbsp&nbsp{{ status }}</span
+            >
+          </div>
+          <el-button
+            class="btn"
+            type="primary"
+            @click="allPass()"
+            size="small"
+            v-bind:disabled="liu"
+            >全部通过</el-button
+          >
+        </div>
+      </div>
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1633,17 +1651,6 @@
           流通清单
         </div>
         <br />
-        <div style="margin-top: 10px">
-          <!-- <template slot-scope="scope"> -->
-          <el-button
-            style="float: left; margin-bottom: 10px"
-            type="primary"
-            @click="submit2()"
-            size="small"
-            v-bind:disabled="liu"
-            >全部通过</el-button
-          >
-        </div>
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
             <el-table-column
@@ -2162,6 +2169,10 @@ export default {
     this.showData();
   },
   methods: {
+    //全部通过
+    allPass(){
+
+    },
     changeDeliveryTime(row) {
       this.deliveryListTime.deliveryTime = row.deliveryTime;
       this.deliveryListTime.consignmentTimeLatest = row.consignmentTimeLatest;
@@ -3444,6 +3455,21 @@ export default {
 </script>
 
 <style lang="scss">
+.top {
+  margin-top: 20px;
+  height: 100px;
+  margin-bottom: 10px;
+  width: 100%;
+  background-color: #fff4ee;
+  border: 1px solid red;
+  border-radius: 5px;
+  .inside {
+    padding: 15px;
+    .btn {
+    }
+  }
+}
+
 .mainStaskDetaulLT {
   .customer-table {
     padding-top: 3px;

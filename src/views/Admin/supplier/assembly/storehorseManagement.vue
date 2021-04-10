@@ -59,7 +59,7 @@
       <el-table-column label="操作" width="180" align="center">
         <template>
           <el-button
-            @click="showData(), showhorseData()"
+            @click="showData(),showhorseData(),ShowCompanyName()"
             type="text"
             size="small"
             >查看</el-button
@@ -192,94 +192,55 @@
             label="产品规格"
             width="85"
           ></el-table-column> -->
-              <el-table-column
-                prop="productNumber"
-                label="发货仓库"
-                align="center"
-              ></el-table-column>
-              <el-table-column prop="consignmentTimeLatest" label="发货截至时间"
-                ><template slot-scope="scope">
-                  <el-span>{{
-                    scope.row.consignmentTimeLatest | formatDate
-                  }}</el-span>
-                </template></el-table-column
-              >
-
-              <el-table-column prop="leadTime" label="备货时间" width="160"
-                ><template slot-scope="scope">
-                  <el-span v-if="+scope.row.leadTime === 0">暂未备货</el-span>
-                  <el-span v-else>{{
-                    scope.row.leadTime | formatDate
-                  }}</el-span>
-                </template></el-table-column
-              >
-            </el-table>
-
-            <div class="pagination">
-              <el-pagination
-                background
-                layout="prev, pager, next, sizes, total, jumper"
-                :current-page="pageIndex1"
-                :page-size="pageSize"
-                :total="tableData.length"
-                @current-change="handleCurrentChange"
-                @size-change="handleSizeChange"
-              ></el-pagination>
-            </div>
-          </el-form>
-        </el-tab-pane>
-        <el-tab-pane name="second">
-          <span slot="label" class="biaoti" style="padding: 0 10px"
-            >订单信息</span
+            <el-table-column
+            prop="shippingWarehouse"
+            label="发货仓库"
+            align="center"
+          ></el-table-column>
+           <el-table-column
+            prop="consignmentTimeLatest"
+            label="发货截至时间"
+            ><template slot-scope="scope">
+              <el-span>{{
+                scope.row.consignmentTimeLatest | formatDate
+              }}</el-span>
+            </template></el-table-column
           >
-          <div
-            style="
-              background-color: rgba(255, 153, 102, 0.1);
-              border: 1px solid rgb(255, 153, 102);
-              border-radius: 25px;
-            "
+
+          <el-table-column prop="leadTime" label="备货时间" width="160"
+            ><template slot-scope="scope">
+          <el-span v-if="+scope.row.leadTime === 0">暂未备货</el-span>
+          <el-span v-else>{{ scope.row.leadTime | formatDate }}</el-span>
+            </template></el-table-column
           >
-            <span class="kaozuo">{{
-              "发货地址：" + "南关区人民大街幸福一路长春豪园小区L10号楼"
-            }}</span>
-            <el-button @click="UpdateCirculationAddress()" type="text"
-              >修改</el-button
-            >
-            <br />
-            <span class="kaozuo">{{ "手机电话：" + "18904423566" }}</span>
-          </div>
-          <!-- <el-card shadow="none" class="Notestyle" :body-style="{ padding: '0px' }">
-        <br />
-        <el-form
-          ref="FormData"
-          :model="FormData"
-          size="medium"
-          label-width="100px"
-          class="form-list"
-        >
+          
+        </el-table>
 
-            <span class="kaozuo">{{ "发货地址："+"南关区人民大街幸福一路长春豪园小区L10号楼" }}</span>
-            <el-button 
+        <div class="pagination">
+          <el-pagination
+            background
+            layout="prev, pager, next, sizes, total, jumper"
+            :current-page="pageIndex1"
+            :page-size="pageSize"
+            :total="tableData.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+          ></el-pagination>
+        </div>
+      </el-form>
 
-                @click="UpdateCirculationAddress()"
-                type="text"
-                >修改</el-button
-              > 
-            <br>
-            <span class="kaozuo">{{ "手机电话："+"18904423566" }}</span>
-
-        
-        </el-form>
-      </el-card> -->
-        </el-tab-pane>
-      </el-tabs>
-      <!-- 分割 -->
-      <el-collapse v-model="activeNames" @change="handleChange">
-        <el-collapse-item>
-          <template slot="title">
-            <div class="biaoti" style="padding: 0 10px">库存列表</div>
-          </template>
-          <!-- <div
+           <!-- 分割 -->
+      <el-collapse v-model="activeNames" @change="handleChange" >
+          <el-collapse-item  >
+            <template slot="title">
+       <div
+        class="biaoti"
+        style="padding: 0 10px; "
+      >
+        库存列表
+      </div>
+    </template>
+       <!-- <div
         class="biaoti"
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
@@ -344,59 +305,91 @@
                   >
                 </template>
               </el-table-column>
-              <el-table-column prop="reserve" label="库存" align="center">
-                <template slot-scope="scope">
-                  <el-tooltip placement="top">
-                    <div slot="content" style="font-size: 13px">
-                      {{ "销量：" + scope.row.sale }}
-                    </div>
-                    <p>
-                      {{ scope.row.reserve }}
-                    </p>
-                  </el-tooltip>
-                </template>
+                 <el-table-column
+            prop="reserve"
+            label="库存"
+            align="center"
+            
+          >
+           <template slot-scope="scope">
+          <el-tooltip placement="top">
+             <div slot="content" style="font-size:13px">
+              {{"销量："+scope.row.sale}}</div>
+          <p>
+                {{scope.row.reserve}}
+          </p>
+          </el-tooltip>
+         </template>
+          </el-table-column>
+          <el-table-column label="发货数量" align="center"  style="margin-right: 100px" >
+          <el-input-number size="small"
+          slot-scope="scope" 
+          placeholder="输入数量"
+          v-model="tableData2[scope.$index].deliveringAmount" 
+          :min="1"  
+          label="描述文字">
+          </el-input-number>
+          </el-table-column>
+          <el-table-column label="操作"  align="center" >
+            <template slot-scope="scope">
+        <el-button 
+
+                @click="deliver(scope.row,scope.$index)"
+                type="text"
+                size="small">备货</el-button
+              > 
+               </template>
               </el-table-column>
-              <el-table-column
-                label="发货数量"
-                align="center"
-                style="margin-right: 100px"
-              >
-                <el-input-number
-                  size="small"
-                  slot-scope="scope"
-                  placeholder="输入数量"
-                  v-model="tableData2[scope.$index].deliveringAmount"
-                  :min="1"
-                  label="描述文字"
-                >
-                </el-input-number>
-              </el-table-column>
-              <el-table-column label="操作" align="center">
-                <template slot-scope="scope">
-                  <el-button
-                    @click="deliver(scope.row, scope.$index)"
-                    type="text"
-                    size="small"
-                    >备货</el-button
-                  >
-                </template>
-              </el-table-column>
-            </el-table>
-            <div class="pagination">
-              <el-pagination
-                background
-                layout="prev, pager, next, sizes, total, jumper"
-                :current-page="pageIndex1"
-                :page-size="pageSize"
-                :total="tableData2.length"
-                @current-change="handleCurrentChange"
-                @size-change="handleSizeChange"
-              ></el-pagination>
-            </div>
-          </el-form>
-        </el-collapse-item>
-      </el-collapse>
-    </el-dialog>
+        </el-table>
+        <div class="pagination">
+          <el-pagination
+            background
+            layout="prev, pager, next, sizes, total, jumper"
+            :current-page="pageIndex1"
+            :page-size="pageSize"
+            :total="tableData2.length"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+          ></el-pagination>
+        </div>
+      </el-form>
+    </el-collapse-item>
+</el-collapse>
+
+      </el-tab-pane>
+      <el-tab-pane name="second">
+        <span slot="label" class="biaoti"
+        style="padding: 0 10px; ">订单信息</span>
+        <div>
+         <div
+        class="biaoti"
+        style="padding: 0 10px; border-left: 5px solid rgb(255, 153, 102);margin-left:10px"
+        
+      >
+        买家信息
+      </div>
+      <br>
+            <label style="white-space: nowrap; text-align: left; font-size: 16px; font-weight: 400; font-style: normal; text-decoration: none; color: rgb(153, 153, 153);margin-left:30px">需求方：{{this.companyName}}</label>
+             <label style="white-space: nowrap; text-align: left; font-size: 16px; font-weight: 400; font-style: normal; text-decoration: none; color: rgb(153, 153, 153);margin-left:30px">联系电话 :{{this.tableData[0].contactNumber}}</label>
+             <br>
+              <label style="white-space: nowrap; text-align: left; font-size: 16px; font-weight: 400; font-style: normal; text-decoration: none; color: rgb(153, 153, 153);margin-left:30px"> {{"发货地址："+this.circulationAddress}}</label>
+              <el-button 
+                @click="UpdateCirculationAddress()"
+                size="mini"
+                style="margin-left:30px"
+                ><p  style=" font-size: 16px; font-weight: 400;white-space: nowrap;color: rgb(153, 153, 153);"> {{"修改"}}</p></el-button
+              > 
+
+            <br>
+            
+      </div>
+      <el-divider></el-divider>
+        </el-tab-pane>
+
+
+  </el-tabs>
+ 
+    </el-dialog> 
   </div>
 </template>
 <script>
@@ -406,8 +399,12 @@ export default {
   data() {
     return {
       status: "等待发货",
-      FormData: {},
-      activeName: "first",
+      FormData: {
+    
+      },
+      companyName:"",
+      circulationAddress:"",
+      activeName: 'first',
       submitDisable: false,
       text: true,
       pageIndex: 1,
@@ -543,9 +540,8 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
-          console.log(this.tableData);
-          this.tableData2.isleadState = response.data.allData[0].leadState;
-          console.log(this.tableData2.isleadState);
+          console.log(this.tableData)
+          this.tableData2.isleadState=response.data.allData[0].leadState;
           if (this.taskState == "完成") {
             this.submitDisable = true;
           }
@@ -589,7 +585,61 @@ export default {
           }
         });
     },
+    UpdateAddress(value){
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        circulationAddress:value,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/updateAddress",
+          data: data,
+        })
+        .then((response) => {
+             this.$message({
+                  type: "success",
+                  message: "修改成功",
+                });
+                this.ShowCompanyName();
+        });
+    },
 
+    //修改发货地址
+    UpdateCirculationAddress(){
+         this.$prompt('请输入发货地址', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          //只含有汉字、数字、字母、下划线，下划线位置不限：
+          inputPattern: /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/,
+          inputErrorMessage: '请输入正确格式的地址'
+        }).then(({ value }) => {
+          this.UpdateAddress(value);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });       
+        });
+    },
+    //显示公司信息
+    ShowCompanyName(){
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findcompanyNamebytaskId",
+          data: data,
+        })
+        .then((response) => {
+          this.companyName=response.data.allData[0];
+          this.circulationAddress=response.data.allData[1];
+        });
+    },
     //输入input框的限制问题
     BlurText(e) {
       let boolen = new RegExp("^[1-9][0-9]*$").test(e.target.value);
@@ -633,52 +683,60 @@ export default {
       console.log(value);
     },
     //提交发货数量
-    deliver(row, index) {
-      this.isitGreater = "0";
-      for (var i = 0; i < this.tableData.length; i++) {
-        if (row.productName == this.tableData[i].productName) {
-          if (
-            row.deliveringAmount <= this.tableData[i].shortageQuantity &&
-            row.deliveringAmount <= row.reserve
-          ) {
-            this.isitGreater = "1";
-          } else {
-            this.isitGreater = "0";
-            row.deliveringAmount = "";
+    deliver(row,index){
+      this.isitGreater='0';
+      for(var i=0;i<this.tableData.length;i++){
+         
+          if(row.productName == this.tableData[i].productName){
+                
+            if(row.deliveringAmount<=this.tableData[i].shortageQuantity && row.deliveringAmount<=row.reserve){
+              this.isitGreater='1';
+     
+            }else {
+              this.isitGreater='0';
+              row.deliveringAmount ='';
+
+            }
           }
-        }
       }
-      if (this.isitGreater === "0" || row.deliveringAmount == 0) {
-        this.$notify.error({
-          title: "错误",
-          message: "您提交的发货数量有误",
-        });
-      } else if (row.deliveringAmount != 0) {
-        this.$confirm("确定发货吗？", "提示", {
-          type: "warning",
-        }).then(() => {
-          var that = this;
-          var data = Qs.stringify({
-            taskId: this.taskId,
-            stockId: row.stockId,
-            reserveCount: row.deliveringAmount,
-            productName: row.productName,
-          });
-          that
-            .axios({
-              method: "post",
-              url: "/api/addConsignment/updateInventoryCount",
-              data: data,
-            })
-            .then((response) => {});
-          this.$message({
-            message: "审核通过",
-            type: "success",
-          });
-          this.showData();
-          this.upCirculation = false;
+    if(this.isitGreater==='0'||row.deliveringAmount==0){
+          this.$notify.error({
+          title: '错误',
+          message: '您提交的发货数量有误'
         });
       }
+      else if(row.deliveringAmount!=0){
+         this.$confirm("确定发货吗？", "提示", {
+         type: "warning",
+         
+      }
+      )
+      .then(() => {
+        var that = this;
+        var data = Qs.stringify({
+          taskId: this.taskId,
+          stockId: row.stockId,
+          reserveCount:row.deliveringAmount,
+          productName:row.productName,
+          storeName:row.storeName,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/addConsignment/updateInventoryCount",
+            data: data,
+          })
+          .then((response) => {
+          });
+        this.$message({
+          message: "审核通过",
+          type: "success",
+        });
+        this.showData();
+        this.upCirculation = false;
+      });
+      }
+     
     },
 
     //拒绝原因弹出框
