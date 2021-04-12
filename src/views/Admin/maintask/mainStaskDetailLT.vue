@@ -1686,16 +1686,19 @@
                 scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column prop="consignmentState" label="发货状态" width="100">
+            <el-table-column prop="leadState" label="发货状态" width="100">
               <template slot-scope="scope">
-                <el-tag v-if="+scope.row.consignmentState === 0" type="info"
-                  >待发货</el-tag
+                <el-tag v-if="+scope.row.leadState === 0" type="info"
+                  >待备货</el-tag
                 >
-                <el-tag v-else-if="+scope.row.consignmentState === 1"
+                <el-tag v-else-if="+scope.row.leadState === 1"
+                  >已备货</el-tag
+                >
+                <el-tag v-else-if="+scope.row.leadState === 2"
                   >已发货</el-tag
                 >
                 <el-tag
-                  v-else-if="+scope.row.consignmentState === 2"
+                  v-else-if="+scope.row.leadState === 3"
                   type="success"
                   >已完成</el-tag
                 >
@@ -2149,7 +2152,9 @@ export default {
       planRefusse: 0,
       shuiwudengjizheng: require("../company/税务登记证.jpg"),
       qiyezhizhao: require("../company/营业执照.jpg"),
-    };
+      //当前订单状态
+      status:"",
+   };
   },
 
   filters: {
@@ -2472,8 +2477,25 @@ export default {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
         .then((response) => {
-          console.log(response);
           this.tableData = response.data.allData;
+          for(var i=0;i<this.tableData.length;i++){
+            if (this.tableData[i].leadState == 0) {
+              that.status = "待备货";
+              that.liu = true;
+              return;
+            } else if (this.tableData[i].leadState == 1) {
+              that.status = "已备货";
+              that.liu = true;
+              return;
+            } else if (this.tableData[i].leadState == 2) {
+              that.status = "已发货";
+              that.liu = false;
+              return;
+            } else if (this.tableData[i].leadState == 3) {
+              that.status = "已完成";
+              that.liu= true;
+            }
+          }
         });
     },
     shenqingtanchu(row) {
