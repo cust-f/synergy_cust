@@ -622,25 +622,29 @@ export default {
           if (this.taskState == "完成") {
             this.submitDisable = true;
           }
-          for (var i = 0; i < this.tableData.length; i++) {
+          var temp = this.tableData[0].leadState;
+          for (var i = 1; i < this.tableData.length; i++) {
             // if (this.tableData[i].shortageQuantity != 0) {
             //   that.liu = true;
             // }
-            if (this.tableData[i].leadState == 0) {
-              that.status = "待备货";
-              that.liu = true;
-              return;
-            } else if (this.tableData[i].leadState == 1) {
-              that.status = "已备货";
-              that.liu = false;
-              return;
-            } else if (this.tableData[i].leadState == 2) {
-              that.status = "已发货";
-              that.liu = true;
-              return;
-            } else if (this.tableData[i].leadState == 3) {
-              that.status = "已完成";
-              that.liu= true;
+            // if (this.tableData[i].leadState == 0) {
+            //   that.status = "待备货";
+            //   that.liu = true;
+            //   return;
+            // } else if (this.tableData[i].leadState == 1) {
+            //   that.status = "已备货";
+            //   that.liu = false;
+            //   return;
+            // } else if (this.tableData[i].leadState == 2) {
+            //   that.status = "已发货";
+            //   that.liu = true;  
+            //   return;
+            // } else if (this.tableData[i].leadState == 3) {
+            //   that.status = "已完成";
+            //   that.liu= true;
+            // }
+            if(temp > this.tableData[i].leadStat){
+              temp = this.tableData[i].leadState;
             }
           }
         });
