@@ -922,9 +922,9 @@ export default {
     padding: 15px;
     .btn {
     }
-  }
+  }  
 }
-
+//
 .storehorseManagement {
   .table {
     font-size: 13px;
