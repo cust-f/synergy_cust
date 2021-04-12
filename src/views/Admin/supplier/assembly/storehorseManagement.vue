@@ -647,6 +647,22 @@ export default {
               temp = this.tableData[i].leadState;
             }
           }
+          switch(temp){
+            case 0:{
+                 that.status = "待备货";
+              that.liu = true; 
+            }
+            break;
+            case 1:{ that.status = "已备货";
+              that.liu = false; }
+            break;
+            case 2:{ that.status = "已发货";
+              that.liu = true; }
+            break;
+            case 3:{ that.status = "已完成";
+              that.liu = true; }
+            break;
+          }
         });
     },
     //显示仓库表格中的信息。判断物品名称是否与产品名称一致。
