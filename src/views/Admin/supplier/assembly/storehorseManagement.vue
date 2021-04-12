@@ -44,7 +44,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="uploadCircuaterTime" label="清单上传时间">
+      <el-table-column prop="uploadCircuaterTime" label="发货时间">
         <template slot-scope="scope">
           <el-span v-if="+scope.row.uploadCircuaterTime === 0"
             >暂未验收</el-span
@@ -333,6 +333,7 @@
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                       <el-button
+                        v-bind:disabled="!beihuo"
                         @click="deliver(scope.row, scope.$index)"
                         type="text"
                         size="small"
@@ -539,6 +540,7 @@ export default {
       Data_checkox: [],
       //流通清单全部提交按钮可见
       liu: false,
+      beihuo:false,
     };
   },
   filters: {
@@ -548,7 +550,7 @@ export default {
     },
   },
   methods: {
-    //修改货物状态
+    //修改货物状态、全部发货
     submit2() {
       for (var i = 0; i < this.tableData.length; i++) {
         if (this.tableData[i].shortageQuantity != 0) {
@@ -577,6 +579,7 @@ export default {
             });
           }
         });
+        this.upCirculation = false;
     },
     handleClick(tab, event) {
       console.log(tab, event);
@@ -643,24 +646,29 @@ export default {
             //   that.status = "已完成";
             //   that.liu= true;
             // }
-            if(temp > this.tableData[i].leadStat){
+            if(temp > this.tableData[i].leadState){
               temp = this.tableData[i].leadState;
             }
           }
           switch(temp){
             case 0:{
-                 that.status = "待备货";
+              that.status = "待备货";
               that.liu = true; 
+              this.beihuo=true;
             }
             break;
             case 1:{ that.status = "已备货";
-              that.liu = false; }
+              that.liu = false; 
+              this.beihuo=false;
+              }
             break;
             case 2:{ that.status = "已发货";
-              that.liu = true; }
+              that.liu = true; 
+              this.beihuo=false;}
             break;
             case 3:{ that.status = "已完成";
-              that.liu = true; }
+              that.liu = true; 
+              this.beihuo=false;}
             break;
           }
         });

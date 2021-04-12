@@ -550,7 +550,7 @@
           >
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadCircuaterTime === 0"
-                >暂未上传</el-span
+                >{{"暂未上传"}}</el-span
               >
               <el-span v-else>{{
                 scope.row.uploadCircuaterTime | formatDate
@@ -1637,7 +1637,7 @@
           <el-button
             class="btn"
             type="primary"
-            @click="allPass()"
+            @click="submit2()"
             size="small"
             v-bind:disabled="liu"
             >全部通过</el-button
@@ -1708,11 +1708,13 @@
            <el-table-column
             prop="issuedQuantity"
             label="已发数量"
+            align="center"
              width="80"
           ></el-table-column>
            <el-table-column
             prop="shortageQuantity"
             label="仍需数量"
+            align="center"
              width="85"
           ></el-table-column>
 
@@ -1722,7 +1724,7 @@
                   @click="success(scope.row)"
                   type="text"
                   size="small"
-                  v-if="scope.row.consignmentState === 1"
+                  v-if="scope.row.leadState === 2"
                   >通过</el-button
                 >
                 <!-- <el-button
@@ -1740,7 +1742,7 @@
                   @click="refusebutton(scope.row)"
                   type="text"
                   size="small"
-                  v-if="scope.row.consignmentState === 1"
+                  v-if="scope.row.leadState === 2"
                   >拒绝</el-button
                 >
               </template>
@@ -2395,7 +2397,6 @@ export default {
       this.$confirm("确定提交吗？", "提示", {
         type: "warnning",
       }).then(() => {
-        console.log(row.consignmentState);
         var that = this;
         var data = Qs.stringify({
           consignmentId: row.consignmentId,
@@ -2418,7 +2419,7 @@ export default {
         }
       });
     },
-    //批量提交方法
+    //批量提交方法、全部通过
     submit2() {
       if (this.multipleSelection.length == 0) {
         this.$message({
@@ -2428,35 +2429,28 @@ export default {
       } else {
         for (var i = 0; i < this.multipleSelection.length; i++) {
           let that = this;
-          console.log(this.taskId);
           let data = Qs.stringify({
             consignmentId: that.multipleSelection[i].consignmentId,
             taskId: this.taskId,
           });
-          console.log(data);
           that
             .axios({
               method: "post",
               url: "/api/SubstaskInformation/allPass",
               data: data,
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
             })
             .then((response) => {
               console.log(response);
-              //that.tableData = response.data.allData;
             });
         }
         console.log(this.milepostActive);
         if (this.milepostActive == 4) {
           this.liu = true;
         }
-        this.$message({
-          message: "审核通过",
-          type: "success",
-        });
-        //this.chakantanchu();
+         this.$message.success("通过成功");
         this.chakanTC = false;
-        this.showData();
-        this.$router.go(0);
+      
       }
     },
     //查看弹窗按钮的实现
@@ -2478,23 +2472,32 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
-          for(var i=0;i<this.tableData.length;i++){
-            if (this.tableData[i].leadState == 0) {
-              that.status = "待备货";
-              that.liu = true;
-              return;
-            } else if (this.tableData[i].leadState == 1) {
-              that.status = "已备货";
-              that.liu = true;
-              return;
-            } else if (this.tableData[i].leadState == 2) {
-              that.status = "已发货";
-              that.liu = false;
-              return;
-            } else if (this.tableData[i].leadState == 3) {
-              that.status = "已完成";
-              that.liu= true;
+          var temp = 0; //检查下面的已发货，已完成
+          this.liu = false;
+               if (this.taskState == "完成") {
+            this.submitDisable = true;
+          }
+          var temp = this.tableData[0].leadState;
+          for(var i=1;i<this.tableData.length;i++){
+          if(temp > this.tableData[i].leadState){
+              temp = this.tableData[i].leadState;
             }
+          }
+          switch(temp){
+            case 0:{
+              that.status = "待备货";
+              that.liu = true; 
+            }
+            break;
+            case 1:{ that.status = "已备货";
+              that.liu = true; }
+            break;
+            case 2:{ that.status = "已发货";
+              that.liu = false; }
+            break;
+            case 3:{ that.status = "已完成";
+              that.liu = true; }
+            break;
           }
         });
     },
@@ -3384,7 +3387,7 @@ export default {
     },
     //复选框判断是否可选
     checkboxT(row, index) {
-      if (row.consignmentState == 1) {
+      if (row.leadState == 2) {
         return true;
       } else {
         return false;
