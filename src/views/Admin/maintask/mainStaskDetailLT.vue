@@ -2478,23 +2478,42 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
+          var temp = this.tableData[0].leadState;
           for(var i=0;i<this.tableData.length;i++){
-            if (this.tableData[i].leadState == 0) {
-              that.status = "待备货";
-              that.liu = true;
-              return;
-            } else if (this.tableData[i].leadState == 1) {
-              that.status = "已备货";
-              that.liu = true;
-              return;
-            } else if (this.tableData[i].leadState == 2) {
-              that.status = "已发货";
-              that.liu = false;
-              return;
-            } else if (this.tableData[i].leadState == 3) {
-              that.status = "已完成";
-              that.liu= true;
+            // if (this.tableData[i].leadState == 0) {
+            //   that.status = "待备货";
+            //   that.liu = true;
+            //   return;
+            // } else if (this.tableData[i].leadState == 1) {
+            //   that.status = "已备货";
+            //   that.liu = true;
+            //   return;
+            // } else if (this.tableData[i].leadState == 2) {
+            //   that.status = "已发货";
+            //   that.liu = false;
+            //   return;
+            // } else if (this.tableData[i].leadState == 3) {
+            //   that.status = "已完成";
+            //   that.liu= true;
+            // }
+            if(temp > this.tableData[i].leadState){
+              temp = this.tableData[i].leadState;
             }
+          }  switch(temp){
+            case 0:{
+                 that.status = "待备货";
+              that.liu = true; 
+            }
+            break;
+            case 1:{ that.status = "已备货";
+              that.liu = false; }
+            break;
+            case 2:{ that.status = "已发货";
+              that.liu = true; }
+            break;
+            case 3:{ that.status = "已完成";
+              that.liu = true; }
+            break;
           }
         });
     },

@@ -643,7 +643,7 @@ export default {
             //   that.status = "已完成";
             //   that.liu= true;
             // }
-            if(temp > this.tableData[i].leadStat){
+            if(temp > this.tableData[i].leadState){
               temp = this.tableData[i].leadState;
             }
           }
