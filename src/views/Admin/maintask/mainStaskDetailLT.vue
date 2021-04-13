@@ -550,7 +550,7 @@
           >
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadCircuaterTime === 0"
-                >暂未上传</el-span
+                >{{"暂未上传"}}</el-span
               >
               <el-span v-else>{{
                 scope.row.uploadCircuaterTime | formatDate
@@ -1626,17 +1626,16 @@
 
       <!--查看弹出框-->
       <el-dialog title :visible.sync="chakanTC"  width="1000px">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
-          流通清单
-        </div>
-        <br />
-        <div style="margin-top: 10px">
-          <!-- <template slot-scope="scope"> -->
+        <div class="top">
+        <div class="inside">
+          <div style="width: 90%;margin-bottom:10px">
+            <span style="color: black">当前订单状态: </span>
+            <span style="color: #409eff">
+              &nbsp&nbsp&nbsp&nbsp{{ status }}</span
+            >
+          </div>
           <el-button
-            style="float: left; margin-bottom: 10px"
+            class="btn"
             type="primary"
             @click="submit2()"
             size="small"
@@ -1644,6 +1643,14 @@
             >全部通过</el-button
           >
         </div>
+      </div>
+        <div
+          class="biaoti"
+          style="padding: 0 10px; border-left: 3px solid #4e58c5"
+        >
+          流通清单
+        </div>
+        <br />
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
             <el-table-column
@@ -1679,16 +1686,19 @@
                 scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column prop="consignmentState" label="发货状态" width="100">
+            <el-table-column prop="leadState" label="发货状态" width="100">
               <template slot-scope="scope">
-                <el-tag v-if="+scope.row.consignmentState === 0" type="info"
-                  >待发货</el-tag
+                <el-tag v-if="+scope.row.leadState === 0" type="info"
+                  >待备货</el-tag
                 >
-                <el-tag v-else-if="+scope.row.consignmentState === 1"
+                <el-tag v-else-if="+scope.row.leadState === 1"
+                  >已备货</el-tag
+                >
+                <el-tag v-else-if="+scope.row.leadState === 2"
                   >已发货</el-tag
                 >
                 <el-tag
-                  v-else-if="+scope.row.consignmentState === 2"
+                  v-else-if="+scope.row.leadState === 3"
                   type="success"
                   >已完成</el-tag
                 >
@@ -1698,11 +1708,13 @@
            <el-table-column
             prop="issuedQuantity"
             label="已发数量"
+            align="center"
              width="80"
           ></el-table-column>
            <el-table-column
             prop="shortageQuantity"
             label="仍需数量"
+            align="center"
              width="85"
           ></el-table-column>
 
@@ -1712,7 +1724,7 @@
                   @click="success(scope.row)"
                   type="text"
                   size="small"
-                  v-if="scope.row.consignmentState === 1"
+                  v-if="scope.row.leadState === 2"
                   >通过</el-button
                 >
                 <!-- <el-button
@@ -1730,7 +1742,7 @@
                   @click="refusebutton(scope.row)"
                   type="text"
                   size="small"
-                  v-if="scope.row.consignmentState === 1"
+                  v-if="scope.row.leadState === 2"
                   >拒绝</el-button
                 >
               </template>
@@ -2142,7 +2154,9 @@ export default {
       planRefusse: 0,
       shuiwudengjizheng: require("../company/税务登记证.jpg"),
       qiyezhizhao: require("../company/营业执照.jpg"),
-    };
+      //当前订单状态
+      status:"",
+   };
   },
 
   filters: {
@@ -2162,6 +2176,10 @@ export default {
     this.showData();
   },
   methods: {
+    //全部通过
+    allPass(){
+
+    },
     changeDeliveryTime(row) {
       this.deliveryListTime.deliveryTime = row.deliveryTime;
       this.deliveryListTime.consignmentTimeLatest = row.consignmentTimeLatest;
@@ -2379,7 +2397,6 @@ export default {
       this.$confirm("确定提交吗？", "提示", {
         type: "warnning",
       }).then(() => {
-        console.log(row.consignmentState);
         var that = this;
         var data = Qs.stringify({
           consignmentId: row.consignmentId,
@@ -2402,7 +2419,7 @@ export default {
         }
       });
     },
-    //批量提交方法
+    //批量提交方法、全部通过
     submit2() {
       if (this.multipleSelection.length == 0) {
         this.$message({
@@ -2412,35 +2429,28 @@ export default {
       } else {
         for (var i = 0; i < this.multipleSelection.length; i++) {
           let that = this;
-          console.log(this.taskId);
           let data = Qs.stringify({
             consignmentId: that.multipleSelection[i].consignmentId,
             taskId: this.taskId,
           });
-          console.log(data);
           that
             .axios({
               method: "post",
               url: "/api/SubstaskInformation/allPass",
               data: data,
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
             })
             .then((response) => {
               console.log(response);
-              //that.tableData = response.data.allData;
             });
         }
         console.log(this.milepostActive);
         if (this.milepostActive == 4) {
           this.liu = true;
         }
-        this.$message({
-          message: "审核通过",
-          type: "success",
-        });
-        //this.chakantanchu();
+         this.$message.success("通过成功");
         this.chakanTC = false;
-        this.showData();
-        this.$router.go(0);
+      
       }
     },
     //查看弹窗按钮的实现
@@ -2461,8 +2471,34 @@ export default {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
         .then((response) => {
-          console.log(response);
           this.tableData = response.data.allData;
+          var temp = 0; //检查下面的已发货，已完成
+          this.liu = false;
+               if (this.taskState == "完成") {
+            this.submitDisable = true;
+          }
+          var temp = this.tableData[0].leadState;
+          for(var i=1;i<this.tableData.length;i++){
+          if(temp > this.tableData[i].leadState){
+              temp = this.tableData[i].leadState;
+            }
+          }
+          switch(temp){
+            case 0:{
+              that.status = "待备货";
+              that.liu = true; 
+            }
+            break;
+            case 1:{ that.status = "已备货";
+              that.liu = true; }
+            break;
+            case 2:{ that.status = "已发货";
+              that.liu = false; }
+            break;
+            case 3:{ that.status = "已完成";
+              that.liu = true; }
+            break;
+          }
         });
     },
     shenqingtanchu(row) {
@@ -3351,7 +3387,7 @@ export default {
     },
     //复选框判断是否可选
     checkboxT(row, index) {
-      if (row.consignmentState == 1) {
+      if (row.leadState == 2) {
         return true;
       } else {
         return false;
@@ -3444,6 +3480,21 @@ export default {
 </script>
 
 <style lang="scss">
+.top {
+  margin-top: 20px;
+  height: 100px;
+  margin-bottom: 10px;
+  width: 100%;
+  background-color: #fff4ee;
+  border: 1px solid red;
+  border-radius: 5px;
+  .inside {
+    padding: 15px;
+    .btn {
+    }
+  }
+}
+
 .mainStaskDetaulLT {
   .customer-table {
     padding-top: 3px;
