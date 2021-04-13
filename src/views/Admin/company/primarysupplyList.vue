@@ -372,7 +372,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/primarysupplyList/newAddCompanyList",
+          url: "/api/primarysupplyList/newAdd",
           data: data
 
           // data:this.$store.state.userName
