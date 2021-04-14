@@ -52,8 +52,8 @@
                       margin-top: 13px;
                     "
                     @click="goPatent()"
-                  ></el-button>  </el-tooltip>
-                  
+                  ></el-button> 
+            </el-tooltip>     
             <el-col :span="11">
               <el-form-item label="联络电话">
                 <el-input v-model="addList.Telphone" @blur="animate"></el-input>
@@ -148,7 +148,61 @@
                 </el-select>
               </el-form-item>
             </el-col>
+            <el-col :span="11" v-if="sfsmkj">
+              <el-form-item label="零件类别" :style="{ display: sfkjian }">
+  
+                  <el-select
+                  v-model="allCategoryList"
+                  placeholder="请选择零件种类"
+                  class="selectsupply"
+                  style="width: 100%"
+                  @change="selectCategoryoption"
+                >
 
+                  <el-option
+                    width="180"
+                    v-for="(Categoryoption, index) in CategoryListoptions"
+                    :key="index"
+                    :label="Categoryoption.PartsCategory"
+                    :value="Categoryoption.PartsCategory"
+                  >
+                  </el-option>
+    
+                </el-select>
+                
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row >
+            <el-col :span="11"  v-if="sfsmkj">
+              <el-form-item label="是否发布">
+                <el-select
+                  v-model="cooList.shifousimi"
+                  placeholder="请选择是或者否"
+                  class="selectsupply"
+                  @change="simizhiding"
+                  style="width: 100%"
+                >
+                  <el-option
+                    width="180"
+                    v-for="coo in shifousimi"
+                    :key="coo.id"
+                    :label="coo.label"
+                    :value="coo.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <font color="red">
+              <span class="simichakan" :style="{ display: sm }"
+                >仅限供应方可见</span
+              >
+              <span class="simichakan" :style="{ display: busm }"
+                >全部可见</span
+              >
+            </font>
+            </el-col>
+            
             <el-col :span="11">
               <el-form-item label="供应商" :style="{ display: visiblehexin }">
                 <el-select
@@ -172,9 +226,30 @@
                 </font>
               </el-form-item>
             </el-col>
-
+                 <el-tooltip 
+                      class="item"
+                      effect="dark"
+                      content="供应商查询"
+                      placement="right"
+                    >
+                  <el-button
+                    v-if="sfsmkj&&islingjianchaxun"
+                    icon="el-icon-search"
+                    autofocus="false"
+                    style="
+                    position:relative;
+                      border: 0px;
+                      font-size: 14px;
+                      padding: 0px 0px;
+                      margin-right: 15px;
+                      margin-top:60px;
+                      margin-top: 13px;
+                    "
+                    @click="supplierInquire()"
+                  ></el-button> 
+            </el-tooltip> 
             <el-col :span="11">
-              <el-form-item label="等待申请" :style="{ display: shenqing }">
+              <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
                 <el-input
                   placeholder="等待供应方申请"
                   v-model="input"
@@ -183,41 +258,12 @@
                 ></el-input>
               </el-form-item>
             </el-col>
+            
           </el-row>
-
-          <el-row v-if="sfsmkj">
-            <el-col :span="11">
-              <el-form-item label="是否发布">
-                <el-select
-                  v-model="cooList.shifousimi"
-                  placeholder="请选择是或者否"
-                  class="selectsupply"
-                  @change="simizhiding"
-                  style="width: 100%"
-                >
-                  <el-option
-                    width="180"
-                    v-for="coo in shifousimi"
-                    :key="coo.id"
-                    :label="coo.label"
-                    :value="coo.id"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <font color="red">
-              <span class="simichakan" :style="{ display: sm }"
-                >仅该供应方可见</span
-              >
-              <span class="simichakan" :style="{ display: busm }"
-                >全部可见</span
-              >
-            </font>
-          </el-row>
-
+        <br v-if="shifoubr" >
            <el-row>
-            <el-col :span="11">
-              <el-form-item label="发货地址" :style="{ display: sfkjian }" >
+            <el-col :span="22">
+              <el-form-item label="收货地址" :style="{ display: sfkjian }" >
                 <el-input
                   v-model="addList.circulationAddress"
                   type="textarea"
@@ -694,6 +740,99 @@
           </span>
         </el-dialog>
       </div>
+
+      <!-- 零件查询弹出框 -->
+      <div class="consignment">
+        <el-dialog title :visible.sync="partsPopup" width="50%">
+          <div
+            class="biaoti"
+            style="padding: 0 10px; border-left: 3px solid #4e58c5"
+          >
+            流通清单详情
+          </div>
+          <br />
+          <el-form ref="form" label-width="110px">
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品名称">
+                  <el-input
+                    v-model="productName1"
+                    readonly="readonly"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="产品规格">
+                  <el-input
+                    v-model="productModel1"
+                    readonly="readonly"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="产品数量">
+                  <el-input
+                    v-model="productNum1"
+                    readonly="readonly"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="产品单价">
+                  <el-input
+                    v-model="productPrice1"
+                    readonly="readonly"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="截止时间">
+                  <el-date-picker
+                    type="datetime"
+                    v-model="consignmentTimeLatest1"
+                    style="width: 100%"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    readonly="readonly"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="联系方式">
+                  <el-input
+                    v-model="contactNumber1"
+                    readonly="readonly"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="22">
+                <el-form-item label="备注">
+                  <el-input
+                    type="textarea"
+                    :rows="3"
+                    style="width: 100%"
+                    placeholder="请输入内容"
+                    v-model="productNotes1"
+                    class="gongsiDetail"
+                    readonly="readonly"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="this.partsPopup = false"
+              >确 定</el-button
+            >
+          </span>
+        </el-dialog>
+      </div>
+      
     </el-main>
   </el-container>
 </template>
@@ -788,6 +927,10 @@ export default {
       //xiugaixuqiu
       zhurenwuxiangxi: "",
       sfsmkj: false, //是否私密指派
+      //专门用来判断等待申请的br是否出来
+      shifoubr:false,
+      //零件弹窗
+      partsPopup:false,
       liebieList: { supplyCompany: "" },
       fileList: [],
       usernameX: sessionStorage.getItem("ms_username"),
@@ -829,7 +972,13 @@ export default {
       id: -1,
       mainTaskID: this.$route.query.mainTaskID,
       cooList: { shifouyaoqing: "", shifousimi: "" },
+      //判断流通时候的零件类别是否显示
+      islingjianchaxun:false,
       SupplierListInt: [],
+      //零件类别的数据
+      allCategoryList:[],
+      //获取到的零件种类
+      CategoryListoptions:[],
       form: {},
       name: this.$route.query.name,
       type: this.$route.query.type,
@@ -937,6 +1086,11 @@ export default {
     //     // this.tableData_length = this.parentTable2.length;
     //   }
     // },
+    //查询零件类别
+    supplierInquire(allCategoryList){
+      
+          this.partsPopup=true;
+    },
     goPatent() {
       this.isPatent = true;
     },
@@ -950,9 +1104,25 @@ export default {
         this.addList.Telphone = null;
       }
     },
-
+    //获取零件种类信息
+    getallCategoryList(){
+      var that = this;
+      var data = Qs.stringify({
+    
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/selectPartsCategory",
+          data: data,
+        })
+        .then((response) => {
+         this.CategoryListoptions=response.data.allData;
+        });
+    },
     //新增操作 查询子任务列别及供应商列表
     getData() {
+      this.getallCategoryList();
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
@@ -967,6 +1137,7 @@ export default {
         .then((response) => {
           this.xuanzelist = this.getTreeData(response.data.allData.a);
           this.supplierCompany = response.data.allData.b;
+          console.log("getData")
         });
     },
     //将级联选择器最后一行的数据去掉
@@ -996,12 +1167,14 @@ export default {
         this.busm = "none";
       }
     },
-
+    //
     leibieChanged(leibie){
         if(leibie==1){
             this.sfkjian = "inline";
+            this.islingjianchaxun=true;
         }else{
           this.sfkjian = "none";
+          this.islingjianchaxun=false;
         }
     },
     invitate(coo) {
@@ -1009,10 +1182,12 @@ export default {
         this.visiblehexin = "inline";
         this.shenqing = "none";
         this.sfsmkj = true;
+        this.shifoubr=false;
       } else {
         this.shenqing = "inline";
         this.visiblehexin = "none";
         this.sfsmkj = false;
+        this.shifoubr=true;
       }
     },
     //供应商选择改变
@@ -1050,6 +1225,9 @@ export default {
         if(this.addList.circulationAddress==''||this.addList.circulationAddress==null){
           this.addList.circulationAddress="暂无地址";
         }
+        if(this.allCategoryList==''||this.allCategoryList==null){
+          this.allCategoryList="暂无零件种类";
+        }
         var that = this;
         var data = Qs.stringify({
           userName: this.usernameX,
@@ -1068,10 +1246,13 @@ export default {
           Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.addList.Telphone,
           taskID: "100086",
-          SupperListINt: this.SupplierListInt,
           circulationAddress:this.addList.circulationAddress,
-        });
+          //零件种类：
+          allCategoryList:this.allCategoryList,
+          SupperListINt: this.SupplierListInt,
 
+        });
+console.log(data);
         that
           .axios({
             method: "post",
@@ -1461,4 +1642,10 @@ padding: 0px;
     padding-top: 0px;
   }
 }
+.simichakan{
+  float: right;
+  margin-top: -18px;
+  margin-right: 110px;
+}
+
 </style>
