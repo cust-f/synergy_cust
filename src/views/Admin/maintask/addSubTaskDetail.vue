@@ -150,7 +150,6 @@
             </el-col>
             <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="零件类别" :style="{ display: sfkjian }">
-  
                   <el-select
                   v-model="allCategoryList"
                   placeholder="请选择零件种类"
@@ -158,7 +157,6 @@
                   style="width: 100%"
                   @change="selectCategoryoption"
                 >
-
                   <el-option
                     width="180"
                     v-for="(Categoryoption, index) in CategoryListoptions"
@@ -167,9 +165,7 @@
                     :value="Categoryoption.PartsCategory"
                   >
                   </el-option>
-    
                 </el-select>
-                
               </el-form-item>
             </el-col>
           </el-row>
@@ -229,15 +225,16 @@
                  <el-tooltip 
                       class="item"
                       effect="dark"
-                      content="供应商查询"
+                      content="企业查询"
                       placement="right"
+                      v-if="sfsmkj&&islingjianchaxun"
                     >
                   <el-button
                     v-if="sfsmkj&&islingjianchaxun"
                     icon="el-icon-search"
                     autofocus="false"
                     style="
-                    position:relative;
+                      position:relative;
                       border: 0px;
                       font-size: 14px;
                       padding: 0px 0px;
@@ -245,7 +242,7 @@
                       margin-top:60px;
                       margin-top: 13px;
                     "
-                    @click="supplierInquire()"
+                    @click="findCompanyByPartsCategory"
                   ></el-button> 
             </el-tooltip> 
             <el-col :span="11">
@@ -743,94 +740,56 @@
 
       <!-- 零件查询弹出框 -->
       <div class="consignment">
-        <el-dialog title :visible.sync="partsPopup" width="50%">
+        <!-- <el-dialog title :visible.sync="partsPopup" width="50%">
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5"
           >
-            流通清单详情
           </div>
           <br />
-          <el-form ref="form" label-width="110px">
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="产品名称">
-                  <el-input
-                    v-model="productName1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="产品规格">
-                  <el-input
-                    v-model="productModel1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="产品数量">
-                  <el-input
-                    v-model="productNum1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="产品单价">
-                  <el-input
-                    v-model="productPrice1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="截止时间">
-                  <el-date-picker
-                    type="datetime"
-                    v-model="consignmentTimeLatest1"
-                    style="width: 100%"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    readonly="readonly"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="联系方式">
-                  <el-input
-                    v-model="contactNumber1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="22">
-                <el-form-item label="备注">
-                  <el-input
-                    type="textarea"
-                    :rows="3"
-                    style="width: 100%"
-                    placeholder="请输入内容"
-                    v-model="productNotes1"
-                    class="gongsiDetail"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
           <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="this.partsPopup = false"
-              >确 定</el-button
-            >
+            <el-button type="primary" @click="this.partsPopup = false">确 定</el-button>
           </span>
-        </el-dialog>
+        </el-dialog> -->
+        <!-- 新增供应商弹出框 -->
+          <el-dialog  :visible.sync="addCompanyVisible" width="60%">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+              新增
+            </div>
+            <br />
+            <el-table
+              :data="companyTableData.slice((pageIndex1-1)*pageSize1,pageIndex1*pageSize1)"
+              border
+              class="companyDialogTable"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+              <el-table-column prop="Company_Name" label="企业名称"></el-table-column>
+              <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
+              <el-table-column prop="Reserve" width="100" label="库存量"></el-table-column>
+              <el-table-column prop="Sale" width="100" label="销售量"></el-table-column>
+              <el-table-column prop="Parts_Category" width="150" label="类别"></el-table-column>
+              <el-table-column label="操作" width="120" align="center">
+                <template slot-scope="scope">
+                  <el-button type="text" size="small" @click="addSelectdSupplier(scope.row)">添加</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <br /> 
+                <div class="companyDialogPagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, total, jumper"
+                  :current-page="pageIndex1"
+                  :page-size="pageSize1"
+                  :total="companyTableData.length"
+                  @current-change="companyDialogHandleCurrentChange"
+                ></el-pagination>
+              </div> 
+              <br />          
+          </el-dialog>
       </div>
       
     </el-main>
@@ -929,8 +888,13 @@ export default {
       sfsmkj: false, //是否私密指派
       //专门用来判断等待申请的br是否出来
       shifoubr:false,
-      //零件弹窗
-      partsPopup:false,
+      //根据零件查询出的企业列表弹窗
+      addCompanyVisible:false,
+      //根据零件查询出的企业列表数组
+      companyTableData:[],
+      pageIndex1:1,
+      pageSize1:6,
+
       liebieList: { supplyCompany: "" },
       fileList: [],
       usernameX: sessionStorage.getItem("ms_username"),
@@ -977,7 +941,7 @@ export default {
       SupplierListInt: [],
       //零件类别的数据
       allCategoryList:[],
-      //获取到的零件种类
+      //所有零件类别下拉框
       CategoryListoptions:[],
       form: {},
       name: this.$route.query.name,
@@ -1065,11 +1029,12 @@ export default {
     },
   },
   created() {
-    this.getData();
+    this.getAllIndustryList();
+    this.getAllSupplierList();
+    this.getAllPartsList();
     that.consignmentTableShuaxin();
   },
   methods: {  
-
     // handleSearch(val) {
     //   let search = val;
     //   if (search == "") {
@@ -1086,10 +1051,111 @@ export default {
     //     // this.tableData_length = this.parentTable2.length;
     //   }
     // },
-    //查询零件类别
-    supplierInquire(allCategoryList){
-      
-          this.partsPopup=true;
+
+    //根据零件类别查询企业
+    findCompanyByPartsCategory(){
+      if(this.allCategoryList==''||this.allCategoryList==null)
+      { 
+        this.$message({
+          type: "warning",
+          message: "请选择零件种类",
+        });
+      }
+      else{
+        var that = this;
+        var data = Qs.stringify({
+          partsCategory :this.allCategoryList,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/findCompanyByPartsCategory",
+            data: data,
+          })
+          .then((response) => {
+             this.companyTableData = response.data.allData;//接收返回的企业列表
+          });
+        //企业列表弹出框弹出
+        this.addCompanyVisible=true;
+      }
+    },
+    //企业列表分页改变
+    companyDialogHandleCurrentChange(cpage){
+      this.pageIndex1 = cpage;
+    },
+    //判断供应商集合中是否存在某值
+    supplierIsExist(selectSupplierId){
+      var supplierExist = false;
+      this.supplierCompany.forEach(function (element) {
+        for (let [key, value] of Object.entries(element)) {
+          if(key == "companyId" && value == selectSupplierId)
+            supplierExist = true;
+        }
+      });
+      return supplierExist; 
+    },
+    //判断选中的供应商ID数组中是否存在某值
+    selectedSupplierIsExist(selectSupplierId){
+      var selectedSupplierExist = false;
+      this.SupplierListInt.forEach(function (element) {
+        if(element == selectSupplierId)
+          selectedSupplierExist = true;
+      });
+      return selectedSupplierExist;
+    },
+    //选择供应商至选中框
+    addSelectdSupplier(row){
+      //如果选中的在供应商列表
+      if(this.supplierIsExist(row.Company_ID)){
+        //如果在选中列表，提示已添加
+        if(this.selectedSupplierIsExist(row.Company_ID)){
+          this.$message({
+            type: "info",
+            message: "已选择供应商",
+          });
+        }else{
+          //如果不在选中列表，加入选中列表，并提示添加成功
+          this.SupplierListInt.push(row.Company_ID);
+          this.$message({
+            type: "success",
+            message: "选择供应商成功",
+          });
+        }
+      }else{ //如果不在供应商列表,保存原来选择的供应商，添加供应商至数据库，重新加载供应商下拉框，选中原+现
+        //判断是否选中自己
+        if(this.usernameX == row.User_Name){
+          this.$message({
+              type: "warning",
+              message: "不能添加自己作为供应商"
+            });
+        }else{
+          var arrCopy = this.SupplierListInt.concat();//原来选中的
+          arrCopy.push(row.Company_ID);//原来选中的+当前选中的
+          this.addSupplier(row.Company_ID);
+          this.getAllSupplierList();//刷新
+          this.SupplierListInt = arrCopy.concat();//回传
+          this.$message({
+              type: "success",
+              message: "添加并选择供应商成功",
+          });
+        }
+      }
+    },
+    //将供应商添加到数据库
+    addSupplier(companyId){
+      var that = this;
+      var data = Qs.stringify({
+        username: this.usernameX,
+        companyId: companyId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/tianjiaSupplier",
+          data: data
+        })
+        .then(response => {
+        });
     },
     goPatent() {
       this.isPatent = true;
@@ -1104,8 +1170,8 @@ export default {
         this.addList.Telphone = null;
       }
     },
-    //获取零件种类信息
-    getallCategoryList(){
+    //查询零件种类信息
+    getAllPartsList(){
       var that = this;
       var data = Qs.stringify({
     
@@ -1120,9 +1186,8 @@ export default {
          this.CategoryListoptions=response.data.allData;
         });
     },
-    //新增操作 查询子任务列别及供应商列表
-    getData() {
-      this.getallCategoryList();
+    //查询行业类别列表
+    getAllIndustryList(){
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
@@ -1131,13 +1196,30 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/selectSubType",
+          url: "/api/SubstaskInformation/getAllIndustryList",
           data: data,
         })
         .then((response) => {
-          this.xuanzelist = this.getTreeData(response.data.allData.a);
-          this.supplierCompany = response.data.allData.b;
-          console.log("getData")
+          // console.log(response);
+          this.xuanzelist = this.getTreeData(response.data.allData);
+        });
+    },
+    //查询供应商列表
+    getAllSupplierList(){
+      var that = this;
+      var data = Qs.stringify({
+        PId: this.type,
+        username: this.usernameX,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/getAllSupplierList",
+          data: data,
+        })
+        .then((response) => {
+          // console.log(response);
+          this.supplierCompany = response.data.allData;
         });
     },
     //将级联选择器最后一行的数据去掉
@@ -1247,12 +1329,10 @@ export default {
           Telphone: this.addList.Telphone,
           taskID: "100086",
           circulationAddress:this.addList.circulationAddress,
-          //零件种类：
-          allCategoryList:this.allCategoryList,
+          allCategoryList:this.allCategoryList, //零件种类
           SupperListINt: this.SupplierListInt,
-
         });
-console.log(data);
+        // console.log(data);
         that
           .axios({
             method: "post",
@@ -1263,7 +1343,7 @@ console.log(data);
           .then((response) => {
             if (response.data !== null) {
               //存储流通清单
-              console.log(response.data);
+              // console.log(response.data);
               this.$message.success("提交成功");
               this.technicalFileWanzheng = "";
               //this.addList = {};
@@ -1377,7 +1457,7 @@ console.log(data);
         })
         .then((response) => {
           //this.consignmentTable = response.data.allData;
-          console.log(response.data.allData);
+          // console.log(response.data.allData);
           this.productName1 = response.data.allData[0].productName;
           this.productModel1 = response.data.allData[0].productModel;
           this.productNum1 = response.data.allData[0].productNumber;
@@ -1492,7 +1572,7 @@ console.log(data);
           data: data,
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.allData.token == 1) {
             //表明在企业名录
             //判断是不是已经添加过了
@@ -1647,5 +1727,13 @@ padding: 0px;
   margin-top: -18px;
   margin-right: 110px;
 }
-
+.addSubTask .companyDialogTable{
+  width: 98%;
+}
+.addSubTask .companyDialogPagination{
+  // float: right;
+  text-align:right;
+  margin-right: 2%;
+  // display: inline;
+}
 </style>
