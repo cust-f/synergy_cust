@@ -197,7 +197,8 @@
             <template slot-scope="scope">
               <!-- 暂时注释 -->
               <el-button @click="changeTime(scope.row)" size="small" type="text"
-                >修改</el-button>
+                >修改</el-button
+              >
               <el-button
                 type="text"
                 size="small "
@@ -249,10 +250,13 @@
                 <span>{{ scope.$index + 1 }}</span>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="productName"
-              label="产品名称"
-            ></el-table-column>
+            <el-table-column prop="productName" label="产品名称">
+              <template slot-scope="scope">
+                <el-link @click.native="showLineChart" :disabled="dialogLineChartVisible">{{
+                  scope.row.productName
+                }}</el-link>
+              </template>
+            </el-table-column>
             <el-table-column
               prop="productNumber"
               label="产品数量"
@@ -268,7 +272,7 @@
             <el-table-column
               prop="contactNumber"
               label="联系方式"
-            ></el-table-column>           
+            ></el-table-column>
             <!-- <el-table-column
               prop="consignmentNotes"
               label="流通清单备注"
@@ -549,9 +553,9 @@
             label="发货时间"
           >
             <template slot-scope="scope">
-              <el-span v-if="+scope.row.uploadCircuaterTime === 0"
-                >{{"暂未上传"}}</el-span
-              >
+              <el-span v-if="+scope.row.uploadCircuaterTime === 0">{{
+                "暂未上传"
+              }}</el-span>
               <el-span v-else>{{
                 scope.row.uploadCircuaterTime | formatDate
               }}</el-span>
@@ -621,7 +625,11 @@
           >
             <!-- 雷达图 -->
 
-            <radar-chart :radarData="radarData" ref="QradarChart" style="width:500px"></radar-chart>
+            <radar-chart
+              :radarData="radarData"
+              ref="QradarChart"
+              style="width: 500px"
+            ></radar-chart>
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
@@ -1625,25 +1633,25 @@
       </el-dialog>
 
       <!--查看弹出框-->
-      <el-dialog title :visible.sync="chakanTC"  width="1000px">
+      <el-dialog title :visible.sync="chakanTC" width="1000px">
         <div class="top">
-        <div class="inside">
-          <div style="width: 90%;margin-bottom:10px">
-            <span style="color: black">当前订单状态: </span>
-            <span style="color: #409eff">
-              &nbsp&nbsp&nbsp&nbsp{{ status }}</span
+          <div class="inside">
+            <div style="width: 90%; margin-bottom: 10px">
+              <span style="color: black">当前订单状态: </span>
+              <span style="color: #409eff">
+                &nbsp&nbsp&nbsp&nbsp{{ status }}</span
+              >
+            </div>
+            <el-button
+              class="btn"
+              type="primary"
+              @click="submit2()"
+              size="small"
+              v-bind:disabled="liu"
+              >全部通过</el-button
             >
           </div>
-          <el-button
-            class="btn"
-            type="primary"
-            @click="submit2()"
-            size="small"
-            v-bind:disabled="liu"
-            >全部通过</el-button
-          >
         </div>
-      </div>
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1674,14 +1682,17 @@
             <el-table-column
               prop="productName"
               label="产品名称"
-               width="100"
+              width="100"
             ></el-table-column>
             <el-table-column prop="deliveryTime" label="发货时间" width="160">
               <template slot-scope="scope">{{
                 scope.row.deliveryTime | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column prop="consignmentTimeLatest" label="发货截至时间" width="160"
+            <el-table-column
+              prop="consignmentTimeLatest"
+              label="发货截至时间"
+              width="160"
               ><template slot-scope="scope">{{
                 scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
@@ -1691,32 +1702,26 @@
                 <el-tag v-if="+scope.row.leadState === 0" type="info"
                   >待备货</el-tag
                 >
-                <el-tag v-else-if="+scope.row.leadState === 1"
-                  >已备货</el-tag
-                >
-                <el-tag v-else-if="+scope.row.leadState === 2"
-                  >已发货</el-tag
-                >
-                <el-tag
-                  v-else-if="+scope.row.leadState === 3"
-                  type="success"
+                <el-tag v-else-if="+scope.row.leadState === 1">已备货</el-tag>
+                <el-tag v-else-if="+scope.row.leadState === 2">已发货</el-tag>
+                <el-tag v-else-if="+scope.row.leadState === 3" type="success"
                   >已完成</el-tag
                 >
                 <el-tag v-else type="danger">拒绝</el-tag>
               </template>
             </el-table-column>
-           <el-table-column
-            prop="issuedQuantity"
-            label="已发数量"
-            align="center"
-             width="80"
-          ></el-table-column>
-           <el-table-column
-            prop="shortageQuantity"
-            label="仍需数量"
-            align="center"
-             width="85"
-          ></el-table-column>
+            <el-table-column
+              prop="issuedQuantity"
+              label="已发数量"
+              align="center"
+              width="80"
+            ></el-table-column>
+            <el-table-column
+              prop="shortageQuantity"
+              label="仍需数量"
+              align="center"
+              width="85"
+            ></el-table-column>
 
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
@@ -1845,6 +1850,33 @@
           <el-button type="primary" @click="QDJJYYTJ">确 定</el-button>
         </span>
       </el-dialog>
+      <!-- 折线图弹出框 -->
+      <div class="lineChart1">
+        <el-dialog title="折线图" :visible.sync="dialogLineChartVisible" center>
+          <div style="float: right">
+            <template>
+              <el-select
+                style="width: 100px; margin-right: 35px"
+                v-model="value"
+                @change="lineChart"
+              >
+                <el-option
+                  v-for="item in options"
+                  placeholder="请选择"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                  width="20px"
+                ></el-option>
+              </el-select>
+            </template>
+          </div>
+          <!-- <el-card> -->
+          <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
+          <!-- </el-card> -->
+        </el-dialog>
+      </div>
     </el-main>
   </div>
 </template>
@@ -1853,18 +1885,20 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 import radarChartCircula from "./radarChartCircula";
+import lineChartSingle from "./components/lineChartSingle"; //折线图
 
 export default {
   inject: ["reload"],
   name: "mainStaskDetail",
   components: {
     "radar-chart": radarChartCircula,
+    "line-chart": lineChartSingle, //折线图
   },
 
   data() {
     return {
-            CDgetPlanState:"",
-      CDcheckApplyState:"",
+      CDgetPlanState: "",
+      CDcheckApplyState: "",
       multipleSelection: [],
       pageIndex: 1,
       pageSize: 10,
@@ -1889,6 +1923,21 @@ export default {
       usernameX: sessionStorage.getItem("ms_username"),
       //
       zirenwuXX: "",
+      dialogLineChartVisible: false, //显示折线图
+      options: [],
+      value: "",
+      /**
+       * 数据统计
+       */
+      //折线图
+      lineData: {
+        //发布任务总量
+        finishTaskCount: [],
+        //完成任务总量
+        taskCount: [],
+        //月份数量
+        months: [],
+      },
       //质量完成图数据源
       formZL: {
         designCount: "",
@@ -2117,7 +2166,7 @@ export default {
       changeTimeDialog1: false,
       //图片信息
       imgsrc: "",
-      taskID: '',
+      taskID: "",
       consignmentId: 0,
       consignmentIdTime: 0,
       //企业信息
@@ -2155,8 +2204,8 @@ export default {
       shuiwudengjizheng: require("../company/税务登记证.jpg"),
       qiyezhizhao: require("../company/营业执照.jpg"),
       //当前订单状态
-      status:"",
-   };
+      status: "",
+    };
   },
 
   filters: {
@@ -2176,10 +2225,36 @@ export default {
     this.showData();
   },
   methods: {
-    //全部通过
-    allPass(){
-
+    //获取条件选择时间数据
+    getYearData() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then((response) => {
+        this.value = response.data.allData.nowYear;
+        this.options = response.data.allData.years;
+        this.lineChart();
+      });
     },
+    //折线图数据显示
+    showLineChart() {
+      this.dialogLineChartVisible = true;
+      this.lineChart();
+      this.getYearData();
+    },
+    lineChart() {
+      var that = this;
+      var task;
+      var finishTask;
+      that.axios
+        .post("/api/dataStatistics/allMonthTaskCount")
+        .then((response) => {
+          this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
+          this.lineData.taskCount = response.data.allData.taskCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+        });
+    },
+    //全部通过
+    allPass() {},
     changeDeliveryTime(row) {
       this.deliveryListTime.deliveryTime = row.deliveryTime;
       this.deliveryListTime.consignmentTimeLatest = row.consignmentTimeLatest;
@@ -2448,9 +2523,8 @@ export default {
         if (this.milepostActive == 4) {
           this.liu = true;
         }
-         this.$message.success("通过成功");
+        this.$message.success("通过成功");
         this.chakanTC = false;
-      
       }
     },
     //查看弹窗按钮的实现
@@ -2474,30 +2548,40 @@ export default {
           this.tableData = response.data.allData;
           var temp = 0; //检查下面的已发货，已完成
           this.liu = false;
-               if (this.taskState == "完成") {
+          if (this.taskState == "完成") {
             this.submitDisable = true;
           }
           var temp = this.tableData[0].leadState;
-          for(var i=1;i<this.tableData.length;i++){
-          if(temp > this.tableData[i].leadState){
+          for (var i = 1; i < this.tableData.length; i++) {
+            if (temp > this.tableData[i].leadState) {
               temp = this.tableData[i].leadState;
             }
           }
-          switch(temp){
-            case 0:{
-              that.status = "待备货";
-              that.liu = true; 
-            }
-            break;
-            case 1:{ that.status = "已备货";
-              that.liu = true; }
-            break;
-            case 2:{ that.status = "已发货";
-              that.liu = false; }
-            break;
-            case 3:{ that.status = "已完成";
-              that.liu = true; }
-            break;
+          switch (temp) {
+            case 0:
+              {
+                that.status = "待备货";
+                that.liu = true;
+              }
+              break;
+            case 1:
+              {
+                that.status = "已备货";
+                that.liu = true;
+              }
+              break;
+            case 2:
+              {
+                that.status = "已发货";
+                that.liu = false;
+              }
+              break;
+            case 3:
+              {
+                that.status = "已完成";
+                that.liu = true;
+              }
+              break;
           }
         });
     },
@@ -2602,8 +2686,8 @@ export default {
         });
     },
     //历史上传弹窗
-    HistoricalUpload(row){
-        var that = this;
+    HistoricalUpload(row) {
+      var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
         fileType: "0",
@@ -2621,29 +2705,31 @@ export default {
     },
     //历史上传
     CKLSHT(row) {
-     this.$prompt('请输入密码', '提示', {
-      showInput:true,
-      inputType: 'password',
-      inputPattern:/^[A-Za-z0-9]+$/,
-      // inputValidator: validator,
-      inputErrorMessage: '请输入正确密码！',
-      confirmButtonText: '确定',
-      showClose: false,
-      closeOnPressEscape: false,
-      closeOnClickModal: false,
-      // center: true
-        }).then(({ value }) => {
+      this.$prompt("请输入密码", "提示", {
+        showInput: true,
+        inputType: "password",
+        inputPattern: /^[A-Za-z0-9]+$/,
+        // inputValidator: validator,
+        inputErrorMessage: "请输入正确密码！",
+        confirmButtonText: "确定",
+        showClose: false,
+        closeOnPressEscape: false,
+        closeOnClickModal: false,
+        // center: true
+      })
+        .then(({ value }) => {
           this.passwordRequest(value);
           setTimeout(() => {
-          if(this.ispassWord==true){
+            if (this.ispassWord == true) {
               this.HistoricalUpload(row);
-          }
-          },100);
-        }).catch(() => {
+            }
+          }, 100);
+        })
+        .catch(() => {
           this.$message({
-            type: 'info',
-            message: '取消查看'
-          });       
+            type: "info",
+            message: "取消查看",
+          });
         });
     },
     XGZRW() {
@@ -2909,8 +2995,7 @@ export default {
       this.taskId = routerParams;
       this.CDcheckApplyState = this.$route.query.checkApplyState;
       this.CDgetPlanState = this.$route.query.checkPlanState;
-      console.log("CDgetPlanState"+this.CDgetPlanState)
-
+      console.log("CDgetPlanState" + this.CDgetPlanState);
     },
     showData() {
       var that = this;
@@ -3019,20 +3104,19 @@ export default {
             this.cool.taskType = "流通任务";
           }
           //流通发布判断
-           if(this.CDcheckApplyState ==2){
+          if (this.CDcheckApplyState == 2) {
             this.milepostActive5 = 0;
             this.milepostActive4 = 0;
             this.milepostActive3 = 0;
             this.milepostActive2 = 0;
-             this.milepostActive = 0;
-
-}
-        if(this.CDgetPlanState == 3 ){
+            this.milepostActive = 0;
+          }
+          if (this.CDgetPlanState == 3) {
             this.milepostActive5 = 0;
             this.milepostActive4 = 0;
             this.milepostActive3 = 0;
-             this.milepostActive = 1;
-        } 
+            this.milepostActive = 1;
+          }
           if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].applyTime
@@ -3059,7 +3143,6 @@ export default {
             }
           }
         });
-               
     },
     goBack() {
       // if (this.mainTaskID == 0) {
@@ -3178,8 +3261,8 @@ export default {
       this.showData();
     },
     //任务计划下载
-    TaskplanDownload(row){
-           var that = this;
+    TaskplanDownload(row) {
+      var that = this;
       var data = Qs.stringify({
         taskID: row.id,
         leixing: "jihuashu",
@@ -3203,29 +3286,31 @@ export default {
         });
     },
     RWJHXZ(row) {
-   this.$prompt('请输入密码', '提示', {
-        showInput:true,
-      inputType: 'password',
-      // inputValidator: validator,
-      inputPattern:/^[A-Za-z0-9]+$/,
-      inputErrorMessage: '请输入正确密码！',
-      confirmButtonText: '确定',
-      showClose: false,
-      closeOnPressEscape: false,
-      closeOnClickModal: false,
-      // center: true
-        }).then(({ value }) => {
+      this.$prompt("请输入密码", "提示", {
+        showInput: true,
+        inputType: "password",
+        // inputValidator: validator,
+        inputPattern: /^[A-Za-z0-9]+$/,
+        inputErrorMessage: "请输入正确密码！",
+        confirmButtonText: "确定",
+        showClose: false,
+        closeOnPressEscape: false,
+        closeOnClickModal: false,
+        // center: true
+      })
+        .then(({ value }) => {
           this.passwordRequest(value);
           setTimeout(() => {
-          if(this.ispassWord==true){
+            if (this.ispassWord == true) {
               this.TaskplanDownload(row);
-          }
-          },100);
-        }).catch(() => {
+            }
+          }, 100);
+        })
+        .catch(() => {
           this.$message({
-            type: 'info',
-            message: '取消下载'
-          });       
+            type: "info",
+            message: "取消下载",
+          });
         });
     },
     //下载子任务附件
@@ -3311,37 +3396,37 @@ export default {
     },
 
     //密码验证
-    passwordRequest(value){
-      console.log("进来了")
-      console.log("名字："+this.usernameX+"密码："+value)
+    passwordRequest(value) {
+      console.log("进来了");
+      console.log("名字：" + this.usernameX + "密码：" + value);
       var that = this;
-        var data = Qs.stringify({
-            username: this.usernameX,
-          });
-           that
-            .axios({
-              method: "post",
-              url: "api/users/isTrue",
-              data: data,
-            })
-            .then((response) => {
-            console.log(response.data.allData)
-            if (response.data.allData == value) {
-              this.ispassWord=true;
-                this.$message({
-                  type: "success",
-                  message: "验证成功",
-                });
-              }else {
-                this.$message({
-                  type: "warning",
-                  message: "验证失败",
-                });
-                 this.ispassWord=false;
-              }
+      var data = Qs.stringify({
+        username: this.usernameX,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "api/users/isTrue",
+          data: data,
+        })
+        .then((response) => {
+          console.log(response.data.allData);
+          if (response.data.allData == value) {
+            this.ispassWord = true;
+            this.$message({
+              type: "success",
+              message: "验证成功",
+            });
+          } else {
+            this.$message({
+              type: "warning",
+              message: "验证失败",
+            });
+            this.ispassWord = false;
+          }
         });
     },
-    DownloadContract(row){
+    DownloadContract(row) {
       var that = this;
       var data = Qs.stringify({
         taskID: row.taskId,
@@ -3360,29 +3445,31 @@ export default {
     },
     //合同下载
     HTXZ(row) {
-          this.$prompt('请输入密码', '提示', {
-        showInput:true,
-      inputType: 'password',
-      // inputValidator: validator,
-      inputPattern:/^[A-Za-z0-9]+$/,
-      inputErrorMessage: '请输入正确密码！',
-      confirmButtonText: '确定',
-      showClose: false,
-      closeOnPressEscape: false,
-      closeOnClickModal: false,
-      // center: true
-        }).then(({ value }) => {
+      this.$prompt("请输入密码", "提示", {
+        showInput: true,
+        inputType: "password",
+        // inputValidator: validator,
+        inputPattern: /^[A-Za-z0-9]+$/,
+        inputErrorMessage: "请输入正确密码！",
+        confirmButtonText: "确定",
+        showClose: false,
+        closeOnPressEscape: false,
+        closeOnClickModal: false,
+        // center: true
+      })
+        .then(({ value }) => {
           this.passwordRequest(value);
           setTimeout(() => {
-          if(this.ispassWord==true){
+            if (this.ispassWord == true) {
               this.DownloadContract(row);
-          }
-          },100);
-        }).catch(() => {
+            }
+          }, 100);
+        })
+        .catch(() => {
           this.$message({
-            type: 'info',
-            message: '取消下载'
-          });       
+            type: "info",
+            message: "取消下载",
+          });
         });
     },
     //复选框判断是否可选
@@ -3687,6 +3774,11 @@ export default {
   }
   .el-dialog__header {
     padding: 0px 0px 0px;
+  }
+  .lineChart1{
+    .el-dialog__header {
+    padding: 20px 20px 20px;
+  }
   }
 }
 </style>

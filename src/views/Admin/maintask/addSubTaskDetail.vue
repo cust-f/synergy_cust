@@ -15,45 +15,44 @@
               <el-form-item label="任务名称">
                 <el-input v-model="addList.taskName">
                   <div class="box">
-                  
-                      <el-button
-                        slot="suffix"
-                        icon="el-icon-search"
-                        autofocus="false"
-                        style="
-                          border: 0px;
-                          font-size: 14px;
-                          padding: 0px 0px;
-                          margin-right: -45px;
-                        "
-                        @click="goPatent()"
-                      >123</el-button>
-                  </div>  
+                    <el-button
+                      slot="suffix"
+                      icon="el-icon-search"
+                      autofocus="false"
+                      style="
+                        border: 0px;
+                        font-size: 14px;
+                        padding: 0px 0px;
+                        margin-right: -45px;
+                      "
+                      @click="goPatent()"
+                      >123</el-button
+                    >
+                  </div>
                 </el-input>
               </el-form-item>
             </el-col>
             <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="专利查询"
-                      placement="right"
-                    >
-                  <el-button
-                  
-                    icon="el-icon-search"
-                    autofocus="false"
-                    style="
-                    position:relative;
-                      border: 0px;
-                      font-size: 14px;
-                      padding: 0px 0px;
-                      margin-left: -430px;
-                      margin-top:60px;
-                      margin-top: 13px;
-                    "
-                    @click="goPatent()"
-                  ></el-button> 
-            </el-tooltip>     
+              class="item"
+              effect="dark"
+              content="专利查询"
+              placement="right"
+            >
+              <el-button
+                icon="el-icon-search"
+                autofocus="false"
+                style="
+                  position: relative;
+                  border: 0px;
+                  font-size: 14px;
+                  padding: 0px 0px;
+                  margin-left: -430px;
+                  margin-top: 60px;
+                  margin-top: 13px;
+                "
+                @click="goPatent()"
+              ></el-button>
+            </el-tooltip>
             <el-col :span="11">
               <el-form-item label="联络电话">
                 <el-input v-model="addList.Telphone" @blur="animate"></el-input>
@@ -65,7 +64,7 @@
               </el-form-item>
             </el-col>
           </el-row>
- 
+
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布时间">
@@ -150,15 +149,13 @@
             </el-col>
             <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="零件类别" :style="{ display: sfkjian }">
-  
-                  <el-select
+                <el-select
                   v-model="allCategoryList"
                   placeholder="请选择零件种类"
                   class="selectsupply"
                   style="width: 100%"
                   @change="selectCategoryoption"
                 >
-
                   <el-option
                     width="180"
                     v-for="(Categoryoption, index) in CategoryListoptions"
@@ -167,15 +164,13 @@
                     :value="Categoryoption.PartsCategory"
                   >
                   </el-option>
-    
                 </el-select>
-                
               </el-form-item>
             </el-col>
           </el-row>
 
-          <el-row >
-            <el-col :span="11"  v-if="sfsmkj">
+          <el-row>
+            <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="是否发布">
                 <el-select
                   v-model="cooList.shifousimi"
@@ -194,15 +189,15 @@
                 </el-select>
               </el-form-item>
               <font color="red">
-              <span class="simichakan" :style="{ display: sm }"
-                >仅限供应方可见</span
-              >
-              <span class="simichakan" :style="{ display: busm }"
-                >全部可见</span
-              >
-            </font>
+                <span class="simichakan" :style="{ display: sm }"
+                  >仅限供应方可见</span
+                >
+                <span class="simichakan" :style="{ display: busm }"
+                  >全部可见</span
+                >
+              </font>
             </el-col>
-            
+
             <el-col :span="11">
               <el-form-item label="供应商" :style="{ display: visiblehexin }">
                 <el-select
@@ -226,30 +221,34 @@
                 </font>
               </el-form-item>
             </el-col>
-                 <el-tooltip 
-                      class="item"
-                      effect="dark"
-                      content="供应商查询"
-                      placement="right"
-                    >
-                  <el-button
-                    v-if="sfsmkj&&islingjianchaxun"
-                    icon="el-icon-search"
-                    autofocus="false"
-                    style="
-                    position:relative;
-                      border: 0px;
-                      font-size: 14px;
-                      padding: 0px 0px;
-                      margin-right: 15px;
-                      margin-top:60px;
-                      margin-top: 13px;
-                    "
-                    @click="supplierInquire()"
-                  ></el-button> 
-            </el-tooltip> 
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="供应商查询"
+              placement="right"
+            >
+              <el-button
+                v-if="sfsmkj && islingjianchaxun"
+                icon="el-icon-search"
+                autofocus="false"
+                style="
+                  position: relative;
+                  border: 0px;
+                  font-size: 14px;
+                  padding: 0px 0px;
+                  margin-right: 15px;
+                  margin-top: 60px;
+                  margin-top: 13px;
+                "
+                @click="supplierInquire()"
+              ></el-button>
+            </el-tooltip>
             <el-col :span="11">
-              <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
+              <el-form-item
+                label="等待申请"
+                :style="{ display: shenqing }"
+                class="dengdaishenqing"
+              >
                 <el-input
                   placeholder="等待供应方申请"
                   v-model="input"
@@ -258,12 +257,11 @@
                 ></el-input>
               </el-form-item>
             </el-col>
-            
           </el-row>
-        <br v-if="shifoubr" >
-           <el-row>
+          <br v-if="shifoubr" />
+          <el-row>
             <el-col :span="22">
-              <el-form-item label="收货地址" :style="{ display: sfkjian }" >
+              <el-form-item label="收货地址" :style="{ display: sfkjian }">
                 <el-input
                   v-model="addList.circulationAddress"
                   type="textarea"
@@ -272,7 +270,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-        <br v-if="addList.taskType=='1'">
+          <br v-if="addList.taskType == '1'" />
           <el-row>
             <el-col :span="22">
               <el-form-item label="任务详情">
@@ -323,19 +321,25 @@
            </el-row>
           <el-row>
            <el-col span="16"> -->
-            <el-image
-              v-if="addList.taskType=='1'"
-              :src="require('../../../assets/images/subTask/circulationWorkflow.png')" 
-              width="100%"
-              :preview-src-list="[require('../../../assets/images/subTask/circulationWorkflow.png')]"
-            ></el-image>
-            <el-image
-              v-if="addList.taskType=='0'"
-              :src="require('../../../assets/images/subTask/designWorkflow.png')" 
-              width="100%"
-              :preview-src-list="[require('../../../assets/images/subTask/designWorkflow.png')]"
-            ></el-image>
-            <!-- </el-col>
+        <el-image
+          v-if="addList.taskType == '1'"
+          :src="
+            require('../../../assets/images/subTask/circulationWorkflow.png')
+          "
+          width="100%"
+          :preview-src-list="[
+            require('../../../assets/images/subTask/circulationWorkflow.png'),
+          ]"
+        ></el-image>
+        <el-image
+          v-if="addList.taskType == '0'"
+          :src="require('../../../assets/images/subTask/designWorkflow.png')"
+          width="100%"
+          :preview-src-list="[
+            require('../../../assets/images/subTask/designWorkflow.png'),
+          ]"
+        ></el-image>
+        <!-- </el-col>
           </el-row>
         </div> -->
       </div>
@@ -451,40 +455,34 @@
         </div>
       </div>
 
-<div>
-        <el-dialog :visible.sync="isEmail">
-
-</el-dialog>
+      <div>
+        <el-dialog :visible.sync="isEmail"> </el-dialog>
       </div>
 
       <div>
         <el-dialog :visible.sync="isPatent" class="patentDialog">
           <div
             class="biaoti"
-            style="
-              padding: 0 10px;
-              border-left: 3px solid #4e58c5;
-              
-            "
+            style="padding: 0 10px; border-left: 3px solid #4e58c5"
           >
             专利转移
           </div>
           <template>
-          <el-col :span="7" style="float: right">
-            <el-input
-              v-model="addList.taskName"
-              size="mini"
-              placeholder="输入关键字搜索"
-              @blur="getParent"
-            />
-          </el-col></template>
+            <el-col :span="7" style="float: right">
+              <el-input
+                v-model="addList.taskName"
+                size="mini"
+                placeholder="输入关键字搜索"
+                @blur="getParent"
+              /> </el-col
+          ></template>
           &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
           &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <!-- 专利表格 -->
           <div>
             <el-table
-            v-loading="loading"
-              :data= parentTable 
+              v-loading="loading"
+              :data="parentTable"
               style="width: 100%; margin-top: 30px"
               border
               highlight-current-row
@@ -516,12 +514,9 @@
                       size="medium"
                       >{{ scope.row.companyName }}</el-link
                     >
-                    <el-link
-                     type="info"
-                      v-else
-                      size="medium"
-                      >{{ scope.row.companyName }}</el-link
-                    >
+                    <el-link type="info" v-else size="medium">{{
+                      scope.row.companyName
+                    }}</el-link>
                   </div>
                 </template>
               </el-table-column>
@@ -546,8 +541,11 @@
                     style="margin-left: 10px"
                     >邀请参与</el-link
                   >
-                  <el-link v-else type="success" style="margin-left: 10px"
-                  @click="inviteEmail()"
+                  <el-link
+                    v-else
+                    type="success"
+                    style="margin-left: 10px"
+                    @click="inviteEmail()"
                     >发送邮件邀请</el-link
                   >
                   <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
@@ -832,8 +830,44 @@
           </span>
         </el-dialog>
       </div>
-      
     </el-main>
+    <!-- 弹出折线图 -->
+    <el-button
+      type="danger"
+      @click="showLineChart"
+      :disabled="dialogLineChartVisible"
+      >弹 出</el-button
+    >
+    <!-- <el-card>
+        <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
+        </el-card> -->
+    <!-- 折线图弹出框 -->
+    <div class="lineChart1">
+      <el-dialog title="折线图" :visible.sync="dialogLineChartVisible" center>
+        <div style="float: right">
+          <template>
+            <el-select
+              style="width: 100px; margin-right: 35px"
+              v-model="value"
+              @change="lineChart"
+            >
+              <el-option
+                v-for="item in options"
+                placeholder="请选择"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.disabled"
+                width="20px"
+              ></el-option>
+            </el-select>
+          </template>
+        </div>
+        <!-- <el-card> -->
+        <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
+        <!-- </el-card> -->
+      </el-dialog>
+    </div>
   </el-container>
 </template>
 
@@ -841,12 +875,31 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 import { Popover } from "element-ui";
+import lineChart from "./components/lineChart"; //折线图
 // Vue.use(Popover);
 export default {
   name: "addSubTaskDetail",
+  components: {
+    "line-chart": lineChart, //折线图
+  },
   data() {
     return {
-       loading: true,
+      loading: true,
+      dialogLineChartVisible: false, //显示折线图
+      options: [],
+      value: '',
+      /**
+       * 数据统计
+       */
+      //折线图
+      lineData: {
+        //发布任务总量
+        finishTaskCount: [],
+        //完成任务总量
+        taskCount: [],
+        //月份数量
+        months: [],
+      },
       //禁用今天以前的时间
       pickerOptions: {
         disabledDate(time) {
@@ -912,7 +965,7 @@ export default {
           label: "流通任务",
         },
       ],
-      sfkjian:"none",
+      sfkjian: "none",
       //私密
       sm: "none",
       //不私秘
@@ -928,9 +981,9 @@ export default {
       zhurenwuxiangxi: "",
       sfsmkj: false, //是否私密指派
       //专门用来判断等待申请的br是否出来
-      shifoubr:false,
+      shifoubr: false,
       //零件弹窗
-      partsPopup:false,
+      partsPopup: false,
       liebieList: { supplyCompany: "" },
       fileList: [],
       usernameX: sessionStorage.getItem("ms_username"),
@@ -973,12 +1026,12 @@ export default {
       mainTaskID: this.$route.query.mainTaskID,
       cooList: { shifouyaoqing: "", shifousimi: "" },
       //判断流通时候的零件类别是否显示
-      islingjianchaxun:false,
+      islingjianchaxun: false,
       SupplierListInt: [],
       //零件类别的数据
-      allCategoryList:[],
+      allCategoryList: [],
       //获取到的零件种类
-      CategoryListoptions:[],
+      CategoryListoptions: [],
       form: {},
       name: this.$route.query.name,
       type: this.$route.query.type,
@@ -1003,7 +1056,7 @@ export default {
       parentTable: "",
       parentTable2: "",
       isPatent: false,
-      isEmail:false,
+      isEmail: false,
       //编辑流通清单 数据验证
       consignmentRules: {
         consignmentTimeLatest: [
@@ -1066,9 +1119,40 @@ export default {
   },
   created() {
     this.getData();
-    that.consignmentTableShuaxin();
+    this.consignmentTableShuaxin();
+    // this.getYearData(); //获取条件选择时间数据
+    this.lineChart();
   },
-  methods: {  
+  methods: {
+    //获取条件选择时间数据
+    getYearData() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then(response => {
+        this.value = response.data.allData.nowYear;
+        this.options= response.data.allData.years;  
+        this.lineChart();
+            
+      });
+    },
+    //折线图数据显示
+    showLineChart() {
+      this.dialogLineChartVisible = true;
+      this.lineChart();
+      this.getYearData();
+    },
+    lineChart() {
+      var that = this;
+      var task;
+      var finishTask;
+      that.axios
+        .post("/api/dataStatistics/allMonthTaskCount")
+        .then((response) => {
+          this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
+          this.lineData.taskCount = response.data.allData.taskCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+        });
+    },
 
     // handleSearch(val) {
     //   let search = val;
@@ -1087,9 +1171,8 @@ export default {
     //   }
     // },
     //查询零件类别
-    supplierInquire(allCategoryList){
-      
-          this.partsPopup=true;
+    supplierInquire(allCategoryList) {
+      this.partsPopup = true;
     },
     goPatent() {
       this.isPatent = true;
@@ -1105,11 +1188,9 @@ export default {
       }
     },
     //获取零件种类信息
-    getallCategoryList(){
+    getallCategoryList() {
       var that = this;
-      var data = Qs.stringify({
-    
-      });
+      var data = Qs.stringify({});
       that
         .axios({
           method: "post",
@@ -1117,7 +1198,7 @@ export default {
           data: data,
         })
         .then((response) => {
-         this.CategoryListoptions=response.data.allData;
+          this.CategoryListoptions = response.data.allData;
         });
     },
     //新增操作 查询子任务列别及供应商列表
@@ -1137,7 +1218,7 @@ export default {
         .then((response) => {
           this.xuanzelist = this.getTreeData(response.data.allData.a);
           this.supplierCompany = response.data.allData.b;
-          console.log("getData")
+          console.log("getData");
         });
     },
     //将级联选择器最后一行的数据去掉
@@ -1168,26 +1249,26 @@ export default {
       }
     },
     //
-    leibieChanged(leibie){
-        if(leibie==1){
-            this.sfkjian = "inline";
-            this.islingjianchaxun=true;
-        }else{
-          this.sfkjian = "none";
-          this.islingjianchaxun=false;
-        }
+    leibieChanged(leibie) {
+      if (leibie == 1) {
+        this.sfkjian = "inline";
+        this.islingjianchaxun = true;
+      } else {
+        this.sfkjian = "none";
+        this.islingjianchaxun = false;
+      }
     },
     invitate(coo) {
       if (coo == 0) {
         this.visiblehexin = "inline";
         this.shenqing = "none";
         this.sfsmkj = true;
-        this.shifoubr=false;
+        this.shifoubr = false;
       } else {
         this.shenqing = "inline";
         this.visiblehexin = "none";
         this.sfsmkj = false;
-        this.shifoubr=true;
+        this.shifoubr = true;
       }
     },
     //供应商选择改变
@@ -1200,9 +1281,8 @@ export default {
         //this.chooseSupply="inline";//显示提示
       }
     },
-    inviteEmail(){
-      this.isEmail=true;
-
+    inviteEmail() {
+      this.isEmail = true;
     },
     //======保存新增========
     saveAdd11() {
@@ -1222,11 +1302,14 @@ export default {
         }
         //记录提交前的任务类别
         var bianjifahuo = this.addList.taskType;
-        if(this.addList.circulationAddress==''||this.addList.circulationAddress==null){
-          this.addList.circulationAddress="暂无地址";
+        if (
+          this.addList.circulationAddress == "" ||
+          this.addList.circulationAddress == null
+        ) {
+          this.addList.circulationAddress = "暂无地址";
         }
-        if(this.allCategoryList==''||this.allCategoryList==null){
-          this.allCategoryList="暂无零件种类";
+        if (this.allCategoryList == "" || this.allCategoryList == null) {
+          this.allCategoryList = "暂无零件种类";
         }
         var that = this;
         var data = Qs.stringify({
@@ -1246,13 +1329,12 @@ export default {
           Technonlgy_File: this.technicalFileWanzheng,
           Telphone: this.addList.Telphone,
           taskID: "100086",
-          circulationAddress:this.addList.circulationAddress,
+          circulationAddress: this.addList.circulationAddress,
           //零件种类：
-          allCategoryList:this.allCategoryList,
+          allCategoryList: this.allCategoryList,
           SupperListINt: this.SupplierListInt,
-
         });
-console.log(data);
+        console.log(data);
         that
           .axios({
             method: "post",
@@ -1417,7 +1499,7 @@ console.log(data);
       window.history.go(-1);
     },
     getParent() {
-     this.loading= true;
+      this.loading = true;
       var that = this;
       if (this.addList.taskName != null) {
         var data = Qs.stringify({
@@ -1427,12 +1509,12 @@ console.log(data);
           .axios({
             method: "post",
             url: "/api/search/parent",
-            data: data,  
+            data: data,
           })
           .then((response) => {
             if (response.data.code == 200) {
               this.parentTable = response.data.allData.parentList;
-              this.loading=false;
+              this.loading = false;
             } else {
               this.$message({
                 type: "warning",
@@ -1451,7 +1533,7 @@ console.log(data);
       });
       window.open(newpage.href, "_blank");
     },
-   
+
     goTaskDetail(taskId, platform) {
       let newpage;
       if (platform == "own") {
@@ -1543,41 +1625,37 @@ console.log(data);
     // {
     //   this.handleSearch();
     // },
-    inviteEmail()
-    {
-      this.$confirm('此操作将对此公司发送邀请邮件，请确认操作', '', {
-          distinguishCancelAndClose: true,
-          confirmButtonText: '确认发送',
-          cancelButtonText: '放弃发送'
-        })
-          .then(() => {
-            this.$message({
-              type: 'success',
-              message: '发送成功'
-            });
-          })
-          .catch(action => {
-            this.$message({
-              type: 'info',
-              message: action === 'cancel'
-                ? '未发起邀请'
-                : '未发起邀请'
-            })
+    inviteEmail() {
+      this.$confirm("此操作将对此公司发送邀请邮件，请确认操作", "", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "确认发送",
+        cancelButtonText: "放弃发送",
+      })
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "发送成功",
           });
-    }
+        })
+        .catch((action) => {
+          this.$message({
+            type: "info",
+            message: action === "cancel" ? "未发起邀请" : "未发起邀请",
+          });
+        });
+    },
   },
   //  watch: {
   //   //watch监视input输入值的变化,只要是watch变化了 search()就会被调用
   //   search(newVal) {
   //     this.handleSearch(newVal);
 
-
   //   },
 
-    // isPatent(newVal)
-    // {
-    //   this.changeTable();
-    // }
+  // isPatent(newVal)
+  // {
+  //   this.changeTable();
+  // }
   // },
   //  mounted() {
   //   this.parentTable2 = this.parentTable;
@@ -1624,7 +1702,7 @@ console.log(data);
   font-size: 18px;
 }
 .addSubTask .patentDialog .el-dialog__header {
-padding: 0px;
+  padding: 0px;
 }
 .consignment {
   .el-dialog__body {
@@ -1642,10 +1720,9 @@ padding: 0px;
     padding-top: 0px;
   }
 }
-.simichakan{
+.simichakan {
   float: right;
   margin-top: -18px;
   margin-right: 110px;
 }
-
 </style>
