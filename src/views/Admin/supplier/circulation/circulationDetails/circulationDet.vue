@@ -50,7 +50,10 @@
       <!-- 清单备货模块 -->
       <div v-show="show > 1">
         <div v-show="state3 === 2">
-        <storehorse-Management ref="storehorseManagement"></storehorse-Management>
+        <storehorse-Management   :companyId="companyId" 
+        ref="storehorseManagement">
+
+        </storehorse-Management>
       </div>
       </div>
       <br />
@@ -191,6 +194,7 @@ export default {
         indicatorData: [],
       },
       arrayList: [1, 2, 2, 3],
+      companyId:''
     };
   },
   created() {
@@ -299,8 +303,12 @@ export default {
           } else {
             this.state3 = 0;
           }
+          console.log("1111")
           console.log(response.data.allData);
-          this.sendMsg();
+          that.companyId = response.data.allData.a[0].acceptCompanyId;
+           console.log(that.companyId)
+          console.log("1111")
+         this.sendMsg();
           // this.$refs.returnFile.getMsg(response.data.allData);
           if (this.state == "申请或邀请中") {
             this.milepostActive = 0;
