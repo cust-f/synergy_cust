@@ -1173,6 +1173,13 @@ export default {
     },
     //选择供应商至选中框
     addSelectdSupplier(row){
+      // 判断是否选中自己
+      if(this.usernameX == row.User_Name){
+        this.$message({
+          type: "warning",
+          message: "不能添加自己作为供应商"
+        });
+      }else{
       //如果选中的在供应商列表
       if(this.supplierIsExist(row.Company_ID)){
         //如果在选中列表，提示已添加
@@ -1189,14 +1196,7 @@ export default {
             message: "选择供应商成功",
           });
         }
-      }else{ //如果不在供应商列表,保存原来选择的供应商，添加供应商至数据库，重新加载供应商下拉框，选中原+现
-        //判断是否选中自己
-        if(this.usernameX == row.User_Name){
-          this.$message({
-              type: "warning",
-              message: "不能添加自己作为供应商"
-            });
-        }else{
+      }else{ //如果不在供应商列表,保存原来选中的供应商，添加供应商至数据库，重新加载供应商下拉框，选中原+现
           var arrCopy = this.addList.SupplierListInt.concat();//原来选中的
           arrCopy.push(row.Company_ID);//原来选中的+当前选中的
           this.addSupplier(row.Company_ID);
@@ -1206,7 +1206,8 @@ export default {
               type: "success",
               message: "添加并选择供应商成功",
           });
-        }
+        // }
+      }
       }
     },
     //将供应商添加到数据库
@@ -1228,16 +1229,6 @@ export default {
     goPatent() {
       this.isPatent = true;
     },
-    //手机号校验
-    // animate() {
-    //   var re = /^1\d{10}$/;
-    //   let str = this.addList.Telphone;
-    //   if (re.test(str)) {
-    //     //  alert('成功')
-    //   } else {
-    //     this.addList.Telphone = null;
-    //   }
-    // },
     //查询零件类别信息
     getAllPartsList(){
       var that = this;
@@ -1428,85 +1419,6 @@ export default {
             });
           }
       });
-      //console.log(this.TaskXiangXi)
-      // if (
-      //   this.technicalFile == "null" ||
-      //   (this.sm == "inline" && this.chooseSupplySelected == false)
-      // ) {
-      //   this.chooseSupply = "inline";
-      //   this.$message({
-      //     type: "warning",
-      //     message: "你还有重要信息未填写，填写后再提交",
-      //   });
-      // } else {
-      //   if (this.cooList.shifousimi != 1) {
-      //     this.cooList.shifousimi = 0;
-      //   }
-      //   //记录提交前的任务类别
-      //   var bianjifahuo = this.addList.taskType;
-      //   if(this.addList.circulationAddress==''||this.addList.circulationAddress==null){
-      //     this.addList.circulationAddress="暂无地址";
-      //   }
-      //   if(this.allCategoryList==''||this.allCategoryList==null){
-      //     this.allCategoryList="暂无零件种类";
-      //   }
-      //   var that = this;
-      //   var data = Qs.stringify({
-      //     userName: this.usernameX,
-      //     taskName: this.addList.taskName,
-      //     // taskState : this.addList.TaskState,
-      //     publishTime: this.addList.beginTime,
-      //     endLine: this.addList.deadline,
-      //     // mainStaskTypeID: this.mainStaskTypeID,
-      //     // subStaskTypeID: this.subStaskTypeID,
-      //     mainStaskTypeID:this.addList.selectCateKeys[0],
-      //     subStaskTypeID:this.addList.selectCateKeys[1],
-      //     yaoqing: this.cooList.shifouyaoqing,
-      //     sssm: this.cooList.shifousimi,
-      //     taskType: this.addList.taskType,
-      //     mainTaskName: this.name,
-      //     taskXiangxi: this.addList.TaskXiangXi,
-      //     mainTaskID: this.mainTaskID,
-      //     Technonlgy_File: this.technicalFileWanzheng,
-      //     Telphone: this.addList.Telphone,
-      //     taskID: "100086",
-      //     circulationAddress:this.addList.circulationAddress,
-      //     allCategoryList:this.allCategoryList, //零件种类
-      //     SupperListINt: this.SupplierListInt,
-      //   });
-      //   // console.log(data);
-      //   that
-      //     .axios({
-      //       method: "post",
-      //       url: "/api/SubstaskInformation/addSubstaskInformation",
-      //       data: data,
-      //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      //     })
-      //     .then((response) => {
-      //       if (response.data !== null) {
-      //         //存储流通清单
-      //         // console.log(response.data);
-      //         this.$message.success("提交成功");
-      //         this.technicalFileWanzheng = "";
-      //         //this.addList = {};
-
-      //         //根据任务类别 显示编辑按钮
-      //         if (bianjifahuo == 1) {
-      //           this.fahuo = "inline";
-      //         }
-      //         //保存taskId
-      //         that.taskID = response.data;
-      //         //禁用新增子任务按钮
-      //         this.taskSaveBtn = true;
-
-      //         //此处返回到详情界面
-      //         //this.goBack();
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //     });
-      // }
     },
     //======新增流通清单弹出
     bianjitanchu() {
