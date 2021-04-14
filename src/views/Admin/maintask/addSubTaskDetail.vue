@@ -163,8 +163,8 @@
                     width="180"
                     v-for="(Categoryoption, index) in CategoryListoptions"
                     :key="index"
-                    :label="Categoryoption.PartsCategory"
-                    :value="Categoryoption.PartsCategory"
+                    :label="Categoryoption.partsCategory"
+                    :value="Categoryoption.partsCategory"
                   >
                   </el-option>
     
