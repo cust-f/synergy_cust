@@ -157,7 +157,7 @@
                       size="small"
                       type="text"
                       icon="el-icon-delete"
-                      @click="handleDelete1(scope.row)"
+                      @click="handleDelete1(scope.$index, scope.row)"
                     >删除任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
                     <!-- <el-button @click="updateSubXqAndFile(scope.row)" type="text" size="small">修改</el-button> -->
@@ -1488,7 +1488,9 @@ export default {
     },
 
     // 删除操作
-    handleDelete1(row) {
+    handleDelete1(index,row) {
+      console.log(row);
+      console.log(index);
       this.$confirm("确定要删除吗？", "提示", {
         type: "warning",
       }).then(() => {
@@ -1501,13 +1503,11 @@ export default {
             method: "post",
             url: "/api/MainTaskInformation/feicuBySubstaskstaskID",
             data: data,
-
-            // data:this.$store.state.userName
           })
           .then((response) => {
             console.log(response);
             if (response.data === "成功") {
-              this.shuju.splice(row, 1);
+              this.shuju.splice(index, 1);
               this.$message.success("删除成功");
             }
           });
