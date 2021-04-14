@@ -9,7 +9,7 @@
     <el-main>
       <div>
         <!-- 新增基本信息 hide-required-asterisk -->
-        <el-form ref="addList" :model="addList" label-width="120px" :rules="addListRules" >
+        <el-form ref="addList" :model="addList" label-width="120px" :rules="addListRules" hide-required-asterisk>
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务名称" prop="taskName">
@@ -162,6 +162,39 @@
                 </el-select>
               </el-form-item>
             </el-col>
+             <el-col :span="11">
+              <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
+                <el-input
+                  placeholder="等待供应方申请"
+                  v-model="input"
+                  :disabled="true"
+                  :style="{ display: shenqing }"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11" v-if="isgongyingshang">
+              <el-form-item label="供应商" :style="{ display: visiblehexin }" prop="SupplierListInt" :rules="addList.shifouyaoqing == '0'?addListRules.SupplierListInt:{required: false}">
+                <el-select
+                  v-model="addList.SupplierListInt"
+                  multiple
+                  placeholder="请选择供应商"
+                  class="selectsupply"
+                  style="width: 100%"
+                  @change="selectSupplyChanged"
+                >
+                  <el-option
+                    width="180"
+                    v-for="(supplier, index) in supplierCompany"
+                    :key="index"
+                    :label="supplier.companyName"
+                    :value="supplier.companyId"
+                  ></el-option>
+                </el-select>
+                <font color="red">
+                  <span :style="{ display: chooseSupply }">请选择供应商</span>
+                </font>
+              </el-form-item>
+            </el-col>
           </el-row>
 
           <el-row >
@@ -189,7 +222,7 @@
               <span class="simichakan" :style="{ display: busm }">全部可见</span>
             </el-col>
             
-            <el-col :span="11">
+            <el-col :span="11" v-if="islingjianchaxun">
               <el-form-item label="供应商" :style="{ display: visiblehexin }" prop="SupplierListInt" :rules="addList.shifouyaoqing == '0'?addListRules.SupplierListInt:{required: false}">
                 <el-select
                   v-model="addList.SupplierListInt"
@@ -235,7 +268,7 @@
                     @click="findCompanyByPartsCategory"
                   ></el-button> 
             </el-tooltip> 
-            <el-col :span="11">
+            <!-- <el-col :span="11">
               <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
                 <el-input
                   placeholder="等待供应方申请"
@@ -244,10 +277,10 @@
                   :style="{ display: shenqing }"
                 ></el-input>
               </el-form-item>
-            </el-col>
+            </el-col> -->
             
           </el-row>
-        <br v-if="shifoubr" >
+        <!-- <br v-if="shifoubr" > -->
            <el-row>
             <el-col :span="22">
               <el-form-item label="收货地址" :style="{ display: sfkjian }" prop="circulationAddress" :rules="addList.taskType === '1'?addListRules.circulationAddress:{required: false}">
@@ -888,7 +921,8 @@ export default {
       companyTableData:[],
       pageIndex1:1,
       pageSize1:6,
-
+      isgongyingshang:false,
+      twogongyingshang:false,
       liebieList: { supplyCompany: "" },
       fileList: [],
       usernameX: sessionStorage.getItem("ms_username"),
@@ -1288,9 +1322,12 @@ export default {
         if(leibie==1){
             this.sfkjian = "inline";
             this.islingjianchaxun=true;
+            this.isgongyingshang=false;
+         
         }else{
           this.sfkjian = "none";
           this.islingjianchaxun=false;
+          this.isgongyingshang=true;
         }
         console.log(this.addList.taskType);
     },
