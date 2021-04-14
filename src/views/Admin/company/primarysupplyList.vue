@@ -72,7 +72,7 @@
           <template slot-scope="scope">
            
 
-           <el-button   @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+           <el-button   @click="handleDelete(scope.row,scope.$index)" type="text" size="small">删除</el-button>
           <el-button @click="supplyDetail(scope.row)" type="text" size="small">查看详情</el-button>
           </template>
         </el-table-column>
@@ -328,7 +328,7 @@ export default {
         });
       location.reload(); //刷新当前页面
     },
-    handleDelete(row) {
+    handleDelete(row,index) {
       var that = this;
       var data = Qs.stringify({
         companyID: row.companyId,
@@ -344,6 +344,7 @@ export default {
         })
         .then(response => {
           if (response.data == "成功") {
+            this.tableData.splice(index,1);
             this.$message({
               type: "success",
               message: "删除成功"

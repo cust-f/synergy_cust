@@ -2855,8 +2855,6 @@ export default {
         });
     },
        passwordRequest(value){
-      console.log("进来了")
-      console.log("名字："+this.usernameX+"密码："+value)
       var that = this;
         var data = Qs.stringify({
             username: this.usernameX,
