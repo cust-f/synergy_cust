@@ -549,6 +549,7 @@ export default {
       return formatDate(date, "yyyy-MM-dd");
     },
   },
+  props:["companyId"],
   methods: {
     //修改货物状态、全部发货
     submit2() {
@@ -605,6 +606,7 @@ export default {
 
     //把数据库表格中的内容显示到上面
     showData() {
+    
       this.upCirculation = true;
       var that = this;
       var data = Qs.stringify({
@@ -710,6 +712,7 @@ export default {
             }
           }
         });
+        console.log(this.tableData2)
     },
     UpdateAddress(value) {
       var that = this;
@@ -854,7 +857,17 @@ export default {
               url: "/api/addConsignment/updateInventoryCount",
               data: data,
             })
-            .then((response) => {});
+            .then((response) => {
+              var data2 = Qs.stringify({
+                stockId:that.tableData2.stockId,
+                
+              })
+              that.axios({
+                method:"post",
+                data:data2,
+                url:"/api/Inventory/stockUp"
+              })
+            });
           this.$message({
             message: "审核通过",
             type: "success",
