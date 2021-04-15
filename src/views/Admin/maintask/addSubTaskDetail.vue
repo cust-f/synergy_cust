@@ -797,7 +797,13 @@
               @selection-change="handleSelectionChange"
             >
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-              <el-table-column prop="Company_Name" label="企业名称"></el-table-column>
+              <el-table-column prop="Company_Name" label="企业名称">
+              <template slot-scope="scope">
+                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">{{
+                  scope.row.Company_Name
+                }}</el-link>
+              </template>
+              </el-table-column>
               <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
               <el-table-column prop="Reserve" width="100" label="库存量"></el-table-column>
               <el-table-column prop="Sale" width="100" label="销售量"></el-table-column>
@@ -824,12 +830,12 @@
       </div>
     </el-main>
     <!-- 弹出折线图 -->
-    <el-button
+    <!-- <el-button
       type="danger"
       @click="showLineChart"
       :disabled="dialogLineChartVisible"
       >弹 出</el-button
-    >
+    > -->
     <!-- <el-card>
         <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
         </el-card> -->
@@ -839,9 +845,9 @@
         <div style="float: right">
           <template>
             <el-select
-              style="width: 100px; margin-right: 35px"
-              v-model="value"
-              @change="lineChart"
+              style="width: 100px; margin-right: 35px;margin-top: -20px"
+              v-model="lineYear"
+              @change="lineChartChange"
             >
               <el-option
                 v-for="item in options"
@@ -879,15 +885,17 @@ export default {
       loading: true,
       dialogLineChartVisible: false, //显示折线图
       options: [],
-      value: '',
+      lineYear: "",
+      productCompanyId:"",
+      productName1:"",
       /**
        * 数据统计
        */
       //折线图
       lineData: {
-        //销售总量
+        //发布任务总量
         saleCount: [],
-        //库存总量
+        //完成任务总量
         inventoryCount: [],
         //月份数量
         months: [],
@@ -1174,7 +1182,7 @@ export default {
   created() {
     this.consignmentTableShuaxin();
     this.getYearData();
-    this.lineChart();
+    // this.lineChart();
     this.getAllIndustryList();
     this.getAllSupplierList();
     this.getAllPartsList();
@@ -1185,27 +1193,35 @@ export default {
     getYearData() {
       let that = this;
       that.axios.post("/api/findYearsList").then(response => {
-        this.value = response.data.allData.nowYear;
+        this.lineYear = response.data.allData.nowYear;
         this.options= response.data.allData.years;  
-        this.lineChart();
+        this.lineChartChange();
             
       });
     },
     //折线图数据显示
-    showLineChart() {
+    showLineChart(row) {
       this.dialogLineChartVisible = true;
-      this.lineChart();
+      this.lineChart(row);
       this.getYearData();
     },
-    lineChart() {
+    //按要求显示
+    lineChart(row) {
       var that = this;
+      this.productName1 = row.Product_Name;
+      this.productCompanyId = row.Company_ID;
+      console.log(row.productName)
       var data = Qs.stringify({
-          companyId: 5561,
-          year: 2021,
-          productName: "离合器盒",
+          // companyId: row.companyId,
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
         });
-      that.axios
-        .post({
+        console.log(this.productCompanyId)
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
             method: "post",
             url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
             data: data,
@@ -1215,6 +1231,32 @@ export default {
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
           that.$refs.drawLineChart.getCharts();
+          console.log(alllData);
+        });
+    },
+    //时间变换查询折线图
+    lineChartChange() {
+      var that = this;
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(this.productCompanyId)
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
+        .then((response) => {
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+          console.log(alllData);
         });
     },
     // handleSearch(val) {
@@ -1260,6 +1302,7 @@ export default {
           })
           .then((response) => {
              this.companyTableData = response.data.allData;//接收返回的企业列表
+             console.log(this.companyTableData)
           });
         //企业列表弹出框弹出
         this.addCompanyVisible=true;
