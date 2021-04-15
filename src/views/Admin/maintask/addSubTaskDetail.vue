@@ -1472,7 +1472,6 @@ export default {
     },
     // =====================保存新增子任务=====================
     saveAdd11() {
-      console.log(this.addListRules);
       this.$refs['addList'].validate((valid) => {
           if (valid) {
             if (this.addList.shifousimi != "1") {
@@ -1499,7 +1498,7 @@ export default {
               taskID: "100086",
               circulationAddress:this.addList.circulationAddress=='' ? "暂无地址" : this.addList.circulationAddress,
               // allCategoryList:this.addList.patrsList==undefined ? "暂无零件类别" : this.addList.patrsList[1], //零件类别
-              allCategoryList:this.addList.patrsList==undefined ? "暂无零件类别" :this.$refs["partsCascader"].getCheckedNodes()[0].label,
+              allCategoryList:this.addList.patrsList.length==0 ? "暂无零件类别" :this.$refs["partsCascader"].getCheckedNodes()[0].label,
               SupperListINt: this.addList.SupplierListInt,
             });
             console.log(data.allCategoryList);
