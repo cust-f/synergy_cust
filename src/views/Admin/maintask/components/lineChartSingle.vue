@@ -74,7 +74,7 @@ export default {
           {
             name: "销售量",
             type: "line",
-            stack: "总量",
+            stack: "销售总量",
           //  itemStyle: {
           //     normal: {
           //     // color:'#19CAAD',
@@ -90,7 +90,7 @@ export default {
           {
             name: "库存量",
             type: "line",
-            stack: "总量",
+            stack: "库存总量",
             // itemStyle: {
             //   normal: {
             //   // color:'#F4606C',
