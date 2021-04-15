@@ -1172,7 +1172,6 @@ export default {
     },
   },
   created() {
-    this.getData();
     this.consignmentTableShuaxin();
     this.getYearData();
     this.lineChart();
@@ -1396,9 +1395,6 @@ export default {
           data: data,
         })
         .then((response) => {
-          this.xuanzelist = this.getTreeData(response.data.allData.a);
-          this.supplierCompany = response.data.allData.b;
-          console.log("getData");
           // console.log(response);
           this.supplierCompany = response.data.allData;
         });
