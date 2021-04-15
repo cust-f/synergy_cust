@@ -94,10 +94,10 @@
                   style="width: 100%"
                   expand-trigger="hover"
                   v-model="addList.selectCateKeys"
-                  :options="xuanzelist"
-                  :props="cateProps"
+                  :options="industryOptions"
+                  :props="industryProps"
                   props.checkStrictly="true"
-                   placeholder="请选择行业类别"
+                  placeholder="请选择行业类别"
                 ></el-cascader>
               </el-form-item>
             </el-col>
@@ -143,9 +143,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="11" v-if="sfsmkj">
-              <el-form-item label="零件类别" :style="{ display: sfkjian }" prop="allCategoryList" :rules="(addList.shifouyaoqing == '0' && addList.taskType == '1')?addListRules.allCategoryList:{required: false}">
-                  <el-select
-                  v-model="addList.allCategoryList"
+              <el-form-item label="零件类别" :style="{ display: sfkjian }" prop="patrsList" :rules="(addList.shifouyaoqing == '0' && addList.taskType == '1')?addListRules.patrsList:{required: false}">
+                  <!-- <el-select
+                  v-model="addList.patrsList"
                   placeholder="请选择零件类别"
                   class="selectsupply"
                   style="width: 100%"
@@ -159,7 +159,16 @@
                     :value="Categoryoption.partsCategory"
                   >
                   </el-option>
-                </el-select>
+                </el-select> -->
+                <el-cascader
+                  style="width: 100%"
+                  expand-trigger="hover"
+                  v-model="addList.patrsList"
+                  :options="partsOptions"
+                  :props="partsProps"
+                  ref="partsCascader"
+                  placeholder="请选择零件类别"
+                ></el-cascader>
               </el-form-item>
             </el-col>
              <el-col :span="11">
@@ -828,7 +837,7 @@ export default {
   name: "addSubTaskDetail",
   data() {
     return {
-       loading: true,
+      loading: true,
       //禁用今天以前的时间
       pickerOptions: {
         disabledDate(time) {
@@ -838,24 +847,26 @@ export default {
       chooseSupplySelected: false, //是否选择供应商 true未选 false选择
       chooseSupply: "none", //是否提示选择供应商
       LTQD: 0,
+      usernameX: sessionStorage.getItem("ms_username"),
+      mainTaskID: this.$route.query.mainTaskID,
+      name: this.$route.query.name,
+      type: this.$route.query.type,
       // =====================================================================
       // 新增子任务
       addList: 
         {
-          taskName: "",
-          taskType: "",
-          beginTime: "",
-          publishTime: "",
-          taskState: "",
-          deadline: "",
-          taskCategoryMain: "",
-          taskCategoryPart: "",
-          circulationAddress: "",
-          selectCateKeys:[],
-          TaskXiangXi: "",
-          shifouyaoqing: "", 
-          shifousimi: "" ,
-          SupplierListInt:[],
+          taskName: "",//任务名称
+          Telphone:"",//联络电话
+          taskType: "",//任务类别
+          beginTime: "",//发布时间
+          deadline: "",//截止时间
+          circulationAddress: "",//收货地址
+          selectCateKeys:[],//行业类别
+          TaskXiangXi: "",//任务详情
+          shifouyaoqing: "", //是否邀请
+          shifousimi: "" ,//是否发布
+          SupplierListInt:[],//供应商
+          patrsList:[],//零件类别
         },
       //是否申请
       shifou: [
@@ -881,13 +892,24 @@ export default {
           label: "否",
         },
       ],
-      //级联选择框的配置对象
-      cateProps: {
+      //行业类别 选项列表
+      industryOptions:[],
+      //行业类别 级联选择框的配置对象
+      industryProps: {
         value: "id",
         label: "industryName",
         children: "children",
         checkStrictly: true,
       },
+      //零件类别 选项列表
+      partsOptions:[],
+      //零件类别 级联选择框的配置对象
+      partsProps: {
+        value: "categoryID",
+        label: "partsCategory",
+        children: "children",
+      },
+      //任务类别
       Task: [
         {
           id: "0",
@@ -919,14 +941,14 @@ export default {
       addCompanyVisible:false,
       //根据零件查询出的企业列表数组
       companyTableData:[],
-      pageIndex1:1,
-      pageSize1:6,
+      //根据零件查询出的企业列表数组的分页参数
+      pageIndex1:1,//页码
+      pageSize1:6,//每页数据
       isgongyingshang:false,
       twogongyingshang:false,
       liebieList: { supplyCompany: "" },
       fileList: [],
-      usernameX: sessionStorage.getItem("ms_username"),
-
+      
       visiblehexin: "none",
       shenqing: "none",
       // search: "",
@@ -962,18 +984,12 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      mainTaskID: this.$route.query.mainTaskID,
+      
       cooList: { shifouyaoqing: "", shifousimi: "" },
       //判断流通时候的零件类别是否显示
       islingjianchaxun:false,
-      SupplierListInt: [],
-      //零件类别的数据
-      allCategoryList:[],
-      //所有零件类别下拉框
-      CategoryListoptions:[],
       form: {},
-      name: this.$route.query.name,
-      type: this.$route.query.type,
+      
       publishdate: "",
       deaddate: "",
       leader: "",
@@ -983,12 +999,11 @@ export default {
       technicalFileWanzheng: "",
       shangchuancishu: 0,
       dialogVisible: false,
-      //级联选择框双向绑定到的数组 =--子
-      selectCateKeys1: [],
-      //级联选择框双向绑定到的数组
-      selectCateKeys: [],
-      //行业分类列表
-      xuanzelist: [],
+      // // 级联选择框双向绑定到的数组 =--子
+      // selectCateKeys1: [],
+      // //行业类别级联选择框双向绑定到的数组
+      // selectCateKeys: [],
+
       subStaskTypeID: "",
       // ==============================================================================
       //专利列表
@@ -1029,7 +1044,7 @@ export default {
           shifousimi:[
              { required: true, message: "请选择是或者否", trigger: ["change","blur"] },
           ],
-          allCategoryList:[
+          patrsList:[
             { required: true, message: "请选择零件类别", trigger: ["change","blur"] },
           ],
           SupplierListInt:[
@@ -1122,7 +1137,7 @@ export default {
 
     //根据零件类别查询企业
     findCompanyByPartsCategory(){
-      if(this.addList.allCategoryList==''||this.addList.allCategoryList==null)
+      if(this.addList.patrsList==''||this.addList.patrsList==null)
       { 
         this.$message({
           type: "warning",
@@ -1132,7 +1147,8 @@ export default {
       else{
         var that = this;
         var data = Qs.stringify({
-          partsCategory :this.addList.allCategoryList,
+          userName:this.usernameX,
+          partsCategory :this.$refs["partsCascader"].getCheckedNodes()[0].label,
         });
         that
           .axios({
@@ -1147,7 +1163,7 @@ export default {
         this.addCompanyVisible=true;
       }
     },
-    //企业列表分页改变
+    //企业列表(待加入供应商列表)分页改变
     companyDialogHandleCurrentChange(cpage){
       this.pageIndex1 = cpage;
     },
@@ -1173,13 +1189,13 @@ export default {
     },
     //选择供应商至选中框
     addSelectdSupplier(row){
-      // 判断是否选中自己
-      if(this.usernameX == row.User_Name){
-        this.$message({
-          type: "warning",
-          message: "不能添加自己作为供应商"
-        });
-      }else{
+      // 判断是否选中自己 -- 修改数据库返回数据为不含有自己
+      // if(this.usernameX == row.User_Name){
+      //   this.$message({
+      //     type: "warning",
+      //     message: "不能添加自己作为供应商"
+      //   });
+      // }else{
       //如果选中的在供应商列表
       if(this.supplierIsExist(row.Company_ID)){
         //如果在选中列表，提示已添加
@@ -1206,9 +1222,8 @@ export default {
               type: "success",
               message: "添加并选择供应商成功",
           });
-        // }
       }
-      }
+      // }
     },
     //将供应商添加到数据库
     addSupplier(companyId){
@@ -1232,17 +1247,14 @@ export default {
     //查询零件类别信息
     getAllPartsList(){
       var that = this;
-      var data = Qs.stringify({
-    
-      });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/selectPartsCategory",
-          data: data,
         })
         .then((response) => {
-         this.CategoryListoptions=response.data.allData;
+          // console.log(response);
+          this.partsOptions = response.data.allData;
         });
     },
     //查询行业类别列表
@@ -1260,7 +1272,7 @@ export default {
         })
         .then((response) => {
           // console.log(response);
-          this.xuanzelist = this.getTreeData(response.data.allData);
+          this.industryOptions = this.getTreeData(response.data.allData);
         });
     },
     //查询供应商列表
@@ -1295,10 +1307,10 @@ export default {
       return data;
     },
     //级联选中框选中变化项会用到这个函数主
-    handleChange1() {
-      this.mainStaskTypeID = this.selectCateKeys1[0];
-      this.subStaskTypeID = this.selectCateKeys1[1];
-    },
+    // handleChange1() {
+    //   this.mainStaskTypeID = this.selectCateKeys1[0];
+    //   this.subStaskTypeID = this.selectCateKeys1[1];
+    // },
     simizhiding(coo) {
       if (coo == 0) {
         this.busm = "inline"; //不私密-发布-全部可见
@@ -1320,7 +1332,7 @@ export default {
           this.islingjianchaxun=false;
           this.isgongyingshang=true;
         }
-        console.log(this.addList.taskType);
+        // console.log(this.addList.taskType);
     },
     invitate(coo) {
       if (coo == 0) {
@@ -1347,9 +1359,8 @@ export default {
     },
     inviteEmail(){
       this.isEmail=true;
-
     },
-    //======保存新增========
+    // =====================保存新增子任务=====================
     saveAdd11() {
       console.log(this.addListRules);
       this.$refs['addList'].validate((valid) => {
@@ -1359,7 +1370,6 @@ export default {
             }
             //记录提交前的任务类别
             var bianjifahuo = this.addList.taskType;
-            console.log(this.addList.allCategoryList);
             var that = this;
             var data = Qs.stringify({
               userName: this.usernameX,
@@ -1378,10 +1388,11 @@ export default {
               Telphone: this.addList.Telphone,
               taskID: "100086",
               circulationAddress:this.addList.circulationAddress=='' ? "暂无地址" : this.addList.circulationAddress,
-              allCategoryList:this.addList.allCategoryList==undefined ? "暂无零件类别" : this.addList.allCategoryList, //零件种类
+              // allCategoryList:this.addList.patrsList==undefined ? "暂无零件类别" : this.addList.patrsList[1], //零件类别
+              allCategoryList:this.addList.patrsList==undefined ? "暂无零件类别" :this.$refs["partsCascader"].getCheckedNodes()[0].label,
               SupperListINt: this.addList.SupplierListInt,
             });
-            console.log(data);
+            console.log(data.allCategoryList);
             that
               .axios({
                 method: "post",
@@ -1599,7 +1610,6 @@ export default {
           query: { id: taskId },
         });
       }
-
       window.open(newpage.href, "_blank");
     },
     /*
@@ -1704,10 +1714,7 @@ export default {
   //   //watch监视input输入值的变化,只要是watch变化了 search()就会被调用
   //   search(newVal) {
   //     this.handleSearch(newVal);
-
-
   //   },
-
     // isPatent(newVal)
     // {
     //   this.changeTable();
@@ -1716,22 +1723,6 @@ export default {
   //  mounted() {
   //   this.parentTable2 = this.parentTable;
   //   // this.tableData_length = this.tableData.length;
-  // },
-  // watch:{
-  //   //监听productNum的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
-  //   productNum:function(val){
-  //     this.productTotal = parseInt(this.productPrice) * parseInt(val);
-  //     if(isNaN(this.productTotal)){
-  //       this.productTotal = "";
-  // 		}
-  //   },
-  //   //监听productPrice的值，参数val代表其值，若发生变化，则计算的productTotal值也发生变化
-  //   productPrice:function(val){
-  //     this.productTotal = parseInt(val) * parseInt(this.productNum);
-  //     if(isNaN(this.productTotal)){
-  //       this.productTotal = "";
-  // 		}
-  //   },
   // },
 };
 </script>

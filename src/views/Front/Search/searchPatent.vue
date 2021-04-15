@@ -19,7 +19,7 @@
                 :label="item.name"
               />
             </el-select>
-            <span v-if="webSearchType==='0'">
+            <span v-if="webSearchType=='0'">
               <el-input style="width:260px" size="small" placeholder="零部件名称(必)" prefix-icon="el-icon-search" v-model="webKeyWords"></el-input>
               <el-input style="width:260px" size="small" placeholder="技术指标(选)" v-model="webTechnicalIndex"></el-input>
             </span>
@@ -130,8 +130,8 @@ export default {
       //处理页面
       hitPageShow:true,
       StatusOptions : [
-        { key: '0', name: '专利名' },
-        { key: '1', name: '企业名' }
+        { key: "0", name: '专利名' },
+        { key: "1", name: '企业名' }
       ],
     };
   },
