@@ -367,6 +367,7 @@ export default {
     },
     addData() {
       var that = this;
+       console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
       var data = Qs.stringify({
         username: this.usernameX
       });
@@ -379,6 +380,7 @@ export default {
           // data:this.$store.state.userName
         })
         .then(response => {
+          console.log(response);
           this.tableData1 = response.data.allData;
           response.send()
         });

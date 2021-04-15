@@ -8,27 +8,26 @@
     <el-divider></el-divider>
     <el-main>
       <div>
-        <!-- 新增基本信息 -->
-        <el-form ref="form" :model="addList" label-width="120px">
+        <!-- 新增基本信息 hide-required-asterisk -->
+        <el-form ref="addList" :model="addList" label-width="120px" :rules="addListRules" hide-required-asterisk>
           <el-row>
             <el-col :span="11">
-              <el-form-item label="任务名称">
+              <el-form-item label="任务名称" prop="taskName">
                 <el-input v-model="addList.taskName">
                   <div class="box">
-                    <el-button
-                      slot="suffix"
-                      icon="el-icon-search"
-                      autofocus="false"
-                      style="
-                        border: 0px;
-                        font-size: 14px;
-                        padding: 0px 0px;
-                        margin-right: -45px;
-                      "
-                      @click="goPatent()"
-                      >123</el-button
-                    >
-                  </div>
+                      <el-button
+                        slot="suffix"
+                        icon="el-icon-search"
+                        autofocus="false"
+                        style="
+                          border: 0px;
+                          font-size: 14px;
+                          padding: 0px 0px;
+                          margin-right: -45px;
+                        "
+                        @click="goPatent()"
+                      >123</el-button>
+                  </div>  
                 </el-input>
               </el-form-item>
             </el-col>
@@ -54,23 +53,18 @@
               ></el-button>
             </el-tooltip>
             <el-col :span="11">
-              <el-form-item label="联络电话">
-                <el-input v-model="addList.Telphone" @blur="animate"></el-input>
-                <font color="red">
-                  <span v-if="this.addList.Telphone === null"
-                    >您的联络电话格式输入不正确</span
-                  >
-                </font>
+              <el-form-item label="联络电话" prop="Telphone">
+                <el-input v-model="addList.Telphone"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="发布时间">
+              <el-form-item label="发布时间" prop="beginTime">
                 <el-date-picker
                   type="datetime"
-                  placeholder="选择日期"
+                  placeholder="选择发布日期"
                   v-model="addList.beginTime"
                   value-format="yyyy-MM-dd HH:mm:ss"
                   style="width: 100%"
@@ -79,10 +73,10 @@
             </el-col>
 
             <el-col :span="11">
-              <el-form-item label="截止时间">
+              <el-form-item label="截止时间" prop="deadline">
                 <el-date-picker
                   type="datetime"
-                  placeholder="选择日期"
+                  placeholder="选择截止日期"
                   v-model="addList.deadline"
                   value-format="yyyy-MM-dd HH:mm:ss"
                   style="width: 100%"
@@ -94,24 +88,24 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="行业类别">
+              <el-form-item label="行业类别" prop="selectCateKeys">
                 <el-cascader
                   style="width: 100%"
                   expand-trigger="hover"
-                  v-model="selectCateKeys1"
+                  v-model="addList.selectCateKeys"
                   :options="xuanzelist"
                   :props="cateProps"
-                  @change="handleChange1"
                   props.checkStrictly="true"
+                   placeholder="请选择行业类别"
                 ></el-cascader>
               </el-form-item>
             </el-col>
 
             <el-col :span="11">
-              <el-form-item label="任务类别">
+              <el-form-item label="任务类别" prop="taskType">
                 <el-select
                   v-model="addList.taskType"
-                  placeholder="请选择"
+                  placeholder="请选择任务类别"
                   class="selectsupply"
                   style="width: 100%"
                   @change="leibieChanged"
@@ -129,9 +123,9 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="是否邀请">
+              <el-form-item label="是否邀请" prop="shifouyaoqing">
                 <el-select
-                  v-model="cooList.shifouyaoqing"
+                  v-model="addList.shifouyaoqing"
                   placeholder="请选择是或者否"
                   class="selectsupply"
                   @change="invitate"
@@ -148,10 +142,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="11" v-if="sfsmkj">
-              <el-form-item label="零件类别" :style="{ display: sfkjian }">
-                <el-select
-                  v-model="allCategoryList"
-                  placeholder="请选择零件种类"
+              <el-form-item label="零件类别" :style="{ display: sfkjian }" prop="allCategoryList" :rules="(addList.shifouyaoqing == '0' && addList.taskType == '1')?addListRules.allCategoryList:{required: false}">
+                  <el-select
+                  v-model="addList.allCategoryList"
+                  placeholder="请选择零件类别"
                   class="selectsupply"
                   style="width: 100%"
                   @change="selectCategoryoption"
@@ -160,48 +154,27 @@
                     width="180"
                     v-for="(Categoryoption, index) in CategoryListoptions"
                     :key="index"
-                    :label="Categoryoption.PartsCategory"
-                    :value="Categoryoption.PartsCategory"
+                    :label="Categoryoption.partsCategory"
+                    :value="Categoryoption.partsCategory"
                   >
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="11" v-if="sfsmkj">
-              <el-form-item label="是否发布">
-                <el-select
-                  v-model="cooList.shifousimi"
-                  placeholder="请选择是或者否"
-                  class="selectsupply"
-                  @change="simizhiding"
-                  style="width: 100%"
-                >
-                  <el-option
-                    width="180"
-                    v-for="coo in shifousimi"
-                    :key="coo.id"
-                    :label="coo.label"
-                    :value="coo.id"
-                  ></el-option>
-                </el-select>
+             <el-col :span="11">
+              <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
+                <el-input
+                  placeholder="等待供应方申请"
+                  v-model="input"
+                  :disabled="true"
+                  :style="{ display: shenqing }"
+                ></el-input>
               </el-form-item>
-              <font color="red">
-                <span class="simichakan" :style="{ display: sm }"
-                  >仅限供应方可见</span
-                >
-                <span class="simichakan" :style="{ display: busm }"
-                  >全部可见</span
-                >
-              </font>
             </el-col>
-
-            <el-col :span="11">
-              <el-form-item label="供应商" :style="{ display: visiblehexin }">
+            <el-col :span="11" v-if="isgongyingshang">
+              <el-form-item label="供应商" :style="{ display: visiblehexin }" prop="SupplierListInt" :rules="addList.shifouyaoqing == '0'?addListRules.SupplierListInt:{required: false}">
                 <el-select
-                  v-model="SupplierListInt"
+                  v-model="addList.SupplierListInt"
                   multiple
                   placeholder="请选择供应商"
                   class="selectsupply"
@@ -221,34 +194,81 @@
                 </font>
               </el-form-item>
             </el-col>
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="供应商查询"
-              placement="right"
-            >
-              <el-button
-                v-if="sfsmkj && islingjianchaxun"
-                icon="el-icon-search"
-                autofocus="false"
-                style="
-                  position: relative;
-                  border: 0px;
-                  font-size: 14px;
-                  padding: 0px 0px;
-                  margin-right: 15px;
-                  margin-top: 60px;
-                  margin-top: 13px;
-                "
-                @click="supplierInquire()"
-              ></el-button>
-            </el-tooltip>
-            <el-col :span="11">
-              <el-form-item
-                label="等待申请"
-                :style="{ display: shenqing }"
-                class="dengdaishenqing"
-              >
+          </el-row>
+
+          <el-row >
+            <el-col :span="11"  v-if="sfsmkj">
+              <el-form-item label="是否发布" prop="shifousimi" :rules="addList.shifouyaoqing === '0'?addListRules.shifousimi:{required: false}">
+                <el-select
+                  v-model="addList.shifousimi"
+                  placeholder="请选择是或者否"
+                  class="selectsupply"
+                  @change="simizhiding"
+                  style="width: 100%"
+                >
+                  <el-option
+                    width="180"
+                    v-for="coo in shifousimi" 
+                    :key="coo.id"
+                    :label="coo.label"
+                    :value="coo.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <!-- <div class="el-form-item__error" :style="{ display: sm }">仅限供应方可见</div>
+              <div class="el-form-item__error" :style="{ display: busm }">全部可见</div> -->
+              <span class="simichakan" :style="{ display: sm }">仅限供应方可见</span>
+              <span class="simichakan" :style="{ display: busm }">全部可见</span>
+            </el-col>
+            
+            <el-col :span="11" v-if="islingjianchaxun">
+              <el-form-item label="供应商" :style="{ display: visiblehexin }" prop="SupplierListInt" :rules="addList.shifouyaoqing == '0'?addListRules.SupplierListInt:{required: false}">
+                <el-select
+                  v-model="addList.SupplierListInt"
+                  multiple
+                  placeholder="请选择供应商"
+                  class="selectsupply"
+                  style="width: 100%"
+                  @change="selectSupplyChanged"
+                >
+                  <el-option
+                    width="180"
+                    v-for="(supplier, index) in supplierCompany"
+                    :key="index"
+                    :label="supplier.companyName"
+                    :value="supplier.companyId"
+                  ></el-option>
+                </el-select>
+                <font color="red">
+                  <span :style="{ display: chooseSupply }">请选择供应商</span>
+                </font>
+              </el-form-item>
+            </el-col>
+                 <el-tooltip 
+                      class="item"
+                      effect="dark"
+                      content="企业查询"
+                      placement="right"
+                      v-if="sfsmkj&&islingjianchaxun"
+                    >
+                  <el-button
+                    v-if="sfsmkj&&islingjianchaxun"
+                    icon="el-icon-search"
+                    autofocus="false"
+                    style="
+                      position:relative;
+                      border: 0px;
+                      font-size: 14px;
+                      padding: 0px 0px;
+                      margin-right: 15px;
+                      margin-top:60px;
+                      margin-top: 13px;
+                    "
+                    @click="findCompanyByPartsCategory"
+                  ></el-button> 
+            </el-tooltip> 
+            <!-- <el-col :span="11">
+              <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
                 <el-input
                   placeholder="等待供应方申请"
                   v-model="input"
@@ -256,12 +276,13 @@
                   :style="{ display: shenqing }"
                 ></el-input>
               </el-form-item>
-            </el-col>
+            </el-col> -->
+            
           </el-row>
-          <br v-if="shifoubr" />
-          <el-row>
+        <!-- <br v-if="shifoubr" > -->
+           <el-row>
             <el-col :span="22">
-              <el-form-item label="收货地址" :style="{ display: sfkjian }">
+              <el-form-item label="收货地址" :style="{ display: sfkjian }" prop="circulationAddress" :rules="addList.taskType === '1'?addListRules.circulationAddress:{required: false}">
                 <el-input
                   v-model="addList.circulationAddress"
                   type="textarea"
@@ -273,7 +294,7 @@
           <br v-if="addList.taskType == '1'" />
           <el-row>
             <el-col :span="22">
-              <el-form-item label="任务详情">
+              <el-form-item label="任务详情" prop="TaskXiangXi">
                 <el-input
                   v-model="addList.TaskXiangXi"
                   type="textarea"
@@ -741,94 +762,56 @@
 
       <!-- 零件查询弹出框 -->
       <div class="consignment">
-        <el-dialog title :visible.sync="partsPopup" width="50%">
+        <!-- <el-dialog title :visible.sync="partsPopup" width="50%">
           <div
             class="biaoti"
             style="padding: 0 10px; border-left: 3px solid #4e58c5"
           >
-            流通清单详情
           </div>
           <br />
-          <el-form ref="form" label-width="110px">
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="产品名称">
-                  <el-input
-                    v-model="productName1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="产品规格">
-                  <el-input
-                    v-model="productModel1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="产品数量">
-                  <el-input
-                    v-model="productNum1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="产品单价">
-                  <el-input
-                    v-model="productPrice1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="11">
-                <el-form-item label="截止时间">
-                  <el-date-picker
-                    type="datetime"
-                    v-model="consignmentTimeLatest1"
-                    style="width: 100%"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    readonly="readonly"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-              <el-col :span="11">
-                <el-form-item label="联系方式">
-                  <el-input
-                    v-model="contactNumber1"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="22">
-                <el-form-item label="备注">
-                  <el-input
-                    type="textarea"
-                    :rows="3"
-                    style="width: 100%"
-                    placeholder="请输入内容"
-                    v-model="productNotes1"
-                    class="gongsiDetail"
-                    readonly="readonly"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
           <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="this.partsPopup = false"
-              >确 定</el-button
-            >
+            <el-button type="primary" @click="this.partsPopup = false">确 定</el-button>
           </span>
-        </el-dialog>
+        </el-dialog> -->
+        <!-- 新增供应商弹出框 -->
+          <el-dialog  :visible.sync="addCompanyVisible" width="60%">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+              新增
+            </div>
+            <br />
+            <el-table
+              :data="companyTableData.slice((pageIndex1-1)*pageSize1,pageIndex1*pageSize1)"
+              border
+              class="companyDialogTable"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+              <el-table-column prop="Company_Name" label="企业名称"></el-table-column>
+              <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
+              <el-table-column prop="Reserve" width="100" label="库存量"></el-table-column>
+              <el-table-column prop="Sale" width="100" label="销售量"></el-table-column>
+              <el-table-column prop="Parts_Category" width="150" label="类别"></el-table-column>
+              <el-table-column label="操作" width="120" align="center">
+                <template slot-scope="scope">
+                  <el-button type="text" size="small" @click="addSelectdSupplier(scope.row)">添加</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <br /> 
+                <div class="companyDialogPagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, total, jumper"
+                  :current-page="pageIndex1"
+                  :page-size="pageSize1"
+                  :total="companyTableData.length"
+                  @current-change="companyDialogHandleCurrentChange"
+                ></el-pagination>
+              </div> 
+              <br />          
+          </el-dialog>
       </div>
     </el-main>
     <!-- 弹出折线图 -->
@@ -893,10 +876,10 @@ export default {
        */
       //折线图
       lineData: {
-        //发布任务总量
-        finishTaskCount: [],
-        //完成任务总量
-        taskCount: [],
+        //销售总量
+        saleCount: [],
+        //库存总量
+        inventoryCount: [],
         //月份数量
         months: [],
       },
@@ -911,7 +894,7 @@ export default {
       LTQD: 0,
       // =====================================================================
       // 新增子任务
-      addList: [
+      addList: 
         {
           taskName: "",
           taskType: "",
@@ -922,8 +905,12 @@ export default {
           taskCategoryMain: "",
           taskCategoryPart: "",
           circulationAddress: "",
+          selectCateKeys:[],
+          TaskXiangXi: "",
+          shifouyaoqing: "", 
+          shifousimi: "" ,
+          SupplierListInt:[],
         },
-      ],
       //是否申请
       shifou: [
         {
@@ -981,9 +968,15 @@ export default {
       zhurenwuxiangxi: "",
       sfsmkj: false, //是否私密指派
       //专门用来判断等待申请的br是否出来
-      shifoubr: false,
-      //零件弹窗
-      partsPopup: false,
+      shifoubr:false,
+      //根据零件查询出的企业列表弹窗
+      addCompanyVisible:false,
+      //根据零件查询出的企业列表数组
+      companyTableData:[],
+      pageIndex1:1,
+      pageSize1:6,
+      isgongyingshang:false,
+      twogongyingshang:false,
       liebieList: { supplyCompany: "" },
       fileList: [],
       usernameX: sessionStorage.getItem("ms_username"),
@@ -1029,9 +1022,9 @@ export default {
       islingjianchaxun: false,
       SupplierListInt: [],
       //零件类别的数据
-      allCategoryList: [],
-      //获取到的零件种类
-      CategoryListoptions: [],
+      allCategoryList:[],
+      //所有零件类别下拉框
+      CategoryListoptions:[],
       form: {},
       name: this.$route.query.name,
       type: this.$route.query.type,
@@ -1056,7 +1049,47 @@ export default {
       parentTable: "",
       parentTable2: "",
       isPatent: false,
-      isEmail: false,
+      isEmail:false,
+      //新增子任务 数据验证
+      addListRules: {
+          taskName: [
+            { required: true, message: "请输入任务名称", trigger: "blur" },
+          ],
+          Telphone:[
+            { required: true, message: "请输入联络电话", trigger: "blur" },
+            { pattern:  /^1\d{10}$/, message: "请输入正确格式的联络电话", trigger: "blur"},
+          ],
+          taskType: [
+            { required: true, message: "请选择行业类别", trigger: "change" },
+          ],
+          beginTime: [
+            { required: true, message: "请选择发布时间", trigger: "change" },
+          ],
+          deadline: [
+            { required: true, message: "请选择截止时间", trigger: "change" },
+          ],
+          circulationAddress: [
+            { required: true, message: "请输入收货地址", trigger: "blur" },
+          ],
+          selectCateKeys:[
+            { required: true, message: "请选择行业类别", trigger: "change" },
+          ],
+          TaskXiangXi:[
+            { required: true, message: "请输入任务详情", trigger: "blur" },
+          ],
+          shifouyaoqing:[
+            { required: true, message: "请选择是或者否", trigger: ["change","blur"] },
+          ],
+          shifousimi:[
+             { required: true, message: "请选择是或者否", trigger: ["change","blur"] },
+          ],
+          allCategoryList:[
+            { required: true, message: "请选择零件类别", trigger: ["change","blur"] },
+          ],
+          SupplierListInt:[
+            { required: true, message: "请选择供应商", trigger: "change" },
+          ]
+        },
       //编辑流通清单 数据验证
       consignmentRules: {
         consignmentTimeLatest: [
@@ -1120,8 +1153,12 @@ export default {
   created() {
     this.getData();
     this.consignmentTableShuaxin();
-    // this.getYearData(); //获取条件选择时间数据
+    this.getYearData();
     this.lineChart();
+    this.getAllIndustryList();
+    this.getAllSupplierList();
+    this.getAllPartsList();
+    that.consignmentTableShuaxin();
   },
   methods: {
     //获取条件选择时间数据
@@ -1142,18 +1179,24 @@ export default {
     },
     lineChart() {
       var that = this;
-      var task;
-      var finishTask;
+      var data = Qs.stringify({
+          companyId: 5561,
+          year: 2021,
+          productName: "离合器盒",
+        });
       that.axios
-        .post("/api/dataStatistics/allMonthTaskCount")
+        .post({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
         .then((response) => {
-          this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
-          this.lineData.taskCount = response.data.allData.taskCount;
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
           that.$refs.drawLineChart.getCharts();
         });
     },
-
     // handleSearch(val) {
     //   let search = val;
     //   if (search == "") {
@@ -1174,21 +1217,119 @@ export default {
     supplierInquire(allCategoryList) {
       this.partsPopup = true;
     },
-    goPatent() {
-      this.isPatent = true;
+    //根据零件类别查询企业
+    findCompanyByPartsCategory(){
+      if(this.addList.allCategoryList==''||this.addList.allCategoryList==null)
+      { 
+        this.$message({
+          type: "warning",
+          message: "请选择零件类别",
+        });
+      }
+      else{
+        var that = this;
+        var data = Qs.stringify({
+          partsCategory :this.addList.allCategoryList,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/findCompanyByPartsCategory",
+            data: data,
+          })
+          .then((response) => {
+             this.companyTableData = response.data.allData;//接收返回的企业列表
+          });
+        //企业列表弹出框弹出
+        this.addCompanyVisible=true;
+      }
     },
-    //手机号校验
-    animate() {
-      var re = /^1\d{10}$/;
-      let str = this.addList.Telphone;
-      if (re.test(str)) {
-        //  alert('成功')
-      } else {
-        this.addList.Telphone = null;
+    //企业列表分页改变
+    companyDialogHandleCurrentChange(cpage){
+      this.pageIndex1 = cpage;
+    },
+    //判断供应商集合中是否存在某值
+    supplierIsExist(selectSupplierId){
+      var supplierExist = false;
+      this.supplierCompany.forEach(function (element) {
+        for (let [key, value] of Object.entries(element)) {
+          if(key == "companyId" && value == selectSupplierId)
+            supplierExist = true;
+        }
+      });
+      return supplierExist; 
+    },
+    //判断选中的供应商ID数组中是否存在某值
+    selectedSupplierIsExist(selectSupplierId){
+      var selectedSupplierExist = false;
+      this.addList.SupplierListInt.forEach(function (element) {
+        if(element == selectSupplierId)
+          selectedSupplierExist = true;
+      });
+      return selectedSupplierExist;
+    },
+    //选择供应商至选中框
+    addSelectdSupplier(row){
+      // 判断是否选中自己
+      if(this.usernameX == row.User_Name){
+        this.$message({
+          type: "warning",
+          message: "不能添加自己作为供应商"
+        });
+      }else{
+      //如果选中的在供应商列表
+      if(this.supplierIsExist(row.Company_ID)){
+        //如果在选中列表，提示已添加
+        if(this.selectedSupplierIsExist(row.Company_ID)){
+          this.$message({
+            type: "info",
+            message: "已选择供应商",
+          });
+        }else{
+          //如果不在选中列表，加入选中列表，并提示添加成功
+          this.addList.SupplierListInt.push(row.Company_ID);
+          this.$message({
+            type: "success",
+            message: "选择供应商成功",
+          });
+        }
+      }else{ //如果不在供应商列表,保存原来选中的供应商，添加供应商至数据库，重新加载供应商下拉框，选中原+现
+          var arrCopy = this.addList.SupplierListInt.concat();//原来选中的
+          arrCopy.push(row.Company_ID);//原来选中的+当前选中的
+          this.addSupplier(row.Company_ID);
+          this.getAllSupplierList();//刷新
+          this.addList.SupplierListInt = arrCopy.concat();//回传
+          this.$message({
+              type: "success",
+              message: "添加并选择供应商成功",
+          });
+        // }
+      }
       }
     },
     //获取零件种类信息
-    getallCategoryList() {
+    // getallCategoryList() {
+    //将供应商添加到数据库
+    addSupplier(companyId){
+      var that = this;
+      var data = Qs.stringify({
+        username: this.usernameX,
+        companyId: companyId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/tianjiaSupplier",
+          data: data
+        })
+        .then(response => {
+        });
+    },
+    goPatent() {
+      this.isPatent = true;
+    },
+    //查询零件类别信息
+    getAllPartsList(){
       var that = this;
       var data = Qs.stringify({});
       that
@@ -1201,9 +1342,8 @@ export default {
           this.CategoryListoptions = response.data.allData;
         });
     },
-    //新增操作 查询子任务列别及供应商列表
-    getData() {
-      this.getallCategoryList();
+    //查询行业类别列表
+    getAllIndustryList(){
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
@@ -1212,13 +1352,33 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/selectSubType",
+          url: "/api/SubstaskInformation/getAllIndustryList",
+          data: data,
+        })
+        .then((response) => {
+          // console.log(response);
+          this.xuanzelist = this.getTreeData(response.data.allData);
+        });
+    },
+    //查询供应商列表
+    getAllSupplierList(){
+      var that = this;
+      var data = Qs.stringify({
+        PId: this.type,
+        username: this.usernameX,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/getAllSupplierList",
           data: data,
         })
         .then((response) => {
           this.xuanzelist = this.getTreeData(response.data.allData.a);
           this.supplierCompany = response.data.allData.b;
           console.log("getData");
+          // console.log(response);
+          this.supplierCompany = response.data.allData;
         });
     },
     //将级联选择器最后一行的数据去掉
@@ -1249,14 +1409,18 @@ export default {
       }
     },
     //
-    leibieChanged(leibie) {
-      if (leibie == 1) {
-        this.sfkjian = "inline";
-        this.islingjianchaxun = true;
-      } else {
-        this.sfkjian = "none";
-        this.islingjianchaxun = false;
-      }
+    leibieChanged(leibie){
+        if(leibie==1){
+            this.sfkjian = "inline";
+            this.islingjianchaxun=true;
+            this.isgongyingshang=false;
+         
+        }else{
+          this.sfkjian = "none";
+          this.islingjianchaxun=false;
+          this.isgongyingshang=true;
+        }
+        console.log(this.addList.taskType);
     },
     invitate(coo) {
       if (coo == 0) {
@@ -1286,87 +1450,74 @@ export default {
     },
     //======保存新增========
     saveAdd11() {
-      //console.log(this.TaskXiangXi)
-      if (
-        this.technicalFile == "null" ||
-        (this.sm == "inline" && this.chooseSupplySelected == false)
-      ) {
-        this.chooseSupply = "inline";
-        this.$message({
-          type: "warning",
-          message: "你还有重要信息未填写，填写后再提交",
-        });
-      } else {
-        if (this.cooList.shifousimi != 1) {
-          this.cooList.shifousimi = 0;
-        }
-        //记录提交前的任务类别
-        var bianjifahuo = this.addList.taskType;
-        if (
-          this.addList.circulationAddress == "" ||
-          this.addList.circulationAddress == null
-        ) {
-          this.addList.circulationAddress = "暂无地址";
-        }
-        if (this.allCategoryList == "" || this.allCategoryList == null) {
-          this.allCategoryList = "暂无零件种类";
-        }
-        var that = this;
-        var data = Qs.stringify({
-          userName: this.usernameX,
-          taskName: this.addList.taskName,
-          // taskState : this.addList.TaskState,
-          publishTime: this.addList.beginTime,
-          endLine: this.addList.deadline,
-          mainStaskTypeID: this.mainStaskTypeID,
-          subStaskTypeID: this.subStaskTypeID,
-          yaoqing: this.cooList.shifouyaoqing,
-          sssm: this.cooList.shifousimi,
-          taskType: this.addList.taskType,
-          mainTaskName: this.name,
-          taskXiangxi: this.addList.TaskXiangXi,
-          mainTaskID: this.mainTaskID,
-          Technonlgy_File: this.technicalFileWanzheng,
-          Telphone: this.addList.Telphone,
-          taskID: "100086",
-          circulationAddress: this.addList.circulationAddress,
-          //零件种类：
-          allCategoryList: this.allCategoryList,
-          SupperListINt: this.SupplierListInt,
-        });
-        console.log(data);
-        that
-          .axios({
-            method: "post",
-            url: "/api/SubstaskInformation/addSubstaskInformation",
-            data: data,
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          })
-          .then((response) => {
-            if (response.data !== null) {
-              //存储流通清单
-              console.log(response.data);
-              this.$message.success("提交成功");
-              this.technicalFileWanzheng = "";
-              //this.addList = {};
-
-              //根据任务类别 显示编辑按钮
-              if (bianjifahuo == 1) {
-                this.fahuo = "inline";
-              }
-              //保存taskId
-              that.taskID = response.data;
-              //禁用新增子任务按钮
-              this.taskSaveBtn = true;
-
-              //此处返回到详情界面
-              //this.goBack();
+      console.log(this.addListRules);
+      this.$refs['addList'].validate((valid) => {
+          if (valid) {
+            if (this.addList.shifousimi != "1") {
+              this.addList.shifousimi = "0";
+            }
+            //记录提交前的任务类别
+            var bianjifahuo = this.addList.taskType;
+            console.log(this.addList.allCategoryList);
+            var that = this;
+            var data = Qs.stringify({
+              userName: this.usernameX,
+              taskName: this.addList.taskName,
+              publishTime: this.addList.beginTime,
+              endLine: this.addList.deadline,
+              mainStaskTypeID:this.addList.selectCateKeys[0],
+              subStaskTypeID:this.addList.selectCateKeys[1],
+              yaoqing: this.addList.shifouyaoqing,
+              sssm: this.addList.shifousimi,
+              taskType: this.addList.taskType,
+              mainTaskName: this.name,
+              taskXiangxi: this.addList.TaskXiangXi,
+              mainTaskID: this.mainTaskID,
+              Technonlgy_File: this.technicalFileWanzheng,
+              Telphone: this.addList.Telphone,
+              taskID: "100086",
+              circulationAddress:this.addList.circulationAddress=='' ? "暂无地址" : this.addList.circulationAddress,
+              allCategoryList:this.addList.allCategoryList==undefined ? "暂无零件类别" : this.addList.allCategoryList, //零件种类
+              SupperListINt: this.addList.SupplierListInt,
+            });
+            console.log(data);
+            that
+              .axios({
+                method: "post",
+                url: "/api/SubstaskInformation/addSubstaskInformation",
+                data: data,
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              })
+              .then((response) => {
+                if (response.data !== null) {
+                  //存储流通清单
+                  // console.log(response.data);
+                  this.$message.success("提交成功");
+                  this.technicalFileWanzheng = "";
+                  //this.addList = {};
+    
+                  //根据任务类别 显示编辑按钮
+                  if (bianjifahuo == 1) {
+                    this.fahuo = "inline";
+                  }
+                  //保存taskId
+                  that.taskID = response.data;
+                  //禁用新增子任务按钮
+                  this.taskSaveBtn = true;
+                  //此处返回到详情界面
+                  //this.goBack();
             }
           })
           .catch((error) => {
             console.log(error);
           });
-      }
+          } else {
+            this.$message({
+              type: "warning",
+              message: "你还有重要信息未填写，请填写后再提交",
+            });
+          }
+      });
     },
     //======新增流通清单弹出
     bianjitanchu() {
@@ -1459,7 +1610,7 @@ export default {
         })
         .then((response) => {
           //this.consignmentTable = response.data.allData;
-          console.log(response.data.allData);
+          // console.log(response.data.allData);
           this.productName1 = response.data.allData[0].productName;
           this.productModel1 = response.data.allData[0].productModel;
           this.productNum1 = response.data.allData[0].productNumber;
@@ -1574,12 +1725,12 @@ export default {
           data: data,
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.allData.token == 1) {
             //表明在企业名录
             //判断是不是已经添加过了
-            for (let i = 0; i < this.SupplierListInt.length; i++) {
-              if (companyId == this.SupplierListInt[i]) token = true;
+            for (let i = 0; i < this.addList.SupplierListInt.length; i++) {
+              if (companyId == this.addList.SupplierListInt[i]) token = true;
             }
             if (token) {
               this.$message({
@@ -1591,7 +1742,7 @@ export default {
                 type: "success",
                 message: "邀请成功！",
               });
-              this.SupplierListInt.push(companyId);
+              this.addList.SupplierListInt.push(companyId);
             }
           } else if (response.data.allData.token == 0) {
             //如果不是企业名录里面的企业
@@ -1599,7 +1750,7 @@ export default {
               companyName: companyName,
               companyId: companyId,
             });
-            this.SupplierListInt.push(companyId);
+            this.addList.SupplierListInt.push(companyId);
             this.$message({
               type: "success",
               message: "邀请成功！",
@@ -1720,9 +1871,24 @@ export default {
     padding-top: 0px;
   }
 }
-.simichakan {
-  float: right;
-  margin-top: -18px;
-  margin-right: 110px;
+.simichakan{
+  // float: right;
+  // margin-top: -18px;
+  // margin-right: 110px;
+    float: left;
+    margin-top: -18px;
+    margin-left: 120px;
+    color: #F56C6C;
+    font-size:12px;
+    text-align:left
+}
+.addSubTask .companyDialogTable{
+  width: 98%;
+}
+.addSubTask .companyDialogPagination{
+  // float: right;
+  text-align:right;
+  margin-right: 2%;
+  // display: inline;
 }
 </style>
