@@ -25,13 +25,13 @@ export default {
 
       var option = {
         title: {
-          text: "月度供需量"
+          text: "月度销售/库存量"
         },
         tooltip: {
           trigger: "axis"
         },
         legend: {
-          data: ["完成需求量", "发布需求量"]
+          data: ["销售量", "库存量"]
         },
         grid: {
           left: "3%",
@@ -72,7 +72,7 @@ export default {
         },
         series: [
           {
-            name: "完成需求量",
+            name: "销售量",
             type: "line",
             stack: "总量",
           //  itemStyle: {
@@ -84,11 +84,11 @@ export default {
           //       }
           //     }
           //   },
-            data: this.lineData.finishTaskCount
+            data: this.lineData.saleCount
             //    data: [1,1,6]
           },
           {
-            name: "发布需求量",
+            name: "库存量",
             type: "line",
             stack: "总量",
             // itemStyle: {
@@ -100,7 +100,7 @@ export default {
             //     }
             //   }
             // },
-            data: this.lineData.taskCount
+            data: this.lineData.inventoryCount
             // data: [0,0,9]
           }
         ]

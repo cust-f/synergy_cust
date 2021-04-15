@@ -1932,9 +1932,9 @@ export default {
       //折线图
       lineData: {
         //发布任务总量
-        finishTaskCount: [],
+        saleCount: [],
         //完成任务总量
-        taskCount: [],
+        inventoryCount: [],
         //月份数量
         months: [],
       },
@@ -2247,8 +2247,8 @@ export default {
       that.axios
         .post("/api/dataStatistics/allMonthTaskCount")
         .then((response) => {
-          this.lineData.finishTaskCount = response.data.allData.finishTaskCount;
-          this.lineData.taskCount = response.data.allData.taskCount;
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
           that.$refs.drawLineChart.getCharts();
         });
