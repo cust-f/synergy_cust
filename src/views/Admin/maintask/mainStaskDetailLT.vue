@@ -252,7 +252,7 @@
             </el-table-column>
             <el-table-column prop="productName" label="产品名称">
               <template slot-scope="scope">
-                <el-link @click.native="showLineChart" :disabled="dialogLineChartVisible">{{
+                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">{{
                   scope.row.productName
                 }}</el-link>
               </template>
@@ -1856,9 +1856,9 @@
           <div style="float: right">
             <template>
               <el-select
-                style="width: 100px; margin-right: 35px"
-                v-model="value"
-                @change="lineChart"
+                style="width: 100px; margin-right: 35px; margin-top: -20px"
+                v-model="lineYear"
+                @change="lineChartChange()"
               >
                 <el-option
                   v-for="item in options"
@@ -1925,7 +1925,9 @@ export default {
       zirenwuXX: "",
       dialogLineChartVisible: false, //显示折线图
       options: [],
-      value: "",
+      lineYear: "",
+      productCompanyId:"",
+      productName1:"",
       /**
        * 数据统计
        */
@@ -2223,34 +2225,74 @@ export default {
   created() {
     this.getParams();
     this.showData();
+    this.getYearData();
   },
   methods: {
     //获取条件选择时间数据
     getYearData() {
       let that = this;
       that.axios.post("/api/findYearsList").then((response) => {
-        this.value = response.data.allData.nowYear;
+        this.lineYear = response.data.allData.nowYear;
         this.options = response.data.allData.years;
-        this.lineChart();
+        this.lineChartChange();
       });
     },
     //折线图数据显示
-    showLineChart() {
+    showLineChart(row) {
       this.dialogLineChartVisible = true;
-      this.lineChart();
+      this.lineChart(row);
       this.getYearData();
     },
-    lineChart() {
+    //按要求显示
+    lineChart(row) {
       var that = this;
-      var task;
-      var finishTask;
-      that.axios
-        .post("/api/dataStatistics/allMonthTaskCount")
+      this.productName1 = row.productName;
+      console.log(row.productName)
+      var data = Qs.stringify({
+          // companyId: row.companyId,
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
           that.$refs.drawLineChart.getCharts();
+          console.log(alllData);
+        });
+    },
+    //时间变换查询折线图
+    lineChartChange() {
+      var that = this;
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(this.productCompanyId)
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
+        .then((response) => {
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+          console.log(alllData);
         });
     },
     //全部通过
@@ -2546,6 +2588,7 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
+          comsole.log(this.tableData)
           var temp = 0; //检查下面的已发货，已完成
           this.liu = false;
           if (this.taskState == "完成") {
@@ -2587,6 +2630,9 @@ export default {
     },
     shenqingtanchu(row) {
       this.shenqingTC = true;
+      this.productCompanyId = row.companyId;
+      // console.log(row)
+      // console.log(this.productCompanyId)
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
