@@ -25,8 +25,26 @@
                 </el-input>
               </el-form-item>
             </el-col>
-            <el-tooltip class="item" effect="dark" content="专利查询" placement="right">
-              <el-button icon="el-icon-search" autofocus="false" style="position:relative;border: 0px;font-size: 14px;padding: 0px 0px;margin-left: -430px;margin-top:60px;margin-top: 13px;" @click="goPatent()"></el-button>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="专利查询"
+              placement="right"
+            >
+              <el-button
+                icon="el-icon-search"
+                autofocus="false"
+                style="
+                  position: relative;
+                  border: 0px;
+                  font-size: 14px;
+                  padding: 0px 0px;
+                  margin-left: -430px;
+                  margin-top: 60px;
+                  margin-top: 13px;
+                "
+                @click="goPatent()"
+              ></el-button>
             </el-tooltip>
             <el-col :span="11">
               <el-form-item label="联络电话" prop="Telphone">
@@ -165,7 +183,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <br v-if="addList.taskType=='1'">
+          <br v-if="addList.taskType == '1'" />
           <el-row>
             <el-col :span="22">
               <el-form-item label="任务详情" prop="TaskXiangXi">
@@ -195,8 +213,24 @@
            </el-row>
           <el-row>
            <el-col span="16"> -->
-        <el-image v-if="addList.taskType=='1'" :src="require('../../../assets/images/subTask/circulationWorkflow.png')" width="100%" :preview-src-list="[require('../../../assets/images/subTask/circulationWorkflow.png')]"></el-image>
-        <el-image v-if="addList.taskType=='0'" :src="require('../../../assets/images/subTask/designWorkflow.png')" width="100%" :preview-src-list="[require('../../../assets/images/subTask/designWorkflow.png')]"></el-image>
+        <el-image
+          v-if="addList.taskType == '1'"
+          :src="
+            require('../../../assets/images/subTask/circulationWorkflow.png')
+          "
+          width="100%"
+          :preview-src-list="[
+            require('../../../assets/images/subTask/circulationWorkflow.png'),
+          ]"
+        ></el-image>
+        <el-image
+          v-if="addList.taskType == '0'"
+          :src="require('../../../assets/images/subTask/designWorkflow.png')"
+          width="100%"
+          :preview-src-list="[
+            require('../../../assets/images/subTask/designWorkflow.png'),
+          ]"
+        ></el-image>
         <!-- </el-col>
           </el-row>
         </div> -->
@@ -285,30 +319,37 @@
       </div>
 
       <div>
-        <el-dialog :visible.sync="isEmail">
-
-        </el-dialog>
+        <el-dialog :visible.sync="isEmail"> </el-dialog>
       </div>
 
       <div>
         <el-dialog :visible.sync="isPatent" class="patentDialog">
-          <div class="biaoti" style="
-              padding: 0 10px;
-              border-left: 3px solid #4e58c5;
-              
-            ">
+          <div
+            class="biaoti"
+            style="padding: 0 10px; border-left: 3px solid #4e58c5"
+          >
             专利转移
           </div>
           <template>
             <el-col :span="7" style="float: right">
-              <el-input v-model="addList.taskName" size="mini" placeholder="输入关键字搜索" @blur="getParent" />
-            </el-col>
-          </template>
+              <el-input
+                v-model="addList.taskName"
+                size="mini"
+                placeholder="输入关键字搜索"
+                @blur="getParent"
+              /> </el-col
+          ></template>
           &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
           &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <!-- 专利表格 -->
           <div>
-            <el-table v-loading="loading" :data=parentTable style="width: 100%; margin-top: 30px" border highlight-current-row>
+            <el-table
+              v-loading="loading"
+              :data="parentTable"
+              style="width: 100%; margin-top: 30px"
+              border
+              highlight-current-row
+            >
               <el-table-column type="index" width="50"></el-table-column>
               <el-table-column label="专利名称" width="220">
                 <template slot-scope="scope">
@@ -324,8 +365,13 @@
                   <div slot="reference" class="name-wrapper">
                     <el-link type="primary" v-if="scope.row.token" @click="
                         goCompanyDetail(scope.row.companyId, scope.row.token)
-                      " size="medium">{{ scope.row.companyName }}</el-link>
-                    <el-link type="info" v-else size="medium">{{ scope.row.companyName }}</el-link>
+                      "
+                      size="medium"
+                      >{{ scope.row.companyName }}</el-link
+                    >
+                    <el-link type="info" v-else size="medium">{{
+                      scope.row.companyName
+                    }}</el-link>
                   </div>
                 </template>
               </el-table-column>
@@ -338,9 +384,25 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-link @click="goTaskDetail(scope.row.taskId, scope.row.platform)" type="info">专利详情</el-link>
-                  <el-link v-if="scope.row.token" @click="invite(scope.row.companyName, scope.row.companyId)" type="primary" style="margin-left: 10px">邀请参与</el-link>
-                  <el-link v-else type="success" style="margin-left: 10px" @click="inviteEmail()">发送邮件邀请</el-link>
+                  <el-link
+                    @click="goTaskDetail(scope.row.taskId, scope.row.platform)"
+                    type="info"
+                    >专利详情</el-link
+                  >
+                  <el-link
+                    v-if="scope.row.token"
+                    @click="invite(scope.row.companyName, scope.row.companyId)"
+                    type="primary"
+                    style="margin-left: 10px"
+                    >邀请参与</el-link
+                  >
+                  <el-link
+                    v-else
+                    type="success"
+                    style="margin-left: 10px"
+                    @click="inviteEmail()"
+                    >发送邮件邀请</el-link
+                  >
                   <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
                 </template>
               </el-table-column>
@@ -479,45 +541,97 @@
           </span>
         </el-dialog> -->
         <!-- 新增供应商弹出框 -->
-        <el-dialog :visible.sync="addCompanyVisible" width="60%">
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-            新增
-          </div>
-          <br />
-          <el-table :data="companyTableData.slice((pageIndex1-1)*pageSize1,pageIndex1*pageSize1)" border class="companyDialogTable" ref="multipleTable" header-cell-class-name="table-header" @selection-change="handleSelectionChange">
-            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-            <el-table-column prop="Company_Name" label="企业名称">
+          <el-dialog  :visible.sync="addCompanyVisible" width="60%">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+              新增
+            </div>
+            <br />
+            <el-table
+              :data="companyTableData.slice((pageIndex1-1)*pageSize1,pageIndex1*pageSize1)"
+              border
+              class="companyDialogTable"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+              <el-table-column prop="Company_Name"  width="340" label="企业名称">
               <template slot-scope="scope">
-                <span v-show="scope.row.recommend != 0">
-                  {{ scope.row.Company_Name+" " }}<el-tag size="mini" >已合作</el-tag>
+                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">
+                  {{ scope.row.Company_Name}}
+                </el-link>
+                <span v-show="scope.row.recommend >= 0">
+                  <el-tag size="mini">已合作</el-tag>
                 </span>
-                <span v-show="scope.row.recommend == 0">{{ scope.row.Company_Name }}</span>   
               </template>
+              </el-table-column>
+              <el-table-column prop="Recommend_Stars" width="140" label="推荐">
+                <template slot-scope="scope">
+                  <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
+                </template>
             </el-table-column>
-            <el-table-column prop="Recommend_Stars" label="推荐">
-              <template slot-scope="scope">
-                <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
-              </template>
-            </el-table-column>
-            <el-table-column prop="Parts_Category" width="150" label="零件类别"></el-table-column>
-            <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
-            <el-table-column prop="Reserve" width="100" label="库存量"></el-table-column>
-            <el-table-column prop="Sale" width="100" label="销售量"></el-table-column>
-            <el-table-column label="操作" width="120" align="center">
-              <template slot-scope="scope">
-                <el-button type="text" size="small" @click="addSelectdSupplier(scope.row)">添加</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <br />
-          <div class="companyDialogPagination">
-            <el-pagination background layout="prev, pager, next, total, jumper" :current-page="pageIndex1" :page-size="pageSize1" :total="companyTableData.length" @current-change="companyDialogHandleCurrentChange"></el-pagination>
-          </div>
-          <br />
-        </el-dialog>
+            <el-table-column prop="Parts_Category" label="零件类别"></el-table-column>
+              <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
+              <el-table-column prop="Reserve" width="80" label="库存量"></el-table-column>
+              <el-table-column prop="Sale" width="80" label="销售量"></el-table-column>
+              <el-table-column label="操作" width="80" align="center">
+                <template slot-scope="scope">
+                  <el-button type="text" size="small" @click="addSelectdSupplier(scope.row)">添加</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <br /> 
+                <div class="companyDialogPagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, total, jumper"
+                  :current-page="pageIndex1"
+                  :page-size="pageSize1"
+                  :total="companyTableData.length"
+                  @current-change="companyDialogHandleCurrentChange"
+                ></el-pagination>
+              </div> 
+              <br />          
+          </el-dialog>
       </div>
-
     </el-main>
+    <!-- 弹出折线图 -->
+    <!-- <el-button
+      type="danger"
+      @click="showLineChart"
+      :disabled="dialogLineChartVisible"
+      >弹 出</el-button
+    > -->
+    <!-- <el-card>
+        <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
+        </el-card> -->
+    <!-- 折线图弹出框 -->
+    <div class="lineChart1">
+      <el-dialog title="折线图" :visible.sync="dialogLineChartVisible" center>
+        <div style="float: right">
+          <template>
+            <el-select
+              style="width: 100px; margin-right: 35px;margin-top: -20px"
+              v-model="lineYear"
+              @change="lineChartChange"
+            >
+              <el-option
+                v-for="item in options"
+                placeholder="请选择"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.disabled"
+                width="20px"
+              ></el-option>
+            </el-select>
+          </template>
+        </div>
+        <!-- <el-card> -->
+        <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
+        <!-- </el-card> -->
+      </el-dialog>
+    </div>
   </el-container>
 </template>
 
@@ -525,12 +639,33 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 import { Popover } from "element-ui";
+import lineChart from "./components/lineChart"; //折线图
 // Vue.use(Popover);
 export default {
   name: "addSubTaskDetail",
+  components: {
+    "line-chart": lineChart, //折线图
+  },
   data() {
     return {
       loading: true,
+      dialogLineChartVisible: false, //显示折线图
+      options: [],
+      lineYear: "",
+      productCompanyId:"",
+      productName1:"",
+      /**
+       * 数据统计
+       */
+      //折线图
+      lineData: {
+        //发布任务总量
+        saleCount: [],
+        //完成任务总量
+        inventoryCount: [],
+        //月份数量
+        months: [],
+      },
       //禁用今天以前的时间
       pickerOptions: {
         disabledDate(time) {
@@ -680,6 +815,12 @@ export default {
       cooList: { shifouyaoqing: "", shifousimi: "" },
       //判断流通时候的零件类别是否显示
       islingjianchaxun: false,
+      SupplierListInt: [],
+      //零件类别的数据
+      allCategoryList:[],
+      //所有零件类别下拉框
+      CategoryListoptions:[],
+      islingjianchaxun:false,
       form: {},
 
       publishdate: "",
@@ -820,12 +961,85 @@ export default {
     },
   },
   created() {
+    this.consignmentTableShuaxin();
+    this.getYearData();
+    // this.lineChart();
     this.getAllIndustryList();
     this.getAllSupplierList();
     this.getAllPartsList();
     that.consignmentTableShuaxin();
   },
   methods: {
+    //获取条件选择时间数据
+    getYearData() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then(response => {
+        this.lineYear = response.data.allData.nowYear;
+        this.options= response.data.allData.years;  
+        this.lineChartChange();
+            
+      });
+    },
+    //折线图数据显示
+    showLineChart(row) {
+      this.dialogLineChartVisible = true;
+      this.lineChart(row);
+      this.getYearData();
+    },
+    //按要求显示
+    lineChart(row) {
+      var that = this;
+      this.productName1 = row.Product_Name;
+      this.productCompanyId = row.Company_ID;
+      console.log(row.productName)
+      var data = Qs.stringify({
+          // companyId: row.companyId,
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(this.productCompanyId)
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
+        .then((response) => {
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+          console.log(alllData);
+        });
+    },
+    //时间变换查询折线图
+    lineChartChange() {
+      var that = this;
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(this.productCompanyId)
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
+        .then((response) => {
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+          console.log(alllData);
+        });
+    },
     // handleSearch(val) {
     //   let search = val;
     //   if (search == "") {
@@ -842,7 +1056,10 @@ export default {
     //     // this.tableData_length = this.parentTable2.length;
     //   }
     // },
-
+    //查询零件类别
+    supplierInquire(allCategoryList) {
+      this.partsPopup = true;
+    },
     //根据零件类别查询企业
     findCompanyByPartsCategory() {
       if (this.addList.patrsList == "" || this.addList.patrsList == null) {
@@ -931,6 +1148,8 @@ export default {
       }
       // }
     },
+    //获取零件种类信息
+    // getallCategoryList() {
     //将供应商添加到数据库
     addSupplier(companyId) {
       var that = this;
@@ -952,12 +1171,14 @@ export default {
     //查询零件类别信息
     getAllPartsList() {
       var that = this;
+      var data = Qs.stringify({});
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/selectPartsCategory",
         })
         .then((response) => {
+          this.CategoryListoptions = response.data.allData;
           // console.log(response);
           this.partsOptions = response.data.allData;
         });
