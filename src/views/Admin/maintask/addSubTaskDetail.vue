@@ -555,7 +555,7 @@
               @selection-change="handleSelectionChange"
             >
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-              <el-table-column prop="Company_Name"  width="340" label="企业名称">
+              <el-table-column prop="Company_Name"  width="315" label="企业名称">
               <template slot-scope="scope">
                 <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">
                   {{ scope.row.Company_Name}}
@@ -565,7 +565,7 @@
                 </span>
               </template>
               </el-table-column>
-              <el-table-column prop="Recommend_Stars" width="140" label="推荐">
+              <el-table-column prop="Recommend_Stars" width="165" label="推荐">
                 <template slot-scope="scope">
                   <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
