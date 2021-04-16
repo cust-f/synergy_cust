@@ -560,12 +560,12 @@
                 <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">
                   {{ scope.row.Company_Name}}
                 </el-link>
-                <span v-show="scope.row.recommend >= 0">
-                  <el-tag size="mini">已合作</el-tag>
+                <span v-show="scope.row.recommend != 0">
+                  <el-tag type="success" size="mini">已合作</el-tag>
                 </span>
               </template>
               </el-table-column>
-              <el-table-column prop="Recommend_Stars" width="165" label="推荐">
+              <el-table-column prop="Recommend_Stars" width="167" label="推荐">
                 <template slot-scope="scope">
                   <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
