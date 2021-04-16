@@ -15,74 +15,36 @@
               <el-form-item label="任务名称" prop="taskName">
                 <el-input v-model="addList.taskName">
                   <div class="box">
-                      <el-button
-                        slot="suffix"
-                        icon="el-icon-search"
-                        autofocus="false"
-                        style="
+                    <el-button slot="suffix" icon="el-icon-search" autofocus="false" style="
                           border: 0px;
                           font-size: 14px;
                           padding: 0px 0px;
                           margin-right: -45px;
-                        "
-                        @click="goPatent()"
-                      >123</el-button>
-                  </div>  
+                        " @click="goPatent()">123</el-button>
+                  </div>
                 </el-input>
               </el-form-item>
             </el-col>
-            <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="专利查询"
-                      placement="right"
-                    >
-                  <el-button
-                  
-                    icon="el-icon-search"
-                    autofocus="false"
-                    style="
-                    position:relative;
-                      border: 0px;
-                      font-size: 14px;
-                      padding: 0px 0px;
-                      margin-left: -430px;
-                      margin-top:60px;
-                      margin-top: 13px;
-                    "
-                    @click="goPatent()"
-                  ></el-button> 
-            </el-tooltip>     
+            <el-tooltip class="item" effect="dark" content="专利查询" placement="right">
+              <el-button icon="el-icon-search" autofocus="false" style="position:relative;border: 0px;font-size: 14px;padding: 0px 0px;margin-left: -430px;margin-top:60px;margin-top: 13px;" @click="goPatent()"></el-button>
+            </el-tooltip>
             <el-col :span="11">
               <el-form-item label="联络电话" prop="Telphone">
                 <el-input v-model="addList.Telphone"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
- 
+
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布时间" prop="beginTime">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择发布日期"
-                  v-model="addList.beginTime"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  style="width: 100%"
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择发布日期" v-model="addList.beginTime" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"></el-date-picker>
               </el-form-item>
             </el-col>
 
             <el-col :span="11">
               <el-form-item label="截止时间" prop="deadline">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择截止日期"
-                  v-model="addList.deadline"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  style="width: 100%"
-                  :picker-options="pickerOptions"
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择截止日期" v-model="addList.deadline" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%" :picker-options="pickerOptions"></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -90,33 +52,14 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="行业类别" prop="selectCateKeys">
-                <el-cascader
-                  style="width: 100%"
-                  expand-trigger="hover"
-                  v-model="addList.selectCateKeys"
-                  :options="industryOptions"
-                  :props="industryProps"
-                  props.checkStrictly="true"
-                  placeholder="请选择行业类别"
-                ></el-cascader>
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="addList.selectCateKeys" :options="industryOptions" :props="industryProps" props.checkStrictly="true" placeholder="请选择行业类别"></el-cascader>
               </el-form-item>
             </el-col>
 
             <el-col :span="11">
               <el-form-item label="任务类别" prop="taskType">
-                <el-select
-                  v-model="addList.taskType"
-                  placeholder="请选择任务类别"
-                  class="selectsupply"
-                  style="width: 100%"
-                  @change="leibieChanged"
-                >
-                  <el-option
-                    v-for="leibie in Task"
-                    :key="leibie.id"
-                    :label="leibie.label"
-                    :value="leibie.id"
-                  ></el-option>
+                <el-select v-model="addList.taskType" placeholder="请选择任务类别" class="selectsupply" style="width: 100%" @change="leibieChanged">
+                  <el-option v-for="leibie in Task" :key="leibie.id" :label="leibie.label" :value="leibie.id"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -125,26 +68,14 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="是否邀请" prop="shifouyaoqing">
-                <el-select
-                  v-model="addList.shifouyaoqing"
-                  placeholder="请选择是或者否"
-                  class="selectsupply"
-                  @change="invitate"
-                  style="width: 100%"
-                >
-                  <el-option
-                    width="180"
-                    v-for="coo in shifou"
-                    :key="coo.id"
-                    :label="coo.label"
-                    :value="coo.id"
-                  ></el-option>
+                <el-select v-model="addList.shifouyaoqing" placeholder="请选择是或者否" class="selectsupply" @change="invitate" style="width: 100%">
+                  <el-option width="180" v-for="coo in shifou" :key="coo.id" :label="coo.label" :value="coo.id"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="零件类别" :style="{ display: sfkjian }" prop="patrsList" :rules="(addList.shifouyaoqing == '0' && addList.taskType == '1')?addListRules.patrsList:{required: false}">
-                  <!-- <el-select
+                <!-- <el-select
                   v-model="addList.patrsList"
                   placeholder="请选择零件类别"
                   class="selectsupply"
@@ -160,44 +91,18 @@
                   >
                   </el-option>
                 </el-select> -->
-                <el-cascader
-                  style="width: 100%"
-                  expand-trigger="hover"
-                  v-model="addList.patrsList"
-                  :options="partsOptions"
-                  :props="partsProps"
-                  ref="partsCascader"
-                  placeholder="请选择零件类别"
-                ></el-cascader>
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="addList.patrsList" :options="partsOptions" :props="partsProps" ref="partsCascader" placeholder="请选择零件类别"></el-cascader>
               </el-form-item>
             </el-col>
-             <el-col :span="11">
+            <el-col :span="11">
               <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
-                <el-input
-                  placeholder="等待供应方申请"
-                  v-model="input"
-                  :disabled="true"
-                  :style="{ display: shenqing }"
-                ></el-input>
+                <el-input placeholder="等待供应方申请" v-model="input" :disabled="true" :style="{ display: shenqing }"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="11" v-if="isgongyingshang">
               <el-form-item label="供应商" :style="{ display: visiblehexin }" prop="SupplierListInt" :rules="addList.shifouyaoqing == '0'?addListRules.SupplierListInt:{required: false}">
-                <el-select
-                  v-model="addList.SupplierListInt"
-                  multiple
-                  placeholder="请选择供应商"
-                  class="selectsupply"
-                  style="width: 100%"
-                  @change="selectSupplyChanged"
-                >
-                  <el-option
-                    width="180"
-                    v-for="(supplier, index) in supplierCompany"
-                    :key="index"
-                    :label="supplier.companyName"
-                    :value="supplier.companyId"
-                  ></el-option>
+                <el-select v-model="addList.SupplierListInt" multiple placeholder="请选择供应商" class="selectsupply" style="width: 100%" @change="selectSupplyChanged">
+                  <el-option width="180" v-for="(supplier, index) in supplierCompany" :key="index" :label="supplier.companyName" :value="supplier.companyId"></el-option>
                 </el-select>
                 <font color="red">
                   <span :style="{ display: chooseSupply }">请选择供应商</span>
@@ -206,23 +111,11 @@
             </el-col>
           </el-row>
 
-          <el-row >
-            <el-col :span="11"  v-if="sfsmkj">
+          <el-row>
+            <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="是否发布" prop="shifousimi" :rules="addList.shifouyaoqing === '0'?addListRules.shifousimi:{required: false}">
-                <el-select
-                  v-model="addList.shifousimi"
-                  placeholder="请选择是或者否"
-                  class="selectsupply"
-                  @change="simizhiding"
-                  style="width: 100%"
-                >
-                  <el-option
-                    width="180"
-                    v-for="coo in shifousimi" 
-                    :key="coo.id"
-                    :label="coo.label"
-                    :value="coo.id"
-                  ></el-option>
+                <el-select v-model="addList.shifousimi" placeholder="请选择是或者否" class="selectsupply" @change="simizhiding" style="width: 100%">
+                  <el-option width="180" v-for="coo in shifousimi" :key="coo.id" :label="coo.label" :value="coo.id"></el-option>
                 </el-select>
               </el-form-item>
               <!-- <div class="el-form-item__error" :style="{ display: sm }">仅限供应方可见</div>
@@ -230,42 +123,19 @@
               <span class="simichakan" :style="{ display: sm }">仅限供应方可见</span>
               <span class="simichakan" :style="{ display: busm }">全部可见</span>
             </el-col>
-            
+
             <el-col :span="11" v-if="islingjianchaxun">
               <el-form-item label="供应商" :style="{ display: visiblehexin }" prop="SupplierListInt" :rules="addList.shifouyaoqing == '0'?addListRules.SupplierListInt:{required: false}">
-                <el-select
-                  v-model="addList.SupplierListInt"
-                  multiple
-                  placeholder="请选择供应商"
-                  class="selectsupply"
-                  style="width: 100%"
-                  @change="selectSupplyChanged"
-                >
-                  <el-option
-                    width="180"
-                    v-for="(supplier, index) in supplierCompany"
-                    :key="index"
-                    :label="supplier.companyName"
-                    :value="supplier.companyId"
-                  ></el-option>
+                <el-select v-model="addList.SupplierListInt" multiple placeholder="请选择供应商" class="selectsupply" style="width: 100%" @change="selectSupplyChanged">
+                  <el-option width="180" v-for="(supplier, index) in supplierCompany" :key="index" :label="supplier.companyName" :value="supplier.companyId"></el-option>
                 </el-select>
                 <font color="red">
                   <span :style="{ display: chooseSupply }">请选择供应商</span>
                 </font>
               </el-form-item>
             </el-col>
-                 <el-tooltip 
-                      class="item"
-                      effect="dark"
-                      content="企业查询"
-                      placement="right"
-                      v-if="sfsmkj&&islingjianchaxun"
-                    >
-                  <el-button
-                    v-if="sfsmkj&&islingjianchaxun"
-                    icon="el-icon-search"
-                    autofocus="false"
-                    style="
+            <el-tooltip class="item" effect="dark" content="企业查询" placement="right" v-if="sfsmkj&&islingjianchaxun">
+              <el-button v-if="sfsmkj&&islingjianchaxun" icon="el-icon-search" autofocus="false" style="
                       position:relative;
                       border: 0px;
                       font-size: 14px;
@@ -273,10 +143,8 @@
                       margin-right: 15px;
                       margin-top:60px;
                       margin-top: 13px;
-                    "
-                    @click="findCompanyByPartsCategory"
-                  ></el-button> 
-            </el-tooltip> 
+                    " @click="findCompanyByPartsCategory"></el-button>
+            </el-tooltip>
             <!-- <el-col :span="11">
               <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
                 <el-input
@@ -287,45 +155,27 @@
                 ></el-input>
               </el-form-item>
             </el-col> -->
-            
+
           </el-row>
-        <!-- <br v-if="shifoubr" > -->
-           <el-row>
+          <!-- <br v-if="shifoubr" > -->
+          <el-row>
             <el-col :span="22">
               <el-form-item label="收货地址" :style="{ display: sfkjian }" prop="circulationAddress" :rules="addList.taskType === '1'?addListRules.circulationAddress:{required: false}">
-                <el-input
-                  v-model="addList.circulationAddress"
-                  type="textarea"
-                  :rows="2"
-                ></el-input>
+                <el-input v-model="addList.circulationAddress" type="textarea" :rows="2"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-        <br v-if="addList.taskType=='1'">
+          <br v-if="addList.taskType=='1'">
           <el-row>
             <el-col :span="22">
               <el-form-item label="任务详情" prop="TaskXiangXi">
-                <el-input
-                  v-model="addList.TaskXiangXi"
-                  type="textarea"
-                  :rows="2"
-                ></el-input>
+                <el-input v-model="addList.TaskXiangXi" type="textarea" :rows="2"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-form-item label="添加附件">
-            <el-upload
-              class="upload-demo"
-              action="/api/MainTaskInformation/import"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :on-success="handleAvatarSuccess"
-              multiple
-              :limit="10"
-              ref="upload"
-              :file-list="fileList"
-            >
+            <el-upload class="upload-demo" action="/api/MainTaskInformation/import" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleAvatarSuccess" multiple :limit="10" ref="upload" :file-list="fileList">
               <el-button size="small" type="primary">上传文件</el-button>
               <div slot="tip" class="el-upload__tip"></div>
             </el-upload>
@@ -334,15 +184,8 @@
 
         <!-- <el-button @click="addVisible = false">取 消</el-button> -->
         <div align="right">
-          <el-button
-            type="primary"
-            @click="bianjitanchu"
-            :style="{ display: fahuo }"
-            >新增流通清单</el-button
-          >
-          <el-button type="primary" @click="saveAdd11" :disabled="taskSaveBtn"
-            >确 定</el-button
-          >
+          <el-button type="primary" @click="bianjitanchu" :style="{ display: fahuo }">新增流通清单</el-button>
+          <el-button type="primary" @click="saveAdd11" :disabled="taskSaveBtn">确 定</el-button>
         </div>
         <!-- <div v-if="addList.taskType=='0'||addList.taskType=='1'">
           <el-row>
@@ -352,19 +195,9 @@
            </el-row>
           <el-row>
            <el-col span="16"> -->
-            <el-image
-              v-if="addList.taskType=='1'"
-              :src="require('../../../assets/images/subTask/circulationWorkflow.png')" 
-              width="100%"
-              :preview-src-list="[require('../../../assets/images/subTask/circulationWorkflow.png')]"
-            ></el-image>
-            <el-image
-              v-if="addList.taskType=='0'"
-              :src="require('../../../assets/images/subTask/designWorkflow.png')" 
-              width="100%"
-              :preview-src-list="[require('../../../assets/images/subTask/designWorkflow.png')]"
-            ></el-image>
-            <!-- </el-col>
+        <el-image v-if="addList.taskType=='1'" :src="require('../../../assets/images/subTask/circulationWorkflow.png')" width="100%" :preview-src-list="[require('../../../assets/images/subTask/circulationWorkflow.png')]"></el-image>
+        <el-image v-if="addList.taskType=='0'" :src="require('../../../assets/images/subTask/designWorkflow.png')" width="100%" :preview-src-list="[require('../../../assets/images/subTask/designWorkflow.png')]"></el-image>
+        <!-- </el-col>
           </el-row>
         </div> -->
       </div>
@@ -422,135 +255,77 @@
 
       <div v-show="LTQD">
         <el-divider></el-divider>
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           流通清单
         </div>
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <!-- 流通清单表格 -->
         <div>
-          <el-table
-            :data="consignmentTable"
-            style="width: 100%"
-            border
-            highlight-current-row
-          >
+          <el-table :data="consignmentTable" style="width: 100%" border highlight-current-row>
             <el-table-column type="index" label="序号" width="50">
               <template slot-scope="scope">
                 <span>{{ scope.$index + 1 }}</span>
               </template>
             </el-table-column>
-            <el-table-column
-              label="产品名称"
-              width="199"
-              prop="productName"
-            ></el-table-column>
-            <el-table-column
-              label="产品数量"
-              width="160"
-              prop="productNumber"
-            ></el-table-column>
-            <el-table-column
-              prop="consignmentTimeLatest"
-              label="截止时间"
-              sortable
-            >
+            <el-table-column label="产品名称" width="199" prop="productName"></el-table-column>
+            <el-table-column label="产品数量" width="160" prop="productNumber"></el-table-column>
+            <el-table-column prop="consignmentTimeLatest" label="截止时间" sortable>
               <template slot-scope="scope">
                 {{ scope.row.consignmentTimeLatest | formatDate }}
               </template>
             </el-table-column>
-            <el-table-column
-              label="联系电话"
-              width="160"
-              prop="contactNumber"
-            ></el-table-column>
+            <el-table-column label="联系电话" width="160" prop="contactNumber"></el-table-column>
             <el-table-column label="操作" width="160">
               <template slot-scope="scope">
-                <el-button
-                  @click="consignmentDetail(scope.row)"
-                  type="text"
-                  size="small "
-                  >查看详情</el-button
-                >
+                <el-button @click="consignmentDetail(scope.row)" type="text" size="small ">查看详情</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
       </div>
 
-<div>
+      <div>
         <el-dialog :visible.sync="isEmail">
 
-</el-dialog>
+        </el-dialog>
       </div>
 
       <div>
         <el-dialog :visible.sync="isPatent" class="patentDialog">
-          <div
-            class="biaoti"
-            style="
+          <div class="biaoti" style="
               padding: 0 10px;
               border-left: 3px solid #4e58c5;
               
-            "
-          >
+            ">
             专利转移
           </div>
           <template>
-          <el-col :span="7" style="float: right">
-            <el-input
-              v-model="addList.taskName"
-              size="mini"
-              placeholder="输入关键字搜索"
-              @blur="getParent"
-            />
-          </el-col></template>
+            <el-col :span="7" style="float: right">
+              <el-input v-model="addList.taskName" size="mini" placeholder="输入关键字搜索" @blur="getParent" />
+            </el-col>
+          </template>
           &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
           &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <!-- 专利表格 -->
           <div>
-            <el-table
-            v-loading="loading"
-              :data= parentTable 
-              style="width: 100%; margin-top: 30px"
-              border
-              highlight-current-row
-            >
+            <el-table v-loading="loading" :data=parentTable style="width: 100%; margin-top: 30px" border highlight-current-row>
               <el-table-column type="index" width="50"></el-table-column>
               <el-table-column label="专利名称" width="220">
                 <template slot-scope="scope">
                   <div slot="reference" class="name-wrapper">
-                    <el-link
-                      type="primary"
-                      @click="
+                    <el-link type="primary" @click="
                         goTaskDetail(scope.row.companyId, scope.row.token)
-                      "
-                      size="medium"
-                      >{{ scope.row.petentName }}</el-link
-                    >
+                      " size="medium">{{ scope.row.petentName }}</el-link>
                   </div>
                 </template>
               </el-table-column>
               <el-table-column label="企业名称" width="220">
                 <template slot-scope="scope">
                   <div slot="reference" class="name-wrapper">
-                    <el-link
-                      type="primary"
-                      v-if="scope.row.token"
-                      @click="
+                    <el-link type="primary" v-if="scope.row.token" @click="
                         goCompanyDetail(scope.row.companyId, scope.row.token)
-                      "
-                      size="medium"
-                      >{{ scope.row.companyName }}</el-link
-                    >
-                    <el-link
-                     type="info"
-                      v-else
-                      size="medium"
-                      >{{ scope.row.companyName }}</el-link
-                    >
+                      " size="medium">{{ scope.row.companyName }}</el-link>
+                    <el-link type="info" v-else size="medium">{{ scope.row.companyName }}</el-link>
                   </div>
                 </template>
               </el-table-column>
@@ -563,22 +338,9 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-link
-                    @click="goTaskDetail(scope.row.taskId, scope.row.platform)"
-                    type="info"
-                    >专利详情</el-link
-                  >
-                  <el-link
-                    v-if="scope.row.token"
-                    @click="invite(scope.row.companyName, scope.row.companyId)"
-                    type="primary"
-                    style="margin-left: 10px"
-                    >邀请参与</el-link
-                  >
-                  <el-link v-else type="success" style="margin-left: 10px"
-                  @click="inviteEmail()"
-                    >发送邮件邀请</el-link
-                  >
+                  <el-link @click="goTaskDetail(scope.row.taskId, scope.row.platform)" type="info">专利详情</el-link>
+                  <el-link v-if="scope.row.token" @click="invite(scope.row.companyName, scope.row.companyId)" type="primary" style="margin-left: 10px">邀请参与</el-link>
+                  <el-link v-else type="success" style="margin-left: 10px" @click="inviteEmail()">发送邮件邀请</el-link>
                   <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
                 </template>
               </el-table-column>
@@ -589,19 +351,11 @@
       <!-- 编辑流通清单弹出框 -->
       <div class="consignment">
         <el-dialog title :visible.sync="bianjiTC" width="50%">
-          <div
-            class="biaoti"
-            style="padding: 0 10px; border-left: 3px solid #4e58c5"
-          >
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
             流通清单
           </div>
           <br />
-          <el-form
-            ref="consignmentForm"
-            label-width="110px"
-            :rules="consignmentRules"
-            :model="consignmentForm"
-          >
+          <el-form ref="consignmentForm" label-width="110px" :rules="consignmentRules" :model="consignmentForm">
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品名称" prop="productName">
@@ -617,63 +371,38 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum">
-                  <el-input
-                    v-model="consignmentForm.productNum"
-                    maxlength="9"
-                  ></el-input>
+                  <el-input v-model="consignmentForm.productNum" maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice">
-                  <el-input
-                    v-model="consignmentForm.productPrice"
-                    maxlength="9"
-                  ></el-input>
+                  <el-input v-model="consignmentForm.productPrice" maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止时间" prop="consignmentTimeLatest">
-                  <el-date-picker
-                    type="datetime"
-                    placeholder="选择日期"
-                    v-model="consignmentForm.consignmentTimeLatest"
-                    style="width: 100%"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    :picker-options="pickerOptions"
-                  ></el-date-picker>
+                  <el-date-picker type="datetime" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式" prop="contactNumber">
-                  <el-input
-                    v-model="consignmentForm.contactNumber"
-                    maxlength="11"
-                  ></el-input>
+                  <el-input v-model="consignmentForm.contactNumber" maxlength="11"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="22">
                 <el-form-item label="备注" prop="productNotes">
-                  <el-input
-                    type="textarea"
-                    :rows="3"
-                    style="width: 100%"
-                    placeholder="请输入内容"
-                    v-model="consignmentForm.productNotes"
-                    class="gongsiDetail"
-                  ></el-input>
+                  <el-input type="textarea" :rows="3" style="width: 100%" placeholder="请输入内容" v-model="consignmentForm.productNotes" class="gongsiDetail"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
           </el-form>
           <span slot="footer" class="dialog-footer">
             <el-button @click="bianjiTC = false">取 消</el-button>
-            <el-button type="primary" @click="deliverySave('consignmentForm')"
-              >确 定</el-button
-            >
+            <el-button type="primary" @click="deliverySave('consignmentForm')">确 定</el-button>
           </span>
         </el-dialog>
       </div>
@@ -681,10 +410,7 @@
       <!-- 流通清单详情弹出框 -->
       <div class="consignment">
         <el-dialog title :visible.sync="fhqdxiangqingTC" width="50%">
-          <div
-            class="biaoti"
-            style="padding: 0 10px; border-left: 3px solid #4e58c5"
-          >
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
             流通清单详情
           </div>
           <br />
@@ -692,80 +418,49 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品名称">
-                  <el-input
-                    v-model="productName1"
-                    readonly="readonly"
-                  ></el-input>
+                  <el-input v-model="productName1" readonly="readonly"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品规格">
-                  <el-input
-                    v-model="productModel1"
-                    readonly="readonly"
-                  ></el-input>
+                  <el-input v-model="productModel1" readonly="readonly"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量">
-                  <el-input
-                    v-model="productNum1"
-                    readonly="readonly"
-                  ></el-input>
+                  <el-input v-model="productNum1" readonly="readonly"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价">
-                  <el-input
-                    v-model="productPrice1"
-                    readonly="readonly"
-                  ></el-input>
+                  <el-input v-model="productPrice1" readonly="readonly"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止时间">
-                  <el-date-picker
-                    type="datetime"
-                    v-model="consignmentTimeLatest1"
-                    style="width: 100%"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    readonly="readonly"
-                  ></el-date-picker>
+                  <el-date-picker type="datetime" v-model="consignmentTimeLatest1" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="联系方式">
-                  <el-input
-                    v-model="contactNumber1"
-                    readonly="readonly"
-                  ></el-input>
+                  <el-input v-model="contactNumber1" readonly="readonly"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="22">
                 <el-form-item label="备注">
-                  <el-input
-                    type="textarea"
-                    :rows="3"
-                    style="width: 100%"
-                    placeholder="请输入内容"
-                    v-model="productNotes1"
-                    class="gongsiDetail"
-                    readonly="readonly"
-                  ></el-input>
+                  <el-input type="textarea" :rows="3" style="width: 100%" placeholder="请输入内容" v-model="productNotes1" class="gongsiDetail" readonly="readonly"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
           </el-form>
           <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="fhqdxiangqingTC = false"
-              >确 定</el-button
-            >
+            <el-button type="primary" @click="fhqdxiangqingTC = false">确 定</el-button>
           </span>
         </el-dialog>
       </div>
@@ -784,46 +479,44 @@
           </span>
         </el-dialog> -->
         <!-- 新增供应商弹出框 -->
-          <el-dialog  :visible.sync="addCompanyVisible" width="60%">
-            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-              新增
-            </div>
-            <br />
-            <el-table
-              :data="companyTableData.slice((pageIndex1-1)*pageSize1,pageIndex1*pageSize1)"
-              border
-              class="companyDialogTable"
-              ref="multipleTable"
-              header-cell-class-name="table-header"
-              @selection-change="handleSelectionChange"
-            >
-              <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-              <el-table-column prop="Company_Name" label="企业名称"></el-table-column>
-              <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
-              <el-table-column prop="Reserve" width="100" label="库存量"></el-table-column>
-              <el-table-column prop="Sale" width="100" label="销售量"></el-table-column>
-              <el-table-column prop="Parts_Category" width="150" label="类别"></el-table-column>
-              <el-table-column label="操作" width="120" align="center">
-                <template slot-scope="scope">
-                  <el-button type="text" size="small" @click="addSelectdSupplier(scope.row)">添加</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-            <br /> 
-                <div class="companyDialogPagination">
-                <el-pagination
-                  background
-                  layout="prev, pager, next, total, jumper"
-                  :current-page="pageIndex1"
-                  :page-size="pageSize1"
-                  :total="companyTableData.length"
-                  @current-change="companyDialogHandleCurrentChange"
-                ></el-pagination>
-              </div> 
-              <br />          
-          </el-dialog>
+        <el-dialog :visible.sync="addCompanyVisible" width="60%">
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
+            新增
+          </div>
+          <br />
+          <el-table :data="companyTableData.slice((pageIndex1-1)*pageSize1,pageIndex1*pageSize1)" border class="companyDialogTable" ref="multipleTable" header-cell-class-name="table-header" @selection-change="handleSelectionChange">
+            <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+            <el-table-column prop="Company_Name" label="企业名称">
+              <template slot-scope="scope">
+                <span v-show="scope.row.recommend != 0">
+                  {{ scope.row.Company_Name+" " }}<el-tag size="mini" >已合作</el-tag>
+                </span>
+                <span v-show="scope.row.recommend == 0">{{ scope.row.Company_Name }}</span>   
+              </template>
+            </el-table-column>
+            <el-table-column prop="Recommend_Stars" label="推荐">
+              <template slot-scope="scope">
+                <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
+              </template>
+            </el-table-column>
+            <el-table-column prop="Parts_Category" width="150" label="零件类别"></el-table-column>
+            <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
+            <el-table-column prop="Reserve" width="100" label="库存量"></el-table-column>
+            <el-table-column prop="Sale" width="100" label="销售量"></el-table-column>
+            <el-table-column label="操作" width="120" align="center">
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click="addSelectdSupplier(scope.row)">添加</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <br />
+          <div class="companyDialogPagination">
+            <el-pagination background layout="prev, pager, next, total, jumper" :current-page="pageIndex1" :page-size="pageSize1" :total="companyTableData.length" @current-change="companyDialogHandleCurrentChange"></el-pagination>
+          </div>
+          <br />
+        </el-dialog>
       </div>
-      
+
     </el-main>
   </el-container>
 </template>
@@ -853,21 +546,20 @@ export default {
       type: this.$route.query.type,
       // =====================================================================
       // 新增子任务
-      addList: 
-        {
-          taskName: "",//任务名称
-          Telphone:"",//联络电话
-          taskType: "",//任务类别
-          beginTime: "",//发布时间
-          deadline: "",//截止时间
-          circulationAddress: "",//收货地址
-          selectCateKeys:[],//行业类别
-          TaskXiangXi: "",//任务详情
-          shifouyaoqing: "", //是否邀请
-          shifousimi: "" ,//是否发布
-          SupplierListInt:[],//供应商
-          patrsList:[],//零件类别
-        },
+      addList: {
+        taskName: "", //任务名称
+        Telphone: "", //联络电话
+        taskType: "", //任务类别
+        beginTime: "", //发布时间
+        deadline: "", //截止时间
+        circulationAddress: "", //收货地址
+        selectCateKeys: [], //行业类别
+        TaskXiangXi: "", //任务详情
+        shifouyaoqing: "", //是否邀请
+        shifousimi: "", //是否发布
+        SupplierListInt: [], //供应商
+        patrsList: [], //零件类别
+      },
       //是否申请
       shifou: [
         {
@@ -893,7 +585,7 @@ export default {
         },
       ],
       //行业类别 选项列表
-      industryOptions:[],
+      industryOptions: [],
       //行业类别 级联选择框的配置对象
       industryProps: {
         value: "id",
@@ -902,7 +594,7 @@ export default {
         checkStrictly: true,
       },
       //零件类别 选项列表
-      partsOptions:[],
+      partsOptions: [],
       //零件类别 级联选择框的配置对象
       partsProps: {
         value: "categoryID",
@@ -920,7 +612,7 @@ export default {
           label: "流通任务",
         },
       ],
-      sfkjian:"none",
+      sfkjian: "none",
       //私密
       sm: "none",
       //不私秘
@@ -936,19 +628,19 @@ export default {
       zhurenwuxiangxi: "",
       sfsmkj: false, //是否私密指派
       //专门用来判断等待申请的br是否出来
-      shifoubr:false,
+      shifoubr: false,
       //根据零件查询出的企业列表弹窗
-      addCompanyVisible:false,
+      addCompanyVisible: false,
       //根据零件查询出的企业列表数组
-      companyTableData:[],
+      companyTableData: [],
       //根据零件查询出的企业列表数组的分页参数
-      pageIndex1:1,//页码
-      pageSize1:6,//每页数据
-      isgongyingshang:false,
-      twogongyingshang:false,
+      pageIndex1: 1, //页码
+      pageSize1: 6, //每页数据
+      isgongyingshang: false,
+      twogongyingshang: false,
       liebieList: { supplyCompany: "" },
       fileList: [],
-      
+
       visiblehexin: "none",
       shenqing: "none",
       // search: "",
@@ -984,12 +676,12 @@ export default {
       form: {},
       idx: -1,
       id: -1,
-      
+
       cooList: { shifouyaoqing: "", shifousimi: "" },
       //判断流通时候的零件类别是否显示
-      islingjianchaxun:false,
+      islingjianchaxun: false,
       form: {},
-      
+
       publishdate: "",
       deaddate: "",
       leader: "",
@@ -1010,47 +702,63 @@ export default {
       parentTable: "",
       parentTable2: "",
       isPatent: false,
-      isEmail:false,
+      isEmail: false,
       //新增子任务 数据验证
       addListRules: {
-          taskName: [
-            { required: true, message: "请输入任务名称", trigger: "blur" },
-          ],
-          Telphone:[
-            { required: true, message: "请输入联络电话", trigger: "blur" },
-            { pattern:  /^1\d{10}$/, message: "请输入正确格式的联络电话", trigger: "blur"},
-          ],
-          taskType: [
-            { required: true, message: "请选择行业类别", trigger: "change" },
-          ],
-          beginTime: [
-            { required: true, message: "请选择发布时间", trigger: "change" },
-          ],
-          deadline: [
-            { required: true, message: "请选择截止时间", trigger: "change" },
-          ],
-          circulationAddress: [
-            { required: true, message: "请输入收货地址", trigger: "blur" },
-          ],
-          selectCateKeys:[
-            { required: true, message: "请选择行业类别", trigger: "change" },
-          ],
-          TaskXiangXi:[
-            { required: true, message: "请输入任务详情", trigger: "blur" },
-          ],
-          shifouyaoqing:[
-            { required: true, message: "请选择是或者否", trigger: ["change","blur"] },
-          ],
-          shifousimi:[
-             { required: true, message: "请选择是或者否", trigger: ["change","blur"] },
-          ],
-          patrsList:[
-            { required: true, message: "请选择零件类别", trigger: ["change","blur"] },
-          ],
-          SupplierListInt:[
-            { required: true, message: "请选择供应商", trigger: "change" },
-          ]
-        },
+        taskName: [
+          { required: true, message: "请输入任务名称", trigger: "blur" },
+        ],
+        Telphone: [
+          { required: true, message: "请输入联络电话", trigger: "blur" },
+          {
+            pattern: /^1\d{10}$/,
+            message: "请输入正确格式的联络电话",
+            trigger: "blur",
+          },
+        ],
+        taskType: [
+          { required: true, message: "请选择行业类别", trigger: "change" },
+        ],
+        beginTime: [
+          { required: true, message: "请选择发布时间", trigger: "change" },
+        ],
+        deadline: [
+          { required: true, message: "请选择截止时间", trigger: "change" },
+        ],
+        circulationAddress: [
+          { required: true, message: "请输入收货地址", trigger: "blur" },
+        ],
+        selectCateKeys: [
+          { required: true, message: "请选择行业类别", trigger: "change" },
+        ],
+        TaskXiangXi: [
+          { required: true, message: "请输入任务详情", trigger: "blur" },
+        ],
+        shifouyaoqing: [
+          {
+            required: true,
+            message: "请选择是或者否",
+            trigger: ["change", "blur"],
+          },
+        ],
+        shifousimi: [
+          {
+            required: true,
+            message: "请选择是或者否",
+            trigger: ["change", "blur"],
+          },
+        ],
+        patrsList: [
+          {
+            required: true,
+            message: "请选择零件类别",
+            trigger: ["change", "blur"],
+          },
+        ],
+        SupplierListInt: [
+          { required: true, message: "请选择供应商", trigger: "change" },
+        ],
+      },
       //编辑流通清单 数据验证
       consignmentRules: {
         consignmentTimeLatest: [
@@ -1117,7 +825,7 @@ export default {
     this.getAllPartsList();
     that.consignmentTableShuaxin();
   },
-  methods: {  
+  methods: {
     // handleSearch(val) {
     //   let search = val;
     //   if (search == "") {
@@ -1136,19 +844,17 @@ export default {
     // },
 
     //根据零件类别查询企业
-    findCompanyByPartsCategory(){
-      if(this.addList.patrsList==''||this.addList.patrsList==null)
-      { 
+    findCompanyByPartsCategory() {
+      if (this.addList.patrsList == "" || this.addList.patrsList == null) {
         this.$message({
           type: "warning",
           message: "请选择零件类别",
         });
-      }
-      else{
+      } else {
         var that = this;
         var data = Qs.stringify({
-          userName:this.usernameX,
-          partsCategory :this.$refs["partsCascader"].getCheckedNodes()[0].label,
+          userName: this.usernameX,
+          partsCategory: this.$refs["partsCascader"].getCheckedNodes()[0].label,
         });
         that
           .axios({
@@ -1157,38 +863,37 @@ export default {
             data: data,
           })
           .then((response) => {
-             this.companyTableData = response.data.allData;//接收返回的企业列表
+            this.companyTableData = response.data.allData; //接收返回的企业列表
           });
         //企业列表弹出框弹出
-        this.addCompanyVisible=true;
+        this.addCompanyVisible = true;
       }
     },
     //企业列表(待加入供应商列表)分页改变
-    companyDialogHandleCurrentChange(cpage){
+    companyDialogHandleCurrentChange(cpage) {
       this.pageIndex1 = cpage;
     },
     //判断供应商集合中是否存在某值
-    supplierIsExist(selectSupplierId){
+    supplierIsExist(selectSupplierId) {
       var supplierExist = false;
       this.supplierCompany.forEach(function (element) {
         for (let [key, value] of Object.entries(element)) {
-          if(key == "companyId" && value == selectSupplierId)
+          if (key == "companyId" && value == selectSupplierId)
             supplierExist = true;
         }
       });
-      return supplierExist; 
+      return supplierExist;
     },
     //判断选中的供应商ID数组中是否存在某值
-    selectedSupplierIsExist(selectSupplierId){
+    selectedSupplierIsExist(selectSupplierId) {
       var selectedSupplierExist = false;
       this.addList.SupplierListInt.forEach(function (element) {
-        if(element == selectSupplierId)
-          selectedSupplierExist = true;
+        if (element == selectSupplierId) selectedSupplierExist = true;
       });
       return selectedSupplierExist;
     },
     //选择供应商至选中框
-    addSelectdSupplier(row){
+    addSelectdSupplier(row) {
       // 判断是否选中自己 -- 修改数据库返回数据为不含有自己
       // if(this.usernameX == row.User_Name){
       //   this.$message({
@@ -1197,14 +902,14 @@ export default {
       //   });
       // }else{
       //如果选中的在供应商列表
-      if(this.supplierIsExist(row.Company_ID)){
+      if (this.supplierIsExist(row.Company_ID)) {
         //如果在选中列表，提示已添加
-        if(this.selectedSupplierIsExist(row.Company_ID)){
+        if (this.selectedSupplierIsExist(row.Company_ID)) {
           this.$message({
             type: "info",
             message: "已选择供应商",
           });
-        }else{
+        } else {
           //如果不在选中列表，加入选中列表，并提示添加成功
           this.addList.SupplierListInt.push(row.Company_ID);
           this.$message({
@@ -1212,40 +917,40 @@ export default {
             message: "选择供应商成功",
           });
         }
-      }else{ //如果不在供应商列表,保存原来选中的供应商，添加供应商至数据库，重新加载供应商下拉框，选中原+现
-          var arrCopy = this.addList.SupplierListInt.concat();//原来选中的
-          arrCopy.push(row.Company_ID);//原来选中的+当前选中的
-          this.addSupplier(row.Company_ID);
-          this.getAllSupplierList();//刷新
-          this.addList.SupplierListInt = arrCopy.concat();//回传
-          this.$message({
-              type: "success",
-              message: "添加并选择供应商成功",
-          });
+      } else {
+        //如果不在供应商列表,保存原来选中的供应商，添加供应商至数据库，重新加载供应商下拉框，选中原+现
+        var arrCopy = this.addList.SupplierListInt.concat(); //原来选中的
+        arrCopy.push(row.Company_ID); //原来选中的+当前选中的
+        this.addSupplier(row.Company_ID);
+        this.getAllSupplierList(); //刷新
+        this.addList.SupplierListInt = arrCopy.concat(); //回传
+        this.$message({
+          type: "success",
+          message: "添加并选择供应商成功",
+        });
       }
       // }
     },
     //将供应商添加到数据库
-    addSupplier(companyId){
+    addSupplier(companyId) {
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
-        companyId: companyId
+        companyId: companyId,
       });
       that
         .axios({
           method: "post",
           url: "/api/companyDetail/tianjiaSupplier",
-          data: data
+          data: data,
         })
-        .then(response => {
-        });
+        .then((response) => {});
     },
     goPatent() {
       this.isPatent = true;
     },
     //查询零件类别信息
-    getAllPartsList(){
+    getAllPartsList() {
       var that = this;
       that
         .axios({
@@ -1258,7 +963,7 @@ export default {
         });
     },
     //查询行业类别列表
-    getAllIndustryList(){
+    getAllIndustryList() {
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
@@ -1276,7 +981,7 @@ export default {
         });
     },
     //查询供应商列表
-    getAllSupplierList(){
+    getAllSupplierList() {
       var that = this;
       var data = Qs.stringify({
         PId: this.type,
@@ -1321,30 +1026,29 @@ export default {
       }
     },
     //
-    leibieChanged(leibie){
-        if(leibie==1){
-            this.sfkjian = "inline";
-            this.islingjianchaxun=true;
-            this.isgongyingshang=false;
-         
-        }else{
-          this.sfkjian = "none";
-          this.islingjianchaxun=false;
-          this.isgongyingshang=true;
-        }
-        // console.log(this.addList.taskType);
+    leibieChanged(leibie) {
+      if (leibie == 1) {
+        this.sfkjian = "inline";
+        this.islingjianchaxun = true;
+        this.isgongyingshang = false;
+      } else {
+        this.sfkjian = "none";
+        this.islingjianchaxun = false;
+        this.isgongyingshang = true;
+      }
+      // console.log(this.addList.taskType);
     },
     invitate(coo) {
       if (coo == 0) {
         this.visiblehexin = "inline";
         this.shenqing = "none";
         this.sfsmkj = true;
-        this.shifoubr=false;
+        this.shifoubr = false;
       } else {
         this.shenqing = "inline";
         this.visiblehexin = "none";
         this.sfsmkj = false;
-        this.shifoubr=true;
+        this.shifoubr = true;
       }
     },
     //供应商选择改变
@@ -1357,77 +1061,83 @@ export default {
         //this.chooseSupply="inline";//显示提示
       }
     },
-    inviteEmail(){
-      this.isEmail=true;
+    inviteEmail() {
+      this.isEmail = true;
     },
     // =====================保存新增子任务=====================
     saveAdd11() {
-      this.$refs['addList'].validate((valid) => {
-          if (valid) {
-            if (this.addList.shifousimi != "1") {
-              this.addList.shifousimi = "0";
-            }
-            //记录提交前的任务类别
-            var bianjifahuo = this.addList.taskType;
-            var that = this;
-            var data = Qs.stringify({
-              userName: this.usernameX,
-              taskName: this.addList.taskName,
-              publishTime: this.addList.beginTime,
-              endLine: this.addList.deadline,
-              mainStaskTypeID:this.addList.selectCateKeys[0],
-              subStaskTypeID:this.addList.selectCateKeys[1],
-              yaoqing: this.addList.shifouyaoqing,
-              sssm: this.addList.shifousimi,
-              taskType: this.addList.taskType,
-              mainTaskName: this.name,
-              taskXiangxi: this.addList.TaskXiangXi,
-              mainTaskID: this.mainTaskID,
-              Technonlgy_File: this.technicalFileWanzheng,
-              Telphone: this.addList.Telphone,
-              taskID: "100086",
-              circulationAddress:this.addList.circulationAddress=='' ? "暂无地址" : this.addList.circulationAddress,
-              // allCategoryList:this.addList.patrsList==undefined ? "暂无零件类别" : this.addList.patrsList[1], //零件类别
-              allCategoryList:this.addList.patrsList.length==0 ? "暂无零件类别" :this.$refs["partsCascader"].getCheckedNodes()[0].label,
-              SupperListINt: this.addList.SupplierListInt,
-            });
-            console.log(data.allCategoryList);
-            that
-              .axios({
-                method: "post",
-                url: "/api/SubstaskInformation/addSubstaskInformation",
-                data: data,
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              })
-              .then((response) => {
-                if (response.data !== null) {
-                  //存储流通清单
-                  // console.log(response.data);
-                  this.$message.success("提交成功");
-                  this.technicalFileWanzheng = "";
-                  //this.addList = {};
-    
-                  //根据任务类别 显示编辑按钮
-                  if (bianjifahuo == 1) {
-                    this.fahuo = "inline";
-                  }
-                  //保存taskId
-                  that.taskID = response.data;
-                  //禁用新增子任务按钮
-                  this.taskSaveBtn = true;
-                  //此处返回到详情界面
-                  //this.goBack();
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-          } else {
-            this.$message({
-              type: "warning",
-              message: "你还有重要信息未填写，请填写后再提交",
-            });
+      this.$refs["addList"].validate((valid) => {
+        if (valid) {
+          if (this.addList.shifousimi != "1") {
+            this.addList.shifousimi = "0";
           }
+          //记录提交前的任务类别
+          var bianjifahuo = this.addList.taskType;
+          var that = this;
+          var data = Qs.stringify({
+            userName: this.usernameX,
+            taskName: this.addList.taskName,
+            publishTime: this.addList.beginTime,
+            endLine: this.addList.deadline,
+            mainStaskTypeID: this.addList.selectCateKeys[0],
+            subStaskTypeID: this.addList.selectCateKeys[1],
+            yaoqing: this.addList.shifouyaoqing,
+            sssm: this.addList.shifousimi,
+            taskType: this.addList.taskType,
+            mainTaskName: this.name,
+            taskXiangxi: this.addList.TaskXiangXi,
+            mainTaskID: this.mainTaskID,
+            Technonlgy_File: this.technicalFileWanzheng,
+            Telphone: this.addList.Telphone,
+            taskID: "100086",
+            circulationAddress:
+              this.addList.circulationAddress == ""
+                ? "暂无地址"
+                : this.addList.circulationAddress,
+            // allCategoryList:this.addList.patrsList==undefined ? "暂无零件类别" : this.addList.patrsList[1], //零件类别
+            allCategoryList:
+              this.addList.patrsList.length == 0
+                ? "暂无零件类别"
+                : this.$refs["partsCascader"].getCheckedNodes()[0].label,
+            SupperListINt: this.addList.SupplierListInt,
+          });
+          console.log(data.allCategoryList);
+          that
+            .axios({
+              method: "post",
+              url: "/api/SubstaskInformation/addSubstaskInformation",
+              data: data,
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            })
+            .then((response) => {
+              if (response.data !== null) {
+                //存储流通清单
+                // console.log(response.data);
+                this.$message.success("提交成功");
+                this.technicalFileWanzheng = "";
+                //this.addList = {};
+
+                //根据任务类别 显示编辑按钮
+                if (bianjifahuo == 1) {
+                  this.fahuo = "inline";
+                }
+                //保存taskId
+                that.taskID = response.data;
+                //禁用新增子任务按钮
+                this.taskSaveBtn = true;
+                //此处返回到详情界面
+                //this.goBack();
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          this.$message({
+            type: "warning",
+            message: "你还有重要信息未填写，请填写后再提交",
+          });
+        }
       });
     },
     //======新增流通清单弹出
@@ -1561,7 +1271,7 @@ export default {
       window.history.go(-1);
     },
     getParent() {
-     this.loading= true;
+      this.loading = true;
       var that = this;
       if (this.addList.taskName != null) {
         var data = Qs.stringify({
@@ -1571,12 +1281,12 @@ export default {
           .axios({
             method: "post",
             url: "/api/search/parent",
-            data: data,  
+            data: data,
           })
           .then((response) => {
             if (response.data.code == 200) {
               this.parentTable = response.data.allData.parentList;
-              this.loading=false;
+              this.loading = false;
             } else {
               this.$message({
                 type: "warning",
@@ -1595,7 +1305,7 @@ export default {
       });
       window.open(newpage.href, "_blank");
     },
-   
+
     goTaskDetail(taskId, platform) {
       let newpage;
       if (platform == "own") {
@@ -1686,38 +1396,35 @@ export default {
     // {
     //   this.handleSearch();
     // },
-    inviteEmail()
-    {
-      this.$confirm('此操作将对此公司发送邀请邮件，请确认操作', '', {
-          distinguishCancelAndClose: true,
-          confirmButtonText: '确认发送',
-          cancelButtonText: '放弃发送'
-        })
-          .then(() => {
-            this.$message({
-              type: 'success',
-              message: '发送成功'
-            });
-          })
-          .catch(action => {
-            this.$message({
-              type: 'info',
-              message: action === 'cancel'
-                ? '未发起邀请'
-                : '未发起邀请'
-            })
+    inviteEmail() {
+      this.$confirm("此操作将对此公司发送邀请邮件，请确认操作", "", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "确认发送",
+        cancelButtonText: "放弃发送",
+      })
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "发送成功",
           });
-    }
+        })
+        .catch((action) => {
+          this.$message({
+            type: "info",
+            message: action === "cancel" ? "未发起邀请" : "未发起邀请",
+          });
+        });
+    },
   },
   //  watch: {
   //   //watch监视input输入值的变化,只要是watch变化了 search()就会被调用
   //   search(newVal) {
   //     this.handleSearch(newVal);
   //   },
-    // isPatent(newVal)
-    // {
-    //   this.changeTable();
-    // }
+  // isPatent(newVal)
+  // {
+  //   this.changeTable();
+  // }
   // },
   //  mounted() {
   //   this.parentTable2 = this.parentTable;
@@ -1748,7 +1455,7 @@ export default {
   font-size: 18px;
 }
 .addSubTask .patentDialog .el-dialog__header {
-padding: 0px;
+  padding: 0px;
 }
 .consignment {
   .el-dialog__body {
@@ -1766,23 +1473,23 @@ padding: 0px;
     padding-top: 0px;
   }
 }
-.simichakan{
+.simichakan {
   // float: right;
   // margin-top: -18px;
   // margin-right: 110px;
-    float: left;
-    margin-top: -18px;
-    margin-left: 120px;
-    color: #F56C6C;
-    font-size:12px;
-    text-align:left
+  float: left;
+  margin-top: -18px;
+  margin-left: 120px;
+  color: #f56c6c;
+  font-size: 12px;
+  text-align: left;
 }
-.addSubTask .companyDialogTable{
+.addSubTask .companyDialogTable {
   width: 98%;
 }
-.addSubTask .companyDialogPagination{
+.addSubTask .companyDialogPagination {
   // float: right;
-  text-align:right;
+  text-align: right;
   margin-right: 2%;
   // display: inline;
 }
