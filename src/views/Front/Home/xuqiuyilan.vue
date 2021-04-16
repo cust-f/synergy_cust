@@ -170,11 +170,20 @@
                 <el-col :span="21">
                   <el-row>
                     <div style="float: left">
-                      <h2>{{ companys.taskName }}</h2>
+                      <h2>{{ companys.taskName }}   </h2>
+                      
                     </div>
                     <!-- <div style="float:right;">
                       <el-rate v-model="companys.star" disabled text-color="#ff9900"></el-rate>
                     </div>-->
+                    <div style="float:right;">
+                           <p v-if="companys.isRecommended"
+                           style="font-size: 18px; font-weight: 400; font-style: normal; 
+                           text-decoration: none; color: rgb(153, 153, 153);
+                            padding: 0px; margin: 0px; word-break: break-word;">
+                             {{"推荐"}}
+                             </p>
+                    </div>
                   </el-row>
                   <el-row>
                     <el-col :span="9">
@@ -255,6 +264,7 @@ export default {
   name: "excellentCompany",
   data() {
     return {
+      usernameX: sessionStorage.getItem("ms_username"),
       dynamicTags: [],
       province: "",
       city: [],
@@ -295,6 +305,8 @@ export default {
     },
   },
   methods: {
+    //判断该需求任务中流通任务中的零件对比自己的仓库中是否含有零件，若含有，则显示邀请，不含有则显示邀请
+
     getParams() {
       if (this.$route.query.Predirects != null) {
         var routerParams = this.$route.query.Predirects;
@@ -366,8 +378,8 @@ export default {
       let that = this;
       let data = Qs.stringify({
         page: page - 1,
+      userName:this.usernameX,
       });
-
       that
         .axios({
           method: "post",
@@ -410,6 +422,7 @@ export default {
           searchStr: this.search,
           zihangye: zihangye,
           page: page - 1,
+          userName:this.usernameX,
         },
         { arrayFormat: "brackets" }
       );
@@ -418,6 +431,7 @@ export default {
         data = Qs.stringify(
         {
           page: page - 1,
+          userName:this.usernameX,
         },
         { arrayFormat: "brackets" }
       );
@@ -429,10 +443,11 @@ export default {
           data: data,
         })
         .then((response) => {
-         
+          console.log(data)
           this.companyList = response.data.allData.companyList;
           this.totalCount = response.data.allData.totalcount; 
           console.log(this.companyList)
+          console.log(data);
           console.log("response的totalcount  "+response.data.allData.totalcount);
         });
     },
@@ -475,6 +490,7 @@ export default {
           searchStr: this.search,
           zihangye: zihangye,
           page: 0,
+          userName:this.usernameX,
         },
         { arrayFormat: "brackets" }
       );
@@ -483,6 +499,7 @@ export default {
         data = Qs.stringify(
         {
           page: 0,
+          userName:this.usernameX,
         },
         { arrayFormat: "brackets" }
       );
