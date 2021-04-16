@@ -565,15 +565,16 @@
                 </span>
               </template>
               </el-table-column>
-              <el-table-column prop="Recommend_Stars" width="167" label="推荐">
+              <el-table-column prop="newStars" width="167" label="推荐" sortable>
                 <template slot-scope="scope">
-                  <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
+                  <!-- 重映射  newStars 【算出的数据有问题】-->
+                  <el-rate v-model="scope.row.newStars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
             </el-table-column>
             <el-table-column prop="Parts_Category" label="零件类别"></el-table-column>
               <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
-              <el-table-column prop="Reserve" width="80" label="库存量"></el-table-column>
-              <el-table-column prop="Sale" width="80" label="销售量"></el-table-column>
+              <el-table-column prop="Reserve" width="90" label="库存量" sortable></el-table-column>
+              <el-table-column prop="Sale" width="90" label="销售量" sortable></el-table-column>
               <el-table-column label="操作" width="80" align="center">
                 <template slot-scope="scope">
                   <el-button type="text" size="small" @click="addSelectdSupplier(scope.row)">添加</el-button>
@@ -771,6 +772,8 @@ export default {
       //根据零件查询出的企业列表数组的分页参数
       pageIndex1: 1, //页码
       pageSize1: 6, //每页数据
+      proptype:"",//排序的属性列
+
       isgongyingshang: false,
       twogongyingshang: false,
       liebieList: { supplyCompany: "" },
@@ -1086,7 +1089,7 @@ export default {
         this.addCompanyVisible = true;
       }
     },
-    //企业列表(待加入供应商列表)分页改变
+    // 企业列表(待加入供应商列表)分页改变
     companyDialogHandleCurrentChange(cpage) {
       this.pageIndex1 = cpage;
     },
@@ -1148,8 +1151,6 @@ export default {
       }
       // }
     },
-    //获取零件种类信息
-    // getallCategoryList() {
     //将供应商添加到数据库
     addSupplier(companyId) {
       var that = this;
@@ -1636,6 +1637,8 @@ export default {
           });
         });
     },
+
+
   },
   //  watch: {
   //   //watch监视input输入值的变化,只要是watch变化了 search()就会被调用
