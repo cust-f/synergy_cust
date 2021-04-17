@@ -566,7 +566,7 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable>
+              <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable='custom'>
                 <template slot-scope="scope">
                   <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
