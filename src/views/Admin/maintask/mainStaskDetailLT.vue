@@ -2269,7 +2269,7 @@ export default {
       that
       .axios({
             method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
             data: data,
           })
         .then((response) => {
