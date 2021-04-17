@@ -1,11 +1,11 @@
 <template>
-  <div id="circulationChart" style="width: 100%;height:350%;"></div>
+  <div id="circulationPredictionChart" style="width: 100%;height:430%;"></div>
 </template>
 
 <script>
 export default {
   props: {
-    lineData: {
+    linePreData: {
       type: Object
     }
   },
@@ -20,7 +20,7 @@ export default {
       var that = this;
       var charts = [];
       var myChart = echarts.init(
-        document.getElementById("circulationChart")
+        document.getElementById("circulationPredictionChart")
       );
 
       var option = {
@@ -51,7 +51,7 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: this.lineData.months
+          data: this.linePreData.months
           // [
           //   "一月",
           //   "二月",
@@ -75,32 +75,31 @@ export default {
             name: "销售量",
             type: "line",
             stack: "销售总量",
-          //  itemStyle: {
-          //     normal: {
-          //     // color:'#19CAAD',
-          //       lineStyle: {
-          //       //  color: "#19CAAD",
-          //         width: 3
-          //       }
-          //     }
-          //   },
-            data: this.lineData.saleCount
+            itemStyle: {
+              normal: {
+                lineStyle: {
+                //  color: '#19CAAD'
+                  // width: 3
+                }
+              }
+            },
+            data: this.linePreData.saleCount
             //    data: [1,1,6]
           },
           {
             name: "库存量",
             type: "line",
             stack: "库存总量",
-            // itemStyle: {
-            //   normal: {
-            //   // color:'#F4606C',
-            //     lineStyle: {
-            //     //  color: "#F4606C",
-            //       width: 3
-            //     }
-            //   }
-            // },
-            data: this.lineData.inventoryCount
+            // stack: "销售总量",
+            itemStyle: {
+              normal: {
+                lineStyle: {
+                //  color: '#F4606C'
+                  // width: 3
+                }
+              }
+            },
+            data: this.linePreData.inventoryCount
             // data: [0,0,9]
           },
           {
@@ -118,7 +117,7 @@ export default {
                 }
               }
             },
-            data: this.lineData.salePredictionCount
+            data: this.linePreData.salePredictionCount
             // data: [0,0,9]
           },          
           {
@@ -137,7 +136,7 @@ export default {
                 }
               }
             },
-            data: this.lineData.inventoryPredictionCount
+            data: this.linePreData.inventoryPredictionCount
             // data: [0,0,9]
           }
         ]

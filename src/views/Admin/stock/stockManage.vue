@@ -52,7 +52,12 @@
               label="产品名称"
               sortable
               width="120"
-            ></el-table-column>
+            >
+            <template slot-scope="scope">
+                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">{{
+                  scope.row.productName
+                }}</el-link>
+              </template></el-table-column>
             <el-table-column
               prop="productState"
               label="物品状态"
@@ -282,6 +287,36 @@
             </span>
           </el-dialog>
         </div>
+      <!-- 折线图弹出框 -->
+      <div class="lineChart1">
+        <el-dialog :visible.sync="dialogLineChartVisible" center>
+          <template slot="title">
+             {{this.lineTitle}}
+          </template>
+          <div style="float: right">
+            <template>
+              <el-select
+                style="width: 100px; margin-right: 35px; margin-top: -20px"
+                v-model="lineYear"
+                @change="lineChartChange()"
+              >
+                <el-option
+                  v-for="item in options"
+                  placeholder="请选择"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                  width="20px"
+                ></el-option>
+              </el-select>
+            </template>
+          </div>
+          <!-- <el-card> -->
+          <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
+          <!-- </el-card> -->
+        </el-dialog>
+      </div>
       </el-main>
     </el-container>
   </div>
@@ -290,11 +325,34 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+import lineChart from "./components/lineChart"; //折线图
 
 export default {
   name: "stockManage",
+    components: {
+    "line-chart": lineChart, //折线图
+  },
   data() {
     return {
+      dialogLineChartVisible: false, //显示折线图
+      options: [],
+      lineYear: "",
+      productCompanyId:"",
+      productCompanyName:"",
+      productName1:"",
+      lineTitle:this.productCompanyName+"/"+this.productName,
+      /**
+       * 数据统计
+       */
+      //折线图
+      lineData: {
+        //发布任务总量
+        saleCount: [],
+        //完成任务总量
+        inventoryCount: [],
+        //月份数量
+        months: [],
+      },
       //新增弹窗内部字段
       addTC: {
         productName1: "",
@@ -431,6 +489,8 @@ export default {
     this.getData();
     this.getStore();
     //this.GetTime();
+    this.getYearData();  //折线图年份获取
+    this.getCompanyName();
   },
   methods: {
     handleCurrentChange(cpage) {
@@ -640,6 +700,8 @@ export default {
         .then((response) => {
           console.log(response);
           this.tableData = response.data.allData;
+          this.productCompanyId = response.data.allData[0].companyID;
+          console.log(this.productCompanyId)
         })
         .catch((error) => {
           console.log(error.response);

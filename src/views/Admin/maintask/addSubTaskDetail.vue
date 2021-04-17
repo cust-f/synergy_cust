@@ -566,7 +566,7 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable>
+              <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable='custom'>
                 <template slot-scope="scope">
                   <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
@@ -614,7 +614,10 @@
         </el-card> -->
     <!-- 折线图弹出框 -->
     <div class="lineChart1">
-      <el-dialog title="折线图" :visible.sync="dialogLineChartVisible" center>
+      <el-dialog :visible.sync="dialogLineChartVisible" center>
+          <template slot="title">
+             {{this.lineTitle}}
+          </template>
         <div style="float: right">
           <template>
             <el-select
@@ -660,7 +663,9 @@ export default {
       options: [],
       lineYear: "",
       productCompanyId:"",
+      productCompanyName:"",
       productName1:"",
+      lineTitle:"",
       /**
        * 数据统计
        */
@@ -672,6 +677,10 @@ export default {
         inventoryCount: [],
         //月份数量
         months: [],
+        //销售量(预测)
+        salePredictionCount:[],
+        //库存量(预测)
+        inventoryPredictionCount:[],
       },
       //禁用今天以前的时间
       pickerOptions: {
@@ -991,6 +1000,7 @@ export default {
     //折线图数据显示
     showLineChart(row) {
       this.dialogLineChartVisible = true;
+      this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
       this.lineChart(row);
       this.getYearData();
     },
@@ -1012,13 +1022,15 @@ export default {
       that
       .axios({
             method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
             data: data,
           })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
+          this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
+          this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
           console.log(alllData);
         });
@@ -1037,13 +1049,15 @@ export default {
       that
       .axios({
             method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
             data: data,
           })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
+          this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
+          this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
           console.log(alllData);
         });
@@ -1731,4 +1745,12 @@ export default {
   margin-right: 2%;
   // display: inline;
 }
+.lineChart1{
+    .el-dialog__header {
+    padding: 20px 20px 20px;
+  }
+  .el-dialog {
+    width: 959px;
+}
+  }
 </style>
