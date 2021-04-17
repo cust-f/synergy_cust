@@ -433,6 +433,10 @@ export default {
     //this.GetTime();
   },
   methods: {
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+
     //查询公司所有仓库
     getStore() {
       var that = this;
