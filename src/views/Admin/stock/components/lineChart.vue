@@ -31,7 +31,7 @@ export default {
           trigger: "axis"
         },
         legend: {
-          data: ["销售量", "库存量","销售量(预测)","库存量(预测)"]
+          data: ["销售量", "库存量"]
         },
         grid: {
           left: "3%",
@@ -75,14 +75,15 @@ export default {
             name: "销售量",
             type: "line",
             stack: "销售总量",
-            itemStyle: {
-              normal: {
-                lineStyle: {
-                //  color: '#19CAAD'
-                  // width: 3
-                }
-              }
-            },
+          //  itemStyle: {
+          //     normal: {
+          //     // color:'#19CAAD',
+          //       lineStyle: {
+          //       //  color: "#19CAAD",
+          //         width: 3
+          //       }
+          //     }
+          //   },
             data: this.lineData.saleCount
             //    data: [1,1,6]
           },
@@ -90,53 +91,16 @@ export default {
             name: "库存量",
             type: "line",
             stack: "库存总量",
-            // stack: "销售总量",
-            itemStyle: {
-              normal: {
-                lineStyle: {
-                //  color: '#F4606C'
-                  // width: 3
-                }
-              }
-            },
+            // itemStyle: {
+            //   normal: {
+            //   // color:'#F4606C',
+            //     lineStyle: {
+            //     //  color: "#F4606C",
+            //       width: 3
+            //     }
+            //   }
+            // },
             data: this.lineData.inventoryCount
-            // data: [0,0,9]
-          },
-          {
-            name: "销售量(预测)",
-            type: "line",
-            stack: "销售量(预测)",
-            smooth:false,   //关键点，为true是不支持虚线的，实线就用true
-            itemStyle: {
-              normal: {
-                color:'#F4606C',
-                lineStyle: {
-                 color: '#F4606C',
-                 type:'dotted'  //'dotted'虚线 'solid'实线
-                  // width: 3
-                }
-              }
-            },
-            data: this.lineData.salePredictionCount
-            // data: [0,0,9]
-          },          
-          {
-            name: "库存量(预测)",
-            type: "line",
-            stack: "库存量(预测)",
-            // stack: "销售量(预测)",
-            smooth:false,   //关键点，为true是不支持虚线的，实线就用true
-            itemStyle: {
-              normal: {
-                color:'#606266',
-                lineStyle: {
-                 color: '#606266',
-                 type:'dotted'  //'dotted'虚线 'solid'实线
-                  // width: 3
-                }
-              }
-            },
-            data: this.lineData.inventoryPredictionCount
             // data: [0,0,9]
           }
         ]
