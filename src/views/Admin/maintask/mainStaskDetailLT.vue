@@ -1639,7 +1639,7 @@
             <div style="width: 90%; margin-bottom: 10px">
               <span style="color: black">当前订单状态: </span>
               <span style="color: #409eff">
-                &nbsp&nbsp&nbsp&nbsp{{ status }}</span
+                &nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</span
               >
             </div>
             <el-button
@@ -1852,7 +1852,10 @@
       </el-dialog>
       <!-- 折线图弹出框 -->
       <div class="lineChart1">
-        <el-dialog title="折线图" :visible.sync="dialogLineChartVisible" center>
+        <el-dialog :visible.sync="dialogLineChartVisible" center>
+          <template slot="title">
+             {{this.lineTitle}}
+          </template>
           <div style="float: right">
             <template>
               <el-select
@@ -1927,18 +1930,24 @@ export default {
       options: [],
       lineYear: "",
       productCompanyId:"",
+      productCompanyName:"",
       productName1:"",
+      lineTitle:"",
       /**
        * 数据统计
        */
       //折线图
       lineData: {
-        //发布任务总量
+        //销售量
         saleCount: [],
-        //完成任务总量
+        //库存量
         inventoryCount: [],
         //月份数量
         months: [],
+        //销售量(预测)
+        salePredictionCount:[],
+        //库存量(预测)
+        inventoryPredictionCount:[],
       },
       //质量完成图数据源
       formZL: {
@@ -2240,6 +2249,7 @@ export default {
     //折线图数据显示
     showLineChart(row) {
       this.dialogLineChartVisible = true;
+      this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
       this.lineChart(row);
       this.getYearData();
     },
@@ -2259,15 +2269,17 @@ export default {
       that
       .axios({
             method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
             data: data,
           })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
+          this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
+          this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(alllData);
+          console.log(allData);
         });
     },
     //时间变换查询折线图
@@ -2284,15 +2296,17 @@ export default {
       that
       .axios({
             method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
             data: data,
           })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
+          this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
+          this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(alllData);
+          console.log(allData);
         });
     },
     //全部通过
@@ -2631,8 +2645,10 @@ export default {
     shenqingtanchu(row) {
       this.shenqingTC = true;
       this.productCompanyId = row.companyId;
-      // console.log(row)
-      // console.log(this.productCompanyId)
+      this.productCompanyName = row.companyName;
+      console.log(row)
+      console.log(this.productCompanyId)
+      console.log(this.productCompanyName)
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
@@ -3825,6 +3841,9 @@ export default {
     .el-dialog__header {
     padding: 20px 20px 20px;
   }
+  .el-dialog {
+    width: 959px;
+}
   }
 }
 </style>

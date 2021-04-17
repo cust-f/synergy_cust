@@ -52,7 +52,12 @@
               label="产品名称"
               sortable
               width="120"
-            ></el-table-column>
+            >
+            <template slot-scope="scope">
+                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">{{
+                  scope.row.productName
+                }}</el-link>
+              </template></el-table-column>
             <el-table-column
               prop="productState"
               label="物品状态"
@@ -282,6 +287,36 @@
             </span>
           </el-dialog>
         </div>
+      <!-- 折线图弹出框 -->
+      <div class="lineChart1">
+        <el-dialog :visible.sync="dialogLineChartVisible" center>
+          <template slot="title">
+             {{this.lineTitle}}
+          </template>
+          <div style="float: right">
+            <template>
+              <el-select
+                style="width: 100px; margin-right: 35px; margin-top: -20px"
+                v-model="lineYear"
+                @change="lineChartChange()"
+              >
+                <el-option
+                  v-for="item in options"
+                  placeholder="请选择"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                  width="20px"
+                ></el-option>
+              </el-select>
+            </template>
+          </div>
+          <!-- <el-card> -->
+          <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
+          <!-- </el-card> -->
+        </el-dialog>
+      </div>
       </el-main>
     </el-container>
   </div>
@@ -290,11 +325,34 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+import lineChart from "./components/lineChart"; //折线图
 
 export default {
   name: "stockManage",
+    components: {
+    "line-chart": lineChart, //折线图
+  },
   data() {
     return {
+      dialogLineChartVisible: false, //显示折线图
+      options: [],
+      lineYear: "",
+      productCompanyId:"",
+      productCompanyName:"",
+      productName1:"",
+      lineTitle:this.productCompanyName+"/"+this.productName,
+      /**
+       * 数据统计
+       */
+      //折线图
+      lineData: {
+        //发布任务总量
+        saleCount: [],
+        //完成任务总量
+        inventoryCount: [],
+        //月份数量
+        months: [],
+      },
       //新增弹窗内部字段
       addTC: {
         productName1: "",
@@ -431,8 +489,99 @@ export default {
     this.getData();
     this.getStore();
     //this.GetTime();
+    this.getYearData();  //折线图年份获取
+    this.getCompanyName();
   },
   methods: {
+    //获取条件选择时间数据
+    getYearData() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then((response) => {
+        this.lineYear = response.data.allData.nowYear;
+        this.options = response.data.allData.years;
+        this.lineChartChange();
+      });
+    },
+    //折线图数据显示
+    showLineChart(row) {
+      this.dialogLineChartVisible = true;
+      this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
+      this.lineChart(row);
+      this.getYearData();
+    },
+    //按要求显示
+    lineChart(row) {
+      var that = this;
+      this.productName1 = row.productName;
+      console.log(row.productName)
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
+        .then((response) => {
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+          console.log(allData)
+        });
+    },
+    //时间变换查询折线图
+    lineChartChange() {
+      var that = this;
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(this.productCompanyId)
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
+        .then((response) => {
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+          console.log(allData)
+        });
+    },
+    //查询公司名称
+    getCompanyName() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+      });
+      console.log(this.usernameX)
+      that
+        .axios({
+          method: "post",
+          url: "/api/dataStatistics/getCompanyName",
+          data: data,
+        })
+        .then((response) => {
+          console.log(response)
+          this.productCompanyName = response.data.allData;
+          console.log(this.productCompanyName)
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
     //查询公司所有仓库
     getStore() {
       var that = this;
@@ -636,6 +785,8 @@ export default {
         .then((response) => {
           console.log(response);
           this.tableData = response.data.allData;
+          this.productCompanyId = response.data.allData[0].companyID;
+          console.log(this.productCompanyId)
         })
         .catch((error) => {
           console.log(error.response);
