@@ -676,7 +676,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <br />
+    <br/>
 
     <el-row :gutter="20">
       <el-col :span="24">
@@ -715,6 +715,60 @@
         </el-card>
       </el-col>
     </el-row>
+<br/>
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <el-card shadow="hover">
+          <div class="type-situation">零件类别销量统计</div>
+          <div style="float: left">
+            <template>
+              <el-select
+                style="width: 200px; margin-left: 5px"
+                v-model="lineCategory"
+                @change="lineChartChangePre"
+              >
+                <el-option
+                  v-for="item in optionsCate"
+                  placeholder="请选择"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                  width="20px"
+                >
+                </el-option>
+              </el-select>
+            </template>
+          </div>
+          <div style="float: right">
+            <template>
+              <el-select
+                style="width: 100px; margin-right: 35px"
+                v-model="lineYear"
+                @change="lineChartChangePre"
+              >
+                <el-option
+                  v-for="item in optionsPre"
+                  placeholder="请选择"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                  width="20px"
+                >
+                </el-option>
+              </el-select>
+            </template>
+          </div>
+          <br /><br /><br />
+          <!-- <div id="categoryLine" :lineData="lineData"  style="width: 100%;height:430%"></div> -->
+          <template>
+            <line-chart :linePreData="linePreData" ref="drawLineChartPre"></line-chart>
+            <div v-show="noData" style="margin-top: 50px;margin-left:405px;color:#ccc">无数据</div>
+          </template>
+        </el-card>
+      </el-col>
+    </el-row>
 
     </el-card>
   </div>
@@ -725,17 +779,43 @@ import axios from 'axios';
 import columnChart1 from "./components/columnChart1";
 import columnChart2 from "./components/columnChart2";
 import piechart1 from "./components/piechart1";
+import lineChartPre from "./components/lineChartPre"; //销售预测折线图
 import bus from "../../../Layout/components/common/Admin/bus";
 export default {
   name: "Data",
   components: {
       "cloumn-chart1": columnChart1,
       "cloumn-chart2": columnChart2,
-      "pie-chart": piechart1
+      "pie-chart": piechart1,
+      "line-chart": lineChartPre
   },
   data() {
     return {
-       
+      //显示折线图
+      optionsCate: [],
+      lineCategory: "",
+      optionsPre: [],
+      lineYear: "",
+      productCompanyId:"5561",
+      productCompanyName:"",
+      productName1:"离合器盒",
+      lineTitle:"",
+      /**
+       * 数据统计
+       */
+      //销售折线图
+      linePreData: {
+        //销售量
+        saleCount: [],
+        //库存量
+        inventoryCount: [],
+        //月份数量
+        months: [],
+        //销售量(预测)
+        salePredictionCount:[],
+        //库存量(预测)
+        inventoryPredictionCount:[],
+      },
       name: sessionStorage.getItem("ms_username"),
       isWeekData: false,
       isMonthData: false,
@@ -847,13 +927,16 @@ export default {
  
   //初始化方法
    created() {
-         this.homeDataB();
+    this.homeDataB();
     this.getYearData(); //获取条件选择时间数据
     this.getYearData1();
+    this.getYearDataPre();
+    this.getLineMainCategory();//获取条件选择零件类别数据
     this.getTimeData();//获取今年元旦和现在时间数据
     this.getStatistics();
     this.lineChartDataCategory();
     this.getLineChart1();
+    this.lineChartChangePre();
     
   },
   // mounted() {
@@ -863,6 +946,57 @@ export default {
   //  },
 
   methods: {
+    //获取条件选择时间数据
+    getYearDataPre() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then(response => {
+        this.lineYear = response.data.allData.nowYear;
+        this.optionsPre= response.data.allData.years;  
+        this.lineChartChangePre(); 
+      });
+    },
+    //获取条件选择零件类别数据
+    getLineMainCategory() {
+      let that = this;
+      that.axios.post("/api/dataStatistics/findLineMainCategory").then(response => {
+        this.lineCategory = response.data.allData.firstOne;
+        this.optionsCate= response.data.allData.mainCategoryList;  
+        this.lineChartChangePre(); 
+      });
+    },
+    //时间变换查询销售折线图
+    lineChartChangePre() {
+      var that = this;
+      var categoryId;
+      if(this.lineCategory === "滤清器"){
+        categoryId = 1
+      }else{
+        categoryId = this.lineCategory
+      }
+      var data = Qs.stringify({
+          mainCategoryId: categoryId,
+          // companyId: this.productCompanyId,
+          // productName: this.productName1,
+          year: this.lineYear,
+        });
+        console.log(this.lineCategory)
+        console.log(data)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthCategorySaleAndInventoryCountPrediction",
+            data: data,
+          })
+        .then((response) => {
+          this.linePreData.saleCount = response.data.allData.saleCount;
+          this.linePreData.inventoryCount = response.data.allData.inventoryCount;
+          this.linePreData.months = response.data.allData.monthCount;
+          this.linePreData.salePredictionCount = response.data.allData.salePredictionCount;
+          this.linePreData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
+          that.$refs.drawLineChartPre.getCharts();
+          console.log(allData);
+        });
+    },
 
     handleClick(tab, event) {
         console.log(tab, event);
