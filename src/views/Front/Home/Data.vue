@@ -770,6 +770,19 @@
       </el-col>
     </el-row>
 
+    <br />
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <el-card shadow="hover">
+          <div id="partsPieChart" style="width: 100%;height:430%"></div>
+          <!-- <template>
+            <line-chart :linePreData="linePreData" ref="drawLineChartPre"></line-chart>
+            <div v-show="noData" style="margin-top: 50px;margin-left:405px;color:#ccc">无数据</div>
+          </template> -->
+        </el-card>
+      </el-col>
+    </el-row>
+
     </el-card>
   </div>
 </template>
@@ -911,9 +924,7 @@ export default {
         nowYear: "",
         
       },
-      
-
-      
+      partsPieData:{},
     };
   },computed: {
     role() {
@@ -936,6 +947,7 @@ export default {
     this.getStatistics();
     this.lineChartDataCategory();
     this.getLineChart1();
+    this.getPartsPieData();//获得零件年度销售量环形图
     this.lineChartChangePre();
     
   },
@@ -1443,8 +1455,73 @@ export default {
 
       myChart.setOption(option);
     },
-
-
+    //获得零件年度销售量环形数据
+    getPartsPieData(){
+      var that = this;
+      that
+        .axios({
+          method: "post",
+          url: "/api/dataStatistics/findPartsPieData",
+        })
+        .then((response) => {
+          this.partsPieData.year = response.data.allData.year;
+          this.partsPieData.mainPartsName = response.data.allData.mainPartsName;
+          this.partsPieData.partsSaleNum = response.data.allData.partsSaleNum;
+          this.setPartsPieChart();
+        });
+    },
+    //设置零件年度销售量环形图
+    setPartsPieChart(){
+      var charts = [];
+      var myChart = echarts.init(document.getElementById("partsPieChart")); // 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: `${this.partsPieData.year}年 零件销售量`,
+          subtext: " ",
+          left: "center",
+          y:20,
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+          orient: "vertical",
+          right: 0,
+          top:45,
+          data: this.partsPieData.mainPartsName
+        },
+        series: [
+          {
+            name: "零件年度销售量",
+            type: "pie",
+            radius: ["50%", "70%"],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                show: false,
+                position: "center"
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: "25",
+                  fontWeight: "bold"
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: this.partsPieData.partsSaleNum
+          }
+        ]
+      };
+      myChart.setOption(option);
+      charts.push(myChart);
+    },
     
   }
 
