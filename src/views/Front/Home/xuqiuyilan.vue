@@ -169,21 +169,23 @@
                 </el-col>
                 <el-col :span="21">
                   <el-row>
-                    <div style="float: left">
-                      <h2>{{ companys.taskName }}   </h2>
-                      
+                    <div style="float: left" >
+                      <h2>{{ companys.taskName }} <span style=" color: red;" v-show="companys.isRecommended&&companys.taskState == '申请或邀请中'">【推荐】</span>
+                     </h2>
                     </div>
                     <!-- <div style="float:right;">
                       <el-rate v-model="companys.star" disabled text-color="#ff9900"></el-rate>
                     </div>-->
+                    <!-- <el-col :span="3">
                     <div style="float:right;">
                            <p v-if="companys.isRecommended"
-                           style="font-size: 18px; font-weight: 400; font-style: normal; 
-                           text-decoration: none; color: rgb(153, 153, 153);
+                           style="font-size: 18px; font-weight: 600; font-style: normal; 
+                           text-decoration: none; color: red;
                             padding: 0px; margin: 0px; word-break: break-word;">
-                             {{"推荐"}}
+                             {{"（推荐）"}}
                              </p>
                     </div>
+                    </el-col> -->
                   </el-row>
                   <el-row>
                     <el-col :span="9">
@@ -642,6 +644,7 @@ export default {
     },
     taskTypeSelect(data) {
       if (data == 0) {
+
         let delTag = { type: "taskType" };
         this.handleClose(delTag, 0);
       } else {
