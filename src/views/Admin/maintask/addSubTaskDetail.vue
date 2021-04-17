@@ -553,28 +553,34 @@
               ref="multipleTable"
               header-cell-class-name="table-header"
               @selection-change="handleSelectionChange"
+              @sort-change="sortChange"
             >
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
               <el-table-column prop="Company_Name"  width="315" label="企业名称">
-              <template slot-scope="scope">
-                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">
-                  {{ scope.row.Company_Name}}
-                </el-link>
-                <span v-show="scope.row.recommend != 0">
-                  <el-tag type="success" size="mini">已合作</el-tag>
-                </span>
-              </template>
-              </el-table-column>
-              <el-table-column prop="newStars" width="167" label="推荐" sortable>
                 <template slot-scope="scope">
-                  <!-- 重映射  newStars 【算出的数据有问题】-->
-                  <el-rate v-model="scope.row.newStars" disabled show-score text-color="#ff9900"></el-rate>
+                  <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">
+                    {{ scope.row.Company_Name}}
+                  </el-link>
+                  <span v-show="scope.row.recommend != 0">
+                    <el-tag type="success" size="mini">已合作</el-tag>
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable>
+                <template slot-scope="scope">
+                  <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
             </el-table-column>
+            <!-- 重映射  newStars 【算出的数据有问题】 -->
+            <!-- <el-table-column prop="newStars" width="167" label="推荐" sortable>
+                <template slot-scope="scope">
+                  <el-rate v-model="scope.row.newStars" disabled show-score text-color="#ff9900"></el-rate>
+                </template>
+            </el-table-column> -->
             <el-table-column prop="Parts_Category" label="零件类别"></el-table-column>
               <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
-              <el-table-column prop="Reserve" width="90" label="库存量" sortable></el-table-column>
-              <el-table-column prop="Sale" width="90" label="销售量" sortable></el-table-column>
+              <el-table-column prop="Reserve" width="90" label="库存量" sortable='custom'></el-table-column>
+              <el-table-column prop="Sale" width="90" label="销售量" sortable='custom'></el-table-column>
               <el-table-column label="操作" width="80" align="center">
                 <template slot-scope="scope">
                   <el-button type="text" size="small" @click="addSelectdSupplier(scope.row)">添加</el-button>
@@ -772,7 +778,6 @@ export default {
       //根据零件查询出的企业列表数组的分页参数
       pageIndex1: 1, //页码
       pageSize1: 6, //每页数据
-      proptype:"",//排序的属性列
 
       isgongyingshang: false,
       twogongyingshang: false,
@@ -1092,6 +1097,15 @@ export default {
     // 企业列表(待加入供应商列表)分页改变
     companyDialogHandleCurrentChange(cpage) {
       this.pageIndex1 = cpage;
+    },
+    // 企业列表(待加入供应商列表)全部排序[不止排当前页]
+    sortChange(column) {
+      this.pageIndex1 = 1; // 排序后返回第一页
+      if (column.order === "descending") {
+        this.companyTableData.sort((a, b) => b[column.prop] - a[column.prop]);
+      } else if (column.order === "ascending") {
+        this.companyTableData.sort((a, b) => a[column.prop] - b[column.prop]);
+      }
     },
     //判断供应商集合中是否存在某值
     supplierIsExist(selectSupplierId) {
