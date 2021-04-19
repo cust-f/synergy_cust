@@ -86,7 +86,7 @@
           <div style="width: 90%; margin-bottom: 10px">
             <span style="color: black">当前订单状态: </span>
             <span style="color: #409eff">
-              &nbsp&nbsp&nbsp&nbsp{{ status }}</span
+              &nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</span
             >
           </div>
           <el-button
