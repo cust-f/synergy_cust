@@ -543,7 +543,7 @@
         <!-- 新增供应商弹出框 -->
           <el-dialog  :visible.sync="addCompanyVisible" width="60%">
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-              新增
+              新增供应商
             </div>
             <br />
             <el-table
@@ -618,6 +618,10 @@
           <template slot="title">
              {{this.lineTitle}}
           </template>
+        <!-- 企业信息模块 -->
+        <el-card></el-card>
+        <!-- 零件销量库存图表折线图 -->
+        <el-card>
         <div style="float: right">
           <template>
             <el-select
@@ -640,6 +644,9 @@
         <!-- <el-card> -->
         <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
         <!-- </el-card> -->
+        </el-card>
+        <!-- 流通任务模块 雷达图 -->
+        <el-card></el-card>
       </el-dialog>
     </div>
   </el-container>
