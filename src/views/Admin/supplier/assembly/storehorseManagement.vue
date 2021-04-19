@@ -86,7 +86,7 @@
           <div style="width: 90%; margin-bottom: 10px">
             <span style="color: black">当前订单状态: </span>
             <span style="color: #409eff">
-              &nbsp&nbsp&nbsp&nbsp{{ status }}</span
+              &nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</span
             >
           </div>
           <el-button
@@ -858,15 +858,7 @@ export default {
               data: data,
             })
             .then((response) => {
-              var data2 = Qs.stringify({
-                stockId:that.tableData2.stockId,
-                
-              })
-              that.axios({
-                method:"post",
-                data:data2,
-                url:"/api/Inventory/stockUp"
-              })
+             
             });
           this.$message({
             message: "审核通过",
