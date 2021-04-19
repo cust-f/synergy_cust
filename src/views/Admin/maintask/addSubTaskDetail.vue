@@ -622,6 +622,14 @@
         <el-card></el-card>
         <!-- 零件销量库存图表折线图 -->
         <el-card>
+        <div class="type2-situation">{{this.lineTitle}}</div>
+        <br/>
+        <div class="type22-situation">
+          <span class="title-name">{{"当前库存量："+this.nowInventoryNum}}</span>
+          <span class="title-age">{{"当前销售量："+this.now}}</span>
+          <span class="title-age">{{"推荐星级："+this.nowStar}}</span>
+        </div>
+        <br/>
         <div style="float: right">
           <template>
             <el-select
@@ -673,6 +681,12 @@ export default {
       productCompanyName:"",
       productName1:"",
       lineTitle:"",
+      //当前库存量
+      nowInventoryNum:"",
+      //当前销售量
+      nowSaleNum:"",
+      //当前推荐星级
+      nowStar:"",
       /**
        * 数据统计
        */
@@ -1007,7 +1021,8 @@ export default {
     //折线图数据显示
     showLineChart(row) {
       this.dialogLineChartVisible = true;
-      this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
+      // this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
+      this.lineTitle = row.Product_Name + "销量趋势图";
       this.lineChart(row);
       this.getYearData();
     },
@@ -1758,6 +1773,16 @@ export default {
   }
   .el-dialog {
     width: 959px;
+}
+.type2-situation {
+  margin-left: 32%;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.type22-situation {
+  margin-left: 25%;
+  font-size: 14;
+  // font-weight: bold;
 }
   }
 </style>
