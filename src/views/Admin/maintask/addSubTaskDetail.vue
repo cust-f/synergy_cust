@@ -558,7 +558,7 @@
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
               <el-table-column prop="Company_Name"  width="315" label="企业名称">
                 <template slot-scope="scope">
-                  <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">
+                  <el-link @click.native="getCompanyInfo(scope.row)" :disabled="dialogLineChartVisible">
                     {{ scope.row.Company_Name}}
                   </el-link>
                   <span v-show="scope.row.recommend != 0">
@@ -566,17 +566,17 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable='custom'>
+              <!-- <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable='custom'>
                 <template slot-scope="scope">
                   <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             <!-- 重映射  newStars 【算出的数据有问题】 -->
-            <!-- <el-table-column prop="newStars" width="167" label="推荐" sortable>
+            <el-table-column prop="newStars" width="167" label="推荐" sortable>
                 <template slot-scope="scope">
                   <el-rate v-model="scope.row.newStars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
-            </el-table-column> -->
+            </el-table-column>
             <el-table-column prop="Parts_Category" label="零件类别"></el-table-column>
               <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
               <el-table-column prop="Reserve" width="90" label="库存量" sortable='custom'></el-table-column>
@@ -619,7 +619,9 @@
              {{this.lineTitle}}
           </template>
         <!-- 企业信息模块 -->
-        <el-card></el-card>
+        <el-card>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">哈哈</div>
+        </el-card>
         <!-- 零件销量库存图表折线图 -->
         <el-card>
         <div class="type2-situation">{{this.lineTitle}}</div>
@@ -1018,7 +1020,18 @@ export default {
             
       });
     },
-    //折线图数据显示
+    //(供应商)企业 详情显示 ：1.企业信息 2.仓库库存趋势折线图 3.流通任务雷达图
+    getCompanyInfo(row){
+      // 1.企业信息 
+      this.showCompanyDetail(row);
+      // 2.仓库库存趋势折线图 
+      this.showLineChart(row);
+      // 3.流通任务雷达图
+      this.showCirculationSubtaskRadar(row);
+    },
+    // 1.(供应商)企业信息
+    showCompanyDetail(row){},
+    // 2.折线图数据显示-仓库库存趋势折线图
     showLineChart(row) {
       this.dialogLineChartVisible = true;
       // this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
@@ -1026,6 +1039,8 @@ export default {
       this.lineChart(row);
       this.getYearData();
     },
+    // 3.(供应方)所有流通任务雷达图
+    showCirculationSubtaskRadar(row){},
     //按要求显示
     lineChart(row) {
       var that = this;
