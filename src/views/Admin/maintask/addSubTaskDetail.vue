@@ -614,22 +614,32 @@
         </el-card> -->
     <!-- 折线图弹出框 -->
     <div class="lineChart1">
-      <el-dialog :visible.sync="dialogLineChartVisible" center>
-          <template slot="title">
-             {{this.lineTitle}}
-          </template>
+      <el-dialog title="供应商企业详情" :visible.sync="dialogLineChartVisible" center>
+          <!-- <template slot="title">
+             供应商企业详情
+          </template> -->
         <!-- 企业信息模块 -->
         <el-card>
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">哈哈</div>
         </el-card>
         <!-- 零件销量库存图表折线图 -->
         <el-card>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">零件销量库存图表折线图</div>
         <div class="type2-situation">{{this.lineTitle}}</div>
         <br/>
         <div class="type22-situation">
-          <span class="title-name">{{"当前库存量："+this.nowInventoryNum}}</span>
-          <span class="title-age">{{"当前销售量："+this.now}}</span>
-          <span class="title-age">{{"推荐星级："+this.nowStar}}</span>
+          <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
+          &nbsp;
+          <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
+          <!-- <span class="title-star">
+            {{"推荐星级："}}
+              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
+          </span> -->
+        </div>
+        <div class="type23-situation">
+          <span class="title-star">
+              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
+          </span>
         </div>
         <br/>
         <div style="float: right">
@@ -689,6 +699,8 @@ export default {
       nowSaleNum:"",
       //当前推荐星级
       nowStar:"",
+      //当前月份
+      nowMonth:"",
       /**
        * 数据统计
        */
@@ -1036,6 +1048,7 @@ export default {
       this.dialogLineChartVisible = true;
       // this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
       this.lineTitle = row.Product_Name + "销量趋势图";
+      this.nowStar = row.newStars;
       this.lineChart(row);
       this.getYearData();
     },
@@ -1044,6 +1057,10 @@ export default {
     //按要求显示
     lineChart(row) {
       var that = this;
+      var date = new Date();
+      this.nowMonth = date.getMonth() + 1;
+      var newMonth = this.nowMonth;
+      console.log(this.nowMonth)
       this.productName1 = row.Product_Name;
       this.productCompanyId = row.Company_ID;
       console.log(row.productName)
@@ -1068,8 +1085,10 @@ export default {
           this.lineData.months = response.data.allData.monthCount;
           this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
           this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
+          this.nowInventoryNum = response.data.allData.nowMonthInventoryCount;
+          this.nowSaleNum = response.data.allData.nowMonthSaleCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(alllData);
+          console.log(allData);
         });
     },
     //时间变换查询折线图
@@ -1096,7 +1115,7 @@ export default {
           this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
           this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(alllData);
+          console.log(allData);
         });
     },
     // handleSearch(val) {
@@ -1784,18 +1803,27 @@ export default {
 }
 .lineChart1{
     .el-dialog__header {
-    padding: 20px 20px 20px;
+    padding: 20px 20px 0px;
   }
   .el-dialog {
     width: 959px;
 }
 .type2-situation {
-  margin-left: 32%;
-  font-size: 1.8rem;
+  // margin-left: 35%;
+  text-align: center;
+  // font-size: 1.8rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 .type22-situation {
-  margin-left: 25%;
+  // margin-left: 36%;
+  text-align: center;
+  font-size: 14;
+  // font-weight: bold;
+}
+.type23-situation {
+  // margin-left: 40%;
+  text-align: center;
   font-size: 14;
   // font-weight: bold;
 }
