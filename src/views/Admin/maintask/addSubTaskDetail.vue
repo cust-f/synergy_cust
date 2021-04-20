@@ -637,7 +637,7 @@
                   <el-form-item label-width="0" class="company-detail-form-item">
                     <el-rate v-model="this.companyDetailForm.star" disabled text-color="#ff9900"></el-rate>
                   </el-form-item>
-                  <el-divider></el-divider>
+                  <el-divider class="company-detail-divider"></el-divider>
                   <el-form-item label="业务范围" class="company-detail-form-item">
                     <span>{{ this.companyDetailForm.product }}</span>
                   </el-form-item>
@@ -2019,9 +2019,6 @@ export default {
 .company-detail-form{
   .company-detail-form-item{
     margin-bottom: 0px;
-    .el-divider--horizontal {
-      margin: 13px 0;
-    }
     .company-detail-imgdiv{
       width: 100%;
       height: 0;
@@ -2036,6 +2033,9 @@ export default {
         border-radius:5px;
       }
     }
+  }
+  .company-detail-divider{
+    margin: 13px 0;
   }
 }
 .type2-situation {
