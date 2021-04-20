@@ -288,7 +288,7 @@
           </el-dialog>
         </div>
       <!-- 折线图弹出框 -->
-      <div class="lineChart1">
+      <div class="lineChartStock">
         <el-dialog :visible.sync="dialogLineChartVisible" center>
           <template slot="title">
              {{this.lineTitle}}
@@ -857,6 +857,15 @@ export default {
   }
   .biaoti {
     font-size: 18px;
+  }
+
+  .lineChartStock{
+    .el-dialog__header {
+    padding: 20px 20px 0px;
+  }
+  .el-dialog {
+    width: 959px;
+  }
   }
 }
 </style>
