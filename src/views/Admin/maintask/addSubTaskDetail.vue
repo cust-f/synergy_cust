@@ -614,7 +614,7 @@
         </el-card> -->
     <!-- 折线图弹出框 -->
     <div class="lineChart1">
-      <el-dialog :visible.sync="dialogLineChartVisible" center>
+      <el-dialog :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
           <template slot="title">
              {{this.lineTitle}}
           </template>
@@ -648,7 +648,28 @@
         <!-- </el-card> -->
         </el-card>
         <!-- 流通任务模块 雷达图 -->
-        <el-card></el-card>
+        <el-card>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
+        <br/>
+        <div class="LDT">
+       <radar-chart1
+        :radarData1="radarData1"
+        ref="refradarChart1"
+        class="renwupingjia"
+        ></radar-chart1>
+      <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <label>完成质量:</label>
+                <label id="word" style="font-size: 16px"></label>
+                <br />
+                <br />
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+       </div>
+       </div>
+        </el-card>
       </el-dialog>
     </div>
   </el-container>
@@ -657,6 +678,7 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+import radarChart1 from "../../Admin/Enterprise_Evaluation/components/radarCharthh"
 import { Popover } from "element-ui";
 import lineChart from "./components/lineChart"; //折线图
 // Vue.use(Popover);
@@ -664,12 +686,26 @@ export default {
   name: "addSubTaskDetail",
   components: {
     "line-chart": lineChart, //折线图
+    "radar-chart1":radarChart1,
   },
   data() {
     return {
+      form: {
+        circulationCount: 0, //流通完成质量
+      },
+      userName: sessionStorage.getItem("ms_username"),
+      UserName:"",
+      form2:{
+         time1:"",
+         time2:"",
+      } ,
+      radarData1:{
+        radarData1:[],
+        indicatorData1:[],
+      },
+       options: [],  
       loading: true,
       dialogLineChartVisible: false, //显示折线图
-      options: [],
       lineYear: "",
       productCompanyId:"",
       productCompanyName:"",
@@ -987,6 +1023,7 @@ export default {
     },
   },
   created() {
+    // this.getRadarData1();//流通任务-雷达图-接收
     this.consignmentTableShuaxin();
     this.getYearData();
     // this.lineChart();
@@ -996,6 +1033,7 @@ export default {
     that.consignmentTableShuaxin();
   },
   methods: {
+
     //获取条件选择时间数据
     getYearData() {
       let that = this;
@@ -1025,7 +1063,108 @@ export default {
       this.getYearData();
     },
     // 3.(供应方)所有流通任务雷达图
-    showCirculationSubtaskRadar(row){},
+    showCirculationSubtaskRadar(row){
+      this.findALLCirculationCount(row.Company_ID);
+      this.finduserNameBycompanyID(row.Company_ID);
+    },
+    findALLCirculationCount(companyID){
+       var that = this;
+      var data = Qs.stringify({
+        companyID: companyID,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/findALLCirculationCount",
+          data: data,
+        })
+        .then((response) => {
+            this.form.circulationCount = response.data.allData;
+            this.styleswith();
+        });
+    },
+    //根据companyID查询userName
+    finduserNameBycompanyID(companyID){
+      var that = this;
+      var data = Qs.stringify({
+        companyID: companyID,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/finduserNameBycompanyID",
+          data: data,
+        })
+        .then((response) => {
+            this.UserName=response.data.allData;
+            console.log("AA"+this.UserName)
+            this.getTimeData();
+        });
+    },
+     //获取条件选择时间数据
+    getTimeData() {
+      let that = this;
+      that.axios.post("/api/findTimes").then(response => {
+        // this.form2.time1 = response.data.allData[0];//本年第一天
+        this.form2.time1="2019-01-01";
+        this.form2.time2= response.data.allData[1];  //当天时间
+        this.getRadarData1();
+           
+      });
+    },
+     //雷达图-制造
+    getRadarData1(){
+     var that = this;
+      var data = Qs.stringify({
+        userName:this.UserName,
+        startTime:this.form2.time1,
+        finishTime:this.form2.time2,
+      });
+      that
+      
+        .axios({
+          method: "post",
+          url:
+            "/api/findCirculaterRemarkTimes1",
+          data: data
+        })
+        .then(response => {
+
+        this.radarData1.radarData1=response.data.allData.AllRemarkLength;
+         this.radarData1.indicatorData1=response.data.allData.indicator;
+         console.log("输出为"+this.radarData1.radarData1);
+         that.$refs.refradarChart1.getradarCharts1();   
+         this.styleswith();
+        });
+    },
+    //提交次数 背景颜色变化
+    styleswith() {
+      if (this.form.circulationCount > -4 || this.form.circulationCount == -4) {
+        document.getElementById("one").style.background = "#00D1B2";
+        document.getElementById("word").innerHTML = "优";
+        document.getElementById("word").style.color = "#00D1B2";
+      }
+      if (this.form.circulationCount < -4 && this.form.circulationCount > -8) {
+        document.getElementById("one").style.background = "#eee";
+        document.getElementById("two").style.background = "orange";
+        document.getElementById("word").innerHTML = "良";
+        document.getElementById("word").style.color = "orange";
+      }
+      if (this.form.circulationCount < -8 || this.form.circulationCount == -8) {
+        document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";
+        document.getElementById("word").innerHTML = "差";
+        document.getElementById("word").style.color = "red";
+      }
+    },
+    handleDialogClose() {
+        document.getElementById("one").style.background = "";
+        document.getElementById("two").style.background = "";
+        document.getElementById("three").style.background = "";
+        document.getElementById("word").innerHTML = "";
+        document.getElementById("word").style.color = "";
+        this.dialogLineChartVisible=false;
+    },
     //按要求显示
     lineChart(row) {
       var that = this;
@@ -1708,6 +1847,22 @@ export default {
 </script>
 
 <style lang="scss">
+ //完成质量
+.addSubTask .LDT{
+  margin-left: 35px;
+}
+
+.addSubTask .input_span span {
+    display: inline-block;
+    width: 85px;
+    height: 30px;
+    background: #eee;
+    line-height: 20px;
+  }
+
+.addSubTask .WCZL {
+    font-size: 11px;
+  }
 .addSubTask .box {
   width: 400px;
 }
