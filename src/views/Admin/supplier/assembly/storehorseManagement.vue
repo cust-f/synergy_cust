@@ -858,15 +858,7 @@ export default {
               data: data,
             })
             .then((response) => {
-              var data2 = Qs.stringify({
-                stockId:that.tableData2.stockId,
-                
-              })
-              that.axios({
-                method:"post",
-                data:data2,
-                url:"/api/Inventory/stockUp"
-              })
+             
             });
           this.$message({
             message: "审核通过",

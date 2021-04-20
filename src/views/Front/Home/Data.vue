@@ -650,7 +650,7 @@
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card shadow="hover">
-          <div class="type-situation">分类别需求量统计</div>
+          <div class="type-situation">分类别需求量占比</div>
           <div style="float:right">
             <template>
               <el-select
@@ -681,7 +681,7 @@
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card shadow="hover">
-          <div class="type-situation">流通清单类别量统计</div>
+          <div class="type-situation">流通清单类别量占比</div>
           <div style="float: right">
             <template>
               <el-select
@@ -719,7 +719,7 @@
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card shadow="hover">
-          <div class="type-situation">零件类别销量统计</div>
+          <div class="type-situation">流通零件类别销量趋势</div>
           <div style="float: left">
             <template>
               <el-select

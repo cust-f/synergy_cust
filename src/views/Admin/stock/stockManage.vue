@@ -493,6 +493,97 @@ export default {
     this.getCompanyName();
   },
   methods: {
+       //获取条件选择时间数据
+    getYearData() {
+      let that = this;
+      that.axios.post("/api/findYearsList").then((response) => {
+        this.lineYear = response.data.allData.nowYear;
+        this.options = response.data.allData.years;
+        this.lineChartChange();
+      });
+    },
+    //折线图数据显示
+    showLineChart(row) {
+      this.dialogLineChartVisible = true;
+      // this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
+      this.lineTitle =  row.productName + "销量趋势图";
+      this.lineChart(row);
+      this.getYearData();
+    },
+    //按要求显示
+    lineChart(row) {
+      var that = this;
+      this.productName1 = row.productName;
+      console.log(row.productName)
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
+        .then((response) => {
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+          console.log(allData)
+        });
+    },
+    //时间变换查询折线图
+    lineChartChange() {
+      var that = this;
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          year: this.lineYear,
+          productName: this.productName1,
+        });
+        console.log(this.productCompanyId)
+        console.log(data)
+        console.log(this.productName1)
+      that
+      .axios({
+            method: "post",
+            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
+            data: data,
+          })
+        .then((response) => {
+          this.lineData.saleCount = response.data.allData.saleCount;
+          this.lineData.inventoryCount = response.data.allData.inventoryCount;
+          this.lineData.months = response.data.allData.monthCount;
+          that.$refs.drawLineChart.getCharts();
+          console.log(allData)
+        });
+    },
+   //查询公司名称
+    getCompanyName() {
+      var that = this;
+      var data = Qs.stringify({
+        userName: this.usernameX,
+      });
+      console.log(this.usernameX)
+      that
+        .axios({
+          method: "post",
+          url: "/api/dataStatistics/getCompanyName",
+          data: data,
+        })
+        .then((response) => {
+          console.log(response)
+          this.productCompanyName = response.data.allData;
+          console.log(this.productCompanyName)
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+
     handleCurrentChange(cpage) {
       this.pageIndex = cpage;
     },

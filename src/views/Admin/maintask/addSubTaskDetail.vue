@@ -612,18 +612,69 @@
     <!-- <el-card>
         <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
         </el-card> -->
-    <!-- 折线图弹出框 -->
+    <!-- 供应商企业信息弹出框 -->
     <div class="lineChart1">
-      <el-dialog :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
-          <template slot="title">
-             {{this.lineTitle}}
-          </template>
+      <el-dialog title="供应商企业详情" :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
+          <!-- <template slot="title">
+             供应商企业详情
+          </template> -->
         <!-- 企业信息模块 -->
-        <el-card>
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">哈哈</div>
-        </el-card>
+        <!-- <el-card> -->
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div><br>
+          <el-form ref="companyDetailForm" :model="companyDetailForm" label-width="80px" class="company-detail-form">
+            <el-row :gutter="20">
+              <el-col :span="7">
+                <el-form-item label-width="0" class="company-detail-form-item">
+                  <div class="company-detail-imgdiv">
+                    <img class="company-detail-img" :src="this.companyDetailForm.logo" fit="fill" border="1"/>
+                  </div>
+                </el-form-item>
+              </el-col>
+              <el-col :span="17">
+                  <el-form-item label-width="0" class="company-detail-form-item">
+                   <span style="font-size: 18px;">{{ this.companyDetailForm.companyName }}</span>
+                  </el-form-item> 
+                  <el-form-item label-width="0" class="company-detail-form-item">
+                    <el-rate v-model="this.companyDetailForm.star" disabled text-color="#ff9900"></el-rate>
+                  </el-form-item>
+                  <el-divider></el-divider>
+                  <el-form-item label="业务范围" class="company-detail-form-item">
+                    <span>{{ this.companyDetailForm.product }}</span>
+                  </el-form-item>
+                  <el-form-item label="企业地址" class="company-detail-form-item">
+                    <span>{{ this.companyDetailForm.address }}</span>
+                  </el-form-item>
+                  <el-form-item label="联系电话" class="company-detail-form-item">
+                    <span>{{ this.companyDetailForm.officeNumber }}</span>
+                  </el-form-item> 
+                  <el-form-item label="电子邮箱" class="company-detail-form-item">
+                    <span>{{ this.companyDetailForm.email }}</span>
+                  </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form><br>
+        <!-- </el-card> -->
         <!-- 零件销量库存图表折线图 -->
-        <el-card>
+        <!-- <el-card> -->
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">销售/库存趋势图</div>
+        <div class="type2-situation">{{this.lineTitle}}</div>
+        <br/>
+        <div class="type22-situation">
+          <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
+          &nbsp;
+          <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
+          <!-- <span class="title-star">
+            {{"推荐星级："}}
+              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
+          </span> -->
+        </div>
+        <br/>
+        <div class="type23-situation">
+          <span class="title-star">
+              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
+          </span>
+        </div>
+        <br/>
         <div style="float: right">
           <template>
             <el-select
@@ -646,9 +697,9 @@
         <!-- <el-card> -->
         <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
         <!-- </el-card> -->
-        </el-card>
+        <!-- </el-card> -->
         <!-- 流通任务模块 雷达图 -->
-        <el-card>
+        <div>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
         <br/>
         <div class="LDT">
@@ -669,7 +720,7 @@
               <span id="three"></span>
        </div>
        </div>
-        </el-card>
+        </div>
       </el-dialog>
     </div>
   </el-container>
@@ -711,6 +762,14 @@ export default {
       productCompanyName:"",
       productName1:"",
       lineTitle:"",
+      //当前库存量
+      nowInventoryNum:"",
+      //当前销售量
+      nowSaleNum:"",
+      //当前推荐星级
+      nowStar:"",
+      //当前月份
+      nowMonth:"",
       /**
        * 数据统计
        */
@@ -899,6 +958,9 @@ export default {
       // //行业类别级联选择框双向绑定到的数组
       // selectCateKeys: [],
 
+      //弹框-(供应商)企业信息
+      companyDetailForm:[],
+
       subStaskTypeID: "",
       // ==============================================================================
       //专利列表
@@ -1047,18 +1109,35 @@ export default {
     //(供应商)企业 详情显示 ：1.企业信息 2.仓库库存趋势折线图 3.流通任务雷达图
     getCompanyInfo(row){
       // 1.企业信息 
-      this.showCompanyDetail(row);
+      this.showCompanyDetail(row.Company_ID);
       // 2.仓库库存趋势折线图 
       this.showLineChart(row);
       // 3.流通任务雷达图
       this.showCirculationSubtaskRadar(row);
     },
     // 1.(供应商)企业信息
-    showCompanyDetail(row){},
+    showCompanyDetail(companyId){
+      var that = this;
+      var data = Qs.stringify({
+        CompanyID: companyId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/showCompanyDetal",
+          data: data,
+        })
+        .then((response) => {
+          this.companyDetailForm = response.data.allData.companyDetail[0];
+          this.companyDetailForm.logo = response.data.allData.logo;
+        });
+    },
     // 2.折线图数据显示-仓库库存趋势折线图
     showLineChart(row) {
       this.dialogLineChartVisible = true;
-      this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
+      // this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
+      this.lineTitle = row.Product_Name + "销量趋势图";
+      this.nowStar = row.newStars;
       this.lineChart(row);
       this.getYearData();
     },
@@ -1168,6 +1247,10 @@ export default {
     //按要求显示
     lineChart(row) {
       var that = this;
+      var date = new Date();
+      this.nowMonth = date.getMonth() + 1;
+      var newMonth = this.nowMonth;
+      console.log(this.nowMonth)
       this.productName1 = row.Product_Name;
       this.productCompanyId = row.Company_ID;
       console.log(row.productName)
@@ -1192,8 +1275,10 @@ export default {
           this.lineData.months = response.data.allData.monthCount;
           this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
           this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
+          this.nowInventoryNum = response.data.allData.nowMonthInventoryCount;
+          this.nowSaleNum = response.data.allData.nowMonthSaleCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(alllData);
+          console.log(allData);
         });
     },
     //时间变换查询折线图
@@ -1220,7 +1305,7 @@ export default {
           this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
           this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(alllData);
+          console.log(allData);
         });
     },
     // handleSearch(val) {
@@ -1924,10 +2009,52 @@ export default {
 }
 .lineChart1{
     .el-dialog__header {
-    padding: 20px 20px 20px;
+    padding: 20px 20px 0px;
   }
   .el-dialog {
     width: 959px;
-}
+    height:1300px;
   }
+}
+.company-detail-form{
+  .company-detail-form-item{
+    margin-bottom: 0px;
+    .el-divider--horizontal {
+      margin: 13px 0;
+    }
+    .company-detail-imgdiv{
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+      position: relative;
+      .company-detail-img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        -webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,.1));
+        filter: drop-shadow(5px 5px 5px rgba(0,0,0,.1));
+        border-radius:5px;
+      }
+    }
+  }
+}
+.type2-situation {
+  // margin-left: 35%;
+  text-align: center;
+  // font-size: 1.8rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.type22-situation {
+  // margin-left: 36%;
+  text-align: center;
+  font-size: 14;
+  // font-weight: bold;
+}
+.type23-situation {
+  // margin-left: 40%;
+  text-align: center;
+  font-size: 14;
+  // font-weight: bold;
+}
 </style>
