@@ -1853,9 +1853,23 @@
       <!-- 折线图弹出框 -->
       <div class="lineChart1">
         <el-dialog :visible.sync="dialogLineChartVisible" center>
-          <template slot="title">
+          <!-- <template slot="title">
              {{this.lineTitle}}
-          </template>
+          </template> -->
+        <div class="type2-situation">{{this.lineTitle}}</div>
+        <br/>
+        <div class="type22-situation">
+          <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
+          &nbsp;
+          <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
+        </div>
+        <br/>
+        <div class="type23-situation">
+          <span class="title-star">
+              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
+          </span>
+        </div>
+        <br/>
           <div style="float: right">
             <template>
               <el-select
@@ -1933,6 +1947,12 @@ export default {
       productCompanyName:"",
       productName1:"",
       lineTitle:"",
+      //当前库存量
+      nowInventoryNum:"",
+      //当前销售量
+      nowSaleNum:"",
+      //当前推荐星级
+      nowStar:"",
       /**
        * 数据统计
        */
@@ -2250,6 +2270,7 @@ export default {
     showLineChart(row) {
       this.dialogLineChartVisible = true;
       this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
+      // this.lineTitle = row.productName + "销量趋势图";
       this.lineChart(row);
       this.getYearData();
     },
@@ -2278,6 +2299,8 @@ export default {
           this.lineData.months = response.data.allData.monthCount;
           this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
           this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
+          this.nowInventoryNum = response.data.allData.nowMonthInventoryCount;
+          this.nowSaleNum = response.data.allData.nowMonthSaleCount;
           that.$refs.drawLineChart.getCharts();
           console.log(allData);
         });
@@ -3839,11 +3862,32 @@ export default {
   }
   .lineChart1{
     .el-dialog__header {
-    padding: 20px 20px 20px;
+    padding: 20px 20px 0px;
   }
   .el-dialog {
     width: 959px;
-}
+  }
+  .type2-situation {
+  // margin-left: 35%;
+  text-align: center;
+  color: #303133;
+  // font-size: 1.8rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  }
+  .type22-situation {
+  // margin-left: 36%;
+  text-align: center;
+  font-size: 14;
+  color: #303133;
+  // font-weight: bold;
+  }
+  .type23-situation {
+  // margin-left: 40%;
+  text-align: center;
+  font-size: 14;
+  // font-weight: bold;
+  }
   }
 }
 </style>
