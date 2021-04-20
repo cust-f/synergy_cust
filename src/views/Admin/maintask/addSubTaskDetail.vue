@@ -890,7 +890,7 @@ export default {
       companyTableData: [],
       //根据零件查询出的企业列表数组的分页参数
       pageIndex1: 1, //页码
-      pageSize1: 6, //每页数据
+      pageSize1: 10, //每页数据
 
       isgongyingshang: false,
       twogongyingshang: false,
