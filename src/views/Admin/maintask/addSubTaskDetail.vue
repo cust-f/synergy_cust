@@ -624,7 +624,7 @@
         </el-card>
         <!-- 零件销量库存图表折线图 -->
         <el-card>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">零件销量库存图表折线图</div>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">销售/库存趋势图</div>
         <div class="type2-situation">{{this.lineTitle}}</div>
         <br/>
         <div class="type22-situation">
@@ -636,6 +636,7 @@
               <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
           </span> -->
         </div>
+        <br/>
         <div class="type23-situation">
           <span class="title-star">
               <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
