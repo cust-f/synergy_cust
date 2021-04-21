@@ -290,9 +290,17 @@
       <!-- 折线图弹出框 -->
       <div class="lineChartStock">
         <el-dialog :visible.sync="dialogLineChartVisible" center>
-          <template slot="title">
+          <!-- <template slot="title">
              {{this.lineTitle}}
-          </template>
+          </template> -->
+        <div class="type2-situation">{{this.lineTitle}}</div>
+        <br/>
+        <div class="type22-situation">
+          <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
+          &nbsp;
+          <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
+        </div>
+        <br/>
           <div style="float: right">
             <template>
               <el-select
@@ -341,6 +349,10 @@ export default {
       productCompanyName:"",
       productName1:"",
       lineTitle:this.productCompanyName+"/"+this.productName,
+      //当前库存量
+      nowInventoryNum:"",
+      //当前销售量
+      nowSaleNum:"",
       /**
        * 数据统计
        */
@@ -532,6 +544,8 @@ export default {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
+          this.nowInventoryNum = response.data.allData.nowMonthInventoryCount;
+          this.nowSaleNum = response.data.allData.nowMonthSaleCount;
           that.$refs.drawLineChart.getCharts();
           console.log(allData)
         });
@@ -866,6 +880,21 @@ export default {
   .el-dialog {
     width: 959px;
   }
+  .type2-situation {
+  // margin-left: 35%;
+  text-align: center;
+  color: #303133;
+  // font-size: 1.8rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.type22-situation {
+  // margin-left: 36%;
+  color: #303133;
+  text-align: center;
+  font-size: 14;
+  // font-weight: bold;
+}
   }
 }
 </style>

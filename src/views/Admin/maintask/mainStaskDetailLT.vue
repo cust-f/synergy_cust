@@ -2269,12 +2269,13 @@ export default {
     },
     //折线图数据显示
     showLineChart(row) {
+      this.dialogLineChartVisible = true;
       this.findCompanyByProductName(row);
       this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
       // this.lineTitle = row.productName + "销量趋势图";
       this.lineChart(row);
       this.getYearData();
-      this.dialogLineChartVisible = true;
+
     },
     //按要求显示
     lineChart(row) {
@@ -3672,7 +3673,23 @@ export default {
 </script>
 
 <style lang="scss">
-.top {
+// .top {
+//   margin-top: 20px;
+//   height: 100px;
+//   margin-bottom: 10px;
+//   width: 100%;
+//   background-color: #fff4ee;
+//   border: 1px solid red;
+//   border-radius: 5px;
+//   .inside {
+//     padding: 15px;
+//     .btn {
+//     }
+//   }
+// }
+
+.mainStaskDetaulLT {
+  .top {
   margin-top: 20px;
   height: 100px;
   margin-bottom: 10px;
@@ -3686,8 +3703,6 @@ export default {
     }
   }
 }
-
-.mainStaskDetaulLT {
   .customer-table {
     padding-top: 3px;
     padding-bottom: 3px;
