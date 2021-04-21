@@ -1,7 +1,7 @@
 <template>
   <div
     id="radarcharts1"
-    style="height:380px; width:540px; float:left"
+    style="width: 100%;height:250%; float:center"
   ></div>
 </template>
 
@@ -40,7 +40,7 @@ export default {
               backgroundColor: "#999",
               borderRadius: 3,
               padding: [3, 5],
-              fontSize: 14,
+              fontSize: 13,
             },
           },
           indicator: this.radarData1.indicatorData1,
@@ -52,6 +52,7 @@ export default {
           //   { name: "任务响应时效", max: 50 },
 
           // ]
+          radius: "60%"
         },
         series: [
           {

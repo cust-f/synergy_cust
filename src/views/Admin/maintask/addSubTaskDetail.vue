@@ -614,29 +614,46 @@
         </el-card> -->
     <!-- 供应商企业信息弹出框 -->
     <div class="lineChart1">
-      <el-dialog title="供应商企业详情" :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
+      <el-dialog  :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
           <!-- <template slot="title">
              供应商企业详情
           </template> -->
-        <!-- 企业信息模块 -->
-        <!-- <el-card> -->
+       
+        <el-row>
+          <el-col :span="8">
+            <el-row>
+                <!-- 企业信息模块 -->
+              <el-col>
+
+              <el-card>
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div><br>
           <el-form ref="companyDetailForm" :model="companyDetailForm" label-width="80px" class="company-detail-form">
             <el-row :gutter="20">
-              <el-col :span="7">
+              <!-- <el-col :span="7">
                 <el-form-item label-width="0" class="company-detail-form-item">
                   <div class="company-detail-imgdiv">
                     <img class="company-detail-img" :src="this.companyDetailForm.logo" fit="fill" border="1"/>
                   </div>
                 </el-form-item>
-              </el-col>
-              <el-col :span="17">
+              </el-col> -->
+              <el-col :span="24">
+                <el-row :gutter="20">
+                  <el-col :offset="1" :span="4" style="padding-left: 0px;padding-right: 0px;">
+                    <el-form-item label-width="0" class="company-detail-form-item">
+                  <div class="company-detail-imgdiv">
+                    <img class="company-detail-img" :src="this.companyDetailForm.logo" fit="fill" border="1"/>
+                  </div>
+                </el-form-item>
+                  </el-col>
+                  <el-col :span="19">
                   <el-form-item label-width="0" class="company-detail-form-item">
                    <span style="font-size: 18px;">{{ this.companyDetailForm.companyName }}</span>
                   </el-form-item> 
                   <el-form-item label-width="0" class="company-detail-form-item">
                     <el-rate v-model="this.companyDetailForm.star" disabled text-color="#ff9900"></el-rate>
                   </el-form-item>
+                  </el-col>
+                </el-row>
                   <el-divider></el-divider>
                   <el-form-item label="业务范围" class="company-detail-form-item">
                     <span>{{ this.companyDetailForm.product }}</span>
@@ -652,10 +669,62 @@
                   </el-form-item>
               </el-col>
             </el-row>
-          </el-form><br>
-        <!-- </el-card> -->
-        <!-- 零件销量库存图表折线图 -->
-        <!-- <el-card> -->
+          </el-form>
+ 
+        </el-card>
+              </el-col>
+            </el-row>
+            <el-row>
+              <!-- 工作评价 -->
+              <el-col>
+                <!-- 流通任务模块 雷达图 -->
+        <el-card>
+            
+                <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
+               <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <label  >完成质量:</label>
+                <label id="word" style="font-size: 14px"></label>
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+                </div>
+            <radar-chart1
+                    :radarData1="radarData1"
+                    ref="refradarChart1"
+                    class="renwupingjia"
+                    ></radar-chart1>
+        <!-- <div>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
+        <div class="LDT">
+          <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <label >完成质量:</label>
+                <label id="word" style="font-size: 16px"></label>
+                <br />
+                 <br />
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+       </div>
+       <br>
+
+       <radar-chart1
+        :radarData1="radarData1"
+        ref="refradarChart1"
+        class="renwupingjia"
+        ></radar-chart1>
+       </div>
+        </div> -->
+        </el-card>
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :span="16">        
+            <!-- 零件销量库存图表折线图 -->
+        <el-card>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">销售/库存趋势图</div>
         <div class="type2-situation">{{this.lineTitle}}</div>
         <br/>
@@ -673,12 +742,10 @@
           <span class="title-star">
               <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
           </span>
-        </div>
-        <br/>
-        <div style="float: right">
-          <template>
+           <template>
+             <div  style="margin-bottom:38px">
             <el-select
-              style="width: 100px; margin-right: 35px;margin-top: -20px"
+              style="width: 100px; float: right"
               v-model="lineYear"
               @change="lineChartChange"
             >
@@ -692,35 +759,22 @@
                 width="20px"
               ></el-option>
             </el-select>
+            </div>
           </template>
         </div>
-        <!-- <el-card> -->
-        <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
-        <!-- </el-card> -->
-        <!-- </el-card> -->
-        <!-- 流通任务模块 雷达图 -->
-        <div>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
         <br/>
-        <div class="LDT">
-       <radar-chart1
-        :radarData1="radarData1"
-        ref="refradarChart1"
-        class="renwupingjia"
-        ></radar-chart1>
-      <div class="input_span" align="center">
-              <el-form ref="form" :modelZL="formZL">
-                <label>完成质量:</label>
-                <label id="word" style="font-size: 16px"></label>
-                <br />
-                <br />
-              </el-form>
-              <span id="one"></span>
-              <span id="two"></span>
-              <span id="three"></span>
-       </div>
-       </div>
-        </div>
+        <!-- <div style="float: right;margin-bottom:-20px">
+         
+        </div> -->
+        <!-- <el-card> -->
+          <div  >
+        <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
+      </div>
+        </el-card>
+          </el-col>
+        </el-row>
+          
+
       </el-dialog>
     </div>
   </el-container>
@@ -1934,13 +1988,18 @@ export default {
 <style lang="scss">
  //完成质量
 .addSubTask .LDT{
-  margin-left: 35px;
+  margin-left: 5px;
 }
-
+// .addSubTask .renwupingjia{
+//   margin-left: 60px;
+// }
+.addSubTask .wanchengzhiliang{
+  margin-left: 10px;
+}
 .addSubTask .input_span span {
     display: inline-block;
-    width: 85px;
-    height: 30px;
+    width: 50px;
+    height: 20px;
     background: #eee;
     line-height: 20px;
   }
@@ -2012,8 +2071,7 @@ export default {
     padding: 20px 20px 0px;
   }
   .el-dialog {
-    width: 959px;
-    height:1300px;
+    width: 1300px;
   }
 }
 .company-detail-form{
