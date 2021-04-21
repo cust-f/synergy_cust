@@ -541,7 +541,7 @@
           </span>
         </el-dialog> -->
         <!-- 新增供应商弹出框 -->
-          <el-dialog  :visible.sync="addCompanyVisible" width="60%">
+          <el-dialog  :visible.sync="addCompanyVisible" width="60%" :before-close="TwohandleDialogClose">
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
               新增供应商
             </div>
@@ -944,7 +944,7 @@ export default {
       companyTableData: [],
       //根据零件查询出的企业列表数组的分页参数
       pageIndex1: 1, //页码
-      pageSize1: 6, //每页数据
+      pageSize1: 10, //每页数据
 
       isgongyingshang: false,
       twogongyingshang: false,
@@ -1289,6 +1289,10 @@ export default {
         document.getElementById("word").innerHTML = "差";
         document.getElementById("word").style.color = "red";
       }
+    },
+    TwohandleDialogClose(){
+      this.companyTableData =[];
+      this.addCompanyVisible=false;
     },
     handleDialogClose() {
         document.getElementById("one").style.background = "";
@@ -2077,9 +2081,6 @@ export default {
 .company-detail-form{
   .company-detail-form-item{
     margin-bottom: 0px;
-    .el-divider--horizontal {
-      margin: 13px 0;
-    }
     .company-detail-imgdiv{
       width: 100%;
       height: 0;
@@ -2094,6 +2095,9 @@ export default {
         border-radius:5px;
       }
     }
+  }
+  .company-detail-divider{
+    margin: 13px 0;
   }
 }
 .type2-situation {

@@ -1851,7 +1851,7 @@
         </span>
       </el-dialog>
       <!-- 折线图弹出框 -->
-      <div class="lineChart1">
+      <div class="lineChartLT">
         <el-dialog :visible.sync="dialogLineChartVisible" center>
           <!-- <template slot="title">
              {{this.lineTitle}}
@@ -1952,7 +1952,7 @@ export default {
       //当前销售量
       nowSaleNum:"",
       //当前推荐星级
-      nowStar:"",
+      nowStar:"2.5",
       /**
        * 数据统计
        */
@@ -2255,6 +2255,7 @@ export default {
     this.getParams();
     this.showData();
     this.getYearData();
+    this.findCompanyByProductName();
   },
   methods: {
     //获取条件选择时间数据
@@ -2269,10 +2270,12 @@ export default {
     //折线图数据显示
     showLineChart(row) {
       this.dialogLineChartVisible = true;
+      this.findCompanyByProductName(row);
       this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
       // this.lineTitle = row.productName + "销量趋势图";
       this.lineChart(row);
       this.getYearData();
+
     },
     //按要求显示
     lineChart(row) {
@@ -2332,6 +2335,24 @@ export default {
           console.log(allData);
         });
     },
+    //根据零件名称，用户名称查询供应企业推荐星级（全部信息）
+    findCompanyByProductName(row) {
+      var that = this;
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          userName: this.usernameX,
+          productName: row.productName,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/dataStatistics/findCompanyStarByProductName",
+            data: data,
+          })
+          .then((response) => {
+            this.nowStar = response.data.allData; //接收返回的企业列表
+          });
+      },
     //全部通过
     allPass() {},
     changeDeliveryTime(row) {
@@ -3652,7 +3673,23 @@ export default {
 </script>
 
 <style lang="scss">
-.top {
+// .top {
+//   margin-top: 20px;
+//   height: 100px;
+//   margin-bottom: 10px;
+//   width: 100%;
+//   background-color: #fff4ee;
+//   border: 1px solid red;
+//   border-radius: 5px;
+//   .inside {
+//     padding: 15px;
+//     .btn {
+//     }
+//   }
+// }
+
+.mainStaskDetaulLT {
+  .top {
   margin-top: 20px;
   height: 100px;
   margin-bottom: 10px;
@@ -3666,8 +3703,6 @@ export default {
     }
   }
 }
-
-.mainStaskDetaulLT {
   .customer-table {
     padding-top: 3px;
     padding-bottom: 3px;
@@ -3860,7 +3895,7 @@ export default {
   .el-dialog__header {
     padding: 0px 0px 0px;
   }
-  .lineChart1{
+  .lineChartLT{
     .el-dialog__header {
     padding: 20px 20px 0px;
   }
