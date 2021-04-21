@@ -770,18 +770,18 @@
       </el-col>
     </el-row>
 
-    <br />
+    <!-- <br />
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card shadow="hover">
           <div id="partsPieChart" style="width: 100%;height:430%"></div>
-          <!-- <template>
+           <template>
             <line-chart :linePreData="linePreData" ref="drawLineChartPre"></line-chart>
             <div v-show="noData" style="margin-top: 50px;margin-left:405px;color:#ccc">无数据</div>
-          </template> -->
+          </template> 
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
 
     </el-card>
   </div>
@@ -980,7 +980,7 @@ export default {
     lineChartChangePre() {
       var that = this;
       var categoryId;
-      if(this.lineCategory === "滤清器"){
+      if(this.lineCategory === "发动机零件"){
         categoryId = 1
       }else{
         categoryId = this.lineCategory
