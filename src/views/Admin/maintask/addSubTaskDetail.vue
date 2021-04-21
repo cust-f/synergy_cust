@@ -554,6 +554,7 @@
               header-cell-class-name="table-header"
               @selection-change="handleSelectionChange"
               @sort-change="sortChange"
+              :default-sort ="{prop:'newStars',order:'descending'}"
             >
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
               <el-table-column prop="Company_Name"  width="315" label="企业名称">
