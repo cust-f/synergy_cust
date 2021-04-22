@@ -214,6 +214,7 @@
                   label="序号"
                   type="index"
                   align="center"
+                  width="75"
                   prop="consignmentId"
                 >
                   <template slot-scope="scope">
@@ -231,7 +232,22 @@
                 <el-table-column
                   prop="productModel"
                   label="产品规格"
-                ></el-table-column>
+                    ></el-table-column>
+              <el-table-column
+                  label="零件类别"
+                  prop="partsCategory"
+              >
+              <template slot-scope="scope">
+                <span
+                  v-if="scope.row.partsCategory==null"
+                >
+                 {{"暂无类别"}}  
+                </span>
+                <span v-else>
+                   {{ scope.row.partsCategory }}
+                </span>
+              </template>
+            </el-table-column>
               </el-table>
             </div>
           </el-tab-pane>
@@ -593,6 +609,7 @@ export default {
           consignmentNotes: "麻烦快点谢谢",
           checkox: "",
           refuseReason: "",
+          partsCategory: "",
         },
       ],
       address: "",
@@ -631,10 +648,10 @@ export default {
   created() {
     this.getParams();
     this.showTaskData();
-    this.showApply();
     this.getFilePath();
     this.showData();
     this.showCompanyData();
+    this.showApply();
   },
 
   filters: {
