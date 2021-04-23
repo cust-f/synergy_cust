@@ -34,7 +34,9 @@
       <br />
       <!-- 任务计划模块 -->
       <div v-show="show > 0">
+        <div v-show="state21 === 1">
         <mission-Plan ref="missionPlan"></mission-Plan>
+        </div>
       </div>
       <br />
       <br />
@@ -179,6 +181,7 @@ export default {
       show3: 0,
       //状态显示控制
       state: "",
+      state21: 0,
       state2: 0,
       loading: true,
       state3: 0,
@@ -293,6 +296,7 @@ export default {
           this.taskApplyTableData = response.data.allData.b;
           this.taskTableData = response.data.allData.a;
           this.state = response.data.allData.a[0].taskState;
+          this.state21 = response.data.allData.b[0].checkPlanState;
           this.state2 = response.data.allData.b[0].checkPlanState;
           this.state3 = response.data.allData.a[0].contractState;
           this.storehorseManagement[0].taskName=response.data.allData.a[0].taskName;
