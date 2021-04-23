@@ -2007,6 +2007,8 @@ export default {
       tableData6: [],
       //主任务名称
       mainTaskName: "",
+      //接收任务公司名称
+      acceptCompanyName: "",
       //SQRWButton:none,
       //申请任务的id
       applyID: "",
@@ -2921,6 +2923,10 @@ export default {
             // console.log(error.response);
           });
 
+          console.log(this.cool.mainTaskName)
+          console.log(this.mainTaskName)
+
+        // this.cool.mainTaskName = this.mainTaskName;
         this.ZRWXG = false;
         this.showData();
         // location.reload()
@@ -3120,6 +3126,8 @@ export default {
           this.mainStaskTypeID = response.data.allData.a[0].taskCategoryMainId;
           this.subStaskTypeID = response.data.allData.a[0].taskCategory;
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          this.mainTaskName = response.data.allData.a[0].mainTaskName;
+          this.acceptCompanyName = response.data.allData.a[0].acceptCompanyName;
           console.log(response);
           this.mainStaskTypeID = response.data.allData.a[0].taskCategoryMainId;
           this.subStaskTypeID = response.data.allData.a[0].taskCategory;
