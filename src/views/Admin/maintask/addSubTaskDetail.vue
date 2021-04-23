@@ -218,8 +218,10 @@
         <!-- </el-col>
           </el-row>
         </div> -->
+     
       </div>
-       <radar-chartS
+         <!-- 设计的雷达图 -->
+       <!-- <radar-chartS
         :radarDataS="radarDataS"
         ref="drawradarChartS"
        ></radar-chartS>
@@ -233,7 +235,7 @@
           <span id="one"></span>
           <span id="two"></span>
           <span id="three"></span>
-        </div>
+        </div> -->
       <!-- <el-divider></el-divider> -->
       <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">专利转移</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; -->
       <!-- 专利表格
