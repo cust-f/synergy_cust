@@ -62,7 +62,7 @@
       <br />
       <!-- 流通清单模块 -->
       <div v-show="show > 1">
-        <div v-show="state2 === 1">
+        <div v-show="state3 === 5">
           <delivery-List ref="deliveryList"></delivery-List>
         </div>
       </div>
@@ -296,9 +296,12 @@ export default {
           this.taskApplyTableData = response.data.allData.b;
           this.taskTableData = response.data.allData.a;
           this.state = response.data.allData.a[0].taskState;
-          this.state21 = response.data.allData.b[0].checkPlanState;
+          this.state21 = response.data.allData.b[0].checkApplyState;
+          console.log(this.state21)
           this.state2 = response.data.allData.b[0].checkPlanState;
+          console.log(this.state2)
           this.state3 = response.data.allData.a[0].contractState;
+          console.log(this.state3)
           this.storehorseManagement[0].taskName=response.data.allData.a[0].taskName;
           this.storehorseManagement[0].uploadCircuaterTime=response.data.allData.a[0].uploadCircuaterTime;
           this.storehorseManagement[0].taskId=response.data.allData.a[0].taskId;
