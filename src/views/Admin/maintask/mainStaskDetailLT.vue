@@ -3680,7 +3680,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 // .top {
 //   margin-top: 20px;
 //   height: 100px;
