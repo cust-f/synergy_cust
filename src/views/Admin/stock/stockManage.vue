@@ -51,7 +51,7 @@
               prop="productName"
               label="产品名称"
               sortable
-              width="120"
+              width="150"
             >
             <template slot-scope="scope">
                 <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">{{
@@ -63,7 +63,7 @@
               label="物品状态"
               align="center"
               sortable
-              width="120"
+              width="105"
             >
               <template slot-scope="scope">
                 <el-tag v-if="+scope.row.productState === 2" type="success"
@@ -77,19 +77,19 @@
             <el-table-column
               prop="price"
               label="单价"
-              width="100"
+              width="75"
               sortable
             ></el-table-column>
             <el-table-column
               prop="reserve"
               label="库存"
-              width="100"
+              width="75"
               sortable
             ></el-table-column>
             <el-table-column
               prop="sale"
               label="销量"
-              width="100"
+              width="75"
               sortable
             ></el-table-column>
             <!-- <el-table-column
@@ -100,6 +100,21 @@
             >
               <template slot-scope="scope"> {{scope.row.beginTime | formatDate}}</template>
             </el-table-column> -->
+            <el-table-column
+              label="零件类别"
+            >
+              <template slot-scope="scope">
+                <span
+                  v-if="scope.row.partsCategory==null"
+                >
+                 {{"暂无类别"}}
+                
+                </span>
+                <span v-else>
+                   {{ scope.row.partsCategory }}
+                </span>
+              </template>
+            </el-table-column>
             <el-table-column
               label="所在仓库名称"
             >
@@ -191,6 +206,13 @@
                   </el-form-item>
                 </el-col> -->
               </el-row>
+              <el-row>
+                  <el-col :span="11">
+              <el-form-item label="零件类别"  prop="patrsList">
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="changeTC.patrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别"></el-cascader>
+              </el-form-item>
+            </el-col>
+                </el-row>
             </el-form>
             <span slot="footer" class="dialog-footer">
               <el-button @click="XGTC = false">取 消</el-button>
@@ -253,6 +275,11 @@
                 </el-col> -->
               </el-row>
               <el-row>
+                 <el-col :span="11">
+              <el-form-item label="零件类别"  prop="patrsList">
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="addTC.patrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别"></el-cascader>
+              </el-form-item>
+            </el-col>
                 <el-col :span="11">
                   <el-form-item label="仓库">
                     <el-select
@@ -406,8 +433,17 @@ export default {
       XGTC: false,
       store: "",
       STR: [],
-
+      //零件类别 选项列表
+      partsOptions: [],
+      partsProps: {
+        value: "categoryID",
+        label: "partsCategory",
+        children: "children",
+      },
       stockRulesAdd: {
+        patrsList: [
+          { required: true, message: "请输入零件类别", trigger: "blur" },
+        ],
         productName1: [
           { required: true, message: "请输入产品名称", trigger: "blur" },
           {
@@ -447,6 +483,9 @@ export default {
         ],
       },
       stockRulesChange: {
+          patrsList: [
+          { required: true, message: "请输入零件类别", trigger: "blur" },
+        ],
         productName: [
           { required: true, message: "请输入产品名称", trigger: "blur" },
           {
@@ -498,13 +537,28 @@ export default {
   },
 
   created() {
+    this.getAllPartsList();
     this.getData();
     this.getStore();
     //this.GetTime();
     this.getYearData();  //折线图年份获取
     this.getCompanyName();
-  },
+    },
   methods: {
+    //查询零件类别信息
+    getAllPartsList() {
+      var that = this;
+      var data = Qs.stringify({});
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/selectPartsCategory",
+        })
+        .then((response) => {
+          // console.log(response);
+          this.partsOptions = response.data.allData;
+        });
+    },
        //获取条件选择时间数据
     getYearData() {
       let that = this;
@@ -640,6 +694,7 @@ export default {
       this.changeTC.stockID = row.stockID;
       this.changeTC.storeID = row.storeID;
       this.changeTC.productState = row.productState;
+      this.changeTC.patrsList=row.partsCategory;
     },
 
     //新增弹出框的确定
@@ -663,6 +718,7 @@ export default {
             beginTime: this.addTC.beginTime1,
             productState: this.addTC.productState1,
             storeID: this.storeID,
+            partsCategory:this.$refs["consigpartsCascader"].getCheckedNodes()[0].label,
           });
           that
             .axios({
@@ -748,6 +804,7 @@ export default {
             reserve: this.changeTC.reserve,
             sale: this.changeTC.sale,
             beginTime: this.changeTC.beginTime,
+            partsCategory:this.$refs["consigpartsCascader"].getCheckedNodes()[0].label,
             productState: parseInt(this.changeTC.reserve) > 100 ? 2 : 1,
             // companyID:'5556',
           });

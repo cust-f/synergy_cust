@@ -93,22 +93,6 @@
             </el-col>
             <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="零件类别" :style="{ display: sfkjian }" prop="patrsList" :rules="(addList.shifouyaoqing == '0' && addList.taskType == '1')?addListRules.patrsList:{required: false}">
-                <!-- <el-select
-                  v-model="addList.patrsList"
-                  placeholder="请选择零件类别"
-                  class="selectsupply"
-                  style="width: 100%"
-                  @change="selectCategoryoption"
-                >
-                  <el-option
-                    width="180"
-                    v-for="(Categoryoption, index) in CategoryListoptions"
-                    :key="index"
-                    :label="Categoryoption.partsCategory"
-                    :value="Categoryoption.partsCategory"
-                  >
-                  </el-option>
-                </el-select> -->
                 <el-cascader style="width: 100%" expand-trigger="hover" v-model="addList.patrsList" :options="partsOptions" :props="partsProps" ref="partsCascader" placeholder="请选择零件类别"></el-cascader>
               </el-form-item>
             </el-col>
@@ -453,6 +437,13 @@
                   <el-input v-model="consignmentForm.contactNumber" maxlength="11"></el-input>
                 </el-form-item>
               </el-col>
+            </el-row>
+            <el-row>
+            <el-col :span="11">
+              <el-form-item label="零件类别"  prop="consignmentpatrsList">
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="consignmentForm.consignmentpatrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别"></el-cascader>
+              </el-form-item>
+            </el-col>
             </el-row>
             <el-row>
               <el-col :span="22">
@@ -1129,6 +1120,10 @@ export default {
             trigger: "blur",
           },
         ],
+        consignmentpatrsList: [
+          { required: true, message: "请输入零件类别", trigger: "blur" },
+        ],
+        
       },
     };
   },
@@ -1621,6 +1616,7 @@ export default {
     },
     // =====================保存新增子任务=====================
     saveAdd11() {
+      // this.bianjiTC = true;
       this.$refs["addList"].validate((valid) => {
         if (valid) {
           if (this.addList.shifousimi != "1") {
@@ -1717,6 +1713,7 @@ export default {
             consignmentNotes: this.consignmentForm.productNotes,
             contactNumber: this.consignmentForm.contactNumber,
             deliveryTime: this.consignmentForm.consignmentTimeLatest,
+            partsCategory:this.$refs["consigpartsCascader"].getCheckedNodes()[0].label,
             //deliveryTime:"0000-00-00 00:00:00",
             consignmentState: "0", //未发货
             shippingAddress: "暂无地址",

@@ -815,6 +815,7 @@ export default {
     },
     //提交发货数量
     deliver(row, index) {
+      console.log(row.partsCategory)
       this.isitGreater = "0";
       for (var i = 0; i < this.tableData.length; i++) {
         if (row.productName == this.tableData[i].productName) {
@@ -850,6 +851,7 @@ export default {
             reserveCount: row.deliveringAmount,
             productName: row.productName,
             storeName: row.storeName,
+            partsCategory:row.partsCategory,
           });
           that
             .axios({
@@ -915,7 +917,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .top {
   height: 100px;
   margin-bottom: 10px;

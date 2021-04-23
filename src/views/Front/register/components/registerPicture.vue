@@ -272,7 +272,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .register {
   width: 1200px;
   margin: 0 auto;
