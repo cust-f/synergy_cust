@@ -219,7 +219,21 @@
           </el-row>
         </div> -->
       </div>
-
+       <radar-chartS
+        :radarDataS="radarDataS"
+        ref="drawradarChartS"
+       ></radar-chartS>
+        <div class="supplierinput_span" align="center">
+          <el-form ref="form">
+            <label>完成质量:</label>
+            <label id="word" style="font-size: 16px"></label>
+            <br />
+            <br />
+          </el-form>
+          <span id="one"></span>
+          <span id="two"></span>
+          <span id="three"></span>
+        </div>
       <!-- <el-divider></el-divider> -->
       <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">专利转移</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; -->
       <!-- 专利表格
@@ -776,6 +790,7 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 import radarChart1 from "../../Admin/Enterprise_Evaluation/components/radarCharthh"
+import radarChartS from "../../Admin/Enterprise_Evaluation/components/radarChartShh"
 import { Popover } from "element-ui";
 import lineChart from "./components/lineChart"; //折线图
 // Vue.use(Popover);
@@ -784,6 +799,7 @@ export default {
   components: {
     "line-chart": lineChart, //折线图
     "radar-chart1":radarChart1,
+    "radar-chartS":radarChartS,
   },
   data() {
     return {
@@ -796,9 +812,14 @@ export default {
          time1:"",
          time2:"",
       } ,
+
       radarData1:{
         radarData1:[],
         indicatorData1:[],
+      },
+      radarDataS:{
+       radarDataS:[],
+       indicatorDataS:[],
       },
        options: [],  
       loading: true,
@@ -1136,16 +1157,40 @@ export default {
   },
   created() {
     // this.getRadarData1();//流通任务-雷达图-接收
-    this.consignmentTableShuaxin();
     this.getYearData();
     // this.lineChart();
     this.getAllIndustryList();
     this.getAllSupplierList();
     this.getAllPartsList();
+    this.getRemarDataSS();
+    this.consignmentTableShuaxin();
     that.consignmentTableShuaxin();
   },
   methods: {
-
+    getRemarDataSS(){
+     var that = this;
+      this.form2.time1="2019-01-01";
+      this.form2.time2="2021-01-01";
+      var data = Qs.stringify({
+        userName:this.usernameX,
+        startTime:this.form2.time1,
+        finishTime:this.form2.time2,
+      });
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "/api/findRemarkTimesS",
+          data: data
+        })
+        .then(response => { 
+         this.radarDataS.radarDataS=response.data.allData.AllRemarkLengthS;
+         this.radarDataS.indicatorDataS=response.data.allData.indicatorS;
+         console.log(this.radarDataS.indicatorDataS)
+         that.$refs.drawradarChartS.getCharts2S();             
+        });
+    },
     //获取条件选择时间数据
     getYearData() {
       let that = this;
@@ -1238,7 +1283,7 @@ export default {
         this.form2.time1="2019-01-01";
         this.form2.time2= response.data.allData[1];  //当天时间
         this.getRadarData1();
-           
+        
       });
     },
      //雷达图-制造
@@ -1266,7 +1311,7 @@ export default {
          this.styleswith();
         });
     },
-    //提交次数 背景颜色变化
+    //流通任务的任务评价样式
     styleswith() {
       if (this.form.circulationCount > -4 || this.form.circulationCount == -4) {
         document.getElementById("one").style.background = "#00D1B2";
@@ -2005,7 +2050,13 @@ export default {
     background: #eee;
     line-height: 20px;
   }
-
+.addSubTask .supplierinput_span span {
+  display: inline-block;
+  width: 85px;
+  height: 30px;
+  background: #eee;
+  line-height: 20px;
+}
 .addSubTask .WCZL {
     font-size: 11px;
   }
@@ -2116,5 +2167,26 @@ export default {
   text-align: center;
   font-size: 14;
   // font-weight: bold;
+}
+#one {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 0px;
+  margin-right: 3px;
+}
+
+#two {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
 }
 </style>
