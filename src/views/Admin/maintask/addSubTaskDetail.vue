@@ -147,19 +147,8 @@
                       margin-top: 13px;
                     " @click="findCompanyByPartsCategory"></el-button>
             </el-tooltip>
-            <!-- <el-col :span="11">
-              <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
-                <el-input
-                  placeholder="等待供应方申请"
-                  v-model="input"
-                  :disabled="true"
-                  :style="{ display: shenqing }"
-                ></el-input>
-              </el-form-item>
-            </el-col> -->
 
           </el-row>
-          <!-- <br v-if="shifoubr" > -->
           <el-row>
             <el-col :span="22">
               <el-form-item label="收货地址" :style="{ display: sfkjian }" prop="circulationAddress" :rules="addList.taskType === '1'?addListRules.circulationAddress:{required: false}">
@@ -623,9 +612,7 @@
     <!-- 供应商企业信息弹出框 -->
     <div class="lineChart1">
       <el-dialog  :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
-          <!-- <template slot="title">
-             供应商企业详情
-          </template> -->
+ 
        
         <el-row>
           <el-col :span="8">
@@ -637,13 +624,7 @@
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div><br>
           <el-form ref="companyDetailForm" :model="companyDetailForm" label-width="80px" class="company-detail-form">
             <el-row :gutter="20">
-              <!-- <el-col :span="7">
-                <el-form-item label-width="0" class="company-detail-form-item">
-                  <div class="company-detail-imgdiv">
-                    <img class="company-detail-img" :src="this.companyDetailForm.logo" fit="fill" border="1"/>
-                  </div>
-                </el-form-item>
-              </el-col> -->
+
               <el-col :span="24">
                 <el-row :gutter="20">
                   <el-col :offset="1" :span="4" style="padding-left: 0px;padding-right: 0px;">
@@ -703,35 +684,13 @@
                     ref="refradarChart1"
                     class="renwupingjia"
                     ></radar-chart1>
-        <!-- <div>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
-        <div class="LDT">
-          <div class="input_span" align="center">
-              <el-form ref="form" :modelZL="formZL">
-                <label >完成质量:</label>
-                <label id="word" style="font-size: 16px"></label>
-                <br />
-                 <br />
-              </el-form>
-              <span id="one"></span>
-              <span id="two"></span>
-              <span id="three"></span>
-       </div>
-       <br>
 
-       <radar-chart1
-        :radarData1="radarData1"
-        ref="refradarChart1"
-        class="renwupingjia"
-        ></radar-chart1>
-       </div>
-        </div> -->
         </el-card>
               </el-col>
             </el-row>
           </el-col>
           <el-col :span="16">        
-            <!-- 零件销量库存图表折线图 -->
+
         <el-card>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">销售/库存趋势图</div>
         <div class="type2-situation">{{this.lineTitle}}</div>
@@ -740,10 +699,6 @@
           <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
           &nbsp;
           <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
-          <!-- <span class="title-star">
-            {{"推荐星级："}}
-              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
-          </span> -->
         </div>
         <br/>
         <div class="type23-situation">
@@ -931,10 +886,10 @@ export default {
           id: "0",
           label: "设计任务",
         },
-        {
-          id: "1",
-          label: "流通任务",
-        },
+        // {
+        //   id: "1",
+        //   label: "流通任务",
+        // },
       ],
       sfkjian: "none",
       //私密
@@ -1282,8 +1237,9 @@ export default {
       let that = this;
       that.axios.post("/api/findTimes").then(response => {
         // this.form2.time1 = response.data.allData[0];//本年第一天
-        this.form2.time1="2019-01-01";
+        
         this.form2.time2= response.data.allData[1];  //当天时间
+        this.form2.time1="2019-01-01";
         this.getRadarData1();
         
       });
@@ -1633,7 +1589,6 @@ export default {
         this.islingjianchaxun = false;
         this.isgongyingshang = true;
       }
-      // console.log(this.addList.taskType);
     },
     invitate(coo) {
       if (coo == 0) {

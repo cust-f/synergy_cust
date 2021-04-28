@@ -541,6 +541,7 @@ export default {
       //流通清单全部提交按钮可见
       liu: false,
       beihuo:false,
+      mainTaskID:"",
     };
   },
   filters: {
@@ -675,8 +676,25 @@ export default {
           }
         });
     },
+    //用taskId查到maintaskID
+    FindmaintaskID(){
+         var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findmaintaskID",
+          data: data,
+        })
+        .then((response) => {
+            this.mainTaskID=response.data.allData;
+        });
+    },
     //显示仓库表格中的信息。判断物品名称是否与产品名称一致。
     showhorseData() {
+      this.FindmaintaskID();
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
