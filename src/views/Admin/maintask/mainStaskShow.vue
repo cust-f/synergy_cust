@@ -21,6 +21,12 @@
                 >
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
                   <el-table-column prop="mainTaskName" label="需求名称" sortable ></el-table-column>
+                  <el-table-column prop="mainTaskType" label="需求类别" sortable width="101">
+                    <template slot-scope="scope">
+                      <span v-if="+scope.row.mainTaskType===0">设计需求</span>
+                      <span v-else>流通需求</span>
+                    </template>
+                  </el-table-column>
                   <el-table-column prop="taskState" label="状态" align="center" sortable  width="80" >
                     <template slot-scope="scope">
                       <el-tag v-if="+scope.row.taskState ===0" >进行中</el-tag>
@@ -29,21 +35,15 @@
                     </template>
                   </el-table-column>
                   
-                  <el-table-column
-                    prop="principalName"
-                    label="负责人"
-                    sortable
-                    width="100"
-                    align="center"
-                  ></el-table-column>
-                  <el-table-column prop="taskCategoryMain" label="一级行业类别" width="150" sortable></el-table-column>
-                  <el-table-column prop="publishTime" sortable label="发布时间" width="150">
+                  <el-table-column prop="principalName" label="负责人" sortable width="88" align="center"></el-table-column>
+                  <el-table-column prop="taskCategoryMain" label="一级行业类别" width="131" sortable></el-table-column>
+                  <el-table-column prop="publishTime" sortable label="发布时间" width="101">
                     <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                   </el-table-column>
-                  <el-table-column prop="time" sortable label="截止时间" width="150" >
+                  <el-table-column prop="time" sortable label="截止时间" width="101" >
                     <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center" >
+                  <el-table-column label="操作" align="center" width="90">
                     <template slot-scope="scope">
                       <!-- <el-button
                       type="text"
@@ -192,12 +192,21 @@ export default {
     },
 
     substaskDetail1(row) {
-      this.$router.push({
-        path: "/admin/substaskDetail",
-        query: {
-          mainTaskID: row.mainTaskID
-        }
-      });
+      if(row.mainTaskType==0){
+        this.$router.push({
+          path: "/admin/substaskDetail",
+          query: {
+            mainTaskID: row.mainTaskID
+          }
+        });
+      }else{
+        this.$router.push({
+          path: "/admin/substaskDetailLT",
+          query: {
+            mainTaskID: row.mainTaskID
+          }
+        });
+      }
     },
 
     chick() {

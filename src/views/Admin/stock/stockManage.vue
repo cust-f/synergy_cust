@@ -53,11 +53,14 @@
               sortable
               width="150"
             >
-            <template slot-scope="scope">
-                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">{{
-                  scope.row.productName
-                }}</el-link>
-              </template></el-table-column>
+              <template slot-scope="scope">
+                <el-link
+                  @click.native="showLineChart(scope.row)"
+                  :disabled="dialogLineChartVisible"
+                  >{{ scope.row.productName }}</el-link
+                >
+              </template></el-table-column
+            >
             <el-table-column
               prop="productState"
               label="物品状态"
@@ -100,24 +103,17 @@
             >
               <template slot-scope="scope"> {{scope.row.beginTime | formatDate}}</template>
             </el-table-column> -->
-            <el-table-column
-              label="零件类别"
-            >
+            <el-table-column label="零件类别">
               <template slot-scope="scope">
-                <span
-                  v-if="scope.row.partsCategory==null"
-                >
-                 {{"暂无类别"}}
-                
+                <span v-if="scope.row.partsCategory == null">
+                  {{ "暂无类别" }}
                 </span>
                 <span v-else>
-                   {{ scope.row.partsCategory }}
+                  {{ scope.row.partsCategory }}
                 </span>
               </template>
             </el-table-column>
-            <el-table-column
-              label="所在仓库名称"
-            >
+            <el-table-column label="所在仓库名称">
               <template slot-scope="scope">
                 <p
                   v-if="+scope.row.storeID == item.storeId"
@@ -134,7 +130,9 @@
                   >修改</el-button
                 >
                 <el-button
-                  @click="consignmentDelete(scope.$index, scope.row)" type="text" size="small"
+                  @click="consignmentDelete(scope.$index, scope.row)"
+                  type="text"
+                  size="small"
                   >删除</el-button
                 >
               </template>
@@ -200,19 +198,27 @@
                     <el-input v-model="changeTC.reserve"></el-input>
                   </el-form-item>
                 </el-col>
-<!--                 <el-col :span="11">
+                <!--                 <el-col :span="11">
                   <el-form-item label="销量" prop="sale">
                     <el-input v-model="changeTC.sale"></el-input>
                   </el-form-item>
                 </el-col> -->
               </el-row>
               <el-row>
-                  <el-col :span="11">
-              <el-form-item label="零件类别"  prop="patrsList">
-                <el-cascader style="width: 100%" expand-trigger="hover" v-model="changeTC.patrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别"></el-cascader>
-              </el-form-item>
-            </el-col>
-                </el-row>
+                <el-col :span="11">
+                  <el-form-item label="零件类别" prop="patrsList">
+                    <el-cascader
+                      style="width: 100%"
+                      expand-trigger="hover"
+                      v-model="changeTC.patrsList"
+                      :options="partsOptions"
+                      :props="partsProps"
+                      ref="consigpartsCascader"
+                      placeholder="请选择零件类别"
+                    ></el-cascader>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-form>
             <span slot="footer" class="dialog-footer">
               <el-button @click="XGTC = false">取 消</el-button>
@@ -263,23 +269,31 @@
                     <el-input v-model="addTC.price1"></el-input>
                   </el-form-item>
                 </el-col>
-                  <el-col :span="11">
+                <el-col :span="11">
                   <el-form-item label="库存" prop="reserve1">
                     <el-input v-model="addTC.reserve1"></el-input>
                   </el-form-item>
                 </el-col>
-<!--                 <el-col :span="11">
+                <!--                 <el-col :span="11">
                   <el-form-item label="销量" prop="sale1">
                     <el-input v-model="addTC.sale1"></el-input>
                   </el-form-item>
                 </el-col> -->
               </el-row>
               <el-row>
-                 <el-col :span="11">
-              <el-form-item label="零件类别"  prop="patrsList">
-                <el-cascader style="width: 100%" expand-trigger="hover" v-model="addTC.patrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别"></el-cascader>
-              </el-form-item>
-            </el-col>
+                <el-col :span="11">
+                  <el-form-item label="零件类别" prop="patrsList">
+                    <el-cascader
+                      style="width: 100%"
+                      expand-trigger="hover"
+                      v-model="addTC.patrsList"
+                      :options="partsOptions"
+                      :props="partsProps"
+                      ref="consigpartsCascader"
+                      placeholder="请选择零件类别"
+                    ></el-cascader>
+                  </el-form-item>
+                </el-col>
                 <el-col :span="11">
                   <el-form-item label="仓库">
                     <el-select
@@ -314,44 +328,83 @@
             </span>
           </el-dialog>
         </div>
-      <!-- 折线图弹出框 -->
-      <div class="lineChartStock">
-        <el-dialog :visible.sync="dialogLineChartVisible" center>
-          <!-- <template slot="title">
+        <!-- 折线图弹出框 -->
+        <div class="lineChartStock">
+          <el-dialog :visible.sync="dialogLineChartVisible" center>
+            <!-- <template slot="title">
              {{this.lineTitle}}
           </template> -->
-        <div class="type2-situation">{{this.lineTitle}}</div>
-        <br/>
-        <div class="type22-situation">
-          <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
-          &nbsp;
-          <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
+            <el-row>
+              <el-col :span="14">
+                <!-- <el-card shadow="hover" style="margin-top: -10px"> -->
+                  <div class="type2-situation">{{ this.lineTitle }}</div>
+                  <br />
+                  <div class="type22-situation">
+                    <span class="title-inventory">{{
+                      "当前库存量：" + this.nowInventoryNum
+                    }}</span>
+                    &nbsp;
+                    <span class="title-sale">{{
+                      "当前销售量：" + this.nowSaleNum
+                    }}</span>
+                  </div>
+                  <br />
+                  <div style="float: right">
+                    <template>
+                      <el-select
+                        style="
+                          width: 100px;
+                          margin-right: 35px;
+                          margin-top: -20px;
+                        "
+                        v-model="lineYear"
+                        @change="lineChartChange()"
+                      >
+                        <el-option
+                          v-for="item in options"
+                          placeholder="请选择"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                          :disabled="item.disabled"
+                          width="20px"
+                        ></el-option>
+                      </el-select>
+                    </template>
+                  </div>
+                  <line-chart
+                    :lineData="lineData"
+                    ref="drawLineChart"
+                  ></line-chart>
+                <!-- </el-card> -->
+              </el-col>
+              <el-col :span="1">
+                <el-divider direction="vertical"></el-divider>
+              </el-col>
+              <el-col :span="9">
+                <!-- <el-card  style="margin-top: -10px"> -->
+                  <div class="type2-situation">{{ this.columnTitle }}</div>
+                  <br />
+                  <div class="type22-situation">
+                    <!-- <span class="title-inventory">{{
+                      "当前库存量：" + this.nowInventoryNum
+                    }}</span>
+                    &nbsp; -->
+                    <br/>
+                    <!-- <span class="title-sale">{{
+                      "销售量：" + this.nowSaleNum
+                    }}</span> -->
+                  </div>
+                  <br />
+                  <cloumn-chart
+                    ref="drawCloumnChart"
+                    :cloumnData="cloumnData"
+                  ></cloumn-chart>
+                <!-- </el-card> -->
+              </el-col>
+            </el-row>
+          </el-dialog>
         </div>
-        <br/>
-          <div style="float: right">
-            <template>
-              <el-select
-                style="width: 100px; margin-right: 35px; margin-top: -20px"
-                v-model="lineYear"
-                @change="lineChartChange()"
-              >
-                <el-option
-                  v-for="item in options"
-                  placeholder="请选择"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                  :disabled="item.disabled"
-                  width="20px"
-                ></el-option>
-              </el-select>
-            </template>
-          </div>
-          <!-- <el-card> -->
-          <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
-          <!-- </el-card> -->
-        </el-dialog>
-      </div>
       </el-main>
     </el-container>
   </div>
@@ -361,25 +414,28 @@
 import Qs from "qs";
 import { formatDate } from "./dataChange";
 import lineChart from "./components/lineChart"; //折线图
+import columnChart from "./components/columnChart";
 
 export default {
   name: "stockManage",
-    components: {
+  components: {
     "line-chart": lineChart, //折线图
+    "cloumn-chart": columnChart,
   },
   data() {
     return {
       dialogLineChartVisible: false, //显示折线图
       options: [],
       lineYear: "",
-      productCompanyId:"",
-      productCompanyName:"",
-      productName1:"",
-      lineTitle:this.productCompanyName+"/"+this.productName,
+      productCompanyId: "",
+      productCompanyName: "",
+      productName1: "",
+      lineTitle: "",
+      columnTitle: "",
       //当前库存量
-      nowInventoryNum:"",
+      nowInventoryNum: "",
       //当前销售量
-      nowSaleNum:"",
+      nowSaleNum: "",
       /**
        * 数据统计
        */
@@ -391,6 +447,17 @@ export default {
         inventoryCount: [],
         //月份数量
         months: [],
+        //销售量(预测)
+        salePredictionCount: [],
+        //库存量(预测)
+        inventoryPredictionCount: [],
+      },
+      //柱状图
+      cloumnData: {
+        //合作的需求量最高的五家公司名称
+        needCompanyName: [],
+        //需求预测量
+        count: [],
       },
       //新增弹窗内部字段
       addTC: {
@@ -483,7 +550,7 @@ export default {
         ],
       },
       stockRulesChange: {
-          patrsList: [
+        patrsList: [
           { required: true, message: "请输入零件类别", trigger: "blur" },
         ],
         productName: [
@@ -541,9 +608,9 @@ export default {
     this.getData();
     this.getStore();
     //this.GetTime();
-    this.getYearData();  //折线图年份获取
+    this.getYearData(); //折线图年份获取
     this.getCompanyName();
-    },
+  },
   methods: {
     //查询零件类别信息
     getAllPartsList() {
@@ -559,7 +626,7 @@ export default {
           this.partsOptions = response.data.allData;
         });
     },
-       //获取条件选择时间数据
+    //获取条件选择时间数据
     getYearData() {
       let that = this;
       that.axios.post("/api/findYearsList").then((response) => {
@@ -572,70 +639,99 @@ export default {
     showLineChart(row) {
       this.dialogLineChartVisible = true;
       // this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
-      this.lineTitle =  row.productName + "销量趋势图";
+      this.lineTitle = row.productName + "销量趋势图";
+      this.columnTitle = row.productName + "需求量预测TOP5";
       this.lineChart(row);
+      this.columnChart(row);
       this.getYearData();
+    },
+    //柱状图数据获取
+    columnChart(row) {
+      let that = this;
+      var data = Qs.stringify({
+      productName: row.productName,
+      });
+      that        
+      .axios({
+          method: "post",
+          url: "/api/dataStatistics/productNeedCompany",
+          data: data,
+        })
+        .then((response) => {
+        this.cloumnData.needCompanyName = response.data.allData.needCompanyName;
+        this.cloumnData.count = response.data.allData.count;
+        this.$refs.drawCloumnChart.getCharts();
+        //   console.log(response.data.allData);
+      });
     },
     //按要求显示
     lineChart(row) {
       var that = this;
       this.productName1 = row.productName;
-      console.log(row.productName)
+      console.log(row.productName);
       var data = Qs.stringify({
-          companyId: this.productCompanyId,
-          year: this.lineYear,
-          productName: this.productName1,
-        });
-        console.log(data)
-        console.log(this.productName1)
+        companyId: this.productCompanyId,
+        year: this.lineYear,
+        productName: this.productName1,
+      });
+      console.log(data);
+      console.log(this.productName1);
       that
-      .axios({
-            method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
-            data: data,
-          })
+        .axios({
+          method: "post",
+          url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
+          data: data,
+        })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
+          this.lineData.salePredictionCount =
+            response.data.allData.salePredictionCount;
+          this.lineData.inventoryPredictionCount =
+            response.data.allData.inventoryPredictionCount;
           this.nowInventoryNum = response.data.allData.nowMonthInventoryCount;
           this.nowSaleNum = response.data.allData.nowMonthSaleCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(allData)
+          console.log(allData);
         });
     },
     //时间变换查询折线图
     lineChartChange() {
       var that = this;
       var data = Qs.stringify({
-          companyId: this.productCompanyId,
-          year: this.lineYear,
-          productName: this.productName1,
-        });
-        console.log(this.productCompanyId)
-        console.log(data)
-        console.log(this.productName1)
+        companyId: this.productCompanyId,
+        year: this.lineYear,
+        productName: this.productName1,
+      });
+      console.log(this.productCompanyId);
+      console.log(data);
+      console.log(this.productName1);
       that
-      .axios({
-            method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCount",
-            data: data,
-          })
+        .axios({
+          method: "post",
+          url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
+          data: data,
+        })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
+          this.lineData.salePredictionCount =
+            response.data.allData.salePredictionCount;
+          this.lineData.inventoryPredictionCount =
+            response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(allData)
+          console.log(allData);
         });
     },
-   //查询公司名称
+    //查询公司名称
     getCompanyName() {
       var that = this;
       var data = Qs.stringify({
         userName: this.usernameX,
       });
-      console.log(this.usernameX)
+      console.log(this.usernameX);
       that
         .axios({
           method: "post",
@@ -643,9 +739,9 @@ export default {
           data: data,
         })
         .then((response) => {
-          console.log(response)
+          console.log(response);
           this.productCompanyName = response.data.allData;
-          console.log(this.productCompanyName)
+          console.log(this.productCompanyName);
         })
         .catch((error) => {
           console.log(error.response);
@@ -694,7 +790,7 @@ export default {
       this.changeTC.stockID = row.stockID;
       this.changeTC.storeID = row.storeID;
       this.changeTC.productState = row.productState;
-      this.changeTC.patrsList=row.partsCategory;
+      this.changeTC.patrsList = row.partsCategory;
     },
 
     //新增弹出框的确定
@@ -718,7 +814,9 @@ export default {
             beginTime: this.addTC.beginTime1,
             productState: this.addTC.productState1,
             storeID: this.storeID,
-            partsCategory:this.$refs["consigpartsCascader"].getCheckedNodes()[0].label,
+            partsCategory: this.$refs[
+              "consigpartsCascader"
+            ].getCheckedNodes()[0].label,
           });
           that
             .axios({
@@ -804,7 +902,9 @@ export default {
             reserve: this.changeTC.reserve,
             sale: this.changeTC.sale,
             beginTime: this.changeTC.beginTime,
-            partsCategory:this.$refs["consigpartsCascader"].getCheckedNodes()[0].label,
+            partsCategory: this.$refs[
+              "consigpartsCascader"
+            ].getCheckedNodes()[0].label,
             productState: parseInt(this.changeTC.reserve) > 100 ? 2 : 1,
             // companyID:'5556',
           });
@@ -863,7 +963,7 @@ export default {
           console.log(response);
           this.tableData = response.data.allData;
           this.productCompanyId = response.data.allData[0].companyID;
-          console.log(this.productCompanyId)
+          console.log(this.productCompanyId);
         })
         .catch((error) => {
           console.log(error.response);
@@ -930,29 +1030,30 @@ export default {
     font-size: 18px;
   }
 
-  .lineChartStock{
-    .el-dialog__header {
-    padding: 20px 20px 0px;
-  }
-  .el-dialog {
-    width: 959px;
-  }
-  .type2-situation {
-  // margin-left: 35%;
-  text-align: center;
-  color: #303133;
-  // font-size: 1.8rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-.type22-situation {
-  // margin-left: 36%;
-  color: #303133;
-  text-align: center;
-  font-size: 14;
-  // font-weight: bold;
-}
-  }
+  // .lineChartStock {
+  //   .el-dialog__header {
+  //     padding: 20px 20px 0px;
+  //   }
+  //   .el-dialog {
+  //     // width: 959px;
+  //     width: 100200px;
+  //   }
+  //   .type2-situation {
+  //     // margin-left: 35%;
+  //     text-align: center;
+  //     color: #303133;
+  //     // font-size: 1.8rem;
+  //     font-size: 1.2rem;
+  //     font-weight: bold;
+  //   }
+  //   .type22-situation {
+  //     // margin-left: 36%;
+  //     color: #303133;
+  //     text-align: center;
+  //     font-size: 14;
+  //     // font-weight: bold;
+  //   }
+  // }
 }
 </style>
 <style  lang="scss">
@@ -974,6 +1075,42 @@ export default {
     padding-top: 0px;
   }
 }
+  .lineChartStock {
+    .el-dialog__header {
+      padding: 20px 20px 0px;
+    }
+    .el-dialog {
+      // width: 959px;
+      width: 1300px;
+    }
+    .el-dialog__body {
+    text-align: center;
+    // padding: 25px 25px 30px;
+    }
+    .el-divider--vertical{
+      // display: inline-block;
+      width: 1px;
+      height: 30em;
+      margin: 0 1px;
+      vertical-align: middle;
+      // position: relative;
+    }
+    .type2-situation {
+      // margin-left: 35%;
+      text-align: center;
+      color: #303133;
+      // font-size: 1.8rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .type22-situation {
+      // margin-left: 36%;
+      color: #303133;
+      text-align: center;
+      font-size: 14;
+      // font-weight: bold;
+    }
+  }
 </style>
 
 

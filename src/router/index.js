@@ -44,6 +44,7 @@ import newStaff from '@/views/admin/staff/newStaff' //新增人员
 import newTask from '@/views/admin/Task/newTask' //新增任务
 import mainStaskShow from '@/views/admin/maintask/mainStaskShow' //主任务显示
 import substaskDetail from '@/views/admin/maintask/substaskDetail' //子任务详情
+import substaskDetailLT from '@/views/admin/maintask/substaskDetailLT' //流通子任务详情
 import addSubTaskDetail from '@/views/admin/maintask/addSubTaskDetail'
 import mainStaskDetail from '@/views/admin/maintask/mainStaskDetail' //主任务详情
 import mainStaskDetailLT from '@/views/admin/maintask/mainStaskDetailLT' //流通任务详情
@@ -277,6 +278,12 @@ export default new Router({
           path: '/admin/substaskDetail',
           name: 'substaskDetail',
           component: substaskDetail,
+        },
+        //主任务详情及查看所属流通子任务部分信息
+        {
+          path: '/admin/substaskDetailLT',
+          name: 'substaskDetailLT',
+          component: substaskDetailLT,
         },
         {
           path: '/admin/addSubTask',
