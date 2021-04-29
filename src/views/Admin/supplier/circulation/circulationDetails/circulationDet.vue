@@ -288,7 +288,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/supplier/getList",
+          url: "/api/supplier/getListLT",
           data: data,
         })
         .then((response) => {
