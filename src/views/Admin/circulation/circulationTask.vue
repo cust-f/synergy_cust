@@ -280,7 +280,7 @@
 
                   <template slot-scope="scope">
                   <el-button
-                    @click="Detail(scope.row)"
+                    @click="Detail345(scope.row)"
                     type="text"
                     size="small "
                   >查看详情</el-button>
@@ -461,7 +461,7 @@
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                       <el-button
-                        @click="Detail(scope.row)"
+                        @click="Detail345(scope.row)"
                         type="text"
                         size="small "
                         >查看详情</el-button
@@ -518,7 +518,7 @@
                     <template slot-scope="scope">
 
                   <el-button
-                    @click="Detail(scope.row)"
+                    @click="Detail345(scope.row)"
                     type="text"
                     size="small "
                   >查看详情</el-button>
@@ -738,6 +738,7 @@ export default {
         })
         .then(response => {
           this.tableData = response.data.allData;
+          // console.log(response)
         });
     },
     handleClick(tab, event) {
@@ -774,16 +775,21 @@ export default {
   
           if (this.taskState == 0) {
             this.tableData1 = response.data.allData;
+            console.log(response)
           } else if (this.taskState == 1) {
             this.tableData2 = response.data.allData;
+            console.log(response)
           } else if (this.taskState == 2) {
             this.tableData3 = response.data.allData;
+            console.log(response)
           } else if (this.taskState == 3) {
             this.tableData4 = response.data.allData;
           } else if (this.taskState == 4) {
             this.tableData4yanshou = response.data.allData;
+            console.log(response)
           } else if (this.taskState == 5) {
             this.tableData5 = response.data.allData;
+            console.log(response)
           } else if (this.taskState == 6) {
             this.tableData6 = response.data.allData;
           }
@@ -960,7 +966,27 @@ export default {
         this.$router.push({
         path: "/admin/mainStaskDetailLT",
         query: {
+          taskId: row.taskId,
+          acceptCompanyId: row.companyId,
+        }
+      });
+      }
+    },
+     Detail345(row) {
+      if(row.taskType == 0){
+        this.$router.push({
+        path: "/admin/mainStaskDetail",
+        query: {
           taskId: row.taskId
+        }
+      });
+      }
+      else{
+        this.$router.push({
+        path: "/admin/mainStaskDetailLT",
+        query: {
+          taskId: row.mainTaskId,
+          acceptCompanyId: row.acceptCompanyId,
         }
       });
       }
@@ -979,6 +1005,7 @@ export default {
           path: "/admin/mainStaskDetailLT",
           query: {
             taskId: row.taskId,
+            acceptCompanyId: row.companyId,
             checkApplyState:row.checkApplyState 
           }
         });
@@ -999,6 +1026,7 @@ export default {
           path: "/admin/mainStaskDetailLT",
           query: {
             taskId: row.taskId,
+            acceptCompanyId: row.companyId,
             checkApplyState:row.checkApplyState ,
             checkPlanState:row.checkPlanState
 

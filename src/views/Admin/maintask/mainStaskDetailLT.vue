@@ -2009,6 +2009,8 @@ export default {
       mainTaskName: "",
       //接收任务公司名称
       acceptCompanyName: "",
+      //接收任务公司Id
+      acceptCompanyId: "",
       //SQRWButton:none,
       //申请任务的id
       applyID: "",
@@ -3103,8 +3105,12 @@ export default {
     },
     getParams() {
       var routerParams = this.$route.query.taskId;
+      var routerParamsAcceptCompanyId = this.$route.query.acceptCompanyId;
       var checkApplyState = this.$route.query.checkApplyState;
+      this.acceptCompanyId = routerParamsAcceptCompanyId;
       this.taskId = routerParams;
+      console.log(this.acceptCompanyId)
+      console.log(this.taskId)
       this.CDcheckApplyState = this.$route.query.checkApplyState;
       this.CDgetPlanState = this.$route.query.checkPlanState;
       console.log("CDgetPlanState" + this.CDgetPlanState);
@@ -3112,12 +3118,13 @@ export default {
     showData() {
       var that = this;
       var data = Qs.stringify({
-        subStaskID: this.taskId,
+        subStaskID: this.taskId,  //taskApply表中的taskId表示mainTaaskId
+        companyId: this.acceptCompanyId,  //对应的接收方companyId
       });
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/list",
+          url: "/api/SubstaskInformation/listLT",
           data: data,
 
           // data:this.$store.state.userName
