@@ -124,7 +124,7 @@
                 <el-table-column type="selection" width="50" align="center" :reserve-selection="true" :selectable="multipleTableSelectable"></el-table-column>
                 <el-table-column prop="id" label="序号" type="index" width="50" align="center"></el-table-column>
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
-                <el-table-column prop="taskState" label="需求状态" align="center">
+                <el-table-column prop="taskState" label="需求状态" align="center" width="79">
                   <template slot-scope="scope">
                     <el-tag v-if="scope.row.taskState ==='申请或邀请中'">待响应</el-tag>
                     <el-tag
@@ -137,28 +137,24 @@
                     <el-tag v-else-if="scope.row.taskState ==='失败'" type="danger">失败</el-tag>
                   </template>
                 </el-table-column>
-                <el-table-column prop="taskType" label="需求类型">
+                <el-table-column prop="taskType" label="需求类型" width="77">
                   <template slot-scope="scope">
                     <span v-if="+scope.row.taskType === 0">设计任务</span>
                     <span v-else-if="+scope.row.taskType === 1">流通任务</span>
                   </template>
                 </el-table-column>
-                <el-table-column prop="publishTime" label="开始时间">
+                <el-table-column prop="publishTime" label="开始时间" width="93">
                   <template slot-scope="scope">{{scope.row.publishTime |formatDate}}</template>
                 </el-table-column>
-                <el-table-column prop="deadline" label="截止时间">
+                <el-table-column prop="deadline" label="截止时间" width="93">
                   <template slot-scope="scope">{{scope.row.deadline |formatDate}}</template>
                 </el-table-column>
 
                 <el-table-column label="操作" align="center" width="160">
                   <template slot-scope="scope">
                     <!-- <暂时注释> -->
-                    <el-button
-                      size="small"
-                      type="text"
-                      icon="el-icon-delete"
-                      @click="handleDelete1(scope.$index, scope.row)"
-                    >删除任务</el-button>
+                    <el-button size="small" type="text" icon="el-icon-delete" @click="handleDelete1(scope.$index, scope.row)">
+                      删除任务</el-button>
                     <el-button @click="mainStaskDetail(scope.row)" type="text" size="small">查看详情</el-button>
                     <!-- <el-button @click="updateSubXqAndFile(scope.row)" type="text" size="small">修改</el-button> -->
                   </template>
