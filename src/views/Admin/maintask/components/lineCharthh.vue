@@ -1,5 +1,5 @@
 <template>
-  <div id="circulationSingleChart" style="width: 100%;height:350%;"></div>
+  <div id="circulationChart" style="width: 100%;height:500%;"></div>
 </template>
 
 <script>
@@ -20,12 +20,13 @@ export default {
       var that = this;
       var charts = [];
       var myChart = echarts.init(
-        document.getElementById("circulationSingleChart")
+        document.getElementById("circulationChart")
       );
 
       var option = {
         title: {
-          text: "月度销售/库存量"
+          text: "月度销售/库存量",
+          top: "5%",
         },
         tooltip: {
           trigger: "axis"
@@ -36,8 +37,12 @@ export default {
         grid: {
           left: "3%",
           right: "4%",
-          bottom: "3%",
-          containLabel: true
+          bottom: "5%",
+          containLabel: true,
+          // top:50,
+          // x:20,
+          // x2:20,
+          // y2:20,
         },
         toolbox: {
           feature: {
@@ -51,7 +56,7 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: this.lineData.months
+          data: this.lineData.months,
           // [
           //   "一月",
           //   "二月",
@@ -66,6 +71,12 @@ export default {
           //   "十一月",
           //   "十二月"
           // ]
+          // axisLabel: {
+          //       formatter: '{value} ',
+          //       textStyle: {
+	        //        fontSize : 15   
+          //      },
+          //   },
         },
         yAxis: {
           type: "value"

@@ -126,7 +126,19 @@
             prop="productName"
             label="产品名称"
           ></el-table-column>
-
+          <el-table-column
+            prop="partsCategory"
+            label="产品类别"
+          >
+          <template slot-scope="scope">
+                <span v-if="scope.row.partsCategory == null||scope.row.partsCategory.length<=0">
+                  {{ "暂无类别" }}
+                </span>
+                <span v-else>
+                  {{ scope.row.partsCategory }}
+                </span>
+              </template>
+          </el-table-column>
           <el-table-column
             prop="productNumber"
             label="产品数量"
