@@ -709,6 +709,8 @@ export default {
         this.applyYinCang = 1;
       } else if (this.taskState == "失败") {
         this.applyYinCang = 1;
+      }else if (this.taskState == "计划提交") {
+        this.applyYinCang = 1;
       }
       // else {
       //   console.log("userName" + this.userName);

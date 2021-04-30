@@ -202,7 +202,7 @@
             </el-form-item>
           </el-form>
           <div id="div2" align="right">
-             <el-button type="primary" @click="bianjitanchu" :style="{ display: fahuo }">新增流通清单</el-button>
+             <el-button type="primary" @click="bianjitanchu" :style="{ display: fahuo }" :disabled="Circulationlist">新增流通清单</el-button>
             <el-button type="primary" class="button1" @click="submit" :disabled="taskSaveBtn">提交</el-button>
           </div>
         </div>
@@ -459,7 +459,7 @@
             <el-row>
             <el-col :span="11">
               <el-form-item label="零件类别"  prop="consignmentpatrsList">
-                <el-cascader style="width: 100%" expand-trigger="hover" v-model="consignmentForm.consignmentpatrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别"></el-cascader>
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="consignmentForm.consignmentpatrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别"  :disabled="Componentsable"></el-cascader>
               </el-form-item>
             </el-col>
             </el-row>
@@ -592,6 +592,8 @@ export default {
   },
   data() {
     return {
+      Circulationlist:false,
+      Componentsable:false,
       cirtaskID:"",
       fahuo: "none",
       taskSaveBtn: false,
@@ -1086,6 +1088,7 @@ export default {
                 this.bianjiTC = false;
                 this.consignmentTableShuaxin();
                 this.LTQD = 1;
+                this.Circulationlist=true;
               }
             })
             .catch((error) => {
@@ -1547,7 +1550,7 @@ export default {
       });
     },
     cirSubmission(){
-      if (this.technicalFile == "null") {
+       if (this.technicalFile == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning",
         });
@@ -1594,6 +1597,14 @@ export default {
               this.taskSaveBtn = true;
               this.fahuo = "inline";
               this.FindmaintaskID(this.cirtaskID);
+              console.log(this.addList.patrsList.length)
+               if(this.addList.patrsList.length == 0){
+              this.Componentsable=false;
+             }else{
+              this.consignmentForm.consignmentpatrsList=this.addList.patrsList;
+              this.Componentsable=true;
+              }
+              // this.Circulationlist=true;
             }
           })
           .catch((error) => {

@@ -38,7 +38,7 @@
             @click="upLoadPlanT()"
             type="text"
             size="small"
-            v-show="scope.row.checkPlanState === 0"
+            v-show="scope.row.checkPlanState === 0 || scope.row.checkPlanState == 3"
           >上传</el-button>
           
           <el-button
