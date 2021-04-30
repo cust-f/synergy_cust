@@ -317,7 +317,7 @@ export default {
         });
         that.axios({
           method: "post",
-          url: "/api/supplier/accept",
+          url: "/api/supplier/acceptLT",
           data: data,
         });
         this.$message({
