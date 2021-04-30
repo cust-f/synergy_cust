@@ -3339,7 +3339,7 @@ export default {
         that
           .axios({
             method: "post",
-            url: "/api/SubstaskInformation/RWJHSH",
+            url: "/api/SubstaskInformation/RWJHSHLT",
             data: data,
           })
           .then((response) => {

@@ -70,6 +70,7 @@ export default {
                 }
               }
             },
+            barWidth : 20,
             data: this.cloumnData.count
             // [1245, 1523, 1587, 1689, 2567]
           },
