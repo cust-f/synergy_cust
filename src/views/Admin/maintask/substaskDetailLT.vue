@@ -138,7 +138,7 @@
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
               <el-table-column prop="Company_Name" align="center" label="供应商">
                 <template slot-scope="scope">
-                  <el-button type="text" @click="getCompanyInfo(scope.row)">{{ scope.row.Company_Name }}</el-button>
+                  <el-button type="text" @click="showCompanyDetail(scope.row)">{{ scope.row.Company_Name }}</el-button>
                 </template>
               </el-table-column>
               <el-table-column prop="Product_Name" label="产品名称" align="center" width="80">
@@ -449,7 +449,7 @@
             </span>
           </el-dialog>
           <!-- 企业信息详情 弹框 -->
-          <!-- <el-dialog :visible.sync="companyDetailVisible" width="50%">
+          <el-dialog :visible.sync="companyDetailVisible" width="50%">
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
               企业信息
             </div>
@@ -489,16 +489,16 @@
             <span slot="footer" class="dialog-footer">
               <el-button type="primary" @click="companyDetailVisible = false">关 闭</el-button>
             </span>
-          </el-dialog> -->
+          </el-dialog>
 
           <!-- 供应商企业信息弹出框 -->
-          <div class="lineChart1">
+          <!-- <div class="lineChart1">
             <el-dialog :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
               <el-row>
                 <el-col :span="8">
-                  <el-row>
+                  <el-row> -->
                     <!-- 企业信息模块 -->
-                    <el-col>
+                    <!-- <el-col>
                       <el-card>
                         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div><br>
                         <el-form ref="companyDetailForm" :model="companyDetailForm" label-width="80px" class="company-detail-form">
@@ -541,11 +541,11 @@
                       </el-card>
                     </el-col>
                   </el-row>
-                  <el-row>
+                  <el-row> -->
                     <!-- 工作评价 -->
-                    <el-col>
+                    <!-- <el-col> -->
                       <!-- 流通任务模块 雷达图 -->
-                      <el-card>
+                      <!-- <el-card>
                         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
                         <div class="input_span" align="center">
                           <el-form ref="form" :modelZL="formZL">
@@ -593,7 +593,7 @@
               </el-row>
 
             </el-dialog>
-          </div>
+          </div> -->
 
         </el-main>
       </el-container>
@@ -1196,7 +1196,22 @@ export default {
         });
     },
     // 配额分配
-    setQuota() {},
+    setQuota() {
+      var that = this;
+      var data = Qs.stringify({
+        mainTaskId:this.mainTaskID,
+      });
+      that
+        .axios({
+          method: "post",
+          url:"/api/SubstaskInformation/checkQuotaMainLT",
+          data: data,
+        })
+        .then((response) => {
+          this.getSubtaskData();
+        });
+      
+    },
     // 配额列表 - 查看子任务详情
     substaskDetailLT(row) {
       this.$router.push({
