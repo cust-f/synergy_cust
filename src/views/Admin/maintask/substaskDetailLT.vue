@@ -369,7 +369,7 @@
               修改流通清单
             </div>
             <br />
-            <el-form ref="consignmentForm" label-width="110px" :rules="consignmentRules" :model="consignmentForm" hide-required-asterisk>
+            <el-form ref="consignmentForm" label-width="110px" :rules="consignmentRules" :model="consignmentForm">
               <el-row>
                 <el-col :span="11">
                   <el-form-item label="产品名称" prop="productName">
@@ -384,7 +384,7 @@
               </el-row>
               <el-row>
                 <el-col :span="11">
-                  <el-form-item label="产品数量" prop="productNum">
+                  <el-form-item label="产品数量" prop="productNumber">
                     <el-input v-model="consignmentForm.productNumber" maxlength="9"></el-input>
                   </el-form-item>
                 </el-col>
@@ -409,14 +409,14 @@
               <el-row>
                 <el-col :span="11">
                   <el-form-item label="零件类别" prop="consignmentpatrsList">
-                    <el-cascader style="width: 100%" expand-trigger="hover" v-model="consignmentForm.consignmentpatrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别">
+                    <el-cascader style="width: 100%" expand-trigger="hover" v-model="consignmentForm.consignmentpatrsList" :options="partsOptions" :props="partsProps" ref="partsCascader" placeholder="请选择零件类别">
                     </el-cascader>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="22">
-                  <el-form-item label="备注" prop="productNotes">
+                  <el-form-item label="备注" prop="consignmentNotes">
                     <el-input type="textarea" :rows="3" style="width: 100%" placeholder="请输入内容" v-model="consignmentForm.consignmentNotes" class="gongsiDetail"></el-input>
                   </el-form-item>
                 </el-col>
@@ -706,23 +706,15 @@ export default {
             trigger: "blur",
           },
         ],
-        productNum: [
+        productNumber: [
           { required: true, message: "请输入产品数量", trigger: "blur" },
-          {
-            pattern: /^\d{1,9}$/,
-            message: "请输入1到9位的整数",
-            trigger: "blur",
-          },
+          { pattern: /^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur",},
         ],
         productPrice: [
           { required: true, message: "请输入产品单价", trigger: "blur" },
-          {
-            pattern: /^\d{1,9}$/,
-            message: "请输入为1到9位的整数",
-            trigger: "blur",
-          },
+          { pattern: /^\d{1,9}$/, message: "请输入为1到9位的整数", trigger: "blur",},
         ],
-        productNotes: [
+        consignmentNotes: [
           { required: true, message: "请输入备注或填写无", trigger: "blur" },
         ],
         contactNumber: [
@@ -792,6 +784,7 @@ export default {
 
   created() {
     this.getMainTaskData(); // 获得主任务信息
+    this.getAllPartsList(); // 获得零件下拉框 
   },
 
   methods: {
@@ -825,6 +818,7 @@ export default {
         })
         .then((response) => {
           this.partsOptions = response.data.allData;
+          
         });
     },
     // 查询行业类别列表
@@ -975,18 +969,11 @@ export default {
       this.getAllIndustryList(); // 查询行业类别
       this.mainTaskEditInfo = JSON.parse(JSON.stringify(this.mainTaskInfo));
       // 行业类别单选 赋值
-      this.mainTaskEditInfo.selectCateKeys = [
-        this.mainTaskEditInfo.taskCategoryMainId,
-        this.mainTaskEditInfo.taskCategoryPartId,
-      ];
+      this.mainTaskEditInfo.selectCateKeys = [this.mainTaskEditInfo.taskCategoryMainId,this.mainTaskEditInfo.taskCategoryPartId];
       // 转换时间格式 否则（字符串）无法用时间选择器修改
-      this.mainTaskEditInfo.publishTime = new Date(
-        this.mainTaskEditInfo.publishTime
-      );
+      this.mainTaskEditInfo.publishTime = new Date(this.mainTaskEditInfo.publishTime);
       this.mainTaskEditInfo.deadline = new Date(this.mainTaskEditInfo.deadline);
-      this.mainTaskEditInfo.finishTime = new Date(
-        this.mainTaskEditInfo.finishTime
-      );
+      this.mainTaskEditInfo.finishTime = new Date(this.mainTaskEditInfo.finishTime);
 
       this.mainTaskEditVisible = true;
     },
@@ -1064,24 +1051,59 @@ export default {
     },
     // 流通清单 - 修改弹出
     showConsignmentChange() {
-      this.getAllPartsList();
-      // console.log(this.mainTaskInfo.consignmentInfo.consignmentId);
+      this.popoverVisible = false;
       if (this.mainTaskInfo.consignmentInfo == undefined) {
         this.consignmentForm = {};
         this.consignmentForm.consignmentpatrsList = [];
       } else {
-        this.consignmentForm = JSON.parse(
-          JSON.stringify(this.mainTaskInfo.consignmentInfo)
-        );
-        this.consignmentForm.consignmentpatrsList = [1, 74];
+        this.consignmentForm = JSON.parse(JSON.stringify(this.mainTaskInfo.consignmentInfo));
+        // 加载零件一级ID 和 二级 ID + 选中
+        var that = this;
+        var data = Qs.stringify({
+          partsName:this.consignmentForm.partsCategory,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/findPartsCategoryTableByPartsCategory",
+            data: data,
+          })
+          .then((response) => {
+            this.consignmentForm.consignmentpatrsList = response.data.allData;
+            this.consignmentVisible = true;
+          })
       }
-      this.consignmentVisible = true;
+      
     },
     // 流通清单 - 修改保存
     saveConsignmentChange() {
-      this.$message.success("修改流通清单成功");
-      this.consignmentVisible = false;
-      // alert(this.consignmentForm.consignmentpatrsList);
+      this.$refs["consignmentForm"].validate((valid) => {
+        if (valid) {
+          var that = this;
+          this.consignmentForm.partsCategory = this.$refs["partsCascader"].getCheckedNodes()[0].label
+          that
+            .axios({
+              method: "post",
+              url: "/api/addConsignment/updateConsignment",
+              data: JSON.stringify(this.consignmentForm),
+              headers: {
+								"Content-Type": "application/json;charset=utf-8" //头部信息
+							}
+            })
+            .then((response) => {
+              if(response.data.code == 200){
+                this.$message.success("修改流通清单成功");
+                this.getMainTaskData();
+              }else{
+                this.$message.success("修改流通清单失败");
+              }
+              this.consignmentVisible = false;
+            })
+        }else{
+          this.$message.warning("你还有重要信息未填写，请填写后再提交");
+          return false;
+        }
+      })
     },
     // 主需求基本信息 - 打包下载
     downloadFiles() {
