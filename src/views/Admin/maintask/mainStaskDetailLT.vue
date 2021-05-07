@@ -3330,6 +3330,7 @@ export default {
         type: "warning",
       }).then(() => {
         var that = this;
+        console.log(row)
         var data = Qs.stringify({
           taskID: row.taskId,
           ID: row.id,

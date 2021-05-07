@@ -397,7 +397,7 @@
                 color: rgb(153, 153, 153);
                 margin-left: 30px;
               "
-              >联系电话 :{{ this.tableData[0].contactNumber }}</label
+              >联系电话 :{{ this.tableData[0].contactnumber }}</label
             >
             <br />
             <label
@@ -612,14 +612,16 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/addConsignment/findConsignmentByTaskId",
+          url: "/api/addConsignment/findConsignmentByTaskIdNew",
           data: data,
         })
         .then((response) => {
+          console.log(response)
           var temp = 0; //检查下面的已发货，已完成
           this.tableData = response.data.allData;
           console.log(this.tableData);
@@ -697,7 +699,8 @@ export default {
       this.FindmaintaskID();
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId,
+        // taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
@@ -777,11 +780,12 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/addConsignment/findcompanyNamebytaskId",
+          url: "/api/addConsignment/findcompanyNamebytaskIdNew",
           data: data,
         })
         .then((response) => {

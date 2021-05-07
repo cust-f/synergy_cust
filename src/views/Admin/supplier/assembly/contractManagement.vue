@@ -209,6 +209,7 @@ export default {
       //密码是否正确
       ispassWord:false,
        usernameX: sessionStorage.getItem("ms_username"),
+      userId: sessionStorage.getItem("userId"),
       contractMessage: [],
       fileHistoryMessage: [],
       conbook: false,
@@ -463,13 +464,14 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: this.userId,
         Text_File: this.technicalFileWanzheng
       });
 
       that
         .axios({
           method: "post",
-          url: "/api/supplier/textImportCon",
+          url: "/api/supplier/textImportConLT",
           data: data
         })
         .then(response => {
