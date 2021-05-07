@@ -350,7 +350,13 @@
               <el-row>
                 <el-col :span="22">
                   <el-form-item label="添加附件">
-                    <el-upload class="upload-demo" action="/api/MainTaskInformation/import" :on-success="handleAvatarSuccess" multiple :limit="3" ref="upload">
+                    <el-upload 
+                      class="upload-demo" 
+                      action="/api/MainTaskInformation/import" 
+                      :on-success="handleAvatarSuccess" 
+                      multiple 
+                      :limit="3" 
+                      ref="upload">
                       <el-button size="small" type="primary">上传文件</el-button>
                     </el-upload>
                   </el-form-item>
@@ -903,49 +909,6 @@ export default {
     showMainTaskDetail(row) {
       this.mainTaskDetailVisible = true;
     },
-    // 主需求基本信息 - 附件下载（单独 点击文件名）
-    downloadFile(row) {
-      var that = this;
-      var data = Qs.stringify({
-        //taskID: this.taskId,
-        url: row.realPath,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/xuqiuyilan/DownloadTelFile",
-          data: data,
-          responseType: "blob", //服务器返回的数据类型
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          let link = document.createElement("a");
-          link.style.display = "none";
-          link.href = window.URL.createObjectURL(
-            new Blob([response.data], { type: "application/octet-stream" })
-          );
-          link.setAttribute("download", row.realName);
-          document.body.appendChild(link);
-          link.click();
-        });
-    },
-    // 主需求基本信息 - 附件删除
-    deleteFile(row) {
-      let ks = this.WZLJ.indexOf(row.realPath);
-      let qianzui, houzui;
-      if (row.wenjiancixu == this.WJSM - 1) {//只有一个文件
-        qianzui = this.WZLJ.substr(0, ks - 8);
-        houzui = "";
-      } else {
-        qianzui = this.WZLJ.substr(0, ks);
-        houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
-      }
-      this.WZLJ = qianzui + houzui;
-      this.fujian.splice(row.wenjiancixu, 1);
-    },
     // 主需求基本信息 - 完成任务
     completeMainTask() {
       this.$confirm("确定要完成任务吗？", "提示", {
@@ -1026,7 +989,50 @@ export default {
         }
       });
     },
-    // 主需求基本信息 弹框 - 修改附件
+    // 主需求基本信息 - 附件下载（单独 点击文件名）
+    downloadFile(row) {
+      var that = this;
+      var data = Qs.stringify({
+        //taskID: this.taskId,
+        url: row.realPath,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/DownloadTelFile",
+          data: data,
+          responseType: "blob", //服务器返回的数据类型
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/octet-stream" })
+          );
+          link.setAttribute("download", row.realName);
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
+    // 主需求基本信息 - 附件删除
+    deleteFile(row) {
+      let ks = this.WZLJ.indexOf(row.realPath);
+      let qianzui, houzui;
+      if (row.wenjiancixu == this.WJSM - 1) {//只有一个文件
+        qianzui = this.WZLJ.substr(0, ks - 8);
+        houzui = "";
+      } else {
+        qianzui = this.WZLJ.substr(0, ks);
+        houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
+      }
+      this.WZLJ = qianzui + houzui;
+      this.fujian.splice(row.wenjiancixu, 1);
+    },
+    // 主需求基本信息 弹框 - 上传文件成功后的返回值
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
       if (this.technicalFileWanzheng.length > 0) {
@@ -1141,7 +1147,7 @@ export default {
       // 3.流通任务雷达图
       this.showCirculationSubtaskRadar(row);
     }, 
-    // 1.
+    // 1.企业信息
     showCompanyDetail(row) {
       this.companyDetailForm = [];
       var that = this;
