@@ -733,7 +733,7 @@ export default {
           { pattern: /^1\d{10}$/, message: "请输入正确的联系方式", trigger: 'blur'},
         ],
         consignmentpatrsList: [
-          { required: true, message: "请输入零件类别", trigger: 'blur' },
+          { required: true, message: "请选择零件类别", trigger: ['blur','change'] },
         ],
       },
       loading: true,
@@ -1047,7 +1047,7 @@ export default {
       this.popoverVisible = false;
       if (this.mainTaskInfo.consignmentInfo == undefined) {
         this.consignmentForm = {};
-        this.consignmentForm.consignmentpatrsList = [];
+        // this.consignmentForm.consignmentpatrsList = [];
       } else {
         this.consignmentForm = JSON.parse(JSON.stringify(this.mainTaskInfo.consignmentInfo));
         // 加载零件一级ID 和 二级 ID + 选中
@@ -1063,9 +1063,9 @@ export default {
           })
           .then((response) => {
             this.consignmentForm.consignmentpatrsList = response.data.allData;
-            this.consignmentVisible = true;
           })
       }
+      this.consignmentVisible = true;
     },
     // 流通清单 - 修改保存
     saveConsignmentChange() {
@@ -1211,20 +1211,33 @@ export default {
     },
     // 配额分配
     setQuota() {
-      var that = this;
-      var data = Qs.stringify({
-        mainTaskId:this.mainTaskID,
-      });
-      that
-        .axios({
-          method: "post",
-          url:"/api/SubstaskInformation/checkQuotaMainLT",
-          data: data,
-        })
-        .then((response) => {
-          this.getSubtaskData();
+      // 如果没有流通清单 提示修改流通清单
+      if( this.mainTaskInfo.consignmentInfo == undefined ){
+        // this.consignmentVisible = true;
+        this.$message.warning("暂无可分配数量，请修改流通清单");
+      } else{
+      // 如果有数量 分配
+      this.$confirm("确定要配额分配吗？", "提示", {
+        type: "warning",
+      })
+        .then(() => {
+          var that = this;
+          var data = Qs.stringify({
+          mainTaskId:this.mainTaskID,
+          });
+          that
+            .axios({
+              method: "post",
+              url:"/api/SubstaskInformation/checkQuotaMainLT",
+              data: data,
+            })
+            .then((response) => {
+              this.getSubtaskData();
+            });
+        }).catch(() => {
+          this.$message.info("取消配额分配");
         });
-      
+      }
     },
     // 配额列表 - 查看子任务详情
     substaskDetailLT(row) {
