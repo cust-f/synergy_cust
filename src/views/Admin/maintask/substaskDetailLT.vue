@@ -338,7 +338,7 @@
                         </el-table-column>
                         <el-table-column label="操作" align="center" width="120">
                           <template slot-scope="scope">
-                            <el-button size="small" type="text" icon="el-icon-delete" class="red" @click="shanchuwenjian(scope.row)">删除文件</el-button>
+                            <el-button size="small" type="text" icon="el-icon-delete" @click="deleteFile(scope.row)">删除文件</el-button>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -635,7 +635,7 @@ export default {
       applyListVisible: true, //申请列表列表显示
       quotaListVisible: false, //配额分配列表显示
       quotaButtonVisible: false, //配额分配按钮显示
-      popoverVisible: false,
+      popoverVisible: false, // 修改选项小框显示
       // 需求方负责人信息
       demanderPrincipal: [],
       //行业类别 选项列表
@@ -671,62 +671,63 @@ export default {
       technicalFile: [],
       technicalFileWanzheng: "",
       shangchuancishu: 0,
+      WJSM:"",
       // 主任务 编辑 表单验证
       mainTaskEditRules: {
         mainTaskName: [
-          { required: true, message: "请输入需求名称", trigger: "blur" },
-          {
-            min: 1,
-            max: 255,
-            message: "长度在 1 到 255 个字符",
-            trigger: "blur",
-          },
+          { required: true, message: "请输入需求名称", trigger: 'blur' },
+          { min: 1, max: 255, message: "长度在 1 到 255 个字符", trigger: 'blur'},
+        ],
+        publishTime:[
+          { required: true, message: "请选择发布时间", trigger: ['blur','change'] },
+        ],
+        principalName:[
+          { required: true, message: "请选择项目负责人", trigger: 'blur' },
+        ],
+        deadline:[
+          { required: true, message: "请选择截止时间", trigger: ['blur','change'] },
+        ],
+        selectCateKeys:[
+          { required: true, message: "请选择行业类别", trigger:  ['blur','change'] },
+        ],
+        finishTime:[
+          { required: true, message: "请选择完成时间", trigger:  ['blur','change'] },
+        ],
+        mainTaskDetail:[
+          { required: true, message: "请输入需求详情", trigger: 'blur' },
+          { min: 1, max: 255, message: "长度在 1 到 255 个字符", trigger: 'blur'},
         ],
       },
       //编辑流通清单 数据验证
       consignmentRules: {
         consignmentTimeLatest: [
-          { required: true, message: "请选择截止时间", trigger: "blur" },
+          { required: true, message: "请选择截止时间", trigger: 'blur' },
         ],
         productName: [
-          { required: true, message: "请输入产品名称", trigger: "blur" },
-          {
-            min: 1,
-            max: 10,
-            message: "请输入长度在 1 到 10 个字符的名称",
-            trigger: "blur",
-          },
+          { required: true, message: "请输入产品名称", trigger: 'blur' },
+          { min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的名称", trigger: 'blur' },
         ],
         productModel: [
-          { required: true, message: "请输入产品规格", trigger: "blur" },
-          {
-            min: 1,
-            max: 10,
-            message: "请输入长度在 1 到 10 个字符的规格",
-            trigger: "blur",
-          },
+          { required: true, message: "请输入产品规格", trigger: 'blur' },
+          { min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的规格", trigger: 'blur' },
         ],
         productNumber: [
-          { required: true, message: "请输入产品数量", trigger: "blur" },
-          { pattern: /^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur",},
+          { required: true, message: "请输入产品数量", trigger: 'blur' },
+          { pattern: /^\d{1,9}$/, message: "请输入1到9位的整数", trigger: 'blur'},
         ],
         productPrice: [
-          { required: true, message: "请输入产品单价", trigger: "blur" },
-          { pattern: /^\d{1,9}$/, message: "请输入为1到9位的整数", trigger: "blur",},
+          { required: true, message: "请输入产品单价", trigger: 'blur' },
+          { pattern: /^\d{1,9}$/, message: "请输入为1到9位的整数", trigger: 'blur'},
         ],
         consignmentNotes: [
-          { required: true, message: "请输入备注或填写无", trigger: "blur" },
+          { required: true, message: "请输入备注或填写无", trigger: 'blur'},
         ],
         contactNumber: [
-          { required: true, message: "请输入联系方式", trigger: "blur" },
-          {
-            pattern: /^1\d{10}$/,
-            message: "请输入正确的联系方式",
-            trigger: "blur",
-          },
+          { required: true, message: "请输入联系方式", trigger: 'blur'},
+          { pattern: /^1\d{10}$/, message: "请输入正确的联系方式", trigger: 'blur'},
         ],
         consignmentpatrsList: [
-          { required: true, message: "请输入零件类别", trigger: "blur" },
+          { required: true, message: "请输入零件类别", trigger: 'blur' },
         ],
       },
       loading: true,
@@ -868,11 +869,8 @@ export default {
         .then((response) => {
           this.mainTaskInfo = response.data.allData.a[0];
           this.technicalFile = response.data.allData.c;
-          // if(response.data.allData.d[0].consignmentId != null){
           this.mainTaskInfo.consignmentInfo = response.data.allData.d[0];
-          // }else{
-          // this.mainTaskInfo.consignmentInfo = {};
-          // }
+          this.WJSM = response.data.allData.SM;
           //获得子任务信息
           this.getSubtaskData();
         });
@@ -934,6 +932,20 @@ export default {
           link.click();
         });
     },
+    // 主需求基本信息 - 附件删除
+    deleteFile(row) {
+      let ks = this.WZLJ.indexOf(row.realPath);
+      let qianzui, houzui;
+      if (row.wenjiancixu == this.WJSM - 1) {//只有一个文件
+        qianzui = this.WZLJ.substr(0, ks - 8);
+        houzui = "";
+      } else {
+        qianzui = this.WZLJ.substr(0, ks);
+        houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
+      }
+      this.WZLJ = qianzui + houzui;
+      this.fujian.splice(row.wenjiancixu, 1);
+    },
     // 主需求基本信息 - 完成任务
     completeMainTask() {
       this.$confirm("确定要完成任务吗？", "提示", {
@@ -981,57 +993,57 @@ export default {
     saveMainTaskChange() {
       this.$refs["mainTaskEditInfo"].validate((valid) => {
         if (valid) {
-          if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
-            this.technicalFileWanzheng =
-              this.WZLJ + "linklink" + this.technicalFileWanzheng;
-          }
-          if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
-            this.technicalFileWanzheng = this.WZLJ;
-          }
-          var that = this;
-          var data = Qs.stringify({
-            mainTaskID: this.mainTaskID,
-            mainTaskName: this.mainTaskEditInfo.mainTaskName,
-            principalName: this.mainTaskEditInfo.principalName,
-            publishTime1: this.mainTaskEditInfo.publishTime,
-            deadline1: this.mainTaskEditInfo.deadline,
-            taskCategoryMainId: this.mainTaskEditInfo.selectCateKeys[0],
-            taskCategoryPartId: this.mainTaskEditInfo.selectCateKeys[1],
-            technicalFile: this.technicalFileWanzheng,
-            mainTaskDetail: this.mainTaskEditInfo.mainTaskDetail,
-            username: this.usernameX,
-            finishTime1: this.mainTaskEditInfo.finishTime,
-            taskState: this.mainTaskEditInfo.taskState,
-            mainTaskType: this.mainTaskEditInfo.mainTaskType,
-          });
+          // if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
+          //   this.technicalFileWanzheng =
+          //     this.WZLJ + "linklink" + this.technicalFileWanzheng;
+          // }
+          // if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
+          //   this.technicalFileWanzheng = this.WZLJ;
+          // }
+          // var that = this;
+          // var data = Qs.stringify({
+          //   mainTaskID: this.mainTaskID,
+          //   mainTaskName: this.mainTaskEditInfo.mainTaskName,
+          //   principalName: this.mainTaskEditInfo.principalName,
+          //   publishTime1: this.mainTaskEditInfo.publishTime,
+          //   deadline1: this.mainTaskEditInfo.deadline,
+          //   taskCategoryMainId: this.mainTaskEditInfo.selectCateKeys[0],
+          //   taskCategoryPartId: this.mainTaskEditInfo.selectCateKeys[1],
+          //   technicalFile: this.technicalFileWanzheng,
+          //   mainTaskDetail: this.mainTaskEditInfo.mainTaskDetail,
+          //   username: this.usernameX,
+          //   finishTime1: this.mainTaskEditInfo.finishTime,
+          //   taskState: this.mainTaskEditInfo.taskState,
+          //   mainTaskType: this.mainTaskEditInfo.mainTaskType,
+          // });
           // console.log(data);
-          // this.$message.success("修改成功【假的】");
+          this.$message.success("修改成功");
           // that
           //   .axios({
           //     method: "post",
-          //     url: "/api/MainTaskInformation/updateMainXX",
+          //     url: "/api/MainTaskInformation/updateMainLT",
           //     data: data,
           //   })
           //   .then((response) => {
           //     this.mainStaskID = response.data.allData;
-          //     this.zzzz = response.data.allData;
-          //     if (this.zzzz != "null") {
-          //       this.$message.success("提交成功");
-          //       this.xiugaiTC = false;
+          //     if (this.mainStaskID != "null") {
+          //       this.$message.success("修改需求信息成功");
+          //       this.mainTaskEditVisible = false;
           //       this.$refs.upload.clearFiles();
           //       this.technicalFileWanzheng = "";
           //       this.technicalFile = "";
           //       (this.shangchuancishu = ""), this.getMainTaskData();
           //     }
           //   })
-          this.$message.success("修改需求信息成功");
-          this.mainTaskEditVisible = false;
+
+          // this.$message.success("修改需求信息成功");
+          // this.mainTaskEditVisible = false;
         } else {
           this.$message.warning("你还有重要信息未填写，请填写后再提交");
-          this.$refs.upload.clearFiles();
-          (this.technicalFileWanzheng = ""), (this.technicalFile = "");
-          this.shangchuancishu = "";
-          return false;
+          // this.$refs.upload.clearFiles();
+          // (this.technicalFileWanzheng = ""), (this.technicalFile = "");
+          // this.shangchuancishu = "";
+          // return false;
         }
       });
     },
@@ -1039,13 +1051,9 @@ export default {
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
       if (this.technicalFileWanzheng.length > 0) {
-        this.technicalFileWanzheng =
-          this.technicalFileWanzheng +
-          "linklink" +
-          this.technicalFile[this.shangchuancishu];
+        this.technicalFileWanzheng = this.technicalFileWanzheng + "linklink" + this.technicalFile[this.shangchuancishu];
       } else {
-        this.technicalFileWanzheng =
-          this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
+        this.technicalFileWanzheng = this.technicalFileWanzheng + this.technicalFile[this.shangchuancishu];
       }
       this.shangchuancishu = this.shangchuancishu + 1;
     },
@@ -1073,7 +1081,6 @@ export default {
             this.consignmentVisible = true;
           })
       }
-      
     },
     // 流通清单 - 修改保存
     saveConsignmentChange() {
