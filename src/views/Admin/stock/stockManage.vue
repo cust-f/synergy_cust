@@ -116,7 +116,7 @@
             <el-table-column label="所在仓库名称">
               <template slot-scope="scope">
                 <p
-                  v-if="+scope.row.storeID == item.storeId"
+                  v-if="scope.row.storeID == item.storeId"
                   v-for="item in STR"
                   :key="item.value"
                 >
@@ -780,7 +780,7 @@ export default {
     },
     //修改某一行 修改弹出框 填入某行数据并弹出
     modify(row) {
-      this.XGTC = true;
+      // this.XGTC = true;
       this.changeTC.productName = row.productName;
       // this.oldName=row.productName;
       this.changeTC.price = row.price;
@@ -790,7 +790,22 @@ export default {
       this.changeTC.stockID = row.stockID;
       this.changeTC.storeID = row.storeID;
       this.changeTC.productState = row.productState;
-      this.changeTC.patrsList = row.partsCategory;
+      // this.changeTC.patrsList = row.partsCategory;
+      // 加载零件一级ID 和 二级 ID + 选中
+        var that = this;
+        var data = Qs.stringify({
+          partsName:row.partsCategory,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/findPartsCategoryTableByPartsCategory",
+            data: data,
+          })
+          .then((response) => {
+            this.changeTC.patrsList = response.data.allData;
+            this.XGTC = true;
+          })
     },
 
     //新增弹出框的确定
