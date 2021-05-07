@@ -21,6 +21,18 @@
                   <el-input v-model="addList.name"></el-input>
                 </el-form-item>
               </el-col>
+              <el-tooltip class="item" effect="dark" content="推荐查询" placement="right">
+                <el-button icon="el-icon-search" autofocus="false" 
+                  style="position: relative;
+                  border: 0px;
+                  font-size: 14px;
+                  padding: 0px 0px;
+                  margin-left: -430px;
+                  margin-top: 60px;
+                  margin-top: 13px;" 
+                  @click="jumpToAnother">
+                </el-button>
+              </el-tooltip>
               <!-- <el-col :span="11">
               <el-form-item label="需求项目类别">
                 <el-input v-model="type"></el-input>
@@ -1804,6 +1816,15 @@ export default {
         } 个文件`
       );
     },
+    // 跳转到课题一页面
+    jumpToAnother(){
+      // 判断输入框内容是否为空
+      if(this.addList.name == ""){
+        this.$message.warning("请输入需求名称");
+      }else{
+        window.open("http://www.hccstc.cn/home/searchAll?search_param="+this.addList.name+"&type=undefined");
+      }
+    }
   },
 };
 </script>
