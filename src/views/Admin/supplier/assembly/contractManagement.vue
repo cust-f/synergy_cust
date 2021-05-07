@@ -312,12 +312,13 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        fileType: this.fileType
+        fileType: this.fileType,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/supplier/getFileHistory",
+          url: "/api/supplier/getFileHistoryLT",
           data: data
         })
         .then(response => {

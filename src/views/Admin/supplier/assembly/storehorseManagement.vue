@@ -565,6 +565,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
@@ -874,6 +875,7 @@ export default {
             productName: row.productName,
             storeName: row.storeName,
             partsCategory:row.partsCategory,
+            userId: sessionStorage.getItem("userId"),
           });
           that
             .axios({

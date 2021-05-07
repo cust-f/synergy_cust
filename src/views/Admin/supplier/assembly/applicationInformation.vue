@@ -284,11 +284,12 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/addConsignment/findConsignmentByTaskId",
+          url: "/api/addConsignment/findConsignmentByTaskIdNew",
           data: data,
         })
         .then((response) => {

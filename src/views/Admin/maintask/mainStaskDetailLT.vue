@@ -2011,6 +2011,8 @@ export default {
       acceptCompanyName: "",
       //接收任务公司Id
       acceptCompanyId: "",
+      //接收任务公司userId
+      acceptUserId: "",
       //SQRWButton:none,
       //申请任务的id
       applyID: "",
@@ -2580,11 +2582,12 @@ export default {
         var data = Qs.stringify({
           consignmentId: row.consignmentId,
           taskId: row.taskId,
+          acceptCompanyId: this.acceptCompanyId,
         });
         that
           .axios({
             method: "post",
-            url: "/api/SubstaskInformation/allPass",
+            url: "/api/SubstaskInformation/allPassLT",
             data: data,
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
@@ -2611,11 +2614,12 @@ export default {
           let data = Qs.stringify({
             consignmentId: that.multipleSelection[i].consignmentId,
             taskId: this.taskId,
+            acceptCompanyId: this.acceptCompanyId,
           });
           that
             .axios({
               method: "post",
-              url: "/api/SubstaskInformation/allPass",
+              url: "/api/SubstaskInformation/allPassLT",
               data: data,
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
             })
@@ -2637,6 +2641,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        acceptCompanyId: this.acceptCompanyId,
       });
       console.log(this.data);
       console.log(row.consignmentState);
@@ -2644,7 +2649,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "api/addConsignment/select",
+          url: "api/addConsignment/selectLT",
           data: data,
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
@@ -2700,6 +2705,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
+        acceptCompanyId: this.acceptCompanyId,
       });
       console.log(this.data);
       console.log(row.consignmentState);
@@ -2707,7 +2713,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "api/addConsignment/select",
+          url: "api/addConsignment/selectLT",
           data: data,
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
@@ -3091,11 +3097,12 @@ export default {
       var data = Qs.stringify({
         // taskId: this.taskId
         taskId: this.taskId,
+        userId: this.acceptUserId,
       });
       that
         .axios({
           method: "post",
-          url: "/api/findCirculationCount",
+          url: "/api/findCirculationCountLT",
           data: data,
         })
         .then((response) => {
@@ -3114,6 +3121,23 @@ export default {
       this.CDcheckApplyState = this.$route.query.checkApplyState;
       this.CDgetPlanState = this.$route.query.checkPlanState;
       console.log("CDgetPlanState" + this.CDgetPlanState);
+      this.getAcceptUserId();
+    },
+    //根据接收企业的id（acceptCompanyId）查询其acceptUserId
+    getAcceptUserId(){
+      var that = this;
+      var data = Qs.stringify({
+        acceptCompanyId: this.acceptCompanyId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/getAcceptUserId",
+          data: data,
+        })
+        .then((response) => {
+          (this.acceptUserId = response.data.allData)
+        });
     },
     showData() {
       var that = this;

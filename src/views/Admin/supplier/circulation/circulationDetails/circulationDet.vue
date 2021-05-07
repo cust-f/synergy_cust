@@ -225,11 +225,12 @@ export default {
       var data = Qs.stringify({
         // taskId: this.taskId
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/findCirculationCount",
+          url: "/api/findCirculationCountLT",
           data: data,
         })
         .then((response) => {
@@ -242,11 +243,12 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/remarkDetilsL",
+          url: "/api/remarkDetilsLNew",
           data: data,
         })
         .then((response) => {
