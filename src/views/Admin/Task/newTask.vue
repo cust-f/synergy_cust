@@ -1819,10 +1819,10 @@ export default {
     // 跳转到课题一页面
     jumpToAnother(){
       // 判断输入框内容是否为空
-      if(this.addList.name == ""){
+      if(this.addList.name.replaceAll(" ","") == ""){
         this.$message.warning("请输入需求名称");
       }else{
-        window.open("http://www.hccstc.cn/home/searchAll?search_param="+this.addList.name+"&type=undefined");
+        window.open("http://www.hccstc.cn/home/searchAll?search_param="+this.addList.name.replaceAll(" ","")+"&type=undefined");
       }
     }
   },
