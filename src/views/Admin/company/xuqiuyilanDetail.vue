@@ -650,8 +650,7 @@ export default {
     this.showTaskData();
     this.getFilePath();
     this.showData();
-    this.showCompanyData();
-    this.showApply();
+    // this.showCompanyData();  目前貌似坏掉了正在修复中
   },
 
   filters: {
@@ -783,6 +782,8 @@ export default {
             this.applyList.taskTypeName = "设计";
           }
           this.login = response.data.allData.b[0].companyPicture;
+          console.log(this.applyList.taskType);
+          this.showApply();
         });
     },
     //居中的方法
@@ -821,6 +822,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID,
         userName: this.userName,
+        taskType:this.applyList.taskType,
       });
       that
         .axios({
@@ -843,7 +845,7 @@ export default {
         path: "/xuqiuyilan",
       });
     },
-    //申请数据上传
+    //申请数据上传、确认申请
     apply() {
       if (this.telphone == 1) {
         this.$message.error("您的手机号填写有误");
@@ -867,7 +869,11 @@ export default {
           data: data,
         });
         this.$message.success("提交成功");
-        this.$router.go(0);
+        setTimeout(() => {
+              this.$router.go(0);
+              // 这里就是处理的事件
+          }, 50);
+        
       }
     },
     companyDetail(companyId) {

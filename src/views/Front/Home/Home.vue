@@ -862,7 +862,8 @@ export default {
         query: {
           keyWords: this.patentName,
           technicalIndex: this.technicalIndex,
-          type: 0,
+          // type: 0,
+          type:"专利名"
         },
       });
     },
@@ -871,7 +872,8 @@ export default {
         path: "/searchPatent",
         query: {
           companyName: this.org,
-          type: 1,
+          // type: 1,
+           type:"企业名"
         },
       });
     },
