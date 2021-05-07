@@ -107,7 +107,9 @@
           <!-- <br /> -->
           <div id="div2" align="right">
             <el-button type="primary" class="button1" @click="completeMainTask()">完成任务</el-button>
-            <el-popover placement="top" width="200" v-model="popoverVisible" transition="el-zoom-in-bottom">
+
+            <!-- transition="el-zoom-in-bottom" trigger="click" -->
+            <el-popover placement="top" width="200" v-model="popoverVisible">
               <p style="margin:0px 0px 10px 0px;"><i class="el-icon-edit" style="color:#409EFF;"></i>请选择需要修改的内容：</p>
               <div style="text-align: right; margin: 0">
                 <el-button type="text" size="mini" @click="showMainTaskChange()">需求信息</el-button>
@@ -641,7 +643,7 @@ export default {
       applyListVisible: true, //申请列表列表显示
       quotaListVisible: false, //配额分配列表显示
       quotaButtonVisible: false, //配额分配按钮显示
-      popoverVisible: false, // 修改选项小框显示
+      popoverVisible:false, // 修改选项小框显示
       // 需求方负责人信息
       demanderPrincipal: [],
       //行业类别 选项列表
@@ -733,7 +735,7 @@ export default {
           { pattern: /^1\d{10}$/, message: "请输入正确的联系方式", trigger: 'blur'},
         ],
         consignmentpatrsList: [
-          { required: true, message: "请选择零件类别", trigger: ['blur','change'] },
+          { required: true, message: "请选择零件类别", trigger: 'blur' },
         ],
       },
       loading: true,
@@ -815,7 +817,7 @@ export default {
           this.demanderPrincipal = response.data.allData;
         });
     },
-    //查询零件类别信息
+    // 查询零件类别信息
     getAllPartsList() {
       var that = this;
       that
@@ -827,6 +829,23 @@ export default {
           this.partsOptions = response.data.allData;
           
         });
+    },
+    // 获得流通清单零件一级ID 二级ID
+    getPartsId(partsCategory){
+      // 加载零件一级ID 和 二级 ID + 选中
+        var that = this;
+        var data = Qs.stringify({
+          partsName:partsCategory,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/SubstaskInformation/findPartsCategoryTableByPartsCategory",
+            data: data,
+          })
+          .then((response) => {
+            this.consignmentpatrsList = response.data.allData;
+          })
     },
     // 查询行业类别列表
     getAllIndustryList() {
@@ -877,8 +896,12 @@ export default {
           this.technicalFile = response.data.allData.c;
           this.mainTaskInfo.consignmentInfo = response.data.allData.d[0];
           this.WJSM = response.data.allData.SM;
-          //获得子任务信息
+          // 获得子任务信息
           this.getSubtaskData();
+          // 获得流通清单零件一级ID 二级ID
+          if(this.mainTaskInfo.consignmentInfo != undefined){
+            this.getPartsId(this.mainTaskInfo.consignmentInfo.partsCategory);
+          }
         });
     },
     // 获取子任务基本信息
@@ -1047,23 +1070,10 @@ export default {
       this.popoverVisible = false;
       if (this.mainTaskInfo.consignmentInfo == undefined) {
         this.consignmentForm = {};
-        // this.consignmentForm.consignmentpatrsList = [];
+        this.consignmentForm.consignmentpatrsList = [];
       } else {
         this.consignmentForm = JSON.parse(JSON.stringify(this.mainTaskInfo.consignmentInfo));
-        // 加载零件一级ID 和 二级 ID + 选中
-        var that = this;
-        var data = Qs.stringify({
-          partsName:this.consignmentForm.partsCategory,
-        });
-        that
-          .axios({
-            method: "post",
-            url: "/api/SubstaskInformation/findPartsCategoryTableByPartsCategory",
-            data: data,
-          })
-          .then((response) => {
-            this.consignmentForm.consignmentpatrsList = response.data.allData;
-          })
+        this.consignmentForm.consignmentpatrsList = this.consignmentpatrsList;
       }
       this.consignmentVisible = true;
     },
@@ -1072,11 +1082,11 @@ export default {
       this.$refs["consignmentForm"].validate((valid) => {
         if (valid) {
           var that = this;
-          this.consignmentForm.partsCategory = this.$refs["partsCascader"].getCheckedNodes()[0].label
+          this.consignmentForm.partsCategory = this.$refs["partsCascader"].getCheckedNodes()[0].label;
           that
             .axios({
               method: "post",
-              url: "/api/addConsignment/updateConsignment",
+              url: "/api/addConsignment/updateConsignment/"+this.mainTaskID,
               data: JSON.stringify(this.consignmentForm),
               headers: {
 								"Content-Type": "application/json;charset=utf-8" //头部信息
