@@ -296,7 +296,7 @@
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="截止时间" prop="deadline">
-                    <el-date-picker v-model="mainTaskEditInfo.deadline" type="datetime" placeholder="选择截止时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions">
+                    <el-date-picker v-model="mainTaskEditInfo.deadline" type="datetime" placeholder="选择截止时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -310,7 +310,7 @@
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="完成时间" prop="finishTime">
-                    <el-date-picker v-model="mainTaskEditInfo.finishTime" type="datetime" placeholder="选择完成时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions" v-if="+mainTaskEditInfo.taskState === 1">
+                    <el-date-picker v-model="mainTaskEditInfo.finishTime" type="datetime" placeholder="选择完成时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" v-if="+mainTaskEditInfo.taskState === 1">
                     </el-date-picker>
                     <el-input v-else value="1970-01-01 08:00:00" :disabled="true"></el-input>
                   </el-form-item>
@@ -350,7 +350,13 @@
               <el-row>
                 <el-col :span="22">
                   <el-form-item label="添加附件">
-                    <el-upload class="upload-demo" action="/api/MainTaskInformation/import" :on-success="handleAvatarSuccess" multiple :limit="3" ref="upload">
+                    <el-upload 
+                      class="upload-demo" 
+                      action="/api/MainTaskInformation/import" 
+                      :on-success="handleAvatarSuccess" 
+                      multiple 
+                      :limit="3" 
+                      ref="upload">
                       <el-button size="small" type="primary">上传文件</el-button>
                     </el-upload>
                   </el-form-item>
@@ -903,49 +909,6 @@ export default {
     showMainTaskDetail(row) {
       this.mainTaskDetailVisible = true;
     },
-    // 主需求基本信息 - 附件下载（单独 点击文件名）
-    downloadFile(row) {
-      var that = this;
-      var data = Qs.stringify({
-        //taskID: this.taskId,
-        url: row.realPath,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/xuqiuyilan/DownloadTelFile",
-          data: data,
-          responseType: "blob", //服务器返回的数据类型
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          let link = document.createElement("a");
-          link.style.display = "none";
-          link.href = window.URL.createObjectURL(
-            new Blob([response.data], { type: "application/octet-stream" })
-          );
-          link.setAttribute("download", row.realName);
-          document.body.appendChild(link);
-          link.click();
-        });
-    },
-    // 主需求基本信息 - 附件删除
-    deleteFile(row) {
-      let ks = this.WZLJ.indexOf(row.realPath);
-      let qianzui, houzui;
-      if (row.wenjiancixu == this.WJSM - 1) {//只有一个文件
-        qianzui = this.WZLJ.substr(0, ks - 8);
-        houzui = "";
-      } else {
-        qianzui = this.WZLJ.substr(0, ks);
-        houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
-      }
-      this.WZLJ = qianzui + houzui;
-      this.fujian.splice(row.wenjiancixu, 1);
-    },
     // 主需求基本信息 - 完成任务
     completeMainTask() {
       this.$confirm("确定要完成任务吗？", "提示", {
@@ -993,61 +956,83 @@ export default {
     saveMainTaskChange() {
       this.$refs["mainTaskEditInfo"].validate((valid) => {
         if (valid) {
-          // if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
-          //   this.technicalFileWanzheng =
-          //     this.WZLJ + "linklink" + this.technicalFileWanzheng;
-          // }
-          // if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
-          //   this.technicalFileWanzheng = this.WZLJ;
-          // }
-          // var that = this;
-          // var data = Qs.stringify({
-          //   mainTaskID: this.mainTaskID,
-          //   mainTaskName: this.mainTaskEditInfo.mainTaskName,
-          //   principalName: this.mainTaskEditInfo.principalName,
-          //   publishTime1: this.mainTaskEditInfo.publishTime,
-          //   deadline1: this.mainTaskEditInfo.deadline,
-          //   taskCategoryMainId: this.mainTaskEditInfo.selectCateKeys[0],
-          //   taskCategoryPartId: this.mainTaskEditInfo.selectCateKeys[1],
-          //   technicalFile: this.technicalFileWanzheng,
-          //   mainTaskDetail: this.mainTaskEditInfo.mainTaskDetail,
-          //   username: this.usernameX,
-          //   finishTime1: this.mainTaskEditInfo.finishTime,
-          //   taskState: this.mainTaskEditInfo.taskState,
-          //   mainTaskType: this.mainTaskEditInfo.mainTaskType,
-          // });
+          var that = this;
+          var data = Qs.stringify({
+            mainTaskID: this.mainTaskID,
+            mainTaskName: this.mainTaskEditInfo.mainTaskName,
+            principalName: this.mainTaskEditInfo.principalName,
+            publishTime1: this.mainTaskEditInfo.publishTime,
+            deadline1: this.mainTaskEditInfo.deadline,
+            taskCategoryMainId: this.mainTaskEditInfo.selectCateKeys[0],
+            taskCategoryPartId: this.mainTaskEditInfo.selectCateKeys[1],
+            mainTaskDetail: this.mainTaskEditInfo.mainTaskDetail,
+            finishTime1: this.mainTaskEditInfo.finishTime,
+          });
           // console.log(data);
-          this.$message.success("修改成功");
-          // that
-          //   .axios({
-          //     method: "post",
-          //     url: "/api/MainTaskInformation/updateMainLT",
-          //     data: data,
-          //   })
-          //   .then((response) => {
-          //     this.mainStaskID = response.data.allData;
-          //     if (this.mainStaskID != "null") {
-          //       this.$message.success("修改需求信息成功");
-          //       this.mainTaskEditVisible = false;
-          //       this.$refs.upload.clearFiles();
-          //       this.technicalFileWanzheng = "";
-          //       this.technicalFile = "";
-          //       (this.shangchuancishu = ""), this.getMainTaskData();
-          //     }
-          //   })
-
-          // this.$message.success("修改需求信息成功");
-          // this.mainTaskEditVisible = false;
+          // this.$message.success("修改成功");
+          that
+            .axios({
+              method: "post",
+              url: "/api/MainTaskInformation/updateMainLT",
+              data: data,
+            })
+            .then((response) => {
+              this.mainStaskID = response.data.allData;
+              if (this.mainStaskID != "null") {
+                this.$message.success("修改需求信息成功");
+                this.mainTaskEditVisible = false; 
+                this.getMainTaskData();
+              }
+            })
         } else {
           this.$message.warning("你还有重要信息未填写，请填写后再提交");
-          // this.$refs.upload.clearFiles();
-          // (this.technicalFileWanzheng = ""), (this.technicalFile = "");
-          // this.shangchuancishu = "";
-          // return false;
         }
       });
     },
-    // 主需求基本信息 弹框 - 修改附件
+    // 主需求基本信息 - 附件下载（单独 点击文件名）
+    downloadFile(row) {
+      var that = this;
+      var data = Qs.stringify({
+        //taskID: this.taskId,
+        url: row.realPath,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/xuqiuyilan/DownloadTelFile",
+          data: data,
+          responseType: "blob", //服务器返回的数据类型
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/octet-stream" })
+          );
+          link.setAttribute("download", row.realName);
+          document.body.appendChild(link);
+          link.click();
+        });
+    },
+    // 主需求基本信息 - 附件删除
+    deleteFile(row) {
+      let ks = this.WZLJ.indexOf(row.realPath);
+      let qianzui, houzui;
+      if (row.wenjiancixu == this.WJSM - 1) {//只有一个文件
+        qianzui = this.WZLJ.substr(0, ks - 8);
+        houzui = "";
+      } else {
+        qianzui = this.WZLJ.substr(0, ks);
+        houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
+      }
+      this.WZLJ = qianzui + houzui;
+      this.fujian.splice(row.wenjiancixu, 1);
+    },
+    // 主需求基本信息 弹框 - 上传文件成功后的返回值
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
       if (this.technicalFileWanzheng.length > 0) {
@@ -1162,7 +1147,7 @@ export default {
       // 3.流通任务雷达图
       this.showCirculationSubtaskRadar(row);
     }, 
-    // 1.
+    // 1.企业信息
     showCompanyDetail(row) {
       this.companyDetailForm = [];
       var that = this;
