@@ -55,12 +55,22 @@
       </el-table-column>
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
-          <div v-if="scope.row.applyWay === 0">
+          <div v-if="scope.row.applyWay === 0 && scope.row.taskType === 0">
             <div v-if="scope.row.checkApplyState < 1">
               <el-button @click="accept(scope.row)" type="text" size="small"
                 >通过</el-button
               >
               <el-button @click="noAccept(scope.row)" type="text" size="small"
+                >拒绝</el-button
+              >
+            </div>
+          </div>
+          <div v-if="scope.row.applyWay === 0  && scope.row.taskType === 1">
+            <div v-if="scope.row.checkApplyState < 1">
+              <el-button @click="checkApply(scope.row, 1)" type="text" size="small"
+                >通过</el-button
+              >
+              <el-button @click="checkApply(scope.row, 2)" type="text" size="small"
                 >拒绝</el-button
               >
             </div>
@@ -349,6 +359,35 @@ export default {
         });
         this.$router.go(0);
       });
+    },
+   // 流通申请列表 - 1通过/2拒绝 申请
+    checkApply(row, acceptState) {
+      // console.log(row);
+      var checkTip = acceptState == 1 ? "通过" : "拒绝";
+      this.$confirm("确定要" + checkTip + "申请吗？", "提示", {
+        type: "warning",
+      })
+        .then(() => {
+          var that = this;
+          var data = Qs.stringify({
+            mainTaskId: row.taskId,
+            companyId: row.companyId,
+            companyName: row.companyName,
+            acceptState: acceptState,
+          });
+          that
+            .axios({
+              method: "post",
+              url: "/api/SubstaskInformation/checkApplyMainLT",
+              data: data,
+            })
+            .then((response) => {
+              this.$message.success(checkTip + "申请成功");
+            });
+        })
+        .catch(() => {
+          this.$message.info("取消" + checkTip + "申请");
+        });
     },
     //申请拒绝原因
     refuseReason(row) {
