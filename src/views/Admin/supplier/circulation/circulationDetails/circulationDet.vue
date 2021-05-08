@@ -33,7 +33,7 @@
       <br />
       <br />
       <!-- 任务计划模块 -->
-      <div v-show="show > 0">
+      <div v-show="show > 0 && missionPlanVisiable==true">
         <div v-show="state21 === 1">
         <mission-Plan ref="missionPlan"></mission-Plan>
         </div>
@@ -296,6 +296,7 @@ export default {
         .then((response) => {
           this.cool = response.data.allData.a[0];
           this.taskApplyTableData = response.data.allData.b;
+          this.missionPlanVisiable = response.data.allData.b[0].quotaState == 1? true:false;
           this.taskTableData = response.data.allData.a;
           this.state = response.data.allData.a[0].taskState;
           this.state21 = response.data.allData.b[0].checkApplyState;
