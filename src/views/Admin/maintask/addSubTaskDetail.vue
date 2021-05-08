@@ -345,7 +345,12 @@
           <div>
             <el-table
               v-loading="loading"
-              :data="parentTable"
+               :data="parentTable.slice(
+                      (pageIndex2 - 1) * pageSize,
+                      pageIndex2 * pageSize
+                    )
+                  "
+             
               style="width: 100%; margin-top: 30px"
               border
               highlight-current-row
@@ -408,6 +413,18 @@
               </el-table-column>
             </el-table>
           </div>
+           <div class="pagination">
+                <el-pagination
+                  background
+                  layout="prev, pager, next, sizes, total, jumper"
+                  :current-page="pageIndex2"
+                  :page-size="pageSize"
+                  :total="parentTable.length"
+                  @current-change="handleCurrentChange"  
+			            @size-change="handleSizeChange" 
+                  
+                ></el-pagination>
+              </div>
         </el-dialog>
       </div>
       <!-- 编辑流通清单弹出框 -->
@@ -658,6 +675,11 @@ export default {
   },
   data() {
     return {
+       pageTotal: 0,
+      pageIndex: 1,
+            pageIndex2: 1,
+
+      pageSize: 10,
       loading: true,
       dialogLineChartVisible: false, //显示折线图
       options: [],
@@ -987,6 +1009,18 @@ export default {
     that.consignmentTableShuaxin();
   },
   methods: {
+    	handleCurrentChange(cpage) {
+
+					this.pageIndex2 = cpage;
+
+				},
+
+				handleSizeChange(psize) {
+
+					this.pageSize = psize;
+
+                },
+
     //获取条件选择时间数据
     getYearData() {
       let that = this;
