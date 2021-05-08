@@ -33,8 +33,10 @@
       <br />
       <br />
       <!-- 任务计划模块 -->
-      <div v-show="show > 0">
+      <div v-show="show > 0 && missionPlanVisiable==true">
+        <div v-show="state21 === 1">
         <mission-Plan ref="missionPlan"></mission-Plan>
+        </div>
       </div>
       <br />
       <br />
@@ -60,7 +62,7 @@
       <br />
       <!-- 流通清单模块 -->
       <div v-show="show > 1">
-        <div v-show="state2 === 1">
+        <div v-show="state3 === 5">
           <delivery-List ref="deliveryList"></delivery-List>
         </div>
       </div>
@@ -179,6 +181,7 @@ export default {
       show3: 0,
       //状态显示控制
       state: "",
+      state21: 0,
       state2: 0,
       loading: true,
       state3: 0,
@@ -222,11 +225,12 @@ export default {
       var data = Qs.stringify({
         // taskId: this.taskId
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/findCirculationCount",
+          url: "/api/findCirculationCountLT",
           data: data,
         })
         .then((response) => {
@@ -239,11 +243,12 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/remarkDetilsL",
+          url: "/api/remarkDetilsLNew",
           data: data,
         })
         .then((response) => {
@@ -285,16 +290,21 @@ export default {
       that
         .axios({
           method: "post",
-          url: "/api/supplier/getList",
+          url: "/api/supplier/getListLT",
           data: data,
         })
         .then((response) => {
           this.cool = response.data.allData.a[0];
           this.taskApplyTableData = response.data.allData.b;
+          this.missionPlanVisiable = response.data.allData.b[0].quotaState == 1? true:false;
           this.taskTableData = response.data.allData.a;
           this.state = response.data.allData.a[0].taskState;
+          this.state21 = response.data.allData.b[0].checkApplyState;
+          console.log(this.state21)
           this.state2 = response.data.allData.b[0].checkPlanState;
+          console.log(this.state2)
           this.state3 = response.data.allData.a[0].contractState;
+          console.log(this.state3)
           this.storehorseManagement[0].taskName=response.data.allData.a[0].taskName;
           this.storehorseManagement[0].uploadCircuaterTime=response.data.allData.a[0].uploadCircuaterTime;
           this.storehorseManagement[0].taskId=response.data.allData.a[0].taskId;
@@ -388,11 +398,12 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/addConsignment/findConsignmentByTaskId",
+          url: "/api/addConsignment/findConsignmentByTaskIdNew",
           data: data,
         })
         .then((response) => {

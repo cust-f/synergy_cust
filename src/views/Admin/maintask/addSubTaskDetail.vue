@@ -93,22 +93,6 @@
             </el-col>
             <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="零件类别" :style="{ display: sfkjian }" prop="patrsList" :rules="(addList.shifouyaoqing == '0' && addList.taskType == '1')?addListRules.patrsList:{required: false}">
-                <!-- <el-select
-                  v-model="addList.patrsList"
-                  placeholder="请选择零件类别"
-                  class="selectsupply"
-                  style="width: 100%"
-                  @change="selectCategoryoption"
-                >
-                  <el-option
-                    width="180"
-                    v-for="(Categoryoption, index) in CategoryListoptions"
-                    :key="index"
-                    :label="Categoryoption.partsCategory"
-                    :value="Categoryoption.partsCategory"
-                  >
-                  </el-option>
-                </el-select> -->
                 <el-cascader style="width: 100%" expand-trigger="hover" v-model="addList.patrsList" :options="partsOptions" :props="partsProps" ref="partsCascader" placeholder="请选择零件类别"></el-cascader>
               </el-form-item>
             </el-col>
@@ -163,19 +147,8 @@
                       margin-top: 13px;
                     " @click="findCompanyByPartsCategory"></el-button>
             </el-tooltip>
-            <!-- <el-col :span="11">
-              <el-form-item label="等待申请" :style="{ display: shenqing }" class="dengdaishenqing">
-                <el-input
-                  placeholder="等待供应方申请"
-                  v-model="input"
-                  :disabled="true"
-                  :style="{ display: shenqing }"
-                ></el-input>
-              </el-form-item>
-            </el-col> -->
 
           </el-row>
-          <!-- <br v-if="shifoubr" > -->
           <el-row>
             <el-col :span="22">
               <el-form-item label="收货地址" :style="{ display: sfkjian }" prop="circulationAddress" :rules="addList.taskType === '1'?addListRules.circulationAddress:{required: false}">
@@ -234,8 +207,24 @@
         <!-- </el-col>
           </el-row>
         </div> -->
+     
       </div>
-
+         <!-- 设计的雷达图 -->
+       <!-- <radar-chartS
+        :radarDataS="radarDataS"
+        ref="drawradarChartS"
+       ></radar-chartS>
+        <div class="supplierinput_span" align="center">
+          <el-form ref="form">
+            <label>完成质量:</label>
+            <label id="word" style="font-size: 16px"></label>
+            <br />
+            <br />
+          </el-form>
+          <span id="one"></span>
+          <span id="two"></span>
+          <span id="three"></span>
+        </div> -->
       <!-- <el-divider></el-divider> -->
       <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">专利转移</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; -->
       <!-- 专利表格
@@ -472,6 +461,13 @@
               </el-col>
             </el-row>
             <el-row>
+            <el-col :span="11">
+              <el-form-item label="零件类别"  prop="consignmentpatrsList">
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="consignmentForm.consignmentpatrsList" :options="partsOptions" :props="partsProps" ref="consigpartsCascader" placeholder="请选择零件类别"></el-cascader>
+              </el-form-item>
+            </el-col>
+            </el-row>
+            <el-row>
               <el-col :span="22">
                 <el-form-item label="备注" prop="productNotes">
                   <el-input type="textarea" :rows="3" style="width: 100%" placeholder="请输入内容" v-model="consignmentForm.productNotes" class="gongsiDetail"></el-input>
@@ -558,9 +554,9 @@
           </span>
         </el-dialog> -->
         <!-- 新增供应商弹出框 -->
-          <el-dialog  :visible.sync="addCompanyVisible" width="60%">
+          <el-dialog  :visible.sync="addCompanyVisible" width="60%" :before-close="TwohandleDialogClose">
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">
-              新增
+              新增供应商
             </div>
             <br />
             <el-table
@@ -571,11 +567,12 @@
               header-cell-class-name="table-header"
               @selection-change="handleSelectionChange"
               @sort-change="sortChange"
+              :default-sort ="{prop:'newStars',order:'descending'}"
             >
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
               <el-table-column prop="Company_Name"  width="315" label="企业名称">
                 <template slot-scope="scope">
-                  <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">
+                  <el-link @click.native="getCompanyInfo(scope.row)" :disabled="dialogLineChartVisible">
                     {{ scope.row.Company_Name}}
                   </el-link>
                   <span v-show="scope.row.recommend != 0">
@@ -583,17 +580,17 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable='custom'>
+              <!-- <el-table-column prop="Recommend_Stars" width="167" label="推荐" sortable='custom'>
                 <template slot-scope="scope">
                   <el-rate v-model="scope.row.Recommend_Stars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             <!-- 重映射  newStars 【算出的数据有问题】 -->
-            <!-- <el-table-column prop="newStars" width="167" label="推荐" sortable>
+            <el-table-column prop="newStars" width="167" label="推荐" sortable>
                 <template slot-scope="scope">
                   <el-rate v-model="scope.row.newStars" disabled show-score text-color="#ff9900"></el-rate>
                 </template>
-            </el-table-column> -->
+            </el-table-column>
             <el-table-column prop="Parts_Category" label="零件类别"></el-table-column>
               <el-table-column prop="Product_Name" label="零件名称"></el-table-column>
               <el-table-column prop="Reserve" width="90" label="库存量" sortable='custom'></el-table-column>
@@ -629,16 +626,106 @@
     <!-- <el-card>
         <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
         </el-card> -->
-    <!-- 折线图弹出框 -->
+    <!-- 供应商企业信息弹出框 -->
     <div class="lineChart1">
-      <el-dialog :visible.sync="dialogLineChartVisible" center>
-          <template slot="title">
-             {{this.lineTitle}}
-          </template>
-        <div style="float: right">
-          <template>
+      <el-dialog  :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
+ 
+       
+        <el-row>
+          <el-col :span="8">
+            <el-row>
+                <!-- 企业信息模块 -->
+              <el-col>
+
+              <el-card>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">企业信息</div><br>
+          <el-form ref="companyDetailForm" :model="companyDetailForm" label-width="80px" class="company-detail-form">
+            <el-row :gutter="20">
+
+              <el-col :span="24">
+                <el-row :gutter="20">
+                  <el-col :offset="1" :span="4" style="padding-left: 0px;padding-right: 0px;">
+                    <el-form-item label-width="0" class="company-detail-form-item">
+                  <div class="company-detail-imgdiv">
+                    <img class="company-detail-img" :src="this.companyDetailForm.logo" fit="fill" border="1"/>
+                  </div>
+                </el-form-item>
+                  </el-col>
+                  <el-col :span="19">
+                  <el-form-item label-width="0" class="company-detail-form-item">
+                   <span style="font-size: 18px;">{{ this.companyDetailForm.companyName }}</span>
+                  </el-form-item> 
+                  <el-form-item label-width="0" class="company-detail-form-item">
+                    <el-rate v-model="this.companyDetailForm.star" disabled text-color="#ff9900"></el-rate>
+                  </el-form-item>
+                  </el-col>
+                </el-row>
+                  <el-divider></el-divider>
+                  <el-form-item label="业务范围" class="company-detail-form-item">
+                    <span>{{ this.companyDetailForm.product }}</span>
+                  </el-form-item>
+                  <el-form-item label="企业地址" class="company-detail-form-item">
+                    <span>{{ this.companyDetailForm.address }}</span>
+                  </el-form-item>
+                  <el-form-item label="联系电话" class="company-detail-form-item">
+                    <span>{{ this.companyDetailForm.officeNumber }}</span>
+                  </el-form-item> 
+                  <el-form-item label="电子邮箱" class="company-detail-form-item">
+                    <span>{{ this.companyDetailForm.email }}</span>
+                  </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+ 
+        </el-card>
+              </el-col>
+            </el-row>
+            <el-row>
+              <!-- 工作评价 -->
+              <el-col>
+                <!-- 流通任务模块 雷达图 -->
+        <el-card>
+            
+                <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
+               <div class="input_span" align="center">
+              <el-form ref="form" :modelZL="formZL">
+                <label  >完成质量:</label>
+                <label id="word" style="font-size: 14px"></label>
+              </el-form>
+              <span id="one"></span>
+              <span id="two"></span>
+              <span id="three"></span>
+                </div>
+            <radar-chart1
+                    :radarData1="radarData1"
+                    ref="refradarChart1"
+                    class="renwupingjia"
+                    ></radar-chart1>
+
+        </el-card>
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :span="16">        
+
+        <el-card>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">销售/库存趋势图</div>
+        <div class="type2-situation">{{this.lineTitle}}</div>
+        <br/>
+        <div class="type22-situation">
+          <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
+          &nbsp;
+          <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
+        </div>
+        <br/>
+        <div class="type23-situation">
+          <span class="title-star">
+              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
+          </span>
+           <template>
+             <div  style="margin-bottom:38px">
             <el-select
-              style="width: 100px; margin-right: 35px;margin-top: -20px"
+              style="width: 100px; float: right"
               v-model="lineYear"
               @change="lineChartChange"
             >
@@ -652,11 +739,22 @@
                 width="20px"
               ></el-option>
             </el-select>
+            </div>
           </template>
         </div>
+        <br/>
+        <!-- <div style="float: right;margin-bottom:-20px">
+         
+        </div> -->
         <!-- <el-card> -->
+          <div  >
         <line-chart :lineData="lineData" ref="drawLineChart"></line-chart>
-        <!-- </el-card> -->
+      </div>
+        </el-card>
+          </el-col>
+        </el-row>
+          
+
       </el-dialog>
     </div>
   </el-container>
@@ -665,6 +763,8 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+import radarChart1 from "../../Admin/Enterprise_Evaluation/components/radarCharthh"
+import radarChartS from "../../Admin/Enterprise_Evaluation/components/radarChartShh"
 import { Popover } from "element-ui";
 import lineChart from "./components/lineChart"; //折线图
 // Vue.use(Popover);
@@ -672,22 +772,53 @@ export default {
   name: "addSubTaskDetail",
   components: {
     "line-chart": lineChart, //折线图
+    "radar-chart1":radarChart1,
+    "radar-chartS":radarChartS,
   },
   data() {
     return {
+
        pageTotal: 0,
       pageIndex: 1,
             pageIndex2: 1,
 
       pageSize: 10,
+
+      form: {
+        circulationCount: 0, //流通完成质量
+      },
+      userName: sessionStorage.getItem("ms_username"),
+      UserName:"",
+      form2:{
+         time1:"",
+         time2:"",
+      } ,
+
+      radarData1:{
+        radarData1:[],
+        indicatorData1:[],
+      },
+      radarDataS:{
+       radarDataS:[],
+       indicatorDataS:[],
+      },
+       options: [],  
+
       loading: true,
       dialogLineChartVisible: false, //显示折线图
-      options: [],
       lineYear: "",
       productCompanyId:"",
       productCompanyName:"",
       productName1:"",
       lineTitle:"",
+      //当前库存量
+      nowInventoryNum:"",
+      //当前销售量
+      nowSaleNum:"",
+      //当前推荐星级
+      nowStar:"",
+      //当前月份
+      nowMonth:"",
       /**
        * 数据统计
        */
@@ -780,10 +911,10 @@ export default {
           id: "0",
           label: "设计任务",
         },
-        {
-          id: "1",
-          label: "流通任务",
-        },
+        // {
+        //   id: "1",
+        //   label: "流通任务",
+        // },
       ],
       sfkjian: "none",
       //私密
@@ -808,7 +939,7 @@ export default {
       companyTableData: [],
       //根据零件查询出的企业列表数组的分页参数
       pageIndex1: 1, //页码
-      pageSize1: 6, //每页数据
+      pageSize1: 10, //每页数据
 
       isgongyingshang: false,
       twogongyingshang: false,
@@ -875,6 +1006,9 @@ export default {
       // selectCateKeys1: [],
       // //行业类别级联选择框双向绑定到的数组
       // selectCateKeys: [],
+
+      //弹框-(供应商)企业信息
+      companyDetailForm:[],
 
       subStaskTypeID: "",
       // ==============================================================================
@@ -989,6 +1123,10 @@ export default {
             trigger: "blur",
           },
         ],
+        consignmentpatrsList: [
+          { required: true, message: "请输入零件类别", trigger: "blur" },
+        ],
+        
       },
     };
   },
@@ -1000,15 +1138,18 @@ export default {
     },
   },
   created() {
-    this.consignmentTableShuaxin();
+    // this.getRadarData1();//流通任务-雷达图-接收
     this.getYearData();
     // this.lineChart();
     this.getAllIndustryList();
     this.getAllSupplierList();
     this.getAllPartsList();
+    this.getRemarDataSS();
+    this.consignmentTableShuaxin();
     that.consignmentTableShuaxin();
   },
   methods: {
+
     	handleCurrentChange(cpage) {
 
 					this.pageIndex2 = cpage;
@@ -1021,6 +1162,31 @@ export default {
 
                 },
 
+
+    getRemarDataSS(){
+     var that = this;
+      this.form2.time1="2019-01-01";
+      this.form2.time2="2021-01-01";
+      var data = Qs.stringify({
+        userName:this.usernameX,
+        startTime:this.form2.time1,
+        finishTime:this.form2.time2,
+      });
+     
+      that
+        .axios({
+          method: "post",
+          url:
+            "/api/findRemarkTimesS",
+          data: data
+        })
+        .then(response => { 
+         this.radarDataS.radarDataS=response.data.allData.AllRemarkLengthS;
+         this.radarDataS.indicatorDataS=response.data.allData.indicatorS;
+         console.log(this.radarDataS.indicatorDataS)
+         that.$refs.drawradarChartS.getCharts2S();             
+        });
+    },
     //获取条件选择时间数据
     getYearData() {
       let that = this;
@@ -1031,16 +1197,156 @@ export default {
             
       });
     },
-    //折线图数据显示
+    //(供应商)企业 详情显示 ：1.企业信息 2.仓库库存趋势折线图 3.流通任务雷达图
+    getCompanyInfo(row){
+      // 1.企业信息 
+      this.showCompanyDetail(row.Company_ID);
+      // 2.仓库库存趋势折线图 
+      this.showLineChart(row);
+      // 3.流通任务雷达图
+      this.showCirculationSubtaskRadar(row);
+    },
+    // 1.(供应商)企业信息
+    showCompanyDetail(companyId){
+      var that = this;
+      var data = Qs.stringify({
+        CompanyID: companyId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/companyDetail/showCompanyDetal",
+          data: data,
+        })
+        .then((response) => {
+          this.companyDetailForm = response.data.allData.companyDetail[0];
+          this.companyDetailForm.logo = response.data.allData.logo;
+        });
+    },
+    // 2.折线图数据显示-仓库库存趋势折线图
     showLineChart(row) {
       this.dialogLineChartVisible = true;
-      this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
+      // this.lineTitle = row.Company_Name + " / " + row.Product_Name + "销量趋势图";
+      this.lineTitle = row.Product_Name + "销量趋势图";
+      this.nowStar = row.newStars;
       this.lineChart(row);
       this.getYearData();
+    },
+    // 3.(供应方)所有流通任务雷达图
+    showCirculationSubtaskRadar(row){
+      this.findALLCirculationCount(row.Company_ID);
+      this.finduserNameBycompanyID(row.Company_ID);
+    },
+    findALLCirculationCount(companyID){
+       var that = this;
+      var data = Qs.stringify({
+        companyID: companyID,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/findALLCirculationCount",
+          data: data,
+        })
+        .then((response) => {
+            this.form.circulationCount = response.data.allData;
+            this.styleswith();
+        });
+    },
+    //根据companyID查询userName
+    finduserNameBycompanyID(companyID){
+      var that = this;
+      var data = Qs.stringify({
+        companyID: companyID,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/finduserNameBycompanyID",
+          data: data,
+        })
+        .then((response) => {
+            this.UserName=response.data.allData;
+            console.log("AA"+this.UserName)
+            this.getTimeData();
+        });
+    },
+     //获取条件选择时间数据
+    getTimeData() {
+      let that = this;
+      that.axios.post("/api/findTimes").then(response => {
+        // this.form2.time1 = response.data.allData[0];//本年第一天
+        
+        this.form2.time2= response.data.allData[1];  //当天时间
+        this.form2.time1="2019-01-01";
+        this.getRadarData1();
+        
+      });
+    },
+     //雷达图-制造
+    getRadarData1(){
+     var that = this;
+      var data = Qs.stringify({
+        userName:this.UserName,
+        startTime:this.form2.time1,
+        finishTime:this.form2.time2,
+      });
+      that
+      
+        .axios({
+          method: "post",
+          url:
+            "/api/findCirculaterRemarkTimes1",
+          data: data
+        })
+        .then(response => {
+
+        this.radarData1.radarData1=response.data.allData.AllRemarkLength;
+         this.radarData1.indicatorData1=response.data.allData.indicator;
+         console.log("输出为"+this.radarData1.radarData1);
+         that.$refs.refradarChart1.getradarCharts1();   
+         this.styleswith();
+        });
+    },
+    //流通任务的任务评价样式
+    styleswith() {
+      if (this.form.circulationCount > -4 || this.form.circulationCount == -4) {
+        document.getElementById("one").style.background = "#00D1B2";
+        document.getElementById("word").innerHTML = "优";
+        document.getElementById("word").style.color = "#00D1B2";
+      }
+      if (this.form.circulationCount < -4 && this.form.circulationCount > -8) {
+        document.getElementById("one").style.background = "#eee";
+        document.getElementById("two").style.background = "orange";
+        document.getElementById("word").innerHTML = "良";
+        document.getElementById("word").style.color = "orange";
+      }
+      if (this.form.circulationCount < -8 || this.form.circulationCount == -8) {
+        document.getElementById("two").style.background = "#eee";
+        document.getElementById("three").style.background = "red";
+        document.getElementById("word").innerHTML = "差";
+        document.getElementById("word").style.color = "red";
+      }
+    },
+    TwohandleDialogClose(){
+      this.companyTableData =[];
+      this.addCompanyVisible=false;
+    },
+    handleDialogClose() {
+        document.getElementById("one").style.background = "";
+        document.getElementById("two").style.background = "";
+        document.getElementById("three").style.background = "";
+        document.getElementById("word").innerHTML = "";
+        document.getElementById("word").style.color = "";
+        this.dialogLineChartVisible=false;
     },
     //按要求显示
     lineChart(row) {
       var that = this;
+      var date = new Date();
+      this.nowMonth = date.getMonth() + 1;
+      var newMonth = this.nowMonth;
+      console.log(this.nowMonth)
       this.productName1 = row.Product_Name;
       this.productCompanyId = row.Company_ID;
       console.log(row.productName)
@@ -1065,8 +1371,10 @@ export default {
           this.lineData.months = response.data.allData.monthCount;
           this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
           this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
+          this.nowInventoryNum = response.data.allData.nowMonthInventoryCount;
+          this.nowSaleNum = response.data.allData.nowMonthSaleCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(alllData);
+          console.log(allData);
         });
     },
     //时间变换查询折线图
@@ -1093,7 +1401,7 @@ export default {
           this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
           this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
-          console.log(alllData);
+          console.log(allData);
         });
     },
     // handleSearch(val) {
@@ -1320,7 +1628,6 @@ export default {
         this.islingjianchaxun = false;
         this.isgongyingshang = true;
       }
-      // console.log(this.addList.taskType);
     },
     invitate(coo) {
       if (coo == 0) {
@@ -1350,6 +1657,7 @@ export default {
     },
     // =====================保存新增子任务=====================
     saveAdd11() {
+      // this.bianjiTC = true;
       this.$refs["addList"].validate((valid) => {
         if (valid) {
           if (this.addList.shifousimi != "1") {
@@ -1446,6 +1754,7 @@ export default {
             consignmentNotes: this.consignmentForm.productNotes,
             contactNumber: this.consignmentForm.contactNumber,
             deliveryTime: this.consignmentForm.consignmentTimeLatest,
+            partsCategory:this.$refs["consigpartsCascader"].getCheckedNodes()[0].label,
             //deliveryTime:"0000-00-00 00:00:00",
             consignmentState: "0", //未发货
             shippingAddress: "暂无地址",
@@ -1720,6 +2029,33 @@ export default {
 </script>
 
 <style lang="scss">
+ //完成质量
+.addSubTask .LDT{
+  margin-left: 5px;
+}
+// .addSubTask .renwupingjia{
+//   margin-left: 60px;
+// }
+.addSubTask .wanchengzhiliang{
+  margin-left: 10px;
+}
+.addSubTask .input_span span {
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    background: #eee;
+    line-height: 20px;
+  }
+.addSubTask .supplierinput_span span {
+  display: inline-block;
+  width: 85px;
+  height: 30px;
+  background: #eee;
+  line-height: 20px;
+}
+.addSubTask .WCZL {
+    font-size: 11px;
+  }
 .addSubTask .box {
   width: 400px;
 }
@@ -1781,10 +2117,72 @@ export default {
 }
 .lineChart1{
     .el-dialog__header {
-    padding: 20px 20px 20px;
+    padding: 20px 20px 0px;
   }
   .el-dialog {
-    width: 959px;
-}
+    width: 1300px;
   }
+}
+.company-detail-form{
+  .company-detail-form-item{
+    margin-bottom: 0px;
+    .company-detail-imgdiv{
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+      position: relative;
+      .company-detail-img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        -webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,.1));
+        filter: drop-shadow(5px 5px 5px rgba(0,0,0,.1));
+        border-radius:5px;
+      }
+    }
+  }
+  .company-detail-divider{
+    margin: 13px 0;
+  }
+}
+.type2-situation {
+  // margin-left: 35%;
+  text-align: center;
+  // font-size: 1.8rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.type22-situation {
+  // margin-left: 36%;
+  text-align: center;
+  font-size: 14;
+  // font-weight: bold;
+}
+.type23-situation {
+  // margin-left: 40%;
+  text-align: center;
+  font-size: 14;
+  // font-weight: bold;
+}
+#one {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 0px;
+  margin-right: 3px;
+}
+
+#two {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
+}
 </style>

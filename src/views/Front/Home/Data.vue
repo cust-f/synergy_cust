@@ -650,7 +650,7 @@
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card shadow="hover">
-          <div class="type-situation">分类别需求量统计</div>
+          <div class="type-situation">分类别需求量占比</div>
           <div style="float:right">
             <template>
               <el-select
@@ -681,7 +681,7 @@
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card shadow="hover">
-          <div class="type-situation">流通清单类别量统计</div>
+          <div class="type-situation">流通清单类别量占比</div>
           <div style="float: right">
             <template>
               <el-select
@@ -719,7 +719,7 @@
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card shadow="hover">
-          <div class="type-situation">零件类别销量统计</div>
+          <div class="type-situation">流通零件类别销量趋势</div>
           <div style="float: left">
             <template>
               <el-select
@@ -770,18 +770,18 @@
       </el-col>
     </el-row>
 
-    <br />
+    <!-- <br />
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card shadow="hover">
           <div id="partsPieChart" style="width: 100%;height:430%"></div>
-          <!-- <template>
+           <template>
             <line-chart :linePreData="linePreData" ref="drawLineChartPre"></line-chart>
             <div v-show="noData" style="margin-top: 50px;margin-left:405px;color:#ccc">无数据</div>
-          </template> -->
+          </template> 
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
 
     </el-card>
   </div>
@@ -980,7 +980,7 @@ export default {
     lineChartChangePre() {
       var that = this;
       var categoryId;
-      if(this.lineCategory === "滤清器"){
+      if(this.lineCategory === "发动机零件"){
         categoryId = 1
       }else{
         categoryId = this.lineCategory

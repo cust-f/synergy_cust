@@ -15,11 +15,11 @@
               <el-option
                 v-for="item in StatusOptions"
                 :key="item.key"
-                :value="item.key"
+                :value="item.name"
                 :label="item.name"
               />
             </el-select>
-            <span v-if="webSearchType==='0'">
+            <span v-if="webSearchType==='专利名'">
               <el-input style="width:260px" size="small" placeholder="零部件名称(必)" prefix-icon="el-icon-search" v-model="webKeyWords"></el-input>
               <el-input style="width:260px" size="small" placeholder="技术指标(选)" v-model="webTechnicalIndex"></el-input>
             </span>
@@ -57,7 +57,7 @@
               <div>
                 <patent-list :patentList="patentList"></patent-list>
               </div>
-              <div style="margin-top:20px;" v-if="searchType=='0'">
+              <div style="margin-top:20px;" v-if="searchType=='专利名'">
                 <el-pagination
                   :hide-on-single-page="true"
                   @size-change="getSearchResult"
@@ -162,7 +162,7 @@ export default {
         },
       };
       //页面初始化-根据【专利名】匹配专利列表
-      if (this.searchType == "0") {
+      if (this.searchType == "专利名") {
         var data ={
           componentName: this.keyWords,
           technicalIndex: this.technicalIndex,
@@ -245,7 +245,7 @@ export default {
         },
       };
       //根据【专利名】匹配专利列表
-      if (this.webSearchType == "0") {
+      if (this.webSearchType == "专利名") {
         var data ={
           componentName: this.webKeyWords,
           technicalIndex: this.webTechnicalIndex,
@@ -313,7 +313,7 @@ export default {
     },
     //搜索条件改变时，不刷新页面更改地址栏
     urlChange(){
-      if(this.webSearchType == "0")
+      if(this.webSearchType == "专利名")
       {  
         const newUrl = this.$route.path + `?keyWords=${this.webKeyWords}&technicalIndex=${this.webTechnicalIndex}&type=0`
         window.history.pushState('', '', newUrl)

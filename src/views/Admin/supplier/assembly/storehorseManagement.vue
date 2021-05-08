@@ -86,7 +86,7 @@
           <div style="width: 90%; margin-bottom: 10px">
             <span style="color: black">当前订单状态: </span>
             <span style="color: #409eff">
-              &nbsp&nbsp&nbsp&nbsp{{ status }}</span
+              &nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</span
             >
           </div>
           <el-button
@@ -397,7 +397,7 @@
                 color: rgb(153, 153, 153);
                 margin-left: 30px;
               "
-              >联系电话 :{{ this.tableData[0].contactNumber }}</label
+              >联系电话 :{{ this.tableData[0].contactnumber }}</label
             >
             <br />
             <label
@@ -541,6 +541,7 @@ export default {
       //流通清单全部提交按钮可见
       liu: false,
       beihuo:false,
+      mainTaskID:"",
     };
   },
   filters: {
@@ -564,6 +565,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
@@ -611,14 +613,16 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/addConsignment/findConsignmentByTaskId",
+          url: "/api/addConsignment/findConsignmentByTaskIdNew",
           data: data,
         })
         .then((response) => {
+          console.log(response)
           var temp = 0; //检查下面的已发货，已完成
           this.tableData = response.data.allData;
           console.log(this.tableData);
@@ -675,11 +679,29 @@ export default {
           }
         });
     },
-    //显示仓库表格中的信息。判断物品名称是否与产品名称一致。
-    showhorseData() {
-      var that = this;
+    //用taskId查到maintaskID
+    FindmaintaskID(){
+         var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findmaintaskID",
+          data: data,
+        })
+        .then((response) => {
+            this.mainTaskID=response.data.allData;
+        });
+    },
+    //显示仓库表格中的信息。判断物品名称是否与产品名称一致。
+    showhorseData() {
+      this.FindmaintaskID();
+      var that = this;
+      var data = Qs.stringify({
+        // taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
@@ -759,11 +781,12 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
       });
       that
         .axios({
           method: "post",
-          url: "/api/addConsignment/findcompanyNamebytaskId",
+          url: "/api/addConsignment/findcompanyNamebytaskIdNew",
           data: data,
         })
         .then((response) => {
@@ -815,6 +838,7 @@ export default {
     },
     //提交发货数量
     deliver(row, index) {
+      console.log(row.partsCategory)
       this.isitGreater = "0";
       for (var i = 0; i < this.tableData.length; i++) {
         if (row.productName == this.tableData[i].productName) {
@@ -850,6 +874,8 @@ export default {
             reserveCount: row.deliveringAmount,
             productName: row.productName,
             storeName: row.storeName,
+            partsCategory:row.partsCategory,
+            userId: sessionStorage.getItem("userId"),
           });
           that
             .axios({
@@ -858,15 +884,7 @@ export default {
               data: data,
             })
             .then((response) => {
-              var data2 = Qs.stringify({
-                stockId:that.tableData2.stockId,
-                
-              })
-              that.axios({
-                method:"post",
-                data:data2,
-                url:"/api/Inventory/stockUp"
-              })
+             
             });
           this.$message({
             message: "审核通过",
@@ -923,7 +941,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .top {
   height: 100px;
   margin-bottom: 10px;

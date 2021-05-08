@@ -1851,11 +1851,25 @@
         </span>
       </el-dialog>
       <!-- 折线图弹出框 -->
-      <div class="lineChart1">
+      <div class="lineChartLT">
         <el-dialog :visible.sync="dialogLineChartVisible" center>
-          <template slot="title">
+          <!-- <template slot="title">
              {{this.lineTitle}}
-          </template>
+          </template> -->
+        <div class="type2-situation">{{this.lineTitle}}</div>
+        <br/>
+        <div class="type22-situation">
+          <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
+          &nbsp;
+          <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
+        </div>
+        <br/>
+        <div class="type23-situation">
+          <span class="title-star">
+              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
+          </span>
+        </div>
+        <br/>
           <div style="float: right">
             <template>
               <el-select
@@ -1933,6 +1947,12 @@ export default {
       productCompanyName:"",
       productName1:"",
       lineTitle:"",
+      //当前库存量
+      nowInventoryNum:"",
+      //当前销售量
+      nowSaleNum:"",
+      //当前推荐星级
+      nowStar:"2.5",
       /**
        * 数据统计
        */
@@ -1987,6 +2007,12 @@ export default {
       tableData6: [],
       //主任务名称
       mainTaskName: "",
+      //接收任务公司名称
+      acceptCompanyName: "",
+      //接收任务公司Id
+      acceptCompanyId: "",
+      //接收任务公司userId
+      acceptUserId: "",
       //SQRWButton:none,
       //申请任务的id
       applyID: "",
@@ -2235,6 +2261,7 @@ export default {
     this.getParams();
     this.showData();
     this.getYearData();
+    this.findCompanyByProductName();
   },
   methods: {
     //获取条件选择时间数据
@@ -2249,9 +2276,12 @@ export default {
     //折线图数据显示
     showLineChart(row) {
       this.dialogLineChartVisible = true;
+      this.findCompanyByProductName(row);
       this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
+      // this.lineTitle = row.productName + "销量趋势图";
       this.lineChart(row);
       this.getYearData();
+
     },
     //按要求显示
     lineChart(row) {
@@ -2278,6 +2308,8 @@ export default {
           this.lineData.months = response.data.allData.monthCount;
           this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
           this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
+          this.nowInventoryNum = response.data.allData.nowMonthInventoryCount;
+          this.nowSaleNum = response.data.allData.nowMonthSaleCount;
           that.$refs.drawLineChart.getCharts();
           console.log(allData);
         });
@@ -2309,6 +2341,24 @@ export default {
           console.log(allData);
         });
     },
+    //根据零件名称，用户名称查询供应企业推荐星级（全部信息）
+    findCompanyByProductName(row) {
+      var that = this;
+      var data = Qs.stringify({
+          companyId: this.productCompanyId,
+          userName: this.usernameX,
+          productName: row.productName,
+        });
+        that
+          .axios({
+            method: "post",
+            url: "/api/dataStatistics/findCompanyStarByProductName",
+            data: data,
+          })
+          .then((response) => {
+            this.nowStar = response.data.allData; //接收返回的企业列表
+          });
+      },
     //全部通过
     allPass() {},
     changeDeliveryTime(row) {
@@ -2532,11 +2582,12 @@ export default {
         var data = Qs.stringify({
           consignmentId: row.consignmentId,
           taskId: row.taskId,
+          acceptCompanyId: this.acceptCompanyId,
         });
         that
           .axios({
             method: "post",
-            url: "/api/SubstaskInformation/allPass",
+            url: "/api/SubstaskInformation/allPassLT",
             data: data,
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
           })
@@ -2563,11 +2614,12 @@ export default {
           let data = Qs.stringify({
             consignmentId: that.multipleSelection[i].consignmentId,
             taskId: this.taskId,
+            acceptCompanyId: this.acceptCompanyId,
           });
           that
             .axios({
               method: "post",
-              url: "/api/SubstaskInformation/allPass",
+              url: "/api/SubstaskInformation/allPassLT",
               data: data,
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
             })
@@ -2589,6 +2641,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
+        acceptCompanyId: this.acceptCompanyId,
       });
       console.log(this.data);
       console.log(row.consignmentState);
@@ -2596,7 +2649,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "api/addConsignment/select",
+          url: "api/addConsignment/selectLT",
           data: data,
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
@@ -2652,6 +2705,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
+        acceptCompanyId: this.acceptCompanyId,
       });
       console.log(this.data);
       console.log(row.consignmentState);
@@ -2659,7 +2713,7 @@ export default {
       that
         .axios({
           method: "post",
-          url: "api/addConsignment/select",
+          url: "api/addConsignment/selectLT",
           data: data,
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
@@ -2877,6 +2931,10 @@ export default {
             // console.log(error.response);
           });
 
+          console.log(this.cool.mainTaskName)
+          console.log(this.mainTaskName)
+
+        // this.cool.mainTaskName = this.mainTaskName;
         this.ZRWXG = false;
         this.showData();
         // location.reload()
@@ -3039,11 +3097,12 @@ export default {
       var data = Qs.stringify({
         // taskId: this.taskId
         taskId: this.taskId,
+        userId: this.acceptUserId,
       });
       that
         .axios({
           method: "post",
-          url: "/api/findCirculationCount",
+          url: "/api/findCirculationCountLT",
           data: data,
         })
         .then((response) => {
@@ -3053,21 +3112,43 @@ export default {
     },
     getParams() {
       var routerParams = this.$route.query.taskId;
+      var routerParamsAcceptCompanyId = this.$route.query.acceptCompanyId;
       var checkApplyState = this.$route.query.checkApplyState;
+      this.acceptCompanyId = routerParamsAcceptCompanyId;
       this.taskId = routerParams;
+      console.log(this.acceptCompanyId)
+      console.log(this.taskId)
       this.CDcheckApplyState = this.$route.query.checkApplyState;
       this.CDgetPlanState = this.$route.query.checkPlanState;
       console.log("CDgetPlanState" + this.CDgetPlanState);
+      this.getAcceptUserId();
     },
-    showData() {
+    //根据接收企业的id（acceptCompanyId）查询其acceptUserId
+    getAcceptUserId(){
       var that = this;
       var data = Qs.stringify({
-        subStaskID: this.taskId,
+        acceptCompanyId: this.acceptCompanyId,
       });
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/list",
+          url: "/api/getAcceptUserId",
+          data: data,
+        })
+        .then((response) => {
+          (this.acceptUserId = response.data.allData)
+        });
+    },
+    showData() {
+      var that = this;
+      var data = Qs.stringify({
+        subStaskID: this.taskId,  //taskApply表中的taskId表示mainTaaskId
+        companyId: this.acceptCompanyId,  //对应的接收方companyId
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/listLT",
           data: data,
 
           // data:this.$store.state.userName
@@ -3076,6 +3157,8 @@ export default {
           this.mainStaskTypeID = response.data.allData.a[0].taskCategoryMainId;
           this.subStaskTypeID = response.data.allData.a[0].taskCategory;
           this.mainTaskID = response.data.allData.a[0].mainTaskId;
+          this.mainTaskName = response.data.allData.a[0].mainTaskName;
+          this.acceptCompanyName = response.data.allData.a[0].acceptCompanyName;
           console.log(response);
           this.mainStaskTypeID = response.data.allData.a[0].taskCategoryMainId;
           this.subStaskTypeID = response.data.allData.a[0].taskCategory;
@@ -3271,6 +3354,7 @@ export default {
         type: "warning",
       }).then(() => {
         var that = this;
+        console.log(row)
         var data = Qs.stringify({
           taskID: row.taskId,
           ID: row.id,
@@ -3280,7 +3364,7 @@ export default {
         that
           .axios({
             method: "post",
-            url: "/api/SubstaskInformation/RWJHSH",
+            url: "/api/SubstaskInformation/RWJHSHLT",
             data: data,
           })
           .then((response) => {
@@ -3629,7 +3713,23 @@ export default {
 </script>
 
 <style lang="scss">
-.top {
+// .top {
+//   margin-top: 20px;
+//   height: 100px;
+//   margin-bottom: 10px;
+//   width: 100%;
+//   background-color: #fff4ee;
+//   border: 1px solid red;
+//   border-radius: 5px;
+//   .inside {
+//     padding: 15px;
+//     .btn {
+//     }
+//   }
+// }
+
+.mainStaskDetaulLT {
+  .top {
   margin-top: 20px;
   height: 100px;
   margin-bottom: 10px;
@@ -3643,8 +3743,6 @@ export default {
     }
   }
 }
-
-.mainStaskDetaulLT {
   .customer-table {
     padding-top: 3px;
     padding-bottom: 3px;
@@ -3837,13 +3935,34 @@ export default {
   .el-dialog__header {
     padding: 0px 0px 0px;
   }
-  .lineChart1{
+  .lineChartLT{
     .el-dialog__header {
-    padding: 20px 20px 20px;
+    padding: 20px 20px 0px;
   }
   .el-dialog {
     width: 959px;
-}
+  }
+  .type2-situation {
+  // margin-left: 35%;
+  text-align: center;
+  color: #303133;
+  // font-size: 1.8rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  }
+  .type22-situation {
+  // margin-left: 36%;
+  text-align: center;
+  font-size: 14;
+  color: #303133;
+  // font-weight: bold;
+  }
+  .type23-situation {
+  // margin-left: 40%;
+  text-align: center;
+  font-size: 14;
+  // font-weight: bold;
+  }
   }
 }
 </style>
