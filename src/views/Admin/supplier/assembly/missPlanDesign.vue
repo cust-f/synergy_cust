@@ -38,7 +38,8 @@
             @click="upLoadPlanT()"
             type="text"
             size="small"
-            v-show="scope.row.checkPlanState === 0 || scope.row.checkPlanState == 3"
+            v-show="(scope.row.checkPlanState === 0 || scope.row.checkPlanState == 3)"
+            :disabled="toreject==0"
           >上传</el-button>
           
           <el-button
@@ -131,7 +132,9 @@ export default {
         refuseApplyMessage: ""
       },
       judgePlan: "",
-      judgePlanBook: 0
+      judgePlanBook: 0,
+      toreject:"",
+      taskApplyTableData: {},
     };
   },
 
@@ -143,21 +146,61 @@ export default {
   },
   created() {
     // this.judgePlanBoo();
+    this.getParams();
+    this.showData();
   },
   methods: {
-    //获得信息
-    getMsg(msg) {
-      this.contractMessage = msg;
-      this.getParams();
+      showData() {
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        userName: this.userName,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/getList",
+          data: data,
+        })
+        .then((response) => {
+          this.taskApplyTableData = response.data.allData.b;
+          this.Judgewhethertoreject(this.taskApplyTableData[0].checkPlanState);
+        });
     },
+    
     getParams() {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
+      
+    },
+    //写一个方法判断任务计划中被拒绝是否有另外一个供应商通过，若有一家供应商通过，则把上传按钮隐藏
+    Judgewhethertoreject(checkPlanState){
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        checkPlanState: checkPlanState,
+        userName:this.userName,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/supplier/Judgewhethertoreject",
+          data: data
+        })
+        .then(response => {
+            this.toreject=response.data.allData;
+            console.log("这拿到数据2")
+        });
+    },
+        //获得信息
+    getMsg(msg) {
+      this.contractMessage = msg;
+      console.log("这拿到数据1");
+      console.log(this.contractMessage[0].checkPlanState )
+      this.getParams();
     },
     //验证密码是否正确
     passwordRequest(value){
-      console.log("进来了")
-      console.log("名字："+this.usernameX+"密码："+value)
       var that = this;
         var data = Qs.stringify({
             username: this.userName,

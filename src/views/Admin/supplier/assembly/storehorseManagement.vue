@@ -397,7 +397,7 @@
                 color: rgb(153, 153, 153);
                 margin-left: 30px;
               "
-              >联系电话 :{{ this.tableData[0].contactnumber }}</label
+              >联系电话 :{{ this.tableData[0].contactNumber }}</label
             >
             <br />
             <label
