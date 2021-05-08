@@ -519,7 +519,7 @@ export default {
     //this.getCharts1();
     this.getproduct();
 
-    // this.activeName = this.list[0].taskId;//没有this.list[0]啊
+    this.activeName = this.list[0].taskId;//没有this.list[0]啊
     
   },
   methods: {
