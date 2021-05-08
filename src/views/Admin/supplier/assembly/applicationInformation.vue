@@ -383,6 +383,7 @@ export default {
             })
             .then((response) => {
               this.$message.success(checkTip + "申请成功");
+              this.$router.go(0);
             });
         })
         .catch(() => {
