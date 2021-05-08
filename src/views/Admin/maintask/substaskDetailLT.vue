@@ -421,6 +421,11 @@
                     </el-cascader>
                   </el-form-item>
                 </el-col>
+                <el-col :span="11">
+                  <el-form-item label="收货地址" prop="shippingAddress">
+                    <el-input v-model="consignmentForm.shippingAddress" maxlength="255"></el-input>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
                 <el-col :span="22">
@@ -729,6 +734,7 @@ export default {
         ],
         consignmentNotes: [
           { required: true, message: "请输入备注或填写无", trigger: 'blur'},
+          { min: 1, max: 255, message: "长度在 1 到 255 个字符", trigger: 'blur'},
         ],
         contactNumber: [
           { required: true, message: "请输入联系方式", trigger: 'blur'},
@@ -736,6 +742,10 @@ export default {
         ],
         consignmentpatrsList: [
           { required: true, message: "请选择零件类别", trigger: 'blur' },
+        ],
+        shippingAddress:[
+          { required: true, message: "请输入收货地址", trigger: 'blur' },
+          { min: 1, max: 255, message: "长度在 1 到 255 个字符", trigger: 'blur'},
         ],
       },
       loading: true,
@@ -844,7 +854,11 @@ export default {
             data: data,
           })
           .then((response) => {
-            this.consignmentpatrsList = response.data.allData;
+            if(response.data.allData == null){
+              this.consignmentpatrsList = [1,74];
+            } else {
+              this.consignmentpatrsList = response.data.allData;
+            }
           })
     },
     // 查询行业类别列表
@@ -1097,7 +1111,7 @@ export default {
                 this.$message.success("修改流通清单成功");
                 this.getMainTaskData();
               }else{
-                this.$message.success("修改流通清单失败");
+                this.$message.warning("修改流通清单失败");
               }
               this.consignmentVisible = false;
             })
