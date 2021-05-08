@@ -428,12 +428,12 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        userName: this.userName
+        userName: this.usernameX,
       });
       that
         .axios({
           method: "post",
-          url: "/api/supplier/getList",
+          url: "/api/supplier/getListLT",
           data: data
         })
         .then(response => {
