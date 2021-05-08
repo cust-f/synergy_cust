@@ -426,7 +426,7 @@ export default {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
-        userName: this.userName
+        userName: this.usernameX,
       });
       that
         .axios({
