@@ -359,13 +359,14 @@ export default {
     hetongxiazai(row){
        var that = this;
       var data = Qs.stringify({
+        userId: sessionStorage.getItem("userId"),
         taskID: this.taskId,
         leixing: "hetong"
       });
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/DownloadHTHT",
+          url: "/api/SubstaskInformation/DownloadHTHTLT",
           data: data,
           responseType: "blob"
         })

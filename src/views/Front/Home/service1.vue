@@ -573,7 +573,8 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.list = response.data.allData.List;
           this.activeName = this.list[0].taskId;
-          this.getCirculationCount();
+          // his.getTaskData();
+          // this.getCirculationCount();
           this.getData1();
           this.getData2();
           this.getLTData();
