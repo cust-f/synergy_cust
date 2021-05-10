@@ -965,6 +965,7 @@ export default {
             .then((response) => {
               if (response.data == "成功") {
                 this.$message.success("主任务完成");
+                this.getMainTaskData();
               } else {
                 this.$message.error("主任务完成失败");
               }
