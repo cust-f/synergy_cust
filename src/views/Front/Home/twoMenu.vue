@@ -340,12 +340,21 @@ export default {
     },
     remarkDetail(row) {
       //console.log(row.mainTaskID);
-      this.$router.push({
-        path: "/service1",
-        query: {
-          mainTaskID: row.mainTaskID
-        }
-      });
+      if(row.mainTaskType == 0){
+        this.$router.push({
+          path: "/service1",
+          query: {
+            mainTaskID: row.mainTaskID
+          }
+        });
+      }else{
+        this.$router.push({
+          path: "/service1LT",
+          query: {
+            mainTaskID: row.mainTaskID
+          }
+        });
+      }
     },
     handleCurrentChange(cpage) {
       this.pageIndex = cpage;

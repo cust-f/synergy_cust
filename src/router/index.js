@@ -9,7 +9,8 @@ import Home from '@/views/Front/Home/Home' //前台首页
 
 import twoMenu from '@/views/Front/Home/twoMenu' //前台首页二级页面
 import threeMenu from '@/views/Front/Home/threeMenu' //前台首页三级页面
-import service1 from '@/views/Front/Home/service1' //成果详情
+import service1 from '@/views/Front/Home/service1' //设计成果详情
+import service1LT from '@/views/Front/Home/service1LT' //流通成果详情
 import excellentCompany from '@/views/Front/Home/excellentCompany' //优秀企业
 import excellentCompanyDesigin from '@/views/Front/company/excellentCompanyDesigin' //优秀企业
 import register from '@/views/Front/register/register'
@@ -152,6 +153,11 @@ export default new Router({
           path: "/service1",
           name: "service1",
           component: service1,
+        },
+        {
+          path: "/service1LT",
+          name: "service1LT",
+          component: service1LT,
         },
         //优秀企业
         {
