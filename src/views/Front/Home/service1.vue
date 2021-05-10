@@ -514,12 +514,13 @@ export default {
   created() {
     this.getParams();
     this.getListData();
+    // this.getLTData();
     this.getData();
     this.getData1();
     //this.getCharts1();
     this.getproduct();
 
-    this.activeName = this.list[0].taskId;//没有this.list[0]啊
+    // this.activeName = this.list[0].taskId;//没有this.list[0]
     
   },
   methods: {
@@ -572,16 +573,20 @@ export default {
           //this.$set(this,'list',response.data.alldata)
           this.list = response.data.allData.List;
           this.activeName = this.list[0].taskId;
-          this.getAcceptCompanyData();
-          this.getCompanyData();
+          this.getCirculationCount();
           this.getData1();
           this.getData2();
+          this.getLTData();
+          this.getAcceptCompanyData();
+          this.getCompanyData();
+          // this.getData1();
+          // this.getData2();
           //this.styleswith();
           this.getTaskData();
           //this.getCharts1();
           this.getCirculationCount();
           //this.styleswith1();
-          this.getLTData();
+          
           this.getproduct();
 
           //console.log("ooo");
