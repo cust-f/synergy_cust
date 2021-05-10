@@ -578,11 +578,12 @@ export default {
           if (response) {
             this.$message({
               type: "success",
-              message: "发货成功",
+              message: "全部发货成功",
             });
           }
         });
         this.upCirculation = false;
+        this.$router.go(0);
     },
     handleClick(tab, event) {
       console.log(tab, event);
@@ -886,11 +887,13 @@ export default {
             .then((response) => {
              
             });
-          this.$message({
-            message: "审核通过",
-            type: "success",
-          });
-          this.showData();
+          // 刷新提示不显示
+          // this.$message({
+          //   message: "发货成功",
+          //   type: "success",
+          // });
+          // this.showData();
+          this.$router.go(0);
           this.upCirculation = false;
         });
       }

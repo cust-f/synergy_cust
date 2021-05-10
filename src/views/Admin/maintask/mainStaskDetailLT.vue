@@ -2599,6 +2599,7 @@ export default {
         if (this.milepostActive == 4) {
           this.liu = true;
         }
+        this.$router.go(0);
       });
     },
     //批量提交方法、全部通过
@@ -3325,7 +3326,8 @@ export default {
           message: "审核通过",
           type: "success",
         });
-        this.showData();
+        // this.showData();
+        this.$router.go(0);
       });
     },
     SQJJ(row) {
@@ -3346,7 +3348,8 @@ export default {
       this.$message.success("提交成功");
       this.addList = {};
       this.addVisible = false;
-      this.showData();
+      // this.showData();
+      this.$router.go(0);
     },
     //计划书通过与拒绝
     JHSTG(row) {
@@ -3373,7 +3376,8 @@ export default {
                 message: "审核通过",
                 type: "success",
               });
-              this.showData();
+              // this.showData();、
+              this.$router.go(0);
             } else {
               this.$confirm(
                 "您已经通过了一个任务计划，无法再通过另一个任务计划",
@@ -3404,7 +3408,8 @@ export default {
       this.$message.success("提交成功");
       this.addList1 = {};
       this.addVisible1 = false;
-      this.showData();
+      // this.showData();
+      this.$router.go(0);
     },
     //任务计划下载
     TaskplanDownload(row) {
@@ -3517,7 +3522,8 @@ export default {
           message: "审核通过",
           type: "success",
         });
-        this.showData();
+        // this.showData();
+        this.$router.go(0);
       });
     },
     HTSHJJ(row) {
@@ -3538,7 +3544,8 @@ export default {
       this.$message.success("提交成功");
       this.addList2 = {};
       this.addVisible2 = false;
-      this.showData();
+      // this.showData();
+      this.$router.go(0);
     },
 
     //密码验证
@@ -3641,7 +3648,7 @@ export default {
           data: data,
         });
         this.GBXJ();
-        this.showData();
+        // this.showData();
         this.$router.go(0);
         this.$message({
           message: "清单通过,并自动生成评价",
@@ -3667,7 +3674,8 @@ export default {
       this.$message.success("提交成功");
       this.addList3 = {};
       this.addVisible3 = false;
-      this.showData();
+      // this.showData();
+      this.$router.go(0);
     },
     //改变星级别
     GBXJ() {
@@ -3682,7 +3690,8 @@ export default {
           data: data,
         })
         .then((response) => {});
-      this.showData();
+      // this.showData();
+      this.$router.go(0);
     },
     companyDetail(row) {
       var that = this;
