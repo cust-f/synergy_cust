@@ -20,25 +20,25 @@
         align="center"
       ></el-table-column>
       <el-table-column
-        prop="taskName"
+        prop="Task_Name"
         align="center"
         label="需求名称"
         width="190"
       ></el-table-column>
       <el-table-column
-        prop="productName"
+        prop="Product_Name"
         label="产品名称"
         align="center"
-        width="100"
+        width="130"
       ></el-table-column>
       <el-table-column
-        prop="partsCategory"
+        prop="Parts_Category"
         label="类别"
         align="center"
         width="100"
       >
       </el-table-column>
-      <el-table-column prop="saleNum" label="销量" align="center" width="70">
+      <!-- <el-table-column prop="saleNum" label="销量" align="center" width="70">
       </el-table-column>
       <el-table-column
         prop="inventoryNum"
@@ -53,20 +53,32 @@
         align="center"
         width="70"
       >
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
-        prop="applyType"
-        label="申请/邀请"
+        prop="Check_Apply_State"
+        label="申请/邀请状态"
         align="center"
-        width="90"
+        width="120"
       >
         <template slot-scope="scope">
-          <span v-if="+scope.row.applyType === 0">邀请</span>
-          <span v-else-if="+scope.row.applyType === 1">申请</span>
-          <span v-else>其他</span>
+          <el-tag type="warning" v-if="+scope.row.Check_Apply_State === 0">拒绝</el-tag>
+          <el-tag type="success" v-else-if="+scope.row.Check_Apply_State === 1">通过</el-tag>
+          <el-tag v-else>其他</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="getNum" label="配额" align="center">
+      <el-table-column
+        prop="Quota_State"
+        label="配额分配状态"
+        align="center"
+        width="120"
+      >
+      <template slot-scope="scope">
+          <el-tag type="warning" v-if="+scope.row.Quota_State === 0">待分配</el-tag>
+          <el-tag type="success" v-else-if="+scope.row.Quota_State === 1">已分配</el-tag>
+          <el-tag v-else>其他</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="Quota_Number" label="配额" align="center">
       </el-table-column>
       <!-- <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
@@ -92,17 +104,17 @@ export default {
     return {
       //配额分配数据
       tableData11: [
-        {
-          taskName: "探岳X离合器流通生产",
-          productName: "缸盖",
-          partsCategory: "缸盖和部件",
-          saleNum: "1500",
-          inventoryNum: "3000",
-          productPrice: "50",
-          applyType: "0",
-          applyState: "1",
-          getNum: "1000",
-        },
+        // {
+        //   taskName: "探岳X离合器流通生产",
+        //   productName: "缸盖",
+        //   partsCategory: "缸盖和部件",
+        //   saleNum: "1500",
+        //   inventoryNum: "3000",
+        //   productPrice: "50",
+        //   applyType: "0",
+        //   applyState: "1",
+        //   getNum: "1000",
+        // },
         // {
         //   companyName: "吉林大华机械制造有限公司",
         //   productName: "缸盖",
