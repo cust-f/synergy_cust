@@ -166,89 +166,34 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-     sortByDeadline() {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 1,
-        sortType: this.sortType,
-        taskState: 2
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByDeadline",
-          data: data
-        })
-        .then(response => {
-          this.tableData = response.data.allData;
-        });
+    /**
+     * 表格排序事件处理函数
+     * @param {object} {column,prop,order} 列数据|排序字段|排序方式
+     */
+    sortChange({ prop, order }) {
+      this.tableData.sort(this.compare(prop,order));
     },
-
-    sortByTaskName() {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 1,
-        sortType: this.sortType,
-        taskState: 2
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByTaskName",
-          data: data
-        })
-        .then(response => {
-          this.tableData = response.data.allData;
-        });
-    },
-
-    sortChange(v) {
-      //正序
-      if (v.column.order == "ascending") {
-        if (v.column.property == "demandorCheckDesignState") {
-          this.tableData.sort(this.sortList("demandorCheckDesignState"));
-        }
-        //通过属性showWeights进行排序
-        if (v.column.property == "deadline") {
-          this.sortType == 1;
-          this.sortByDeadline();
-        }
-        if (v.column.property == "taskName") {
-          this.sortType == 1;
-          this.sortByTaskName();
+    /**
+      * 排序比较
+      * @param {string} propertyName 排序的属性名
+      * @param {string} sort ascending(升序)/descending(降序)
+      * @return {function}
+      */
+    compare (propertyName, sort) {
+      return function (obj1, obj2) {
+        var value1 = obj1[propertyName]
+        var value2 = obj2[propertyName]
+        if (typeof value1 === 'string' && typeof value2 === 'string') {
+          const res = value1.localeCompare(value2, 'zh')
+          return sort === 'ascending' ? res : -res
+        } else {
+          if (value1 <= value2) {
+            return sort === 'ascending' ? -1 : 1
+          } else if (value1 > value2) {
+            return sort === 'ascending' ? 1 : -1
+          }
         }
       }
-      //倒序
-      else if (v.column.order == "descending") {
-        if (v.column.property == "demandorCheckDesignState") {
-          this.tableData.sort(this.sortListDesc("demandorCheckDesignState"));
-        }
-        if (v.column.property == "deadline") {
-          this.sortType == 2;
-          this.sortByDeadline();
-        }
-        if (v.column.property == "taskName") {
-          this.sortType == 2;
-          this.sortByTaskName();
-        }
-      }
-    },
-    sortList(property) {
-      return function (a, b) {
-        var value1 = a[property];
-        var value2 = b[property];
-        return value1 - value2;
-      };
-    },
-    //通过数组对象的某个属性进行倒序排列
-    sortListDesc(property) {
-      return function (a, b) {
-        var value1 = a[property];
-        var value2 = b[property];
-        return value2 - value1;
-      };
     },
   }
   /*

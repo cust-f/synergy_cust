@@ -15,19 +15,20 @@
                   border
                   class="table"
                   ref="multipleTable"
-                  :default-sort="{prop: 'taskState,publishTime,time,mainTaskName,taskCategoryMain,principalName', order: 'descending'}"
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
+                  @sort-change="sortChange"
+                  
                 >
                 <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="mainTaskName" label="需求名称" sortable ></el-table-column>
-                  <el-table-column prop="mainTaskType" label="需求类别" sortable width="101">
+                  <el-table-column prop="mainTaskName" label="需求名称" sortable='custom'></el-table-column>
+                  <el-table-column prop="mainTaskType" label="需求类别" width="101" sortable='custom'>
                     <template slot-scope="scope">
                       <span v-if="+scope.row.mainTaskType===0">设计需求</span>
                       <span v-else>流通需求</span>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="taskState" label="状态" align="center" sortable  width="80" >
+                  <el-table-column prop="taskState" label="状态" align="center" width="80" sortable='custom'>
                     <template slot-scope="scope">
                       <el-tag v-if="+scope.row.taskState ===0" >进行中</el-tag>
                       <el-tag v-else-if="+scope.row.taskState ===1"  type="success">已完成</el-tag>
@@ -35,12 +36,12 @@
                     </template>
                   </el-table-column>
                   
-                  <el-table-column prop="principalName" label="负责人" sortable width="88" align="center"></el-table-column>
-                  <el-table-column prop="taskCategoryMain" label="一级行业类别" width="131" sortable></el-table-column>
-                  <el-table-column prop="publishTime" sortable label="发布时间" width="101">
+                  <el-table-column prop="principalName" label="负责人" width="88" align="center" sortable='custom'></el-table-column>
+                  <el-table-column prop="taskCategoryMain" label="一级行业类别" width="131" sortable='custom'></el-table-column>
+                  <el-table-column prop="publishTime" label="发布时间" width="101" sortable='custom'>
                     <template slot-scope="scope">{{scope.row.publishTime | formatDate}}</template>
                   </el-table-column>
-                  <el-table-column prop="time" sortable label="截止时间" width="101" >
+                  <el-table-column prop="deadline" label="截止时间" width="101" sortable='custom'>
                     <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
                   </el-table-column>
                   <el-table-column label="操作" align="center" width="90">
@@ -125,7 +126,6 @@ export default {
   //   });
   created() {
     this.getData();
-    this.GetTime(date);
   },
   methods: {
     GetTime(date) {
@@ -153,7 +153,7 @@ export default {
         .then(response => {
           //console.log(response);
           this.tableData = response.data.allData;
-          this.$refs.configurationTable.$el.style.width = "99.99%";
+          // this.$refs.configurationTable.$el.style.width = "99.99%";
         });
     },
 
@@ -208,81 +208,105 @@ export default {
         });
       }
     },
-
     chick() {
       this.$router.push("/admin/check/review");
     },
-
     handleCurrentChange(cpage) {
       this.pageIndex = cpage;
     },
-
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-
     handleSelectionChange(val) {
-    }
+    },
+    /**
+     * 表格排序事件处理函数
+     * @param {object} {column,prop,order} 列数据|排序字段|排序方式
+     */
+    sortChange({ prop, order }) {
+      this.tableData.sort(this.compare(prop,order));
+    },
+    /**
+      * 排序比较
+      * @param {string} propertyName 排序的属性名
+      * @param {string} sort ascending(升序)/descending(降序)
+      * @return {function}
+      */
+    compare (propertyName, sort) {
+      return function (obj1, obj2) {
+        var value1 = obj1[propertyName]
+        var value2 = obj2[propertyName]
+        if (typeof value1 === 'string' && typeof value2 === 'string') {
+          const res = value1.localeCompare(value2, 'zh')
+          return sort === 'ascending' ? res : -res
+        } else {
+          if (value1 <= value2) {
+            return sort === 'ascending' ? -1 : 1
+          } else if (value1 > value2) {
+            return sort === 'ascending' ? 1 : -1
+          }
+        }
+      }
+    },
   },
-  // 获取 easy-mock 的模拟数据
-  getData() {
-    //   this.tableData = res.list;
-    //   this.pageTotal = tableData.length;
-  },
-  // 触发搜索按钮
+  // // 获取 easy-mock 的模拟数据
+  // getData() {
+  //   //   this.tableData = res.list;
+  //   //   this.pageTotal = tableData.length;
+  // },
+  // // 触发搜索按钮
 
-  // 删除操作
-  handleDelete(index, row) {
-    // 二次确认删除
-    this.$confirm("确定要删除吗？", "提示", {
-      type: "warning"
-    })
-      .then(() => {
-        this.$message.success("删除成功");
-        this.tableData.splice(index, 1);
-      })
-      .catch(() => {});
-  },
-  // 多选操作
-  handleSelectionChange(val) {
-    this.multipleSelection = val;
-  },
-  delAllSelection() {
-    let length = this.multipleSelection.length;
-    let str = "";
-    for (let j = 0; j < length; j++) {
-      this.tableData.splice(this.multipleSelection[j], 1);
-      str += this.multipleSelection[j].name + " ";
-    }
-    this.$message.error(`删除了${str}`);
-    this.multipleSelection = [];
-  },
-  //新增操作
-  addData() {
-    this.addVisible = true;
-  },
-  //保存新增
-  saveAdd() {
-    this.tableData.push(this.addList);
-    this.addList = {};
-    this.addVisible = false;
-  },
-  // 编辑操作
-  handleEdit(index, row) {
-    this.idx = index;
-    this.form = row;
-    this.editVisible = true;
-  },
-  // 保存编辑
-  saveEdit() {
-    this.editVisible = false;
-    this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-    this.$set(this.tableData, this.idx, this.form);
-  }
-
-  /*
-   *转跳对应任务信息页面
-   */
+  // // 删除操作
+  // handleDelete(index, row) {
+  //   // 二次确认删除
+  //   this.$confirm("确定要删除吗？", "提示", {
+  //     type: "warning"
+  //   })
+  //     .then(() => {
+  //       this.$message.success("删除成功");
+  //       this.tableData.splice(index, 1);
+  //     })
+  //     .catch(() => {});
+  // },
+  // // 多选操作
+  // handleSelectionChange(val) {
+  //   this.multipleSelection = val;
+  // },
+  // delAllSelection() {
+  //   let length = this.multipleSelection.length;
+  //   let str = "";
+  //   for (let j = 0; j < length; j++) {
+  //     this.tableData.splice(this.multipleSelection[j], 1);
+  //     str += this.multipleSelection[j].name + " ";
+  //   }
+  //   this.$message.error(`删除了${str}`);
+  //   this.multipleSelection = [];
+  // },
+  // //新增操作
+  // addData() {
+  //   this.addVisible = true;
+  // },
+  // //保存新增
+  // saveAdd() {
+  //   this.tableData.push(this.addList);
+  //   this.addList = {};
+  //   this.addVisible = false;
+  // },
+  // // 编辑操作
+  // handleEdit(index, row) {
+  //   this.idx = index;
+  //   this.form = row;
+  //   this.editVisible = true;
+  // },
+  // // 保存编辑
+  // saveEdit() {
+  //   this.editVisible = false;
+  //   this.$message.success(`修改第 ${this.idx + 1} 行成功`);
+  //   this.$set(this.tableData, this.idx, this.form);
+  // },
+  // /*
+  //  *转跳对应任务信息页面
+  //  */
 };
 </script>
 <style  lang="scss">

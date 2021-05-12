@@ -13,22 +13,12 @@
       :default-sort="{prop: 'applyTime', order: 'descending'}"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" width="55" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.$index + 1}}</span>
-        </template>
-      </el-table-column>
-
+      <el-table-column label="序号" type="index" width="55" align="center"></el-table-column>
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-
       <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
-
       <el-table-column prop="taskCategoryPart" sortable="custom" label="需求类型"></el-table-column>
-
       <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
-
       <!-- <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column> -->
-
       <el-table-column prop="finishTime" sortable="custom" label="完成日期">
         <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
       </el-table-column>
@@ -103,7 +93,7 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-mm-dd");
+      return formatDate(date, "yyyy-MM-dd");
     },
   },
   methods: {
@@ -148,132 +138,32 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-    sortByDesignerName(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 5,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByDesignerName",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
+    /**
+     * 表格排序事件处理函数
+     * @param {object} {column,prop,order} 列数据|排序字段|排序方式
+     */
+    sortChange({ prop, order }) {
+      this.tableData.sort(this.compare(prop,order));
     },
-    sortByTaskName(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 5,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByTaskName",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-    sortByFinishTime(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 5,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByFinishTime",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-    sortByCompanyName(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 5,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByCompanyName",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-    sortByTaskCategoryPart(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 5,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByTaskCategoryPart",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-    sortChange(v) {
-      //正序
-      if (v.column.order == "ascending") {
-        //通过属性showWeights进行排序
-        if (v.column.property == "finishTime") {
-          this.sortByFinishTime(1);
-        }
-        if (v.column.property == "companyName") {
-          this.sortByCompanyName(1);
-        }
-        if (v.column.property == "taskCategoryPart") {
-          this.sortByTaskCategoryPart(1);
-        }
-        if (v.column.property == "designerName") {
-          this.sortByDesignerName(1);
-        }
-        if (v.column.property == "taskName") {
-          this.sortByTaskName(1);
-        }
-      }
-      //倒序
-      else if (v.column.order == "descending") {
-        if (v.column.property == "finishTime") {
-          this.sortByFinishTime(2);
-        }
-        if (v.column.property == "companyName") {
-          this.sortByCompanyName(2);
-        }
-        if (v.column.property == "taskCategoryPart") {
-          this.sortByTaskCategoryPart(2);
-        }
-        if (v.column.property == "designerName") {
-          this.sortByDesignerName(2);
-        }
-        if (v.column.property == "taskName") {
-          this.sortByTaskName(2);
+    /**
+      * 排序比较
+      * @param {string} propertyName 排序的属性名
+      * @param {string} sort ascending(升序)/descending(降序)
+      * @return {function}
+      */
+    compare (propertyName, sort) {
+      return function (obj1, obj2) {
+        var value1 = obj1[propertyName]
+        var value2 = obj2[propertyName]
+        if (typeof value1 === 'string' && typeof value2 === 'string') {
+          const res = value1.localeCompare(value2, 'zh')
+          return sort === 'ascending' ? res : -res
+        } else {
+          if (value1 <= value2) {
+            return sort === 'ascending' ? -1 : 1
+          } else if (value1 > value2) {
+            return sort === 'ascending' ? 1 : -1
+          }
         }
       }
     },

@@ -13,20 +13,13 @@
       :default-sort="{prop: 'deadline', order: 'descending'}"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" width="55" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.$index + 1}}</span>
-        </template>
-      </el-table-column>
-
+      <el-table-column label="序号" type="index" width="55" align="center"></el-table-column>
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
       <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
       <el-table-column prop="taskCategoryPart" sortable="custom" label="需求类型"></el-table-column>
       <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
-
       <!-- <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column> -->
-
-      <el-table-column prop="demandorCheckDesignState" sortable="custom" label="验收状态" align="center">
+      <el-table-column prop="demandorCheckDesignState" sortable="custom" label="验收状态" align="center" width="101">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
           <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -34,12 +27,10 @@
           <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
         </template>
       </el-table-column>
-
-      <el-table-column prop="deadline" sortable="custom" label="截止日期">
+      <el-table-column prop="deadline" sortable="custom" label="截止日期" width="103">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
-
-      <el-table-column label="操作" width="120" align="center">
+      <el-table-column label="操作" width="105" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
         </template>
@@ -107,7 +98,7 @@ export default {
   filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date, "yyyy-mm-dd");
+      return formatDate(date, "yyyy-MM-dd");
     },
   },
   created() {
@@ -170,154 +161,32 @@ export default {
           this.tableData = response.data.allData;
         });
     },
-
-    sortByDesignerName(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 4,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByDesignerName",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
+    /**
+     * 表格排序事件处理函数
+     * @param {object} {column,prop,order} 列数据|排序字段|排序方式
+     */
+    sortChange({ prop, order }) {
+      this.tableData.sort(this.compare(prop,order));
     },
-    sortByTaskName(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 4,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByTaskName",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-    sortByDeadline(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 1,
-        sortType: sortType,
-        taskState: 4,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByDeadline",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-    sortByCompanyName(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 4,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByCompanyName",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-    sortByTaskCategoryPart(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 0,
-        sortType: sortType,
-        taskState: 4,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortByTaskCategoryPart",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-    sortList(property) {
-      return function (a, b) {
-        var value1 = a[property];
-        var value2 = b[property];
-        return value1 - value2;
-      };
-    },
-    //通过数组对象的某个属性进行倒序排列
-    sortListDesc(property) {
-      return function (a, b) {
-        var value1 = a[property];
-        var value2 = b[property];
-        return value2 - value1;
-      };
-    },
-    sortChange(v) {
-      //正序
-      if (v.column.order == "ascending") {
-        if (v.column.property == "demandorCheckDesignState") {
-          this.tableData.sort(this.sortList("demandorCheckDesignState"));
-        }
-        //通过属性showWeights进行排序
-        if (v.column.property == "deadline") {
-          this.sortByDeadline(1);
-        }
-        if (v.column.property == "companyName") {
-          this.sortByCompanyName(1);
-        }
-        if (v.column.property == "taskCategoryPart") {
-          this.sortByTaskCategoryPart(1);
-        }
-        if (v.column.property == "designerName") {
-          this.sortByDesignerName(1);
-        }
-        if (v.column.property == "taskName") {
-          this.sortByTaskName(1);
-        }
-      }
-      //倒序
-      else if (v.column.order == "descending") {
-        if (v.column.property == "demandorCheckDesignState") {
-          this.tableData.sort(this.sortListDesc("demandorCheckDesignState"));
-        }
-        if (v.column.property == "deadline") {
-          this.sortByDeadline(2);
-        }
-        if (v.column.property == "companyName") {
-          this.sortByCompanyName(2);
-        }
-        if (v.column.property == "taskCategoryPart") {
-          this.sortByTaskCategoryPart(2);
-        }
-        if (v.column.property == "designerName") {
-          this.sortByDesignerName(2);
-        }
-        if (v.column.property == "taskName") {
-          this.sortByTaskName(2);
+    /**
+      * 排序比较
+      * @param {string} propertyName 排序的属性名
+      * @param {string} sort ascending(升序)/descending(降序)
+      * @return {function}
+      */
+    compare (propertyName, sort) {
+      return function (obj1, obj2) {
+        var value1 = obj1[propertyName]
+        var value2 = obj2[propertyName]
+        if (typeof value1 === 'string' && typeof value2 === 'string') {
+          const res = value1.localeCompare(value2, 'zh')
+          return sort === 'ascending' ? res : -res
+        } else {
+          if (value1 <= value2) {
+            return sort === 'ascending' ? -1 : 1
+          } else if (value1 > value2) {
+            return sort === 'ascending' ? 1 : -1
+          }
         }
       }
     },
