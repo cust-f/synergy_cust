@@ -166,7 +166,7 @@
                       border: 0px;
                       font-size: 14px;
                       padding: 0px 0px;
-                      margin-right: 15px;
+                      margin-right: -15px;
                       margin-top:60px;
                       margin-top: 13px;
                     " @click="findCompanyByPartsCategory"></el-button>
