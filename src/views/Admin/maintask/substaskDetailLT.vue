@@ -393,12 +393,12 @@
               <el-row>
                 <el-col :span="11">
                   <el-form-item label="产品数量" prop="productNumber">
-                    <el-input v-model="consignmentForm.productNumber" maxlength="9"></el-input>
+                    <el-input v-model="consignmentForm.productNumber" maxlength="9" :disabled="consignmentNumberDisabled"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="产品单价" prop="productPrice">
-                    <el-input v-model="consignmentForm.productPrice" maxlength="9"></el-input>
+                    <el-input v-model="consignmentForm.productPrice" maxlength="9" :disabled="consignmentPriceDisabled"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -916,6 +916,8 @@ export default {
           if(this.mainTaskInfo.consignmentInfo != undefined){
             this.getPartsId(this.mainTaskInfo.consignmentInfo.partsCategory);
           }
+          this.consignmentNumberDisabled = response.data.allData.consignmentNumberDisabled;
+          this.consignmentPriceDisabled = response.data.allData.consignmentPriceDisabled;
         });
     },
     // 获取子任务基本信息
@@ -1257,7 +1259,7 @@ export default {
               data: data,
             })
             .then((response) => {
-              this.getSubtaskData();
+              this.getMainTaskData();
             });
         }).catch(() => {
           this.$message.info("取消配额分配");
