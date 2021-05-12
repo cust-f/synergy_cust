@@ -80,7 +80,7 @@
       width="1000px"
       @click="handleClose"
     >
-      <br />
+
       <div class="top">
         <div class="inside">
           <div style="width: 90%; margin-bottom: 10px">
@@ -88,8 +88,7 @@
             <span style="color: #409eff">
               &nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</span
             >
-          </div>
-          <el-button
+            <el-button
             class="btn"
             type="primary"
             @click="submit2()"
@@ -97,6 +96,9 @@
             v-bind:disabled="liu"
             >全部发货</el-button
           >
+          </div>
+          
+          
         </div>
       </div>
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
@@ -234,7 +236,7 @@
 
           <!-- 分割 -->
           <el-collapse v-model="activeNames" @change="handleChange">
-            <el-collapse-item>
+            <el-collapse-item  name="1">
               <template slot="title">
                 <div class="biaoti" style="padding: 0 10px">库存列表</div>
               </template>
@@ -342,7 +344,7 @@
                     </template>
                   </el-table-column>
                 </el-table>
-                <div class="pagination">
+                <div class="pagination2">
                   <el-pagination
                     background
                     layout="prev, pager, next, sizes, total, jumper"
@@ -355,6 +357,23 @@
                 </div>
               </el-form>
             </el-collapse-item>
+               <!-- 这里写关闭弹窗的方法 -->
+            <el-button
+              @click="close()"
+              size="mini"
+              class="close"
+              style="margin-left: 30px"
+              ><p
+                style="
+                  font-size: 16px;
+                  font-weight: 400;
+                  white-space: nowrap;
+                  color: rgb(153, 153, 153);
+                "
+              >
+                {{ "关闭" }}
+              </p></el-button
+            >
           </el-collapse>
         </el-tab-pane>
         <el-tab-pane name="second">
@@ -370,7 +389,7 @@
                 margin-left: 10px;
               "
             >
-              买家信息
+              需求信息
             </div>
             <br />
             <label
@@ -444,6 +463,7 @@ import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+      activeNames: '1',
       status: "",
       FormData: {},
       companyName: "",
@@ -582,8 +602,9 @@ export default {
             });
           }
         });
-        this.upCirculation = false;
-        this.$router.go(0);
+        this.showhorseData();
+        // this.upCirculation = false;
+        // this.$router.go(0);
     },
     handleClick(tab, event) {
       console.log(tab, event);
@@ -837,7 +858,7 @@ export default {
     handleChange(value) {
       console.log(value);
     },
-    //提交发货数量
+    //备货发货数量
     deliver(row, index) {
       console.log(row.partsCategory)
       this.isitGreater = "0";
@@ -858,11 +879,9 @@ export default {
         }
       }
       if (this.isitGreater === "0" || row.deliveringAmount == 0) {
-        // console.log(this.isitGreater)
-        // console.log(row.deliveringAmount)
-        this.$notify.error({
-          title: "错误",
-          message: "您提交的发货数量有误",
+        this.$message({
+          message: '您提交的发货数量有误',
+          type: 'warning'
         });
       } else if (row.deliveringAmount != 0) {
         this.$confirm("确定发货吗？", "提示", {
@@ -885,16 +904,20 @@ export default {
               data: data,
             })
             .then((response) => {
-             
+              this.$message({
+               message: '发货成功！',
+                type: 'success'
+        });
             });
           // 刷新提示不显示
           // this.$message({
           //   message: "发货成功",
           //   type: "success",
           // });
-          // this.showData();
-          this.$router.go(0);
-          this.upCirculation = false;
+          this.showhorseData();
+          this.showData();
+          // this.$router.go(0);
+          // this.upCirculation = false;
         });
       }
     },
@@ -931,6 +954,9 @@ export default {
         name: "storeHouseManage",
       });
     },
+    close(){
+      this.upCirculation = false;
+    },
     handleClose() {
       debugger;
       console.log("1");
@@ -955,10 +981,12 @@ export default {
   .inside {
     padding: 15px;
     .btn {
+      margin-left: 10px;
     }
   }  
 }
 //
+
 .storehorseManagement {
   .table {
     font-size: 13px;
@@ -980,6 +1008,9 @@ export default {
   }
   .el-dialog__header {
     padding: 0px 0px 0px;
+      .el-collapse-item__content{
+    padding-bottom: 0px;
+  }
   }
   .Notestyle {
     padding: 0;
@@ -991,6 +1022,15 @@ export default {
   .kaozuo {
     font-size: 16px;
     margin-left: 20px;
+  }
+  .close{
+    float: right;
+    margin-top: 10px;
+  }
+  .pagination2{
+    float: right;
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
 }
 </style>
