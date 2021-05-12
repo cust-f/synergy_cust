@@ -367,9 +367,11 @@ export default {
             );
           }
           if (this.milepostActive > 2) {
-            this.milepost[2].description = this.$options.filters["formatDate"](
+            if(response.data.allData.a[0].uploadCircuaterTime == ""){
+              this.milepost[2].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].uploadCircuaterTime
             );
+            }
           }
           if (this.milepostActive > 3) {
             this.milepost[3].description = this.$options.filters["formatDate"](
