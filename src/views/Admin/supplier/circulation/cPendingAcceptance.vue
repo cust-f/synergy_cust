@@ -142,7 +142,7 @@ export default {
       this.$router.push({
         path: "/admin/circulationDet",
         query: {
-          taskId: row.taskId,
+          taskId: row.mainTaskId,
         },
       });
     },
