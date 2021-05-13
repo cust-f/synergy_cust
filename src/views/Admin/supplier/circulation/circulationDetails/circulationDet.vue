@@ -32,6 +32,16 @@
       </div>
       <br />
       <br />
+      <!-- 配额信息模块 -->
+      <div v-show="show > 0 && missionPlanVisiable==true">
+        <div v-show="state21 === 1">
+        <quota-Allocation
+          ref="quotaAllocation"
+        ></quota-Allocation>
+        </div>
+      </div>
+      <br />
+      <br />
       <!-- 任务计划模块 -->
       <div v-show="show > 0 && missionPlanVisiable==true">
         <div v-show="state21 === 1">
@@ -137,6 +147,7 @@ import Qs from "qs";
 import { formatDate } from "../../design/designDetails/dataChange";
 import essentialInformation from "../../assembly/essentialInformation";
 import applicationInformation from "../../assembly/applicationInformation";
+import quotaAllocation from "../../assembly/quotaAllocation";
 import missionPlan from "../../assembly/missionPlan";
 import contractManagement from "../../assembly/contractManagement";
 import deliveryList from "../../assembly/deliveryList";
@@ -163,6 +174,7 @@ export default {
       //主要信息数据
       cool: {},
       taskApplyTableData: {},
+      quotaData: {},
       taskTableData: {},
       tableData:{},
       storehorseManagement: 
@@ -207,6 +219,7 @@ export default {
     this.getLDData();
     this.getCirculationCount();
     this.showallData();
+    this.showQuotaData();
   },
   filters: {
     formatDate(time) {
@@ -354,9 +367,11 @@ export default {
             );
           }
           if (this.milepostActive > 2) {
-            this.milepost[2].description = this.$options.filters["formatDate"](
+            if(response.data.allData.a[0].uploadCircuaterTime == ""){
+              this.milepost[2].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].uploadCircuaterTime
             );
+            }
           }
           if (this.milepostActive > 3) {
             this.milepost[3].description = this.$options.filters["formatDate"](
@@ -412,10 +427,29 @@ export default {
           this.storehorseManagement[0].leadTime= response.data.allData[0].leadTime;
         });
     },
+    //显示份额分配数据的内容
+    showQuotaData() {
+      var that = this;
+      var data = Qs.stringify({
+        mainTaskID: this.taskId,
+        userName: this.userName,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/circulationQuotaInfo",
+          data: data,
+        })
+        .then((response) => {
+          this.quotaData = response.data.allData.quotaList;
+          console.log(response)
+        });
+    },
     //数据传递方法
     sendMsg() {
       this.$refs.essentialInformation.getMsg(this.cool);
       this.$refs.applicationInformation.getMsg(this.taskApplyTableData);
+      this.$refs.quotaAllocation.getMsg(this.quotaData);//流通清单份额分配
       this.$refs.missionPlan.getMsg(this.taskApplyTableData);
       this.$refs.contractManagement.getMsg(this.taskTableData);
       this.$refs.deliveryList.getMsg(this.taskTableData);
@@ -452,6 +486,7 @@ export default {
   components: {
     "essential-Information": essentialInformation, //基本信息
     "application-Information": applicationInformation,
+    "quota-Allocation":quotaAllocation,
     "mission-Plan": missionPlan,
     "storehorse-Management":storehorseManagement,  
     "contract-Management": contractManagement,

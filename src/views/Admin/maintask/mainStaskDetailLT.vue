@@ -196,9 +196,7 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- 暂时注释 -->
-              <el-button @click="changeTime(scope.row)" size="small" type="text"
-                >修改</el-button
-              >
+              <el-button @click="changeTime(scope.row)" size="small" type="text">修改时间</el-button>
               <el-button
                 type="text"
                 size="small "
@@ -667,17 +665,10 @@
         </div>
       </div>
 
-      <!-- 修改时间弹出框 -->
-      <el-dialog :visible.sync="changeTimeDialog" width="80%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
-          请输入修改的时间
-        </div>
-        <br />
-        <br />
-
+      <!-- 流通子任务修改时间 弹出框 -->
+      <!-- <el-dialog :visible.sync="changeTimeDialog" width="80%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">请输入修改的时间</div>
+        <br /><br />
         <el-form
           ref="form"
           class="changeTimeFrom"
@@ -856,7 +847,7 @@
             </el-col>
           </el-row>
         </el-form>
-      </el-dialog>
+      </el-dialog> -->
 
       <!-- 申请拒绝原因弹出框 -->
       <el-dialog :visible.sync="addVisible" width="50%">
@@ -2519,40 +2510,43 @@ export default {
           this.changeTimeJudge(row.checkApplyState, row.checkPlanState);
         });
     },
-    changeTimeMethod() {
-      var that = this;
-      var data = Qs.stringify({
-        taskId: this.taskId,
-        companyId: this.companyId,
-        beginTime: this.timeList.beginTime,
-        publishTime: this.timeList.publishTime,
-        deadline: this.timeList.deadline,
-        applyTime: this.timeList.applyTime,
-        checkApplyTime: this.timeList.checkApplyTime,
-        planUploadTime: this.timeList.planUploadTime,
-        checkPlanTime: this.timeList.checkPlanTime,
-        uploadContractTime: this.timeList.uploadContractTime,
-        checkContractTime: this.timeList.checkContractTime,
-        supplierDistributionTime: this.timeList.supplierDistributionTime,
-        designerAcceptTime: this.timeList.designerAcceptTime,
-        uploadDesignTime: this.timeList.uploadDesignTime,
-        supplierCheckDesignTime: this.timeList.supplierCheckDesignTime,
-        demandorCheckDesignTime: this.timeList.demandorCheckDesignTime,
-        finishTime: this.timeList.finishTime,
-        checkCircuaterTime: this.timeList.checkCircuaterTime,
-        uploadCircuaterTime: this.timeList.uploadCircuaterTime,
-        State: this.milepostActive + 1,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/SubstaskInformation/updateAllTime",
-          data: data,
-        })
-        .then((response) => {
-          console.log("finish");
-          this.changeTimeDialog = false;
-        });
+    // changeTimeMethod() {
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     taskId: this.taskId,
+    //     companyId: this.companyId,
+    //     beginTime: this.timeList.beginTime,
+    //     publishTime: this.timeList.publishTime,
+    //     deadline: this.timeList.deadline,
+    //     applyTime: this.timeList.applyTime,
+    //     checkApplyTime: this.timeList.checkApplyTime,
+    //     planUploadTime: this.timeList.planUploadTime,
+    //     checkPlanTime: this.timeList.checkPlanTime,
+    //     uploadContractTime: this.timeList.uploadContractTime,
+    //     checkContractTime: this.timeList.checkContractTime,
+    //     supplierDistributionTime: this.timeList.supplierDistributionTime,
+    //     designerAcceptTime: this.timeList.designerAcceptTime,
+    //     uploadDesignTime: this.timeList.uploadDesignTime,
+    //     supplierCheckDesignTime: this.timeList.supplierCheckDesignTime,
+    //     demandorCheckDesignTime: this.timeList.demandorCheckDesignTime,
+    //     finishTime: this.timeList.finishTime,
+    //     checkCircuaterTime: this.timeList.checkCircuaterTime,
+    //     uploadCircuaterTime: this.timeList.uploadCircuaterTime,
+    //     State: this.milepostActive + 1,
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "/api/SubstaskInformation/updateAllTime",
+    //       data: data,
+    //     })
+    //     .then((response) => {
+    //       console.log("finish");
+    //       this.changeTimeDialog = false;
+    //     });
+    // },
+    changeTimeMethodLT(){
+      
     },
     //清单历史上传
     FHQDFileHistory() {

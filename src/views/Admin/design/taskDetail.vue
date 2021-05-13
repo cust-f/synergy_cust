@@ -288,7 +288,7 @@ import {formatDate} from "./dataChange";
     filters:{
       formatDate(time){
         let date = new Date(time);
-      return formatDate(date, "yyyy-mm-dd");
+      return formatDate(date, "yyyy-MM-dd");
       }
     },
     created() {

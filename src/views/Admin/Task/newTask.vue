@@ -18,7 +18,7 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="任务名称"  prop="name">
-                  <el-input v-model="addList.name"></el-input>
+                  <el-input v-model="addList.name" placeholder="资源库查询"></el-input>
                 </el-form-item>
               </el-col>
               <el-tooltip class="item" effect="dark" content="推荐查询" placement="right">
@@ -27,7 +27,7 @@
                   border: 0px;
                   font-size: 14px;
                   padding: 0px 0px;
-                  margin-left: -430px;
+                  margin-left: -444px;
                   margin-top: 60px;
                   margin-top: 13px;" 
                   @click="jumpToAnother">
@@ -166,7 +166,7 @@
                       border: 0px;
                       font-size: 14px;
                       padding: 0px 0px;
-                      margin-right: 15px;
+                      margin-right: -15px;
                       margin-top:60px;
                       margin-top: 13px;
                     " @click="findCompanyByPartsCategory"></el-button>

@@ -13,16 +13,9 @@
       :default-sort="{prop: 'applyTime', order: 'descending'}"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" width="55" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.$index + 1}}</span>
-        </template>
-      </el-table-column>
-
+      <el-table-column label="序号" type="index" width="55" align="center"></el-table-column>
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-
       <el-table-column prop="taskName" sortable="custom"  label="需求名称"></el-table-column>
-
       <el-table-column prop="taskState" align="center" sortable="custom"  label="状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
@@ -34,14 +27,11 @@
           <el-tag type="danger" v-else-if="scope.row.taskState === 6">已废除</el-tag>
         </template>
       </el-table-column>
-
       <el-table-column prop="publishingCompanyName" sortable="custom"  label="需求方"></el-table-column>
       <el-table-column prop="applyTime" sortable="custom"  label="开始时间">
         <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
       </el-table-column>
-
       <el-table-column prop="taskCategoryPart" sortable="custom"  label="行业类别"></el-table-column>
-
       <el-table-column label="操作" width="180" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
@@ -115,7 +105,6 @@ export default {
   },
   created() {
     this.getData();
-    this.GetTime(date);
   },
   methods: {
     handleSearch() {
@@ -135,13 +124,6 @@ export default {
           this.tableData = response.data.allData;
         });
       //this.getData();
-    },
-    GetTime(date) {
-      var datee = new Date(date).toJSON();
-      return new Date(+new Date(datee) + 8 * 3600 * 1000)
-        .toISOString()
-        .replace(/T/g, " ")
-        .replace(/\.[\d]{3}Z/, "");
     },
     //读取数据的方法
     getData() {
@@ -170,135 +152,35 @@ export default {
     handleSizeChange(psize) {
       this.pageSize = psize;
     },
-
-    sortByTaskName(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 1,
-        sortType: sortType,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortAllTaskByTaskName",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
+/**
+     * 表格排序事件处理函数
+     * @param {object} {column,prop,order} 列数据|排序字段|排序方式
+     */
+    sortChange({ prop, order }) {
+      this.tableData.sort(this.compare(prop,order));
     },
-
-    sortByApplyTime(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 1,
-        sortType: sortType,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortAllTaskByApplyTime",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-
-    sortByPublishingCompanyName(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 1,
-        sortType: sortType,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortAllTaskByPublishingCompanyName",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-
-    sortByTaskCategoryPart(sortType) {
-      var that = this;
-      var data = Qs.stringify({
-        userName: this.usernameX,
-        taskType: 1,
-        sortType: sortType,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "/api/supplier/sortAllTaskByTaskCategoryPart",
-          data: data,
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-        });
-    },
-
-    sortChange(v) {
-      //正序
-      if (v.column.order == "ascending") {
-        //通过属性showWeights进行排序
-        if (v.column.property == "taskState") {
-          this.tableData.sort(this.sortList("taskState"));
-        }
-        if (v.column.property == "applyTime") {
-          this.sortByApplyTime(1);
-        }
-        if (v.column.property == "taskName") {
-          this.sortByTaskName(1);
-        }
-        if (v.column.property == "publishingCompanyName") {
-          this.sortByPublishingCompanyName(1);
-        }
-        if (v.column.property == "taskCategoryPart") {
-          this.sortByTaskCategoryPart(1);
-        }
-      }
-      //倒序
-      else if (v.column.order == "descending") {
-        if (v.column.property == "taskState") {
-          this.tableData.sort(this.sortListDesc("taskState"));
-        }
-        if (v.column.property == "applyTime") {
-          this.sortByApplyTime(2);
-        }
-        if (v.column.property == "taskName") {
-          this.sortByTaskName(2);
-        }
-        if (v.column.property == "publishingCompanyName") {
-          this.sortByPublishingCompanyName(2);
-        }
-        if (v.column.property == "taskCategoryPart") {
-          this.sortByTaskCategoryPart(2);
+    /**
+      * 排序比较
+      * @param {string} propertyName 排序的属性名
+      * @param {string} sort ascending(升序)/descending(降序)
+      * @return {function}
+      */
+    compare (propertyName, sort) {
+      return function (obj1, obj2) {
+        var value1 = obj1[propertyName]
+        var value2 = obj2[propertyName]
+        if (typeof value1 === 'string' && typeof value2 === 'string') {
+          const res = value1.localeCompare(value2, 'zh')
+          return sort === 'ascending' ? res : -res
+        } else {
+          if (value1 <= value2) {
+            return sort === 'ascending' ? -1 : 1
+          } else if (value1 > value2) {
+            return sort === 'ascending' ? 1 : -1
+          }
         }
       }
     },
-    //通过数组对象的某个属性进行正序排序
-    sortList(property) {
-      return function (a, b) {
-        var value1 = a[property];
-        var value2 = b[property];
-        return value1 - value2;
-      };
-    },
-    //通过数组对象的某个属性进行倒序排列
-    sortListDesc(property) {
-      return function (a, b) {
-        var value1 = a[property];
-        var value2 = b[property];
-        return value2 - value1;
-      };
-    },
-
     //详情页面跳转方法
     Det(row) {
       this.$router.push({

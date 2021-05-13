@@ -1,9 +1,9 @@
 <template>
-  <div class = "circulationTask">
+  <div class="circulationTask">
     <el-container>
       <el-main>
         <div class="box">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通任务</div>
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">流通任务</div>
 
         </div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <div>
@@ -11,168 +11,126 @@
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="全部任务" name="first">
                 <div class="handle-box">
-                  
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 </div>
-                <el-table
-                   :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-                  border
-                  class="table"
-                  ref="multipleTable"                  
-                  :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline,taskState', order: 'descending'}"
-                  header-cell-class-name="table-header"
-                  @selection-change="handleSelectionChange"
-                >
-                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
-                                    <el-table-column prop="taskState" label="状态" align="center" sortable>
+                <el-table 
+                  :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
+                  border 
+                  class="table" 
+                  ref="multipleTable" 
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline,taskState', order: 'descending'}" 
+                  header-cell-class-name="table-header" 
+                  @selection-change="handleSelectionChange" 
+                  @sort-change="sortChange">
+                  <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="taskState" label="状态" align="center" width="98" sortable='custom'>
                     <template slot-scope="scope">
-                      <el-tag v-if="scope.row.taskState ===0" >待响应</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ===1"  type="warning">计划中</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ===2"  type="info">进行中</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ===3" class="shenhe" >审核</el-tag>
-                      <el-tag v-else-if="scope.row.taskState ===4" class="yanshou" >验收</el-tag>
+                      <el-tag v-if="scope.row.taskState ===0">待响应</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===1" type="warning">计划中</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===2" type="info">进行中</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===3" class="shenhe">审核</el-tag>
+                      <el-tag v-else-if="scope.row.taskState ===4" class="yanshou">验收</el-tag>
                       <el-tag v-else-if="scope.row.taskState ===5" type="success">已完成</el-tag>
                       <el-tag v-else-if="scope.row.taskState ===6" type="danger">失败</el-tag>
-
                     </template>
                   </el-table-column>
-
-                  <el-table-column prop="companyName" label="供应企业" sortable></el-table-column>
-                  <el-table-column prop="deadline" label="截止时间" sortable>
-                      <template slot-scope="scope">
-                    {{scope.row.deadline | formatDate}}
-                    
-                  </template>
-                  </el-table-column>
-
-                   <el-table-column label="操作" align="center" >
+                  <el-table-column prop="companyName" label="供应企业" sortable='custom'></el-table-column>
+                  <el-table-column prop="deadline" label="截止时间" width="103"  sortable='custom'>
                     <template slot-scope="scope">
-
-
-                  <el-button
-                    @click="DetailQB(scope.row)"
-                    type="text"
-                    size="small "
-                    
-                  >查看详情</el-button>
+                      {{scope.row.deadline | formatDate}}
                     </template>
-                    </el-table-column>
+                  </el-table-column>
+                  <el-table-column label="操作" align="center" width="105">
+                    <template slot-scope="scope">
+                      <el-button @click="DetailQB(scope.row)" type="text" size="small ">查看详情</el-button>
+                    </template>
+                  </el-table-column>
                 </el-table>
 
-              <div class="pagination">
-                <el-pagination
-                  background
-                  layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
-                  :page-size="pageSize"
-                  :total="tableData.length"
-                  @current-change="handleCurrentChange"  
-			            @size-change="handleSizeChange" 
-                  
-                ></el-pagination>
-              </div>
+                <div class="pagination">
+                  <el-pagination background layout="prev, pager, next, sizes, total, jumper" :current-page="pageIndex" :page-size="pageSize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange"></el-pagination>
+                </div>
 
               </el-tab-pane>
 
               <el-tab-pane label="待响应" name="second">
                 <div class="handle-box">
-                 
+
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
-                 <el-table
-                  :data="tableData1.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-                  border
-                  class="table"                  
-                  :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline', order: 'descending'}"
-                  ref="multipleTable"
-                  header-cell-class-name="table-header"
+                <el-table 
+                  :data="tableData1.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
+                  border 
+                  class="table" 
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline', order: 'descending'}" 
+                  ref="multipleTable" 
+                  header-cell-class-name="table-header" 
                   @selection-change="handleSelectionChange"
-                >
-                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
-                   <el-table-column
-                    prop="checkApplyState"
-                    sortable
-                    width="120"
-                    align="center"
-                    label="状态"
-                  >
+                  @sort-change="sortChange1">
+                  <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="checkApplyState" sortable='custom' width="120" align="center" label="状态">
                     <template slot-scope="scope">
                       <el-tag type="warning" v-if="scope.row.checkApplyState === 0">待审核</el-tag>
                       <el-tag type="success" v-else-if="scope.row.checkApplyState === 1">通过</el-tag>
                       <el-tag type="danger" v-else>拒绝</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="companyName" label="供应企业" sortable></el-table-column>
-                  <el-table-column prop="deadline" label="截止时间" sortable>
-                      <template slot-scope="scope">
-                    {{scope.row.deadline | formatDate}}
-                    
-                  </template>
+                  <el-table-column prop="companyName" label="供应企业" sortable='custom'></el-table-column>
+                  <el-table-column prop="deadline" label="截止时间" sortable='custom'>
+                    <template slot-scope="scope">
+                      {{scope.row.deadline | formatDate}}
+                    </template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center" >
-                     <template slot-scope="scope">
-                    <!-- <el-button
+                  <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                      <!-- <el-button
                     type="text"
                     icon="el-icon-delete"
                     class="red"
                     @click="handleDelete1(scope.row)"
                   >废除</el-button> -->
-
-                  <el-button
-                    @click="DetailXY(scope.row)"
-                    type="text"
-                    size="small "
-                    
-                  >查看详情</el-button>
-                     </template>
-                    </el-table-column>
+                      <el-button @click="DetailXY(scope.row)" type="text" size="small ">查看详情</el-button>
+                    </template>
+                  </el-table-column>
 
                 </el-table>
-               <div class="pagination">
-                <el-pagination
-                  background
-                  layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
-                  :page-size="pageSize"
-                  :total="tableData1.length"
-                  @current-change="handleCurrentChange"  
-			            @size-change="handleSizeChange" 
-                  
-                ></el-pagination>
-              </div>
+                <div class="pagination">
+                  <el-pagination 
+                    background 
+                    layout="prev, pager, next, sizes, total, jumper" 
+                    :current-page="pageIndex" 
+                    :page-size="pageSize" 
+                    :total="tableData1.length" 
+                    @current-change="handleCurrentChange" 
+                    @size-change="handleSizeChange">
+                  </el-pagination>
+                </div>
               </el-tab-pane>
 
               <el-tab-pane label="任务计划" name="third">
                 <div class="handle-box">
-
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
-                <el-table
-                  :data="tableData2.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-                  border
-                  class="table"
-                  ref="multipleTable"
-                  :default-sort="{prop: 'taskName,mainTaskName,companyName,uploadFileTime', order: 'descending'}"
-                  header-cell-class-name="table-header"
+                <el-table 
+                  :data="tableData2.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
+                  border 
+                  class="table" 
+                  ref="multipleTable" 
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,uploadFileTime', order: 'descending'}" 
+                  header-cell-class-name="table-header" 
                   @selection-change="handleSelectionChange"
-                >
-                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
-                  <el-table-column
-                    prop="checkPlanState"
-                    sortable
-                    width="130"
-                    label="审核状态"
-                    align="center"
-                  >
+                  @sort-change="sortChange2">
+                  <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="checkPlanState" sortable='custom' width="130" label="审核状态" align="center">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
                       <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>
@@ -180,20 +138,14 @@
                       <el-tag type="danger" v-else-if="scope.row.checkPlanState === 3">拒绝</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="companyName" label="供应企业" sortable></el-table-column>
-                  <el-table-column
-                    prop="planUploadTime"
-                    label="上传时间"
-                    sortable
-                  >
+                  <el-table-column prop="companyName" label="供应企业" sortable='custom'></el-table-column>
+                  <el-table-column prop="planUploadTime" label="上传时间" sortable='custom'>
                     <template slot-scope="scope">
-                      <el-span v-if="+scope.row.planUploadTime === 0"
-                        >暂未上传</el-span
-                      >
-                      <el-span v-else>{{
-                        scope.row.planUploadTime | formatDate
-                      }}</el-span></template
-                    >
+                      <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
+                      <el-span v-else>
+                        {{ scope.row.planUploadTime | formatDate }}
+                      </el-span>
+                    </template>
                   </el-table-column>
                   <!-- <el-table-column prop="taskState" label="状态" align="center" width="80">
                   </el-table-column>
@@ -208,100 +160,74 @@
                     </template>
                   
                   </el-table-column> -->
-                  <el-table-column label="操作" align="center" >
-
-                <template slot-scope="scope">
-                  <el-button
-                    @click="Detail(scope.row)"
-                    type="text"
-                    size="small "
-                    
-                  >查看详情</el-button>
-                </template>
-                    </el-table-column>
+                  <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                      <el-button @click="Detail(scope.row)" type="text" size="small ">查看详情</el-button>
+                    </template>
+                  </el-table-column>
                 </el-table>
-               <div class="pagination">
-                <el-pagination
-                  background
-                  layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
-                  :page-size="pageSize"
-                  :total="tableData2.length"
-                  @current-change="handleCurrentChange"  
-			            @size-change="handleSizeChange" 
-                  
-                ></el-pagination>
-              </div>
+                <div class="pagination">
+                  <el-pagination 
+                    background layout="prev, pager, next, sizes, total, jumper" 
+                    :current-page="pageIndex" 
+                    :page-size="pageSize" 
+                    :total="tableData2.length" 
+                    @current-change="handleCurrentChange" 
+                    @size-change="handleSizeChange">
+                  </el-pagination>
+                </div>
               </el-tab-pane>
 
               <el-tab-pane label="进行中" name="forth">
                 <div class="handle-box">
-
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
-                <el-table
-                  :data="tableData3.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-                  border
-                  class="table"                  
-                  :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline', order: 'descending'}"
-                  ref="multipleTable"
-                  header-cell-class-name="table-header"
+                <el-table 
+                  :data="tableData3.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
+                  border 
+                  class="table" 
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,deadline', order: 'descending'}" 
+                  ref="multipleTable" 
+                  header-cell-class-name="table-header" 
                   @selection-change="handleSelectionChange"
-                >
-                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                   <el-table-column prop="taskName" label="子需求" sortable></el-table-column>         
-                   <el-table-column prop="mainTaskName" label="总需求" sortable> </el-table-column>
-                  <el-table-column
-                    prop="demandorCheckDesignState"
-                    width="100"
-                    align="center"
-                    label="验收状态"
-                  >
+                  @sort-change="sortChange3">
+                  <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable='custom'> </el-table-column>
+                  <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
-                      <el-tag
-                        type="warning"
-                        v-else-if="scope.row.demandorCheckDesignState === 1"
-                      >待审核</el-tag>
+                      <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
                       <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
                       <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="acceptCompanyName" label="供应企业" sortable></el-table-column>
-                <el-table-column prop="deadline" label="截止时间" sortable>
-                      <template slot-scope="scope">
-                    {{scope.row.deadline | formatDate}}
-                    
-                  </template>
+                  <el-table-column prop="acceptCompanyName" label="供应企业" sortable='custom'></el-table-column>
+                  <el-table-column prop="deadline" label="截止时间" sortable='custom'>
+                    <template slot-scope="scope">
+                      {{scope.row.deadline | formatDate}}
+                    </template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center" >
-
-                  <template slot-scope="scope">
-                  <el-button
-                    @click="Detail345(scope.row)"
-                    type="text"
-                    size="small "
-                  >查看详情</el-button>
-                  </template>
-                    </el-table-column>
-
+                  <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                      <el-button @click="Detail345(scope.row)" type="text" size="small ">查看详情</el-button>
+                    </template>
+                  </el-table-column>
                 </el-table>
-               <div class="pagination">
-                <el-pagination
-                  background
-                  layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
-                  :page-size="pageSize"
-                  :total="tableData3.length"
-                  @current-change="handleCurrentChange"  
-			            @size-change="handleSizeChange" 
-                  
-                ></el-pagination>
-              </div>
+                <div class="pagination">
+                  <el-pagination 
+                    background layout="prev, pager, next, sizes, total, jumper" 
+                    :current-page="pageIndex" 
+                    :page-size="pageSize" 
+                    :total="tableData3.length" 
+                    @current-change="handleCurrentChange" 
+                    @size-change="handleSizeChange">
+                  </el-pagination>
+                </div>
               </el-tab-pane>
-<!-- 
+              <!-- 
               <el-tab-pane label="待审核" name="fifth">
                 <div class="handle-box">
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
@@ -317,10 +243,10 @@
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable></el-table-column>
-                  <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
-                  <el-table-column prop="companyName" label="企业名称" sortable></el-table-column>
-                   <el-table-column prop="uploadFileTime" label="上传时间" sortable>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="companyName" label="企业名称" sortable='custom'></el-table-column>
+                   <el-table-column prop="uploadFileTime" label="上传时间" sortable='custom'>
                       <template slot-scope="scope">
                     {{scope.row.uploadFileTime | formatDate}}
                     
@@ -352,99 +278,40 @@
               </div>
               </el-tab-pane> -->
 
-<el-tab-pane label="待验收" name="fifyanshouth">
+              <el-tab-pane label="待验收" name="fifyanshouth">
                 <div class="handle-box">
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
-                  <el-input
-                    v-model="selectname"
-                    placeholder="子需求"
-                    class="handle-input mr10"
-                  ></el-input>
-                  <el-button
-                    type="primary"
-                    icon="el-icon-search"
-                    @click="handleSearchByCondition"
-                    >搜索</el-button
-                  >
+                  <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
+                  <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
-                <el-table
-                  :data="
-                    tableData4yanshou.slice(
-                      (pageIndex1 - 1) * pageSize,
-                      pageIndex1 * pageSize
-                    )
-                  "
-                  border
-                  class="table"
-                  ref="multipleTable"
-                  :default-sort="{
-                    prop: 'taskName,mainTaskName,companyName,uploadFileTime',
-                    order: 'descending',
-                  }"
+                <el-table 
+                  :data="tableData4yanshou.slice((pageIndex1 - 1) * pageSize,pageIndex1 * pageSize)" 
+                  border 
+                  class="table" 
+                  ref="multipleTable" 
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,uploadFileTime',order: 'descending',}" 
                   header-cell-class-name="table-header"
                   @selection-change="handleSelectionChange"
-                >
-                  <el-table-column
-                    label="序号"
-                    type="index"
-                    width="50"
-                    align="center"
-                  ></el-table-column>
-                  <el-table-column
-                    prop="taskName"
-                    label="子需求"
-                    sortable
-                  ></el-table-column>
-                  <el-table-column
-                    prop="mainTaskName"
-                    label="总需求"
-                    sortable
-                  ></el-table-column>
-                  <el-table-column
-                    prop="demandorCheckDesignState"
-                    sortable
-                    label="验收状态"
-                    align="center"
-                  >
+                  @sort-change="sortChange4yanshou">
+                  <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="mainTaskName" label="总需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="demandorCheckDesignState" sortable='custom' label="验收状态" align="center">
                     <template slot-scope="scope">
-                      <el-tag v-if="scope.row.demandorCheckDesignState === 0"
-                        >待提交</el-tag
-                      >
-                      <el-tag
-                        type="warning"
-                        v-else-if="scope.row.demandorCheckDesignState === 1"
-                        >待审核</el-tag
-                      >
-                      <el-tag
-                        type="success"
-                        v-else-if="scope.row.demandorCheckDesignState === 2"
-                        >通过</el-tag
-                      >
-                      <el-tag
-                        type="danger"
-                        v-else-if="scope.row.demandorCheckDesignState === 3"
-                        >未通过</el-tag
-                      >
+                      <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
+                      <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+                      <el-tag type="success" v-else-if="scope.row.demandorCheckDesignState === 2">通过</el-tag>
+                      <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
                     </template>
                   </el-table-column>
-                  <el-table-column
-                    prop="acceptCompanyName"
-                    label="供应企业"
-                    sortable
-                  ></el-table-column>
-                  <el-table-column
-                    prop="uploadDesignTime"
-                    label="验收时间"
-                    sortable
-                  >
+                  <el-table-column prop="acceptCompanyName" label="供应企业" sortable='custom'></el-table-column>
+                  <el-table-column prop="uploadDesignTime" label="验收时间" sortable='custom'>
                     <template slot-scope="scope">
-                      <el-span v-if="+scope.row.uploadDesignTime === 0"
-                        >暂未上传</el-span
-                      >
-                      <el-span v-else>{{
-                        scope.row.uploadDesignTime | formatDate
-                      }}</el-span></template
-                    >
+                      <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
+                      <el-span v-else>
+                        {{ scope.row.uploadDesignTime | formatDate }}
+                      </el-span>
+                    </template>
                   </el-table-column>
                   <!-- <el-table-column prop="taskCheck" label="状态" align="center" >
                   </el-table-column>
@@ -456,87 +323,72 @@
                       <el-button type="text" size="small"  class="box1" @click="tuzhishenhe(scope.row)">通过</el-button>
                       <el-button type="text" size="small"  class="box1" @click="tuzhiNo(scope.row)">不通过</el-button>
                     </template>
-                    
                   </el-table-column>-->
                   <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-                      <el-button
-                        @click="Detail345(scope.row)"
-                        type="text"
-                        size="small "
-                        >查看详情</el-button
-                      >
+                      <el-button @click="Detail345(scope.row)" type="text" size="small ">查看详情</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
                 <div class="pagination">
-                  <el-pagination
-                    background
-                    layout="prev, pager, next, sizes, total, jumper"
-                    :current-page="pageIndex1"
-                    :page-size="pageSize"
-                    :total="tableData4yanshou.length"
-                    @current-change="handleCurrentChange"
-                    @size-change="handleSizeChange"
-                  ></el-pagination>
+                  <el-pagination 
+                    background 
+                    layout="prev, pager, next, sizes, total, jumper" 
+                    :current-page="pageIndex1" 
+                    :page-size="pageSize" 
+                    :total="tableData4yanshou.length" 
+                    @current-change="handleCurrentChange" 
+                    @size-change="handleSizeChange">
+                  </el-pagination>
                 </div>
               </el-tab-pane>
               <el-tab-pane label="已完成" name="sixth">
                 <div class="handle-box">
-
                   <!-- <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button> -->
                   <el-input v-model="selectname" placeholder="子需求" class="handle-input mr10"></el-input>
                   <el-button type="primary" icon="el-icon-search" @click="handleSearchByCondition">搜索</el-button>
                 </div>
-                <el-table
-                 :data="tableData5.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-                  border
-                  class="table"                  
-                  :default-sort="{prop: 'taskName,mainTaskName,companyName,finishTime', order: 'descending'}"
-                  ref="multipleTable"
-                  header-cell-class-name="table-header"
+                <el-table 
+                  :data="tableData5.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" 
+                  border 
+                  class="table" 
+                  :default-sort="{prop: 'taskName,mainTaskName,companyName,finishTime', order: 'descending'}" 
+                  ref="multipleTable" 
+                  header-cell-class-name="table-header" 
                   @selection-change="handleSelectionChange"
-                >
-                <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" sortable label="子需求"></el-table-column>
-                  <el-table-column prop="mainTaskName" sortable label="总需求"></el-table-column>
-                  <el-table-column prop="acceptCompanyName" sortable label="供应企业"></el-table-column>
-                  <el-table-column prop="finishTime" label="完成时间" sortable>
-                     <template slot-scope="scope">
-                    {{scope.row.finishTime | formatDate}}
-                    
-                  </template>
+                  @sort-change="sortChange5">
+                  <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+                  <el-table-column prop="taskName" sortable='custom' label="子需求"></el-table-column>
+                  <el-table-column prop="mainTaskName" sortable='custom' label="总需求"></el-table-column>
+                  <el-table-column prop="acceptCompanyName" sortable='custom' label="供应企业"></el-table-column>
+                  <el-table-column prop="finishTime" label="完成时间" sortable='custom'>
+                    <template slot-scope="scope">
+                      {{scope.row.finishTime | formatDate}}
+                    </template>
                   </el-table-column>
-                    <!-- <el-table-column label="任务书" align="center" >
+                  <!-- <el-table-column label="任务书" align="center" >
                     <el-button type="text" size="small" class="box1">下载</el-button>
                   </el-table-column>
                   <el-table-column label="图纸" align="center" >
                    <el-button type="text" size="small" class="box1">查看</el-button>
                   </el-table-column> -->
-
-                  <el-table-column label="操作" align="center" >
+                  <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-
-                  <el-button
-                    @click="Detail345(scope.row)"
-                    type="text"
-                    size="small "
-                  >查看详情</el-button>
-                        </template></el-table-column>
-
+                      <el-button @click="Detail345(scope.row)" type="text" size="small ">查看详情</el-button>
+                    </template>
+                  </el-table-column>
                 </el-table>
                 <div class="pagination">
-                <el-pagination
-                  background
-                  layout="prev, pager, next, sizes, total, jumper"
-                  :current-page="pageIndex"
-                  :page-size="pageSize"
-                  :total="tableData5.length"
-                  @current-change="handleCurrentChange"  
-			            @size-change="handleSizeChange" 
-                  
-                ></el-pagination>
-              </div>
+                  <el-pagination 
+                    background 
+                    layout="prev, pager, next, sizes, total, jumper" 
+                    :current-page="pageIndex" 
+                    :page-size="pageSize" 
+                    :total="tableData5.length"
+                    @current-change="handleCurrentChange" 
+                    @size-change="handleSizeChange">
+                  </el-pagination>
+                </div>
               </el-tab-pane>
 
               <!-- <el-tab-pane label="已废除" name="seventh">
@@ -555,9 +407,9 @@
                   @selection-change="handleSelectionChange"
                 >
                 <el-table-column  label="序号"  type="index" width="50"  align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable> </el-table-column>
-                 <el-table-column prop="mainTaskName" label="总需求" sortable></el-table-column>
-                  <el-table-column prop="acceptCompanyName" label="供应企业" sortable></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'> </el-table-column>
+                 <el-table-column prop="mainTaskName" label="总需求" sortable='custom'></el-table-column>
+                  <el-table-column prop="acceptCompanyName" label="供应企业" sortable='custom'></el-table-column>
 
                   <el-table-column label="操作" align="center" >
                         <template slot-scope="scope">
@@ -607,7 +459,7 @@
             <el-button type="primary" @click="saveAdd1">确 定</el-button>
           </span>
         </el-dialog>
-  <!--图纸审核拒绝原因弹出框 -->
+        <!--图纸审核拒绝原因弹出框 -->
         <el-dialog title="请输入审核不通过的原因" :visible.sync="addVisible1" width="50%">
           <el-row>
             <el-col :span="8"></el-col>
@@ -633,7 +485,7 @@
 </template>
 
 <script>
-import Qs from 'qs';
+import Qs from "qs";
 import { formatDate } from "./dataChange";
 export default {
   name: "designTask",
@@ -641,53 +493,40 @@ export default {
     return {
       query: {
         pageIndex: 1,
-        pageSize: 10
+        pageSize: 10,
       },
       activeName: "first",
       addVisible: false,
       addVisible1: false,
-      taskId:"",
+      taskId: "",
       addList: [
         {
-          FrefuseReason:''
-        }
+          FrefuseReason: "",
+        },
       ],
       addList1: [
         {
-          TrefuseReason:''
-        }
+          TrefuseReason: "",
+        },
       ],
-                  usernameX: sessionStorage.getItem("ms_username"),
+      usernameX: sessionStorage.getItem("ms_username"),
 
-      tableData: [
-
+      tableData: [],
+      tableData1: [],
+      tableData2: [],
+      tableData3: [],
+      tableData4: [],
+      tableData5: [],
+      tableData4yanshou: [
+        {
+          taskName: "",
+          mainTaskName: "",
+          demandorCheckDesignState: "",
+          acceptCompanyName: "",
+          uploadDesignTime: "",
+        },
       ],
-      tableData1: [
-     
-      ],
-      tableData2: [
-   
-      ],
-      tableData3: [
-      
-      ],
-      tableData4: [
-
-      ],
-      tableData5: [
-
-      ],      
-      tableData4yanshou: [{
-        taskName:"",
-        mainTaskName:"",
-        demandorCheckDesignState:"",
-        acceptCompanyName:"",
-        uploadDesignTime:"",
-      }
-      ],
-      tableData6: [
-  
-      ],
+      tableData6: [],
 
       addList: {
         id: null,
@@ -695,30 +534,30 @@ export default {
         name: "",
         money: null,
         state: null,
-        date: null
+        date: null,
       },
       multipleSelection: [],
       editVisible: false,
       addVisible: false,
       pageTotal: 0,
       pageIndex: 1,
-            pageIndex1: 1,
+      pageIndex1: 1,
 
       pageSize: 10,
       form: {},
       idx: -1,
       id: -1,
       radio: "1",
-      selectname:"",
-      taskState:"",
+      selectname: "",
+      taskState: "",
     };
-    
-  },  filters: {
+  },
+  filters: {
     formatDate(time) {
       let date = new Date(time);
-      return formatDate(date,"yyyy-MM-dd");
-    }
-      },
+      return formatDate(date, "yyyy-MM-dd");
+    },
+  },
   created() {
     this.getData();
   },
@@ -726,17 +565,17 @@ export default {
     getData() {
       var that = this;
       var data = Qs.stringify({
-        userName: this.usernameX
+        userName: this.usernameX,
       });
       that
         .axios({
           method: "post",
           url: "/api/SubstaskInformation/selecLTByCompanyID",
-          data: data
+          data: data,
 
           // data:this.$store.state.userName
         })
-        .then(response => {
+        .then((response) => {
           this.tableData = response.data.allData;
           // console.log(response)
         });
@@ -758,87 +597,81 @@ export default {
       } else if (tab.name == "seventh") {
         (this.taskState = 6), this.second(this.taskState);
       }
-      },
-    second(taskState){
-      var that = this;
-      var data = Qs.stringify({
-        userName:this.usernameX,
-        taskState:taskState,
-      })
-      that
-        .axios({
-          method:"post",
-          url:"/api/MainTaskInformation/selectLTByCompanyandState",
-          data:data
-        })
-.then(response => {
-  
-          if (this.taskState == 0) {
-            this.tableData1 = response.data.allData;
-            console.log(response)
-          } else if (this.taskState == 1) {
-            this.tableData2 = response.data.allData;
-            console.log(response)
-          } else if (this.taskState == 2) {
-            this.tableData3 = response.data.allData;
-            console.log(response)
-          } else if (this.taskState == 3) {
-            this.tableData4 = response.data.allData;
-          } else if (this.taskState == 4) {
-            this.tableData4yanshou = response.data.allData;
-            console.log(response)
-          } else if (this.taskState == 5) {
-            this.tableData5 = response.data.allData;
-            console.log(response)
-          } else if (this.taskState == 6) {
-            this.tableData6 = response.data.allData;
-          }
-        });
-        console.log(this.taskState)
-        console.log(this.tableData4yanshou);
     },
-
-    
-
-    // 触发搜索按钮
-     handleSearch() {
+    second(taskState) {
       var that = this;
       var data = Qs.stringify({
-        username: this.usernameX,
-        taskName: this.selectname
+        userName: this.usernameX,
+        taskState: taskState,
       });
       that
         .axios({
           method: "post",
-          url:
-            "/api/SubstaskInformation/selectLTByCIDandTNandTT",
-          data: data
+          url: "/api/MainTaskInformation/selectLTByCompanyandState",
+          data: data,
+        })
+        .then((response) => {
+          if (this.taskState == 0) {
+            this.tableData1 = response.data.allData;
+            console.log(response);
+          } else if (this.taskState == 1) {
+            this.tableData2 = response.data.allData;
+            console.log(response);
+          } else if (this.taskState == 2) {
+            this.tableData3 = response.data.allData;
+            console.log(response);
+          } else if (this.taskState == 3) {
+            this.tableData4 = response.data.allData;
+          } else if (this.taskState == 4) {
+            this.tableData4yanshou = response.data.allData;
+            console.log(response);
+          } else if (this.taskState == 5) {
+            this.tableData5 = response.data.allData;
+            console.log(response);
+          } else if (this.taskState == 6) {
+            this.tableData6 = response.data.allData;
+          }
+        });
+      console.log(this.taskState);
+      console.log(this.tableData4yanshou);
+    },
+
+    // 触发搜索按钮
+    handleSearch() {
+      var that = this;
+      var data = Qs.stringify({
+        username: this.usernameX,
+        taskName: this.selectname,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/selectLTByCIDandTNandTT",
+          data: data,
           // data:this.$store.state.userName
         })
-        .then(response => {
+        .then((response) => {
           this.tableData = response.data.allData;
         });
 
       //this.getData();
     },
     // 触发搜索按钮
-     handleSearchByCondition() {
-
+    handleSearchByCondition() {
       var that = this;
       var data = Qs.stringify({
         username: this.usernameX,
         taskName: this.selectname,
-        taskState: this.taskState
+        taskState: this.taskState,
       });
       that
         .axios({
           method: "post",
-          url:
-            "/api/SubstaskInformation/selectLTByCIDandTNandTS",
-          data: data
+          url: "/api/SubstaskInformation/selectLTByCIDandTNandTS",
+          data: data,
           // data:this.$store.state.userName
         })
-        .then(response => {
+        .then((response) => {
           this.tableData1 = response.data.allData;
           this.tableData2 = response.data.allData;
           this.tableData3 = response.data.allData;
@@ -846,23 +679,22 @@ export default {
           this.tableData5 = response.data.allData;
           this.tableData6 = response.data.allData;
         });
-        console.log(this.tableData4yanshou);
+      console.log(this.tableData4yanshou);
       //this.getData();
     },
     // 废除操作
     handleDelete1(row) {
       this.$confirm("确定要废除吗？", "提示", {
-        type: "warning"
+        type: "warning",
       }).then(() => {
         var that = this;
         var data = Qs.stringify({
-          substakeID: row.taskId
+          substakeID: row.taskId,
         });
         that.axios({
           method: "post",
-          url:
-            "/api/MainTaskInformation/feicuBySubstaskstaskID",
-          data: data
+          url: "/api/MainTaskInformation/feicuBySubstaskstaskID",
+          data: data,
 
           // data:this.$store.state.userName
         });
@@ -871,45 +703,36 @@ export default {
       });
     },
 
-
-
-
-    saveAdd1(){
-      var that =this;
+    saveAdd1() {
+      var that = this;
       var data = Qs.stringify({
-        taskId:this.taskId,
-        FrefuseReason:this.addList.FrefuseReason,
-      })
-      that
-        .axios({
-          method:"post",
-          url:'/api/SubstaskInformation/tijiaoFreason',
-          data:data,
-          
-        })
-    this.$message.success("提交成功");
-    this.addList = {};
-    this.addVisible = false;
+        taskId: this.taskId,
+        FrefuseReason: this.addList.FrefuseReason,
+      });
+      that.axios({
+        method: "post",
+        url: "/api/SubstaskInformation/tijiaoFreason",
+        data: data,
+      });
+      this.$message.success("提交成功");
+      this.addList = {};
+      this.addVisible = false;
     },
 
-
-
-    saveAdd2(){
-      var that =this;
+    saveAdd2() {
+      var that = this;
       var data = Qs.stringify({
-        taskId:this.taskId,
-        TrefuseReason:this.addList1.TrefuseReason,
-      })
-      that
-        .axios({
-          method:"post",
-          url:'/api/SubstaskInformation/tijiaoTreason',
-          data:data,
-          
-        })
-    this.$message.success("提交成功");
-    this.addList1 = {};
-    this.addVisible1 = false;
+        taskId: this.taskId,
+        TrefuseReason: this.addList1.TrefuseReason,
+      });
+      that.axios({
+        method: "post",
+        url: "/api/SubstaskInformation/tijiaoTreason",
+        data: data,
+      });
+      this.$message.success("提交成功");
+      this.addList1 = {};
+      this.addVisible1 = false;
     },
     // 多选操作
     handleSelectionChange(val) {
@@ -953,52 +776,13 @@ export default {
     /*
      *转跳对应任务信息页面
      */
-        Detail(row) {
-      if(row.taskType == 0){
-        this.$router.push({
-        path: "/admin/mainStaskDetail",
-        query: {
-          taskId: row.taskId
-        }
-      });
-      }
-      else{
-        this.$router.push({
-        path: "/admin/mainStaskDetailLT",
-        query: {
-          taskId: row.taskId,
-          acceptCompanyId: row.companyId,
-        }
-      });
-      }
-    },
-     Detail345(row) {
-      if(row.taskType == 0){
-        this.$router.push({
-        path: "/admin/mainStaskDetail",
-        query: {
-          taskId: row.taskId
-        }
-      });
-      }
-      else{
-        this.$router.push({
-        path: "/admin/mainStaskDetailLT",
-        query: {
-          taskId: row.mainTaskId,
-          acceptCompanyId: row.acceptCompanyId,
-        }
-      });
-      }
-    },
-      DetailXY(row) {
+    Detail(row) {
       if (row.taskType == 0) {
         this.$router.push({
           path: "/admin/mainStaskDetail",
           query: {
             taskId: row.taskId,
-            checkApplyState:row.checkApplyState 
-          }
+          },
         });
       } else {
         this.$router.push({
@@ -1006,20 +790,36 @@ export default {
           query: {
             taskId: row.taskId,
             acceptCompanyId: row.companyId,
-            checkApplyState:row.checkApplyState 
-          }
+          },
         });
       }
     },
-     DetailQB(row) {
+    Detail345(row) {
       if (row.taskType == 0) {
         this.$router.push({
           path: "/admin/mainStaskDetail",
           query: {
             taskId: row.taskId,
-            checkApplyState:row.checkApplyState ,
-            checkPlanState:row.checkPlanState
-          }
+          },
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/mainStaskDetailLT",
+          query: {
+            taskId: row.mainTaskId,
+            acceptCompanyId: row.acceptCompanyId,
+          },
+        });
+      }
+    },
+    DetailXY(row) {
+      if (row.taskType == 0) {
+        this.$router.push({
+          path: "/admin/mainStaskDetail",
+          query: {
+            taskId: row.taskId,
+            checkApplyState: row.checkApplyState,
+          },
         });
       } else {
         this.$router.push({
@@ -1027,183 +827,222 @@ export default {
           query: {
             taskId: row.taskId,
             acceptCompanyId: row.companyId,
-            checkApplyState:row.checkApplyState ,
-            checkPlanState:row.checkPlanState
+            checkApplyState: row.checkApplyState,
+          },
+        });
+      }
+    },
+    DetailQB(row) {
+      if (row.taskType == 0) {
+        this.$router.push({
+          path: "/admin/mainStaskDetail",
+          query: {
+            taskId: row.taskId,
+            checkApplyState: row.checkApplyState,
+            checkPlanState: row.checkPlanState,
+          },
+        });
+      } else {
+        this.$router.push({
+          path: "/admin/mainStaskDetailLT",
+          query: {
+            taskId: row.taskId,
+            acceptCompanyId: row.companyId,
+            checkApplyState: row.checkApplyState,
+            checkPlanState: row.checkPlanState,
+          },
+        });
+      }
+    },
 
-          }
-        });
-      }
-    },
-   
-   open2(row) {
-      if(row.assignmentState == "待审核"||row.assignmentState =="审核未通过"){
+    open2(row) {
+      if (
+        row.assignmentState == "待审核" ||
+        row.assignmentState == "审核未通过"
+      ) {
         this.$confirm("确定将任务计划书审核通过么？", "提示", {
-        type: "warning"
-      }).then(()=>{
-        var that = this;
-        var data = Qs.stringify({
-          substakeID:row.taskId
+          type: "warning",
+        }).then(() => {
+          var that = this;
+          var data = Qs.stringify({
+            substakeID: row.taskId,
+          });
+          that.axios({
+            method: "post",
+            url: "/api/SubstaskInformation/updateRWJHtoIng",
+            data: data,
+          });
+          this.$message({
+            message: "审核通过",
+            type: "success",
+          });
         });
-        that.axios({
-          method:"post",
-          url:
-          "/api/SubstaskInformation/updateRWJHtoIng",
-          data:data
-        });  
-         this.$message({
-        message: "审核通过",
-        type: "success"
-      });
-      })
-      }
-      else {
+      } else {
         this.$confirm("任务计划书已审核通过无需再次审核", "提示", {
-        type: "warning"
-      })
-      }
-        
-   
-    },
-    tuzhishenhe(row){
-      this.taskCheck = row.taskCheck;
-      if(this.taskCheck == "企业验收不通过"||this.taskCheck == "供应商审核通过"){
-        this.$confirm("确定将设计图纸审核通过么？", "提示", {
-        type: "warning"
-      }).then(()=>{
-        var that = this;
-        var data = Qs.stringify({
-          substakeID:row.taskId
+          type: "warning",
         });
-        that.axios({
-          method:"post",
-          url:
-          "/api/SubstaskInformation/updatetoDSHtoAcc",
-          data:data
-        });  
-         this.$message({
-        message: "审核通过",
-        type: "success"
-      });
-      })
       }
-            else if(this.taskCheck =="企业验收通过"){ this.$confirm("企业已审核通过无需再审核", "提示", {
-        type: "warning"
-      })
-      }
-
-      else{ this.$confirm("待供应商将图纸审核完毕后，企业再行审核", "提示", {
-        type: "warning"
-      })
-      }
-
     },
-     open(row) {
-       if(row.assignmentState == "待审核"||row.assignmentState =="审核未通过"){
-                 this.addVisible = true;
-        this.taskId = row.taskId;
-       }
-      else {
-        this.$confirm("任务计划书已审和通过，无需再次审核", "提示", {
-        type: "warning"
-      })
+    tuzhishenhe(row) {
+      this.taskCheck = row.taskCheck;
+      if (
+        this.taskCheck == "企业验收不通过" ||
+        this.taskCheck == "供应商审核通过"
+      ) {
+        this.$confirm("确定将设计图纸审核通过么？", "提示", {
+          type: "warning",
+        }).then(() => {
+          var that = this;
+          var data = Qs.stringify({
+            substakeID: row.taskId,
+          });
+          that.axios({
+            method: "post",
+            url: "/api/SubstaskInformation/updatetoDSHtoAcc",
+            data: data,
+          });
+          this.$message({
+            message: "审核通过",
+            type: "success",
+          });
+        });
+      } else if (this.taskCheck == "企业验收通过") {
+        this.$confirm("企业已审核通过无需再审核", "提示", {
+          type: "warning",
+        });
+      } else {
+        this.$confirm("待供应商将图纸审核完毕后，企业再行审核", "提示", {
+          type: "warning",
+        });
       }
-
-        
-      },
-     tuzhiNo(row) {
-       if(this.taskCheck == "供应商审核通过"||this.taskCheck == "企业验收不通过"){
+    },
+    open(row) {
+      if (
+        row.assignmentState == "待审核" ||
+        row.assignmentState == "审核未通过"
+      ) {
+        this.addVisible = true;
+        this.taskId = row.taskId;
+      } else {
+        this.$confirm("任务计划书已审和通过，无需再次审核", "提示", {
+          type: "warning",
+        });
+      }
+    },
+    tuzhiNo(row) {
+      if (
+        this.taskCheck == "供应商审核通过" ||
+        this.taskCheck == "企业验收不通过"
+      ) {
         this.addVisible1 = true;
         this.taskId = row.taskId;
-       }
-
-      else if(this.taskCheck == "待审核"||this.taskCheck == "供应商验收不通过"){ 
-                this.$confirm("等待供应商将图纸审核完毕后，企业再行审核", "提示", {
-        type: "warning"
-      })
-      }
-      else{
+      } else if (
+        this.taskCheck == "待审核" ||
+        this.taskCheck == "供应商验收不通过"
+      ) {
+        this.$confirm("等待供应商将图纸审核完毕后，企业再行审核", "提示", {
+          type: "warning",
+        });
+      } else {
         this.$confirm("企业已通过设计图纸，无法拒绝", "提示", {
-        type: "warning"
-      })
+          type: "warning",
+        });
       }
-      },
-      	handleCurrentChange(cpage) {
-
-					this.pageIndex = cpage;
-
-				},
-
-				handleSizeChange(psize) {
-
-					this.pageSize = psize;
-
-                },
-
-                handleSelectionChange(val) {
-
-
-                }
-    }
-  }
-  
-
+    },
+    handleCurrentChange(cpage) {
+      this.pageIndex = cpage;
+    },
+    handleSizeChange(psize) {
+      this.pageSize = psize;
+    },
+    handleSelectionChange(val) {},
+    /**
+     * 表格排序事件处理函数
+     * @param {object} {column,prop,order} 列数据|排序字段|排序方式
+     */
+    sortChange({ prop, order }) {
+      this.tableData.sort(this.compare(prop,order));
+    },
+    /**
+      * 排序比较
+      * @param {string} propertyName 排序的属性名
+      * @param {string} sort ascending(升序)/descending(降序)
+      * @return {function}
+      */
+    compare (propertyName, sort) {
+      return function (obj1, obj2) {
+        var value1 = obj1[propertyName]
+        var value2 = obj2[propertyName]
+        if (typeof value1 === 'string' && typeof value2 === 'string') {
+          const res = value1.localeCompare(value2, 'zh')
+          return sort === 'ascending' ? res : -res
+        } else {
+          if (value1 <= value2) {
+            return sort === 'ascending' ? -1 : 1
+          } else if (value1 > value2) {
+            return sort === 'ascending' ? 1 : -1
+          }
+        }
+      }
+    },
+  },
+};
 </script>
 <style lang = "scss">
-.circulationTask{
+.circulationTask {
+  .shenhe {
+    color: #ffb90f;
+    background-color: #fffaf0;
+    border-color: #ffdcb9;
+  }
+  .yanshou {
+    color: #e066ff;
+    background-color: #ebd3e8;
+    border-color: #fff0f5;
+  }
+  .con {
+    width: 500px;
+    height: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
 
-.shenhe{
-    color:#FFB90F;
-  background-color:#FFFAF0;
-  border-color:#FFDCB9;
-}
-.yanshou{
-   color:#E066FF;
-  background-color:#EBD3E8;
-  border-color:#FFF0F5;
-}
-.con {
-  width: 500px;
-  height: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
+  .handle-box {
+    margin-bottom: 20px;
+  }
 
-.handle-box {
-  margin-bottom: 20px;
-}
+  .handle-select {
+    width: 120px;
+  }
 
-.handle-select {
-  width: 120px;
-}
+  .handle-input {
+    width: 300px;
+    display: inline-block;
+  }
+  .table {
+    width: 100%;
+    font-size: 14px;
+  }
+  .red {
+    color: #ff0000;
+    font-size: 14px;
+  }
+  .mr10 {
+    margin-right: 10px;
+  }
+  .table-td-thumb {
+    display: block;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+  }
+  .box {
+    font-size: 24px;
+  }
 
-.handle-input {
-  width: 300px;
-  display: inline-block;
-}
-.table {
-  width: 100%;
-  font-size: 14px;
-}
-.red {
-  color: #ff0000;
-  font-size: 14px;
-}
-.mr10 {
-  margin-right: 10px;
-}
-.table-td-thumb {
-  display: block;
-  margin: auto;
-  width: 40px;
-  height: 40px;
-}
-.box {
-  font-size: 24px;
-}
-
-.biaoti {
-  font-size: 18px;
-}
+  .biaoti {
+    font-size: 18px;
+  }
 }
 </style>
 

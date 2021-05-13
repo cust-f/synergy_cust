@@ -21,13 +21,16 @@
             </el-form-item>
           </el-col>
           <el-col :span="11">
-            <el-form-item label="子任务名称">
+            <!-- <el-form-item label="子任务名称">
               <el-button
                 class="anniu"
                 type="primary"
                 text-decoration="underline"
                 @click="taskDetil()"
               >{{cool.taskName}}</el-button>
+            </el-form-item> -->
+            <el-form-item label="需求类型">
+              <el-input v-bind:value="taskTpyeName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -43,8 +46,16 @@
             </el-form-item>
           </el-col>
           <el-col :span="11">
-            <el-form-item label="需求类型">
+            <!-- <el-form-item label="需求类型">
               <el-input v-bind:value="taskTpyeName" :readonly="true"></el-input>
+            </el-form-item> -->
+            <el-form-item label="供应方">
+              <el-button
+                class="anniu"
+                type="primary"
+                text-decoration="underline"
+                @click.native="companyDetil()"
+              >{{cool.acceptCompanyName}}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
