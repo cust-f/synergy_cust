@@ -55,6 +55,11 @@
                 </el-form-item>
               </el-col>
               <el-col :span="11">
+                <el-form-item label="需求类型">
+                  <el-input v-model="cool.taskType" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <!-- <el-col :span="11">
                 <el-form-item label="子任务名称">
                   <el-button
                     class="anniu"
@@ -64,13 +69,21 @@
                     >{{ cool.taskName }}</el-button
                   >
                 </el-form-item>
-              </el-col>
+              </el-col> -->
             </el-row>
 
             <el-row>
-              <el-col :span="11">
+              <!-- <el-col :span="11">
                 <el-form-item label="需求类型">
                   <el-input v-model="cool.taskType" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col> -->
+              <el-col :span="11">
+                <el-form-item label="需求方">
+                  <el-input
+                    v-model="cool.companyName"
+                    :disabled="true"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -1303,7 +1316,7 @@
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          全部子任务
+          任务列表
         </div>
         <br />
         <el-table

@@ -15,7 +15,7 @@
                   class="anniu"
                   type="primary"
                   text-decoration="underline"
-                  @click="ziTaskDetail(scope.row)"
+                  @click="taskDetil(scope.row)"
                 >{{cool.mainTaskName}}</el-button>
               </template>
             </el-form-item>
@@ -27,7 +27,7 @@
                 type="primary"
                 text-decoration="underline"
                 @click="taskDetil()"
-              >{{cool.taskName}}</el-button>
+              >{{cool.zitaskDetail}}</el-button>
             </el-form-item> -->
             <el-form-item label="需求类型">
               <el-input v-bind:value="taskTpyeName" :readonly="true"></el-input>
@@ -50,12 +50,13 @@
               <el-input v-bind:value="taskTpyeName" :readonly="true"></el-input>
             </el-form-item> -->
             <el-form-item label="供应方">
-              <el-button
+              <!-- <el-button
                 class="anniu"
                 type="primary"
                 text-decoration="underline"
                 @click.native="companyDetil()"
-              >{{cool.acceptCompanyName}}</el-button>
+              >{{cool.acceptCompanyName}}</el-button> -->
+              <el-input v-model="cool.acceptCompanyName" :readonly="true" style="text-align:center"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -265,7 +266,7 @@
 
     <!-- 子任务详情 -->
     <el-dialog :visible.sync="taskDetilDag" width="50%">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">子任务详情</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">任务详情</div>
       <br />
       <el-form ref="form" :model="cool" label-width="120px">
         <el-row>
