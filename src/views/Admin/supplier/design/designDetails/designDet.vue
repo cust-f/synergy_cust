@@ -139,7 +139,7 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "../designDetails/dataChange";
-import essentialInformation from "../../assembly/essentialInformation";
+import essentialInformation from "../../assembly/essentialInformationDesign";
 import applicationInformation from "../../assembly/applicationInformation";
 import missionPlan from "../../assembly/missPlanDesign";
 import contractManagement from "../../assembly/contractManagementDesign";

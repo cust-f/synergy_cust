@@ -1,7 +1,10 @@
 <template>
   <div class="admin-header">
     <el-row class="header-message">
-      <div style="width: 350px;height: 30px;float: right;">
+      <div style="width: 500px;height: 30px;float: right;">
+        <ul>
+          <li><span slot="reference">{{this.companyName}}</span></li>
+        </ul>
         <ul v-if="log==token">
           <li>
             <el-popover placement="bottom" trigger="hover">
@@ -20,6 +23,7 @@
                 </el-col>
               </el-row>
               <span slot="reference">{{this.reallyName}}</span>
+              <!-- <span slot="reference">{{this.fullName}}</span> -->
               <!-- <span slot="reference">账号管理</span> -->
             </el-popover>
           </li>
@@ -329,6 +333,8 @@ export default {
       }
     };
     return {
+      companyName:"",
+      fullName: "",
       reallyName:'账号',
       log: true,
       collapse: false,
@@ -401,16 +407,20 @@ export default {
           // this.user.email = this.userInfo.email;
           // this.user.phone = this.userInfo.phone;
           // this.user.realName = this.userInfo.realName;
-          // console.log(this.userInfo.realName)
+          console.log(this.userInfo)
           console.log(this.userInfo.roleName)
           console.log("无")
           let r = JSON.stringify(this.userInfo.roleName);
+          this.companyName = this.userInfo.companyName;
           if(this.userInfo.roleName!=""){
+            this.fullName = this.userInfo.companyName +" "+ this.userInfo.roleName;
             this.reallyName=this.userInfo.roleName;
           }else if(this.userInfo.roleName ===""){
+             this.fullName = this.userInfo.companyName +" "+ this.userInfo.roleName;
              this.reallyName=this.username;
           }
           if(this.userInfo.roleName=="无"){
+              this.fullName = this.userInfo.companyName +" "+ this.userInfo.roleName;
               this.reallyName=this.username;
           }
           console.log(reallyName);

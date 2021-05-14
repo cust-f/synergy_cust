@@ -214,12 +214,12 @@ export default {
   },
   created() {
     this.getParams();
+    this.showQuotaData();
     this.showData();
     // this.showData2();
     this.getLDData();
     this.getCirculationCount();
     this.showallData();
-    this.showQuotaData();
   },
   filters: {
     formatDate(time) {
@@ -367,10 +367,14 @@ export default {
             );
           }
           if (this.milepostActive > 2) {
-            if(response.data.allData.a[0].uploadCircuaterTime == ""){
+            if(response.data.allData.a[0].uploadCircuaterTime == null){
+              this.milepost[2].description = this.$options.filters["formatDate"](
+              response.data.allData.a[0].checkContractTime
+              );
+            }else{
               this.milepost[2].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].uploadCircuaterTime
-            );
+              );
             }
           }
           if (this.milepostActive > 3) {
