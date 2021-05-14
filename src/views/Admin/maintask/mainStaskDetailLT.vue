@@ -3455,11 +3455,11 @@ export default {
           data: data,
         });
         this.$message({
-          message: "审核通过",
+          message: "申请审核通过",
           type: "success",
         });
         // this.showData();
-        this.$router.go(0);
+        setTimeout(() => {this.$router.go(0);}, 1000);
       });
     },
     SQJJ(row) {
@@ -3505,11 +3505,11 @@ export default {
           .then((response) => {
             if (response.data == "成功") {
               this.$message({
-                message: "审核通过",
+                message: "计划审核通过",
                 type: "success",
               });
               // this.showData();、
-              this.$router.go(0);
+              setTimeout(() => {this.$router.go(0);}, 1000);
             } else {
               this.$confirm(
                 "您已经通过了一个任务计划，无法再通过另一个任务计划",
@@ -3541,7 +3541,7 @@ export default {
       this.addList1 = {};
       this.addVisible1 = false;
       // this.showData();
-      this.$router.go(0);
+      setTimeout(() => {this.$router.go(0);}, 1000);
     },
     //任务计划下载
     TaskplanDownload(row) {
@@ -3651,11 +3651,11 @@ export default {
           data: data,
         });
         this.$message({
-          message: "审核通过",
+          message: "合同审核通过",
           type: "success",
         });
         // this.showData();
-        this.$router.go(0);
+        setTimeout(() => {this.$router.go(0);}, 1000);
       });
     },
     HTSHJJ(row) {
@@ -3677,7 +3677,7 @@ export default {
       this.addList2 = {};
       this.addVisible2 = false;
       // this.showData();
-      this.$router.go(0);
+      setTimeout(() => {this.$router.go(0);}, 1000);
     },
 
     //密码验证
@@ -3780,12 +3780,11 @@ export default {
           data: data,
         });
         this.GBXJ();
-        // this.showData();
-        this.$router.go(0);
         this.$message({
-          message: "清单通过,并自动生成评价",
+          message: "清单审核通过,并自动生成评价",
           type: "success",
         });
+        setTimeout(() => {this.$router.go(0);}, 1000);
       });
     },
     SJJJ(row) {
@@ -3807,7 +3806,7 @@ export default {
       this.addList3 = {};
       this.addVisible3 = false;
       // this.showData();
-      this.$router.go(0);
+      setTimeout(() => {this.$router.go(0);}, 1000);
     },
     //改变星级别
     GBXJ() {
