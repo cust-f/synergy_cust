@@ -478,7 +478,26 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="11">
+            <el-form-item label="供应方：">
+              <el-input
+                class=".no-el-input"
+                v-model="userData.companyName"
+                :readonly="true"
+              ></el-input>
+            </el-form-item>
+          </el-col>
 
+          <el-col :span="11">
+            <el-form-item label="联系人">
+              <el-input
+                v-model="userData.realName"
+                :readonly="true"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方电话">
@@ -498,6 +517,15 @@
               ></el-input>
             </el-form-item>
           </el-col>
+          <!-- <el-col :span="11">
+            <el-form-item label="联系方式" prop="supplierTel">
+              <el-input
+                v-model="userData.phone"
+                placeholder="请输入用于联系的手机号"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+          </el-col> -->
         </el-row>
         <el-form-item label-width="0" class="dialog-footer">
           <el-button type="warning" @click="apply()">确认申请</el-button>
@@ -526,7 +554,10 @@ export default {
       }
     };
     return {
+      userId:sessionStorage.getItem("userId"),
       roleID:sessionStorage.getItem("roleId"),
+      //userData
+      userData:{},
       //默认logo
       errorImg01: 'this.src="' + require("../company/2.jpg") + '"',
       telphone: 1,
@@ -651,6 +682,7 @@ export default {
     this.getFilePath();
     this.showData();
     // this.showCompanyData();  目前貌似坏掉了正在修复中
+    this.showUserData();//显示用户信息
   },
 
   filters: {
@@ -660,6 +692,24 @@ export default {
     },
   },
   methods: {
+    //显示用户信息
+    showUserData(){
+      var that = this;
+      var data = Qs.stringify({
+        userId: this.userId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/user/findUserData",
+          data: data,
+        })
+        .then((response) => {
+          this.userData = response.data.allData;
+          this.applyList1.supplierTel =  response.data.allData.phone;
+          // console.log(this.userData)
+        });
+    },
     //下载
     downloadFile(row) {
       var that = this;
