@@ -3373,9 +3373,15 @@ export default {
             if (this.milepostActive > 1) {
             }
             if (this.milepostActive > 2) {
-              this.milepost[2].description = this.$options.filters[
+              if(response.data.allData.d[0].uploadCircuaterTime == null){
+                this.milepost[2].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.d[0].checkContractTime);
+              }else{
+                this.milepost[2].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.d[0].uploadCircuaterTime);
+              };
               this.milepost[3].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.d[0].finishTime);
