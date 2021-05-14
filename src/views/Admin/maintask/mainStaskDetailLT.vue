@@ -55,6 +55,11 @@
                 </el-form-item>
               </el-col>
               <el-col :span="11">
+                <el-form-item label="需求类型">
+                  <el-input v-model="cool.taskType" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col>
+              <!-- <el-col :span="11">
                 <el-form-item label="子任务名称">
                   <el-button
                     class="anniu"
@@ -64,13 +69,21 @@
                     >{{ cool.taskName }}</el-button
                   >
                 </el-form-item>
-              </el-col>
+              </el-col> -->
             </el-row>
 
             <el-row>
-              <el-col :span="11">
+              <!-- <el-col :span="11">
                 <el-form-item label="需求类型">
                   <el-input v-model="cool.taskType" :disabled="true"></el-input>
+                </el-form-item>
+              </el-col> -->
+              <el-col :span="11">
+                <el-form-item label="需求方">
+                  <el-input
+                    v-model="cool.companyName"
+                    :disabled="true"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -196,7 +209,9 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- 暂时注释 -->
-              <el-button @click="changeTime(scope.row)" size="small" type="text">修改时间</el-button>
+              <el-button @click="changeTime(scope.row)" size="small" type="text"
+                >修改时间</el-button
+              >
               <el-button
                 type="text"
                 size="small "
@@ -250,9 +265,11 @@
             </el-table-column>
             <el-table-column prop="productName" label="产品名称">
               <template slot-scope="scope">
-                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">{{
-                  scope.row.productName
-                }}</el-link>
+                <el-link
+                  @click.native="showLineChart(scope.row)"
+                  :disabled="dialogLineChartVisible"
+                  >{{ scope.row.productName }}</el-link
+                >
               </template>
             </el-table-column>
             <el-table-column
@@ -293,6 +310,75 @@
           </div>
         </el-form>
       </el-dialog>
+
+      <div v-show="milepostActive2">
+        <div
+          class="biaoti"
+          style="padding: 0 10px; border-left: 3px solid #4e58c5"
+        >
+          流通清单
+        </div>
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <br />
+        <el-table
+          :data="quotaData"
+          border
+          class="table1"
+          ref="multipleTable"
+          header-cell-class-name="table-header"
+        >
+          <!-- mainTaskID冲-->
+          <el-table-column
+            label="序号"
+            type="index"
+            width="50"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="Company_Name"
+            align="center"
+            label="供应商"
+            width="250"
+          ></el-table-column>
+          <el-table-column
+            prop="Product_Name"
+            label="产品名称"
+            align="center"
+            width="100"
+          ></el-table-column>
+          <el-table-column
+            prop="Parts_Category"
+            label="类别"
+            align="center"
+            width="100"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="Consignment_Time_Latest"
+            label="截止时间"
+            align="center"
+            width="125"
+          >
+            <template slot-scope="scope">
+              <span v-if="+scope.row.planUploadTime === 0">暂未上传</span>
+              <span v-else>{{
+                scope.row.Consignment_Time_Latest | formatDate
+              }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="Contact_Number"
+            label="联系电话"
+            align="center"
+            width="120"
+          >
+          </el-table-column>
+          <el-table-column prop="Quota_Number" label="产品数量" align="center">
+          </el-table-column>
+        </el-table>
+        <br />
+        <br />
+      </div>
 
       <div v-show="milepostActive2">
         <div
@@ -808,24 +894,24 @@
           </el-row>
           <el-row>
             <el-col :span="11">
-              <el-form-item label="清单截止时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.consignmentTimeLastest"
-                  :disabled="timeList.consignmentTimeLastest==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
               <el-form-item label="清单审核时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
                   v-model="timeList.checkCircuaterTime"
                   :disabled="timeList.checkCircuaterTime==null?true:false"
+                  style="width: 100%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="清单截止时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.consignmentTimeLastest"
+                  :disabled="timeList.consignmentTimeLastest==null?true:false"
                   style="width: 100%"
                   value-format
                 ></el-date-picker>
@@ -1265,7 +1351,7 @@
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          全部子任务
+          任务列表
         </div>
         <br />
         <el-table
@@ -1882,20 +1968,29 @@
           <!-- <template slot="title">
              {{this.lineTitle}}
           </template> -->
-        <div class="type2-situation">{{this.lineTitle}}</div>
-        <br/>
-        <div class="type22-situation">
-          <span class="title-inventory">{{"当前库存量："+this.nowInventoryNum}}</span>
-          &nbsp;
-          <span class="title-sale">{{"当前销售量："+this.nowSaleNum}}</span>
-        </div>
-        <br/>
-        <div class="type23-situation">
-          <span class="title-star">
-              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
-          </span>
-        </div>
-        <br/>
+          <div class="type2-situation">{{ this.lineTitle }}</div>
+          <br />
+          <div class="type22-situation">
+            <span class="title-inventory">{{
+              "当前库存量：" + this.nowInventoryNum
+            }}</span>
+            &nbsp;
+            <span class="title-sale">{{
+              "当前销售量：" + this.nowSaleNum
+            }}</span>
+          </div>
+          <br />
+          <div class="type23-situation">
+            <span class="title-star">
+              <el-rate
+                v-model="this.nowStar"
+                disabled
+                show-score
+                text-color="#ff9900"
+              ></el-rate>
+            </span>
+          </div>
+          <br />
           <div style="float: right">
             <template>
               <el-select
@@ -1966,19 +2061,20 @@ export default {
       usernameX: sessionStorage.getItem("ms_username"),
       //
       zirenwuXX: "",
+      quotaData: [],  //流通清单信息
       dialogLineChartVisible: false, //显示折线图
       options: [],
       lineYear: "",
-      productCompanyId:"",
-      productCompanyName:"",
-      productName1:"",
-      lineTitle:"",
+      productCompanyId: "",
+      productCompanyName: "",
+      productName1: "",
+      lineTitle: "",
       //当前库存量
-      nowInventoryNum:"",
+      nowInventoryNum: "",
       //当前销售量
-      nowSaleNum:"",
+      nowSaleNum: "",
       //当前推荐星级
-      nowStar:"2.5",
+      nowStar: "2.5",
       /**
        * 数据统计
        */
@@ -1991,9 +2087,9 @@ export default {
         //月份数量
         months: [],
         //销售量(预测)
-        salePredictionCount:[],
+        salePredictionCount: [],
         //库存量(预测)
-        inventoryPredictionCount:[],
+        inventoryPredictionCount: [],
       },
       //质量完成图数据源
       formZL: {
@@ -2285,11 +2381,30 @@ export default {
   },
   created() {
     this.getParams();
+    this.showQuotaData();
     this.showData();
     this.getYearData();
     this.findCompanyByProductName();
   },
   methods: {
+    //显示份额分配数据的内容
+    showQuotaData() {
+      var that = this;
+      var data = Qs.stringify({
+        mainTaskID: this.taskId,
+        acceptCompanyId: this.acceptCompanyId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/circulationQuotaInfoPublish",
+          data: data,
+        })
+        .then((response) => {
+          this.quotaData = response.data.allData.quotaList;
+          console.log(response)
+        });
+    },
     //获取条件选择时间数据
     getYearData() {
       let that = this;
@@ -2303,37 +2418,39 @@ export default {
     showLineChart(row) {
       this.dialogLineChartVisible = true;
       this.findCompanyByProductName(row);
-      this.lineTitle = this.productCompanyName + " / " + row.productName + "销量趋势图";
+      this.lineTitle =
+        this.productCompanyName + " / " + row.productName + "销量趋势图";
       // this.lineTitle = row.productName + "销量趋势图";
       this.lineChart(row);
       this.getYearData();
-
     },
     //按要求显示
     lineChart(row) {
       var that = this;
       this.productName1 = row.productName;
-      console.log(row.productName)
+      console.log(row.productName);
       var data = Qs.stringify({
-          // companyId: row.companyId,
-          companyId: this.productCompanyId,
-          year: this.lineYear,
-          productName: this.productName1,
-        });
-        console.log(data)
-        console.log(this.productName1)
+        // companyId: row.companyId,
+        companyId: this.productCompanyId,
+        year: this.lineYear,
+        productName: this.productName1,
+      });
+      console.log(data);
+      console.log(this.productName1);
       that
-      .axios({
-            method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
-            data: data,
-          })
+        .axios({
+          method: "post",
+          url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
+          data: data,
+        })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
-          this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
-          this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
+          this.lineData.salePredictionCount =
+            response.data.allData.salePredictionCount;
+          this.lineData.inventoryPredictionCount =
+            response.data.allData.inventoryPredictionCount;
           this.nowInventoryNum = response.data.allData.nowMonthInventoryCount;
           this.nowSaleNum = response.data.allData.nowMonthSaleCount;
           that.$refs.drawLineChart.getCharts();
@@ -2344,25 +2461,27 @@ export default {
     lineChartChange() {
       var that = this;
       var data = Qs.stringify({
-          companyId: this.productCompanyId,
-          year: this.lineYear,
-          productName: this.productName1,
-        });
-        console.log(this.productCompanyId)
-        console.log(data)
-        console.log(this.productName1)
+        companyId: this.productCompanyId,
+        year: this.lineYear,
+        productName: this.productName1,
+      });
+      console.log(this.productCompanyId);
+      console.log(data);
+      console.log(this.productName1);
       that
-      .axios({
-            method: "post",
-            url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
-            data: data,
-          })
+        .axios({
+          method: "post",
+          url: "/api/dataStatistics/allMonthSaleAndInventoryCountPrediction",
+          data: data,
+        })
         .then((response) => {
           this.lineData.saleCount = response.data.allData.saleCount;
           this.lineData.inventoryCount = response.data.allData.inventoryCount;
           this.lineData.months = response.data.allData.monthCount;
-          this.lineData.salePredictionCount = response.data.allData.salePredictionCount;
-          this.lineData.inventoryPredictionCount = response.data.allData.inventoryPredictionCount;
+          this.lineData.salePredictionCount =
+            response.data.allData.salePredictionCount;
+          this.lineData.inventoryPredictionCount =
+            response.data.allData.inventoryPredictionCount;
           that.$refs.drawLineChart.getCharts();
           console.log(allData);
         });
@@ -2371,20 +2490,20 @@ export default {
     findCompanyByProductName(row) {
       var that = this;
       var data = Qs.stringify({
-          companyId: this.productCompanyId,
-          userName: this.usernameX,
-          productName: row.productName,
+        companyId: this.productCompanyId,
+        userName: this.usernameX,
+        productName: row.productName,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/dataStatistics/findCompanyStarByProductName",
+          data: data,
+        })
+        .then((response) => {
+          this.nowStar = response.data.allData; //接收返回的企业列表
         });
-        that
-          .axios({
-            method: "post",
-            url: "/api/dataStatistics/findCompanyStarByProductName",
-            data: data,
-          })
-          .then((response) => {
-            this.nowStar = response.data.allData; //接收返回的企业列表
-          });
-      },
+    },
     //全部通过
     allPass() {},
     changeDeliveryTime(row) {
@@ -2664,7 +2783,7 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data.allData;
-          comsole.log(this.tableData)
+          comsole.log(this.tableData);
           var temp = 0; //检查下面的已发货，已完成
           this.liu = false;
           if (this.taskState == "完成") {
@@ -2708,9 +2827,9 @@ export default {
       this.shenqingTC = true;
       this.productCompanyId = row.companyId;
       this.productCompanyName = row.companyName;
-      console.log(row)
-      console.log(this.productCompanyId)
-      console.log(this.productCompanyName)
+      console.log(row);
+      console.log(this.productCompanyId);
+      console.log(this.productCompanyName);
       var that = this;
       var data = Qs.stringify({
         taskId: row.taskId,
@@ -2940,8 +3059,8 @@ export default {
             // console.log(error.response);
           });
 
-          console.log(this.cool.mainTaskName)
-          console.log(this.mainTaskName)
+        console.log(this.cool.mainTaskName);
+        console.log(this.mainTaskName);
 
         // this.cool.mainTaskName = this.mainTaskName;
         this.ZRWXG = false;
@@ -3125,15 +3244,15 @@ export default {
       var checkApplyState = this.$route.query.checkApplyState;
       this.acceptCompanyId = routerParamsAcceptCompanyId;
       this.taskId = routerParams;
-      console.log(this.acceptCompanyId)
-      console.log(this.taskId)
+      console.log(this.acceptCompanyId);
+      console.log(this.taskId);
       this.CDcheckApplyState = this.$route.query.checkApplyState;
       this.CDgetPlanState = this.$route.query.checkPlanState;
       console.log("CDgetPlanState" + this.CDgetPlanState);
       this.getAcceptUserId();
     },
     //根据接收企业的id（acceptCompanyId）查询其acceptUserId
-    getAcceptUserId(){
+    getAcceptUserId() {
       var that = this;
       var data = Qs.stringify({
         acceptCompanyId: this.acceptCompanyId,
@@ -3145,14 +3264,14 @@ export default {
           data: data,
         })
         .then((response) => {
-          (this.acceptUserId = response.data.allData)
+          this.acceptUserId = response.data.allData;
         });
     },
     showData() {
       var that = this;
       var data = Qs.stringify({
-        subStaskID: this.taskId,  //taskApply表中的taskId表示mainTaaskId
-        companyId: this.acceptCompanyId,  //对应的接收方companyId
+        subStaskID: this.taskId, //taskApply表中的taskId表示mainTaaskId
+        companyId: this.acceptCompanyId, //对应的接收方companyId
       });
       that
         .axios({
@@ -3282,9 +3401,15 @@ export default {
             if (this.milepostActive > 1) {
             }
             if (this.milepostActive > 2) {
-              this.milepost[2].description = this.$options.filters[
+              if(response.data.allData.d[0].uploadCircuaterTime == null){
+                this.milepost[2].description = this.$options.filters[
+                "formatDate"
+              ](response.data.allData.d[0].checkContractTime);
+              }else{
+                this.milepost[2].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.d[0].uploadCircuaterTime);
+              };
               this.milepost[3].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.d[0].finishTime);
@@ -3364,7 +3489,7 @@ export default {
         type: "warning",
       }).then(() => {
         var that = this;
-        console.log(row)
+        console.log(row);
         var data = Qs.stringify({
           taskID: row.taskId,
           ID: row.id,
@@ -3746,19 +3871,19 @@ export default {
 
 .mainStaskDetaulLT {
   .top {
-  margin-top: 20px;
-  height: 100px;
-  margin-bottom: 10px;
-  width: 100%;
-  background-color: #fff4ee;
-  border: 1px solid red;
-  border-radius: 5px;
-  .inside {
-    padding: 15px;
-    .btn {
+    margin-top: 20px;
+    height: 100px;
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: #fff4ee;
+    border: 1px solid red;
+    border-radius: 5px;
+    .inside {
+      padding: 15px;
+      .btn {
+      }
     }
   }
-}
   .customer-table {
     padding-top: 3px;
     padding-bottom: 3px;
@@ -3951,34 +4076,34 @@ export default {
   .el-dialog__header {
     padding: 0px 0px 0px;
   }
-  .lineChartLT{
+  .lineChartLT {
     .el-dialog__header {
-    padding: 20px 20px 0px;
-  }
-  .el-dialog {
-    width: 959px;
-  }
-  .type2-situation {
-  // margin-left: 35%;
-  text-align: center;
-  color: #303133;
-  // font-size: 1.8rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  }
-  .type22-situation {
-  // margin-left: 36%;
-  text-align: center;
-  font-size: 14;
-  color: #303133;
-  // font-weight: bold;
-  }
-  .type23-situation {
-  // margin-left: 40%;
-  text-align: center;
-  font-size: 14;
-  // font-weight: bold;
-  }
+      padding: 20px 20px 0px;
+    }
+    .el-dialog {
+      width: 959px;
+    }
+    .type2-situation {
+      // margin-left: 35%;
+      text-align: center;
+      color: #303133;
+      // font-size: 1.8rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .type22-situation {
+      // margin-left: 36%;
+      text-align: center;
+      font-size: 14;
+      color: #303133;
+      // font-weight: bold;
+    }
+    .type23-situation {
+      // margin-left: 40%;
+      text-align: center;
+      font-size: 14;
+      // font-weight: bold;
+    }
   }
 }
 </style>
