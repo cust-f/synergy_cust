@@ -219,6 +219,39 @@
           </div>
         </div>
         <el-divider></el-divider>
+                  <!-- 这里是流通清单详情 -->
+           <div v-show="LTQD">
+        <el-divider></el-divider>
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
+          流通清单
+        </div>
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+        <!-- 流通清单表格 -->
+        <div>
+          <el-table :data="consignmentTable" style="width: 100%" border highlight-current-row>
+            <el-table-column type="index" label="序号" width="50">
+              <template slot-scope="scope">
+                <span>{{ scope.$index + 1 }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="产品名称" width="199" prop="productName"></el-table-column>
+            <el-table-column label="产品数量" width="100" prop="productNumber"></el-table-column>
+            <el-table-column label="产品类别" width="160" prop="partsCategory"></el-table-column>
+            <el-table-column prop="consignmentTimeLatest" label="截止时间" sortable>
+              <template slot-scope="scope">
+                {{ scope.row.consignmentTimeLatest | formatDate }}
+              </template>
+            </el-table-column>
+            <el-table-column label="联系电话" width="160" prop="contactNumber"></el-table-column>
+            <el-table-column label="操作" width="100">
+              <template slot-scope="scope">
+                <el-button @click="consignmentDetail(scope.row)" type="text" size="small ">查看详情</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+        <!-- 这里放两张图片 -->
         <el-image
           v-if="addList.taskType == '1'"
           :src="
@@ -554,37 +587,7 @@
         </el-dialog>
       </div>
 
-           <div v-show="LTQD">
-        <el-divider></el-divider>
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
-          流通清单
-        </div>
-        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <!-- 流通清单表格 -->
-        <div>
-          <el-table :data="consignmentTable" style="width: 100%" border highlight-current-row>
-            <el-table-column type="index" label="序号" width="50">
-              <template slot-scope="scope">
-                <span>{{ scope.$index + 1 }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="产品名称" width="199" prop="productName"></el-table-column>
-            <el-table-column label="产品数量" width="100" prop="productNumber"></el-table-column>
-            <el-table-column label="产品类别" width="160" prop="partsCategory"></el-table-column>
-            <el-table-column prop="consignmentTimeLatest" label="截止时间" sortable>
-              <template slot-scope="scope">
-                {{ scope.row.consignmentTimeLatest | formatDate }}
-              </template>
-            </el-table-column>
-            <el-table-column label="联系电话" width="160" prop="contactNumber"></el-table-column>
-            <el-table-column label="操作" width="100">
-              <template slot-scope="scope">
-                <el-button @click="consignmentDetail(scope.row)" type="text" size="small ">查看详情</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-      </div>
+
       </el-main>
     </el-container>
   </div>
@@ -1101,11 +1104,19 @@ export default {
                 this.consignmentTableShuaxin();
                 this.LTQD = 1;
                 this.Circulationlist=true;
+                setTimeout(() => {
+                this.$router.push({
+                  path: "/admin/substaskDetailLT",
+                    query: {
+                mainTaskID: this.MainTaskID
+                    }
+              });}, 300);
               }
             })
             .catch((error) => {
               console.log(error);
-            });
+            }
+            );
         } else {
           this.$message({
             type: "warning",
@@ -1113,6 +1124,7 @@ export default {
           });
         }
       });
+      
     },
     //======新增流通清单弹出
     bianjitanchu() {
