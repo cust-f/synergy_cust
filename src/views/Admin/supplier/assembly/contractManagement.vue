@@ -459,17 +459,19 @@ export default {
         this.technicalFile[this.shangchuancishu] +
         "linklink";
       this.shangchuancishu = this.shangchuancishu + 1;
-      this.$notify.success({
-        title: "成功",
-        message: `文件上传成功`
-      });
+      // this.$notify.success({
+      //   title: "成功",
+      //   message: `文件上传成功`
+      // });
+      this.$message.success("文件上传成功");
+      this.conbook = false;
+
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
         userId: this.userId,
         Text_File: this.technicalFileWanzheng
       });
-
       that
         .axios({
           method: "post",
@@ -479,7 +481,9 @@ export default {
         .then(response => {
           this.technicalFileWanzheng = "";
         });
-      this.$router.go(0);
+
+      setTimeout(() => {this.$router.go(0);}, 1000);
+      
     }
   }
 };
