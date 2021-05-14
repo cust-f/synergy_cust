@@ -214,12 +214,12 @@ export default {
   },
   created() {
     this.getParams();
+    this.showQuotaData();
     this.showData();
     // this.showData2();
     this.getLDData();
     this.getCirculationCount();
     this.showallData();
-    this.showQuotaData();
   },
   filters: {
     formatDate(time) {
