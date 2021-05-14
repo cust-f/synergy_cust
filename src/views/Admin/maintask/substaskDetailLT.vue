@@ -113,7 +113,7 @@
               <p style="margin:0px 0px 10px 0px;"><i class="el-icon-edit" style="color:#409EFF;"></i>请选择需要修改的内容：</p>
               <div style="text-align: right; margin: 0">
                 <el-button type="text" size="mini" @click="showMainTaskChange()">需求信息</el-button>
-                <el-button type="text" size="mini" @click="showConsignmentChange()">流通清单</el-button>
+                <el-button type="text" size="mini" @click="showConsignmentChange()" :disabled="!quotaEditButtonVisible">流通清单</el-button>
               </div>
               <el-button type="primary" class="button1" slot="reference">修改</el-button>
             </el-popover>
@@ -124,19 +124,14 @@
           <!-- <div v-show="applyListVisible"> -->
           <div>
             <el-row>
-              <el-col :span="13">
+              <el-col :span="24">
                 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
                   申请列表
                 </div>
               </el-col>
-              <el-col :span="11">
-                <div id="div2" align="right">
-                  <el-button v-if="quotaButtonVisible == true" type="primary" size="medium" style="margin-top: -20px" @click="setQuota">配额分配</el-button>
-                </div>
-              </el-col>
             </el-row>
             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-            <el-table :data="applyTableData" border class="table1" ref="multipleTable" header-cell-class-name="table-header">
+            <el-table :data="applyTableData" border ref="multipleTable" header-cell-class-name="table-header">
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
               <el-table-column prop="Company_Name" align="center" label="供应商">
                 <template slot-scope="scope">
@@ -200,12 +195,22 @@
           </div>
 
           <div v-show="quotaListVisible">
-            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
-              配额分配
-            </div>
+            <el-row>
+              <el-col :span="13">
+                <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
+                  配额分配
+                </div>
+              </el-col>
+              <el-col :span="11">
+                <div id="div2" align="right">
+                  <el-button v-show="quotaButtonVisible == true" type="primary" size="medium" style="margin-top: -20px"  @click="setQuota">智能分配</el-button>
+                  <el-button v-show="quotaEditButtonVisible == true" @click="showQuotaChange()" type="primary" size="medium" style="margin-top: -20px">修改配额</el-button>
+                </div>
+              </el-col>
+            </el-row>
             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-            <br />
-            <el-table :data="quotaTableData" border class="table1" ref="multipleTable" header-cell-class-name="table-header">
+            <!-- <br /> -->
+            <el-table :data="quotaTableData" border class="quotaTable" ref="multipleTable" header-cell-class-name="table-header">
               <!-- mainTaskID冲-->
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
               <el-table-column prop="Company_Name" align="center" label="供应商">
@@ -252,15 +257,21 @@
                   <span v-else>其他</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Quota_Number" label="配额" align="center" width="60">
+              <el-table-column prop="Quota_Number" label="配额" align="center" width="82" >
                 <template slot-scope="scope">
                   <span v-if="scope.row.Quota_Number != undefined">{{scope.row.Quota_Number}}</span>
                   <span v-else>0</span>
                 </template>
+                <!-- <template slot-scope="scope">
+                  <template v-if="quotaEditable === true">
+                    <el-input size="small" v-model="scope.row.Quota_Number">{{ scope.row.Quota_Number }}</el-input>
+                  </template>
+                  <span v-else-if="scope.row.Quota_Number != undefined">{{ scope.row.Quota_Number }}</span>
+                  <span v-else>0</span>
+                </template> -->
               </el-table-column>
               <el-table-column label="操作" align="center" width="97">
                 <template slot-scope="scope">
-                  <!-- <el-button @click="XGPE(scope.row)" type="text" size="small">修改</el-button> -->
                   <el-button @click="substaskDetailLT(scope.row)" type="text" size="small">查看详情</el-button>
                 </template>
               </el-table-column>
@@ -438,6 +449,70 @@
             <span slot="footer" class="dialog-footer">
               <el-button @click="consignmentVisible = false">取 消</el-button>
               <el-button type="primary" @click="saveConsignmentChange()">确 定</el-button>
+            </span>
+          </el-dialog>
+
+          <!-- 修改配额数 弹出框 -->
+          <el-dialog title :visible.sync="quotaEditVisible" width="50%" class="quotaEditDialog">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
+              修改配额分配
+            </div>
+            <br />
+            <el-table :data="quotaEditTableData" class="quotaTable" ref="multipleTable" header-cell-class-name="table-header" show-summary :summary-method="getSummaries">
+              <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+              <el-table-column prop="Company_Name" align="center" label="供应商">
+              </el-table-column>
+              <el-table-column prop="Product_Name" label="产品名称" align="center" width="80">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.Product_Name != undefined">{{scope.row.Product_Name}}</span>
+                  <span v-else>暂无</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Parts_Category" label="类别" align="center" width="100">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.Parts_Category != undefined">{{scope.row.Parts_Category}}</span>
+                  <span v-else>暂无</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Sale" label="销量" align="center" width="80">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.Sale != undefined">{{scope.row.Sale}}</span>
+                  <span v-else>暂无</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Reserve" label="库存" align="center" width="80">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.Reserve != undefined">{{scope.row.Reserve}}</span>
+                  <span v-else>暂无</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Price" label="价格" align="center" width="80">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.Price != undefined">{{scope.row.Price}}</span>
+                  <span v-else>暂无</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Apply_Way" label="申请/邀请" align="center" width="80">
+                <template slot-scope="scope">
+                  <span v-if="+scope.row.Apply_Way === 0">邀请</span>
+                  <span v-else-if="+scope.row.Apply_Way === 1">申请</span>
+                  <span v-else>其他</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Quota_Number" label="配额" align="center" width="82" >
+                <template slot-scope="scope">
+                  <template v-if="scope.row.Quota_Number != undefined">
+                    <el-input type="number" oninput ="value=value.replace(/[^\d]/g,'')" size="small" v-model="scope.row.Quota_Number">{{ scope.row.Quota_Number }}</el-input>
+                  </template>
+                  <template v-else>
+                    <el-input size="small" v-model="scope.row.Quota_Number">{{ 0 }}</el-input>
+                  </template>
+                </template>
+              </el-table-column>
+            </el-table>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="cancelQuotaChange()">取 消</el-button>
+              <el-button type="primary" @click="saveQuotaChange()">确 定</el-button>
             </span>
           </el-dialog>
 
@@ -645,10 +720,13 @@ export default {
       mainTaskEditVisible: false, //主需求修改弹框显示
       consignmentVisible: false, // 流通清单弹出框显示
       companyDetailVisible: false, //企业信息弹框显示
-      applyListVisible: true, //申请列表列表显示
+      applyListVisible: false, //申请列表列表显示
       quotaListVisible: false, //配额分配列表显示
       quotaButtonVisible: false, //配额分配按钮显示
       popoverVisible:false, // 修改选项小框显示
+      quotaEditButtonVisible:false, //配额修改按钮显示
+      quotaEditVisible:false, // 配额修改弹框显示
+      quotaEditable:false, // 配额行内可编辑
       // 需求方负责人信息
       demanderPrincipal: [],
       //行业类别 选项列表
@@ -680,6 +758,10 @@ export default {
       applyTableData: [],
       //配额分配数据
       quotaTableData: [],
+      // 配额修改总和
+      quotaSum:0,
+      // 配额修改行数
+      quotaEditNum:0,
       //主任务需求书数据
       technicalFile: [],
       technicalFileWanzheng: "",
@@ -942,6 +1024,7 @@ export default {
           this.quotaButtonVisible = response.data.allData.quotaButtonVisible;
           this.applyListVisible = response.data.allData.applyListVisible;
           this.quotaListVisible = response.data.allData.quotaListVisible;
+          this.quotaEditButtonVisible = response.data.allData.quotaEditButtonVisible;
         });
     },
     // 主需求基本信息 - 查看需求详情（点击需求名）
@@ -1241,10 +1324,16 @@ export default {
       // 如果没有流通清单 提示修改流通清单
       if( this.mainTaskInfo.consignmentInfo == undefined ){
         // this.consignmentVisible = true;
-        this.$message.warning("暂无可分配数量，请修改流通清单");
+        // this.$message.warning("暂无可分配数量，请修改流通清单");
+        this.$confirm("暂无可分配数量，请修改流通清单！", "提示", {
+        type: "warning",
+      })
+        .then(() => {
+          this.consignmentVisible = true;
+        })
       } else{
       // 如果有数量 分配
-      this.$confirm("确定要配额分配吗？", "提示", {
+      this.$confirm("确定要智能分配吗？", "提示", {
         type: "warning",
       })
         .then(() => {
@@ -1260,23 +1349,124 @@ export default {
             })
             .then((response) => {
               this.getMainTaskData();
+              this.getSubtaskData();
             });
         }).catch(() => {
-          this.$message.info("取消配额分配");
+          this.$message.info("取消智能分配");
         });
       }
+    },
+    // 配额数 - 修改弹出
+    showQuotaChange(){
+      // 保存原来的数据
+      this.quotaEditTableData = JSON.parse(JSON.stringify(this.quotaTableData));
+      this.quotaEditTableData.forEach((v,i)=>{
+        if(v.Quota_Number != null){
+          v.oldQuotaNum = v.Quota_Number;
+        }
+      })
+      // 显示弹出框
+      this.quotaEditVisible = true;
+    },
+    // 配额数 - 修改保存
+    saveQuotaChange(){
+      this.quotaSum = 0;
+      this.quotaEditNum = 0;
+      this.quotaEditTableData.forEach((v,i)=>{
+        if(v.Quota_Number != null){
+          this.quotaSum = parseInt(this.quotaSum) + parseInt(v.Quota_Number);
+        }
+        if(v.Quota_Number != v.oldQuotaNum){
+          this.quotaEditNum = parseInt(this.quotaEditNum) + 1;
+        }
+      })
+      if(parseInt(this.quotaSum) != parseInt(this.mainTaskInfo.consignmentInfo.productNumber)){
+        this.$message.warning("配额分配总和应为"+this.mainTaskInfo.consignmentInfo.productNumber+"，请重新修改后再次保存");
+      }else{
+        if(parseInt(this.quotaEditNum) == 0){
+          this.$message.warning("配额数未修改，无需保存");
+          this.cancelQuotaChange();
+        }else{
+          this.$confirm("确定要修改配额数量吗？", "提示", {
+            type: "warning",
+          })
+          .then(() => {
+            // 调用接口
+            this.quotaEditTableData.forEach((v,i)=>{
+              var that = this;
+              var data = Qs.stringify({
+                mainTaskId: this.mainTaskID,
+                companyId: v.Company_ID,
+                quotaNumber: v.Quota_Number,
+                quotaPrice: v.Quota_Number * this.mainTaskInfo.consignmentInfo.productPrice
+              });
+              that
+                .axios({
+                  method: "post",
+                  url:"/api/SubstaskInformation/updateQuotaNumberByMainTaskIdAndCompanyId",
+                  data: data,
+                })
+            })
+            // this.getSubtaskData(); // 接口运行慢 会刷新不出来 直接拷贝
+            this.quotaTableData = JSON.parse(JSON.stringify(this.quotaEditTableData));
+            this.$message.success("修改配额成功");
+            this.quotaEditVisible = false;
+          })
+          .catch(() => {
+            this.$message.warning("取消修改配额");
+            this.cancelQuotaChange();// 恢复数据
+          })
+        }
+      }
+    },
+    // 配额数 - 修改取消
+    cancelQuotaChange(){
+      // 恢复原来的数据
+      this.quotaEditTableData.forEach((v,i)=>{
+        if(v.Quota_Number != null){
+          v.Quota_Number = v.oldQuotaNum;
+        }
+      })
+      this.quotaEditVisible = false;
+    },
+    // 修改配额分配 - 获得合计数
+    getSummaries(param){
+      const { columns, data } = param;
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 8) {
+					const values = data.map(item => Number(item[column.property]))
+					if (!values.every(value => isNaN(value))) {
+						sums[index] = values.reduce((prev, curr) => {
+							const value = Number(curr)
+							if (!isNaN(value)) {
+								return prev + curr
+							} else {
+								return prev
+							}
+						}, 0)
+					} else {
+						sums[index] = '';
+					}
+				} else {
+					sums[index] = ''
+				}
+      });
+      sums[5] = '应分配：';
+      sums[6] = this.mainTaskInfo.consignmentInfo.productNumber;
+      sums[7] = '已分配：';
+      return sums;
     },
     // 配额列表 - 查看子任务详情
     substaskDetailLT(row) {
       this.$router.push({
         path: "/admin/mainStaskDetailLT",
         query: {
-          taskId: row.Task_ID,
+          taskId: row.Main_Task_ID,
           acceptCompanyId: row.Company_ID,
         },
       });
-    },
-
+    },  
     //获取条件选择时间数据
     getYearData() {
       let that = this;
@@ -1581,6 +1771,45 @@ export default {
   .el-table__fixed::before {
     width: 0;
   }
+  .quotaTable {
+    .el-input--small .el-input__inner {
+      text-align: center;
+      font-family: 'PingFang SC', "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+      font-size: 14px;
+      padding: 0px 0px 0px 8px;
+    }
+  }
+  .quotaEditDialog{
+    .el-dialog__body{
+      padding-right: 20px;
+    }
+    /* 垂直居中 */ 
+    // .el-dialog{
+    //   display: flex;
+    //   display: -ms-flex; /* 兼容IE */
+    //   flex-direction: column;
+    //   -ms-flex-direction: column; /* 兼容IE */
+    //   margin:0 !important;
+    //   position:absolute;
+    //   top:50%;
+    //   left:50%;
+    //   transform:translate(-50%,-50%);
+    //   max-height:calc(100% - 30px);
+    //   max-width:calc(100% - 30px);
+    // }
+    // .el-dialog .el-dialog__body{
+    //   max-height: 100%;
+    //   flex: 1;
+    //   -ms-flex: 1 1 auto; /* 兼容IE */
+    //   overflow-y: auto;
+    //   overflow-x: hidden;
+    // }
+    // .el-dialog__wrapper {
+    //   /*隐藏ie和edge中遮罩的滚动条*/
+    //   overflow: hidden;
+    // }
+  }
+
 }
 .consignment {
   .el-dialog__body {
