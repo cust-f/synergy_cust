@@ -80,13 +80,23 @@
       width="1000px"
       @click="handleClose"
     >
+        <div
+              class="biaoti"
+              style="
+                padding: 0 10px;
+                border-left: 3px solid rgb(78, 88, 197);
+                margin-bottom: 6px;
+              "
+            >
+              备货信息
+            </div>
 
       <div class="top">
         <div class="inside">
           <div style="width: 100%; margin-bottom: 10px">
             <el-row>
-                <el-col :span="5" class="nowstatus">
-            <span style="color: black" >当前订单状态: </span>
+                <el-col :span="4" class="nowstatus">
+            <span style="color: black" >发货状态: </span>
             <span style="color: #409eff">
               &nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</span
             >
@@ -104,28 +114,43 @@
           </el-row>
           <!-- 这里写需求方 -->
           <el-row>
-             <el-col :span="10">
+             <el-col :span="7">
           <span style="color: black">需求名称: </span>
            <span style="color: black">
               &nbsp;&nbsp;&nbsp;&nbsp;{{ this.taskDETA.mainTaskName}}</span
             >
             </el-col>
-           <!-- <el-col :span="12">
-           <span style="color: black" class="Subtasks">子任务名称: </span>
+           <el-col :span="7">
+           <span style="color: black" >需求方: </span>
            <span style="color: #409eff">
-              &nbsp;&nbsp;&nbsp;&nbsp;{{this.taskDETA.taskName}}</span
+              {{this.companyName}}</span
             >
-               </el-col> -->
+               </el-col>
+            <el-col :span="10">
+           <span style="color: black" >供应方: </span>
+           <span style="color: #409eff">
+             {{this.taskDETA.acceptCompanyName}}</span
+            >
+               </el-col>
              </el-row>
-           <el-row>
+
              <div class="Taskdetails">
+    
             <span style="color: black" class="Taskdetails">任务详情: </span>
+            <!-- <el-tooltip class="item" effect="light" :content="this.taskDETA.taskDetail" placement="bottom" v-if="this.taskDETA.taskDetail.length>=120">
+                            <span>
+                              {{ this.taskDETA.taskDetail+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span v-else-if="this.taskDETA.taskDetail.length<120">
+                            {{this.taskDETA.taskDetail }}
+                          </span> -->
            <span style="color: black" class="Taskdetails">
-              &nbsp;&nbsp;&nbsp;&nbsp;{{this.taskDETA.taskDetail}}</span
+              &nbsp;&nbsp;&nbsp;&nbsp;{{changeString(this.taskDETA.taskDetail)}}</span
             >
+      
             </div>
-            </el-row>
-          </div>
+        </div>
 
         </div>
          
@@ -407,10 +432,10 @@
         </el-tab-pane>
         <el-tab-pane name="second">
           <span slot="label" class="biaoti" style="padding: 0 10px"
-            >订单信息</span
+            >发货信息</span
           >
           <div>
-            <div
+            <!-- <div
               class="biaoti"
               style="
                 padding: 0 10px;
@@ -420,7 +445,7 @@
             >
               需求信息
             </div>
-            <br />
+            <br /> -->
             <label
               style="
                 white-space: nowrap;
@@ -675,6 +700,7 @@ export default {
         })
         .then((response) => {
             this.taskDETA= response.data.allData[0];
+            console.log("54321ss"+this.taskDETA.taskDetail.length)
         });
     },
     //把数据库表格中的内容显示到上面
@@ -768,7 +794,7 @@ export default {
     },
     //显示仓库表格中的信息。判断物品名称是否与产品名称一致。
     showhorseData() {
-      this.FindmaintaskID();
+      // this.FindmaintaskID();
       var that = this;
       var data = Qs.stringify({
         // taskId: this.taskId,
@@ -864,6 +890,18 @@ export default {
           this.companyName = response.data.allData[0];
           this.circulationAddress = response.data.allData[1];
         });
+    },
+        //字符串转换
+    changeString(data) {
+      if(data == null || data.length==0)
+      return "暂无数据";
+      else if(data.length >= 180)
+      {
+        return data.substring(0,180)+"...";
+      }
+      else{
+        return data;
+      }
     },
     //输入input框的限制问题
     BlurText(e) {
@@ -1021,7 +1059,7 @@ export default {
 
 <style lang="scss" scoped>
 .top {
-  height: 130px;
+  height: 127px;
   margin-bottom: 10px;
   width: 100%;
   background-color: #fff4ee;
