@@ -65,7 +65,7 @@
       <el-table-column label="操作" width="180" align="center">
         <template>
           <el-button
-            @click="showData(), showhorseData(), ShowCompanyName()"
+            @click="showData(), showhorseData(), ShowCompanyName(), showtaskDetails()"
             type="text"
             size="small"
             >查看</el-button
@@ -83,11 +83,15 @@
 
       <div class="top">
         <div class="inside">
-          <div style="width: 90%; margin-bottom: 10px">
-            <span style="color: black">当前订单状态: </span>
+          <div style="width: 100%; margin-bottom: 10px">
+            <el-row>
+                <el-col :span="5" class="nowstatus">
+            <span style="color: black" >当前订单状态: </span>
             <span style="color: #409eff">
               &nbsp;&nbsp;&nbsp;&nbsp;{{ status }}</span
             >
+            </el-col>
+             <el-col :span="12">
             <el-button
             class="btn"
             type="primary"
@@ -96,10 +100,35 @@
             v-bind:disabled="liu"
             >全部发货</el-button
           >
+          </el-col>
+          </el-row>
+          <!-- 这里写需求方 -->
+          <el-row>
+             <el-col :span="10">
+          <span style="color: black">需求名称: </span>
+           <span style="color: black">
+              &nbsp;&nbsp;&nbsp;&nbsp;{{ this.taskDETA.mainTaskName}}</span
+            >
+            </el-col>
+           <!-- <el-col :span="12">
+           <span style="color: black" class="Subtasks">子任务名称: </span>
+           <span style="color: #409eff">
+              &nbsp;&nbsp;&nbsp;&nbsp;{{this.taskDETA.taskName}}</span
+            >
+               </el-col> -->
+             </el-row>
+           <el-row>
+             <div class="Taskdetails">
+            <span style="color: black" class="Taskdetails">任务详情: </span>
+           <span style="color: black" class="Taskdetails">
+              &nbsp;&nbsp;&nbsp;&nbsp;{{this.taskDETA.taskDetail}}</span
+            >
+            </div>
+            </el-row>
           </div>
-          
-          
+
         </div>
+         
       </div>
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
         <el-tab-pane name="first">
@@ -463,6 +492,9 @@ import { formatDate } from "../design/designDetails/dataChange";
 export default {
   data() {
     return {
+      demandName:"",
+      subtaskName:"",
+      taskDetails:"",
       activeNames: '1',
       status: "",
       FormData: {},
@@ -562,6 +594,7 @@ export default {
       liu: false,
       beihuo:false,
       mainTaskID:"",
+      taskDETA:{},
     };
   },
   filters: {
@@ -627,7 +660,23 @@ export default {
       var routerParams = this.$route.query.taskId;
       this.taskId = routerParams;
     },
-
+    //显示需求名称、子任务名称、任务详情
+    showtaskDetails(){
+        var that = this;
+      var data = Qs.stringify({
+        taskId: this.taskId,
+        userId: sessionStorage.getItem("userId"),
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/showtaskDetails",
+          data: data,
+        })
+        .then((response) => {
+            this.taskDETA= response.data.allData[0];
+        });
+    },
     //把数据库表格中的内容显示到上面
     showData() {
     
@@ -972,7 +1021,7 @@ export default {
 
 <style lang="scss" scoped>
 .top {
-  height: 100px;
+  height: 130px;
   margin-bottom: 10px;
   width: 100%;
   background-color: #fff4ee;
@@ -981,7 +1030,7 @@ export default {
   .inside {
     padding: 15px;
     .btn {
-      margin-left: 10px;
+      margin-left: 0px;
     }
   }  
 }
@@ -1031,6 +1080,15 @@ export default {
     float: right;
     margin-top: 15px;
     margin-bottom: 10px;
+  }
+  .Subtasks{
+    margin-left:0px;
+  }
+  .Taskdetails{
+    padding-top:5px;
+  }
+  .nowstatus{
+    margin-top: 8px;
   }
 }
 </style>

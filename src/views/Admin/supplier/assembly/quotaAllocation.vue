@@ -2,7 +2,7 @@
 <template>
   <div class="quotaAllocation">
     <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
-      配额分配
+      流通清单
     </div>
     <br />
     <el-table
@@ -38,6 +38,24 @@
         width="100"
       >
       </el-table-column>
+      <el-table-column
+        prop="Consignment_Time_Latest"
+        label="截止时间"
+        align="center"
+        width="120"
+      >
+        <template slot-scope="scope">
+          <span v-if="+scope.row.planUploadTime === 0">暂未上传</span>
+          <span v-else>{{scope.row.Consignment_Time_Latest | formatDate}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="Contact_Number"
+        label="联系电话"
+        align="center"
+        width="120"
+      >
+      </el-table-column>
       <!-- <el-table-column prop="saleNum" label="销量" align="center" width="70">
       </el-table-column>
       <el-table-column
@@ -54,7 +72,7 @@
         width="70"
       >
       </el-table-column> -->
-      <el-table-column
+      <!-- <el-table-column
         prop="Check_Apply_State"
         label="申请/邀请状态"
         align="center"
@@ -77,8 +95,8 @@
           <el-tag type="success" v-else-if="+scope.row.Quota_State === 1">已分配</el-tag>
           <el-tag v-else>其他</el-tag>
         </template>
-      </el-table-column>
-      <el-table-column prop="Quota_Number" label="配额" align="center">
+      </el-table-column> -->
+      <el-table-column prop="Quota_Number" label="产品数量" align="center">
       </el-table-column>
       <!-- <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
