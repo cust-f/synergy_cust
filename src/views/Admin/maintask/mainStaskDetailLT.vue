@@ -666,64 +666,62 @@
       </div>
 
       <!-- 流通子任务修改时间 弹出框 -->
-      <!-- <el-dialog :visible.sync="changeTimeDialog" width="80%">
-        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">请输入修改的时间</div>
+      <el-dialog :visible.sync="changeTimeDialog" width="80%">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">修改|流通子任务|流通主任务|任务申请|流通清单|文件历史|任务评价|时间</div>
         <br /><br />
         <el-form
           ref="form"
           class="changeTimeFrom"
           :model="timeList"
-          label-width="120px"
+          label-width="160px"
         >
           <el-row>
-            <el-col :span="11">
-              <el-form-item label="任务开始时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  :disabled="timeListJudge.beginTimeJudge"
-                  v-model="timeList.beginTime"
-                  style="width: 80%"
-                  value-format
-                ></el-date-picker>
-              </el-form-item>
-            </el-col>
-
             <el-col :span="11">
               <el-form-item label="任务发布时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.publishTimeJudge"
                   v-model="timeList.publishTime"
-                  style="width: 80%"
+                  :disabled="timeList.publishTime==null?true:false"
+                  style="width: 100%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="申请时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.applyTime"
+                  :disabled="timeList.applyTime==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
-
           <el-row>
-            <el-col :span="11">
-              <el-form-item label="申请时间">
-                <el-date-picker
-                  :disabled="timeListJudge.applyTimeJudge"
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.applyTime"
-                  style="width: 80%"
-                  value-format
-                ></el-date-picker>
-              </el-form-item>
-            </el-col>
             <el-col :span="11">
               <el-form-item label="申请审核时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.checkApplyTimeJudge"
                   v-model="timeList.checkApplyTime"
-                  style="width: 80%"
+                  :disabled="timeList.checkApplyTime==null?true:false"
+                  style="width: 100%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="任务开始时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.beginTime"
+                  :disabled="timeList.beginTime==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
@@ -736,9 +734,9 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.planUploadTimeJudge"
                   v-model="timeList.planUploadTime"
-                  style="width: 80%"
+                  :disabled="timeList.planUploadTime==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
@@ -748,24 +746,23 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.checkPlanTimeJudge"
                   v-model="timeList.checkPlanTime"
-                  style="width: 80%"
+                  :disabled="timeList.checkPlanTime==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
-
           <el-row>
             <el-col :span="11">
               <el-form-item label="合同上传时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.uploadContractTimeJudge"
                   v-model="timeList.uploadContractTime"
-                  style="width: 80%"
+                  :disabled="timeList.uploadContractTime==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
@@ -775,24 +772,49 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.checkContractTimeJudge"
                   v-model="timeList.checkContractTime"
-                  style="width: 80%"
+                  :disabled="timeList.checkContractTime==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
-
           <el-row>
             <el-col :span="11">
-              <el-form-item label="清单上传时间">
+              <el-form-item label="备货时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.uploadCircuaterTimeJudge"
+                  v-model="timeList.leadTime"
+                  :disabled="timeList.leadTime==null?true:false"
+                  style="width: 100%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="清单上传|全部发货时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
                   v-model="timeList.uploadCircuaterTime"
-                  style="width: 80%"
+                  :disabled="timeList.uploadCircuaterTime==null?true:false"
+                  style="width: 100%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="清单截止时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.consignmentTimeLastest"
+                  :disabled="timeList.consignmentTimeLastest==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
@@ -802,9 +824,9 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.checkCircuaterTimeJudge"
                   v-model="timeList.checkCircuaterTime"
-                  style="width: 80%"
+                  :disabled="timeList.checkCircuaterTime==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
@@ -813,26 +835,39 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="任务完成时间">
+              <el-form-item label="(子)任务完成时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.finishTimeJudge"
-                  v-model="timeList.finishTime"
-                  style="width: 80%"
+                  v-model="timeList.subtaskFinishTime"
+                  :disabled="timeList.subtaskFinishTime==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
             </el-col>
-
             <el-col :span="11">
-              <el-form-item label="需求截止时间">
+              <el-form-item label="(主)需求完成时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.deadlineJudge"
+                  v-model="timeList.mainTaskFinishTime"
+                  :disabled="timeList.mainTaskFinishTime==null?true:false"
+                  style="width: 100%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="(主)需求截止时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
                   v-model="timeList.deadline"
-                  style="width: 80%"
+                  :disabled="timeList.deadline==null?true:false"
+                  style="width: 100%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
@@ -840,14 +875,14 @@
           </el-row>
           <el-row class="changeTimeFrom">
             <el-col :span="11">
-              <el-button @click="changeTimeMethod()">确认</el-button>
+              <el-button @click="changeTimeMethodLT()">确认</el-button>
             </el-col>
             <el-col :span="11">
               <el-button @click="changeTimeDialog = false">取消</el-button>
             </el-col>
           </el-row>
         </el-form>
-      </el-dialog> -->
+      </el-dialog>
 
       <!-- 申请拒绝原因弹出框 -->
       <el-dialog :visible.sync="addVisible" width="50%">
@@ -2475,78 +2510,57 @@ export default {
       this.planRefusse = row.checkPlanState;
       var that = this;
       var data = Qs.stringify({
-        taskId: this.taskId,
+        mainTaskId: this.taskId,
         companyId: row.companyId,
       });
       that
         .axios({
           method: "post",
-          url: "/api/SubstaskInformation/readTime",
+          url: "/api/SubstaskInformation/readTimeLT",
           data: data,
         })
         .then((response) => {
-          this.timeList.publishTime = response.data.allData.task[0].publishTime;
-          this.timeList.applyTime =
-            response.data.allData.taskApply[0].applyTime;
-          this.timeList.checkApplyTime =
-            response.data.allData.taskApply[0].checkApplyTime;
-          this.timeList.planUploadTime =
-            response.data.allData.taskApply[0].planUploadTime;
-          this.timeList.checkPlanTime =
-            response.data.allData.taskApply[0].checkPlanTime;
-          this.timeList.beginTime =
-            response.data.allData.taskApply[0].beginTime;
-          this.timeList.uploadContractTime =
-            response.data.allData.task[0].uploadContractTime;
-          this.timeList.checkContractTime =
-            response.data.allData.task[0].checkContractTime;
-          this.timeList.checkCircuaterTime =
-            response.data.allData.task[0].checkCircuaterTime;
-          this.timeList.uploadCircuaterTime =
-            response.data.allData.task[0].uploadCircuaterTime;
-          this.timeList.finishTime = response.data.allData.task[0].finishTime;
-          this.timeList.deadline = response.data.allData.task[0].deadline;
-          //读取时间结束
-          this.changeTimeJudge(row.checkApplyState, row.checkPlanState);
+          this.timeList = response.data.allData;
+          // this.changeTimeJudge(row.checkApplyState, row.checkPlanState);//禁用一些时间选择器
         });
     },
-    // changeTimeMethod() {
-    //   var that = this;
-    //   var data = Qs.stringify({
-    //     taskId: this.taskId,
-    //     companyId: this.companyId,
-    //     beginTime: this.timeList.beginTime,
-    //     publishTime: this.timeList.publishTime,
-    //     deadline: this.timeList.deadline,
-    //     applyTime: this.timeList.applyTime,
-    //     checkApplyTime: this.timeList.checkApplyTime,
-    //     planUploadTime: this.timeList.planUploadTime,
-    //     checkPlanTime: this.timeList.checkPlanTime,
-    //     uploadContractTime: this.timeList.uploadContractTime,
-    //     checkContractTime: this.timeList.checkContractTime,
-    //     supplierDistributionTime: this.timeList.supplierDistributionTime,
-    //     designerAcceptTime: this.timeList.designerAcceptTime,
-    //     uploadDesignTime: this.timeList.uploadDesignTime,
-    //     supplierCheckDesignTime: this.timeList.supplierCheckDesignTime,
-    //     demandorCheckDesignTime: this.timeList.demandorCheckDesignTime,
-    //     finishTime: this.timeList.finishTime,
-    //     checkCircuaterTime: this.timeList.checkCircuaterTime,
-    //     uploadCircuaterTime: this.timeList.uploadCircuaterTime,
-    //     State: this.milepostActive + 1,
-    //   });
-    //   that
-    //     .axios({
-    //       method: "post",
-    //       url: "/api/SubstaskInformation/updateAllTime",
-    //       data: data,
-    //     })
-    //     .then((response) => {
-    //       console.log("finish");
-    //       this.changeTimeDialog = false;
-    //     });
-    // },
     changeTimeMethodLT(){
-      
+      var that = this;
+      var data = Qs.stringify({
+        mainTaskId: this.taskId,
+        state: this.milepostActive + 1,
+        companyId: this.acceptCompanyId,
+        publishTime: this.timeList.publishTim == null?"":this.timeList.publishTim,
+        applyTime: this.timeList.applyTime== null?"":this.timeList.applyTime,
+        checkApplyTime: this.timeList.checkApplyTime== null?"":this.timeList.checkApplyTime,
+        beginTime: this.timeList.beginTime== null?"":this.timeList.beginTime,
+        planUploadTime: this.timeList.planUploadTime== null?"":this.timeList.planUploadTime,
+        checkPlanTime: this.timeList.checkPlanTime== null?"":this.timeList.checkPlanTime,
+        uploadContractTime: this.timeList.uploadContractTime== null?"":this.timeList.uploadContractTime,
+        checkContractTime: this.timeList.checkContractTime== null?"":this.timeList.checkContractTime,
+        leadTime: this.timeList.leadTime== null?"":this.timeList.leadTime,
+        //deliveryTime,
+        uploadCircuaterTime: this.timeList.uploadCircuaterTime== null?"":this.timeList.uploadCircuaterTime,
+        consignmentTimeLastest: this.timeList.consignmentTimeLastest== null?"":this.timeList.consignmentTimeLastest,
+        checkCircuaterTime: this.timeList.checkCircuaterTime== null?"":this.timeList.checkCircuaterTime,
+        subtaskFinishTime: this.timeList.subtaskFinishTime== null?"":this.timeList.subtaskFinishTime,
+        mainTaskFinishTime: this.timeList.mainTaskFinishTime== null?"":this.timeList.mainTaskFinishTime,
+        deadline: this.timeList.deadline== null?"":this.timeList.deadline
+      })
+      that
+        .axios({
+          method: "post",
+          url: "/api/SubstaskInformation/updateAllTimeLT",
+          data: data,
+        })
+        .then((response) => {
+          this.changeTimeDialog = false;
+          // this.$confirm("时间修改完成，刷新页面吗？", "提示", {
+          //   type: "warnning",
+          // }).then(() => {
+            this.$router.go(0);
+          // })
+        });
     },
     //清单历史上传
     FHQDFileHistory() {
@@ -3145,7 +3159,6 @@ export default {
           method: "post",
           url: "/api/SubstaskInformation/listLT",
           data: data,
-
           // data:this.$store.state.userName
         })
         .then((response) => {
