@@ -640,6 +640,9 @@ export default {
           });
         }
       }
+      this.$confirm("确定全部发货吗？", "提示", {
+          type: "warning",
+        }).then(() => {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
@@ -661,6 +664,8 @@ export default {
           }
         });
         this.showhorseData();
+        this.showData();
+          });
         // this.upCirculation = false;
         // this.$router.go(0);
     },
