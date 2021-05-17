@@ -1064,7 +1064,7 @@ export default {
 
 <style lang="scss" scoped>
 .top {
-  height: 127px;
+  height: 132px;
   margin-bottom: 10px;
   width: 100%;
   background-color: #fff4ee;

@@ -513,6 +513,7 @@
               <el-input
                 v-model="applyList1.supplierTel"
                 placeholder="请输入用于联系的手机号"
+                :readonly="true"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -543,7 +544,7 @@ export default {
   name: "xuqiuyilanDetail",
   data() {
     var validDataPhone = (rule, value, callback) => {
-      if (value === "") {
+      if (value === null) {
         callback();
       } else if (!/^1[3456789]\d{9}$/.test(value)) {
         // this.$error("手机号码有误，请重填");
@@ -560,7 +561,7 @@ export default {
       userData:{},
       //默认logo
       errorImg01: 'this.src="' + require("../company/2.jpg") + '"',
-      telphone: 1,
+      telphone: 0,
       rules: {
         supplierTel: [
           {
