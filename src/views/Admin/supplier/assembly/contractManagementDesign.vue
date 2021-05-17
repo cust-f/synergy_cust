@@ -82,6 +82,8 @@
       <br />
       <el-upload
         drag
+        :limit="1"
+        :on-exceed="handleExceed"
         ref="upload"
         action="/api/supplier/import"
         :on-preview="handlePreview"
@@ -477,6 +479,9 @@ export default {
           this.technicalFileWanzheng = "";
         });
       this.$router.go(0);
+    },
+    handleExceed(){
+      this.$message.info("只允许上传一个文件");
     }
   }
 };
@@ -505,10 +510,8 @@ export default {
   .el-dialog__header {
     padding: 0px 0px 0px;
   }
-}
-</style>
-<style>
-  .el-upload--text /deep/{
+  .el-upload--text{
     border: 0px;
   }
+}
 </style>
