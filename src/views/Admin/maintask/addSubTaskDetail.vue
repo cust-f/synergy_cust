@@ -1719,6 +1719,14 @@ export default {
                 this.taskSaveBtn = true;
                 //此处返回到详情界面
                 //this.goBack();
+                setTimeout(() => {
+                 this.$router.push({
+                path: "/admin/substaskDetail",
+                query: {
+            mainTaskID: this.mainTaskID
+          }
+        });
+         }, 200);
               }
             })
             .catch((error) => {

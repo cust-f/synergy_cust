@@ -43,15 +43,22 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="需求名称">
+                  
                   <template slot-scope="scope">
                     <el-button
                       class="anniu"
                       type="primary"
                       text-decoration="underline"
                       @click="ziTaskDetail(scope.row)"
-                      >{{ cool.mainTaskName }}</el-button
+                      >
+                      <!-- <el-col :span="11"> -->
+                      {{ cool.mainTaskName }}
+                       <!-- </el-col> -->
+                      </el-button
                     >
+                 
                   </template>
+                    
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -173,9 +180,9 @@
           <el-table-column
             prop="supplierTel"
             label="联络电话"
-            width="100"
+            width="120"
           ></el-table-column>
-          <el-table-column prop="applyWay" label="承接方式" width="80">
+          <el-table-column prop="applyWay" label="承接方式" width="75"  align="center">
             <template slot-scope="scope">
               <span v-if="+scope.row.applyWay === 0">邀请</span>
               <span v-else-if="+scope.row.applyWay === 1">申请</span>
@@ -186,6 +193,7 @@
             prop="checkApplyState"
             label="申请/邀请状态"
             align="center"
+            width="110"
           >
             <template slot-scope="scope">
               <el-tag v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
@@ -197,7 +205,7 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="applyTime" label="申请/邀请时间">
+          <el-table-column prop="applyTime" label="申请/邀请时间" width="110">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.applyTime === 0">暂未申请</el-span>
               <el-span v-if-else>{{
@@ -336,7 +344,6 @@
           ></el-table-column>
           <el-table-column
             prop="Company_Name"
-            align="center"
             label="供应商"
             width="250"
           ></el-table-column>
@@ -606,7 +613,7 @@
           <el-table-column
             prop="acceptCompanyName"
             label="供应商"
-            width="200"
+              width="250"
           ></el-table-column>
           <el-table-column
             prop="demandorCheckDesignState"
