@@ -73,6 +73,8 @@
         :file-list="fileList"
       >
         <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
+        <!-- <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div> -->
         <br />
         <el-button
           size="small"
