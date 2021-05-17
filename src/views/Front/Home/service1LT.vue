@@ -289,7 +289,7 @@
                 <br />
 
                 <div class="LDT">
-                  <div id="charts2" style="height:300px; width:400px; float:left">
+                  <div id="charts2" style="height:300px; width:500px; float:left">
                     <radar-chart :radarData="radarData1" ref="QradarChart1"></radar-chart>
                     <br />
                   </div>
@@ -298,7 +298,6 @@
                       <div class="WCZL">完成质量:
                         <label id="word1" style="font-size:16px"></label>
                       </div>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-                      <br />
                       <br />
                     </el-form>
                     <span id="one1"></span>

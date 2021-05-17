@@ -309,7 +309,7 @@
 
                 <div class="LDT">
                   <!-- 雷达图 -->
-                  <div id="charts1" style="height:100%; width:400px; float:left">
+                  <div id="charts1" style="height:100%; width:500px; float:left">
                     <radar-chart :radarData="radarData" ref="QradarChart"></radar-chart>
                   </div>
 

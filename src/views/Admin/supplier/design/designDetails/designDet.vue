@@ -62,7 +62,6 @@
         </div> -->
       <div v-show="show > 4 && state3 === 2" class="designDet">
         <br />
-        <br />
         
         <!-- <div v-show="evaluationHiding === 1" class="remark">    此处为临时注释，大佬手下留情误删除-->
           <div  class="remark">
@@ -72,9 +71,6 @@
           >
             任务评价
           </div>
-          <br />
-
-          <br />
           <!-- 评价模块 -->
           <div v-if="reMarkId === 0 && state3 === 2">
             <div

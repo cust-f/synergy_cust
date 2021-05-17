@@ -76,15 +76,12 @@
           <delivery-List ref="deliveryList"></delivery-List>
         </div>
       </div>
-      <br />
       <!-- 重传文件模块 -->
       <!-- <div>
         <return-File ref="returnFile"></return-File>
       </div>
       <br /> -->
       <div v-show="show > 3 && state3 === 2" class="designDet">
-        <br />
-        <br />
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -116,8 +113,6 @@
             </div>
           </div>
         </div>
-        <br />
-        <br />
         <div v-if="reMarkId === 1">
           <!-- 雷达图 -->
           <div class="LDT">
