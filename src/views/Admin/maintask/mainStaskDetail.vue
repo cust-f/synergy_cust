@@ -164,7 +164,7 @@
             label="联络电话"
             width="120"
           ></el-table-column>
-          <el-table-column prop="applyWay" label="承接方式" width="80">
+          <el-table-column prop="applyWay" label="承接方式" width="80" align="center">
             <template slot-scope="scope">
               <span v-if="+scope.row.applyWay === 0">邀请</span>
               <span v-else-if="+scope.row.applyWay === 1">申请</span>
@@ -461,7 +461,7 @@
           ></el-table-column>
           <el-table-column
             prop="acceptCompanyName"
-            width="200"
+            width="250"
             label="供应商"
           ></el-table-column>
           <!-- <el-table-column prop="designerName" label="设计人员" widht="70">
@@ -473,6 +473,7 @@
           <el-table-column
             prop="designCount"
             label="上传次数"
+            align="center"
             width="80"
           ></el-table-column
           >demandorCheckDesignState

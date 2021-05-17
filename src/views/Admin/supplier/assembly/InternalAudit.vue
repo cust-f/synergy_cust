@@ -11,8 +11,8 @@
       header-cell-class-name="table-header"
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="supplierCheckDesignState" width="100" label="审核状态" align="center">
+      <el-table-column prop="taskName" label="需求名称" width="240"></el-table-column>
+      <el-table-column prop="supplierCheckDesignState" width="120" label="审核状态" align="center">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.supplierCheckDesignState === 0">待提交</el-tag>
           <el-tag type="warning" v-else-if="scope.row.supplierCheckDesignState === 1">待审核</el-tag>
@@ -20,13 +20,13 @@
           <el-tag type="danger" v-else-if="scope.row.supplierCheckDesignState === 3">未通过</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="designerName" width="120" label="设计师">
+      <el-table-column prop="designerName" width="80" label="设计师" align="center">
         <template slot-scope="scope">
           <el-span v-if="+scope.row.designerName === 0">暂未分配设计人员</el-span>
           <el-span v-else>{{scope.row.designerName}}</el-span>
         </template>
       </el-table-column>
-      <el-table-column prop="uploadDesignTime" label="设计上传时间">
+      <el-table-column prop="uploadDesignTime" label="设计上传时间"  width="120">
         <template slot-scope="scope">
           <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
           <el-span v-else>{{scope.row.uploadDesignTime | formatDate}}</el-span>
@@ -38,7 +38,7 @@
           <el-span v-else>{{scope.row.supplierCheckDesignTime| formatDate}}</el-span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180" align="center">
+      <el-table-column label="操作" width="180" align="center" >
         <template slot-scope="scope">
           <div v-show="scope.row.supplierCheckDesignState ===0">
             <div v-if="scope.row.supplierDistributionState === 0">

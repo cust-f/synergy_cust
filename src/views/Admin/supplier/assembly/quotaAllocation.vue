@@ -21,15 +21,14 @@
       ></el-table-column>
       <el-table-column
         prop="Task_Name"
-        align="center"
         label="需求名称"
-        width="190"
+        width="240"
       ></el-table-column>
       <el-table-column
         prop="Product_Name"
         label="产品名称"
         align="center"
-        width="130"
+         width="120"
       ></el-table-column>
       <el-table-column
         prop="Parts_Category"

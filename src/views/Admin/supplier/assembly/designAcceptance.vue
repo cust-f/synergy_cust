@@ -11,10 +11,8 @@
       header-cell-class-name="table-header"
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-
-      <el-table-column prop="designCount" width="100" label="上传次数"></el-table-column>
-      <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
+      <el-table-column prop="taskName" label="需求名称" width="240"></el-table-column>
+            <el-table-column prop="demandorCheckDesignState" width="120" align="center" label="验收状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
           <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -22,6 +20,8 @@
           <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
         </template>
       </el-table-column>
+      <el-table-column prop="designCount" width="100" label="上传次数" align="center"></el-table-column>
+
       <el-table-column prop="demandorCheckDesignTime" label="验收时间">
         <template slot-scope="scope">
           <el-span v-if="+scope.row.demandorCheckDesignTime === 0">暂未验收</el-span>

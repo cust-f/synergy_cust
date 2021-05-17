@@ -182,7 +182,7 @@
             label="联络电话"
             width="120"
           ></el-table-column>
-          <el-table-column prop="applyWay" label="承接方式" width="75"  align="center">
+          <el-table-column prop="applyWay" label="承接方式" width="90"  align="center">
             <template slot-scope="scope">
               <span v-if="+scope.row.applyWay === 0">邀请</span>
               <span v-else-if="+scope.row.applyWay === 1">申请</span>
@@ -205,7 +205,7 @@
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="applyTime" label="申请/邀请时间" width="110">
+          <el-table-column prop="applyTime" label="申请/邀请时间" width="140">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.applyTime === 0">暂未申请</el-span>
               <el-span v-if-else>{{
@@ -220,12 +220,12 @@
               <el-button @click="changeTime(scope.row)" size="small" type="text"
                 >修改时间</el-button
               >
-              <el-button
+              <!-- <el-button
                 type="text"
                 size="small "
                 @click="shenqingtanchu(scope.row)"
                 >流通清单</el-button
-              >
+              > -->
               <el-button
                 @click="SQTG(scope.row)"
                 type="text"

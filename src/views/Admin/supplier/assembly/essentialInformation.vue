@@ -9,7 +9,7 @@
       <el-form ref="cool" :model="cool" label-width="110px" class="form">
         <el-row>
           <el-col :span="11">
-            <el-form-item label="需求名称">
+            <el-form-item label="需求名称" >
               <template slot-scope="scope">
                 <el-button
                   class="anniu"

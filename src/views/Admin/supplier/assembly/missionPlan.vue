@@ -11,8 +11,8 @@
       header-cell-class-name="table-header"
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="checkPlanState" width="100" label="计划审核状态" align="center">
+      <el-table-column prop="taskName" label="需求名称"    width="240" ></el-table-column>
+      <el-table-column prop="checkPlanState"  width="120" label="计划审核状态" align="center">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
           <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>

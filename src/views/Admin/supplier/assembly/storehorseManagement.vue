@@ -20,11 +20,11 @@
         width="50"
         align="center"
       ></el-table-column>
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" label="需求名称"   width="240"></el-table-column>
 
       <el-table-column
         prop="leadState"
-        width="100"
+         width="120"
         align="center"
         label="备货状态"
       >

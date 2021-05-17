@@ -18,8 +18,8 @@
         width="50"
         align="center"
       ></el-table-column>
-      <el-table-column prop="taskName" label="需求名称"></el-table-column>
-      <el-table-column prop="applyWay" width="100" label="承接方式">
+      <el-table-column prop="taskName" label="需求名称"  width="240"></el-table-column>
+      <el-table-column prop="applyWay" width="80" label="承接方式" align="center">
         <template slot-scope="scope">
           <span v-if="scope.row.applyWay === 0">邀请</span>
           <span v-else-if="scope.row.applyWay === 1">申请</span>
@@ -47,13 +47,13 @@
           <el-span v-else>{{ scope.row.applyTime | formatDate }}</el-span>
         </template>
       </el-table-column>
-      <el-table-column prop="checkApplyTime" label="审核时间">
+      <el-table-column prop="checkApplyTime" label="审核时间" >
         <template slot-scope="scope">
           <el-span v-if="+scope.row.checkApplyTime === 0">暂未审核</el-span>
           <el-span v-else>{{ scope.row.checkApplyTime | formatDate }}</el-span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180" align="center">
+      <el-table-column label="操作" width="140" align="center">
         <template slot-scope="scope">
           <div v-if="scope.row.applyWay === 0 && scope.row.taskType === 0">
             <div v-if="scope.row.checkApplyState < 1">
@@ -82,9 +82,9 @@
             size="small"
             >拒绝原因</el-button
           >
-          <el-button v-show="taskType === 1" @click="showData()" type="text" size="small"
+          <!-- <el-button v-show="taskType === 1" @click="showData()" type="text" size="small"
             >查看</el-button
-          >
+          > -->
         </template>
       </el-table-column>
     </el-table>
