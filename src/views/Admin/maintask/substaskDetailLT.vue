@@ -113,7 +113,7 @@
               <p style="margin:0px 0px 10px 0px;"><i class="el-icon-edit" style="color:#409EFF;"></i>请选择需要修改的内容：</p>
               <div style="text-align: right; margin: 0">
                 <el-button type="text" size="mini" @click="showMainTaskChange()">需求信息</el-button>
-                <el-button type="text" size="mini" @click="showConsignmentChange()" :disabled="!quotaEditButtonVisible">流通清单</el-button>
+                <el-button type="text" size="mini" @click="showConsignmentChange()" :disabled="consignmentEditButtonDisabled">流通清单</el-button>
               </div>
               <el-button type="primary" class="button1" slot="reference">修改</el-button>
             </el-popover>
@@ -203,8 +203,8 @@
               </el-col>
               <el-col :span="11">
                 <div id="div2" align="right">
-                  <el-button v-show="quotaButtonVisible == true" type="primary" size="medium" style="margin-top: -20px"  @click="setQuota">智能分配</el-button>
-                  <el-button v-show="quotaEditButtonVisible == true" @click="showQuotaChange()" type="primary" size="medium" style="margin-top: -20px">修改配额</el-button>
+                  <el-button v-show="quotaButtonVisible == true" type="primary" size="medium" style="margin-top: -20px"  @click="setQuota()">智能分配</el-button>
+                  <el-button v-show="quotaEditButtonVisible == true" type="primary" size="medium" style="margin-top: -20px" @click="showQuotaChange()" >修改配额</el-button>
                 </div>
               </el-col>
             </el-row>
@@ -262,13 +262,6 @@
                   <span v-if="scope.row.Quota_Number != undefined">{{scope.row.Quota_Number}}</span>
                   <span v-else>0</span>
                 </template>
-                <!-- <template slot-scope="scope">
-                  <template v-if="quotaEditable === true">
-                    <el-input size="small" v-model="scope.row.Quota_Number">{{ scope.row.Quota_Number }}</el-input>
-                  </template>
-                  <span v-else-if="scope.row.Quota_Number != undefined">{{ scope.row.Quota_Number }}</span>
-                  <span v-else>0</span>
-                </template> -->
               </el-table-column>
               <el-table-column label="操作" align="center" width="97">
                 <template slot-scope="scope">
@@ -719,6 +712,7 @@ export default {
       mainTaskDetailVisible: false, //主需求详情弹框显示
       mainTaskEditVisible: false, //主需求修改弹框显示
       consignmentVisible: false, // 流通清单弹出框显示
+      consignmentEditButtonDisabled: true,// 流通清单修改按钮禁用
       companyDetailVisible: false, //企业信息弹框显示
       applyListVisible: false, //申请列表列表显示
       quotaListVisible: false, //配额分配列表显示
@@ -726,7 +720,6 @@ export default {
       popoverVisible:false, // 修改选项小框显示
       quotaEditButtonVisible:false, //配额修改按钮显示
       quotaEditVisible:false, // 配额修改弹框显示
-      quotaEditable:false, // 配额行内可编辑
       // 需求方负责人信息
       demanderPrincipal: [],
       //行业类别 选项列表
@@ -1025,6 +1018,7 @@ export default {
           this.applyListVisible = response.data.allData.applyListVisible;
           this.quotaListVisible = response.data.allData.quotaListVisible;
           this.quotaEditButtonVisible = response.data.allData.quotaEditButtonVisible;
+          this.consignmentEditButtonDisabled = response.data.allData.consignmentEditButtonDisabled;
         });
     },
     // 主需求基本信息 - 查看需求详情（点击需求名）
@@ -1141,7 +1135,7 @@ export default {
           link.click();
         });
     },
-    // 主需求基本信息 - 附件删除
+    // 主需求基本信息 - 附件删除（待修改 不可用）
     deleteFile(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
       let qianzui, houzui;
@@ -1155,7 +1149,7 @@ export default {
       this.WZLJ = qianzui + houzui;
       this.fujian.splice(row.wenjiancixu, 1);
     },
-    // 主需求基本信息 弹框 - 上传文件成功后的返回值
+    // 主需求基本信息 弹框 - 上传文件成功后的返回值（待修改 不可用）
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
       if (this.technicalFileWanzheng.length > 0) {
@@ -1167,7 +1161,9 @@ export default {
     },
     // 流通清单 - 修改弹出
     showConsignmentChange() {
+      // 关闭选择弹出框
       this.popoverVisible = false;
+      // 深拷贝修改信息
       if (this.mainTaskInfo.consignmentInfo == undefined) {
         this.consignmentForm = {};
         this.consignmentForm.consignmentpatrsList = [];
@@ -1175,6 +1171,7 @@ export default {
         this.consignmentForm = JSON.parse(JSON.stringify(this.mainTaskInfo.consignmentInfo));
         this.consignmentForm.consignmentpatrsList = this.consignmentpatrsList;
       }
+      // 显示修改弹框
       this.consignmentVisible = true;
     },
     // 流通清单 - 修改保存
@@ -1323,8 +1320,6 @@ export default {
     setQuota() {
       // 如果没有流通清单 提示修改流通清单
       if( this.mainTaskInfo.consignmentInfo == undefined ){
-        // this.consignmentVisible = true;
-        // this.$message.warning("暂无可分配数量，请修改流通清单");
         this.$confirm("暂无可分配数量，请修改流通清单！", "提示", {
         type: "warning",
       })
@@ -1370,8 +1365,8 @@ export default {
     },
     // 配额数 - 修改保存
     saveQuotaChange(){
-      this.quotaSum = 0;
-      this.quotaEditNum = 0;
+      this.quotaSum = 0; // 修改后的总和
+      this.quotaEditNum = 0; // 修改的行数
       this.quotaEditTableData.forEach((v,i)=>{
         if(v.Quota_Number != null){
           this.quotaSum = parseInt(this.quotaSum) + parseInt(v.Quota_Number);
