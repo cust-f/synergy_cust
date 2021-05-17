@@ -114,19 +114,19 @@
           </el-row>
           <!-- 这里写需求方 -->
           <el-row>
-             <el-col :span="7">
+             <el-col :span="8">
           <span style="color: black">需求名称: </span>
            <span style="color: black">
               &nbsp;&nbsp;&nbsp;&nbsp;{{ this.taskDETA.mainTaskName}}</span
             >
             </el-col>
-           <el-col :span="7">
+           <el-col :span="8">
            <span style="color: black" >需求方: </span>
            <span style="color: #409eff">
               {{this.companyName}}</span
             >
                </el-col>
-            <el-col :span="10">
+            <el-col :span="8">
            <span style="color: black" >供应方: </span>
            <span style="color: #409eff">
              {{this.taskDETA.acceptCompanyName}}</span
@@ -177,7 +177,7 @@
                 )
               "
             >
-              <el-table-column
+              <!-- <el-table-column
                 label="序号"
                 type="index"
                 width="80"
@@ -187,8 +187,8 @@
                 <template slot-scope="scope">
                   <span>{{ scope.$index + 1 }}</span>
                 </template>
-              </el-table-column>
-              <el-table-column prop="productName" label="物品名称">
+              </el-table-column> -->
+              <el-table-column prop="productName" label="物品名称" width="160" align="center">
                 <template slot-scope="scope">
                   <el-tooltip placement="top">
                     <div slot="content" style="font-size: 13px">
@@ -203,7 +203,7 @@
                   </el-tooltip>
                 </template>
               </el-table-column>
-              <el-table-column prop="leadState" label="备货状态" width="100">
+              <el-table-column prop="leadState" label="备货状态" width="120"  align="center">
                 <template slot-scope="scope">
                   <el-tag
                     v-if="
@@ -256,8 +256,9 @@
                 prop="shippingWarehouse"
                 label="发货仓库"
                 align="center"
+                width="160"
               ></el-table-column>
-              <el-table-column prop="consignmentTimeLatest" label="发货截至时间"
+              <el-table-column prop="consignmentTimeLatest" label="发货截止时间" width="160" align="center"
                 ><template slot-scope="scope">
                   <el-span>{{
                     scope.row.consignmentTimeLatest | formatDate
@@ -265,7 +266,7 @@
                 </template></el-table-column
               >
 
-              <el-table-column prop="leadTime" label="备货时间" width="160"
+              <el-table-column prop="leadTime" label="备货时间" width="160" align="center"
                 ><template slot-scope="scope">
                   <el-span v-if="+scope.row.leadTime === 0">暂未备货</el-span>
                   <el-span v-else>{{
@@ -311,15 +312,15 @@
                     )
                   "
                 >
-                  <el-table-column
+                  <!-- <el-table-column
                     label="序号"
                     width="80"
                     align="center"
                     prop="xuhao"
                     type="index"
                   >
-                  </el-table-column>
-                  <el-table-column prop="productName" label="物品名称">
+                  </el-table-column> -->
+                  <el-table-column prop="productName" label="物品名称" width="160" align="center">
                     <template slot-scope="scope">
                       <el-tooltip placement="top">
                         <div slot="content" style="font-size: 13px">
@@ -331,22 +332,11 @@
                       </el-tooltip>
                     </template>
                   </el-table-column>
-                  <el-table-column prop="storeName" label="仓库名称">
-                    <template slot-scope="scope">
-                      <el-tooltip placement="top">
-                        <div slot="content" style="font-size: 13px">
-                          {{ "地址：" + scope.row.storeAddress }}<br />
-                          {{ "联系方式：" + scope.row.telePhone }}
-                        </div>
-                        <p>{{ scope.row.storeName }}</p>
-                      </el-tooltip>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
+                     <el-table-column
                     prop="productState"
                     label="物品状态"
+                    width="120" 
                     align="center"
-                    width="80"
                   >
                     <template slot-scope="scope">
                       <el-tag v-if="+scope.row.productState === 1" type="danger"
@@ -359,7 +349,19 @@
                       >
                     </template>
                   </el-table-column>
-                  <el-table-column prop="reserve" label="库存" align="center">
+                  <el-table-column prop="storeName" label="仓库名称" align="center"  width="200">
+                    <template slot-scope="scope">
+                      <el-tooltip placement="top">
+                        <div slot="content" style="font-size: 13px">
+                          {{ "地址：" + scope.row.storeAddress }}<br />
+                          {{ "联系方式：" + scope.row.telePhone }}
+                        </div>
+                        <p>{{ scope.row.storeName }}</p>
+                      </el-tooltip>
+                    </template>
+                  </el-table-column>
+               
+                  <el-table-column prop="reserve" label="库存" align="center" width="120" >
                     <template slot-scope="scope">
                       <el-tooltip placement="top">
                         <div slot="content" style="font-size: 13px">
@@ -375,6 +377,7 @@
                     label="发货数量"
                     align="center"
                     style="margin-right: 100px"
+                    width="220"
                   >
                     <el-input-number
                       size="small"
@@ -414,19 +417,13 @@
                <!-- 这里写关闭弹窗的方法 -->
             <el-button
               @click="close()"
-              size="mini"
+              size="small"
               class="close"
               style="margin-left: 30px"
-              ><p
-                style="
-                  font-size: 16px;
-                  font-weight: 400;
-                  white-space: nowrap;
-                  color: rgb(153, 153, 153);
-                "
+              type="primary"
               >
                 {{ "关闭" }}
-              </p></el-button
+              </el-button
             >
           </el-collapse>
         </el-tab-pane>
@@ -661,6 +658,9 @@ export default {
               type: "success",
               message: "全部发货成功",
             });
+            setTimeout(() => {
+              this.close();
+                  }, 100);
           }
         });
         this.showhorseData();
@@ -1048,6 +1048,9 @@ export default {
     },
     close(){
       this.upCirculation = false;
+      setTimeout(() => {
+       this.$router.go(0);
+        }, 300);
     },
     handleClose() {
       debugger;
