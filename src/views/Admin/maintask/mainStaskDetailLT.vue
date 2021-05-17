@@ -2733,7 +2733,7 @@ export default {
         if (this.milepostActive == 4) {
           this.liu = true;
         }
-        this.$router.go(0);
+        setTimeout(() => {this.$router.go(0);}, 1000);
       });
     },
     //批量提交方法、全部通过
