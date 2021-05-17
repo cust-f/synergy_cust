@@ -81,6 +81,9 @@
       <br />
       <br />
       <el-upload
+        drag
+        :limit="1"
+        :on-exceed="handleExceed"
         ref="upload"
         action="/api/supplier/import"
         :on-preview="handlePreview"
@@ -89,16 +92,16 @@
         multiple
         :auto-upload="false"
       >
-        <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
+        <!-- <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
         <br />
-        <el-button
-          style="margin-left: 10px;"
-          size="small"
-          type="success"
-          @click="submitUpload"
-          align-center
-        >上传到服务器</el-button>
+        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload" align-center>上传到服务器</el-button> -->
+      <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       </el-upload>
+      <br />
+      <div align="right">
+        <el-button size="small" type="primary"  @click="submitUpload" align-center>上传到服务器</el-button>
+      </div>
     </el-dialog>
 
     <!-- 合同拒绝原因 -->
@@ -476,6 +479,9 @@ export default {
           this.technicalFileWanzheng = "";
         });
       this.$router.go(0);
+    },
+    handleExceed(){
+      this.$message.info("只允许上传一个文件");
     }
   }
 };
@@ -503,6 +509,9 @@ export default {
   }
   .el-dialog__header {
     padding: 0px 0px 0px;
+  }
+  .el-upload--text{
+    border: 0px;
   }
 }
 </style>

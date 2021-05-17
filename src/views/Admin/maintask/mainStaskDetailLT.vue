@@ -2738,37 +2738,48 @@ export default {
     },
     //批量提交方法、全部通过
     submit2() {
-      if (this.multipleSelection.length == 0) {
-        this.$message({
-          message: "请至少选择一个！",
-          type: "warning",
-        });
-      } else {
-        for (var i = 0; i < this.multipleSelection.length; i++) {
-          let that = this;
-          let data = Qs.stringify({
-            consignmentId: that.multipleSelection[i].consignmentId,
-            taskId: this.taskId,
-            acceptCompanyId: this.acceptCompanyId,
+       this.$confirm("确定全部通过吗？", "提示", {
+        type: "warnning",
+      }).then(() => {
+        if (this.multipleSelection.length == 0) {
+          this.$message({
+            message: "请至少选择一个！",
+            type: "warning",
           });
-          that
-            .axios({
-              method: "post",
-              url: "/api/SubstaskInformation/allPassLT",
-              data: data,
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            })
-            .then((response) => {
-              console.log(response);
+        } else {
+          for (var i = 0; i < this.multipleSelection.length; i++) {
+            let that = this;
+            let data = Qs.stringify({
+              consignmentId: that.multipleSelection[i].consignmentId,
+              taskId: this.taskId,
+              acceptCompanyId: this.acceptCompanyId,
             });
+            that
+              .axios({
+                method: "post",
+                url: "/api/SubstaskInformation/allPassLT",
+                data: data,
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              })
+              .then((response) => {
+                console.log(response);
+              });
+          }
+          console.log(this.milepostActive);
+          if (this.milepostActive == 4) {
+            this.liu = true;
+          }
+          this.$message.success("通过成功");
+          this.chakanTC = false;
+          setTimeout(() => {this.$router.go(0);}, 1000);
         }
-        console.log(this.milepostActive);
-        if (this.milepostActive == 4) {
-          this.liu = true;
-        }
-        this.$message.success("通过成功");
-        this.chakanTC = false;
-      }
+      })
+      .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消全部通过",
+          });
+        });
     },
     //查看弹窗按钮的实现
     chakantanchu(row) {
