@@ -75,6 +75,8 @@
         multiple
         :auto-upload="false"
         :file-list="fileList"
+        :before-upload="beforeUpload"
+        accept=".xls,.xlsx,.doc,.docx,.txt,.pdf,.jpeg,.png"
       >
         <!-- <el-button size="small" slot="trigger" type="primary">选取文件</el-button>
         <br />
@@ -329,6 +331,26 @@ export default {
     //上传计划书方法
     upLoadPlanT() {
       this.planbook = true;
+    },
+    //上传计划判断格式
+    beforeUpload(file) {
+      console.log(file)
+      var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
+      const extension = testmsg === 'xls'
+      const extension2 = testmsg === 'xlsx'
+      const extension3 = testmsg === 'doc'
+      const extension4 = testmsg === 'docx'
+      const extension5 = testmsg === 'txt'
+      const extension6 = testmsg === 'pdf'
+      const extension7 = testmsg === 'jpeg'
+      const extension8 = testmsg === 'png'
+      if(!extension && !extension2 && !extension3 && !extension4 && !extension5 && !extension6 && !extension7 && !extension8) {
+          this.$message({
+          message: '上传文件只能是 xls、xlsx、doc、docx、txt、pdf、jpeg、png格式！',
+          type: 'warning'
+          });
+        }
+      return extension || extension2 || extension3 || extension4 || extension5 || extension6 || extension7 || extension8
     },
     submitUpload() {
       this.$refs.upload.submit();
