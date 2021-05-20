@@ -27,7 +27,32 @@
                   @selection-change="handleSelectionChange" 
                   @sort-change="sortChange">
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable='custom'  ></el-table-column>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'>
+                    <template slot-scope="scope">
+                      <span v-show="scope.row.taskState == 0">
+                        <el-image v-if="intervalTime(new Date(),scope.row.applyTime)==1"
+                          :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                        <el-image v-else-if="intervalTime(new Date(),scope.row.applyTime)==2"
+                          :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                        <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      </span>
+                      <span v-show="scope.row.taskState == 1">
+                        <el-image v-if="intervalTime(new Date(),scope.row.checkApplyTime)==1"
+                          :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                        <el-image v-else-if="intervalTime(new Date(),scope.row.checkApplyTime)==2"
+                          :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                        <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      </span>
+                      <span v-show="scope.row.taskState == 2">
+                        <el-image v-if="intervalTime(scope.row.deadline,new Date())==1"
+                          :src="require('../../../assets/img/warnRed.png')"></el-image>
+                        <el-image v-else-if="intervalTime(scope.row.deadline,new Date())==2"
+                          :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                        <el-image v-else :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      </span>
+                      {{ scope.row.taskName }}
+                    </template>
+                  </el-table-column>
                   <el-table-column prop="taskState" label="状态" align="center" width="98" sortable='custom'>
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
@@ -81,8 +106,17 @@
                   @selection-change="handleSelectionChange" 
                   @sort-change="sortChange1">
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable='custom'  ></el-table-column>
-                  <el-table-column prop="checkApplyState" width="120" align="center" label="状态" sortable='custom'  >
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'>
+                    <template slot-scope="scope">
+                      <el-image v-if="intervalTime(new Date(),scope.row.applyTime)==1"
+                        :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      <el-image v-else-if="intervalTime(new Date(),scope.row.applyTime)==2"
+                        :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                      <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      {{ scope.row.taskName }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="checkApplyState" width="80" align="center" label="状态" sortable='custom'  >
                     <template slot-scope="scope">
                       <el-tag type="warning" v-if="scope.row.checkApplyState === 0">待审核</el-tag>
                       <el-tag type="success" v-else-if="scope.row.checkApplyState === 1">通过</el-tag>
@@ -90,12 +124,12 @@
                     </template>
                   </el-table-column>
                   <el-table-column prop="companyName" label="供应企业" sortable='custom'  ></el-table-column>
-                  <el-table-column prop="deadline" label="截止时间" sortable='custom'  >
+                  <el-table-column prop="deadline" label="截止时间" sortable='custom' width="103">
                     <template slot-scope="scope">
                       {{ scope.row.deadline | formatDate }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center">
+                  <el-table-column label="操作" align="center" width="80">
                     <template slot-scope="scope">
                       <!-- <el-button
                         type="text"
@@ -962,26 +996,6 @@ export default {
     },
 
     handleSelectionChange(val) {},
-    // // 全部排序[不止排当前页]
-    // sortChange(column) {
-    //   this.pageIndex = 1; // 排序后返回第一页
-    //   this.pageIndex1 = 1;
-    //   if (column.order === "descending") {
-    //     this.tableData.sort((a, b) => b[column.prop] - a[column.prop]);
-    //     this.tableData1.sort((a, b) => b[column.prop] - a[column.prop]);
-    //     this.tableData2.sort((a, b) => b[column.prop] - a[column.prop]);
-    //     this.tableData3.sort((a, b) => b[column.prop] - a[column.prop]);
-    //     this.tableData4yanshou.sort((a, b) => b[column.prop] - a[column.prop]);
-    //     this.tableData5.sort((a, b) => b[column.prop] - a[column.prop]);
-    //   } else if (column.order === "ascending") {
-    //     this.tableData.sort((a, b) => a[column.prop] - b[column.prop]);
-    //     this.tableData1.sort((a, b) => a[column.prop] - b[column.prop]);
-    //     this.tableData2.sort((a, b) => a[column.prop] - b[column.prop]);
-    //     this.tableData3.sort((a, b) => a[column.prop] - b[column.prop]);
-    //     this.tableData4yanshou.sort((a, b) => a[column.prop] - b[column.prop]);
-    //     this.tableData5.sort((a, b) => a[column.prop] - b[column.prop]);
-    //   }
-    // },
     /**
      * 表格排序事件处理函数
      * @param {object} {column,prop,order} 列数据|排序字段|排序方式
@@ -1025,6 +1039,32 @@ export default {
           }
         }
       };
+    },
+    //计算两个时间之间的时间差 多少天
+    intervalTime(startTime,endTime) {
+      console.log(startTime,endTime);
+      // var timestamp=new Date().getTime(); //计算当前时间戳
+      // var timestamp = (Date.parse(new Date()))/1000;//计算当前时间戳 (毫秒级)
+      //  var date1 = ""; //开始时间
+      // if(timestamp < startTime){
+      //   date1 = startTime;
+      // }else{
+      //   date1 = timestamp; //开始时间
+      // }
+      // var date2 = endTime; //结束时间
+      // // var date3 = date2.getTime() - date1.getTime(); //时间差的毫秒数
+      // var date3 =  (date2- date1)*1000; //时间差的毫秒数
+      // //计算出相差天数
+      // var days = Math.floor(date3 / (24 * 3600 * 1000));
+      // if( days<15 )
+      //   return 1;
+      // else if( days>=15 && days<=30 )
+      //   return 2;
+      // else if( days>30 )
+      //   return 3;
+      var arr = [1, 2, 3];
+      var a = arr[Math.floor(Math.random() * arr.length)];
+      return a;  // a随机为1或者2或者3
     },
   },
 };
@@ -1083,6 +1123,14 @@ export default {
 
   .biaoti {
     font-size: 18px;
+  }
+
+  .el-image {
+    vertical-align: middle;
+    .el-image__inner{
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 </style>
