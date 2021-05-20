@@ -29,24 +29,36 @@
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
                   <el-table-column prop="taskName" label="子需求" sortable='custom'>
                     <template slot-scope="scope">
+                      <!-- 待响应 -->
                       <span v-show="scope.row.taskState == 0">
-                        <el-image v-if="intervalTime(new Date(),scope.row.applyTime)==1"
+                        <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
                           :src="require('../../../assets/img/warnGreen.png')"></el-image>
-                        <el-image v-else-if="intervalTime(new Date(),scope.row.applyTime)==2"
+                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
                           :src="require('../../../assets/img/warnYellow.png')"></el-image>
                         <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
                       </span>
+                      <!-- 计划上传 -->
                       <span v-show="scope.row.taskState == 1">
-                        <el-image v-if="intervalTime(new Date(),scope.row.checkApplyTime)==1"
+                        <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
                           :src="require('../../../assets/img/warnGreen.png')"></el-image>
-                        <el-image v-else-if="intervalTime(new Date(),scope.row.checkApplyTime)==2"
+                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
                           :src="require('../../../assets/img/warnYellow.png')"></el-image>
                         <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
                       </span>
+                      <!-- 进行中 -->
                       <span v-show="scope.row.taskState == 2">
-                        <el-image v-if="intervalTime(scope.row.deadline,new Date())==1"
+                        <el-image v-if="intervalTime(scope.row.deadline,0,new Date(),1)==1"
                           :src="require('../../../assets/img/warnRed.png')"></el-image>
-                        <el-image v-else-if="intervalTime(scope.row.deadline,new Date())==2"
+                        <el-image v-else-if="intervalTime(scope.row.deadline,0,new Date(),1)==2"
+                          :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                        <el-image v-else :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      </span>
+                      <!-- 审核 -->
+                      <!-- 验收 -->
+                      <span v-show="scope.row.taskState == 3 || scope.row.taskState == 4">
+                        <el-image v-if="intervalTime(new Date(),1,scope.row.supplierCheckDesignTime,0)==1"
+                          :src="require('../../../assets/img/warnRed.png')"></el-image>
+                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.supplierCheckDesignTime,0)==2"
                           :src="require('../../../assets/img/warnYellow.png')"></el-image>
                         <el-image v-else :src="require('../../../assets/img/warnGreen.png')"></el-image>
                       </span>
@@ -108,9 +120,9 @@
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
                   <el-table-column prop="taskName" label="子需求" sortable='custom'>
                     <template slot-scope="scope">
-                      <el-image v-if="intervalTime(new Date(),scope.row.applyTime)==1"
+                      <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
                         :src="require('../../../assets/img/warnGreen.png')"></el-image>
-                      <el-image v-else-if="intervalTime(new Date(),scope.row.applyTime)==2"
+                      <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
                         :src="require('../../../assets/img/warnYellow.png')"></el-image>
                       <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
                       {{ scope.row.taskName }}
@@ -559,6 +571,7 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+import { intervalTime } from "../../../utils/intervalTime";
 export default {
   name: "designTask",
   data() {
@@ -567,6 +580,9 @@ export default {
         pageIndex: 1,
         pageSize: 10,
       },
+      nowDate: new Date(),
+      num0: 0,
+      num1:1,
       activeName: "first",
       addVisible: false,
       addVisible1: false,
@@ -1040,8 +1056,10 @@ export default {
         }
       };
     },
+    //外部调用到函数声明
+    intervalTime,
     //计算两个时间之间的时间差 多少天
-    intervalTime(startTime,endTime) {
+    intervalTimeBase(startTime,endTime) {
       console.log(startTime,endTime);
       // var timestamp=new Date().getTime(); //计算当前时间戳
       // var timestamp = (Date.parse(new Date()))/1000;//计算当前时间戳 (毫秒级)
