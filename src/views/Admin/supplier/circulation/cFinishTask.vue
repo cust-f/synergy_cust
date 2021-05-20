@@ -23,14 +23,14 @@
 
       <el-table-column prop="taskName" sortable="custom"  label="需求名称"></el-table-column>
 
-      <el-table-column prop="taskCategoryPart" sortable="custom"  label="需求类型"></el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable="custom"  label="需求类型" width="105"></el-table-column>
 
       <el-table-column prop="companyName" sortable="custom"  label="需求企业"></el-table-column>
 
-      <el-table-column prop="finishTime" sortable="custom"  label="完成日期">
+      <el-table-column prop="finishTime" sortable="custom"  label="完成日期" width="103">
         <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
       </el-table-column>
-      <el-table-column label="操作" width="120" align="center">
+      <el-table-column label="操作" width="105" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
         </template>

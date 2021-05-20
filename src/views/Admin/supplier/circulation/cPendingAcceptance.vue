@@ -12,7 +12,14 @@
       </el-table-column>
 
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable="custom" label="需求名称">
+        <template slot-scope="scope">
+          <el-image v-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==1" :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+          <el-image v-else-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==2" :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+          <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+          {{ scope.row.taskName }}
+        </template>
+      </el-table-column>
       <el-table-column prop="demandorCheckDesignState" sortable="custom" label="验收状态" align="center" width="104">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
@@ -21,14 +28,7 @@
           <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="companyName" sortable="custom" label="需求方">
-        <template slot-scope="scope">
-          <el-image v-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==1" :src="require('../../../../assets/img/warnGreen.png')"></el-image>
-          <el-image v-else-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==2" :src="require('../../../../assets/img/warnYellow.png')"></el-image>
-          <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
-          {{ scope.row.taskName }}
-        </template>
-      </el-table-column>
+      <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
       <el-table-column prop="taskCategoryPart" sortable="custom" label="需求类型" width="105"></el-table-column>
       <el-table-column prop="deadline" sortable="custom" label="截止时间" width="103">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
