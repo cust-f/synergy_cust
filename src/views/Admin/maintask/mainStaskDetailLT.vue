@@ -982,24 +982,24 @@
       </el-dialog>
 
       <!-- 申请拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible" width="50%">
+      <el-dialog :visible.sync="addVisible" width="30%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入申请拒绝原因
+          申请拒绝原因
         </div>
         <br />
         <el-row>
-          <el-col :span="8"></el-col>
+          <!-- <el-col :span="8"></el-col> -->
         </el-row>
-        <el-form ref="form" :model="addList" label-width="120px">
+        <el-form ref="form" :model="addList" label-width="110px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
+            <!-- <el-col> -->
+              <el-form-item label="审核拒绝原因" >
                 <el-input v-model="addList.SQrefuseReason"></el-input>
               </el-form-item>
-            </el-col>
+            <!-- </el-col> -->
           </el-row>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -1009,18 +1009,18 @@
       </el-dialog>
 
       <!-- 计划书拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible1" width="50%">
+      <el-dialog :visible.sync="addVisible1" width="30%" class="jhs">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入计划书拒绝原因
+          计划书拒绝原因
         </div>
         <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
-        <el-form ref="form" :model="addList1" label-width="120px">
+        <el-form ref="form" :model="addList1" label-width="110px">
           <el-row>
             <el-col>
               <el-form-item label="审核拒绝原因">
@@ -1036,18 +1036,18 @@
       </el-dialog>
 
       <!-- 合同拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible2" width="50%">
+      <el-dialog :visible.sync="addVisible2" width="30%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入合同拒绝原因
+          合同拒绝原因
         </div>
         <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
-        <el-form ref="form" :model="addList2" label-width="120px">
+        <el-form ref="form" :model="addList2" label-width="110px">
           <el-row>
             <el-col>
               <el-form-item label="审核拒绝原因">
@@ -1057,7 +1057,7 @@
           </el-row>
         </el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible2 = false">取 消</el-button>
+          <el-button @click="addVisible2 = false" >取 消</el-button>
           <el-button type="primary" @click="HTJJYYTJ">确 定</el-button>
         </span>
       </el-dialog>
@@ -1068,13 +1068,13 @@
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入流通清单拒绝原因
+          流通清单拒绝原因
         </div>
         <br />
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
-        <el-form ref="form" :model="addList3" label-width="120px">
+        <el-form ref="form" :model="addList3" label-width="110px">
           <el-row>
             <el-col>
               <el-form-item label="审核拒绝原因">
@@ -1084,7 +1084,7 @@
           </el-row>
         </el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible3 = false">取 消</el-button>
+          <el-button @click="addVisible3 = false" >取 消</el-button>
           <el-button type="primary" @click="QDJJYYTJ">确 定</el-button>
         </span>
       </el-dialog>
@@ -1669,7 +1669,6 @@
           文件历史
         </div>
         <br />
-        <br />
         <div>
           <el-table
             :data="tableData6"
@@ -1713,6 +1712,7 @@
               </template>
             </el-table-column>
           </el-table>
+          <br>
         </div>
       </el-dialog>
       <!--流通清单拒绝原因-新改-->
@@ -1953,7 +1953,7 @@
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入流通清单拒绝原因
+          流通清单拒绝原因
         </div>
         <br />
         <el-row>
@@ -4126,5 +4126,16 @@ export default {
       // font-weight: bold;
     }
   }
+}
+</style>
+<style >
+  .el-dialog__body {
+    padding: 30px 20px 5px 20px;
+  }
+  .el-dialog__footer {
+      padding: 0px 20px 10px;
+  }
+  .el-col-24 {
+    width: 95%;
 }
 </style>

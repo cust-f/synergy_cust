@@ -87,9 +87,8 @@
     </el-dialog>
 
     <!-- 任务计划拒绝原因 -->
-    <el-dialog :visible.sync="addVisible2" width="50%">
+    <el-dialog :visible.sync="addVisible2" width="40%">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
-      <br />
       <br />
       <el-row>
         <el-col :span="8"></el-col>
@@ -99,7 +98,7 @@
           <el-col>
             <el-input
               type="textarea"
-              :autosize="{ minRows: 5, maxRows: 7}"
+              :autosize="{ minRows: 3, maxRows: 7}"
               v-model="addList2.refusePlanMessage"
               :readonly="true"
             ></el-input>
@@ -376,4 +375,10 @@ export default {
     border: 0px;
   }
 }
+</style>
+<style >
+  .el-dialog__body {
+    padding: 30px 20px 10px 20px;
+  }
+  
 </style>
