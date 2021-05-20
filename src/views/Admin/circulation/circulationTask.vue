@@ -25,8 +25,45 @@
                   @selection-change="handleSelectionChange" 
                   @sort-change="sortChange">
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
-                  <el-table-column prop="taskState" label="状态" align="center" width="98" sortable='custom'>
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'>
+                    <template slot-scope="scope">
+                      <!-- 待响应 -->
+                      <span v-show="scope.row.taskState == 0">
+                        <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
+                          :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
+                          :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                        <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      </span>
+                      <!-- 计划上传 -->
+                      <span v-show="scope.row.taskState == 1">
+                        <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
+                          :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
+                          :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                        <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      </span>
+                      <!-- 进行中 -->
+                      <span v-show="scope.row.taskState == 2">
+                        <el-image v-if="intervalTime(scope.row.deadline,0,new Date(),1)==1"
+                          :src="require('../../../assets/img/warnRed.png')"></el-image>
+                        <el-image v-else-if="intervalTime(scope.row.deadline,0,new Date(),1)==2"
+                          :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                        <el-image v-else :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      </span>
+                      <!-- 审核 -->
+                      <!-- 验收 -->
+                      <span v-show="scope.row.taskState == 3 || scope.row.taskState == 4">
+                        <el-image v-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==1"
+                          :src="require('../../../assets/img/warnRed.png')"></el-image>
+                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==2"
+                          :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                        <el-image v-else :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      </span>
+                      {{ scope.row.taskName }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="taskState" label="状态" align="center" width="95" sortable='custom'>
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.taskState ===0">待响应</el-tag>
                       <el-tag v-else-if="scope.row.taskState ===1" type="warning">计划中</el-tag>
@@ -73,8 +110,17 @@
                   @selection-change="handleSelectionChange"
                   @sort-change="sortChange1">
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
-                  <el-table-column prop="checkApplyState" sortable='custom' width="120" align="center" label="状态">
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'>
+                    <template slot-scope="scope">
+                      <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
+                        :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
+                        :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                      <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      {{ scope.row.taskName }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="checkApplyState" sortable='custom' width="95" align="center" label="状态">
                     <template slot-scope="scope">
                       <el-tag type="warning" v-if="scope.row.checkApplyState === 0">待审核</el-tag>
                       <el-tag type="success" v-else-if="scope.row.checkApplyState === 1">通过</el-tag>
@@ -82,12 +128,12 @@
                     </template>
                   </el-table-column>
                   <el-table-column prop="companyName" label="供应企业" sortable='custom'></el-table-column>
-                  <el-table-column prop="deadline" label="截止时间" sortable='custom'>
+                  <el-table-column prop="deadline" label="截止时间" width="103px" sortable='custom'>
                     <template slot-scope="scope">
                       {{scope.row.deadline | formatDate}}
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center">
+                  <el-table-column label="操作" width="105px" align="center">
                     <template slot-scope="scope">
                       <!-- <el-button
                     type="text"
@@ -129,8 +175,17 @@
                   @selection-change="handleSelectionChange"
                   @sort-change="sortChange2">
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
-                  <el-table-column prop="checkPlanState" sortable='custom' width="130" label="审核状态" align="center">
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'>
+                    <template slot-scope="scope">
+                      <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
+                        :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
+                        :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                      <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      {{ scope.row.taskName }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="checkPlanState" sortable='custom' width="95" label="状态" align="center">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
                       <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>
@@ -139,7 +194,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column prop="companyName" label="供应企业" sortable='custom'></el-table-column>
-                  <el-table-column prop="planUploadTime" label="上传时间" sortable='custom'>
+                  <el-table-column prop="planUploadTime" label="上传时间" width="103px" sortable='custom'>
                     <template slot-scope="scope">
                       <el-span v-if="+scope.row.planUploadTime === 0">暂未上传</el-span>
                       <el-span v-else>
@@ -160,7 +215,7 @@
                     </template>
                   
                   </el-table-column> -->
-                  <el-table-column label="操作" align="center">
+                  <el-table-column label="操作" width="105px" align="center">
                     <template slot-scope="scope">
                       <el-button @click="Detail(scope.row)" type="text" size="small ">查看详情</el-button>
                     </template>
@@ -194,9 +249,18 @@
                   @selection-change="handleSelectionChange"
                   @sort-change="sortChange3">
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
-                  <el-table-column prop="mainTaskName" label="总需求" sortable='custom'> </el-table-column>
-                  <el-table-column prop="demandorCheckDesignState" width="100" align="center" label="验收状态">
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'>
+                    <template slot-scope="scope">
+                      <el-image v-if="intervalTime(scope.row.deadline,0,new Date(),1)==1"
+                        :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      <el-image v-else-if="intervalTime(scope.row.deadline,0,new Date(),1)==2"
+                        :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                      <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      {{ scope.row.taskName }}
+                    </template>
+                  </el-table-column>
+                  <!-- <el-table-column prop="mainTaskName" label="总需求" sortable='custom'> </el-table-column> -->
+                  <el-table-column prop="demandorCheckDesignState" width="95" align="center" label="状态">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
                       <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -205,12 +269,12 @@
                     </template>
                   </el-table-column>
                   <el-table-column prop="acceptCompanyName" label="供应企业" sortable='custom'></el-table-column>
-                  <el-table-column prop="deadline" label="截止时间" sortable='custom'>
+                  <el-table-column prop="deadline" label="截止时间" width="103px" sortable='custom'>
                     <template slot-scope="scope">
                       {{scope.row.deadline | formatDate}}
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center">
+                  <el-table-column label="操作" width="105px" align="center">
                     <template slot-scope="scope">
                       <el-button @click="Detail345(scope.row)" type="text" size="small ">查看详情</el-button>
                     </template>
@@ -294,9 +358,18 @@
                   @selection-change="handleSelectionChange"
                   @sort-change="sortChange4yanshou">
                   <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
-                  <el-table-column prop="taskName" label="子需求" sortable='custom'></el-table-column>
-                  <el-table-column prop="mainTaskName" label="总需求" sortable='custom'></el-table-column>
-                  <el-table-column prop="demandorCheckDesignState" sortable='custom' label="验收状态" align="center">
+                  <el-table-column prop="taskName" label="子需求" sortable='custom'>
+                    <template slot-scope="scope">
+                      <el-image v-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==1"
+                        :src="require('../../../assets/img/warnGreen.png')"></el-image>
+                      <el-image v-else-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==2"
+                        :src="require('../../../assets/img/warnYellow.png')"></el-image>
+                      <el-image v-else :src="require('../../../assets/img/warnRed.png')"></el-image>
+                      {{ scope.row.taskName }}
+                    </template>
+                  </el-table-column>
+                  <!-- <el-table-column prop="mainTaskName" label="总需求" sortable='custom'></el-table-column> -->
+                  <el-table-column prop="demandorCheckDesignState" sortable='custom' width="95px" label="状态" align="center">
                     <template slot-scope="scope">
                       <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
                       <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -305,7 +378,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column prop="acceptCompanyName" label="供应企业" sortable='custom'></el-table-column>
-                  <el-table-column prop="uploadDesignTime" label="验收时间" sortable='custom'>
+                  <el-table-column prop="uploadDesignTime" label="验收时间" width="103px" sortable='custom'>
                     <template slot-scope="scope">
                       <el-span v-if="+scope.row.uploadDesignTime === 0">暂未上传</el-span>
                       <el-span v-else>
@@ -324,7 +397,7 @@
                       <el-button type="text" size="small"  class="box1" @click="tuzhiNo(scope.row)">不通过</el-button>
                     </template>
                   </el-table-column>-->
-                  <el-table-column label="操作" align="center">
+                  <el-table-column label="操作" width="105px" align="center">
                     <template slot-scope="scope">
                       <el-button @click="Detail345(scope.row)" type="text" size="small ">查看详情</el-button>
                     </template>
@@ -361,7 +434,7 @@
                   <el-table-column prop="taskName" sortable='custom' label="子需求"></el-table-column>
                   <el-table-column prop="mainTaskName" sortable='custom' label="总需求"></el-table-column>
                   <el-table-column prop="acceptCompanyName" sortable='custom' label="供应企业"></el-table-column>
-                  <el-table-column prop="finishTime" label="完成时间" sortable='custom'>
+                  <el-table-column prop="finishTime" label="完成时间" width="103px" sortable='custom'>
                     <template slot-scope="scope">
                       {{scope.row.finishTime | formatDate}}
                     </template>
@@ -372,7 +445,7 @@
                   <el-table-column label="图纸" align="center" >
                    <el-button type="text" size="small" class="box1">查看</el-button>
                   </el-table-column> -->
-                  <el-table-column label="操作" align="center">
+                  <el-table-column label="操作" width="105px" align="center">
                     <template slot-scope="scope">
                       <el-button @click="Detail345(scope.row)" type="text" size="small ">查看详情</el-button>
                     </template>
@@ -487,6 +560,7 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "./dataChange";
+import { intervalTime } from "../../../utils/intervalTime";
 export default {
   name: "designTask",
   data() {
@@ -562,6 +636,9 @@ export default {
     this.getData();
   },
   methods: {
+    //外部调用到函数声明
+    intervalTime,
+
     getData() {
       var that = this;
       var data = Qs.stringify({
@@ -1057,6 +1134,13 @@ export default {
 
   .biaoti {
     font-size: 18px;
+  }
+  .el-image {
+    vertical-align: middle;
+    .el-image__inner{
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 </style>
