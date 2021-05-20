@@ -43,7 +43,7 @@
 
           <el-button
             @click="PasswordValidation()"
-            v-show="scope.row.contractState > 0"
+            v-show="scope.row.contractState > 1"
             type="text"
             size="small"
           >历史上传</el-button>
