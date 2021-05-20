@@ -1977,3 +1977,11 @@ export default {
   }
 }
 </style>
+<style>
+      .el-dialog__header {
+    padding: 0px;
+  }
+  .el-dialog__body {
+        padding: 30px 20px 0px 20px;
+  }
+</style>

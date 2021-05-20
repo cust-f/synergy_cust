@@ -116,7 +116,7 @@
           <el-row>
              <el-col :span="8">
           <span style="color: black">需求名称: </span>
-           <span style="color: black">
+           <span style="color: #409eff">
               &nbsp;&nbsp;&nbsp;&nbsp;{{ this.taskDETA.mainTaskName}}</span
             >
             </el-col>
@@ -146,7 +146,7 @@
                             {{this.taskDETA.taskDetail }}
                           </span> -->
            <span style="color: black" class="Taskdetails">
-              &nbsp;&nbsp;&nbsp;&nbsp;{{changeString(this.taskDETA.taskDetail)}}</span
+              &nbsp;&nbsp;&nbsp;&nbsp;{{this.taskDETA.taskDetail}}</span
             >
       
             </div>
@@ -231,7 +231,7 @@
                 label="已发数量"
                 align="center"
               >
-                <template slot-scope="scope">
+                <!-- <template slot-scope="scope">
                   <el-tooltip placement="top">
                     <div slot="content" style="font-size: 13px">
                       {{ "仍需数量：" + scope.row.shortageQuantity }}
@@ -240,13 +240,13 @@
                       {{ scope.row.issuedQuantity }}
                     </p>
                   </el-tooltip>
-                </template>
+                </template> -->
               </el-table-column>
-              <!-- <el-table-column
+              <el-table-column
             prop="shortageQuantity"
-            label="仍需数量"
+            label="待发数量"
             align="center"
-          ></el-table-column> -->
+          ></el-table-column>
               <!-- <el-table-column
             prop="productModel"
             label="产品规格"
@@ -258,7 +258,7 @@
                 align="center"
                 width="160"
               ></el-table-column>
-              <el-table-column prop="consignmentTimeLatest" label="发货截止时间" width="160" align="center"
+              <el-table-column prop="consignmentTimeLatest" label="发货截止时间" width="140" align="center"
                 ><template slot-scope="scope">
                   <el-span>{{
                     scope.row.consignmentTimeLatest | formatDate
@@ -266,7 +266,7 @@
                 </template></el-table-column
               >
 
-              <el-table-column prop="leadTime" label="备货时间" width="160" align="center"
+              <el-table-column prop="leadTime" label="备货时间" width="140" align="center"
                 ><template slot-scope="scope">
                   <el-span v-if="+scope.row.leadTime === 0">暂未备货</el-span>
                   <el-span v-else>{{
@@ -1067,14 +1067,16 @@ export default {
 
 <style lang="scss" scoped>
 .top {
-  height: 132px;
+  height: auto;
+  min-height: 80px;
   margin-bottom: 10px;
   width: 100%;
   background-color: #fff4ee;
   border: 1px solid red;
   border-radius: 5px;
+
   .inside {
-    padding: 15px;
+    padding: 10px 15px 3px 15px;
     .btn {
       margin-left: 0px;
     }
@@ -1083,6 +1085,10 @@ export default {
 //
 
 .storehorseManagement {
+  .el-dialog__header {
+    padding: 0px;
+  }
+
   .table {
     font-size: 13px;
   }
@@ -1136,5 +1142,11 @@ export default {
   .nowstatus{
     margin-top: 8px;
   }
+
 }
+</style>
+<style>
+      .el-dialog__header {
+    padding: 0px;
+  }
 </style>
