@@ -13,12 +13,20 @@
       :default-sort="{prop: 'deadline', order: 'ascending'}"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" width="55" align="center"></el-table-column>
+      <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
-      <el-table-column prop="companyName" sortable="custom" label="需求方" width="275"></el-table-column>
+      <el-table-column prop="taskName" sortable="custom" label="需求名称">
+        <template slot-scope="scope">
+                      <el-image v-if="intervalTime(scope.row.deadline,0,new Date(),1)==1"
+                        :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+                      <el-image v-else-if="intervalTime(scope.row.deadline,0,new Date(),1)==2"
+                        :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+                      <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+                      {{ scope.row.taskName }}
+                    </template>
+      </el-table-column>
       <!-- <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column> -->
-      <el-table-column prop="demandorCheckDesignState" sortable="custom" width="101" align="center" label="验收状态">
+      <el-table-column prop="demandorCheckDesignState" sortable="custom" width="95" align="center" label="状态">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.demandorCheckDesignState === 0">待提交</el-tag>
           <el-tag type="warning" v-else-if="scope.row.demandorCheckDesignState === 1">待审核</el-tag>
@@ -26,7 +34,7 @@
           <el-tag type="danger" v-else-if="scope.row.demandorCheckDesignState === 3">未通过</el-tag>
         </template>
       </el-table-column>
-
+      <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
       <el-table-column prop="deadline" sortable="custom" label="截止日期" width="103">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
@@ -56,6 +64,7 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "../../maintask/dataChange";
+import { intervalTime } from "../../../../utils/intervalTime";
 export default {
   name: "designingTask",
   data() {
@@ -94,6 +103,8 @@ export default {
     this.getData();
   },
   methods: {
+    //外部调用到函数声明
+    intervalTime,
     // 详情页面跳转
     // jumpdesigningDet() {
     //   this.$router.push("/admin/designingTaskDet");
@@ -217,4 +228,13 @@ export default {
 .box {
   font-size: 24px;
 }
+</style>
+<style lang="scss">
+.el-image {
+    vertical-align: middle;
+    .el-image__inner{
+      width: 16px;
+      height: 16px;
+    }
+  }
 </style>

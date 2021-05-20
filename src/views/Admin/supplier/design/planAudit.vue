@@ -13,12 +13,21 @@
       :default-sort="{prop: 'applyTime', order: 'ascending'}"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" width="55" align="center"></el-table-column>
+      <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
+      <el-table-column prop="taskName" sortable="custom" label="需求名称">
+        <template slot-scope="scope">
+                      <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
+                        :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+                      <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
+                        :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+                      <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+                      {{ scope.row.taskName }}
+                    </template>
+      </el-table-column>
       <el-table-column prop="taskCategoryPart" sortable="custom" label="需求类型"></el-table-column>
       <el-table-column prop="publishingCompanyName" sortable="custom" label="需求方"></el-table-column>
-      <el-table-column prop="checkPlanState" sortable="custom" width="101" label="审核状态" align="center">
+      <el-table-column prop="checkPlanState" sortable="custom" width="95" label="状态" align="center">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
           <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>
@@ -59,6 +68,7 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "../../maintask/dataChange";
+import { intervalTime } from "../../../../utils/intervalTime";
 export default {
   name: "planAudit",
   created() {
@@ -104,6 +114,8 @@ export default {
     },
   },
   methods: {
+    //外部调用到函数声明
+    intervalTime,
     getData() {
       var that = this;
       var data = Qs.stringify({
@@ -252,4 +264,13 @@ export default {
 .box {
   font-size: 24px;
 }
+</style>
+<style lang="scss">
+.el-image {
+    vertical-align: middle;
+    .el-image__inner{
+      width: 16px;
+      height: 16px;
+    }
+  }
 </style>

@@ -13,16 +13,16 @@
       :default-sort="{prop: 'applyTime', order: 'descending'}"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" width="55" align="center"></el-table-column>
+      <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
       <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
       <el-table-column prop="taskCategoryPart" sortable="custom" label="需求类型"></el-table-column>
       <el-table-column prop="companyName" sortable="custom" label="需求方"></el-table-column>
       <!-- <el-table-column prop="designerName" sortable="custom" label="设计师" align="center"></el-table-column> -->
-      <el-table-column prop="finishTime" sortable="custom" label="完成日期">
+      <el-table-column prop="finishTime" sortable="custom" width="103" label="完成日期">
         <template slot-scope="scope">{{scope.row.finishTime | formatDate}}</template>
       </el-table-column>
-      <el-table-column label="操作" width="120" align="center">
+      <el-table-column label="操作" width="105" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
         </template>

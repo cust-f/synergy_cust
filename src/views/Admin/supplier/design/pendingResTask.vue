@@ -13,10 +13,19 @@
       :default-sort="{prop: 'applyTime', order: 'ascending'}"
       @sort-change="sortChange"
     >
-      <el-table-column label="序号" type="index" width="55" align="center"></el-table-column>         
+      <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>         
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
-      <el-table-column prop="applyWay" sortable="custom" width="101" label="承接方式">
+      <el-table-column prop="taskName" sortable="custom" label="需求名称">
+        <template slot-scope="scope">
+                      <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
+                        :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+                      <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
+                        :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+                      <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+                      {{ scope.row.taskName }}
+                    </template>
+      </el-table-column>
+      <el-table-column prop="applyWay" sortable="custom" width="100" label="承接方式">
         <template slot-scope="scope">
           <span v-if="scope.row.applyWay === 0">邀请</span>
           <span v-else-if="scope.row.applyWay === 1">申请</span>
@@ -64,6 +73,7 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "../../maintask/dataChange";
+import { intervalTime } from "../../../../utils/intervalTime";
 export default {
   name: "pendingResTask",
   created() {
@@ -112,6 +122,8 @@ export default {
     this.getData();
   },
   methods: {
+    //外部调用到函数声明
+    intervalTime,
     getData() {
       var that = this;
       var data = Qs.stringify({
@@ -259,4 +271,13 @@ export default {
 .box {
   font-size: 24px;
 }
+</style>
+<style lang="scss">
+.el-image {
+    vertical-align: middle;
+    .el-image__inner{
+      width: 16px;
+      height: 16px;
+    }
+  }
 </style>
