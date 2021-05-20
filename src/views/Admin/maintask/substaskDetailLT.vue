@@ -138,7 +138,7 @@
                   <el-button type="text" @click="showCompanyDetail(scope.row)">{{ scope.row.Company_Name }}</el-button>
                 </template>
               </el-table-column>
-              <el-table-column prop="Product_Name" label="产品名称" align="center" width="80">
+              <el-table-column prop="Product_Name" label="产品名称" align="center" width="92">
                 <template slot-scope="scope">
                   <span v-if="scope.row.Product_Name != undefined">{{scope.row.Product_Name}}</span>
                   <span v-else>暂无</span>
@@ -168,7 +168,7 @@
                   <span v-else>暂无</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Apply_Way" label="申请/邀请" align="center" width="82">
+              <el-table-column prop="Apply_Way" label="申请/邀请" align="center" width="53">
                 <template slot-scope="scope">
                   <span v-if="scope.row.Apply_Way == 0">邀请</span>
                   <span v-else-if="scope.row.Apply_Way == 1">申请</span>
@@ -211,7 +211,6 @@
             &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
             <!-- <br /> -->
             <el-table :data="quotaTableData" border class="quotaTable" ref="multipleTable" header-cell-class-name="table-header">
-              <!-- mainTaskID冲-->
               <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
               <el-table-column prop="Company_Name" align="center" label="供应商">
                 <!-- <template slot-scope="scope">
@@ -220,50 +219,56 @@
                   </el-button>
                 </template> -->
               </el-table-column>
-              <el-table-column prop="Product_Name" label="产品名称" align="center" width="80">
+              <el-table-column prop="Task_State" align="center" label="需求状态" width="80">
+                <template slot-scope="scope">
+                  <el-tag v-if="+scope.row.Task_State === 5" type="success">已完成</el-tag>
+                  <el-tag v-else>进行中</el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Product_Name" label="产品名称" align="center" width="92">
                 <template slot-scope="scope">
                   <span v-if="scope.row.Product_Name != undefined">{{scope.row.Product_Name}}</span>
                   <span v-else>暂无</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Parts_Category" label="类别" align="center" width="100">
+              <el-table-column prop="Parts_Category" label="类别" align="center" width="92">
                 <template slot-scope="scope">
                   <span v-if="scope.row.Parts_Category != undefined">{{scope.row.Parts_Category}}</span>
                   <span v-else>暂无</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Sale" label="销量" align="center" width="60">
+              <el-table-column prop="Sale" label="销量" align="center" width="53">
                 <template slot-scope="scope">
                   <span v-if="scope.row.Sale != undefined">{{scope.row.Sale}}</span>
                   <span v-else>暂无</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Reserve" label="库存" align="center" width="60">
+              <el-table-column prop="Reserve" label="库存" align="center" width="53">
                 <template slot-scope="scope">
                   <span v-if="scope.row.Reserve != undefined">{{scope.row.Reserve}}</span>
                   <span v-else>暂无</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Price" label="价格" align="center" width="60">
+              <el-table-column prop="Price" label="价格" align="center" width="53">
                 <template slot-scope="scope">
                   <span v-if="scope.row.Price != undefined">{{scope.row.Price}}</span>
                   <span v-else>暂无</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Apply_Way" label="申请/邀请" align="center" width="82">
+              <el-table-column prop="Apply_Way" label="申请/邀请" align="center" width="53">
                 <template slot-scope="scope">
                   <span v-if="+scope.row.Apply_Way === 0">邀请</span>
                   <span v-else-if="+scope.row.Apply_Way === 1">申请</span>
                   <span v-else>其他</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="Quota_Number" label="配额" align="center" width="82" >
+              <el-table-column prop="Quota_Number" label="配额" align="center" width="53" >
                 <template slot-scope="scope">
                   <span v-if="scope.row.Quota_Number != undefined">{{scope.row.Quota_Number}}</span>
                   <span v-else>0</span>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" align="center" width="97">
+              <el-table-column label="操作" align="center" width="72">
                 <template slot-scope="scope">
                   <el-button @click="substaskDetailLT(scope.row)" type="text" size="small">查看详情</el-button>
                 </template>
@@ -1773,6 +1778,9 @@ export default {
       font-size: 14px;
       padding: 0px 0px 0px 8px;
     }
+    // .el-table .cell{
+    //   text-align: center;
+    // }
   }
   .quotaEditDialog{
     .el-dialog__body{

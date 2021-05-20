@@ -425,7 +425,11 @@
                 v-if="scope.row.contractState === 1"
                 >拒绝</el-button
               >
-              <el-button type="text" size="small" @click="CKLSHT(scope.row)"
+              <el-button 
+              type="text" 
+              size="small" 
+              @click="CKLSHT(scope.row)"
+              v-show="scope.row.contractState > 1"
                 >历史上传</el-button
               >
             </template>

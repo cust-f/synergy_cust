@@ -963,6 +963,21 @@ export default {
     sortChange({ prop, order }) {
       this.tableData.sort(this.compare(prop,order));
     },
+    sortChange1({ prop, order }) {
+      this.tableData1.sort(this.compare(prop, order));
+    },
+    sortChange2({ prop, order }) {
+      this.tableData2.sort(this.compare(prop, order));
+    },
+    sortChange3({ prop, order }) {
+      this.tableData3.sort(this.compare(prop, order));
+    },
+    sortChange4yanshou({ prop, order }) {
+      this.tableData4yanshou.sort(this.compare(prop, order));
+    },
+    sortChange5({ prop, order }) {
+      this.tableData5.sort(this.compare(prop, order));
+    },
     /**
       * 排序比较
       * @param {string} propertyName 排序的属性名
