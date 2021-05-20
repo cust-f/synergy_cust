@@ -4,31 +4,24 @@
       <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
     </div>
-    <el-table
-      :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-      border
-      class="table"
-      ref="multipleTable"
-      header-cell-class-name="table-header"
-      :default-sort="{prop: 'applyTime', order: 'ascending'}"
-    >
+    <el-table :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)" border class="table" ref="multipleTable" header-cell-class-name="table-header" :default-sort="{prop: 'applyTime', order: 'ascending'}">
       <el-table-column label="序号" type="index" width="55" align="center">
         <template slot-scope="scope">
           <span>{{scope.$index + 1}}</span>
         </template>
       </el-table-column>
-
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-
-      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
-
-      <el-table-column
-        prop="checkPlanState"
-        sortable="custom"
-        width="150"
-        label="审核状态"
-        align="center"
-      >
+      <el-table-column prop="taskName" sortable="custom" label="需求名称">
+        <template slot-scope="scope">
+          <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
+            :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+          <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
+            :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+          <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+          {{ scope.row.taskName }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="checkPlanState" sortable="custom" width="103" label="审核状态" align="center">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.checkPlanState === 0">待上传</el-tag>
           <el-tag type="warning" v-else-if="scope.row.checkPlanState === 1">待审核</el-tag>
@@ -36,13 +29,11 @@
           <el-tag type="danger" v-else-if="scope.row.checkPlanState === 3">拒绝</el-tag>
         </template>
       </el-table-column>
-
       <el-table-column prop="publishingCompanyName" sortable="custom" label="需求方"></el-table-column>
-
-      <el-table-column prop="applyTime" sortable="custom" label="发布日期" align="center">
+      <el-table-column prop="applyTime" sortable="custom" label="发布日期" width="103">
         <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
       </el-table-column>
-      <el-table-column prop="deadline" sortable="custom" label="截止日期">
+      <el-table-column prop="deadline" sortable="custom" label="截止日期" width="103">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
 
@@ -53,15 +44,7 @@
       </el-table-column>
     </el-table>
     <div class="pagination">
-      <el-pagination
-        background
-        layout="prev, pager, next, sizes, total, jumper"
-        :current-page="pageIndex1"
-        :page-size="pageSize"
-        :total="tableData.length"
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"
-      ></el-pagination>
+      <el-pagination background layout="prev, pager, next, sizes, total, jumper" :current-page="pageIndex1" :page-size="pageSize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange"></el-pagination>
     </div>
   </div>
 </template>
@@ -71,6 +54,7 @@
 <script>
 import Qs from "qs";
 import { formatDate } from "../../maintask/dataChange";
+import { intervalTime } from "../../../../utils/intervalTime";
 export default {
   name: "planAudit",
   created() {
@@ -115,6 +99,8 @@ export default {
     },
   },
   methods: {
+    //外部调用到函数声明
+    intervalTime,
     getData() {
       var that = this;
       var data = Qs.stringify({
