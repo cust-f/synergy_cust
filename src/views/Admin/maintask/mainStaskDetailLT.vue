@@ -319,7 +319,7 @@
         </el-form>
       </el-dialog>
 
-      <div v-show="milepostActive2">
+      <div v-show="milepostActive2 && quotaState">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -387,7 +387,7 @@
         <br />
       </div>
 
-      <div v-show="milepostActive2">
+      <div v-show="milepostActive2 && quotaState">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -2153,6 +2153,8 @@ export default {
       taskId: "",
       //申请表ID
       ID: "",
+      //配额分配状态
+      quotaState: 0,
       //控制4个table是否显示的
       milepostActive1: -1,
       milepostActive2: -1,
@@ -3315,6 +3317,7 @@ export default {
           this.WZLJ = response.data.allData.WZLJ;
           this.WJSM = response.data.allData.SM;
           this.tableData1 = response.data.allData.b;
+          this.quotaState = response.data.allData.b[0].quotaState;
           // if (this.tableData1.length != 0) {
           //   //读取所有需求的时间
           //   this.timeList.publishTime = response.data.allData.a[0].publishTime;
