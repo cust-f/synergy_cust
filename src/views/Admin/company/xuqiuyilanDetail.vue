@@ -6,12 +6,8 @@
           <div class="XuQiutitle">
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item :to="{ path: '/xuqiuyilan' }"
-                >需求一览</el-breadcrumb-item
-              >
-              <el-breadcrumb-item :to="{ path: 'admin/xuqiuyilanDetail' }"
-                >需求详情</el-breadcrumb-item
-              >
+              <el-breadcrumb-item :to="{ path: '/xuqiuyilan' }">需求一览</el-breadcrumb-item>
+              <el-breadcrumb-item :to="{ path: 'admin/xuqiuyilanDetail' }">需求详情</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
           <br />
@@ -72,28 +68,19 @@
                   </a>
                 </li>
                 <br />
-                <el-button
-                  type="warning"
-                  v-show="applyYinCang === 0"
-                  class="button-style"
-                  @click="applyTask()"
-                  v-if="roleID!=4"
-                  >申请任务</el-button
-                >
+                <el-button type="warning" v-show="applyYinCang === 0" class="button-style" @click="applyTask()" v-if="roleID!=4">申请任务</el-button>
               </el-col>
             </ul>
           </div>
           <div class="left">
             <el-card class="companybox-card">
               <div slot="header" class="clearfix">
-                <div
-                  style="
+                <div style="
                     margin: -18px -20px;
                     padding: 10px 20px;
                     background: #ffc107;
                     font-size: 18px;
-                  "
-                >
+                  ">
                   {{ companyList.companyName }}
                 </div>
               </div>
@@ -166,11 +153,7 @@
                   <span>附件</span>
                 </div>
                 <div>
-                  <el-table
-                    :data="tableData"
-                    class="customer-table"
-                    :show-header="false"
-                  >
+                  <el-table :data="tableData" class="customer-table" :show-header="false">
                     <el-table-column>
                       <template slot-scope="scope">
                         <el-link @click.native="downloadFile(scope.row)">{{
@@ -178,11 +161,7 @@
                         }}</el-link>
                       </template>
                     </el-table-column>
-                    <el-table-column
-                      prop="filePath"
-                      label="真实地址"
-                      v-if="YinCang === 0"
-                    ></el-table-column>
+                    <el-table-column prop="filePath" label="真实地址" v-if="YinCang === 0"></el-table-column>
                   </el-table>
                 </div>
               </el-card>
@@ -190,64 +169,36 @@
 
             <div class="Right3" style="text-align: center">
               <br />
-              <div
-                v-if="applyList.taskType === 1"
-                class="biaoti"
-                style="
+              <div v-if="applyList.taskType === 1" class="biaoti" style="
                   padding: 0 10px;
                   border-left: 3px solid #4e58c5;
                   float: left;
-                "
-              >
+                ">
                 流通清单
               </div>
               <br />
               <br />
               <div v-if="applyList.taskType === 1" class="link-top"></div>
               <br />
-              <el-table
-                v-if="applyList.taskType === 1"
-                style="width: 95%"
-                :data="tableData2"
-              >
-                <el-table-column
-                  label="序号"
-                  type="index"
-                  align="center"
-                  width="75"
-                  prop="consignmentId"
-                >
+              <el-table v-if="applyList.taskType === 1" style="width: 95%" :data="tableData2">
+                <el-table-column label="序号" type="index" align="center" width="75" prop="consignmentId">
                   <template slot-scope="scope">
                     <span>{{ scope.$index + 1 }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column
-                  prop="productName"
-                  label="产品名称"
-                ></el-table-column>
-                <el-table-column
-                  prop="productNumber"
-                  label="产品数量"
-                ></el-table-column>
-                <el-table-column
-                  prop="productModel"
-                  label="产品规格"
-                    ></el-table-column>
-              <el-table-column
-                  label="零件类别"
-                  prop="partsCategory"
-              >
-              <template slot-scope="scope">
-                <span
-                  v-if="scope.row.partsCategory==null"
-                >
-                 {{"暂无类别"}}  
-                </span>
-                <span v-else>
-                   {{ scope.row.partsCategory }}
-                </span>
-              </template>
-            </el-table-column>
+                <el-table-column prop="productName" label="产品名称"></el-table-column>
+                <el-table-column prop="productNumber" label="产品数量"></el-table-column>
+                <el-table-column prop="productModel" label="产品规格"></el-table-column>
+                <el-table-column label="零件类别" prop="partsCategory">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.partsCategory==null">
+                      {{"暂无类别"}}
+                    </span>
+                    <span v-else>
+                      {{ scope.row.partsCategory }}
+                    </span>
+                  </template>
+                </el-table-column>
               </el-table>
             </div>
           </el-tab-pane>
@@ -403,119 +354,76 @@
     </div>
     <!-- 申请任务弹出框 -->
     <el-dialog :visible.sync="applyDiaLog" width="50%">
-      <div
-        class="biaoti"
-        style="padding: 0 10px; border-left: 3px solid #4e58c5"
-      >
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
         申请信息
       </div>
       &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
       <el-row>
         <el-col :span="8"></el-col>
       </el-row>
-      <el-form
-        ref="applyList1"
-        :rules="rules"
-        class="demo-ruleForm"
-        :model="applyList1"
-        label-width="120px"
-      >
+      <el-form ref="applyList1" :rules="rules" class="demo-ruleForm" :model="applyList1" label-width="120px">
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方：">
-              <el-input
-                class=".no-el-input"
-                v-model="companyList.companyName"
-                :readonly="true"
-              ></el-input>
+              <el-input class=".no-el-input" v-model="companyList.companyName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
             <el-form-item label="需求名">
-              <el-input
-                v-model="applyList.taskName"
-                :readonly="true"
-              ></el-input>
+              <el-input v-model="applyList.taskName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
             <el-form-item label="一级行业类别">
-              <el-input
-                v-model="applyList.taskCategoryMain"
-                :readonly="true"
-              ></el-input>
+              <el-input v-model="applyList.taskCategoryMain" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
             <el-form-item label="二级行业类别">
-              <el-input
-                v-model="applyList.taskCategoryPart"
-                :readonly="true"
-              ></el-input>
+              <el-input v-model="applyList.taskCategoryPart" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求开始时间">
-              <el-input
-                v-bind:value="applyList.beginTime | formatDate"
-                :readonly="true"
-              ></el-input>
+              <el-input v-bind:value="applyList.beginTime | formatDate" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
             <el-form-item label="需求截止时间">
-              <el-input
-                v-bind:value="applyList.deadline | formatDate"
-                :readonly="true"
-              ></el-input>
+              <el-input v-bind:value="applyList.deadline | formatDate" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
             <el-form-item label="供应方：">
-              <el-input
-                class=".no-el-input"
-                v-model="userData.companyName"
-                :readonly="true"
-              ></el-input>
+              <el-input class=".no-el-input" v-model="userData.companyName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
             <el-form-item label="联系人">
-              <el-input
-                v-model="userData.realName"
-                :readonly="true"
-              ></el-input>
+              <el-input v-model="userData.realName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求方电话">
-              <el-input
-                v-model="applyList.demanderTel"
-                :readonly="true"
-              ></el-input>
+              <el-input v-model="applyList.demanderTel" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
             <el-form-item label="联系方式" prop="supplierTel">
-              <el-input
-                v-model="applyList1.supplierTel"
-                placeholder="请输入用于联系的手机号"
-                :readonly="true"
-                autocomplete="off"
-              ></el-input>
+              <el-input v-model="applyList1.supplierTel" placeholder="请输入用于联系的手机号" :readonly="true" autocomplete="off"></el-input>
             </el-form-item>
           </el-col>
           <!-- <el-col :span="11">
@@ -555,10 +463,10 @@ export default {
       }
     };
     return {
-      userId:sessionStorage.getItem("userId"),
-      roleID:sessionStorage.getItem("roleId"),
+      userId: sessionStorage.getItem("userId"),
+      roleID: sessionStorage.getItem("roleId"),
       //userData
-      userData:{},
+      userData: {},
       //默认logo
       errorImg01: 'this.src="' + require("../company/2.jpg") + '"',
       telphone: 0,
@@ -683,7 +591,7 @@ export default {
     this.getFilePath();
     this.showData();
     // this.showCompanyData();  目前貌似坏掉了正在修复中
-    this.showUserData();//显示用户信息
+    this.showUserData(); //显示用户信息
   },
 
   filters: {
@@ -694,7 +602,7 @@ export default {
   },
   methods: {
     //显示用户信息
-    showUserData(){
+    showUserData() {
       var that = this;
       var data = Qs.stringify({
         userId: this.userId,
@@ -707,7 +615,7 @@ export default {
         })
         .then((response) => {
           this.userData = response.data.allData;
-          this.applyList1.supplierTel =  response.data.allData.phone;
+          this.applyList1.supplierTel = response.data.allData.phone;
           // console.log(this.userData)
         });
     },
@@ -759,7 +667,7 @@ export default {
         this.applyYinCang = 1;
       } else if (this.taskState == "失败") {
         this.applyYinCang = 1;
-      }else if (this.taskState == "计划提交") {
+      } else if (this.taskState == "计划提交") {
         this.applyYinCang = 1;
       }
       // else {
@@ -873,7 +781,7 @@ export default {
       var data = Qs.stringify({
         taskId: this.taskID,
         userName: this.userName,
-        taskType:this.applyList.taskType,
+        taskType: this.applyList.taskType,
       });
       that
         .axios({
@@ -921,10 +829,9 @@ export default {
         });
         this.$message.success("提交成功");
         setTimeout(() => {
-              this.$router.go(0);
-              // 这里就是处理的事件
-          }, 50);
-        
+          this.$router.go(0);
+          // 这里就是处理的事件
+        }, 50);
       }
     },
     companyDetail(companyId) {
@@ -1042,81 +949,44 @@ export default {
     margin-top: 22px;
   }
   .XuQiustyle .xq_top {
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,sans-serif;
     font-size: 14px;
-
     font-style: normal;
-
     font-variant: normal;
-
     font-weight: 400;
-
     line-height: normal;
-
     margin-bottom: 0px;
-
     margin-right: 65.61px;
-
     margin-top: 0px;
-
     overflow: hidden;
-
     padding-bottom: 10px;
-
     padding-left: 10px;
-
     padding-right: 10px;
-
     padding-top: 10px;
-
     text-decoration: none;
-
     width: 1150px;
   }
   .xuQiuBigTime {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
     float: left;
-
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,sans-serif;
     font-size: 14px;
-
     font-style: normal;
-
     font-variant: normal;
-
     font-weight: 400;
-
     height: 250px;
-
     line-height: normal;
-
     margin-bottom: 0px;
-
     margin-left: 0px;
-
     margin-right: 0px;
-
     margin-top: 0px;
-
     overflow: hidden;
-
     padding-bottom: 0px;
-
     padding-left: 0px;
-
     padding-right: 0px;
-
     padding-top: 0px;
-
     position: relative;
-
     text-decoration: none;
-
     width: 250px;
   }
   .ull {
@@ -1127,42 +997,23 @@ export default {
   }
   .Right {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
     float: left;
-
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,sans-serif;
     font-size: 14px;
-
     font-style: normal;
-
     font-variant: normal;
-
     font-weight: 400;
-
     line-height: normal;
-
     margin-bottom: 0px;
-
     margin-left: 40px;
-
     margin-right: 0px;
-
     margin-top: 0px;
-
     overflow: hidden;
-
     padding-bottom: 0px;
-
     padding-left: 0px;
-
     padding-right: 0px;
-
     padding-top: 0px;
-
     text-decoration: none;
-
     width: 400px;
   }
   .ul02 {
@@ -1213,122 +1064,65 @@ export default {
   }
   .Right1 {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
     float: left;
-
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,sans-serif;
     font-size: 14px;
-
     font-style: normal;
-
     font-variant: normal;
-
     font-weight: 400;
-
     line-height: normal;
-
     margin-bottom: 10px;
-
     margin-left: 0px;
-
     margin-right: 0px;
-
     margin-top: 0px;
-
     overflow: hidden;
-
     padding-bottom: 0px;
-
     padding-left: 0px;
-
     padding-right: 0px;
-
     padding-top: 0px;
-
     text-decoration: none;
-
     width: 600px;
   }
   .Right2 {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
     float: left;
-
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,sans-serif;
     font-size: 14px;
-
     font-style: normal;
-
     font-variant: normal;
-
     font-weight: 400;
-
     line-height: normal;
-
     margin-bottom: 10px;
-
     margin-left: 0px;
-
     margin-right: 0px;
-
     margin-top: 0px;
-
     overflow: hidden;
-
     padding-bottom: 0px;
-
     padding-left: 0px;
-
     padding-right: 0px;
-
     padding-top: 0px;
-
     text-decoration: none;
-
     width: 720px;
   }
   .Right3 {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
     float: right;
-
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,
-      sans-serif;
-
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial,sans-serif;
     font-size: 14px;
-
     font-style: normal;
-
     font-variant: normal;
-
     font-weight: 400;
-
     line-height: normal;
-
     margin-bottom: 10px;
-
     margin-left: 0px;
-
     margin-right: 0px;
-
     margin-top: 0px;
-
     overflow: hidden;
-
     padding-bottom: 0px;
-
     padding-left: 0px;
-
     padding-right: 0px;
-
     padding-top: 0px;
-
     text-decoration: none;
-
     width: 720px;
   }
   .left {
@@ -1343,9 +1137,7 @@ export default {
     font-size: 25%;
     float: left;
   }
-  .xuqiuyilanDet.el-dialog__header {
-    padding: 0px 0px 0px;
-  }
+
   .button-style {
     float: right;
   }
@@ -1415,4 +1207,10 @@ export default {
     border-top: solid #acc0d8 1px;
   }
 }
+</style>
+<style>
+.xuqiuyilanDet .el-dialog__header {
+    padding: 0px 0px 0px;
+    height: 0px;
+  }
 </style>
