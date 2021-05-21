@@ -121,7 +121,7 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column type="selection" width="50" align="center" :reserve-selection="true" :selectable="multipleTableSelectable"></el-table-column>
+                <!-- <el-table-column type="selection" width="50" align="center" :reserve-selection="true" :selectable="multipleTableSelectable"></el-table-column> -->
                 <el-table-column prop="id" label="序号" type="index" width="50" align="center"></el-table-column>
                 <el-table-column prop="taskName" label="需求名称"></el-table-column>
                 <el-table-column prop="taskState" label="需求状态" align="center" width="79">
