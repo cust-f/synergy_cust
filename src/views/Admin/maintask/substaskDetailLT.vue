@@ -221,8 +221,14 @@
               </el-table-column>
               <el-table-column prop="Task_State" align="center" label="需求状态" width="80">
                 <template slot-scope="scope">
+                  <el-tag v-if="+scope.row.Task_State === 0">待响应</el-tag>
+                  <el-tag v-if="+scope.row.Task_State === 1 || scope.row.Task_State === 2" type="warning">进行中</el-tag>
+                  <el-tag v-if="+scope.row.Task_State === 3" class="shenhe">审核</el-tag>
+                  <el-tag v-if="+scope.row.Task_State === 4" class="yanshou">验收</el-tag>
                   <el-tag v-if="+scope.row.Task_State === 5" type="success">已完成</el-tag>
-                  <el-tag v-else>进行中</el-tag>
+                  <el-tag v-if="+scope.row.Task_State === 6" type="danger">失败</el-tag>
+                  <!-- <el-tag v-if="+scope.row.Task_State === 5" type="success">已完成</el-tag>
+                  <el-tag v-else>进行中</el-tag> -->
                 </template>
               </el-table-column>
               <el-table-column prop="Product_Name" label="产品名称" align="center" width="92">
@@ -718,6 +724,8 @@ export default {
       mainTaskEditVisible: false, //主需求修改弹框显示
       consignmentVisible: false, // 流通清单弹出框显示
       consignmentEditButtonDisabled: true,// 流通清单修改按钮禁用
+      consignmentNumberDisabled:false, //流通清单数量修改禁用
+      consignmentPriceDisabled:false,//流通清单价格修改禁用
       companyDetailVisible: false, //企业信息弹框显示
       applyListVisible: false, //申请列表列表显示
       quotaListVisible: false, //配额分配列表显示
@@ -756,6 +764,8 @@ export default {
       applyTableData: [],
       //配额分配数据
       quotaTableData: [],
+      //修改配额分配数据
+      quotaEditTableData:[],
       // 配额修改总和
       quotaSum:0,
       // 配额修改行数
