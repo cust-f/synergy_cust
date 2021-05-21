@@ -17,56 +17,24 @@
       <el-card shadow="never" class="XuQiustyle">
         <div class="xq_top">
           <div class="xuQiuBigTime">
-            <div>
-              <img :src="logo" class="xuQiuimages" :onerror="errorImg01" />
-            </div>
+            <div> <img :src="logo" class="xuQiuimages" :onerror="errorImg01" /></div>
           </div>
-
           <div class="Right">
-            <div>
-              <div class="title-detail">
-                <font>{{ applyList.taskName }}</font>
-              </div>
-            </div>
+            <div><div class="title-detail"><font>{{ applyList.taskName }}</font></div></div>
             <br />
             <el-divider></el-divider>
             <ul class="ul02">
               <el-col :span="8" class="task-detail">
-                <li>
-                  <a>
-                    一级行业类别：
-                    <font>{{ applyList.taskCategoryMain }}</font>
-                  </a>
-                </li>
+                <li><a>一级行业类别：<font>{{ applyList.taskCategoryMain }}</font></a></li>
                 <br />
-                <li>
-                  <a>
-                    二级行业类别：
-                    <font>{{ applyList.taskCategoryPart }}</font>
-                  </a>
-                </li>
+                <li><a>二级行业类别：<font>{{ applyList.taskCategoryPart }}</font></a></li>
                 <br />
-                <li>
-                  <a>
-                    需求类型：
-                    <font v-if="applyList.taskType === 1">流通需求</font>
-                    <font v-if="applyList.taskType === 0">设计需求</font>
-                  </a>
-                </li>
+                <li><a>需求类型：<font v-if="applyList.taskType === 1">流通需求</font>
+                  <font v-if="applyList.taskType === 0">设计需求</font></a></li>
                 <br />
-                <li>
-                  <a>
-                    开始时间：
-                    <font>{{ applyList.beginTime | formatDate }}</font>
-                  </a>
-                </li>
+                <li><a>开始时间：<font>{{ applyList.beginTime | formatDate }}</font></a></li>
                 <br />
-                <li>
-                  <a>
-                    截止时间：
-                    <font>{{ applyList.deadline | formatDate }}</font>
-                  </a>
-                </li>
+                <li><a>截止时间：<font>{{ applyList.deadline | formatDate }}</font></a></li>
                 <br />
                 <el-button type="warning" v-show="applyYinCang === 0" class="button-style" @click="applyTask()" v-if="roleID!=4">申请任务</el-button>
               </el-col>
@@ -75,12 +43,7 @@
           <div class="left">
             <el-card class="companybox-card">
               <div slot="header" class="clearfix">
-                <div style="
-                    margin: -18px -20px;
-                    padding: 10px 20px;
-                    background: #ffc107;
-                    font-size: 18px;
-                  ">
+                <div style="margin: -18px -20px; padding: 10px 20px; background: #ffc107; font-size: 18px;">
                   {{ companyList.companyName }}
                 </div>
               </div>
@@ -88,43 +51,18 @@
                 <ul class="ul02">
                   <el-row>
                     <el-col :span="8" class="company-detail">
-                      <li>
-                        <a>
-                          所在省：
-                          <font>{{ companyList.province }}省</font>
-                        </a>
-                      </li>
+                      <li><a>所在省：<font>{{ companyList.province }}省</font></a></li>
                       <br />
-                      <li>
-                        <a>
-                          所在市：
-                          <font>{{ companyList.city }}市</font>
-                        </a>
-                      </li>
+                      <li><a>所在市：<font>{{ companyList.city }}市</font></a></li>
                       <br />
                       <el-popover placement="top-start" trigger="hover">
                         <div>{{ companyList.address }}</div>
-                        <li class="det" slot="reference">
-                          <a slot="reference">
-                            企业地址：
-                            <font>{{ companyList.address }}</font>
-                          </a>
-                        </li>
+                        <li class="det" slot="reference"><a slot="reference">企业地址：<font>{{ companyList.address }}</font></a></li>
                       </el-popover>
                       <br />
-                      <li>
-                        <a>
-                          联系电话：
-                          <font>{{ applyList.demanderTel }}</font>
-                        </a>
-                      </li>
+                      <li><a>联系电话：<font>{{ applyList.demanderTel }}</font></a></li>
                       <br />
-                      <li>
-                        <a>
-                          email：
-                          <font>{{ companyList.email }}</font>
-                        </a>
-                      </li>
+                      <li><a>email：<font>{{ companyList.email }}</font></a></li>
                       <br />
                     </el-col>
                   </el-row>
@@ -169,11 +107,7 @@
 
             <div class="Right3" style="text-align: center">
               <br />
-              <div v-if="applyList.taskType === 1" class="biaoti" style="
-                  padding: 0 10px;
-                  border-left: 3px solid #4e58c5;
-                  float: left;
-                ">
+              <div v-if="applyList.taskType === 1" class="biaoti" style="padding: 0 10px;border-left: 3px solid #4e58c5;float: left;">
                 流通清单
               </div>
               <br />
@@ -191,12 +125,8 @@
                 <el-table-column prop="productModel" label="产品规格"></el-table-column>
                 <el-table-column label="零件类别" prop="partsCategory">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.partsCategory==null">
-                      {{"暂无类别"}}
-                    </span>
-                    <span v-else>
-                      {{ scope.row.partsCategory }}
-                    </span>
+                    <span v-if="scope.row.partsCategory==null">{{"暂无类别"}}</span>
+                    <span v-else>{{ scope.row.partsCategory }}</span>
                   </template>
                 </el-table-column>
               </el-table>
@@ -364,7 +294,7 @@
       <el-form ref="applyList1" :rules="rules" class="demo-ruleForm" :model="applyList1" label-width="120px">
         <el-row>
           <el-col :span="11">
-            <el-form-item label="需求方：">
+            <el-form-item label="需求方">
               <el-input class=".no-el-input" v-model="companyList.companyName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
@@ -403,7 +333,7 @@
         </el-row>
         <el-row>
           <el-col :span="11">
-            <el-form-item label="供应方：">
+            <el-form-item label="供应方">
               <el-input class=".no-el-input" v-model="userData.companyName" :readonly="true"></el-input>
             </el-form-item>
           </el-col>
