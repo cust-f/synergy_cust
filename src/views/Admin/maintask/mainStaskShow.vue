@@ -52,6 +52,7 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
                       >废除</el-button>-->
+                      <el-button v-show="scope.row.mainTaskType===1" @click="deleteAllLT(scope.row)" type="text" size="small">删除</el-button>
                       <el-button @click="substaskDetail1(scope.row)" type="text" size="small">查看详情</el-button>
                     </template>
                   </el-table-column>
@@ -190,7 +191,23 @@ export default {
 
     handleClick(tab, event) {
     },
-
+    //删除流通任务
+    deleteAllLT(row){
+      var that = this;
+      var data = Qs.stringify({
+        mainTaskID: row.mainTaskID,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/MainTaskInformation/deleteAllTaskLTByMainTaskId",
+          data: data
+        })
+        .then(response => {
+            this.$message('删除成功！');
+            this.getData();
+        });
+    },
     substaskDetail1(row) {
       if(row.mainTaskType==0){
         this.$router.push({
