@@ -2,10 +2,8 @@
   <div class="admin-header">
     <el-row class="header-message">
       <div style="width: 500px;height: 30px;float: right;">
-        <ul>
+        <ul v-if="log==token" style="float:right;padding-right:15px;">
           <li><span slot="reference">{{this.companyName}}</span></li>
-        </ul>
-        <ul v-if="log==token">
           <li>
             <el-popover placement="bottom" trigger="hover">
               <el-row>
@@ -27,26 +25,35 @@
               <!-- <span slot="reference">账号管理</span> -->
             </el-popover>
           </li>
-        </ul>
-        <ul v-else>
-          <li>
-            <a @click="login(0)">登录</a>
-          </li>
-          <li>
-            <a>|</a>
-          </li>
-          <li>
-            <a @click="login(1)">注册</a>
-          </li>
-        </ul>
-        <ul>
-          
+          <li>|</li>
           <li>联系客服</li>
           <li>|</li>
           <li>关于我们</li>
           <li>|</li>
           <li>帮助中心</li>
         </ul>
+        <ul v-else style="float:right;padding-right:15px;">
+          <li>
+            <a @click="login(0)">登录</a>
+          </li>
+          <li>|</li>
+          <li>
+            <a @click="login(1)">注册</a>
+          </li>
+          <li>|</li>
+          <li>联系客服</li>
+          <li>|</li>
+          <li>关于我们</li>
+          <li>|</li>
+          <li>帮助中心</li>
+        </ul>
+        <!-- <ul style="float:right;">
+          <li>联系客服</li>
+          <li>|</li>
+          <li>关于我们</li>
+          <li>|</li>
+          <li>帮助中心</li>
+        </ul> -->
       </div>
     </el-row>
     <!-- 区域 拉开层次 -->
