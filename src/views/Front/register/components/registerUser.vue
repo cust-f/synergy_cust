@@ -2,9 +2,9 @@
 <div class="register-user">
     <el-card shadow="never">
         <div slot="header" class="clearfix">
-            <span>新增账号</span>
+            <span>设置账号</span>
         </div>
-        <el-form :model="account" status-icon :rules="rules" ref="account" label-width="100px" class="demo-ruleForm">
+        <el-form :model="account" status-icon :rules="rules" ref="account" label-width="80px" class="demo-ruleForm">
             <el-form-item label="用户名" prop="userName">
                 <el-input v-model="account.userName"></el-input>
             </el-form-item>
@@ -208,8 +208,16 @@ export default {
 
 <style scoped>
 .register-user {
-    width: 600px;
+    /* width: 600px;
     margin: 0 auto;
-    margin-bottom: 40px;
+    margin-bottom: 40px; */
+  margin-top: 60px;
+  width: 1076px;
+  margin-bottom: 40px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.demo-ruleForm{
+  padding:0px 20px 0px 20px;
 }
 </style>

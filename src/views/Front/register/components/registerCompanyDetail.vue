@@ -1,8 +1,8 @@
 <template>
     <el-container>
-        <el-card>
+        <el-card class="detailEdit">
       <div slot="header" class="clearfix">
-        <span>输入企业介绍详细信息</span>
+        <span>添加企业介绍详情</span>
       </div>
      <vue-ueditor-wrap
         @ready="ready"
@@ -11,7 +11,7 @@
         :observerOptions="{ attributes: true, characterData: true, childList: true, subtree: true }"
         v-model="content"
         :config="myConfig"
-      ></vue-ueditor-wrap>            
+      ></vue-ueditor-wrap>     
         </el-card>
 
     </el-container>
@@ -36,7 +36,7 @@ export default {
         // 工具栏是否可以浮动
         autoFloatEnabled: false,
         // 初始容器高度
-        initialFrameHeight: 1500,
+        initialFrameHeight: 500,
         // 初始容器宽度
         initialFrameWidth: "100%",
         // 关闭自动保存
@@ -80,3 +80,16 @@ export default {
   }
 };
 </script>
+<style>
+.el-container{
+  width: 100%;
+}
+.detailEdit{
+  /* margin-top: 60px; */
+  margin-top: 5px;
+  width: 1076px;
+  margin-bottom: 40px;
+  margin-left:auto;
+  margin-right:auto;
+}
+</style>

@@ -2,12 +2,12 @@
   <div class="register-company">
     <el-card shadow="never" style="margin-bottom:30px;height:100%;">
       <div slot="header" class="clearfix">
-        <span>新增企业信息</span>
+        <span>添加企业信息</span>
       </div>
       <el-container>
         <el-main>
           <div style="text-align:center;">
-            <el-form ref="form" status-icon :model="form" label-width="110px" :rules="rules">
+            <el-form ref="form" status-icon :model="form" label-width="110px" :rules="rules" class="demo-ruleForm">
               <el-row>
                 <el-col :span="12">
                   <el-form-item label="企业类别">
@@ -24,7 +24,7 @@
                 </el-col>
               </el-row>
 
-              <el-row class="select" style="margin-bottom: 16px;">
+              <el-row class="select">
                 <el-col :span="12">
                   <el-form-item label="企业所在省份" prop="province">
                     <!-- <el-input v-model="form.province"></el-input> -->
@@ -79,7 +79,7 @@
                       v-model="form.foundingTime"
                       format="yyyy-MM-dd"
                       value-format="yyyy-MM-dd hh:mm:ss"
-                      style="width: 100%;"
+
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -100,6 +100,7 @@
                       :options="options"
                       :props="props"
                       clearable
+                      collapse-tags
                     ></el-cascader>
                     <!-- <el-select v-model="form.product" multiple placeholder="请选择">
                       <el-option-group
@@ -144,7 +145,7 @@
                 </el-col>
               </el-row>
 
-              <el-row style="margin-bottom: 16px;">
+              <el-row>
                 <el-col :span="9">
                   <el-form-item label="注册资产">
                     <el-input v-model="form.registeredCapital">
@@ -161,7 +162,7 @@
                 </el-col>
               </el-row>
 
-              <el-row style="margin-bottom: 16px;">
+              <el-row>
                 <el-col :span="9">
                   <el-form-item label="固定资产">
                     <el-input v-model="form.fixedAssets">
@@ -463,31 +464,53 @@ export default {
 
 <style >
 .register-company {
-  width: 1000px;
+  /* width: 1000px;
   height: 100%;
   margin-bottom: 30px;
-  margin: 0 auto;
+  margin: 0 auto; */
+  margin-top: 60px;
+  width: 1076px;
+  margin-bottom: 40px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.demo-ruleForm{
+  padding:0px 10px 0px 20px;
+}
+/* .register-company .el-card .el-card__body {
+  padding: 20px;
+} */
+.register-company .el-form-item__content .el-input{
+  width: 380px;
+  float: left;
 }
 .register-company .el-input__inner {
-  width: 250px;
+  width: 380px;
   float: left;
 }
 .register-company .el-select {
-  width: 250px !important;
+  width: 380px !important;
   float: left;
 }
-.register-company .el-form-item__error {
+.register-company .el-input-group .el-input__inner{
+  width: 311px;
+  float: left;
+}
+.register-company .el-form-item__content{
+  height:40px;
+}
+/* .register-company .el-form-item__error {
   line-height: 0px;
   padding-top: 0px;
 }
 .register-company .select .el-form-item__error {
   line-height: 1 !important;
   padding-top: 4px !important;
-}
+} */
 .gongsiDetail {
   height: 80px;
 }
-.select .el-input__inner {
+/* .select .el-input__inner {
   float: none !important;
-}
+} */
 </style>

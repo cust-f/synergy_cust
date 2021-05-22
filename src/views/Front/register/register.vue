@@ -1,14 +1,18 @@
 <template>
   <div class="register">
-    <el-steps class="steps" :active="active" finish-status="success">
-      <el-step title="设置账号"></el-step>
-      <el-step title="添加企业信息"></el-step>
-      <el-step title="添加企业介绍详情"></el-step>
-      <el-step title="相关图片上传"></el-step>
-    </el-steps>
-    <el-button style="margin-top: 12px;" @click="back" :disabled="first">上一步</el-button>
-    <el-button style="margin-top: 12px;float:right;" @click="next">{{active==4?'提交':'下一步'}}</el-button>
-    <div style="margin-top:15px;">
+    <div class="steps">
+      <el-steps :active="active" finish-status="success" align-center>
+        <el-step title="设置账号"></el-step>
+        <el-step title="添加企业信息"></el-step>
+        <el-step title="添加企业介绍详情"></el-step>
+        <el-step title="相关图片上传"></el-step>
+      </el-steps>
+    </div>
+    <div class="btns">
+      <el-button style="float:left;margin-left:134px;" @click="back" :disabled="first">上一步</el-button>
+      <el-button style="float:right;margin-right:134px;" @click="next">{{active==4?'提交':'下一步'}}</el-button>
+    </div>
+    <div>
       <register-user
         v-show="active==0"
         ref="user"
@@ -141,9 +145,53 @@ export default {
 </script>
 
 <style scoped>
+/* .register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}*/
+.register {
+  margin-left:auto;
+  margin-right:auto;
+  width:1345px;
+}
 .steps {
   margin-top: 30px;
-  width: 1076px;
-  margin-left: 100px;
+  width: 1345px;
+}
+.btns {
+  margin-top: 15px;
+  width: 1345px;
 }
 </style>
+
+.register{
+  position:relative;
+  margin-top: 30px;
+  align-items: center;
+}
+.steps{
+  position:absolute;
+  /* left:43%; 
+  width:1076px; */
+  left:36%; 
+  width:1345px;
+  margin-left:-418px;
+  margin-top: -115px;
+}
+.btns{
+  position:absolute;
+  left:43%;
+  width:1076px;
+  margin-left:-418px;
+  margin-top: 90px;
+  margin-top: -45px;
+}
+.forms{
+  /* position:absolute;
+  left:43%;
+  width:1076px;
+  margin-left:-418px; */
+  width: 1912px;
+  margin-top: 145px;
+}

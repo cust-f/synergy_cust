@@ -2,7 +2,7 @@
   <div class="register">
     <el-card>
       <el-row>
-        <el-col :span="17">
+        <el-col :span="15">
           <div class="register-title">
             企业营业基本信息
             <div slot="tip" class="el-upload__tip">上传企业营业执照及税务登记证位置不要弄反！</div>
@@ -45,27 +45,17 @@
         <el-col :span="1" class="outside">
           <el-divider direction="vertical"></el-divider>
         </el-col>
-        <el-col :span="6" class="logo">
+        <el-col :span="8" class="logo">
           <div class="register-title">
             企业Logo
             <div slot="tip" class="el-upload__tip">(建议使用宽高比1：1图片进行上传)</div>
           </div>
-          <!-- <el-upload
-            class="avatar-uploader"
-            :action="serverUrl"
-            :show-file-list="false"
-            :auto-upload="false"
-            :on-preview="logoPictureCardPreview"
-            :http-request="logoUpload"
-          >
-            <img v-if="logoImageUrl" :src="logoImageUrl" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>-->
+          <el-divider></el-divider>
           <el-upload
+            :class="{uoloadSty:showLogoBtnImg,disUoloadSty:noneLogoBtnImg}"
             :action="serverUrl"
             list-type="picture-card"
             ref="uploadLogo"
-            :class="{hide:hideLogoUpload}"
             :auto-upload="false"
             accept=".jpg, .png"
             :on-preview="logoPictureCardPreview"
@@ -87,7 +77,7 @@
           企业介绍
           <div slot="tip" class="el-upload__tip">(建议使用宽高比2：1图片如4928*2772进行上传)</div>
         </div>
-        <!-- <el-divider></el-divider> -->
+        <el-divider></el-divider>
         <el-upload
           :action="serverUrl"
           list-type="picture-card"
@@ -132,7 +122,12 @@ export default {
       hideUpload: false,
       hideLogoUpload: false,
       value1: "",
-      value2: ""
+      value2: "",
+      
+      showLogoBtnImg:true,
+      noneLogoBtnImg:false,
+      // businessLicenseListType:"picture-card",
+      // taxListType:"picture-card",
     };
   },
 
@@ -262,11 +257,25 @@ export default {
     onRemove(file, fileList) {
       this.hideUpload = fileList.length >= 3;
     },
+    // businessLicenseChange(file, fileList){
+    //   this.businessLicenseListType = "picture";
+    // },
+    // businessLicenseRemove(file, fileList){
+    //   this.businessLicenseListType = "picture-card";
+    // },
+    // taxChange(file, fileList){
+    //   this.taxListType = "picture";
+    // },
+    // taxRemove(file, fileList){
+    //   this.taxListType = "picture-card";
+    // },
     logoChange(file, fileList) {
-      this.hideLogoUpload = fileList.length >= 1;
+      // this.hideLogoUpload = fileList.length >= 1;
+      this.noneLogoBtnImg = fileList.length >= 1;
     },
     logoRemove(file, fileList) {
-      this.hideLogoUpload = fileList.length >= 1;
+      // this.hideLogoUpload = fileList.length >= 1;
+      this.noneLogoBtnImg = fileList.length >= 1;
     }
   }
 };
@@ -274,8 +283,13 @@ export default {
 
 <style scoped>
 .register {
-  width: 1200px;
-  margin: 0 auto;
+  /* width: 1200px;
+  margin: 0 auto; */
+  margin-top: 60px;
+  width: 1076px;
+  margin-bottom: 40px;
+  margin-left:auto;
+  margin-right:auto;
 }
 .register-title {
   font-size: 25px;
@@ -292,7 +306,7 @@ export default {
   text-align: center;
 }
 .outside .el-divider--vertical {
-  height: 220px;
+  height: 260px;
 }
 .inside {
   text-align: center;
@@ -355,5 +369,16 @@ export default {
   height: 320px;
 }
 </style>
-
-
+<style>
+/* .register .el-upload--picture-card {
+  width: 296.11px;
+} */
+.uoloadSty .el-upload--picture-card{
+  width:145.76px;
+  height:145.76px;
+  line-height:145.76px;
+}
+.disUoloadSty .el-upload--picture-card{
+  display:none;   /* 上传按钮隐藏 */
+}
+</style>
