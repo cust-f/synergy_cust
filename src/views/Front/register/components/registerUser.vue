@@ -6,26 +6,24 @@
         </div>
         <el-form :model="account" status-icon :rules="rules" ref="account" label-width="80px" class="demo-ruleForm">
             <el-form-item label="用户名" prop="userName">
-                <el-input v-model="account.userName"></el-input>
+                <el-input type="text" v-model="account.userName" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-                <el-input type="password" v-model="account.password" autocomplete="off"></el-input>
+                <el-input type="password" v-model="account.password" autocomplete="new-password"></el-input>
             </el-form-item>
             <el-form-item label="确认密码" prop="checkPass">
-                <el-input type="password" v-model="account.checkPass" autocomplete="off"></el-input>
+                <el-input type="password" v-model="account.checkPass" autocomplete="new-password"></el-input>
             </el-form-item>
-            <el-form-item label="邮箱" prop="email" :rules="[
-      { required:true, validator: validDataEmail, message:'邮箱不能为空', trigger: 'blur' },
-      { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },
-
-    ]">
-                <el-input v-model="account.email" autocomplete="off"></el-input>
+            <el-form-item label="邮箱" prop="email" 
+            :rules="[{ required:true, validator: validDataEmail, message:'邮箱不能为空', trigger: 'blur' },
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },]" >
+                <el-input type="email" v-model="account.email" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="手机" prop="phone">
-                <el-input v-model="account.phone" autocomplete="off"></el-input>
+                <el-input type="text" v-model="account.phone" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="真实姓名" prop="realName">
-                <el-input v-model="account.realName" autocomplete="off"></el-input>
+                <el-input type="text" v-model="account.realName" autocomplete="off"></el-input>
             </el-form-item>
         </el-form>
     </el-card>
