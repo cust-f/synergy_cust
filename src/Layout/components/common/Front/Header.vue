@@ -1,7 +1,7 @@
 <template>
   <div class="admin-header">
     <el-row class="header-message">
-      <div style="width: 500px;height: 30px;float: right;">
+      <div style="width: 1000px;height: 30px;float: right;">
         <ul v-if="log==token" style="float:right;padding-right:15px;">
           <li><span slot="reference">{{this.companyName}}</span></li>
           <li>
