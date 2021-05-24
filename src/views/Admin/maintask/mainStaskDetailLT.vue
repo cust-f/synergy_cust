@@ -998,6 +998,7 @@
                 type="textarea"
                 rows="6"
                 v-model="addList.SQrefuseReason"
+                :readonly="true"
                 placeholder="申请已拒绝"
                 ></el-input>
               </el-form-item>
@@ -1062,7 +1063,6 @@
             </el-col>
           </el-row>
         </el-form>
-        <br/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="addVisible2 = false" >取 消</el-button>
           <el-button type="primary" @click="HTJJYYTJ">确 定</el-button>
@@ -1726,27 +1726,24 @@
         </div>
       </el-dialog>
       <!--流通清单拒绝原因-新改-->
-      <el-dialog :visible.sync="addVisible4" width="50%">
+      <el-dialog :visible.sync="addVisible4" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          提示
+          发货清单拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="addList4" :model="addList4" label-width="70px">
+        <el-form ref="addList4" :model="addList4" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="拒绝原因">
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
                 <el-input
                   v-model="addList4.QDrefuseReason"
                   @blur="refuseReasonUnnull"
                   type="textarea"
-                  :rows="4"
-                  placeholder="请输入内容"
+                  :rows="6"
+                  placeholder="请输入发货清单拒绝内容"
                 ></el-input>
                 <font color="red">
                   <span v-if="this.addList4.QDrefuseReason === null"
@@ -1958,7 +1955,7 @@
         </el-form>
       </el-dialog>
 
-      <el-dialog :visible.sync="addVisible3" width="50%">
+      <el-dialog :visible.sync="addVisible3" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1969,11 +1966,16 @@
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
-        <el-form ref="form" :model="addList3" label-width="120px">
+        <el-form ref="form" :model="addList3" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList3.SJrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input 
+                type="textarea" 
+                rows="6"
+                v-model="addList3.SJrefuseReason"
+                placeholder="请输入拒绝原因"
+                ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
