@@ -2497,14 +2497,14 @@ export default {
             this.milepostActive5 = 0;
             this.milepostActive4 = 0;
             this.milepostActive3 = 0;
-            this.milepostActive2 = 0;
+            // this.milepostActive2 = 0;
              this.milepostActive = 0;
 
 }
         if(this.CDgetPlanState == 3 ){
             this.milepostActive5 = 0;
             this.milepostActive4 = 0;
-            this.milepostActive3 = 0;
+            // this.milepostActive3 = 0;
              this.milepostActive = 1;
         } 
           if (this.milepostActive >= 0) {
@@ -2776,7 +2776,8 @@ export default {
                 type: "success",
               });
               // this.showData();
-              setTimeout(() => { this.showData(); }, 1000);
+              // setTimeout(() => { this.showData(); }, 1000);
+              setTimeout(() => { this.$router.go(0);}, 1000);
             } else {
               this.$message({
                 message: "审核失败",
