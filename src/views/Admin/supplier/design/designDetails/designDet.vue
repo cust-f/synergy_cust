@@ -136,7 +136,7 @@
 import Qs from "qs";
 import { formatDate } from "../designDetails/dataChange";
 import essentialInformation from "../../assembly/essentialInformationDesign";
-import applicationInformation from "../../assembly/applicationInformation";
+import applicationInformation from "../../assembly/applicationInformationDesign";
 import missionPlan from "../../assembly/missPlanDesign";
 import contractManagement from "../../assembly/contractManagementDesign";
 import InternalAudit from "../../assembly/InternalAudit";
