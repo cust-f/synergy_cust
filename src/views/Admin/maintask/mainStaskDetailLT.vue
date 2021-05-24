@@ -982,7 +982,7 @@
       </el-dialog>
 
       <!-- 申请拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible" width="30%">
+      <el-dialog :visible.sync="addVisible" width="50%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1009,7 +1009,7 @@
       </el-dialog>
 
       <!-- 计划书拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible1" width="40%" class="jhs">
+      <el-dialog :visible.sync="addVisible1" width="50%" class="jhs">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
