@@ -160,27 +160,20 @@
     </el-dialog>
 
     <!-- 申请拒绝原因 -->
-    <el-dialog :visible.sync="addVisible1" width="50%">
+    <el-dialog :visible.sync="addVisible1" width="50%"  class="refuseDialog">
       <div
         class="biaoti"
         style="padding: 0 10px; border-left: 3px solid #4e58c5"
       >
-        拒绝原因
+        申请拒绝原因
       </div>
       <br />
-      <br />
-      <el-row>
-        <el-col :span="8"></el-col>
-      </el-row>
-      <el-form ref="form" :model="addList1" label-width="120px">
+      <el-form ref="form" :model="addList1" label-width="0px">
         <el-row>
-          <el-col>
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 5, maxRows: 7 }"
-              v-model="addList1.refuseApplyMessage"
-              :readonly="true"
-            ></el-input>
+          <el-col :span="24" style="width:100%">
+            <el-form-item>
+              <el-input type="textarea" rows="3" v-model="addList1.refuseApplyMessage" :readonly="true" placeholder="已拒绝"></el-input>
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -309,10 +302,11 @@ export default {
           data: data,
         });
         this.$message({
-          message: "接受成功",
+          message: "接受需求成功",
           type: "success",
         });
-        this.$router.go(0);
+        // this.$router.go(0);
+        setTimeout(() => {this.$router.go(0);}, 1000);
       });
     },
     //接受不通过
@@ -331,10 +325,11 @@ export default {
           data: data,
         });
         this.$message({
-          message: "拒绝通过",
+          message: "拒绝需求成功",
           type: "success",
         });
-        this.$router.go(0);
+        // this.$router.go(0);
+        setTimeout(() => {this.$router.go(0);}, 1000);
       });
     },
     //申请拒绝原因
@@ -382,5 +377,13 @@ export default {
   .el-dialog__header {
     padding: 0px 0px 0px;
   }
+}
+</style>
+<style>
+.refuseDialog .el-dialog__body {
+  padding-bottom: 0px;
+}
+.refuseDialog .el-dialog__footer {
+  padding-top: 0px;
 }
 </style>
