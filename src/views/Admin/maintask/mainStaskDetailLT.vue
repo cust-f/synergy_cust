@@ -1779,7 +1779,7 @@
 
       <!--查看弹出框-->
       <el-dialog title :visible.sync="chakanTC" width="1000px">
-        <div class="top">
+        <!-- <div class="top">
           <div class="inside">
             <div style="width: 90%; margin-bottom: 10px">
               <span style="color: black">当前订单状态: </span>
@@ -1796,7 +1796,7 @@
               >全部通过</el-button
             >
           </div>
-        </div>
+        </div> -->
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -2778,8 +2778,8 @@ export default {
           for (var i = 0; i < this.multipleSelection.length; i++) {
             let that = this;
             let data = Qs.stringify({
-              consignmentId: that.multipleSelection[i].consignmentId,
-              taskId: this.taskId,
+              consignmentId: this.multipleSelection[i].consignmentId,
+              taskId:  this.multipleSelection[i].taskId,
               acceptCompanyId: this.acceptCompanyId,
             });
             that
