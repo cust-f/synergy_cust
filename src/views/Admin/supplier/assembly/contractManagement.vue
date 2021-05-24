@@ -113,22 +113,21 @@
     </el-dialog>
 
     <!-- 合同拒绝原因 -->
-    <el-dialog :visible.sync="addVisible3" width="50%">
+    <el-dialog :visible.sync="addVisible3" class="refuseDialog">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同拒绝原因</div>
       <br />
-      <el-row>
-        <el-col :span="8"></el-col>
-      </el-row>
-      <el-form ref="form" :model="addList3" label-width="120px">
+      <el-form ref="form" :model="addList3" label-width="0px">
         <el-row>
-          <el-col>
+          <el-col :span="24" style="width:100%">
+            <el-form-item>
             <el-input
               type="textarea"
-              :autosize="{ minRows: 3, maxRows: 7}"
+              rows="6"
               v-model="addList3.contractRefuseReason"
               :readonly="true"
-              placeholder="已拒绝"
+              placeholder="合同已拒绝"
             ></el-input>
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -555,5 +554,17 @@ export default {
   .el-dialog__body {
     padding: 30px 20px 5px 20px;
   }
-  
+  .refuseDialog .el-dialog{
+  width:400px;
+}
+.refuseDialog .el-dialog__body {
+  padding-bottom: 0px;
+}
+.refuseDialog .el-dialog__footer {
+  padding-top: 0px;
+}
+.refuseDialog .el-textarea__inner{
+  font-family: "PingFang SC", "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+}
+
 </style>

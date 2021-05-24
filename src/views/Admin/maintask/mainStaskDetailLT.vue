@@ -981,7 +981,7 @@
       </el-dialog>
 
       <!-- 申请拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible" width="50%">
+      <el-dialog :visible.sync="addVisible" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -989,16 +989,19 @@
           申请拒绝原因
         </div>
         <br />
-        <el-row>
-          <!-- <el-col :span="8"></el-col> -->
-        </el-row>
-        <el-form ref="form" :model="addList" label-width="110px">
+        <el-form ref="form" :model="addList" label-width="0px">
           <el-row>
-            <!-- <el-col> -->
-              <el-form-item label="审核拒绝原因" >
-                <el-input v-model="addList.SQrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input               
+                type="textarea"
+                rows="6"
+                v-model="addList.SQrefuseReason"
+                :readonly="true"
+                placeholder="申请已拒绝"
+                ></el-input>
               </el-form-item>
-            <!-- </el-col> -->
+            </el-col>
           </el-row>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -1008,7 +1011,7 @@
       </el-dialog>
 
       <!-- 计划书拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible1" width="50%" class="jhs">
+      <el-dialog :visible.sync="addVisible1" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1016,25 +1019,20 @@
           计划拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList1" label-width="110px">
+        <el-form ref="form" :model="addList1" label-width="0px">
           <el-row>
-            <el-col>
-              <!-- <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList1.JHSrefuseReason"></el-input>
-              </el-form-item> -->
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
               <el-input
               type="textarea"
-              :autosize="{ minRows: 3, maxRows: 7}"
+              rows="6"
               v-model="addList1.JHSrefuseReason"
-              style="width: 105%"
+              placeholder="请输入计划拒绝原因"
             ></el-input>
+            </el-form-item>
             </el-col>
           </el-row>
         </el-form>
-        <br/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="addVisible1 = false">取 消</el-button>
           <el-button type="primary" @click="JHSJJYYTJ">确 定</el-button>
@@ -1042,7 +1040,7 @@
       </el-dialog>
 
       <!-- 合同拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible2" width="50%">
+      <el-dialog :visible.sync="addVisible2" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1050,26 +1048,20 @@
           合同拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList2" label-width="110px">
+        <el-form ref="form" :model="addList2" label-width="0px">
           <el-row>
-            <el-col>
-              <!-- <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList2.HTrefuseReason"></el-input>
-              </el-form-item> -->
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
               <el-input
               type="textarea"
-              :autosize="{ minRows: 3, maxRows: 7}"
+              rows="6"
               v-model="addList1.JHSrefuseReason"
-              style="width: 105%"
               placeholder="请输入合同拒绝原因"
             ></el-input>
+            </el-form-item>
             </el-col>
           </el-row>
         </el-form>
-        <br/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="addVisible2 = false" >取 消</el-button>
           <el-button type="primary" @click="HTJJYYTJ">确 定</el-button>
@@ -1077,7 +1069,7 @@
       </el-dialog>
 
       <!-- 设计拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible3" width="50%">
+      <el-dialog :visible.sync="addVisible3" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1085,21 +1077,17 @@
           流通清单拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList3" label-width="110px">
+        <el-form ref="form" :model="addList3" label-width="0px">
           <el-row>
-            <el-col>
-              <!-- <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList3.SJrefuseReason"></el-input>
-              </el-form-item> -->
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
               <el-input
               type="textarea"
-              :autosize="{ minRows: 3, maxRows: 7}"
+              rows="6"
               v-model="addList1.JHSrefuseReason"
-              style="width: 105%"
+              placeholder="请输入申请拒绝原因"
             ></el-input>
+            </el-form-item>
             </el-col>
           </el-row>
         </el-form>
@@ -1737,27 +1725,24 @@
         </div>
       </el-dialog>
       <!--流通清单拒绝原因-新改-->
-      <el-dialog :visible.sync="addVisible4" width="50%">
+      <el-dialog :visible.sync="addVisible4" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          提示
+          发货清单拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="addList4" :model="addList4" label-width="70px">
+        <el-form ref="addList4" :model="addList4" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="拒绝原因">
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
                 <el-input
                   v-model="addList4.QDrefuseReason"
                   @blur="refuseReasonUnnull"
                   type="textarea"
-                  :rows="4"
-                  placeholder="请输入内容"
+                  :rows="6"
+                  placeholder="请输入发货清单拒绝内容"
                 ></el-input>
                 <font color="red">
                   <span v-if="this.addList4.QDrefuseReason === null"
@@ -1969,7 +1954,7 @@
         </el-form>
       </el-dialog>
 
-      <el-dialog :visible.sync="addVisible3" width="50%">
+      <el-dialog :visible.sync="addVisible3" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1980,11 +1965,16 @@
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
-        <el-form ref="form" :model="addList3" label-width="120px">
+        <el-form ref="form" :model="addList3" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList3.SJrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input 
+                type="textarea" 
+                rows="6"
+                v-model="addList3.SJrefuseReason"
+                placeholder="请输入拒绝原因"
+                ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -4165,4 +4155,17 @@ export default {
 .backDoor{
   display: none;
 }
+.refuseDialog .el-dialog{
+  width:400px;
+}
+.refuseDialog .el-dialog__body {
+  padding-bottom: 0px;
+}
+.refuseDialog .el-dialog__footer {
+  padding-top: 0px;
+}
+.refuseDialog .el-textarea__inner{
+  font-family: "PingFang SC", "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+}
+
 </style>
