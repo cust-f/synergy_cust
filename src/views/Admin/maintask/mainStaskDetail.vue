@@ -870,22 +870,19 @@
       </el-dialog>
 
       <!-- 申请拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible" width="50%">
+      <el-dialog :visible.sync="addVisible" width="50%" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入申请拒绝原因
+          申请拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList" label-width="120px">
+        <el-form ref="form" :model="addList" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList.SQrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input type="textarea" rows="3" v-model="addList.SQrefuseReason" placeholder="请输入申请拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -897,22 +894,19 @@
       </el-dialog>
 
       <!-- 计划书拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible1" width="50%">
+      <el-dialog :visible.sync="addVisible1" width="50%" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入计划书拒绝原因
+          计划拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList1" label-width="120px">
+        <el-form ref="form" :model="addList1" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList1.JHSrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input type="textarea" rows="3"  v-model="addList1.JHSrefuseReason" placeholder="请输入计划拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -924,22 +918,19 @@
       </el-dialog>
 
       <!-- 合同拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible2" width="50%">
+      <el-dialog :visible.sync="addVisible2" width="50%"  class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入合同拒绝原因
+          合同拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList2" label-width="120px">
+        <el-form ref="form" :model="addList2" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList2.HTrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input type="textarea" rows="3"  v-model="addList2.HTrefuseReason" placeholder="请输入合同拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -951,22 +942,19 @@
       </el-dialog>
 
       <!-- 设计拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible3" width="50%">
+      <el-dialog :visible.sync="addVisible3" width="50%"  class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入设计拒绝原因
+          设计拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList3" label-width="120px">
+        <el-form ref="form" :model="addList3" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList3.SJrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input type="textarea" rows="3" v-model="addList3.SJrefuseReason" placeholder="请输入设计拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -3205,5 +3193,13 @@ export default {
   .XX {
     text-align: left;
   }
+}
+</style>
+<style>
+.refuseDialog .el-dialog__body {
+  padding-bottom: 0px;
+}
+.refuseDialog .el-dialog__footer {
+  padding-top: 0px;
 }
 </style>
