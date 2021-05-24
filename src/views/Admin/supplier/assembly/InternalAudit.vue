@@ -80,23 +80,15 @@
     </el-dialog>
 
     <!-- 拒绝设计原因 -->
-    <el-dialog :visible.sync="designRefuseReason" width="50%">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
+    <el-dialog :visible.sync="designRefuseReason" width="50%" class="refuseDialog">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">设计拒绝原因</div>
       <br />
-      <br />
-      <el-row>
-        <el-col :span="8"></el-col>
-      </el-row>
-      <el-form ref="applyList4" :model="addList4" label-width="120px">
+      <el-form ref="applyList4" :model="addList4" label-width="0px">
         <el-row>
-          <el-col>
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 5, maxRows: 7}"
-              v-model="addList4.SJrefuseReason"
-              placeholder="请输入拒绝原因"
-              autocomplete="off"
-            ></el-input>
+          <el-col :span="24" style="width:100%">
+            <el-form-item>
+              <el-input type="textarea" rows="3" v-model="addList4.SJrefuseReason" placeholder="请输入设计拒绝原因" autocomplete="off"></el-input>
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -233,7 +225,8 @@ export default {
           message: "审核通过",
           type: "success",
         });
-        this.$router.go(0);
+        // this.$router.go(0);
+        setTimeout(() => {this.$router.go(0);}, 1000);
       });
     },
     //设计不通过
@@ -327,5 +320,13 @@ export default {
   .el-dialog__header {
     padding: 0px 0px 0px;
   }
+}
+</style>
+<style>
+.refuseDialog .el-dialog__body {
+  padding-bottom: 0px;
+}
+.refuseDialog .el-dialog__footer {
+  padding-top: 0px;
 }
 </style>
