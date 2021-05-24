@@ -1009,12 +1009,12 @@
       </el-dialog>
 
       <!-- 计划书拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible1" width="30%" class="jhs">
+      <el-dialog :visible.sync="addVisible1" width="40%" class="jhs">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          计划书拒绝原因
+          计划拒绝原因
         </div>
         <br />
         <el-row>
@@ -1023,12 +1023,19 @@
         <el-form ref="form" :model="addList1" label-width="110px">
           <el-row>
             <el-col>
-              <el-form-item label="审核拒绝原因">
+              <!-- <el-form-item label="审核拒绝原因">
                 <el-input v-model="addList1.JHSrefuseReason"></el-input>
-              </el-form-item>
+              </el-form-item> -->
+              <el-input
+              type="textarea"
+              :autosize="{ minRows: 3, maxRows: 7}"
+              v-model="addList1.JHSrefuseReason"
+              style="width: 105%"
+            ></el-input>
             </el-col>
           </el-row>
         </el-form>
+        <br/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="addVisible1 = false">取 消</el-button>
           <el-button type="primary" @click="JHSJJYYTJ">确 定</el-button>
@@ -1050,12 +1057,19 @@
         <el-form ref="form" :model="addList2" label-width="110px">
           <el-row>
             <el-col>
-              <el-form-item label="审核拒绝原因">
+              <!-- <el-form-item label="审核拒绝原因">
                 <el-input v-model="addList2.HTrefuseReason"></el-input>
-              </el-form-item>
+              </el-form-item> -->
+              <el-input
+              type="textarea"
+              :autosize="{ minRows: 3, maxRows: 7}"
+              v-model="addList1.JHSrefuseReason"
+              style="width: 105%"
+            ></el-input>
             </el-col>
           </el-row>
         </el-form>
+        <br/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="addVisible2 = false" >取 消</el-button>
           <el-button type="primary" @click="HTJJYYTJ">确 定</el-button>
@@ -1077,12 +1091,19 @@
         <el-form ref="form" :model="addList3" label-width="110px">
           <el-row>
             <el-col>
-              <el-form-item label="审核拒绝原因">
+              <!-- <el-form-item label="审核拒绝原因">
                 <el-input v-model="addList3.SJrefuseReason"></el-input>
-              </el-form-item>
+              </el-form-item> -->
+              <el-input
+              type="textarea"
+              :autosize="{ minRows: 3, maxRows: 7}"
+              v-model="addList1.JHSrefuseReason"
+              style="width: 105%"
+            ></el-input>
             </el-col>
           </el-row>
         </el-form>
+        <br/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="addVisible3 = false" >取 消</el-button>
           <el-button type="primary" @click="QDJJYYTJ">确 定</el-button>

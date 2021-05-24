@@ -88,7 +88,7 @@
 
     <!-- 任务计划拒绝原因 -->
     <el-dialog :visible.sync="addVisible2" width="40%">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划拒绝原因</div>
       <br />
       <el-row>
         <el-col :span="8"></el-col>
