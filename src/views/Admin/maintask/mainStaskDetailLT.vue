@@ -1043,7 +1043,7 @@
       </el-dialog>
 
       <!-- 合同拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible2" width="30%">
+      <el-dialog :visible.sync="addVisible2" width="50%">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
@@ -1065,6 +1065,7 @@
               :autosize="{ minRows: 3, maxRows: 7}"
               v-model="addList1.JHSrefuseReason"
               style="width: 105%"
+              placeholder="请输入合同拒绝原因"
             ></el-input>
             </el-col>
           </el-row>

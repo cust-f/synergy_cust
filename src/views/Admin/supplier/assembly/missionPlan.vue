@@ -84,10 +84,11 @@
       <div align="right">
         <el-button size="small" type="primary"  @click="submitUpload" align-center>上传到服务器</el-button>
       </div>
+      <br />
     </el-dialog>
 
     <!-- 任务计划拒绝原因 -->
-    <el-dialog :visible.sync="addVisible2" width="40%">
+    <el-dialog :visible.sync="addVisible2" width="50%">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划拒绝原因</div>
       <br />
       <el-row>
@@ -101,6 +102,7 @@
               :autosize="{ minRows: 3, maxRows: 7}"
               v-model="addList2.refusePlanMessage"
               :readonly="true"
+              placeholder="已拒绝"
             ></el-input>
           </el-col>
         </el-row>
