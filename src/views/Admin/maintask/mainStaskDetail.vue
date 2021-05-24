@@ -2577,7 +2577,7 @@ export default {
           message: "审核通过",
           type: "success",
         });
-        this.showData();
+        setTimeout(() => { this.showData(); }, 1000);
       });
     },
     SQJJ(row) {
@@ -2598,7 +2598,8 @@ export default {
       this.$message.success("提交成功");
       this.addList = {};
       this.addVisible = false;
-      this.showData();
+      // this.showData();
+      setTimeout(() => { this.showData(); }, 1000);
     },
     //计划书通过与拒绝
     JHSTG(row) {
@@ -2624,7 +2625,8 @@ export default {
                 message: "审核通过",
                 type: "success",
               });
-              this.showData();
+              // this.showData();
+              setTimeout(() => { this.showData(); }, 1000);
             } else {
               this.$confirm(
                 "您已经通过了一个任务计划，无法再通过另一个任务计划",
@@ -2655,7 +2657,8 @@ export default {
       this.$message.success("提交成功");
       this.addList1 = {};
       this.addVisible1 = false;
-      this.showData();
+      // this.showData();
+      setTimeout(() => { this.showData(); }, 1000);
     },
     //任务计划的下载方法
     TaskplanDownload(row){
@@ -2772,7 +2775,8 @@ export default {
                 message: "审核通过",
                 type: "success",
               });
-              this.showData();
+              // this.showData();
+              setTimeout(() => { this.showData(); }, 1000);
             } else {
               this.$message({
                 message: "审核失败",
@@ -2800,7 +2804,8 @@ export default {
       this.$message.success("提交成功");
       this.addList2 = {};
       this.addVisible2 = false;
-      this.showData();
+      // this.showData();
+      setTimeout(() => { this.showData(); }, 1000);
     },
     //合同的下载方法
     ContractDownload(row){
@@ -2947,7 +2952,8 @@ export default {
       this.$message.success("提交成功");
       this.addList3 = {};
       this.addVisible3 = false;
-      this.showData();
+      // this.showData();
+      setTimeout(() => { this.showData(); }, 1000);
     },
     //改变星级别
     GBXJ() {
