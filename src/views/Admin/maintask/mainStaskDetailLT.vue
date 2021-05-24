@@ -217,9 +217,8 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- 暂时注释 -->
-              <el-button @click="changeTime(scope.row)" size="small" type="text"
-                >修改时间</el-button
-              >
+              <el-button @click="changeTime(scope.row)" size="small" type="text" class="backDoor">修改时间</el-button>
+
               <!-- <el-button
                 type="text"
                 size="small "
@@ -4153,7 +4152,7 @@ export default {
   }
 }
 </style>
-<style >
+<style>
   .el-dialog__body {
     padding: 30px 20px 5px 20px;
   }
@@ -4162,5 +4161,8 @@ export default {
   }
   .el-col-24 {
     width: 95%;
+}
+.backDoor{
+  display: none;
 }
 </style>

@@ -52,8 +52,9 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
                       >废除</el-button>-->
-                      <el-button v-show="scope.row.mainTaskType===1" @click="deleteAllLT(scope.row)" type="text" size="small">删除</el-button>
                       <el-button @click="substaskDetail1(scope.row)" type="text" size="small">查看详情</el-button>
+                      <!-- 暂时注释 -->
+                      <el-button v-show="scope.row.mainTaskType===1" @click="deleteAllLT(scope.row)" type="text" size="small" class="backDoor">删除</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -326,7 +327,7 @@ export default {
   //  */
 };
 </script>
-<style  lang="scss">
+<styl  lang="scss">
 .mainStaskShow{
 
 /* .table {
@@ -371,4 +372,9 @@ export default {
 }
 }
 
+</styl>
+<style>
+.backDoor{
+  display: none;
+}
 </style>
