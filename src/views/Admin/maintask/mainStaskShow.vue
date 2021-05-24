@@ -327,7 +327,7 @@ export default {
   //  */
 };
 </script>
-<styl  lang="scss">
+<style  lang="scss">
 .mainStaskShow{
 
 /* .table {
@@ -372,8 +372,9 @@ export default {
 }
 }
 
-</styl>
+</style>
 <style>
+/* 修改按钮暂时隐藏 */
 .backDoor{
   display: none;
 }
