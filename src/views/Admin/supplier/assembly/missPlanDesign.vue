@@ -39,7 +39,7 @@
             type="text"
             size="small"
             v-show="(scope.row.checkPlanState === 0 || scope.row.checkPlanState == 3)"
-            :disabled="toreject==0"
+            
           >上传</el-button>
           
           <el-button
@@ -91,22 +91,15 @@
     </el-dialog>
 
     <!-- 任务计划拒绝原因 -->
-    <el-dialog :visible.sync="addVisible2" width="50%">
-      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">拒绝原因</div>
+    <el-dialog :visible.sync="addVisible2" class="refuseDialog">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">计划拒绝原因</div>
       <br />
-      <br />
-      <el-row>
-        <el-col :span="8"></el-col>
-      </el-row>
-      <el-form ref="form" :model="addList2" label-width="120px">
+      <el-form ref="form" :model="addList2" label-width="0px">
         <el-row>
-          <el-col>
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 5, maxRows: 7}"
-              v-model="addList2.refusePlanMessage"
-              :readonly="true"
-            ></el-input>
+          <el-col :span="24" style="width:100%">
+            <el-form-item>
+              <el-input type="textarea" rows="6" v-model="addList2.refusePlanMessage" :readonly="true" placeholder="已拒绝"></el-input>
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -368,7 +361,7 @@ export default {
         this.technicalFile[this.shangchuancishu] +
         "linklink";
       this.shangchuancishu = this.shangchuancishu + 1;
-      this.$notify.success({
+      this.$message.success({
         title: "成功",
         message: `文件上传成功`
       });
@@ -387,7 +380,8 @@ export default {
         .then(response => {
           this.technicalFileWanzheng = "";
         });
-      this.$router.go(0);
+      // this.$router.go(0);
+      setTimeout(() => {this.$router.go(0);}, 1000);
     },
     handleExceed(){
       this.$message.info("只允许上传一个文件");
@@ -422,5 +416,19 @@ export default {
   .el-upload--text{
     border: 0px;
   }
+}
+</style>
+<style>
+.refuseDialog .el-dialog{
+  width:400px;
+}
+.refuseDialog .el-dialog__body {
+  padding-bottom: 0px;
+}
+.refuseDialog .el-dialog__footer {
+  padding-top: 0px;
+}
+.refuseDialog .el-textarea__inner{
+  font-family: "PingFang SC", "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
 }
 </style>

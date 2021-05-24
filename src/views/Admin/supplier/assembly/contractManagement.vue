@@ -79,7 +79,6 @@
     <el-dialog :visible.sync="conbook" width="400px">
       <div style="padding: 0 10px; border-left: 3px solid #4e58c5;font-size: 18px;color: #303133;">上传合同</div>
       <br />
-      <br />
       <el-upload
         drag
         :limit="1"
@@ -110,10 +109,11 @@
       <div align="right">
         <el-button size="small" type="primary" @click="submitUpload" align-center>上传到服务器</el-button>
       </div>
+      <br />
     </el-dialog>
 
     <!-- 合同拒绝原因 -->
-    <el-dialog :visible.sync="addVisible3" width="40%">
+    <el-dialog :visible.sync="addVisible3" width="50%">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">合同拒绝原因</div>
       <br />
       <el-row>
@@ -127,6 +127,7 @@
               :autosize="{ minRows: 3, maxRows: 7}"
               v-model="addList3.contractRefuseReason"
               :readonly="true"
+              placeholder="已拒绝"
             ></el-input>
           </el-col>
         </el-row>

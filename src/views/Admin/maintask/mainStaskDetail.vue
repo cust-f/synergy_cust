@@ -870,22 +870,16 @@
       </el-dialog>
 
       <!-- 申请拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible" width="50%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
-          请输入申请拒绝原因
+      <el-dialog :visible.sync="addVisible" class="refuseDialog">
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
+          申请拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList" label-width="120px">
+        <el-form ref="form" :model="addList" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList.SQrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input type="textarea" rows="6" v-model="addList.SQrefuseReason" placeholder="请输入申请拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -897,22 +891,19 @@
       </el-dialog>
 
       <!-- 计划书拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible1" width="50%">
+      <el-dialog :visible.sync="addVisible1" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入计划书拒绝原因
+          计划拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList1" label-width="120px">
+        <el-form ref="form" :model="addList1" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList1.JHSrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input type="textarea" rows="6"  v-model="addList1.JHSrefuseReason" placeholder="请输入计划拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -924,22 +915,19 @@
       </el-dialog>
 
       <!-- 合同拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible2" width="50%">
+      <el-dialog :visible.sync="addVisible2" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入合同拒绝原因
+          合同拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList2" label-width="120px">
+        <el-form ref="form" :model="addList2" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList2.HTrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input type="textarea" rows="6" v-model="addList2.HTrefuseReason" placeholder="请输入合同拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -951,22 +939,19 @@
       </el-dialog>
 
       <!-- 设计拒绝原因弹出框 -->
-      <el-dialog :visible.sync="addVisible3" width="50%">
+      <el-dialog :visible.sync="addVisible3" class="refuseDialog">
         <div
           class="biaoti"
           style="padding: 0 10px; border-left: 3px solid #4e58c5"
         >
-          请输入设计拒绝原因
+          设计拒绝原因
         </div>
         <br />
-        <el-row>
-          <el-col :span="8"></el-col>
-        </el-row>
-        <el-form ref="form" :model="addList3" label-width="120px">
+        <el-form ref="form" :model="addList3" label-width="0px">
           <el-row>
-            <el-col>
-              <el-form-item label="审核拒绝原因">
-                <el-input v-model="addList3.SJrefuseReason"></el-input>
+            <el-col :span="24" style="width:100%">
+              <el-form-item>
+                <el-input type="textarea" rows="6" v-model="addList3.SJrefuseReason" placeholder="请输入设计拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -2509,14 +2494,14 @@ export default {
             this.milepostActive5 = 0;
             this.milepostActive4 = 0;
             this.milepostActive3 = 0;
-            this.milepostActive2 = 0;
+            // this.milepostActive2 = 0;
              this.milepostActive = 0;
 
 }
         if(this.CDgetPlanState == 3 ){
             this.milepostActive5 = 0;
             this.milepostActive4 = 0;
-            this.milepostActive3 = 0;
+            // this.milepostActive3 = 0;
              this.milepostActive = 1;
         } 
           if (this.milepostActive >= 0) {
@@ -2589,7 +2574,7 @@ export default {
           message: "审核通过",
           type: "success",
         });
-        this.showData();
+        setTimeout(() => { this.showData(); }, 1000);
       });
     },
     SQJJ(row) {
@@ -2610,7 +2595,8 @@ export default {
       this.$message.success("提交成功");
       this.addList = {};
       this.addVisible = false;
-      this.showData();
+      // this.showData();
+      setTimeout(() => { this.showData(); }, 1000);
     },
     //计划书通过与拒绝
     JHSTG(row) {
@@ -2636,7 +2622,8 @@ export default {
                 message: "审核通过",
                 type: "success",
               });
-              this.showData();
+              // this.showData();
+              setTimeout(() => { this.showData(); }, 1000);
             } else {
               this.$confirm(
                 "您已经通过了一个任务计划，无法再通过另一个任务计划",
@@ -2667,7 +2654,8 @@ export default {
       this.$message.success("提交成功");
       this.addList1 = {};
       this.addVisible1 = false;
-      this.showData();
+      // this.showData();
+      setTimeout(() => { this.showData(); }, 1000);
     },
     //任务计划的下载方法
     TaskplanDownload(row){
@@ -2784,7 +2772,9 @@ export default {
                 message: "审核通过",
                 type: "success",
               });
-              this.showData();
+              // this.showData();
+              // setTimeout(() => { this.showData(); }, 1000);
+              setTimeout(() => { this.$router.go(0);}, 1000);
             } else {
               this.$message({
                 message: "审核失败",
@@ -2812,7 +2802,8 @@ export default {
       this.$message.success("提交成功");
       this.addList2 = {};
       this.addVisible2 = false;
-      this.showData();
+      // this.showData();
+      setTimeout(() => { this.showData(); }, 1000);
     },
     //合同的下载方法
     ContractDownload(row){
@@ -2959,7 +2950,8 @@ export default {
       this.$message.success("提交成功");
       this.addList3 = {};
       this.addVisible3 = false;
-      this.showData();
+      // this.showData();
+      setTimeout(() => { this.showData(); }, 1000);
     },
     //改变星级别
     GBXJ() {
@@ -3205,5 +3197,19 @@ export default {
   .XX {
     text-align: left;
   }
+}
+</style>
+<style>
+.refuseDialog .el-dialog{
+  width:400px;
+}
+.refuseDialog .el-dialog__body {
+  padding-bottom: 0px;
+}
+.refuseDialog .el-dialog__footer {
+  padding-top: 0px;
+}
+.refuseDialog .el-textarea__inner{
+  font-family: "PingFang SC", "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
 }
 </style>

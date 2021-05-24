@@ -514,6 +514,7 @@
                 </template>
               </el-table-column>
             </el-table>
+            <br>
             <span slot="footer" class="dialog-footer">
               <el-button @click="cancelQuotaChange()">取 消</el-button>
               <el-button type="primary" @click="saveQuotaChange()">确 定</el-button>
