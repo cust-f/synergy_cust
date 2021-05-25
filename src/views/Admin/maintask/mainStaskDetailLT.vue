@@ -12,29 +12,12 @@
         <el-step title="完成" icon="el-icon-s-claim"></el-step>
       </el-steps>-->
       <el-steps :active="milepostActive" align-center>
-        <el-step
-          v-for="(value, key) in milepost"
-          :class="milepostActive == key + 1 ? stepActive : ''"
-          :title="value.title"
-          :icon="value.icon"
-          :description="value.description"
-          :key="key"
-        ></el-step>
+        <el-step v-for="(value, key) in milepost" :class="milepostActive == key + 1 ? stepActive : ''" :title="value.title" :icon="value.icon" :description="value.description" :key="key"></el-step>
       </el-steps>
       <br />
-      <div
-        class="biaoti"
-        style="padding: 0 10px; border-left: 3px solid #4e58c5"
-      >
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
         基本信息
-        <el-button
-          v-if="this.milepostActive === 0"
-          type="text"
-          class="XG"
-          style="float: right"
-          @click="XG"
-          >修改</el-button
-        >
+        <el-button v-if="this.milepostActive === 0" type="text" class="XG" style="float: right" @click="XG">修改</el-button>
       </div>
       <br />
       <el-card class="box-card">
@@ -43,22 +26,16 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="需求名称">
-                  
+
                   <template slot-scope="scope">
-                    <el-button
-                      class="anniu"
-                      type="primary"
-                      text-decoration="underline"
-                      @click="ziTaskDetail(scope.row)"
-                      >
+                    <el-button class="anniu" type="primary" text-decoration="underline" @click="ziTaskDetail(scope.row)">
                       <!-- <el-col :span="11"> -->
                       {{ cool.mainTaskName }}
-                       <!-- </el-col> -->
-                      </el-button
-                    >
-                 
+                      <!-- </el-col> -->
+                    </el-button>
+
                   </template>
-                    
+
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -87,18 +64,12 @@
               </el-col> -->
               <el-col :span="11">
                 <el-form-item label="需求方">
-                  <el-input
-                    v-model="cool.companyName"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="cool.companyName" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="供应方">
-                  <el-input
-                    v-model="cool.acceptCompanyName"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="cool.acceptCompanyName" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -106,19 +77,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="一级行业类别">
-                  <el-input
-                    v-model="cool.taskCategoryMain"
-                    :disabled="true"
-                    style="text-align: center"
-                  ></el-input>
+                  <el-input v-model="cool.taskCategoryMain" :disabled="true" style="text-align: center"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="二级行业类别">
-                  <el-input
-                    v-model="cool.taskCategoryPart"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="cool.taskCategoryPart" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -126,19 +90,12 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止日期">
-                  <el-input
-                    v-bind:value="cool.deadline | formatDate"
-                    :disabled="true"
-                    style="text-align: center"
-                  ></el-input>
+                  <el-input v-bind:value="cool.deadline | formatDate" :disabled="true" style="text-align: center"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="需求方电话">
-                  <el-input
-                    v-model="cool.demanderTel"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="cool.demanderTel" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -149,59 +106,32 @@
       <br />
 
       <div v-show="milepostActive1">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           申请列表
         </div>
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-        <el-table
-          :data="tableData1"
-          border
-          class="table1"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-        >
+        <el-table :data="tableData1" border class="table1" ref="multipleTable" header-cell-class-name="table-header" :row-style="{height:'57px'}">
           <!-- mainTaskID冲-->
-          <el-table-column
-            label="序号"
-            type="index"
-            width="50"
-            align="center"
-          ></el-table-column>
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="companyName" width="250" label="供应商">
             <template slot-scope="scope">
-              <el-button type="text" @click="companyDetail(scope.row)">{{
-                scope.row.companyName
-              }}</el-button>
+              <el-button type="text" @click="companyDetail(scope.row)" style="padding:0px">
+                {{ scope.row.companyName }}
+              </el-button>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="supplierTel"
-            label="联络电话"
-            width="120"
-          ></el-table-column>
-          <el-table-column prop="applyWay" label="承接方式" width="90"  align="center">
+          <el-table-column prop="supplierTel" label="联络电话" width="120"></el-table-column>
+          <el-table-column prop="applyWay" label="承接方式" width="90" align="center">
             <template slot-scope="scope">
               <span v-if="+scope.row.applyWay === 0">邀请</span>
               <span v-else-if="+scope.row.applyWay === 1">申请</span>
               <span v-else>其他</span>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="checkApplyState"
-            label="申请/邀请状态"
-            align="center"
-            width="110"
-          >
+          <el-table-column prop="checkApplyState" label="申请/邀请状态" align="center" width="110">
             <template slot-scope="scope">
               <el-tag v-if="+scope.row.checkApplyState === 0">待审核</el-tag>
-              <el-tag
-                v-else-if="+scope.row.checkApplyState === 1"
-                type="success"
-                >通过</el-tag
-              >
+              <el-tag v-else-if="+scope.row.checkApplyState === 1" type="success">通过</el-tag>
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
@@ -225,24 +155,12 @@
                 @click="shenqingtanchu(scope.row)"
                 >流通清单</el-button
               > -->
-              <el-button
-                @click="SQTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="
+              <el-button @click="SQTG(scope.row)" type="text" size="small" v-if="
                   scope.row.checkApplyState === 0 && scope.row.applyWay === 1
-                "
-                >通过</el-button
-              >
-              <el-button
-                @click="SQJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="
+                ">通过</el-button>
+              <el-button @click="SQJJ(scope.row)" type="text" size="small" v-if="
                   scope.row.checkApplyState === 0 && scope.row.applyWay === 1
-                "
-                >拒绝</el-button
-              >
+                ">拒绝</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -251,50 +169,26 @@
       </div>
       <!-- 申请查看弹窗 -->
       <el-dialog title :visible.sync="shenqingTC" width="50%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           流通清单
         </div>
         <br />
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
-            <el-table-column
-              label="序号"
-              type="index"
-              width="50px"
-              align="center"
-            >
+            <el-table-column label="序号" type="index" width="50px" align="center">
               <template slot-scope="scope">
                 <span>{{ scope.$index + 1 }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="productName" label="产品名称">
               <template slot-scope="scope">
-                <el-link
-                  @click.native="showLineChart(scope.row)"
-                  :disabled="dialogLineChartVisible"
-                  >{{ scope.row.productName }}</el-link
-                >
+                <el-link @click.native="showLineChart(scope.row)" :disabled="dialogLineChartVisible">{{ scope.row.productName }}</el-link>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="productNumber"
-              label="产品数量"
-            ></el-table-column>
-            <el-table-column
-              prop="productModel"
-              label="产品规格"
-            ></el-table-column>
-            <el-table-column
-              prop="productPrice"
-              label="产品单价"
-            ></el-table-column>
-            <el-table-column
-              prop="contactNumber"
-              label="联系方式"
-            ></el-table-column>
+            <el-table-column prop="productNumber" label="产品数量"></el-table-column>
+            <el-table-column prop="productModel" label="产品规格"></el-table-column>
+            <el-table-column prop="productPrice" label="产品单价"></el-table-column>
+            <el-table-column prop="contactNumber" label="联系方式"></el-table-column>
             <!-- <el-table-column
               prop="consignmentNotes"
               label="流通清单备注"
@@ -305,66 +199,25 @@
             <!-- <el-button @click="toggleSelection()">导出Excel文件</el-button> -->
           </div>
           <div class="pagination">
-            <el-pagination
-              background
-              layout="prev, pager, next,total, jumper"
-              :current-page="pageIndex"
-              :page-size="pageSize"
-              :total="tableData.length"
-              @current-change="handleCurrentChange"
-              @size-change="handleSizeChange"
-            ></el-pagination>
+            <el-pagination background layout="prev, pager, next,total, jumper" :current-page="pageIndex" :page-size="pageSize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange"></el-pagination>
           </div>
         </el-form>
       </el-dialog>
 
       <div v-show="milepostActive2 && quotaState">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           流通清单
         </div>
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <br />
-        <el-table
-          :data="quotaData"
-          border
-          class="table1"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-        >
+        <el-table :data="quotaData" border class="table1" ref="multipleTable" header-cell-class-name="table-header" :row-style="{height:'57px'}">
           <!-- mainTaskID冲-->
-          <el-table-column
-            label="序号"
-            type="index"
-            width="50"
-            align="center"
-          ></el-table-column>
-          <el-table-column
-            prop="Company_Name"
-            label="供应商"
-            width="250"
-          ></el-table-column>
-          <el-table-column
-            prop="Product_Name"
-            label="产品名称"
-            align="center"
-            width="100"
-          ></el-table-column>
-          <el-table-column
-            prop="Parts_Category"
-            label="类别"
-            align="center"
-            width="100"
-          >
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="Company_Name" label="供应商" width="250"></el-table-column>
+          <el-table-column prop="Product_Name" label="产品名称" width="120"></el-table-column>
+          <el-table-column prop="Parts_Category" label="类别" width="100">
           </el-table-column>
-          <el-table-column
-            prop="Consignment_Time_Latest"
-            label="截止时间"
-            align="center"
-            width="125"
-          >
+          <el-table-column prop="Consignment_Time_Latest" label="截止时间" width="125">
             <template slot-scope="scope">
               <span v-if="+scope.row.planUploadTime === 0">暂未上传</span>
               <span v-else>{{
@@ -372,12 +225,7 @@
               }}</span>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="Contact_Number"
-            label="联系电话"
-            align="center"
-            width="120"
-          >
+          <el-table-column prop="Contact_Number" label="联系电话" width="120">
           </el-table-column>
           <el-table-column prop="Quota_Number" label="产品数量" align="center">
           </el-table-column>
@@ -387,48 +235,20 @@
       </div>
 
       <div v-show="milepostActive2 && quotaState">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           任务计划
         </div>
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <br />
-        <el-table
-          :data="tableData2"
-          border
-          class="table1"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-        >
+        <el-table :data="tableData2" border class="table1" ref="multipleTable" header-cell-class-name="table-header">
           <!-- mainTaskID冲-->
-          <el-table-column
-            label="序号"
-            type="index"
-            width="50"
-            align="center"
-          ></el-table-column>
-          <el-table-column
-            prop="companyName"
-            label="供应商"
-            width="250"
-          ></el-table-column>
-          <el-table-column
-            prop="checkPlanState"
-            label="审核状态"
-            align="center"
-          >
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="companyName" label="供应商" width="250"></el-table-column>
+          <el-table-column prop="checkPlanState" label="审核状态" align="center">
             <template slot-scope="scope">
-              <el-tag v-if="+scope.row.checkPlanState === 0" type="info"
-                >待上传</el-tag
-              >
-              <el-tag v-else-if="+scope.row.checkPlanState === 1"
-                >待审核</el-tag
-              >
-              <el-tag v-else-if="+scope.row.checkPlanState === 2" type="success"
-                >通过</el-tag
-              >
+              <el-tag v-if="+scope.row.checkPlanState === 0" type="info">待上传</el-tag>
+              <el-tag v-else-if="+scope.row.checkPlanState === 1">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.checkPlanState === 2" type="success">通过</el-tag>
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
@@ -456,30 +276,12 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button
-                @click="RWJHXZ(scope.row)"
-                type="text"
-                size="small"
-                v-if="
+              <el-button @click="RWJHXZ(scope.row)" type="text" size="small" v-if="
                   scope.row.checkPlanState !== 0 &&
                   scope.row.checkPlanState !== 3
-                "
-                >下载</el-button
-              >
-              <el-button
-                @click="JHSTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.checkPlanState === 1"
-                >通过</el-button
-              >
-              <el-button
-                @click="JHSJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.checkPlanState === 1"
-                >拒绝</el-button
-              >
+                ">下载</el-button>
+              <el-button @click="JHSTG(scope.row)" type="text" size="small" v-if="scope.row.checkPlanState === 1">通过</el-button>
+              <el-button @click="JHSJJ(scope.row)" type="text" size="small" v-if="scope.row.checkPlanState === 1">拒绝</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -488,50 +290,26 @@
       </div>
 
       <div v-show="milepostActive3">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           合同管理
         </div>
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <br />
-        <el-table
-          :data="tableData3"
-          border
-          class="table1"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-        >
+        <el-table :data="tableData3" border class="table1" ref="multipleTable" header-cell-class-name="table-header">
           <!-- mainTaskID冲-->
-          <el-table-column
-            label="序号"
-            type="index"
-            width="50"
-            align="center"
-          ></el-table-column>
-          <el-table-column
-            prop="acceptCompanyName"
-            label="供应商"
-            width="250"
-          ></el-table-column>
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
           <el-table-column prop="contractState" label="审核状态" align="center">
             <template slot-scope="scope">
-              <el-tag v-if="+scope.row.contractState === 0" type="info"
-                >待上传</el-tag
-              >
+              <el-tag v-if="+scope.row.contractState === 0" type="info">待上传</el-tag>
               <el-tag v-else-if="+scope.row.contractState === 1">待审核</el-tag>
-              <el-tag v-else-if="+scope.row.contractState === 2" type="success"
-                >通过</el-tag
-              >
+              <el-tag v-else-if="+scope.row.contractState === 2" type="success">通过</el-tag>
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
           <el-table-column prop="uploadContractTime" label="上传时间">
             <template slot-scope="scope">
-              <el-span v-if="+scope.row.uploadContractTime === 0"
-                >暂未上传</el-span
-              >
+              <el-span v-if="+scope.row.uploadContractTime === 0">暂未上传</el-span>
               <el-span v-else>{{
                 scope.row.uploadContractTime | formatDate
               }}</el-span>
@@ -539,9 +317,7 @@
           </el-table-column>
           <el-table-column prop="checkContractTime" label="审核时间">
             <template slot-scope="scope">
-              <el-span v-if="+scope.row.checkContractTime === 0"
-                >暂未审核</el-span
-              >
+              <el-span v-if="+scope.row.checkContractTime === 0">暂未审核</el-span>
               <el-span v-else>{{
                 scope.row.checkContractTime | formatDate
               }}</el-span>
@@ -555,34 +331,10 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button
-                type="text"
-                size="small"
-                v-if="scope.row.contractState !== 0"
-                @click="HTXZ(scope.row)"
-                >下载</el-button
-              >
-              <el-button
-                @click="HTSHTG(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.contractState === 1"
-                >通过</el-button
-              >
-              <el-button
-                @click="HTSHJJ(scope.row)"
-                type="text"
-                size="small"
-                v-if="scope.row.contractState === 1"
-                >拒绝</el-button
-              >
-              <el-button 
-              type="text" 
-              size="small" 
-              @click="CKLSHT(scope.row)"
-              v-show="scope.row.contractState > 1"
-                >历史上传</el-button
-              >
+              <el-button type="text" size="small" v-if="scope.row.contractState !== 0" @click="HTXZ(scope.row)">下载</el-button>
+              <el-button @click="HTSHTG(scope.row)" type="text" size="small" v-if="scope.row.contractState === 1">通过</el-button>
+              <el-button @click="HTSHJJ(scope.row)" type="text" size="small" v-if="scope.row.contractState === 1">拒绝</el-button>
+              <el-button type="text" size="small" @click="CKLSHT(scope.row)" v-show="scope.row.contractState > 1">历史上传</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -590,62 +342,25 @@
         <br />
       </div>
       <div v-show="milepostActive4">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           流通清单
         </div>
 
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
         <br />
-        <el-table
-          :data="tableData4"
-          border
-          class="table4"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-        >
+        <el-table :data="tableData4" border class="table4" ref="multipleTable" header-cell-class-name="table-header">
           <!-- mainTaskID冲-->
-          <el-table-column
-            label="序号"
-            type="index"
-            width="50"
-            align="center"
-          ></el-table-column>
-          <el-table-column
-            prop="acceptCompanyName"
-            label="供应商"
-              width="250"
-          ></el-table-column>
-          <el-table-column
-            prop="demandorCheckDesignState"
-            label="验收状态"
-            widht="80"
-            align="center"
-          >
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
+          <el-table-column prop="acceptCompanyName" label="供应商" width="250"></el-table-column>
+          <el-table-column prop="demandorCheckDesignState" label="验收状态" widht="80" align="center">
             <template slot-scope="scope">
-              <el-tag
-                v-if="+scope.row.demandorCheckDesignState === 0"
-                type="info"
-                >待审核</el-tag
-              >
-              <el-tag v-else-if="+scope.row.demandorCheckDesignState === 1"
-                >待审核</el-tag
-              >
-              <el-tag
-                v-else-if="+scope.row.demandorCheckDesignState === 2"
-                type="success"
-                >通过</el-tag
-              >
+              <el-tag v-if="+scope.row.demandorCheckDesignState === 0" type="info">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.demandorCheckDesignState === 1">待审核</el-tag>
+              <el-tag v-else-if="+scope.row.demandorCheckDesignState === 2" type="success">通过</el-tag>
               <el-tag v-else type="danger">拒绝</el-tag>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="uploadCircuaterTime"
-            widht="80"
-            label="发货时间"
-          >
+          <el-table-column prop="uploadCircuaterTime" widht="80" label="发货时间">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.uploadCircuaterTime === 0">{{
                 "暂未上传"
@@ -655,15 +370,9 @@
               }}</el-span>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="demandorCheckDesignTime"
-            widht="80"
-            label="审核时间"
-          >
+          <el-table-column prop="demandorCheckDesignTime" widht="80" label="审核时间">
             <template slot-scope="scope">
-              <el-span v-if="+scope.row.checkCircuaterTime === 0"
-                >暂未审核</el-span
-              >
+              <el-span v-if="+scope.row.checkCircuaterTime === 0">暂未审核</el-span>
               <el-span v-else>{{
                 scope.row.checkCircuaterTime | formatDate
               }}</el-span>
@@ -671,13 +380,7 @@
           </el-table-column>
           <el-table-column label="操作" width="150" align="center">
             <template slot-scope="scope">
-              <el-button
-                type="text"
-                size="small "
-                @click="chakantanchu(scope.row)"
-                v-show="scope.row.contractState > 0"
-                >查看</el-button
-              >
+              <el-button type="text" size="small " @click="chakantanchu(scope.row)" v-show="scope.row.contractState > 0">查看</el-button>
               <!-- 
               <div v-show="scope.row.contractState ===2">
                 <el-button @click="HTXZ(scope.row)" type="text" size="small"
@@ -692,10 +395,7 @@
       </div>
 
       <div v-show="milepostActive5">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           任务评价
         </div>
         &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -712,18 +412,10 @@
           </el-steps>
         </div>-->
         <div v-if="reMarkId === 0">
-          <div
-            class="loading1"
-            v-loading="loading"
-            element-loading-text="评价生成中......"
-          >
+          <div class="loading1" v-loading="loading" element-loading-text="评价生成中......">
             <!-- 雷达图 -->
 
-            <radar-chart
-              :radarData="radarData"
-              ref="QradarChart"
-              style="width: 500px"
-            ></radar-chart>
+            <radar-chart :radarData="radarData" ref="QradarChart" style="width: 500px"></radar-chart>
 
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
@@ -765,61 +457,28 @@
       <el-dialog :visible.sync="changeTimeDialog" width="80%">
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">修改|流通子任务|流通主任务|任务申请|流通清单|文件历史|任务评价|时间</div>
         <br /><br />
-        <el-form
-          ref="form"
-          class="changeTimeFrom"
-          :model="timeList"
-          label-width="160px"
-        >
+        <el-form ref="form" class="changeTimeFrom" :model="timeList" label-width="160px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务发布时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.publishTime"
-                  :disabled="timeList.publishTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.publishTime" :disabled="timeList.publishTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="申请时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.applyTime"
-                  :disabled="timeList.applyTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.applyTime" :disabled="timeList.applyTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="申请审核时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.checkApplyTime"
-                  :disabled="timeList.checkApplyTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.checkApplyTime" :disabled="timeList.checkApplyTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="任务开始时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.beginTime"
-                  :disabled="timeList.beginTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.beginTime" :disabled="timeList.beginTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -827,104 +486,48 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="计划书上传时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.planUploadTime"
-                  :disabled="timeList.planUploadTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.planUploadTime" :disabled="timeList.planUploadTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="计划书审核时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.checkPlanTime"
-                  :disabled="timeList.checkPlanTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.checkPlanTime" :disabled="timeList.checkPlanTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="合同上传时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.uploadContractTime"
-                  :disabled="timeList.uploadContractTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.uploadContractTime" :disabled="timeList.uploadContractTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="合同审核时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.checkContractTime"
-                  :disabled="timeList.checkContractTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.checkContractTime" :disabled="timeList.checkContractTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="备货时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.leadTime"
-                  :disabled="timeList.leadTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.leadTime" :disabled="timeList.leadTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="清单上传|全部发货时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.uploadCircuaterTime"
-                  :disabled="timeList.uploadCircuaterTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.uploadCircuaterTime" :disabled="timeList.uploadCircuaterTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="清单审核时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.checkCircuaterTime"
-                  :disabled="timeList.checkCircuaterTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.checkCircuaterTime" :disabled="timeList.checkCircuaterTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="清单截止时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.consignmentTimeLastest"
-                  :disabled="timeList.consignmentTimeLastest==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.consignmentTimeLastest" :disabled="timeList.consignmentTimeLastest==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -932,40 +535,19 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="(子)任务完成时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.subtaskFinishTime"
-                  :disabled="timeList.subtaskFinishTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.subtaskFinishTime" :disabled="timeList.subtaskFinishTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="(主)需求完成时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.mainTaskFinishTime"
-                  :disabled="timeList.mainTaskFinishTime==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.mainTaskFinishTime" :disabled="timeList.mainTaskFinishTime==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="11">
               <el-form-item label="(主)需求截止时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="timeList.deadline"
-                  :disabled="timeList.deadline==null?true:false"
-                  style="width: 100%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.deadline" :disabled="timeList.deadline==null?true:false" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -982,10 +564,7 @@
 
       <!-- 申请拒绝原因弹出框 -->
       <el-dialog :visible.sync="addVisible" class="refuseDialog">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           申请拒绝原因
         </div>
         <br />
@@ -993,13 +572,7 @@
           <el-row>
             <el-col :span="24" style="width:100%">
               <el-form-item>
-                <el-input               
-                type="textarea"
-                rows="6"
-                v-model="addList.SQrefuseReason"
-                :readonly="true"
-                placeholder="申请已拒绝"
-                ></el-input>
+                <el-input type="textarea" rows="6" v-model="addList.SQrefuseReason" :readonly="true" placeholder="申请已拒绝"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -1012,10 +585,7 @@
 
       <!-- 计划书拒绝原因弹出框 -->
       <el-dialog :visible.sync="addVisible1" class="refuseDialog">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           计划拒绝原因
         </div>
         <br />
@@ -1023,13 +593,8 @@
           <el-row>
             <el-col :span="24" style="width:100%">
               <el-form-item>
-              <el-input
-              type="textarea"
-              rows="6"
-              v-model="addList1.JHSrefuseReason"
-              placeholder="请输入计划拒绝原因"
-            ></el-input>
-            </el-form-item>
+                <el-input type="textarea" rows="6" v-model="addList1.JHSrefuseReason" placeholder="请输入计划拒绝原因"></el-input>
+              </el-form-item>
             </el-col>
           </el-row>
         </el-form>
@@ -1041,10 +606,7 @@
 
       <!-- 合同拒绝原因弹出框 -->
       <el-dialog :visible.sync="addVisible2" class="refuseDialog">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           合同拒绝原因
         </div>
         <br />
@@ -1052,28 +614,20 @@
           <el-row>
             <el-col :span="24" style="width:100%">
               <el-form-item>
-              <el-input
-              type="textarea"
-              rows="6"
-              v-model="addList1.JHSrefuseReason"
-              placeholder="请输入合同拒绝原因"
-            ></el-input>
-            </el-form-item>
+                <el-input type="textarea" rows="6" v-model="addList1.JHSrefuseReason" placeholder="请输入合同拒绝原因"></el-input>
+              </el-form-item>
             </el-col>
           </el-row>
         </el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible2 = false" >取 消</el-button>
+          <el-button @click="addVisible2 = false">取 消</el-button>
           <el-button type="primary" @click="HTJJYYTJ">确 定</el-button>
         </span>
       </el-dialog>
 
       <!-- 设计拒绝原因弹出框 -->
       <el-dialog :visible.sync="addVisible3" class="refuseDialog">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           流通清单拒绝原因
         </div>
         <br />
@@ -1081,19 +635,14 @@
           <el-row>
             <el-col :span="24" style="width:100%">
               <el-form-item>
-              <el-input
-              type="textarea"
-              rows="6"
-              v-model="addList1.JHSrefuseReason"
-              placeholder="请输入申请拒绝原因"
-            ></el-input>
-            </el-form-item>
+                <el-input type="textarea" rows="6" v-model="addList1.JHSrefuseReason" placeholder="请输入申请拒绝原因"></el-input>
+              </el-form-item>
             </el-col>
           </el-row>
         </el-form>
-        <br/>
+        <br />
         <span slot="footer" class="dialog-footer">
-          <el-button @click="addVisible3 = false" >取 消</el-button>
+          <el-button @click="addVisible3 = false">取 消</el-button>
           <el-button type="primary" @click="QDJJYYTJ">确 定</el-button>
         </span>
       </el-dialog>
@@ -1101,10 +650,7 @@
       <!-- detail -->
 
       <el-dialog title :visible.sync="addVisibleCD" width="50%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           企业图片
         </div>
         <br />
@@ -1112,10 +658,7 @@
           <el-image :src="imgsrc" :onerror="errorImg01"></el-image>
         </div>
         <br />
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           企业营业执照
         </div>
         <br />
@@ -1123,10 +666,7 @@
           <el-image :src="qiyezhizhao" :onerror="errorImg02"></el-image>
         </div>
         <br />
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           企业税务登记证
         </div>
         <br />
@@ -1135,31 +675,18 @@
         </div>
         <br />
 
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           企业信息
         </div>
         <br />
         <div style="width: 800px; height: 250px">
           <div style="float: left">
-            <el-image
-              align="left"
-              style="width: 200px; height: 200px"
-              :src="logo"
-              :onerror="errorImg00"
-            ></el-image>
+            <el-image align="left" style="width: 200px; height: 200px" :src="logo" :onerror="errorImg00"></el-image>
           </div>
 
           <div style="float: right; width: 490px; height: 250px">
             <br />
-            <el-rate
-              label="企业级别："
-              v-model="form.star"
-              disabled
-              text-color="#ff9900"
-            ></el-rate>
+            <el-rate label="企业级别：" v-model="form.star" disabled text-color="#ff9900"></el-rate>
             <br />
             <div align>
               <font size="5">{{ form.companyName }}</font>
@@ -1175,18 +702,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业名称">
-                  <el-input
-                    v-model="form.companyName"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.companyName" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="企业联络电话">
-                  <el-input
-                    v-model="form.businessTel"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.businessTel" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -1220,10 +741,7 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业成立时间">
-                  <el-input
-                    v-bind:value="form.foundingTime | formatDate"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-bind:value="form.foundingTime | formatDate" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
@@ -1249,18 +767,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="企业联系人">
-                  <el-input
-                    v-model="form.businessName"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.businessName" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="办公室电话">
-                  <el-input
-                    v-model="form.officeNumber"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.officeNumber" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -1268,18 +780,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="注册资产">
-                  <el-input
-                    v-model="form.registeredCapital"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.registeredCapital" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="总资本">
-                  <el-input
-                    v-model="form.totalAssets"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.totalAssets" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -1287,18 +793,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="固定资产">
-                  <el-input
-                    v-model="form.fixedAssets"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.fixedAssets" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="流动资产">
-                  <el-input
-                    v-model="form.currentAssets"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.currentAssets" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -1306,18 +806,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="法人代表">
-                  <el-input
-                    v-model="form.legalPerson"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.legalPerson" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="员工人数">
-                  <el-input
-                    v-model="form.workerNumber"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.workerNumber" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -1325,18 +819,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="开户银行">
-                  <el-input
-                    v-model="form.deposit_Bank"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.deposit_Bank" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="银行账户">
-                  <el-input
-                    v-model="form.bankNumber"
-                    :disabled="true"
-                  ></el-input>
+                  <el-input v-model="form.bankNumber" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -1360,38 +848,19 @@
           </el-form>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="addVisibleCD = false"
-            >关 闭</el-button
-          >
+          <el-button type="primary" @click="addVisibleCD = false">关 闭</el-button>
         </span>
       </el-dialog>
       <!-- 全部子任务 -->
       <el-dialog :visible.sync="quanbuzirenwu" width="50%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           任务列表
         </div>
         <br />
-        <el-table
-          :data="zirenwu"
-          border
-          class="table"
-          ref="multipleTable"
-          header-cell-class-name="table-header"
-        >
-          <el-table-column
-            label="序号"
-            type="index"
-            width="50"
-            align="center"
-          ></el-table-column>
+        <el-table :data="zirenwu" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+          <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
           <el-table-column prop="taskName" label="子任务名称"></el-table-column>
-          <el-table-column
-            prop="taskState"
-            label="子任务状态"
-          ></el-table-column>
+          <el-table-column prop="taskState" label="子任务状态"></el-table-column>
           <el-table-column prop="acceptCompanyName" label="供应方">
             <template slot-scope="scope">
               <el-span v-if="+scope.row.acceptCompanyName === 0"></el-span>
@@ -1400,17 +869,12 @@
           </el-table-column>
         </el-table>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="quanbuzirenwu = false"
-            >关 闭</el-button
-          >
+          <el-button type="primary" @click="quanbuzirenwu = false">关 闭</el-button>
         </span>
       </el-dialog>
       <!-- 子任务详情 + 下载 -->
       <el-dialog :visible.sync="XZJXQ" width="50%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           子任务详情
         </div>
         <br />
@@ -1423,17 +887,10 @@
           <!-- <el-card class="box-card"> -->
           <br />
           <div>
-            <div
-              class="biaoti"
-              style="padding: 0 10px; border-left: 3px solid #4e58c5"
-            >
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
               附件下载
             </div>
-            <el-table
-              :data="fujian"
-              class="customer-table"
-              :show-header="false"
-            >
+            <el-table :data="fujian" class="customer-table" :show-header="false">
               <el-table-column>
                 <template slot-scope="scope">
                   <el-link @click.native="downloadFile(scope.row)">{{
@@ -1453,10 +910,7 @@
       </el-dialog>
       <!--子任务修改 -->
       <el-dialog :visible.sync="ZRWXG" width="50%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           信息修改
         </div>
         <br />
@@ -1473,14 +927,9 @@
 
             <el-col :span="11">
               <el-form-item label="联络电话">
-                <el-input
-                  v-model="cool.demanderTel"
-                  @blur="animate()"
-                ></el-input>
+                <el-input v-model="cool.demanderTel" @blur="animate()"></el-input>
                 <font color="red">
-                  <el-span v-if="this.cool.demanderTel === null"
-                    >您的联络电话格式输入不正确</el-span
-                  >
+                  <el-span v-if="this.cool.demanderTel === null">您的联络电话格式输入不正确</el-span>
                 </font>
               </el-form-item>
             </el-col>
@@ -1489,25 +938,13 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="cool.publishTime"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  style="width: 100%"
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="cool.publishTime" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"></el-date-picker>
               </el-form-item>
             </el-col>
 
             <el-col :span="11">
               <el-form-item label="截止时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  v-model="cool.deadline"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  style="width: 100%"
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="cool.deadline" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -1515,32 +952,14 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="行业类别">
-                <el-cascader
-                  style="width: 100%"
-                  expand-trigger="hover"
-                  v-model="selectCateKeys"
-                  :options="xuanzelist"
-                  :props="cateProps"
-                  @change="handleChange"
-                  props.checkStrictly="true"
-                ></el-cascader>
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="selectCateKeys" :options="xuanzelist" :props="cateProps" @change="handleChange" props.checkStrictly="true"></el-cascader>
               </el-form-item>
             </el-col>
 
             <el-col :span="11">
               <el-form-item label="任务类型">
-                <el-select
-                  v-model="cool.taskType"
-                  placeholder="请选择"
-                  class="selectsupply"
-                  style="width: 100%"
-                >
-                  <el-option
-                    v-for="leibie in Task"
-                    :key="leibie.id"
-                    :label="leibie.label"
-                    :value="leibie.id"
-                  ></el-option>
+                <el-select v-model="cool.taskType" placeholder="请选择" class="selectsupply" style="width: 100%">
+                  <el-option v-for="leibie in Task" :key="leibie.id" :label="leibie.label" :value="leibie.id"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -1549,60 +968,28 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="新增供应商" :style="{ display: true }">
-                <el-select
-                  v-model="SupplierListInt"
-                  multiple
-                  placeholder="请选择供应商"
-                  class="selectsupply"
-                  style="width: 100%"
-                >
-                  <el-option
-                    width="180"
-                    v-for="supplier in supplierCompany"
-                    :key="supplier"
-                    :label="supplier.companyName"
-                    :value="supplier.companyId"
-                  ></el-option>
+                <el-select v-model="SupplierListInt" multiple placeholder="请选择供应商" class="selectsupply" style="width: 100%">
+                  <el-option width="180" v-for="supplier in supplierCompany" :key="supplier" :label="supplier.companyName" :value="supplier.companyId"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="是否发布">
-                <el-select
-                  v-model="cooList.shifousimi"
-                  placeholder="请选择是或者否"
-                  class="selectsupply"
-                  @change="simizhiding"
-                  style="width: 100%"
-                >
-                  <el-option
-                    width="180"
-                    v-for="coo in shifousimi"
-                    :key="coo.id"
-                    :label="coo.label"
-                    :value="coo.id"
-                  ></el-option>
+                <el-select v-model="cooList.shifousimi" placeholder="请选择是或者否" class="selectsupply" @change="simizhiding" style="width: 100%">
+                  <el-option width="180" v-for="coo in shifousimi" :key="coo.id" :label="coo.label" :value="coo.id"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <font color="red">
-              <el-span class="simichakan" :style="{ display: sm }"
-                >自身可见</el-span
-              >
-              <el-span class="simichakan" :style="{ display: busm }"
-                >全部可见</el-span
-              >
+              <el-span class="simichakan" :style="{ display: sm }">自身可见</el-span>
+              <el-span class="simichakan" :style="{ display: busm }">全部可见</el-span>
             </font>
           </el-row>
 
           <el-row>
             <el-col :span="22">
               <el-form-item label="分解任务详情">
-                <el-input
-                  v-model="cool.taskDetail"
-                  type="textarea"
-                  :rows="2"
-                ></el-input>
+                <el-input v-model="cool.taskDetail" type="textarea" :rows="2"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -1611,37 +998,17 @@
             <el-col :span="22">
               <el-form-item label="附件管理">
                 <div>
-                  <el-table
-                    :data="fujian"
-                    class="customer-table"
-                    :show-header="false"
-                  >
-                    <el-table-column
-                      label="序号"
-                      type="index"
-                      width="20"
-                      align="center"
-                    ></el-table-column>
+                  <el-table :data="fujian" class="customer-table" :show-header="false">
+                    <el-table-column label="序号" type="index" width="20" align="center"></el-table-column>
                     <el-table-column>
                       <template slot-scope="scope">
-                        <el-link
-                          style="color: #409eff"
-                          @click.native="downloadFile(scope.row)"
-                          >{{ scope.row.realName }}</el-link
-                        >
+                        <el-link style="color: #409eff" @click.native="downloadFile(scope.row)">{{ scope.row.realName }}</el-link>
                       </template>
                     </el-table-column>
                     <!-- <el-table-column prop="realPath" label="真实地址" v-if="YinCang===0"></el-table-column> -->
                     <el-table-column label="操作" align="center" width="120">
                       <template slot-scope="scope">
-                        <el-button
-                          size="small"
-                          type="text"
-                          icon="el-icon-delete"
-                          class="red"
-                          @click="shanchuwenjian(scope.row)"
-                          >删除文件</el-button
-                        >
+                        <el-button size="small" type="text" icon="el-icon-delete" class="red" @click="shanchuwenjian(scope.row)">删除文件</el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -1651,15 +1018,7 @@
           </el-row>
 
           <el-form-item label="添加附件">
-            <el-upload
-              class="upload-demo"
-              action="/api/MainTaskInformation/import"
-              :on-success="handleAvatarSuccess"
-              multiple
-              :limit="10"
-              ref="upload"
-              :file-list="fileList"
-            >
+            <el-upload class="upload-demo" action="/api/MainTaskInformation/import" :on-success="handleAvatarSuccess" multiple :limit="10" ref="upload" :file-list="fileList">
               <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
           </el-form-item>
@@ -1671,27 +1030,13 @@
       </el-dialog>
       <!-- 文件历史 -->
       <el-dialog title :visible.sync="fileHistoryDia" width="55%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           文件历史
         </div>
         <br />
         <div>
-          <el-table
-            :data="tableData6"
-            border
-            class="table"
-            ref="multipleTable"
-            header-cell-class-name="table-header"
-          >
-            <el-table-column
-              label="序号"
-              type="index"
-              width="55"
-              align="center"
-            >
+          <el-table :data="tableData6" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+            <el-table-column label="序号" type="index" width="55" align="center">
               <template slot-scope="scope">
                 <span>{{ scope.$index + 1 }}</span>
               </template>
@@ -1703,12 +1048,7 @@
                 }}</el-link>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="publishingCompanyName"
-              label="发布企业"
-              width="180"
-              align="center"
-            ></el-table-column>
+            <el-table-column prop="publishingCompanyName" label="发布企业" width="180" align="center"></el-table-column>
             <el-table-column prop="fileType" width="100" label="文件类型">
               <template slot-scope="scope">
                 <span v-if="scope.row.fileType === 0">合同文件</span>
@@ -1726,10 +1066,7 @@
       </el-dialog>
       <!--流通清单拒绝原因-新改-->
       <el-dialog :visible.sync="addVisible4" class="refuseDialog">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           发货清单拒绝原因
         </div>
         <br />
@@ -1737,17 +1074,9 @@
           <el-row>
             <el-col :span="24" style="width:100%">
               <el-form-item>
-                <el-input
-                  v-model="addList4.QDrefuseReason"
-                  @blur="refuseReasonUnnull"
-                  type="textarea"
-                  :rows="6"
-                  placeholder="请输入发货清单拒绝内容"
-                ></el-input>
+                <el-input v-model="addList4.QDrefuseReason" @blur="refuseReasonUnnull" type="textarea" :rows="6" placeholder="请输入发货清单拒绝内容"></el-input>
                 <font color="red">
-                  <span v-if="this.addList4.QDrefuseReason === null"
-                    >请输入拒绝原因</span
-                  >
+                  <span v-if="this.addList4.QDrefuseReason === null">请输入拒绝原因</span>
                 </font>
               </el-form-item>
             </el-col>
@@ -1781,86 +1110,45 @@
             >
           </div>
         </div> -->
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           流通清单
         </div>
         <br />
         <el-form>
           <el-table :data="tableData" @selection-change="handleSelectionChange">
-            <el-table-column
-              type="selection"
-              width="55"
-              :selectable="checkboxT"
-              disabled="true"
-            >
+            <el-table-column type="selection" width="55" :selectable="checkboxT" disabled="true">
             </el-table-column>
 
-            <el-table-column
-              label="序号"
-              type="index"
-              width="50px"
-              align="center"
-            >
+            <el-table-column label="序号" type="index" width="50px" align="center">
               <template slot-scope="scope">
                 <span>{{ scope.$index + 1 }}</span>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="productName"
-              label="产品名称"
-              width="100"
-            ></el-table-column>
+            <el-table-column prop="productName" label="产品名称" width="100"></el-table-column>
             <el-table-column prop="deliveryTime" label="发货时间" width="160">
               <template slot-scope="scope">{{
                 scope.row.deliveryTime | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
-            <el-table-column
-              prop="consignmentTimeLatest"
-              label="发货截至时间"
-              width="160"
-              ><template slot-scope="scope">{{
+            <el-table-column prop="consignmentTimeLatest" label="发货截至时间" width="160"><template slot-scope="scope">{{
                 scope.row.consignmentTimeLatest | dataFormat("yyyy-MM-dd hh:mm")
               }}</template>
             </el-table-column>
             <el-table-column prop="leadState" label="发货状态" width="100">
               <template slot-scope="scope">
-                <el-tag v-if="+scope.row.leadState === 0" type="info"
-                  >待备货</el-tag
-                >
+                <el-tag v-if="+scope.row.leadState === 0" type="info">待备货</el-tag>
                 <el-tag v-else-if="+scope.row.leadState === 1">已备货</el-tag>
                 <el-tag v-else-if="+scope.row.leadState === 2">已发货</el-tag>
-                <el-tag v-else-if="+scope.row.leadState === 3" type="success"
-                  >已完成</el-tag
-                >
+                <el-tag v-else-if="+scope.row.leadState === 3" type="success">已完成</el-tag>
                 <el-tag v-else type="danger">拒绝</el-tag>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="issuedQuantity"
-              label="已发数量"
-              align="center"
-              width="80"
-            ></el-table-column>
-            <el-table-column
-              prop="shortageQuantity"
-              label="仍需数量"
-              align="center"
-              width="85"
-            ></el-table-column>
+            <el-table-column prop="issuedQuantity" label="已发数量" align="center" width="80"></el-table-column>
+            <el-table-column prop="shortageQuantity" label="仍需数量" align="center" width="85"></el-table-column>
 
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
-                <el-button
-                  @click="success(scope.row)"
-                  type="text"
-                  size="small"
-                  v-if="scope.row.leadState === 2"
-                  >通过</el-button
-                >
+                <el-button @click="success(scope.row)" type="text" size="small" v-if="scope.row.leadState === 2">通过</el-button>
                 <!-- <el-button
                   @click="changeDeliveryTime(scope.row)"
                   type="text"
@@ -1872,13 +1160,7 @@
                 >
                   修改时间
                 </el-button> -->
-                <el-button
-                  @click="refusebutton(scope.row)"
-                  type="text"
-                  size="small"
-                  v-if="scope.row.leadState === 2"
-                  >拒绝</el-button
-                >
+                <el-button @click="refusebutton(scope.row)" type="text" size="small" v-if="scope.row.leadState === 2">拒绝</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -1886,59 +1168,29 @@
             <!-- <el-button @click="toggleSelection()">导出Excel文件</el-button> -->
           </div>
           <div class="pagination">
-            <el-pagination
-              background
-              layout="prev, pager, next,total, jumper"
-              :current-page="pageIndex"
-              :page-size="pageSize"
-              :total="tableData.length"
-              @current-change="handleCurrentChange"
-              @size-change="handleSizeChange"
-            ></el-pagination>
+            <el-pagination background layout="prev, pager, next,total, jumper" :current-page="pageIndex" :page-size="pageSize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange"></el-pagination>
           </div>
         </el-form>
       </el-dialog>
 
       <!-- fa修改时间弹出框 -->
       <el-dialog :visible.sync="changeTimeDialog1" width="80%">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           请输入修改的时间
         </div>
         <br />
         <br />
 
-        <el-form
-          ref="form"
-          class="changeTimeFrom"
-          :model="timeList"
-          label-width="120px"
-        >
+        <el-form ref="form" class="changeTimeFrom" :model="timeList" label-width="120px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="发货时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  :disabled="deliveryListTimeJudge.deliveryTimeJudge"
-                  v-model="deliveryListTime.deliveryTime"
-                  style="width: 80%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" :disabled="deliveryListTimeJudge.deliveryTimeJudge" v-model="deliveryListTime.deliveryTime" style="width: 80%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
               <el-form-item label="发货截至时间">
-                <el-date-picker
-                  type="datetime"
-                  placeholder="选择日期"
-                  :disabled="deliveryListTimeJudge.consignmentTimeLatestJudge"
-                  v-model="deliveryListTime.consignmentTimeLatest"
-                  style="width: 80%"
-                  value-format
-                ></el-date-picker>
+                <el-date-picker type="datetime" placeholder="选择日期" :disabled="deliveryListTimeJudge.consignmentTimeLatestJudge" v-model="deliveryListTime.consignmentTimeLatest" style="width: 80%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -1955,10 +1207,7 @@
       </el-dialog>
 
       <el-dialog :visible.sync="addVisible3" class="refuseDialog">
-        <div
-          class="biaoti"
-          style="padding: 0 10px; border-left: 3px solid #4e58c5"
-        >
+        <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
           流通清单拒绝原因
         </div>
         <br />
@@ -1969,12 +1218,7 @@
           <el-row>
             <el-col :span="24" style="width:100%">
               <el-form-item>
-                <el-input 
-                type="textarea" 
-                rows="6"
-                v-model="addList3.SJrefuseReason"
-                placeholder="请输入拒绝原因"
-                ></el-input>
+                <el-input type="textarea" rows="6" v-model="addList3.SJrefuseReason" placeholder="请输入拒绝原因"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -2004,31 +1248,14 @@
           <br />
           <div class="type23-situation">
             <span class="title-star">
-              <el-rate
-                v-model="this.nowStar"
-                disabled
-                show-score
-                text-color="#ff9900"
-              ></el-rate>
+              <el-rate v-model="this.nowStar" disabled show-score text-color="#ff9900"></el-rate>
             </span>
           </div>
           <br />
           <div style="float: right">
             <template>
-              <el-select
-                style="width: 100px; margin-right: 35px; margin-top: -20px"
-                v-model="lineYear"
-                @change="lineChartChange()"
-              >
-                <el-option
-                  v-for="item in options"
-                  placeholder="请选择"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                  :disabled="item.disabled"
-                  width="20px"
-                ></el-option>
+              <el-select style="width: 100px; margin-right: 35px; margin-top: -20px" v-model="lineYear" @change="lineChartChange()">
+                <el-option v-for="item in options" placeholder="请选择" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" width="20px"></el-option>
               </el-select>
             </template>
           </div>
@@ -2083,7 +1310,7 @@ export default {
       usernameX: sessionStorage.getItem("ms_username"),
       //
       zirenwuXX: "",
-      quotaData: [],  //流通清单信息
+      quotaData: [], //流通清单信息
       dialogLineChartVisible: false, //显示折线图
       options: [],
       lineYear: "",
@@ -2426,7 +1653,7 @@ export default {
         })
         .then((response) => {
           this.quotaData = response.data.allData.quotaList;
-          console.log(response)
+          console.log(response);
         });
     },
     //获取条件选择时间数据
@@ -2667,29 +1894,62 @@ export default {
           // this.changeTimeJudge(row.checkApplyState, row.checkPlanState);//禁用一些时间选择器
         });
     },
-    changeTimeMethodLT(){
+    changeTimeMethodLT() {
       var that = this;
       var data = Qs.stringify({
         mainTaskId: this.taskId,
         state: this.milepostActive + 1,
         companyId: this.acceptCompanyId,
-        publishTime: this.timeList.publishTim == null?"":this.timeList.publishTim,
-        applyTime: this.timeList.applyTime== null?"":this.timeList.applyTime,
-        checkApplyTime: this.timeList.checkApplyTime== null?"":this.timeList.checkApplyTime,
-        beginTime: this.timeList.beginTime== null?"":this.timeList.beginTime,
-        planUploadTime: this.timeList.planUploadTime== null?"":this.timeList.planUploadTime,
-        checkPlanTime: this.timeList.checkPlanTime== null?"":this.timeList.checkPlanTime,
-        uploadContractTime: this.timeList.uploadContractTime== null?"":this.timeList.uploadContractTime,
-        checkContractTime: this.timeList.checkContractTime== null?"":this.timeList.checkContractTime,
-        leadTime: this.timeList.leadTime== null?"":this.timeList.leadTime,
+        publishTime:
+          this.timeList.publishTim == null ? "" : this.timeList.publishTim,
+        applyTime:
+          this.timeList.applyTime == null ? "" : this.timeList.applyTime,
+        checkApplyTime:
+          this.timeList.checkApplyTime == null
+            ? ""
+            : this.timeList.checkApplyTime,
+        beginTime:
+          this.timeList.beginTime == null ? "" : this.timeList.beginTime,
+        planUploadTime:
+          this.timeList.planUploadTime == null
+            ? ""
+            : this.timeList.planUploadTime,
+        checkPlanTime:
+          this.timeList.checkPlanTime == null
+            ? ""
+            : this.timeList.checkPlanTime,
+        uploadContractTime:
+          this.timeList.uploadContractTime == null
+            ? ""
+            : this.timeList.uploadContractTime,
+        checkContractTime:
+          this.timeList.checkContractTime == null
+            ? ""
+            : this.timeList.checkContractTime,
+        leadTime: this.timeList.leadTime == null ? "" : this.timeList.leadTime,
         //deliveryTime,
-        uploadCircuaterTime: this.timeList.uploadCircuaterTime== null?"":this.timeList.uploadCircuaterTime,
-        consignmentTimeLastest: this.timeList.consignmentTimeLastest== null?"":this.timeList.consignmentTimeLastest,
-        checkCircuaterTime: this.timeList.checkCircuaterTime== null?"":this.timeList.checkCircuaterTime,
-        subtaskFinishTime: this.timeList.subtaskFinishTime== null?"":this.timeList.subtaskFinishTime,
-        mainTaskFinishTime: this.timeList.mainTaskFinishTime== null?"":this.timeList.mainTaskFinishTime,
-        deadline: this.timeList.deadline== null?"":this.timeList.deadline
-      })
+        uploadCircuaterTime:
+          this.timeList.uploadCircuaterTime == null
+            ? ""
+            : this.timeList.uploadCircuaterTime,
+        consignmentTimeLastest:
+          this.timeList.consignmentTimeLastest == null
+            ? ""
+            : this.timeList.consignmentTimeLastest,
+        checkCircuaterTime:
+          this.timeList.checkCircuaterTime == null
+            ? ""
+            : this.timeList.checkCircuaterTime,
+        subtaskFinishTime:
+          this.timeList.subtaskFinishTime == null
+            ? ""
+            : this.timeList.subtaskFinishTime,
+        mainTaskFinishTime:
+          this.timeList.mainTaskFinishTime == null
+            ? ""
+            : this.timeList.mainTaskFinishTime,
+        deadline: this.timeList.deadline == null ? "" : this.timeList.deadline,
+      });
       that
         .axios({
           method: "post",
@@ -2701,7 +1961,7 @@ export default {
           // this.$confirm("时间修改完成，刷新页面吗？", "提示", {
           //   type: "warnning",
           // }).then(() => {
-            this.$router.go(0);
+          this.$router.go(0);
           // })
         });
     },
@@ -2750,48 +2010,55 @@ export default {
         if (this.milepostActive == 4) {
           this.liu = true;
         }
-        setTimeout(() => {this.$router.go(0);}, 1000);
+        setTimeout(() => {
+          this.$router.go(0);
+        }, 1000);
       });
     },
     //批量提交方法、全部通过
     submit2() {
-       this.$confirm("确定全部通过吗？", "提示", {
+      this.$confirm("确定全部通过吗？", "提示", {
         type: "warnning",
-      }).then(() => {
-        if (this.multipleSelection.length == 0) {
-          this.$message({
-            message: "请至少选择一个！",
-            type: "warning",
-          });
-        } else {
-          for (var i = 0; i < this.multipleSelection.length; i++) {
-            let that = this;
-            let data = Qs.stringify({
-              consignmentId: this.multipleSelection[i].consignmentId,
-              taskId:  this.multipleSelection[i].taskId,
-              acceptCompanyId: this.acceptCompanyId,
-            });
-            that
-              .axios({
-                method: "post",
-                url: "/api/SubstaskInformation/allPassLT",
-                data: data,
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              })
-              .then((response) => {
-                console.log(response);
-              });
-          }
-          console.log(this.milepostActive);
-          if (this.milepostActive == 4) {
-            this.liu = true;
-          }
-          this.$message.success("通过成功");
-          this.chakanTC = false;
-          setTimeout(() => {this.$router.go(0);}, 1000);
-        }
       })
-      .catch(() => {
+        .then(() => {
+          if (this.multipleSelection.length == 0) {
+            this.$message({
+              message: "请至少选择一个！",
+              type: "warning",
+            });
+          } else {
+            for (var i = 0; i < this.multipleSelection.length; i++) {
+              let that = this;
+              let data = Qs.stringify({
+                consignmentId: this.multipleSelection[i].consignmentId,
+                taskId: this.multipleSelection[i].taskId,
+                acceptCompanyId: this.acceptCompanyId,
+              });
+              that
+                .axios({
+                  method: "post",
+                  url: "/api/SubstaskInformation/allPassLT",
+                  data: data,
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                })
+                .then((response) => {
+                  console.log(response);
+                });
+            }
+            console.log(this.milepostActive);
+            if (this.milepostActive == 4) {
+              this.liu = true;
+            }
+            this.$message.success("通过成功");
+            this.chakanTC = false;
+            setTimeout(() => {
+              this.$router.go(0);
+            }, 1000);
+          }
+        })
+        .catch(() => {
           this.$message({
             type: "info",
             message: "取消全部通过",
@@ -3437,15 +2704,15 @@ export default {
             if (this.milepostActive > 1) {
             }
             if (this.milepostActive > 2) {
-              if(response.data.allData.d[0].uploadCircuaterTime == null){
+              if (response.data.allData.d[0].uploadCircuaterTime == null) {
                 this.milepost[2].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.d[0].checkContractTime);
-              }else{
+                  "formatDate"
+                ](response.data.allData.d[0].checkContractTime);
+              } else {
                 this.milepost[2].description = this.$options.filters[
-                "formatDate"
-              ](response.data.allData.d[0].uploadCircuaterTime);
-              };
+                  "formatDate"
+                ](response.data.allData.d[0].uploadCircuaterTime);
+              }
               this.milepost[3].description = this.$options.filters[
                 "formatDate"
               ](response.data.allData.d[0].finishTime);
@@ -3495,7 +2762,9 @@ export default {
           type: "success",
         });
         // this.showData();
-        setTimeout(() => {this.$router.go(0);}, 1000);
+        setTimeout(() => {
+          this.$router.go(0);
+        }, 1000);
       });
     },
     SQJJ(row) {
@@ -3545,7 +2814,9 @@ export default {
                 type: "success",
               });
               // this.showData();、
-              setTimeout(() => {this.$router.go(0);}, 1000);
+              setTimeout(() => {
+                this.$router.go(0);
+              }, 1000);
             } else {
               this.$confirm(
                 "您已经通过了一个任务计划，无法再通过另一个任务计划",
@@ -3577,7 +2848,9 @@ export default {
       this.addList1 = {};
       this.addVisible1 = false;
       // this.showData();
-      setTimeout(() => {this.$router.go(0);}, 1000);
+      setTimeout(() => {
+        this.$router.go(0);
+      }, 1000);
     },
     //任务计划下载
     TaskplanDownload(row) {
@@ -3691,7 +2964,9 @@ export default {
           type: "success",
         });
         // this.showData();
-        setTimeout(() => {this.$router.go(0);}, 1000);
+        setTimeout(() => {
+          this.$router.go(0);
+        }, 1000);
       });
     },
     HTSHJJ(row) {
@@ -3713,7 +2988,9 @@ export default {
       this.addList2 = {};
       this.addVisible2 = false;
       // this.showData();
-      setTimeout(() => {this.$router.go(0);}, 1000);
+      setTimeout(() => {
+        this.$router.go(0);
+      }, 1000);
     },
 
     //密码验证
@@ -3820,7 +3097,9 @@ export default {
           message: "清单审核通过,并自动生成评价",
           type: "success",
         });
-        setTimeout(() => {this.$router.go(0);}, 1000);
+        setTimeout(() => {
+          this.$router.go(0);
+        }, 1000);
       });
     },
     SJJJ(row) {
@@ -3842,7 +3121,9 @@ export default {
       this.addList3 = {};
       this.addVisible3 = false;
       // this.showData();
-      setTimeout(() => {this.$router.go(0);}, 1000);
+      setTimeout(() => {
+        this.$router.go(0);
+      }, 1000);
     },
     //改变星级别
     GBXJ() {
@@ -4143,20 +3424,20 @@ export default {
 }
 </style>
 <style>
-  .el-dialog__body {
-    padding: 30px 20px 5px 20px;
-  }
-  .el-dialog__footer {
-      padding: 0px 20px 10px;
-  }
-  .el-col-24 {
-    width: 95%;
+.el-dialog__body {
+  padding: 30px 20px 5px 20px;
 }
-.backDoor{
+.el-dialog__footer {
+  padding: 0px 20px 10px;
+}
+.el-col-24 {
+  width: 95%;
+}
+.backDoor {
   display: none;
 }
-.refuseDialog .el-dialog{
-  width:400px;
+.refuseDialog .el-dialog {
+  width: 400px;
 }
 .refuseDialog .el-dialog__body {
   padding-bottom: 0px;
@@ -4164,8 +3445,8 @@ export default {
 .refuseDialog .el-dialog__footer {
   padding-top: 0px;
 }
-.refuseDialog .el-textarea__inner{
-  font-family: "PingFang SC", "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+.refuseDialog .el-textarea__inner {
+  font-family: "PingFang SC", "Helvetica Neue", Helvetica, "microsoft yahei",
+    arial, STHeiTi, sans-serif;
 }
-
 </style>
