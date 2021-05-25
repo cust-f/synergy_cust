@@ -26,7 +26,8 @@ export default{
          orient: 'vertical',
           x: "left",
           y: "top",
-          data: ["数据统计(单位：天)"]
+          // data: ["数据统计(单位：天)"]
+          data: ["数据统计"]
         },
         radar: {
           name: {
@@ -52,7 +53,7 @@ export default{
             type: "radar",
              data: [
               {
-                name: "数据统计(单位：天)",
+                name: "数据统计",
                 value:this.radarData.radarData,
      
               },
