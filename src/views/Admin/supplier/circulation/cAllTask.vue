@@ -8,6 +8,27 @@
       <el-table-column label="序号" type="index" width="55" align="center"></el-table-column>
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
       <el-table-column prop="taskName" sortable="custom" label="需求名称">
+        <!-- <template slot-scope="scope">
+          {{ scope.row.taskName }}
+        </template> -->
+      </el-table-column>
+      <el-table-column prop="taskState" align="center" sortable="custom" label="状态" width="98">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.taskState === 1">计划审核</el-tag>
+          <el-tag type="warning" v-else-if="scope.row.taskState === 2">进行中</el-tag>
+          <el-tag class="cirshenhe" v-else-if="scope.row.taskState === 3">审核</el-tag>
+          <el-tag class="ciryanshou" v-else-if="scope.row.taskState === 4">验收</el-tag>
+          <el-tag type="success" v-else-if="scope.row.taskState === 5">完成</el-tag>
+          <el-tag type="danger" v-else-if="scope.row.taskState === 6">已废除</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="publishingCompanyName" sortable="custom" label="需求方"></el-table-column>
+      <el-table-column prop="applyTime" sortable="custom" label="开始时间" width="103">
+        <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
+      </el-table-column>
+      <el-table-column prop="taskCategoryPart" sortable="custom" label="行业类别" width="105"></el-table-column>
+      <el-table-column label="预警" width="50" align="center">
         <template slot-scope="scope">
           <!-- 待响应 -->
           <span v-show="scope.row.taskState == 0">
@@ -34,25 +55,8 @@
             <el-image v-else-if="intervalTime(new Date(),1,scope.row.uploadCircuaterTime,0)==2" :src="require('../../../../assets/img/warnYellow.png')"></el-image>
             <el-image v-else :src="require('../../../../assets/img/warnGreen.png')"></el-image>
           </span>
-          {{ scope.row.taskName }}
         </template>
       </el-table-column>
-      <el-table-column prop="taskState" align="center" sortable="custom" label="状态" width="98">
-        <template slot-scope="scope">
-          <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
-          <el-tag type="warning" v-else-if="scope.row.taskState === 1">计划审核</el-tag>
-          <el-tag type="warning" v-else-if="scope.row.taskState === 2">进行中</el-tag>
-          <el-tag class="cirshenhe" v-else-if="scope.row.taskState === 3">审核</el-tag>
-          <el-tag class="ciryanshou" v-else-if="scope.row.taskState === 4">验收</el-tag>
-          <el-tag type="success" v-else-if="scope.row.taskState === 5">完成</el-tag>
-          <el-tag type="danger" v-else-if="scope.row.taskState === 6">已废除</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="publishingCompanyName" sortable="custom" label="需求方"></el-table-column>
-      <el-table-column prop="applyTime" sortable="custom" label="开始时间" width="103">
-        <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
-      </el-table-column>
-      <el-table-column prop="taskCategoryPart" sortable="custom" label="行业类别" width="105"></el-table-column>
       <el-table-column label="操作" width="105" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>
