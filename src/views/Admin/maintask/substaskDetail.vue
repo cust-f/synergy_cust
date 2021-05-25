@@ -109,7 +109,7 @@
           <div>
             <div class="container">
               <div>
-                <el-button type="primary" class="handle-del mr10" @click="addData">新增</el-button>
+                <el-button type="primary" class="handle-del mr10" @click="addData" :disabled="cool.taskState=='已完成'">新增</el-button>
                 <el-button type="primary" class="handle-del mr10" @click="bianjifhqdtanchu" :style="{display:fahuo}" :disabled="consignmentUpdateBtn">编辑流通清单</el-button>
               </div>
               <br />
