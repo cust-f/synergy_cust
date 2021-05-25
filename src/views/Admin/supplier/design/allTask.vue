@@ -15,44 +15,7 @@
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>
       <el-table-column prop="taskId" label="需求ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-      <el-table-column prop="taskName" sortable="custom" label="需求名称">
-        <template slot-scope="scope">
-                      <!-- 待响应 -->
-                      <span v-show="scope.row.taskState == 0">
-                        <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
-                          :src="require('../../../../assets/img/warnGreen.png')"></el-image>
-                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
-                          :src="require('../../../../assets/img/warnYellow.png')"></el-image>
-                        <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
-                      </span>
-                      <!-- 计划上传 -->
-                      <span v-show="scope.row.taskState == 1">
-                        <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
-                          :src="require('../../../../assets/img/warnGreen.png')"></el-image>
-                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
-                          :src="require('../../../../assets/img/warnYellow.png')"></el-image>
-                        <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
-                      </span>
-                      <!-- 进行中 -->
-                      <span v-show="scope.row.taskState == 2">
-                        <el-image v-if="intervalTime(scope.row.deadline,0,new Date(),1)==1"
-                          :src="require('../../../../assets/img/warnRed.png')"></el-image>
-                        <el-image v-else-if="intervalTime(scope.row.deadline,0,new Date(),1)==2"
-                          :src="require('../../../../assets/img/warnYellow.png')"></el-image>
-                        <el-image v-else :src="require('../../../../assets/img/warnGreen.png')"></el-image>
-                      </span>
-                      <!-- 审核 -->
-                      <!-- 验收 -->
-                      <span v-show="scope.row.taskState == 3 || scope.row.taskState == 4">
-                        <el-image v-if="intervalTime(new Date(),1,scope.row.supplierCheckDesignTime,0)==1"
-                          :src="require('../../../../assets/img/warnRed.png')"></el-image>
-                        <el-image v-else-if="intervalTime(new Date(),1,scope.row.supplierCheckDesignTime,0)==2"
-                          :src="require('../../../../assets/img/warnYellow.png')"></el-image>
-                        <el-image v-else :src="require('../../../../assets/img/warnGreen.png')"></el-image>
-                      </span>
-                      {{ scope.row.taskName }}
-                    </template>
-      </el-table-column>
+      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
       <el-table-column prop="taskState" align="center" label="状态" width="95" sortable="custom" >
         <template slot-scope="scope">
           <el-tag v-if="scope.row.taskState === 0">待响应</el-tag>
@@ -68,7 +31,44 @@
       <el-table-column prop="applyTime" label="开始时间" width="103px" sortable="custom">
         <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
       </el-table-column>
-      <el-table-column prop="taskCategoryPart" label="行业类别" width="140px" sortable="custom"></el-table-column>
+      <el-table-column prop="taskCategoryPart" label="行业类别" width="105" sortable="custom"></el-table-column>
+      <el-table-column label="预警" width="50" align="center">
+        <template slot-scope="scope">
+          <!-- 待响应 -->
+          <span v-show="scope.row.taskState == 0">
+            <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
+              :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+            <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
+              :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+            <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+          </span>
+          <!-- 计划上传 -->
+          <span v-show="scope.row.taskState == 1">
+            <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
+              :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+            <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
+              :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+            <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+          </span>
+          <!-- 进行中 -->
+          <span v-show="scope.row.taskState == 2">
+            <el-image v-if="intervalTime(scope.row.deadline,0,new Date(),1)==1"
+              :src="require('../../../../assets/img/warnRed.png')"></el-image>
+            <el-image v-else-if="intervalTime(scope.row.deadline,0,new Date(),1)==2"
+              :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+            <el-image v-else :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+          </span>
+          <!-- 审核 -->
+          <!-- 验收 -->
+          <span v-show="scope.row.taskState == 3 || scope.row.taskState == 4">
+            <el-image v-if="intervalTime(new Date(),1,scope.row.supplierCheckDesignTime,0)==1"
+              :src="require('../../../../assets/img/warnRed.png')"></el-image>
+            <el-image v-else-if="intervalTime(new Date(),1,scope.row.supplierCheckDesignTime,0)==2"
+              :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+            <el-image v-else :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+          </span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="105px" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row)" type="text" size="small">查看详情</el-button>

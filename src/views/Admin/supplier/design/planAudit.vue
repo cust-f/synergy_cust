@@ -17,13 +17,12 @@
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
       <el-table-column prop="taskName" sortable="custom" label="需求名称">
         <template slot-scope="scope">
-                      <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
-                        :src="require('../../../../assets/img/warnGreen.png')"></el-image>
-                      <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
-                        :src="require('../../../../assets/img/warnYellow.png')"></el-image>
-                      <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
-                      {{ scope.row.taskName }}
-                    </template>
+          <el-image v-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==1"
+            :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+          <el-image v-else-if="intervalTime(new Date(),1,scope.row.checkApplyTime,0)==2"
+            :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+          <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+        </template>
       </el-table-column>
       <el-table-column prop="taskCategoryPart" sortable="custom" label="需求类型"></el-table-column>
       <el-table-column prop="publishingCompanyName" sortable="custom" label="需求方"></el-table-column>

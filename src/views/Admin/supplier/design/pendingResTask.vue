@@ -15,17 +15,8 @@
     >
       <el-table-column label="序号" type="index" width="50" align="center"></el-table-column>         
       <el-table-column prop="taskId" label="任务ID" width="55" align="center" v-if="YinCang===0"></el-table-column>
-      <el-table-column prop="taskName" sortable="custom" label="需求名称">
-        <template slot-scope="scope">
-                      <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
-                        :src="require('../../../../assets/img/warnGreen.png')"></el-image>
-                      <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
-                        :src="require('../../../../assets/img/warnYellow.png')"></el-image>
-                      <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
-                      {{ scope.row.taskName }}
-                    </template>
-      </el-table-column>
-      <el-table-column prop="applyWay" sortable="custom" width="100" label="承接方式">
+      <el-table-column prop="taskName" sortable="custom" label="需求名称"></el-table-column>
+      <el-table-column prop="applyWay" sortable="custom" width="103" label="承接方式">
         <template slot-scope="scope">
           <span v-if="scope.row.applyWay === 0">邀请</span>
           <span v-else-if="scope.row.applyWay === 1">申请</span>
@@ -38,16 +29,22 @@
           <el-tag type="danger" v-else>拒绝</el-tag>
         </template>
       </el-table-column>
-
       <el-table-column prop="publishingCompanyName" sortable="custom" label="需求方"></el-table-column>
-
-      <el-table-column prop="applyTime" sortable="custom" label="发布日期" align="center" width="103">
+      <el-table-column prop="applyTime" sortable="custom" label="发布日期" width="103">
         <template slot-scope="scope">{{scope.row.applyTime | formatDate}}</template>
       </el-table-column>
       <el-table-column prop="deadline" sortable="custom" label="截止日期" width="103">
         <template slot-scope="scope">{{scope.row.deadline | formatDate}}</template>
       </el-table-column>
-
+      <el-table-column label="预警" width="50" align="center">
+        <template slot-scope="scope">
+          <el-image v-if="intervalTime(new Date(),1,scope.row.applyTime,0)==1"
+            :src="require('../../../../assets/img/warnGreen.png')"></el-image>
+          <el-image v-else-if="intervalTime(new Date(),1,scope.row.applyTime,0)==2"
+            :src="require('../../../../assets/img/warnYellow.png')"></el-image>
+          <el-image v-else :src="require('../../../../assets/img/warnRed.png')"></el-image>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="105" align="center">
         <template slot-scope="scope">
           <el-button @click="Det(scope.row) " type="text" size="small">查看详情</el-button>
