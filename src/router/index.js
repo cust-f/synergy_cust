@@ -43,6 +43,7 @@ import circulationFinishList from '@/views/admin/personnel_allotment/circulation
 //核心企业
 import newStaff from '@/views/admin/staff/newStaff' //新增人员
 import newTask from '@/views/admin/Task/newTask' //新增任务
+import findPage from '@/views/admin/Task/findPage' //新增任务
 import mainStaskShow from '@/views/admin/maintask/mainStaskShow' //主任务显示
 import substaskDetail from '@/views/admin/maintask/substaskDetail' //子任务详情
 import substaskDetailLT from '@/views/admin/maintask/substaskDetailLT' //流通子任务详情
@@ -182,6 +183,14 @@ export default new Router({
           name: 'companyDetails',
           component: excellentCompanyDetail
         },
+        {
+          path: '/admin/findPage',
+          name: 'findPage',
+          component: findPage,
+          meta: {
+            requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+          }
+        },
         // 搜索界面
         {
           path: '/search',
@@ -194,6 +203,7 @@ export default new Router({
           name: searchPatent,
           component: searchPatent
         },
+       
         {
           path: '/patentDetail',
           name: patentDetail,
@@ -263,6 +273,7 @@ export default new Router({
             requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
           }
         },
+        
         //查看所有主任务
         {
           path: '/admin/mainStaskShow',

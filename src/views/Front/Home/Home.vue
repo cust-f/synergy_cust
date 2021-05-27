@@ -327,6 +327,42 @@
                       </el-row>
                     </div>
                   </el-tab-pane>
+                    <el-tab-pane label="资源服务" name="fourth">
+                    <el-row style="margin-top: 9%;">
+                      <el-tag
+                        class="xqelbuttonleft"
+                        style="margin-top:0px ; margin-left:0px ;"
+                        type="warning"
+                      >属性模型服务</el-tag>
+                      <el-tag
+                        class="xqelbuttonright"
+                        style="margin-top:0px ; margin-left:0px ;"
+                        type="warning"
+                      >一站式服务</el-tag>
+                    </el-row>
+
+                    <el-row>
+                      <el-tag
+                        class="xqelbuttonleft"
+                        style="margin-top:10px ; margin-left:0px ;"
+                        type="warning"
+                      >解决方案服务</el-tag>
+                      <el-tag
+                        class="xqelbuttonright"
+                        style="margin-top:10px ; margin-left:0px ;"
+                        type="warning"
+                      >租赁服务</el-tag>
+                    </el-row>
+
+                    <el-button
+                      class="xqelbuttonleft0"
+                      @click="addNewTask1()"
+                      style="margin-top:30px ; margin-left:0px ;"
+                      round
+                      type="primary"
+                      v-if="roleID!=4"
+                    >服务查询</el-button>
+                  </el-tab-pane>
                 </el-tabs>
               </el-card>
             </div>
@@ -801,6 +837,28 @@ export default {
       this.$refs[formName].resetFields();
     },
     //发布需求界面
+    addNewTask1() {
+      console.log(this.$store.state.token);
+      // 登陆后为true
+      if (this.$store.state.token) {
+        this.$router.push("/admin/findPage");
+      }else{
+        // 未登录为null
+        this.$confirm("登录后才能进行发布，是否登录？", "提示", {
+          confirmButtonText: "登录",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then(() => {
+            this.$router.push({
+              path: "/Login",
+            });
+        })
+        // .catch(()=> {
+        //   this.$message.warning("已取消登录");
+        // })
+      }
+    },
     addNewTask() {
       console.log(this.$store.state.token);
       // 登陆后为true

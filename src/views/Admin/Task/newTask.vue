@@ -11,7 +11,7 @@
     <el-container>
       <el-main>
         <div>
-          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">新增需求</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+          <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">新增需求2</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
           <!-- <el-divider></el-divider> -->
           <!-- <el-button type="small" @click="getdata()"></el-button> -->
           <el-form ref="addList" label-width="110px"  :model="addList" :rules="addListRules" hide-required-asterisk>
