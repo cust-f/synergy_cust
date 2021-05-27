@@ -349,7 +349,7 @@
                 <template slot-scope="scope">
                   <div slot="reference" class="name-wrapper">
                     <el-link type="primary" @click="
-                        goTaskDetail(scope.row.companyId, scope.row.token)
+                        goTaskDetail(scope.row.taskId, scope.row.token)
                       " size="medium">{{ scope.row.petentName }}</el-link>
                   </div>
                 </template>
@@ -357,13 +357,13 @@
               <el-table-column label="企业名称" width="220">
                 <template slot-scope="scope">
                   <div slot="reference" class="name-wrapper">
-                    <el-link type="primary" v-if="scope.row.token" @click="
+                    <el-link type="primary"  v-if="scope.row.token" @click="
                         goCompanyDetail(scope.row.companyId, scope.row.token)
                       "
                       size="medium"
                       >{{ scope.row.companyName }}</el-link
                     >
-                    <el-link type="info" v-else size="medium">{{
+                    <el-link type="info" v-else :disabled="!scope.row.token" size="medium">{{
                       scope.row.companyName
                     }}</el-link>
                   </div>
