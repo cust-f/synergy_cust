@@ -1895,59 +1895,27 @@ export default {
         });
     },
     changeTimeMethodLT() {
+      // alert(this.timeList.checkCircuaterTime);
       var that = this;
       var data = Qs.stringify({
         mainTaskId: this.taskId,
         state: this.milepostActive + 1,
         companyId: this.acceptCompanyId,
-        publishTime:
-          this.timeList.publishTim == null ? "" : this.timeList.publishTim,
-        applyTime:
-          this.timeList.applyTime == null ? "" : this.timeList.applyTime,
-        checkApplyTime:
-          this.timeList.checkApplyTime == null
-            ? ""
-            : this.timeList.checkApplyTime,
-        beginTime:
-          this.timeList.beginTime == null ? "" : this.timeList.beginTime,
-        planUploadTime:
-          this.timeList.planUploadTime == null
-            ? ""
-            : this.timeList.planUploadTime,
-        checkPlanTime:
-          this.timeList.checkPlanTime == null
-            ? ""
-            : this.timeList.checkPlanTime,
-        uploadContractTime:
-          this.timeList.uploadContractTime == null
-            ? ""
-            : this.timeList.uploadContractTime,
-        checkContractTime:
-          this.timeList.checkContractTime == null
-            ? ""
-            : this.timeList.checkContractTime,
+        publishTime: this.timeList.publishTim == null ? "" : this.timeList.publishTim,
+        applyTime: this.timeList.applyTime == null ? "" : this.timeList.applyTime,
+        checkApplyTime: this.timeList.checkApplyTime == null ? "" : this.timeList.checkApplyTime,
+        beginTime: this.timeList.beginTime == null ? "" : this.timeList.beginTime,
+        planUploadTime: this.timeList.planUploadTime == null ? "" : this.timeList.planUploadTime,
+        checkPlanTime: this.timeList.checkPlanTime == null ? "": this.timeList.checkPlanTime,
+        uploadContractTime:this.timeList.uploadContractTime == null? "": this.timeList.uploadContractTime,
+        checkContractTime:this.timeList.checkContractTime == null? "": this.timeList.checkContractTime,
         leadTime: this.timeList.leadTime == null ? "" : this.timeList.leadTime,
         //deliveryTime,
-        uploadCircuaterTime:
-          this.timeList.uploadCircuaterTime == null
-            ? ""
-            : this.timeList.uploadCircuaterTime,
-        consignmentTimeLastest:
-          this.timeList.consignmentTimeLastest == null
-            ? ""
-            : this.timeList.consignmentTimeLastest,
-        checkCircuaterTime:
-          this.timeList.checkCircuaterTime == null
-            ? ""
-            : this.timeList.checkCircuaterTime,
-        subtaskFinishTime:
-          this.timeList.subtaskFinishTime == null
-            ? ""
-            : this.timeList.subtaskFinishTime,
-        mainTaskFinishTime:
-          this.timeList.mainTaskFinishTime == null
-            ? ""
-            : this.timeList.mainTaskFinishTime,
+        uploadCircuaterTime:this.timeList.uploadCircuaterTime == null? "": this.timeList.uploadCircuaterTime,
+        consignmentTimeLastest:this.timeList.consignmentTimeLastest == null? "": this.timeList.consignmentTimeLastest,
+        checkCircuaterTime:this.timeList.checkCircuaterTime == null? "": this.timeList.checkCircuaterTime,
+        subtaskFinishTime:this.timeList.subtaskFinishTime == null ? "": this.timeList.subtaskFinishTime,
+        mainTaskFinishTime:this.timeList.mainTaskFinishTime == null? "": this.timeList.mainTaskFinishTime,
         deadline: this.timeList.deadline == null ? "" : this.timeList.deadline,
       });
       that
@@ -1961,8 +1929,15 @@ export default {
           // this.$confirm("时间修改完成，刷新页面吗？", "提示", {
           //   type: "warnning",
           // }).then(() => {
-          this.$router.go(0);
+          // this.$router.go(0);
           // })
+          this.$message.success("修改时间成功");
+          // 刷新
+          this.getParams();
+          this.showQuotaData();
+          this.showData();
+          this.getYearData();
+          this.findCompanyByProductName();
         });
     },
     //清单历史上传
