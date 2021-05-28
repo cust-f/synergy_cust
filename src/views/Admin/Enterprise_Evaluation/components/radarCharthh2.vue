@@ -40,7 +40,7 @@ export default {
               backgroundColor: "#999",
               borderRadius: 3,
               padding: [3, 5],
-              fontSize: 13,
+              fontSize: 11.5,
             },
           },
           indicator: this.radarData1.indicatorData1,
