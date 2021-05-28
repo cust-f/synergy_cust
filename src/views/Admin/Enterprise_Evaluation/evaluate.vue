@@ -854,7 +854,7 @@ export default {
     series: [
       
          {
-          name:'未完成数量',
+          name:'承接数量',
           type: 'bar',
          
          data:this.lineData1.lineDataU1,
@@ -911,7 +911,7 @@ export default {
     // Declare several bar series, each will be mapped to a column of dataset.source by default.
     series: [
       {
-          name:'未完成数量',
+          name:'发布数量',
           type: 'bar',          
           data:this.lineData2.lineDataU2
          }, 
