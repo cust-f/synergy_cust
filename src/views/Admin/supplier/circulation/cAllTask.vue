@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cAllTask">
     <div class="handle-box">
       <el-input v-model="selectname" placeholder="需求名称" class="handle-input mr10"></el-input>
       <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -268,10 +268,10 @@ export default {
 }
 </style>
 <style>
-.el-image {
+.cAllTask .el-image {
   vertical-align: middle;
 }
-.el-image__inner{
+.cAllTask .el-image__inner{
   width: 16px;
   height: 16px;
 }

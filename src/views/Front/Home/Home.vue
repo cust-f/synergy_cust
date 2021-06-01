@@ -840,24 +840,24 @@ export default {
     addNewTask1() {
       console.log(this.$store.state.token);
       // 登陆后为true
-      if (this.$store.state.token) {
+      // if (this.$store.state.token) {
         this.$router.push("/admin/findPage");
-      }else{
-        // 未登录为null
-        this.$confirm("登录后才能进行发布，是否登录？", "提示", {
-          confirmButtonText: "登录",
-          cancelButtonText: "取消",
-          type: "warning",
-        })
-        .then(() => {
-            this.$router.push({
-              path: "/Login",
-            });
-        })
+      // }else{
+      //   // 未登录为null
+      //   this.$confirm("登录后才能进行发布，是否登录？", "提示", {
+      //     confirmButtonText: "登录",
+      //     cancelButtonText: "取消",
+      //     type: "warning",
+      //   })
+      //   .then(() => {
+      //       this.$router.push({
+      //         path: "/Login",
+      //       });
+      //   })
         // .catch(()=> {
         //   this.$message.warning("已取消登录");
         // })
-      }
+      // }
     },
     addNewTask() {
       console.log(this.$store.state.token);

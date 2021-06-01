@@ -3405,7 +3405,7 @@ export default {
 .el-dialog__footer {
   padding: 0px 20px 10px;
 }
-.el-col-24 {
+.mainStaskDetaulLT .el-col-24 {
   width: 95%;
 }
 .backDoor {
