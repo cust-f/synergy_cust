@@ -88,7 +88,7 @@
                     <el-col :span="5">
                       <div class="demo-image">
                         <div class="block" :key="fill">
-                          <el-image style="width: 100px; height: 100px" :src="url" :fit="fit"></el-image>
+                          <el-image  :src="url" :fit="fit"></el-image>
                         </div>
                       </div>
                     </el-col>
@@ -220,7 +220,7 @@
                       <el-col :span="5">
                         <div class="demo-image">
                           <div class="block" :key="fill">
-                            <el-image style="width: 100px; height: 100px" :src="url1" :fit="fit"></el-image>
+                            <el-image  :src="url1" :fit="fit"></el-image>
                           </div>
                         </div>
                       </el-col>
@@ -1210,6 +1210,10 @@ export default {
     position: relative;
     margin: 0 0 0px;
   }
+  .el-image .el-image__inner {
+    width: 100%;
+    height: 100%;
+}
 }
 /* //雷达图 */
 </style>
