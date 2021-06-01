@@ -1211,8 +1211,8 @@ export default {
     margin: 0 0 0px;
   }
   .el-image .el-image__inner {
-    width: 110%;
-    height: 110%;
+    width: 100%;
+    height: 100%;
 }
 }
 /* //雷达图 */
