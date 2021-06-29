@@ -245,16 +245,16 @@
       </el-form>-->
 
       
-          <el-form :label-position="right" :model="form2">
-            <el-form-item label="请输入仓库地址：">
-    <el-input v-model="form2.gitAdress" ></el-input>
+          <el-form ref="form2"   :label-position="right" :model="form2" :rules="form2Rules" hide-required-asterisk>
+            <el-form-item label="请输入仓库地址：" prop="gitAdress">
+    <el-input v-model="form2.gitAdress"  required='required'></el-input>
   </el-form-item>
            
           </el-form>
         
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="resonvisible = false">取 消</el-button>
+        <el-button @click="gitVisible = false">取 消</el-button>
         <el-button type="primary" @click="submitTask">确 定</el-button>
       </div>
     </el-dialog>
@@ -269,6 +269,11 @@ export default {
   name: "designerAcceptList",
   data() {
     return {
+      form2Rules: {
+       gitAdress: [
+          { required: true, message: "您输入的仓库地址不能为空！", trigger: ['blur','change'] },
+        ],
+      },
       userId: sessionStorage.getItem("userId"),
             usernameX: sessionStorage.getItem("user"),
 
@@ -376,6 +381,8 @@ export default {
     },
     submitTask() {
       //console.log(row.taskId);
+      this.$refs["form2"].validate((valid) => {
+        if (valid) {
       var that = this;
       var data = Qs.stringify({
         taskId: this.taskId,
@@ -396,7 +403,13 @@ export default {
       this.gitVisible = false;
       this.getTableData();
       this.$router.go(0);
-
+        } else {
+          this.$message({
+            type: "warning",
+            message: "你还有重要信息未填写，请填写后再提交",
+          });
+        }
+      });
       
     },
     handleDetail(row) {

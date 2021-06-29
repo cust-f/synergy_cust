@@ -984,8 +984,9 @@ export default {
             trigger: "blur",
           },
         ],
+        //可以不输入
         productNotes: [
-          { required: true, message: "请输入备注或填写无", trigger: "blur" },
+          { required: false, message: "请输入备注或填写无", trigger: "blur" },
         ],
         contactNumber: [
           { required: true, message: "请输入联系方式", trigger: "blur" },
