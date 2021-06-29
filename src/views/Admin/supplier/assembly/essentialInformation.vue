@@ -10,14 +10,20 @@
         <el-row>
           <el-col :span="11">
             <el-form-item label="需求名称" >
-              <template slot-scope="scope">
+              <!-- <template slot-scope="scope">
                 <el-button
                   class="anniu"
                   type="primary"
                   text-decoration="underline"
                   @click="taskDetil(scope.row)"
                 >{{cool.mainTaskName}}</el-button>
-              </template>
+              </template> -->
+                <el-button
+                  class="anniu"
+                  type="primary"
+                  text-decoration="underline"
+                  @click="showConsignmentChange()"
+                >{{cool.mainTaskName}}</el-button>
             </el-form-item>
           </el-col>
           <el-col :span="11">
@@ -320,6 +326,77 @@
         <el-button type="primary" @click="quanbuzirenwu = false">关 闭</el-button>
       </span>
     </el-dialog>
+
+    <!-- 基本信息弹窗的内容 -->
+    <el-dialog title :visible.sync="consignmentVisible" width="50%">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
+              流通清单
+            </div>
+            <br />
+            <el-form ref="consignmentForm" label-width="110px" :rules="consignmentRules" :model="consignmentForm">
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="产品名称" prop="productName">
+                    <el-input v-model="consignmentForm.productName" readonly></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item label="产品规格" prop="productModel">
+                    <el-input v-model="consignmentForm.productModel" readonly></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="产品数量" prop="productNumber">
+                    <el-input v-model="consignmentForm.productNumber" maxlength="9" :disabled="consignmentNumberDisabled" readonly></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item label="产品单价" prop="productPrice">
+                    <el-input v-model="consignmentForm.productPrice" maxlength="9" :disabled="consignmentPriceDisabled" readonly></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="截止时间" prop="consignmentTimeLatest">
+                    <el-date-picker  readonly type="datetime" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item label="联系方式" prop="contactNumber">
+                    <el-input v-model="consignmentForm.contactNumber" maxlength="11" readonly></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item label="零件类别" prop="partsCategory">
+                    <!-- <el-cascader style="width: 100%" expand-trigger="hover" v-model="consignmentForm.consignmentpatrsList" :options="partsOptions" :props="partsProps" ref="partsCascader" placeholder="请选择零件类别">
+                    </el-cascader> -->
+                    <el-input v-model="consignmentForm.partsCategory" maxlength="11"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item label="收货地址" prop="shippingAddress">
+                    <el-input v-model="consignmentForm.shippingAddress" maxlength="255" readonly></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="22">
+                  <el-form-item label="备注" prop="consignmentNotes">
+                    <el-input  readonly type="textarea" :rows="3" style="width: 100%" placeholder="请输入内容" v-model="consignmentForm.consignmentNotes" class="gongsiDetail"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+            <!-- <span slot="footer" class="dialog-footer">
+              <el-button @click="consignmentVisible = false">取 消</el-button>
+              <el-button type="primary" @click="saveConsignmentChange()">确 定</el-button>
+            </span> -->
+          </el-dialog>
   </div>
 </template>
 <script>
@@ -350,6 +427,9 @@ export default {
       imgsrc:"",
       shuiwudengjizheng: "",
       qiyezhizhao: "",
+      consignmentVisible: false, // 流通清单弹出框显示
+      //弹框-需求方信息
+      consignmentForm: [],
       //企业弹窗所需图片默认
       errorImg01: 'this.src="' + require("../../company/2.jpg") + '"',
       errorImg02: 'this.src="' + require("../../company/税务登记证.jpg") + '"',
@@ -363,6 +443,46 @@ export default {
     }
   },
   methods: {
+    //流通清单（总）
+    showConsignmentChange() {
+      // 显示修改弹框
+      this.consignmentVisible = true;
+      var that = this;
+      var data = Qs.stringify({
+        taskId: this.mainTaskId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/addConsignment/findConsignmentByTaskIdAdd",
+          data: data,
+        })
+        .then((response) => {
+          this.consignmentForm = response.data.allData[0];
+          console.log(this.consignmentForm);
+        });
+    },
+    // showData() {
+    //   this.upCirculation = true;
+    //   var that = this;
+    //   var data = Qs.stringify({
+    //     taskId: this.mainTaskId,
+    //     // userId: sessionStorage.getItem("userId"),
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "/api/addConsignment/findConsignmentByTaskIdAdd",
+    //       data: data,
+    //     })
+    //     .then((response) => {
+    //       this.tableData = response.data.allData;
+    //       console.log(this.tableData);
+    //       if (this.taskState == "完成") {
+    //         this.submitDisable = true;
+    //       }
+    //     });
+    // },
     //技术文件
     getFilePath() {
       var that = this;
