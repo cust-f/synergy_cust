@@ -39,7 +39,7 @@
             type="text"
             size="small"
             v-show="(scope.row.checkPlanState === 0 || scope.row.checkPlanState == 3)"
-            v-if="scope.row.checkPlanState != 3"
+            v-if="scope.row.checkPlanState === 0"
           >上传</el-button>
           
           <el-button
