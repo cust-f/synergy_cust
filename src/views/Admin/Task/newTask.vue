@@ -461,7 +461,7 @@
   <div class="consignment">
         <el-dialog title :visible.sync="bianjiTC" width="50%">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
-            流通清单ss 
+            流通清单
           </div>
           <br />
           <el-form ref="consignmentForm" label-width="110px" :rules="consignmentRules" :model="consignmentForm" hide-required-asterisk>
