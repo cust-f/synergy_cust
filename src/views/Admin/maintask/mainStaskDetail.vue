@@ -308,8 +308,7 @@
                 type="text"
                 size="small"
                 v-if="
-                  scope.row.checkPlanState !== 0 &&
-                  scope.row.checkPlanState !== 3
+                  scope.row.checkPlanState !== 0
                 "
                 >下载</el-button
               >
