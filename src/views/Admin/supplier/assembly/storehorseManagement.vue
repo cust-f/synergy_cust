@@ -1000,14 +1000,15 @@ export default {
                message: '发货成功！',
                 type: 'success'
         });
+        this.showhorseData();
+          this.showData();
             });
           // 刷新提示不显示
           // this.$message({
           //   message: "发货成功",
           //   type: "success",
           // });
-          this.showhorseData();
-          this.showData();
+          
           // this.$router.go(0);
           // this.upCirculation = false;
         });

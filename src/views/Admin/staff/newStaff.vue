@@ -355,7 +355,11 @@ export default {
         phone: [{ required: true, validator: validDataPhone, trigger: "blur" }],
         userName: [
           { required: true, validator: checkuserName, trigger: "blur" },
-          { min: 3, max: 7, message: "长度在 3 到 7 个字符", trigger: "blur" },
+         {
+            pattern: /^1\d{10}$/,
+            message: "请输入正确的用户名（13位手机号码）",
+            trigger: "blur",
+          },
         ],
       },
 

@@ -461,7 +461,7 @@
   <div class="consignment">
         <el-dialog title :visible.sync="bianjiTC" width="50%">
           <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
-            流通清单
+            流通清单ss 
           </div>
           <br />
           <el-form ref="consignmentForm" label-width="110px" :rules="consignmentRules" :model="consignmentForm" hide-required-asterisk>
@@ -984,8 +984,9 @@ export default {
             trigger: "blur",
           },
         ],
+        //可以不输入
         productNotes: [
-          { required: true, message: "请输入备注或填写无", trigger: "blur" },
+          { required: false, message: "请输入备注或填写无", trigger: "blur" },
         ],
         contactNumber: [
           { required: true, message: "请输入联系方式", trigger: "blur" },

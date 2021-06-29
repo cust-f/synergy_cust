@@ -1025,7 +1025,7 @@ export default {
         Telphone: [
           { required: true, message: "请输入联络电话", trigger: "blur" },
           {
-            pattern: /^1\d{10}$/,
+            pattern: /((\+?86)?|\(\+?86\))[ -]?(1\d{10}|((\d{3,4})?|\(\d{3,4}\))[ -]?\d{7,8}([ -]?\d{1,4})?)/,
             message: "请输入正确格式的联络电话",
             trigger: "blur",
           },
