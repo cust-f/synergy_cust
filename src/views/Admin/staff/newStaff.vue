@@ -357,7 +357,7 @@ export default {
           { required: true, validator: checkuserName, trigger: "blur" },
          {
             pattern: /^1\d{10}$/,
-            message: "请输入正确的用户名（13位手机号码）",
+            message: "请输入正确的用户名（11位手机号码）",
             trigger: "blur",
           },
         ],
