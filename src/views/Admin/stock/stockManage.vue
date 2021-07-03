@@ -992,7 +992,7 @@ export default {
     handleSearch() {
       var that = this;
       var data = Qs.stringify({
-        productName: this.selectname,
+        companyName: this.selectname,
         userName: this.usernameX,
       });
       that

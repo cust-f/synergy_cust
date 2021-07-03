@@ -67,7 +67,7 @@
                 v-model="radio0"
                 label="8"
                 @click.native="clickitem4(5)"
-              >&nbsp;&nbsp;电气机械及器材</el-radio>
+              >&nbsp;&nbsp;电器机械及器材</el-radio>
               <br />
               <el-radio
                 v-model="radio0"
