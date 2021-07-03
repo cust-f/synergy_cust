@@ -2999,6 +2999,10 @@ export default {
 </script>
 
 <style lang="scss">
+.el-upload--text {
+    width: 85px;
+    height: 40px;
+}
 //企业详情
 .leftDet {
   float: left;
