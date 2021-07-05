@@ -421,6 +421,7 @@ export default {
           console.log(response)
         });
     },
+    //
     handleSearchCompany(){
         var that = this;
       var data = Qs.stringify({
