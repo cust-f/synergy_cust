@@ -31,7 +31,7 @@
           prop="taskName"
           label="需求名称"
           sortable
-          min-width="90px"
+          min-width="100px"
           align="center"
           :show-overflow-tooltip="true"
         ></el-table-column>
@@ -39,7 +39,7 @@
           prop="supplierCheckDesignState"
           label="审核状态"
           sortable
-          min-width="110px"
+          min-width="50px"
           align="center"
           :show-overflow-tooltip="true"
         >
@@ -74,7 +74,7 @@
           prop="taskCategoryPart"
           label="需求类型"
           sortable
-          min-width="90px"
+          min-width="50px"
           align="center"
           :show-overflow-tooltip="true"
         ></el-table-column>
@@ -83,7 +83,7 @@
           prop="designerAcceptTime"
           label="接收时间"
           sortable
-          min-width="90px"
+          min-width="50px"
           align="center"
           :show-overflow-tooltip="true"
         >
@@ -96,7 +96,7 @@
           prop="deadline"
           sortable
           label="截止时间"
-          min-width="90px"
+          min-width="50px"
           align="center"
           :show-overflow-tooltip="true"
         >
@@ -104,7 +104,7 @@
         </el-table-column>
       </template>
 
-      <el-table-column label="操作" min-width="110px" align="center">
+      <el-table-column label="操作" min-width="120px" align="center">
         <template slot-scope="scope">
           <el-button
             @click="handleDetail(scope.row)"
