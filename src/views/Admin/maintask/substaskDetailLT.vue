@@ -823,10 +823,10 @@ export default {
           { required: true, message: "请输入产品单价", trigger: 'blur' },
           { pattern: /^\d{1,9}$/, message: "请输入为1到9位的整数", trigger: 'blur'},
         ],
-        consignmentNotes: [
-          { required: true, message: "请输入备注或填写无", trigger: 'blur'},
-          { min: 1, max: 255, message: "长度在 1 到 255 个字符", trigger: 'blur'},
-        ],
+        // consignmentNotes: [
+        //   { required: true, message: "请输入备注或填写无", trigger: 'blur'},
+        //   { min: 1, max: 255, message: "长度在 1 到 255 个字符", trigger: 'blur'},
+        // ],
         contactNumber: [
           { required: true, message: "请输入联系方式", trigger: 'blur'},
           { pattern: /^1\d{10}$/, message: "请输入正确的联系方式", trigger: 'blur'},

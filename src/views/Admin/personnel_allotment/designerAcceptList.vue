@@ -205,7 +205,7 @@
             <el-row>
               <el-col :span="22">
                 <el-form-item label="任务详情">
-                  <el-input v-model="form1.taskDetail" type="textarea" :rows="7" :disabled="true"></el-input>
+                  <el-input v-model="form1.taskDetail" type="textarea" :rows="5" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -235,8 +235,6 @@
     <!-- git地址弹出框 -->
     <el-dialog :visible.sync="gitVisible"  width="30%" height="100px">
       <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">提示</div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-      <br />
-      <br />
 
       <!-- <el-form :model="form2" :label-width="60">
         <el-form-item label="请输入仓库地址">
@@ -598,7 +596,7 @@ export default {
   .el-dialog__body {
     padding-top: 30px;
   
-    padding-bottom: 30px;
+    padding-bottom: 5px;
     padding-left: 20px;
     /* color: #606266; */
     font-size: 14px;

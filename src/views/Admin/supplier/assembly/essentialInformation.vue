@@ -387,7 +387,7 @@
               <el-row>
                 <el-col :span="22">
                   <el-form-item label="备注" prop="consignmentNotes">
-                    <el-input  readonly type="textarea" :rows="3" style="width: 100%" placeholder="请输入内容" v-model="consignmentForm.consignmentNotes" class="gongsiDetail"></el-input>
+                    <el-input  readonly type="textarea" :rows="3" style="width: 100%" v-model="consignmentForm.consignmentNotes" class="gongsiDetail"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

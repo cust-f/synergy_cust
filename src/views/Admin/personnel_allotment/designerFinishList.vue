@@ -32,7 +32,7 @@
             prop="taskName"
             label="需求名称"
             sortable
-            min-width="90px"
+            min-width="100px"
             align="center"
             :show-overflow-tooltip="true"
           ></el-table-column>
@@ -40,7 +40,7 @@
             prop="taskCategoryPart"
             label="需求类型"
             sortable
-            min-width="90px"
+            min-width="50px"
             align="center"
             :show-overflow-tooltip="true"
           ></el-table-column>
@@ -48,7 +48,7 @@
             prop="publishTime"
             label="开始时间"
             sortable
-            min-width="90px"
+            min-width="40px"
             align="center"
             :show-overflow-tooltip="true"
           >
@@ -58,7 +58,7 @@
             prop="demandorCheckDesignTime"
             label="完成时间"
             sortable
-            min-width="90px"
+            min-width="40px"
             align="center"
             :show-overflow-tooltip="true"
           >

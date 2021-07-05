@@ -38,7 +38,7 @@
               prop="taskCategoryPart"
               label="需求类型"
               sortable
-              min-width="90px"
+              min-width="50px"
               align="center"
               :show-overflow-tooltip="true"
             ></el-table-column>
@@ -46,7 +46,7 @@
               prop="supplierDistributionTime"
               label="分配时间"
               sortable
-              min-width="90px"
+              min-width="40px"
               align="center"
               :show-overflow-tooltip="true"
             >
@@ -59,7 +59,7 @@
               prop="deadline"
               label="截止时间"
               sortable
-              min-width="90px"
+              min-width="40px"
               align="center"
               :show-overflow-tooltip="true"
             >
