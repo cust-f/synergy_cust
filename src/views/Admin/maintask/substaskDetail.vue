@@ -386,7 +386,7 @@
                   <el-col :span="11">
                     <el-form-item label="发布时间">
                       <el-date-picker
-                        type="datetime"
+                        type="date"
                         placeholder="选择日期"
                         v-model="publishTime1"
                         style="width: 100%;"
@@ -419,7 +419,7 @@
                   <el-col :span="11">
                     <el-form-item label="截止时间">
                       <el-date-picker
-                        type="datetime"
+                        type="date"
                         placeholder="选择日期"
                         v-model="deadline1"
                         style="width: 100%;"
@@ -446,7 +446,7 @@
                   <el-col :span="11">
                     <el-form-item label="完成时间">
                       <el-date-picker
-                        type="datetime"
+                        type="date"
                         placeholder="选择日期"
                         :disabled = "finishTimeState"
                         v-model="finishTime1"
