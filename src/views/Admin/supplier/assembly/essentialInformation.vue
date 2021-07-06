@@ -375,7 +375,7 @@
                   <el-form-item label="零件类别" prop="partsCategory">
                     <!-- <el-cascader style="width: 100%" expand-trigger="hover" v-model="consignmentForm.consignmentpatrsList" :options="partsOptions" :props="partsProps" ref="partsCascader" placeholder="请选择零件类别">
                     </el-cascader> -->
-                    <el-input v-model="consignmentForm.partsCategory" maxlength="11"></el-input>
+                    <el-input v-model="consignmentForm.partsCategory" maxlength="11" readonly></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">

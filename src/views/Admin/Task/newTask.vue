@@ -17,8 +17,8 @@
           <el-form ref="addList" label-width="110px"  :model="addList" :rules="addListRules" hide-required-asterisk>
             <el-row>
               <el-col :span="11">
-                <el-form-item label="任务名称"  prop="name">
-                  <el-input v-model="addList.name" placeholder="资源库查询"></el-input>
+                <el-form-item label="任务名称"  prop="name"   >
+                  <el-input v-model="addList.name" placeholder="资源库查询" :readonly="taskSaveBtn"></el-input>
                 </el-form-item>
               </el-col>
               <el-tooltip class="item" effect="dark" content="推荐查询" placement="right">
@@ -40,9 +40,10 @@
               </el-col>-->
                <el-col :span="11">
               <el-form-item label="任务类别" prop="taskType">
-                <el-select v-model="addList.taskType" placeholder="请选择任务类别" class="selectsupply" style="width: 100%" @change="leibieChanged">
+                <el-select v-model="addList.taskType" placeholder="请选择任务类别" class="selectsupply" style="width: 100%" @change="leibieChanged" :disabled="taskSaveBtn">
                   <el-option v-for="leibie in Task" :key="leibie.id" :label="leibie.label" :value="leibie.id"></el-option>
                 </el-select>
+      
               </el-form-item>
               </el-col>
               
@@ -52,17 +53,19 @@
               <!-- 联络电话目前打算只在流通中显示 -->
                 <el-col :span="11" v-if="islingjianchaxun">
               <el-form-item label="联络电话" prop="Telphone" :rules="addList.taskType ==='1'?addListRules.Telphone:{required: false}">
-                <el-input v-model="addList.Telphone"></el-input>
+                <el-input v-model="addList.Telphone" :readonly="taskSaveBtn"></el-input>
               </el-form-item>
             </el-col>
 
               <el-col :span="11" v-if="!islingjianchaxun">
-                <el-form-item label="总负责人" prop="leader"  :rules="addList.taskType != '1'?addListRules.leader:{required: false}">
+                <el-form-item label="总负责人" prop="leader"  :rules="addList.taskType != '1'?addListRules.leader:{required: false}" >
                   <el-select
+                    :disabled="taskSaveBtn"
                     v-model="addList.leader"
                     placeholder="请选择总负责人"
                     class="selectsupply"
                     style="width:100%;"
+                    :readonly="taskSaveBtn"
                   >
                     <el-option
                       width="180"
@@ -78,6 +81,7 @@
               <el-col :span="11">
                 <el-form-item label="发布时间" prop="publishdate">
                   <el-date-picker
+                  :disabled="taskSaveBtn"
                     type="date"
                     placeholder="选择日期"
                     v-model="addList.publishdate"
@@ -92,6 +96,7 @@
               <el-col :span="11">
                 <el-form-item label="行业类别" prop="selectCateKeys">
                   <el-cascader
+                  :disabled="taskSaveBtn"
                     style="width:100%;"
                     expand-trigger="hover"
                     v-model="addList.selectCateKeys"
@@ -105,6 +110,7 @@
               <el-col :span="11">
                 <el-form-item label="截止时间" prop="deaddate">
                   <el-date-picker
+                  :disabled="taskSaveBtn"
                     type="date"
                     placeholder="选择日期"
                     v-model="addList.deaddate"
@@ -119,14 +125,14 @@
             <el-row v-if="islingjianchaxun">
             <el-col :span="11">
               <el-form-item label="是否邀请" prop="shifouyaoqing" :rules="addList.taskType === '1'?addListRules.shifouyaoqing:{required: false}">
-                <el-select v-model="addList.shifouyaoqing" placeholder="请选择是或者否" class="selectsupply" @change="invitate" style="width: 100%">
+                <el-select v-model="addList.shifouyaoqing" placeholder="请选择是或者否" class="selectsupply" @change="invitate" style="width: 100%" :disabled="taskSaveBtn">
                   <el-option width="180" v-for="coo in shifou" :key="coo.id" :label="coo.label" :value="coo.id"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="零件类别" :style="{ display: sfkjian }" prop="patrsList" :rules="(addList.shifouyaoqing == '0' && addList.taskType == '1')?addListRules.patrsList:{required: false}">
-                <el-cascader style="width: 100%" expand-trigger="hover" v-model="addList.patrsList" :options="partsOptions" :props="partsProps" ref="partsCascader" placeholder="请选择零件类别"></el-cascader>
+                <el-cascader style="width: 100%" expand-trigger="hover" v-model="addList.patrsList" :options="partsOptions" :props="partsProps" ref="partsCascader" placeholder="请选择零件类别" :disabled="taskSaveBtn"></el-cascader>
               </el-form-item>
             </el-col>
             <el-col :span="11">
@@ -140,7 +146,7 @@
           <el-row v-if="islingjianchaxun">
             <el-col :span="11" v-if="sfsmkj">
               <el-form-item label="是否发布" prop="shifousimi" :rules="addList.shifouyaoqing === '0'?addListRules.shifousimi:{required: false}">
-                <el-select v-model="addList.shifousimi" placeholder="请选择是或者否" class="selectsupply" @change="simizhiding" style="width: 100%">
+                <el-select v-model="addList.shifousimi" placeholder="请选择是或者否" class="selectsupply" @change="simizhiding" style="width: 100%" :disabled="taskSaveBtn">
                   <el-option width="180" v-for="coo in shifousimi" :key="coo.id" :label="coo.label" :value="coo.id"></el-option>
                 </el-select>
               </el-form-item>
@@ -152,7 +158,7 @@
 
             <el-col :span="11" v-if="islingjianchaxun">
               <el-form-item label="供应商" :style="{ display: visiblehexin }" prop="SupplierListInt" :rules="addList.shifouyaoqing == '0'?addListRules.SupplierListInt:{required: false}">
-                <el-select v-model="addList.SupplierListInt" multiple placeholder="请选择供应商" class="selectsupply" style="width: 100%" @change="selectSupplyChanged">
+                <el-select v-model="addList.SupplierListInt" multiple placeholder="请选择供应商" class="selectsupply" style="width: 100%" @change="selectSupplyChanged" :disabled="taskSaveBtn">
                   <el-option width="180" v-for="(supplier, index) in supplierCompany" :key="index" :label="supplier.companyName" :value="supplier.companyId"></el-option>
                 </el-select>
                 <font color="red">
@@ -176,7 +182,7 @@
           <el-row v-if="islingjianchaxun">
             <el-col :span="22">
               <el-form-item label="收货地址" :style="{ display: sfkjian }" prop="circulationAddress" :rules="addList.taskType === '1'?addListRules.circulationAddress:{required: false}">
-                <el-input v-model="addList.circulationAddress" type="textarea" :rows="2"></el-input>
+                <el-input v-model="addList.circulationAddress" type="textarea" :rows="2"   :readonly="taskSaveBtn"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -191,6 +197,7 @@
                     placeholder="请输入内容"
                     v-model="addList.xiangxi"
                     class="gongsiDetail"
+                      :readonly="taskSaveBtn"
                   ></el-input>
                 </el-form-item>
               </el-col>
@@ -209,7 +216,7 @@
                 :on-exceed="handleExceed"
                 :file-list="fileList"
               >
-                <el-button size="small" type="primary">点击上传</el-button>
+                <el-button size="small" type="primary" :disabled="taskSaveBtn">点击上传</el-button>
               </el-upload>
             </el-form-item>
           </el-form>
