@@ -178,7 +178,7 @@
                 <el-col :span="11">
                   <el-form-item label="创建时间" prop="beginTime">
                     <el-date-picker
-                      type="datetime"
+                      type="date"
                       placeholder="选择日期"
                       v-model="changeTC.beginTime"
                       style="width: 100%"
@@ -206,16 +206,15 @@
               </el-row>
               <el-row>
                 <el-col :span="11">
-                  <el-form-item label="零件类别" prop="partsList">
+                  <el-form-item label="零件类别" prop="patrsList">
                     <el-cascader
                       style="width: 100%"
                       expand-trigger="hover"
-                      v-model="changeTC.partsList"
+                      v-model="changeTC.patrsList"
                       :options="partsOptions"
                       :props="partsProps"
                       ref="consigpartsCascader"
                       placeholder="请选择零件类别"
-                      clearable
                     ></el-cascader>
                   </el-form-item>
                 </el-col>
@@ -255,7 +254,7 @@
                 <el-col :span="11">
                   <el-form-item label="创建时间" prop="beginTime1">
                     <el-date-picker
-                      type="datetime"
+                      type="date"
                       placeholder="选择日期"
                       v-model="addTC.beginTime1"
                       style="width: 100%"
@@ -283,11 +282,11 @@
               </el-row>
               <el-row>
                 <el-col :span="11">
-                  <el-form-item label="零件类别" prop="partsList">
+                  <el-form-item label="零件类别" prop="patrsList">
                     <el-cascader
                       style="width: 100%"
                       expand-trigger="hover"
-                      v-model="addTC.partsList"
+                      v-model="addTC.patrsList"
                       :options="partsOptions"
                       :props="partsProps"
                       ref="consigpartsCascader"
@@ -509,8 +508,8 @@ export default {
         children: "children",
       },
       stockRulesAdd: {
-        partsList: [
-          { required: true, message: "请输入零件类别", trigger: ['blur','change'] },
+        patrsList: [
+          { required: true, message: "请输入零件类别", trigger: "blur" },
         ],
         productName1: [
           { required: true, message: "请输入产品名称", trigger: "blur" },
@@ -551,8 +550,8 @@ export default {
         ],
       },
       stockRulesChange: {
-        partsList: [
-          { required: true, message: "请输入零件类别", trigger: ['blur','change']},
+        patrsList: [
+          { required: true, message: "请输入零件类别", trigger: "blur" },
         ],
         productName: [
           { required: true, message: "请输入产品名称", trigger: "blur" },
@@ -791,7 +790,7 @@ export default {
       this.changeTC.stockID = row.stockID;
       this.changeTC.storeID = row.storeID;
       this.changeTC.productState = row.productState;
-      // this.changeTC.partsList = row.partsCategory;
+      // this.changeTC.patrsList = row.partsCategory;
       // 加载零件一级ID 和 二级 ID + 选中
         var that = this;
         var data = Qs.stringify({
@@ -804,10 +803,7 @@ export default {
             data: data,
           })
           .then((response) => {
-            // this.changeTC.partsList = response.data.allData;
-            this.$set(this.changeTC,'partsList',response.data.allData);
-            // this.editForm.region = [row.state,row.city,row.area,row.street,row.village];
-            // this.$set(this.editForm,'region',[row.state,row.city,row.area,row.street,row.village])
+            this.changeTC.patrsList = response.data.allData;
             this.XGTC = true;
           })
     },
@@ -992,7 +988,7 @@ export default {
     handleSearch() {
       var that = this;
       var data = Qs.stringify({
-        companyName: this.selectname,
+        productName: this.selectname,
         userName: this.usernameX,
       });
       that

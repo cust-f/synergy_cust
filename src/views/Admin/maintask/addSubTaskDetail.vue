@@ -56,13 +56,13 @@
           <el-row>
             <el-col :span="11">
               <el-form-item label="发布时间" prop="beginTime">
-                <el-date-picker type="datetime" placeholder="选择发布日期" v-model="addList.beginTime" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"></el-date-picker>
+                <el-date-picker type="date" placeholder="选择发布日期" v-model="addList.beginTime" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"></el-date-picker>
               </el-form-item>
             </el-col>
 
             <el-col :span="11">
               <el-form-item label="截止时间" prop="deadline">
-                <el-date-picker type="datetime" placeholder="选择截止日期" v-model="addList.deadline" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%" :picker-options="pickerOptions"></el-date-picker>
+                <el-date-picker type="date" placeholder="选择截止日期" v-model="addList.deadline" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%" :picker-options="pickerOptions"></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -451,7 +451,7 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止时间" prop="consignmentTimeLatest">
-                  <el-date-picker type="datetime" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
+                  <el-date-picker type="date" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -517,7 +517,7 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止时间">
-                  <el-date-picker type="datetime" v-model="consignmentTimeLatest1" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"></el-date-picker>
+                  <el-date-picker type="date" v-model="consignmentTimeLatest1" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -1025,7 +1025,7 @@ export default {
         Telphone: [
           { required: true, message: "请输入联络电话", trigger: "blur" },
           {
-            pattern: /((\+?86)?|\(\+?86\))[ -]?(1\d{10}|((\d{3,4})?|\(\d{3,4}\))[ -]?\d{7,8}([ -]?\d{1,4})?)/,
+            pattern: /^1\d{10}$/,
             message: "请输入正确格式的联络电话",
             trigger: "blur",
           },

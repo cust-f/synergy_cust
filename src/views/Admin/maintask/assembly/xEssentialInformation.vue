@@ -118,7 +118,7 @@
           <el-col :span="11">
             <el-form-item label="发布时间">
               <el-date-picker
-                type="datetime"
+                type="date"
                 placeholder="选择日期"
                 v-model="cool.publishTime"
                 value-format="yyyy-MM-dd HH:mm:ss"
@@ -130,7 +130,7 @@
           <el-col :span="11">
             <el-form-item label="截止时间">
               <el-date-picker
-                type="datetime"
+                type="date"
                 placeholder="选择日期"
                 v-model="cool.deadline"
                 value-format

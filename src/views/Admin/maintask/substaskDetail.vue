@@ -1151,6 +1151,7 @@ export default {
       this.RWXQ = true;
     },
     shanchuwenjian(row) {
+
       let ks = this.WZLJ.indexOf(row.realPath);
       let qianzui, houzui;
       if (row.wenjiancixu == this.WJSM - 1) {
@@ -1160,8 +1161,10 @@ export default {
         qianzui = this.WZLJ.substr(0, ks);
         houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
       }
+      
       this.WZLJ = qianzui + houzui;
       this.fujian.splice(row.wenjiancixu, 1);
+   
     },
     downloadFile(row) {
       var that = this;

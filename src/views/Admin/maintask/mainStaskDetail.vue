@@ -308,7 +308,8 @@
                 type="text"
                 size="small"
                 v-if="
-                  scope.row.checkPlanState !== 0
+                  scope.row.checkPlanState !== 0 &&
+                  scope.row.checkPlanState !== 3
                 "
                 >下载</el-button
               >
@@ -655,7 +656,7 @@
             <el-col :span="11">
               <el-form-item label="任务开始时间">
                 <el-date-picker
-                  type="datetime"
+                  type="date"
                   placeholder="选择日期"
                   :disabled="timeListJudge.beginTimeJudge"
                   v-model="timeList.beginTime"
@@ -2999,10 +3000,6 @@ export default {
 </script>
 
 <style lang="scss">
-.el-upload--text {
-    width: 85px;
-    height: 40px;
-}
 //企业详情
 .leftDet {
   float: left;

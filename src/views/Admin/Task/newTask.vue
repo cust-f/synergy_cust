@@ -78,7 +78,7 @@
               <el-col :span="11">
                 <el-form-item label="发布时间" prop="publishdate">
                   <el-date-picker
-                    type="datetime"
+                    type="date"
                     placeholder="选择日期"
                     v-model="addList.publishdate"
                     style="width: 100%;"
@@ -105,7 +105,7 @@
               <el-col :span="11">
                 <el-form-item label="截止时间" prop="deaddate">
                   <el-date-picker
-                    type="datetime"
+                    type="date"
                     placeholder="选择日期"
                     v-model="addList.deaddate"
                     style="width: 100%;"
@@ -492,7 +492,7 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止时间" prop="consignmentTimeLatest">
-                  <el-date-picker type="datetime" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
+                  <el-date-picker type="" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -557,7 +557,7 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止时间">
-                  <el-date-picker type="datetime" v-model="consignmentTimeLatest1" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"></el-date-picker>
+                  <el-date-picker type="" v-model="consignmentTimeLatest1" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -984,9 +984,8 @@ export default {
             trigger: "blur",
           },
         ],
-        //可以不输入
         productNotes: [
-          { required: false, message: "请输入备注或填写无", trigger: "blur" },
+          { required: true, message: "请输入备注或填写无", trigger: "blur" },
         ],
         contactNumber: [
           { required: true, message: "请输入联系方式", trigger: "blur" },

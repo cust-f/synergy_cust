@@ -297,7 +297,7 @@
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="发布时间" prop="publishTime">
-                    <el-date-picker v-model="mainTaskEditInfo.publishTime" type="datetime" placeholder="选择发布时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss">
+                    <el-date-picker v-model="mainTaskEditInfo.publishTime" type="date" placeholder="选择发布时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -313,7 +313,7 @@
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="截止时间" prop="deadline">
-                    <el-date-picker v-model="mainTaskEditInfo.deadline" type="datetime" placeholder="选择截止时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss">
+                    <el-date-picker v-model="mainTaskEditInfo.deadline" type="date" placeholder="选择截止时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -327,7 +327,7 @@
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="完成时间" prop="finishTime">
-                    <el-date-picker v-model="mainTaskEditInfo.finishTime" type="datetime" placeholder="选择完成时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" v-if="+mainTaskEditInfo.taskState === 1">
+                    <el-date-picker v-model="mainTaskEditInfo.finishTime" type="date" placeholder="选择完成时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" v-if="+mainTaskEditInfo.taskState === 1">
                     </el-date-picker>
                     <el-input v-else value="1970-01-01 08:00:00" :disabled="true"></el-input>
                   </el-form-item>
@@ -370,10 +370,14 @@
                     <el-upload 
                       class="upload-demo" 
                       action="/api/MainTaskInformation/import" 
-                      :on-success="handleAvatarSuccess" 
+                      :on-success="handleAvatarSuccess"
+                      :on-preview="handlePreview" 
+                      :on-remove="handleRemove"
+                  
                       multiple 
                       :limit="3" 
-                      ref="upload">
+                      ref="upload"
+                      :file-list="fileList">
                       <el-button size="small" type="primary">上传文件</el-button>
                     </el-upload>
                   </el-form-item>
@@ -420,7 +424,7 @@
               <el-row>
                 <el-col :span="11">
                   <el-form-item label="截止时间" prop="consignmentTimeLatest">
-                    <el-date-picker type="datetime" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
+                    <el-date-picker type="date" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
@@ -771,6 +775,14 @@ export default {
       quotaSum:0,
       // 配额修改行数
       quotaEditNum:0,
+      //初始完整路径
+      WZLJ: "",
+       fujian: [
+        {
+          realName: "",
+          realPath: "",
+        },
+      ],
       //主任务需求书数据
       technicalFile: [],
       technicalFileWanzheng: "",
@@ -823,10 +835,10 @@ export default {
           { required: true, message: "请输入产品单价", trigger: 'blur' },
           { pattern: /^\d{1,9}$/, message: "请输入为1到9位的整数", trigger: 'blur'},
         ],
-        // consignmentNotes: [
-        //   { required: true, message: "请输入备注或填写无", trigger: 'blur'},
-        //   { min: 1, max: 255, message: "长度在 1 到 255 个字符", trigger: 'blur'},
-        // ],
+        consignmentNotes: [
+          { required: true, message: "请输入备注或填写无", trigger: 'blur'},
+          { min: 1, max: 255, message: "长度在 1 到 255 个字符", trigger: 'blur'},
+        ],
         contactNumber: [
           { required: true, message: "请输入联系方式", trigger: 'blur'},
           { pattern: /^1\d{10}$/, message: "请输入正确的联系方式", trigger: 'blur'},
@@ -931,6 +943,7 @@ export default {
           
         });
     },
+    handlePreview(file) {},
     // 获得流通清单零件一级ID 二级ID
     getPartsId(partsCategory){
       // 加载零件一级ID 和 二级 ID + 选中
@@ -1011,6 +1024,7 @@ export default {
           this.consignmentPriceDisabled = response.data.allData.consignmentPriceDisabled;
         });
     },
+     handleRemove(file, fileList) {},
     // 获取子任务基本信息
     getSubtaskData() {
       var that = this;
@@ -1099,6 +1113,7 @@ export default {
             taskCategoryMainId: this.mainTaskEditInfo.selectCateKeys[0],
             taskCategoryPartId: this.mainTaskEditInfo.selectCateKeys[1],
             mainTaskDetail: this.mainTaskEditInfo.mainTaskDetail,
+            Technonlgy_File: this.technicalFileWanzheng,
             finishTime1: this.mainTaskEditInfo.finishTime,
           });
           // console.log(data);
@@ -1113,8 +1128,11 @@ export default {
               this.mainStaskID = response.data.allData;
               if (this.mainStaskID != "null") {
                 this.$message.success("修改需求信息成功");
+                this.technicalFileWanzheng = "";
                 this.mainTaskEditVisible = false; 
+                 this.fileList=[];
                 this.getMainTaskData();
+               
               }
             })
         } else {
@@ -1154,6 +1172,7 @@ export default {
     // 主需求基本信息 - 附件删除（待修改 不可用）
     deleteFile(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
+      console.log(row)
       let qianzui, houzui;
       if (row.wenjiancixu == this.WJSM - 1) {//只有一个文件
         qianzui = this.WZLJ.substr(0, ks - 8);
@@ -1162,7 +1181,9 @@ export default {
         qianzui = this.WZLJ.substr(0, ks);
         houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
       }
+      this.$message.success("确认即可删除");
       this.WZLJ = qianzui + houzui;
+
       this.fujian.splice(row.wenjiancixu, 1);
     },
     // 主需求基本信息 弹框 - 上传文件成功后的返回值（待修改 不可用）
