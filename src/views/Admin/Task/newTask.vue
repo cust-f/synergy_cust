@@ -499,7 +499,7 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="截止时间" prop="consignmentTimeLatest">
-                  <el-date-picker type="" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
+                  <el-date-picker type="date" placeholder="选择日期" v-model="consignmentForm.consignmentTimeLatest" style="width: 100%" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
