@@ -147,8 +147,8 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <!-- 暂时注释 -->
-              <el-button @click="changeTime(scope.row)" size="small" type="text" class="backDoor">修改时间</el-button>
-
+              <!-- <el-button @click="changeTime(scope.row)" size="small" type="text" class="backDoor">修改时间</el-button> -->
+                  <el-button @click="changeTime(scope.row)" size="small" type="text" >修改时间</el-button>
               <!-- <el-button
                 type="text"
                 size="small "
@@ -1901,7 +1901,7 @@ export default {
         mainTaskId: this.taskId,
         state: this.milepostActive + 1,
         companyId: this.acceptCompanyId,
-        publishTime: this.timeList.publishTim == null ? "" : this.timeList.publishTim,
+        publishTime: this.timeList.publishTime == null ? "" : this.timeList.publishTime,
         applyTime: this.timeList.applyTime == null ? "" : this.timeList.applyTime,
         checkApplyTime: this.timeList.checkApplyTime == null ? "" : this.timeList.checkApplyTime,
         beginTime: this.timeList.beginTime == null ? "" : this.timeList.beginTime,
