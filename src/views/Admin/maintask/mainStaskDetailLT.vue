@@ -1019,7 +1019,7 @@
 
           <el-form-item label="添加附件">
             <el-upload class="upload-demo" action="/api/MainTaskInformation/import" :on-success="handleAvatarSuccess" multiple :limit="10" ref="upload" :file-list="fileList">
-              <el-button size="small" type="primary">点击上传</el-button>
+              <el-button size="small" type="primary" >点击上传</el-button>
             </el-upload>
           </el-form-item>
         </el-form>
@@ -3409,7 +3409,7 @@ export default {
   width: 95%;
 }
 .backDoor {
-  display: none;
+  /* display: none; */
 }
 .refuseDialog .el-dialog {
   width: 400px;

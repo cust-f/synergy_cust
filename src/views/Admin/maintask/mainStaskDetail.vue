@@ -204,8 +204,8 @@
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
               <!-- 暂时注释 -->
-              <!-- <el-button @click="changeTime(scope.row)" size="small" type="text"
-                >修改</el-button> -->
+              <el-button @click="changeTime(scope.row)" size="small" type="text"
+                >修改时间</el-button>
 
               <el-button
                 @click="SQTG(scope.row)"
@@ -1540,8 +1540,8 @@
               :on-exceed="handleExceed"
               :file-list="fileList"
             >
-              <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">上传文件不能超过3个</div>
+              <el-button size="small" type="primary" class="shangchuan">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">请上传一个附件</div>
             </el-upload>
           </el-form-item>
         </el-form>
@@ -3211,5 +3211,8 @@ export default {
 }
 .refuseDialog .el-textarea__inner{
   font-family: "PingFang SC", "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+}
+.shangchuan{
+  margin-top: 70px;
 }
 </style>
