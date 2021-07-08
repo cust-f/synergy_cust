@@ -44,7 +44,7 @@
         width="120"
       >
         <template slot-scope="scope">
-          <span v-if="+scope.row.planUploadTime === 0">暂未上传</span>
+          <span v-if="scope.row.Consignment_Time_Latest === 0">暂未上传</span>
           <span v-else>{{scope.row.Consignment_Time_Latest | formatDate}}</span>
         </template>
       </el-table-column>
