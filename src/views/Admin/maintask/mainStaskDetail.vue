@@ -740,19 +740,38 @@
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
-                  :disabled="timeListJudge.uploadContractTimeJudge"
+           
                   v-model="timeList.uploadContractTime"
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
               </el-form-item>
+              <!-- <el-form-item label="合同上传时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  :disabled="timeListJudge.uploadContractTimeJudge"
+                  v-model="timeList.uploadContractTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item> -->
             </el-col>
             <el-col :span="11">
-              <el-form-item label="合同审核时间">
+              <!-- <el-form-item label="合同审核时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
                   :disabled="timeListJudge.checkContractTimeJudge"
+                  v-model="timeList.checkContractTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item> -->
+               <el-form-item label="合同审核时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
                   v-model="timeList.checkContractTime"
                   style="width: 80%"
                   value-format
@@ -764,7 +783,7 @@
           <el-row>
             <el-col :span="11">
               <div v-if="timeList.supplierDistributionTime === 0"></div>
-              <el-form-item v-else label="分配人员时间">
+              <!-- <el-form-item v-else label="分配人员时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
@@ -773,14 +792,32 @@
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
+              </el-form-item> -->
+              <el-form-item v-else label="分配人员时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.supplierDistributionTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="接受任务时间">
+              <!-- <el-form-item label="接受任务时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
                   :disabled="timeListJudge.designerAcceptTimeJudge"
+                  v-model="timeList.designerAcceptTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item> -->
+                 <el-form-item label="接受任务时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
                   v-model="timeList.designerAcceptTime"
                   style="width: 80%"
                   value-format
@@ -791,7 +828,7 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="上传设计时间">
+              <!-- <el-form-item label="上传设计时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
@@ -800,15 +837,33 @@
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
+              </el-form-item> -->
+                            <el-form-item label="上传设计时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.uploadDesignTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="内部审核时间">
+              <!-- <el-form-item label="内部审核时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
                   v-model="timeList.supplierCheckDesignTime"
                   :disabled="timeListJudge.supplierCheckDesignTimeJudge"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item> -->
+                          <el-form-item label="内部审核时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.supplierCheckDesignTime"
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
@@ -818,7 +873,7 @@
 
           <el-row>
             <el-col :span="11">
-              <el-form-item label="设计验收时间">
+              <!-- <el-form-item label="设计验收时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
@@ -827,14 +882,32 @@
                   style="width: 80%"
                   value-format
                 ></el-date-picker>
+              </el-form-item> -->
+              <el-form-item label="设计验收时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
+                  v-model="timeList.demandorCheckDesignTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="任务完成时间">
+              <!-- <el-form-item label="任务完成时间">
                 <el-date-picker
                   type="datetime"
                   placeholder="选择日期"
                   :disabled="timeListJudge.finishTimeJudge"
+                  v-model="timeList.finishTime"
+                  style="width: 80%"
+                  value-format
+                ></el-date-picker>
+              </el-form-item> -->
+                 <el-form-item label="任务完成时间">
+                <el-date-picker
+                  type="datetime"
+                  placeholder="选择日期"
                   v-model="timeList.finishTime"
                   style="width: 80%"
                   value-format
