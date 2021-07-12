@@ -496,9 +496,14 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="11">
+            <!-- <el-col :span="11">
               <el-form-item label="合同上传时间">
                 <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.uploadContractTime" :disabled="timeList.uploadContractTime==null?true:false" style="width: 100%" value-format></el-date-picker>
+              </el-form-item>
+            </el-col> -->
+              <el-col :span="11">
+              <el-form-item label="合同上传时间">
+                <el-date-picker type="datetime" placeholder="选择日期" v-model="timeList.uploadContractTime" style="width: 100%" value-format></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="11">
