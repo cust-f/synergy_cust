@@ -417,7 +417,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="11">
-                    <el-form-item label="截止时间">
+                    <!-- <el-form-item label="截止时间">
                       <el-date-picker
                         type="date"
                         placeholder="选择日期"
@@ -425,6 +425,15 @@
                         style="width: 100%;"
                          value-format="yyyy-MM-dd HH:mm:ss"
                          :picker-options="pickerOptions"
+                      ></el-date-picker>
+                    </el-form-item> -->
+                     <el-form-item label="截止时间">
+                      <el-date-picker
+                        type="date"
+                        placeholder="选择日期"
+                        v-model="deadline1"
+                        style="width: 100%;"
+                         value-format="yyyy-MM-dd HH:mm:ss"
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
