@@ -108,7 +108,14 @@
             >
           </div>
           <br />
-          <div style="margin-top: 20px; float: right; margin-right: 50px;margin-bottom: 20px;">
+          <div
+            style="
+              margin-top: 20px;
+              float: right;
+              margin-right: 50px;
+              margin-bottom: 20px;
+            "
+          >
             <el-pagination
               background
               :hide-on-single-page="true"
@@ -214,6 +221,7 @@ export default {
   },
   data() {
     return {
+      formData: "",
       dynamicTags: [],
       province: "",
       city: [],
@@ -226,8 +234,7 @@ export default {
       //value: this.totalCount <= 15,
       totalCount: 0,
       search: "",
-      url:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
     };
   },
   created() {
@@ -299,6 +306,7 @@ export default {
     },
     //筛选条件
     getAnswer(type) {
+      this.formData = new FormData(); //封装传输的数据对象
       let that = this;
       let url;
       let provinces;
@@ -318,13 +326,23 @@ export default {
       if (type == 0) {
         this.currentPage = 1;
       }
-      let data = Qs.stringify({
-        province: provinces,
-        city: citys,
-        category: categorys,
-        searchStr: this.search,
-        page: this.currentPage - 1,
-      });
+      that.formData.append("province",provinces);
+      that.formData.append("city[]", citys);
+      that.formData.append("category[]", categorys);
+      that.formData.append("searchStr", this.search);
+      that.formData.append("page", this.currentPage - 1);
+let config = {
+        Headers:{
+          "Content-Type":"multipart/form-data"
+        }
+      };
+      // let data = Qs.stringify({
+      //   province: provinces,
+      //   city: citys,
+      //   category: categorys,
+      //   searchStr: this.search,
+      //   page: this.currentPage - 1,
+      // });
       console.log(this.currentPage + "==========");
       if (this.dynamicTags.length != 0 || this.search != null) {
         url = "/api/company/select";
@@ -335,7 +353,8 @@ export default {
         .axios({
           method: "post",
           url: url,
-          data: data,
+          data: this.formData,
+          config:config
         })
         .then((response) => {
           console.log(response);
@@ -479,7 +498,7 @@ export default {
       this.$router.push({
         path: "/company/excellentCompanyDetail",
         name: "companyDetails",
-        query: { companyId: id},
+        query: { companyId: id },
       });
     },
   },
