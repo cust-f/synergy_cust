@@ -370,6 +370,7 @@ let config = {
             this.totalCount = response.data.allData.totalCount;
           }
         });
+        console.log("aaaaaaaaaaaaaaa");
     },
     // getOtherCompany(val){
 
