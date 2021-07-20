@@ -110,7 +110,7 @@
 
             <el-table-column prop="mainTaskName" label="需求名称" align="center"></el-table-column>
 
-            <el-table-column prop="taskCategoryMainId" label="需求类别" align="center">
+            <el-table-column prop="taskCategoryMainId" label="行业类别" align="center">
               <template slot-scope="scope">
                 <span v-if="scope.row.taskCategoryMainId === 2">交通运输设备</span>
                 <span v-else-if="scope.row.taskCategoryMainId === 3">仪器仪表及文化</span>
@@ -121,12 +121,12 @@
               </template>
             </el-table-column>
 
-            <!-- <el-table-column prop="taskType" label="需求类型" align="center">
+            <el-table-column prop="taskType" label="需求类别" align="center">
               <template slot-scope="scope">
-              <span v-if="scope.row.taskType === 0">设计</span>
-              <span v-else-if="scope.row.taskType === 1">流通</span>
+              <span v-if="scope.row.mainTaskType === 0">设计任务</span>
+              <span v-else-if="scope.row.mainTaskType === 1">流通任务</span>
               </template>
-            </el-table-column> -->
+            </el-table-column>
 
             <el-table-column prop="companyName" label="需求方" align="center"></el-table-column>
 
