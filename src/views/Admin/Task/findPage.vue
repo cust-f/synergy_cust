@@ -45,7 +45,7 @@ export default {
       user_id: this.userId, // 哈长用户id
       user_name: this.usernameX, // 哈长用户名
       user_phone: this.userData.phone, // 用户联系电话，可选
-      company_id:this.userData.companyId, // 哈长用户所在企业id
+      company_id:this.userData.companyId+'', // 哈长用户所在企业id
       company_name: this.userData.companyName // 哈长用户所在企业
     }
     this.postMessage(userInfo)
