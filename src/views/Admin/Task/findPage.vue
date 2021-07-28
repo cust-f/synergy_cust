@@ -22,31 +22,63 @@
   </div>
 </template>
 <script>
-
+import Qs from "qs";
 export default {
   name: 'ZjuEngine',
   data() {
     return {
-      url: 'http://101.132.153.135/hachang'
+      url: 'http://101.132.153.135/hachang',
+      userData: {},
+      usernameX: this.$store.state.user,
+      userId: sessionStorage.getItem("userId"),// 哈长用户id
+      userName:'', // 哈长用户名
+      phone:'',// 用户联系电话，可选
+      companyId:'',// 哈长用户所在企业id
+      companyName:'',// 哈长用户所在企业
     }
   },
+
   mounted() {
     // 通过postMessage()将流程id传给iframe组件
+      setTimeout(() => {
     const userInfo = {
-      user_id: '223', // 哈长用户id
-      user_name: 'test_user', // 哈长用户名
-      user_phone: '10086', // 用户联系电话，可选
-      company_id: '2', // 哈长用户所在企业id
-      company_name: 'test_company' // 哈长用户所在企业
+      user_id: this.userId, // 哈长用户id
+      user_name: this.usernameX, // 哈长用户名
+      user_phone: this.userData.phone, // 用户联系电话，可选
+      company_id:this.userData.companyId, // 哈长用户所在企业id
+      company_name: this.userData.companyName // 哈长用户所在企业
     }
     this.postMessage(userInfo)
+    console.log(userInfo);
+    }, 100);
+  }, 
+  created(){
+    //获得用户信息
+    this.getAlluser();
   },
   methods: {
+
+    getAlluser(){
+       var that = this;
+      var data = Qs.stringify({
+        userId: this.userId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/user/findUserData",
+          data: data,
+        })
+        .then((response) => {
+          this.userData = response.data.allData;
+        });
+    },
     /**
      * 向子程序发送数据
      * @returns {Promise<void>}
      */
     async postMessage(params) {
+      console.log(params);
       const mapFrame = this.$refs['zjuIframe']
       if (mapFrame.attachEvent) { // 兼容浏览器判断
         mapFrame.attachEvent('onload', function() {
