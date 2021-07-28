@@ -39,19 +39,7 @@ export default {
   },
 
   mounted() {
-    // 通过postMessage()将流程id传给iframe组件
-      setTimeout(() => {
-    const userInfo = {
-      user_id: this.userId, // 哈长用户id
-      user_name: this.usernameX, // 哈长用户名
-      user_phone: this.userData.phone, // 用户联系电话，可选
-      company_id:this.userData.companyId+'', // 哈长用户所在企业id
-      company_name: this.userData.companyName // 哈长用户所在企业
-    }
-    this.postMessage(userInfo)
-    console.log(userInfo);
-    }, 100);
-  }, 
+  },
   created(){
     //获得用户信息
     this.getAlluser();
@@ -71,28 +59,43 @@ export default {
         })
         .then((response) => {
           this.userData = response.data.allData;
+          this.init();
         });
+    },
+    init() {
+      console.log("进来了吗")
+    // 通过postMessage()将流程id传给iframe组件
+        const userInfo = {
+          user_id: this.userId, // 哈长用户id
+          user_name: this.usernameX, // 哈长用户名
+          user_phone: this.userData.phone, // 用户联系电话，可选
+          company_id:this.userData.companyId+'', // 哈长用户所在企业id
+          company_name: this.userData.companyName // 哈长用户所在企业
+        }
+        this.postMessage(userInfo)
+        console.log('userInfo:', userInfo);
     },
     /**
      * 向子程序发送数据
      * @returns {Promise<void>}
      */
-    async postMessage(params) {
-      console.log(params);
-      const mapFrame = this.$refs['zjuIframe']
-      if (mapFrame.attachEvent) { // 兼容浏览器判断
-        mapFrame.attachEvent('onload', function() {
-          const iframeWin = mapFrame.contentWindow
-          iframeWin.postMessage(JSON.stringify(params), this.url)
-          // data传递的参数   *写成子页面的域名或者是ip
-        })
-      } else {
-        mapFrame.onload = function() {
-          const iframeWin = mapFrame.contentWindow
-          iframeWin.postMessage(JSON.stringify(params), this.url)
-        }
-      }
+async postMessage(params) {
+  console.log(params);
+  const _this = this
+  const mapFrame = this.$refs['zjuIframe']
+  if (mapFrame.attachEvent) { // 兼容浏览器判断
+    mapFrame.attachEvent('onload', function() {
+      const iframeWin = mapFrame.contentWindow
+      iframeWin.postMessage(JSON.stringify(params), _this.url)
+      // data传递的参数   *写成子页面的域名或者是ip
+    })
+  } else {
+    mapFrame.onload = function() {
+      const iframeWin = mapFrame.contentWindow
+      iframeWin.postMessage(JSON.stringify(params), _this.url)
     }
+  }
+}
   }
 }
 </script>
