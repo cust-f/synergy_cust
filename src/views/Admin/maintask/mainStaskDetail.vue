@@ -1338,7 +1338,7 @@
         <el-row>
           <el-col :span="8"></el-col>
         </el-row>
-        <el-form ref="form" :model="cool" label-width="120px">
+        <el-form ref="form" :rules="rules1" :model="cool" label-width="120px">
           <el-row>
             <el-col :span="11">
               <el-form-item label="任务名称">
@@ -1352,11 +1352,11 @@
                   v-model="cool.demanderTel"
                   @blur="animate()"
                 ></el-input>
-                <font color="red">
+                <!-- <font color="red">
                   <el-span v-if="this.cool.demanderTel === null"
                     >您的联络电话格式输入不正确</el-span
                   >
-                </font>
+                </font> -->
               </el-form-item>
             </el-col>
           </el-row>
@@ -1365,10 +1365,10 @@
             <el-col :span="11">
               <el-form-item label="发布时间">
                 <el-date-picker
-                  type="datetime"
+                  type="date"
                   placeholder="选择日期"
                   v-model="publishTime1"
-                  value-format="yyyy-MM-dd HH:mm:ss"
+                  value-format="yyyy-MM-dd"
                   style="width: 100%"
                 ></el-date-picker>
               </el-form-item>
@@ -1377,10 +1377,10 @@
             <el-col :span="11">
               <el-form-item label="截止时间">
                 <el-date-picker
-                  type="datetime"
+                  type="date"
                   placeholder="选择日期"
                   v-model="deadline1"
-                  value-format="yyyy-MM-dd HH:mm:ss"
+                  value-format="yyyy-MM-dd"
                   style="width: 100%"
                 ></el-date-picker>
               </el-form-item>
@@ -1894,6 +1894,34 @@ export default {
     };
   },
 
+
+
+   //编辑流通清单 数据验证
+      rules1:{
+        taskName:[
+          {required: true, message: '请选择截止时间', trigger: 'blur'},
+        ],
+        demanderTel:[
+          {required: true, message: '请输入产品名称', trigger: 'blur'},
+        ],
+        productModel1:[
+          {required: true, message: '请输入产品规格', trigger: 'blur'},
+           { min: 1, max: 10, message: "请输入长度在 1 到 10 个字符的规格", trigger: "blur" },
+        ],
+        productNum1:[
+          {required: true, message: '请输入产品数量', trigger: 'blur'},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
+        ],
+        productPrice1:[
+          {required: true, message: '请输入产品单价', trigger: 'blur'},
+          {pattern:/^\d{1,9}$/, message: "请输入1到9位的整数", trigger: "blur"},
+        ],
+      },
+
+
+
+
+
   filters: {
     formatDate(time) {
       if (time != 0) {
@@ -2216,7 +2244,8 @@ export default {
     },
     //手机号校验
     animate() {
-      var re = /^1\d{10}$/;
+      // var re = /^1\d{10}$/;
+      var re = /^((0\d{2,3}-\d{7,8})|(1[35847]\d{9}))$/;
       let str = this.cool.demanderTel;
       if (re.test(str)) {
         //  alert('成功')

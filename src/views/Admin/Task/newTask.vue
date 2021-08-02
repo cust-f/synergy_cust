@@ -901,7 +901,7 @@ export default {
         Telphone: [
           { required: true, message: "请输入联络电话", trigger: "blur" },
           {
-            pattern: /^1\d{10}$/,
+            pattern: /^((0\d{2,3}-\d{7,8})|(1[35847]\d{9}))$/,
             message: "请输入正确格式的联络电话",
             trigger: "blur",
           },
