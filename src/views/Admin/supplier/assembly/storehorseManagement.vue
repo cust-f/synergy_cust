@@ -35,8 +35,8 @@
           <el-tag type="success" v-else-if="scope.row.leadState === 1"
             >已备货</el-tag
           >
-          <el-tag type="success" v-else-if="scope.row.leadState === 2"
-            >已发货</el-tag
+          <el-tag  v-else-if="scope.row.leadState === 2"
+            >待验收</el-tag
           >
           <el-tag type="success" v-else-if="scope.row.leadState === 3"
             >已完成</el-tag
@@ -135,7 +135,7 @@
              </el-row>
 
              <div class="Taskdetails">
-    
+
             <span style="color: black" class="Taskdetails">任务详情: </span>
             <!-- <el-tooltip class="item" effect="light" :content="this.taskDETA.taskDetail" placement="bottom" v-if="this.taskDETA.taskDetail.length>=120">
                             <span>
@@ -148,12 +148,12 @@
            <span style="color: black" class="Taskdetails">
               &nbsp;&nbsp;&nbsp;&nbsp;{{this.taskDETA.taskDetail}}</span
             >
-      
+
             </div>
         </div>
 
         </div>
-         
+
       </div>
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
         <el-tab-pane name="first">
@@ -335,7 +335,7 @@
                      <el-table-column
                     prop="productState"
                     label="物品状态"
-                    width="120" 
+                    width="120"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -360,7 +360,7 @@
                       </el-tooltip>
                     </template>
                   </el-table-column>
-               
+
                   <el-table-column prop="reserve" label="库存" align="center" width="120" >
                     <template slot-scope="scope">
                       <el-tooltip placement="top">
@@ -710,7 +710,7 @@ export default {
     },
     //把数据库表格中的内容显示到上面
     showData() {
-    
+
       this.upCirculation = true;
       var that = this;
       var data = Qs.stringify({
@@ -748,7 +748,7 @@ export default {
             //   return;
             // } else if (this.tableData[i].leadState == 2) {
             //   that.status = "已发货";
-            //   that.liu = true;  
+            //   that.liu = true;
             //   return;
             // } else if (this.tableData[i].leadState == 3) {
             //   that.status = "已完成";
@@ -761,21 +761,21 @@ export default {
           switch(temp){
             case 0:{
               that.status = "待备货";
-              that.liu = true; 
+              that.liu = true;
               this.beihuo=true;
             }
             break;
             case 1:{ that.status = "已备货";
-              that.liu = false; 
+              that.liu = false;
               this.beihuo=false;
               }
             break;
             case 2:{ that.status = "已发货";
-              that.liu = true; 
+              that.liu = true;
               this.beihuo=false;}
             break;
             case 3:{ that.status = "已完成";
-              that.liu = true; 
+              that.liu = true;
               this.beihuo=false;}
             break;
           }
@@ -1008,7 +1008,7 @@ export default {
           //   message: "发货成功",
           //   type: "success",
           // });
-          
+
           // this.$router.go(0);
           // this.upCirculation = false;
         });
@@ -1081,7 +1081,7 @@ export default {
     .btn {
       margin-left: 0px;
     }
-  }  
+  }
 }
 //
 
