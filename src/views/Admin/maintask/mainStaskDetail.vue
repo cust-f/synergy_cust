@@ -2214,6 +2214,7 @@ export default {
 
         this.ZRWXG = false;
         this.showData();
+        this.$router.go(0);
         // this.getData();
         // location.reload()
       }
