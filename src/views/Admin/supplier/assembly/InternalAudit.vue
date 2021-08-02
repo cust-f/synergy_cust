@@ -202,7 +202,7 @@ export default {
           this.$message({
             type: 'info',
             message: '取消查看'
-          });       
+          });
         });
     },
     //设计通过

@@ -303,13 +303,22 @@
                       class="red"
                       @click="handleDelete(scope.$index, scope.row)"
               >废除</el-button>-->
-              <el-button
+              <!-- <el-button
                 @click="RWJHXZ(scope.row)"
                 type="text"
                 size="small"
                 v-if="
-                  scope.row.checkPlanState !== 0 &&
-                  scope.row.checkPlanState !== 3
+                  (scope.row.checkPlanState !== 0 &&
+                  scope.row.checkPlanState !== 3)
+                "
+                >下载</el-button
+              > -->
+                            <el-button
+                @click="RWJHXZ(scope.row)"
+                type="text"
+                size="small"
+                v-if="
+                  scope.row.checkPlanState !== 0
                 "
                 >下载</el-button
               >
@@ -425,9 +434,9 @@
                 v-if="scope.row.contractState === 1"
                 >拒绝</el-button
               >
-              <el-button 
-              type="text" 
-              size="small" 
+              <el-button
+              type="text"
+              size="small"
               @click="CKLSHT(scope.row)"
               v-show="scope.row.contractState > 1"
                 >历史上传</el-button
@@ -592,9 +601,9 @@
             v-loading="loading"
             element-loading-text="评价生成中......"
           >
-        
+
             <radar-chart :radarData="radarData" ref="QradarChart" style="height:330px"></radar-chart>
-        
+
             <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
                 <label style="font-size: 13px">完成质量:</label>
@@ -1213,7 +1222,7 @@
                 <el-form-item label="企业详情"></el-form-item>
                 <div class="leftDet" v-html="companyDetailContent"></div>
                 <!-- <el-form-item label="详细" >
-                            <el-input 
+                            <el-input
                             type="textarea"
                             :rows="1"
                             style="width:100%;"
@@ -2078,7 +2087,7 @@ export default {
       clearable:false,
       closeOnPressEscape: false,
       closeOnClickModal: false,
-      // readonly,  
+      // readonly,
       onfocus:"this.removeAttribute('readonly')",
       // center: true
         }).then(({ value }) => {
@@ -2093,7 +2102,7 @@ export default {
           this.$message({
             type: 'info',
             message: '取消查看'
-          });       
+          });
         });
     },
     //历史上传弹窗
@@ -2448,7 +2457,7 @@ export default {
           if (this.tableData4 == null) {
             this.milepostActive4 = 0;
           }
-          
+
 
           console.log("cehsi" + response.data.allData.f);
           if (response.data.allData.f === null) {
@@ -2503,7 +2512,7 @@ export default {
             this.milepostActive4 = 0;
             // this.milepostActive3 = 0;
              this.milepostActive = 1;
-        } 
+        }
           if (this.milepostActive >= 0) {
             this.milepost[0].description = this.$options.filters["formatDate"](
               response.data.allData.a[0].applyTime
@@ -2708,7 +2717,7 @@ export default {
           this.$message({
             type: 'info',
             message: '取消下载'
-          });       
+          });
         });
     },
     //下载子任务附件
@@ -2847,7 +2856,7 @@ export default {
           this.$message({
             type: 'info',
             message: '取消下载'
-          });       
+          });
         });
     },
        passwordRequest(value){
@@ -2906,7 +2915,7 @@ export default {
           this.$message({
             type: 'info',
             message: '取消查看'
-          });       
+          });
         });
     },
     //设计通过
@@ -3083,7 +3092,7 @@ export default {
   }
   /*.box-card {
     width: 960px;
-     border: 1px solid #00a2e6 ; 
+     border: 1px solid #00a2e6 ;
   }*/
   //返回字体
   .el-page-header__title {
