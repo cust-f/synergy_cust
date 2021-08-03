@@ -98,7 +98,7 @@
           </el-form>
           <br />
           <div id="div2" align="right">
-            <el-button type="primary" class="button1" @click="achieveMain">完成任务</el-button>
+            <el-button type="primary" class="button1" @click="achieveMain" :disabled="cool.taskState=='已完成'">完成任务</el-button>
             <!-- <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button> -->
             <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
             <el-button type="primary" class="button1" @click="xiazaiMAINmoban">打包下载</el-button>
@@ -525,7 +525,7 @@
                   </el-col>
                 </el-row>
 
-                <el-form-item label="添加附件">
+                <el-form-item label="添加附件xx">
                   <el-upload
                     class="upload-demo"
                     action="/api/MainTaskInformation/import"
@@ -1740,7 +1740,9 @@ export default {
     submitUpload() {
       this.$refs.upload.submit();
     },
-    handleRemove(file, fileList) {},
+    handleRemove(file, fileList) {
+      this.technicalFileWanzheng=null;
+    },
     handlePreview(file) {},
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;

@@ -106,7 +106,7 @@
           </el-form>
           <!-- <br /> -->
           <div id="div2" align="right">
-            <el-button type="primary" class="button1" @click="completeMainTask()">完成任务</el-button>
+            <el-button type="primary" class="button1" @click="completeMainTask()" :disabled="mainTaskInfo.taskState != 0">完成任务</el-button>
 
             <!-- transition="el-zoom-in-bottom" trigger="click" -->
             <el-popover placement="top" width="200" v-model="popoverVisible">
@@ -367,15 +367,15 @@
               <el-row>
                 <el-col :span="22">
                   <el-form-item label="添加附件">
-                    <el-upload 
-                      class="upload-demo" 
-                      action="/api/MainTaskInformation/import" 
+                    <el-upload
+                      class="upload-demo"
+                      action="/api/MainTaskInformation/import"
                       :on-success="handleAvatarSuccess"
-                      :on-preview="handlePreview" 
+                      :on-preview="handlePreview"
                       :on-remove="handleRemove"
-                  
-                      multiple 
-                      :limit="3" 
+
+                      multiple
+                      :limit="3"
                       ref="upload"
                       :file-list="fileList">
                       <el-button size="small" type="primary">上传文件</el-button>
@@ -711,7 +711,7 @@ export default {
   name: "substaskDetailLT",
    components: {
     "line-chart": lineChart, // 折线图
-    "radar-chart1": radarChart1,// 雷达图 
+    "radar-chart1": radarChart1,// 雷达图
   },
   prop: {},
   inject: ["reload"],
@@ -906,7 +906,7 @@ export default {
 
   created() {
     this.getMainTaskData(); // 获得主任务信息
-    this.getAllPartsList(); // 获得零件下拉框 
+    this.getAllPartsList(); // 获得零件下拉框
   },
 
   methods: {
@@ -940,7 +940,7 @@ export default {
         })
         .then((response) => {
           this.partsOptions = response.data.allData;
-          
+
         });
     },
     handlePreview(file) {},
@@ -1129,10 +1129,10 @@ export default {
               if (this.mainStaskID != "null") {
                 this.$message.success("修改需求信息成功");
                 this.technicalFileWanzheng = "";
-                this.mainTaskEditVisible = false; 
+                this.mainTaskEditVisible = false;
                  this.fileList=[];
                 this.getMainTaskData();
-               
+
               }
             })
         } else {
@@ -1284,13 +1284,13 @@ export default {
     // 申请列表 - 点击标题查看企业详情弹框 (供应商)企业 详情显示 ：
     // 1.企业信息 2.仓库库存趋势折线图 3.流通任务雷达图
     getCompanyInfo(row){
-      // 1.企业信息 
+      // 1.企业信息
       this.showCompanyDetail(row);
-      // 2.仓库库存趋势折线图 
+      // 2.仓库库存趋势折线图
       this.showLineChart(row);
       // 3.流通任务雷达图
       this.showCirculationSubtaskRadar(row);
-    }, 
+    },
     // 1.企业信息
     showCompanyDetail(row) {
       this.companyDetailForm = [];
@@ -1498,15 +1498,15 @@ export default {
           acceptCompanyId: row.Company_ID,
         },
       });
-    },  
+    },
     //获取条件选择时间数据
     getYearData() {
       let that = this;
       that.axios.post("/api/findYearsList").then(response => {
         this.lineYear = response.data.allData.nowYear;
-        this.options= response.data.allData.years;  
+        this.options= response.data.allData.years;
         this.lineChartChange();
-            
+
       });
     },
     //按要求显示
@@ -1818,7 +1818,7 @@ export default {
     .el-dialog__body{
       padding-right: 20px;
     }
-    /* 垂直居中 */ 
+    /* 垂直居中 */
     // .el-dialog{
     //   display: flex;
     //   display: -ms-flex; /* 兼容IE */
