@@ -2125,6 +2125,7 @@ export default {
         });
     },
     XGZRW() {
+      console.log("发布时间是啥时候"+this.publishTime1)
       console.log("是否发布aaa"+this.cooList.shifousimi)
       //设置文件路径
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
@@ -2227,7 +2228,7 @@ export default {
     },
     //手机号校验
     animate() {
-      var re = /^1\d{10}$/;
+      var re = /^((0\d{2,3}-\d{7,8})|(1[35847]\d{9}))$/;
       let str = this.cool.demanderTel;
       if (re.test(str)) {
         //  alert('成功')
@@ -2479,6 +2480,8 @@ export default {
           this.cool = response.data.allData.a[0];
           this.publishTime1 = response.data.allData.a[0].publishTime;
           this.publishTime1 = new Date(this.publishTime1);
+          // SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+          // this.publishTime1=dateFormat.parse(this.publishTime1);
           this.deadline1 = response.data.allData.a[0].deadline;
           this.deadline1 = new Date(this.deadline1);
           this.milepostActive = response.data.allData.a[0].taskState;

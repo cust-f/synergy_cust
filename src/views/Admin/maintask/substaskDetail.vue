@@ -525,7 +525,7 @@
                   </el-col>
                 </el-row>
 
-                <el-form-item label="添加附件xx">
+                <el-form-item label="添加附件">
                   <el-upload
                     class="upload-demo"
                     action="/api/MainTaskInformation/import"
