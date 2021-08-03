@@ -207,7 +207,7 @@
         <!-- </el-col>
           </el-row>
         </div> -->
-     
+
       </div>
          <!-- 设计的雷达图 -->
        <!-- <radar-chartS
@@ -339,7 +339,7 @@
                       pageIndex2 * pageSize
                     )
                   "
-             
+
               style="width: 100%; margin-top: 30px"
               border
               highlight-current-row
@@ -409,9 +409,9 @@
                   :current-page="pageIndex2"
                   :page-size="pageSize"
                   :total="parentTable.length"
-                  @current-change="handleCurrentChange"  
-			            @size-change="handleSizeChange" 
-                  
+                  @current-change="handleCurrentChange"
+			            @size-change="handleSizeChange"
+
                 ></el-pagination>
               </div>
         </el-dialog>
@@ -601,7 +601,7 @@
                 </template>
               </el-table-column>
             </el-table>
-            <br /> 
+            <br />
                 <div class="companyDialogPagination">
                 <el-pagination
                   background
@@ -611,8 +611,8 @@
                   :total="companyTableData.length"
                   @current-change="companyDialogHandleCurrentChange"
                 ></el-pagination>
-              </div> 
-              <br />          
+              </div>
+              <br />
           </el-dialog>
       </div>
     </el-main>
@@ -629,8 +629,8 @@
     <!-- 供应商企业信息弹出框 -->
     <div class="lineChart1">
       <el-dialog  :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
- 
-       
+
+
         <el-row>
           <el-col :span="8">
             <el-row>
@@ -654,7 +654,7 @@
                   <el-col :span="19">
                   <el-form-item label-width="0" class="company-detail-form-item">
                    <span style="font-size: 18px;">{{ this.companyDetailForm.companyName }}</span>
-                  </el-form-item> 
+                  </el-form-item>
                   <el-form-item label-width="0" class="company-detail-form-item">
                     <el-rate v-model="this.companyDetailForm.star" disabled text-color="#ff9900"></el-rate>
                   </el-form-item>
@@ -669,14 +669,14 @@
                   </el-form-item>
                   <el-form-item label="联系电话" class="company-detail-form-item">
                     <span>{{ this.companyDetailForm.officeNumber }}</span>
-                  </el-form-item> 
+                  </el-form-item>
                   <el-form-item label="电子邮箱" class="company-detail-form-item">
                     <span>{{ this.companyDetailForm.email }}</span>
                   </el-form-item>
               </el-col>
             </el-row>
           </el-form>
- 
+
         </el-card>
               </el-col>
             </el-row>
@@ -685,7 +685,7 @@
               <el-col>
                 <!-- 流通任务模块 雷达图 -->
         <el-card>
-            
+
                 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
                <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
@@ -706,7 +706,7 @@
               </el-col>
             </el-row>
           </el-col>
-          <el-col :span="16">        
+          <el-col :span="16">
 
         <el-card>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">销售/库存趋势图</div>
@@ -744,7 +744,7 @@
         </div>
         <br/>
         <!-- <div style="float: right;margin-bottom:-20px">
-         
+
         </div> -->
         <!-- <el-card> -->
           <div  >
@@ -753,7 +753,7 @@
         </el-card>
           </el-col>
         </el-row>
-          
+
 
       </el-dialog>
     </div>
@@ -802,7 +802,7 @@ export default {
        radarDataS:[],
        indicatorDataS:[],
       },
-       options: [],  
+       options: [],
 
       loading: true,
       dialogLineChartVisible: false, //显示折线图
@@ -1129,7 +1129,7 @@ export default {
         consignmentpatrsList: [
           { required: true, message: "请输入零件类别", trigger: "blur" },
         ],
-        
+
       },
     };
   },
@@ -1175,7 +1175,7 @@ export default {
         startTime:this.form2.time1,
         finishTime:this.form2.time2,
       });
-     
+
       that
         .axios({
           method: "post",
@@ -1183,11 +1183,11 @@ export default {
             "/api/findRemarkTimesS",
           data: data
         })
-        .then(response => { 
+        .then(response => {
          this.radarDataS.radarDataS=response.data.allData.AllRemarkLengthS;
          this.radarDataS.indicatorDataS=response.data.allData.indicatorS;
          console.log(this.radarDataS.indicatorDataS)
-         that.$refs.drawradarChartS.getCharts2S();             
+         that.$refs.drawradarChartS.getCharts2S();
         });
     },
     //获取条件选择时间数据
@@ -1195,16 +1195,16 @@ export default {
       let that = this;
       that.axios.post("/api/findYearsList").then(response => {
         this.lineYear = response.data.allData.nowYear;
-        this.options= response.data.allData.years;  
+        this.options= response.data.allData.years;
         this.lineChartChange();
-            
+
       });
     },
     //(供应商)企业 详情显示 ：1.企业信息 2.仓库库存趋势折线图 3.流通任务雷达图
     getCompanyInfo(row){
-      // 1.企业信息 
+      // 1.企业信息
       this.showCompanyDetail(row.Company_ID);
-      // 2.仓库库存趋势折线图 
+      // 2.仓库库存趋势折线图
       this.showLineChart(row);
       // 3.流通任务雷达图
       this.showCirculationSubtaskRadar(row);
@@ -1279,11 +1279,11 @@ export default {
       let that = this;
       that.axios.post("/api/findTimes").then(response => {
         // this.form2.time1 = response.data.allData[0];//本年第一天
-        
+
         this.form2.time2= response.data.allData[1];  //当天时间
         this.form2.time1="2019-01-01";
         this.getRadarData1();
-        
+
       });
     },
      //雷达图-制造
@@ -1295,7 +1295,7 @@ export default {
         finishTime:this.form2.time2,
       });
       that
-      
+
         .axios({
           method: "post",
           url:
@@ -1307,7 +1307,7 @@ export default {
         this.radarData1.radarData1=response.data.allData.AllRemarkLength;
          this.radarData1.indicatorData1=response.data.allData.indicator;
          console.log("输出为"+this.radarData1.radarData1);
-         that.$refs.refradarChart1.getradarCharts1();   
+         that.$refs.refradarChart1.getradarCharts1();
          this.styleswith();
         });
     },
@@ -1855,7 +1855,9 @@ export default {
     submitUpload() {
       this.$refs.upload.submit();
     },
-    handleRemove(file, fileList) {},
+        handleRemove(file, fileList) {
+      this.technicalFileWanzheng=null;
+    },
     handlePreview(file) {},
     handleAvatarSuccess(response, file, fileList) {
       this.technicalFile[this.shangchuancishu] = response;
