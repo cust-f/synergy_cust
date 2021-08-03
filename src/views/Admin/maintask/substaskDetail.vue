@@ -98,7 +98,7 @@
           </el-form>
           <br />
           <div id="div2" align="right">
-            <el-button type="primary" class="button1" @click="achieveMain" :disabled="isDisable">完成任务</el-button>
+            <el-button type="primary" class="button1" @click="achieveMain" :disabled="cool.taskState=='已完成'">完成任务</el-button>
             <!-- <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button> -->
             <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
             <el-button type="primary" class="button1" @click="xiazaiMAINmoban">打包下载</el-button>
@@ -853,7 +853,6 @@ export default {
           return time.getTime() < Date.now() - 3600 * 1000 * 24;
         },
       },
-      isDisable: false,
       //分解任务详细
       SubStaskname:"",
       //子任务详细
@@ -1649,10 +1648,7 @@ export default {
         var data = Qs.stringify({
           mainStaskID: this.mainTaskID,
         });
-        this.isDisable = true;
-         setTimeout(() => {
-     this.isDisable = false
-    }, 100000000);
+       
         that
           .axios({
             method: "post",

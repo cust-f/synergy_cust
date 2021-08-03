@@ -297,7 +297,7 @@
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="发布时间" prop="publishTime">
-                    <el-date-picker v-model="mainTaskEditInfo.publishTime" type="date" placeholder="选择发布时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss">
+                    <el-date-picker v-model="mainTaskEditInfo.publishTime" type="date" placeholder="选择发布时间" style="width: 100%;" value-format="yyyy-MM-dd">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -329,7 +329,7 @@
                   <el-form-item label="完成时间" prop="finishTime">
                     <el-date-picker v-model="mainTaskEditInfo.finishTime" type="date" placeholder="选择完成时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" v-if="+mainTaskEditInfo.taskState === 1">
                     </el-date-picker>
-                    <el-input v-else value="1970-01-01 08:00:00" :disabled="true"></el-input>
+                    <el-input v-else value="1970-01-01" :disabled="true"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
