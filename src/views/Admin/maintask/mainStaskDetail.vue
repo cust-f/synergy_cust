@@ -2153,11 +2153,11 @@ export default {
         } else {
           this.cool.taskType = 1;
         }
-        if (this.cooList.shifousimi == 0) {
-          this.cooList.shifousimi = 0;
-        } else {
-          this.cooList.shifousimi = 1;
-        }
+        // if (this.cooList.shifousimi == 0) {
+        //   this.cooList.shifousimi = 0;
+        // } else {
+        //   this.cooList.shifousimi = 1;
+        // }
         var that = this;
         var data = Qs.stringify({
           userName: this.usernameX,
