@@ -59,7 +59,7 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <!-- 
+            <!--
             <el-row>
               <el-col :span="22">
                 <el-form-item label="需求详情">
@@ -98,7 +98,7 @@
           </el-form>
           <br />
           <div id="div2" align="right">
-            <el-button type="primary" class="button1" @click="achieveMain" :disabled="cool.taskState=='已完成'">完成任务</el-button>
+            <el-button type="primary" class="button1" @click="achieveMain">完成任务</el-button>
             <!-- <el-button type="primary" class="button1" @click="feichuAll">废除需求任务</el-button> -->
             <el-button type="primary" class="button1" @click="xiugaitanchu">修改</el-button>
             <el-button type="primary" class="button1" @click="xiazaiMAINmoban">打包下载</el-button>
@@ -394,7 +394,7 @@
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
-                  
+
                 </el-row>
 
                 <el-row>
@@ -599,7 +599,7 @@
                 </el-table>
               </el-form>
             </el-dialog>
-            
+
             <!--子任务修改 -->
            <el-dialog :visible.sync="ZRWXG" width="50%">
            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">信息修改</div>
@@ -705,14 +705,14 @@
             <el-row>
               <el-col :span="11">
                 <el-form-item label="产品数量" prop="productNum2">
-                  <el-input v-model="consignmentForm2.productNum2" 
+                  <el-input v-model="consignmentForm2.productNum2"
                    maxlength="9"
                   ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
                 <el-form-item label="产品单价" prop="productPrice2">
-                  <el-input v-model="consignmentForm2.productPrice2" 
+                  <el-input v-model="consignmentForm2.productPrice2"
                   maxlength="9"></el-input>
                 </el-form-item>
               </el-col>
@@ -790,14 +790,14 @@
             </el-row>
             <el-row>
               <el-col :span="11">
-                <el-form-item label="截止时间" prop="consignmentTimeLatest1">                
+                <el-form-item label="截止时间" prop="consignmentTimeLatest1">
                     <el-date-picker
                       type="datetime"
                       v-model="consignmentForm1.consignmentTimeLatest1"
                       style="width: 100%;"
                       value-format="yyyy-MM-dd HH:mm:ss"
                       :picker-options="pickerOptions"
-                  ></el-date-picker>                  
+                  ></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
@@ -925,7 +925,7 @@ export default {
         taskState: "",
         taskCategoryPart: "",
         finishTime: "",
-      }, 
+      },
       publishTime1: "",
       deadline1: "",
       finishTime1: "",
@@ -1049,8 +1049,8 @@ export default {
         productName1:"",
         productModel1:"",
         productNum1:"",
-        productPrice1:"", 
-        productTotal1:"", 
+        productPrice1:"",
+        productTotal1:"",
         productNotes1:"",
         contactNumber1:"",
       },
@@ -1097,8 +1097,8 @@ export default {
         productName2:"",
         productModel2:"",
         productNum2:"",
-        productPrice2:"", 
-        productTotal2:"", 
+        productPrice2:"",
+        productTotal2:"",
         productNotes2:"",
         contactNumber2:"",
       },
@@ -1170,10 +1170,10 @@ export default {
         qianzui = this.WZLJ.substr(0, ks);
         houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
       }
-      
+
       this.WZLJ = qianzui + houzui;
       this.fujian.splice(row.wenjiancixu, 1);
-   
+
     },
     downloadFile(row) {
       var that = this;
@@ -1417,6 +1417,7 @@ export default {
             this.shangchuancishu = "";
           }
         });
+         this.$router.go(0);
     },
     /*
      *转跳对应任务信息页面
@@ -1483,7 +1484,7 @@ export default {
           }
           if (this.cool.finishTime === null) {
             this.cool.finishTime = "尚未完成";
-          } 
+          }
           // else {
           //   this.cool.finishTime =this.cool.finishTime;
           // }
@@ -1611,7 +1612,7 @@ export default {
           })
           .catch((error) => {
             if (error != null) {
-             
+
               this.$refs.upload.clearFiles();
               this.technicalFileWanzheng = "";
               this.technicalFile = "";
@@ -1621,7 +1622,7 @@ export default {
 
         this.ZRWXG = false;
       },
-    
+
     feichuAll() {
       this.$confirm("确定要删除吗？", "提示", {
         type: "warning",
@@ -1648,7 +1649,6 @@ export default {
         var data = Qs.stringify({
           mainStaskID: this.mainTaskID,
         });
-       
         that
           .axios({
             method: "post",
@@ -1830,7 +1830,7 @@ export default {
       document.body.appendChild(link);
       link.click();
     },
-    
+
     //复选框做单选
     handleSelectionChange(val) {
       //控制单选，当选择个数大于1时，清空所有，选择第二个，也就是说当一点击选到第二个时就清空，然后只选第二个
@@ -1932,7 +1932,7 @@ export default {
             productName:this.consignmentForm1.productName1,
             productModel:this.consignmentForm1.productModel1,
             productNumber:this.consignmentForm1.productNum1,
-            productPrice:this.consignmentForm1.productPrice1, 
+            productPrice:this.consignmentForm1.productPrice1,
             totalPrice:"0",//在后台算
             consignmentNotes:this.consignmentForm1.productNotes1,
             contactNumber:this.consignmentForm1.contactNumber1,
@@ -2008,7 +2008,7 @@ export default {
             productName:this.consignmentForm2.productName2,
             productModel:this.consignmentForm2.productModel2,
             productNumber:this.consignmentForm2.productNum2,
-            productPrice:this.consignmentForm2.productPrice2, 
+            productPrice:this.consignmentForm2.productPrice2,
             totalPrice:"0",//在后台算
             consignmentNotes:this.consignmentForm2.productNotes2,
             contactNumber:this.consignmentForm2.contactNumber2,

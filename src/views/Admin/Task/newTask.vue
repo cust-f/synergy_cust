@@ -1,10 +1,10 @@
-<!-- 
+<!--
  * @description: 新增任务
- * @fileName: newTask.vue 
+ * @fileName: newTask.vue
  * @author: zjw
- * @date: 2020-03-12 22:55:28 
- * @path:  
- * @version: V1.0.5 
+ * @date: 2020-03-12 22:55:28
+ * @path:
+ * @version: V1.0.5
 !-->
 <template>
   <div class="newTask">
@@ -22,14 +22,14 @@
                 </el-form-item>
               </el-col>
               <el-tooltip class="item" effect="dark" content="推荐查询" placement="right">
-                <el-button icon="el-icon-search" autofocus="false" 
+                <el-button icon="el-icon-search" autofocus="false"
                   style="position: relative;
                   border: 0px;
                   font-size: 14px;
                   padding: 0px 0px;
                   margin-left: -444px;
                   margin-top: 60px;
-                  margin-top: 13px;" 
+                  margin-top: 13px;"
                   @click="jumpToAnother">
                 </el-button>
               </el-tooltip>
@@ -43,10 +43,10 @@
                 <el-select v-model="addList.taskType" placeholder="请选择任务类别" class="selectsupply" style="width: 100%" @change="leibieChanged" :disabled="taskSaveBtn">
                   <el-option v-for="leibie in Task" :key="leibie.id" :label="leibie.label" :value="leibie.id"></el-option>
                 </el-select>
-      
+
               </el-form-item>
               </el-col>
-              
+
             </el-row>
 
             <el-row>
@@ -74,7 +74,7 @@
                       :label="coo1"
                       :value="coo1"
                     ></el-option>
-                    
+
                   </el-select>
                 </el-form-item>
               </el-col>
@@ -90,7 +90,7 @@
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
-              
+
             </el-row>
             <el-row>
               <el-col :span="11">
@@ -120,7 +120,7 @@
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
-              
+
             </el-row>
             <el-row v-if="islingjianchaxun">
             <el-col :span="11">
@@ -209,7 +209,6 @@
                 action="/api/MainTaskInformation/import"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
-                :before-remove="beforeRemove"
                 :on-success="handleAvatarSuccess"
                 multiple
                 :limit="3"
@@ -325,7 +324,7 @@
                 </template>
               </el-table-column>
             </el-table>
-            <br /> 
+            <br />
                 <div class="companyDialogPagination">
                 <el-pagination
                   background
@@ -335,13 +334,13 @@
                   :total="companyTableData.length"
                   @current-change="companyDialogHandleCurrentChange"
                 ></el-pagination>
-              </div> 
-              <br />          
+              </div>
+              <br />
           </el-dialog>
     <div class="lineChart1">
       <el-dialog  :visible.sync="dialogLineChartVisible" center :before-close="handleDialogClose">
- 
-       
+
+
         <el-row>
           <el-col :span="8">
             <el-row>
@@ -365,7 +364,7 @@
                   <el-col :span="19">
                   <el-form-item label-width="0" class="company-detail-form-item">
                    <span style="font-size: 18px;">{{ this.companyDetailForm.companyName }}</span>
-                  </el-form-item> 
+                  </el-form-item>
                   <el-form-item label-width="0" class="company-detail-form-item">
                     <el-rate v-model="this.companyDetailForm.star" disabled text-color="#ff9900"></el-rate>
                   </el-form-item>
@@ -380,14 +379,14 @@
                   </el-form-item>
                   <el-form-item label="联系电话" class="company-detail-form-item">
                     <span>{{ this.companyDetailForm.officeNumber }}</span>
-                  </el-form-item> 
+                  </el-form-item>
                   <el-form-item label="电子邮箱" class="company-detail-form-item">
                     <span>{{ this.companyDetailForm.email }}</span>
                   </el-form-item>
               </el-col>
             </el-row>
           </el-form>
- 
+
         </el-card>
               </el-col>
             </el-row>
@@ -396,7 +395,7 @@
               <el-col>
                 <!-- 流通任务模块 雷达图 -->
         <el-card>
-            
+
                 <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">工作评价</div>
                <div class="input_span" align="center">
               <el-form ref="form" :modelZL="formZL">
@@ -417,7 +416,7 @@
               </el-col>
             </el-row>
           </el-col>
-          <el-col :span="16">        
+          <el-col :span="16">
 
         <el-card>
         <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">销售/库存趋势图</div>
@@ -460,7 +459,7 @@
         </el-card>
           </el-col>
         </el-row>
-          
+
 
       </el-dialog>
     </div>
@@ -614,6 +613,7 @@ export default {
   },
   data() {
     return {
+      fileList: [],
       Circulationlist:false,
       Componentsable:false,
       cirtaskID:"",
@@ -655,7 +655,7 @@ export default {
         patrsList: [], //零件类别
         leader:"",//总负责人
       },
-      options: [],  
+      options: [],
      form2:{
          time1:"",
          time2:"",
@@ -887,7 +887,7 @@ export default {
         salePredictionCount:[],
         //库存量(预测)
         inventoryPredictionCount:[],
-       
+
       },
             form: {
         circulationCount: 0, //流通完成质量
@@ -901,7 +901,7 @@ export default {
         Telphone: [
           { required: true, message: "请输入联络电话", trigger: "blur" },
           {
-            pattern: /^((0\d{2,3}-\d{7,8})|(1[35847]\d{9}))$/,
+            pattern: /^1\d{10}$/,
             message: "请输入正确格式的联络电话",
             trigger: "blur",
           },
@@ -1005,7 +1005,7 @@ export default {
         consignmentpatrsList: [
           { required: true, message: "请输入零件类别", trigger: "blur" },
         ],
-        
+
       },
     };
   },
@@ -1131,7 +1131,7 @@ export default {
           });
         }
       });
-      
+
     },
     //======新增流通清单弹出
     bianjitanchu() {
@@ -1213,9 +1213,9 @@ export default {
     },
         //(供应商)企业 详情显示 ：1.企业信息 2.仓库库存趋势折线图 3.流通任务雷达图
     getCompanyInfo(row){
-      // 1.企业信息 
+      // 1.企业信息
       this.showCompanyDetail(row.Company_ID);
-      // 2.仓库库存趋势折线图 
+      // 2.仓库库存趋势折线图
       this.showLineChart(row);
       // 3.流通任务雷达图
       this.showCirculationSubtaskRadar(row);
@@ -1251,9 +1251,9 @@ export default {
       let that = this;
       that.axios.post("/api/findYearsList").then(response => {
         this.lineYear = response.data.allData.nowYear;
-        this.options= response.data.allData.years;  
+        this.options= response.data.allData.years;
         this.lineChartChange();
-            
+
       });
     },
     //时间变换查询折线图
@@ -1350,7 +1350,7 @@ export default {
         this.form2.time1="2019-01-01";
         this.form2.time2= response.data.allData[1];  //当天时间
         this.getRadarData1();
-        
+
       });
     },
      //雷达图-制造
@@ -1362,7 +1362,7 @@ export default {
         finishTime:this.form2.time2,
       });
       that
-      
+
         .axios({
           method: "post",
           url:
@@ -1374,7 +1374,7 @@ export default {
         this.radarData1.radarData1=response.data.allData.AllRemarkLength;
          this.radarData1.indicatorData1=response.data.allData.indicator;
          console.log("输出为"+this.radarData1.radarData1);
-         that.$refs.refradarChart1.getradarCharts1();   
+         that.$refs.refradarChart1.getradarCharts1();
          this.styleswith();
         });
     },
@@ -1581,6 +1581,7 @@ export default {
       });
     },
     cirSubmission(){
+        console.log("2个文件输出什么"+this.technicalFileWanzheng)
        if (this.technicalFile == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning",
@@ -1647,7 +1648,7 @@ export default {
             }
           });
       }
-      
+
     },
     //用taskId查到maintaskID
     FindmaintaskID(cirtaskID){
@@ -1667,6 +1668,7 @@ export default {
         });
     },
   tijiao() {
+      console.log("设计的2个文件输出什么"+this.technicalFileWanzheng)
       if (this.technicalFile == "null") {
         this.$confirm("你还有重要信息未填写，填写后再提交", "提示", {
           type: "warning",
@@ -1720,7 +1722,7 @@ export default {
       this.$refs.upload.submit();
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      this.technicalFileWanzheng=null;
     },
     handlePreview(file) {
       console.log(file);
@@ -1820,7 +1822,7 @@ export default {
     addDesignerButton() {
       this.addDesigner = true;
     },
-   
+
     // 编辑操作
     handleEdit(index, row) {
       this.idx = index;
