@@ -1374,7 +1374,7 @@
             <el-col :span="11">
               <el-form-item label="发布时间">
                 <el-date-picker
-                  type="datetime"
+                  type="date"
                   placeholder="选择日期"
                   v-model="publishTime1"
                   value-format="yyyy-MM-dd HH:mm:ss"
@@ -1386,7 +1386,7 @@
             <el-col :span="11">
               <el-form-item label="截止时间">
                 <el-date-picker
-                  type="datetime"
+                  type="date"
                   placeholder="选择日期"
                   v-model="deadline1"
                   value-format="yyyy-MM-dd HH:mm:ss"
@@ -2125,6 +2125,7 @@ export default {
         });
     },
     XGZRW() {
+      console.log("是否发布aaa"+this.cooList.shifousimi)
       //设置文件路径
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng =
@@ -2152,7 +2153,7 @@ export default {
         } else {
           this.cool.taskType = 1;
         }
-        if (this.cooList.shifousimi == "是") {
+        if (this.cooList.shifousimi == 0) {
           this.cooList.shifousimi = 0;
         } else {
           this.cooList.shifousimi = 1;
