@@ -297,7 +297,7 @@
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="发布时间" prop="publishTime">
-                    <el-date-picker v-model="mainTaskEditInfo.publishTime" type="date" placeholder="选择发布时间" style="width: 100%;" value-format="yyyy-MM-dd">
+                    <el-date-picker v-model="mainTaskEditInfo.publishTime" type="date" placeholder="选择发布时间" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
