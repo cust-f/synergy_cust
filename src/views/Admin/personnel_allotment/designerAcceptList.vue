@@ -39,7 +39,7 @@
           prop="supplierCheckDesignState"
           label="审核状态"
           sortable
-          min-width="50px"
+          min-width="80px"
           align="center"
           :show-overflow-tooltip="true"
         >
@@ -116,8 +116,14 @@
             @click="submit(scope.row)"
             type="text"
             size="small"
-            v-if="scope.row.supplierCheckDesignState===0  ||scope.row.supplierCheckDesignState===3"
+            v-if="scope.row.supplierCheckDesignState===0  ||scope.row.supplierCheckDesignState===3 "
           >任务提交</el-button>
+          <!-- <el-button
+            @click="submit(scope.row)"
+            type="text"
+            size="small"
+            v-if="scope.row.supplierCheckDesignState===0  "
+          >任务提交</el-button> -->
           <el-button
             @click="CCSJ(scope.row)"
             type="text"
@@ -242,14 +248,14 @@
         </el-form-item>
       </el-form>-->
 
-      
+
           <el-form ref="form2"   :label-position="right" :model="form2" :rules="form2Rules" hide-required-asterisk>
             <el-form-item label="请输入仓库地址：" prop="gitAdress">
     <el-input v-model="form2.gitAdress"  required='required'></el-input>
   </el-form-item>
-           
+
           </el-form>
-        
+
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="gitVisible = false">取 消</el-button>
@@ -408,7 +414,7 @@ export default {
           });
         }
       });
-      
+
     },
     handleDetail(row) {
       //console.log(row.taskId);
@@ -468,7 +474,7 @@ export default {
       link.click();
     },
     //跳转虚拟机
-    CCSJ(row) {                                                                                                                
+    CCSJ(row) {
       console.log(row.gitadress);
       window.open(row.gitadress,'_blank')
 
@@ -595,7 +601,7 @@ export default {
 
   .el-dialog__body {
     padding-top: 30px;
-  
+
     padding-bottom: 5px;
     padding-left: 20px;
     /* color: #606266; */
