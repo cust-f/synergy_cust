@@ -1153,6 +1153,7 @@ export default {
               if (this.zzzz != "null") {
                 this.$message.success("修改需求信息成功");
                 this.mainTaskEditVisible = false;
+                 this.$router.go(0);
                 this.$refs.upload.clearFiles();
                 this.technicalFileWanzheng = "";
                 this.technicalFile = "";
@@ -1161,7 +1162,6 @@ export default {
 
                   //  this.getMainTaskData();
 
-            this.$router.go(0);
               }
             })
         } else {
