@@ -1199,7 +1199,7 @@ export default {
           link.click();
         });
     },
-    // 主需求基本信息 - 附件删除（待修改 不可用）
+    // 主需求基本信息 - 附件删除（可用了）
     deleteFile(row) {
       let ks = this.WZLJ.indexOf(row.realPath);
       console.log(row)

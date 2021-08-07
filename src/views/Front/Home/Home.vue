@@ -354,13 +354,21 @@
                       >租赁服务</el-tag>
                     </el-row>
 
-                    <el-button
+                    <!-- <el-button
                       class="xqelbuttonleft0"
                       @click="addNewTask1()"
                       style="margin-top:30px ; margin-left:0px ;"
                       round
                       type="primary"
                       v-if="roleID!=4"
+                    >服务查询</el-button> -->
+                      <el-button
+                      class="xqelbuttonleft0"
+                      @click="addNewTask1()"
+                      style="margin-top:30px ; margin-left:0px ;"
+                      round
+                      type="primary"
+                      v-if="roleID!=null"
                     >服务查询</el-button>
                   </el-tab-pane>
                 </el-tabs>

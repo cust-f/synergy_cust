@@ -103,7 +103,7 @@
                 </el-tabs>
 
                 <!--资源推荐列表-->
-                <el-tabs v-model="activeTab2" type="border-card">
+                <el-tabs v-model="activeTab2" type="border-card" @tab-click="handleClicktwo">
 
                 <el-tab-pane
                     label="资源推荐"
@@ -138,7 +138,7 @@
                           </span>
                         </el-col>
                       </el-row>
-                      
+
                       <el-row class="tab-row">
                         <el-col :span="5" align="right">作者：</el-col>
                         <el-col :span="7">
@@ -235,7 +235,7 @@
                           </span>
                         </el-col>
                       </el-row>
-                      
+
                       <el-row class="tab-row">
                         <el-col :span="5" align="right">完成单位：</el-col>
                         <el-col :span="19">
@@ -253,7 +253,7 @@
                           <span>{{ item.charge_type }}</span>
                         </el-col>
                       </el-row>
-                        
+
                       <el-row class="tab-row">
                         <el-col :span="5" align="right">资源评分：</el-col>
                         <el-col :span="7">
@@ -328,7 +328,7 @@
                           </span>
                         </el-col>
                       </el-row>
-                      
+
                       <el-row class="tab-row">
                         <el-col :span="5" align="right">设计人：</el-col>
                         <el-col :span="19">
@@ -346,7 +346,7 @@
                           <span>{{ item.charge_type }}</span>
                         </el-col>
                       </el-row>
-                        
+
                       <el-row class="tab-row">
                         <el-col :span="5" align="right">资源评分：</el-col>
                         <el-col :span="7">
@@ -420,7 +420,7 @@
                           </span>
                         </el-col>
                       </el-row>
-                      
+
                       <el-row class="tab-row">
                         <el-col :span="5" align="right">发布单位：</el-col>
                         <el-col :span="19">
@@ -449,7 +449,7 @@
                           <span>{{ item.charge_type }}</span>
                         </el-col>
                       </el-row>
-                        
+
                       </el-row>
                       <el-row class="tab-row">
                         <el-col :span="5" align="right">资源评价数：</el-col>
@@ -509,7 +509,7 @@
                           </span>
                         </el-col>
                       </el-row>
-                      
+
                       <el-row class="tab-row">
                         <el-col :span="5" align="right">颁发部门：</el-col>
                         <el-col :span="19">
@@ -576,7 +576,83 @@
                   </el-tab-pane>
                 </el-tabs>
                 </el-tab-pane>
+                <!-- 一站式服务推荐功能 -->
+                <el-tab-pane
+                    class="cur"
+                    style="min-height:350px"
+                    label="一站式服务推荐"
+                    name="first"
+                    v-loading="loading2"
+                  >
+                    <br />
+                    <div v-for="(item, index) in yizhanCurrentList" :key="index" @click="yizhanCurrentListDetail(item)">
+                        <el-row class="tab-row">
+                        <el-col :span="5" align="right">服务商名称：</el-col>
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="item.name" placement="bottom" v-if="item.name.length>=25">
+                            <span style="font-weight: bold" >
+                              {{ changeString(item.name).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span style="font-weight: bold" v-else>
+                            {{ changeString(item.name) }}
+                          </span>
+                        </el-col>
+                      </el-row>
+
+                       <el-row class="tab-row">
+                        <el-col :span="5" align="right">服务名称：</el-col>
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="item.company_name" placement="bottom" v-if="item.company_name.length>=25">
+                            <span style="font-weight: bold" >
+                              {{ changeString(item.company_name).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span style="font-weight: bold" v-else>
+                            {{ changeString(item.company_name) }}
+                          </span>
+                        </el-col>
+                      </el-row>
+                        <el-row class="tab-row">
+                        <el-col :span="5" align="right">服务价格：</el-col>
+                        <el-col :span="19">
+                          <el-tooltip class="item" effect="light" :content="item.price" placement="bottom" v-if="item.price.length>=25">
+                            <span style="font-weight: bold" >
+                              {{ "¥"+changeString(item.price).substring(0,25)+"..." }}
+                            </span>
+                          </el-tooltip>
+                          <span style="font-weight: bold" v-else>
+                            {{ "¥"+changeString(item.price) }}
+                          </span>
+                        </el-col>
+                      </el-row>
+                    <el-row>
+                        <el-col :span="17">
+                        <img style="width: 25px; height: 25px; float: left;margin-right:5px" src="../../assets/img/zheda.png" />
+                          版权所有：浙江大学、国家重点研发计划项目支持
+                        </el-col>
+                          <!-- <el-col :span="4" align="right">资料来源：</el-col>
+                        <el-col :span="3" align="left">
+                          <p>{{ "万方" }}<img style="width: 17px; height: 17px;" src="../../assets/img/wanfang.png"/></p>
+                        </el-col> -->
+                        <br /><br />
+                        <el-divider></el-divider>
+                      </el-row>
+                       </div>
+                      <div>
+                      <el-pagination
+                        :hide-on-single-page="true"
+                        layout="prev, pager, next, jumper"
+                        @current-change="yizhanCurrentChange"
+                        :current-page="yizhanCurrentPage"
+                        :page-size="yizhanPageSize"
+                        :total="yizhanTotal"
+                      ></el-pagination>
+                    </div>
+                  </el-tab-pane>
+
                  </el-tabs>
+
                 <!--资源推荐弹框-->
                 <el-dialog title="期刊详情" :visible.sync="qikanVisible" width="960px" >
                    <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;font-size:18px;">资源详情</div> -->
@@ -639,8 +715,8 @@
 
                       <el-row style="margin-bottom:15px;font-size:16px;line-height:21px;">
                         <el-col :span="3" align="right">摘要：</el-col>
-                        <el-col :span="21">
-                          <span>{{ changeString(qikanForm._source.abstract) }}</span>
+                        <el-col :span="21"  >
+                          <span >{{ changeString(qikanForm._source.abstract) }}</span>
                         </el-col>
                       </el-row>
                       <el-divider></el-divider>
@@ -652,7 +728,11 @@
                         </p>
                         </el-col>
                         <el-col :span="12">
+
                           <el-link :href="'http://s.wanfangdata.com.cn/periodical?q='+qikanForm.title" target="_blank" class="elLink">查看详情</el-link>
+                          <el-link class="handleComment" @click="handleCommentqikan(qikanForm)">
+                          评价
+                        </el-link>
                         </el-col>
                         <br />
                       </el-row>
@@ -734,6 +814,7 @@
                         </el-col>
                         <el-col :span="12">
                           <el-link :href="chengguoForm.url" target="_blank" class="elLink">查看详情</el-link>
+                          <el-link class="handleComment" @click="handleCommentchengguo(chengguoForm)">评价</el-link>
                         </el-col>
                         <br />
                       </el-row>
@@ -816,12 +897,13 @@
                         </el-col>
                         <el-col :span="12">
                           <el-link :href="zhuanliForm.url" target="_blank" class="elLink">查看详情</el-link>
+                          <el-link class="handleComment" @click="handleCommentzhuanli(zhuanliForm)">评价</el-link>
                         </el-col>
                         <br />
                       </el-row>
                    </template>
                 </el-dialog>
-                
+
                 <el-dialog title="标准详情" :visible.sync="biaozhunVisible" width="960px" >
                    <!-- <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;font-size:18px;">资源详情</div> -->
                    <template v-if="Object.keys(biaozhunForm).length !== 0">
@@ -897,6 +979,7 @@
                         </el-col>
                         <el-col :span="12">
                           <el-link :href="biaozhunForm.url" target="_blank" class="elLink">查看详情</el-link>
+                          <el-link class="handleComment" @click="handleCommentbiaozhun(biaozhunForm)">评价</el-link>
                         </el-col>
                         <br />
                       </el-row>
@@ -978,6 +1061,8 @@
                         </el-col>
                         <el-col :span="12">
                           <el-link :href="faguiForm.url" target="_blank" class="elLink">查看详情</el-link>
+                          <el-link class="handleComment" @click="handleCommentfagui(faguiForm)">评价</el-link>
+                        </el-col>
                         </el-col>
                         <br />
                       </el-row>
@@ -1005,6 +1090,16 @@ export default {
     return {
       //加载动画
       loading: true,
+      //一站式服务推荐数据
+      loading2:true,
+      yizhanCurrentPage: 1,
+      yizhanPageSize: 3,
+      yizhanTotal: 0,
+      yizhanList: [], //一站式服务推荐
+      yizhanCurrentList: [], //一站式服务当前数据
+      yizhanForm:{},//一站式服务弹框表单数据
+      yizhanVisible:false,
+      yizhanDisabled:false,
       //期刊分页数据
       qikanCurrentPage: 1,
       qikanPageSize: 2,
@@ -1060,6 +1155,9 @@ export default {
       VisualMachineList: "",
       taskId: this.$route.query.taskId,
       screenHeight: document.documentElement.clientHeight,
+      userId: sessionStorage.getItem("userId"),// 哈长用户id
+      userData: {},
+      usernameX: this.$store.state.user,
     };
   },
   components: {
@@ -1077,7 +1175,8 @@ export default {
     this.clearRecommandList();
     this.getVirtualTab();
     this.getTaskDetail(this.taskId);
-
+    //获得用户信息
+    this.getAlluser();
   },
   mounted() {
     this.changeMobsfIframe();
@@ -1097,6 +1196,140 @@ export default {
     this.dragControllerDiv(move);
   },
   methods: {
+
+    getAlluser(){
+       var that = this;
+      var data = Qs.stringify({
+        userId: this.userId,
+      });
+      that
+        .axios({
+          method: "post",
+          url: "/api/user/findUserData",
+          data: data,
+        })
+        .then((response) => {
+          this.userData = response.data.allData;
+        });
+    },
+    //一站式服务跳转按钮
+    yizhanCurrentListDetail(item){
+      const id = item.id // 服务id
+      const keyword = this.taskDetail.taskName// 当前系统任务/需求名称
+      const user_id = this.userId // 当前系统用户id
+      const user_name = this.usernameX // 当前系统用户名称
+      const company_id = this.userData.companyId+''  // 当前系统企业id
+      const company_name =  this.userData.companyName // 当前系统企业名称
+      const url = 'http://101.132.153.135/hachang/#/serviceDetailPage?id=' + id + '&keyword=' + keyword + '&user_id=' + user_id + '&user_name=' + user_name + '&company_id=' + company_id + '&company_name=' + company_name
+      window.open(url, '_blank')
+
+    },
+    //期刊评价按钮
+    handleCommentqikan(qikanForm){
+        console.log("好使了")
+        const title = this.qikanForm.title// 资源标题
+        console.log(" 资源标题title:"+title);
+        const id = this.qikanForm._id +''// 资源id
+        console.log("资源id:"+id);
+        const type = this.qikanForm.type+'' // 资源类型
+        console.log("资源类型:"+type);
+        const user_id = this.userId// 哈长用户id // 用户id
+        console.log("用户id:"+user_id);
+        const user_name = this.usernameX // 哈长用户名// 用户名称
+        console.log("用户名称:"+user_name);
+        const company_id = this.userData.companyId+'' // 哈长用户所在企业id // 企业id
+        console.log("企业id:"+company_id );
+        const company_name = this.userData.companyName // 哈长用户所在企业 // 企业名称
+        console.log("企业名称"+company_name);
+        const url = 'http://101.132.153.135/hachang/#/resourceCommentPage?title=' + title + '&id=' + id + '&type=' + type + '&user_id=' + user_id + '&user_name=' + user_name + '&company_id=' + company_id + '&company_name=' + company_name
+        console.log(url);
+        window.open(url, '_blank')
+
+    },
+    //成功评价按钮
+    handleCommentchengguo(chengguoForm){
+       console.log("好使了")
+        const title = this.chengguoForm.title// 资源标题
+        console.log(" 资源标题title:"+title);
+        const id = this.chengguoForm._id +''// 资源id
+        console.log("资源id:"+id);
+        const type = this.qikanForm.type+'' // 资源类型
+        console.log("资源类型:"+type);
+        const user_id = this.userId// 哈长用户id // 用户id
+        console.log("用户id:"+user_id);
+        const user_name = this.usernameX // 哈长用户名// 用户名称
+        console.log("用户名称:"+user_name);
+        const company_id = this.userData.companyId+'' // 哈长用户所在企业id // 企业id
+        console.log("企业id:"+company_id );
+        const company_name = this.userData.companyName // 哈长用户所在企业 // 企业名称
+        console.log("企业名称"+company_name);
+        const url = 'http://101.132.153.135/hachang/#/resourceCommentPage?title=' + title + '&id=' + id + '&type=' + type + '&user_id=' + user_id + '&user_name=' + user_name + '&company_id=' + company_id + '&company_name=' + company_name
+        console.log(url);
+        window.open(url, '_blank')
+    },
+    //专利评价按钮
+    handleCommentzhuanli(zhuanliForm){
+        console.log("好使了")
+        const title = this.zhuanliForm.title// 资源标题
+        console.log(" 资源标题title:"+title);
+        const id = this.zhuanliForm._id +''// 资源id
+        console.log("资源id:"+id);
+        const type = this.zhuanliForm.type+'' // 资源类型
+        console.log("资源类型:"+type);
+        const user_id = this.userId// 哈长用户id // 用户id
+        console.log("用户id:"+user_id);
+        const user_name = this.usernameX // 哈长用户名// 用户名称
+        console.log("用户名称:"+user_name);
+        const company_id = this.userData.companyId+'' // 哈长用户所在企业id // 企业id
+        console.log("企业id:"+company_id );
+        const company_name = this.userData.companyName // 哈长用户所在企业 // 企业名称
+        console.log("企业名称"+company_name);
+        const url = 'http://101.132.153.135/hachang/#/resourceCommentPage?title=' + title + '&id=' + id + '&type=' + type + '&user_id=' + user_id + '&user_name=' + user_name + '&company_id=' + company_id + '&company_name=' + company_name
+        console.log(url);
+        window.open(url, '_blank')
+    },
+    //标准评价按钮
+    handleCommentbiaozhun(biaozhunForm){
+        console.log("好使了")
+        const title = this.biaozhunForm.title// 资源标题
+        console.log(" 资源标题title:"+title);
+        const id = this.biaozhunForm._id +''// 资源id
+        console.log("资源id:"+id);
+        const type = this.biaozhunForm.type+'' // 资源类型
+        console.log("资源类型:"+type);
+        const user_id = this.userId// 哈长用户id // 用户id
+        console.log("用户id:"+user_id);
+        const user_name = this.usernameX // 哈长用户名// 用户名称
+        console.log("用户名称:"+user_name);
+        const company_id = this.userData.companyId+'' // 哈长用户所在企业id // 企业id
+        console.log("企业id:"+company_id );
+        const company_name = this.userData.companyName // 哈长用户所在企业 // 企业名称
+        console.log("企业名称"+company_name);
+        const url = 'http://101.132.153.135/hachang/#/resourceCommentPage?title=' + title + '&id=' + id + '&type=' + type + '&user_id=' + user_id + '&user_name=' + user_name + '&company_id=' + company_id + '&company_name=' + company_name
+        console.log(url);
+        window.open(url, '_blank')
+    },
+    //法规评价按钮
+    handleCommentfagui(faguiForm){
+      console.log("好使了")
+        const title = this.faguiForm.title// 资源标题
+        console.log(" 资源标题title:"+title);
+        const id = this.faguiForm._id +''// 资源id
+        console.log("资源id:"+id);
+        const type = this.faguiForm.type+'' // 资源类型
+        console.log("资源类型:"+type);
+        const user_id = this.userId// 哈长用户id // 用户id
+        console.log("用户id:"+user_id);
+        const user_name = this.usernameX // 哈长用户名// 用户名称
+        console.log("用户名称:"+user_name);
+        const company_id = this.userData.companyId+'' // 哈长用户所在企业id // 企业id
+        console.log("企业id:"+company_id );
+        const company_name = this.userData.companyName // 哈长用户所在企业 // 企业名称
+        console.log("企业名称"+company_name);
+        const url = 'http://101.132.153.135/hachang/#/resourceCommentPage?title=' + title + '&id=' + id + '&type=' + type + '&user_id=' + user_id + '&user_name=' + user_name + '&company_id=' + company_id + '&company_name=' + company_name
+        console.log(url);
+        window.open(url, '_blank')
+    },
     //清空数组
     clearRecommandList(){
       this.zhuanliList=[];
@@ -1236,7 +1469,7 @@ export default {
         if (mf != null) {
           mf.remove();
           move = false;
-        } 
+        }
       };
     },
     returnAcceptMession() {
@@ -1245,6 +1478,10 @@ export default {
     //推荐资源tab页切换
     handleClick(tab, event) {
       this.showQikan(tab.name);
+    },
+    //一站式服务推荐
+    handleClicktwo(tab, event){
+      this.showYiZhanshi();
     },
     //字符串转换
     changeString(data) {
@@ -1257,6 +1494,32 @@ export default {
       else{
         return data.replaceAll("%",",");
       }
+    },
+    //查看一站式服务推荐功能
+     showYiZhanshi() {
+       console.log("走了吗")
+        var that = this;
+        var data = {
+          keyword: this.taskDetail.taskName,
+        };
+        that
+          .axios({
+            method: "get",
+            url: "http://101.132.153.135:8448/resource/resource/listForService",
+            params: data,
+          })
+          .then((response) => {
+             console.log(response);
+              this.yizhanList = response.data.data;
+              this.yizhanTotal= Object.keys(response.data.data).length;
+              this.yizhanCurrentList = this.yizhanList.slice((this.yizhanCurrentPage - 1) * this.yizhanPageSize,this.yizhanPageSize);
+              console.log(this.yizhanCurrentList);
+              loading2=false;
+           })
+          .catch((error) => {
+            console.log(error);
+          });
+
     },
     //查看推荐资源
     showQikan(searchIndex) {
@@ -1364,6 +1627,11 @@ export default {
           });
       }
     },
+    //一站式分页
+    yizhanCurrentChange(cpage) {
+      this.yizhanCurrentPage = cpage;
+      this.yizhanCurrentList = this.yizhanList.slice((cpage - 1) * this.yizhanPageSize, this.yizhanPageSize * this.yizhanCurrentPage);
+    },
     //期刊分页
     qikanCurrentChange(cpage) {
       this.qikanCurrentPage = cpage;
@@ -1455,6 +1723,13 @@ export default {
   line-height: 30px;
   float: right;
   color: #7d7974;
+}
+.visual .handleComment{
+   font-size: 16px;
+  line-height: 30px;
+  float: right;
+  color: #7d7974;
+  margin-right: 30px;
 }
 .visual .tab-row{
   margin-bottom: 5px;
