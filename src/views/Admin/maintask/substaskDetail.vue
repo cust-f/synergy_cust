@@ -516,7 +516,7 @@
                                 icon="el-icon-delete"
                                 class="red"
                                 @click="shanchuwenjian(scope.row)"
-                              >删除文件</el-button>
+                              >删除文件222</el-button>
                             </template>
                           </el-table-column>
                         </el-table>
@@ -1330,7 +1330,7 @@ export default {
         this.shuju.push(this.addList);
         this.technicalFileWanzheng = "";
         this.addList = {};
-        this.getData();
+        // this.getData();
         // location.reload()
       }
     },
@@ -1358,13 +1358,15 @@ export default {
     },
     xiugaixuqiuxinxi() {
       var mainTaskState;
+      console.log("默认是多少"+this.technicalFileWanzheng)
       if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng =
           this.WZLJ + "linklink" + this.technicalFileWanzheng;
-        //console.log("nihao" + this.technicalFileWanzheng);
+        console.log("nihao" + this.technicalFileWanzheng);
       }
       if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
         this.technicalFileWanzheng = this.WZLJ;
+          console.log("this.technicalFileWanzheng：" + this.technicalFileWanzheng);
       }
       if(this.cool.taskState === "进行中"){
         mainTaskState = 0
@@ -1373,6 +1375,7 @@ export default {
       }
       this.mainStaskTypeID = this.selectCateKeys[0];
       this.subStaskTypeID = this.selectCateKeys[1];
+      console.log("输出什么"+this.technicalFileWanzheng)
       var that = this;
       var data = Qs.stringify({
         mainTaskID: this.mainTaskID,
@@ -1417,7 +1420,7 @@ export default {
             this.shangchuancishu = "";
           }
         });
-         this.$router.go(0);
+        //  this.$router.go(0);
     },
     /*
      *转跳对应任务信息页面

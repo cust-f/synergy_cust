@@ -286,7 +286,7 @@
 
           <!-- 修改主需求 弹出框 -->
           <el-dialog title :visible.sync="mainTaskEditVisible" width="50%">
-            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">修改需求信息</div>
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;">修改需求信息xx</div>
             <br />
             <el-form ref="mainTaskEditInfo" :model="mainTaskEditInfo" :rules="mainTaskEditRules" label-width="110px" class="box">
               <el-row>
@@ -783,8 +783,12 @@ export default {
           realPath: "",
         },
       ],
+
       //主任务需求书数据
-      technicalFile: [],
+      technicalFile: [{
+          realName: "",
+          realPath: "",
+        },],
       technicalFileWanzheng: "",
       shangchuancishu: 0,
       WJSM:"",
@@ -1012,8 +1016,10 @@ export default {
         .then((response) => {
           this.mainTaskInfo = response.data.allData.a[0];
           this.technicalFile = response.data.allData.c;
+          // this.technicalFileWanzheng=this.technicalFile;
           this.mainTaskInfo.consignmentInfo = response.data.allData.d[0];
           this.WJSM = response.data.allData.SM;
+          this.WZLJ=response.data.allData.WZLJ;
           // 获得子任务信息
           this.getSubtaskData();
           // 获得流通清单零件一级ID 二级ID
@@ -1024,7 +1030,9 @@ export default {
           this.consignmentPriceDisabled = response.data.allData.consignmentPriceDisabled;
         });
     },
-     handleRemove(file, fileList) {},
+        handleRemove(file, fileList) {
+      this.technicalFileWanzheng=null;
+    },
     // 获取子任务基本信息
     getSubtaskData() {
       var that = this;
@@ -1096,13 +1104,28 @@ export default {
       this.mainTaskEditInfo.publishTime = new Date(this.mainTaskEditInfo.publishTime);
       this.mainTaskEditInfo.deadline = new Date(this.mainTaskEditInfo.deadline);
       this.mainTaskEditInfo.finishTime = new Date(this.mainTaskEditInfo.finishTime);
+      console.log("弹出时候能不能有文件"+this.technicalFileWanzheng)
 
       this.mainTaskEditVisible = true;
     },
     // 主需求基本信息 弹框 - 修改保存
     saveMainTaskChange() {
       this.$refs["mainTaskEditInfo"].validate((valid) => {
+
         if (valid) {
+
+           console.log("输出什么1"+this.technicalFileWanzheng)
+            console.log("输出什么2"+this.technicalFile)
+      if (this.technicalFileWanzheng != 0 && this.WZLJ != 0) {
+        this.technicalFileWanzheng =
+          this.WZLJ + "linklink" + this.technicalFileWanzheng;
+        console.log("nihao" + this.technicalFileWanzheng);
+      }
+      if (this.technicalFileWanzheng == 0 && this.WZLJ != 0) {
+        this.technicalFileWanzheng = this.WZLJ;
+          console.log("this.technicalFileWanzheng：" + this.technicalFileWanzheng);
+      }
+            console.log("输出什么3"+this.technicalFileWanzheng)
           var that = this;
           var data = Qs.stringify({
             mainTaskID: this.mainTaskID,
@@ -1126,19 +1149,26 @@ export default {
             })
             .then((response) => {
               this.mainStaskID = response.data.allData;
-              if (this.mainStaskID != "null") {
+              this.zzzz = response.data.allData;
+              if (this.zzzz != "null") {
                 this.$message.success("修改需求信息成功");
-                this.technicalFileWanzheng = "";
                 this.mainTaskEditVisible = false;
-                 this.fileList=[];
-                this.getMainTaskData();
+                this.$refs.upload.clearFiles();
+                this.technicalFileWanzheng = "";
+                this.technicalFile = "";
+                //  this.fileList=[];
+                 this.shangchuancishu = "";
 
+                  //  this.getMainTaskData();
+
+            this.$router.go(0);
               }
             })
         } else {
           this.$message.warning("你还有重要信息未填写，请填写后再提交");
         }
       });
+      // this.$router.go(0);
     },
     // 主需求基本信息 - 附件下载（单独 点击文件名）
     downloadFile(row) {
@@ -1181,10 +1211,11 @@ export default {
         qianzui = this.WZLJ.substr(0, ks);
         houzui = this.WZLJ.substr(ks + row.realPath.length + 8);
       }
-      this.$message.success("确认即可删除");
+      // this.$message.success("确认即可删除");
       this.WZLJ = qianzui + houzui;
 
-      this.fujian.splice(row.wenjiancixu, 1);
+      this.technicalFile.splice(row.wenjiancixu, 1);
+      // this.technicalFile=null;
     },
     // 主需求基本信息 弹框 - 上传文件成功后的返回值（待修改 不可用）
     handleAvatarSuccess(response, file, fileList) {
