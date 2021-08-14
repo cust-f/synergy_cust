@@ -585,7 +585,7 @@
                     v-loading="loading2"
                   >
                     <br />
-                    <div v-for="(item, index) in yizhanCurrentList" :key="index" @click="yizhanCurrentListDetail(item)">
+                    <div v-for="(item, index) in yizhanCurrentList" :key="index" @click="yizhanCurrentListDetail(item)" :aria-disabled="isyizhan">
                         <el-row class="tab-row">
                         <el-col :span="5" align="right">服务商名称：</el-col>
                         <el-col :span="19">
@@ -1092,6 +1092,7 @@ export default {
       loading: true,
       //一站式服务推荐数据
       loading2:true,
+      isyizhan:false,//是否可以点击一站式
       yizhanCurrentPage: 1,
       yizhanPageSize: 3,
       yizhanTotal: 0,
@@ -1214,6 +1215,7 @@ export default {
     },
     //一站式服务跳转按钮
     yizhanCurrentListDetail(item){
+      if(this.isyizhan!=true){
       const id = item.id // 服务id
       const keyword = this.taskDetail.taskName// 当前系统任务/需求名称
       const user_id = this.userId // 当前系统用户id
@@ -1222,7 +1224,7 @@ export default {
       const company_name =  this.userData.companyName // 当前系统企业名称
       const url = 'http://101.132.153.135/hachang/#/serviceDetailPage?id=' + id + '&keyword=' + keyword + '&user_id=' + user_id + '&user_name=' + user_name + '&company_id=' + company_id + '&company_name=' + company_name
       window.open(url, '_blank')
-
+      }
     },
     //期刊评价按钮
     handleCommentqikan(qikanForm){
@@ -1511,10 +1513,31 @@ export default {
           .then((response) => {
              console.log(response);
               this.yizhanList = response.data.data;
+              if(this.yizhanList.length==0||this.yizhanList == null){
+                      this.isyizhan=true;
+                      this.yizhanList=[
+                        {
+                         name: '暂无数据',
+                         company_name: '暂无数据',
+                         price: '暂无数据',
+                         },
+                          {
+                         name: '暂无数据',
+                         company_name: '暂无数据',
+                         price: '暂无数据',
+                         },
+                          {
+                         name: '暂无数据',
+                         company_name: '暂无数据',
+                         price: '暂无数据',
+                         },
+                      ];
+              }
               this.yizhanTotal= Object.keys(response.data.data).length;
               this.yizhanCurrentList = this.yizhanList.slice((this.yizhanCurrentPage - 1) * this.yizhanPageSize,this.yizhanPageSize);
-              console.log(this.yizhanCurrentList);
-              loading2=false;
+              console.log(this.yizhanList);
+              this.loading2=false;
+
            })
           .catch((error) => {
             console.log(error);
