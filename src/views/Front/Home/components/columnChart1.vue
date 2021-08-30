@@ -44,7 +44,8 @@ export default {
         },
         yAxis: {
           type: "category",
-          data: this.cloumnData1.topCompanyName1
+          data: this.cloumnData1.topCompanyName1,
+          inverse:true
         //   [
         //     "上海小糸车灯有限公司 ",
         //     "上海胜德塑料厂 ",
