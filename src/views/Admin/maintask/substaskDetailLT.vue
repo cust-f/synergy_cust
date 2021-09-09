@@ -203,8 +203,9 @@
               </el-col>
               <el-col :span="11">
                 <div id="div2" align="right">
-                  <el-button v-show="quotaButtonVisible == true" type="primary" size="medium" style="margin-top: -20px"  @click="setQuota()">智能分配</el-button>
+                  <el-button v-show="quotaButtonVisible == true || quotaEditButtonVisible == true" type="primary" size="medium" style="margin-top: -20px"  @click="setQuota()">智能分配</el-button>
                   <el-button v-show="quotaEditButtonVisible == true" type="primary" size="medium" style="margin-top: -20px" @click="showQuotaChange()" >修改配额</el-button>
+                  <el-button v-show="quotaButtonVisible == true || quotaEditButtonVisible == true" type="text" size="medium" style="margin-top: -20px"  @click="showQuotaScheme()">配额策略</el-button>
                 </div>
               </el-col>
             </el-row>
@@ -525,6 +526,62 @@
             </span>
           </el-dialog>
 
+          <!-- 配额策略修改弹框 -->
+          <el-dialog title :visible.sync="quotaSchemeEditVisible" width="30%" class="quotaSchemeEditDialog" :before-close="cancelQuotaSchemeChange">
+            <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
+              配额策略
+            </div>
+            <br />
+            <el-row>
+              <el-col :span="5">
+                <span class="demonstration">任务响应时效</span>
+              </el-col>
+              <el-col :span="17">
+                <el-slider v-model="quotaSchemeOldInfo.value1" :step="1" :min="1" :max="5" show-stops :show-tooltip="false"></el-slider>
+              </el-col>
+              <el-col :offset="1" :span="1">
+                <span class="demonstration">{{ quotaSchemeOldInfo.value1 }}</span>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="5">
+                <span class="demonstration">协同交互效能</span>
+              </el-col>
+              <el-col :span="17">
+                <el-slider v-model="quotaSchemeOldInfo.value2" :step="1" :min="1" :max="5" show-stops :show-tooltip="false"></el-slider>
+              </el-col>
+              <el-col :offset="1" :span="1">
+                <span class="demonstration">{{ quotaSchemeOldInfo.value2 }}</span>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="5">
+                <span class="demonstration">变更控制效能</span>
+              </el-col>
+              <el-col :span="17">
+                <el-slider v-model="quotaSchemeOldInfo.value3" :step="1" :min="1" :max="5" show-stops :show-tooltip="false"></el-slider>
+              </el-col>
+              <el-col :offset="1" :span="1">
+                <span class="demonstration">{{ quotaSchemeOldInfo.value3 }}</span>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="5">
+                <span class="demonstration">技术方案匹配度</span>
+              </el-col>
+              <el-col :span="17">
+                <el-slider v-model="quotaSchemeOldInfo.value4" :step="1" :min="1" :max="5" show-stops :show-tooltip="false"></el-slider>
+              </el-col>
+              <el-col :offset="1" :span="1">
+                <span class="demonstration">{{ quotaSchemeOldInfo.value4 }}</span>
+              </el-col>
+            </el-row>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="cancelQuotaSchemeChange()">取 消</el-button>
+              <el-button type="primary" @click="saveQuotaSchemeChange()">生 成</el-button>
+            </span>
+          </el-dialog>
+
           <!-- 主需求详情 弹框 -->
           <el-dialog :visible.sync="mainTaskDetailVisible" width="50%">
             <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5">
@@ -729,15 +786,17 @@ export default {
       mainTaskEditVisible: false, //主需求修改弹框显示
       consignmentVisible: false, // 流通清单弹出框显示
       consignmentEditButtonDisabled: true,// 流通清单修改按钮禁用
-      consignmentNumberDisabled:false, //流通清单数量修改禁用
-      consignmentPriceDisabled:false,//流通清单价格修改禁用
+      consignmentNumberDisabled: false, //流通清单数量修改禁用
+      consignmentPriceDisabled: false,//流通清单价格修改禁用
       companyDetailVisible: false, //企业信息弹框显示
       applyListVisible: false, //申请列表列表显示
       quotaListVisible: false, //配额分配列表显示
       quotaButtonVisible: false, //配额分配按钮显示
-      popoverVisible:false, // 修改选项小框显示
-      quotaEditButtonVisible:false, //配额修改按钮显示
-      quotaEditVisible:false, // 配额修改弹框显示
+      popoverVisible: false, // 修改选项小框显示
+      quotaEditButtonVisible: false, //配额修改按钮显示
+      quotaEditVisible: false, // 配额修改弹框显示
+      quotaSchemeEditVisible: false,//配额策略修改弹框显示
+      quotaSchemeEditState: true,//配额策略修改状态 false未修改+true已修改 默认3333已修改可分配
       // 需求方负责人信息
       demanderPrincipal: [],
       //行业类别 选项列表
@@ -775,6 +834,15 @@ export default {
       quotaSum:0,
       // 配额修改行数
       quotaEditNum:0,
+      // 配额策略绑定数据
+      quotaSchemeOldInfo:{
+        value1:3,
+        value2:3,
+        value3:3,
+        value4:3,
+      },
+      // 配额策略暂存数据
+      quotaSchemeNewInfo:{},
       //初始完整路径
       WZLJ: "",
        fujian: [
@@ -1394,11 +1462,14 @@ export default {
         .then(() => {
           this.consignmentVisible = true;
         })
-      } else{
-      // 如果有数量 分配
-      this.$confirm("确定要智能分配吗？", "提示", {
-        type: "warning",
-      })
+      }else if(this.quotaSchemeEditState == false){
+        // 如果配额策略未修改
+        this.$message.warning("配额策略未修改，无需重新分配");
+      }else{
+        // 如果有数量 分配
+        this.$confirm("确定要智能分配吗？", "提示", {
+          type: "warning",
+        })
         .then(() => {
           var that = this;
           var data = Qs.stringify({
@@ -1413,6 +1484,8 @@ export default {
             .then((response) => {
               this.getMainTaskData();
               this.getSubtaskData();
+              this.$message.success("智能分配成功");
+              this.quotaSchemeEditState = false;// 配额策略未修改
             });
         }).catch(() => {
           this.$message.info("取消智能分配");
@@ -1519,6 +1592,44 @@ export default {
       sums[6] = this.mainTaskInfo.consignmentInfo.productNumber;
       sums[7] = '已分配：';
       return sums;
+    },
+    // 配额策略修改 - 四个维度指标
+    showQuotaScheme(){
+      // 保存原来的数据
+      this.quotaSchemeNewInfo = JSON.parse(JSON.stringify(this.quotaSchemeOldInfo));
+      // 显示弹出框
+      this.quotaSchemeEditVisible = true;
+    },
+    // 配额策略 - 修改保存
+    saveQuotaSchemeChange(){
+      // 判断是否修改
+      if(JSON.stringify(this.quotaSchemeOldInfo) == JSON.stringify(this.quotaSchemeNewInfo) ){
+        // 未修改
+        this.$message.warning("配额策略未修改，无需生成");
+      }else{
+        // 弹出生成成功提示
+        this.$confirm("确定要生成配额策略吗？", "提示", {
+          type: "warning",
+        })
+        .then(() => {
+          this.$message.success("修改配额策略成功");
+          this.quotaSchemeEditState = true; // 已修改状态
+          this.quotaSchemeEditVisible = false;
+        })
+        .catch(() => {
+          this.$message.info("取消修改配额策略");
+          this.cancelQuotaSchemeChange();// 恢复数据
+        })
+      }
+    },
+    // 配额策略 - 修改取消
+    cancelQuotaSchemeChange(){
+      // 恢复原来的数据
+      this.quotaSchemeOldInfo = JSON.parse(JSON.stringify(this.quotaSchemeNewInfo));
+      this.$message.info("取消修改配额策略");
+      // 关闭弹出框
+      this.quotaSchemeEditVisible = false;
+      // this.quotaSchemeEditState = false; // 未修改状态
     },
     // 配额列表 - 查看子任务详情
     substaskDetailLT(row) {
@@ -1977,5 +2088,24 @@ export default {
 // }
 .addSubTask .wanchengzhiliang {
   margin-left: 10px;
+}
+// .block{
+//   padding: 10px 20px;
+// }
+// .block .demonstration{
+//   line-height: 38px;
+// }
+// .block .el-slider{
+//   float: right;
+//   width: 80%;
+//   margin-right: 20px;
+// }
+.quotaSchemeEditDialog {
+  .el-row{
+    padding: 10px 20px;
+  }
+  .demonstration{
+    line-height: 38px;
+  }
 }
 </style>
