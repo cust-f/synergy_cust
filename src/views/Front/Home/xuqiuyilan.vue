@@ -615,22 +615,41 @@ export default {
     },
     taskTypeSelect(data) {
       if (data == -1) {
-        //关闭所有的标签
-        this.dynamicTags.splice(0, this.dynamicTags.length);
-        let tag = {
-          name: "推荐任务",
-          type: "recommondType",
-          id: "-1",
-        };
-        //添加
-        this.zihangyeOption = false;
-        this.dynamicTags.push(tag);
-        // this.getCompanyListTest(0);
+        // 推荐任务
+        console.log(this.$store.state.token);
+        if (this.$store.state.token) {
+          // 登陆了
+          //关闭所有的标签
+          this.dynamicTags.splice(0, this.dynamicTags.length);
+          let tag = {
+            name: "推荐任务",
+            type: "recommondType",
+            id: "-1",
+          };
+          // 添加
+          this.zihangyeOption = false;
+          this.dynamicTags.push(tag);
+          // this.getCompanyListTest(0);
+        }else{
+          // 没登录
+          this.$confirm("登录后才能进行推荐，是否登录？", "提示", {
+            confirmButtonText: "登录",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+          .then(() => {
+            this.$router.push({
+              path: "/Login",
+            });
+          })
+        }
       } else if (data == 0) {
+        // 不限
         let delTag = { type: "taskType" };
         this.deleteTag("recommondType", -1);
         this.handleClose(delTag, 0);
       } else {
+        // 设计任务/流通任务
         let tag = {
           name: data.name,
           type: "taskType",
