@@ -67,16 +67,7 @@
       </el-col>
       <!-- 搜索-->
       <el-col :span="9" :offset="4" style="padding-top:15px;" class="search">
-        <el-input
-          placeholder="请输入内容"
-          v-model="searchModel"
-          @keyup.enter.native="searchResult()"
-          style="width:500px;"
-          type="text"
-          name="username"
-          autocomplete="off" 
-          clearable
-        >
+        <el-input placeholder="请输入内容" v-model="searchModel" @keyup.enter.native="searchResult()" style="width:500px;" type="text" name="username" autocomplete="off" clearable>
           <el-select v-model="select" slot="prepend" placeholder="请选择">
             <el-option label="全部" value="0"></el-option>
             <el-option label="企业" value="1"></el-option>
@@ -87,7 +78,7 @@
           </el-select>
           <el-button slot="append" icon="el-icon-search" @click="searchResult()"></el-button>
         </el-input>
-      <el-input type="password" autocomplete="new-password" style="display: none">
+        <el-input type="password" autocomplete="new-password" style="display: none">
         </el-input>
       </el-col>
     </el-row>
@@ -99,35 +90,19 @@
         </div>
       </el-col>
     </el-row>
-    <el-dialog
-      :visible.sync="userDetail"
-      :close-on-click-modal="false"
-      @close="userDetail=false"
-      class="info"
-    >
+    <el-dialog :visible.sync="userDetail" :close-on-click-modal="false" @close="userDetail=false" class="info">
       <el-container style="width:50%;height:100%;background-color:#f5f5f5;float:left;">
         <el-header>
           <br>
 
-                  <div
-        class="biaoti"
-        style="padding: 0 15px;  font-size:18px"
-
-      >
-       账号管理
-      </div>
+          <div class="biaoti" style="padding: 0 15px;  font-size:18px">
+            账号管理
+          </div>
 
         </el-header>
-        
+
         <el-aside style="width:100%;text-align:center;margin-top: 150px;">
-          <el-upload
-            class="avatar-uploader"
-            :action="serverUrl"
-            :data="updateData()"
-            accept=".jpg, .png"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-          >
+          <el-upload class="avatar-uploader" :action="serverUrl" :data="updateData()" accept=".jpg, .png" :show-file-list="false" :on-success="handleAvatarSuccess">
             <img v-if="userInfo.userLogo" :src="userInfo.userLogo" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
@@ -200,41 +175,18 @@
       </el-container>
     </el-dialog>
 
-    <el-dialog
-      :visible.sync="updataPassword"
-      :close-on-click-modal="false"
-      top="20vh"
-      class="updata"
-      @close="closeDialog"
-      width="450px"
-    >
-      <div
-        class="biaoti"
-        style="padding: 0 10px; border-left: 3px solid #4e58c5;margin-top:-10px"
-      >
-       修改密码
+    <el-dialog :visible.sync="updataPassword" :close-on-click-modal="false" top="20vh" class="updata" @close="closeDialog" width="450px">
+      <div class="biaoti" style="padding: 0 10px; border-left: 3px solid #4e58c5;margin-top:-10px">
+        修改密码
       </div>
       <br>
       <div style="text-align:center;">
-        <el-form
-          :model="account"
-          status-icon
-          :rules="rules"
-          ref="account"
-          label-width="70px"
-          class="demo-ruleForm"
-        >
+        <el-form :model="account" status-icon :rules="rules" ref="account" label-width="70px" class="demo-ruleForm">
           <el-form-item label="用户名" prop="userName">
             <el-input disabled v-model="username"></el-input>
           </el-form-item>
           <el-form-item label="旧密码" prop="password">
-            <el-input
-              @blur="checkOldPassword"
-              type="password"
-              v-model="account.oldPassword"
-              autocomplete="off"
-              :suffix-icon="icon"
-            ></el-input>
+            <el-input @blur="checkOldPassword" type="password" v-model="account.oldPassword" autocomplete="off" :suffix-icon="icon"></el-input>
           </el-form-item>
           <el-form-item label="新密码" prop="newPassword">
             <el-input type="password" v-model="account.newPassword" autocomplete="off"></el-input>
@@ -246,44 +198,22 @@
       </div>
 
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm('account')" :disabled="checkMessage" >提交</el-button>
+        <el-button type="primary" @click="submitForm('account')" :disabled="checkMessage">提交</el-button>
         <el-button @click="resetForm('account')">重置</el-button>
       </div>
     </el-dialog>
-    <el-dialog
-      
-      :visible.sync="updataUserDetail"
-      :close-on-click-modal="false"
-      class="updata"
-      top="20vh"
-      @close="updataUserDetail=false"
-      width="450px"
-    >
-          <div
-          class="biaoti"
-        style="padding: 0px 10px;  border-left: 3px solid #4e58c5; margin-top:-10px"
-      >
+    <el-dialog :visible.sync="updataUserDetail" :close-on-click-modal="false" class="updata" top="20vh" @close="updataUserDetail=false" width="450px">
+      <div class="biaoti" style="padding: 0px 10px;  border-left: 3px solid #4e58c5; margin-top:-10px">
         修改信息
       </div>
       <br>
       <br>
       <br>
-      <el-form
-        :model="user"
-        status-icon
-        :rules="userRules"
-        ref="user"
-        label-width="70px"
-        class="demo-ruleForm"
-      >
-        <el-form-item
-          prop="email"
-          label="邮箱"
-          :rules="[
+      <el-form :model="user" status-icon :rules="userRules" ref="user" label-width="70px" class="demo-ruleForm">
+        <el-form-item prop="email" label="邮箱" :rules="[
       { required: true, message: '请输入邮箱地址', trigger: 'blur' },
       { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-    ]"
-        >
+    ]">
           <el-input v-model="user.email" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="phone">
@@ -340,9 +270,9 @@ export default {
       }
     };
     return {
-      companyName:"",
+      companyName: "",
       fullName: "",
-      reallyName:'账号',
+      reallyName: "账号",
       log: true,
       collapse: false,
       serverUrl: "/api/users/updataPicture",
@@ -381,20 +311,31 @@ export default {
   components: {
     navigation,
   },
-  computed:{
-    token(){
+  computed: {
+    token() {
       return this.$store.state.token;
     },
-    username(){
+    username() {
       return this.$store.state.user;
-    }
+    },
+    loginState() {
+      return this.$store.state.state;
+    },
   },
-  created(){
+  watch: {
+    loginState: {
+      immediate: true,
+      handler: function (newVal) {
+        if (newVal) this.getrealName();
+      },
+    },
+  },
+  created() {
     //获得真实姓名
     this.getrealName();
   },
   methods: {
-    getrealName(){
+    getrealName() {
       let that = this;
       let data = Qs.stringify({
         userName: this.username,
@@ -414,21 +355,24 @@ export default {
           // this.user.email = this.userInfo.email;
           // this.user.phone = this.userInfo.phone;
           // this.user.realName = this.userInfo.realName;
-          console.log(this.userInfo)
-          console.log(this.userInfo.roleName)
-          console.log("无")
+          console.log(this.userInfo);
+          console.log(this.userInfo.roleName);
+          console.log("无");
           let r = JSON.stringify(this.userInfo.roleName);
           this.companyName = this.userInfo.companyName;
-          if(this.userInfo.roleName!=""){
-            this.fullName = this.userInfo.companyName +" "+ this.userInfo.roleName;
-            this.reallyName=this.userInfo.roleName;
-          }else if(this.userInfo.roleName ===""){
-             this.fullName = this.userInfo.companyName +" "+ this.userInfo.roleName;
-             this.reallyName=this.username;
+          if (this.userInfo.roleName != "") {
+            this.fullName =
+              this.userInfo.companyName + " " + this.userInfo.roleName;
+            this.reallyName = this.userInfo.roleName;
+          } else if (this.userInfo.roleName === "") {
+            this.fullName =
+              this.userInfo.companyName + " " + this.userInfo.roleName;
+            this.reallyName = this.username;
           }
-          if(this.userInfo.roleName=="无"){
-              this.fullName = this.userInfo.companyName +" "+ this.userInfo.roleName;
-              this.reallyName=this.username;
+          if (this.userInfo.roleName == "无") {
+            this.fullName =
+              this.userInfo.companyName + " " + this.userInfo.roleName;
+            this.reallyName = this.username;
           }
           console.log(reallyName);
         });
@@ -476,7 +420,7 @@ export default {
       let data = Qs.stringify({
         userName: this.username,
       });
-      console.log(this.username)
+      console.log(this.username);
       that
         .axios({
           method: "post",
@@ -623,11 +567,11 @@ export default {
 .admin-header .el-row {
   margin-left: 0px !important;
 }
-.admin-header .el-dialog__footer{
-     margin-top: -30px;
+.admin-header .el-dialog__footer {
+  margin-top: -30px;
 }
-.updata .el-dialog__body{
-      padding: 30px 20px;
+.updata .el-dialog__body {
+  padding: 30px 20px;
 }
 /* .admin-header{
   width:100%;
@@ -797,7 +741,6 @@ export default {
 </style>
 
 <style lang="scss">
-
 .admin-header {
   .el-select .el-input .el-select__caret {
     color: white;
@@ -855,6 +798,5 @@ export default {
     width: 1px;
     white-space: nowrap;
   }
-  
 }
 </style>

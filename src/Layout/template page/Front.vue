@@ -9,7 +9,7 @@
 <template>
   <el-container>
     <el-header height="136px;">
-      <header-synergy ></header-synergy>
+      <header-synergy  ref="header"></header-synergy>
     </el-header>
     <el-main style="overflow:hidden;background-color: #f6f6f6;">
         <router-view  :key="$route.fullPath"></router-view>
@@ -67,6 +67,9 @@ export default {
     head_fix(val) {
       this.header_position = val[0];
       this.header_hover = val[1];
+    },
+    getName(){
+      this.$refs.header.getrealName();
     }
   }
 };

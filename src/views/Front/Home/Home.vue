@@ -57,11 +57,7 @@
             <el-col :span="8" style="padding-left: 0px;">
               <el-card shadow="hover" pa>
                 <div class="category_item">
-                  <div
-                    class="cate_ietm_title"
-                    :style="{backgroundImage: 'url(' + orangePicture + ')'}"
-                    style=" background-size: cover; "
-                  >
+                  <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + orangePicture + ')'}" style=" background-size: cover; ">
                     <font @click="demandPRedirects('交通运输设备',2)">交通运输设备</font>
                     <p></p>
                   </div>
@@ -80,10 +76,7 @@
             <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover" style="float:left">
                 <div class="category_item">
-                  <div
-                    class="cate_ietm_title"
-                    :style="{backgroundImage: 'url(' + redPicture + ')' }"
-                  >
+                  <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + redPicture + ')' }">
                     <font @click="demandPRedirects('仪器仪表及文化、办公用机械',3)">仪器仪表及文化、办公用机械</font>
                   </div>
                   <i class="cate_list">
@@ -122,11 +115,7 @@
             <el-col :span="8" style="padding-left: 0px;">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div
-                    class="cate_ietm_title"
-                    :style="{backgroundImage: 'url(' + geometryPicture + ')' }"
-                    style="background-size: cover;"
-                  >
+                  <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + geometryPicture + ')' }" style="background-size: cover;">
                     <font @click="demandPRedirects('电气机械及器材',5)">电气机械及器材</font>
                   </div>
                   <i class="cate_list">
@@ -144,10 +133,7 @@
             <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div
-                    class="cate_ietm_title"
-                    :style="{backgroundImage: 'url(' + BluePicture + ')' }"
-                  >
+                  <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + BluePicture + ')' }">
                     <font @click="demandPRedirects('专用设备',6)">专用设备</font>
                   </div>
                   <i class="cate_list">
@@ -163,11 +149,7 @@
             <el-col :span="8" style="padding-left: 5px;padding-right: 10px;">
               <el-card shadow="hover">
                 <div class="category_item">
-                  <div
-                    class="cate_ietm_title"
-                    :style="{backgroundImage: 'url(' + greedPicture + ')'}"
-                    style="background-size: 100% 100%;"
-                  >
+                  <div class="cate_ietm_title" :style="{backgroundImage: 'url(' + greedPicture + ')'}" style="background-size: 100% 100%;">
                     <font @click="demandPRedirects('通用设备',7)">通用设备</font>
                   </div>
                   <i class="cate_list">
@@ -190,18 +172,8 @@
               <div v-if="!this.$store.state.token">
                 <span>欢迎来到高端装备制造领域科技服务SaaS应用</span>
                 <div class="grid-content-top-button">
-                  <el-button
-                    style=" left:5px; background-color:#27b0f0;; border-color:#27b0f0;; "
-                    type="primary"
-                    round
-                    @click="login(0)"
-                  >登录</el-button>
-                  <el-button
-                    style="right:5px;background-color:#ff6600;; border-color:#ff6600;"
-                    type="primary"
-                    round
-                    @click="login(1)"
-                  >注册</el-button>
+                  <el-button style=" left:5px; background-color:#27b0f0;; border-color:#27b0f0;; " type="primary" round @click="login(0)">登录</el-button>
+                  <el-button style="right:5px;background-color:#ff6600;; border-color:#ff6600;" type="primary" round @click="login(1)">注册</el-button>
                 </div>
               </div>
               <div v-else>
@@ -220,81 +192,31 @@
             </el-card>
             <div class="grid-content-down">
               <el-card class="home-box-card" style="height:100%;" :body-style="{ padding: '5px' }">
-                <el-tabs
-                  v-model="activeName"
-                  @tab-click="handleClick"
-                  :stretch="true"
-                  class="loginHeight"
-                >
+                <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true" class="loginHeight">
                   <el-tab-pane label="我有需求" name="first">
                     <el-row style="margin-top: 9%;">
-                      <el-tag
-                        class="xqelbuttonleft"
-                        style="margin-top:0px ; margin-left:0px ;"
-                        type="warning"
-                      >协同设计</el-tag>
-                      <el-tag
-                        class="xqelbuttonright"
-                        style="margin-top:0px ; margin-left:0px ;"
-                        type="warning"
-                      >企业标准</el-tag>
+                      <el-tag class="xqelbuttonleft" style="margin-top:0px ; margin-left:0px ;" type="warning">协同设计</el-tag>
+                      <el-tag class="xqelbuttonright" style="margin-top:0px ; margin-left:0px ;" type="warning">企业标准</el-tag>
                     </el-row>
 
                     <el-row>
-                      <el-tag
-                        class="xqelbuttonleft"
-                        style="margin-top:10px ; margin-left:0px ;"
-                        type="warning"
-                      >综合服务</el-tag>
-                      <el-tag
-                        class="xqelbuttonright"
-                        style="margin-top:10px ; margin-left:0px ;"
-                        type="warning"
-                      >产业融合</el-tag>
+                      <el-tag class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;" type="warning">综合服务</el-tag>
+                      <el-tag class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;" type="warning">产业融合</el-tag>
                     </el-row>
 
-                    <el-button
-                      class="xqelbuttonleft0"
-                      @click="addNewTask()"
-                      style="margin-top:30px ; margin-left:0px ;"
-                      round
-                      type="primary"
-                      v-if="roleID!=4"
-                    >发布需求</el-button>
+                    <el-button class="xqelbuttonleft0" @click="addNewTask()" style="margin-top:30px ; margin-left:0px ;" round type="primary" v-if="roleID!=4">发布需求</el-button>
                   </el-tab-pane>
                   <el-tab-pane label="我有服务" name="second">
                     <el-row style="margin-top: 9%;">
-                      <el-tag
-                        class="xqelbuttonleft"
-                        style="margin-top:0px ; margin-left:0px ;"
-                        type="success"
-                      >协同设计</el-tag>
-                      <el-tag
-                        class="xqelbuttonright"
-                        type="success"
-                        style="margin-top:0px ; margin-left:0px ;"
-                      >企业标准</el-tag>
+                      <el-tag class="xqelbuttonleft" style="margin-top:0px ; margin-left:0px ;" type="success">协同设计</el-tag>
+                      <el-tag class="xqelbuttonright" type="success" style="margin-top:0px ; margin-left:0px ;">企业标准</el-tag>
                     </el-row>
                     <el-row>
-                      <el-tag
-                        class="xqelbuttonleft"
-                        type="success"
-                        style="margin-top:10px ; margin-left:0px ;"
-                      >综合服务</el-tag>
-                      <el-tag
-                        class="xqelbuttonright"
-                        type="success"
-                        style="margin-top:10px ; margin-left:0px ;"
-                      >产业融合</el-tag>
+                      <el-tag class="xqelbuttonleft" type="success" style="margin-top:10px ; margin-left:0px ;">综合服务</el-tag>
+                      <el-tag class="xqelbuttonright" type="success" style="margin-top:10px ; margin-left:0px ;">产业融合</el-tag>
                     </el-row>
 
-                    <el-button
-                      class="xqelbuttonleft0"
-                      @click="selectDemand()"
-                      style="margin-top:30px ; margin-left:0px ;"
-                      type="primary"
-                      round
-                    >寻找需求</el-button>
+                    <el-button class="xqelbuttonleft0" @click="selectDemand()" style="margin-top:30px ; margin-left:0px ;" type="primary" round>寻找需求</el-button>
                   </el-tab-pane>
                   <el-tab-pane label="专利查询" name="three">
                     <!-- 专利列表搜索 -->
@@ -327,31 +249,15 @@
                       </el-row>
                     </div>
                   </el-tab-pane>
-                    <el-tab-pane label="资源服务" name="fourth">
+                  <el-tab-pane label="资源服务" name="fourth">
                     <el-row style="margin-top: 9%;">
-                      <el-tag
-                        class="xqelbuttonleft"
-                        style="margin-top:0px ; margin-left:0px ;"
-                        type="warning"
-                      >属性模型服务</el-tag>
-                      <el-tag
-                        class="xqelbuttonright"
-                        style="margin-top:0px ; margin-left:0px ;"
-                        type="warning"
-                      >一站式服务</el-tag>
+                      <el-tag class="xqelbuttonleft" style="margin-top:0px ; margin-left:0px ;" type="warning">属性模型服务</el-tag>
+                      <el-tag class="xqelbuttonright" style="margin-top:0px ; margin-left:0px ;" type="warning">一站式服务</el-tag>
                     </el-row>
 
                     <el-row>
-                      <el-tag
-                        class="xqelbuttonleft"
-                        style="margin-top:10px ; margin-left:0px ;"
-                        type="warning"
-                      >解决方案服务</el-tag>
-                      <el-tag
-                        class="xqelbuttonright"
-                        style="margin-top:10px ; margin-left:0px ;"
-                        type="warning"
-                      >租赁服务</el-tag>
+                      <el-tag class="xqelbuttonleft" style="margin-top:10px ; margin-left:0px ;" type="warning">解决方案服务</el-tag>
+                      <el-tag class="xqelbuttonright" style="margin-top:10px ; margin-left:0px ;" type="warning">租赁服务</el-tag>
                     </el-row>
 
                     <!-- <el-button
@@ -362,14 +268,7 @@
                       type="primary"
                       v-if="roleID!=4"
                     >服务查询</el-button> -->
-                      <el-button
-                      class="xqelbuttonleft0"
-                      @click="addNewTask1()"
-                      style="margin-top:30px ; margin-left:0px ;"
-                      round
-                      type="primary"
-                      v-if="roleID!=null"
-                    >服务查询</el-button>
+                    <el-button class="xqelbuttonleft0" @click="addNewTask1()" style="margin-top:30px ; margin-left:0px ;" round type="primary" v-if="roleID!=null">服务查询</el-button>
                   </el-tab-pane>
                 </el-tabs>
               </el-card>
@@ -386,35 +285,19 @@
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
                 <span>需求一览</span>
-                <el-button
-                  style="float: right; padding: 5px 0"
-                  type="text"
-                  @click="serviceResults"
-                >>>更多</el-button>
+                <el-button style="float: right; padding: 5px 0" type="text" @click="serviceResults">>>更多</el-button>
               </div>
-              <el-row
-                v-for="(item,index) in demandTaskList"
-                :key="index"
-                style="margin-bottom:20px;"
-                :gutter="10"
-              >
+              <el-row v-for="(item,index) in demandTaskList" :key="index" style="margin-bottom:20px;" :gutter="10">
                 <el-col :span="6">
                   <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
                 </el-col>
                 <el-col :span="11">
                   <el-popover :content="item.taskName" placement="top-start" trigger="hover">
-                    <a
-                      slot="reference"
-                      @click="serviceDetail(item.taskId)"
-                      style="float:left;line-height: 24px;"
-                    >{{item.taskName}}</a>
+                    <a slot="reference" @click="serviceDetail(item.taskId)" style="float:left;line-height: 24px;">{{item.taskName}}</a>
                   </el-popover>
                 </el-col>
                 <el-col :span="5">
-                  <span
-                    class="fontStyle2"
-                    style="line-height: 24px;"
-                  >{{item.deadline | dataFormat("yyyy-MM-dd")}}</span>
+                  <span class="fontStyle2" style="line-height: 24px;">{{item.deadline | dataFormat("yyyy-MM-dd")}}</span>
                 </el-col>
               </el-row>
             </el-card>
@@ -426,36 +309,16 @@
             <el-card class="grid-content3">
               <div slot="header" class="titleColor">
                 <span>优质企业</span>
-                <el-button
-                  style="float: right; padding: 5px 0"
-                  type="text"
-                  @click="excellentCompany"
-                >>>更多</el-button>
+                <el-button style="float: right; padding: 5px 0" type="text" @click="excellentCompany">>>更多</el-button>
               </div>
 
-              <el-row
-                v-for="(item,i) in supplierlist.companyId"
-                :key="i"
-                style="margin-bottom:20px;"
-                :gutter="10"
-              >
+              <el-row v-for="(item,i) in supplierlist.companyId" :key="i" style="margin-bottom:20px;" :gutter="10">
                 <el-col :span="6">
-                  <span
-                    class="fontStyle1"
-                    style="line-height: 24px;"
-                  >{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
+                  <span class="fontStyle1" style="line-height: 24px;">{{"【"+supplierlist.companyProduct[i]+"】"}}</span>
                 </el-col>
                 <el-col :span="17">
-                  <el-popover
-                    :content="supplierlist.companyName[i]"
-                    placement="top-start"
-                    trigger="hover"
-                  >
-                    <a
-                      slot="reference"
-                      @click="excellentCompanyDetail(item)"
-                      style="float:left;line-height: 24px;"
-                    >{{supplierlist.companyName[i]}}</a>
+                  <el-popover :content="supplierlist.companyName[i]" placement="top-start" trigger="hover">
+                    <a slot="reference" @click="excellentCompanyDetail(item)" style="float:left;line-height: 24px;">{{supplierlist.companyName[i]}}</a>
                   </el-popover>
                 </el-col>
               </el-row>
@@ -470,29 +333,17 @@
                 <span>服务成果</span>
                 <el-button style="float: right; padding: 5px 0" type="text" @click="needs">>>更多</el-button>
               </div>
-              <el-row
-                v-for="(item,index) in completeddemandTaskList"
-                :key="index"
-                style="margin-bottom:20px;"
-                :gutter="10"
-              >
+              <el-row v-for="(item,index) in completeddemandTaskList" :key="index" style="margin-bottom:20px;" :gutter="10">
                 <el-col :span="6">
                   <span class="fontStyle1">{{"【"+item.types+"】"}}</span>
                 </el-col>
                 <el-col :span="11">
                   <el-popover :content="item.taskName" placement="top-start" trigger="hover">
-                    <a
-                      slot="reference"
-                      @click="needsDetail(item.taskId)"
-                      style="float:left;line-height: 24px;"
-                    >{{item.taskName}}</a>
+                    <a slot="reference" @click="needsDetail(item.taskId)" style="float:left;line-height: 24px;">{{item.taskName}}</a>
                   </el-popover>
                 </el-col>
                 <el-col :span="5">
-                  <span
-                    class="fontStyle2"
-                    style="line-height: 24px;"
-                  >{{item.finishTime | dataFormat("yyyy-MM-dd")}}</span>
+                  <span class="fontStyle2" style="line-height: 24px;">{{item.finishTime | dataFormat("yyyy-MM-dd")}}</span>
                 </el-col>
               </el-row>
             </el-card>
@@ -544,6 +395,7 @@ import columnChart from "./components/columnChart";
 import pieChart from "./components/pieChart";
 import Qs from "qs";
 export default {
+  inject:['reload'],
   name: "Home",
   components: {
     "line-chart": lineChart,
@@ -677,8 +529,8 @@ export default {
       try {
         if (this.$route.query.query) {
           //判断是否传参
-          // if (this.$route.query.s == 3) 
-          {
+          // if (this.$route.query.s == 3)
+          
             //判断是否属于课题三
             let name = window.atob(this.$route.query.query).toString();
             console.log(name);
@@ -712,12 +564,21 @@ export default {
                     "SET_USERLOGO",
                     response.data.allData.userLogo
                   );
+                   this.$store.commit(
+                    "SET_STATE",
+                    true
+                  );
                   this.roleID = response.data.allData.roleId;
                   sessionStorage.setItem("roleId", this.roleID);
+                  sessionStorage.setItem("userId", response.data.allData.userId.userId);
+                  
                 }
               });
-          }
+            // 刷新
+           
+          
         }
+        
       } catch (error) {
         console.log("未登录");
       }
@@ -850,7 +711,7 @@ export default {
       console.log(this.$store.state.token);
       // 登陆后为true
       // if (this.$store.state.token) {
-        this.$router.push("/admin/findPage");
+      this.$router.push("/admin/findPage");
       // }else{
       //   // 未登录为null
       //   this.$confirm("登录后才能进行发布，是否登录？", "提示", {
@@ -863,9 +724,9 @@ export default {
       //         path: "/Login",
       //       });
       //   })
-        // .catch(()=> {
-        //   this.$message.warning("已取消登录");
-        // })
+      // .catch(()=> {
+      //   this.$message.warning("已取消登录");
+      // })
       // }
     },
     addNewTask() {
@@ -873,18 +734,17 @@ export default {
       // 登陆后为true
       if (this.$store.state.token) {
         this.$router.push("/admin/newTask");
-      }else{
+      } else {
         // 未登录为null
         this.$confirm("登录后才能进行发布，是否登录？", "提示", {
           confirmButtonText: "登录",
           cancelButtonText: "取消",
           type: "warning",
-        })
-        .then(() => {
-            this.$router.push({
-              path: "/Login",
-            });
-        })
+        }).then(() => {
+          this.$router.push({
+            path: "/Login",
+          });
+        });
         // .catch(()=> {
         //   this.$message.warning("已取消登录");
         // })
@@ -944,7 +804,7 @@ export default {
           keyWords: this.patentName,
           technicalIndex: this.technicalIndex,
           // type: 0,
-          type:"专利名"
+          type: "专利名",
         },
       });
     },
@@ -954,7 +814,7 @@ export default {
         query: {
           companyName: this.org,
           // type: 1,
-           type:"企业名"
+          type: "企业名",
         },
       });
     },
@@ -1166,7 +1026,7 @@ export default {
 
 /** 登录模块核心企业与供应商用CSS*/
 /* .loginHeight { */
-  /* height: 210px; */
+/* height: 210px; */
 /* } */
 .loginHeight .el-tag.el-tag--warning:hover {
   background-color: white;

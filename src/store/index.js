@@ -11,7 +11,8 @@ const state = {
   identity: "",
   taskId1: "",
   openMenu: [],
-  userLogo: ""
+  userLogo: "",
+  state:false //单点登录状态
 }
 const actions ={
   updataToken:(context,payload)=>{
@@ -42,6 +43,9 @@ const mutations = {
   },
   SET_USERLOGO: (state, data) => {
     state.userLogo = data;
+  },
+  SET_STATE: (state, data) => {
+    state.state = data;
   },
   //登出
   LOGOUT: (state) => {
