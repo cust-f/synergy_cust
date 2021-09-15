@@ -677,7 +677,8 @@ export default {
       try {
         if (this.$route.query.query) {
           //判断是否传参
-          if (this.$route.query.s == 3) {
+          // if (this.$route.query.s == 3) 
+          {
             //判断是否属于课题三
             let name = window.atob(this.$route.query.query).toString();
             console.log(name);
