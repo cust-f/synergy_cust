@@ -1,4 +1,5 @@
 <template>
+
   <div  style="width:1200px;margin:0 auto;" class="TWo">
     <!--第一行 -->
     <el-row >
@@ -7,13 +8,15 @@
           <el-breadcrumb separator=">" class="fontStyle">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/twoMenu' }">服务成果</el-breadcrumb-item>
-            <el-breadcrumb-item >成果详情</el-breadcrumb-item>
-          
+            <el-breadcrumb-item>成果详情</el-breadcrumb-item>
+            <!-- 最后一个一定是正常字体(非粗体),无论是否有to="{ path :'/……'}"这样的跳转 -->
           </el-breadcrumb>
         </div>
      
     </el-row>
+
     <br>
+
 <el-card shadow="never" style="margin-bottom:20px;" class="tatolheader">
       <div slot="header">
         <div
@@ -32,11 +35,9 @@
               <br />
               <el-radio v-model="radio" label="2" @click.native="clickitem1">&nbsp;&nbsp;近一周</el-radio>
               <br />
-              <el-radio
-                v-model="radio"
-                label="3"
-                @click.native="clickitem2"
-              >&nbsp;&nbsp;近一个月</el-radio>
+              <el-radio v-model="radio" label="3" @click.native="clickitem2">&nbsp;&nbsp;近一个月</el-radio>
+              <br />
+              <el-radio v-model="radio" label="66" @click.native="clickitem66">&nbsp;&nbsp;近三个月</el-radio>
               <br />
               <el-radio v-model="radio" label="4" @click.native="clickitem3">&nbsp;&nbsp;近一年</el-radio>
             </el-collapse-item>
@@ -317,6 +318,20 @@ export default {
         .axios({
           method: "post",
           url: "api/serviceResult/finishlistinMonth"
+          //data: data
+        })
+        .then(response => {
+         // console.log(response);
+          this.tableData = response.data.allData;
+        });
+    },
+    clickitem66() {
+      var that = this;
+      //console.log(data);
+      that
+        .axios({
+          method: "post",
+          url: "api/serviceResult/finishlistinthreeMonth"
           //data: data
         })
         .then(response => {

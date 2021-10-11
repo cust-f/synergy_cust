@@ -204,6 +204,7 @@
                   </el-form-item>
                 </el-col> -->
               </el-row>
+
               <el-row>
                 <el-col :span="11">
                   <el-form-item label="零件类别" prop="patrsList">
@@ -217,8 +218,56 @@
                       placeholder="请选择零件类别"
                     ></el-cascader>
                   </el-form-item>
+                </el-col> 
+
+                <!-- 2021-10-5 董涛  添加选择仓库下拉表框 -->
+                  <el-col :span="11">
+                  <el-form-item label="所在仓库" prop="storeID">
+                    <el-select
+                      v-model="changeTC.storeID"
+                      placeholder="请选择仓库"
+                      class="selectsupply"
+                      style="width: 100%"
+                    >
+                      <el-option
+                        v-for="item in STR"
+                        :label="item.storeName"
+                        :key="item.storeId"
+                        :value="item.storeId"
+                      ></el-option>
+
+                      <!--lable\key\value绑定的为后台的变量
+                        1、首先：调用方法，将所有的仓库信息按条返回到STR大数组里
+                        2、对于STR中的每个小数组循环绑定并输出每条仓库信息
+                        3、lable绑定选择框中能看到的文字
+                           value可以绑定想要的例如id
+                           key要和value绑定为一样的
+                           item是将STR数组中的循环的每条数据（[0]、[1]、[2]）的代称
+                     -->
+                    </el-select>
+                  </el-form-item>
                 </el-col>
+                
+<!-- 
+参数解释：下面代码
+value为select绑定的值
+label 为select选中框内显示的值
+若不设置 label则显示的值为select绑定的值，即value 
+-->
+
+<!-- 
+<el-option
+v-for="item in STR1"
+:label="item.storeName"
+:key="item.storeId"
+:value="item.storeId"
+></el-option> 
+-->
+
               </el-row>
+
+  
+              
             </el-form>
             <span slot="footer" class="dialog-footer">
               <el-button @click="XGTC = false">取 消</el-button>
@@ -507,10 +556,13 @@ export default {
         label: "partsCategory",
         children: "children",
       },
+
+
       stockRulesAdd: {
         patrsList: [
           { required: true, message: "请输入零件类别", trigger: "blur" },
-        ],
+        ], 
+
         productName1: [
           { required: true, message: "请输入产品名称", trigger: "blur" },
           {
@@ -553,6 +605,7 @@ export default {
         patrsList: [
           { required: true, message: "请输入零件类别", trigger: "blur" },
         ],
+
         productName: [
           { required: true, message: "请输入产品名称", trigger: "blur" },
           {
@@ -626,6 +679,7 @@ export default {
           this.partsOptions = response.data.allData;
         });
     },
+
     //获取条件选择时间数据
     getYearData() {
       let that = this;
