@@ -11,7 +11,7 @@
   <div class="newStaff">
     <el-container>
       <el-main>
-        <div >
+        <div>
           <div
             class="biaoti"
             style="font-size:20px padding: 0 10px; border-left: 3px solid #4e58c5;"
@@ -43,7 +43,7 @@
                   >新增</el-button
                 >
               </div>
-              <div >
+              <div>
                 <el-table
                   :data="
                     tableData.slice(
@@ -120,8 +120,19 @@
                         class="red1"
                         size="small"
                         @click="handleDelete(scope.$index, scope.row)"
+                        :disabled="
+                          scope.row.userName === usernamex ? true : false
+                        "
                         >删除</el-button
                       >
+                      <!-- <el-buttonaa
+                        type="text"
+                        icon="el-icon-delete"
+                        class="red1"
+                        size="small"
+                        @click="showmsg(scope.$index, scope.row)"
+                        >查看信息</el-button
+                      > -->
                     </template>
                   </el-table-column>
                 </el-table>
@@ -276,21 +287,23 @@
 
 <script>
 import Qs from "qs";
+// import store from './store/index'
 export default {
+  // store,
   name: "newStaff",
   data() {
     var validDataPhone = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请填写手机号码"));
       } else if (!/^1[3456789]\d{9}$/.test(value)) {
-        // this.$error("手机号码有误，请重填");
+        // this.$error("手机号码有误， 请重填");
         callback(new Error("手机号码有误，请重填"));
       } else {
         callback();
       }
     };
 
-     var checkuserName = (rule, value, callback) => {
+    var checkuserName = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("用户名不能为空"));
       } else if (value === this.existName) {
@@ -301,6 +314,7 @@ export default {
     };
     return {
       usernamex: sessionStorage.getItem("ms_username"),
+      // usernamex: "",
       //userId:row.userId,
 
       pageIndex: 1,
@@ -314,7 +328,6 @@ export default {
           roleId: "",
           phone: "",
         },
-        
       ],
       addList: {
         id: 1,
@@ -355,7 +368,7 @@ export default {
         phone: [{ required: true, validator: validDataPhone, trigger: "blur" }],
         userName: [
           { required: true, validator: checkuserName, trigger: "blur" },
-         {
+          {
             pattern: /^1\d{10}$/,
             message: "请输入正确的用户名（11位手机号码）",
             trigger: "blur",
@@ -374,8 +387,11 @@ export default {
   created() {
     this.getData();
   },
+  // mounted() {
+  //   usernamex: sessionStorage.getItem("ms_username")
+  // },
   methods: {
-    // 获取 easy-mock 的模拟数据
+    // 获取 easy-mock 的模拟数据，也可以实现对数据的刷新
     getData() {
       //this.tableData = res.list;
       //this.pageTotal = tableData.length;
@@ -423,6 +439,44 @@ export default {
       this.getData();
     },
     // 删除操作
+    // handleDelete(index, row) {
+    //   var that = this;
+    //   // 二次确认删除
+    //   this.$confirm("确定要删除吗？", "提示", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning",
+    //   })
+    //     .then(() => {
+    //       this.$message({
+    //         type: "success",
+    //         message: "删除成功！",
+    //       });
+    //     })
+    //     .catch(() => {
+    //       this.$message({
+    //         type: "info",
+    //         message: "已取消删除",
+    //       });
+    //       return;
+    //     });
+    //   var data = Qs.stringify({
+    //     userId: row.userId,
+    //   });
+    //   that
+    //     .axios({
+    //       method: "post",
+    //       url: "api/newStaff/deletelist",
+    //       data: data,
+    //       //  data:this.$store.state.userName
+    //     })
+    //     .then((response) => {
+    //       this.tableData = response.data.allData;
+    //       //this.$message.success("删除成功");
+    //       this.tableData.splice(index, 1);
+    //     });
+    // },
+
     handleDelete(index, row) {
       var that = this;
       // 二次确认删除
@@ -431,34 +485,40 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "删除成功！",
-          });
+        .then((action) => {
+          if (action === "confirm") {
+            var data = Qs.stringify({
+              userId: row.userId,
+            });
+            that
+              .axios({
+                method: "post",
+                url: "api/newStaff/deletelist",
+                data: data,
+                //  data:this.$store.state.userName
+              })
+              .then((response) => {
+                // this.tableData = response.data.allData;
+                // //this.$message.success("删除成功");
+                // this.tableData.splice(index, 1);
+                //删除员工后对数据进行更新（刷新）
+                this.getData();
+              });
+            this.$message({
+              type: "success",
+              message: "删除成功！",
+            });
+          }
         })
         .catch(() => {
           this.$message({
             type: "info",
             message: "已取消删除",
           });
-        });
-      var data = Qs.stringify({
-        userId: row.userId,
-      });
-      that
-        .axios({
-          method: "post",
-          url: "api/newStaff/deletelist",
-          data: data,
-          //  data:this.$store.state.userName
-        })
-        .then((response) => {
-          this.tableData = response.data.allData;
-          //this.$message.success("删除成功");
-          this.tableData.splice(index, 1);
+          console.log("catch");
         });
     },
+
     // 多选操作
     handleSelectionChange(val) {
       this.multipleSelection = val;
