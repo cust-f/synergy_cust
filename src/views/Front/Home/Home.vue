@@ -445,6 +445,7 @@ export default {
       },
       /**
        * 数据统计
+       测试
        */
       //折线图
       lineData: {
@@ -530,7 +531,7 @@ export default {
         if (this.$route.query.query) {
           //判断是否传参
           // if (this.$route.query.s == 3)
-          
+
             //判断是否属于课题三
             let name = window.atob(this.$route.query.query).toString();
             console.log(name);
@@ -571,14 +572,14 @@ export default {
                   this.roleID = response.data.allData.roleId;
                   sessionStorage.setItem("roleId", this.roleID);
                   sessionStorage.setItem("userId", response.data.allData.userId.userId);
-                  
+
                 }
               });
             // 刷新
-           
-          
+
+
         }
-        
+
       } catch (error) {
         console.log("未登录");
       }
